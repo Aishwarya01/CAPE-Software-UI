@@ -75,11 +75,11 @@ export class LpsEarthingComponent implements OnInit {
   applicableClampsNote: boolean=true;
   TypeAEarthingArr: any = [];
 
-  typeAearthingsystem: boolean=false;
-  clamps: boolean=false;
-  earthelectrodechambers: boolean=false;
-  typeBearthingsystem: boolean=false;
-  testingofearthelectrodes: boolean=false;
+  typeAearthingsystem: any=[];
+  clamps: any=[];
+  earthelectrodechambers: any=[];
+  typeBearthingsystem: any=[];
+  testingofearthelectrodes: any=[];
   earthingType: String='';
   airterminationData: any=[];
 
@@ -316,14 +316,16 @@ export class LpsEarthingComponent implements OnInit {
       }, 300);
     }
 
-    populateData(data:any) {
-      for (let item of data.earthingLpsDescription) {
-        this.onKey(item.earthingTypeInOb,null);     
-         this.arr1.push(this.createGroup(item));
-      }
-      this.earthingForm.setControl('earthing', this.formBuilder.array(this.arr1 || []));
-      this.arr1 = [];
+  populateData(data: any) {
+    let index = 0;
+    for (let item of data.earthingLpsDescription) {
+      this.arr1.push(this.createGroup(item));
+      this.onKey(item.earthingTypeInOb, null, index);
+      index = index + 1;
     }
+    this.earthingForm.setControl('earthing', this.formBuilder.array(this.arr1 || []));
+    this.arr1 = [];
+  }
 
     retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
       // this.service.lvClick=1;
@@ -915,7 +917,7 @@ export class LpsEarthingComponent implements OnInit {
       );  
     }
 
-    onKey(e: any,formarray:any){
+    onKey(e: any,formarray:any,index:any){
       
       let accordion:any;
       if(formarray ==null){
@@ -928,28 +930,28 @@ export class LpsEarthingComponent implements OnInit {
       }
        setTimeout(() => {
         if(accordion==""){
-          this.typeAearthingsystem=false; 
-          this.clamps=false;              
-          this.earthelectrodechambers=false; 
-          this.typeBearthingsystem=false; 
-          this.testingofearthelectrodes=false; 
+          this.typeAearthingsystem[index]=false; 
+          this.clamps[index]=false;              
+          this.earthelectrodechambers[index]=false; 
+          this.typeBearthingsystem[index]=false; 
+          this.testingofearthelectrodes[index]=false; 
           }
           else if(accordion=="Type A"){
-          this.typeAearthingsystem=true; 
-          this.clamps=true;              
-          this.earthelectrodechambers=true; 
-          this.typeBearthingsystem=false; 
-          this.testingofearthelectrodes=true;
+          this.typeAearthingsystem[index]=true; 
+          this.clamps[index]=true;              
+          this.earthelectrodechambers[index]=true; 
+          this.typeBearthingsystem[index]=false; 
+          this.testingofearthelectrodes[index]=true;
           if(formarray!=null){
             (formarray.controls.earthingSystem as FormArray).removeAt(formarray.controls.earthingSystem-1);
           }
         }
         else if(accordion=="Type-B (ring)"){
-          this.typeAearthingsystem=false; 
-          this.clamps=false;              
-          this.earthelectrodechambers=false; 
-          this.typeBearthingsystem=true; 
-          this.testingofearthelectrodes=true; 
+          this.typeAearthingsystem[index]=false; 
+          this.clamps[index]=false;              
+          this.earthelectrodechambers[index]=false; 
+          this.typeBearthingsystem[index]=true; 
+          this.testingofearthelectrodes[index]=true; 
 
         if(formarray!=null){
          (formarray.controls.earthingDescription as FormArray).removeAt(formarray.controls.earthingDescription-1); 
@@ -958,19 +960,19 @@ export class LpsEarthingComponent implements OnInit {
          }
         }
         else if(accordion=="Type A & Type B combined"){
-          this.typeAearthingsystem=true; 
-          this.clamps=true;              
-          this.earthelectrodechambers=true; 
-          this.typeBearthingsystem=true; 
-          this.testingofearthelectrodes=true; 
+          this.typeAearthingsystem[index]=true; 
+          this.clamps[index]=true;              
+          this.earthelectrodechambers[index]=true; 
+          this.typeBearthingsystem[index]=true; 
+          this.testingofearthelectrodes[index]=true; 
           
         }
         else if(accordion=="Foundation"){
-          this.typeAearthingsystem=false; 
-          this.clamps=false;              
-          this.earthelectrodechambers=false; 
-          this.typeBearthingsystem=false; 
-          this.testingofearthelectrodes=true;
+          this.typeAearthingsystem[index]=false; 
+          this.clamps[index]=false;              
+          this.earthelectrodechambers[index]=false; 
+          this.typeBearthingsystem[index]=false; 
+          this.testingofearthelectrodes[index]=true;
 
         if(formarray!=null){
          (formarray.controls.earthingDescription as FormArray).removeAt(formarray.controls.earthingDescription-1); 

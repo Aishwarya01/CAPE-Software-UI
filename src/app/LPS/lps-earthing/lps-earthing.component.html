@@ -58,7 +58,7 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                                <select class="form-control" (click)="onKey($event,q)" formControlName="earthingTypeInOb" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && q.get('earthingTypeInOb')?.errors}">
+                                                <select class="form-control" (click)="onKey($event,q,j)" formControlName="earthingTypeInOb" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && q.get('earthingTypeInOb')?.errors}">
                                                     <option  value="" selected>Select Option</option>
                                                     <option value="Type A" >Type A</option>
                                                     <option value="Type-B (ring)" >Type-B (ring)</option>
@@ -165,7 +165,7 @@
                     </div>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel *ngIf="typeAearthingsystem">
+                <mat-expansion-panel *ngIf="typeAearthingsystem[j]">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             <h3>Type-A earthing system</h3>
@@ -837,7 +837,7 @@
                 </div>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel *ngIf="clamps">
+                <mat-expansion-panel *ngIf="clamps[j]">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             <h3>Clamps</h3>
@@ -1195,7 +1195,7 @@
                     </div>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel *ngIf="earthelectrodechambers">
+                <mat-expansion-panel *ngIf="earthelectrodechambers[j]">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             <h3>Earth electrode chambers</h3>
@@ -1577,7 +1577,7 @@
                     </div>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel  *ngIf="typeBearthingsystem">
+                <mat-expansion-panel  *ngIf="typeBearthingsystem[j]">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             <h3>Type-B earthing system</h3>
@@ -2127,7 +2127,7 @@
                     </div>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel *ngIf="testingofearthelectrodes">
+                <mat-expansion-panel *ngIf="testingofearthelectrodes[j]">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             <h3>Testing of earth electrodes</h3>
