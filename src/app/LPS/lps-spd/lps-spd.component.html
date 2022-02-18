@@ -15,7 +15,7 @@
                                     <i class="bi bi-align-start"></i>
                                 </span>
                                 </div>
-                            <input class="form-control" formControlName="buildingNumber" placeholder="Enter length in meter"/>
+                            <input type="number" class="form-control" formControlName="buildingNumber" placeholder="Please Enter Building Number"/>
                         </div>
                     </div>
         
@@ -27,7 +27,7 @@
                                     <i class="bi bi-align-start"></i>
                                 </span>
                             </div>
-                            <input  class="form-control" formControlName="buildingName" placeholder="Enter length in meter"/>
+                            <input  class="form-control" formControlName="buildingName" placeholder="Please Enter Building Name"/>
                         </div>
                     </div>
                 </div>
@@ -69,9 +69,7 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="mainsIncomingRem"  [(ngModel)]="spd.mainsIncomingRem"
-                                                ></textarea>
+                                            <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="mainsIncomingRem" ></textarea>
                                         </div>
                                     </td>
                                 </tr>
@@ -101,8 +99,7 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea type="text" class="form-control"[readonly]="isEditable" formControlName="totalMainsIncomingRem"  
-                                            [(ngModel)]="spd.totalMainsIncomingRem"></textarea>
+                                            <textarea type="text" class="form-control"[readonly]="isEditable" formControlName="totalMainsIncomingRem"></textarea>
                                         </div>
                                     </td>
                                 </tr>
@@ -429,7 +426,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" formControlName="incomerRatingOb" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('incomerRatingOb')?.errors}"></textarea>
+                                                <input type="number" (keypress)="keyPressNumbers($event)" formControlName="incomerRatingOb" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('incomerRatingOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('incomerRatingOb')?.errors" class="invalid-feedback">
                                                     <div *ngIf="a.get('incomerRatingOb')?.errors?.required">Incomer rating is required</div>
                                                 </div> 
@@ -457,7 +454,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" class="form-control" formControlName="fuseBackUpOb" [ngClass]="{ 'is-invalid': submitted && a.get('fuseBackUpOb')?.errors}"></textarea>
+                                                <input type="number" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="fuseBackUpOb" [ngClass]="{ 'is-invalid': submitted && a.get('fuseBackUpOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('fuseBackUpOb')?.errors" class="invalid-feedback">
                                                     <div *ngIf="a.get('fuseBackUpOb')?.errors?.required">fuse/MCB rating is required</div>
                                                 </div> 
@@ -489,7 +486,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" formControlName="lengthOfConnectingWirePhaseOb" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('lengthOfConnectingWirePhaseOb')?.errors}"></textarea>
+                                                <input type="number" (keypress)="keyPressNumbers($event)" formControlName="lengthOfConnectingWirePhaseOb" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('lengthOfConnectingWirePhaseOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('lengthOfConnectingWirePhaseOb')?.errors" class="invalid-feedback">
                                                     <div *ngIf="a.get('lengthOfConnectingWirePhaseOb')?.errors?.required">Phase is required</div>
                                                 </div> 
@@ -516,7 +513,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" formControlName="lengthOfConnectingWireProtectiveOb" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('lengthOfConnectingWireProtectiveOb')?.errors}"></textarea>
+                                                <input type="number" (keypress)="keyPressNumbers($event)" formControlName="lengthOfConnectingWireProtectiveOb" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('lengthOfConnectingWireProtectiveOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('lengthOfConnectingWireProtectiveOb')?.errors" class="invalid-feedback">
                                                     <div *ngIf="a.get('lengthOfConnectingWireProtectiveOb')?.errors?.required">Protective conductor is required</div>
                                                 </div> 
@@ -548,7 +545,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" formControlName="sizeOfConnectingWirePhaseOb" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('sizeOfConnectingWirePhaseOb')?.errors}"></textarea>
+                                                <input type="number" (keypress)="keyPressNumbers($event)" formControlName="sizeOfConnectingWirePhaseOb" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('sizeOfConnectingWirePhaseOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('sizeOfConnectingWirePhaseOb')?.errors" class="invalid-feedback">
                                                     <div *ngIf="a.get('sizeOfConnectingWirePhaseOb')?.errors?.required">Phase is required</div>
                                                 </div> 
@@ -575,7 +572,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" formControlName="sizeOfConnectingWireProtectiveOb" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('sizeOfConnectingWireProtectiveOb')?.errors}"></textarea>
+                                                <input type="number" (keypress)="keyPressNumbers($event)" formControlName="sizeOfConnectingWireProtectiveOb" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('sizeOfConnectingWireProtectiveOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('sizeOfConnectingWireProtectiveOb')?.errors" class="invalid-feedback">
                                                     <div *ngIf="a.get('sizeOfConnectingWireProtectiveOb')?.errors?.required">Protective conductor is required</div>
                                                 </div> 
@@ -598,7 +595,7 @@
                                         *ngIf="spdDescriptionControl(q).length == i+1" title="Add another section">add_box</mat-icon>
 
                                         <mat-icon class="mousechange" class="dlt" type="button" title="Delete" style="float: right;position: relative; margin-top: 5px; margin-bottom: 5px;"
-                                        *ngIf="spdDescriptionControl(q).length > 1" (click)="removeItem(q,a,i)"title="delete">delete</mat-icon>
+                                        *ngIf="spdDescriptionControl(q).length > 1" (click)="removeItem(q,a,i)"title="delete">remove_circle_outline</mat-icon>
                                     </div>
 
                                 </div>
