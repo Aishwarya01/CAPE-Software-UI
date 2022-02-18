@@ -12,6 +12,7 @@ export class earthingReport{
 
 export class earthingLpsDescription {
     earthingId!: number;
+    flag!: String;
     earthingTypeInOb!: String;
     earthingTypeInRem!: String;
     bimetallicIssueInOb!: String;
@@ -21,7 +22,6 @@ export class earthingLpsDescription {
     buildingNumber!: number;
     buildingName!: String;
     buildingCount!: number;
-    flag!: String;       
     earthingDescriptionAvailabilityOb!: String; 
     earthingDescriptionAvailabilityRem!: String; 
     earthingClampsAvailabilityOb!: String; 
@@ -124,6 +124,7 @@ export class EarthingClamps {
 }
 
 export class EarthingElectrodeChamber {
+    
     earthingElectrodeChamberId!: number;
     flag!: String;
     physicalInspeOb!: String;
@@ -134,7 +135,7 @@ export class EarthingElectrodeChamber {
     chamberSizeRem!: String;
     maximumWithStandLoadOb!: String;
     maximumWithStandLoadRem!: String;
-    chamberLocationOb!: String;
+    chamberLocationOb!: String;//
     chamberLocationRem!: String;
     maximumPlacedSoilOb!: String;
     maximumPlacedSoilRem!: String;
