@@ -100,7 +100,7 @@ export class LpsMatstepperComponent implements OnInit {
  
     this.basic.isEditable=this.isEditable;
     // AirTermination
-    this.airTermination.basicLpsId=this.basic.basicDetails.basicLpsId;
+    this.airTermination.appendBasicLpsId(this.basic.basicDetails.basicLpsId);    
     this.airTermination.isEditable=this.isEditable;
     // DownConductor
     this.downConductors.basicLpsId=this.basic.basicDetails.basicLpsId;
