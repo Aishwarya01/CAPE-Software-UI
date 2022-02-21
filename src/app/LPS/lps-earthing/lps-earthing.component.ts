@@ -106,7 +106,7 @@ export class LpsEarthingComponent implements OnInit {
     this.isAirterminationUpdated=false;
     }
     else{
-      this.getAirterminationData();
+      //this.getAirterminationData();
     }
   }
 

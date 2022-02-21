@@ -77,7 +77,7 @@ export class LpsEarthStudComponent implements OnInit {
       this.isAirterminationUpdated=false;
     }
     else{
-      this.getAirterminationData();
+      // this.getAirterminationData();
     }
    
   }
@@ -126,32 +126,32 @@ export class LpsEarthStudComponent implements OnInit {
       buildingName: new FormControl({disabled: false, value: item.buildingName}),
       buildingCount: new FormControl({disabled: false, value: item.buildingCount}),
       flag: new FormControl({disabled: false, value: item.flag}),
-      availableEquipotentialBondingOb: new FormControl(new FormControl({disabled: false, value: item.availableEquipotentialBondingOb}), Validators.required),
-      availableEquipotentialBondingRem: new FormControl(new FormControl({disabled: false, value: item.availableEquipotentialBondingRem})),
-      numberOfEquipotentialBondingOb: new FormControl(new FormControl({disabled: false, value: item.numberOfEquipotentialBondingOb}), Validators.required),
-      numberOfEquipotentialBondingRem: new FormControl(new FormControl({disabled: false, value: item.numberOfEquipotentialBondingRem})),
-      sizeOfEarthingConductorOb: new FormControl(new FormControl({disabled: false, value: item.sizeOfEarthingConductorOb}), Validators.required),
-      sizeOfEarthingConductorRem: new FormControl(new FormControl({disabled: false, value: item.sizeOfEarthingConductorRem})),
-      conceptOfEquipotentialBondingOb: new FormControl(new FormControl({disabled: false, value: item.conceptOfEquipotentialBondingOb}), Validators.required),
-      conceptOfEquipotentialBondingRem: new FormControl(new FormControl({disabled: false, value: item.conceptOfEquipotentialBondingRem})),
-      mainProtectiveEquipotentialBondingOb: new FormControl(new FormControl({disabled: false, value: item.mainProtectiveEquipotentialBondingOb}), Validators.required),
-      mainProtectiveEquipotentialBondingRem: new FormControl(new FormControl({disabled: false, value: item.mainProtectiveEquipotentialBondingRem})),
-      sizeOfMainProtectiveOb: new FormControl(new FormControl({disabled: false, value: item.sizeOfMainProtectiveOb}), Validators.required),
-      sizeOfMainProtectiveRem: new FormControl(new FormControl({disabled: false, value: item.sizeOfMainProtectiveRem})),
-      supplimentaryMainProtectiveOb: new FormControl(new FormControl({disabled: false, value: item.supplimentaryMainProtectiveOb}), Validators.required),
-      supplimentaryMainProtectiveRem: new FormControl(new FormControl({disabled: false, value: item.supplimentaryMainProtectiveRem})),
-      sizeOfSupplimentaryProtectiveOb: new FormControl(new FormControl({disabled: false, value: item.sizeOfSupplimentaryProtectiveOb}), Validators.required),
-      sizeOfSupplimentaryProtectiveRem: new FormControl(new FormControl({disabled: false, value: item.sizeOfSupplimentaryProtectiveRem})),
-      earthStudVisibilityOb: new FormControl(new FormControl({disabled: false, value: item.earthStudVisibilityOb}), Validators.required),
-      earthStudVisibilityRem: new FormControl(new FormControl({disabled: false, value: item.earthStudVisibilityRem})),
-      earthStudBendOb: new FormControl(new FormControl({disabled: false, value: item.earthStudBendOb}), Validators.required),
-      earthStudBendRem: new FormControl(new FormControl({disabled: false, value: item.earthStudBendRem})),
-      properBondingRailOb: new FormControl(new FormControl({disabled: false, value: item.properBondingRailOb}), Validators.required),
-      properBondingRailRem: new FormControl(new FormControl({disabled: false, value: item.properBondingRailRem})),
-      physicalDamageStudOb: new FormControl(new FormControl({disabled: false, value: item.physicalDamageStudOb}), Validators.required),
-      physicalDamageStudRem: new FormControl(new FormControl({disabled: false, value: item.physicalDamageStudRem})),
-      continutyExistaEarthOb: new FormControl(new FormControl({disabled: false, value: item.continutyExistaEarthOb}), Validators.required),
-      continutyExistaEarthRem: new FormControl(new FormControl({disabled: false, value: item.continutyExistaEarthRem}))
+      availableEquipotentialBondingOb:new FormControl({disabled: false, value: item.availableEquipotentialBondingOb}, Validators.required),
+      availableEquipotentialBondingRem:new FormControl({disabled: false, value: item.availableEquipotentialBondingRem}),
+      numberOfEquipotentialBondingOb:new FormControl({disabled: false, value: item.numberOfEquipotentialBondingOb}, Validators.required),
+      numberOfEquipotentialBondingRem:new FormControl({disabled: false, value: item.numberOfEquipotentialBondingRem}),
+      sizeOfEarthingConductorOb:new FormControl({disabled: false, value: item.sizeOfEarthingConductorOb}, Validators.required),
+      sizeOfEarthingConductorRem:new FormControl({disabled: false, value: item.sizeOfEarthingConductorRem}),
+      conceptOfEquipotentialBondingOb:new FormControl({disabled: false, value: item.conceptOfEquipotentialBondingOb}, Validators.required),
+      conceptOfEquipotentialBondingRem:new FormControl({disabled: false, value: item.conceptOfEquipotentialBondingRem}),
+      mainProtectiveEquipotentialBondingOb:new FormControl({disabled: false, value: item.mainProtectiveEquipotentialBondingOb}, Validators.required),
+      mainProtectiveEquipotentialBondingRem:new FormControl({disabled: false, value: item.mainProtectiveEquipotentialBondingRem}),
+      sizeOfMainProtectiveOb:new FormControl({disabled: false, value: item.sizeOfMainProtectiveOb}, Validators.required),
+      sizeOfMainProtectiveRem:new FormControl({disabled: false, value: item.sizeOfMainProtectiveRem}),
+      supplimentaryMainProtectiveOb:new FormControl({disabled: false, value: item.supplimentaryMainProtectiveOb}, Validators.required),
+      supplimentaryMainProtectiveRem:new FormControl({disabled: false, value: item.supplimentaryMainProtectiveRem}),
+      sizeOfSupplimentaryProtectiveOb:new FormControl({disabled: false, value: item.sizeOfSupplimentaryProtectiveOb}, Validators.required),
+      sizeOfSupplimentaryProtectiveRem:new FormControl({disabled: false, value: item.sizeOfSupplimentaryProtectiveRem}),
+      earthStudVisibilityOb:new FormControl({disabled: false, value: item.earthStudVisibilityOb}, Validators.required),
+      earthStudVisibilityRem:new FormControl({disabled: false, value: item.earthStudVisibilityRem}),
+      earthStudBendOb:new FormControl({disabled: false, value: item.earthStudBendOb}, Validators.required),
+      earthStudBendRem:new FormControl({disabled: false, value: item.earthStudBendRem}),
+      properBondingRailOb:new FormControl({disabled: false, value: item.properBondingRailOb}, Validators.required),
+      properBondingRailRem:new FormControl({disabled: false, value: item.properBondingRailRem}),
+      physicalDamageStudOb:new FormControl({disabled: false, value: item.physicalDamageStudOb}, Validators.required),
+      physicalDamageStudRem:new FormControl({disabled: false, value: item.physicalDamageStudRem}),
+      continutyExistaEarthOb:new FormControl({disabled: false, value: item.continutyExistaEarthOb}, Validators.required),
+      continutyExistaEarthRem:new FormControl({disabled: false, value: item.continutyExistaEarthRem})
     })
 }
 
@@ -172,10 +172,15 @@ export class LpsEarthStudComponent implements OnInit {
       this.earthStudReport.userName = this.step7List.userName;
       this.earthStudReport.createdBy = this.step7List.createdBy;
       this.earthStudReport.createdDate = this.step7List.createdDate;
-      for(let i of this.step7List.earthStudDescription)
-      this.EarthStudForm.patchValue({
-        earthStud: [i],  
-      });
+      let index=0;
+      let a = [];
+      for(let i of this.step7List.earthStudDescription) {
+        debugger  
+        a.push(this.createGroup(i));
+       this.dropDown(i.availableEquipotentialBondingOb,null,index);
+      index=index+1;
+     }
+     this.EarthStudForm.setControl('earthStud', this.formBuilder.array(a || []))
       this.flag=true;
   }
 
@@ -448,22 +453,22 @@ export class LpsEarthStudComponent implements OnInit {
           this.supplimentaryProtective[index]=true; 
   
           if(a != null){
-            a.controls.numberOfEquipotentialBondingOb.clearValidators();
+            a.controls.numberOfEquipotentialBondingOb.setValidators(Validators.required);
             a.controls.numberOfEquipotentialBondingOb.updateValueAndValidity();
   
-            a.controls.sizeOfEarthingConductorOb.clearValidators();
+            a.controls.sizeOfEarthingConductorOb.setValidators(Validators.required);
             a.controls.sizeOfEarthingConductorOb.updateValueAndValidity();
   
-            a.controls.conceptOfEquipotentialBondingOb.clearValidators();
+            a.controls.conceptOfEquipotentialBondingOb.setValidators(Validators.required);
             a.controls.conceptOfEquipotentialBondingOb.updateValueAndValidity();
   
-            a.controls.mainProtectiveEquipotentialBondingOb.clearValidators();
+            a.controls.mainProtectiveEquipotentialBondingOb.setValidators(Validators.required);
             a.controls.mainProtectiveEquipotentialBondingOb.updateValueAndValidity();
   
-            a.controls.sizeOfMainProtectiveOb.clearValidators();
+            a.controls.sizeOfMainProtectiveOb.setValidators(Validators.required);
             a.controls.sizeOfMainProtectiveOb.updateValueAndValidity();
   
-            a.controls.supplimentaryMainProtectiveOb.clearValidators();
+            a.controls.supplimentaryMainProtectiveOb.setValidators(Validators.required);
             a.controls.supplimentaryMainProtectiveOb.updateValueAndValidity();
           }
       }
