@@ -76,6 +76,9 @@ export class LpsEarthStudComponent implements OnInit {
       this.getAirterminationData();
       this.isAirterminationUpdated=false;
     }
+    else{
+      this.getAirterminationData();
+    }
    
   }
 
