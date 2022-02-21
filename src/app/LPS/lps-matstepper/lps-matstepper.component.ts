@@ -127,7 +127,9 @@ export class LpsMatstepperComponent implements OnInit {
    
     this.Completed2 = this.airTermination.success;
     this.earthing.isAirterminationUpdated = true;
+    this.earthStud.isAirterminationUpdated = true;
     this.earthing.ngOnInit();
+    this.earthStud.ngOnInit();
     this.refresh();
   }
 

@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalsService } from 'src/app/globals.service';
 import { earthStudReport } from 'src/app/LPS_model/earthStudReport';
+import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
 import { EarthStudService } from 'src/app/LPS_services/earth-stud.service';
 import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
 import { LpsWelcomePageComponent } from '../lps-welcome-page/lps-welcome-page.component';
@@ -52,6 +53,7 @@ export class LpsEarthStudComponent implements OnInit {
   mainProtective: any=[]; 
   sizeOfMainProtective: any=[]; 
   supplimentaryProtective: any=[];
+  isAirterminationUpdated:boolean=false;
   
   constructor(
     private formBuilder: FormBuilder,
@@ -61,21 +63,28 @@ export class LpsEarthStudComponent implements OnInit {
     private lpsMatstepper: LpsMatstepperComponent,
     private welcome: LpsWelcomePageComponent,
     public service: GlobalsService,
+    public airterminationServices: AirterminationService
 
     ) { }
 
   ngOnInit(): void {
     this.EarthStudForm = this.formBuilder.group({
-      earthStud: this.formBuilder.array([this.allEartStud()])
+      earthStud: this.formBuilder.array([this.allEartStud('','','')])
     });
+    if (this.isAirterminationUpdated) {
+      this.retriveStud();
+      this.getAirterminationData();
+      this.isAirterminationUpdated=false;
+    }
+   
   }
 
-  allEartStud():FormGroup {
+  allEartStud(buildingNumber:any,buildingName:any,buildingCount:any):FormGroup {
     return this.formBuilder.group({
       earthStudDescId: new FormControl(''),
-      buildingNumber: new FormControl(''),
-      buildingName: new FormControl(''),
-      buildingCount: new FormControl(''),
+      buildingNumber: new FormControl(buildingNumber),
+      buildingName: new FormControl(buildingName),
+      buildingCount: new FormControl(buildingCount),
       flag: new FormControl('A'),
       availableEquipotentialBondingOb: new FormControl('', Validators.required),
       availableEquipotentialBondingRem: new FormControl(''),
@@ -104,6 +113,7 @@ export class LpsEarthStudComponent implements OnInit {
       continutyExistaEarthOb: new FormControl('', Validators.required),
       continutyExistaEarthRem: new FormControl('')
     });
+    
   }
 
   createGroup(item: any): FormGroup {
@@ -175,10 +185,14 @@ export class LpsEarthStudComponent implements OnInit {
       this.earthStudReport.createdBy = this.step7List[0].createdBy;
       this.earthStudReport.createdDate = this.step7List[0].createdDate;
       this.flag=true;
+     
      for(let i of this.step7List[0].earthStudDescription)
       this.EarthStudForm.patchValue({
         earthStud: [i],  
       });
+      setTimeout(() => {
+        this.createearthStudForm(data.airtermination)
+      }, 500);
   }
 
     populateData(earthStudDescription:any){
@@ -403,6 +417,20 @@ export class LpsEarthStudComponent implements OnInit {
 
           a.controls.supplimentaryMainProtectiveOb.clearValidators();
           a.controls.supplimentaryMainProtectiveOb.updateValueAndValidity();
+
+          a.controls.numberOfEquipotentialBondingOb.setValue(null);
+          a.controls.numberOfEquipotentialBondingRem.setValue(null);
+          a.controls.sizeOfEarthingConductorOb.setValue(null);
+          a.controls.sizeOfEarthingConductorRem.setValue(null);
+          a.controls.conceptOfEquipotentialBondingOb.setValue(null);
+          a.controls.conceptOfEquipotentialBondingRem.setValue(null);
+          a.controls.mainProtectiveEquipotentialBondingOb.setValue(null);
+          a.controls.mainProtectiveEquipotentialBondingRem.setValue(null);
+          a.controls.sizeOfMainProtectiveOb.setValue(null);
+          a.controls.sizeOfMainProtectiveRem.setValue(null);
+          a.controls.supplimentaryMainProtectiveOb.setValue(null);
+          a.controls.supplimentaryMainProtectiveRem.setValue(null);
+  
         }
 
       }
@@ -436,6 +464,53 @@ export class LpsEarthStudComponent implements OnInit {
             a.controls.supplimentaryMainProtectiveOb.updateValueAndValidity();
           }
       }
+  }
+
+  //creating form array based on airtermination building
+  createearthStudForm(data: any) {
+    
+    this.earthStud = this.EarthStudForm.get('earthStud') as FormArray;
+
+    for (let i = 0; i < data.lpsAirDescription.length; i++) {
+      let buildingNumber = data.lpsAirDescription[i].buildingNumber
+      let buildingName = data.lpsAirDescription[i].buildingName
+      let buildingCount = data.lpsAirDescription[i].buildingCount
+      let isBuildingRequired = false;
+
+      //existing form having given building number avilable or not  
+      let isFormAvailable = '';
+      for (let k = 0; !isBuildingRequired && k < this.earthStud.length; k++) {
+        //form having correct building number & name
+        if (this.earthStud.value[k].buildingNumber == buildingNumber &&
+          this.earthStud.value[k].buildingName == buildingName &&
+          this.earthStud.value[k].buildingCount == buildingCount) {
+          isBuildingRequired = true;
+          isFormAvailable = "available"
+        }
+        //if form empty 
+        else if (this.earthStud.value[k].buildingNumber == '' ||
+          this.earthStud.value[k].buildingNumber == undefined ||
+          this.earthStud.value[k].buildingNumber == null) {
+          if (this.earthStud.length == 1) {
+            (this.EarthStudForm.get('earthStud') as FormArray).removeAt(k);
+          }
+          this.earthStud.push(this.allEartStud(buildingNumber, buildingName, buildingCount));
+          isBuildingRequired = true;
+          isFormAvailable = "available"
+        }
+
+      }
+      //not having form for given airtermination buildingnumber 
+      if (isFormAvailable != "available") {
+        this.earthStud.push(this.allEartStud(buildingNumber, buildingName, buildingCount));      }
+    }
+  }
+  getAirterminationData(){
+    this.airterminationServices.retriveAirTerminationDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
+      data => {
+        this.createearthStudForm(JSON.parse(data)[0]);
+      }       
+    ); 
   }
 
 }
