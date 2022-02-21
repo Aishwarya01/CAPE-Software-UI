@@ -844,16 +844,43 @@
                         </mat-panel-title>
                            
                     </mat-expansion-panel-header>
-                    <div *ngFor="let a of earthingClampsarr(q); let j = index">
-                        <select class="form-control" style="width: 30%;" 
-                                (change)="onChangeClamps($event,a)">
+                    <!-- <div>
+                         <select class="form-control" style="width: 30%;" 
+                                (change)="onChangeClamps($event,q)">
                                 <option value="" selected>Select Option</option>
                                 <option value="Applicable" >Applicable </option>
                                 <option value="Not applicable" >Not applicable</option>
                                 </select>
+                            </div> -->
+                            <div class="table-responsive" style="overflow-x: unset;">
+                                <table class="table TableBorder">
+                                    <thead>
+                                        <th>Availability of Clamps</th>
+                                        <th>Remarks(Optional)</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <select class="form-control" (change)="onChangeClamps($event,q)"  formControlName="earthingClampsAvailabilityOb"
+                                                [ngClass]="{ 'is-invalid': submitted && q.get('earthingClampsAvailabilityOb')?.errors }">
+                                                    <option value="" selected>Select Option</option>
+                                                    <option value="Applicable" >Applicable </option>
+                                                    <option value="Not applicable" >Not applicable</option>
+                                                </select>
+                                                <div *ngIf="submitted && q.get('earthingClampsAvailabilityOb')?.errors" class="invalid-feedback">
+                                                    <div *ngIf="q.get('earthingClampsAvailabilityOb')?.errors?.required">Please select the field</div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <textarea [readonly]="isEditable" formControlName="earthingClampsAvailabilityRem" type="text"
+                                                    class="form-control" ></textarea>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                             <div style="margin-top: 10px;" *ngIf="applicableClampsNote"><b>Note:</b> &nbsp; Select applicable if you intend to fill details for Clamps</div>
-                            <br>
+                            <br> 
                     <div class="row">
                     <div class="col-sm-12">
                     <div class="table-responsive" style="overflow-x: unset;" *ngIf="applicableClamps">
@@ -1202,15 +1229,42 @@
                         </mat-panel-title>
                            
                     </mat-expansion-panel-header>
-                    <div *ngFor="let a of earthElectrodeChambearr(q); let j = index">
+                    <!-- <div>
                         <select class="form-control" style="width: 30%;" 
-                                (change)="onChangeChambers($event,a)">
+                                (change)="onChangeChambers($event,q)">
                                 <option value="" selected>Select Option</option>
                                 <option value="Applicable" >Applicable </option>
                                 <option value="Not applicable" >Not applicable</option>
                                 </select>
-                            </div>
-                            <div style="margin-top: 10px;" *ngIf="applicableChambersNote"><b>Note:</b> &nbsp; Select applicable if you intend to fill details for Earth electrode chambers</div>
+                    </div> -->
+                    <div class="table-responsive" style="overflow-x: unset;">
+                        <table class="table TableBorder">
+                            <thead>
+                                <th>Availability of Chambers</th>
+                                <th>Remarks(Optional)</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <select class="form-control"  (change)="onChangeChambers($event,q)"  formControlName="earthingElectrodeChamberAvailabilityOb"
+                                        [ngClass]="{ 'is-invalid': submitted && q.get('earthingElectrodeChamberAvailabilityOb')?.errors }">
+                                            <option value="" selected>Select Option</option>
+                                            <option value="Applicable" >Applicable </option>
+                                            <option value="Not applicable" >Not applicable</option>
+                                        </select>
+                                        <div *ngIf="submitted && q.get('earthingElectrodeChamberAvailabilityOb')?.errors" class="invalid-feedback">
+                                            <div *ngIf="q.get('earthingElectrodeChamberAvailabilityOb')?.errors?.required">Please select the field</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <textarea [readonly]="isEditable" formControlName="earthingElectrodeChamberAvailabilityRem" type="text"
+                                            class="form-control" ></textarea>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>  
+                    <div style="margin-top: 10px;" *ngIf="applicableChambersNote"><b>Note:</b> &nbsp; Select applicable if you intend to fill details for Earth electrode chambers</div>
                             <br>
                     <div class="row">
                     <div class="col-sm-12">
@@ -2156,12 +2210,7 @@
                                         <tr>
                                             <td>
                                                 <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i class="bi bi-text-paragraph"></i>
-                                                        </span>
-                                                    </div>
-                                                <textarea class="form-control" formControlName="serialNo" placeholder="Enter SerialNo"></textarea>
+                                                <input class="form-control" formControlName="serialNo" placeholder="Enter SerialNo"/>
                                                 </div>
                                             </td>
                                             <td>
@@ -2224,19 +2273,21 @@
                                                 <textarea class="form-control" formControlName="earthingElectrodeRemarks" placeholder="Remarks"></textarea>
                                                 </div>
                                             </td>
-                                        </tr>
-                                        <!-- <mat-icon style="cursor: pointer;padding: 0px 33px 0px 0px;" 
-                                            [ngClass]="{'disableForm':service.allFieldsDisable}"  *ngIf="earthElectrodeTestingarr(a).length == j+1" 
-                                            (click)="addElectrodeTesting(a)">add_box</mat-icon>
+                                            <mat-icon style="cursor: pointer;padding: 0px 33px 0px 0px;" 
+                                         [ngClass]="{'disableForm':service.allFieldsDisable}"  *ngIf="earthElectrodeTestingarr(q).length == j+1" 
+                                         (click)="addElectrodeTesting(q)">add_box</mat-icon>
 
-                                            <mat-icon class="mousechange" class="dlt" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" 
-                                            *ngIf="earthElectrodeTestingarr(a).length > 1" 
-                                            (click)="removeElectrodeTesting(a,j)" style="cursor: pointer;float: right;">remove_circle_outline</mat-icon> -->
-                                    </div>
-                                </tbody>
+                                         <mat-icon class="mousechange" class="dlt" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" 
+                                         *ngIf="earthElectrodeTestingarr(q).length > 1" 
+                                         (click)="removeElectrodeTesting(q,j)" style="cursor: pointer;float: right;">remove_circle_outline</mat-icon>
+                                        
+                                        </tr>
+                                        </div>
+                                         </tbody>
                             </table>
                         </div>
                         </div>
+                        
                     </div>
                 </mat-expansion-panel>
             </mat-accordion>
