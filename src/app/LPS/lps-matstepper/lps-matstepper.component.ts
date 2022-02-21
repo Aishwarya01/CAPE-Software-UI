@@ -204,9 +204,7 @@ export class LpsMatstepperComponent implements OnInit {
             this.earthing.retrieveDetailsfromSavedReports(basicLpsId,this.dataJSON);
             this.Completed4 = true;
           }
-          if (this.dataJSON.spddesc != null) {
-
-
+          if (this.dataJSON.spdReport != null)  {
             this.spd.retrieveDetailsfromSavedReports(userName, basicLpsId, clientName, this.dataJSON);
             this.Completed5 = true;
           }

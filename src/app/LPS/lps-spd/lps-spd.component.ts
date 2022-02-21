@@ -101,7 +101,7 @@ export class LpsSpdComponent implements OnInit {
     this.spdForm.reset();
   }
 
-   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
+   retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
 //     // this.service.lvClick=1;
 //     debugger
 //     this.step5List = data.earthStudReport;
@@ -117,23 +117,22 @@ export class LpsSpdComponent implements OnInit {
 //     this.flag=true;
  }
 
-retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
-   // this.service.lvClick=1;
-   this.flag=true;
-      this.step5List = JSON.parse(data);
-      this.spdReport.spdReportId=this.step5List[0].spdReportId;
-      this.spdReport.basicLpsId = basicLpsId;
-      this.spdReport.createdBy = this.step5List[0].createdBy;
-      this.spdReport.createdDate = this.step5List[0].createdDate;      
-      this.spdReport.userName = this.step5List[0].userName;
-      // for(let i of this.step5List[0].spd)
-      // this.spdForm.patchValue({
-      //   spd: [i],
-      // });
-     
-      this.populateData(this.step5List[0].spd)
-    
-    }
+ retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
+  this.service.lvClick=1;
+  debugger
+  this.step5List = data.spdReport;
+  this.spdReport.basicLpsId = this.step5List.basicLpsId;
+  this.spdReport.spdReportId = this.step5List.spdReportId;
+  this.spdReport.userName = this.step5List.userName;
+  this.spdReport.createdBy = this.step5List.createdBy;
+  this.spdReport.createdDate = this.step5List.createdDate;
+  
+  for(let i of this.step5List.spd)
+  this.spdForm.patchValue({
+    spd: [i],
+  });
+  this.flag=true;
+}
 
     populateData(spd:any){
       for(let item of spd){

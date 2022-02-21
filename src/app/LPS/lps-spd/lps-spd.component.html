@@ -114,10 +114,10 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea type="text" class="form-control"
+                                            <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
                                                 [readonly]="isEditable" formControlName="noPannelSupplittingOb"
                                                 placeholder="Please enter Observation here"
-                                                [ngClass]="{'is-invalid': submitted && q.get('noPannelSupplittingOb')?.errors}"></textarea>
+                                                [ngClass]="{'is-invalid': submitted && q.get('noPannelSupplittingOb')?.errors}">
                                             <div *ngIf="submitted && q.get('noPannelSupplittingOb')?.errors" class="invalid-feedback">
                                                 <div *ngIf="q.get('noPannelSupplittingOb')?.errors?.required">Total Number of panels supplting power to outdoor equipment observation is
                                                     required</div>
