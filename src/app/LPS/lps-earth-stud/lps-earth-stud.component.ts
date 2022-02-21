@@ -44,15 +44,6 @@ export class LpsEarthStudComponent implements OnInit {
   selectedIndex = 0;
   isEditable!:boolean
   earthStud: any = [];
-
-  equipotentialBondings: any=[]; 
-  interconnectingLPS: any=[];              
-  faultProtection: any=[]; 
-  typeBearthingsystem: any=[]; 
-  mainProtective: any=[]; 
-  sizeOfMainProtective: any=[]; 
-  supplimentaryProtective: any=[];
-  
   constructor(
     private formBuilder: FormBuilder,
     private earthStudService: EarthStudService,
@@ -71,7 +62,7 @@ export class LpsEarthStudComponent implements OnInit {
   }
 
   allEartStud():FormGroup {
-    return this.formBuilder.group({
+    return new FormGroup({
       earthStudDescId: new FormControl(''),
       buildingNumber: new FormControl(''),
       buildingName: new FormControl(''),
@@ -183,23 +174,9 @@ export class LpsEarthStudComponent implements OnInit {
 
     populateData(earthStudDescription:any){
       debugger
-      let index = 0;
       for(let item of earthStudDescription){
         this.earthStud.push(this.createGroup(item));
-        this.dropDown(item.availableEquipotentialBondingOb,null,index);
-        this.EarthStudForm.setControl('earthStud', this.formBuilder.array(this.earthStud || []))
-      }
-    }
-
-    // Only Accept numbers
-    keyPressNumbers(event:any) {
-      var charCode = (event.which) ? event.which : event.keyCode;
-          // Only Numbers 0-9
-      if ((charCode < 48 || charCode > 57)) {
-        event.preventDefault();
-        return false;
-        } else {
-            return true;
+          this.EarthStudForm.setControl('earthStud', this.formBuilder.array(this.earthStud || []))
       }
     }
 
@@ -211,10 +188,7 @@ export class LpsEarthStudComponent implements OnInit {
     this.earthStudReport.userName = this.router.snapshot.paramMap.get('email') || '{}';;
     this.earthStudReport.basicLpsId = this.basicLpsId; 
     this.earthStudReport.earthStudDescription = this.EarthStudForm.value.earthStud;
-    
-    // for(let item of this.earthStudReport.earthStudDescription){}
-    // if(this.earthStudReport.earthStudDescription.availableEquipotentialBondingOb == "NO"){
-    // }
+
     if (!this.validationError) {
       if(flag) {
         if(this.EarthStudForm.dirty && this.EarthStudForm.touched){ 
@@ -330,6 +304,7 @@ export class LpsEarthStudComponent implements OnInit {
   }
 
   gotoNextModal(content: any,contents:any) {
+     this.basicLpsId = 302;
      if (this.EarthStudForm.invalid) {
        this.validationError = true;
       
@@ -367,77 +342,6 @@ export class LpsEarthStudComponent implements OnInit {
       }
     );  
   }
-
-  dropDown(event: any,a:any,index:any){
-    let changedValue;
-    if(event.target != undefined) {
-      changedValue = event.target.value;
-    }
-    else{
-      changedValue = event;
-    }
-      if(changedValue== 'NO'){
-
-        this.equipotentialBondings[index]=false;
-        this.interconnectingLPS[index]=false;  
-        this.faultProtection[index]=false; 
-        this.mainProtective[index]=false; 
-        this.sizeOfMainProtective[index]=false; 
-        this.supplimentaryProtective[index]=false; 
-
-        if(a != null){
-          a.controls.numberOfEquipotentialBondingOb.clearValidators();
-          a.controls.numberOfEquipotentialBondingOb.updateValueAndValidity();
-
-          a.controls.sizeOfEarthingConductorOb.clearValidators();
-          a.controls.sizeOfEarthingConductorOb.updateValueAndValidity();
-
-          a.controls.conceptOfEquipotentialBondingOb.clearValidators();
-          a.controls.conceptOfEquipotentialBondingOb.updateValueAndValidity();
-
-          a.controls.mainProtectiveEquipotentialBondingOb.clearValidators();
-          a.controls.mainProtectiveEquipotentialBondingOb.updateValueAndValidity();
-
-          a.controls.sizeOfMainProtectiveOb.clearValidators();
-          a.controls.sizeOfMainProtectiveOb.updateValueAndValidity();
-
-          a.controls.supplimentaryMainProtectiveOb.clearValidators();
-          a.controls.supplimentaryMainProtectiveOb.updateValueAndValidity();
-        }
-
-      }
-
-        else{
-          
-          this.equipotentialBondings[index]=true;
-          this.interconnectingLPS[index]=true;  
-          this.faultProtection[index]=true; 
-          this.mainProtective[index]=true; 
-          this.sizeOfMainProtective[index]=true; 
-          this.supplimentaryProtective[index]=true; 
-  
-          if(a != null){
-            a.controls.numberOfEquipotentialBondingOb.clearValidators();
-            a.controls.numberOfEquipotentialBondingOb.updateValueAndValidity();
-  
-            a.controls.sizeOfEarthingConductorOb.clearValidators();
-            a.controls.sizeOfEarthingConductorOb.updateValueAndValidity();
-  
-            a.controls.conceptOfEquipotentialBondingOb.clearValidators();
-            a.controls.conceptOfEquipotentialBondingOb.updateValueAndValidity();
-  
-            a.controls.mainProtectiveEquipotentialBondingOb.clearValidators();
-            a.controls.mainProtectiveEquipotentialBondingOb.updateValueAndValidity();
-  
-            a.controls.sizeOfMainProtectiveOb.clearValidators();
-            a.controls.sizeOfMainProtectiveOb.updateValueAndValidity();
-  
-            a.controls.supplimentaryMainProtectiveOb.clearValidators();
-            a.controls.supplimentaryMainProtectiveOb.updateValueAndValidity();
-          }
-      }
-  }
-
 }
 
 
