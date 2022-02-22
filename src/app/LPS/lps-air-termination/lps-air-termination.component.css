@@ -7,6 +7,12 @@ td {
     font-size: smaller;
 }
 
+.search-bar {
+  border: 2px solid #b1b1b1;
+  padding: 15px;
+  border-radius: 4px;
+  margin-top: 10px;
+}
 /* textarea.form-control{height: 30px !important} */
 
 thead {

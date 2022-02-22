@@ -1119,8 +1119,72 @@ export class LpsAirTerminationComponent implements OnInit {
       this.airTerminationForm.markAsDirty();
     }
 
-    // Parent Array Controls:
+    validationChange(event: any,q: any,formControl: any) {
+      let arr: any = [];
+      arr = q.controls.airBasicDescription as FormArray;
+      if(event.target.value == 'Yes') {
+        arr.controls[0].controls[formControl].setValidators([Validators.required]);
+        arr.controls[0].controls[formControl].updateValueAndValidity();
+      }
+      else {
+        arr.controls[0].controls[formControl].clearValidators();
+        arr.controls[0].controls[formControl].updateValueAndValidity();
+      }
+    }
 
+    validationChangeVat(event: any,q: any,formControl: any) {
+      let arr: any = [];
+      arr = q.controls.lpsVerticalAirTermination as FormArray;
+      if(event.target.value == 'not good') {
+        arr.controls[0].controls[formControl].setValidators([Validators.required]);
+        arr.controls[0].controls[formControl].updateValueAndValidity();
+      }
+      else {
+        arr.controls[0].controls[formControl].clearValidators();
+        arr.controls[0].controls[formControl].updateValueAndValidity();
+      }
+    }
+
+
+    validationChangeVatList(event: any,z: any,formControl: any) {
+      
+      if(event.target.value == 'Not protected') {
+        z.controls[formControl].setValidators([Validators.required]);
+        z.controls[formControl].updateValueAndValidity();
+      }
+      else if(event.target.value == 'Yes') {
+        z.controls[formControl].setValidators([Validators.required]);
+        z.controls[formControl].updateValueAndValidity();
+      }
+      else {
+        z.controls[formControl].clearValidators();
+        z.controls[formControl].updateValueAndValidity();
+      }
+    }
+
+    loadMaterialVat(event: any,z: any,formControl: any) {
+        if(event.target.value == 'ESE') {
+          z.controls[formControl].setValue('ESE rod are not recommended as per latest standard IS/IEC 62305 and banned in NBC 2016');
+        }
+        else {
+          z.controls[formControl].setValue('');  
+        }
+    }
+
+    validationChangeVatFailed(event: any,q: any,formControl: any) {
+      let arr: any = [];
+      arr = q.controls.lpsVerticalAirTermination as FormArray;
+      if(event.target.value != '' && event.target.value == 0) {
+        arr.controls[0].controls[formControl].setValidators([Validators.required]);
+        arr.controls[0].controls[formControl].updateValueAndValidity();
+      }
+      else {
+        arr.controls[0].controls[formControl].clearValidators();
+        arr.controls[0].controls[formControl].updateValueAndValidity();
+      }
+    }
+
+    // Parent Array Controls:
     overAllControl(): AbstractControl[] {
       return(<FormArray>this.airTerminationForm.get('lpsAirDescription')).controls;
     }
