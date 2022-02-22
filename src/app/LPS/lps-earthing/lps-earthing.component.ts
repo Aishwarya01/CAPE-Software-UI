@@ -35,6 +35,8 @@ export class LpsEarthingComponent implements OnInit {
   levelOfProtection: String='';
   soilResistivity: String='';
 
+  mandatory1: boolean = true;
+
   success: boolean=false;
   successMsg: string="";
   Error: boolean=false;
@@ -143,6 +145,25 @@ export class LpsEarthingComponent implements OnInit {
     });
   }
   
+  dropDown(event: any,a:any){
+    let changedValue;
+    if(event.target != undefined) {
+      changedValue = event.target.value;
+    }
+    else{
+      changedValue = event;
+    }
+      if(changedValue == "YES"){
+        this.mandatory1=true;
+        a.controls.bimetallicIssueInRem.setValidators(Validators.required);
+        a.controls.bimetallicIssueInRem.updateValueAndValidity();
+      }
+      if(changedValue != "YES" ){
+        this.mandatory1=true;
+        a.controls.bimetallicIssueInRem.clearValidators();
+        a.controls.bimetallicIssueInRem.updateValueAndValidity();
+      }
+  }
 
   earthingDescriptionArray():FormGroup {
     return new FormGroup({
@@ -289,7 +310,7 @@ export class LpsEarthingComponent implements OnInit {
   }
   earthElectrodeTestingArray():FormGroup {
     return new FormGroup({
-       serialNo: new FormControl(null),
+       serialNo: new FormControl('', Validators.required),
       flag: new FormControl('A'),
       earthingElectrodeType: new FormControl('', Validators.required),
       earthingElectrodeMaterial: new FormControl('', Validators.required),
