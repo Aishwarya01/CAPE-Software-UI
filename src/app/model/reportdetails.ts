@@ -47,7 +47,7 @@ export class SignatorDetails {
     state!: String;
     pinCode!: number;
     country!: String;
-    declarationSignature!: Blob;
+    declarationSignature!: String;
     declarationName!: String;
     declarationDate!: Date;
     signatorStatus!: String;

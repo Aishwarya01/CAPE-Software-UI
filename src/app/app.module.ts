@@ -96,8 +96,6 @@ import { LpsFinalReportComponent } from './LPS/lps-final-report/lps-final-report
 import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 //import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 import { ConfirmationBoxComponent } from './confirmation-box/confirmation-box.component';
-import { SignaturePadModule } from 'angular2-signaturepad';
-import { SignatureComponent } from './signature/signature.component';
 
 @NgModule({
   declarations: [
@@ -161,7 +159,7 @@ import { SignatureComponent } from './signature/signature.component';
     LpsEarthStudComponent,
     LpsSavedReportComponent,
     LpsWelcomePageComponent, 
-    LpsFinalReportComponent, SignatureComponent, 
+    LpsFinalReportComponent,
   ],
   imports: [
     TruncateModule,
@@ -188,7 +186,6 @@ import { SignatureComponent } from './signature/signature.component';
     NgxBootstrapIconsModule.pick(allIcons),
     NgMultiSelectDropDownModule.forRoot(),
     ScrollToModule.forRoot(),
-    SignaturePadModule,
     NgOtpInputModule,
     MatBadgeModule,
     MatProgressSpinnerModule,

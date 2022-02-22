@@ -43,7 +43,6 @@ import { LicenselistComponent } from '../licenselist/licenselist.component';
 import { ObservationService } from '../services/observation.service';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
-import { SignatureComponent } from '../signature/signature.component';
 
 @Component({
   selector: 'app-summary',
@@ -265,9 +264,6 @@ export class SummaryComponent implements OnInit,OnDestroy {
     this.service.lvClick=0;
     this.service.logoutClick=0;
     this.service.windowTabClick=0;
-    this.service.signatureImg5="";
-    this.service.signatureImg6="";
-    this.service.sigInput=0;
   }
 
   ngOnInit(): void {
@@ -330,40 +326,7 @@ export class SummaryComponent implements OnInit,OnDestroy {
     }
 
 /*e-siganture starts in progress*/ 
-SignatureDeclaration1(){
-  const dialogRef = this.dialog.open(SignatureComponent, {
-    maxHeight: '90vh',
-    disableClose: true,
-  });
-  dialogRef.componentInstance.sigImg1 = false;
-  dialogRef.componentInstance.sigImg2 = false;
-  dialogRef.componentInstance.sigImg3 = false;
-  dialogRef.componentInstance.sigImg4 = false;
-  dialogRef.componentInstance.sigImg5 = true;
-  dialogRef.componentInstance.sigImg6 = false;
-}
-focusSigDeclaration1(a: any){
-  if(a.controls.signature.value!=""){
-    return a.controls.signature.markAsDirty();
-   }
-}
-SignatureDeclaration2(){
-  const dialogRef= this.dialog.open(SignatureComponent, {
-    maxHeight: '90vh',
-    disableClose: true,
-  });
-  dialogRef.componentInstance.sigImg1 = false;
-  dialogRef.componentInstance.sigImg2 = false;
-  dialogRef.componentInstance.sigImg3 = false;
-  dialogRef.componentInstance.sigImg4 = false;
-  dialogRef.componentInstance.sigImg5 = false;
-  dialogRef.componentInstance.sigImg6 = true;
-}
-focusSigDeclaration2(a: any){
-  if(a.controls.signature.value!=""){
-    return a.controls.signature.markAsDirty();
-   }
-}
+
 /*e-siganture ends*/
 
   retreiveFromObservation(){
@@ -1245,7 +1208,7 @@ showHideAccordion(index: number) {
     return new FormGroup({
       declarationId: new FormControl(''),
       name: new FormControl('', Validators.required),
-      signature: new FormControl('', Validators.required),
+      signature: new FormControl(''),
       company: new FormControl('', Validators.required),
       position: new FormControl('', Validators.required),
       address: new FormControl('', Validators.required),
@@ -1258,7 +1221,7 @@ showHideAccordion(index: number) {
     return new FormGroup({
       declarationId: new FormControl(''),
       name: new FormControl('', Validators.required),
-      signature: new FormControl('', Validators.required),
+      signature: new FormControl(''),
       company: new FormControl('', Validators.required),
       position: new FormControl('', Validators.required),
       address: new FormControl('', Validators.required),
