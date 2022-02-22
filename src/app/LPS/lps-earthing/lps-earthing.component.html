@@ -20,7 +20,7 @@
                                         <i class="bi bi-align-start"></i>
                                     </span>
                                 </div>
-                                <input class="form-control" formControlName="buildingNumber" placeholder="Enter length in meter" />
+                                <input class="form-control" formControlName="buildingNumber" placeholder="Enter Building Number" readonly/>
                             </div>
                         </div>
         
@@ -32,7 +32,7 @@
                                         <i class="bi bi-align-start"></i>
                                     </span>
                                 </div>
-                                <input  class="form-control" formControlName="buildingName" placeholder="Enter length in meter"/>
+                                <input  class="form-control" formControlName="buildingName" placeholder="Enter Building Name" readonly/>
                             </div>
                         </div>
                     </div>
@@ -2181,126 +2181,165 @@
                     </div>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel *ngIf="testingofearthelectrodes[j]">
+                <mat-expansion-panel>
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             <h3>Testing of earth electrodes</h3>
+                            
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label>8(a).Earth electrode resistance value (Table heading)</label>
-                        </div>
+                    <div>
+                        <select class="form-control" style="width: 30%;" 
+                          (change)="onEarthElectrodes($event,q,j)" formControlName="earthingElectrodeTestingAvailabilityOb">
+                          <option value="" selected>Select Option</option>
+                          <option value="In scope" >In scope </option>
+                          <option value="Not in scope" >Not in scope</option>
+                          </select>
                     </div>
-                    <div class="row" style="margin-top: 10px;">
-                        <div class="col-sm-12">
-                        <div class="table-responsive" style="overflow-x: unset;">
-                            <table class="table TableBorder">
-                                <tbody>
-                                    <thead>
-                                        <th>SI.No</th>
-                                        <th>Types of earth electrode(rod/pipe/flat/chemical pipe)</th>
-                                        <th>Material of earth elctrode (copper/copper bonded steel/galvanised steel/galvanised iron/cast iron)</th>
-                                        <th>Size(diameter)of earth electrode (mm)</th>
-                                        <th>Depth /length of earth electrode (m)</th>
-                                        <th>Electrode resistance to earth in (Ω)</th>
-                                        <th>Remarks</th>
-                                    </thead>
-
-                                    <div formArrayName="earthElectrodeTesting" *ngFor="let a of earthElectrodeTestingarr(q); let j = index" style="margin-top: 3rem;">
-                                    <div class="form-group" [formGroupName]="j">
-                                        
-                                        <tr>
-                                            <td style="text-align: justify; width: 9rem;">
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i class="bi bi-list-ol"></i>
-                                                        </span>
-                                                    </div>
-                                                <input style="height: 4rem;" class="form-control" formControlName="serialNo" placeholder="SerialNo"/>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i class="bi bi-text-paragraph"></i>
-                                                        </span>
-                                                    </div>
-                                                <textarea class="form-control" formControlName="earthingElectrodeType" placeholder="Types of earth electrode(rod/pipe/flat/chemical pipe)"></textarea>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i class="bi bi-text-paragraph"></i>
-                                                        </span>
-                                                    </div>
-                                                <textarea class="form-control" formControlName="earthingElectrodeMaterial" placeholder="Material of earth elctrode (copper/copper bonded steel/galvanised steel/galvanised iron/cast iron)"></textarea>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i class="bi bi-text-paragraph"></i>
-                                                        </span>
-                                                    </div>
-                                                <textarea class="form-control"  formControlName="earthingElectrodeSize" placeholder="Information to user: incase of 1. rod -diameter (mm)/cross sectional area (sq.mm), 2. pipe- inner&outer diameter (mm), 3.flat - cross sectional area (sq.mm), 4. chemical pipe-diameter (mm)"></textarea>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i class="bi bi-text-paragraph"></i>
-                                                        </span>
-                                                    </div>
-                                                <textarea class="form-control" formControlName="earthingElectrodeDepth" placeholder="Depth /length of earth electrode (m)"></textarea>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i class="bi bi-text-paragraph"></i>
-                                                        </span>
-                                                    </div>
-                                                <textarea class="form-control" formControlName="earthingElectrodeResistance" placeholder="Electrode resistance to earth in (Ω)"></textarea>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i class="bi bi-text-paragraph"></i>
-                                                        </span>
-                                                    </div>
-                                                <textarea class="form-control" formControlName="earthingElectrodeRemarks" placeholder="Remarks"></textarea>
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                        <div class="row" style="float: right; margin-top: 10px;">
-                                            <mat-icon style="cursor: pointer; float: right;"
-                                            [ngClass]="{'disableForm':service.allFieldsDisable}" *ngIf="earthElectrodeTestingarr(q).length == j+1" 
-                                            (click)="addElectrodeTesting(q)">add_box</mat-icon>
-    
-                                            <mat-icon class="mousechange" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" 
-                                            *ngIf="earthElectrodeTestingarr(q).length > 1" 
-                                            (click)="removeElectrodeTesting(q,j)" style="cursor: pointer; float: right;">remove_circle_outline</mat-icon>
-                                        </div>
-
-                                    </div>
-                                    </div>
-                                </tbody>
-                            </table>
-                        </div>
-                        </div>
+                    <div *ngIf="testingofearthelectrodes[j]">
                         
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>8(a).Earth electrode resistance value (Table heading)</label>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 10px;" >
+                            <div class="col-sm-12">
+                            <div class="table-responsive" style="overflow-x: unset;">
+                                <table class="table TableBorder">
+                                    <tbody>
+                                        <thead>
+                                            <th>SI.No</th>
+                                            <th>Types of earth electrode(rod/pipe/flat/chemical pipe)</th>
+                                            <th>Material of earth elctrode (copper/copper bonded steel/galvanised steel/galvanised iron/cast iron)</th>
+                                            <th>Size(diameter)of earth electrode (mm)</th>
+                                            <th>Depth /length of earth electrode (m)</th>
+                                            <th>Electrode resistance to earth in (Ω)</th>
+                                            <th>Remarks</th>
+                                        </thead>
+    
+                                        <div formArrayName="earthElectrodeTesting" *ngFor="let a of earthElectrodeTestingarr(q); let j = index" style="margin-top: 3rem;">
+                                        <div class="form-group" [formGroupName]="j">
+                                            
+                                            <tr>
+                                                <td>
+                                                    <input class="form-control" formControlName="serialNo" placeholder="SerialNo"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('serialNo')?.errors}">
+                                                    <div *ngIf="submitted && a.get('serialNo')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('serialNo')?.errors?.required">serialNo is required</div>
+                                                  </div>
+                                                </td>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                <i class="bi bi-text-paragraph"></i>
+                                                            </span>
+                                                        </div>
+                                                        <textarea class="form-control" formControlName="earthingElectrodeType"
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('earthingElectrodeType')?.errors}"
+                                                            placeholder="Types of earth electrode(rod/pipe/flat/chemical pipe)"></textarea>
+                                                        <div *ngIf="submitted && a.get('earthingElectrodeType')?.errors" class="invalid-feedback">
+                                                            <div *ngIf="a.get('earthingElectrodeType')?.errors?.required">Types of earth electrode is required</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                <i class="bi bi-text-paragraph"></i>
+                                                            </span>
+                                                        </div>
+                                                        <textarea class="form-control" formControlName="earthingElectrodeMaterial"
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('earthingElectrodeMaterial')?.errors}"
+                                                            placeholder="Material of earth elctrode (copper/copper bonded steel/galvanised steel/galvanised iron/cast iron)"></textarea>
+                                                        <div *ngIf="submitted && a.get('earthingElectrodeMaterial')?.errors" class="invalid-feedback">
+                                                            <div *ngIf="a.get('earthingElectrodeMaterial')?.errors?.required">Material of earth elctrode is required
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                <i class="bi bi-text-paragraph"></i>
+                                                            </span>
+                                                        </div>
+                                                        <textarea class="form-control" formControlName="earthingElectrodeSize"
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('earthingElectrodeSize')?.errors}"
+                                                            placeholder="Information to user: incase of 1. rod -diameter (mm)/cross sectional area (sq.mm), 2. pipe- inner&outer diameter (mm), 3.flat - cross sectional area (sq.mm), 4. chemical pipe-diameter (mm)"></textarea>
+                                                        <div *ngIf="submitted && a.get('earthingElectrodeSize')?.errors" class="invalid-feedback">
+                                                            <div *ngIf="a.get('earthingElectrodeSize')?.errors?.required">Material of earth elctrode is required</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                <i class="bi bi-text-paragraph"></i>
+                                                            </span>
+                                                        </div>
+                                                        <textarea class="form-control" formControlName="earthingElectrodeDepth"
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('earthingElectrodeDepth')?.errors}"
+                                                            placeholder="Depth /length of earth electrode (m)"></textarea>
+                                                        <div *ngIf="submitted && a.get('earthingElectrodeDepth')?.errors" class="invalid-feedback">
+                                                            <div *ngIf="a.get('earthingElectrodeDepth')?.errors?.required">Depth /length of earth electrode is required
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                <i class="bi bi-text-paragraph"></i>
+                                                            </span>
+                                                        </div>
+                                                        <textarea class="form-control" formControlName="earthingElectrodeResistance"
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('earthingElectrodeResistance')?.errors}"
+                                                            placeholder="Electrode resistance to earth in (Ω)"></textarea>
+                                                        <div *ngIf="submitted && a.get('earthingElectrodeResistance')?.errors" class="invalid-feedback">
+                                                            <div *ngIf="a.get('earthingElectrodeResistance')?.errors?.required">Electrode resistance to earth is
+                                                                required</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                <i class="bi bi-text-paragraph"></i>
+                                                            </span>
+                                                        </div>
+                                                    <textarea class="form-control" formControlName="earthingElectrodeRemarks" placeholder="Remarks"></textarea>
+                                                    </div>
+                                                </td>
+                                            </tr>
+    
+                                            <div class="row" style="float: right; margin-top: 10px;">
+                                                <mat-icon style="cursor: pointer; float: right;"
+                                                [ngClass]="{'disableForm':service.allFieldsDisable}" *ngIf="earthElectrodeTestingarr(q).length == j+1" 
+                                                (click)="addElectrodeTesting(q)">add_box</mat-icon>
+        
+                                                <mat-icon class="mousechange" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" 
+                                                *ngIf="earthElectrodeTestingarr(q).length > 1" 
+                                                (click)="removeElectrodeTesting(q,j)" style="cursor: pointer; float: right;">remove_circle_outline</mat-icon>
+                                            </div>
+    
+                                        </div>
+                                        </div>
+                                    </tbody>
+                                </table>
+                            </div>
+                            </div>
+                            
+                        </div>
                     </div>
+                    
                 </mat-expansion-panel>
             </mat-accordion>
             </div>

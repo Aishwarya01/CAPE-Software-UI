@@ -48,6 +48,7 @@ export class LpsEarthingComponent implements OnInit {
   arr3: any = [];
   arr4: any = [];
   step4List: any = [];
+  deletedLpstestingofearthelectrodes: any = [];
   flag: boolean = false;
 
   descriptionArr!: FormArray;
@@ -112,9 +113,9 @@ export class LpsEarthingComponent implements OnInit {
 
   earthingLpsDescriptionForm(buildingNumber:any,buildingName:any,buildingCount:any) {
     return this.formBuilder.group({
-      buildingNumber:new FormControl(buildingNumber, Validators.required),
-      buildingName: new FormControl(buildingName, Validators.required),
-      buildingCount: new FormControl(buildingCount, Validators.required),
+      buildingNumber:new FormControl(buildingNumber),
+      buildingName: new FormControl(buildingName),
+      buildingCount: new FormControl(buildingCount),
       earthingTypeInOb: new FormControl('', Validators.required),
       earthingTypeInRem: new FormControl(''),
       bimetallicIssueInOb: new FormControl('', Validators.required),
@@ -122,16 +123,17 @@ export class LpsEarthingComponent implements OnInit {
       brazingConnectInOb: new FormControl('', Validators.required),
       brazingConnectInRem: new FormControl(''),
       flag: new FormControl('A'), 
-      earthingDescriptionAvailabilityOb: new FormControl('', Validators.required),
-      earthingDescriptionAvailabilityRem: new FormControl(''),
-      earthingClampsAvailabilityOb: new FormControl('', Validators.required),
+     // earthingDescriptionAvailabilityOb: new FormControl(''),
+     // earthingDescriptionAvailabilityRem: new FormControl(''),
+      earthingClampsAvailabilityOb: new FormControl(''),
       earthingClampsAvailabilityRem: new FormControl(''),
-      earthingElectrodeChamberAvailabilityOb: new FormControl('', Validators.required),
+      earthingElectrodeChamberAvailabilityOb: new FormControl(''),
       earthingElectrodeChamberAvailabilityRem:  new FormControl(''),
-      earthingSystemAvailabilityOb: new FormControl('', Validators.required),
-      earthingSystemAvailabilityRem:  new FormControl(''),
-      earthingElectrodeTestingAvailabilityOb: new FormControl('', Validators.required),
-      earthingElectrodeTestingAvailabilityRem:  new FormControl(''),                              
+     // earthingSystemAvailabilityOb: new FormControl(''),
+     // earthingSystemAvailabilityRem:  new FormControl(''),
+     // earthingElectrodeTestingAvailabilityOb: new FormControl(''),
+     // earthingElectrodeTestingAvailabilityRem:  new FormControl(''),                              
+     earthingElectrodeTestingAvailabilityOb:  new FormControl(''),                              
 
       earthingDescription: this.formBuilder.array([this.earthingDescriptionArray()]),
       earthingClamps: this.formBuilder.array([]),
@@ -180,7 +182,7 @@ export class LpsEarthingComponent implements OnInit {
 
   earthingDescriptionListForm():FormGroup {
     return new FormGroup({
-      flag: new FormControl(''),
+      flag: new FormControl('A'),
       earthingConductorMaterialInOb: new FormControl('', Validators.required),
       earthingConductorMaterialInRem: new FormControl(''),
       earthElectrodeMaterialInOb: new FormControl('', Validators.required),
@@ -343,6 +345,7 @@ export class LpsEarthingComponent implements OnInit {
     for (let item of data.earthingLpsDescription) {
       this.arr1.push(this.createGroup(item));
       this.onKey(item.earthingTypeInOb, null, index);
+      this.onEarthElectrodes(item.earthingElectrodeTestingAvailabilityOb,null,index);
       index = index + 1;
     }
     this.earthingForm.setControl('earthing', this.formBuilder.array(this.arr1 || []));
@@ -378,7 +381,12 @@ export class LpsEarthingComponent implements OnInit {
       buildingNumber: new FormControl({disabled: false, value: item.buildingNumber}, Validators.required),
       buildingName: new FormControl({disabled: false, value: item.buildingName}, Validators.required),
       buildingCount: new FormControl({disabled: false, value: item.buildingCount}, Validators.required),
-     
+      earthingClampsAvailabilityOb: new FormControl({disabled: false, value: item.earthingClampsAvailabilityOb}),
+      earthingClampsAvailabilityRem: new FormControl({disabled: false, value: item.earthingClampsAvailabilityRem}),
+      earthingElectrodeChamberAvailabilityOb: new FormControl({disabled: false, value: item.earthingElectrodeChamberAvailabilityOb}),
+      earthingElectrodeChamberAvailabilityRem:  new FormControl({disabled: false, value: item.earthingElectrodeChamberAvailabilityRem}),
+      earthingElectrodeTestingAvailabilityOb:  new FormControl({disabled: false, value: item.earthingElectrodeTestingAvailabilityOb}),
+
       earthingDescription: this.formBuilder.array(this.populateEarthingDescription(item)),
       earthingClamps: this.formBuilder.array(this.populateEarthingClamps(item)),
       earthingElectrodeChamber: this.formBuilder.array(this.populateEarthingElectrodeChamber(item)),
@@ -550,8 +558,10 @@ export class LpsEarthingComponent implements OnInit {
         //earthing
         
         earthingSystemId: new FormControl({disabled: false, value: item.earthingSystemId}),
-        earthOb: new FormControl({disabled: false, value: item.earthOb}, Validators.required),
-        earthRem: new FormControl({disabled: false, value: item.earthRem}),
+        eastOb: new FormControl({disabled: false, value: item.eastOb}, Validators.required),
+        eastRem: new FormControl({disabled: false, value: item.eastRem}),
+        // earthOb: new FormControl({disabled: false, value: item.earthOb}, Validators.required),
+        // earthRem: new FormControl({disabled: false, value: item.earthRem}),
         westOb: new FormControl({disabled: false, value: item.westOb}, Validators.required),
         westRem: new FormControl({disabled: false, value: item.westRem}),
         northOb: new FormControl({disabled: false, value: item.northOb}, Validators.required),
@@ -585,8 +595,11 @@ export class LpsEarthingComponent implements OnInit {
 
     populateEarthElectrodeTesting(item:any){
       let earthElectrodeTesting:any=[];
+     // let index=0
       for (let value of item.earthElectrodeTesting) {
-        earthElectrodeTesting.push(this.earthElectrodeTestingFormGroup(value));   
+        
+        earthElectrodeTesting.push(this.earthElectrodeTestingFormGroup(value)); 
+       // index=index+1; 
       } 
       return earthElectrodeTesting;   
     } 
@@ -595,6 +608,7 @@ export class LpsEarthingComponent implements OnInit {
       return this.formBuilder.group({
         //chamber
         flag: new FormControl({disabled: false, value: item.flag}),
+       // isEarthingScope: new FormControl({disabled: false, value: item.flag}),
         earthingElectrodeTestingId: new FormControl({disabled: false, value: item.earthingElectrodeTestingId}, Validators.required),
         serialNo: new FormControl({disabled: false, value: item.serialNo}, Validators.required),
         earthingElectrodeType: new FormControl({disabled: false, value: item.earthingElectrodeType}, Validators.required),
@@ -753,8 +767,16 @@ export class LpsEarthingComponent implements OnInit {
   removeElectrodeTesting(a: any,x:any) {
     this.earthingForm.markAsTouched();
     this.earthElectrodeTesting = a.controls.earthElectrodeTesting as FormArray;
-    this.earthElectrodeTesting.removeAt(x);
-    this.earthingForm.markAsDirty();
+
+    if(a.value.earthingElectrodeTestingId !=0 && a.value.earthingElectrodeTestingId !=undefined && a.value.earthingElectrodeTestingId != ''){
+      a.value.flag="R";
+      this.deletedLpstestingofearthelectrodes.push(a.value);
+      this.earthElectrodeTesting.removeAt(x);
+    }
+    else{
+      this.earthElectrodeTesting.removeAt(x);
+    }
+  
   }
   
   createTypeAEarthingIteration()  : FormGroup {
@@ -769,7 +791,7 @@ export class LpsEarthingComponent implements OnInit {
       earthElectrodeSizeInRem: new FormControl(''),
       earthElectrodeLengthingOb: new FormControl('', Validators.required),
       earthElectrodeLengthingRem: new FormControl(''),
-      flag: new FormControl('true'),
+      flag: new FormControl('A'),
     });
   }
   getTypeAEarthingControls(form:any) {
@@ -825,6 +847,43 @@ export class LpsEarthingComponent implements OnInit {
       if(a.controls.earthingElectrodeChamber == undefined ||a.controls.earthingElectrodeChamber.controls.length ==0){
         this.earthingElectrodeChamber = a.controls.earthingElectrodeChamber?.controls;
         this.earthingElectrodeChamber.push(this.earthingElectrodeChamberArray());
+      }
+    }
+    this.earthingForm.markAsTouched();
+  }
+  onEarthElectrodes(event: any, a: any, index: any) {
+
+    let changedValue;
+    if (a != null) {
+      changedValue = event.target.value;
+    }
+    else {
+      changedValue = event;
+    }
+    if (changedValue == 'Not in scope') {
+      this.testingofearthelectrodes[index] = false;
+      if (a != null) {
+        for (let k = 0; k < a.controls.earthElectrodeTesting.controls.length; k++) {
+          if (a.value.earthElectrodeTesting[k].earthingElectrodeTestingId != 0 &&
+            a.value.earthElectrodeTesting[k].earthingElectrodeTestingId != undefined &&
+            a.value.earthElectrodeTesting[k].earthingElectrodeTestingId != '') {
+            a.value.flag = "R";
+            this.deletedLpstestingofearthelectrodes.push(a.value);
+            (a.get('earthElectrodeTesting') as FormArray).removeAt(k);
+          }
+          else {
+            (a.get('earthElectrodeTesting') as FormArray).removeAt(k);
+          }
+        }
+      }
+    }
+    else {
+      this.testingofearthelectrodes[index] = true;
+      if (a != null) {
+        if (a.controls.earthElectrodeTesting == undefined || a.controls.earthElectrodeTesting.controls.length == 0) {
+          this.earthElectrodeTesting = a.get('earthElectrodeTesting') as FormArray;
+          this.earthElectrodeTesting.push(this.earthElectrodeTestingArray());
+        }
       }
     }
     this.earthingForm.markAsTouched();
@@ -929,14 +988,14 @@ export class LpsEarthingComponent implements OnInit {
           this.clamps[index]=false;              
           this.earthelectrodechambers[index]=false; 
           this.typeBearthingsystem[index]=false; 
-          this.testingofearthelectrodes[index]=false; 
+          //this.testingofearthelectrodes[index]=false; 
           }
           else if(accordion=="Type A"){
           this.typeAearthingsystem[index]=true; 
           this.clamps[index]=true;              
           this.earthelectrodechambers[index]=true; 
           this.typeBearthingsystem[index]=false; 
-          this.testingofearthelectrodes[index]=true;
+          //this.testingofearthelectrodes[index]=true;
           if(formarray!=null){
             (formarray.controls.earthingSystem as FormArray).removeAt(formarray.controls.earthingSystem-1);
           }
@@ -946,7 +1005,7 @@ export class LpsEarthingComponent implements OnInit {
           this.clamps[index]=false;              
           this.earthelectrodechambers[index]=false; 
           this.typeBearthingsystem[index]=true; 
-          this.testingofearthelectrodes[index]=true; 
+          //this.testingofearthelectrodes[index]=true; 
 
         if(formarray!=null){
          (formarray.controls.earthingDescription as FormArray).removeAt(formarray.controls.earthingDescription-1); 
@@ -959,7 +1018,7 @@ export class LpsEarthingComponent implements OnInit {
           this.clamps[index]=true;              
           this.earthelectrodechambers[index]=true; 
           this.typeBearthingsystem[index]=true; 
-          this.testingofearthelectrodes[index]=true; 
+         // this.testingofearthelectrodes[index]=true; 
           
         }
         else if(accordion=="Foundation"){
@@ -967,7 +1026,7 @@ export class LpsEarthingComponent implements OnInit {
           this.clamps[index]=false;              
           this.earthelectrodechambers[index]=false; 
           this.typeBearthingsystem[index]=false; 
-          this.testingofearthelectrodes[index]=true;
+         // this.testingofearthelectrodes[index]=true;
 
         if(formarray!=null){
          (formarray.controls.earthingDescription as FormArray).removeAt(formarray.controls.earthingDescription-1); 
@@ -983,27 +1042,27 @@ export class LpsEarthingComponent implements OnInit {
   createFromArray(formarray:any) {
 
     if(formarray.controls.earthingDescription == undefined || formarray.controls.earthingDescription.controls.length ==0){
-      this.earthingDescription = formarray.controls.earthingDescription?.controls;
+      this.earthingDescription =  formarray.get('earthingDescription') as FormArray;
       this.earthingDescription.push(this.earthingDescriptionArray());
 
     }
     if(formarray.controls.earthingClamps == undefined || formarray.controls.earthingClamps.controls.length ==0){
-      this.earthingClamps = formarray.controls.earthingClamps?.controls;
+      this.earthingClamps =  formarray.get('earthingClamps') as FormArray;
       this.earthingClamps.push(this.earthingClampsArray());
 
     }
     if(formarray.controls.earthingElectrodeChamber == undefined ||formarray.controls.earthingElectrodeChamber.controls.length ==0){
-      this.earthingElectrodeChamber = formarray.controls.earthingElectrodeChamber?.controls;
+      this.earthingElectrodeChamber =  formarray.get('earthingElectrodeChamber') as FormArray;
       this.earthingElectrodeChamber.push(this.earthingElectrodeChamberArray());
 
     }
     if(formarray.controls.earthingSystem == undefined || formarray.controls.earthingSystem.controls.length ==0){
-      this.earthingSystem = formarray.controls.earthingSystem?.controls;
-      this.earthingSystem.push(this.earthingSystemArray());
+      this.earthingSystem =  formarray.get('earthingSystem') as FormArray;
+      this.earthingSystem.push((this.earthingSystemArray()));
 
     }
     if(formarray.controls.earthElectrodeTesting == undefined || formarray.controls.earthElectrodeTesting.controls.length ==0){
-      this.earthElectrodeTesting = formarray.controls.earthElectrodeTesting?.controls;
+      this.earthElectrodeTesting =  formarray.get('earthElectrodeTesting') as FormArray;
       this.earthElectrodeTesting.push(this.earthElectrodeTestingArray());
        
     }
