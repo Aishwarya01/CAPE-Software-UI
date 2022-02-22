@@ -3,26 +3,25 @@
         <mat-horizontal-stepper linear #stepper>
 
             <mat-step [completed]=Completed>
-                <ng-template matStepLabel>CLIENT DETAILS</ng-template>
+                <ng-template matStepLabel>Client Details</ng-template>
                 <app-emc-client-details (proceedNext)="doSomething($event)"></app-emc-client-details>
             </mat-step>
 
             <mat-step [completed]=Completed1>
-                <ng-template matStepLabel>FACILITY DATA</ng-template>
+                <ng-template matStepLabel>Facility Data</ng-template>
                 <app-emc-facility-data (proceedNext)="doSomething1($event)"></app-emc-facility-data>
             </mat-step>
 
             <mat-step [completed]=Completed2>
-                <ng-template matStepLabel>POWER AND EARTHING DATA</ng-template>
+                <ng-template matStepLabel>Power And Earthing Data</ng-template>
                 <app-power-and-earthing-data (proceedNext)="doSomething2($event)"></app-power-and-earthing-data>
             </mat-step>
 
             <mat-step [completed]=Completed3>
-                <ng-template matStepLabel>ELECTROMAGNETIC COMPATIBILITY (EMC) DATA</ng-template>
+                <ng-template matStepLabel>Electro Magnetic Compatibility (EMC) Data</ng-template>
                 <app-emc-electromagnetic-compatibility-data (proceedNext)="doSomething3($event)">
                 </app-emc-electromagnetic-compatibility-data>
             </mat-step>
-
 
         </mat-horizontal-stepper>
     </mat-tab>

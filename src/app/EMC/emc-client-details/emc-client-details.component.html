@@ -3,124 +3,156 @@
 
         <form [formGroup]="EmcClientDetailsForm" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)"
             (ngSubmit)="saveClientDetails(flag)">
-            <div class="row">
 
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label>* Client Name </label>
-                        <input type="text" class="form-control" formControlName="clientName"
-                            [(ngModel)]="emcClientDetails.clientName"
-                            [ngClass]="{'is-invalid':submitted && a.clientName?.errors}"
-                            placeholder="Please Enter Client name">
-                        <div *ngIf="submitted &&a.clientName?.errors" class="invalid-feedback">
+            <div formArrayName="clientArr" *ngFor="let a of getClientControls(); let i = index">
+                <div [formGroupName]="i">
+
+
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>* Client Name </label>
+                                <input type="text" class="form-control" formControlName="clientName"
+                                    [(ngModel)]="emcClientDetails.clientName"
+                                    [ngClass]="{ 'is-invalid': submitted && a.get('clientName')?.errors }"
+                                    placeholder="Please Enter Client name">
+                                <!-- <div *ngIf="submitted &&a.clientName?.errors" class="invalid-feedback">
                             <div *ngIf="a.clientName?.errors?.required">Client Name Is Required</div>
-                        </div>
-                    </div>
-                </div>
+                        </div> -->
 
-                <div class="col-md-4">
-                    <label>* Contact Number:</label>
-                    <input type="tel" minlength="10" maxlength="10" ng2TelInput
-                        [(ngModel)]="emcClientDetails.contactNumber"
-                        [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
-                        (keypress)="keyPressNumbers($event)" (countryChange)="countryChange($event)"
-                        placeholder="Enter Contact Number" formControlName="contactNumber" class="form-control"
-                        [ngClass]="{'is-invalid':submitted && a.contactNumber?.errors}">
-                    <div *ngIf="submitted &&a.contactNumber?.errors" class="invalid-feedback">
+                                <div *ngIf="submitted && a.get('clientName')?.errors" class="invalid-feedback">
+                                    <div *ngIf="a.get('clientName')?.errors?.required">Client Name Is Required</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label>* Contact Number:</label>
+                            <input type="tel" ng2TelInput
+                                [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
+                                [(ngModel)]="emcClientDetails.contactNumber" (keypress)="keyPressNumbers($event)" 
+                                (countryChange)="countryChange($event)" placeholder="Enter Contact Number"
+                                formControlName="contactNumber" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && a.get('contactNumber')?.errors }">
+                            <div *ngIf="submitted && a.get('contactNumber')?.errors" class="invalid-feedback">
+                                <div *ngIf="a.get('contactNumber')?.errors?.required">Contact Number Is Required</div>
+                                <div *ngIf="a.get('contactNumber')?.errors?.minlength">Please Enter 10 Digit Number</div>
+                                <div *ngIf="a.get('contactNumber')?.errors?.maxlength">Please Enter 10 Digit Number</div>
+                            </div>
+
+                            <!-- [ngClass]="{'is-invalid':submitted && a.contactNumber?.errors}"> -->
+                            <!-- <div *ngIf="submitted &&a.contactNumber?.errors" class="invalid-feedback">
                         <div *ngIf="a.contactNumber?.errors?.required">Contact Number is Required</div>
                         <div *ngIf="a.contactNumber?.errors?.minlength">Please Enter 10 Digit Number</div>
                         <div *ngIf="a.contactNumber?.errors?.maxlength">Please Enter 10 Digit Number</div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label>* Contact Person </label>
-                        <input type="text" class="form-control" formControlName="contactPerson"
-                            [(ngModel)]="emcClientDetails.contactPerson"
-                            [ngClass]="{'is-invalid':submitted && a.contactPerson?.errors}"
-                            placeholder="Please Enter Client Person">
-                        <div *ngIf="submitted &&a.contactPerson?.errors" class="invalid-feedback">
-                            <div *ngIf="a.contactPerson?.errors?.required">Client Person Is Required</div>
+                    </div> -->
                         </div>
-                    </div>
-                </div>
 
-                <div class="col-md-4">
-                    <label>* Landmark:</label>
-                    <input type="text" formControlName="landMark" class="form-control" placeholder="Enter Landmark"
-                        [(ngModel)]="emcClientDetails.landMark"
-                        [ngClass]="{ 'is-invalid': submitted && a.landMark?.errors }">
-                    <div *ngIf="submitted && a.landMark?.errors" class="invalid-feedback">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>* Contact Person </label>
+                                <input type="text" class="form-control" formControlName="contactPerson"
+                                    [(ngModel)]="emcClientDetails.contactPerson"
+                                    placeholder="Please Enter Client Person"
+                                    [ngClass]="{ 'is-invalid': submitted && a.get('contactPerson')?.errors }">
+                                <div *ngIf="submitted && a.get('contactPerson')?.errors" class="invalid-feedback">
+                                    <div *ngIf="a.get('contactPerson')?.errors?.required">Contact Person Is Required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label>Landmark:</label>
+                            <input type="text" formControlName="landMark" class="form-control"
+                                placeholder="Enter Landmark" [(ngModel)]="emcClientDetails.landMark">
+                            <!-- [ngClass]="{ 'is-invalid': submitted && a.landMark?.errors }"> -->
+                            <!-- <div *ngIf="submitted && a.landMark?.errors" class="invalid-feedback">
                         <div *ngIf="a.landMark?.errors?.required">Landmark Is Required</div>
-                    </div>
-                </div>
+                    </div> -->
+                        </div>
 
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label>* Location </label>
-                        <input type="text" class="form-control" formControlName="clientLocation"
-                            [(ngModel)]="emcClientDetails.clientLocation"
-                            [ngClass]="{'is-invalid':submitted && a.clientLocation?.errors}"
-                            placeholder="Please Enter Client Location">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Location </label>
+                                <input type="text" class="form-control" formControlName="clientLocation"
+                                    [(ngModel)]="emcClientDetails.clientLocation"
+                                    placeholder="Please Enter Client Location">
+                                <!-- [ngClass]="{'is-invalid':submitted && a.clientLocation?.errors}"
                         <div *ngIf="submitted &&a.clientLocation?.errors" class="invalid-feedback">
                             <div *ngIf="a.clientLocation?.errors?.required">Client Location Is Required</div>
+                        </div> -->
+                            </div>
                         </div>
-                    </div>
-                </div>
 
-                <div class="col-md-4">
-                    <label>* Address</label>
-                    <input type="text" formControlName="clientAddress" class="form-control" placeholder="Enter Address"
-                        [(ngModel)]="emcClientDetails.clientAddress"
-                        [ngClass]="{ 'is-invalid': submitted && a.clientAddress?.errors }">
-                    <div *ngIf="submitted && a.clientAddress?.errors" class="invalid-feedback">
+                        <div class="col-md-4">
+                            <label>* Address</label>
+                            <input type="text" formControlName="clientAddress" class="form-control"
+                                placeholder="Enter Address" [(ngModel)]="emcClientDetails.clientAddress"
+                                [ngClass]="{ 'is-invalid': submitted && a.get('clientAddress')?.errors }">
+                            <!-- <div *ngIf="submitted && a.clientAddress?.errors" class="invalid-feedback">
                         <div *ngIf="a.clientAddress?.errors?.required">Address Is Required</div>
-                    </div>
-                </div>
+                    </div> -->
+                            <div *ngIf="submitted && a.get('clientAddress')?.errors" class="invalid-feedback">
+                                <div *ngIf="a.get('clientAddress')?.errors?.required">Client Address Is Required</div>
+                            </div>
+                        </div>
 
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label>* Email: </label>
-                        <input type="text" class="form-control" formControlName="email"
-                            [(ngModel)]="emcClientDetails.email" placeholder="Enter Email Address"
-                            [ngClass]="{'is-invalid':submitted && a.email?.errors}">
-                        <div *ngIf="submitted &&a.email?.errors" class="invalid-feedback">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>* Email: </label>
+                                <input type="text" class="form-control" formControlName="email"
+                                    [(ngModel)]="emcClientDetails.email" placeholder="Enter Email Address"
+                                    [ngClass]="{ 'is-invalid': submitted && a.get('email')?.errors }">
+                                <!-- <div *ngIf="submitted &&a.email?.errors" class="invalid-feedback">
                             <div *ngIf="a.email?.errors?.required">Email is required</div>
                             <div *ngIf="a.email?.errors?.pattern">Enter valid email</div>
+                        </div> -->
+                                <div *ngIf="submitted && a.get('email')?.errors" class="invalid-feedback">
+                                    <div *ngIf="a.get('email')?.errors?.required">Email is required</div>
+                                    <div *ngIf="a.get('email')?.errors?.pattern">Enter valid email</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-4">
+                            <label>* Country:</label>
+                            <select formControlName="country" class="form-control" (change)="changeCountry1($event)"
+                                [(ngModel)]="emcClientDetails.country"
+                                [ngClass]="{ 'is-invalid': submitted && a.get('country')?.errors }">
+                                <option value="0" selected>Select Country Name</option>
+                                <option *ngFor="let country of countryList">{{country.name}}</option>
+                            </select>
+                            <!-- <div *ngIf="submitted && a.country?.errors" class="invalid-feedback">
+                        <div *ngIf="a.country?.errors?.required">Country Is Required</div>
+                    </div> -->
+                            <div *ngIf="submitted && a.get('country')?.errors" class="invalid-feedback">
+                                <div *ngIf="a.get('country')?.errors?.required">Country is required</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label>* State:</label>
+                            <select formControlName="state" class="form-control" [(ngModel)]="emcClientDetails.state"
+                                [ngClass]="{ 'is-invalid': submitted && a.get('state')?.errors }">
+                                <option value="0" selected>Select State Name</option>
+                                <option *ngFor="let state of stateList"
+                                    [selected]="state.name === emcClientDetails.state">
+                                    {{state.name}}</option>
+                            </select>
+                            <!-- <div *ngIf="submitted && a.state?.errors" class="invalid-feedback">
+                        <div *ngIf="a.state?.errors?.required">State Is Required</div>
+                    </div> -->
+                            <div *ngIf="submitted && a.get('state')?.errors" class="invalid-feedback">
+                                <div *ngIf="a.get('state')?.errors?.required">Email is required</div>
+                            </div>
                         </div>
                     </div>
 
                 </div>
-
-                <div class="col-md-4">
-                    <label>* Country:</label>
-                    <select formControlName="country" class="form-control" (change)="changeCountry($event)"
-                        [(ngModel)]="emcClientDetails.country"
-                        [ngClass]="{ 'is-invalid': submitted && a.country?.errors }">
-                        <option value="0" selected>Select Country Name</option>
-                        <option *ngFor="let country of countryList">{{country.name}}</option>
-                    </select>
-                    <div *ngIf="submitted && a.country?.errors" class="invalid-feedback">
-                        <div *ngIf="a.country?.errors?.required">Country Is Required</div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <label>* State:</label>
-                    <select formControlName="state" class="form-control" [(ngModel)]="emcClientDetails.state"
-                        [ngClass]="{ 'is-invalid': submitted && a.state?.errors }">
-                        <option value="0" selected>Select State Name</option>
-                        <option *ngFor="let state of stateList" [selected]="state.name === emcClientDetails.state">
-                            {{state.name}}</option>
-                    </select>
-                    <div *ngIf="submitted && a.state?.errors" class="invalid-feedback">
-                        <div *ngIf="a.state?.errors?.required">State Is Required</div>
-                    </div>
-                </div>
             </div>
-
-
             <div *ngIf="validationError" style="text-align: center;">
                 <span class="errorshow">{{validationErrorMsg}}</span>
             </div>
@@ -157,26 +189,28 @@
 
 <ng-template #content2 let-modal>
     <div class="modal-body">
-     <div class="centre-text m-btm30">
-      <div style="text-align: center;">
-        <span class="successshow">Are you sure you want to procced? </span>
-        <br>
-        <span style="font-size: 12px;">Note: Please verify all the details! </span>
-       </div>
-      </div>
-     </div>
+        <div class="centre-text m-btm30">
+            <div style="text-align: center;">
+                <span class="successshow">Are you sure you want to procced? </span>
+                <br>
+                <span style="font-size: 12px;">Note: Please verify all the details! </span>
+            </div>
+        </div>
+    </div>
     <br>
     <div class="row">
-       <button type="button" class="col-md-4" style="text-align: center;margin-left:100px;width:20%" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
-       aria-label="Close" (click)="closeModalDialog()" matStepperNext>
-       <i class="bi bi-arrow-right-circle"></i>&nbsp;
-        <span aria-hidden="true">Ok</span>
-    </button>
-    <button type="button" class="col-md-4" style="text-align: center;margin-left:100px;width:20%" class="btn btn-danger btn-rounded btn-md font-weight-medium auth-form-btn"
-       aria-label="Close" (click)="closeModalDialog()">
-       <i class="bi bi-x icon"></i>
-        <span aria-hidden="true">Cancel</span>
-    </button>
-  </div>
-  
-    </ng-template>
+        <button type="button" class="col-md-4" style="text-align: center;margin-left:100px;width:20%"
+            class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
+            (click)="closeModalDialog()" matStepperNext>
+            <i class="bi bi-arrow-right-circle"></i>&nbsp;
+            <span aria-hidden="true">Ok</span>
+        </button>
+        <button type="button" class="col-md-4" style="text-align: center;margin-left:100px;width:20%"
+            class="btn btn-danger btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
+            (click)="closeModalDialog()">
+            <i class="bi bi-x icon"></i>
+            <span aria-hidden="true">Cancel</span>
+        </button>
+    </div>
+
+</ng-template>

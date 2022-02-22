@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl, FormArray } from '@angular/forms';
 import { ViewChild, ViewContainerRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { EmcClientDetails } from 'src/app/EMC_Model/emc-client-details';
@@ -30,6 +30,7 @@ export class EmcClientDetailsComponent implements OnInit {
   countryList: any = [];
   stateList: any = [];
   countryCode: any;
+  countryCode2: any;
   submitted = false;
   validationError: boolean = false;
   validationErrorMsg: String = "";
@@ -50,6 +51,7 @@ export class EmcClientDetailsComponent implements OnInit {
   data: any = [];
   errorArr: any = [];
 
+
   constructor(
     public dialog: MatDialog,
     private router: ActivatedRoute,
@@ -61,17 +63,13 @@ export class EmcClientDetailsComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.EmcClientDetailsForm = this.formBuilder.group({
+    this.countryCode= '91';
+    this.countryCode2= '91';
 
-      clientName: ['', Validators.required],
-      contactNumber: ['', Validators.required],
-      contactPerson: ['', Validators.required],
-      landMark: ['', Validators.required],
-      clientLocation: ['', Validators.required],
-      clientAddress: ['', Validators.required],
-      email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-      country: ['', Validators.required],
-      state: ['', Validators.required],
+    this.EmcClientDetailsForm = this.formBuilder.group({
+      clientArr: this.formBuilder.array([
+        this.createProfile(),
+      ])
     });
     this.emcClientDetailsService.retrieveCountry().subscribe(
       data => {
@@ -81,26 +79,68 @@ export class EmcClientDetailsComponent implements OnInit {
     )
   }
 
-  retriveClientDetailsData(userName: any, emcId: any, data: any) {
-    this.flag = true;
-    this.step1List = JSON.parse(data);
-    this.emcClientDetails.userName = userName;
-    this.emcClientDetails.emcId = emcId;
-    this.emcClientDetails.clientName = this.step1List[0].clientName;
-    this.emcClientDetails.contactNumber = this.step1List[0].contactNumber;
-    this.emcClientDetails.contactPerson = this.step1List[0].contactPerson;
-    this.emcClientDetails.landMark = this.step1List[0].landMark;
-    this.emcClientDetails.clientLocation = this.step1List[0].clientLocation;
-    this.emcClientDetails.clientAddress = this.step1List[0].clientAddress;
-    this.emcClientDetails.email = this.step1List[0].email;
-    this.emcClientDetails.country = this.step1List[0].country;
-    this.emcClientDetails.state = this.step1List[0].state;
+  createProfile(): FormGroup {
+    return new FormGroup({
+      clientName: new FormControl('',Validators.required),
+      contactNumber: new FormControl('',[Validators.maxLength(10),Validators.minLength(10),Validators.required]),
+      contactPerson: new FormControl('',Validators.required),
+      landMark: new FormControl(''),
+      clientLocation: new FormControl(''),
+      clientAddress: new FormControl('',Validators.required),
+      email: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+      country: new FormControl('',Validators.required),
+      state: new FormControl('',Validators.required),
+      userName: new FormControl('')
+    })
+  }
 
-    this.emcClientDetails.createdDate = this.step1List[0].createdDate;
-    this.emcClientDetails.createdBy = this.step1List[0].createdBy;
-    this.emcClientDetails.updatedDate = this.step1List[0].updatedDate;
-    this.emcClientDetails.updatedBy = this.step1List[0].updatedBy;
+  retriveClientDetailsData() {
+    this.flag = true;
+    // this.step1List = JSON.parse(data);
   
+    this.populateForm();
+
+    // this.emcClientDetails.userName = userName;
+    // this.emcClientDetails.emcId = emcId;
+    // this.emcClientDetails.clientName = this.step1List[0].clientName;
+    // this.emcClientDetails.contactNumber = this.step1List[0].contactNumber;
+    // this.emcClientDetails.contactPerson = this.step1List[0].contactPerson;
+    // this.emcClientDetails.landMark = this.step1List[0].landMark;
+    // this.emcClientDetails.clientLocation = this.step1List[0].clientLocation;
+    // this.emcClientDetails.clientAddress = this.step1List[0].clientAddress;
+    // this.emcClientDetails.email = this.step1List[0].email;
+    // this.emcClientDetails.country = this.step1List[0].country;
+    // this.emcClientDetails.state = this.step1List[0].state;
+
+    // this.emcClientDetails.createdDate = this.step1List[0].createdDate;
+    // this.emcClientDetails.createdBy = this.step1List[0].createdBy;
+    // this.emcClientDetails.updatedDate = this.step1List[0].updatedDate;
+    // this.emcClientDetails.updatedBy = this.step1List[0].updatedBy;
+  
+  }
+
+  populateForm() {
+    this.EmcClientDetailsForm = this.formBuilder.group({
+      clientArr: this.formBuilder.array([
+        this.createclient(),
+      ])
+    });
+  }
+
+  createclient(): FormGroup {
+    return this.formBuilder.group({
+      
+      clientName: new FormControl(this.emcClientDetails.clientName, Validators.required),
+      contactNumber: new FormControl(this.emcClientDetails.contactNumber, Validators.required),
+      contactPerson: new FormControl(this.emcClientDetails.contactPerson, Validators.required),
+      landMark: new FormControl(this.emcClientDetails.landMark, Validators.required),
+      clientLocation: new FormControl(this.emcClientDetails.clientLocation, Validators.required),
+      clientAddress: new FormControl(this.emcClientDetails.clientAddress, Validators.required),
+      email: new FormControl(this.emcClientDetails.email, Validators.required),
+      country: new FormControl(this.emcClientDetails.country, Validators.required),
+      state: new FormControl(this.emcClientDetails.state, Validators.required),
+      userName: new FormControl(this.emcClientDetails.userName, Validators.required),
+    })
   }
 
 
@@ -124,6 +164,8 @@ export class EmcClientDetailsComponent implements OnInit {
     this.emcClientDetails.createdBy = this.step1List.createdBy;
     this.emcClientDetails.updatedDate = this.step1List.updatedDate;
     this.emcClientDetails.updatedBy = this.step1List.updatedBy;
+
+    this.retriveClientDetailsData();
   }
 
 
@@ -133,6 +175,10 @@ export class EmcClientDetailsComponent implements OnInit {
 
   cancel() {
     this.dialog.closeAll();
+  }
+
+  getClientControls(): AbstractControl[] {
+    return (<FormArray> this.EmcClientDetailsForm.get('clientArr'))?.controls ;
   }
 
   // Only Integer Numbers
@@ -168,9 +214,18 @@ export class EmcClientDetailsComponent implements OnInit {
     }
   }
 
-  countryChange(country: any) {
-    this.countryCode = country.dialCode;
-  }
+//  country code
+ countryChange(country: any) {
+  this.countryCode = country.dialCode;
+}
+
+countryChange1(country: any) {
+  this.countryCode2 = country.dialCode;
+}
+
+  // countryChange1(country: any) {
+  //   this.countryCode2 = country.dialCode;
+  // }
 
   // //country code
   // countryChange(country: any, a: any) {
@@ -272,6 +327,23 @@ export class EmcClientDetailsComponent implements OnInit {
     if (this.EmcClientDetailsForm.invalid) {
       return;
     }
+
+    if((this.EmcClientDetailsForm.value.clientArr[0].contactNumber).includes("+"))
+    {
+     let arr=[];
+     arr= this.EmcClientDetailsForm.value.clientArr[0].contactNumber.split('-');
+     this.EmcClientDetailsForm.value.clientArr[0].contactNumber = arr[1];
+     this.EmcClientDetailsForm.value.clientArr[0].contactNumber = "+" + this.countryCode2 + "-" + this.EmcClientDetailsForm.value.clientArr[0].contactNumber;
+    }
+    else{
+      this.EmcClientDetailsForm.value.clientArr[0].contactNumber = "+" + this.countryCode2 + "-" + this.EmcClientDetailsForm.value.clientArr[0].contactNumber;
+    }      
+
+    this.emcClientDetails.contactNumber =  this.EmcClientDetailsForm.value.clientArr[0].contactNumber;
+    console.log(this.EmcClientDetailsForm);
+
+    this.emcClientDetails = this.EmcClientDetailsForm.value.clientArr[0];
+
     this.emcClientDetails.userName = this.router.snapshot.paramMap.get('email') || '{}';
 
     if (flag) {
@@ -331,7 +403,7 @@ export class EmcClientDetailsComponent implements OnInit {
   retriveClientDetails() {
     this.emcClientDetailsService.retrieveClientDetailsData(this.emcClientDetails.userName, this.emcClientDetails.emcId).subscribe(
       data => {
-        this.retriveClientDetailsData(this.emcClientDetails.userName, this.emcClientDetails.emcId, data);
+        this.retriveClientDetailsData();
       },
       error => {
       }
