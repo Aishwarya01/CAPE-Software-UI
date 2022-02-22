@@ -30,7 +30,6 @@ export class EmcClientDetailsComponent implements OnInit {
   countryList: any = [];
   stateList: any = [];
   countryCode: any;
-  countryCode2: any;
   submitted = false;
   validationError: boolean = false;
   validationErrorMsg: String = "";
@@ -64,7 +63,6 @@ export class EmcClientDetailsComponent implements OnInit {
   ngOnInit(): void {
 
     this.countryCode= '91';
-    this.countryCode2= '91';
 
     this.EmcClientDetailsForm = this.formBuilder.group({
       clientArr: this.formBuilder.array([
@@ -219,10 +217,6 @@ export class EmcClientDetailsComponent implements OnInit {
   this.countryCode = country.dialCode;
 }
 
-countryChange1(country: any) {
-  this.countryCode2 = country.dialCode;
-}
-
   // countryChange1(country: any) {
   //   this.countryCode2 = country.dialCode;
   // }
@@ -333,10 +327,10 @@ countryChange1(country: any) {
      let arr=[];
      arr= this.EmcClientDetailsForm.value.clientArr[0].contactNumber.split('-');
      this.EmcClientDetailsForm.value.clientArr[0].contactNumber = arr[1];
-     this.EmcClientDetailsForm.value.clientArr[0].contactNumber = "+" + this.countryCode2 + "-" + this.EmcClientDetailsForm.value.clientArr[0].contactNumber;
+     this.EmcClientDetailsForm.value.clientArr[0].contactNumber = "+" + this.countryCode + "-" + this.EmcClientDetailsForm.value.clientArr[0].contactNumber;
     }
     else{
-      this.EmcClientDetailsForm.value.clientArr[0].contactNumber = "+" + this.countryCode2 + "-" + this.EmcClientDetailsForm.value.clientArr[0].contactNumber;
+      this.EmcClientDetailsForm.value.clientArr[0].contactNumber = "+" + this.countryCode + "-" + this.EmcClientDetailsForm.value.clientArr[0].contactNumber;
     }      
 
     this.emcClientDetails.contactNumber =  this.EmcClientDetailsForm.value.clientArr[0].contactNumber;

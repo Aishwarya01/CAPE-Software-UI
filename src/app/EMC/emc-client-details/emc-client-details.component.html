@@ -31,7 +31,7 @@
                             <label>* Contact Number:</label>
                             <input type="tel" ng2TelInput
                                 [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
-                                [(ngModel)]="emcClientDetails.contactNumber" (keypress)="keyPressNumbers($event)" 
+                                [(ngModel)]="emcClientDetails.contactNumber" (keypress)="keyPressNumbers($event)"
                                 (countryChange)="countryChange($event)" placeholder="Enter Contact Number"
                                 formControlName="contactNumber" class="form-control"
                                 [ngClass]="{ 'is-invalid': submitted && a.get('contactNumber')?.errors }">
@@ -119,7 +119,7 @@
 
                         <div class="col-md-4">
                             <label>* Country:</label>
-                            <select formControlName="country" class="form-control" (change)="changeCountry1($event)"
+                            <select formControlName="country" class="form-control" (change)="changeCountry($event)"
                                 [(ngModel)]="emcClientDetails.country"
                                 [ngClass]="{ 'is-invalid': submitted && a.get('country')?.errors }">
                                 <option value="0" selected>Select Country Name</option>
@@ -129,7 +129,7 @@
                         <div *ngIf="a.country?.errors?.required">Country Is Required</div>
                     </div> -->
                             <div *ngIf="submitted && a.get('country')?.errors" class="invalid-feedback">
-                                <div *ngIf="a.get('country')?.errors?.required">Country is required</div>
+                                <div *ngIf="a.get('country')?.errors?.required">Email is required</div>
                             </div>
                         </div>
 
