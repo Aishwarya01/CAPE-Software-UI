@@ -16,8 +16,7 @@
                                         <i class="bi bi-align-start"></i>
                                     </span>
                                 </div>
-                                <input class="form-control" formControlName="buildingNumber"
-                                    placeholder="Enter length in meter" />
+                                <input class="form-control" formControlName="buildingNumber" readonly />
                             </div>
                         </div>
 
@@ -29,8 +28,7 @@
                                         <i class="bi bi-align-start"></i>
                                     </span>
                                 </div>
-                                <input class="form-control" formControlName="buildingName"
-                                    placeholder="Enter length in meter" />
+                                <input class="form-control" formControlName="buildingName" readonly />
                             </div>
                         </div>
                     </div>
@@ -58,11 +56,10 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <textarea [readonly]="isEditable" formControlName="continutyExistaEarthOb"  type="text" class="form-control" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && q.get('continutyExistaEarthOb')?.errors }"></textarea>
-                                                    <div *ngIf="submitted && q.get('continutyExistaEarthOb')?.errors"
+                                                    <textarea [readonly]="isEditable" formControlName="calculatedSeperationDistanceOb"  type="text" class="form-control" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && q.get('calculatedSeperationDistanceOb')?.errors }"></textarea>
+                                                    <div *ngIf="submitted && q.get('calculatedSeperationDistanceOb')?.errors"
                                                         class="invalid-feedback">
-                                                        <div *ngIf="q.get('continutyExistaEarthOb')?.errors?.required">Size
-                                                            of main protective equipotential bonding is required</div>
+                                                        <div *ngIf="q.get('calculatedSeperationDistanceOb')?.errors?.required"> Calculated seperation distance between LPS and other metallic parts of building Observation is required</div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -73,7 +70,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <textarea type="text" formControlName="continutyExistaEarthRem" class="form-control"></textarea>
+                                                    <textarea type="text" formControlName="calculatedSeperationDistanceRem" class="form-control"></textarea>
                                                 </div>
                                             </td>
                                         </tr>
@@ -108,7 +105,7 @@
                                                         <div *ngIf="submitted && f.get('seperationDistanceDesc')?.errors"
                                                             class="invalid-feedback">
                                                             <div
-                                                                *ngIf="f.get('seperationDistanceDesc')?.errors?.required">SeparateDistance Observation is required</div>
+                                                                *ngIf="f.get('seperationDistanceDesc')?.errors?.required">Measured Seperation distance between air termination and electrical Description is required</div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -125,7 +122,7 @@
                                                         <div *ngIf="submitted && f.get('seperationDistanceOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="f.get('seperationDistanceOb')?.errors?.required">
-                                                                SeparateDistance Observation is required</div>
+                                                                Measured Seperation distance between air termination and electrical Observation is required</div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -174,12 +171,12 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <textarea type="number" class="form-control" [readonly]="isEditable" formControlName="noPannelSupplittingDsc"
-                                                        placeholder="Please enter Observation here" [ngClass]="{'is-invalid': submitted && f.get('noPannelSupplittingDsc')?.errors}"></textarea>
-                                                        <div *ngIf="submitted && f.get('noPannelSupplittingDsc')?.errors"
+                                                        <textarea type="number" class="form-control" [readonly]="isEditable" formControlName="seperationDistanceDesc"
+                                                        placeholder="Please enter Observation here" [ngClass]="{'is-invalid': submitted && f.get('seperationDistanceDesc')?.errors}"></textarea>
+                                                        <div *ngIf="submitted && f.get('seperationDistanceDesc')?.errors"
                                                             class="invalid-feedback">
                                                             <div
-                                                                *ngIf="f.get('noPannelSupplittingDsc')?.errors?.required"> Total Number of panels supplting power to outdoor equipment observation is required</div>
+                                                                *ngIf="f.get('seperationDistanceDesc')?.errors?.required"> Measured Seperation distance between down conductors and electrical Description is required</div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -191,12 +188,12 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <textarea type="number" class="form-control" [readonly]="isEditable" formControlName="noPannelSupplittingOb"
+                                                        <textarea type="number" class="form-control" [readonly]="isEditable" formControlName="seperationDistanceOb"
                                                         placeholder="Please enter Observation here"
-                                                        [ngClass]="{'is-invalid': submitted && f.get('noPannelSupplittingOb')?.errors}"></textarea>
-                                                        <div *ngIf="submitted && f.get('noPannelSupplittingOb')?.errors" class="invalid-feedback">
-                                                            <div *ngIf="f.get('noPannelSupplittingOb')?.errors?.required">
-                                                                Total Number of panels supplting power to outdoor equipment observation is required</div>
+                                                        [ngClass]="{'is-invalid': submitted && f.get('seperationDistanceOb')?.errors}"></textarea>
+                                                        <div *ngIf="submitted && f.get('seperationDistanceOb')?.errors" class="invalid-feedback">
+                                                            <div *ngIf="f.get('seperationDistanceOb')?.errors?.required">
+                                                                Measured Seperation distance between down conductors and electrical observation is required</div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -208,7 +205,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <textarea type="number" class="form-control" formControlName="noPannelSupplittingRem"></textarea>
+                                                        <textarea type="number" class="form-control" formControlName="seperationDistanceRem"></textarea>
                                                     </div>
                                                 </td>
                                                 </tr>

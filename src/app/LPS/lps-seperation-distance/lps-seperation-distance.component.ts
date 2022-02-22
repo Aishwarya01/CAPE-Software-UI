@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalsService } from 'src/app/globals.service';
 import { SeperationDistanceReport } from 'src/app/LPS_model/SeperationDistanceReport';
+import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
 import { SeparatedistanceService } from 'src/app/LPS_services/separatedistance.service';
 
 
@@ -56,6 +57,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
     private separatedistanceService: SeparatedistanceService,
     private modalService: NgbModal, private router: ActivatedRoute,
     public service: GlobalsService,
+    public airterminationServices: AirterminationService
 
   ) {
   }
@@ -91,19 +93,19 @@ export class LpsSeperationDistanceComponent implements OnInit {
   ngOnInit(): void {
 
     this.separeteDistanceForm = this.formBuilder.group({
-      seperationDistanceDescription: this.formBuilder.array([this.allSeparateDistance('','')])
+      seperationDistanceDescription: this.formBuilder.array([this.allSeparateDistance('','','')])
     });
   }
 
-  allSeparateDistance(buildingNumber:any,buildingName:any): FormGroup {
+  allSeparateDistance(buildingNumber:any,buildingName:any,buildingCount:any): FormGroup {
     return new FormGroup({
       seperationDistanceId: new FormControl(''),
       buildingNumber: new FormControl(buildingNumber),
-      buildingCount: new FormControl(''),
+      buildingCount: new FormControl(buildingCount),
       buildingName:new FormControl(buildingName),
-      continutyExistaEarthOb:new FormControl(''),
-      continutyExistaEarthRem:new FormControl(''),
-      flag:new FormControl(''),
+      calculatedSeperationDistanceOb:new FormControl('',Validators.required),
+      calculatedSeperationDistanceRem:new FormControl(''),
+      flag:new FormControl('A'),
 
       separateDistance: this.formBuilder.array([this.separateDistanceArrForm()]),
       separateDistanceDownConductors: this.formBuilder.array([this.separateDistanceArr2Form()]),
@@ -117,13 +119,16 @@ export class LpsSeperationDistanceComponent implements OnInit {
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
       // this.service.lvClick=1;
 
-      this.step6List = data.seperationDistanceDesc;
+      this.step6List = data.seperationDistanceReport;
       this.seperationDistanceReport.basicLpsId = basicLpsId;   
-      this.seperationDistanceReport.seperationDistanceReportId = this.step6List.seperationDistanceId  
+      this.seperationDistanceReport.seperationDistanceReportId = this.step6List.seperationDistanceReportId  
       this.seperationDistanceReport.createdBy = this.step6List.createdBy;
       this.seperationDistanceReport.createdDate = this.step6List.createdDate;   
       this.seperationDistanceReport.userName = this.step6List.userName;   
       this.populateData();     
+      setTimeout(() => {
+        this.createSeperationForm(data.airTermination);
+      }, 300);
       this.flag=true;
     }
 
@@ -132,61 +137,79 @@ export class LpsSeperationDistanceComponent implements OnInit {
       seperationDistanceDesc: new FormControl('',Validators.required),
       seperationDistanceOb: new FormControl('',Validators.required),
       seperationDistanceRem: new FormControl(''),
-      flag: new FormControl('true'),
+      flag: new FormControl('A'),
 
     })
   }
 
   private separateDistanceArr2Form(): FormGroup {
     return new FormGroup({
-      noPannelSupplittingDsc: new FormControl('',Validators.required),
-      noPannelSupplittingOb: new FormControl('',Validators.required),
-      noPannelSupplittingRem: new FormControl(''),
-      flag: new FormControl('true'),
+      seperationDistanceDesc: new FormControl('',Validators.required),
+      seperationDistanceOb: new FormControl('',Validators.required),
+      seperationDistanceRem: new FormControl(''),
+      flag: new FormControl('A'),
 
     })
   }
 
-  retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
-    // this.service.lvClick=1;
-
-    this.step6List = JSON.parse(data);
-    this.seperationDistanceReport.basicLpsId = basicLpsId;   
-    this.seperationDistanceReport.seperationDistanceReportId = this.step6List[0].seperationDistanceId  
-    this.seperationDistanceReport.createdBy = this.step6List[0].createdBy;
-    this.seperationDistanceReport.createdDate = this.step6List[0].createdDate;   
-    this.seperationDistanceReport.userName = this.step6List[0].userName;   
-    this.populateData1();     
-    this.flag=true;
-  }
-
-  populateData1() {
-    for (let item of this.step6List[0].separateDistanceDescription) {     
-      if(item.flag) {this.arr.push(this.createGroup(item));}
-    }
-    this.separeteDistanceForm.setControl('separateDistance', this.formBuilder.array(this.arr || []))
-    this.arr = [];
-    this.separeteDistanceForm.markAsPristine();
-  }
-
   populateData() {
-    for (let item of this.step6List.separateDistanceDescription) {     
-      if(item.flag) {this.arr.push(this.createGroup(item));}
+    debugger
+     let a=[]
+    for (let item of this.step6List.seperationDistanceDescription) {     
+     a.push(this.createGroup(item));
     }
-    this.separeteDistanceForm.setControl('separateDistance', this.formBuilder.array(this.arr || []))
-    this.arr = [];
+    this.separeteDistanceForm.setControl('seperationDistanceDescription', this.formBuilder.array(a || []))
   }
 
   createGroup(item: any): FormGroup {
     return this.formBuilder.group({
 
-    seperationDistanceDescId: new FormControl({disabled: false, value: item.seperationDistanceDescId}),
-    seperationDistanceDesc: new FormControl({disabled: false, value: item.seperationDistanceDesc}, Validators.required),
-    seperationDistanceOb: new FormControl({disabled: false, value: item.seperationDistanceOb}, Validators.required),
-    seperationDistanceRem: new FormControl({disabled: false, value: item.seperationDistanceRem}),
-    flag: new FormControl({disabled: false, value: item.flag}),
-       
+    seperationDistanceId: new FormControl({disabled: false, value: item.seperationDistanceId}),
+    buildingNumber: new FormControl({disabled: false, value: item.buildingNumber}),
+    buildingCount: new FormControl({disabled: false, value: item.buildingCount}),
+    buildingName: new FormControl({disabled: false, value: item.buildingName}),
+    calculatedSeperationDistanceOb: new FormControl({disabled: false, value: item.calculatedSeperationDistanceOb}, Validators.required),
+    calculatedSeperationDistanceRem: new FormControl({disabled: false, value: item.calculatedSeperationDistanceRem}),
+    flag: new FormControl({disabled: false, value: item.flag}), 
+ 
+    separateDistance: this.formBuilder.array(this.populateSeparateDistanceData(item.separateDistance)),
+    separateDistanceDownConductors: this.formBuilder.array(this.populateSeparateDistanceDownConductorseData(item.separateDistanceDownConductors)),
     });
+  }
+
+  populateSeparateDistanceData(item:any) {
+    let separateDistance=[];
+    for (let value of item) {     
+      separateDistance.push(this.separateDistanceGroup(value));
+    }
+    return separateDistance;
+  }
+  separateDistanceGroup(item:any): FormGroup {
+    return this.formBuilder.group({
+      seperationDistanceDescId: new FormControl({disabled: false, value: item.seperationDistanceDescId}),
+      seperationDistanceDesc: new FormControl({disabled: false, value: item.seperationDistanceDesc}),
+      seperationDistanceOb: new FormControl({disabled: false, value: item.seperationDistanceOb}),
+      seperationDistanceRem: new FormControl({disabled: false, value: item.seperationDistanceRem}),
+      flag: new FormControl({disabled: false, value: item.flag}),
+  });
+  }
+
+  populateSeparateDistanceDownConductorseData(item:any) {
+    let seperationDistanceDescriptionArr=[];
+    for (let value of item) {     
+      seperationDistanceDescriptionArr.push(this.separateDistanceGroup(value));
+    }
+     return seperationDistanceDescriptionArr;
+  }
+  SeparateDistanceDownConductorGroup(item:any): FormGroup {
+    return this.formBuilder.group({
+      seperationDistanceDownConductorId: new FormControl({disabled: false, value: item.seperationDistanceDownConductorId}),
+      seperationDistanceDesc: new FormControl({disabled: false, value: item.seperationDistanceDesc}),
+      seperationDistanceOb: new FormControl({disabled: false, value: item.seperationDistanceOb}),
+      seperationDistanceRem: new FormControl({disabled: false, value: item.seperationDistanceRem}),
+      flag: new FormControl({disabled: false, value: item.flag}),
+
+  });
   }
 
   overAllSeperationControl(): AbstractControl[] {
@@ -296,68 +319,59 @@ export class LpsSeperationDistanceComponent implements OnInit {
     }
   }
 
-  createSeperationForm(noOfBuildingNumber:any){
-    debugger
-    this.seperationDistanceDescription = this.separeteDistanceForm.get('seperationDistanceDescription') as FormArray;
-    let sizeOfSeperation=this.separeteDistanceForm.value.seperationDistanceDescription.length;
-     if(noOfBuildingNumber !=null && noOfBuildingNumber !='' && noOfBuildingNumber !=undefined){
+  // createSeperationForm(noOfBuildingNumber:any){
+  //   debugger
+  //   this.seperationDistanceDescription = this.separeteDistanceForm.get('seperationDistanceDescription') as FormArray;
+  //   let sizeOfSeperation=this.separeteDistanceForm.value.seperationDistanceDescription.length;
+  //    if(noOfBuildingNumber !=null && noOfBuildingNumber !='' && noOfBuildingNumber !=undefined){
       
-      for (let i = 0; i < noOfBuildingNumber.length; i++) {
-        let buildingNumber=null;
-        let buildingName=null;
-        let isBuildingRequired=false;
+  //     for (let i = 0; i < noOfBuildingNumber.length; i++) {
+  //       let buildingNumber=null;
+  //       let buildingName=null;
+  //       let isBuildingRequired=false;
         
-        //spliting locationNum and locationName from airtermination
-        const myArray = noOfBuildingNumber[i].split(",");
-        buildingNumber=parseInt(myArray[0])
-        buildingName=myArray[1]
-            for (let j = 0; !isBuildingRequired && j < sizeOfSeperation; j++) { 
-              //if form dont have any data
-              if((this.separeteDistanceForm.value.seperationDistanceDescription[j].buildingNumber==null || this.separeteDistanceForm.value.seperationDistanceDescription[j].buildingNumber=='') && (this.separeteDistanceForm.value.seperationDistanceDescription[j].seperationDistanceDescId == null ||
-              this.separeteDistanceForm.value.seperationDistanceDescription[j].seperationDistanceDescId == undefined)){
-                //first removing empty form
-               (this.separeteDistanceForm.get('seperationDistanceDescription') as FormArray).removeAt(j);
-               this.seperationDistanceDescription.push(this.allSeparateDistance(buildingNumber,buildingName));
-                isBuildingRequired=true;
-              }
-              else{
-                //verifying form have coressponding buildingName,buildingNumber
-                if(myArray !=null && this.separeteDistanceForm.value.seperationDistanceDescription[j].buildingNumber !=null
-                  && this.separeteDistanceForm.value.seperationDistanceDescription[j].buildingName !=null 
-                  && buildingNumber==this.separeteDistanceForm.value.seperationDistanceDescription[j].buildingNumber && buildingName==this.separeteDistanceForm.value.seperationDistanceDescription[j].buildingName){
-                  isBuildingRequired=true;
-                }
+  //       //spliting locationNum and locationName from airtermination
+  //       const myArray = noOfBuildingNumber[i].split(",");
+  //       buildingNumber=parseInt(myArray[0])
+  //       buildingName=myArray[1]
+  //           for (let j = 0; !isBuildingRequired && j < sizeOfSeperation; j++) { 
+  //             //if form dont have any data
+  //             if((this.separeteDistanceForm.value.seperationDistanceDescription[j].buildingNumber==null || this.separeteDistanceForm.value.seperationDistanceDescription[j].buildingNumber=='') && (this.separeteDistanceForm.value.seperationDistanceDescription[j].seperationDistanceDescId == null ||
+  //             this.separeteDistanceForm.value.seperationDistanceDescription[j].seperationDistanceDescId == undefined)){
+  //               //first removing empty form
+  //              (this.separeteDistanceForm.get('seperationDistanceDescription') as FormArray).removeAt(j);
+  //              this.seperationDistanceDescription.push(this.allSeparateDistance(buildingNumber,buildingName));
+  //               isBuildingRequired=true;
+  //             }
+  //             else{
+  //               //verifying form have coressponding buildingName,buildingNumber
+  //               if(myArray !=null && this.separeteDistanceForm.value.seperationDistanceDescription[j].buildingNumber !=null
+  //                 && this.separeteDistanceForm.value.seperationDistanceDescription[j].buildingName !=null 
+  //                 && buildingNumber==this.separeteDistanceForm.value.seperationDistanceDescription[j].buildingNumber && buildingName==this.separeteDistanceForm.value.seperationDistanceDescription[j].buildingName){
+  //                 isBuildingRequired=true;
+  //               }
                 
-              }
-            }
-        //adding new dwonconductor
-        if(!isBuildingRequired){
-        this.seperationDistanceDescription.push(this.allSeparateDistance(buildingNumber,buildingName));
-           buildingName=null;
-           isBuildingRequired=false;
-        }
-      }
-     }    
-  }
+  //             }
+  //           }
+  //       //adding new dwonconductor
+  //       if(!isBuildingRequired){
+  //       this.seperationDistanceDescription.push(this.allSeparateDistance(buildingNumber,buildingName));
+  //          buildingName=null;
+  //          isBuildingRequired=false;
+  //       }
+  //     }
+  //    }    
+  // }
 
   onSubmit(flag: any) {
-    debugger
-    this.seperationDistanceReport.userName = this.router.snapshot.paramMap.get('email') || '{}';;
-    this.seperationDistanceReport.basicLpsId = this.basicLpsId;
-     
     this.submitted = true;
     if (this.separeteDistanceForm.invalid) {
       return;
     }
 
-    this.seperationDistanceReport = this.separeteDistanceForm.value;
-
-    for(let arr of this.seperationDistanceReport.seperationDistanceDescription) {
-      this.seperationDistanceReport.seperationDistanceDescription
-    }
-
-    this.seperationDistanceReport.seperationDistanceDescription=this.seperationDistanceReport.seperationDistanceDescription.concat(this.separatedistancePushArr);
-    this.seperationDistanceReport.seperationDistanceDescription=this.seperationDistanceReport.seperationDistanceDescription.concat(this.separatedistancePushArr);
+    this.seperationDistanceReport.seperationDistanceDescription = this.separeteDistanceForm.value.seperationDistanceDescription;
+    this.seperationDistanceReport.userName = this.router.snapshot.paramMap.get('email') || '{}';
+    this.seperationDistanceReport.basicLpsId = this.basicLpsId;
 
     this.separatedistancePushArr=[];
     if (!this.validationError) {
@@ -421,21 +435,57 @@ export class LpsSeperationDistanceComponent implements OnInit {
   retriveSeperationDistance(){
     this.separatedistanceService.retriveSeperationDistance(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
       data => {
-        this.retrieveDetailsfromSavedReports1(this.seperationDistanceReport.userName,this.basicLpsId,this.ClientName,data);
+       // this.retrieveDetailsfromSavedReports1(this.seperationDistanceReport.userName,this.basicLpsId,this.ClientName,data);
       },
       error=>{
       }
     );  
   }
 
-  dosomthingRetriveSeperationDistance(userName:any,basicLpsId:any){
-    this.separatedistanceService.retriveSeperationDistance(userName,basicLpsId).subscribe(
+  getAirterminationData(){
+    this.airterminationServices.retriveAirTerminationDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
       data => {
-        this.retrieveDetailsfromSavedReports1(userName,basicLpsId,'',data);
-      },
-      error=>{
-        this.ngOnInit();
+        this.createSeperationForm(JSON.parse(data)[0]);
+      }       
+    ); 
+  }
+  //creating form array based on airtermination building
+  createSeperationForm(data: any) {
+    
+    this.seperationDistanceDescription = this.separeteDistanceForm.get('seperationDistanceDescription') as FormArray;
+
+    for (let i = 0; i < data.lpsAirDescription.length; i++) {
+      let buildingNumber = data.lpsAirDescription[i].buildingNumber
+      let buildingName = data.lpsAirDescription[i].buildingName
+      let buildingCount = data.lpsAirDescription[i].buildingCount
+      let isBuildingRequired = false;
+
+      //existing form having given building number avilable or not  
+      let isFormAvailable = '';
+      for (let k = 0; !isBuildingRequired && k < this.seperationDistanceDescription.length; k++) {
+        //form having correct building number & name
+        if (this.seperationDistanceDescription.value[k].buildingNumber == buildingNumber &&
+          this.seperationDistanceDescription.value[k].buildingName == buildingName &&
+          this.seperationDistanceDescription.value[k].buildingCount == buildingCount) {
+          isBuildingRequired = true;
+          isFormAvailable = "available"
+        }
+        //if form empty 
+        else if (this.seperationDistanceDescription.value[k].buildingNumber == '' ||
+          this.seperationDistanceDescription.value[k].buildingNumber == undefined ||
+          this.seperationDistanceDescription.value[k].buildingNumber == null) {
+          if (this.seperationDistanceDescription.length == 1) {
+            (this.separeteDistanceForm.get('seperationDistanceDescription') as FormArray).removeAt(k);
+          }
+          this.seperationDistanceDescription.push(this.allSeparateDistance(buildingNumber, buildingName, buildingCount));
+          isBuildingRequired = true;
+          isFormAvailable = "available"
+        }
       }
-    );  
+      //not having form for given airtermination buildingnumber 
+      if (isFormAvailable != "available") {
+        this.seperationDistanceDescription.push(this.allSeparateDistance(buildingNumber, buildingName, buildingCount));
+      }
+    }
   }
 }
