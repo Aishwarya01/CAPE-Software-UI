@@ -26,7 +26,7 @@ export class spd {
 }
 
 export class spdDescription {
-    SpdDescriptionId!:number;
+
     location!: String;
     panelName!: String;
     flag!: String;

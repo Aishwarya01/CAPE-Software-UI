@@ -46,6 +46,9 @@ export class LpsSpdComponent implements OnInit {
   mobilearr3: any = [];
   spd: any=[];
   isEditable!:boolean
+
+  spdDescriptionDelArr: any=[];
+
   constructor(
     private formBuilder: FormBuilder, 
     private lpsSpd_Services: LpsSpd_Service,
@@ -60,7 +63,7 @@ export class LpsSpdComponent implements OnInit {
 
   ngOnInit(): void {
     this.spdForm = this.formBuilder.group({
-      spd: this.formBuilder.array([this.allSPD('','')])
+      spd: this.formBuilder.array([this.allSPD('','','')])
     });
   }
 
@@ -76,12 +79,12 @@ export class LpsSpdComponent implements OnInit {
       }
     }
 
-  allSPD(buildingNumber:any,buildingName:any):FormGroup {
+  allSPD(buildingNumber:any,buildingName:any,buildingCount:any):FormGroup {
     return new FormGroup({
       spdId: new FormControl(''),
       buildingNumber: new FormControl(buildingNumber),
       buildingName: new FormControl(buildingName),
-      buildingCount: new FormControl(''),
+      buildingCount: new FormControl(buildingCount),
       flag: new FormControl('A'),
       
       mainsIncomingOb: new FormControl('', Validators.required),
@@ -180,8 +183,6 @@ export class LpsSpdComponent implements OnInit {
       
       this.spdDescriptionArr= [];
       for(let item1 of item.spdDescription){
-        console.log(item.spdId)
-        console.log(item.SpdDescriptionId)
         this.spdDescriptionArr.push(this.createGroup1(item1));
       }
       return  this.spdDescriptionArr;
@@ -270,10 +271,102 @@ export class LpsSpdComponent implements OnInit {
     return this.spdForm.controls;
   }
 
+  // Location and Panel iteration methed 
+  locationPanel(event: KeyboardEvent,a:any){
+    debugger
+    let numberOfItr =parseInt((<HTMLInputElement>event.target).value);
+    // this.spdDescription = a as FormArray;
+
+    //new form
+    if(a.controls.spdDescription.controls.length < numberOfItr){
+      for(let i= a.controls.spdDescription.controls.length;i< numberOfItr;i++){
+        a.controls.spdDescription.controls.push(this.spddescriptionForm());
+       } 
+    }
+    // Deleting the iteration
+    else if(a.controls.spdDescription.controls.length > numberOfItr && numberOfItr != 0){
+      for(let i= a.controls.spdDescription.controls.length;numberOfItr < i;i--){
+        if(a.controls.spdDescription.controls[0].value.spdDescriptionId != 0 && a.controls.spdDescription.controls[0].value.spdDescriptionId != undefined && a.controls.spdDescription.controls[0].value.spdDescriptionId != '' && a.controls.spdDescription.controls[0].value.spdDescriptionId != null){
+          this.spdDescriptionDelArr.push(a.value.spdDescription[a.controls.spdDescription.controls.length-1]);
+          (a.get('spdDescription') as FormArray).removeAt(a.controls.spdDescription.controls.length-1);
+        }
+        else {
+          (a.get('spdDescription') as FormArray).removeAt(a.controls.spdDescription.controls.length-1);
+        }
+       } 
+    }
+  
+    
+  }
+
+  // keyUp(event: KeyboardEvent, c: any, a: any) {
+  //   this.values = (<HTMLInputElement>event.target).value;
+  //   this.value = this.values;
+  //   this.testingRecords = a.controls.testingRecords as FormArray;
+  //   this.observationArr = a.controls.testingInnerObservation as FormArray;
+  //   this.rateArr = c.controls.rateArr as FormArray;
+  //   if (this.testingRecords.length == 0 && this.rateArr.length == 0) {
+  //     if (this.value != '' && this.value != 0) {
+  //       for (this.i = 1; this.i < this.value; this.i++) {
+  //         this.testingRecords.push(this.createtestValuePushForm(this.testingRecords,a.controls.testDistRecordId.value,a.controls.testingId.value));
+  //         this.observationArr.push(this.createObservationForm1(a.controls.testDistRecordId.value,a.controls.testingId.value));
+  //         this.rateArr.push(this.ratingAmps());
+  //       }
+  //     }
+  //   } 
+
+  //   else if (
+  //     this.testingRecords.length < this.value &&
+  //     this.rateArr.length < this.value
+  //   ) {
+  //     if (this.value != '' && this.value != 0) {
+  //       this.delarr = this.value - this.testingRecords.length;
+  //       this.delarr = this.value - this.rateArr.length;
+
+  //       for (this.i = 0; this.i < this.delarr; this.i++) {
+  //         this.testingRecords.push(this.createtestValuePushForm(this.testingRecords,a.controls.testDistRecordId.value,a.controls.testingId.value));
+  //         this.observationArr.push(this.createObservationForm1(a.controls.testDistRecordId.value,a.controls.testingId.value));
+  //         this.rateArr.push(this.ratingAmps());
+  //       }
+  //     }
+  //   } else
+  //     this.testingRecords.length > this.value &&
+  //       this.rateArr.length > this.value;
+  //   {
+  //     if (this.value != '' && this.value != 0) {
+  //       this.delarr = this.testingRecords.length - this.value;
+  //       this.delarr = this.rateArr.length - this.value;
+
+  //       for (this.i = 0; this.i < this.delarr; this.i++) {
+  //         if(this.flag && this.testingRecords.value[this.testingRecords.length - 1].testingRecordId != 0 
+  //             && this.testingRecords.value[this.testingRecords.length - 1].testingRecordId != '' 
+  //              && this.testingRecords.value[this.testingRecords.length - 1].testingRecordId != undefined) {
+  //                this.testingRecords.value[this.testingRecords.length - 1].testingRecordStatus = 'R';
+  //                this.deletedTestingRecord.push(this.testingRecords.value[this.testingRecords.length - 1]);
+  //              }
+  //              if(this.flag && this.observationArr.value[this.observationArr.length - 1].testingInnerObervationsId != 0 
+  //               && this.observationArr.value[this.observationArr.length - 1].testingInnerObervationsId != '' 
+  //                && this.observationArr.value[this.observationArr.length - 1].testingInnerObervationsId != undefined) {
+  //                  this.observationArr.value[this.observationArr.length - 1].testingInnerObservationStatus = 'R';
+  //                  this.deletedObservationArr.push(this.observationArr.value[this.observationArr.length - 1]);
+  //                }
+  //         this.testingRecords.removeAt(this.testingRecords.length - 1);
+  //         this.rateArr.removeAt(this.rateArr.length - 1);
+  //         this.observationArr.removeAt(this.testingRecords.length - 1);
+  //       }
+  //     }
+  //   }
+  // }
+
+  
+
+
   // Add and Delete Buttons
   add(form:any) {
     this.spdDescription = form.get('spdDescription') as FormArray;
     this.spdDescription.push(this.spddescriptionForm());
+    form.controls.noPannelSupplittingOb.setValue(form.controls.spdDescription.controls.length);
+    form.controls.noPannelSupplittingOb.updateValueAndValidity();
   }
 
   removeItem(form:any,a:any,index:any) {
@@ -281,11 +374,14 @@ export class LpsSpdComponent implements OnInit {
     if(a.value.spdDescriptionId !=0 && a.value.spdDescriptionId !=undefined)
     {
       a.value.flag=false;
+      this.spdDescriptionDelArr= this.spdDescriptionDelArr.concat(a.value);
       (form.get('spdDescription') as FormArray).removeAt(index);
-      this.spdPushArr= this.spdPushArr.concat(a.value);
+      
     }
   else{
     (form.get('spdDescription') as FormArray).removeAt(index);}
+    form.controls.noPannelSupplittingOb.setValue(form.controls.spdDescription.controls.length);
+    form.controls.noPannelSupplittingOb.updateValueAndValidity();
   }
 
   onSubmit(flag: any){
@@ -455,5 +551,45 @@ export class LpsSpdComponent implements OnInit {
         }
       );  
     }
+
+     //creating form array based on airtermination building
+  createSpdForm(data: any) {
+    
+    this.spd = this.spdForm.get('spd') as FormArray;
+
+    for (let i = 0; i < data.lpsAirDescription.length; i++) {
+      let buildingNumber = data.lpsAirDescription[i].buildingNumber
+      let buildingName = data.lpsAirDescription[i].buildingName
+      let buildingCount = data.lpsAirDescription[i].buildingCount
+      let isBuildingRequired = false;
+
+      //existing form having given building number avilable or not  
+      let isFormAvailable = '';
+      for (let k = 0; !isBuildingRequired && k < this.spd.length; k++) {
+        //form having correct building number & name
+        if (this.spd.value[k].buildingNumber == buildingNumber &&
+          this.spd.value[k].buildingName == buildingName &&
+          this.spd.value[k].buildingCount == buildingCount) {
+          isBuildingRequired = true;
+          isFormAvailable = "available"
+        }
+        //if form empty 
+        else if (this.spd.value[k].buildingNumber == '' ||
+          this.spd.value[k].buildingNumber == undefined ||
+          this.spd.value[k].buildingNumber == null) {
+          if (this.spd.length == 1) {
+            (this.spdForm.get('spd') as FormArray).removeAt(k);
+          }
+          this.spd.push(this.allSPD(buildingNumber, buildingName, buildingCount));
+          isBuildingRequired = true;
+          isFormAvailable = "available"
+        }
+      }
+      //not having form for given airtermination buildingnumber 
+      if (isFormAvailable != "available") {
+        this.spd.push(this.allSPD(buildingNumber, buildingName, buildingCount));
+      }
+    }
+  }
     
 }

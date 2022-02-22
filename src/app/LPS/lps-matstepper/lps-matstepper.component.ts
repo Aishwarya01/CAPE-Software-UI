@@ -213,10 +213,16 @@ export class LpsMatstepperComponent implements OnInit {
               this.earthing.createEarthingForm(this.dataJSON.airTermination);
             }
           }
-          if (this.dataJSON.spdReport != null)  {
-            this.spd.retrieveDetailsfromSavedReports(userName, basicLpsId, clientName, this.dataJSON);
-            this.Completed5 = true;
+          if(this.dataJSON.airTermination != null){
+            if (this.dataJSON.spdReport != null)  {
+              this.spd.retrieveDetailsfromSavedReports(userName, basicLpsId, clientName, this.dataJSON);
+              this.Completed5 = true;
+            }
+            else{
+              this.spd.createSpdForm(this.dataJSON.airTermination);
+            }
           }
+          
           if (this.dataJSON.airTermination != null) {
               if (this.dataJSON.seperationDistanceReport != null) {
                 this.seperationDistance.retrieveDetailsfromSavedReports(userName, basicLpsId, clientName, this.dataJSON);

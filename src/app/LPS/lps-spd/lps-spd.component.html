@@ -15,7 +15,7 @@
                                     <i class="bi bi-align-start"></i>
                                 </span>
                                 </div>
-                            <input type="number" class="form-control" formControlName="buildingNumber" placeholder="Please Enter Building Number"/>
+                            <input type="number" class="form-control" formControlName="buildingNumber" placeholder="Please Enter Building Number" readonly/>
                         </div>
                     </div>
         
@@ -27,7 +27,7 @@
                                     <i class="bi bi-align-start"></i>
                                 </span>
                             </div>
-                            <input  class="form-control" formControlName="buildingName" placeholder="Please Enter Building Name"/>
+                            <input  class="form-control" formControlName="buildingName" placeholder="Please Enter Building Name" readonly/>
                         </div>
                     </div>
                 </div>
@@ -114,9 +114,8 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
-                                                [readonly]="isEditable" formControlName="noPannelSupplittingOb"
-                                                placeholder="Please enter Observation here"
+                                            <input type="number" minlength="1" (keypress)="keyPressNumbers($event)" (keyup)="locationPanel($event,q)" class="form-control" style="height: 3rem;"
+                                                [readonly]="isEditable" formControlName="noPannelSupplittingOb" placeholder="The value must be a number"
                                                 [ngClass]="{'is-invalid': submitted && q.get('noPannelSupplittingOb')?.errors}">
                                             <div *ngIf="submitted && q.get('noPannelSupplittingOb')?.errors" class="invalid-feedback">
                                                 <div *ngIf="q.get('noPannelSupplittingOb')?.errors?.required">Total Number of panels supplting power to outdoor equipment observation is
@@ -295,7 +294,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <select class="form-control" formControlName="spdClassTypeOb" 
+                                                <select class="form-control" formControlName="spdClassTypeOb" style="height: 3rem;"
                                                 [ngClass]="{ 'is-invalid': submitted && a.get('spdClassTypeOb')?.errors}"> 
                                                     <option  value="" selected>Select Option</option>
                                                     <option value="class I" >class I</option>
@@ -328,7 +327,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <select class="form-control" formControlName="spdApplicationOb" 
+                                                <select class="form-control" formControlName="spdApplicationOb" style="height: 3rem;"
                                                 [ngClass]="{ 'is-invalid': submitted && a.get('spdApplicationOb')?.errors}">
                                                     <option  value="" selected>Select Option</option>
                                                     <option value="Power line" >Power line</option>
@@ -361,7 +360,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <select class="form-control" formControlName="spdMainApplicationOb" 
+                                                <select class="form-control" formControlName="spdMainApplicationOb" style="height: 3rem;"
                                                 [ngClass]="{ 'is-invalid': submitted && a.get('spdMainApplicationOb')?.errors}">
                                                     <option  value="" selected>Select Option</option>
                                                     <option value="YES" >Continuation of supply to equipment</option>
@@ -394,7 +393,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <select class="form-control" formControlName="properConnectionOb" [ngClass]="{ 'is-invalid': submitted && a.get('properConnectionOb')?.errors}">
+                                                <select class="form-control" formControlName="properConnectionOb" style="height: 3rem;" [ngClass]="{ 'is-invalid': submitted && a.get('properConnectionOb')?.errors}">
                                                     <option  value="" selected>Select Option</option>
                                                     <option value="YES" >Yes</option>
                                                     <option value="NO" >No</option>
@@ -423,10 +422,11 @@
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
+                                                        <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" (keypress)="keyPressNumbers($event)" formControlName="incomerRatingOb" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('incomerRatingOb')?.errors}">
+                                                <input type="number" (keypress)="keyPressNumbers($event)" formControlName="incomerRatingOb" class="form-control" style="height: 3rem;"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('incomerRatingOb')?.errors}" placeholder="The value must be a number">
                                                 <div *ngIf="submitted && a.get('incomerRatingOb')?.errors" class="invalid-feedback">
                                                     <div *ngIf="a.get('incomerRatingOb')?.errors?.required">Incomer rating is required</div>
                                                 </div> 
@@ -445,16 +445,17 @@
                                     </tr>
 
                                     <tr>
-                                        <td style="text-align: center;">5(e)</td>
+                                        <td rowspan="1" style="text-align: center;">5(e)</td>
                                         <td>Back up fuse/MCB rating in A (Back up fuse in line with safety requirements at "End of Life")</td>
                                         <td>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
+                                                        <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="fuseBackUpOb" [ngClass]="{ 'is-invalid': submitted && a.get('fuseBackUpOb')?.errors}">
+                                                <input type="number" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="fuseBackUpOb" style="height: 3rem;"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('fuseBackUpOb')?.errors}" placeholder="The value must be a number">
                                                 <div *ngIf="submitted && a.get('fuseBackUpOb')?.errors" class="invalid-feedback">
                                                     <div *ngIf="a.get('fuseBackUpOb')?.errors?.required">fuse/MCB rating is required</div>
                                                 </div> 
@@ -470,7 +471,13 @@
                                                 <textarea type="text" class="form-control" formControlName="fuseBackUpRem"></textarea>
                                             </div>
                                         </td>
+                                        
                                     </tr>
+
+                                    <!-- <tr>
+                                        <td>* Back up fuse in line with safety requirements at "End of Life"</td>
+                                    </tr> -->
+                                   
 
                                     <tr>
                                         <td rowspan="3" style="text-align: center;">5(f)</td>
@@ -483,10 +490,11 @@
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
+                                                        <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" (keypress)="keyPressNumbers($event)" formControlName="lengthOfConnectingWirePhaseOb" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('lengthOfConnectingWirePhaseOb')?.errors}">
+                                                <input type="number" (keypress)="keyPressNumbers($event)" formControlName="lengthOfConnectingWirePhaseOb" class="form-control" style="height: 3rem;"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('lengthOfConnectingWirePhaseOb')?.errors}" placeholder="The value must be a number">
                                                 <div *ngIf="submitted && a.get('lengthOfConnectingWirePhaseOb')?.errors" class="invalid-feedback">
                                                     <div *ngIf="a.get('lengthOfConnectingWirePhaseOb')?.errors?.required">Phase is required</div>
                                                 </div> 
@@ -510,10 +518,11 @@
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
+                                                        <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" (keypress)="keyPressNumbers($event)" formControlName="lengthOfConnectingWireProtectiveOb" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('lengthOfConnectingWireProtectiveOb')?.errors}">
+                                                <input type="number" (keypress)="keyPressNumbers($event)" formControlName="lengthOfConnectingWireProtectiveOb" class="form-control" style="height: 3rem;"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('lengthOfConnectingWireProtectiveOb')?.errors}" placeholder="The value must be a number">
                                                 <div *ngIf="submitted && a.get('lengthOfConnectingWireProtectiveOb')?.errors" class="invalid-feedback">
                                                     <div *ngIf="a.get('lengthOfConnectingWireProtectiveOb')?.errors?.required">Protective conductor is required</div>
                                                 </div> 
@@ -542,10 +551,11 @@
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
+                                                        <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" (keypress)="keyPressNumbers($event)" formControlName="sizeOfConnectingWirePhaseOb" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('sizeOfConnectingWirePhaseOb')?.errors}">
+                                                <input type="number" (keypress)="keyPressNumbers($event)" formControlName="sizeOfConnectingWirePhaseOb" class="form-control" style="height: 3rem;"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('sizeOfConnectingWirePhaseOb')?.errors}" placeholder="The value must be a number">
                                                 <div *ngIf="submitted && a.get('sizeOfConnectingWirePhaseOb')?.errors" class="invalid-feedback">
                                                     <div *ngIf="a.get('sizeOfConnectingWirePhaseOb')?.errors?.required">Phase is required</div>
                                                 </div> 
@@ -569,10 +579,11 @@
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
+                                                        <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" (keypress)="keyPressNumbers($event)" formControlName="sizeOfConnectingWireProtectiveOb" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('sizeOfConnectingWireProtectiveOb')?.errors}">
+                                                <input type="number" (keypress)="keyPressNumbers($event)" formControlName="sizeOfConnectingWireProtectiveOb" class="form-control" style="height: 3rem;"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('sizeOfConnectingWireProtectiveOb')?.errors}" placeholder="The value must be a number">
                                                 <div *ngIf="submitted && a.get('sizeOfConnectingWireProtectiveOb')?.errors" class="invalid-feedback">
                                                     <div *ngIf="a.get('sizeOfConnectingWireProtectiveOb')?.errors?.required">Protective conductor is required</div>
                                                 </div> 
