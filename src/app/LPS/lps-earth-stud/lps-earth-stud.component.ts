@@ -199,7 +199,7 @@ export class LpsEarthStudComponent implements OnInit {
         earthStud: [i],  
       });
       setTimeout(() => {
-        this.createearthStudForm(data.airtermination)
+        this.createearthStudForm(data.airTermination)
       }, 500);
   }
 

@@ -42,8 +42,6 @@ export class earthingLpsDescription {
 export class EarthingDescription {
     earthDescriptionId!:number
     flag!:boolean;
-    locationNumber!:number;
-    locationName!:String;
     soilResistivityInOb!: String;
     soilResistivityInRem!: String;
     earthPitDigOb!: String;
@@ -101,8 +99,7 @@ export class earthingDescriptionList {
 
 export class EarthingClamps {
     flag!:boolean;
-    locationNumber!:number;
-    locationName!:String;
+    earthingClampsId!:number
     physicalInspectionInOb!: String;
     psysicalInspectionInRem!: String;
     clampsFirmlyOb!: String;

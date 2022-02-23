@@ -1,236 +1,112 @@
 <div class="card">
-<div class="card-body">
-    <form [formGroup]="spdForm" (ngSubmit)="onSubmit(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
-        <div formArrayName="spd" *ngFor="let q of overAllspdControl(); let j = index">
-        <div class="form-group" [formGroupName]="j">  
-        <mat-accordion>
-            <mat-expansion-panel>
-                <mat-expansion-panel-header>Basic Details</mat-expansion-panel-header>
-                <div class="row">
-                    <div class="col-md-4">
-                        <label for="buildingnumber">Building Number</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">
-                                    <i class="bi bi-align-start"></i>
-                                </span>
-                                </div>
-                            <input type="number" class="form-control" formControlName="buildingNumber" placeholder="Please Enter Building Number" readonly/>
-                        </div>
-                    </div>
-        
-                    <div class="col-md-4">
-                        <label for="buildingname">Building Name</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">
-                                    <i class="bi bi-align-start"></i>
-                                </span>
-                            </div>
-                            <input  class="form-control" formControlName="buildingName" placeholder="Please Enter Building Name" readonly/>
-                        </div>
-                    </div>
-                </div>
-                    
-                    <!-- tables -->
+    <div class="card-body">
+        <form [formGroup]="spdForm" (ngSubmit)="onSubmit(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
+            <div formArrayName="spd" *ngFor="let q of overAllspdControl(); let j = index">
+            <div class="form-group" [formGroupName]="j">  
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>Basic Details</mat-expansion-panel-header>
                     <div class="row">
-                    <div class="col-sm-16">
-                        <div class="table-responsive" style="overflow-x: unset; margin-top: 20px;"> 
-                            <table class="table TableBorder">
-                            <thead>
-                                <th>SI.No</th>
-                                <th>Description</th>
-                                <th>Observation</th>
-                                <th>Remarks(Optional)</th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td style="width: 1rem; text-align: center;">1.</td>
-                                    <td style="width: 24rem;">Mains incoming panel</td>
-                                    <td style="width: 43rem;">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span></div>
-                                            <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="mainsIncomingOb"
-                                                placeholder="Please enter Observation here"
-                                                [ngClass]="{'is-invalid': submitted && q.get('mainsIncomingOb')?.errors}"></textarea>
-                                            <div *ngIf="submitted && q.get('mainsIncomingOb')?.errors" class="invalid-feedback">
-                                                <div *ngIf="q.get('mainsIncomingOb')?.errors?.required">Mains incoming panel observation is required
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td style="width: 43rem;">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="mainsIncomingRem" ></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center;">2.</td>
-                                    <td>Total Number of mains incoming panels</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="totalMainsIncomingOb"  
-                                                placeholder="Please enter Observation here"
-                                                [ngClass]="{'is-invalid': submitted && q.get('totalMainsIncomingOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && q.get('totalMainsIncomingOb')?.errors" class="invalid-feedback">
-                                                <div *ngIf="q.get('totalMainsIncomingOb')?.errors?.required">Total Number of mains incoming panels observation is required</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control"[readonly]="isEditable" formControlName="totalMainsIncomingRem"></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center;">3.</td>
-                                    <td>Total Number of panels supplting power to outdoor equipment such as light
-                                        fittings / air conditioner chiller units (not split AC outdoor unit)</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <input type="number" minlength="1" (keypress)="keyPressNumbers($event)" (keyup)="locationPanel($event,q)" class="form-control" style="height: 3rem;"
-                                                [readonly]="isEditable" formControlName="noPannelSupplittingOb" placeholder="The value must be a number"
-                                                [ngClass]="{'is-invalid': submitted && q.get('noPannelSupplittingOb')?.errors}">
-                                            <div *ngIf="submitted && q.get('noPannelSupplittingOb')?.errors" class="invalid-feedback">
-                                                <div *ngIf="q.get('noPannelSupplittingOb')?.errors?.required">Total Number of panels supplting power to outdoor equipment observation is
-                                                    required</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="noPannelSupplittingRem"></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center;">4.</td>
-                                    <td>Total Number of outdoor equipment and type each equipment</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="totalNoOutDoorRequipmentOb"
-                                                placeholder="Please enter Observation here"
-                                                [ngClass]="{'is-invalid': submitted && q.get('totalNoOutDoorRequipmentOb')?.errors}"></textarea>
-                                            <div *ngIf="submitted && q.get('totalNoOutDoorRequipmentOb')?.errors" class="invalid-feedback">
-                                                <div *ngIf="q.get('totalNoOutDoorRequipmentOb')?.errors?.required">Total Number of outdoor equipment observation is
-                                                    required</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control" 
-                                                [readonly]="isEditable" formControlName="totalNoOutDoorRequipmentRem"
-                                                ></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="col-md-4">
+                            <label for="buildingnumber">Building Number</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-align-start"></i>
+                                    </span>
+                                    </div>
+                                <input type="number" class="form-control" formControlName="buildingNumber" placeholder="Please Enter Building Number" readonly/>
+                            </div>
+                        </div>
+            
+                        <div class="col-md-4">
+                            <label for="buildingname">Building Name</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-align-start"></i>
+                                    </span>
+                                </div>
+                                <input  class="form-control" formControlName="buildingName" placeholder="Please Enter Building Name" readonly/>
+                            </div>
                         </div>
                     </div>
-                    </div>
-
-            </mat-expansion-panel>
-
-            <div style="margin-top: 10px;">
-                <label style="font-size: 11px; font-weight: bold;">* SPD is necessary for each mains incoming panel and each electrical panel feeding power to an outdoor equipment</label>
-            </div>
-
-            <mat-expansion-panel>
-                <mat-expansion-panel-header>SPD</mat-expansion-panel-header>
-                <div class="row">
-                    <div class="col-sm-12">
-                    <div class="table-responsive" style="overflow-x: unset;">
-                        <table class="table TableBorder">
-                            <tbody formArrayName="spdDescription" *ngFor="let a of spdDescriptionControl(q); let i= index">
-                                <div class="form-group" [formGroupName]="i">
-                                    <thead>
-                                        <th>SI.No</th>
-                                        <th>Description</th>
-                                        <th>Observation</th>
-                                        <th>Remarks(Optional)</th>
-                                    </thead>
-
+                        
+                        <!-- tables -->
+                        <div class="row">
+                        <div class="col-sm-16">
+                            <div class="table-responsive" style="overflow-x: unset; margin-top: 20px;"> 
+                                <table class="table TableBorder">
+                                <thead>
+                                    <th>SI.No</th>
+                                    <th>Description</th>
+                                    <th>Observation</th>
+                                    <th>Remarks(Optional)</th>
+                                </thead>
+                                <tbody>
                                     <tr>
-                                        <td style="width: 1rem; text-align: center;">5</td>
+                                        <td style="width: 1rem; text-align: center;">1.</td>
+                                        <td style="width: 24rem;">Mains incoming panel</td>
                                         <td style="width: 43rem;">
-                                                <label for="buildingnumber">Location</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i class="bi bi-align-start"></i>
-                                                        </span>
-                                                        </div>
-                                                    <input class="form-control" formControlName="location" placeholder="Enter Location" 
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('location')?.errors}"/>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span></div>
+                                                <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="mainsIncomingOb"
+                                                    placeholder="Please enter Observation here"
+                                                    [ngClass]="{'is-invalid': submitted && q.get('mainsIncomingOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && q.get('mainsIncomingOb')?.errors" class="invalid-feedback">
+                                                    <div *ngIf="q.get('mainsIncomingOb')?.errors?.required">Mains incoming panel observation is required
+                                                    </div>
                                                 </div>
+                                            </div>
                                         </td>
                                         <td style="width: 43rem;">
-                                            <label for="buildingnumber">Panel Name</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i class="bi bi-align-start"></i>
-                                                        </span>
-                                                        </div>
-                                                    <input class="form-control" formControlName="panelName" [ngClass]="{ 'is-invalid': submitted && a.get('panelName')?.errors}" 
-                                                    placeholder="Enter Panel Name"/>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
                                                 </div>
+                                                <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="mainsIncomingRem" ></textarea>
+                                            </div>
                                         </td>
                                     </tr>
-
                                     <tr>
-                                        <td rowspan="5" style="width: 1rem; text-align: center;">5(a)</td>
-                                        <td style="width: 24rem; font-weight: 600;">* Details of SPD</td>
-                                        <td style="width: 43rem;"></td>
-                                        <td style="width: 43rem;"></td>
+                                        <td style="text-align: center;">2.</td>
+                                        <td>Total Number of mains incoming panels</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="totalMainsIncomingOb"  
+                                                    placeholder="Please enter Observation here"
+                                                    [ngClass]="{'is-invalid': submitted && q.get('totalMainsIncomingOb')?.errors}"></textarea>
+                                                    <div *ngIf="submitted && q.get('totalMainsIncomingOb')?.errors" class="invalid-feedback">
+                                                    <div *ngIf="q.get('totalMainsIncomingOb')?.errors?.required">Total Number of mains incoming panels observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"[readonly]="isEditable" formControlName="totalMainsIncomingRem"></textarea>
+                                            </div>
+                                        </td>
                                     </tr>
-
                                     <tr>
-                                        <td>Make</td>
+                                        <td style="text-align: center;">3.</td>
+                                        <td>Total Number of panels supplting power to outdoor equipment such as light
+                                            fittings / air conditioner chiller units (not split AC outdoor unit)</td>
                                         <td>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
@@ -238,11 +114,13 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" formControlName="spdMakeOb" class="form-control" placeholder="Please enter Make"
-                                                [ngClass]="{ 'is-invalid': submitted && a.get('spdMakeOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && a.get('spdMakeOb')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="a.get('spdMakeOb')?.errors?.required">Make is required</div>
-                                                </div>    
+                                                <input type="number" minlength="1" (keypress)="keyPressNumbers($event)" (keyup)="locationPanel($event,q)" class="form-control" style="height: 3rem;"
+                                                    [readonly]="isEditable" formControlName="noPannelSupplittingOb" placeholder="The value must be a number"
+                                                    [ngClass]="{'is-invalid': submitted && q.get('noPannelSupplittingOb')?.errors}">
+                                                <div *ngIf="submitted && q.get('noPannelSupplittingOb')?.errors" class="invalid-feedback">
+                                                    <div *ngIf="q.get('noPannelSupplittingOb')?.errors?.required">Total Number of panels supplting power to outdoor equipment observation is
+                                                        required</div>
+                                                </div>
                                             </div>
                                         </td>
                                         <td>
@@ -252,13 +130,13 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" formControlName="spdMakeRem" class="form-control" placeholder="Remarks is optional"></textarea>
+                                                <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="noPannelSupplittingRem"></textarea>
                                             </div>
                                         </td>
                                     </tr>
-
                                     <tr>
-                                        <td>Model</td>
+                                        <td style="text-align: center;">4.</td>
+                                        <td>Total Number of outdoor equipment and type each equipment</td>
                                         <td>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
@@ -266,11 +144,14 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" formControlName="spdModelOb" class="form-control" placeholder="Please enter Model"
-                                                [ngClass]="{ 'is-invalid': submitted && a.get('spdModelOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && a.get('spdModelOb')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="a.get('spdModelOb')?.errors?.required">Model is required</div>
-                                                </div>  
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="totalNoOutDoorRequipmentOb"
+                                                    placeholder="Please enter Observation here"
+                                                    [ngClass]="{'is-invalid': submitted && q.get('totalNoOutDoorRequipmentOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && q.get('totalNoOutDoorRequipmentOb')?.errors" class="invalid-feedback">
+                                                    <div *ngIf="q.get('totalNoOutDoorRequipmentOb')?.errors?.required">Total Number of outdoor equipment observation is
+                                                        required</div>
+                                                </div>
                                             </div>
                                         </td>
                                         <td>
@@ -280,401 +161,520 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" formControlName="spdModelRem" class="form-control" placeholder="Remarks is optional"></textarea>
+                                                <textarea type="text" class="form-control" 
+                                                    [readonly]="isEditable" formControlName="totalNoOutDoorRequipmentRem"
+                                                    ></textarea>
                                             </div>
                                         </td>
                                     </tr>
-
-                                    <tr>
-                                        <td>Class Type</td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
-                                                    </span>
-                                                </div>
-                                                <select class="form-control" formControlName="spdClassTypeOb" style="height: 3rem;"
-                                                [ngClass]="{ 'is-invalid': submitted && a.get('spdClassTypeOb')?.errors}"> 
-                                                    <option  value="" selected>Select Option</option>
-                                                    <option value="class I" >class I</option>
-                                                    <option value="class II" >class II</option>
-                                                    <option value="class III" >class III</option>
-                                                </select>
-                                                <div *ngIf="submitted && a.get('spdClassTypeOb')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="a.get('spdClassTypeOb')?.errors?.required">Class Type is required</div>
-                                                </div> 
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
-                                                    </span>
-                                                </div>
-                                                <textarea type="text" formControlName="spdClassTypeRem" class="form-control"></textarea>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Application</td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
-                                                    </span>
-                                                </div>
-                                                <select class="form-control" formControlName="spdApplicationOb" style="height: 3rem;"
-                                                [ngClass]="{ 'is-invalid': submitted && a.get('spdApplicationOb')?.errors}">
-                                                    <option  value="" selected>Select Option</option>
-                                                    <option value="Power line" >Power line</option>
-                                                    <option value="telecom line" >Telecom line</option>
-                                                </select>
-                                                <div *ngIf="submitted && a.get('spdApplicationOb')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="a.get('spdApplicationOb')?.errors?.required">ApplicationOb is required</div>
-                                                </div> 
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
-                                                    </span>
-                                                </div>
-                                                <textarea type="text" formControlName="spdApplicationRem" class="form-control" ></textarea>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td style="text-align: center;">5(b)</td>
-                                        <td>Application</td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
-                                                    </span>
-                                                </div>
-                                                <select class="form-control" formControlName="spdMainApplicationOb" style="height: 3rem;"
-                                                [ngClass]="{ 'is-invalid': submitted && a.get('spdMainApplicationOb')?.errors}">
-                                                    <option  value="" selected>Select Option</option>
-                                                    <option value="YES" >Continuation of supply to equipment</option>
-                                                    <option value="NO" >Continuation of protection to equipment</option>
-                                                </select>
-                                                <div *ngIf="submitted && a.get('spdMainApplicationOb')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="a.get('spdMainApplicationOb')?.errors?.required">ApplicationOb is required</div>
-                                                </div> 
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
-                                                    </span>
-                                                </div>
-                                                <textarea type="text" formControlName="spdMainApplicationRem" class="form-control"></textarea>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    
-                                    <tr>
-                                        <td style="text-align: center;">5(c)</td>
-                                        <td>Proper connection made based on application</td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
-                                                    </span>
-                                                </div>
-                                                <select class="form-control" formControlName="properConnectionOb" style="height: 3rem;" [ngClass]="{ 'is-invalid': submitted && a.get('properConnectionOb')?.errors}">
-                                                    <option  value="" selected>Select Option</option>
-                                                    <option value="YES" >Yes</option>
-                                                    <option value="NO" >No</option>
-                                                </select>
-                                                <div *ngIf="submitted && a.get('spdApplicationOb')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="a.get('spdApplicationOb')?.errors?.required">ApplicationOb is required</div>
-                                                </div> 
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
-                                                    </span>
-                                                </div>
-                                                <textarea type="text" formControlName="properConnectionRem" class="form-control"></textarea>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td style="text-align: center;">5(d)</td>
-                                        <td>Incomer rating of the panel in A</td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-list-ol"></i>
-                                                    </span>
-                                                </div>
-                                                <input type="number" (keypress)="keyPressNumbers($event)" formControlName="incomerRatingOb" class="form-control" style="height: 3rem;"
-                                                [ngClass]="{ 'is-invalid': submitted && a.get('incomerRatingOb')?.errors}" placeholder="The value must be a number">
-                                                <div *ngIf="submitted && a.get('incomerRatingOb')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="a.get('incomerRatingOb')?.errors?.required">Incomer rating is required</div>
-                                                </div> 
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
-                                                    </span>
-                                                </div>
-                                                <textarea type="text" formControlName="incomerRatingRem" class="form-control"></textarea>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td rowspan="1" style="text-align: center;">5(e)</td>
-                                        <td>Back up fuse/MCB rating in A (Back up fuse in line with safety requirements at "End of Life")</td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-list-ol"></i>
-                                                    </span>
-                                                </div>
-                                                <input type="number" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="fuseBackUpOb" style="height: 3rem;"
-                                                [ngClass]="{ 'is-invalid': submitted && a.get('fuseBackUpOb')?.errors}" placeholder="The value must be a number">
-                                                <div *ngIf="submitted && a.get('fuseBackUpOb')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="a.get('fuseBackUpOb')?.errors?.required">fuse/MCB rating is required</div>
-                                                </div> 
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
-                                                    </span>
-                                                </div>
-                                                <textarea type="text" class="form-control" formControlName="fuseBackUpRem"></textarea>
-                                            </div>
-                                        </td>
-                                        
-                                    </tr>
-
-                                    <!-- <tr>
-                                        <td>* Back up fuse in line with safety requirements at "End of Life"</td>
-                                    </tr> -->
-                                   
-
-                                    <tr>
-                                        <td rowspan="3" style="text-align: center;">5(f)</td>
-                                        <td style="font-weight: 600;">* Length of connecting wire in meters</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Phase</td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-list-ol"></i>
-                                                    </span>
-                                                </div>
-                                                <input type="number" (keypress)="keyPressNumbers($event)" formControlName="lengthOfConnectingWirePhaseOb" class="form-control" style="height: 3rem;"
-                                                [ngClass]="{ 'is-invalid': submitted && a.get('lengthOfConnectingWirePhaseOb')?.errors}" placeholder="The value must be a number">
-                                                <div *ngIf="submitted && a.get('lengthOfConnectingWirePhaseOb')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="a.get('lengthOfConnectingWirePhaseOb')?.errors?.required">Phase is required</div>
-                                                </div> 
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
-                                                    </span>
-                                                </div>
-                                                <textarea type="text" formControlName="lengthOfConnectingWirePhaseRem" class="form-control"></textarea>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Protective conductor</td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-list-ol"></i>
-                                                    </span>
-                                                </div>
-                                                <input type="number" (keypress)="keyPressNumbers($event)" formControlName="lengthOfConnectingWireProtectiveOb" class="form-control" style="height: 3rem;"
-                                                [ngClass]="{ 'is-invalid': submitted && a.get('lengthOfConnectingWireProtectiveOb')?.errors}" placeholder="The value must be a number">
-                                                <div *ngIf="submitted && a.get('lengthOfConnectingWireProtectiveOb')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="a.get('lengthOfConnectingWireProtectiveOb')?.errors?.required">Protective conductor is required</div>
-                                                </div> 
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
-                                                    </span>
-                                                </div>
-                                                <textarea type="text" formControlName="lengthOfConnectingWireProtectiveRem" class="form-control"></textarea>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td rowspan="3" style="text-align: center;">5(g)</td>
-                                        <td style="font-weight: 600;">* Size of connecting wire in sq.mm</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Phase</td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-list-ol"></i>
-                                                    </span>
-                                                </div>
-                                                <input type="number" (keypress)="keyPressNumbers($event)" formControlName="sizeOfConnectingWirePhaseOb" class="form-control" style="height: 3rem;"
-                                                [ngClass]="{ 'is-invalid': submitted && a.get('sizeOfConnectingWirePhaseOb')?.errors}" placeholder="The value must be a number">
-                                                <div *ngIf="submitted && a.get('sizeOfConnectingWirePhaseOb')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="a.get('sizeOfConnectingWirePhaseOb')?.errors?.required">Phase is required</div>
-                                                </div> 
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
-                                                    </span>
-                                                </div>
-                                                <textarea type="text" formControlName="sizeOfConnectingWirePhaseRem" class="form-control"></textarea>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Protective conductor</td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-list-ol"></i>
-                                                    </span>
-                                                </div>
-                                                <input type="number" (keypress)="keyPressNumbers($event)" formControlName="sizeOfConnectingWireProtectiveOb" class="form-control" style="height: 3rem;"
-                                                [ngClass]="{ 'is-invalid': submitted && a.get('sizeOfConnectingWireProtectiveOb')?.errors}" placeholder="The value must be a number">
-                                                <div *ngIf="submitted && a.get('sizeOfConnectingWireProtectiveOb')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="a.get('sizeOfConnectingWireProtectiveOb')?.errors?.required">Protective conductor is required</div>
-                                                </div> 
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
-                                                    </span>
-                                                </div>
-                                                <textarea type="text" formControlName="sizeOfConnectingWireProtectiveRem" class="form-control"></textarea>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    
-                                    <div class="row" style="float: right;">
-                                        <mat-icon class="mousechange" class="add" (click)="add(q)" type="button" style="float: right;position: relative; margin-top: 5px;"
-                                        *ngIf="spdDescriptionControl(q).length == i+1" title="Add another section">add_box</mat-icon>
-
-                                        <mat-icon class="mousechange" class="dlt" type="button" title="Delete" style="float: right;position: relative; margin-top: 5px; margin-bottom: 5px;"
-                                        *ngIf="spdDescriptionControl(q).length > 1" (click)="removeItem(q,a,i)"title="delete">remove_circle_outline</mat-icon>
-                                    </div>
-
-                                </div>
-                          
-                            </tbody>
-                        </table>
-                    </div>
-                    </div>
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                        </div>
+    
+                </mat-expansion-panel>
+    
+                <div style="margin-top: 10px;">
+                    <label style="font-size: 11px; font-weight: bold;">* SPD is necessary for each mains incoming panel and each electrical panel feeding power to an outdoor equipment</label>
                 </div>
-            </mat-expansion-panel>
-
-        </mat-accordion>
-        </div>
-        </div>
-
-        <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
-            <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
-            <button class="next" (click)="gotoNextModal(content,contents)" mat-button >Next &raquo;</button>
-        </div>  
-
-        <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
-            <span class="alert alert-danger">{{validationErrorMsg}}</span>
-        </div>
-    </form>
-</div>
-</div>
-
-<ng-template #content let-modal>
-    <div class="modal-body">
-        <div class="centre-text m-btm30">
-            <div *ngIf="success" style="text-align: center;">
-                <span class="successshow">{{successMsg}}</span>
+    
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>SPD</mat-expansion-panel-header>
+                    <div class="row">
+                        <div class="col-sm-12">
+                        <div class="table-responsive" style="overflow-x: unset;">
+                            <table class="table TableBorder">
+                                <tbody formArrayName="spdDescription" *ngFor="let a of spdDescriptionControl(q); let i= index">
+                                    <div class="form-group" [formGroupName]="i">
+                                        <thead>
+                                            <th>SI.No</th>
+                                            <th>Description</th>
+                                            <th>Observation</th>
+                                            <th>Remarks(Optional)</th>
+                                        </thead>
+    
+                                        <tr>
+                                            <td style="width: 1rem; text-align: center;">5</td>
+                                            <td style="width: 43rem;">
+                                                    <label for="buildingnumber">Location</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                <i class="bi bi-align-start"></i>
+                                                            </span>
+                                                            </div>
+                                                        <input class="form-control" formControlName="location" placeholder="Enter Location" 
+                                                        [ngClass]="{ 'is-invalid': submitted && a.get('location')?.errors}"/>
+                                                    </div>
+                                            </td>
+                                            <td style="width: 43rem;">
+                                                <label for="buildingnumber">Panel Name</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                <i class="bi bi-align-start"></i>
+                                                            </span>
+                                                            </div>
+                                                        <input class="form-control" formControlName="panelName" [ngClass]="{ 'is-invalid': submitted && a.get('panelName')?.errors}" 
+                                                        placeholder="Enter Panel Name"/>
+                                                    </div>
+                                            </td>
+                                        </tr>
+    
+                                        <tr>
+                                            <td rowspan="5" style="width: 1rem; text-align: center;">5(a)</td>
+                                            <td style="width: 24rem; font-weight: 600;">* Details of SPD</td>
+                                            <td style="width: 43rem;"></td>
+                                            <td style="width: 43rem;"></td>
+                                        </tr>
+    
+                                        <tr>
+                                            <td>Make</td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <textarea type="text" formControlName="spdMakeOb" class="form-control" placeholder="Please enter Make"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('spdMakeOb')?.errors}"></textarea>
+                                                    <div *ngIf="submitted && a.get('spdMakeOb')?.errors" class="invalid-feedback">
+                                                        <div *ngIf="a.get('spdMakeOb')?.errors?.required">Make is required</div>
+                                                    </div>    
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <textarea type="text" formControlName="spdMakeRem" class="form-control" placeholder="Remarks is optional"></textarea>
+                                                </div>
+                                            </td>
+                                        </tr>
+    
+                                        <tr>
+                                            <td>Model</td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <textarea type="text" formControlName="spdModelOb" class="form-control" placeholder="Please enter Model"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('spdModelOb')?.errors}"></textarea>
+                                                    <div *ngIf="submitted && a.get('spdModelOb')?.errors" class="invalid-feedback">
+                                                        <div *ngIf="a.get('spdModelOb')?.errors?.required">Model is required</div>
+                                                    </div>  
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <textarea type="text" formControlName="spdModelRem" class="form-control" placeholder="Remarks is optional"></textarea>
+                                                </div>
+                                            </td>
+                                        </tr>
+    
+                                        <tr>
+                                            <td>Class Type</td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <select class="form-control" formControlName="spdClassTypeOb" style="height: 3rem;"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('spdClassTypeOb')?.errors}"> 
+                                                        <option  value="" selected>Select Option</option>
+                                                        <option value="class I" >class I</option>
+                                                        <option value="class II" >class II</option>
+                                                        <option value="class III" >class III</option>
+                                                    </select>
+                                                    <div *ngIf="submitted && a.get('spdClassTypeOb')?.errors" class="invalid-feedback">
+                                                        <div *ngIf="a.get('spdClassTypeOb')?.errors?.required">Class Type is required</div>
+                                                    </div> 
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <textarea type="text" formControlName="spdClassTypeRem" class="form-control"></textarea>
+                                                </div>
+                                            </td>
+                                        </tr>
+    
+                                        <tr>
+                                            <td>Application</td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <select class="form-control" formControlName="spdApplicationOb" style="height: 3rem;"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('spdApplicationOb')?.errors}">
+                                                        <option  value="" selected>Select Option</option>
+                                                        <option value="Power line" >Power line</option>
+                                                        <option value="Telecom line" >Telecom line</option>
+                                                    </select>
+                                                    <div *ngIf="submitted && a.get('spdApplicationOb')?.errors" class="invalid-feedback">
+                                                        <div *ngIf="a.get('spdApplicationOb')?.errors?.required">ApplicationOb is required</div>
+                                                    </div> 
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <textarea type="text" formControlName="spdApplicationRem" class="form-control" ></textarea>
+                                                </div>
+                                            </td>
+                                        </tr>
+    
+                                        <tr>
+                                            <td style="text-align: center;">5(b)</td>
+                                            <td>Application</td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <select class="form-control" formControlName="spdMainApplicationOb" style="height: 3rem;"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('spdMainApplicationOb')?.errors}">
+                                                        <option  value="" selected>Select Option</option>
+                                                        <option value="Continuation of supply to equipment" >Continuation of supply to equipment</option>
+                                                        <option value="Continuation of protection to equipment" >Continuation of protection to equipment</option>
+                                                    </select>
+                                                    <div *ngIf="submitted && a.get('spdMainApplicationOb')?.errors" class="invalid-feedback">
+                                                        <div *ngIf="a.get('spdMainApplicationOb')?.errors?.required">Application is required</div>
+                                                    </div> 
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <textarea type="text" formControlName="spdMainApplicationRem" class="form-control"></textarea>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td style="text-align: center;">5(c)</td>
+                                            <td>Proper connection made based on application</td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <select class="form-control" formControlName="properConnectionOb" style="height: 3rem;" [ngClass]="{ 'is-invalid': submitted && a.get('properConnectionOb')?.errors}">
+                                                        <option  value="" selected>Select Option</option>
+                                                        <option value="Yes" >Yes</option>
+                                                        <option value="No" >No</option>
+                                                    </select>
+                                                    <div *ngIf="submitted && a.get('properConnectionOb')?.errors" class="invalid-feedback">
+                                                        <div *ngIf="a.get('properConnectionOb')?.errors?.required">ApplicationOb is required</div>
+                                                    </div> 
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <textarea type="text" formControlName="properConnectionRem" class="form-control"></textarea>
+                                                </div>
+                                            </td>
+                                        </tr>
+    
+                                        <tr>
+                                            <td style="text-align: center;">5(d)</td>
+                                            <td>Incomer rating of the panel in A</td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-list-ol"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="number" (keypress)="keyPressNumbers($event)" formControlName="incomerRatingOb" class="form-control" style="height: 3rem;"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('incomerRatingOb')?.errors}" placeholder="The value must be a number">
+                                                    <div *ngIf="submitted && a.get('incomerRatingOb')?.errors" class="invalid-feedback">
+                                                        <div *ngIf="a.get('incomerRatingOb')?.errors?.required">Incomer rating is required</div>
+                                                    </div> 
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <textarea type="text" formControlName="incomerRatingRem" class="form-control"></textarea>
+                                                </div>
+                                            </td>
+                                        </tr>
+    
+                                        <tr>
+                                            <td rowspan="1" style="text-align: center;">5(e)</td>
+                                            <td>Back up fuse/MCB rating in A (Back up fuse in line with safety requirements at "End of Life")</td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-list-ol"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="number" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="fuseBackUpOb" style="height: 3rem;"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('fuseBackUpOb')?.errors}" placeholder="The value must be a number">
+                                                    <div *ngIf="submitted && a.get('fuseBackUpOb')?.errors" class="invalid-feedback">
+                                                        <div *ngIf="a.get('fuseBackUpOb')?.errors?.required">fuse/MCB rating is required</div>
+                                                    </div> 
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <textarea type="text" class="form-control" formControlName="fuseBackUpRem"></textarea>
+                                                </div>
+                                            </td>
+                                            
+                                        </tr>
+    
+                                        <!-- <tr>
+                                            <td>* Back up fuse in line with safety requirements at "End of Life"</td>
+                                        </tr> -->
+                                       
+    
+                                        <tr>
+                                            <td rowspan="3" style="text-align: center;">5(f)</td>
+                                            <td style="font-weight: 600;">* Length of connecting wire in meters</td>
+                                        </tr>
+    
+                                        <tr>
+                                            <td>Phase</td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-list-ol"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="number" (keypress)="keyPressNumbers($event)" formControlName="lengthOfConnectingWirePhaseOb" class="form-control" style="height: 3rem;"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('lengthOfConnectingWirePhaseOb')?.errors}" placeholder="The value must be a number">
+                                                    <div *ngIf="submitted && a.get('lengthOfConnectingWirePhaseOb')?.errors" class="invalid-feedback">
+                                                        <div *ngIf="a.get('lengthOfConnectingWirePhaseOb')?.errors?.required">Phase is required</div>
+                                                    </div> 
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <textarea type="text" formControlName="lengthOfConnectingWirePhaseRem" class="form-control"></textarea>
+                                                </div>
+                                            </td>
+                                        </tr>
+    
+                                        <tr>
+                                            <td>Protective conductor</td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-list-ol"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="number" (keypress)="keyPressNumbers($event)" formControlName="lengthOfConnectingWireProtectiveOb" class="form-control" style="height: 3rem;"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('lengthOfConnectingWireProtectiveOb')?.errors}" placeholder="The value must be a number">
+                                                    <div *ngIf="submitted && a.get('lengthOfConnectingWireProtectiveOb')?.errors" class="invalid-feedback">
+                                                        <div *ngIf="a.get('lengthOfConnectingWireProtectiveOb')?.errors?.required">Protective conductor is required</div>
+                                                    </div> 
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <textarea type="text" formControlName="lengthOfConnectingWireProtectiveRem" class="form-control"></textarea>
+                                                </div>
+                                            </td>
+                                        </tr>
+    
+                                        <tr>
+                                            <td rowspan="3" style="text-align: center;">5(g)</td>
+                                            <td style="font-weight: 600;">* Size of connecting wire in sq.mm</td>
+                                        </tr>
+    
+                                        <tr>
+                                            <td>Phase</td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-list-ol"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="number" (keypress)="keyPressNumbers($event)" formControlName="sizeOfConnectingWirePhaseOb" class="form-control" style="height: 3rem;"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('sizeOfConnectingWirePhaseOb')?.errors}" placeholder="The value must be a number">
+                                                    <div *ngIf="submitted && a.get('sizeOfConnectingWirePhaseOb')?.errors" class="invalid-feedback">
+                                                        <div *ngIf="a.get('sizeOfConnectingWirePhaseOb')?.errors?.required">Phase is required</div>
+                                                    </div> 
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <textarea type="text" formControlName="sizeOfConnectingWirePhaseRem" class="form-control"></textarea>
+                                                </div>
+                                            </td>
+                                        </tr>
+    
+                                        <tr>
+                                            <td>Protective conductor</td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-list-ol"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="number" (keypress)="keyPressNumbers($event)" formControlName="sizeOfConnectingWireProtectiveOb" class="form-control" style="height: 3rem;"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('sizeOfConnectingWireProtectiveOb')?.errors}" placeholder="The value must be a number">
+                                                    <div *ngIf="submitted && a.get('sizeOfConnectingWireProtectiveOb')?.errors" class="invalid-feedback">
+                                                        <div *ngIf="a.get('sizeOfConnectingWireProtectiveOb')?.errors?.required">Protective conductor is required</div>
+                                                    </div> 
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <textarea type="text" formControlName="sizeOfConnectingWireProtectiveRem" class="form-control"></textarea>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        
+                                        <div class="row" style="float: right;">
+                                            <mat-icon class="mousechange" class="add" (click)="add(q)" type="button" style="float: right;position: relative; margin-top: 5px;"
+                                            *ngIf="spdDescriptionControl(q).length == i+1" title="Add another section">add_box</mat-icon>
+    
+                                            <mat-icon class="mousechange" class="dlt" type="button" title="Delete" style="float: right;position: relative; margin-top: 5px; margin-bottom: 5px;"
+                                            *ngIf="spdDescriptionControl(q).length > 1" (click)="removeItem(q,a,i)"title="delete">remove_circle_outline</mat-icon>
+                                        </div>
+    
+                                    </div>
+                              
+                                </tbody>
+                            </table>
+                        </div>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+    
+            </mat-accordion>
             </div>
-            <div *ngIf="Error" style="text-align: center;">
-                <span class="errorshow">{{errorMsg}}</span>
             </div>
-        </div>
+    
+            <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
+                <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
+                <button class="next" (click)="gotoNextModal(content,contents)" mat-button >Next &raquo;</button>
+            </div>  
+    
+            <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
+                <span class="alert alert-danger">{{validationErrorMsg}}</span>
+            </div>
+        </form>
     </div>
-    <br>
-     <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
-     aria-label="Close"  (click)="closeModalDialog()" matStepperNext>
-
-      <span aria-hidden="true">Ok</span>
-
-  </button>
-</ng-template> 
-<ng-template #contents let-modal>
-    <div class="modal-body">
-     <div class="centre-text m-btm30">
-      <div style="text-align: center;">
-        <span class="successshow">Are you sure you want to procced? </span>
+    </div>
+    
+    <ng-template #content let-modal>
+        <div class="modal-body">
+            <div class="centre-text m-btm30">
+                <div *ngIf="success" style="text-align: center;">
+                    <span class="successshow">{{successMsg}}</span>
+                </div>
+                <div *ngIf="Error" style="text-align: center;">
+                    <span class="errorshow">{{errorMsg}}</span>
+                </div>
+            </div>
+        </div>
         <br>
-        <span style="font-size: 12px;">Note: Please verify all the details! </span>
-       </div>
+         <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+         aria-label="Close"  (click)="closeModalDialog()" matStepperNext>
+    
+          <span aria-hidden="true">Ok</span>
+    
+      </button>
+    </ng-template> 
+    <ng-template #contents let-modal>
+        <div class="modal-body">
+         <div class="centre-text m-btm30">
+          <div style="text-align: center;">
+            <span class="successshow">Are you sure you want to procced? </span>
+            <br>
+            <span style="font-size: 12px;">Note: Please verify all the details! </span>
+           </div>
+          </div>
+         </div>
+        <br>
+        <div class="row">
+           <button type="button" class="col-md-6" style="text-align:center; width: auto;" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+           aria-label="Close" (click)="closeModalDialog()" matStepperNext>
+           <i class="bi bi-arrow-right-circle"></i>&nbsp;
+            <span aria-hidden="true">Ok</span>
+        </button>
+        <button type="button" class="col-md-6" style="width: auto;" class="btn btn-danger btn-rounded btn-md font-weight-medium auth-form-btn"
+           aria-label="Close" (click)="closeModalDialog()">
+           <i class="bi bi-x icon"></i>
+            <span aria-hidden="true">Cancel</span>
+        </button>
       </div>
-     </div>
-    <br>
-    <div class="row">
-       <button type="button" class="col-md-6" style="text-align:center; width: auto;" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
-       aria-label="Close" (click)="closeModalDialog()" matStepperNext>
-       <i class="bi bi-arrow-right-circle"></i>&nbsp;
-        <span aria-hidden="true">Ok</span>
-    </button>
-    <button type="button" class="col-md-6" style="width: auto;" class="btn btn-danger btn-rounded btn-md font-weight-medium auth-form-btn"
-       aria-label="Close" (click)="closeModalDialog()">
-       <i class="bi bi-x icon"></i>
-        <span aria-hidden="true">Cancel</span>
-    </button>
-  </div>
-  
-    </ng-template>
+      
+        </ng-template>

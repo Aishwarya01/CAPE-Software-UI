@@ -51,6 +51,9 @@ export class LpsEarthingComponent implements OnInit {
   arr4: any = [];
   step4List: any = [];
   deletedLpstestingofearthelectrodes: any = [];
+  earthingDescriptionListDeleted: any = [];
+  clampsDeleted: any = [];
+  earthingElectrodeChamberDeleted: any = [];
   flag: boolean = false;
 
   descriptionArr!: FormArray;
@@ -72,10 +75,10 @@ export class LpsEarthingComponent implements OnInit {
   ClampsPushArr: any = [];
   chamberPushArr: any = [];
   isEditable!:boolean
-  applicableChambers: boolean=false;
-  applicableClamps: boolean=false;
-  applicableChambersNote: boolean=true;
-  applicableClampsNote: boolean=true;
+  applicableChambers: any = [];
+  applicableClamps:  any = [];
+  applicableChambersNote: any = [];;
+  applicableClampsNote: any = [];
   TypeAEarthingArr: any = [];
 
   typeAearthingsystem: any=[];
@@ -127,15 +130,15 @@ export class LpsEarthingComponent implements OnInit {
       flag: new FormControl('A'), 
      // earthingDescriptionAvailabilityOb: new FormControl(''),
      // earthingDescriptionAvailabilityRem: new FormControl(''),
-      earthingClampsAvailabilityOb: new FormControl(''),
+      earthingClampsAvailabilityOb: new FormControl('', Validators.required),
       earthingClampsAvailabilityRem: new FormControl(''),
-      earthingElectrodeChamberAvailabilityOb: new FormControl(''),
+      earthingElectrodeChamberAvailabilityOb: new FormControl('', Validators.required),
       earthingElectrodeChamberAvailabilityRem:  new FormControl(''),
      // earthingSystemAvailabilityOb: new FormControl(''),
      // earthingSystemAvailabilityRem:  new FormControl(''),
      // earthingElectrodeTestingAvailabilityOb: new FormControl(''),
      // earthingElectrodeTestingAvailabilityRem:  new FormControl(''),                              
-     earthingElectrodeTestingAvailabilityOb:  new FormControl(''),                              
+     earthingElectrodeTestingAvailabilityOb:  new FormControl('', Validators.required),                          
 
       earthingDescription: this.formBuilder.array([this.earthingDescriptionArray()]),
       earthingClamps: this.formBuilder.array([]),
@@ -171,14 +174,14 @@ export class LpsEarthingComponent implements OnInit {
       flag: new FormControl('A'),
       soilResistivityInOb: new FormControl('', Validators.required),
       soilResistivityInRem: new FormControl(''),
-      earthPitDigOb: new FormControl('', Validators.required),
-      earthPitDigRem: new FormControl(''),
       earthElectrodeLesthanDownConductorInOb: new FormControl('', Validators.required),
       earthElectrodeLesthanDownConductorInRem: new FormControl(''),
       connectedEarthTerminalInOb: new FormControl('', Validators.required),
       connectedEarthTerminalInRem: new FormControl(''),
       testJointEarthElectrodeInOb: new FormControl('', Validators.required),
       testJointEarthElectrodeInRem: new FormControl(''),
+      grountLevelComponentFilledInOb: new FormControl('', Validators.required),
+      grountLevelComponentFilledInRem: new FormControl(''),
       
       earthingDescriptionList: this.formBuilder.array([this.earthingDescriptionListForm()]),
       earthelectMaxiDistWallInOb: new FormControl('', Validators.required),
@@ -197,7 +200,6 @@ export class LpsEarthingComponent implements OnInit {
       inspectedPassedNoRem: new FormControl(''),
       inspectedFailedNoOb: new FormControl('', Validators.required),
       inspectedFailedNoRem: new FormControl(''),
-        
     });
   }
 
@@ -367,6 +369,8 @@ export class LpsEarthingComponent implements OnInit {
       this.arr1.push(this.createGroup(item));
       this.onKey(item.earthingTypeInOb, null, index);
       this.onEarthElectrodes(item.earthingElectrodeTestingAvailabilityOb,null,index);
+      this.onChangeClamps(item.earthingClampsAvailabilityOb,null,index);
+      this.onChangeChambers(item.earthingElectrodeChamberAvailabilityOb,null,index);
       index = index + 1;
     }
     this.earthingForm.setControl('earthing', this.formBuilder.array(this.arr1 || []));
@@ -402,11 +406,11 @@ export class LpsEarthingComponent implements OnInit {
       buildingNumber: new FormControl({disabled: false, value: item.buildingNumber}, Validators.required),
       buildingName: new FormControl({disabled: false, value: item.buildingName}, Validators.required),
       buildingCount: new FormControl({disabled: false, value: item.buildingCount}, Validators.required),
-      earthingClampsAvailabilityOb: new FormControl({disabled: false, value: item.earthingClampsAvailabilityOb}),
+      earthingClampsAvailabilityOb: new FormControl({disabled: false, value: item.earthingClampsAvailabilityOb}, Validators.required),
       earthingClampsAvailabilityRem: new FormControl({disabled: false, value: item.earthingClampsAvailabilityRem}),
-      earthingElectrodeChamberAvailabilityOb: new FormControl({disabled: false, value: item.earthingElectrodeChamberAvailabilityOb}),
+      earthingElectrodeChamberAvailabilityOb: new FormControl({disabled: false, value: item.earthingElectrodeChamberAvailabilityOb}, Validators.required),
       earthingElectrodeChamberAvailabilityRem:  new FormControl({disabled: false, value: item.earthingElectrodeChamberAvailabilityRem}),
-      earthingElectrodeTestingAvailabilityOb:  new FormControl({disabled: false, value: item.earthingElectrodeTestingAvailabilityOb}),
+      earthingElectrodeTestingAvailabilityOb:  new FormControl({disabled: false, value: item.earthingElectrodeTestingAvailabilityOb}, Validators.required),
 
       earthingDescription: this.formBuilder.array(this.populateEarthingDescription(item)),
       earthingClamps: this.formBuilder.array(this.populateEarthingClamps(item)),
@@ -429,12 +433,12 @@ export class LpsEarthingComponent implements OnInit {
       return this.formBuilder.group({
         earthDescriptionId: new FormControl({disabled: false, value: item.earthDescriptionId}, Validators.required),
         flag : new FormControl({disabled: false, value: item.flag}),
-        locationNumber: new FormControl({disabled: false, value: item.locationNumber}),
-        locationName: new FormControl({disabled: false, value: item.locationName}),
+       // locationNumber: new FormControl({disabled: false, value: item.locationNumber}),
+       // locationName: new FormControl({disabled: false, value: item.locationName}),
         soilResistivityInOb: new FormControl({disabled: false, value: item.soilResistivityInOb}, Validators.required),
         soilResistivityInRem: new FormControl({disabled: false, value: item.soilResistivityInRem}),
-        earthPitDigOb: new FormControl({disabled: false, value: item.earthPitDigOb}, Validators.required),
-        earthPitDigRem: new FormControl({disabled: false, value: item.earthPitDigRem}),
+       // earthPitDigOb: new FormControl({disabled: false, value: item.earthPitDigOb}, Validators.required),
+       // earthPitDigRem: new FormControl({disabled: false, value: item.earthPitDigRem}),
         earthElectrodeLesthanDownConductorInOb: new FormControl({disabled: false, value: item.earthElectrodeLesthanDownConductorInOb}, Validators.required),
         earthElectrodeLesthanDownConductorInRem: new FormControl({disabled: false, value: item.earthElectrodeLesthanDownConductorInRem}),
         connectedEarthTerminalInOb: new FormControl({disabled: false, value: item.connectedEarthTerminalInOb}, Validators.required),
@@ -443,14 +447,8 @@ export class LpsEarthingComponent implements OnInit {
         testJointEarthElectrodeInRem: new FormControl({disabled: false, value: item.testJointEarthElectrodeInRem}),
         grountLevelComponentFilledInOb: new FormControl({disabled: false, value: item.grountLevelComponentFilledInOb}, Validators.required),
         grountLevelComponentFilledInRem: new FormControl({disabled: false, value: item.grountLevelComponentFilledInRem}),
-        earthElectrodeLocationInOb: new FormControl({disabled: false, value: item.earthElectrodeLocationInOb}, Validators.required),
-        earthElectrodeLocationInRem: new FormControl({disabled: false, value: item.earthElectrodeLocationInRem}),
-        earthElectrodeMaterialInOb: new FormControl({disabled: false, value: item.earthElectrodeMaterialInOb}, Validators.required),
-        earthElectrodeMaterialInRem: new FormControl({disabled: false, value: item.earthElectrodeMaterialInRem}),
-        earthElectrodeSizeInOb: new FormControl({disabled: false, value: item.earthElectrodeSizeInOb}, Validators.required),
-        earthElectrodeSizeInRem: new FormControl({disabled: false, value: item.earthElectrodeSizeInRem}),
-        earthElectrodeLengthingOb: new FormControl({disabled: false, value: item.earthElectrodeLengthingOb}, Validators.required),
-        earthElectrodeLengthingRem: new FormControl({disabled: false, value: item.earthElectrodeLengthingRem}),
+       // earthElectrodeLocationInOb: new FormControl({disabled: false, value: item.earthElectrodeLocationInOb}, Validators.required),
+       // earthElectrodeLocationInRem: new FormControl({disabled: false, value: item.earthElectrodeLocationInRem}),
         earthelectMaxiDistWallInOb: new FormControl({disabled: false, value: item.earthelectMaxiDistWallInOb}, Validators.required),
         earthelectMaxiDistWallInRem: new FormControl({disabled: false, value: item.earthelectMaxiDistWallInRem}),
         earthelectManimumDistanceWallInOb: new FormControl({disabled: false, value: item.earthelectManimumDistanceWallInOb}, Validators.required),
@@ -467,7 +465,9 @@ export class LpsEarthingComponent implements OnInit {
         inspectedPassedNoRem: new FormControl({disabled: false, value: item.inspectedPassedNoRem}),
         inspectedFailedNoOb: new FormControl({disabled: false, value: item.inspectedFailedNoOb}, Validators.required),
         inspectedFailedNoRem: new FormControl({disabled: false, value: item.inspectedFailedNoRem}),
-        earthingDescriptionList: this.formBuilder.array(this.populateEarthingDescriptionList(item))
+        earthingDescriptionList: this.formBuilder.array(this.populateEarthingDescriptionList(item)),
+     
+        
       })
     }
 
@@ -478,10 +478,11 @@ export class LpsEarthingComponent implements OnInit {
       } 
       return earthingDescriptionList;
     }
-
+ 
     earthingDescriptionListFormGroup(item: any): FormGroup {
       return this.formBuilder.group({
       flag:  new FormControl({disabled: false, value: item.flag}),
+      earthDescriptionListId:  new FormControl({disabled: false, value: item.earthDescriptionListId}),
       earthingConductorMaterialInOb:  new FormControl({disabled: false, value: item.earthingConductorMaterialInOb}, Validators.required),
       earthingConductorMaterialInRem:  new FormControl({disabled: false, value: item.earthingConductorMaterialInRem}),
       earthElectrodeMaterialInOb:  new FormControl({disabled: false, value: item.earthElectrodeMaterialInOb}, Validators.required),
@@ -492,12 +493,13 @@ export class LpsEarthingComponent implements OnInit {
       earthElectrodeSizeInRem:  new FormControl({disabled: false, value: item.earthElectrodeSizeInRem}),
       earthElectrodeLengthingOb:  new FormControl({disabled: false, value: item.earthElectrodeLengthingOb}, Validators.required),
       earthElectrodeLengthingRem:  new FormControl({disabled: false, value: item.earthElectrodeLengthingRem}),
+      buildingCount:  new FormControl('')
        })}
 
     populateEarthingClamps(item:any){
-      let earthingClamps:any=[];
-      for (let value of item.earthingClamps) {
-        earthingClamps.push(this.populateEarthingClampsFormGroup(value));   
+      let earthingClamps:any=[]; 
+      for (let value of item.earthingClamps) { 
+        earthingClamps.push(this.populateEarthingClampsFormGroup(value));  
       } 
       return earthingClamps;   
     }   
@@ -507,8 +509,6 @@ export class LpsEarthingComponent implements OnInit {
       return this.formBuilder.group({
         // clamps
         flag: new FormControl({disabled: false, value: item.flag}),
-        locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
-        locationName: new FormControl({disabled: false, value: item.locationName}),
         earthingClampsId: new FormControl({disabled: false, value: item.earthingClampsId}),
         physicalInspectionInOb: new FormControl({disabled: false, value: item.physicalInspectionInOb}, Validators.required),
         psysicalInspectionInRem: new FormControl({disabled: false, value: item.psysicalInspectionInRem}),
@@ -527,14 +527,15 @@ export class LpsEarthingComponent implements OnInit {
         inspectionPassedInOb: new FormControl({disabled: false, value: item.inspectionPassedInOb}, Validators.required),
         inspectionPassedInRem: new FormControl({disabled: false, value: item.inspectionPassedInRem}),
         inspectionFailedInOb: new FormControl({disabled: false, value: item.inspectionFailedInOb}, Validators.required),
-        inspectionFailedInRem: new FormControl({disabled: false, value: item.inspectionFailedInRem})
+        inspectionFailedInRem: new FormControl({disabled: false, value: item.inspectionFailedInRem}),
+        buildingCount:  new FormControl('')
       });
     }
 
     populateEarthingElectrodeChamber(item:any){
       let earthingElectrodeChamber:any=[];
       for (let value of item.earthingElectrodeChamber) {
-        earthingElectrodeChamber.push(this.populateearthingElectrodeChamberFormGroup(value));   
+        earthingElectrodeChamber.push(this.populateearthingElectrodeChamberFormGroup(value));  
       } 
       return earthingElectrodeChamber;   
     }  
@@ -563,7 +564,8 @@ export class LpsEarthingComponent implements OnInit {
         inspectionPassedInOb: new FormControl({disabled: false, value: item.inspectionPassedInOb}, Validators.required),
         inspectionPassedInRem: new FormControl({disabled: false, value: item.inspectionPassedInRem}),
         inspectionFailedInOb: new FormControl({disabled: false, value: item.inspectionFailedInOb}, Validators.required),
-        inspectionFailedInRem: new FormControl({disabled: false, value: item.inspectionFailedInRem})
+        inspectionFailedInRem: new FormControl({disabled: false, value: item.inspectionFailedInRem}),
+        buildingCount:  new FormControl('')
       });
     }
 
@@ -581,8 +583,6 @@ export class LpsEarthingComponent implements OnInit {
         earthingSystemId: new FormControl({disabled: false, value: item.earthingSystemId}),
         eastOb: new FormControl({disabled: false, value: item.eastOb}, Validators.required),
         eastRem: new FormControl({disabled: false, value: item.eastRem}),
-        // earthOb: new FormControl({disabled: false, value: item.earthOb}, Validators.required),
-        // earthRem: new FormControl({disabled: false, value: item.earthRem}),
         westOb: new FormControl({disabled: false, value: item.westOb}, Validators.required),
         westRem: new FormControl({disabled: false, value: item.westRem}),
         northOb: new FormControl({disabled: false, value: item.northOb}, Validators.required),
@@ -616,11 +616,8 @@ export class LpsEarthingComponent implements OnInit {
 
     populateEarthElectrodeTesting(item:any){
       let earthElectrodeTesting:any=[];
-     // let index=0
       for (let value of item.earthElectrodeTesting) {
-        
         earthElectrodeTesting.push(this.earthElectrodeTestingFormGroup(value)); 
-       // index=index+1; 
       } 
       return earthElectrodeTesting;   
     } 
@@ -629,7 +626,6 @@ export class LpsEarthingComponent implements OnInit {
       return this.formBuilder.group({
         //chamber
         flag: new FormControl({disabled: false, value: item.flag}),
-       // isEarthingScope: new FormControl({disabled: false, value: item.flag}),
         earthingElectrodeTestingId: new FormControl({disabled: false, value: item.earthingElectrodeTestingId}, Validators.required),
         serialNo: new FormControl({disabled: false, value: item.serialNo}, Validators.required),
         earthingElectrodeType: new FormControl({disabled: false, value: item.earthingElectrodeType}, Validators.required),
@@ -638,6 +634,7 @@ export class LpsEarthingComponent implements OnInit {
         earthingElectrodeDepth: new FormControl({disabled: false, value: item.earthingElectrodeDepth}, Validators.required),
         earthingElectrodeResistance: new FormControl({disabled: false, value: item.earthingElectrodeResistance}, Validators.required),
         earthingElectrodeRemarks: new FormControl({disabled: false, value: item.earthingElectrodeRemarks}, Validators.required),
+        buildingCount: new FormControl(''),
       });
     }
 
@@ -673,17 +670,44 @@ export class LpsEarthingComponent implements OnInit {
  
   onSubmit(flag: any) {
     this.submitted=true;
-   
     
     if(this.earthingForm.invalid){return}
     this.earthingReport.earthingLpsDescription=this.earthingForm.value.earthing
-    this.earthingReport.userName = this.router.snapshot.paramMap.get('email') || '{}';;
+    this.earthingReport.userName = this.router.snapshot.paramMap.get('email') || '{}';
     this.earthingReport.basicLpsId = this.basicLpsId;
+    
+    //deleted Data
+    for (let index = 0; index < this.earthingReport.earthingLpsDescription.length; index++) {
+      //deleted earthingDescriptionList
+      for(let i = 0; i < this.earthingDescriptionListDeleted.length; i++){
+        if(this.earthingReport.earthingLpsDescription[index].buildingCount == this.earthingDescriptionListDeleted[i].buildingCount){
+          this.earthingReport.earthingLpsDescription[index].earthingDescription[0].earthingDescriptionList.push(this.earthingDescriptionListDeleted[i]);
+        }
+      }
+       //deleted earthElectrodeTesting
+      for(let i = 0; i < this.deletedLpstestingofearthelectrodes.length; i++){
+        if(this.earthingReport.earthingLpsDescription[index].buildingCount == this.deletedLpstestingofearthelectrodes[i].buildingCount){
+          this.earthingReport.earthingLpsDescription[index].earthElectrodeTesting.push(this.deletedLpstestingofearthelectrodes[i]);
+        }
+      }
+       //deleted earthingClamps
+      if(this.clampsDeleted !=[] && this.clampsDeleted.length > index && this.earthingReport.earthingLpsDescription[index].buildingCount == this.clampsDeleted[index].buildingCount){
+        this.earthingReport.earthingLpsDescription[index].earthingClamps.push(this.clampsDeleted[index]);
+      }
+       //deleted chamber
+      if(this.earthingElectrodeChamberDeleted !=[] && this.earthingElectrodeChamberDeleted.length > index && this.earthingElectrodeChamberDeleted.length > index && this.earthingReport.earthingLpsDescription[index].buildingCount == this.earthingElectrodeChamberDeleted[index].buildingCount){
+        this.earthingReport.earthingLpsDescription[index].earthingElectrodeChamber.push(this.earthingElectrodeChamberDeleted[index]);
+      }
+    }
 
+    this.earthingDescriptionListDeleted = [];
+    this.deletedLpstestingofearthelectrodes = []  
+    this.clampsDeleted = []  
+    this.earthingElectrodeChamberDeleted = []  
    
-    this.descriptionPushArr = [];
-    this.ClampsPushArr = [];
-    this.chamberPushArr = [];
+    // this.descriptionPushArr = [];
+    // this.ClampsPushArr = [];
+    // this.chamberPushArr = [];
     if (!this.validationError) {
       if(flag) {
         if(this.earthingForm.dirty && this.earthingForm.touched){ 
@@ -770,42 +794,43 @@ export class LpsEarthingComponent implements OnInit {
         this.earthElectrodeTesting.push(this.earthElectrodeTestingArray());
   }
 
- // earthingDescriptionList: this.formBuilder.array([this.earthingDescriptionArray()]),
-  removeItemTypeAEarthing(a: any,x:any) {
+  removeItemTypeAEarthing(a: any, x: any, earthingFormArray: any) {
     this.earthingForm.markAsTouched();
-    this.earthElectrodeTestingArr = a.controls.earthElectrodeTesting as FormArray;
-    this.earthElectrodeTestingArr.removeAt(x);
+
+    if (a.controls.earthingDescriptionList.controls[x].controls.earthDescriptionListId != undefined &&
+      a.controls.earthingDescriptionList.controls[x].controls.earthDescriptionListId.value != 0 &&
+      a.controls.earthingDescriptionList.controls[x].controls.earthDescriptionListId.value != undefined &&
+      a.controls.earthingDescriptionList.controls[x].controls.earthDescriptionListId.value != '') {
+
+      a.controls.earthingDescriptionList.controls[x].controls.flag.setValue('R');
+      a.controls.earthingDescriptionList.controls[x].controls.buildingCount.setValue(earthingFormArray.controls.buildingCount.value);
+      a.controls.earthingDescriptionList.controls[x].controls.flag.updateValueAndValidity();
+      this.earthingDescriptionListDeleted.push(a.controls.earthingDescriptionList.value[x]);
+    }
+    (a.controls.earthingDescriptionList as FormArray).removeAt(x);
     this.earthingForm.markAsDirty();
   }
 
-  ElectrodeTesting(a: any,x:any) {
+  removeElectrodeTesting(a: any, x: any, earthingFormArray: any) {
     this.earthingForm.markAsTouched();
-    this.earthingDescriptionListArr = a.controls.earthingDescriptionList as FormArray;
-    this.earthingDescriptionListArr.removeAt(x);
-    this.earthingForm.markAsDirty();
-  }
 
-  removeElectrodeTesting(a: any,x:any) {
-    this.earthingForm.markAsTouched();
-    this.earthElectrodeTesting = a.controls.earthElectrodeTesting as FormArray;
+    if (a.controls.earthingElectrodeTestingId != undefined &&
+      a.controls.earthingElectrodeTestingId.value != undefined &&
+      a.controls.earthingElectrodeTestingId.value != 0 &&
+      a.controls.earthingElectrodeTestingId.value != '') {
 
-    if(a.value.earthingElectrodeTestingId !=0 && a.value.earthingElectrodeTestingId !=undefined && a.value.earthingElectrodeTestingId != ''){
-      a.value.flag="R";
+      a.controls.flag.setValue('R');
+      a.controls.buildingCount.setValue(earthingFormArray.controls.buildingCount.value);
       this.deletedLpstestingofearthelectrodes.push(a.value);
-      this.earthElectrodeTesting.removeAt(x);
     }
-    else{
-      this.earthElectrodeTesting.removeAt(x);
-    }
-  
+    (earthingFormArray.controls.earthElectrodeTesting as FormArray).removeAt(x);
+    this.earthingForm.markAsDirty();
   }
   
   createTypeAEarthingIteration()  : FormGroup {
     return this.formBuilder.group({
       grountLevelComponentFilledInOb: new FormControl('', Validators.required),
       grountLevelComponentFilledInRem: new FormControl(''),
-      earthElectrodeLocationInOb: new FormControl('', Validators.required),
-      earthElectrodeLocationInRem: new FormControl(''),
       earthElectrodeMaterialInOb: new FormControl('', Validators.required),
       earthElectrodeMaterialInRem: new FormControl(''),
       earthElectrodeSizeInOb: new FormControl('', Validators.required),
@@ -818,96 +843,128 @@ export class LpsEarthingComponent implements OnInit {
   getTypeAEarthingControls(form:any) {
     return form.controls.getTypeAEarthingControls?.controls;
   }
-  onChangeClamps(event: any,a:any) {
+  onChangeClamps(event: any, a: any, index: any) {
     debugger
     let changedValue;
-    if(event.target != undefined) {
+    if (a != null) {
       changedValue = event.target.value;
+      this.earthingForm.markAsTouched();
+      this.earthingForm.markAsDirty();
     }
-    else{
+    else {
       changedValue = event;
     }
+    if (changedValue == 'Applicable') {
 
-    if (changedValue == 'Not applicable') {
-      this.applicableClamps=false;
-      this.applicableClampsNote=true;
-         (a.controls.earthingClamps as FormArray)
-         .removeAt(a.controls.earthingClamps.controls.length-1);
-
-    }
-    else{
-      this.applicableClamps=true;
-      this.applicableClampsNote=false;
-      if(a.controls.earthingClamps == undefined ||
-         a.controls.earthingClamps.controls.length ==0){
-        this.earthingClamps = a.controls.earthingClamps?.controls;
+      this.applicableClamps[index] = true;
+      this.applicableClampsNote[index] = false;
+      if (a != null && (a.controls.earthingClamps == undefined ||
+        a.controls.earthingClamps.controls.length == 0)) {
+        this.earthingClamps = (a.controls.earthingClamps as FormArray);
         this.earthingClamps.push(this.earthingClampsArray());
       }
     }
-    this.earthingForm.markAsTouched();
-  }
-  onChangeChambers(event: any,a:any) {
-    
-    let changedValue;
-    if(event.target != undefined) {
-      changedValue = event.target.value;
-    }
-    else{
-      changedValue = event;
-    }
-    if (changedValue == 'Not applicable') {
-      this.applicableChambers=false;
-      this.applicableChambersNote=true;
-      (a.controls.earthingElectrodeChamber as FormArray)
-         .removeAt(a.controls.earthingElectrodeChamber.controls.length-1);
+    else if (changedValue == 'Not applicable') {
+      this.applicableClamps[index] = false;
+      this.applicableClampsNote[index] = true;
+
+      if (a != null) {//this restriction for form action 
+        if (a.controls.earthingClamps.controls[0].controls.earthingClampsId != undefined
+          && a.controls.earthingClamps.controls[0].controls.earthingClampsId != null) {
+          a.controls.earthingClamps.controls[0].controls.flag.setValue('R');
+          a.controls.earthingClamps.controls[0].controls.buildingCount.setValue(a.controls.buildingCount.value);
+          this.clampsDeleted.push(a.controls.earthingClamps.controls[0].value);
+        }
+        (a.controls.earthingClamps as FormArray)
+          .removeAt(a.controls.earthingClamps.controls.length - 1);
+      }
 
     }
-    else{
-      this.applicableChambers=true;
-      this.applicableChambersNote=false;
-      if(a.controls.earthingElectrodeChamber == undefined ||a.controls.earthingElectrodeChamber.controls.length ==0){
-        this.earthingElectrodeChamber = a.controls.earthingElectrodeChamber?.controls;
-        this.earthingElectrodeChamber.push(this.earthingElectrodeChamberArray());
-      }
+    else if (changedValue == '') {
+      this.applicableClamps[index] = false;
+      this.applicableClampsNote[index] = true;
     }
-    this.earthingForm.markAsTouched();
+    
   }
-  onEarthElectrodes(event: any, a: any, index: any) {
+  onChangeChambers(event: any, a: any, index: any) {
 
     let changedValue;
     if (a != null) {
       changedValue = event.target.value;
+      this.earthingForm.markAsTouched();
+      this.earthingForm.markAsDirty();
     }
     else {
       changedValue = event;
     }
-    if (changedValue == 'Not in scope') {
-      this.testingofearthelectrodes[index] = false;
-      if (a != null) {
-        for (let k = 0; k < a.controls.earthElectrodeTesting.controls.length; k++) {
-          if (a.value.earthElectrodeTesting[k].earthingElectrodeTestingId != 0 &&
-            a.value.earthElectrodeTesting[k].earthingElectrodeTestingId != undefined &&
-            a.value.earthElectrodeTesting[k].earthingElectrodeTestingId != '') {
-            a.value.flag = "R";
-            this.deletedLpstestingofearthelectrodes.push(a.value);
-            (a.get('earthElectrodeTesting') as FormArray).removeAt(k);
-          }
-          else {
-            (a.get('earthElectrodeTesting') as FormArray).removeAt(k);
-          }
-        }
+    if (changedValue == 'Applicable') {
+      this.applicableChambers[index] = true;
+      this.applicableChambersNote[index] = false;
+      if (a != null && (a.controls.earthingElectrodeChamber == undefined || a.controls.earthingElectrodeChamber.controls.length == 0)) {
+        this.earthingElectrodeChamber = a.controls.earthingElectrodeChamber as FormArray;
+        this.earthingElectrodeChamber.push(this.earthingElectrodeChamberArray());
       }
+
+    }
+    else if (changedValue == 'Not applicable') {
+      this.applicableChambers[index] = false;
+      this.applicableChambersNote[index] = true;
+      //this restriction for form action 
+      if (a != null) {
+        if (a.controls.earthingElectrodeChamber.controls[0].controls.earthingElectrodeChamberId != undefined
+          && a.controls.earthingElectrodeChamber.controls[0].controls.earthingElectrodeChamberId != null) {
+          a.controls.earthingElectrodeChamber.controls[0].controls.flag.setValue('R');
+          a.controls.earthingElectrodeChamber.controls[0].controls.buildingCount.setValue(a.controls.buildingCount.value);
+          this.earthingElectrodeChamberDeleted.push(a.controls.earthingElectrodeChamber.controls[0].value);
+        }
+        (a.controls.earthingElectrodeChamber as FormArray)
+          .removeAt(a.controls.earthingElectrodeChamber.controls.length - 1);
+      }
+    }
+    else if (changedValue == '') {
+      this.applicableChambers[index] = false;
+      this.applicableChambersNote[index] = true;
+    }
+   
+  }
+  onEarthElectrodes(event: any, a: any, index: any) {
+
+    let changedValue;
+    let lengthOfearthElectrodeTesting;
+    if (a != null) {
+    this.earthingForm.markAsTouched();
+    this.earthingForm.markAsDirty();
+      changedValue = event.target.value;
+      lengthOfearthElectrodeTesting= a.controls.earthElectrodeTesting.controls.length;
     }
     else {
+      changedValue = event;
+    }
+    if (changedValue == 'In scope') {
       this.testingofearthelectrodes[index] = true;
-      if (a != null) {
-        if (a.controls.earthElectrodeTesting == undefined || a.controls.earthElectrodeTesting.controls.length == 0) {
-          this.earthElectrodeTesting = a.get('earthElectrodeTesting') as FormArray;
-          this.earthElectrodeTesting.push(this.earthElectrodeTestingArray());
-        }
+      if (a != null && (a.controls.earthElectrodeTesting == undefined || a.controls.earthElectrodeTesting.controls.length == 0)) {
+        this.earthElectrodeTesting = a.get('earthElectrodeTesting') as FormArray;
+        this.earthElectrodeTesting.push(this.earthElectrodeTestingArray());
       }
     }
-    this.earthingForm.markAsTouched();
+    else if(changedValue == 'Not in scope'){
+      this.testingofearthelectrodes[index] = false;
+
+      for (let k = 0; a != null && k < lengthOfearthElectrodeTesting; k++) {
+        if (a.value.earthElectrodeTesting[a.controls.earthElectrodeTesting.controls.length-1].earthingElectrodeTestingId != undefined &&
+          a.value.earthElectrodeTesting[a.controls.earthElectrodeTesting.controls.length-1].earthingElectrodeTestingId != 0 &&
+          a.value.earthElectrodeTesting[a.controls.earthElectrodeTesting.controls.length-1].earthingElectrodeTestingId != '') {
+          a.controls.earthElectrodeTesting.controls[a.controls.earthElectrodeTesting.controls.length-1].controls.flag.setValue('R');
+          a.controls.earthElectrodeTesting.controls[a.controls.earthElectrodeTesting.controls.length-1].controls.buildingCount.setValue(a.controls.buildingCount.value);
+          this.deletedLpstestingofearthelectrodes.push(a.value.earthElectrodeTesting[a.controls.earthElectrodeTesting.controls.length-1]);
+        }
+        (a.get('earthElectrodeTesting') as FormArray).removeAt(a.controls.earthElectrodeTesting.controls.length-1);
+      }
+    }
+    else if(changedValue == ''){
+      this.testingofearthelectrodes[index] = false;
+    }
+    
   }
  onChangeForm(event:any){
     if(!this.earthingForm.invalid){

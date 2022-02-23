@@ -234,15 +234,15 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                    <select class="form-control" formControlName="earthPitDigOb" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('earthPitDigOb')?.errors}">
+                                                    <select class="form-control" formControlName="earthElectrodeLesthanDownConductorInOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('earthElectrodeLesthanDownConductorInOb')?.errors}">
                                                         <option  value="" selected>Select Option</option>
                                                         <option value="Ok" >Ok</option>
                                                         <option value="Not Ok" >Not Ok</option>
                                                     </select>
-                                                <div *ngIf="submitted && a.get('earthPitDigOb')?.errors"
+                                                <div *ngIf="submitted && a.get('earthElectrodeLesthanDownConductorInOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('earthPitDigOb')?.errors?.required">Earth pit work - Digging observation is
+                                                    <div *ngIf="a.get('earthElectrodeLesthanDownConductorInOb')?.errors?.required">Earth pit work - Digging observation is
                                                         required</div>
                                                 </div>
                                             </div>
@@ -255,7 +255,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea type="text" class="form-control"
-                                                    [readonly]="isEditable" formControlName="earthPitDigRem" placeholder="Please enter Remarks here"></textarea>
+                                                    [readonly]="isEditable" formControlName="earthElectrodeLesthanDownConductorInRem" placeholder="Please enter Remarks here"></textarea>
                                             </div>
                                         </td>
                                     </tr>
@@ -271,13 +271,13 @@
                                                 </div>
                                                 <!-- <textarea type="text" class="form-control"
                                                     [readonly]="isEditable" ></textarea> -->
-                                                    <select class="form-control" formControlName="earthElectrodeLesthanDownConductorInOb" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && a.get('earthElectrodeLesthanDownConductorInOb')?.errors}">
+                                                    <select class="form-control" formControlName="connectedEarthTerminalInOb" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && a.get('connectedEarthTerminalInOb')?.errors}">
                                                         <option  value="" selected>Select Option</option>
                                                         <option value="Ok" >Ok</option>
                                                         <option value="Not Ok" >Not Ok</option>
                                                     </select>
-                                                    <div *ngIf="submitted && a.get('earthElectrodeLesthanDownConductorInOb')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('earthElectrodeLesthanDownConductorInOb')?.errors?.required">Number of earth electrode observation is required</div>
+                                                    <div *ngIf="submitted && a.get('connectedEarthTerminalInOb')?.errors" class="invalid-feedback">
+                                                        <div *ngIf="a.get('connectedEarthTerminalInOb')?.errors?.required">Number of earth electrode observation is required</div>
                                                     </div>
                                             </div>
                                         </td>
@@ -289,7 +289,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea type="text" class="form-control"
-                                                    [readonly]="isEditable" formControlName="earthElectrodeLesthanDownConductorInRem" placeholder="Please enter Remarks here "
+                                                    [readonly]="isEditable" formControlName="connectedEarthTerminalInRem" placeholder="Please enter Remarks here "
                                                     ></textarea>
                                             </div>
                                         </td>
@@ -304,16 +304,16 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                    <select class="form-control" formControlName="connectedEarthTerminalInOb" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('connectedEarthTerminalInOb')?.errors}">
+                                                    <select class="form-control" formControlName="testJointEarthElectrodeInOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('testJointEarthElectrodeInOb')?.errors}">
                                                         <option  value="" selected>Select Option</option>
                                                         <option value="Under soil" >Under soil</option>
                                                         <option value="Under concrete" >Under concrete</option>
                                                         <option value="Via gutter" >Via gutter</option>
                                                     </select>
-                                                <div *ngIf="submitted && a.get('connectedEarthTerminalInOb')?.errors"
+                                                <div *ngIf="submitted && a.get('testJointEarthElectrodeInOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('connectedEarthTerminalInOb')?.errors?.required">
+                                                    <div *ngIf="a.get('testJointEarthElectrodeInOb')?.errors?.required">
                                                         Ensure all down conductors are connected observation is required</div>
                                                 </div>
                                             </div>
@@ -326,7 +326,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea type="text" class="form-control"
-                                                    [readonly]="isEditable" formControlName="connectedEarthTerminalInRem" placeholder="Please enter Remarks here (Optional)"
+                                                    [readonly]="isEditable" formControlName="testJointEarthElectrodeInRem" placeholder="Please enter Remarks here (Optional)"
                                                     ></textarea>
                                             </div>
                                         </td>
@@ -341,14 +341,14 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                    <select class="form-control" formControlName="testJointEarthElectrodeInOb" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && a.get('testJointEarthElectrodeInOb')?.errors}">
+                                                    <select class="form-control" formControlName="grountLevelComponentFilledInOb" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && a.get('grountLevelComponentFilledInOb')?.errors}">
                                                         <option  value="" selected>Select Option</option>
                                                         <option value="Yes" >Yes</option>
                                                         <option value="No" >No</option>
                                                     </select>
-                                                <div *ngIf="submitted && a.get('testJointEarthElectrodeInOb')?.errors"
+                                                <div *ngIf="submitted && a.get('grountLevelComponentFilledInOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('testJointEarthElectrodeInOb')?.errors?.required">
+                                                    <div *ngIf="a.get('grountLevelComponentFilledInOb')?.errors?.required">
                                                         Route of earthing conductor from test joint to earth electrode observation is required</div>
                                                 </div>
                                             </div>
@@ -361,7 +361,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea type="text" class="form-control"
-                                                    [readonly]="isEditable" formControlName="testJointEarthElectrodeInRem" placeholder="Please enter Remarks here (Optional)"
+                                                    [readonly]="isEditable" formControlName="grountLevelComponentFilledInRem" placeholder="Please enter Remarks here (Optional)"
                                                     ></textarea>
                                             </div>
                                         </td>
@@ -552,7 +552,7 @@
 
                                             <mat-icon class="mousechange" class="dlt" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" 
                                             *ngIf="earthingDescriptionListControls(a).length > 1" 
-                                            (click)="removeItemTypeAEarthing(a,x)" style="cursor: pointer;float: right;">remove_circle_outline</mat-icon>
+                                            (click)="removeItemTypeAEarthing(a,x,q)" style="cursor: pointer;float: right;">remove_circle_outline</mat-icon>
                                         </div>
                                         </td>
                                     </tr>
@@ -861,11 +861,11 @@
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <select class="form-control" (change)="onChangeClamps($event,q)"  formControlName="earthingClampsAvailabilityOb"
+                                                <select class="form-control" (change)="onChangeClamps($event,q,j)"  formControlName="earthingClampsAvailabilityOb"
                                                 [ngClass]="{ 'is-invalid': submitted && q.get('earthingClampsAvailabilityOb')?.errors }">
                                                     <option value="" selected>Select Option</option>
-                                                    <option value="Applicable" >Applicable </option>
-                                                    <option value="Not applicable" >Not applicable</option>
+                                                    <option value="Applicable" >Applicable</option>
+                                                    <option value="Not applicable">Not applicable</option>
                                                 </select>
                                                 <div *ngIf="submitted && q.get('earthingClampsAvailabilityOb')?.errors" class="invalid-feedback">
                                                     <div *ngIf="q.get('earthingClampsAvailabilityOb')?.errors?.required">Please select the field</div>
@@ -879,11 +879,11 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div style="margin-top: 10px;" *ngIf="applicableClampsNote"><b>Note:</b> &nbsp; Select applicable if you intend to fill details for Clamps</div>
+                            <div style="margin-top: 10px;" *ngIf="applicableClampsNote[j]"><b>Note:</b> &nbsp; Select applicable if you intend to fill details for Clamps</div>
                             <br> 
                     <div class="row">
                     <div class="col-sm-12">
-                    <div class="table-responsive" style="overflow-x: unset;" *ngIf="applicableClamps">
+                    <div class="table-responsive" style="overflow-x: unset;" *ngIf="applicableClamps[j]">
                         <table class="table TableBorder">
                                 <tbody formArrayName="earthingClamps" *ngFor="let a of earthingClampsarr(q); let j = index">
                                     <div class="form-group" [formGroupName]="j">
@@ -1246,7 +1246,7 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        <select class="form-control"  (change)="onChangeChambers($event,q)"  formControlName="earthingElectrodeChamberAvailabilityOb"
+                                        <select class="form-control"  (change)="onChangeChambers($event,q,j)"  formControlName="earthingElectrodeChamberAvailabilityOb"
                                         [ngClass]="{ 'is-invalid': submitted && q.get('earthingElectrodeChamberAvailabilityOb')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="Applicable" >Applicable </option>
@@ -1264,11 +1264,11 @@
                             </tbody>
                         </table>
                     </div>  
-                    <div style="margin-top: 10px;" *ngIf="applicableChambersNote"><b>Note:</b> &nbsp; Select applicable if you intend to fill details for Earth electrode chambers</div>
+                    <div style="margin-top: 10px;" *ngIf="applicableChambersNote[j]"><b>Note:</b> &nbsp; Select applicable if you intend to fill details for Earth electrode chambers</div>
                             <br>
                     <div class="row">
                     <div class="col-sm-12">
-                    <div class="table-responsive" style="overflow-x: unset;" *ngIf="applicableChambers">
+                    <div class="table-responsive" style="overflow-x: unset;" *ngIf="applicableChambers[j]">
                         <table class="table TableBorder">
                             <tbody formArrayName="earthingElectrodeChamber"
                                 *ngFor="let a of earthElectrodeChambearr(q); let j = index">
@@ -2167,18 +2167,22 @@
                         </mat-panel-title>
                     </mat-expansion-panel-header>
                     <div>
-                        <select class="form-control" style="width: 30%;" 
-                          (change)="onEarthElectrodes($event,q,j)" formControlName="earthingElectrodeTestingAvailabilityOb">
+                        <select class="form-control" style="width: 30%;"  formControlName="earthingElectrodeTestingAvailabilityOb"
+                          [ngClass]="{ 'is-invalid': submitted && q.get('earthingElectrodeTestingAvailabilityOb')?.errors}"
+                          (change)="onEarthElectrodes($event,q,j)">
                           <option value="" selected>Select Option</option>
                           <option value="In scope" >In scope </option>
                           <option value="Not in scope" >Not in scope</option>
                           </select>
+                          <div *ngIf="submitted && q.get('earthingElectrodeTestingAvailabilityOb')?.errors" class="invalid-feedback">
+                            <div *ngIf="q.get('earthingElectrodeTestingAvailabilityOb')?.errors?.required">In scope/Not in scope is required</div>
+                        </div>
                     </div>
                     <div *ngIf="testingofearthelectrodes[j]">
                         
                         <div class="row">
                             <div class="col-md-6">
-                                <label>8(a).Earth electrode resistance value (Table heading)</label>
+                                <label style="margin-top: 2rem;">8(a).Earth electrode resistance value (Table heading)</label>
                             </div>
                         </div>
                         <div class="row" style="margin-top: 10px;" >
@@ -2311,7 +2315,7 @@
         
                                                 <mat-icon class="mousechange" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" 
                                                 *ngIf="earthElectrodeTestingarr(q).length > 1" 
-                                                (click)="removeElectrodeTesting(q,j)" style="cursor: pointer; float: right;">remove_circle_outline</mat-icon>
+                                                (click)="removeElectrodeTesting(a,j,q)" style="cursor: pointer; float: right;">remove_circle_outline</mat-icon>
                                             </div>
     
                                         </div>

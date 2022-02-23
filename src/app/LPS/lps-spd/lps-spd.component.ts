@@ -88,13 +88,13 @@ export class LpsSpdComponent implements OnInit {
       flag: new FormControl('A'),
       
       mainsIncomingOb: new FormControl('', Validators.required),
-      mainsIncomingRem: new FormControl('', Validators.required),
+      mainsIncomingRem: new FormControl(''),
       totalMainsIncomingOb: new FormControl('', Validators.required),
-      totalMainsIncomingRem:new FormControl('', Validators.required),
+      totalMainsIncomingRem:new FormControl(''),
       noPannelSupplittingOb: new FormControl('', Validators.required),
-      noPannelSupplittingRem: new FormControl('', Validators.required),
+      noPannelSupplittingRem: new FormControl(''),
       totalNoOutDoorRequipmentOb: new FormControl('', Validators.required),
-      totalNoOutDoorRequipmentRem: new FormControl('', Validators.required),
+      totalNoOutDoorRequipmentRem: new FormControl(''),
 
       spdDescription: this.formBuilder.array([this.spddescriptionForm()])
     });
@@ -120,64 +120,55 @@ export class LpsSpdComponent implements OnInit {
 //     this.flag=true;
  }
 
- retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
-  this.service.lvClick=1;
-  debugger
-  this.step5List = data.spdReport;
-  this.spdReport.basicLpsId = this.step5List.basicLpsId;
-  this.spdReport.spdReportId = this.step5List.spdReportId;
-  this.spdReport.userName = this.step5List.userName;
-  this.spdReport.createdBy = this.step5List.createdBy;
-  this.spdReport.createdDate = this.step5List.createdDate;
-  
-  for(let i of this.step5List.spd)
-  this.spdForm.patchValue({
-    spd: [i],
-  });
-  this.flag=true;
-}
+  retrieveDetailsfromSavedReports(userName: any, basicLpsId: any, clientName: any, data: any) {
+    this.service.lvClick = 1;
+    debugger
+    this.step5List = data.spdReport;
+    this.spdReport.basicLpsId = this.step5List.basicLpsId;
+    this.spdReport.spdReportId = this.step5List.spdReportId;
+    this.spdReport.userName = this.step5List.userName;
+    this.spdReport.createdBy = this.step5List.createdBy;
+    this.spdReport.createdDate = this.step5List.createdDate;
 
-    populateData(spd:any){
-      for(let item of spd){
-        console.log(item.spdId);
-        this.spd.push(this.createGroup(item));
-      }
+    let spd=[];
+    for (let i of this.step5List.spd) {
+      spd.push(this.createGroup(i));
     }
+    this.spdForm.setControl('spd',this.formBuilder.array(spd || []));
+    // this.spdForm.patchValue({
+    //   spd: [i],
+    // });
+    setTimeout(() => {
+      this.createSpdForm(data.airTermination)
+    }, 500);
+    this.flag = true;
+  }
 
-    createGroup(item: any): FormGroup {
-      return this.formBuilder.group({
-        spdReportId:new FormControl({disabled: false, value: item.spdReportId}),
-        spdId:new FormControl({disabled: false, value: item.spdId}),
-        location: new FormControl({disabled: false, value: item.location}),
-        panelName: new FormControl({disabled: false, value: item.panelName}),
-        flag: new FormControl({disabled: false, value: item.flag}),
-        spdMakeOb: new FormControl({disabled: false, value: item.spdMakeOb},Validators.required),
-        spdMakeRem: new FormControl({disabled: false, value: item.spdMakeRem}),
-        spdModelOb: new FormControl({disabled: false, value: item.spdModelOb},Validators.required),
-        spdModelRem: new FormControl({disabled: false, value: item.spdModelRem}),
-        spdClassTypeOb: new FormControl({disabled: false, value: item.spdClassTypeOb},Validators.required),
-        spdClassTypeRem: new FormControl({disabled: false, value: item.spdClassTypeRem}),
-        spdApplicationOb: new FormControl({disabled: false, value: item.spdApplicationOb},Validators.required),
-        spdApplicationRem: new FormControl({disabled: false, value: item.spdApplicationRem}),
-        spdMainApplicationOb: new FormControl({disabled: false, value: item.spdMainApplicationOb},Validators.required),
-        spdMainApplicationRem: new FormControl({disabled: false, value: item.spdMainApplicationRem}),
-        properConnectionOb: new FormControl({disabled: false, value: item.properConnectionOb},Validators.required),
-        properConnectionRem: new FormControl({disabled: false, value: item.properConnectionRem}),
-        incomerRatingOb: new FormControl({disabled: false, value: item.incomerRatingOb},Validators.required),
-        incomerRatingRem: new FormControl({disabled: false, value: item.incomerRatingRem}),
-        fuseBackUpOb: new FormControl({disabled: false, value: item.fuseBackUpOb},Validators.required),
-        fuseBackUpRem: new FormControl({disabled: false, value: item.fuseBackUpRem}),
-        lengthOfConnectingWirePhaseOb: new FormControl({disabled: false, value: item.lengthOfConnectingWirePhaseOb},Validators.required),
-        lengthOfConnectingWirePhaseRem: new FormControl({disabled: false, value: item.lengthOfConnectingWirePhaseRem}),
-        lengthOfConnectingWireProtectiveOb: new FormControl({disabled: false, value: item.lengthOfConnectingWireProtectiveOb},Validators.required),
-        lengthOfConnectingWireProtectiveRem: new FormControl({disabled: false, value: item.lengthOfConnectingWireProtectiveRem}),
-        sizeOfConnectingWirePhaseOb: new FormControl({disabled: false, value: item.sizeOfConnectingWirePhaseOb},Validators.required),
-        sizeOfConnectingWirePhaseRem: new FormControl({disabled: false, value: item.sizeOfConnectingWirePhaseRem}),
-        sizeOfConnectingWireProtectiveOb: new FormControl({disabled: false, value: item.sizeOfConnectingWireProtectiveOb},Validators.required),
-        spdDescription: this.formBuilder.array(this.populateSpdDescription(item)),
-        sizeOfConnectingWireProtectiveRem: new FormControl({disabled: false, value: item.sizeOfConnectingWireProtectiveRem}),
-      });
-    }
+    // populateData(spd:any){
+    //   for(let item of spd){
+    //     console.log(item.spdId);
+        
+    //   }
+    // }
+
+  createGroup(item: any): FormGroup {
+    return this.formBuilder.group({
+      buildingNumber: new FormControl({ disabled: false, value: item.buildingNumber }),
+      spdId: new FormControl({ disabled: false, value: item.spdId }),
+      buildingName: new FormControl({ disabled: false, value: item.buildingName }),
+      buildingCount: new FormControl({ disabled: false, value: item.buildingCount }),
+      flag: new FormControl({ disabled: false, value: item.flag }),
+      mainsIncomingOb: new FormControl({ disabled: false, value: item.mainsIncomingOb }, Validators.required),
+      mainsIncomingRem: new FormControl({ disabled: false, value: item.mainsIncomingRem }),
+      totalMainsIncomingOb: new FormControl({ disabled: false, value: item.totalMainsIncomingOb }, Validators.required),
+      totalMainsIncomingRem: new FormControl({ disabled: false, value: item.totalMainsIncomingRem }),
+      noPannelSupplittingOb: new FormControl({ disabled: false, value: item.noPannelSupplittingOb }, Validators.required),
+      noPannelSupplittingRem: new FormControl({ disabled: false, value: item.noPannelSupplittingRem }),
+      totalNoOutDoorRequipmentOb: new FormControl({ disabled: false, value: item.totalNoOutDoorRequipmentOb }, Validators.required),
+      totalNoOutDoorRequipmentRem: new FormControl({ disabled: false, value: item.totalNoOutDoorRequipmentRem }),
+      spdDescription: this.formBuilder.array(this.populateSpdDescription(item)),
+    });
+  }
 
     populateSpdDescription(item:any){
       
@@ -190,9 +181,7 @@ export class LpsSpdComponent implements OnInit {
 
     createGroup1(item: any): FormGroup {
       return this.formBuilder.group({
-        spdId:new FormControl({disabled: false, value: item.spdId}),
-        SpdDescriptionId:new FormControl({disabled: false, value: item.spdDescriptionId}),
-
+        spdDescriptionId:new FormControl({disabled: false, value: item.spdDescriptionId}),
         location:new FormControl({disabled: false, value: item.location}),
         panelName:new FormControl({disabled: false, value: item.panelName}),
         flag:new FormControl({disabled: false, value: item.flag}),
@@ -220,6 +209,7 @@ export class LpsSpdComponent implements OnInit {
         sizeOfConnectingWirePhaseRem:new FormControl({disabled: false, value: item.sizeOfConnectingWirePhaseRem}),
         sizeOfConnectingWireProtectiveOb:new FormControl({disabled: false, value: item.sizeOfConnectingWireProtectiveOb}),
         sizeOfConnectingWireProtectiveRem:new FormControl({disabled: false, value: item.sizeOfConnectingWireProtectiveRem}),
+        buildingCount:new FormControl(''),
 
       });
     }
@@ -280,18 +270,24 @@ export class LpsSpdComponent implements OnInit {
     //new form
     if(a.controls.spdDescription.controls.length < numberOfItr){
       for(let i= a.controls.spdDescription.controls.length;i< numberOfItr;i++){
-        a.controls.spdDescription.controls.push(this.spddescriptionForm());
+        (a.controls.spdDescription as FormArray).push(this.spddescriptionForm())
        } 
     }
     // Deleting the iteration
     else if(a.controls.spdDescription.controls.length > numberOfItr && numberOfItr != 0){
-      for(let i= a.controls.spdDescription.controls.length;numberOfItr < i;i--){
-        if(a.controls.spdDescription.controls[0].value.spdDescriptionId != 0 && a.controls.spdDescription.controls[0].value.spdDescriptionId != undefined && a.controls.spdDescription.controls[0].value.spdDescriptionId != '' && a.controls.spdDescription.controls[0].value.spdDescriptionId != null){
-          this.spdDescriptionDelArr.push(a.value.spdDescription[a.controls.spdDescription.controls.length-1]);
-          (a.get('spdDescription') as FormArray).removeAt(a.controls.spdDescription.controls.length-1);
+      for(let index= a.controls.spdDescription.controls.length;numberOfItr < index;index--){
+        if(a.controls.spdDescription.controls[index-1].value.spdDescriptionId != 0 &&
+           a.controls.spdDescription.controls[index-1].value.spdDescriptionId != undefined && 
+           a.controls.spdDescription.controls[index-1].value.spdDescriptionId != '' && 
+           a.controls.spdDescription.controls[index-1].value.spdDescriptionId != null){
+
+          a.controls.spdDescription.controls[index-1].controls.flag.setValue('R');
+          a.controls.spdDescription.controls[index-1].controls.buildingCount.setValue(a.controls.buildingCount.value);
+          this.spdDescriptionDelArr.push(a.value.spdDescription[index-1]);
+          (a.get('spdDescription') as FormArray).removeAt(index-1);
         }
         else {
-          (a.get('spdDescription') as FormArray).removeAt(a.controls.spdDescription.controls.length-1);
+          (a.get('spdDescription') as FormArray).removeAt(index-1);
         }
        } 
     }
@@ -369,88 +365,99 @@ export class LpsSpdComponent implements OnInit {
     form.controls.noPannelSupplittingOb.updateValueAndValidity();
   }
 
-  removeItem(form:any,a:any,index:any) {
+  removeItem(form: any, a: any, index: any) {
     debugger
-    if(a.value.spdDescriptionId !=0 && a.value.spdDescriptionId !=undefined)
-    {
-      a.value.flag=false;
-      this.spdDescriptionDelArr= this.spdDescriptionDelArr.concat(a.value);
+    if (a.value.spdDescriptionId != 0 && a.value.spdDescriptionId != undefined) {
+      a.controls.flag.setValue('R');
+      a.controls.buildingCount.setValue(form.controls.buildingCount.value);
+      this.spdDescriptionDelArr = this.spdDescriptionDelArr.concat(a.value);
       (form.get('spdDescription') as FormArray).removeAt(index);
-      
+
     }
-  else{
-    (form.get('spdDescription') as FormArray).removeAt(index);}
+    else {
+      (form.get('spdDescription') as FormArray).removeAt(index);
+    }
     form.controls.noPannelSupplittingOb.setValue(form.controls.spdDescription.controls.length);
     form.controls.noPannelSupplittingOb.updateValueAndValidity();
   }
 
-  onSubmit(flag: any){
-      
-      this.submitted=true;
-      if(this.spdForm.invalid){return}
-        
-       // this.spdReport.spd[0]=[]
-        //this.spdReport=this.spdForm.value
-        this.spdReport.userName = this.router.snapshot.paramMap.get('email') || '{}';
-        this.spdReport.basicLpsId = this.basicLpsId;
+  onSubmit(flag: any) {
 
-        this.spdReport.spd = this.spdForm.value.spd;
-    
+    this.submitted = true;
+    if (this.spdForm.invalid) { return }
 
-        if (!this.validationError) {
-          if(flag) {
-            if(this.spdForm.dirty && this.spdForm.touched){ 
-            this.lpsSpd_Service.updateSpdDetails(this.spdReport).subscribe(
-              (data) => {
-                this.success = true;
-                this.successMsg = data;
-                this.spdForm.markAsPristine();
-                this.proceedNext.emit(true);
-                this.service.lvClick=0;
-                this.service.logoutClick=0;
-                this.service.windowTabClick=0;
-              },
-              (error) => {
-                this.Error = true;
-                this.errorArr = [];
-                this.errorArr = JSON.parse(error.error);
-                this.errorMsg = this.errorArr.message;
-                this.proceedNext.emit(false);
-              }
-            )
-          }
-          else{
-            if(this.isEditable){
+    // this.spdReport.spd[0]=[]
+    //this.spdReport=this.spdForm.value
+    this.spdReport.userName = this.router.snapshot.paramMap.get('email') || '{}';
+    this.spdReport.basicLpsId = this.basicLpsId;
+
+    this.spdReport.spd = this.spdForm.value.spd;
+
+    //deleted spdDescription record
+    for (let index = 0; index < this.spdReport.spd.length; index++) {
+      for (let i = 0; i < this.spdDescriptionDelArr.length; i++) {
+        if (this.spdReport.spd[index].buildingCount == this.spdDescriptionDelArr[i].buildingCount) {
+          this.spdReport.spd[index].spdDescription.push(this.spdDescriptionDelArr[i]);
+        }
+      }
+    }
+
+    this.spdDescriptionDelArr = []
+
+    if (!this.validationError) {
+      if (flag) {
+        if (this.spdForm.dirty && this.spdForm.touched) {
+          this.lpsSpd_Service.updateSpdDetails(this.spdReport).subscribe(
+            (data) => {
               this.success = true;
+              this.successMsg = data;
+              this.spdForm.markAsPristine();
               this.proceedNext.emit(true);
-            }else{
-              this.success = true;
-              this.proceedNext.emit(true);
+              this.service.lvClick = 0;
+              this.service.logoutClick = 0;
+              this.service.windowTabClick = 0;
+            },
+            (error) => {
+              this.Error = true;
+              this.errorArr = [];
+              this.errorArr = JSON.parse(error.error);
+              this.errorMsg = this.errorArr.message;
+              this.proceedNext.emit(false);
             }
-          }
-          }
-          else {
-            this.lpsSpd_Service.saveSPDDetails(this.spdReport).subscribe(      
-              (data) => {
-                this.success = true;
-                this.successMsg = data;
-                this.disable = true;
-                this.retriveSPD();
-                this.proceedNext.emit(true);
-                this.service.lvClick=0;
-                this.service.logoutClick=0;
-                this.service.windowTabClick=0;
-              },
-              (error) => {
-                this.Error = true;
-                this.errorArr = [];
-                this.errorArr = JSON.parse(error.error);
-                this.errorMsg = this.errorArr.message;
-                this.proceedNext.emit(false);
-              });
+          )
+        }
+        else {
+          if (this.isEditable) {
+            this.success = true;
+            this.proceedNext.emit(true);
+          } else {
+            this.success = true;
+            this.proceedNext.emit(true);
           }
         }
       }
+      else {
+        this.lpsSpd_Service.saveSPDDetails(this.spdReport).subscribe(
+          (data) => {
+            this.success = true;
+            this.successMsg = data;
+            this.disable = true;
+            // this.retriveSPD();
+            this.proceedNext.emit(true);
+            this.service.lvClick = 0;
+            this.service.logoutClick = 0;
+            this.service.windowTabClick = 0;
+          },
+          (error) => {
+            this.Error = true;
+            this.errorArr = [];
+            this.errorArr = JSON.parse(error.error);
+            this.errorMsg = this.errorArr.message;
+            this.proceedNext.emit(false);
+          });
+      }
+    }
+  }
       onChangeForm(event:any){
         if(!this.spdForm.invalid){
           if(this.spdForm.dirty){
@@ -504,7 +511,6 @@ export class LpsSpdComponent implements OnInit {
       }
     
       gotoNextModal(content: any,contents:any) {
-        this.basicLpsId = 302;
          if (this.spdForm.invalid) {
            this.validationError = true;
           
@@ -531,26 +537,26 @@ export class LpsSpdComponent implements OnInit {
        }
     }
   
-    retriveSPD(){
-      this.lpsSpd_Services.retrieveSPDDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
-        data => {
-          this.retrieveDetailsfromSavedReports(this.spdReport.userName,this.basicLpsId,this.ClientName,data);
-        },
-        error=>{
-        }
-      );  
-    }
+    // retriveSPD(){
+    //   this.lpsSpd_Services.retrieveSPDDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
+    //     data => {
+    //       this.retrieveDetailsfromSavedReports(this.spdReport.userName,this.basicLpsId,this.ClientName,data);
+    //     },
+    //     error=>{
+    //     }
+    //   );  
+    // }
 
-    dosomthingRetriveSPD(userName:any,basicLpsId:any){
-      this.lpsSpd_Services.retrieveSPDDetails(userName,basicLpsId).subscribe(
-        data => {
-          this.retrieveDetailsfromSavedReports1(userName,basicLpsId,'',data);
-        },
-        error=>{
-          this.ngOnInit();
-        }
-      );  
-    }
+    // dosomthingRetriveSPD(userName:any,basicLpsId:any){
+    //   this.lpsSpd_Services.retrieveSPDDetails(userName,basicLpsId).subscribe(
+    //     data => {
+    //       this.retrieveDetailsfromSavedReports1(userName,basicLpsId,'',data);
+    //     },
+    //     error=>{
+    //       this.ngOnInit();
+    //     }
+    //   );  
+    // }
 
      //creating form array based on airtermination building
   createSpdForm(data: any) {
