@@ -206,7 +206,7 @@
                                 <i class="bi bi-person-lines-fill"></i>
                             </span>
                         </div>
-                        <input tpe="text" class="form-control" placeholder="Enter clientname"
+                        <input tpe="text" class="form-control" placeholder="Enter Name"
                          formControlName="name"  [readonly]="isEditable" [(ngModel)]="basicDetails.name"
                         [ngClass]="{ 'is-invalid': submitted && f.name.errors}" />
                         <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
@@ -224,7 +224,7 @@
                                 <i class="bi bi-building"></i>
                             </span>
                         </div>
-                        <input tpe="text" class="form-control" placeholder="Enter clientname"  [(ngModel)]="basicDetails.company"
+                        <input tpe="text" class="form-control" placeholder="Enter Company"  [(ngModel)]="basicDetails.company"
                         [readonly]="isEditable" formControlName="company" [ngClass]="{ 'is-invalid': submitted && f.company.errors}" />
                         <div *ngIf="submitted && f.company.errors" class="invalid-feedback">
                             <div *ngIf="f.company.errors.required">Company is required</div>
@@ -241,7 +241,7 @@
                                 <i class="bi bi-person-lines-fill"></i>
                             </span>
                         </div>
-                        <input tpe="text" class="form-control" placeholder="Enter clientname"  [(ngModel)]="basicDetails.designation"
+                        <input tpe="text" class="form-control" placeholder="Enter Designation"  [(ngModel)]="basicDetails.designation"
                         [readonly]="isEditable" formControlName="designation"   [ngClass]="{ 'is-invalid': submitted && f.designation.errors}" />
                         <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
                             <div *ngIf="f.designation.errors.required">Designation is required</div>
@@ -257,7 +257,7 @@
                         <input type="tel" class="form-control" type="tel" ng2TelInput [(ngModel)]="basicDetails.contactNumber"
                         [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
                        (keypress)="keyPressNumbers($event)" (countryChange)="countryChange($event)"
-                       placeholder="Enter clientname"  [(ngModel)]="basicDetails.contactNumber"
+                       placeholder="Enter Contact Number"  [(ngModel)]="basicDetails.contactNumber"
                        [readonly]="isEditable" formControlName="contactNumber"   [ngClass]="{ 'is-invalid': submitted && f.contactNumber.errors}" />
                        <div *ngIf="submitted && f.contactNumber.errors" class="invalid-feedback">
                            <div *ngIf="f.contactNumber.errors.required">Contact Number is required</div>
@@ -267,7 +267,7 @@
             </div>
 
                 <div class="col-md-4">
-                    <label for="clientname">Mail Id</label>
+                    <label for="clientname">Email Id</label>
                     <!-- icon code -->
                     <div class="input-group">
                         <div class="input-group-prepend">
@@ -276,9 +276,9 @@
                             </span>
                         </div>
                         <input tpe="text" [readonly]="isEditable" formControlName="mailId"   [(ngModel)]="basicDetails.mailId"
-                         class="form-control" placeholder="Enter clientname"  [ngClass]="{ 'is-invalid': submitted && f.mailId.errors}" />
+                         class="form-control" placeholder="Enter Email Id"  [ngClass]="{ 'is-invalid': submitted && f.mailId.errors}" />
                         <div *ngIf="submitted && f.mailId.errors" class="invalid-feedback">
-                            <div *ngIf="f.mailId.errors.required">Mail Id is required</div>
+                            <div *ngIf="f.mailId.errors.required">Email Id is required</div>
                             <div *ngIf="f.mailId.errors.pattern">Enter valid email</div>
                         </div>
                     </div>
