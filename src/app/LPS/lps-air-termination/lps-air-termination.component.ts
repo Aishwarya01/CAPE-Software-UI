@@ -1132,6 +1132,20 @@ export class LpsAirTerminationComponent implements OnInit {
       }
     }
 
+    validationChangeNo(event: any,q: any,formControl: any) {
+      let arr: any = [];
+      arr = q.controls.airBasicDescription as FormArray;
+      if(event.target.value == 'No') {
+        arr.controls[0].controls[formControl].setValidators([Validators.required]);
+        arr.controls[0].controls[formControl].updateValueAndValidity();
+      }
+      else {
+        arr.controls[0].controls[formControl].clearValidators();
+        arr.controls[0].controls[formControl].updateValueAndValidity();
+      }
+    }
+
+
     validationChangeVat(event: any,q: any,formControl: any) {
       let arr: any = [];
       arr = q.controls.lpsVerticalAirTermination as FormArray;
@@ -1145,14 +1159,13 @@ export class LpsAirTerminationComponent implements OnInit {
       }
     }
 
-
     validationChangeVatList(event: any,z: any,formControl: any) {
       
       if(event.target.value == 'Not protected') {
         z.controls[formControl].setValidators([Validators.required]);
         z.controls[formControl].updateValueAndValidity();
       }
-      else if(event.target.value == 'Yes') {
+      else if(event.target.value == 'No') {
         z.controls[formControl].setValidators([Validators.required]);
         z.controls[formControl].updateValueAndValidity();
       }
@@ -1204,7 +1217,7 @@ export class LpsAirTerminationComponent implements OnInit {
         arr.controls[0].controls[formControl].setValidators([Validators.required]);
         arr.controls[0].controls[formControl].updateValueAndValidity();
       }
-      else if(event.target.value == 'Yes') {
+      else if(event.target.value == 'No') {
         arr.controls[0].controls[formControl].setValidators([Validators.required]);
         arr.controls[0].controls[formControl].updateValueAndValidity();
       }
@@ -1262,7 +1275,7 @@ export class LpsAirTerminationComponent implements OnInit {
         arr.controls[0].controls[formControl].setValidators([Validators.required]);
         arr.controls[0].controls[formControl].updateValueAndValidity();
       }
-      else if(event.target.value == 'Yes') {
+      else if(event.target.value == 'No') {
         arr.controls[0].controls[formControl].setValidators([Validators.required]);
         arr.controls[0].controls[formControl].updateValueAndValidity();
       }
@@ -1292,7 +1305,7 @@ export class LpsAirTerminationComponent implements OnInit {
         arr.controls[0].controls[formControl].setValidators([Validators.required]);
         arr.controls[0].controls[formControl].updateValueAndValidity();
       }
-      else if(event.target.value == 'Yes') {
+      else if(event.target.value == 'No') {
         arr.controls[0].controls[formControl].setValidators([Validators.required]);
         arr.controls[0].controls[formControl].updateValueAndValidity();
       }
