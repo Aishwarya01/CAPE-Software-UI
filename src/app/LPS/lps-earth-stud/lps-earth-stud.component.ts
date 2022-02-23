@@ -275,7 +275,7 @@ export class LpsEarthStudComponent implements OnInit {
             this.success = true;
             this.successMsg = data;
             this.disable = true;
-            this.retriveStud();
+            // this.retriveStud();
             this.proceedNext.emit(true);
             // setTimeout(() => {
             //   this.lpsMatstepper.changeTab1(2);
@@ -398,7 +398,7 @@ export class LpsEarthStudComponent implements OnInit {
     else{
       changedValue = event;
     }
-      if(changedValue== 'NO'){
+      if(changedValue== 'No'){
 
         this.equipotentialBondings[index]=false;
         this.interconnectingLPS[index]=false;  
