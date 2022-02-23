@@ -25,6 +25,7 @@
                 
                                 <div class="col-md-6">
                                     <label for="buildingName">Building Name</label>
+                                    <mat-icon aria-hidden="false" style="position: relative; top: -4px; float: right;cursor: pointer;" *ngIf="overAllControl().length > 1" (click)="removeItem(q,j)" title="Delete Above Building" aria-label="Example home icon" mat-list-icon>remove_circle_outline</mat-icon>	
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">
@@ -1415,7 +1416,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                            <select class="form-control" formControlName="physicalInspectionOb"
+                                                            <select class="form-control" formControlName="physicalInspectionOb" (change)="validationChangeMesh($event,q,'physicalInspectionRe')"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionOb')?.errors}">
                                                                 <option value="" selected>Select Option</option>
                                                                 <option value="Physically good" >Physically good</option>
@@ -1436,7 +1437,10 @@
                                                             </span>
                                                         </div>
                                                         <textarea [readonly]="isEditable" formControlName="physicalInspectionRe" type="text" class="form-control"
-                                                            ></textarea>
+                                                        [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionRe')?.errors }" ></textarea>
+                                                        <div *ngIf="submitted && a.get('physicalInspectionRe')?.errors" class="invalid-feedback">
+                                                            <div *ngIf="a.get('physicalInspectionRe')?.errors?.required">Remarks is required</div>
+                                                        </div>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -1784,7 +1788,8 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                            <select class="form-control" formControlName="physicalInspectionOb" [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionOb')?.errors}">
+                                                            <select class="form-control" formControlName="physicalInspectionOb" [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionOb')?.errors}"
+                                                            (change)="validationChangeHolder($event,q,'physicalInspectionRe')">
                                                                 <option value="" selected>Select Option</option>
                                                                 <option value="Physically good" >Physically good</option>
                                                                 <option value="Not good" >Not good</option>
@@ -1805,7 +1810,10 @@
                                                             </span>
                                                         </div>
                                                         <textarea [readonly]="isEditable" formControlName="physicalInspectionRe" type="text"
-                                                            class="form-control" ></textarea>
+                                                            class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionRe')?.errors }" ></textarea>
+                                                            <div *ngIf="submitted && a.get('physicalInspectionRe')?.errors" class="invalid-feedback">
+                                                                <div *ngIf="a.get('physicalInspectionRe')?.errors?.required">Remarks is required</div>
+                                                            </div>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -1819,7 +1827,8 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                            <select class="form-control" formControlName="conductorHolderFlatSurfaceOb" [ngClass]="{ 'is-invalid': submitted && a.get('conductorHolderFlatSurfaceOb')?.errors}">
+                                                            <select class="form-control" formControlName="conductorHolderFlatSurfaceOb" [ngClass]="{ 'is-invalid': submitted && a.get('conductorHolderFlatSurfaceOb')?.errors}"
+                                                            (change)="validationChangeHolder($event,q,'conductorHolderFlatSurfaceRe')">
                                                                 <option value="" selected>Select Option</option>
                                                                 <option value="Yes" >Yes</option>
                                                                 <option value="No" >No</option>
@@ -1840,7 +1849,10 @@
                                                             </span>
                                                         </div>
                                                         <textarea [readonly]="isEditable" formControlName="conductorHolderFlatSurfaceRe" type="text"
-                                                            class="form-control" ></textarea>
+                                                            class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('conductorHolderFlatSurfaceRe')?.errors }" ></textarea>
+                                                            <div *ngIf="submitted && a.get('conductorHolderFlatSurfaceRe')?.errors" class="invalid-feedback">
+                                                                <div *ngIf="a.get('conductorHolderFlatSurfaceRe')?.errors?.required">Remarks is required</div>
+                                                            </div>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -1854,10 +1866,11 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                            <select class="form-control" formControlName="conductorHolderOb" [ngClass]="{ 'is-invalid': submitted && a.get('conductorHolderOb')?.errors}">
+                                                            <select class="form-control" formControlName="conductorHolderOb" [ngClass]="{ 'is-invalid': submitted && a.get('conductorHolderOb')?.errors}"
+                                                            (change)="validationChangeHolder($event,q,'conductorHolderRe')">
                                                                 <option value="" selected>Select Option</option>
-                                                                <option value="Physically good" >Physically good</option>
-                                                                <option value="Not good" >Not good</option>
+                                                                <option value="Yes" >Yes</option>
+                                                                <option value="No" >No</option>
                                                             </select>
                                                         <div *ngIf="submitted && a.get('conductorHolderOb')?.errors"
                                                             class="invalid-feedback">
@@ -1874,7 +1887,10 @@
                                                             </span>
                                                         </div>
                                                         <textarea [readonly]="isEditable" formControlName="conductorHolderRe" type="text"
-                                                            class="form-control" ></textarea>
+                                                            class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('conductorHolderRe')?.errors }" ></textarea>
+                                                            <div *ngIf="submitted && a.get('conductorHolderRe')?.errors" class="invalid-feedback">
+                                                                <div *ngIf="a.get('conductorHolderRe')?.errors?.required">Remarks is required</div>
+                                                            </div>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -2066,7 +2082,7 @@
                                                                 </span>
                                                             </div>
                                                             <input [readonly]="isEditable" formControlName="holderInspFailedNoOb" type="number"
-                                                                class="form-control" placeholder="Please enter Observation here"
+                                                                class="form-control" placeholder="Please enter Observation here" (keyup)="validationChangeHolderList($event,h,'holderInspFailedNoRe')"
                                                                 [ngClass]="{ 'is-invalid': submitted && h.get('holderInspFailedNoOb')?.errors}">
                                                             <div *ngIf="submitted && h.get('holderInspFailedNoOb')?.errors"
                                                                 class="invalid-feedback">
@@ -2084,7 +2100,10 @@
                                                                 </span>
                                                             </div>
                                                             <textarea [readonly]="isEditable" formControlName="holderInspFailedNoRe" type="text"
-                                                                class="form-control" ></textarea>
+                                                                class="form-control" [ngClass]="{ 'is-invalid': submitted && h.get('holderInspFailedNoRe')?.errors }" ></textarea>
+                                                                <div *ngIf="submitted && h.get('holderInspFailedNoRe')?.errors" class="invalid-feedback">
+                                                                    <div *ngIf="h.get('holderInspFailedNoRe')?.errors?.required">Remarks is required</div>
+                                                                </div>
                                                         </div>
                                                         <div class="row" style="float: right;
                                                         margin-right: 10px;">
@@ -2112,7 +2131,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                            <select class="form-control" formControlName="materailOfParpetHolderOb" 
+                                                            <select class="form-control" formControlName="materailOfParpetHolderOb"  (change)="ChangeParapetHolder($event,a)"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('materailOfParpetHolderOb')?.errors}">
                                                                 <option value="" selected>Select Option</option>
                                                                 <option value="Plastic" >Plastic</option>
@@ -2145,7 +2164,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <tr>
+                                            <tr *ngIf="a.get('materailOfParpetHolderOb')?.value != 'Not applicable'">
                                                 <td style="width: 1rem;text-align: center;">8(k)</td>
                                                 <td style="width: 24rem;">Total number of holders</td>
                                                 <td style="width: 43rem;">
@@ -2177,7 +2196,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <tr>
+                                            <tr *ngIf="a.get('materailOfParpetHolderOb')?.value != 'Not applicable'">
                                                 <td style="width: 1rem;text-align: center;">8(l)</td>
                                                 <td style="width: 24rem;">Number of holders inspected</td>
                                                 <td style="width: 43rem;">
@@ -2210,7 +2229,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <tr>
+                                            <tr *ngIf="a.get('materailOfParpetHolderOb')?.value != 'Not applicable'">
                                                 <td style="width: 1rem;text-align: center;">8(m)</td>
                                                 <td style="width: 24rem;">Number of inspections passed</td>
                                                 <td style="width: 43rem;">
@@ -2242,7 +2261,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <tr>
+                                            <tr *ngIf="a.get('materailOfParpetHolderOb')?.value != 'Not applicable'">
                                                 <td style="width: 1rem;text-align: center;">8(n)</td>
                                                 <td style="width: 24rem;">Number of inspections failed</td>
                                                 <td style="width: 43rem;">
@@ -2253,7 +2272,7 @@
                                                             </span>
                                                         </div>
                                                         <input [readonly]="isEditable" formControlName="parpetInspectionFailedNoOb" type="number"
-                                                            class="form-control" placeholder="Please enter Observation here"
+                                                            class="form-control" placeholder="Please enter Observation here" (keyup)="validationChangeHolderKey($event,q,'parpetInspectionFailedNoRe')"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('parpetInspectionFailedNoOb')?.errors}">
                                                         <div *ngIf="submitted && a.get('parpetInspectionFailedNoOb')?.errors"
                                                             class="invalid-feedback">
@@ -2270,7 +2289,10 @@
                                                             </span>
                                                         </div>
                                                         <textarea [readonly]="isEditable" formControlName="parpetInspectionFailedNoRe" type="text"
-                                                            class="form-control" ></textarea>
+                                                            class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('parpetInspectionFailedNoRe')?.errors }" ></textarea>
+                                                            <div *ngIf="submitted && a.get('parpetInspectionFailedNoRe')?.errors" class="invalid-feedback">
+                                                                <div *ngIf="a.get('parpetInspectionFailedNoRe')?.errors?.required">Remarks is required</div>
+                                                            </div>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -2341,7 +2363,8 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                            <select class="form-control" formControlName="physicalInspectionOb" [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionOb')?.errors}">
+                                                            <select class="form-control" formControlName="physicalInspectionOb" [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionOb')?.errors}"
+                                                            (change)="validationChangeClamps($event,q,'physicalInspectionRe')">
                                                                 <option value="" selected>Select Option</option>
                                                                 <option value="Physically good" >Physically good</option>
                                                                 <option value="Not good" >Not good</option>
@@ -2361,7 +2384,10 @@
                                                             </span>
                                                         </div>
                                                         <textarea [readonly]="isEditable" formControlName="physicalInspectionRe" type="text"
-                                                            class="form-control" ></textarea>
+                                                            class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionRe')?.errors }" ></textarea>
+                                                            <div *ngIf="submitted && a.get('physicalInspectionRe')?.errors" class="invalid-feedback">
+                                                                <div *ngIf="a.get('physicalInspectionRe')?.errors?.required">Remarks is required</div>
+                                                            </div>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -2375,7 +2401,8 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                            <select class="form-control" formControlName="conductorClampsFlatSurafaceOb" [ngClass]="{ 'is-invalid': submitted && a.get('conductorClampsFlatSurafaceOb')?.errors}">
+                                                            <select class="form-control" formControlName="conductorClampsFlatSurafaceOb" [ngClass]="{ 'is-invalid': submitted && a.get('conductorClampsFlatSurafaceOb')?.errors}"
+                                                            (change)="validationChangeClamps($event,q,'conductorClampsFlatSurafaceRe')">
                                                                 <option value="" selected>Select Option</option>
                                                                 <option value="Yes" >Yes</option>
                                                                 <option value="No" >No</option>
@@ -2396,7 +2423,10 @@
                                                             </span>
                                                         </div>
                                                         <textarea [readonly]="isEditable" formControlName="conductorClampsFlatSurafaceRe" type="text"
-                                                            class="form-control" ></textarea>
+                                                            class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('conductorClampsFlatSurafaceRe')?.errors }" ></textarea>
+                                                            <div *ngIf="submitted && a.get('conductorClampsFlatSurafaceRe')?.errors" class="invalid-feedback">
+                                                                <div *ngIf="a.get('conductorClampsFlatSurafaceRe')?.errors?.required">Remarks is required</div>
+                                                            </div>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -2410,7 +2440,8 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                            <select class="form-control" formControlName="interConnectionOfClampsOb" [ngClass]="{ 'is-invalid': submitted && a.get('interConnectionOfClampsOb')?.errors}">
+                                                            <select class="form-control" formControlName="interConnectionOfClampsOb" [ngClass]="{ 'is-invalid': submitted && a.get('interConnectionOfClampsOb')?.errors}"
+                                                            (change)="validationChangeClamps($event,q,'interConnectionOfClampsRe')">
                                                                 <option value="" selected>Select Option</option>
                                                                 <option value="Physically good" >Physically good</option>
                                                                 <option value="Not good" >Not good</option>
@@ -2430,7 +2461,10 @@
                                                             </span>
                                                         </div>
                                                         <textarea [readonly]="isEditable" formControlName="interConnectionOfClampsRe" type="text"
-                                                            class="form-control" ></textarea>
+                                                            class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('interConnectionOfClampsRe')?.errors }" ></textarea>
+                                                            <div *ngIf="submitted && a.get('interConnectionOfClampsRe')?.errors" class="invalid-feedback">
+                                                                <div *ngIf="a.get('interConnectionOfClampsRe')?.errors?.required">Remarks is required</div>
+                                                            </div>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -2647,7 +2681,7 @@
                                                             </span>
                                                         </div>
                                                         <textarea [readonly]="isEditable" formControlName="inspectionPassedRe" type="text"
-                                                            class="form-control" ></textarea>
+                                                            class="form-control"> </textarea>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -2662,7 +2696,7 @@
                                                             </span>
                                                         </div>
                                                         <input [readonly]="isEditable" formControlName="inspectionFailedReOb" type="number"
-                                                            class="form-control" placeholder="Please enter Observation here"
+                                                            class="form-control" placeholder="Please enter Observation here" (keyup)="validationChangeClampsKey($event,q,'inspectionFailedReRe')"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedReOb')?.errors}">
                                                         <div *ngIf="submitted && a.get('inspectionFailedReOb')?.errors"
                                                             class="invalid-feedback">
@@ -2679,7 +2713,10 @@
                                                             </span>
                                                         </div>
                                                         <textarea [readonly]="isEditable" formControlName="inspectionFailedReRe" type="text"
-                                                            class="form-control" ></textarea>
+                                                            class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedReRe')?.errors }" ></textarea>
+                                                            <div *ngIf="submitted && a.get('inspectionFailedReRe')?.errors" class="invalid-feedback">
+                                                                <div *ngIf="a.get('inspectionFailedReRe')?.errors?.required">Remarks is required</div>
+                                                            </div>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -2750,7 +2787,8 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                            <select class="form-control" formControlName="physicalInspectionOb" [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionOb')?.errors}">
+                                                            <select class="form-control" formControlName="physicalInspectionOb" [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionOb')?.errors}"
+                                                            (change)="validationChangeExpansion($event,q,'physicalInspectionRe')">
                                                                 <option value="" selected>Select Option</option>
                                                                 <option value="Physically good" >Physically good</option>
                                                                 <option value="Not good" >Not good</option>
@@ -2770,7 +2808,10 @@
                                                             </span>
                                                         </div>
                                                         <textarea [readonly]="isEditable" formControlName="physicalInspectionRe" type="text"
-                                                            class="form-control" ></textarea>
+                                                            class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionRe')?.errors }" ></textarea>
+                                                            <div *ngIf="submitted && a.get('physicalInspectionRe')?.errors" class="invalid-feedback">
+                                                                <div *ngIf="a.get('physicalInspectionRe')?.errors?.required">Remarks is required</div>
+                                                            </div>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -2784,7 +2825,8 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                            <select class="form-control" formControlName="strightConnectorPiecOb" [ngClass]="{ 'is-invalid': submitted && a.get('strightConnectorPiecOb')?.errors}">
+                                                            <select class="form-control" formControlName="strightConnectorPiecOb" 
+                                                            (change)="validationChangeExpansion($event,q,'strightConnectorPiecRe')" [ngClass]="{ 'is-invalid': submitted && a.get('strightConnectorPiecOb')?.errors}">
                                                                 <option value="" selected>Select Option</option>
                                                                 <option value="Yes" >Yes</option>
                                                                 <option value="No" >No</option>
@@ -2804,7 +2846,10 @@
                                                             </span>
                                                         </div>
                                                         <textarea [readonly]="isEditable" formControlName="strightConnectorPiecRe" type="text"
-                                                            class="form-control" ></textarea>
+                                                            class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('strightConnectorPiecRe')?.errors }" ></textarea>
+                                                            <div *ngIf="submitted && a.get('strightConnectorPiecRe')?.errors" class="invalid-feedback">
+                                                                <div *ngIf="a.get('strightConnectorPiecRe')?.errors?.required">Remarks is required</div>
+                                                            </div>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -3029,7 +3074,7 @@
                                                             </span>
                                                         </div>
                                                         <input [readonly]="isEditable" formControlName="inspectionFailedNoOb" type="number"
-                                                            class="form-control" placeholder="Please enter Observation here"
+                                                            class="form-control" placeholder="Please enter Observation here" (keyup)="validationChangeExpansionKey($event,q,'inspectionFailedNoRe')"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedNoOb')?.errors}">
                                                         <div *ngIf="submitted && a.get('inspectionFailedNoOb')?.errors"
                                                             class="invalid-feedback">
@@ -3046,7 +3091,10 @@
                                                             </span>
                                                         </div>
                                                         <textarea [readonly]="isEditable" formControlName="inspectionFailedNoRe" type="text"
-                                                            class="form-control" ></textarea>
+                                                            class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedNoRe')?.errors }" ></textarea>
+                                                            <div *ngIf="submitted && a.get('inspectionFailedNoRe')?.errors" class="invalid-feedback">
+                                                                <div *ngIf="a.get('inspectionFailedNoRe')?.errors?.required">Remarks is required</div>
+                                                            </div>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -3113,7 +3161,8 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                            <select class="form-control" formControlName="physicalInspectionOb" [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionOb')?.errors}">
+                                                            <select class="form-control" formControlName="physicalInspectionOb"
+                                                            (change)="validationChangeConnectors($event,q,'physicalInspectionRe')"  [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionOb')?.errors}">
                                                                 <option value="" selected>Select Option</option>
                                                                 <option value="Physically good" >Physically good</option>
                                                                 <option value="Not good" >Not good</option>
@@ -3133,7 +3182,10 @@
                                                             </span>
                                                         </div>
                                                         <textarea [readonly]="isEditable" formControlName="physicalInspectionRe" type="text"
-                                                            class="form-control" ></textarea>
+                                                            class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionRe')?.errors }" ></textarea>
+                                                            <div *ngIf="submitted && a.get('physicalInspectionRe')?.errors" class="invalid-feedback">
+                                                                <div *ngIf="a.get('physicalInspectionRe')?.errors?.required">Remarks is required</div>
+                                                            </div>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -3147,7 +3199,8 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                            <select class="form-control" formControlName="checkConnectionConnectorsOb" [ngClass]="{ 'is-invalid': submitted && a.get('checkConnectionConnectorsOb')?.errors}">
+                                                            <select class="form-control" formControlName="checkConnectionConnectorsOb" 
+                                                            (change)="validationChangeConnectors($event,q,'checkConnectionConnectorsRe')" [ngClass]="{ 'is-invalid': submitted && a.get('checkConnectionConnectorsOb')?.errors}">
                                                                 <option value="" selected>Select Option</option>
                                                                 <option value="Physically good" >Physically good</option>
                                                                 <option value="Not good" >Not good</option>
@@ -3167,7 +3220,10 @@
                                                             </span>
                                                         </div>
                                                         <textarea [readonly]="isEditable" formControlName="checkConnectionConnectorsRe" type="text"
-                                                            class="form-control" ></textarea>
+                                                            class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('checkConnectionConnectorsRe')?.errors }" ></textarea>
+                                                            <div *ngIf="submitted && a.get('checkConnectionConnectorsRe')?.errors" class="invalid-feedback">
+                                                                <div *ngIf="a.get('checkConnectionConnectorsRe')?.errors?.required">Remarks is required</div>
+                                                            </div>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -3446,7 +3502,7 @@
                                                             </span>
                                                         </div>
                                                         <input [readonly]="isEditable" formControlName="inspectionFailedOb" type="number"
-                                                            class="form-control" placeholder="Please enter Observation here"
+                                                            class="form-control" placeholder="Please enter Observation here" (keyup)="validationChangeConnectorsKey($event,q,'inspectionFailedRe')"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedOb')?.errors}">
                                                         <div *ngIf="submitted && a.get('inspectionFailedOb')?.errors"
                                                             class="invalid-feedback">
@@ -3463,7 +3519,10 @@
                                                             </span>
                                                         </div>
                                                         <textarea [readonly]="isEditable" formControlName="inspectionFailedRe" type="text"
-                                                            class="form-control" ></textarea>
+                                                            class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedRe')?.errors }" ></textarea>
+                                                            <div *ngIf="submitted && a.get('inspectionFailedRe')?.errors" class="invalid-feedback">
+                                                                <div *ngIf="a.get('inspectionFailedRe')?.errors?.required">Remarks is required</div>
+                                                            </div>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -3485,11 +3544,7 @@
                     <mat-icon aria-hidden="false" aria-label="Example home icon" mat-list-icon>add_box</mat-icon>	
                     </button>	
 
-                    <button class="btn btn-danger" *ngIf="overAllControl().length > 1" (click)="removeItem(q,j)" title="Delete Above Building" 
-                    style="padding: 5px 0px 0px 0px; width: 3%;	height: 35px; position: relative; margin-top: 10px;">	
-
-                    <mat-icon aria-hidden="false" aria-label="Example home icon" mat-list-icon>remove_circle_outline</mat-icon>	
-                    </button>
+                    
 
                 </div>
             </div>

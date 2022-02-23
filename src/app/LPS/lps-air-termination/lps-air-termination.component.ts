@@ -1174,7 +1174,7 @@ export class LpsAirTerminationComponent implements OnInit {
     validationChangeVatFailed(event: any,q: any,formControl: any) {
       let arr: any = [];
       arr = q.controls.lpsVerticalAirTermination as FormArray;
-      if(event.target.value != '' && event.target.value == 0) {
+      if(event.target.value != '' && event.target.value != 0) {
         arr.controls[0].controls[formControl].setValidators([Validators.required]);
         arr.controls[0].controls[formControl].updateValueAndValidity();
       }
@@ -1183,6 +1183,164 @@ export class LpsAirTerminationComponent implements OnInit {
         arr.controls[0].controls[formControl].updateValueAndValidity();
       }
     }
+
+    validationChangeMesh(event: any,q: any,formControl: any) {
+      let arr: any = [];
+      arr = q.controls.airMeshDescription as FormArray;
+      if(event.target.value == 'Not good') {
+        arr.controls[0].controls[formControl].setValidators([Validators.required]);
+        arr.controls[0].controls[formControl].updateValueAndValidity();
+      }
+      else {
+        arr.controls[0].controls[formControl].clearValidators();
+        arr.controls[0].controls[formControl].updateValueAndValidity();
+      }
+    }
+
+    validationChangeHolder(event: any,q: any,formControl: any) {
+      let arr: any = [];
+      arr = q.controls.airHolderDescription as FormArray;
+      if(event.target.value == 'Not good') {
+        arr.controls[0].controls[formControl].setValidators([Validators.required]);
+        arr.controls[0].controls[formControl].updateValueAndValidity();
+      }
+      else if(event.target.value == 'Yes') {
+        arr.controls[0].controls[formControl].setValidators([Validators.required]);
+        arr.controls[0].controls[formControl].updateValueAndValidity();
+      }
+      else {
+        arr.controls[0].controls[formControl].clearValidators();
+        arr.controls[0].controls[formControl].updateValueAndValidity();
+      }
+    }
+
+    validationChangeHolderList(event: any,h: any,formControl: any) {    
+      if(event.target.value != '' && event.target.value != 0) {
+        h.controls[formControl].setValidators([Validators.required]);
+        h.controls[formControl].updateValueAndValidity();
+      }
+      else {
+        h.controls[formControl].clearValidators();
+        h.controls[formControl].updateValueAndValidity();
+      }
+    }
+
+    ChangeParapetHolder(e: any,a: any) {
+      if(e.target.value == 'Not applicable') {
+        a.controls.totalParpetHolderNoOb.setValue('');
+        a.controls.totalParpetHolderNoRe.setValue('');
+
+        a.controls.parpetInspectionNoOb.setValue('');
+        a.controls.parpetInspectionNoRe.setValue('');
+
+        a.controls.parpetInspectionPassedNoOb.setValue('');
+        a.controls.parpetInspectionPassedNoRe.setValue('');
+
+        a.controls.parpetInspectionFailedNoOb.setValue('');
+        a.controls.parpetInspectionFailedNoRe.setValue('');
+      }
+    }
+
+
+    validationChangeHolderKey(event: any,q: any,formControl: any) {
+      let arr: any = [];
+      arr = q.controls.airHolderDescription as FormArray;
+      if(event.target.value != '' && event.target.value != 0) {
+        arr.controls[0].controls[formControl].setValidators([Validators.required]);
+        arr.controls[0].controls[formControl].updateValueAndValidity();
+      }
+      else {
+        arr.controls[0].controls[formControl].clearValidators();
+        arr.controls[0].controls[formControl].updateValueAndValidity();
+      }
+    }
+
+    validationChangeClamps(event: any,q: any,formControl: any) {
+      let arr: any = [];
+      arr = q.controls.airClamps as FormArray;
+      if(event.target.value == 'Not good') {
+        arr.controls[0].controls[formControl].setValidators([Validators.required]);
+        arr.controls[0].controls[formControl].updateValueAndValidity();
+      }
+      else if(event.target.value == 'Yes') {
+        arr.controls[0].controls[formControl].setValidators([Validators.required]);
+        arr.controls[0].controls[formControl].updateValueAndValidity();
+      }
+      else {
+        arr.controls[0].controls[formControl].clearValidators();
+        arr.controls[0].controls[formControl].updateValueAndValidity();
+      }
+    }
+
+    validationChangeClampsKey(event: any,q: any,formControl: any) {
+      let arr: any = [];
+      arr = q.controls.airClamps as FormArray;
+      if(event.target.value != '' && event.target.value != 0) {
+        arr.controls[0].controls[formControl].setValidators([Validators.required]);
+        arr.controls[0].controls[formControl].updateValueAndValidity();
+      }
+      else {
+        arr.controls[0].controls[formControl].clearValidators();
+        arr.controls[0].controls[formControl].updateValueAndValidity();
+      }
+    }
+
+    validationChangeExpansion(event: any,q: any,formControl: any) {
+      let arr: any = [];
+      arr = q.controls.airExpansion as FormArray;
+      if(event.target.value == 'Not good') {
+        arr.controls[0].controls[formControl].setValidators([Validators.required]);
+        arr.controls[0].controls[formControl].updateValueAndValidity();
+      }
+      else if(event.target.value == 'Yes') {
+        arr.controls[0].controls[formControl].setValidators([Validators.required]);
+        arr.controls[0].controls[formControl].updateValueAndValidity();
+      }
+      else {
+        arr.controls[0].controls[formControl].clearValidators();
+        arr.controls[0].controls[formControl].updateValueAndValidity();
+      }
+    }
+
+    validationChangeExpansionKey(event: any,q: any,formControl: any) {
+      let arr: any = [];
+      arr = q.controls.airExpansion as FormArray;
+      if(event.target.value != '' && event.target.value != 0) {
+        arr.controls[0].controls[formControl].setValidators([Validators.required]);
+        arr.controls[0].controls[formControl].updateValueAndValidity();
+      }
+      else {
+        arr.controls[0].controls[formControl].clearValidators();
+        arr.controls[0].controls[formControl].updateValueAndValidity();
+      }
+    }
+
+    validationChangeConnectors(event: any,q: any,formControl: any) {
+      let arr: any = [];
+      arr = q.controls.airConnectors as FormArray;
+      if(event.target.value == 'Not good') {
+        arr.controls[0].controls[formControl].setValidators([Validators.required]);
+        arr.controls[0].controls[formControl].updateValueAndValidity();
+      }
+      else {
+        arr.controls[0].controls[formControl].clearValidators();
+        arr.controls[0].controls[formControl].updateValueAndValidity();
+      }
+    }
+
+    validationChangeConnectorsKey(event: any,q: any,formControl: any) {
+      let arr: any = [];
+      arr = q.controls.airConnectors as FormArray;
+      if(event.target.value != '' && event.target.value != 0) {
+        arr.controls[0].controls[formControl].setValidators([Validators.required]);
+        arr.controls[0].controls[formControl].updateValueAndValidity();
+      }
+      else {
+        arr.controls[0].controls[formControl].clearValidators();
+        arr.controls[0].controls[formControl].updateValueAndValidity();
+      }
+    }
+    
 
     // Parent Array Controls:
     overAllControl(): AbstractControl[] {
