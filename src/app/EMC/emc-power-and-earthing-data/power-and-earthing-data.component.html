@@ -307,9 +307,9 @@
                             <br>
                             <div>
                                 <label class="form-label">Attach SLD of power supply system</label>
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-2">
                                     <label for="inputGroupFile01">Upload</label>
-                                    <input type="file" class="form-control" id="inputGroupFile01"
+                                    <input type="file" class="form-control" id="inputGroupFile01" (change)="onChange($event)"
                                         [(ngModel)]="emcPowerAndEarthingData.peAttachement"
                                         formControlName="peAttachement"
                                         [ngClass]="{'is-invalid':submitted && f.peAttachement?.errors}">
@@ -317,6 +317,10 @@
                                         <div *ngIf="f.peAttachement?.errors?.required">Field Is Required</div>
                                     </div>
                                 </div>
+                                <button  
+                                class="btn btn-success" (click)="onUpload()">
+                                    Upload
+                                    </button>
                             </div>
                         </div>
                     </div>

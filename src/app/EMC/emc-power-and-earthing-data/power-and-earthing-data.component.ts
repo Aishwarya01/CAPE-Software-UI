@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EmcPowerAndEarthingData } from 'src/app/EMC_Model/emc-power-and-earthing-data';
 import { EmcPowerAndEarthingDataService } from 'src/app/EMC_Services/emc-power-and-earthing-data.service';
+import { FileUploadServiceService } from 'src/app/EMC_Services/file-upload-service.service';
 import { GlobalsService } from 'src/app/globals.service';
 
 @Component({
@@ -41,13 +42,15 @@ export class PowerAndEarthingDataComponent implements OnInit {
   arr1: any = [];
   arr2: any = [];
   emcId!: number;
+  file: File = null; // Variable to store file
  
   constructor(
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
     private router: ActivatedRoute,
     public service: GlobalsService,
-    private emcPowerAndEarthingDataService: EmcPowerAndEarthingDataService
+    private emcPowerAndEarthingDataService: EmcPowerAndEarthingDataService,
+    private fileUploadServiceService:FileUploadServiceService
   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
   }
@@ -408,6 +411,22 @@ export class PowerAndEarthingDataComponent implements OnInit {
   get f(): any {
     return this.EMCPowerAndEarthForm.controls;
   }
+  onChange(event:any) {
+    this.file = event.target.files[0];
+}
+
+onUpload() {
+
+  console.log(this.file);
+  this.fileUploadServiceService.uploadFile(this.file,this.emcId).subscribe(
+      (data) => {
+      },
+      (error: any) => {
+        
+
+      },
+      )
+    }
 
   savePowerAndEarthingData(flag: any) {
     this.submitted = true;
