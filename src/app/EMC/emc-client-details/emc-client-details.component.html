@@ -31,7 +31,7 @@
                             <label>* Contact Number:</label>
                             <input type="tel" ng2TelInput
                                 [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
-                                [(ngModel)]="emcClientDetails.contactNumber" (keypress)="keyPressNumbers($event)"
+                                [(ngModel)]="emcClientDetails.contactNumber" [readonly]="setReadOnly" (keypress)="keyPressNumbers($event)"
                                 (countryChange)="countryChange($event)" placeholder="Enter Contact Number" 
                                 formControlName="contactNumber" class="form-control"
                                 [ngClass]="{ 'is-invalid': submitted && a.get('contactNumber')?.errors }">

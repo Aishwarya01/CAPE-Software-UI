@@ -9,6 +9,7 @@ import { EmcMatstepperComponent } from '../emc-matstepper/emc-matstepper.compone
 import { EmcAssessmentInstallationComponent } from 'src/app/emc-assessment-installation/emc-assessment-installation.component';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { not } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-emc-client-details',
@@ -49,6 +50,7 @@ export class EmcClientDetailsComponent implements OnInit {
   validationErrorMsgTab: string = "";
   data: any = [];
   errorArr: any = [];
+  setReadOnly: boolean = false;
 
 
   constructor(
@@ -62,7 +64,7 @@ export class EmcClientDetailsComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.countryCode= '91';
+    // this.countryCode = '91';
 
     this.EmcClientDetailsForm = this.formBuilder.group({
       clientArr: this.formBuilder.array([
@@ -79,15 +81,15 @@ export class EmcClientDetailsComponent implements OnInit {
 
   createProfile(): FormGroup {
     return new FormGroup({
-      clientName: new FormControl('',Validators.required),
-      contactNumber: new FormControl('',[Validators.maxLength(10),Validators.minLength(10),Validators.required]),
-      contactPerson: new FormControl('',Validators.required),
+      clientName: new FormControl('', Validators.required),
+      contactNumber: new FormControl('', [Validators.maxLength(10), Validators.minLength(10), Validators.required]),
+      contactPerson: new FormControl('', Validators.required),
       landMark: new FormControl(''),
       clientLocation: new FormControl(''),
-      clientAddress: new FormControl('',Validators.required),
-      email: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
-      country: new FormControl('',Validators.required),
-      state: new FormControl('',Validators.required),
+      clientAddress: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+      country: new FormControl('', Validators.required),
+      state: new FormControl('', Validators.required),
       userName: new FormControl('')
     })
   }
@@ -95,7 +97,7 @@ export class EmcClientDetailsComponent implements OnInit {
   retriveClientDetailsData() {
     this.flag = true;
     // this.step1List = JSON.parse(data);
-  
+
     this.populateForm();
 
     // this.emcClientDetails.userName = userName;
@@ -114,7 +116,7 @@ export class EmcClientDetailsComponent implements OnInit {
     // this.emcClientDetails.createdBy = this.step1List[0].createdBy;
     // this.emcClientDetails.updatedDate = this.step1List[0].updatedDate;
     // this.emcClientDetails.updatedBy = this.step1List[0].updatedBy;
-  
+
   }
 
   populateForm() {
@@ -127,7 +129,8 @@ export class EmcClientDetailsComponent implements OnInit {
 
   createclient(): FormGroup {
     return this.formBuilder.group({
-      
+
+      emcId: new FormControl(this.emcClientDetails.emcId, Validators.required),
       clientName: new FormControl(this.emcClientDetails.clientName, Validators.required),
       contactNumber: new FormControl(this.emcClientDetails.contactNumber, Validators.required),
       contactPerson: new FormControl(this.emcClientDetails.contactPerson, Validators.required),
@@ -150,13 +153,14 @@ export class EmcClientDetailsComponent implements OnInit {
     this.emcClientDetails.emcId = emcId;
     this.emcClientDetails.clientName = this.step1List.clientName;
     this.emcClientDetails.contactNumber = this.step1List.contactNumber;
+    this.setReadOnly = true;
     this.emcClientDetails.contactPerson = this.step1List.contactPerson;
     this.emcClientDetails.landMark = this.step1List.landMark;
     this.emcClientDetails.clientLocation = this.step1List.clientLocation;
     this.emcClientDetails.clientAddress = this.step1List.clientAddress;
     this.emcClientDetails.email = this.step1List.email;
     this.emcClientDetails.country = this.step1List.country;
-    this.changeCountry (this.emcClientDetails.country);
+    this.changeCountry(this.emcClientDetails.country);
     this.emcClientDetails.state = this.step1List.state;
     this.emcClientDetails.createdDate = this.step1List.createdDate;
     this.emcClientDetails.createdBy = this.step1List.createdBy;
@@ -176,7 +180,7 @@ export class EmcClientDetailsComponent implements OnInit {
   }
 
   getClientControls(): AbstractControl[] {
-    return (<FormArray> this.EmcClientDetailsForm.get('clientArr'))?.controls ;
+    return (<FormArray>this.EmcClientDetailsForm.get('clientArr'))?.controls;
   }
 
   // Only Integer Numbers
@@ -212,10 +216,10 @@ export class EmcClientDetailsComponent implements OnInit {
     }
   }
 
-//  country code
- countryChange(country: any) {
-  this.countryCode = country.dialCode;
-}
+  //  country code
+  countryChange(country: any) {
+    this.countryCode = country.dialCode;
+  }
 
   // countryChange1(country: any) {
   //   this.countryCode2 = country.dialCode;
@@ -292,7 +296,7 @@ export class EmcClientDetailsComponent implements OnInit {
     }
   }
 
-  gotoNextModal(content: any,content2:any) {
+  gotoNextModal(content: any, content2: any) {
     if (this.EmcClientDetailsForm.invalid) {
       this.validationError = true;
       this.validationErrorMsg = "Please check all the fields";
@@ -303,7 +307,7 @@ export class EmcClientDetailsComponent implements OnInit {
     }
 
     // || this.EmcClientDetailsForm.untouched
-    if (this.EmcClientDetailsForm.touched || this.EmcClientDetailsForm.untouched ) {
+    if (this.EmcClientDetailsForm.touched || this.EmcClientDetailsForm.untouched) {
       this.modalReference = this.modalService.open(content2, {
         centered: true,
         size: 'md',
@@ -322,22 +326,35 @@ export class EmcClientDetailsComponent implements OnInit {
       return;
     }
 
-    if((this.EmcClientDetailsForm.value.clientArr[0].contactNumber).includes("+"))
-    {
-     let arr=[];
-     arr= this.EmcClientDetailsForm.value.clientArr[0].contactNumber.split('-');
-     this.EmcClientDetailsForm.value.clientArr[0].contactNumber = arr[1];
-     this.EmcClientDetailsForm.value.clientArr[0].contactNumber = "+" + this.countryCode + "-" + this.EmcClientDetailsForm.value.clientArr[0].contactNumber;
-    }
-    else{
-      this.EmcClientDetailsForm.value.clientArr[0].contactNumber = "+" + this.countryCode + "-" + this.EmcClientDetailsForm.value.clientArr[0].contactNumber;
-    }      
 
-    this.emcClientDetails.contactNumber =  this.EmcClientDetailsForm.value.clientArr[0].contactNumber;
-    console.log(this.EmcClientDetailsForm);
+    if (!flag) {
+
+      if ((this.EmcClientDetailsForm.value.clientArr[0].contactNumber).includes("+")) {
+        let arr = [];
+        arr = this.EmcClientDetailsForm.value.clientArr[0].contactNumber.split('-');
+        this.EmcClientDetailsForm.value.clientArr[0].contactNumber = arr[1];
+        this.EmcClientDetailsForm.value.clientArr[0].contactNumber = "+" + this.countryCode + "-" + this.EmcClientDetailsForm.value.clientArr[0].contactNumber;
+      }
+      else {
+        this.EmcClientDetailsForm.value.clientArr[0].contactNumber = "+" + this.countryCode + "-" + this.EmcClientDetailsForm.value.clientArr[0].contactNumber;
+      }
+
+    } else {
+
+      if ((this.EmcClientDetailsForm.value.clientArr[0].contactNumber).includes("+")) {
+
+        let arr3 = [];
+        arr3 = this.EmcClientDetailsForm.value.clientArr[0].contactNumber.split('-');
+        this.EmcClientDetailsForm.value.clientArr[0].contactNumber = arr3[1];
+        this.EmcClientDetailsForm.value.clientArr[0].contactNumber = "+" + this.countryCode + "-" + this.EmcClientDetailsForm.value.clientArr[0].contactNumber;
+      }
+      else {
+        this.EmcClientDetailsForm.value.clientArr[0].contactNumber = "+" + this.countryCode + "-" + this.EmcClientDetailsForm.value.clientArr[0].contactNumber;
+      }
+      // this.emcClientDetails.contactNumber =  this.EmcClientDetailsForm.value.clientArr[0].contactNumber;
+    }
 
     this.emcClientDetails = this.EmcClientDetailsForm.value.clientArr[0];
-
     this.emcClientDetails.userName = this.router.snapshot.paramMap.get('email') || '{}';
 
     if (flag) {
