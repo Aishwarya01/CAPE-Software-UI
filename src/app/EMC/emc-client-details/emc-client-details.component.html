@@ -32,7 +32,7 @@
                             <input type="tel" ng2TelInput
                                 [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
                                 [(ngModel)]="emcClientDetails.contactNumber" (keypress)="keyPressNumbers($event)"
-                                (countryChange)="countryChange($event)" placeholder="Enter Contact Number"
+                                (countryChange)="countryChange($event)" placeholder="Enter Contact Number" 
                                 formControlName="contactNumber" class="form-control"
                                 [ngClass]="{ 'is-invalid': submitted && a.get('contactNumber')?.errors }">
                             <div *ngIf="submitted && a.get('contactNumber')?.errors" class="invalid-feedback">
@@ -40,6 +40,7 @@
                                 <div *ngIf="a.get('contactNumber')?.errors?.minlength">Please Enter 10 Digit Number</div>
                                 <div *ngIf="a.get('contactNumber')?.errors?.maxlength">Please Enter 10 Digit Number</div>
                             </div>
+                            <!-- [readonly]="setReadOnly" -->
 
                             <!-- [ngClass]="{'is-invalid':submitted && a.contactNumber?.errors}"> -->
                             <!-- <div *ngIf="submitted &&a.contactNumber?.errors" class="invalid-feedback">
@@ -123,13 +124,13 @@
                                 [(ngModel)]="emcClientDetails.country"
                                 [ngClass]="{ 'is-invalid': submitted && a.get('country')?.errors }">
                                 <option value="0" selected>Select Country Name</option>
-                                <option *ngFor="let country of countryList">{{country.name}}</option>
+                                <option *ngFor="let country of countryList" [selected]="country.name=== emcClientDetails.country">{{country.name}}</option>
                             </select>
                             <!-- <div *ngIf="submitted && a.country?.errors" class="invalid-feedback">
                         <div *ngIf="a.country?.errors?.required">Country Is Required</div>
                     </div> -->
                             <div *ngIf="submitted && a.get('country')?.errors" class="invalid-feedback">
-                                <div *ngIf="a.get('country')?.errors?.required">Email is required</div>
+                                <div *ngIf="a.get('country')?.errors?.required">Country is required</div>
                             </div>
                         </div>
 
