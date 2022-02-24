@@ -7,6 +7,7 @@ import { ConfirmationBoxComponent } from 'src/app/confirmation-box/confirmation-
 import { GlobalsService } from 'src/app/globals.service';
 import { Airtermination } from 'src/app/LPS_model/airtermination';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
+import { LpsDownconductorService } from 'src/app/LPS_services/lps-downconductor.service';
 import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
 
 @Component({
@@ -113,7 +114,8 @@ export class LpsAirTerminationComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,private dialog: MatDialog,
-    private airterminationServices:AirterminationService,
+    private airterminationServices: AirterminationService,
+    private downConductorServices: LpsDownconductorService,
     private modalService: NgbModal,private router: ActivatedRoute,
     private matstepper: LpsMatstepperComponent,
     public service: GlobalsService,
@@ -396,8 +398,8 @@ export class LpsAirTerminationComponent implements OnInit {
         }
         else{
           (this.airTerminationForm.get('lpsAirDescription') as FormArray).removeAt(index);      
-           this.airTerminationForm.markAsDirty(); 
         }
+        this.airTerminationForm.markAsDirty(); 
     }
 
 
@@ -1595,16 +1597,24 @@ export class LpsAirTerminationComponent implements OnInit {
               this.airterminationService.updateAirtermination(this.airtermination).subscribe(
                 (data) => {
                   this.success1 = false;
+                  this.downConductorServices.retrieveDownConductor(this.airtermination.userName,this.airtermination.basicLpsId,).subscribe(
+                    (data) => {
+                      this.proceedNext.emit(false);
+                    },
+                    (error) => {
+                      this.proceedNext.emit(true);
+                    }
+                  )
                   this.success = true;
                   this.successMsg = data;
-                  this.retriveAirTermination();
                   this.airTerminationForm.markAsPristine();
                   this.service.lvClick=0;
                   this.service.logoutClick=0;
                   this.service.windowTabClick=0;
-                  setTimeout(() => {
-                    this.proceedNext.emit(true);
-                  }, 4000);
+                  this.retriveAirTermination();
+                  // setTimeout(() => {
+                  //   this.proceedNext.emit(true);
+                  // }, 4000);
                 },
                 (error) => {
                   this.success1 = false;
@@ -1612,18 +1622,18 @@ export class LpsAirTerminationComponent implements OnInit {
                   this.errorArr = [];
                   this.errorArr = JSON.parse(error.error);
                   this.errorMsg = this.errorArr.message;
-                  this.proceedNext.emit(false);
+                  //this.proceedNext.emit(false);
                 });}
                 else{
                   if(this.isEditable){
                     this.success = true;
-                    this.proceedNext.emit(true);
+                    //this.proceedNext.emit(true);
                   }
                   // Dirty checking here
                   else{
                     
                     this.success = true;
-                    this.proceedNext.emit(true);
+                    //this.proceedNext.emit(true);
                   }
                 }
             }
@@ -1631,12 +1641,13 @@ export class LpsAirTerminationComponent implements OnInit {
                 this.airterminationService.saveAirtermination(this.airtermination).subscribe(
                   (data) => {
                     this.success = true;
+                    this.proceedNext.emit(true);
                     this.successMsg = data;
                     this.disable = true;
                     this.retriveAirTermination();
-                    setTimeout(() => {
-                      this.proceedNext.emit(true);
-                    }, 4000);
+                    // setTimeout(() => {
+                    //   this.proceedNext.emit(true);
+                    // }, 4000);
                     this.service.lvClick=0;
                     this.service.logoutClick=0;
                     this.service.windowTabClick=0;
@@ -1646,7 +1657,7 @@ export class LpsAirTerminationComponent implements OnInit {
                     this.errorArr = [];
                     this.errorArr = JSON.parse(error.error);
                     this.errorMsg = this.errorArr.message;
-                    this.proceedNext.emit(false);
+                    //this.proceedNext.emit(false);
                   });
             }
           }

@@ -6,9 +6,10 @@ export class downConductorReport {
     createdDate!: Date;
     updatedBy!: String;
     updatedDate!: String;
+    downConductorDescription!: DownConductorDescription[];
 }
 
-export class downConductorDescription {
+export class DownConductorDescription {
     downConduDescId!: number;
     buildingName!: String;
     buildingNumber!: number;
@@ -44,16 +45,16 @@ export class downConductorDescription {
     downConductorTestingAvailabilityOb!: String;
     downConductorTestingAvailabilityRem!: String
 
-    downConductor!: downConductor[];
-    bridgingDescription!: bridgingDescription[];
-    holder!: holder[];
-    connectors!: connectors[];
-    lightningCounter!: lightningCounter[];
-    testingJoint!: testingJoint[];
-    downConductorTesting!: downConductorTesting[];
+    downConductor!: DownConductor[];
+    bridgingDescription!: BridgingDescription[];
+    holder!: Holder[];
+    connectors!: Connectors[];
+    lightningCounter!: LightningCounter[];
+    testingJoint!: TestingJoint[];
+    downConductorTesting!: DownConductorTesting[];
 }
 
-export class bridgingDescription {
+export class BridgingDescription {
     bridgingDescriptionId!: number;
     flag!: String;
     ensureBridgingCableOb!: String;
@@ -76,7 +77,7 @@ export class bridgingDescription {
     inspectionFailedNoRem!: String
 }
 
-export class holder {
+export class Holder {
     holderId!: number;
     flag!: String;
     physicalInspectionOb!: String;
@@ -99,7 +100,7 @@ export class holder {
     inspectionFailedNoRem!:  String
 }
 
-export class connectors {
+export class Connectors {
     connectorId!: number;
     flag!: String;
     physicalInspectionOb!: String;
@@ -121,7 +122,7 @@ export class connectors {
 }
 
 
-export class lightningCounter {
+export class LightningCounter {
     lightingCountersId!: number;
     flag!: String;
     threadHoldCurrentOb!: number;
@@ -148,7 +149,7 @@ export class lightningCounter {
     inspectionFailedNoRem!:  String
 }
 
-export class testingJoint {
+export class TestingJoint {
     testJointId!: number;
     flag!: String;
     testJointTypeOb!: String;
@@ -175,7 +176,7 @@ export class testingJoint {
     inspectionFailedNoRem!: String 
 }
 
-export class downConductor {
+export class DownConductor {
     downConductorId!: number;
     flag!: String;
     physicalInspectionOb!: String;
@@ -216,7 +217,7 @@ export class downConductor {
     naturalDownCondDimensionRem!: String
 }
 
-export class downConductorTesting {
+export class DownConductorTesting {
     downConductorTestingId!: number;
     flag!: String;
     serialNo!: number;

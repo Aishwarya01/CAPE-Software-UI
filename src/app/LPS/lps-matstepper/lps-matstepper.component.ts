@@ -131,25 +131,28 @@ export class LpsMatstepperComponent implements OnInit {
     this.saved.ngOnInit();
     this.refresh();
   }
-  public doSomething2(next: any): void {
-   
+  public doSomething2(next: any): void {  
     this.Completed2 = this.airTermination.success;
 
       this.earthing.isAirterminationUpdated = true;
       this.spd.isAirterminationUpdated = true;
       this.seperationDistance.isAirterminationUpdated = true;
       this.earthStud.isAirterminationUpdated = true;
+      if(next) {
+        this.downConductors.ngOnInit();
+      }
+      else {
+        this.downConductors.updateMethod();
+      }
       this.earthing.ngOnInit();
       this.spd.ngOnInit();
       this.seperationDistance.ngOnInit();
       this.earthStud.ngOnInit();
-
       setTimeout(() => {
         this.getAirterminationData(this.basic.basicDetails.basicLpsId);
       }, 3000);
-
-
-    this.refresh();
+    
+      this.refresh();
   }
 
   public doSomething3(next: any): void {
@@ -218,16 +221,15 @@ export class LpsMatstepperComponent implements OnInit {
           }
           if (this.dataJSON.airTermination != null) {
             this.airTermination.retrieveDetailsfromSavedReports(userName, basicLpsId, clientName, this.dataJSON);
+            this.downConductors.retrieveDetailsfromSavedReports(userName, basicLpsId, clientName, this.dataJSON);
             this.lpsSummary.retrieveDetailsfromSavedReports(userName, basicLpsId, clientName, this.dataJSON);
-
+            
             if(this.dataJSON.summaryLps==null){
              this.lpsSummary.retrieveObservationLpsSummary(basicLpsId);
             }
             this.Completed2 = true;
           }
           if (this.dataJSON.downConductorDesc != null) {
-
-            this.downConductors.retrieveDetailsfromSavedReports(userName, basicLpsId, clientName, this.dataJSON);
             this.Completed3 = true;
           }
           if (this.dataJSON.airTermination != null) {
