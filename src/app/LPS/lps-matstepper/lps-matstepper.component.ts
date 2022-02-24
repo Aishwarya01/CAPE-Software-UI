@@ -127,8 +127,12 @@ export class LpsMatstepperComponent implements OnInit {
    
     this.Completed2 = this.airTermination.success;
     this.earthing.isAirterminationUpdated = true;
+    this.spd.isAirterminationUpdated = true;
+    this.seperationDistance.isAirterminationUpdated = true;
     this.earthStud.isAirterminationUpdated = true;
     this.earthing.ngOnInit();
+    this.spd.ngOnInit();
+    this.seperationDistance.ngOnInit();
     this.earthStud.ngOnInit();
     this.refresh();
   }
@@ -215,7 +219,7 @@ export class LpsMatstepperComponent implements OnInit {
           }
           if(this.dataJSON.airTermination != null){
             if (this.dataJSON.spdReport != null)  {
-              this.spd.retrieveDetailsfromSavedReports(userName, basicLpsId, clientName, this.dataJSON);
+              this.spd.retrieveDetailsfromSavedReports(this.dataJSON);
               this.Completed5 = true;
             }
             else{
@@ -225,7 +229,7 @@ export class LpsMatstepperComponent implements OnInit {
           
           if (this.dataJSON.airTermination != null) {
               if (this.dataJSON.seperationDistanceReport != null) {
-                this.seperationDistance.retrieveDetailsfromSavedReports(userName, basicLpsId, clientName, this.dataJSON);
+                this.seperationDistance.retrieveDetailsfromSavedReports(this.dataJSON);
                 this.Completed6 = true;
               }
               else {
@@ -235,7 +239,7 @@ export class LpsMatstepperComponent implements OnInit {
           debugger
           if (this.dataJSON.airTermination != null) {
             if (this.dataJSON.earthStudReport != null) {
-              this.earthStud.retrieveDetailsfromSavedReports(userName, basicLpsId, clientName, this.dataJSON);
+              this.earthStud.retrieveDetailsfromSavedReports(this.dataJSON);
               this.Completed7 = true;
             }
             else {

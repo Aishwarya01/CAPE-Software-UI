@@ -681,7 +681,7 @@ export class LpsEarthingComponent implements OnInit {
       //deleted earthingDescriptionList
       for(let i = 0; i < this.earthingDescriptionListDeleted.length; i++){
         if(this.earthingReport.earthingLpsDescription[index].buildingCount == this.earthingDescriptionListDeleted[i].buildingCount){
-          this.earthingReport.earthingLpsDescription[index].earthingDescription[0].earthingDescriptionList.push(this.earthingDescriptionListDeleted[i]);
+          this.earthingReport.earthingLpsDescription[index].earthingDescription[this.earthingReport.earthingLpsDescription[index].earthingDescription.length -1].earthingDescriptionList.push(this.earthingDescriptionListDeleted[i]);
         }
       }
        //deleted earthElectrodeTesting
