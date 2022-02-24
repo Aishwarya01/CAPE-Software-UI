@@ -36,7 +36,12 @@
           <ng-template matStepLabel>Equipotential Bonding</ng-template>
           <app-lps-earth-stud *ngIf="equipotentialBond" (proceedNext)="doSomething7($event)"></app-lps-earth-stud>
         </mat-step>
-  
+
+        <mat-step [completed]=Completed8>
+          <ng-template matStepLabel>Summary</ng-template>
+          <app-lpssummary *ngIf="summary" (proceedNext)="doSomething8($event)"></app-lpssummary>
+        </mat-step>
+
       </mat-horizontal-stepper>
     </mat-tab>
 

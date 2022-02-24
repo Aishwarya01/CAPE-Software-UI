@@ -488,7 +488,8 @@ export class LpsAirTerminationComponent implements OnInit {
 
   //To get the value of Basic Lps Id form MAT STEPPER
   appendBasicLpsId(basicLpsId: any) {
-    this.airtermination.basicLpsId = basicLpsId
+    this.airtermination.basicLpsId = basicLpsId;
+    this.basicLpsId=basicLpsId;
   }
 
     retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){

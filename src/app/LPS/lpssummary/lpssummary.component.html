@@ -1,0 +1,659 @@
+<!-- <div *ngIf="validationErrorTab" style="text-align: center;">
+    <span class="alert alert-danger">{{validationErrorMsgTab}}</span>
+  </div> -->
+  <div class="card">
+    <div class="card-body">
+  <form [formGroup]="summaryForm">
+          <mat-accordion>
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <h3>Summary and Recommendations </h3>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+                <div class="row">
+                <div class="col-sm-12 ReferringTT">
+                  <div class="form-group">
+                    <label>The following observations are made :</label>
+                  </div>
+                </div>
+           </div>
+                <div class="tableObserve">
+                <div class="form-group">
+                <!-- Observation starts here -->
+                <label>
+                  <h3><b>Air termination :</b></h3>
+                </label>
+                <br>
+                <!-- <label><h3 style="cursor: pointer;"><b><u>Basic details Observations :</u></b></h3></label>                     -->
+                    <div class="table-responsive" id="style-1" style="border: 1px solid black">
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th></th>
+                              <th>Sl.No</th>
+                              <th>Observations</th>
+                              <th>Recommendation</th>
+                            </tr>
+                          </thead>
+                          <tbody formArrayName="airTermination" *ngFor="let a of airTerminationControl(); let i= index">
+                              <tr [formGroupName]="i">
+                              <td nowrap="nowrap" style="font-weight: bold;">{{a.get("airTerminationHeading")?.value}}</td>
+                              <td>{{a.get("serialNo")?.value}}</td>
+                              <td>
+                                <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                                placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                              </td>
+                              <td> 
+                                <textarea type="text" class="form-control" cols="30" rows="1" formControlName="recommendation"
+                                placeholder="Ex. Recommendations..."></textarea> 
+                              </td>
+                              </tr>
+                          </tbody>
+
+                          <tbody formArrayName="airVertical" *ngFor="let a of airVerticalControl(); let i= index">
+                            <tr [formGroupName]="i">
+                            <td nowrap="nowrap" style="font-weight: bold;">{{a.get("airVerticalHeading")?.value}}</td>
+                            <td>{{a.get("serialNo")?.value}}</td>
+                            <td>
+                              <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                              placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                            </td>
+                            <td> 
+                              <textarea type="text" class="form-control" cols="30" rows="1" formControlName="recommendation"
+                              placeholder="Ex. Observations..."></textarea> 
+                            </td>
+                            </tr>
+                        </tbody>
+                        
+                        <tbody formArrayName="airVerticalList" *ngFor="let a of airVerticalListControl(); let i= index">
+                          <tr [formGroupName]="i">
+                          <td nowrap="nowrap" style="padding-left: 60px;">{{a.get("airVerticalListHeading")?.value}}</td>
+                          <td>{{a.get("serialNo")?.value}}</td>
+                          <td>
+                            <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                            placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                          </td>
+                          <td> 
+                            <textarea type="text" class="form-control" cols="30" rows="1" formControlName="recommendation"
+                            placeholder="Ex. Observations..."></textarea> 
+                          </td>
+                          </tr>
+                      </tbody>
+                
+                        <tbody formArrayName="airMesh" *ngFor="let a of airMeshControl(); let i= index">
+                          <tr [formGroupName]="i">
+                          <td nowrap="nowrap" style="font-weight: bold;">{{a.get("airMeshHeading")?.value}}</td>
+                          <td>{{a.get("serialNo")?.value}}</td>
+                          <td>
+                            <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                            placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                          </td>
+                          <td> 
+                            <textarea type="text" class="form-control" cols="30" rows="1" formControlName="recommendation"
+                            placeholder="Ex. Observations..."></textarea> 
+                          </td>
+                          </tr>
+                      </tbody>
+
+                      <tbody formArrayName="airHolder" *ngFor="let a of airHolderControl(); let i= index">
+                        <tr [formGroupName]="i">
+                        <td nowrap="nowrap" style="font-weight: bold;">{{a.get("airHolderHeading")?.value}}</td>
+                        <td>{{a.get("serialNo")?.value}}</td>
+                        <td>
+                          <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                          placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                        </td>
+                        <td> 
+                          <textarea type="text" class="form-control" cols="30" rows="1" formControlName="recommendation"
+                          placeholder="Ex. Observations..."></textarea> 
+                        </td>
+                        </tr>
+                    </tbody>
+
+                    <tbody formArrayName="airHolderList" *ngFor="let a of airHolderListControl(); let i= index">
+                      <tr [formGroupName]="i">
+                      <td nowrap="nowrap" style="font-weight: bold;">{{a.get("airHolderListHeading")?.value}}</td>
+                      <td>{{a.get("serialNo")?.value}}</td>
+                      <td>
+                        <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                        placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                      </td>
+                      <td> 
+                        <textarea type="text" class="form-control" cols="30" rows="1" formControlName="recommendation"
+                        placeholder="Ex. Observations..."></textarea> 
+                      </td>
+                      </tr>
+                  </tbody>
+
+                        <tbody formArrayName="airClamps" *ngFor="let a of airClampsControl(); let i= index">
+                          <tr [formGroupName]="i">
+                          <td nowrap="nowrap" style="font-weight: bold;">{{a.get("airClampsHeading")?.value}}</td>
+                          <td>{{a.get("serialNo")?.value}}</td>
+                          <td>
+                            <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                            placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                          </td>
+                          <td> 
+                            <textarea type="text" class="form-control" cols="30" rows="1" formControlName="recommendation"
+                            placeholder="Ex. Observations..."></textarea> 
+                          </td>
+                          </tr>
+                      </tbody>
+                      <tbody formArrayName="airExpansion" *ngFor="let a of airExpansionControl(); let i= index">
+                        <tr [formGroupName]="i">
+                        <td nowrap="nowrap" style="font-weight: bold;">{{a.get("airExpansionHeading")?.value}}</td>
+                        <td>{{a.get("serialNo")?.value}}</td>
+                        <td>
+                          <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                          placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                        </td>
+                        <td> 
+                          <textarea type="text" class="form-control" cols="30" rows="1" formControlName="recommendation"
+                          placeholder="Ex. Observations..."></textarea> 
+                        </td>
+                        </tr>
+                    </tbody>
+                      <tbody formArrayName="airConnectors" *ngFor="let a of airConnectorsControl(); let i= index">
+                        <tr [formGroupName]="i">
+                        <td nowrap="nowrap" style="font-weight: bold;">{{a.get("airConnectorsHeading")?.value}}</td>
+                        <td>{{a.get("serialNo")?.value}}</td>
+                        <td>
+                          <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                          placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                        </td>
+                        <td> 
+                          <textarea type="text" class="form-control" cols="30" rows="1" formControlName="recommendation"
+                          placeholder="Ex. Observations..."></textarea> 
+                        </td>
+                        </tr>
+                    </tbody>
+                        </table>
+                      </div>
+                      <!-- <div class="row" *ngIf="noObserveSupply">
+                        <div class="col-sm-12">
+                          <h3 style="color: #eea80a;">Currently, you have not provided Observations for Supply Characteristics!</h3>
+                        </div>
+                      </div> -->
+                 <br>
+                  </div>
+                </div>
+
+                <div class="tableObserve">
+                  <div class="form-group">
+                  <!-- Observation starts here -->
+                  <label>
+                    <h3><b>Down Conductors :</b></h3>
+                  </label>
+                  <br>
+                  <!-- <label><h3 style="cursor: pointer;"><b><u>Basic details Observations :</u></b></h3></label>                     -->
+                      <div class="table-responsive" id="style-1" style="border: 1px solid black">
+                          <table class="table">
+                            <thead>
+                              <tr>
+                                <th></th>
+                                <th>Sl.No</th>
+                                <th>Observations</th>
+                                <th>Recommendation</th>
+                              </tr>
+                            </thead>
+                            <tbody formArrayName="downConductorReport" *ngFor="let a of downConductorBasicControl(); let i= index">
+                                <tr [formGroupName]="i">
+                                <td nowrap="nowrap" style="font-weight: bold;">{{a.get("basicDetailsHeading")?.value}}</td>
+                                <td>{{a.get("serialNo")?.value}}</td>
+                                <td>
+                                  <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                                  placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                                </td>
+                                <td> 
+                                  <textarea type="text" class="form-control" cols="30" rows="1" formControlName="recommendation"
+                                  placeholder="Ex. Recommendations..."></textarea> 
+                                </td>
+                                </tr>
+                            </tbody>
+  
+                            <tbody formArrayName="downConductor" *ngFor="let a of downConductorControl(); let i= index">
+                              <tr [formGroupName]="i">
+                              <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                              <td>{{a.get("serialNo")?.value}}</td>
+                              <td>
+                                <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                                placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                              </td>
+                              <td> 
+                                <textarea type="text" class="form-control" cols="30" rows="1" formControlName="recommendation"
+                                placeholder="Ex. Observations..."></textarea> 
+                              </td>
+                              </tr>
+                          </tbody>
+                          
+                          <tbody formArrayName="bridgingDesc" *ngFor="let a of bridgingDescControl(); let i= index">
+                            <tr [formGroupName]="i">
+                            <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                            <td>{{a.get("serialNo")?.value}}</td>
+                            <td>
+                              <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                              placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                            </td>
+                            <td> 
+                              <textarea type="text" class="form-control" cols="30" rows="1" formControlName="recommendation"
+                              placeholder="Ex. Observations..."></textarea> 
+                            </td>
+                            </tr>
+                        </tbody>
+                  
+                          <tbody formArrayName="downHolders" *ngFor="let a of downHoldersControl(); let i= index">
+                            <tr [formGroupName]="i">
+                            <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                            <td>{{a.get("serialNo")?.value}}</td>
+                            <td>
+                              <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                              placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                            </td>
+                            <td> 
+                              <textarea type="text" class="form-control" cols="30" rows="1" formControlName="recommendation"
+                              placeholder="Ex. Observations..."></textarea> 
+                            </td>
+                            </tr>
+                        </tbody>
+  
+                        <tbody formArrayName="downConnectors" *ngFor="let a of downConnectorsControl(); let i= index">
+                          <tr [formGroupName]="i">
+                          <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                          <td>{{a.get("serialNo")?.value}}</td>
+                          <td>
+                            <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                            placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                          </td>
+                          <td> 
+                            <textarea type="text" class="form-control" cols="30" rows="1" formControlName="recommendation"
+                            placeholder="Ex. Observations..."></textarea> 
+                          </td>
+                          </tr>
+                      </tbody>
+  
+                      <tbody formArrayName="testingJoint" *ngFor="let a of testingJointsControl(); let i= index">
+                        <tr [formGroupName]="i">
+                        <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                        <td>{{a.get("serialNo")?.value}}</td>
+                        <td>
+                          <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                          placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                        </td>
+                        <td> 
+                          <textarea type="text" class="form-control" cols="30" rows="1" formControlName="recommendation"
+                          placeholder="Ex. Observations..."></textarea> 
+                        </td>
+                        </tr>
+                    </tbody>
+  
+                          <tbody formArrayName="lightingCounter" *ngFor="let a of lightningCountersControl(); let i= index">
+                            <tr [formGroupName]="i">
+                            <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                            <td>{{a.get("serialNo")?.value}}</td>
+                            <td>
+                              <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                              placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                            </td>
+                            <td> 
+                              <textarea type="text" class="form-control" cols="30" rows="1" formControlName="recommendation"
+                              placeholder="Ex. Observations..."></textarea> 
+                            </td>
+                            </tr>
+                        </tbody>
+                        <tbody formArrayName="downConductorTesting" *ngFor="let a of downConductorTestingControl(); let i= index">
+                          <tr [formGroupName]="i">
+                          <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                          <td>{{a.get("serialNo")?.value}}</td>
+                          <td>
+                            <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                            placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                          </td>
+                          <td> 
+                            <textarea type="text" class="form-control" cols="30" rows="1" formControlName="recommendation"
+                            placeholder="Ex. Observations..."></textarea> 
+                          </td>
+                          </tr>
+                      </tbody>
+                    
+                          </table>
+                        </div>
+                        <!-- <div class="row" *ngIf="noObserveSupply">
+                          <div class="col-sm-12">
+                            <h3 style="color: #eea80a;">Currently, you have not provided Observations for Supply Characteristics!</h3>
+                          </div>
+                        </div> -->
+                   
+                   <br>
+                    </div>
+                  </div>
+
+                  <div class="tableObserve">
+                    <div class="form-group">
+                    <!-- Observation starts here -->
+                    <label>
+                      <h3><b>Earthing :</b></h3>
+                    </label>
+                    <br>
+                    <!-- <label><h3 style="cursor: pointer;"><b><u>Basic details Observations :</u></b></h3></label>                     -->
+                        <div class="table-responsive" id="style-1" style="border: 1px solid black">
+                            <table class="table">
+                              <thead>
+                                <tr>
+                                  <th></th>
+                                  <th>Sl.No</th>
+                                  <th>Observations</th>
+                                  <th>Recommendation</th> 
+                                </tr>
+                              </thead>
+                              <tbody formArrayName="earthingReport" *ngFor="let a of earthingReportControl(); let i= index">
+                                  <tr [formGroupName]="i">
+                                  <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                                  <td>{{a.get("serialNo")?.value}}</td>
+                                  <td>
+                                    <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                                    placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                                  </td>
+                                  <td> 
+                                    <textarea type="text" class="form-control" cols="30" rows="1" formControlName="recommendation"
+                                    placeholder="Ex. Recommendations..."></textarea> 
+                                  </td>
+                                  </tr>
+                              </tbody>
+    
+                              <tbody formArrayName="earthingDescription" *ngFor="let a of earthingDescriptionControl(); let i= index">
+                                <tr [formGroupName]="i">
+                                <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                                <td>{{a.get("serialNo")?.value}}</td>
+                                <td>
+                                  <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                                  placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                                </td>
+                                <td> 
+                                  <textarea type="text" class="form-control" cols="30" rows="1" formControlName="recommendation"
+                                  placeholder="Ex. Observations..."></textarea> 
+                                </td>
+                                </tr>
+                            </tbody>
+                            
+                            <tbody formArrayName="earthingDescriptionList" *ngFor="let a of earthingDescriptionListControl(); let i= index">
+                              <tr [formGroupName]="i">
+                              <td nowrap="nowrap" style="padding-left: 60px;">{{a.get("heading")?.value}}</td>
+                              <td>{{a.get("serialNo")?.value}}</td>
+                              <td>
+                                <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                                placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                              </td>
+                              <td> 
+                                <textarea type="text" class="form-control" cols="30" rows="1" formControlName="recommendation"
+                                placeholder="Ex. Observations..."></textarea> 
+                              </td>
+                              </tr>
+                          </tbody>
+
+                            <tbody formArrayName="earthingClamps" *ngFor="let a of earthingClampsControl(); let i= index">
+                              <tr [formGroupName]="i">
+                              <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                              <td>{{a.get("serialNo")?.value}}</td>
+                              <td>
+                                <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                                placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                              </td>
+                              <td> 
+                                <textarea type="text" class="form-control" cols="30" rows="1" formControlName="recommendation"
+                                placeholder="Ex. Observations..."></textarea> 
+                              </td>
+                              </tr>
+                          </tbody>
+                    
+                            <tbody formArrayName="earthingElectrodeChamber" *ngFor="let a of earthingElectrodeChamberControl(); let i= index">
+                              <tr [formGroupName]="i">
+                              <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                              <td>{{a.get("serialNo")?.value}}</td>
+                              <td>
+                                <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                                placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                              </td>
+                              <td> 
+                                <textarea type="text" class="form-control" cols="30" rows="1" formControlName="recommendation"
+                                placeholder="Ex. Observations..."></textarea> 
+                              </td>
+                              </tr>
+                          </tbody>
+    
+                          <tbody formArrayName="earthingSystem" *ngFor="let a of earthingSystemControl(); let i= index">
+                            <tr [formGroupName]="i">
+                            <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                            <td>{{a.get("serialNo")?.value}}</td>
+                            <td>
+                              <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                              placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                            </td>
+                            <td> 
+                              <textarea type="text" class="form-control" cols="30" rows="1" formControlName="recommendation"
+                              placeholder="Ex. Observations..."></textarea> 
+                            </td>
+                            </tr>
+                        </tbody>
+    
+                        <tbody formArrayName="earthElectrodeTesting" *ngFor="let a of earthElectrodeTestingControl(); let i= index">
+                          <tr [formGroupName]="i">
+                          <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                          <td>{{a.get("serialNo")?.value}}</td>
+                          <td>
+                            <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                            placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                          </td>
+                          <td> 
+                            <textarea type="text" class="form-control" cols="30" rows="1" formControlName="recommendation"
+                            placeholder="Ex. Observations..."></textarea> 
+                          </td>
+                          </tr>
+                      </tbody>
+                            </table>
+                          </div>
+                          <!-- <div class="row" *ngIf="noObserveSupply">
+                            <div class="col-sm-12">
+                              <h3 style="color: #eea80a;">Currently, you have not provided Observations for Supply Characteristics!</h3>
+                            </div>
+                          </div> -->
+                     
+                     <br>
+                      </div>
+                    </div>
+
+                    <div class="tableObserve">
+                      <div class="form-group">
+                      <!-- Observation starts here -->
+                      <label>
+                        <h3><b>SPD :</b></h3>
+                      </label>
+                      <br>
+                      <!-- <label><h3 style="cursor: pointer;"><b><u>Basic details Observations :</u></b></h3></label>                     -->
+                          <div class="table-responsive" id="style-1" style="border: 1px solid black">
+                              <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th></th>
+                                    <th>Sl.No</th>
+                                    <th>Observations</th>
+                                    <th>Recommendation</th> 
+                                  </tr>
+                                </thead>
+                                <tbody formArrayName="spdReport" *ngFor="let a of spdReportControl(); let i= index">
+                                    <tr [formGroupName]="i">
+                                    <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                                    <td>{{a.get("serialNo")?.value}}</td>
+                                    <td>
+                                      <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                                      placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                                    </td>
+                                    <td> 
+                                      <textarea type="text" class="form-control" cols="30" rows="1" formControlName="recommendation"
+                                      placeholder="Ex. Recommendations..."></textarea> 
+                                    </td>
+                                    </tr>
+                                </tbody>
+      
+                                <tbody formArrayName="spdReportList" *ngFor="let a of spdReportListControl(); let i= index">
+                                  <tr [formGroupName]="i">
+                                  <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                                  <td>{{a.get("serialNo")?.value}}</td>
+                                  <td>
+                                    <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                                    placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                                  </td>
+                                  <td> 
+                                    <textarea type="text" class="form-control" cols="30" rows="1" formControlName="recommendation"
+                                    placeholder="Ex. Observations..."></textarea> 
+                                  </td>
+                                  </tr>
+                              </tbody>
+                              </table>
+                            </div>
+                            <!-- <div class="row" *ngIf="noObserveSupply">
+                              <div class="col-sm-12">
+                                <h3 style="color: #eea80a;">Currently, you have not provided Observations for Supply Characteristics!</h3>
+                              </div>
+                            </div> -->
+                       
+                       <br>
+                        </div>
+                      </div>
+
+                      <div class="tableObserve">
+                        <div class="form-group">
+                        <!-- Observation starts here -->
+                        <label>
+                          <h3><b>Separation distance :</b></h3>
+                        </label>
+                        <br>
+                        <!-- <label><h3 style="cursor: pointer;"><b><u>Basic details Observations :</u></b></h3></label>                     -->
+                            <div class="table-responsive" id="style-1" style="border: 1px solid black">
+                                <table class="table">
+                                  <thead>
+                                    <tr>
+                                      <th></th>
+                                      <th>Sl.No</th>
+                                      <th>Observations</th>
+                                      <th>Recommendation</th> 
+                                    </tr>
+                                  </thead>
+                                  <tbody formArrayName="separationDistance" *ngFor="let a of separationDistanceControl(); let i= index">
+                                      <tr [formGroupName]="i">
+                                      <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                                      <td>{{a.get("serialNo")?.value}}</td>
+                                      <td>
+                                        <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                                        placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                                      </td>
+                                      <td> 
+                                        <textarea type="text" class="form-control" cols="30" rows="1" formControlName="recommendation"
+                                        placeholder="Ex. Recommendations..."></textarea> 
+                                      </td>
+                                      </tr>
+                                  </tbody>
+                                  <tbody formArrayName="separateDistance" *ngFor="let a of separateDistanceControl(); let i= index">
+                                    <tr [formGroupName]="i">
+                                    <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                                    <td>{{a.get("serialNo")?.value}}</td>
+                                    <td>
+                                      <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                                      placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                                    </td>
+                                    <td> 
+                                      <textarea type="text" class="form-control" cols="30" rows="1" formControlName="recommendation"
+                                      placeholder="Ex. Recommendations..."></textarea> 
+                                    </td>
+                                    </tr>
+                                </tbody>
+                                <tbody formArrayName="separationDistanceDown" *ngFor="let a of separationDistanceDownControl(); let i= index">
+                                  <tr [formGroupName]="i">
+                                  <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                                  <td>{{a.get("serialNo")?.value}}</td>
+                                  <td>
+                                    <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                                    placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                                  </td>
+                                  <td> 
+                                    <textarea type="text" class="form-control" cols="30" rows="1" formControlName="recommendation"
+                                    placeholder="Ex. Recommendations..."></textarea> 
+                                  </td>
+                                  </tr>
+                              </tbody>
+                                </table>
+                              </div>
+                              <!-- <div class="row" *ngIf="noObserveSupply">
+                                <div class="col-sm-12">
+                                  <h3 style="color: #eea80a;">Currently, you have not provided Observations for Supply Characteristics!</h3>
+                                </div>
+                              </div> -->
+                         
+                         <br>
+                          </div>
+                        </div>
+
+                        <div class="tableObserve">
+                          <div class="form-group">
+                          <!-- Observation starts here -->
+                          <label>
+                            <h3><b>Equipotential bonding :</b></h3>
+                          </label>
+                          <br>
+                          <!-- <label><h3 style="cursor: pointer;"><b><u>Basic details Observations :</u></b></h3></label>                     -->
+                              <div class="table-responsive" id="style-1" style="border: 1px solid black">
+                                  <table class="table">
+                                    <thead>
+                                      <tr>
+                                        <th></th>
+                                        <th>Sl.No</th>
+                                        <th>Observations</th>
+                                        <th>Recommendation</th> 
+                                      </tr>
+                                    </thead>
+                                    <tbody formArrayName="earthStudDesc" *ngFor="let a of earthStudDescControl(); let i= index">
+                                        <tr [formGroupName]="i">
+                                        <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                                        <td>{{a.get("serialNo")?.value}}</td>
+                                        <td>
+                                          <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                                          placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                                        </td>
+                                        <td> 
+                                          <textarea type="text" class="form-control" cols="30" rows="1" formControlName="recommendation"
+                                          placeholder="Ex. Recommendations..."></textarea> 
+                                        </td>
+                                        </tr>
+                                    </tbody>
+                                  
+                                  </table>
+                                </div>
+                                <!-- <div class="row" *ngIf="noObserveSupply">
+                                  <div class="col-sm-12">
+                                    <h3 style="color: #eea80a;">Currently, you have not provided Observations for Supply Characteristics!</h3>
+                                  </div>
+                                </div> -->
+                           
+                           <br>
+                            </div>
+                          </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+        <!-- <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
+          <span class="alert alert-danger">{{validationErrorMsg}}</span>
+      </div>
+      <div *ngIf="commentSuccess" style="text-align: center;margin-top: 30px;">
+        <span class="successshow">Your comment has been sent to Inspector</span>
+      </div>
+      <div *ngIf="commentApprove" style="text-align: center;margin-top: 30px;">
+        <span class="alert alert-success">Your response to comments has been approved</span>
+      </div>
+      <div *ngIf="commentReject" style="text-align: center;margin-top: 30px;">
+        <span class="alert alert-danger">Your response to comments has been rejected</span>
+      </div> -->
+       
+    </form>
+  </div>
+  </div>
+  
+   

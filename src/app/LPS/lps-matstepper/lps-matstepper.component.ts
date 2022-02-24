@@ -26,6 +26,7 @@ import { MatTabGroup, MatTabHeader, MatTab } from '@angular/material/tabs';
 import { GlobalsService } from 'src/app/globals.service';
 import { ConfirmationBoxComponent } from 'src/app/confirmation-box/confirmation-box.component';
 import { tree } from 'ngx-bootstrap-icons';
+import { LpssummaryComponent } from '../lpssummary/lpssummary.component';
 
 @Component({
   selector: 'app-lps-matstepper',
@@ -52,6 +53,7 @@ export class LpsMatstepperComponent implements OnInit {
   Completed5: boolean=true;
   Completed6: boolean=true;
   Completed7: boolean=true;
+  Completed8: boolean=true;
 
   // Completed8: boolean=true;
 
@@ -63,7 +65,8 @@ export class LpsMatstepperComponent implements OnInit {
   spdValue: boolean = true;
   seperationValue: boolean = true;
   equipotentialBond: boolean = true;
-  
+  summary: boolean = true;
+
   @ViewChild(LpsBasicPageComponent)
   basic!: LpsBasicPageComponent;
   @ViewChild(LpsAirTerminationComponent)
@@ -78,6 +81,9 @@ export class LpsMatstepperComponent implements OnInit {
   seperationDistance!: LpsSeperationDistanceComponent;
   @ViewChild(LpsEarthStudComponent)
   earthStud!: LpsEarthStudComponent;
+  @ViewChild(LpssummaryComponent)
+  lpsSummary!: LpssummaryComponent;
+ 
   dataJSON: any = [];
   @ViewChild(LpsSavedReportComponent)saved!: LpsSavedReportComponent;
   @ViewChild(LpsFinalReportComponent)final!: LpsFinalReportComponent;
@@ -157,11 +163,11 @@ export class LpsMatstepperComponent implements OnInit {
   //   // this.final.ngOnInit();
   // }
 
+  public doSomething8(next: any): void {
+   // this.Completed8 = this.lpsSummary.success;
+  }
   public changeTabLpsSavedReport(index: number, basicLpsId: any, userName: any, clientName: any) {
-
-
     this.selectedIndex = 1;
-
     this.basicDetails = false;
     this.airTermValue = false;
     this.downValue = false;
@@ -171,6 +177,7 @@ export class LpsMatstepperComponent implements OnInit {
     this.equipotentialBond = false;
 
 
+    this.summary=false;
     setTimeout(() => {
       this.basicDetails = true;
       this.airTermValue = true;
@@ -179,6 +186,8 @@ export class LpsMatstepperComponent implements OnInit {
       this.spdValue = true;
       this.seperationValue = true;
       this.equipotentialBond = true;
+      this.summary = true;
+
     }, 50);
 
     setTimeout(() => {
@@ -196,7 +205,9 @@ export class LpsMatstepperComponent implements OnInit {
           }
           if (this.dataJSON.airTermination != null) {
             this.airTermination.retrieveDetailsfromSavedReports(userName, basicLpsId, clientName, this.dataJSON);
- 
+            if(this.dataJSON.summaryLps==null){
+             this.lpsSummary.retrieveObservationLpsSummary(basicLpsId);
+            }
             this.Completed2 = true;
           }
           if (this.dataJSON.downConductorDesc != null) {
