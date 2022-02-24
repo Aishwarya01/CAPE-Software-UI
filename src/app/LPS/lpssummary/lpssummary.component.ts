@@ -789,6 +789,7 @@ export class LpssummaryComponent implements OnInit {
           this.earthingData=JSON.parse(data);
           this.spdReportData=JSON.parse(data);
           this.separationDistanceData=JSON.parse(data);
+          this.equiBondingData=JSON.parse(data);
           //air termination
               if(this.airTerminationData.airTermination!=null){
                 //basic
@@ -1354,13 +1355,13 @@ export class LpssummaryComponent implements OnInit {
         }
         }
          //equipotential bonding
-         if(this.equiBondingData.earthStudDescription!=null){
+         if(this.equiBondingData.earthStudReport!=null){
             this.equiBondingArr=this.summaryForm.get('earthStudDesc') as FormArray;
             let index =0;
-            for(let i of this.equiBondingData.earthStudDescription[0]){
+            for(let i of this.equiBondingData.earthStudReport[0].earthStudDescription){
                 for(let j = 0; j < this.earthStudDescName.length; j++){
                   this.equiBondingArr.push(this.createEarthStudDesc());
-                  this.equiBondingArr.controls[0].controls.heading.setValue('SeparationDistance Observation');
+                  this.equiBondingArr.controls[0].controls.heading.setValue('EarthStud Observation');
                   this.equiBondingArr.controls[0].controls.observationComponentDetails.setValue('earthStudDescription' + index);
                   this.equiBondingArr.controls[index].controls.serialNo.setValue(index+1);
                   if(i[this.earthStudDescName[j]]==""){
