@@ -218,6 +218,8 @@ export class LpsMatstepperComponent implements OnInit {
           }
           if (this.dataJSON.airTermination != null) {
             this.airTermination.retrieveDetailsfromSavedReports(userName, basicLpsId, clientName, this.dataJSON);
+            this.lpsSummary.retrieveDetailsfromSavedReports(userName, basicLpsId, clientName, this.dataJSON);
+
             if(this.dataJSON.summaryLps==null){
              this.lpsSummary.retrieveObservationLpsSummary(basicLpsId);
             }
