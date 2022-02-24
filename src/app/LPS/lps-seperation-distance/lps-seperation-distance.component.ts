@@ -124,12 +124,12 @@ export class LpsSeperationDistanceComponent implements OnInit {
       // this.service.lvClick=1;
       if(data.basicLpsId != undefined && data.basicLpsId != 0){
         this.step6List = data;
-      }
+      } 
       else{
         this.step6List = data.seperationDistanceReport;
         setTimeout(() => {
           this.createSeperationForm(data.airTermination);
-        }, 300);
+        }, 300); 
       }
       this.populateData();  
       this.seperationDistanceReport.basicLpsId = this.step6List.basicLpsId;   

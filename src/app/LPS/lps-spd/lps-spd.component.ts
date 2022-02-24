@@ -130,7 +130,7 @@ export class LpsSpdComponent implements OnInit {
     this.service.lvClick = 1;
 
     if (data.basicLpsId != undefined && data.basicLpsId != 0) {
-      this.step5List = data;
+      this.step5List = data; 
     }
     else {
       this.step5List = data.spdReport;
@@ -514,7 +514,7 @@ export class LpsSpdComponent implements OnInit {
       let buildingName = data.lpsAirDescription[i].buildingName
       let buildingCount = data.lpsAirDescription[i].buildingCount
       let isBuildingRequired = false;
-
+ 
       //existing form having given building number avilable or not  
       let isFormAvailable = '';
       for (let k = 0; !isBuildingRequired && k < this.spd.length; k++) {
