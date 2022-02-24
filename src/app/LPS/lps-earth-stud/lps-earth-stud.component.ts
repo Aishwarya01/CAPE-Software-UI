@@ -318,7 +318,11 @@ export class LpsEarthStudComponent implements OnInit {
             this.success = true;
             this.successMsg = data;
             this.disable = true;
-            // this.retriveStud();
+            this.retriveStud();
+            setTimeout(() => {
+              this.getAirterminationData();
+             }, 300);
+            this.getAirterminationData();
             this.proceedNext.emit(true);
             // setTimeout(() => {
             //   this.lpsMatstepper.changeTab1(2);

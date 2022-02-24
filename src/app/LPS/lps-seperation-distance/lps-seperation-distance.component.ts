@@ -445,6 +445,9 @@ export class LpsSeperationDistanceComponent implements OnInit {
             this.successMsg = data;
             this.disable = true;
             this.retriveSeperationDistance();
+            setTimeout(() => {
+              this.getAirterminationData();
+             }, 300);
             this.proceedNext.emit(true);
             this.service.lvClick=0;
             this.service.logoutClick=0;

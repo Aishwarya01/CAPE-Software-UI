@@ -391,7 +391,10 @@ export class LpsSpdComponent implements OnInit {
             this.success = true;
             this.successMsg = data;
             this.disable = true;
-            // this.retriveSPD();
+            this.retriveSPD();
+            setTimeout(() => {
+              this.getAirterminationData();
+             }, 300);
             this.proceedNext.emit(true);
             this.service.lvClick = 0;
             this.service.logoutClick = 0;
