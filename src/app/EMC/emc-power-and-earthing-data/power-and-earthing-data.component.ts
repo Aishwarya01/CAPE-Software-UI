@@ -42,7 +42,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
   arr1: any = [];
   arr2: any = [];
   emcId!: number;
-  file: File = null; // Variable to store file
+  file!: File ; // Variable to store file
  
   constructor(
     private formBuilder: FormBuilder,
@@ -418,7 +418,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
 onUpload() {
 
   console.log(this.file);
-  this.fileUploadServiceService.uploadFile(this.file,this.emcId).subscribe(
+  this.fileUploadServiceService.uploadFile(this.EMCPowerAndEarthForm.get('peAttachement')?.value,1).subscribe(
       (data) => {
       },
       (error: any) => {
