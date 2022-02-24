@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalsService } from 'src/app/globals.service';
 import { spdReport } from 'src/app/LPS_model/spdReport';
+import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
 import { LpsSpd_Service } from 'src/app/LPS_services/lps-spd.service';
 import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
 
@@ -46,6 +47,7 @@ export class LpsSpdComponent implements OnInit {
   mobilearr3: any = [];
   spd: any=[];
   isEditable!:boolean
+  isAirterminationUpdated:boolean=false;
 
   spdDescriptionDelArr: any=[];
 
@@ -54,7 +56,7 @@ export class LpsSpdComponent implements OnInit {
     private lpsSpd_Services: LpsSpd_Service,
     private modalService: NgbModal, 
     public service: GlobalsService,
-
+    private airterminationServices:AirterminationService,
     private router: ActivatedRoute) {
     this.lpsSpd_Service = lpsSpd_Services;
   }
@@ -65,6 +67,10 @@ export class LpsSpdComponent implements OnInit {
     this.spdForm = this.formBuilder.group({
       spd: this.formBuilder.array([this.allSPD('','','')])
     });
+    if(this.isAirterminationUpdated){
+      this.retriveSPD();
+      this.isAirterminationUpdated=false;
+    }
   }
 
     // Only Accept numbers
@@ -120,28 +126,35 @@ export class LpsSpdComponent implements OnInit {
 //     this.flag=true;
  }
 
-  retrieveDetailsfromSavedReports(userName: any, basicLpsId: any, clientName: any, data: any) {
+  retrieveDetailsfromSavedReports(data: any) {
     this.service.lvClick = 1;
-    debugger
-    this.step5List = data.spdReport;
+
+    if (data.basicLpsId != undefined && data.basicLpsId != 0) {
+      this.step5List = data;
+    }
+    else {
+      this.step5List = data.spdReport;
+      setTimeout(() => {
+        this.createSpdForm(data.airTermination)
+      }, 500);
+    }
     this.spdReport.basicLpsId = this.step5List.basicLpsId;
     this.spdReport.spdReportId = this.step5List.spdReportId;
     this.spdReport.userName = this.step5List.userName;
     this.spdReport.createdBy = this.step5List.createdBy;
     this.spdReport.createdDate = this.step5List.createdDate;
 
-    let spd=[];
+    let spd = [];
     for (let i of this.step5List.spd) {
       spd.push(this.createGroup(i));
     }
-    this.spdForm.setControl('spd',this.formBuilder.array(spd || []));
+    this.spdForm.setControl('spd', this.formBuilder.array(spd || []));
+    this.flag = true;
+
     // this.spdForm.patchValue({
     //   spd: [i],
     // });
-    setTimeout(() => {
-      this.createSpdForm(data.airTermination)
-    }, 500);
-    this.flag = true;
+
   }
 
     // populateData(spd:any){
@@ -262,100 +275,36 @@ export class LpsSpdComponent implements OnInit {
   }
 
   // Location and Panel iteration methed 
-  locationPanel(event: KeyboardEvent,a:any){
+  locationPanel(event: KeyboardEvent, a: any) {
     debugger
-    let numberOfItr =parseInt((<HTMLInputElement>event.target).value);
+    let numberOfItr = parseInt((<HTMLInputElement>event.target).value);
     // this.spdDescription = a as FormArray;
 
     //new form
-    if(a.controls.spdDescription.controls.length < numberOfItr){
-      for(let i= a.controls.spdDescription.controls.length;i< numberOfItr;i++){
+    if (a.controls.spdDescription.controls.length < numberOfItr) {
+      for (let i = a.controls.spdDescription.controls.length; i < numberOfItr; i++) {
         (a.controls.spdDescription as FormArray).push(this.spddescriptionForm())
-       } 
+      }
     }
     // Deleting the iteration
-    else if(a.controls.spdDescription.controls.length > numberOfItr && numberOfItr != 0){
-      for(let index= a.controls.spdDescription.controls.length;numberOfItr < index;index--){
-        if(a.controls.spdDescription.controls[index-1].value.spdDescriptionId != 0 &&
-           a.controls.spdDescription.controls[index-1].value.spdDescriptionId != undefined && 
-           a.controls.spdDescription.controls[index-1].value.spdDescriptionId != '' && 
-           a.controls.spdDescription.controls[index-1].value.spdDescriptionId != null){
+    else if (a.controls.spdDescription.controls.length > numberOfItr && numberOfItr != 0) {
+      for (let index = a.controls.spdDescription.controls.length; numberOfItr < index; index--) {
+        if (a.controls.spdDescription.controls[index - 1].value.spdDescriptionId != 0 &&
+          a.controls.spdDescription.controls[index - 1].value.spdDescriptionId != undefined &&
+          a.controls.spdDescription.controls[index - 1].value.spdDescriptionId != '' &&
+          a.controls.spdDescription.controls[index - 1].value.spdDescriptionId != null) {
 
-          a.controls.spdDescription.controls[index-1].controls.flag.setValue('R');
-          a.controls.spdDescription.controls[index-1].controls.buildingCount.setValue(a.controls.buildingCount.value);
-          this.spdDescriptionDelArr.push(a.value.spdDescription[index-1]);
-          (a.get('spdDescription') as FormArray).removeAt(index-1);
+          a.controls.spdDescription.controls[index - 1].controls.flag.setValue('R');
+          a.controls.spdDescription.controls[index - 1].controls.buildingCount.setValue(a.controls.buildingCount.value);
+          this.spdDescriptionDelArr.push(a.value.spdDescription[index - 1]);
+          (a.get('spdDescription') as FormArray).removeAt(index - 1);
         }
         else {
-          (a.get('spdDescription') as FormArray).removeAt(index-1);
+          (a.get('spdDescription') as FormArray).removeAt(index - 1);
         }
-       } 
+      }
     }
-  
-    
   }
-
-  // keyUp(event: KeyboardEvent, c: any, a: any) {
-  //   this.values = (<HTMLInputElement>event.target).value;
-  //   this.value = this.values;
-  //   this.testingRecords = a.controls.testingRecords as FormArray;
-  //   this.observationArr = a.controls.testingInnerObservation as FormArray;
-  //   this.rateArr = c.controls.rateArr as FormArray;
-  //   if (this.testingRecords.length == 0 && this.rateArr.length == 0) {
-  //     if (this.value != '' && this.value != 0) {
-  //       for (this.i = 1; this.i < this.value; this.i++) {
-  //         this.testingRecords.push(this.createtestValuePushForm(this.testingRecords,a.controls.testDistRecordId.value,a.controls.testingId.value));
-  //         this.observationArr.push(this.createObservationForm1(a.controls.testDistRecordId.value,a.controls.testingId.value));
-  //         this.rateArr.push(this.ratingAmps());
-  //       }
-  //     }
-  //   } 
-
-  //   else if (
-  //     this.testingRecords.length < this.value &&
-  //     this.rateArr.length < this.value
-  //   ) {
-  //     if (this.value != '' && this.value != 0) {
-  //       this.delarr = this.value - this.testingRecords.length;
-  //       this.delarr = this.value - this.rateArr.length;
-
-  //       for (this.i = 0; this.i < this.delarr; this.i++) {
-  //         this.testingRecords.push(this.createtestValuePushForm(this.testingRecords,a.controls.testDistRecordId.value,a.controls.testingId.value));
-  //         this.observationArr.push(this.createObservationForm1(a.controls.testDistRecordId.value,a.controls.testingId.value));
-  //         this.rateArr.push(this.ratingAmps());
-  //       }
-  //     }
-  //   } else
-  //     this.testingRecords.length > this.value &&
-  //       this.rateArr.length > this.value;
-  //   {
-  //     if (this.value != '' && this.value != 0) {
-  //       this.delarr = this.testingRecords.length - this.value;
-  //       this.delarr = this.rateArr.length - this.value;
-
-  //       for (this.i = 0; this.i < this.delarr; this.i++) {
-  //         if(this.flag && this.testingRecords.value[this.testingRecords.length - 1].testingRecordId != 0 
-  //             && this.testingRecords.value[this.testingRecords.length - 1].testingRecordId != '' 
-  //              && this.testingRecords.value[this.testingRecords.length - 1].testingRecordId != undefined) {
-  //                this.testingRecords.value[this.testingRecords.length - 1].testingRecordStatus = 'R';
-  //                this.deletedTestingRecord.push(this.testingRecords.value[this.testingRecords.length - 1]);
-  //              }
-  //              if(this.flag && this.observationArr.value[this.observationArr.length - 1].testingInnerObervationsId != 0 
-  //               && this.observationArr.value[this.observationArr.length - 1].testingInnerObervationsId != '' 
-  //                && this.observationArr.value[this.observationArr.length - 1].testingInnerObervationsId != undefined) {
-  //                  this.observationArr.value[this.observationArr.length - 1].testingInnerObservationStatus = 'R';
-  //                  this.deletedObservationArr.push(this.observationArr.value[this.observationArr.length - 1]);
-  //                }
-  //         this.testingRecords.removeAt(this.testingRecords.length - 1);
-  //         this.rateArr.removeAt(this.rateArr.length - 1);
-  //         this.observationArr.removeAt(this.testingRecords.length - 1);
-  //       }
-  //     }
-  //   }
-  // }
-
-  
-
 
   // Add and Delete Buttons
   add(form:any) {
@@ -458,105 +407,102 @@ export class LpsSpdComponent implements OnInit {
       }
     }
   }
-      onChangeForm(event:any){
-        if(!this.spdForm.invalid){
-          if(this.spdForm.dirty){
-            this.validationError=false;
-            this.service.lvClick=1;
-            this.service.logoutClick=1;
-            this.service.windowTabClick=1;
-          }
-          else{
-            this.validationError=false;
-            this.service.lvClick=0;
-            this.service.logoutClick=0;
-            this.service.windowTabClick=0;
-          }
-         }
-         else {
-          this.service.lvClick=1;
-          this.service.logoutClick=1;
-          this.service.windowTabClick=1;
-         }
+  onChangeForm(event: any) {
+    if (!this.spdForm.invalid) {
+      if (this.spdForm.dirty) {
+        this.validationError = false;
+        this.service.lvClick = 1;
+        this.service.logoutClick = 1;
+        this.service.windowTabClick = 1;
       }
-      onKeyForm(event: KeyboardEvent) { 
-       if(!this.spdForm.invalid){ 
-        if(this.spdForm.dirty){
-          this.validationError=false;
-          this.service.lvClick=1;
-          this.service.logoutClick=1;
-          this.service.windowTabClick=1;
-        }
-        else{
-          this.validationError=false;
-          this.service.lvClick=0;
-          this.service.logoutClick=0;
-          this.service.windowTabClick=0;
-        }
-       }
-       else {
-        this.service.lvClick=1;
-        this.service.logoutClick=1;
-        this.service.windowTabClick=1;
-       }
-      } 
-      closeModalDialog() {
-        if (this.errorMsg != '') {
-          this.Error = false;
-          this.modalService.dismissAll((this.errorMsg = ''));
-        } else {
-          this.success = false;
-          this.modalService.dismissAll((this.successMsg = ''));
-        }
+      else {
+        this.validationError = false;
+        this.service.lvClick = 0;
+        this.service.logoutClick = 0;
+        this.service.windowTabClick = 0;
       }
-    
-      gotoNextModal(content: any,contents:any) {
-         if (this.spdForm.invalid) {
-           this.validationError = true;
-          
-           this.validationErrorMsg = 'Please check all the fields';
-           setTimeout(() => {
-            this.validationError = false;
-           }, 3000);
-           return;
-         }
-         if (this.basicLpsId == 0) {
-          this.validationError = true;
-          this.validationErrorMsg = 'Basics Form is Required, Please fill';
-          setTimeout(() => {
-            this.validationError = false;
-          }, 3000);
-          return;
-        }
-        if(this.spdForm.dirty && this.spdForm.touched){
-          this.modalService.open(content, { centered: true,backdrop: 'static' });
-       }
-      //  For Dirty popup
-       else{
-        this.modalService.open(contents, { centered: true,backdrop: 'static' });
-       }
     }
-  
-    // retriveSPD(){
-    //   this.lpsSpd_Services.retrieveSPDDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
-    //     data => {
-    //       this.retrieveDetailsfromSavedReports(this.spdReport.userName,this.basicLpsId,this.ClientName,data);
-    //     },
-    //     error=>{
-    //     }
-    //   );  
-    // }
+    else {
+      this.service.lvClick = 1;
+      this.service.logoutClick = 1;
+      this.service.windowTabClick = 1;
+    }
+  }
+  onKeyForm(event: KeyboardEvent) {
+    if (!this.spdForm.invalid) {
+      if (this.spdForm.dirty) {
+        this.validationError = false;
+        this.service.lvClick = 1;
+        this.service.logoutClick = 1;
+        this.service.windowTabClick = 1;
+      }
+      else {
+        this.validationError = false;
+        this.service.lvClick = 0;
+        this.service.logoutClick = 0;
+        this.service.windowTabClick = 0;
+      }
+    }
+    else {
+      this.service.lvClick = 1;
+      this.service.logoutClick = 1;
+      this.service.windowTabClick = 1;
+    }
+  }
+  closeModalDialog() {
+    if (this.errorMsg != '') {
+      this.Error = false;
+      this.modalService.dismissAll((this.errorMsg = ''));
+    } else {
+      this.success = false;
+      this.modalService.dismissAll((this.successMsg = ''));
+    }
+  }
 
-    // dosomthingRetriveSPD(userName:any,basicLpsId:any){
-    //   this.lpsSpd_Services.retrieveSPDDetails(userName,basicLpsId).subscribe(
-    //     data => {
-    //       this.retrieveDetailsfromSavedReports1(userName,basicLpsId,'',data);
-    //     },
-    //     error=>{
-    //       this.ngOnInit();
-    //     }
-    //   );  
-    // }
+  gotoNextModal(content: any, contents: any) {
+    if (this.spdForm.invalid) {
+      this.validationError = true;
+
+      this.validationErrorMsg = 'Please check all the fields';
+      setTimeout(() => {
+        this.validationError = false;
+      }, 3000);
+      return;
+    }
+    if (this.basicLpsId == 0) {
+      this.validationError = true;
+      this.validationErrorMsg = 'Basics Form is Required, Please fill';
+      setTimeout(() => {
+        this.validationError = false;
+      }, 3000);
+      return;
+    }
+    if (this.spdForm.dirty && this.spdForm.touched) {
+      this.modalService.open(content, { centered: true, backdrop: 'static' });
+    }
+    //  For Dirty popup
+    else {
+      this.modalService.open(contents, { centered: true, backdrop: 'static' });
+    }
+  }
+  
+  retriveSPD() {
+    this.lpsSpd_Services.retrieveSPDDetails(this.router.snapshot.paramMap.get('email') || '{}', this.basicLpsId).subscribe(
+      data => {
+        this.retrieveDetailsfromSavedReports(JSON.parse(data)[0]);
+      },
+      error => {
+      }
+    );
+  }
+
+  getAirterminationData() {
+    this.airterminationServices.retriveAirTerminationDetails(this.router.snapshot.paramMap.get('email') || '{}', this.basicLpsId).subscribe(
+      data => {
+        this.createSpdForm(JSON.parse(data)[0]);
+      }
+    );
+  }
 
      //creating form array based on airtermination building
   createSpdForm(data: any) {

@@ -51,15 +51,15 @@ export class LpsSeperationDistanceComponent implements OnInit {
   separatedistancePushArr:any=[];
   separateDistanceDownConductorsPushArr:any=[];
   isEditable!:boolean
-  constructor(
+  isAirterminationUpdated:boolean=false;
 
-    private formBuilder: FormBuilder,
-    private separatedistanceService: SeparatedistanceService,
-    private modalService: NgbModal, private router: ActivatedRoute,
-    public service: GlobalsService,
-    public airterminationServices: AirterminationService
-
-  ) {
+  
+  constructor(private formBuilder: FormBuilder,
+            private separatedistanceService: SeparatedistanceService,
+            private modalService: NgbModal, private router: ActivatedRoute,
+            public service: GlobalsService,
+            public airterminationServices: AirterminationService)     
+    {
   }
 
   gotoNextModal(content: any,contents:any) {
@@ -93,8 +93,12 @@ export class LpsSeperationDistanceComponent implements OnInit {
   ngOnInit(): void {
 
     this.separeteDistanceForm = this.formBuilder.group({
-      seperationDistanceDescription: this.formBuilder.array([this.allSeparateDistance('','','')])
+      seperationDistanceDescription: this.formBuilder.array([this.allSeparateDistance('', '', '')])
     });
+    if (this.isAirterminationUpdated) {
+      this.retriveSeperationDistance();
+      this.isAirterminationUpdated=false;
+    }
   }
 
   allSeparateDistance(buildingNumber:any,buildingName:any,buildingCount:any): FormGroup {
@@ -116,19 +120,23 @@ export class LpsSeperationDistanceComponent implements OnInit {
     this.separeteDistanceForm.reset();
   }
 
-  retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
+  retrieveDetailsfromSavedReports(data: any){
       // this.service.lvClick=1;
-
-      this.step6List = data.seperationDistanceReport;
-      this.seperationDistanceReport.basicLpsId = basicLpsId;   
+      if(data.basicLpsId != undefined && data.basicLpsId != 0){
+        this.step6List = data;
+      }
+      else{
+        this.step6List = data.seperationDistanceReport;
+        setTimeout(() => {
+          this.createSeperationForm(data.airTermination);
+        }, 300);
+      }
+      this.populateData();  
+      this.seperationDistanceReport.basicLpsId = this.step6List.basicLpsId;   
       this.seperationDistanceReport.seperationDistanceReportId = this.step6List.seperationDistanceReportId  
       this.seperationDistanceReport.createdBy = this.step6List.createdBy;
       this.seperationDistanceReport.createdDate = this.step6List.createdDate;   
       this.seperationDistanceReport.userName = this.step6List.userName;   
-      this.populateData();     
-      setTimeout(() => {
-        this.createSeperationForm(data.airTermination);
-      }, 300);
       this.flag=true;
     }
 
@@ -186,28 +194,30 @@ export class LpsSeperationDistanceComponent implements OnInit {
   }
   separateDistanceGroup(item:any): FormGroup {
     return this.formBuilder.group({
-      seperationDistanceDescId: new FormControl({disabled: false, value: item.seperationDistanceDescId}),
-      seperationDistanceDesc: new FormControl({disabled: false, value: item.seperationDistanceDesc}),
-      seperationDistanceOb: new FormControl({disabled: false, value: item.seperationDistanceOb}),
+      seperationDistanceDescId: new FormControl({disabled: false, value: item.seperationDistanceDescId}, Validators.required),
+      seperationDistanceDesc: new FormControl({disabled: false, value: item.seperationDistanceDesc}, Validators.required),
+      seperationDistanceOb: new FormControl({disabled: false, value: item.seperationDistanceOb}, Validators.required),
       seperationDistanceRem: new FormControl({disabled: false, value: item.seperationDistanceRem}),
       flag: new FormControl({disabled: false, value: item.flag}),
+      buildingCount: new FormControl('')
   });
   }
 
   populateSeparateDistanceDownConductorseData(item:any) {
     let seperationDistanceDescriptionArr=[];
     for (let value of item) {     
-      seperationDistanceDescriptionArr.push(this.separateDistanceGroup(value));
+      seperationDistanceDescriptionArr.push(this.SeparateDistanceDownConductorGroup(value));
     }
      return seperationDistanceDescriptionArr;
   }
   SeparateDistanceDownConductorGroup(item:any): FormGroup {
     return this.formBuilder.group({
-      seperationDistanceDownConductorId: new FormControl({disabled: false, value: item.seperationDistanceDownConductorId}),
-      seperationDistanceDesc: new FormControl({disabled: false, value: item.seperationDistanceDesc}),
-      seperationDistanceOb: new FormControl({disabled: false, value: item.seperationDistanceOb}),
+      seperationDistanceDownConductorId: new FormControl({disabled: false, value: item.seperationDistanceDownConductorId}, Validators.required),
+      seperationDistanceDesc: new FormControl({disabled: false, value: item.seperationDistanceDesc}, Validators.required),
+      seperationDistanceOb: new FormControl({disabled: false, value: item.seperationDistanceOb}, Validators.required),
       seperationDistanceRem: new FormControl({disabled: false, value: item.seperationDistanceRem}),
       flag: new FormControl({disabled: false, value: item.flag}),
+      buildingCount: new FormControl('')
 
   });
   }
@@ -240,30 +250,30 @@ export class LpsSeperationDistanceComponent implements OnInit {
     this.separateDistanceDownConductors.push(this.separateDistanceArr2Form());
   }
   
-  //SeparateDistance
-  removeSeparateDistance(form:any,a:any,index:any) {
+  //Removing SeparateDistance record
+  removeSeparateDistance(form: any, a: any, index: any) {
     debugger
-    if(a.value.seperationDistanceDescId !=0 && a.value.seperationDistanceDescId !=undefined)
-    {
-      a.value.flag=false;
-      (form.get('separateDistance') as FormArray).removeAt(index);
-      this.separatedistancePushArr= this.separatedistancePushArr.concat(a.value);
+    if (a.value.seperationDistanceDescId != 0 && a.value.seperationDistanceDescId != undefined) {
+      a.controls.flag.setValue('R');
+      a.controls.buildingCount.setValue(form.controls.buildingCount.value);
+      this.separatedistancePushArr = this.separatedistancePushArr.concat(a.value);
     }
-  else{
-    (form.get('separateDistance') as FormArray).removeAt(index);}
+    (form.get('separateDistance') as FormArray).removeAt(index);
+    this.separeteDistanceForm.markAsTouched();
+    this.separeteDistanceForm.markAsDirty();
   }
 
-  //separateDistanceDownConductors
-  removeSeparateDistanceDownConductors(form:any,a:any,index:any) {
+  //Removing SeparateDistanceDownConductors records
+  removeSeparateDistanceDownConductors(form: any, a: any, index: any) {
     debugger
-    if(a.value.seperationDistanceDownConductorId !=0 && a.value.seperationDistanceDownConductorId !=undefined)
-    {
-      a.value.flag=false;
-      (form.get('separateDistanceDownConductors') as FormArray).removeAt(index);
-      this.separateDistanceDownConductorsPushArr= this.separateDistanceDownConductorsPushArr.concat(a.value);
+    if (a.value.seperationDistanceDownConductorId != 0 && a.value.seperationDistanceDownConductorId != undefined) {
+      a.controls.flag.setValue('R');
+      a.controls.buildingCount.setValue(form.controls.buildingCount.value);
+      this.separateDistanceDownConductorsPushArr = this.separateDistanceDownConductorsPushArr.concat(a.value);
     }
-  else{
-    (form.get('separateDistanceDownConductors') as FormArray).removeAt(index);}
+    (form.get('separateDistanceDownConductors') as FormArray).removeAt(index);
+    this.separeteDistanceForm.markAsTouched();
+    this.separeteDistanceForm.markAsDirty();
   }
 
   onChangeForm(event:any){
@@ -373,7 +383,29 @@ export class LpsSeperationDistanceComponent implements OnInit {
     this.seperationDistanceReport.userName = this.router.snapshot.paramMap.get('email') || '{}';
     this.seperationDistanceReport.basicLpsId = this.basicLpsId;
 
-    this.separatedistancePushArr=[];
+    //Adding deleted Data
+    for (let index = 0; index < this.seperationDistanceReport.seperationDistanceDescription.length; index++) {
+
+      //deleted separateDistance Data
+      for (let i = 0; i < this.separatedistancePushArr.length; i++) {
+
+        if (this.seperationDistanceReport.seperationDistanceDescription[index].buildingCount == this.separatedistancePushArr[i].buildingCount) {
+          this.seperationDistanceReport.seperationDistanceDescription[index].separateDistance.push(this.separatedistancePushArr[i]);
+        }
+      }
+
+      //deleted separateDistanceDownConductors Data
+      for (let i = 0; i < this.separateDistanceDownConductorsPushArr.length; i++) {
+
+        if (this.seperationDistanceReport.seperationDistanceDescription[index].buildingCount == this.separateDistanceDownConductorsPushArr[i].buildingCount) {
+          this.seperationDistanceReport.seperationDistanceDescription[index].separateDistanceDownConductors.push(this.separateDistanceDownConductorsPushArr[i]);
+        }
+      }
+
+    }
+    this.separateDistanceDownConductorsPushArr = [];
+    this.separatedistancePushArr = [];
+
     if (!this.validationError) {
       if(flag) {
         if(this.separeteDistanceForm.dirty && this.separeteDistanceForm.touched){ 
@@ -435,7 +467,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
   retriveSeperationDistance(){
     this.separatedistanceService.retriveSeperationDistance(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
       data => {
-       // this.retrieveDetailsfromSavedReports1(this.seperationDistanceReport.userName,this.basicLpsId,this.ClientName,data);
+        this.retrieveDetailsfromSavedReports(JSON.parse(data)[0]);
       },
       error=>{
       }
@@ -455,9 +487,9 @@ export class LpsSeperationDistanceComponent implements OnInit {
     this.seperationDistanceDescription = this.separeteDistanceForm.get('seperationDistanceDescription') as FormArray;
 
     for (let i = 0; i < data.lpsAirDescription.length; i++) {
-      let buildingNumber = data.lpsAirDescription[i].buildingNumber
-      let buildingName = data.lpsAirDescription[i].buildingName
-      let buildingCount = data.lpsAirDescription[i].buildingCount
+      let buildingNumber = data.lpsAirDescription[i].buildingNumber;
+      let buildingName = data.lpsAirDescription[i].buildingName;
+      let buildingCount = data.lpsAirDescription[i].buildingCount;
       let isBuildingRequired = false;
 
       //existing form having given building number avilable or not  
