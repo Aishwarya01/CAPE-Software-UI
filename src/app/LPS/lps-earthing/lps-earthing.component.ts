@@ -1202,8 +1202,83 @@ export class LpsEarthingComponent implements OnInit {
       }       
     ); 
   }
+
+  typeAEarthingValidationChangeB(event: any,farray: any) {
+      
+    if(event.target.value == "Not Ok" && event.target.value != '') {
+      farray.controls.earthElectrodeLesthanDownConductorInRem.setValidators(Validators.required);
+      farray.controls.earthElectrodeLesthanDownConductorInRem.updateValueAndValidity();
+    }
+    else if(event.target.value == "Ok" && event.target.value != '') {
+      farray.controls.earthElectrodeLesthanDownConductorInRem.clearValidators();
+      farray.controls.earthElectrodeLesthanDownConductorInRem.updateValueAndValidity();
+    }
+    
+  }
+  typeAEarthingValidationChangeC(event: any,farray: any) {
+      
+    if(event.target.value == "Not Ok" && event.target.value != '') {
+      farray.controls.connectedEarthTerminalInRem.setValidators(Validators.required);
+      farray.controls.connectedEarthTerminalInRem.updateValueAndValidity();
+    }
+    else if(event.target.value == "Ok" && event.target.value != '') {
+      farray.controls.connectedEarthTerminalInRem.clearValidators();
+      farray.controls.connectedEarthTerminalInRem.updateValueAndValidity();
+    }
+    
+  }
+
+  typeAEarthingValidationChangeR(event: any,farray: any) {
+      
+    if(event.target.value != "0" && event.target.value != '') {
+      farray.controls.inspectedFailedNoRem.setValidators(Validators.required);
+      farray.controls.inspectedFailedNoRem.updateValueAndValidity();
+    }
+    else if(event.target.value == "0" && event.target.value != '') {
+      farray.controls.inspectedFailedNoRem.clearValidators();
+      farray.controls.inspectedFailedNoRem.updateValueAndValidity();
+    }
   
 }
- 
+
+  clampsValidationChange(event: any, farray: any, controlName: any) {
+    let value = event.target.value;
+    let isValidatorsRequired = '';
+    if (value != '') {
+      if (value == "Not good") {
+        isValidatorsRequired = "Add"
+      }
+      else if (value == "Physically good") {
+        isValidatorsRequired = "Remove"
+      }
+      else if (value != "0") {
+        isValidatorsRequired = "Add"
+      }
+      else if (value == "0") {
+        isValidatorsRequired = "Remove"
+      }
+    }
+    if (isValidatorsRequired == "Add") {
+      farray.controls[controlName].setValidators(Validators.required);
+      farray.controls[controlName].updateValueAndValidity();
+    }
+    else if (isValidatorsRequired == "Remove") {
+      farray.controls[controlName].clearValidators();
+      farray.controls[controlName].updateValueAndValidity();
+    }
+
+
+  }
+
+  remarksChange(event: any, farray: any, controlName: any) {
+    if (event.target.value > 10) {
+      farray.controls[controlName].setValue("As per latest standard IS/IEC 62305 the value should be less than 10Ω");
+    }
+    else if (event.target.value < 10) {
+      farray.controls[controlName].setValue(" ");
+    }
+  }
+
+}
  
 
