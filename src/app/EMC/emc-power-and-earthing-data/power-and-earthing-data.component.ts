@@ -412,13 +412,17 @@ export class PowerAndEarthingDataComponent implements OnInit {
     return this.EMCPowerAndEarthForm.controls;
   }
   onChange(event:any) {
-    this.file = event.target.files[0];
+   
+    this.file = event.target._files[0];
 }
 
 onUpload() {
 
-  console.log(this.file);
-  this.fileUploadServiceService.uploadFile(this.EMCPowerAndEarthForm.get('peAttachement')?.value,1).subscribe(
+  const copy: File =  this.file;
+  const fd = new FormData();
+  fd.append('file', copy);
+  
+  this.fileUploadServiceService.uploadFile(fd,1).subscribe(
       (data) => {
       },
       (error: any) => {

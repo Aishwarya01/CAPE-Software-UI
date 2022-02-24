@@ -7,18 +7,28 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class FileUploadServiceService {
-
-  apiUrl_EMC = environment.apiUrl_EMC;
+   apiUrl_EMC = environment.apiUrl_EMC;
   constructor(private http: HttpClient) { }
 
   public uploadFile(file: any,emcId: number): Observable<any> {
-    const formData: FormData = new FormData();
-    formData.append('file',file);
- const a=new HttpRequest('POST',this.apiUrl_EMC + '/upload'+ '/'+emcId,formData,{
-    reportProgress: true,
-    responseType: 'json'})
-    return this.http.request(a);
-    //post<any>(this.apiUrl_EMC + '/upload'+ '/'+emcId,formData, { responseType: 'blob' as 'json' })
+  
+    // let formData = new FormData();
+    // formData.append('user',JSON.stringify(emcId));
+    // formData.append('file',file);
+    // console.log(file)
+    // const options = new RequestOptions({ headers: headers });
+
+    // const headers = new Headers({ 'Content-Type': 'multipart/form-data' });
+    // const options = new RequestOptions({ headers: headers });
+
+//  const a=new HttpRequest('POST',this.apiUrl_EMC + '/upload'+ '/'+emcId,formData,{
+//     reportProgress: true,
+//     responseType: 'json'})
+//     return this.http.request(a);
+console.log(file)
+    return this.http.post<any>(this.apiUrl_EMC + '/upload'+ '/'+emcId,file,{
+      reportProgress: true,
+      observe: 'events'})
   }
   public retrieveFile(emcId:any): Observable<any> {
     return this.http.get<any>(this.apiUrl_EMC + '/retrieveFacilityData'+'/'+emcId, { responseType: 'text' as 'json' })
