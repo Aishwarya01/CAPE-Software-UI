@@ -108,12 +108,9 @@ export class LpsEarthingComponent implements OnInit {
     });
     if(this.isAirterminationUpdated){
     this.retriveEarthingDetails();
-    this.getAirterminationData();
     this.isAirterminationUpdated=false;
     }
-    else{
-      //this.getAirterminationData();
-    }
+    
   }
 
   earthingLpsDescriptionForm(buildingNumber:any,buildingName:any,buildingCount:any) {

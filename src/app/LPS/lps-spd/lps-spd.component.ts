@@ -69,7 +69,6 @@ export class LpsSpdComponent implements OnInit {
     });
     if(this.isAirterminationUpdated){
       this.retriveSPD();
-      this.getAirterminationData();
       this.isAirterminationUpdated=false;
     }
   }

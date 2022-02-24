@@ -97,7 +97,6 @@ export class LpsSeperationDistanceComponent implements OnInit {
     });
     if (this.isAirterminationUpdated) {
       this.retriveSeperationDistance();
-      this.getAirterminationData();
       this.isAirterminationUpdated=false;
     }
   }
