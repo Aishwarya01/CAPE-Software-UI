@@ -36,6 +36,10 @@ export class LpsSavedReportComponent implements OnInit {
   userData: any=[];
   viewerFilterData:any=[];
   selectedIndex: number=0;
+  mode: any = 'indeterminate';
+  disablepage: boolean=true;
+  spinner: boolean=false;
+  spinnerValue: String = '';
  
  @ViewChild('input') input!: MatInput;
  lpsData: any=[];
@@ -101,10 +105,12 @@ completedFilterData: any=[];
           });
       } 
     }
-        
   }
 
   continue(basicLpsId: any,clientName: any) {
+    this.spinner=true;
+    this.disablepage=false;
+    this.spinnerValue = "Please wait, the details are loading!";
     this.lpsParent.continue(basicLpsId,clientName);
   } 
 }

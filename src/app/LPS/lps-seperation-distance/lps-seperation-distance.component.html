@@ -79,7 +79,7 @@
                                                                         <i class="bi bi-text-paragraph"></i>
                                                                     </span>
                                                                 </div>
-                                                                <textarea type="text" formControlName="calculatedSeperationDistanceRem"
+                                                                <textarea type="text" [readonly]="isEditable" formControlName="calculatedSeperationDistanceRem"
                                                                     class="form-control"
                                                                     placeholder="Please enter Remarks here (Optional)"></textarea>
                                                             </div>
@@ -152,7 +152,7 @@
                                                                         <i class="bi bi-text-paragraph"></i>
                                                                     </span>
                                                                 </div>
-                                                                <textarea type="number" formControlName="seperationDistanceRem"
+                                                                <textarea type="number" [readonly]="isEditable" formControlName="seperationDistanceRem"
                                                                     class="form-control"
                                                                     placeholder="Please enter Remarks here (Optional)"></textarea>
                                                             </div>
@@ -239,13 +239,13 @@
                                                                         <i class="bi bi-text-paragraph"></i>
                                                                     </span>
                                                                 </div>
-                                                                <textarea type="number" class="form-control"
+                                                                <textarea type="number" class="form-control" [readonly]="isEditable"
                                                                     formControlName="seperationDistanceRem"
                                                                     placeholder="Please enter Remarks here (Optional)"></textarea>
                                                             </div>
                                                         </td>
                                                     </tr>
-                                                    <div class="row" style="float: right;">
+                                                    <div class="row" style="float: right;" >
                                                         <mat-icon [ngClass]="{'disableForm':service.allFieldsDisable}"
                                                             style="float: right;position: relative; margin-top: 5px;"
                                                             *ngIf="getSeparateDistanceDownConductorsControls(q).length == i+1 "

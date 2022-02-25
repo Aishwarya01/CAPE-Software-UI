@@ -17,7 +17,7 @@
                         </div>
                         <input tpe="text" class="form-control" placeholder="Enter clientname"
                             [readonly]="isEditable" formControlName="clientName"[(ngModel)]="basicDetails.clientName"
-                            [ngClass]="{ 'is-invalid': submitted && f.clientName.errors}" />
+                            [ngClass]="{ 'is-invalid': submitted && f.clientName.errors}" [readonly]="isEditable"/>
                         <div *ngIf="submitted && f.clientName.errors" class="invalid-feedback">
                             <div *ngIf="f.clientName.errors.required">ClientName is required</div>
                         </div>
@@ -34,7 +34,7 @@
                         </div>
                         <input type="text" class="form-control" placeholder="Enter project name"
                             [readonly]="isEditable" formControlName="projectName" [(ngModel)]="basicDetails.projectName"
-                            [ngClass]="{ 'is-invalid': submitted && f.projectName.errors}" />
+                            [ngClass]="{ 'is-invalid': submitted && f.projectName.errors}" [readonly]="isEditable"/>
                         <div *ngIf="submitted && f.projectName.errors" class="invalid-feedback">
                             <div *ngIf="f.projectName.errors.required">ProjectName is required</div>
                         </div>
@@ -50,7 +50,7 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter PMC name" [readonly]="isEditable" formControlName="pmcName" [(ngModel)]="basicDetails.pmcName"
-                            [ngClass]="{ 'is-invalid': submitted && f.pmcName.errors}" />
+                            [ngClass]="{ 'is-invalid': submitted && f.pmcName.errors}" [readonly]="isEditable"/>
                         <div *ngIf="submitted && f.pmcName.errors" class="invalid-feedback">
                             <div *ngIf="f.pmcName.errors.required">PMC Name is required</div>
                         </div>
@@ -67,7 +67,7 @@
                         </div>
                         <input type="text" class="form-control" placeholder="Enter consultant name"
                             [readonly]="isEditable" formControlName="consultantName" [(ngModel)]="basicDetails.consultantName"
-                            [ngClass]="{ 'is-invalid': submitted && f.consultantName.errors}" />
+                            [ngClass]="{ 'is-invalid': submitted && f.consultantName.errors}" [readonly]="isEditable"/>
                         <div *ngIf="submitted && f.consultantName.errors" class="invalid-feedback">
                             <div *ngIf="f.consultantName.errors.required">Consultant Name is required</div>
                         </div>
@@ -275,7 +275,7 @@
                                 <i class="bi bi-envelope-fill"></i>
                             </span>
                         </div>
-                        <input tpe="text" [readonly]="isEditable" formControlName="mailId"   [(ngModel)]="basicDetails.mailId"
+                        <input tpe="text" [readonly]="isEditable" formControlName="mailId" [(ngModel)]="basicDetails.mailId"
                          class="form-control" placeholder="Enter Email Id"  [ngClass]="{ 'is-invalid': submitted && f.mailId.errors}" />
                         <div *ngIf="submitted && f.mailId.errors" class="invalid-feedback">
                             <div *ngIf="f.mailId.errors.required">Email Id is required</div>
@@ -297,7 +297,7 @@
                         </span>
                     </div>
                     <select class="form-control" formControlName="availabilityOfPreviousReport"  
-                    [ngClass]="{ 'is-invalid': submitted && f.availabilityOfPreviousReport.errors}"   [(ngModel)]="basicDetails.availabilityOfPreviousReport">
+                    [ngClass]="{ 'is-invalid': submitted && f.availabilityOfPreviousReport.errors}" [(ngModel)]="basicDetails.availabilityOfPreviousReport">
                         <option  value="" selected>Select Option</option>
                         <option value="YES" >Yes</option>
                         <option value="NO" >No</option>

@@ -371,10 +371,10 @@ export class LpsMatstepperComponent implements OnInit {
     this.doSomething1(false);
     this.changeTabLpsSavedReport(0,basicLpsId,userName,ClientName);
 
-    // setTimeout(() => {
-    //   this.saved.spinner=false;
-    //   this.saved.savedReportBody = true;
-    // }, 4000);
+    setTimeout(() => {
+      this.saved.spinner=false;
+      this.saved.disablepage=true;
+    }, 4000);
   }
 
   getAirterminationData(basicLpsId: any) {
