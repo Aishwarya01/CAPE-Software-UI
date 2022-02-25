@@ -41,8 +41,8 @@ export class PowerAndEarthingDataComponent implements OnInit {
   step1List2: any;
   arr1: any = [];
   arr2: any = [];
-  emcId!: number;
-  file!: File ; // Variable to store file
+  emcId: number = 0;
+  file!: any ; // Variable to store file
  
   constructor(
     private formBuilder: FormBuilder,
@@ -411,21 +411,21 @@ export class PowerAndEarthingDataComponent implements OnInit {
   get f(): any {
     return this.EMCPowerAndEarthForm.controls;
   }
-  onChange(event:any) {
-   
-    this.file = event.target._files[0];
-}
+  onChange(event: any) {
+    this.file = event.target.files;
+  }
 
 onUpload() {
 
-  const copy: File =  this.file;
-  const fd = new FormData();
-  fd.append('file', copy);
+  const formData =new FormData();
+    for(let f of this.file) {
+      formData.append('file',f,f.name);
+    }
   
-  this.fileUploadServiceService.uploadFile(fd,1).subscribe(
+  this.fileUploadServiceService.uploadFile(formData,this.emcId).subscribe(
       (data) => {
       },
-      (error: any) => {
+      (error) => {
         
 
       },
