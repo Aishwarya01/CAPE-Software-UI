@@ -381,8 +381,8 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <div formArrayName="earthingDescriptionList" *ngFor="let h of earthingDescriptionListControls(a); let x = index" style="margin-bottom: 29px;">
-                                        <div [formGroupName]="x">
+                                    <div class="search-bar1" formArrayName="earthingDescriptionList" *ngFor="let h of earthingDescriptionListControls(a); let x = index" style="margin-bottom: 29px;">
+                                        <div [formGroupName]="x" style="margin-bottom: 10px;">
                                             <tr>
                                                 <td style="width: 1rem;text-align: center;">4.{{x+1}}(f)</td>
                                                 <td style="width: 24rem;">Material of earthing conductor</td>
@@ -568,14 +568,13 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <div class="row" style="float: right;
-                                                                                margin-right: 10px;">
+                                            <div class="row" style="float: right;margin-right: 10px;">
                                                 <mat-icon style="cursor: pointer;padding: 0px 33px 0px 0px;"
-                                                    [ngClass]="{'disableForm':service.allFieldsDisable}"
+                                                    [ngClass]="{'disableForm':service.allFieldsDisable}" title="Add above fields"
                                                     *ngIf="earthingDescriptionListControls(a).length == x+1" (click)="addItemTypeAEarthing(a)">add_box
                                                 </mat-icon>
                                     
-                                                <mat-icon class="mousechange" class="dlt" type="button" title="Delete"
+                                                <mat-icon class="mousechange" class="dlt" type="button" title="Delete above fields"
                                                     [ngClass]="{'disableForm':service.allFieldsDisable}"
                                                     *ngIf="earthingDescriptionListControls(a).length > 1" (click)="removeItemTypeAEarthing(a,x,q)"
                                                     style="cursor: pointer;float: right;">remove_circle_outline</mat-icon>
@@ -583,7 +582,7 @@
                                         </div>
                                     </div>
 
-                                    <tr >
+                                    <tr>
                                         <td style="width: 1rem;text-align: center;">4(k)</td>
                                         <td style="width: 24rem;">Maximum distance between earth electrode and wall in meters</td>
                                         <td style="width: 43rem;">
