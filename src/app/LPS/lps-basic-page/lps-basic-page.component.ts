@@ -249,7 +249,6 @@ export class LpsBasicPageComponent implements OnInit {
   }
  
   onSubmit(flag: any) {
-    debugger
     this.submitted=true;
      if (this.LPSBasicForm.invalid) {
        return;

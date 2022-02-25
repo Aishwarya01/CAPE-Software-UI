@@ -161,7 +161,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
   }
 
   populateData() {
-    debugger
+    
      let a=[]
     for (let item of this.step6List.seperationDistanceDescription) {     
      a.push(this.createGroup(item));
@@ -252,7 +252,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
   
   //Removing SeparateDistance record
   removeSeparateDistance(form: any, a: any, index: any) {
-    debugger
+    
     if (a.value.seperationDistanceDescId != 0 && a.value.seperationDistanceDescId != undefined) {
       a.controls.flag.setValue('R');
       a.controls.buildingCount.setValue(form.controls.buildingCount.value);
@@ -265,7 +265,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
 
   //Removing SeparateDistanceDownConductors records
   removeSeparateDistanceDownConductors(form: any, a: any, index: any) {
-    debugger
+    
     if (a.value.seperationDistanceDownConductorId != 0 && a.value.seperationDistanceDownConductorId != undefined) {
       a.controls.flag.setValue('R');
       a.controls.buildingCount.setValue(form.controls.buildingCount.value);
@@ -330,7 +330,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
   }
 
   // createSeperationForm(noOfBuildingNumber:any){
-  //   debugger
+  //   
   //   this.seperationDistanceDescription = this.separeteDistanceForm.get('seperationDistanceDescription') as FormArray;
   //   let sizeOfSeperation=this.separeteDistanceForm.value.seperationDistanceDescription.length;
   //    if(noOfBuildingNumber !=null && noOfBuildingNumber !='' && noOfBuildingNumber !=undefined){

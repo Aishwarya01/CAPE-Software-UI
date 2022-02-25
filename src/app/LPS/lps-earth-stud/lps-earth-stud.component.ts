@@ -195,7 +195,6 @@ export class LpsEarthStudComponent implements OnInit {
 
   retrieveDetailsfromSavedReports(data: any) {
     // this.service.lvClick=1;
-    debugger
     if(data.basicLpsId != undefined && data.basicLpsId != 0){
       this.step7List = data;
     }
@@ -214,7 +213,6 @@ export class LpsEarthStudComponent implements OnInit {
     let index = 0;
     let a = [];
     for (let i of this.step7List.earthStudDescription) {
-      debugger
       if (i.availableEquipotentialBondingOb == 'Yes') {
         a.push(this.createGroupForYesValue(i));
       } else {
@@ -228,7 +226,6 @@ export class LpsEarthStudComponent implements OnInit {
   }
 
   // retrieveDetailsfromEarthStud(data: any){
-  //   debugger
   //     this.step7List = JSON.parse(data);
   //     this.earthStudReport.basicLpsId = this.step7List[0].basicLpsId;
   //     this.earthStudReport.earthStudReportId = this.step7List[0].earthStudReportId;
@@ -247,7 +244,6 @@ export class LpsEarthStudComponent implements OnInit {
   // }
 
     // populateData(earthStudDescription:any){
-    //   debugger
     //   let index = 0;
     //   for(let item of earthStudDescription){
     //     this.earthStud.push(this.createGroup(item));

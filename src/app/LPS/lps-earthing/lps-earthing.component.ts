@@ -841,7 +841,6 @@ export class LpsEarthingComponent implements OnInit {
     return form.controls.getTypeAEarthingControls?.controls;
   }
   onChangeClamps(event: any, a: any, index: any) {
-    debugger
     let changedValue;
     if (a != null) {
       changedValue = event.target.value;

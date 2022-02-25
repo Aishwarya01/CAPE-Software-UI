@@ -112,7 +112,7 @@ export class LpsSpdComponent implements OnInit {
 
    retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
 //     // this.service.lvClick=1;
-//     debugger
+//     
 //     this.step5List = data.earthStudReport;
 //     this.spdReport.basicLpsId = this.step7List.basicLpsId;
 //     this.spdReport.earthStudReportId = this.step7List.earthStudReportId;
@@ -159,7 +159,6 @@ export class LpsSpdComponent implements OnInit {
 
     // populateData(spd:any){
     //   for(let item of spd){
-    //     console.log(item.spdId);
         
     //   }
     // }
@@ -276,7 +275,7 @@ export class LpsSpdComponent implements OnInit {
 
   // Location and Panel iteration methed 
   locationPanel(event: KeyboardEvent, a: any) {
-    debugger
+    
     let numberOfItr = parseInt((<HTMLInputElement>event.target).value);
     // this.spdDescription = a as FormArray;
 
@@ -315,7 +314,7 @@ export class LpsSpdComponent implements OnInit {
   }
 
   removeItem(form: any, a: any, index: any) {
-    debugger
+    
     if (a.value.spdDescriptionId != 0 && a.value.spdDescriptionId != undefined) {
       a.controls.flag.setValue('R');
       a.controls.buildingCount.setValue(form.controls.buildingCount.value);
@@ -328,6 +327,8 @@ export class LpsSpdComponent implements OnInit {
     }
     form.controls.noPannelSupplittingOb.setValue(form.controls.spdDescription.controls.length);
     form.controls.noPannelSupplittingOb.updateValueAndValidity();
+    this.spdForm.markAsDirty();
+    this.spdForm.markAsTouched();
   }
 
   onSubmit(flag: any) {

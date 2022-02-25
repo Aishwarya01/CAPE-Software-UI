@@ -33,202 +33,240 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <div style="font-weight: bold;">
-                        <label for="Basicdetails">Basic Details:</label>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="table-responsive" style="overflow-x: unset; margin-top: 20px;">
-                                <table class="table TableBorder">
-                                <div class="form-group">
-                                    <thead>
-                                        <th>SI.No</th>
-                                        <th>Description</th>
-                                        <th>Observation</th>
-                                        <th>Remarks(Optional)</th>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td style="width: 1rem; text-align: center;">1.</td>
-                                            <td style="width: 44rem;">Calculated seperation distance between LPS and other
-                                                metallic parts of building</td>
-                                            <td style="width: 43rem;">
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i class="bi bi-text-paragraph"></i>
-                                                        </span>
-                                                    </div>
-                                                    <textarea [readonly]="isEditable" formControlName="calculatedSeperationDistanceOb"  type="text" class="form-control" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && q.get('calculatedSeperationDistanceOb')?.errors }"></textarea>
-                                                    <div *ngIf="submitted && q.get('calculatedSeperationDistanceOb')?.errors"
-                                                        class="invalid-feedback">
-                                                        <div *ngIf="q.get('calculatedSeperationDistanceOb')?.errors?.required"> Calculated seperation distance between LPS and other metallic parts of building Observation is required</div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td style="width: 43rem;">
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i class="bi bi-text-paragraph"></i>
-                                                        </span>
-                                                    </div>
-                                                    <textarea type="text" formControlName="calculatedSeperationDistanceRem" class="form-control"  placeholder="Please enter Remarks here (Optional)"></textarea>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                       
-                                    </tbody>
-                                </div>
-                                </table>
-
-                                <table class="table TableBorder">
-                                        <tbody>
-                                        <tr>
-                                            <td colspan="4">
-                                                <label>2.Measured Seperation distance between air termination and electrical
-                                                    apparatus (lights, Solar PV, AC chillers, cameras…. Etc)(Measurement
-                                                    required in atleast 10 locations on roof top) in meters</label>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                        <tbody formArrayName="separateDistance" *ngFor="let f of getseparateDistanceDescriptionControls(q); let i = index">
-                                        <div class="form-group" [formGroupName]="i">
-                                            <tr>
-                                                <td>2.{{i+1}}</td>
-                                                <td style="width: 38rem;">
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text">
-                                                                <i class="bi bi-text-paragraph"></i>
-                                                            </span>
-                                                        </div>
-                                                        <textarea type="number" [readonly]="isEditable" formControlName="seperationDistanceDesc" class="form-control" placeholder="Please enter Observation here" 
-                                                        [ngClass]="{ 'is-invalid': submitted && f.get('seperationDistanceDesc')?.errors }"></textarea>
-                                                        <div *ngIf="submitted && f.get('seperationDistanceDesc')?.errors"
-                                                            class="invalid-feedback">
-                                                            <div
-                                                                *ngIf="f.get('seperationDistanceDesc')?.errors?.required">Measured Seperation distance between air termination and electrical Description is required</div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-
-                                                <td style="width: 38rem;">
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text">
-                                                                <i class="bi bi-text-paragraph"></i>
-                                                            </span>
-                                                        </div>
-                                                        <textarea type="number" [readonly]="isEditable" formControlName="seperationDistanceOb" class="form-control" placeholder="Please enter Observation here" 
-                                                        [ngClass]="{ 'is-invalid': submitted && f.get('seperationDistanceOb')?.errors }"></textarea>
-                                                        <div *ngIf="submitted && f.get('seperationDistanceOb')?.errors"
-                                                            class="invalid-feedback">
-                                                            <div *ngIf="f.get('seperationDistanceOb')?.errors?.required">
-                                                                Measured Seperation distance between air termination and electrical Observation is required</div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-
-                                                <td style="width: 38rem;">
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text">
-                                                                <i class="bi bi-text-paragraph"></i>
-                                                            </span>
-                                                        </div>
-                                                        <textarea type="number"  formControlName="seperationDistanceRem" class="form-control"  placeholder="Please enter Remarks here (Optional)"></textarea>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        <div class="row" style="float: right;">
-                                            <mat-icon class="mousechange" type="button" *ngIf="getseparateDistanceDescriptionControls(q).length == i+1" 
-                                            [ngClass]="{'disableForm':service.allFieldsDisable}" style="float: right;position: relative; margin-top: 5px;"
-                                            (click)="addSeparateDistance(q,f)">add_box</mat-icon>
-
-                                            <mat-icon class="mousechange" class="dlt" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" *ngIf="getseparateDistanceDescriptionControls(q).length > 1 " style="float: right;position: relative; margin-top: 5px; margin-bottom: 5px;" (click)="removeSeparateDistance(q,f,i)">remove_circle_outline</mat-icon>
-                                        </div>
-                                        </div>
-                                        </tbody>
-                                </table>
-
-                                <table class="table TableBorder">
-                                        <tbody>
-                                        <tr>
-                                            <td colspan="4">
-                                                <label>3.Measured Seperation distance between down conductors and electrical
-                                                    apparatus (lights, Solar PV, AC chillers, cameras…. Etc)(Measurement
-                                                    required in atleast 10 locations on roof top) in meters</label>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-
-                                        <tbody formArrayName="separateDistanceDownConductors" *ngFor="let f of getSeparateDistanceDownConductorsControls(q); let i = index">
-                                            <div class="form-group" [formGroupName]="i">
-                                                <tr>
-                                                <td>3.{{i+1}}</td>
-                                                <td style="width: 38rem;">
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text">
-                                                                <i class="bi bi-text-paragraph"></i>
-                                                            </span>
-                                                        </div>
-                                                        <textarea type="number" class="form-control" [readonly]="isEditable" formControlName="seperationDistanceDesc"
-                                                        placeholder="Please enter Observation here" [ngClass]="{'is-invalid': submitted && f.get('seperationDistanceDesc')?.errors}"></textarea>
-                                                        <div *ngIf="submitted && f.get('seperationDistanceDesc')?.errors"
-                                                            class="invalid-feedback">
-                                                            <div
-                                                                *ngIf="f.get('seperationDistanceDesc')?.errors?.required"> Measured Seperation distance between down conductors and electrical Description is required</div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-
-                                                <td style="width: 38rem;">
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text">
-                                                                <i class="bi bi-text-paragraph"></i>
-                                                            </span>
-                                                        </div>
-                                                        <textarea type="number" class="form-control" [readonly]="isEditable" formControlName="seperationDistanceOb"
-                                                        placeholder="Please enter Observation here"
-                                                        [ngClass]="{'is-invalid': submitted && f.get('seperationDistanceOb')?.errors}"></textarea>
-                                                        <div *ngIf="submitted && f.get('seperationDistanceOb')?.errors" class="invalid-feedback">
-                                                            <div *ngIf="f.get('seperationDistanceOb')?.errors?.required">
-                                                                Measured Seperation distance between down conductors and electrical observation is required</div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-
-                                                <td style="width: 38rem;">
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text">
-                                                                <i class="bi bi-text-paragraph"></i>
-                                                            </span>
-                                                        </div>
-                                                        <textarea type="number" class="form-control" formControlName="seperationDistanceRem"  placeholder="Please enter Remarks here (Optional)"></textarea>
-                                                    </div>
-                                                </td>
-                                                </tr>
-                                            <div class="row" style="float: right;">
-                                                <mat-icon  
-                                                [ngClass]="{'disableForm':service.allFieldsDisable}" style="float: right;position: relative; margin-top: 5px;"  *ngIf="getSeparateDistanceDownConductorsControls(q).length == i+1 "
-                                                (click)="addSeparateDistanceDownConductors(q,f)">add_box</mat-icon>
-
-                                                <mat-icon class="mousechange" class="dlt" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" *ngIf="getSeparateDistanceDownConductorsControls(q).length > 1" 
-                                                    (click)="removeSeparateDistanceDownConductors(q,f,i)" style="float: right;position: relative; margin-top: 5px; margin-bottom: 5px;">remove_circle_outline</mat-icon>
+                    <mat-accordion>
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>Basic Details:</mat-expansion-panel-header>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="table-responsive" style="overflow-x: unset; margin-top: 20px;">
+                                        <table class="table TableBorder">
+                                            <div class="form-group">
+                                                <thead>
+                                                    <th>SI.No</th>
+                                                    <th>Description</th>
+                                                    <th>Observation</th>
+                                                    <th>Remarks(Optional)</th>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width: 1rem; text-align: center;">1.</td>
+                                                        <td style="width: 44rem;">Calculated seperation distance between LPS and other
+                                                            metallic parts of building</td>
+                                                        <td style="width: 43rem;">
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">
+                                                                        <i class="bi bi-text-paragraph"></i>
+                                                                    </span>
+                                                                </div>
+                                                                <textarea [readonly]="isEditable"
+                                                                    formControlName="calculatedSeperationDistanceOb" type="text"
+                                                                    class="form-control" placeholder="Please enter Observation here"
+                                                                    [ngClass]="{ 'is-invalid': submitted && q.get('calculatedSeperationDistanceOb')?.errors }"></textarea>
+                                                                <div *ngIf="submitted && q.get('calculatedSeperationDistanceOb')?.errors"
+                                                                    class="invalid-feedback">
+                                                                    <div *ngIf="q.get('calculatedSeperationDistanceOb')?.errors?.required">
+                                                                        Calculated seperation distance between LPS and other metallic parts
+                                                                        of
+                                                                        building Observation is required</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td style="width: 43rem;">
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">
+                                                                        <i class="bi bi-text-paragraph"></i>
+                                                                    </span>
+                                                                </div>
+                                                                <textarea type="text" formControlName="calculatedSeperationDistanceRem"
+                                                                    class="form-control"
+                                                                    placeholder="Please enter Remarks here (Optional)"></textarea>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
                                             </div>
-                                          </div>
-                                        </tbody>
-                                </table>
+                                        </table>
+                    
+                                        <table class="table TableBorder">
+                                            <tbody>
+                                                <tr>
+                                                    <td colspan="4">
+                                                        <label>2.Measured Seperation distance between air termination and electrical
+                                                            apparatus (lights, Solar PV, AC chillers, cameras…. Etc)(Measurement
+                                                            required in atleast 10 locations on roof top) in meters</label>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <tbody formArrayName="separateDistance"
+                                                *ngFor="let f of getseparateDistanceDescriptionControls(q); let i = index">
+                                                <div class="form-group" [formGroupName]="i">
+                                                    <tr>
+                                                        <td>2.{{i+1}}</td>
+                                                        <td style="width: 38rem;">
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">
+                                                                        <i class="bi bi-text-paragraph"></i>
+                                                                    </span>
+                                                                </div>
+                                                                <textarea type="number" [readonly]="isEditable"
+                                                                    formControlName="seperationDistanceDesc" class="form-control"
+                                                                    placeholder="Please enter Observation here"
+                                                                    [ngClass]="{ 'is-invalid': submitted && f.get('seperationDistanceDesc')?.errors }"></textarea>
+                                                                <div *ngIf="submitted && f.get('seperationDistanceDesc')?.errors"
+                                                                    class="invalid-feedback">
+                                                                    <div *ngIf="f.get('seperationDistanceDesc')?.errors?.required">Measured
+                                                                        Seperation distance between air termination and electrical
+                                                                        Description is
+                                                                        required</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                    
+                                                        <td style="width: 38rem;">
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">
+                                                                        <i class="bi bi-text-paragraph"></i>
+                                                                    </span>
+                                                                </div>
+                                                                <textarea type="number" [readonly]="isEditable"
+                                                                    formControlName="seperationDistanceOb" class="form-control"
+                                                                    placeholder="Please enter Observation here"
+                                                                    [ngClass]="{ 'is-invalid': submitted && f.get('seperationDistanceOb')?.errors }"></textarea>
+                                                                <div *ngIf="submitted && f.get('seperationDistanceOb')?.errors"
+                                                                    class="invalid-feedback">
+                                                                    <div *ngIf="f.get('seperationDistanceOb')?.errors?.required">
+                                                                        Measured Seperation distance between air termination and electrical
+                                                                        Observation is required</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                    
+                                                        <td style="width: 38rem;">
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">
+                                                                        <i class="bi bi-text-paragraph"></i>
+                                                                    </span>
+                                                                </div>
+                                                                <textarea type="number" formControlName="seperationDistanceRem"
+                                                                    class="form-control"
+                                                                    placeholder="Please enter Remarks here (Optional)"></textarea>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <div class="row" style="float: right;">
+                                                        <mat-icon class="mousechange" type="button"
+                                                            *ngIf="getseparateDistanceDescriptionControls(q).length == i+1"
+                                                            [ngClass]="{'disableForm':service.allFieldsDisable}"
+                                                            style="float: right;position: relative; margin-top: 5px;"
+                                                            (click)="addSeparateDistance(q,f)">add_box</mat-icon>
+                    
+                                                        <mat-icon class="mousechange" class="dlt" type="button" title="Delete"
+                                                            [ngClass]="{'disableForm':service.allFieldsDisable}"
+                                                            *ngIf="getseparateDistanceDescriptionControls(q).length > 1 "
+                                                            style="float: right;position: relative; margin-top: 5px; margin-bottom: 5px;"
+                                                            (click)="removeSeparateDistance(q,f,i)">remove_circle_outline</mat-icon>
+                                                    </div>
+                                                </div>
+                                            </tbody>
+                                        </table>
+                    
+                                        <table class="table TableBorder">
+                                            <tbody>
+                                                <tr>
+                                                    <td colspan="4">
+                                                        <label>3.Measured Seperation distance between down conductors and electrical
+                                                            apparatus (lights, Solar PV, AC chillers, cameras…. Etc)(Measurement
+                                                            required in atleast 10 locations on roof top) in meters</label>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                    
+                                            <tbody formArrayName="separateDistanceDownConductors"
+                                                *ngFor="let f of getSeparateDistanceDownConductorsControls(q); let i = index">
+                                                <div class="form-group" [formGroupName]="i">
+                                                    <tr>
+                                                        <td>3.{{i+1}}</td>
+                                                        <td style="width: 38rem;">
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">
+                                                                        <i class="bi bi-text-paragraph"></i>
+                                                                    </span>
+                                                                </div>
+                                                                <textarea type="number" class="form-control" [readonly]="isEditable"
+                                                                    formControlName="seperationDistanceDesc"
+                                                                    placeholder="Please enter Observation here"
+                                                                    [ngClass]="{'is-invalid': submitted && f.get('seperationDistanceDesc')?.errors}"></textarea>
+                                                                <div *ngIf="submitted && f.get('seperationDistanceDesc')?.errors"
+                                                                    class="invalid-feedback">
+                                                                    <div *ngIf="f.get('seperationDistanceDesc')?.errors?.required"> Measured
+                                                                        Seperation distance between down conductors and electrical
+                                                                        Description is
+                                                                        required</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                    
+                                                        <td style="width: 38rem;">
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">
+                                                                        <i class="bi bi-text-paragraph"></i>
+                                                                    </span>
+                                                                </div>
+                                                                <textarea type="number" class="form-control" [readonly]="isEditable"
+                                                                    formControlName="seperationDistanceOb"
+                                                                    placeholder="Please enter Observation here"
+                                                                    [ngClass]="{'is-invalid': submitted && f.get('seperationDistanceOb')?.errors}"></textarea>
+                                                                <div *ngIf="submitted && f.get('seperationDistanceOb')?.errors"
+                                                                    class="invalid-feedback">
+                                                                    <div *ngIf="f.get('seperationDistanceOb')?.errors?.required">
+                                                                        Measured Seperation distance between down conductors and electrical
+                                                                        observation is required</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                    
+                                                        <td style="width: 38rem;">
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">
+                                                                        <i class="bi bi-text-paragraph"></i>
+                                                                    </span>
+                                                                </div>
+                                                                <textarea type="number" class="form-control"
+                                                                    formControlName="seperationDistanceRem"
+                                                                    placeholder="Please enter Remarks here (Optional)"></textarea>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <div class="row" style="float: right;">
+                                                        <mat-icon [ngClass]="{'disableForm':service.allFieldsDisable}"
+                                                            style="float: right;position: relative; margin-top: 5px;"
+                                                            *ngIf="getSeparateDistanceDownConductorsControls(q).length == i+1 "
+                                                            (click)="addSeparateDistanceDownConductors(q,f)">add_box</mat-icon>
+                    
+                                                        <mat-icon class="mousechange" class="dlt" type="button" title="Delete"
+                                                            [ngClass]="{'disableForm':service.allFieldsDisable}"
+                                                            *ngIf="getSeparateDistanceDownConductorsControls(q).length > 1"
+                                                            (click)="removeSeparateDistanceDownConductors(q,f,i)"
+                                                            style="float: right;position: relative; margin-top: 5px; margin-bottom: 5px;">
+                                                            remove_circle_outline</mat-icon>
+                                                    </div>
+                                                </div>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+            </div>
 
                 <!-- <div>
                     <mat-icon class="mousechange" class="add" (click)="add(q)" type="button"
@@ -240,8 +278,7 @@
                         style="margin-inline: 0rem;float: right;position: relative;" title="delete" [ngClass]="{'disableForm':isEditable}">delete</mat-icon>
                 </div> -->
 
-            </div>
-
+    </div>
             <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
                 <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
                 <button class="next" (click)="gotoNextModal(content,contents)" mat-button>Next &raquo;</button>

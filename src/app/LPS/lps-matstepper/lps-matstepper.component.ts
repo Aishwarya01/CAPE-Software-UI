@@ -260,7 +260,7 @@ export class LpsMatstepperComponent implements OnInit {
                 this.seperationDistance.createSeperationForm(this.dataJSON.airTermination);
               }
           }
-          debugger
+
           if (this.dataJSON.airTermination != null) {
             if (this.dataJSON.earthStudReport != null) {
               this.earthStud.retrieveDetailsfromSavedReports(this.dataJSON);
@@ -370,6 +370,11 @@ export class LpsMatstepperComponent implements OnInit {
     let userName=this.router.snapshot.paramMap.get('email') || '{}';
     this.doSomething1(false);
     this.changeTabLpsSavedReport(0,basicLpsId,userName,ClientName);
+
+    // setTimeout(() => {
+    //   this.saved.spinner=false;
+    //   this.saved.savedReportBody = true;
+    // }, 4000);
   }
 
   getAirterminationData(basicLpsId: any) {
