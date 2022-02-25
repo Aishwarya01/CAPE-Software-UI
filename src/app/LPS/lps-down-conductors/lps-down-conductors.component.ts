@@ -276,7 +276,7 @@ export class LpsDownConductorsComponent implements OnInit {
       physicalInspectionRem: new FormControl(''),
       conductMaterialOb: new FormControl('', Validators.required),
       conductMaterialRem: new FormControl(''),
-      conductSizeOb: new FormControl('', Validators.required),
+      conductSizeOb: new FormControl(''),
       conductSizeRem: new FormControl(''),
       downConductExposedOb: new FormControl('', Validators.required),
       downConductExposedRem: new FormControl(''),
@@ -304,7 +304,7 @@ export class LpsDownConductorsComponent implements OnInit {
       inspectionFailedNoRem: new FormControl(''),
       averageBendsOb: new FormControl('', Validators.required),
       averageBendsRem: new FormControl(''),
-      naturalDownCondutTypeOb: new FormControl('', Validators.required),
+      naturalDownCondutTypeOb: new FormControl(''),
       naturalDownCondutTypeRem: new FormControl(''),
       naturalDownCondDimensionOb: new FormControl('', Validators.required),
       naturalDownCondDimensionRem: new FormControl('')
@@ -629,9 +629,17 @@ export class LpsDownConductorsComponent implements OnInit {
 
     retrieveDownArrForm(item:any){
       let retrieveDownArrFormDataArr:any=[];
-      for (let value of item.downConductor) {
-        retrieveDownArrFormDataArr.push(this.createGroup(value,item.downConduDescId));   
-      } 
+      if(item.downConductorAvailabilityOb == 'Applicable') {
+        for (let value of item.downConductor) {
+          retrieveDownArrFormDataArr.push(this.createGroup(value,item.downConduDescId));   
+        } 
+      }
+      else {
+        for (let value of item.downConductor) {
+          retrieveDownArrFormDataArr.push(this.createGroupNotApplicable(value,item.downConduDescId));   
+        } 
+      }
+      
       return retrieveDownArrFormDataArr;
     }
 
@@ -643,7 +651,7 @@ export class LpsDownConductorsComponent implements OnInit {
         physicalInspectionRem: new FormControl({disabled: false, value: item.physicalInspectionRem}),
         conductMaterialOb: new FormControl({disabled: false, value: item.conductMaterialOb}, Validators.required),
         conductMaterialRem: new FormControl({disabled: false, value: item.conductMaterialRem}),
-        conductSizeOb: new FormControl({disabled: false, value: item.conductSizeOb}, Validators.required),
+        conductSizeOb: new FormControl({disabled: false, value: item.conductSizeOb}),
         conductSizeRem: new FormControl({disabled: false, value: item.conductSizeRem}),
         downConductExposedOb: new FormControl({disabled: false, value: item.downConductExposedOb}, Validators.required),
         downConductExposedRem: new FormControl({disabled: false, value: item.downConductExposedRem}),
@@ -671,7 +679,51 @@ export class LpsDownConductorsComponent implements OnInit {
         inspectionFailedNoRem: new FormControl({disabled: false, value: item.inspectionFailedNoRem}),
         averageBendsOb: new FormControl({disabled: false, value: item.averageBendsOb}, Validators.required),
         averageBendsRem: new FormControl({disabled: false, value: item.averageBendsRem}),
-        naturalDownCondutTypeOb: new FormControl({disabled: false, value: item.naturalDownCondutTypeOb}, Validators.required),
+        naturalDownCondutTypeOb: new FormControl({disabled: false, value: item.naturalDownCondutTypeOb}),
+        naturalDownCondutTypeRem: new FormControl({disabled: false, value: item.naturalDownCondutTypeRem}),
+        naturalDownCondDimensionOb: new FormControl({disabled: false, value: item.naturalDownCondDimensionOb}),
+        naturalDownCondDimensionRem: new FormControl({disabled: false, value: item.naturalDownCondDimensionRem}),
+        flag: new FormControl({disabled: false, value: item.flag}),
+      });
+    }
+
+    createGroupNotApplicable(item: any,downConduDescId: any): FormGroup {
+      return this.formBuilder.group({
+        downConductorId: new FormControl({disabled: false, value: item.downConductorId}),
+        downConduDescId: new FormControl({disabled: false, value: downConduDescId}),
+        physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}),
+        physicalInspectionRem: new FormControl({disabled: false, value: item.physicalInspectionRem}),
+        conductMaterialOb: new FormControl({disabled: false, value: item.conductMaterialOb}),
+        conductMaterialRem: new FormControl({disabled: false, value: item.conductMaterialRem}),
+        conductSizeOb: new FormControl({disabled: false, value: item.conductSizeOb}),
+        conductSizeRem: new FormControl({disabled: false, value: item.conductSizeRem}),
+        downConductExposedOb: new FormControl({disabled: false, value: item.downConductExposedOb}),
+        downConductExposedRem: new FormControl({disabled: false, value: item.downConductExposedRem}),
+        downConductLocationdOb: new FormControl({disabled: false, value: item.downConductLocationdOb}),
+        downConductLocationdRem: new FormControl({disabled: false, value: item.downConductLocationdRem}),
+        downConductGutterOb: new FormControl({disabled: false, value: item.downConductGutterOb}),
+        downConductGutterRem: new FormControl({disabled: false, value: item.downConductGutterRem}),
+        installedShaftDownConductorOb: new FormControl({disabled: false, value: item.installedShaftDownConductorOb}),
+        installedShaftDownConductorRem: new FormControl({disabled: false, value: item.installedShaftDownConductorRem}),
+        ensureDownCnoductOb: new FormControl({disabled: false, value: item.ensureDownCnoductOb}),
+        ensureDownCnoductRem: new FormControl({disabled: false, value: item.ensureDownCnoductRem}),
+        installationDownConductOb: new FormControl({disabled: false, value: item.installationDownConductOb}),
+        installationDownConductRem: new FormControl({disabled: false, value: item.installationDownConductRem}),
+        maximumDownConductOb: new FormControl({disabled: false, value: item.maximumDownConductOb}),
+        maximumDownConductRem: new FormControl({disabled: false, value: item.maximumDownConductRem}),
+        manimumDownConductOb: new FormControl({disabled: false, value: item.manimumDownConductOb}),
+        manimumDownConductRem: new FormControl({disabled: false, value: item.manimumDownConductRem}),
+        totalNoDownConductOb: new FormControl({disabled: false, value: item.totalNoDownConductOb}),
+        totalNoDownConductRem: new FormControl({disabled: false, value: item.totalNoDownConductRem}),
+        inspectedNoOb: new FormControl({disabled: false, value: item.inspectedNoOb}),
+        inspectedNoRem: new FormControl({disabled: false, value: item.inspectedNoRem}),
+        inspectionPassedNoOb: new FormControl({disabled: false, value: item.inspectionPassedNoOb}),
+        inspectionPassedNoRem: new FormControl({disabled: false, value: item.inspectionPassedNoRem}),
+        inspectionFailedNoOb: new FormControl({disabled: false, value: item.inspectionFailedNoOb}),
+        inspectionFailedNoRem: new FormControl({disabled: false, value: item.inspectionFailedNoRem}),
+        averageBendsOb: new FormControl({disabled: false, value: item.averageBendsOb}),
+        averageBendsRem: new FormControl({disabled: false, value: item.averageBendsRem}),
+        naturalDownCondutTypeOb: new FormControl({disabled: false, value: item.naturalDownCondutTypeOb}),
         naturalDownCondutTypeRem: new FormControl({disabled: false, value: item.naturalDownCondutTypeRem}),
         naturalDownCondDimensionOb: new FormControl({disabled: false, value: item.naturalDownCondDimensionOb}, Validators.required),
         naturalDownCondDimensionRem: new FormControl({disabled: false, value: item.naturalDownCondDimensionRem}),

@@ -2432,11 +2432,11 @@
                                 </tbody>
                             </table>
                         </div>                                                                              
-                        <div style="margin-top: 10px;" *ngIf="q.get('testingJointAvailabilityOb')?.value != 'Applicable'"><b>Note:</b> &nbsp; Select applicable if you intend to fill details for Test Joints</div>
-                        <h2 *ngIf="q.get('testingJointAvailabilityOb')?.value === 'Applicable'"><u>Test Joints :</u></h2>
+                        <div style="margin-top: 10px;" *ngIf="q.get('testingJointAvailabilityOb')?.value != 'Available'"><b>Note:</b> &nbsp; Select applicable if you intend to fill details for Test Joints</div>
+                        <h2 *ngIf="q.get('testingJointAvailabilityOb')?.value === 'Available'"><u>Test Joints :</u></h2>
                         <br>
                         
-                        <div class="table-responsive" style="overflow-x: unset;" *ngIf="q.get('testingJointAvailabilityOb')?.value === 'Applicable'">
+                        <div class="table-responsive" style="overflow-x: unset;" *ngIf="q.get('testingJointAvailabilityOb')?.value === 'Available'">
                                     <table class="table TableBorder">
                                 <tbody formArrayName="testingJoint" *ngFor="let a of jointControls(q); let x = index">
                                     <div class="form-group" [formGroupName]="x">
