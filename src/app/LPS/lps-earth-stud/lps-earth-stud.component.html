@@ -52,7 +52,7 @@
                         <tbody>
                             <tr>
                                 <td style="width: 1rem; text-align: center;" >1.</td>
-                                <td style="width: 24rem;">Whether equipotential bonding between LPS and MET is available</td>
+                                <td style="width: 25rem;">Whether equipotential bonding between LPS and MET is available</td>
                                 <td style="width: 43rem;">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -66,7 +66,7 @@
                                                     <option value="No" >No</option>
                                         </select>
                                         <div *ngIf="submitted && f.get('availableEquipotentialBondingOb')?.errors" class="invalid-feedback">
-                                            <div *ngIf="f.get('availableEquipotentialBondingOb')?.errors?.required">Whether equipotential bonding between LPS and MET is available is required</div>
+                                            <div *ngIf="f.get('availableEquipotentialBondingOb')?.errors?.required" >Whether equipotential bonding between LPS and MET is available is required</div>
                                         </div>
                                     </div>
                                 </td>
@@ -78,7 +78,7 @@
                                             </span>
                                         </div>
                                         <textarea [readonly]="isEditable" formControlName="availableEquipotentialBondingRem"
-                                        type="text" class="form-control" ></textarea>
+                                        type="text" class="form-control"  placeholder="Please enter Remarks here (Optional)"></textarea>
                                     </div>
                                 </td>
                             </tr>
@@ -106,7 +106,8 @@
                                                 <i class="bi bi-text-paragraph"></i>
                                             </span>
                                         </div>
-                                        <textarea [readonly]="isEditable" formControlName="numberOfEquipotentialBondingRem" type="text" class="form-control" ></textarea>
+                                        <textarea [readonly]="isEditable" formControlName="numberOfEquipotentialBondingRem" type="text" class="form-control" 
+                                        placeholder="Please enter Remarks here (Optional)"></textarea>
                                     </div>
                                 </td>
                             </tr>
@@ -134,7 +135,8 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea [readonly]="isEditable" formControlName="sizeOfEarthingConductorRem"  type="text" class="form-control" ></textarea>
+                                            <textarea [readonly]="isEditable" formControlName="sizeOfEarthingConductorRem"  type="text" class="form-control" 
+                                            placeholder="Please enter Remarks here (Optional)"></textarea>
                                         </div>
                                 </td>
                             </tr>
@@ -167,7 +169,8 @@
                                                 <i class="bi bi-text-paragraph"></i>
                                             </span>
                                         </div>
-                                        <textarea [readonly]="isEditable" formControlName="conceptOfEquipotentialBondingRem"  type="text" class="form-control" ></textarea>
+                                        <textarea [readonly]="isEditable" formControlName="conceptOfEquipotentialBondingRem"  type="text" class="form-control" 
+                                        placeholder="Please enter Remarks here (Optional)"></textarea>
                                     </div>
                                 </td>
                             </tr>
@@ -194,7 +197,7 @@
                                                 <i class="bi bi-text-paragraph"></i>
                                             </span>
                                         </div>
-                                        <textarea [readonly]="isEditable" formControlName="mainProtectiveEquipotentialBondingRem" type="text" class="form-control" ></textarea>
+                                        <textarea [readonly]="isEditable" formControlName="mainProtectiveEquipotentialBondingRem" type="text" class="form-control"  placeholder="Please enter Remarks here (Optional)"></textarea>
                                     </div>
                                 </td>
                             </tr>
@@ -221,7 +224,8 @@
                                                 <i class="bi bi-text-paragraph"></i>
                                             </span>
                                         </div>
-                                        <textarea [readonly]="isEditable" formControlName="sizeOfMainProtectiveRem" type="text" class="form-control" ></textarea>
+                                        <textarea [readonly]="isEditable" formControlName="sizeOfMainProtectiveRem" type="text" class="form-control" 
+                                        placeholder="Please enter Remarks here (Optional)"></textarea>
                                     </div>
                                 </td>
                             </tr>
@@ -249,7 +253,8 @@
                                                 <i class="bi bi-text-paragraph"></i>
                                             </span>
                                         </div>
-                                        <textarea [readonly]="isEditable" formControlName="supplimentaryMainProtectiveRem" type="text" class="form-control" ></textarea>
+                                        <textarea [readonly]="isEditable" formControlName="supplimentaryMainProtectiveRem" type="text" class="form-control" 
+                                        placeholder="Please enter Remarks here (Optional)"></textarea>
                                     </div>
                                 </td>
                             </tr><tr>
@@ -275,7 +280,8 @@
                                                 <i class="bi bi-text-paragraph"></i>
                                             </span>
                                         </div>
-                                        <textarea [readonly]="isEditable" formControlName="sizeOfSupplimentaryProtectiveRem" type="text" class="form-control" ></textarea>
+                                        <textarea [readonly]="isEditable" formControlName="sizeOfSupplimentaryProtectiveRem" type="text" class="form-control" 
+                                        placeholder="Please enter Remarks here (Optional)"></textarea>
                                     </div>
                                 </td>
                             </tr>
@@ -322,7 +328,8 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea [readonly]="isEditable" formControlName="earthStudVisibilityRem" type="text" class="form-control" ></textarea>
+                                    <textarea [readonly]="isEditable" formControlName="earthStudVisibilityRem" type="text" class="form-control" 
+                                    placeholder="Please enter Remarks here (Optional)"></textarea>
                                 </div>
                             </td>
                          </tr>
@@ -350,7 +357,8 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea [readonly]="isEditable" formControlName="earthStudBendRem" type="text" class="form-control" ></textarea>
+                                    <textarea [readonly]="isEditable" formControlName="earthStudBendRem" type="text" class="form-control" 
+                                    placeholder="Please enter Remarks here (Optional)"></textarea>
                                 </div>
                             </td>
                          </tr>
@@ -378,7 +386,8 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea [readonly]="isEditable" formControlName="properBondingRailRem" type="text" class="form-control" ></textarea>
+                                    <textarea [readonly]="isEditable" formControlName="properBondingRailRem" type="text" class="form-control" 
+                                    placeholder="Please enter Remarks here (Optional)"></textarea>
                                 </div>
                             </td>
                          </tr>
@@ -406,7 +415,8 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea [readonly]="isEditable" formControlName="physicalDamageStudRem" type="text" class="form-control" ></textarea>
+                                    <textarea [readonly]="isEditable" formControlName="physicalDamageStudRem" type="text" class="form-control" 
+                                    placeholder="Please enter Remarks here (Optional)"></textarea>
                                 </div>
                             </td>
                          </tr>
@@ -434,7 +444,8 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea [readonly]="isEditable"  type="text" class="form-control" formControlName="continutyExistaEarthRem" ></textarea>
+                                    <textarea [readonly]="isEditable"  type="text" class="form-control" formControlName="continutyExistaEarthRem" 
+                                    placeholder="Please enter Remarks here (Optional)"></textarea>
                                 </div>
                             </td>
                          </tr>
