@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { flag } from 'ngx-bootstrap-icons';
+import { LpsSummary } from 'src/app/LPS_model/lps-summary';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
 import { SummaryServiceService } from 'src/app/LPS_services/summary-service.service';
 
@@ -13,14 +14,15 @@ import { SummaryServiceService } from 'src/app/LPS_services/summary-service.serv
 export class LpssummaryComponent implements OnInit {
     panelOpenState = false;
     summaryForm!: FormGroup;
-    lpsSummaryDescription!: FormArray;
+    summaryLpsBuildings!: FormArray;
     submitted=false;
     summaryArr: any=[];
     email: String = '';
+    flag: boolean=true;
     basicLpsId!: number;
     airTerminationValues: any=[];
     airTerminationDesc: any=[];
-    lpsSummaryDescriptionArr: any=[];
+    summaryLpsBuildingsArr: any=[];
     //air termination
     airTerminationData: any=[];
     airTerminationArr: any=[];
@@ -376,7 +378,7 @@ export class LpssummaryComponent implements OnInit {
       'physicalDamageStudRem',
       'continutyExistaEarthRem',
     ];       
- 
+  lpsSummary=new LpsSummary();
   
   constructor(private summaryService:SummaryServiceService,private formBuilder: FormBuilder,
     private airterminationServices: AirterminationService, private router: ActivatedRoute) { 
@@ -385,7 +387,10 @@ export class LpssummaryComponent implements OnInit {
 
     ngOnInit(): void {
       this.summaryForm = this.formBuilder.group({
-        lpsSummaryDescription: this.formBuilder.array([this.summaryLPSArr()]),
+        summaryLpsBuildings: this.formBuilder.array([this.summaryLPSArr()]),
+        //summaryLpsBuildings: this.formBuilder.array([]),
+        //Declaration1Arr: this.formBuilder.array([this.Declaration1Form()]),
+       // Declaration2Arr: this.formBuilder.array([this.Declaration2Form()]),
       });
       this.retrieveFromAirTermination();
     }
@@ -394,6 +399,7 @@ export class LpssummaryComponent implements OnInit {
         buildingNumber: new FormControl('',Validators.required),
         buildingName: new FormControl('', Validators.required),
         buildingCount: new FormControl(''),
+        summaryLpsObservation: this.formBuilder.array([]),
        //air termination
        airTermination: this.formBuilder.array([]),
        airVertical: this.formBuilder.array([]),
@@ -433,86 +439,121 @@ export class LpssummaryComponent implements OnInit {
        flag: new FormControl('A'),
       });
     }
+
+    private Declaration1Form(): FormGroup {
+      return new FormGroup({
+        declarationId: new FormControl(''),
+        name: new FormControl('', Validators.required),
+        signature: new FormControl(''),
+        company: new FormControl('', Validators.required),
+        position: new FormControl('', Validators.required),
+        address: new FormControl('', Validators.required),
+        date: new FormControl('', Validators.required),
+        declarationRole: new FormControl('Inspector'),
+      });
+    }
+  
+    private Declaration2Form(): FormGroup {
+      return new FormGroup({
+        declarationId: new FormControl(''),
+        name: new FormControl('', Validators.required),
+        signature: new FormControl(''),
+        company: new FormControl('', Validators.required),
+        position: new FormControl('', Validators.required),
+        address: new FormControl('', Validators.required),
+        date: new FormControl('', Validators.required),
+        declarationRole: new FormControl('Authorizer'),
+      });
+    }
     //air termination
     createAirTermination(){
       return this.formBuilder.group({
-        airTerminationHeading: new FormControl(''),
+        heading: new FormControl(''),
         serialNo: new FormControl(''),
         observation: new FormControl(''),
         recommendation: new FormControl(''),
         observationComponentDetails: new FormControl(''),
+        summaryLpsInnerObservation: this.formBuilder.array([]),
       });
     }
     createAirVertical(){
       return this.formBuilder.group({
-        airVerticalHeading: new FormControl(''),
+        heading: new FormControl(''),
         serialNo: new FormControl(''),
         observation: new FormControl(''),
         recommendation: new FormControl(''),
         observationComponentDetails: new FormControl(''),
+        summaryLpsInnerObservation: this.formBuilder.array([]),
       });
     }
     createAirVerticalList(){
       return this.formBuilder.group({
-        airVerticalListHeading: new FormControl(''),
+        heading: new FormControl(''),
         serialNo: new FormControl(''),
         observation: new FormControl(''),
         recommendation: new FormControl(''),
         observationComponentDetails: new FormControl(''),
+        summaryLpsInnerObservation: this.formBuilder.array([]),
       });
     }
     createAirMesh(){
       return this.formBuilder.group({
-        airMeshHeading: new FormControl(''),
+        heading: new FormControl(''),
         serialNo: new FormControl(''),
         observation: new FormControl(''),
         recommendation: new FormControl(''),
         observationComponentDetails: new FormControl(''),
+        summaryLpsInnerObservation: this.formBuilder.array([]),
       });
     }
     createAirHolder(){
       return this.formBuilder.group({
-        airHolderHeading: new FormControl(''),
+        heading: new FormControl(''),
         serialNo: new FormControl(''),
         observation: new FormControl(''),
         recommendation: new FormControl(''),
         observationComponentDetails: new FormControl(''),
+        summaryLpsInnerObservation: this.formBuilder.array([]),
       });
     }
     createAirHolderList(){
       return this.formBuilder.group({
-        airHolderListHeading: new FormControl(''),
+        heading: new FormControl(''),
         serialNo: new FormControl(''),
         observation: new FormControl(''),
         recommendation: new FormControl(''),
         observationComponentDetails: new FormControl(''),
+        summaryLpsInnerObservation: this.formBuilder.array([]),
       });
     }
     createAirClamps(){
       return this.formBuilder.group({
-        airClampsHeading: new FormControl(''),
+        heading: new FormControl(''),
         serialNo: new FormControl(''),
         observation: new FormControl(''),
         recommendation: new FormControl(''),
         observationComponentDetails: new FormControl(''),
+        summaryLpsInnerObservation: this.formBuilder.array([]),
       });
     }
     createAirConnectors(){
       return this.formBuilder.group({
-        airConnectorsHeading: new FormControl(''),
+        heading: new FormControl(''),
         serialNo: new FormControl(''),
         observation: new FormControl(''),
         recommendation: new FormControl(''),
         observationComponentDetails: new FormControl(''),
+        summaryLpsInnerObservation: this.formBuilder.array([]),
       });
     }
     createAirExpansion(){
       return this.formBuilder.group({
-        airExpansionHeading: new FormControl(''),
+        heading: new FormControl(''),
         serialNo: new FormControl(''),
         observation: new FormControl(''),
         recommendation: new FormControl(''),
         observationComponentDetails: new FormControl(''),
+        summaryLpsInnerObservation: this.formBuilder.array([]),
       });
     }
     //down conductors
@@ -523,6 +564,7 @@ export class LpssummaryComponent implements OnInit {
         observation: new FormControl(''),
         recommendation: new FormControl(''),
         observationComponentDetails: new FormControl(''),
+        summaryLpsInnerObservation: this.formBuilder.array([]),
       });
     }
     createDownConductors(){
@@ -532,6 +574,7 @@ export class LpssummaryComponent implements OnInit {
         observation: new FormControl(''),
         recommendation: new FormControl(''),
         observationComponentDetails: new FormControl(''),
+        summaryLpsInnerObservation: this.formBuilder.array([]),
       });
     }
     createBridgingDesc(){
@@ -541,6 +584,7 @@ export class LpssummaryComponent implements OnInit {
         observation: new FormControl(''),
         recommendation: new FormControl(''),
         observationComponentDetails: new FormControl(''),
+        summaryLpsInnerObservation: this.formBuilder.array([]),
       });
     }
     createDownHolders(){
@@ -550,6 +594,7 @@ export class LpssummaryComponent implements OnInit {
         observation: new FormControl(''),
         recommendation: new FormControl(''),
         observationComponentDetails: new FormControl(''),
+        summaryLpsInnerObservation: this.formBuilder.array([]),
       });
     }
     createDownConnectors(){
@@ -559,6 +604,7 @@ export class LpssummaryComponent implements OnInit {
         observation: new FormControl(''),
         recommendation: new FormControl(''),
         observationComponentDetails: new FormControl(''),
+        summaryLpsInnerObservation: this.formBuilder.array([]),
       });
     }
     createTestingJoints(){
@@ -568,6 +614,7 @@ export class LpssummaryComponent implements OnInit {
         observation: new FormControl(''),
         recommendation: new FormControl(''),
         observationComponentDetails: new FormControl(''),
+        summaryLpsInnerObservation: this.formBuilder.array([]),
       });
     }
     createLightingCounter(){
@@ -577,6 +624,7 @@ export class LpssummaryComponent implements OnInit {
         observation: new FormControl(''),
         recommendation: new FormControl(''),
         observationComponentDetails: new FormControl(''),
+        summaryLpsInnerObservation: this.formBuilder.array([]),
       });
     }
     createDownConductorsTesting(){
@@ -586,6 +634,7 @@ export class LpssummaryComponent implements OnInit {
         observation: new FormControl(''),
         recommendation: new FormControl(''),
         observationComponentDetails: new FormControl(''),
+        summaryLpsInnerObservation: this.formBuilder.array([]),
       });
     }
     //earthing
@@ -596,6 +645,7 @@ export class LpssummaryComponent implements OnInit {
         observation: new FormControl(''),
         recommendation: new FormControl(''),
         observationComponentDetails: new FormControl(''),
+        summaryLpsInnerObservation: this.formBuilder.array([]),
       });
     }
     createEarthingDescription(){
@@ -605,6 +655,7 @@ export class LpssummaryComponent implements OnInit {
         observation: new FormControl(''),
         recommendation: new FormControl(''),
         observationComponentDetails: new FormControl(''),
+        summaryLpsInnerObservation: this.formBuilder.array([]),
       });
     }
     createEarthingDescriptionList(){
@@ -614,6 +665,7 @@ export class LpssummaryComponent implements OnInit {
         observation: new FormControl(''),
         recommendation: new FormControl(''),
         observationComponentDetails: new FormControl(''),
+        summaryLpsInnerObservation: this.formBuilder.array([]),
       });
     }
     createEarthingClamps(){
@@ -623,6 +675,7 @@ export class LpssummaryComponent implements OnInit {
         observation: new FormControl(''),
         recommendation: new FormControl(''),
         observationComponentDetails: new FormControl(''),
+        summaryLpsInnerObservation: this.formBuilder.array([]),
       });
     }
     createEarthingElectrodeChamber(){
@@ -632,6 +685,7 @@ export class LpssummaryComponent implements OnInit {
         observation: new FormControl(''),
         recommendation: new FormControl(''),
         observationComponentDetails: new FormControl(''),
+        summaryLpsInnerObservation: this.formBuilder.array([]),
       });
     }
     createEarthingSystem(){
@@ -641,6 +695,7 @@ export class LpssummaryComponent implements OnInit {
         observation: new FormControl(''),
         recommendation: new FormControl(''),
         observationComponentDetails: new FormControl(''),
+        summaryLpsInnerObservation: this.formBuilder.array([]),
       });
     }
     createEarthElectrodeTesting(){
@@ -650,6 +705,7 @@ export class LpssummaryComponent implements OnInit {
         observation: new FormControl(''),
         recommendation: new FormControl(''),
         observationComponentDetails: new FormControl(''),
+        summaryLpsInnerObservation: this.formBuilder.array([]),
       });
     }
     //spd
@@ -660,6 +716,7 @@ export class LpssummaryComponent implements OnInit {
         observation: new FormControl(''),
         recommendation: new FormControl(''),
         observationComponentDetails: new FormControl(''),
+        summaryLpsInnerObservation: this.formBuilder.array([]),
       });
     }
     createSpdReportList(){
@@ -669,6 +726,7 @@ export class LpssummaryComponent implements OnInit {
         observation: new FormControl(''),
         recommendation: new FormControl(''),
         observationComponentDetails: new FormControl(''),
+        summaryLpsInnerObservation: this.formBuilder.array([]),
       });
     }
     //SeparationDistance
@@ -679,6 +737,7 @@ export class LpssummaryComponent implements OnInit {
         observation: new FormControl(''),
         recommendation: new FormControl(''),
         observationComponentDetails: new FormControl(''),
+        summaryLpsInnerObservation: this.formBuilder.array([]),
       });
     }
     createSeparateDistance(){
@@ -688,6 +747,7 @@ export class LpssummaryComponent implements OnInit {
         observation: new FormControl(''),
         recommendation: new FormControl(''),
         observationComponentDetails: new FormControl(''),
+        summaryLpsInnerObservation: this.formBuilder.array([]),
       });
     }
     createSeparationDownDistance(){
@@ -697,6 +757,7 @@ export class LpssummaryComponent implements OnInit {
         observation: new FormControl(''),
         recommendation: new FormControl(''),
         observationComponentDetails: new FormControl(''),
+        summaryLpsInnerObservation: this.formBuilder.array([]),
       });
     }
     //equipotential bonding
@@ -707,11 +768,12 @@ export class LpssummaryComponent implements OnInit {
         observation: new FormControl(''),
         recommendation: new FormControl(''),
         observationComponentDetails: new FormControl(''),
+        summaryLpsInnerObservation: this.formBuilder.array([]),
       });
     }
     // Parent Array Controls:
-    lpsSummaryDescriptionControl(): AbstractControl[] {
-      return(<FormArray>this.summaryForm.get('lpsSummaryDescription')).controls;
+    summaryLpsBuildingsControl(): AbstractControl[] {
+      return(<FormArray>this.summaryForm.get('summaryLpsBuildings')).controls;
     }
     //air termination
     airTerminationControl(q:any): AbstractControl[] {
@@ -809,14 +871,19 @@ export class LpssummaryComponent implements OnInit {
     earthStudDescControl(q:any): AbstractControl[] {
       return(q.get('earthStudDesc')).controls;
     }
-
+    getDeclaration1Controls(): AbstractControl[] {
+      return (<FormArray>this.summaryForm.get('Declaration1Arr')).controls;
+    }
+    getDeclaration2Controls(): AbstractControl[] {
+      return (<FormArray>this.summaryForm.get('Declaration2Arr')).controls;
+    }
     retrieveFromAirTermination() {
       if(this.basicLpsId != 0 && this.basicLpsId != undefined) {
         this.airterminationServices.retriveAirTerminationDetails(this.email,this.basicLpsId).subscribe(
           (data) => {
             this.airTerminationValues = JSON.parse(data);
             this.summaryForm = this.formBuilder.group({
-              lpsSummaryDescription: this.formBuilder.array([])
+              summaryLpsBuildings: this.formBuilder.array([])
             });
             this.airTerminationDesc = this.airTerminationValues[0].lpsAirDescription;
             if(this.airTerminationDesc != '' && this.airTerminationDesc != undefined && this.airTerminationDesc.length != 0) {
@@ -824,11 +891,11 @@ export class LpssummaryComponent implements OnInit {
                 this.addSummaryLPS();
               }
             }
-            this.lpsSummaryDescriptionArr = this.summaryForm.get('lpsSummaryDescription') as FormArray
-            for(let j=0; j<this.lpsSummaryDescriptionArr.controls.length; j++) {
-              this.lpsSummaryDescriptionArr.controls[j].controls.buildingName.setValue(this.airTerminationDesc[j].buildingName);
-              this.lpsSummaryDescriptionArr.controls[j].controls.buildingNumber.setValue(this.airTerminationDesc[j].buildingNumber);
-              this.lpsSummaryDescriptionArr.controls[j].controls.buildingCount.setValue(this.airTerminationDesc[j].buildingCount);
+            this.summaryLpsBuildingsArr = this.summaryForm.get('summaryLpsBuildings') as FormArray
+            for(let j=0; j<this.summaryLpsBuildingsArr.controls.length; j++) {
+              this.summaryLpsBuildingsArr.controls[j].controls.buildingName.setValue(this.airTerminationDesc[j].buildingName);
+              this.summaryLpsBuildingsArr.controls[j].controls.buildingNumber.setValue(this.airTerminationDesc[j].buildingNumber);
+              this.summaryLpsBuildingsArr.controls[j].controls.buildingCount.setValue(this.airTerminationDesc[j].buildingCount);
             }
           },
           (error) => {
@@ -839,8 +906,8 @@ export class LpssummaryComponent implements OnInit {
     }
 
     addSummaryLPS(){
-      this.lpsSummaryDescriptionArr = this.summaryForm.get('lpsSummaryDescription') as FormArray
-      this.lpsSummaryDescriptionArr.push(this.summaryLPSArr());    
+      this.summaryLpsBuildingsArr = this.summaryForm.get('summaryLpsBuildings') as FormArray
+      this.summaryLpsBuildingsArr.push(this.summaryLPSArr());    
     }
 
     retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
@@ -849,7 +916,6 @@ export class LpssummaryComponent implements OnInit {
       this.basicLpsId = basicLpsId;
       this.retrieveFromAirTermination();
       }
-    
 
   retrieveObservationLpsSummary(basicLpsId: any){
     this.summaryService.retrieveObservationSummaryLps(basicLpsId).subscribe(
@@ -860,7 +926,7 @@ export class LpssummaryComponent implements OnInit {
       this.spdReportData=JSON.parse(data);
       this.separationDistanceData=JSON.parse(data);
       this.equiBondingData=JSON.parse(data);
-      this.summaryArr=this.summaryForm.get('lpsSummaryDescription') as FormArray;
+      this.summaryArr=this.summaryForm.get('summaryLpsBuildings') as FormArray;
       for(let w=0; w<this.summaryArr.controls.length; w++){
           //air termination
       if(this.airTerminationData.airTermination!=null){
@@ -871,7 +937,7 @@ export class LpssummaryComponent implements OnInit {
           for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airBasicDescription){
               for(let j = 0; j < this.airBasicName.length; j++){
                 this.airTerminationArr.push(this.createAirTermination());
-                this.airTerminationArr.controls[0].controls.airTerminationHeading.setValue('Basic Details Observation');
+                this.airTerminationArr.controls[0].controls.heading.setValue('Basic Details Observation');
                 this.airTerminationArr.controls[0].controls.observationComponentDetails.setValue('airBasicDescription' + index);
                 this.airTerminationArr.controls[index].controls.serialNo.setValue(index+1);
                 if(i[this.airBasicName[j]]==""){
@@ -889,7 +955,7 @@ export class LpssummaryComponent implements OnInit {
           for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination){
             for(let j = 0; j < this.airVerticalName.length; j++){
             this.airVerticalArr.push(this.createAirVertical());
-            this.airVerticalArr.controls[0].controls.airVerticalHeading.setValue('Vertical Observation');
+            this.airVerticalArr.controls[0].controls.heading.setValue('Vertical Observation');
             this.airTerminationArr.controls[0].controls.observationComponentDetails.setValue('lpsVerticalAirTermination' + index);
             this.airVerticalArr.controls[index1].controls.serialNo.setValue(index1+1);
             if(i[this.airVerticalName[j]]==""){
@@ -911,7 +977,7 @@ export class LpssummaryComponent implements OnInit {
           for(let j = 0; j < this.airVerticalListName.length; j++){
           this.airVerticalListArr.push(this.createAirVerticalList());
           if(this.airVerticalListName[j]=='materialOfTerminalRe'){
-            this.airVerticalListArr.controls[index0].controls.airVerticalListHeading.setValue('Vertical List-' + vatListIndex);
+            this.airVerticalListArr.controls[index0].controls.heading.setValue('Vertical List-' + vatListIndex);
           }
           this.airVerticalListArr.controls[0].controls.observationComponentDetails.setValue('verticalAirTerminationList' + index0);
           this.airVerticalListArr.controls[index0].controls.serialNo.setValue(indexVertical+1);
@@ -933,8 +999,8 @@ export class LpssummaryComponent implements OnInit {
       for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airMeshDescription){
         for(let j = 0; j < this.airMeshName.length; j++){
           this.airMeshArr.push(this.createAirMesh());
-          this.airMeshArr.controls[0].controls.airMeshHeading.setValue('Mesh Observation');
-          this.airTerminationArr.controls[0].controls.observationComponentDetails.setValue('airMeshDescription');
+          this.airMeshArr.controls[0].controls.heading.setValue('Mesh Observation');
+          this.airTerminationArr.controls[0].controls.observationComponentDetails.setValue('airMeshDescription' + index);
 
           this.airMeshArr.controls[index2].controls.serialNo.setValue(index2+1);
           if(i[this.airMeshName[j]]==""){
@@ -952,8 +1018,8 @@ export class LpssummaryComponent implements OnInit {
     for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription){
       for(let j = 0; j < this.airHolderName.length; j++){
       this.airHolderArr.push(this.createAirHolder());
-      this.airHolderArr.controls[0].controls.airHolderHeading.setValue('Holder Observation');
-      this.airTerminationArr.controls[0].controls.observationComponentDetails.setValue('airHolderDescription');
+      this.airHolderArr.controls[0].controls.heading.setValue('Holder Observation');
+      this.airTerminationArr.controls[0].controls.observationComponentDetails.setValue('airHolderDescription' + index);
       this.airHolderArr.controls[index3].controls.serialNo.setValue(index3+1);
       if(i[this.airHolderName[j]]==""){
         this.airHolderArr.controls[index3].controls.observation.setValue('No Remarks Provided');
@@ -974,7 +1040,7 @@ for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airH
   for(let j = 0; j < this.airHolderListName.length; j++){
     this.airHolderListArr.push(this.createAirHolderList());
     if(this.airHolderListName[j]=='holderTypeRe'){
-    this.airHolderListArr.controls[index01].controls.airHolderListHeading.setValue('Holder List-' + holderListIndex);
+    this.airHolderListArr.controls[index01].controls.heading.setValue('Holder List-' + holderListIndex);
     }
     this.airHolderListArr.controls[0].controls.observationComponentDetails.setValue('airHolderList' + index01);
     this.airHolderListArr.controls[index01].controls.serialNo.setValue(indexHolder+1);
@@ -996,7 +1062,8 @@ let index4 =0;
 for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airClamps){
   for(let j = 0; j < this.airClampsName.length; j++){
     this.airClampsArr.push(this.createAirClamps());
-    this.airClampsArr.controls[0].controls.airClampsHeading.setValue('Clamps Observation');
+    this.airClampsArr.controls[0].controls.heading.setValue('Clamps Observation');
+    this.airClampsArr.controls[0].controls.observationComponentDetails.setValue('airClamps' + index);
     this.airClampsArr.controls[index4].controls.serialNo.setValue(index4+1);
     if(i[this.airClampsName[j]]==""){
       this.airClampsArr.controls[index4].controls.observation.setValue('No Remarks Provided');
@@ -1013,7 +1080,8 @@ let index5 =0;
 for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airExpansion){
   for(let j = 0; j < this.airExpansionName.length; j++){
   this.airExpansionArr.push(this.createAirExpansion());
-  this.airExpansionArr.controls[0].controls.airExpansionHeading.setValue('Expansion Observation');
+  this.airExpansionArr.controls[0].controls.heading.setValue('Expansion Observation');
+  this.airExpansionArr.controls[0].controls.observationComponentDetails.setValue('airExpansion' + index);
   this.airExpansionArr.controls[index5].controls.serialNo.setValue(index5+1);
   if(i[this.airClampsName[j]]==""){
     this.airExpansionArr.controls[index5].controls.observation.setValue('No Remarks Provided');
@@ -1030,7 +1098,8 @@ let index6 =0;
 for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airConnectors){
   for(let j = 0; j < this.airConnectorsName.length; j++){
   this.airConnectorsArr.push(this.createAirConnectors());
-  this.airConnectorsArr.controls[0].controls.airConnectorsHeading.setValue('Connectors Observation');
+  this.airConnectorsArr.controls[0].controls.heading.setValue('Connectors Observation');
+  this.airConnectorsArr.controls[0].controls.observationComponentDetails.setValue('airConnectors' + index);
   this.airConnectorsArr.controls[index6].controls.serialNo.setValue(index6+1);
   if(i[this.airConnectorsName[j]]==""){
     this.airConnectorsArr.controls[index6].controls.observation.setValue('No Remarks Provided');
@@ -1450,5 +1519,42 @@ index6++;
     }
       } 
     )
+  }
+
+  onSubmit(flag:any){
+    this.submitted = true;
+    this.summaryForm.value.summaryLpsBuildings;
+    if (this.summaryForm.invalid) 
+    { 
+      return 
+    }
+    this.lpsSummary.userName = this.router.snapshot.paramMap.get('email') || '{}';
+    this.lpsSummary.basicLpsId = this.basicLpsId;
+    let a:any=[];
+    a=this.summaryForm.controls.summaryLpsBuildings as FormArray;
+    for(let i of a.controls){
+      let summaryLpsObservationArr=i.controls.summaryLpsObservation as FormArray;
+      for(let j of i.controls.airTermination.controls){
+       summaryLpsObservationArr.push(j);
+      }
+      for(let j of i.controls.airVertical.controls){
+        summaryLpsObservationArr.push(j);
+       }
+       for(let j of i.controls.airMesh.controls){
+        summaryLpsObservationArr.push(j);
+       }
+       for(let j of i.controls.airHolder.controls){
+        summaryLpsObservationArr.push(j);
+       }
+       for(let j of i.controls.airClamps.controls){
+        summaryLpsObservationArr.push(j);
+       }
+       for(let j of i.controls.airExpansion.controls){
+        summaryLpsObservationArr.push(j);
+       }
+       for(let j of i.controls.airConnectors.controls){
+        summaryLpsObservationArr.push(j);
+       }
+    }
   }
   }
