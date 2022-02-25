@@ -127,9 +127,9 @@ export class LpsEarthingComponent implements OnInit {
       flag: new FormControl('A'), 
      // earthingDescriptionAvailabilityOb: new FormControl(''),
      // earthingDescriptionAvailabilityRem: new FormControl(''),
-      earthingClampsAvailabilityOb: new FormControl('', Validators.required),
+      earthingClampsAvailabilityOb: new FormControl(''),
       earthingClampsAvailabilityRem: new FormControl(''),
-      earthingElectrodeChamberAvailabilityOb: new FormControl('', Validators.required),
+      earthingElectrodeChamberAvailabilityOb: new FormControl(''),
       earthingElectrodeChamberAvailabilityRem:  new FormControl(''),
      // earthingSystemAvailabilityOb: new FormControl(''),
      // earthingSystemAvailabilityRem:  new FormControl(''),
@@ -403,9 +403,9 @@ export class LpsEarthingComponent implements OnInit {
       buildingNumber: new FormControl({disabled: false, value: item.buildingNumber}, Validators.required),
       buildingName: new FormControl({disabled: false, value: item.buildingName}, Validators.required),
       buildingCount: new FormControl({disabled: false, value: item.buildingCount}, Validators.required),
-      earthingClampsAvailabilityOb: new FormControl({disabled: false, value: item.earthingClampsAvailabilityOb}, Validators.required),
+      earthingClampsAvailabilityOb: new FormControl({disabled: false, value: item.earthingClampsAvailabilityOb}),
       earthingClampsAvailabilityRem: new FormControl({disabled: false, value: item.earthingClampsAvailabilityRem}),
-      earthingElectrodeChamberAvailabilityOb: new FormControl({disabled: false, value: item.earthingElectrodeChamberAvailabilityOb}, Validators.required),
+      earthingElectrodeChamberAvailabilityOb: new FormControl({disabled: false, value: item.earthingElectrodeChamberAvailabilityOb}),
       earthingElectrodeChamberAvailabilityRem:  new FormControl({disabled: false, value: item.earthingElectrodeChamberAvailabilityRem}),
       earthingElectrodeTestingAvailabilityOb:  new FormControl({disabled: false, value: item.earthingElectrodeTestingAvailabilityOb}, Validators.required),
 
@@ -1058,43 +1058,57 @@ export class LpsEarthingComponent implements OnInit {
         this.createFromArray(formarray);
       }
        setTimeout(() => {
-        if(accordion==""){
-          this.typeAearthingsystem[index]=false; 
-          this.clamps[index]=false;              
-          this.earthelectrodechambers[index]=false; 
-          this.typeBearthingsystem[index]=false; 
-          //this.testingofearthelectrodes[index]=false; 
-          }
-          else if(accordion=="Type A"){
-          this.typeAearthingsystem[index]=true; 
-          this.clamps[index]=true;              
-          this.earthelectrodechambers[index]=true; 
-          this.typeBearthingsystem[index]=false; 
-          //this.testingofearthelectrodes[index]=true;
-          if(formarray!=null){
-            (formarray.controls.earthingSystem as FormArray).removeAt(formarray.controls.earthingSystem-1);
-          }
-        }
+         if (accordion == "") {
+           this.typeAearthingsystem[index] = false;
+           this.clamps[index] = false;
+           this.earthelectrodechambers[index] = false;
+           this.typeBearthingsystem[index] = false;
+           //this.testingofearthelectrodes[index]=false; 
+         }
+         else if (accordion == "Type A") {
+           this.typeAearthingsystem[index] = true;
+           this.clamps[index] = true;
+           this.earthelectrodechambers[index] = true;
+           this.typeBearthingsystem[index] = false;
+           //this.testingofearthelectrodes[index]=true;
+           if (formarray != null) {
+             formarray.controls.earthingElectrodeChamberAvailabilityOb.setValidators(Validators.required);
+             formarray.controls.earthingElectrodeChamberAvailabilityOb.updateValueAndValidity();
+             formarray.controls.earthingClampsAvailabilityOb.setValidators(Validators.required);
+             formarray.controls.earthingClampsAvailabilityOb.updateValueAndValidity();
+             (formarray.controls.earthingSystem as FormArray).removeAt(formarray.controls.earthingSystem - 1);
+           }
+         }
         else if(accordion=="Type-B (ring)"){
           this.typeAearthingsystem[index]=false; 
           this.clamps[index]=false;              
           this.earthelectrodechambers[index]=false; 
           this.typeBearthingsystem[index]=true; 
-          //this.testingofearthelectrodes[index]=true; 
+          //this.testingofearthelectrodes[index]=true;  
 
-        if(formarray!=null){
-         (formarray.controls.earthingDescription as FormArray).removeAt(formarray.controls.earthingDescription-1); 
-         (formarray.controls.earthingClamps as FormArray).removeAt(formarray.controls.earthingClamps-1); 
-         (formarray.controls.earthingElectrodeChamber as FormArray).removeAt(formarray.controls.earthingElectrodeChamber-1); 
-         }
+          if (formarray != null) {
+            formarray.controls.earthingElectrodeChamberAvailabilityOb.clearValidators();
+            formarray.controls.earthingElectrodeChamberAvailabilityOb.updateValueAndValidity();
+            formarray.controls.earthingClampsAvailabilityOb.clearValidators();
+            formarray.controls.earthingClampsAvailabilityOb.updateValueAndValidity();
+
+            (formarray.controls.earthingDescription as FormArray).removeAt(formarray.controls.earthingDescription - 1);
+            (formarray.controls.earthingClamps as FormArray).removeAt(formarray.controls.earthingClamps - 1);
+            (formarray.controls.earthingElectrodeChamber as FormArray).removeAt(formarray.controls.earthingElectrodeChamber - 1);
+          }
         }
-        else if(accordion=="Type A & Type B combined"){
-          this.typeAearthingsystem[index]=true; 
-          this.clamps[index]=true;              
-          this.earthelectrodechambers[index]=true; 
-          this.typeBearthingsystem[index]=true; 
-         // this.testingofearthelectrodes[index]=true; 
-          
+        else if (accordion == "Type A & Type B combined") {
+          this.typeAearthingsystem[index] = true;
+          this.clamps[index] = true;
+          this.earthelectrodechambers[index] = true;
+          this.typeBearthingsystem[index] = true;
+          // this.testingofearthelectrodes[index]=true; 
+          if (formarray != null) {
+            formarray.controls.earthingElectrodeChamberAvailabilityOb.setValidators(Validators.required);
+            formarray.controls.earthingElectrodeChamberAvailabilityOb.updateValueAndValidity();
+            formarray.controls.earthingClampsAvailabilityOb.setValidators(Validators.required);
+            formarray.controls.earthingClampsAvailabilityOb.updateValueAndValidity();
+          }
         }
         else if(accordion=="Foundation"){
           this.typeAearthingsystem[index]=false; 
@@ -1103,11 +1117,16 @@ export class LpsEarthingComponent implements OnInit {
           this.typeBearthingsystem[index]=false; 
          // this.testingofearthelectrodes[index]=true;
 
-        if(formarray!=null){
-         (formarray.controls.earthingDescription as FormArray).removeAt(formarray.controls.earthingDescription-1); 
-         (formarray.controls.earthingClamps as FormArray).removeAt(formarray.controls.earthingClamps-1);
-         (formarray.controls.earthingElectrodeChamber as FormArray).removeAt(formarray.controls.earthingElectrodeChamber-1);
-         (formarray.controls.earthingSystem as FormArray).removeAt(formarray.controls.earthingSystem-1);
+          if (formarray != null) {
+            formarray.controls.earthingElectrodeChamberAvailabilityOb.clearValidators();
+            formarray.controls.earthingElectrodeChamberAvailabilityOb.updateValueAndValidity();
+            formarray.controls.earthingClampsAvailabilityOb.clearValidators();
+            formarray.controls.earthingClampsAvailabilityOb.updateValueAndValidity();
+
+            (formarray.controls.earthingDescription as FormArray).removeAt(formarray.controls.earthingDescription - 1);
+            (formarray.controls.earthingClamps as FormArray).removeAt(formarray.controls.earthingClamps - 1);
+            (formarray.controls.earthingElectrodeChamber as FormArray).removeAt(formarray.controls.earthingElectrodeChamber - 1);
+            (formarray.controls.earthingSystem as FormArray).removeAt(formarray.controls.earthingSystem - 1);
           }
         
         }
