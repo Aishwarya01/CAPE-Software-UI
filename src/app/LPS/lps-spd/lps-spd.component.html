@@ -3,35 +3,38 @@
         <form [formGroup]="spdForm" (ngSubmit)="onSubmit(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
             <div formArrayName="spd" *ngFor="let q of overAllspdControl(); let j = index">
             <div class="form-group" [formGroupName]="j">  
-            <mat-accordion>
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>Basic Details</mat-expansion-panel-header>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label for="buildingnumber">Building Number</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <i class="bi bi-align-start"></i>
-                                    </span>
+                <div class="search-bar">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="buildingNumber">Building Number</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-align-start"></i>
+                                        </span>
                                     </div>
-                                <input type="number" class="form-control" formControlName="buildingNumber" placeholder="Please Enter Building Number" readonly/>
-                            </div>
-                        </div>
-            
-                        <div class="col-md-4">
-                            <label for="buildingname">Building Name</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <i class="bi bi-align-start"></i>
-                                    </span>
+                                    <input type="number" class="form-control" formControlName="buildingNumber"  required readonly/>
                                 </div>
-                                <input  class="form-control" formControlName="buildingName" placeholder="Please Enter Building Name" readonly/>
+                            </div>
+            
+                            <div class="col-md-6">
+                                <label for="buildingName">Building Name</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-align-start"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control" formControlName="buildingName" required readonly/>
+                                </div>
                             </div>
                         </div>
                     </div>
-                        
+                </div>
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>Basic Details</mat-expansion-panel-header>
                         <!-- tables -->
                         <div class="row">
                         <div class="col-sm-16">

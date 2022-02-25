@@ -3,6 +3,37 @@
         <form [formGroup]="earthingForm" (ngSubmit)="onSubmit(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
             <div formArrayName="earthing" *ngFor="let q of overAllEarthingControl(); let j = index">
             <div class="form-group" [formGroupName]="j">
+
+                <div class="search-bar">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="buildingNumber">Building Number</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-align-start"></i>
+                                        </span>
+                                    </div>
+                                    <input type="number" class="form-control" formControlName="buildingNumber"  required readonly/>
+                                </div>
+                            </div>
+            
+                            <div class="col-md-6">
+                                <label for="buildingName">Building Name</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-align-start"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control" formControlName="buildingName" required readonly/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             <mat-accordion>
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>
@@ -10,33 +41,6 @@
                             <h3>Basic Details</h3>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-               
-                      <div class="row">
-                        <div class="col-md-4">
-                            <label for="buildingnumber">Building Number</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <i class="bi bi-align-start"></i>
-                                    </span>
-                                </div>
-                                <input class="form-control" formControlName="buildingNumber" placeholder="Enter Building Number" readonly/>
-                            </div>
-                        </div>
-        
-                        <div class="col-md-4">
-                            <label for="buildingname">Building Name</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <i class="bi bi-align-start"></i>
-                                    </span>
-                                </div>
-                                <input  class="form-control" formControlName="buildingName" placeholder="Enter Building Name" readonly/>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="row">
                     <div class="col-sm-12">
                         <div class="table-responsive" style="overflow-x: unset; margin-top: 20px;">
@@ -2235,33 +2239,30 @@
                                 <table class="table TableBorder">
                                     <tbody>
                                         <thead>
-                                            <th>SI.No</th>
-                                            <th>Types of earth electrode(rod/pipe/flat/chemical pipe)</th>
-                                            <th>Material of earth elctrode (copper/copper bonded steel/galvanised steel/galvanised iron/cast iron)</th>
-                                            <th>Size(diameter)of earth electrode (mm)</th>
-                                            <th>Depth /length of earth electrode (m)</th>
-                                            <th>Electrode resistance to earth in (Ω)</th>
-                                            <th>Remarks</th>
+                                            <th style="width: 7rem;">SI.No</th>
+                                            <th style="width: 13rem;">Types of earth electrode (rod/ pipe/ flat/ chemical pipe)</th>
+                                            <th style="width: 13rem;">Material of earth elctrode (copper/ copper bonded steel/ galvanised steel/ galvanised iron/ cast iron)</th>
+                                            <th style="width: 12rem;">Size(diameter)of earth electrode (mm)</th>
+                                            <th style="width: 14rem;">Depth /length of earth electrode (m)</th>
+                                            <th style="width: 12rem;">Electrode resistance to earth in (Ω)</th>
+                                            <th style="width: 22rem;">Remarks</th>
                                         </thead>
     
-                                        <div formArrayName="earthElectrodeTesting" *ngFor="let a of earthElectrodeTestingarr(q); let j = index" style="margin-top: 3rem;">
-                                        <div class="form-group" [formGroupName]="j">
+                                        <!-- <div formArrayName="earthElectrodeTesting" *ngFor="let a of earthElectrodeTestingarr(q); let j = index" style="margin-top: 3rem;">
+                                        <div class="form-group" [formGroupName]="j"> -->
                                             
-                                            <tr>
-                                                <td>
+                                            <tr formArrayName="earthElectrodeTesting" *ngFor="let a of earthElectrodeTestingarr(q); let j = index">
+                                                <div class="form-group" [formGroupName]="j">
+                                                <td> 
                                                     <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text">
-                                                                <i class="bi bi-list-ol"></i>
-                                                            </span>
-                                                        </div>
-                                                        <input class="form-control" formControlName="serialNo" placeholder="Serial No"
-                                                            [ngClass]="{ 'is-invalid': submitted && a.get('serialNo')?.errors}" style="height: 3rem;">
+                                                        <input class="form-control" formControlName="serialNo" placeholder="SI.No"
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('serialNo')?.errors}" style="height: 4rem; width: 5rem;">
                                                         <div *ngIf="submitted && a.get('serialNo')?.errors" class="invalid-feedback">
                                                             <div *ngIf="a.get('serialNo')?.errors?.required">serial No is required</div>
                                                         </div>
                                                     </div>
                                                 </td>
+                                          
                                                 <td>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
@@ -2277,6 +2278,7 @@
                                                         </div>
                                                     </div>
                                                 </td>
+                                      
                                                 <td>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
@@ -2293,6 +2295,7 @@
                                                         </div>
                                                     </div>
                                                 </td>
+                                        
                                                 <td>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
@@ -2308,6 +2311,7 @@
                                                         </div>
                                                     </div>
                                                 </td>
+                                     
                                                 <td>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
@@ -2324,6 +2328,7 @@
                                                         </div>
                                                     </div>
                                                 </td>
+                                       
                                                 <td>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
@@ -2340,7 +2345,8 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td>
+                                            
+                                                <td style="width: 20rem;">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">
@@ -2354,20 +2360,24 @@
                                                     </div>
                                                     </div>
                                                 </td>
+
+                                                <div class="row" style="float: right;">
+                                                    <mat-icon style="cursor: pointer; margin-right: 22px;" title="Add"
+                                                    [ngClass]="{'disableForm':service.allFieldsDisable}" *ngIf="earthElectrodeTestingarr(q).length == j+1" 
+                                                    (click)="addElectrodeTesting(q)">add_box</mat-icon>
+            
+                                                    <mat-icon class="mousechange" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" 
+                                                    *ngIf="earthElectrodeTestingarr(q).length > 1" 
+                                                    (click)="removeElectrodeTesting(a,j,q)" style="cursor: pointer; margin-right: 20px;">remove_circle_outline</mat-icon>
+                                                </div>
+
+                                                </div>
                                             </tr>
     
-                                            <div class="row" style="float: right; margin-top: 10px;">
-                                                <mat-icon style="cursor: pointer; float: right;"
-                                                [ngClass]="{'disableForm':service.allFieldsDisable}" *ngIf="earthElectrodeTestingarr(q).length == j+1" 
-                                                (click)="addElectrodeTesting(q)">add_box</mat-icon>
-        
-                                                <mat-icon class="mousechange" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" 
-                                                *ngIf="earthElectrodeTestingarr(q).length > 1" 
-                                                (click)="removeElectrodeTesting(a,j,q)" style="cursor: pointer; float: right;">remove_circle_outline</mat-icon>
-                                            </div>
-    
+                                            
+<!--     
                                         </div>
-                                        </div>
+                                        </div> -->
                                     </tbody>
                                 </table>
                             </div>

@@ -3,34 +3,39 @@
         <form [formGroup]="separeteDistanceForm" (ngSubmit)="onSubmit(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
             <div formArrayName="seperationDistanceDescription"*ngFor="let q of overAllSeperationControl(); let j = index">
                 <div class="form-group" [formGroupName]="j">
+
+                    <div class="search-bar">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="buildingNumber">Building Number</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="bi bi-align-start"></i>
+                                            </span>
+                                        </div>
+                                        <input type="number" class="form-control" formControlName="buildingNumber"  required readonly/>
+                                    </div>
+                                </div>
+                
+                                <div class="col-md-6">
+                                    <label for="buildingName">Building Name</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="bi bi-align-start"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text" class="form-control" formControlName="buildingName" required readonly/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div style="font-weight: bold;">
                         <label for="Basicdetails">Basic Details:</label>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label for="buildingnumber">Building Number</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <i class="bi bi-align-start"></i>
-                                    </span>
-                                </div>
-                                <input class="form-control" formControlName="buildingNumber" readonly />
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="buildingname">Building Name</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <i class="bi bi-align-start"></i>
-                                    </span>
-                                </div>
-                                <input class="form-control" formControlName="buildingName" readonly />
-                            </div>
-                        </div>
                     </div>
 
                     <div class="row">
