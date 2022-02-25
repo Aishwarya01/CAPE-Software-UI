@@ -43,6 +43,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
   arr2: any = [];
   emcId: number = 0;
   file!: any ; // Variable to store file
+  uploadDisable: boolean=true;
  
   constructor(
     private formBuilder: FormBuilder,
@@ -413,17 +414,19 @@ export class PowerAndEarthingDataComponent implements OnInit {
   }
   onChange(event: any) {
     this.file = event.target.files;
+    if(this.file!=null){
+      this.uploadDisable=false;
+    }
   }
 
 onUpload() {
-
   const formData =new FormData();
     for(let f of this.file) {
       formData.append('file',f,f.name);
     }
-  
   this.fileUploadServiceService.uploadFile(formData,this.emcId).subscribe(
       (data) => {
+        this.uploadDisable=true;
       },
       (error) => {
         
