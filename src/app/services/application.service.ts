@@ -9,7 +9,6 @@ import { ApplicationType } from '../model/applicationtype';
 })
 export class ApplicationTypeService {
 
-  apiUrl = environment.apiUrl;
   apiUrlV2 = environment.apiUrl_v2;
 
   constructor(private http: HttpClient) {
@@ -17,15 +16,15 @@ export class ApplicationTypeService {
   }
 
   public addApplicationType(applicationTypes: ApplicationType): Observable<any>{
-    return this.http.post<any>(this.apiUrl + '/addApplicationTypes', applicationTypes )
+    return this.http.post<any>(this.apiUrlV2 + '/addApplicationTypes', applicationTypes )
   }
 
   public updateApplicationType(applicationType: ApplicationType): Observable<any>{
-    return this.http.put<any>(this.apiUrl + '/updateApplicationTypes', applicationType, { responseType: 'text' as 'json' })
+    return this.http.put<any>(this.apiUrlV2 + '/updateApplicationTypes', applicationType, { responseType: 'text' as 'json' })
   }
 
   public retrieveApplicationTypes(): Observable<any>{
-    return this.http.get<ApplicationType>(this.apiUrl+'/retrieveApplicationTypes')
+    return this.http.get<ApplicationType>(this.apiUrlV2+'/retrieveApplicationTypes')
   }
 
   public retrieveApplicationTypesV2(): Observable<any>{
@@ -33,7 +32,7 @@ export class ApplicationTypeService {
   }
 
   public deleteApplicationType(id: number): Observable<any>{
-    return this.http.delete(this.apiUrl+ '/deleteApplicationType'+'/'+ id)
+    return this.http.delete(this.apiUrlV2+ '/deleteApplicationType'+'/'+ id)
   }
   public retrieveApplicationTypesBasedOnUser(userName: String): Observable<any>{
     return this.http.get<any>(this.apiUrlV2 + '/retrieveRegistration'+'/'+ userName)

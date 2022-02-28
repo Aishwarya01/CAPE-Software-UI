@@ -18,7 +18,7 @@ const httpoption ={
 })
 export class ClientService {
 
-  apiUrl = environment.apiUrl;
+  apiUrl = environment.apiUrl_v2;
   handleError: any;
 
   constructor(private http: HttpClient,

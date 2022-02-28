@@ -9,7 +9,7 @@ import { Site } from '../model/site';
 })
 export class SiteService {
 
-  apiUrl = environment.apiUrl;
+  apiUrl = environment.apiUrl_v2;
   apiUrlV2 = environment.apiUrl_v2;
   constructor(private http: HttpClient) { }
 

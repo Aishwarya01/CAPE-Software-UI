@@ -10,7 +10,7 @@ import { Department } from '../model/department';
 })
 export class DepartmentService {
 
-  apiUrl = environment.apiUrl;
+  apiUrl = environment.apiUrl_v2;
   constructor(private http: HttpClient) { }
 
   public addDepartment(department: Department): Observable<any> {
