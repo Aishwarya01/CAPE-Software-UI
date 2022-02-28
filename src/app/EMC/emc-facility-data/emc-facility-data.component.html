@@ -254,7 +254,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Height (true floor to true ceiling)</label>
-                                <input type="text" class="form-control" formControlName="rmHeightTrueFloor"
+                                <input type="number" class="form-control" formControlName="rmHeightTrueFloor"
                                     [(ngModel)]="emcFacilityData.rmHeightTrueFloor"
                                     [ngClass]="{'is-invalid':submitted && f.rmHeightTrueFloor?.errors}"
                                     placeholder="Enter Height (true floor to true ceiling)">
@@ -753,7 +753,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Height and use of void space</label>
-                                        <input type="text" class="form-control" formControlName="ccFalseHeight"
+                                        <input type="number" class="form-control" formControlName="ccFalseHeight"
                                             placeholder="Enter Height and use of void space"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('ccFalseHeight')?.errors }">
                                         <div *ngIf="submitted && a.get('ccFalseHeight')?.errors"
@@ -950,7 +950,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Width</label>
-                                        <input type="text" class="form-control" formControlName="doorsWidth"
+                                        <input type="number" class="form-control" formControlName="doorsWidth"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('doorsWidth')?.errors }"
                                             placeholder="Enter Width">
                                         <div *ngIf="submitted && a.get('doorsWidth')?.errors" class="invalid-feedback">
@@ -961,7 +961,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Height</label>
-                                        <input type="text" class="form-control" formControlName="doorsHeight"
+                                        <input type="number" class="form-control" formControlName="doorsHeight"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('doorsHeight')?.errors }"
                                             placeholder="Enter Height">
                                         <div *ngIf="submitted && a.get('doorsHeight')?.errors" class="invalid-feedback">
