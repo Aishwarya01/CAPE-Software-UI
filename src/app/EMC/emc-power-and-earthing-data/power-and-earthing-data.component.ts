@@ -25,6 +25,8 @@ export class PowerAndEarthingDataComponent implements OnInit {
   distributionPannelArr!: FormArray;
   errorArr: any = [];
   success: boolean = false;
+  filesuccess: boolean = false;
+  filesuccessMsg: string = "";
   flag: boolean = false;
   Error: boolean = false;
   submitted = false;
@@ -43,6 +45,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
   arr2: any = [];
   emcId: number = 0;
   file!: any ; // Variable to store file
+  uploadDisable: boolean=true;
  
   constructor(
     private formBuilder: FormBuilder,
@@ -413,23 +416,45 @@ export class PowerAndEarthingDataComponent implements OnInit {
   }
   onChange(event: any) {
     this.file = event.target.files;
+    if(this.file!=null){
+      this.uploadDisable=false;
+    }
   }
 
 onUpload() {
-
   const formData =new FormData();
     for(let f of this.file) {
       formData.append('file',f,f.name);
     }
-  
   this.fileUploadServiceService.uploadFile(formData,this.emcId).subscribe(
       (data) => {
+        this.uploadDisable=true;
       },
       (error) => {
         
 
       },
       )
+    }
+    onDownload(){
+      this.fileUploadServiceService.downloadFile(this.emcId);
+
+    }
+    deleteFile(){
+      this.fileUploadServiceService.deleteFile(this.emcId).subscribe(
+        (data:any) => {
+          this.filesuccess = true;
+          this.filesuccessMsg = data;
+        
+        },
+        (error) => {
+         
+          
+  
+        },
+        )
+
+    
     }
 
   savePowerAndEarthingData(flag: any) {

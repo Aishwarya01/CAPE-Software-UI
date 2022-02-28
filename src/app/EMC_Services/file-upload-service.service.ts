@@ -2,9 +2,12 @@ import { HttpClient, HttpEvent, HttpHeaders, HttpRequest } from '@angular/common
 import { Injectable, Type } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+
 const httpHeaders = new HttpHeaders;
 
 httpHeaders.set( 'Content-Type', 'multipart/form-data' );
+declare var require: any
+const FileSaver = require('file-saver');
 @Injectable({
   providedIn: 'root'
 })
@@ -19,10 +22,23 @@ export class FileUploadServiceService {
         {
           'Content-Type': 'multipart/form-data'
         }
-      )
+      ),responseType: 'text' as 'json' 
     })
   }
-  public retrieveFile(emcId:any): Observable<any> {
-    return this.http.get<any>(this.apiUrl_EMC + '/retrieveFacilityData'+'/'+emcId, { responseType: 'text' as 'json' })
-  }
+  public downloadFile(emcId:any) {
+    return this.http.get(this.apiUrl_EMC + '/downloadFile'+'/'+emcId, { responseType:'blob'}).subscribe(
+      data =>{
+        const fileName = data.type;
+        FileSaver.saveAs(data,fileName);
+      }, 
+      ()=>{
+       
+      }
+    )
+
+    }
+    public deleteFile(emcId:any): Observable<any> {
+      return this.http.delete(this.apiUrl_EMC + '/removeFile'+'/'+emcId, { responseType: 'text' as 'json'})
+    }
+  
 }
