@@ -161,11 +161,11 @@
                                                     <div class="row" style="float: right;">
                                                         <mat-icon class="mousechange" type="button"
                                                             *ngIf="getseparateDistanceDescriptionControls(q).length == i+1"
-                                                            [ngClass]="{'disableForm':service.allFieldsDisable}"
+                                                            [ngClass]="{'disableForm':service.allFieldsDisable}" title="Add another Section"
                                                             style="float: right;position: relative; margin-top: 5px;"
                                                             (click)="addSeparateDistance(q,f)">add_box</mat-icon>
                     
-                                                        <mat-icon class="mousechange" class="dlt" type="button" title="Delete"
+                                                        <mat-icon class="mousechange" class="dlt" type="button" title="Delete Above Section"
                                                             [ngClass]="{'disableForm':service.allFieldsDisable}"
                                                             *ngIf="getseparateDistanceDescriptionControls(q).length > 1 "
                                                             style="float: right;position: relative; margin-top: 5px; margin-bottom: 5px;"
@@ -246,12 +246,12 @@
                                                         </td>
                                                     </tr>
                                                     <div class="row" style="float: right;" >
-                                                        <mat-icon [ngClass]="{'disableForm':service.allFieldsDisable}"
-                                                            style="float: right;position: relative; margin-top: 5px;"
+                                                        <mat-icon [ngClass]="{'disableForm':service.allFieldsDisable}" class="mousechange" type="button"
+                                                            style="float: right;position: relative; margin-top: 5px;" title="Add Another Section"
                                                             *ngIf="getSeparateDistanceDownConductorsControls(q).length == i+1 "
                                                             (click)="addSeparateDistanceDownConductors(q,f)">add_box</mat-icon>
                     
-                                                        <mat-icon class="mousechange" class="dlt" type="button" title="Delete"
+                                                        <mat-icon class="mousechange" class="dlt" type="button" title="Delete Above Section"
                                                             [ngClass]="{'disableForm':service.allFieldsDisable}"
                                                             *ngIf="getSeparateDistanceDownConductorsControls(q).length > 1"
                                                             (click)="removeSeparateDistanceDownConductors(q,f,i)"

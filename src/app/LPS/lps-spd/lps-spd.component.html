@@ -114,7 +114,7 @@
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
+                                                        <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
                                                 <input type="number" minlength="1" (keypress)="keyPressNumbers($event)" (keyup)="locationPanel($event,q)" class="form-control" style="height: 3rem;"
@@ -203,7 +203,7 @@
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">
-                                                                <i class="bi bi-align-start"></i>
+                                                                <i class="bi bi-geo-fill"></i>
                                                             </span>
                                                             </div>
                                                         <input class="form-control" [readonly]="isEditable" formControlName="location" placeholder="Enter Location" 
@@ -215,7 +215,7 @@
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">
-                                                                <i class="bi bi-align-start"></i>
+                                                                <i class="bi bi-stack"></i>
                                                             </span>
                                                             </div>
                                                         <input class="form-control" [readonly]="isEditable" formControlName="panelName" [ngClass]="{ 'is-invalid': submitted && a.get('panelName')?.errors}" 
@@ -606,10 +606,10 @@
                                         
                                         <div class="row" style="float: right;" >
                                             <mat-icon class="mousechange" class="add" (click)="add(q)" type="button" style="float: right;position: relative; margin-top: 5px;"
-                                            *ngIf="spdDescriptionControl(q).length == i+1" title="Add another section">add_box</mat-icon>
+                                            *ngIf="spdDescriptionControl(q).length == i+1" title="Add Another Location">add_box</mat-icon>
     
-                                            <mat-icon class="mousechange" class="dlt" type="button" title="Delete" style="float: right;position: relative; margin-top: 5px; margin-bottom: 5px;"
-                                            *ngIf="spdDescriptionControl(q).length > 1" (click)="removeItem(q,a,i)"title="delete">remove_circle_outline</mat-icon>
+                                            <mat-icon class="mousechange" class="dlt" type="button" title="Delete Above Location" style="float: right;position: relative; margin-top: 5px; margin-bottom: 5px;"
+                                            *ngIf="spdDescriptionControl(q).length > 1" (click)="removeItem(q,a,i)">remove_circle_outline</mat-icon>
                                         </div>
     
                                     </div>
