@@ -353,7 +353,7 @@
                                                         </span>
                                                     </div>
                                                     <input type="date" class="form-control" [ngClass]="{'hidedate':isEditable}" formControlName="designDateObserv"
-                                                        [ngClass]="{ 'is-invalid': submitted && a.get('designDateObserv')?.errors }">
+                                                        [ngClass]="{ 'is-invalid': submitted && a.get('designDateObserv')?.errors }" style="height: 3rem;">
 
                                                     <div *ngIf="submitted && a.get('designDateObserv')?.errors"
                                                         class="invalid-feedback">
@@ -416,7 +416,7 @@
                                                         </span>
                                                     </div>
                                                     <input type="date" class="form-control" [ngClass]="{'hidedate':isEditable}" formControlName="dateOfApprovalOb"
-                                                        [ngClass]="{ 'is-invalid': submitted && a.get('dateOfApprovalOb')?.errors }"/>
+                                                        [ngClass]="{ 'is-invalid': submitted && a.get('dateOfApprovalOb')?.errors }" style="height: 3rem;"/>
 
                                                     <div *ngIf="submitted && a.get('dateOfApprovalOb')?.errors"
                                                         class="invalid-feedback">
@@ -511,7 +511,7 @@
                                                         </span>
                                                     </div>
                                                         <select class="form-control" formControlName="deviationObserv"
-                                                        [ngClass]="{ 'is-invalid': submitted && a.get('deviationObserv')?.errors }" (change)="validationChange($event,q,'deviationRemarks')">
+                                                        [ngClass]="{ 'is-invalid': submitted && a.get('deviationObserv')?.errors }" (change)="validationChange($event,q,'deviationRemarks')" style="height: 3rem;">
                                                             <option value="" selected>Select Option</option>
                                                             <option value="Yes">Yes</option>
                                                             <option value="No">No</option>
@@ -550,7 +550,7 @@
                                                     </div>
                                                         <select class="form-control" formControlName="deviationInstallationObserv"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('deviationInstallationObserv')?.errors }"
-                                                        (change)="validationChange($event,q,'deviationInstallationRemarks')">
+                                                        (change)="validationChange($event,q,'deviationInstallationRemarks')" style="height: 3rem;">
                                                             <option value="" selected>Select Option</option>
                                                             <option value="Yes" >Yes</option>
                                                             <option value="No" >No</option>
@@ -620,7 +620,7 @@
                                                                 </span>
                                                             </div>
                                                                 <select class="form-control" formControlName="connectionMadeBraOb" 
-                                                                [ngClass]="{ 'is-invalid': submitted && a.get('connectionMadeBraOb')?.errors}" required>
+                                                                [ngClass]="{ 'is-invalid': submitted && a.get('connectionMadeBraOb')?.errors}" required style="height: 3rem;">
                                                                     <option value="" selected>Select Option</option>
                                                                     <option value="Brazing" >Brazing</option>
                                                                     <option value="Welding" >Welding</option>
@@ -659,7 +659,7 @@
                                                                 </span>
                                                             </div>
                                                                 <select class="form-control" formControlName="electricalEquipPlacedOb" 
-                                                                [ngClass]="{ 'is-invalid': submitted && a.get('electricalEquipPlacedOb')?.errors}" (change)="validationChange($event,q,'electricalEquipPlacedRe')">
+                                                                [ngClass]="{ 'is-invalid': submitted && a.get('electricalEquipPlacedOb')?.errors}" (change)="validationChange($event,q,'electricalEquipPlacedRe')" style="height: 3rem;">
                                                                     <option value="" selected>Select Option</option>
                                                                     <option value="Yes" >Yes</option>
                                                                     <option value="No" >No</option>
@@ -699,7 +699,7 @@
                                                                 </span>
                                                             </div>
                                                                 <select class="form-control" formControlName="combustablePartOb"
-                                                                [ngClass]="{ 'is-invalid': submitted && a.get('combustablePartOb')?.errors}" (change)="validationChange($event,q,'combustablePartRe')">
+                                                                [ngClass]="{ 'is-invalid': submitted && a.get('combustablePartOb')?.errors}" (change)="validationChange($event,q,'combustablePartRe')" style="height: 3rem;">
                                                                     <option value="" selected>Select Option</option>
                                                                     <option value="Yes" >Yes</option>
                                                                     <option value="No" >No</option>
@@ -738,7 +738,7 @@
                                                                 </span>
                                                             </div>
                                                                 <select class="form-control" formControlName="terminationMeshConductorOb"
-                                                                [ngClass]="{ 'is-invalid': submitted && a.get('terminationMeshConductorOb')?.errors}" (change)="validationChange($event,q,'terminationMeshConductorRe')">
+                                                                [ngClass]="{ 'is-invalid': submitted && a.get('terminationMeshConductorOb')?.errors}" (change)="validationChange($event,q,'terminationMeshConductorRe')" style="height: 3rem;">
                                                                     <option value="" selected>Select Option</option>
                                                                     <option value="Yes" >Yes</option>
                                                                     <option value="No" >No</option>
@@ -777,7 +777,7 @@
                                                                 </span>
                                                             </div>
                                                                 <select class="form-control" formControlName="bondingEquipotentialOb"
-                                                                [ngClass]="{ 'is-invalid': submitted && a.get('bondingEquipotentialOb')?.errors}" (change)="validationChangeNo($event,q,'bondingEquipotentialRe')">
+                                                                [ngClass]="{ 'is-invalid': submitted && a.get('bondingEquipotentialOb')?.errors}" (change)="validationChangeNo($event,q,'bondingEquipotentialRe')" style="height: 3rem;">
                                                                     <option value="" selected>Select Option</option>
                                                                     <option value="Yes" >Yes</option>
                                                                     <option value="No" >No</option>
@@ -827,9 +827,9 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>
+                                            <td style="width: 55rem;">
                                                 <select class="form-control"  (change)="onChangeAir($event,q)" formControlName="verticalAirTerminationAvailabilityOb"
-                                                [ngClass]="{ 'is-invalid': submitted && q.get('verticalAirTerminationAvailabilityOb')?.errors }">
+                                                [ngClass]="{ 'is-invalid': submitted && q.get('verticalAirTerminationAvailabilityOb')?.errors }" style="height: 3rem;">
                                                     <option value="" selected>Select Option</option>
                                                     <option value="Applicable">Applicable </option>
                                                     <option value="Not applicable">Not applicable</option>
@@ -868,8 +868,8 @@
                                             </thead>
                                             <tr>
                                                 <td style="width: 1rem; text-align: center;">6(a)</td>
-                                                <td style="width: 22.5%;">Physical inspection (check for any damage/break/bend/interception tip/position)</td>
-                                                <td style="width: 35.5%;">
+                                                <td style="width: 23rem;">Physical inspection (check for any damage/break/bend/interception tip/position)</td>
+                                                <td style="width: 43rem;">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">
@@ -878,7 +878,7 @@
                                                         </div>
                                                             <select class="form-control" formControlName="physicalInspectionOb"
                                                             placeholder="Please enter Observation here" (change)="validationChangeVat($event,q,'physicalInspectionRe')"
-                                                            [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionOb')?.errors}">
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionOb')?.errors}" style="height: 3rem;">
                                                                 <option value="" selected>Select Option</option>
                                                                 <option value="physically good" >physically good</option>
                                                                 <option value="not good" >not good</option>
@@ -908,12 +908,12 @@
 
                                             <br>
                                             <div formArrayName="verticalAirTerminationList" *ngFor="let z of getAirTUnitControls(a); let w = index">
-                                                <div [formGroupName]="w" >
+                                                <div [formGroupName]="w">
                                                 <h2><u>Vertical List - {{w+1}}</u></h2>
                                                 <tr>
-                                                    <td style="text-align: center;">6(b)</td>
-                                                    <td style="width: 20.5%;">Material of air terminal</td>
-                                                    <td style="width: 35.5%;">
+                                                    <td style="width: 1rem;text-align: center;">6(b)</td>
+                                                    <td style="width: 24rem;">Material of air terminal</td>
+                                                    <td style="width: 43rem;">
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text">
@@ -921,7 +921,7 @@
                                                                 </span>
                                                             </div>
                                                                 <select class="form-control" formControlName="materialOfTerminalOb" (change)="loadMaterialVat($event,z,'materialOfTerminalRe')"
-                                                                [ngClass]="{ 'is-invalid': submitted && z.get('materialOfTerminalOb')?.errors}">
+                                                                [ngClass]="{ 'is-invalid': submitted && z.get('materialOfTerminalOb')?.errors}" style="height: 3rem;">
                                                                 <option value="" selected>Select Option</option>
                                                                 <option value="copper" >copper</option>
                                                                 <option value="copper bonded steel" >copper bonded steel</option>
@@ -941,7 +941,7 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td>
+                                                    <td style="width: 43rem;">
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text">
@@ -955,8 +955,8 @@
                                                 </tr>
                                                 <tr>
                                                     <td style="text-align: center;">6(c)</td>
-                                                    <td style="width: 20.5%;">Size/cross section area of air terminal</td>
-                                                    <td style="width: 35.5%;">
+                                                    <td style="width: 24rem;">Size/cross section area of air terminal</td>
+                                                    <td style="width: 43rem;">
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text">
@@ -988,8 +988,8 @@
                                                 </tr>
                                                 <tr>
                                                     <td style="text-align: center;">6(d)</td>
-                                                    <td style="width: 20.5%;">Height of vertical air terminal in meters</td>
-                                                    <td style="width: 35.5%;">
+                                                    <td style="width: 24rem;">Height of vertical air terminal in meters</td>
+                                                    <td style="width: 43rem;">
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text">
@@ -998,7 +998,7 @@
                                                             </div>
                                                             <input type="number" class="form-control" placeholder="Please enter Observation here"
                                                                 [readonly]="isEditable" formControlName="heightOfTerminalOb"
-                                                                [ngClass]="{ 'is-invalid': submitted && z.get('heightOfTerminalOb')?.errors}">
+                                                                [ngClass]="{ 'is-invalid': submitted && z.get('heightOfTerminalOb')?.errors}" style="height: 3rem;">
                                                             <div *ngIf="submitted && z.get('heightOfTerminalOb')?.errors"
                                                                 class="invalid-feedback">
                                                                 <div *ngIf="z.get('heightOfTerminalOb')?.errors?.required">
@@ -1020,8 +1020,8 @@
                                                 </tr>
                                                 <tr>
                                                     <td style="text-align: center;">6(e)</td>
-                                                    <td style="width: 20.5%;">Angle of protection based on height</td>
-                                                    <td style="width: 35.5%;">
+                                                    <td style="width: 24rem;">Angle of protection based on height</td>
+                                                    <td style="width: 43rem;">
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text">
@@ -1053,8 +1053,8 @@
                                                 </tr>
                                                 <tr>
                                                     <td style="text-align: center;">6(f)</td>
-                                                    <td style="width: 20.5%;">Any metal installations protrudes outside the building volume protected by air termination systems (check coverage area check based on angle of protection)</td>
-                                                    <td style="width: 35.5%;"> 
+                                                    <td style="width: 24rem;">Any metal installations protrudes outside the building volume protected by air termination systems (check coverage area check based on angle of protection)</td>
+                                                    <td style="width: 43rem;"> 
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text">
@@ -1062,7 +1062,7 @@
                                                                 </span>
                                                             </div>
                                                                 <select class="form-control" formControlName="installationTerminationsystemOb" (change)="validationChangeVatList($event,z,'installationTerminationsystemRem')"
-                                                                [ngClass]="{ 'is-invalid': submitted && z.get('installationTerminationsystemOb')?.errors}">
+                                                                [ngClass]="{ 'is-invalid': submitted && z.get('installationTerminationsystemOb')?.errors}" style="height: 3rem;">
                                                                     <option value="" selected>Select Option</option>
                                                                     <option value="Protected" >Protected</option>
                                                                     <option value="Not protected" >Not protected</option>
@@ -1092,8 +1092,8 @@
                                                 </tr>
                                                 <tr>
                                                     <td style="text-align: center;">6(g)</td>
-                                                    <td style="width: 20.5%;">Type of support for vertical air terminal</td>
-                                                    <td style="width: 35.5%;">
+                                                    <td style="width: 24rem;">Type of support for vertical air terminal</td>
+                                                    <td style="width: 43rem;">
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text">
@@ -1101,7 +1101,7 @@
                                                                 </span>
                                                             </div>
                                                                 <select class="form-control" formControlName="supportFlatSurfaceOb"
-                                                                [ngClass]="{ 'is-invalid': submitted && z.get('supportFlatSurfaceOb')?.errors}">
+                                                                [ngClass]="{ 'is-invalid': submitted && z.get('supportFlatSurfaceOb')?.errors}" style="height: 3rem;">
                                                                     <option value="" selected>Select Option</option>
                                                                     <option value="Clip" >Clip</option>
                                                                     <option value="Clamp" >Clamp</option>
@@ -1129,8 +1129,8 @@
                                                 </tr>
                                                 <tr>
                                                     <td style="text-align: center;">6(h)</td>
-                                                    <td style="width: 20.5%;">Vertical air terminal is firmly fixed/mounted/pasted over the flat surface</td>
-                                                    <td style="width: 35.5%;">
+                                                    <td style="width: 24rem;">Vertical air terminal is firmly fixed/mounted/pasted over the flat surface</td>
+                                                    <td style="width: 43rem;">
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text">
@@ -1138,7 +1138,7 @@
                                                                 </span>
                                                             </div>
                                                                 <select class="form-control" formControlName="heightFlatSurfaceOb" (change)="validationChangeVatList($event,z,'heightFlatSurfaceRe')"
-                                                                [ngClass]="{ 'is-invalid': submitted && z.get('heightFlatSurfaceOb')?.errors}">
+                                                                [ngClass]="{ 'is-invalid': submitted && z.get('heightFlatSurfaceOb')?.errors}" style="height: 3rem;">
                                                                     <option value="" selected>Select Option</option>
                                                                     <option value="Yes" >Yes</option>
                                                                     <option value="No" >No</option>
@@ -1165,17 +1165,17 @@
                                                                     <div *ngIf="z.get('heightFlatSurfaceRe')?.errors?.required">Remarks is required</div>
                                                                 </div>
                                                         </div>
-                                                        <div class="row" style="float: right;
-                                                        margin-right: 10px;">
-                                                        <mat-icon style="cursor: pointer;padding: 0px 33px 0px 0px;" 
-                                                        [ngClass]="{'disableForm':service.allFieldsDisable}" 
-                                                        (click)="addItemAir(a)">add_box</mat-icon>
-
-                                                        <mat-icon class="mousechange" class="dlt" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" *ngIf="getAirTUnitControls(a).length > 1" 
-                                                        (click)="removeItemAir(a,w)" style="cursor: pointer;float: right;">remove_circle_outline</mat-icon>
-                                                    </div>
                                                     </td>
                                                 </tr>
+                                                
+                                                <div class="row" style="float: right; margin-right: 10px; margin-top: 5px;">
+                                                        <mat-icon style="cursor: pointer;padding: 0px 33px 0px 0px;" [ngClass]="{'disableForm':service.allFieldsDisable}" *ngIf="getAirTUnitControls(a).length == w+1" 
+                                                        (click)="addItemAir(a)">add_box</mat-icon>
+                                                    
+                                                        <mat-icon class="mousechange" class="dlt" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" *ngIf="getAirTUnitControls(a).length > 1" 
+                                                        (click)="removeItemAir(a,w)" style="cursor: pointer;float: right;">remove_circle_outline</mat-icon>
+                                                </div>
+                                                {{getAirTUnitControls(a).length == i+1}}
                                                 </div>
                                                 <br>
                                             </div>
@@ -1188,8 +1188,8 @@
                                             <br>
                                             <!-- <tr>
                                                 <td style="text-align: center;">6(i)</td>
-                                                <td style="width: 20.5%;">Physical inspection of interconnection of VAT to roof conductor & metal bodies to roof conductors (check for connections (tight/loose), its conditions (healthy/corroded)and its position/location w.r.t. design</td>
-                                                <td style="width: 35.5%;">
+                                                <td style="width: 24rem;">Physical inspection of interconnection of VAT to roof conductor & metal bodies to roof conductors (check for connections (tight/loose), its conditions (healthy/corroded)and its position/location w.r.t. design</td>
+                                                <td style="width: 43rem;">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">
@@ -1220,9 +1220,9 @@
                                                 </td>
                                             </tr> -->
                                             <tr>
-                                                <td style="text-align: center;">6(j)</td>
-                                                <td style="width: 20.5%;">Total number of air terminals</td>
-                                                <td style="width: 35.5%;">
+                                                <td style="width: 1rem; text-align: center;">6(j)</td>
+                                                <td style="width: 24rem;">Total number of air terminals</td>
+                                                <td style="width: 43rem;">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">
@@ -1230,7 +1230,7 @@
                                                             </span>
                                                         </div>
                                                         <input type="number" class="form-control"  placeholder="Please enter Observation here" formControlName="totalNumberOb" 
-                                                            [readonly]="isEditable" [ngClass]="{ 'is-invalid': submitted && a.get('totalNumberOb')?.errors}">
+                                                            [readonly]="isEditable" [ngClass]="{ 'is-invalid': submitted && a.get('totalNumberOb')?.errors}" style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('totalNumberOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('totalNumberOb')?.errors?.required">
@@ -1238,7 +1238,7 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td>
+                                                <td style="width: 43rem;">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">
@@ -1252,8 +1252,8 @@
                                             </tr>
                                             <tr>
                                                 <td style="text-align: center;">6(k)</td>
-                                                <td style="width: 20.5%;">Number of air terminals inspected</td>
-                                                <td style="width: 35.5%;">
+                                                <td style="width: 24rem;">Number of air terminals inspected</td>
+                                                <td style="width: 43rem;">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">
@@ -1261,7 +1261,7 @@
                                                             </span>
                                                         </div>
                                                         <input type="number" class="form-control"  placeholder="Please enter Observation here" 
-                                                        [readonly]="isEditable" formControlName="inspNoOb" [ngClass]="{ 'is-invalid': submitted && a.get('inspNoOb')?.errors}">
+                                                        [readonly]="isEditable" formControlName="inspNoOb" [ngClass]="{ 'is-invalid': submitted && a.get('inspNoOb')?.errors}" style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('inspNoOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('inspNoOb')?.errors?.required">
@@ -1284,8 +1284,8 @@
                                             </tr>
                                             <tr>
                                                 <td style="text-align: center;">6(l)</td>
-                                                <td style="width: 20.5%;">Number of inspections passed</td>
-                                                <td style="width: 35.5%;">
+                                                <td style="width: 24rem;">Number of inspections passed</td>
+                                                <td style="width: 43rem;">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">
@@ -1294,7 +1294,7 @@
                                                         </div>
                                                         <input type="number" class="form-control" placeholder="Please enter Observation here"
                                                             [readonly]="isEditable" formControlName="inspPassedNoOb"
-                                                            [ngClass]="{ 'is-invalid': submitted && a.get('inspPassedNoOb')?.errors}">
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('inspPassedNoOb')?.errors}" style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('inspPassedNoOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('inspPassedNoOb')?.errors?.required">
@@ -1316,8 +1316,8 @@
                                             </tr>
                                             <tr>
                                                 <td style="text-align: center;">6(m)</td>
-                                                <td style="width: 20.5%;">Number of inspections failed</td>
-                                                <td style="width: 35.5%;">
+                                                <td style="width: 24rem;">Number of inspections failed</td>
+                                                <td style="width: 43rem;">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">
@@ -1326,7 +1326,7 @@
                                                         </div>
                                                         <input type="number" class="form-control" placeholder="Please enter Observation here"
                                                             [readonly]="isEditable" formControlName="inspFaileddNoOb" (keyup)="validationChangeVatFailed($event,q,'inspFaileddNoRe')"
-                                                            [ngClass]="{ 'is-invalid': submitted && a.get('inspFaileddNoOb')?.errors}">
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('inspFaileddNoOb')?.errors}" style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('inspFaileddNoOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('inspFaileddNoOb')?.errors?.required">
@@ -1372,9 +1372,9 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>
+                                            <td style="width: 55rem;">
                                                 <select class="form-control" (change)="onChangeMesh($event,q)" formControlName="airMeshDescriptionAvailabilityOb"
-                                                [ngClass]="{ 'is-invalid': submitted && q.get('airMeshDescriptionAvailabilityOb')?.errors }">
+                                                [ngClass]="{ 'is-invalid': submitted && q.get('airMeshDescriptionAvailabilityOb')?.errors }" style="height: 3rem;">
                                                     <option value="" selected>Select Option</option>
                                                     <option value="Applicable" >Applicable </option>
                                                     <option value="Not applicable" >Not applicable</option>
@@ -1415,7 +1415,7 @@
                                                             </span>
                                                         </div>
                                                             <select class="form-control" formControlName="physicalInspectionOb" (change)="validationChangeMesh($event,q,'physicalInspectionRe')"
-                                                            [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionOb')?.errors}">
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionOb')?.errors}" style="height: 3rem;">
                                                                 <option value="" selected>Select Option</option>
                                                                 <option value="Physically good" >Physically good</option>
                                                                 <option value="Not good" >Not good</option>
@@ -1453,7 +1453,7 @@
                                                             </span>
                                                         </div>
                                                             <select class="form-control" formControlName="materailOfConductorOb" 
-                                                            [ngClass]="{ 'is-invalid': submitted && a.get('materailOfConductorOb')?.errors}">
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('materailOfConductorOb')?.errors}" style="height: 3rem;">
                                                             <option value="" selected>Select Option</option>
                                                             <option value="copper" >copper</option>
                                                             <option value="copper bonded steel" >copper bonded steel</option>
@@ -1560,7 +1560,7 @@
                                                         </div>
                                                         <input [readonly]="isEditable" formControlName="maximumDistanceXOb" type="number"
                                                             class="form-control" placeholder="Please enter Observation here"
-                                                            [ngClass]="{ 'is-invalid': submitted && a.get('maximumDistanceXOb')?.errors}">
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('maximumDistanceXOb')?.errors}" style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('maximumDistanceXOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('maximumDistanceXOb')?.errors?.required">
@@ -1593,7 +1593,7 @@
                                                         </div>
                                                         <input [readonly]="isEditable" formControlName="minimumDistanceXOb" type="number"
                                                             class="form-control" placeholder="Please enter Observation here"
-                                                            [ngClass]="{ 'is-invalid': submitted && a.get('minimumDistanceXOb')?.errors}">
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('minimumDistanceXOb')?.errors}" style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('minimumDistanceXOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('minimumDistanceXOb')?.errors?.required">
@@ -1627,7 +1627,7 @@
                                                         </div>
                                                         <input [readonly]="isEditable" formControlName="maximumDistanceYOb" type="number"
                                                             class="form-control" placeholder="Please enter Observation here"
-                                                            [ngClass]="{ 'is-invalid': submitted && a.get('maximumDistanceYOb')?.errors}">
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('maximumDistanceYOb')?.errors}" style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('maximumDistanceYOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('maximumDistanceYOb')?.errors?.required">
@@ -1661,7 +1661,7 @@
                                                         </div>
                                                         <input [readonly]="isEditable" formControlName="minimumDistanceYOb" type="number"
                                                             class="form-control" placeholder="Please enter Observation here"
-                                                            [ngClass]="{ 'is-invalid': submitted && a.get('minimumDistanceYOb')?.errors}">
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('minimumDistanceYOb')?.errors}" style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('minimumDistanceYOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('minimumDistanceYOb')?.errors?.required">
@@ -1696,7 +1696,7 @@
                                                         </div>
                                                         <input [readonly]="isEditable" formControlName="heightOfConductorFlatSurfaceOb" type="number"
                                                             class="form-control" placeholder="Please enter Observation here"
-                                                            [ngClass]="{ 'is-invalid': submitted && a.get('heightOfConductorFlatSurfaceOb')?.errors}">
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('heightOfConductorFlatSurfaceOb')?.errors}" style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('heightOfConductorFlatSurfaceOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div
@@ -1744,9 +1744,9 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>
+                                            <td style="width: 55rem;">
                                                 <select class="form-control"  (change)="onChangeHolders($event,q)" formControlName="airHolderDescriptionAvailabilityOb"
-                                                [ngClass]="{ 'is-invalid': submitted && q.get('airHolderDescriptionAvailabilityOb')?.errors }">
+                                                [ngClass]="{ 'is-invalid': submitted && q.get('airHolderDescriptionAvailabilityOb')?.errors }" style="height: 3rem;">
                                                     <option value="" selected>Select Option</option>
                                                     <option value="Applicable" >Applicable </option>
                                                     <option value="Not applicable" >Not applicable</option>
@@ -1826,7 +1826,7 @@
                                                             </span>
                                                         </div>
                                                             <select class="form-control" formControlName="conductorHolderFlatSurfaceOb" [ngClass]="{ 'is-invalid': submitted && a.get('conductorHolderFlatSurfaceOb')?.errors}"
-                                                            (change)="validationChangeHolder($event,q,'conductorHolderFlatSurfaceRe')">
+                                                            (change)="validationChangeHolder($event,q,'conductorHolderFlatSurfaceRe')" style="height: 3rem;">
                                                                 <option value="" selected>Select Option</option>
                                                                 <option value="Yes" >Yes</option>
                                                                 <option value="No" >No</option>
@@ -1865,7 +1865,7 @@
                                                             </span>
                                                         </div>
                                                             <select class="form-control" formControlName="conductorHolderOb" [ngClass]="{ 'is-invalid': submitted && a.get('conductorHolderOb')?.errors}"
-                                                            (change)="validationChangeHolder($event,q,'conductorHolderRe')">
+                                                            (change)="validationChangeHolder($event,q,'conductorHolderRe')" style="height: 3rem;">
                                                                 <option value="" selected>Select Option</option>
                                                                 <option value="Yes" >Yes</option>
                                                                 <option value="No" >No</option>
@@ -1907,7 +1907,7 @@
                                                                 </span>
                                                             </div>
                                                             <select class="form-control" formControlName="holderTypeOb" 
-                                                            [ngClass]="{ 'is-invalid': submitted && h.get('holderTypeOb')?.errors}">
+                                                            [ngClass]="{ 'is-invalid': submitted && h.get('holderTypeOb')?.errors}" style="height: 3rem;">
                                                                 <option value="" selected>Select Option</option>
                                                                 <option value="concrete flat roof conductor holder (CFRCH)" >concrete flat roof conductor holder (CFRCH)</option>
                                                                 <option value="metal roof conductor holder (MRCH)" >metal roof conductor holder (MRCH)</option>
@@ -1943,7 +1943,7 @@
                                                                     <i class="bi bi-text-paragraph"></i>
                                                                 </span>
                                                             </div>
-                                                                <select class="form-control" formControlName="materailOfHolderOb" [ngClass]="{ 'is-invalid': submitted && h.get('materailOfHolderOb')?.errors}">
+                                                                <select class="form-control" formControlName="materailOfHolderOb" style="height: 3rem;" [ngClass]="{ 'is-invalid': submitted && h.get('materailOfHolderOb')?.errors}">
                                                                     <option value="" selected>Select Option</option>
                                                                     <option value="copper" >copper</option>
                                                                     <option value="copper bonded steel" >copper bonded steel</option>
@@ -1985,7 +1985,7 @@
                                                             </div>
                                                             <input [readonly]="isEditable" formControlName="totalHolderNoOb" type="number"
                                                                 class="form-control" placeholder="Please enter Observation here"
-                                                                [ngClass]="{ 'is-invalid': submitted && h.get('totalHolderNoOb')?.errors}">
+                                                                [ngClass]="{ 'is-invalid': submitted && h.get('totalHolderNoOb')?.errors}" style="height: 3rem;">
                                                             <div *ngIf="submitted && h.get('totalHolderNoOb')?.errors"
                                                                 class="invalid-feedback">
                                                                 <div *ngIf="h.get('totalHolderNoOb')?.errors?.required">
@@ -2017,7 +2017,7 @@
                                                             </div>
                                                             <input [readonly]="isEditable" formControlName="holderInspNoOb" type="number"
                                                                 class="form-control" placeholder="Please enter Observation here"
-                                                                [ngClass]="{ 'is-invalid': submitted && h.get('holderInspNoOb')?.errors}">
+                                                                [ngClass]="{ 'is-invalid': submitted && h.get('holderInspNoOb')?.errors}" style="height: 3rem;">
                                                             <div *ngIf="submitted && h.get('holderInspNoOb')?.errors"
                                                                 class="invalid-feedback">
                                                                 <div *ngIf="h.get('holderInspNoOb')?.errors?.required">
@@ -2049,7 +2049,7 @@
                                                             </div>
                                                             <input [readonly]="isEditable" formControlName="holderInspPassedNoOb" type="number"
                                                                 class="form-control"  placeholder="Please enter Observation here"
-                                                                [ngClass]="{ 'is-invalid': submitted && h.get('holderInspPassedNoOb')?.errors}">
+                                                                [ngClass]="{ 'is-invalid': submitted && h.get('holderInspPassedNoOb')?.errors}" style="height: 3rem;">
                                                             <div *ngIf="submitted && h.get('holderInspPassedNoOb')?.errors"
                                                                 class="invalid-feedback">
                                                                 <div *ngIf="h.get('holderInspPassedNoOb')?.errors?.required">
@@ -2081,7 +2081,7 @@
                                                             </div>
                                                             <input [readonly]="isEditable" formControlName="holderInspFailedNoOb" type="number"
                                                                 class="form-control" placeholder="Please enter Observation here" (keyup)="validationChangeHolderList($event,h,'holderInspFailedNoRe')"
-                                                                [ngClass]="{ 'is-invalid': submitted && h.get('holderInspFailedNoOb')?.errors}">
+                                                                [ngClass]="{ 'is-invalid': submitted && h.get('holderInspFailedNoOb')?.errors}" style="height: 3rem;">
                                                             <div *ngIf="submitted && h.get('holderInspFailedNoOb')?.errors"
                                                                 class="invalid-feedback">
                                                                 <div *ngIf="h.get('holderInspFailedNoOb')?.errors?.required">
@@ -2103,18 +2103,15 @@
                                                                     <div *ngIf="h.get('holderInspFailedNoRe')?.errors?.required">Remarks is required</div>
                                                                 </div>
                                                         </div>
-                                                        <div class="row" style="float: right;
-                                                        margin-right: 10px;">
-                                                        <mat-icon style="cursor: pointer;padding: 0px 33px 0px 0px;" 
-                                                        [ngClass]="{'disableForm':service.allFieldsDisable}" 
-                                                        (click)="addItemAirHolder(a)">add_box</mat-icon>
-
-                                                        <mat-icon class="mousechange" class="dlt" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" 
-                                                        *ngIf="getAirHolderControls(a).length > 1" 
-                                                        (click)="removeItemAirHolder(a,x)" style="cursor: pointer;float: right;">remove_circle_outline</mat-icon>
-                                                    </div>
                                                     </td>
                                                 </tr>
+                                                <div class="row" style="float: right;margin-right: 10px; margin-top: 5px;">
+                                                    <mat-icon style="cursor: pointer;padding: 0px 33px 0px 0px;" [ngClass]="{'disableForm':service.allFieldsDisable}" *ngIf="getAirHolderControls(a).length == x+1" 
+                                                    (click)="addItemAirHolder(a)">add_box</mat-icon>
+
+                                                    <mat-icon class="mousechange" class="dlt" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" *ngIf="getAirHolderControls(a).length > 1" 
+                                                    (click)="removeItemAirHolder(a,x)" style="cursor: pointer;float: right;">remove_circle_outline</mat-icon>
+                                                </div>
                                                 </div>
                                                 <br>
                                             </div>
@@ -2130,7 +2127,7 @@
                                                             </span>
                                                         </div>
                                                             <select class="form-control" formControlName="materailOfParpetHolderOb"  (change)="ChangeParapetHolder($event,a)"
-                                                            [ngClass]="{ 'is-invalid': submitted && a.get('materailOfParpetHolderOb')?.errors}">
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('materailOfParpetHolderOb')?.errors}" style="height: 3rem;">
                                                                 <option value="" selected>Select Option</option>
                                                                 <option value="Plastic" >Plastic</option>
                                                                 <option value="Copper" >Copper</option>
@@ -2174,7 +2171,7 @@
                                                         </div>
                                                         <input type="number" [readonly]="isEditable" formControlName="totalParpetHolderNoOb"
                                                             class="form-control" placeholder="Please enter Observation here"
-                                                            [ngClass]="{ 'is-invalid': submitted && a.get('totalParpetHolderNoOb')?.errors}">
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('totalParpetHolderNoOb')?.errors}" style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('totalParpetHolderNoOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('totalParpetHolderNoOb')?.errors?.required">
@@ -2206,7 +2203,7 @@
                                                         </div>
                                                         <input type="number" class="form-control"
                                                             [readonly]="isEditable" formControlName="parpetInspectionNoOb" placeholder="Please enter Observation here"
-                                                            [ngClass]="{ 'is-invalid': submitted && a.get('parpetInspectionNoOb')?.errors}">
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('parpetInspectionNoOb')?.errors}" style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('parpetInspectionNoOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('parpetInspectionNoOb')?.errors?.required">
@@ -2238,7 +2235,7 @@
                                                         </div>
                                                         <input [readonly]="isEditable" formControlName="parpetInspectionPassedNoOb" type="number"
                                                             class="form-control" placeholder="Please enter Observation here"
-                                                            [ngClass]="{ 'is-invalid': submitted && a.get('parpetInspectionPassedNoOb')?.errors}">
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('parpetInspectionPassedNoOb')?.errors}" style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('parpetInspectionPassedNoOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('parpetInspectionPassedNoOb')?.errors?.required">
@@ -2270,7 +2267,7 @@
                                                         </div>
                                                         <input [readonly]="isEditable" formControlName="parpetInspectionFailedNoOb" type="number"
                                                             class="form-control" placeholder="Please enter Observation here" (keyup)="validationChangeHolderKey($event,q,'parpetInspectionFailedNoRe')"
-                                                            [ngClass]="{ 'is-invalid': submitted && a.get('parpetInspectionFailedNoOb')?.errors}">
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('parpetInspectionFailedNoOb')?.errors}" style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('parpetInspectionFailedNoOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('parpetInspectionFailedNoOb')?.errors?.required">
@@ -2318,9 +2315,9 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>
+                                            <td style="width: 55rem;">
                                                 <select class="form-control" (change)="onChangeClamps($event,q)" formControlName="airClampsAvailabilityOb"
-                                                [ngClass]="{ 'is-invalid': submitted && q.get('airClampsAvailabilityOb')?.errors }">
+                                                [ngClass]="{ 'is-invalid': submitted && q.get('airClampsAvailabilityOb')?.errors }" style="height: 3rem;">
                                                     <option value="" selected>Select Option</option>
                                                     <option value="Applicable" >Applicable </option>
                                                     <option value="Not applicable" >Not applicable</option>
@@ -2361,7 +2358,7 @@
                                                             </span>
                                                         </div>
                                                             <select class="form-control" formControlName="physicalInspectionOb" [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionOb')?.errors}"
-                                                            (change)="validationChangeClamps($event,q,'physicalInspectionRe')">
+                                                            (change)="validationChangeClamps($event,q,'physicalInspectionRe')" style="height: 3rem;">
                                                                 <option value="" selected>Select Option</option>
                                                                 <option value="Physically good" >Physically good</option>
                                                                 <option value="Not good" >Not good</option>
@@ -2399,7 +2396,7 @@
                                                             </span>
                                                         </div>
                                                             <select class="form-control" formControlName="conductorClampsFlatSurafaceOb" [ngClass]="{ 'is-invalid': submitted && a.get('conductorClampsFlatSurafaceOb')?.errors}"
-                                                            (change)="validationChangeClamps($event,q,'conductorClampsFlatSurafaceRe')">
+                                                            (change)="validationChangeClamps($event,q,'conductorClampsFlatSurafaceRe')" style="height: 3rem;">
                                                                 <option value="" selected>Select Option</option>
                                                                 <option value="Yes" >Yes</option>
                                                                 <option value="No" >No</option>
@@ -2438,7 +2435,7 @@
                                                             </span>
                                                         </div>
                                                             <select class="form-control" formControlName="interConnectionOfClampsOb" [ngClass]="{ 'is-invalid': submitted && a.get('interConnectionOfClampsOb')?.errors}"
-                                                            (change)="validationChangeClamps($event,q,'interConnectionOfClampsRe')">
+                                                            (change)="validationChangeClamps($event,q,'interConnectionOfClampsRe')" style="height: 3rem;">
                                                                 <option value="" selected>Select Option</option>
                                                                 <option value="Physically good" >Physically good</option>
                                                                 <option value="Not good" >Not good</option>
@@ -2475,7 +2472,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                            <select class="form-control" formControlName="clampTypeOb" [ngClass]="{ 'is-invalid': submitted && a.get('clampTypeOb')?.errors}">
+                                                            <select class="form-control" formControlName="clampTypeOb" [ngClass]="{ 'is-invalid': submitted && a.get('clampTypeOb')?.errors}" style="height: 3rem;">
                                                                 <option value="" selected>Select Option</option>
                                                                 <option value="Wall clamp" >Wall clamp</option>
                                                                 <option value="Folding clamp" >Folding clamp</option>
@@ -2511,7 +2508,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                            <select class="form-control" formControlName="materialOfWallClampsOb" [ngClass]="{ 'is-invalid': submitted && a.get('materialOfWallClampsOb')?.errors}">
+                                                            <select class="form-control" formControlName="materialOfWallClampsOb" [ngClass]="{ 'is-invalid': submitted && a.get('materialOfWallClampsOb')?.errors}" style="height: 3rem;">
                                                                 <option value="" selected>Select Option</option>
                                                                 <option value="copper" >copper</option>
                                                                 <option value="copper bonded steel" >copper bonded steel</option>
@@ -2553,7 +2550,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                            <select class="form-control" formControlName="materialOfFoldingClampsOb" [ngClass]="{ 'is-invalid': submitted && a.get('materialOfFoldingClampsOb')?.errors}">
+                                                            <select class="form-control" formControlName="materialOfFoldingClampsOb" [ngClass]="{ 'is-invalid': submitted && a.get('materialOfFoldingClampsOb')?.errors}" style="height: 3rem;">
                                                                 <option value="" selected>Select Option</option>
                                                                 <option value="copper" >copper</option>
                                                                 <option value="copper bonded steel" >copper bonded steel</option>
@@ -2597,7 +2594,7 @@
                                                         </div>
                                                         <input [readonly]="isEditable" formControlName="totalClampsNoOb" type="number"
                                                             class="form-control" placeholder="Please enter Observation here"
-                                                            [ngClass]="{ 'is-invalid': submitted && a.get('totalClampsNoOb')?.errors}">
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('totalClampsNoOb')?.errors}" style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('totalClampsNoOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('totalClampsNoOb')?.errors?.required">
@@ -2630,7 +2627,7 @@
                                                         </div>
                                                         <input [readonly]="isEditable" formControlName="inspectionNoOb" type="number"
                                                             class="form-control" placeholder="Please enter Observation here"
-                                                            [ngClass]="{ 'is-invalid': submitted && a.get('inspectionNoOb')?.errors}">
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('inspectionNoOb')?.errors}" style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('inspectionNoOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('inspectionNoOb')?.errors?.required">
@@ -2662,7 +2659,7 @@
                                                         </div>
                                                         <input [readonly]="isEditable" formControlName="inspectionPassedOb" type="number"
                                                             class="form-control" placeholder="Please enter Observation here"
-                                                            [ngClass]="{ 'is-invalid': submitted && a.get('inspectionPassedOb')?.errors}">
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('inspectionPassedOb')?.errors}" style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('inspectionPassedOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('inspectionPassedOb')?.errors?.required">
@@ -2694,7 +2691,7 @@
                                                         </div>
                                                         <input [readonly]="isEditable" formControlName="inspectionFailedReOb" type="number"
                                                             class="form-control" placeholder="Please enter Observation here" (keyup)="validationChangeClampsKey($event,q,'inspectionFailedReRe')"
-                                                            [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedReOb')?.errors}">
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedReOb')?.errors}" style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('inspectionFailedReOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('inspectionFailedReOb')?.errors?.required">
@@ -2742,9 +2739,9 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>
+                                            <td style="width: 55rem;">
                                                 <select class="form-control" (change)="onChangeExpansion($event,q)"  formControlName="airExpansionAvailabilityOb"
-                                                [ngClass]="{ 'is-invalid': submitted && q.get('airExpansionAvailabilityOb')?.errors }">
+                                                [ngClass]="{ 'is-invalid': submitted && q.get('airExpansionAvailabilityOb')?.errors }" style="height: 3rem;">
                                                     <option value="" selected>Select Option</option>
                                                     <option value="Applicable" >Applicable </option>
                                                     <option value="Not applicable" >Not applicable</option>
@@ -2785,7 +2782,7 @@
                                                             </span>
                                                         </div>
                                                             <select class="form-control" formControlName="physicalInspectionOb" [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionOb')?.errors}"
-                                                            (change)="validationChangeExpansion($event,q,'physicalInspectionRe')">
+                                                            (change)="validationChangeExpansion($event,q,'physicalInspectionRe')" style="height: 3rem;">
                                                                 <option value="" selected>Select Option</option>
                                                                 <option value="Physically good" >Physically good</option>
                                                                 <option value="Not good" >Not good</option>
@@ -2823,7 +2820,8 @@
                                                             </span>
                                                         </div>
                                                             <select class="form-control" formControlName="strightConnectorPiecOb" 
-                                                            (change)="validationChangeExpansion($event,q,'strightConnectorPiecRe')" [ngClass]="{ 'is-invalid': submitted && a.get('strightConnectorPiecOb')?.errors}">
+                                                            (change)="validationChangeExpansion($event,q,'strightConnectorPiecRe')" 
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('strightConnectorPiecOb')?.errors}" style="height: 3rem;">
                                                                 <option value="" selected>Select Option</option>
                                                                 <option value="Yes" >Yes</option>
                                                                 <option value="No" >No</option>
@@ -2860,7 +2858,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                            <select class="form-control" formControlName="materialOfConnectorOb" [ngClass]="{ 'is-invalid': submitted && a.get('materialOfConnectorOb')?.errors}">
+                                                            <select class="form-control" formControlName="materialOfConnectorOb" [ngClass]="{ 'is-invalid': submitted && a.get('materialOfConnectorOb')?.errors}" style="height: 3rem;">
                                                                 <option value="" selected>Select Option</option>
                                                                 <option value="copper" >copper</option>
                                                                 <option value="copper bonded steel" >copper bonded steel</option>
@@ -2900,7 +2898,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                            <select class="form-control" formControlName="materialOfExpansionOb" [ngClass]="{ 'is-invalid': submitted && a.get('materialOfExpansionOb')?.errors}">
+                                                            <select class="form-control" formControlName="materialOfExpansionOb" [ngClass]="{ 'is-invalid': submitted && a.get('materialOfExpansionOb')?.errors}" style="height: 3rem;">
                                                                 <option value="" selected>Select Option</option>
                                                                 <option value="Copper" >Copper</option>
                                                                 <option value="Copper bonded steel" >Copper bonded steel</option>
@@ -2942,7 +2940,7 @@
                                                         </div>
                                                         <input [readonly]="isEditable" formControlName="intervalBwExpansionOb" type="number"
                                                             class="form-control" placeholder="Please enter Observation here"
-                                                            [ngClass]="{ 'is-invalid': submitted && a.get('intervalBwExpansionOb')?.errors}">
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('intervalBwExpansionOb')?.errors}" style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('intervalBwExpansionOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('intervalBwExpansionOb')?.errors?.required">
@@ -2974,7 +2972,7 @@
                                                         </div>
                                                         <input [readonly]="isEditable" formControlName="totalNoExpansionOb" type="number"
                                                             class="form-control" placeholder="Please enter Observation here"
-                                                            [ngClass]="{ 'is-invalid': submitted && a.get('totalNoExpansionOb')?.errors}">
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('totalNoExpansionOb')?.errors}" style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('totalNoExpansionOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('totalNoExpansionOb')?.errors?.required">
@@ -3006,7 +3004,7 @@
                                                         </div>
                                                         <input [readonly]="isEditable" formControlName="inspectionNoOb" type="number"
                                                             class="form-control" placeholder="Please enter Observation here"
-                                                            [ngClass]="{ 'is-invalid': submitted && a.get('inspectionNoOb')?.errors}">
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('inspectionNoOb')?.errors}" style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('inspectionNoOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('inspectionNoOb')?.errors?.required">
@@ -3039,7 +3037,7 @@
                                                         </div>
                                                         <input [readonly]="isEditable" formControlName="inspectionPassedNoOb" type="number"
                                                             class="form-control" placeholder="Please enter Observation here"
-                                                            [ngClass]="{ 'is-invalid': submitted && a.get('inspectionPassedNoOb')?.errors}">
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('inspectionPassedNoOb')?.errors}" style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('inspectionPassedNoOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('inspectionPassedNoOb')?.errors?.required">
@@ -3072,7 +3070,7 @@
                                                         </div>
                                                         <input [readonly]="isEditable" formControlName="inspectionFailedNoOb" type="number"
                                                             class="form-control" placeholder="Please enter Observation here" (keyup)="validationChangeExpansionKey($event,q,'inspectionFailedNoRe')"
-                                                            [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedNoOb')?.errors}">
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedNoOb')?.errors}" style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('inspectionFailedNoOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('inspectionFailedNoOb')?.errors?.required">
@@ -3116,9 +3114,9 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>
+                                            <td style="width: 55rem;">
                                                 <select class="form-control" (change)="onChangeConnectors($event,q)" formControlName="airConnectorsAvailabilityOb"
-                                                [ngClass]="{ 'is-invalid': submitted && q.get('airConnectorsAvailabilityOb')?.errors }">
+                                                [ngClass]="{ 'is-invalid': submitted && q.get('airConnectorsAvailabilityOb')?.errors }" style="height: 3rem;">
                                                     <option value="" selected>Select Option</option>
                                                     <option value="Applicable" >Applicable </option>
                                                     <option value="Not applicable" >Not applicable</option>
@@ -3159,7 +3157,7 @@
                                                             </span>
                                                         </div>
                                                             <select class="form-control" formControlName="physicalInspectionOb"
-                                                            (change)="validationChangeConnectors($event,q,'physicalInspectionRe')"  [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionOb')?.errors}">
+                                                            (change)="validationChangeConnectors($event,q,'physicalInspectionRe')" [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionOb')?.errors}" style="height: 3rem;">
                                                                 <option value="" selected>Select Option</option>
                                                                 <option value="Physically good" >Physically good</option>
                                                                 <option value="Not good" >Not good</option>
@@ -3197,7 +3195,7 @@
                                                             </span>
                                                         </div>
                                                             <select class="form-control" formControlName="checkConnectionConnectorsOb" 
-                                                            (change)="validationChangeConnectors($event,q,'checkConnectionConnectorsRe')" [ngClass]="{ 'is-invalid': submitted && a.get('checkConnectionConnectorsOb')?.errors}">
+                                                            (change)="validationChangeConnectors($event,q,'checkConnectionConnectorsRe')" [ngClass]="{ 'is-invalid': submitted && a.get('checkConnectionConnectorsOb')?.errors}" style="height: 3rem;">
                                                                 <option value="" selected>Select Option</option>
                                                                 <option value="Physically good" >Physically good</option>
                                                                 <option value="Not good" >Not good</option>
@@ -3234,7 +3232,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                            <select class="form-control" formControlName="materialOfConnectorOb" [ngClass]="{ 'is-invalid': submitted && a.get('materialOfConnectorOb')?.errors}">
+                                                            <select class="form-control" formControlName="materialOfConnectorOb" [ngClass]="{ 'is-invalid': submitted && a.get('materialOfConnectorOb')?.errors}" style="height: 3rem;">
                                                                 <option value="" selected>Select Option</option>
                                                                 <option value="copper" >copper</option>
                                                                 <option value="copper bonded steel" >copper bonded steel</option>
@@ -3276,7 +3274,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                            <select class="form-control" formControlName="strightConnectorOb" [ngClass]="{ 'is-invalid': submitted && a.get('strightConnectorOb')?.errors}">
+                                                            <select class="form-control" formControlName="strightConnectorOb" [ngClass]="{ 'is-invalid': submitted && a.get('strightConnectorOb')?.errors}" style="height: 3rem;">
                                                                 <option value="" selected>Select Option</option>
                                                                 <option value="copper" >copper</option>
                                                                 <option value="copper bonded steel" >copper bonded steel</option>
@@ -3318,7 +3316,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                            <select class="form-control" formControlName="tConnectorOb" [ngClass]="{ 'is-invalid': submitted && a.get('tConnectorOb')?.errors}">
+                                                            <select class="form-control" formControlName="tConnectorOb" [ngClass]="{ 'is-invalid': submitted && a.get('tConnectorOb')?.errors}" style="height: 3rem;">
                                                                 <option value="" selected>Select Option</option>
                                                                 <option value="copper" >copper</option>
                                                                 <option value="copper bonded steel" >copper bonded steel</option>
@@ -3360,7 +3358,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                            <select class="form-control" formControlName="lConnectorOb" [ngClass]="{ 'is-invalid': submitted && a.get('lConnectorOb')?.errors}">
+                                                            <select class="form-control" formControlName="lConnectorOb" [ngClass]="{ 'is-invalid': submitted && a.get('lConnectorOb')?.errors}" style="height: 3rem;">
                                                                 <option value="" selected>Select Option</option>
                                                                 <option value="copper" >copper</option>
                                                                 <option value="copper bonded steel" >copper bonded steel</option>
@@ -3404,7 +3402,7 @@
                                                         </div>
                                                         <input [readonly]="isEditable" formControlName="totalNoConnectorOb" type="number"
                                                             class="form-control" placeholder="Please enter Observation here"
-                                                            [ngClass]="{ 'is-invalid': submitted && a.get('totalNoConnectorOb')?.errors}">
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('totalNoConnectorOb')?.errors}" style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('totalNoConnectorOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('totalNoConnectorOb')?.errors?.required">
@@ -3436,7 +3434,7 @@
                                                         </div>
                                                         <input [readonly]="isEditable" formControlName="inspectionNoOb" type="number"
                                                             class="form-control" placeholder="Please enter Observation here"
-                                                            [ngClass]="{ 'is-invalid': submitted && a.get('inspectionNoOb')?.errors}">
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('inspectionNoOb')?.errors}" style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('inspectionNoOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('inspectionNoOb')?.errors?.required">
@@ -3468,7 +3466,7 @@
                                                         </div>
                                                         <input [readonly]="isEditable" formControlName="inspectionPassedNoOb" type="number"
                                                             class="form-control" placeholder="Please enter Observation here"
-                                                            [ngClass]="{ 'is-invalid': submitted && a.get('inspectionPassedNoOb')?.errors}">
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('inspectionPassedNoOb')?.errors}" style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('inspectionPassedNoOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('inspectionPassedNoOb')?.errors?.required">
@@ -3500,7 +3498,7 @@
                                                         </div>
                                                         <input [readonly]="isEditable" formControlName="inspectionFailedOb" type="number"
                                                             class="form-control" placeholder="Please enter Observation here" (keyup)="validationChangeConnectorsKey($event,q,'inspectionFailedRe')"
-                                                            [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedOb')?.errors}">
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedOb')?.errors}" style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('inspectionFailedOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('inspectionFailedOb')?.errors?.required">

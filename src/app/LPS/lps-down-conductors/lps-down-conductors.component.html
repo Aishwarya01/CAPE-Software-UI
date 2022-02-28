@@ -320,7 +320,7 @@
                                     <tr>
                                         <td style="width: 55rem;">
                                             <select class="form-control"  (change)="onChangeDownCon($event,q)" formControlName="downConductorAvailabilityOb"
-                                            [ngClass]="{ 'is-invalid': submitted && q.get('downConductorAvailabilityOb')?.errors }" style="height: 3rem;">
+                                            [ngClass]="{ 'is-invalid': submitted && q.get('downConductorAvailabilityOb')?.errors }" style="height: 3rem;" >
                                                 <option value="" selected>Select Option</option>
                                                 <option value="Applicable">Applicable </option>
                                                 <option value="not applicable in case of natural down conductors">not applicable in case of natural down conductors</option>
@@ -331,7 +331,7 @@
                                         </td>
                                         <td>
                                             <textarea [readonly]="isEditable" formControlName="downConductorAvailabilityRem" type="text"
-                                                class="form-control" ></textarea>
+                                                class="form-control" placeholder="Please enter Remarks here"></textarea>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -973,7 +973,7 @@
                                         </td>
                                         <td>
                                             <textarea [readonly]="isEditable" formControlName="bridgingDescriptionAvailabilityRem" type="text"
-                                                class="form-control" ></textarea>
+                                            placeholder="Please enter Remarks here" class="form-control" ></textarea>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -1331,7 +1331,7 @@
                                         </td>
                                         <td>
                                             <textarea [readonly]="isEditable" formControlName="holderAvailabilityRem" type="text"
-                                                class="form-control" ></textarea>
+                                            placeholder="Please enter Remarks here" class="form-control" ></textarea>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -1689,7 +1689,7 @@
                                         </td>
                                         <td>
                                             <textarea [readonly]="isEditable" formControlName="connectorsAvailabilityRem" type="text"
-                                                class="form-control" ></textarea>
+                                            placeholder="Please enter Remarks here" class="form-control" ></textarea>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -2014,7 +2014,7 @@
                                         </td>
                                         <td>
                                             <textarea [readonly]="isEditable || q.get('lightningCounterAvailabilityRem')?.value ==='As per latest standard IS/IEC 62305,installation of single lightning counter for whole building is mandatory'" formControlName="lightningCounterAvailabilityRem" type="text"
-                                                class="form-control" ></textarea>
+                                            placeholder="Please enter Remarks here" class="form-control" ></textarea>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -2426,7 +2426,7 @@
                                         <td>
                                             <textarea [readonly]="isEditable || q.get('testingJointAvailabilityRem')?.value === 'As per latest standard IS/IEC62305, installation of test joint at each down conductor is mandatory for the purpose of testing of down conductors and earth electrode as well'" 
                                             formControlName="testingJointAvailabilityRem" type="text"
-                                                class="form-control" ></textarea>
+                                            placeholder="Please enter Remarks here" class="form-control" ></textarea>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -2850,7 +2850,7 @@
                                         </td>
                                         <td>
                                             <textarea [readonly]="isEditable" formControlName="downConductorTestingAvailabilityRem" type="text"
-                                                class="form-control" ></textarea>
+                                            placeholder="Please enter Remarks here"  class="form-control" ></textarea>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -2867,19 +2867,19 @@
                         <div class="row" style="margin-top: 10px;" *ngIf="q.get('downConductorTestingAvailabilityOb')?.value === 'In Scope'">
                             <div class="col-sm-12">
                             <div class="table-responsive" style="overflow-x: unset;">
-                                <table class="table TableBorder" formArrayName="downConductorTesting" *ngFor="let a of downConductorTestingControls(q); let i = index">
-                                    <div class="form-group" [formGroupName]="i">
+                                <table class="table TableBorder">
                                     <tbody>
-                                        <div class="form-group">
                                             <thead>
-                                                <th>SI.No</th>
-                                                <th>Reference</th>
-                                                <th>Length in m</th>
-                                                <th>Resistance in mΩ</th>
-                                                <th>Remarks</th>
+                                                <th style="width: 7rem;">SI.No</th>
+                                                <th style="width: 27.5rem;">Reference</th>
+                                                <th style="width: 14.5rem;">Length in m</th>
+                                                <th style="width: 15rem;">Resistance in mΩ</th>
+                                                <th style="width: 35rem;">Remarks</th>
                                             </thead>
-
-                                            <tr>
+                                            <!-- <div formArrayName="downConductorTesting" *ngFor="let a of downConductorTestingControls(q); let i = index">
+                                                <div class="form-group" [formGroupName]="i"> -->
+                                            <tr formArrayName="downConductorTesting" *ngFor="let a of downConductorTestingControls(q); let i = index">
+                                                <div class="form-group" [formGroupName]="i">
                                                 <td style="width: 8rem;">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
@@ -2948,7 +2948,7 @@
                                                     </div>
                                                     </div>
                                                 </td>
-                                                <td style="width: 27rem;">
+                                                <td style="width: 35rem;">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">
@@ -2965,18 +2965,17 @@
                                                     </div>
                                                     </div>
                                                 </td>
+                                                    <div class="row" style="float: right;margin-right: 10px; margin-top: 5px;">
+                                                        <mat-icon class="mousechange" class="add" type="button" [ngClass]="{'disableForm':isEditable}" (click)="addDownTesting(q)" *ngIf="downConductorTestingControls(q).length == i+1" style="cursor: pointer;"  title="add another Section">add_box
+                                                        </mat-icon>
+                    
+                                                        <mat-icon class="mousechange" class="dlt" type="button" title="delete" [ngClass]="{'disableForm':isEditable}" *ngIf="downConductorTestingControls(q).length > 1"(click)="removeDownTesting(q,i)" style="cursor: pointer;float: right;">remove_circle_outline
+                                                        </mat-icon>
+                                                    </div>
+                                                </div>
                                             </tr>
-                                        </div>
-                                    </tbody>
-                                    </div>
-                                    <mat-icon class="mousechange" class="add" type="button" [ngClass]="{'disableForm':isEditable}" (click)="addDownTesting(q)" *ngIf="downConductorTestingControls(q).length == i+1" 
-                           style="margin-inline: 1rem;float: right;position: relative;"  title="add another Section">
-                         add_box
-                        </mat-icon>
-                        <mat-icon class="mousechange" class="dlt" type="button" title="delete" [ngClass]="{'disableForm':isEditable}" *ngIf="downConductorTestingControls(q).length > 1"
-                            (click)="removeDownTesting(q,i)" style="margin-inline: 0rem;float: right;position: relative;">
-                        delete
-                        </mat-icon>
+                                        
+                                    </tbody>                                      
                                 </table>
                             </div>
                             </div>
