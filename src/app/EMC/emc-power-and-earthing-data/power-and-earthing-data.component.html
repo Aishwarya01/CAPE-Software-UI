@@ -319,7 +319,7 @@
                                     </div>
                                     </div>
                                     <div class="col-md-3">
-                                      <button  class="btn btn-success" (click)="onUpload()">
+                                      <button  class="btn btn-success" (click)="onUpload(contentSpinner)">
                                             Upload
                                       </button>
                                     </div>
@@ -328,13 +328,11 @@
                                               Download
                                         </button>
                                       </div>
-                                      <div class="col-md-3">
-                                        <button class="btn btn-success" (click)="deleteFile()">
-                                              Delete
-                                        </button>
-                                        <div *ngIf="filesuccess" style="text-align: center;">
-                                            <span class="successshow">{{filesuccessMsg}}</span>
-                                        </div>
+                                      <div>
+                                        <mat-icon class="mousechange" class="dlt" type="button" title="delete" 
+                                       (click)="deleteFile(contentSpinnerDelete)"
+                                        style="margin-inline: 0rem;float: left;position: relative;" title="delete" >delete</mat-icon>
+                                       
                                       </div>
                                 </div>
                             </div>
@@ -1373,3 +1371,56 @@
         </div>
 
     </ng-template>
+    <ng-template #contentSpinner let-modal>
+        <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinner" color="primary"
+        [mode]="mode"
+        value="50"
+       diameter="50">>
+        </mat-progress-spinner>
+        <div class="modal-body" *ngIf="popup">
+            <div class="centre-text m-btm30">
+                <div *ngIf="filesuccess" style="text-align: center;">
+                    <span class="successshow">{{filesuccessMsg}}</span>
+                </div>
+                <div *ngIf="Error" style="text-align: center;">
+                    <span class="errorshow">{{errorMsg}}</span>
+                </div>
+            </div>
+        </div>
+        <br>
+    
+        <button type="button" *ngIf="popup" style="text-align: center;margin-left:180px;width:20%" class="close"
+            class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
+             >
+            <span (click)="closeModalDialogFile()" aria-hidden="true">Ok</span>
+        </button>
+    </ng-template>
+
+    <ng-template #contentSpinnerDelete let-modal>
+        <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinnerDelete" color="primary"
+        [mode]="mode"
+        value="50"
+       diameter="50">>
+        </mat-progress-spinner>
+        <div class="modal-body" *ngIf="popupDelete">
+            <div class="centre-text m-btm30">
+                <div *ngIf="fileDeleteSuccess" style="text-align: center;">
+                    <span class="successshow">{{fileDeletesuccessMsg}}</span>
+                </div>
+                <div *ngIf="Error" style="text-align: center;">
+                    <span class="errorshow">{{errorMsg}}</span>
+                </div>
+            </div>
+        </div>
+        <br>
+    
+        <button type="button" *ngIf="popupDelete" style="text-align: center;margin-left:180px;width:20%" class="close"
+            class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
+             >
+            <span (click)="closeModalDialogFile()" aria-hidden="true">Ok</span>
+        </button>
+    </ng-template>
+    
+    
+
+    

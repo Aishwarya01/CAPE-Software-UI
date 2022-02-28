@@ -6,6 +6,7 @@ import { EmcPowerAndEarthingData } from 'src/app/EMC_Model/emc-power-and-earthin
 import { EmcPowerAndEarthingDataService } from 'src/app/EMC_Services/emc-power-and-earthing-data.service';
 import { FileUploadServiceService } from 'src/app/EMC_Services/file-upload-service.service';
 import { GlobalsService } from 'src/app/globals.service';
+import { MatSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-power-and-earthing-data',
@@ -33,6 +34,10 @@ export class PowerAndEarthingDataComponent implements OnInit {
   successMsg: string = "";
   errorMsg: string = "";
   finalSpinner: boolean = true;
+  finalSpinnerDelete: boolean = true;
+  popupDelete: boolean = false;
+  fileDeleteSuccess: boolean = false;
+  fileDeletesuccessMsg: string = "";
   validationErrorTab: boolean = false;
   validationErrorMsgTab: string = "";
   validationError: boolean = false;
@@ -46,6 +51,8 @@ export class PowerAndEarthingDataComponent implements OnInit {
   emcId: number = 0;
   file!: any ; // Variable to store file
   uploadDisable: boolean=true;
+  mode: any= 'indeterminate';
+
  
   constructor(
     private formBuilder: FormBuilder,
@@ -79,7 +86,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
       powerIncomingAmps: ['', Validators.required],
       powerNeutral: ['', Validators.required],
       psEarthing: ['', Validators.required],
-      peAttachement: [''],
+      peAttachement: ['', Validators.required],
       dedicatedTransfermation: ['', Validators.required],
       dedicatedTransfermationOtherBuilding: ['', Validators.required],
       typeOFIncoming: ['', Validators.required],
@@ -175,6 +182,19 @@ export class PowerAndEarthingDataComponent implements OnInit {
       this.modalService.open(content2, { centered: true, backdrop: 'static' });
       this.modalReference.close();
     }
+  }
+  closeModalDialogFile(){
+    this.finalSpinner = true;
+    this.popup = false;
+    if (this.errorMsg != "") {
+      this.Error = false;
+      this.modalService.dismissAll((this.errorMsg = ""));
+    }
+    else {
+      this.success = false;
+      this.modalService.dismissAll((this.successMsg = ""));
+    }
+
   }
 
   closeModalDialog() {
@@ -421,41 +441,65 @@ export class PowerAndEarthingDataComponent implements OnInit {
     }
   }
 
-onUpload() {
-  const formData =new FormData();
-    for(let f of this.file) {
-      formData.append('file',f,f.name);
-    }
-  this.fileUploadServiceService.uploadFile(formData,this.emcId).subscribe(
-      (data) => {
-        this.uploadDisable=true;
-      },
-      (error) => {
-        
-
-      },
-      )
+onUpload(contentSpinner:any) {
+  if(this.file != undefined) {
+    this.modalService.open(contentSpinner, {
+      centered: true, 
+      size: 'md',
+      backdrop: 'static'
+     });
+    const formData =new FormData();
+      for(let f of this.file) {
+        formData.append('file',f,f.name);
+      }
+      setTimeout(()=>{
+        this.fileUploadServiceService.uploadFile(formData,this.emcId).subscribe(
+          (data) => {
+            this.finalSpinner=false;
+            this.popup=true;
+            this.filesuccess = true;
+            this.filesuccessMsg = "File Upload Successfully";
+          },
+          (error) => {
+            this.finalSpinner=false;
+            this.popup=true;
+            this.filesuccess =false;
+         this.filesuccessMsg = "";
+           },
+          )
+              
+          }, 1000);
+    
+  }
+  
     }
     onDownload(){
       this.fileUploadServiceService.downloadFile(this.emcId);
 
     }
-    deleteFile(){
+    deleteFile(contentSpinnerDelete:any){
+        this.modalService.open(contentSpinnerDelete, {
+          centered: true, 
+          size: 'md',
+          backdrop: 'static'
+         });
+        
+         setTimeout(()=>{ 
       this.fileUploadServiceService.deleteFile(this.emcId).subscribe(
         (data:any) => {
-          this.filesuccess = true;
-          this.filesuccessMsg = data;
+          this.finalSpinnerDelete=false;
+          this.popupDelete=true;
+          this.fileDeleteSuccess = true;
+          this.fileDeletesuccessMsg = data;
         
         },
         (error) => {
-         
-          
-  
         },
         )
-
+      }, 1000);
     
     }
+  
 
   savePowerAndEarthingData(flag: any) {
     this.submitted = true;
