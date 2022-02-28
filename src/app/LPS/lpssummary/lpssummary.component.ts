@@ -946,7 +946,7 @@ export class LpssummaryComponent implements OnInit {
               for(let j = 0; j < this.airBasicName.length; j++){
                 this.airTerminationArr.push(this.createAirTermination());
                 this.airTerminationArr.controls[0].controls.heading.setValue('Basic Details Observation');
-                this.airTerminationArr.controls[0].controls.observationComponentDetails.setValue('airBasicDescription' + index);
+                this.airTerminationArr.controls[index].controls.observationComponentDetails.setValue('airBasicDescription' + index);
                 this.airTerminationArr.controls[index].controls.serialNo.setValue(index+1);
                 if(i[this.airBasicName[j]]==""){
                   this.airTerminationArr.controls[index].controls.observation.setValue('No Remarks Provided');
@@ -964,8 +964,8 @@ export class LpssummaryComponent implements OnInit {
             for(let j = 0; j < this.airVerticalName.length; j++){
             this.airVerticalArr.push(this.createAirVertical());
             this.airVerticalArr.controls[0].controls.heading.setValue('Vertical Observation');
-            this.airTerminationArr.controls[0].controls.observationComponentDetails.setValue('lpsVerticalAirTermination' + index);
-            this.airVerticalArr.controls[index1].controls.serialNo.setValue(index1+1);
+            this.airVerticalArr.controls[index1].controls.observationComponentDetails.setValue('lpsVerticalAirTermination' + index1);
+            this.airVerticalArr.controls[index1].controls.serialNo.setValue(index1 + 1);
             if(i[this.airVerticalName[j]]==""){
               this.airVerticalArr.controls[index1].controls.observation.setValue('No Remarks Provided');
             }
@@ -987,8 +987,8 @@ export class LpssummaryComponent implements OnInit {
           if(this.airVerticalListName[j]=='materialOfTerminalRe'){
             this.airVerticalListArr.controls[index0].controls.heading.setValue('Vertical List-' + vatListIndex);
           }
-          this.airVerticalListArr.controls[0].controls.observationComponentDetails.setValue('verticalAirTerminationList' + index0);
-          this.airVerticalListArr.controls[index0].controls.serialNo.setValue(indexVertical+1);
+          this.airVerticalListArr.controls[index0].controls.observationComponentDetails.setValue('verticalAirTerminationList' + index0);
+          this.airVerticalListArr.controls[index0].controls.serialNo.setValue(indexVertical + 1);
           if(i[this.airVerticalListName[j]]==""){
             this.airVerticalListArr.controls[index0].controls.observation.setValue('No Remarks Provided');
           }
@@ -1001,25 +1001,25 @@ export class LpssummaryComponent implements OnInit {
           indexVertical=0;
           vatListIndex++;
     }
-      //mesh
-      this.airMeshArr=this.summaryArr.controls[w].controls.airMesh as FormArray;
-      let index2 =0;
-      for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airMeshDescription){
-        for(let j = 0; j < this.airMeshName.length; j++){
-          this.airMeshArr.push(this.createAirMesh());
-          this.airMeshArr.controls[0].controls.heading.setValue('Mesh Observation');
-          this.airTerminationArr.controls[0].controls.observationComponentDetails.setValue('airMeshDescription' + index);
+    //mesh
+    this.airMeshArr=this.summaryArr.controls[w].controls.airMesh as FormArray;
+    let index2 =0;
+    for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airMeshDescription){
+      for(let j = 0; j < this.airMeshName.length; j++){
+        this.airMeshArr.push(this.createAirMesh());
+        this.airMeshArr.controls[0].controls.heading.setValue('Mesh Observation');
+        this.airMeshArr.controls[index2].controls.observationComponentDetails.setValue('airMeshDescription' + index2);
 
-          this.airMeshArr.controls[index2].controls.serialNo.setValue(index2+1);
-          if(i[this.airMeshName[j]]==""){
-            this.airMeshArr.controls[index2].controls.observation.setValue('No Remarks Provided');
-          }
-          else{
-            this.airMeshArr.controls[index2].controls.observation.setValue(i[this.airMeshName[j]]);
-          }
-          index2++;
+        this.airMeshArr.controls[index2].controls.serialNo.setValue(index2+1);
+        if(i[this.airMeshName[j]]==""){
+          this.airMeshArr.controls[index2].controls.observation.setValue('No Remarks Provided');
         }
-    }
+        else{
+          this.airMeshArr.controls[index2].controls.observation.setValue(i[this.airMeshName[j]]);
+        }
+        index2++;
+      }
+  }
     //holder
     this.airHolderArr=this.summaryArr.controls[w].controls.airHolder as FormArray;
     let index3 =0;
@@ -1027,7 +1027,7 @@ export class LpssummaryComponent implements OnInit {
       for(let j = 0; j < this.airHolderName.length; j++){
       this.airHolderArr.push(this.createAirHolder());
       this.airHolderArr.controls[0].controls.heading.setValue('Holder Observation');
-      this.airTerminationArr.controls[0].controls.observationComponentDetails.setValue('airHolderDescription' + index);
+      this.airHolderArr.controls[index3].controls.observationComponentDetails.setValue('airHolderDescription' + index3);
       this.airHolderArr.controls[index3].controls.serialNo.setValue(index3+1);
       if(i[this.airHolderName[j]]==""){
         this.airHolderArr.controls[index3].controls.observation.setValue('No Remarks Provided');
@@ -1037,87 +1037,87 @@ export class LpssummaryComponent implements OnInit {
       }
       index3++;
       }
-}
-//holder list
-this.airHolderListArr=this.summaryArr.controls[w].controls.airHolderList as FormArray;
-let index01 =0;
-let holderListIndex=1;
-let indexHolder=0;
-for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription[0].airHolderList)
-{
-  for(let j = 0; j < this.airHolderListName.length; j++){
-    this.airHolderListArr.push(this.createAirHolderList());
-    if(this.airHolderListName[j]=='holderTypeRe'){
-    this.airHolderListArr.controls[index01].controls.heading.setValue('Holder List-' + holderListIndex);
     }
-    this.airHolderListArr.controls[0].controls.observationComponentDetails.setValue('airHolderList' + index01);
-    this.airHolderListArr.controls[index01].controls.serialNo.setValue(indexHolder+1);
-    if(i[this.airHolderListName[j]]==""){
-      this.airHolderListArr.controls[index01].controls.observation.setValue('No Remarks Provided');
+    //holder list
+    this.airHolderListArr=this.summaryArr.controls[w].controls.airHolderList as FormArray;
+    let index01 =0;
+    let holderListIndex=1;
+    let indexHolder=0;
+    for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription[0].airHolderList)
+    {
+      for(let j = 0; j < this.airHolderListName.length; j++){
+        this.airHolderListArr.push(this.createAirHolderList());
+        if(this.airHolderListName[j]=='holderTypeRe'){
+        this.airHolderListArr.controls[index01].controls.heading.setValue('Holder List-' + holderListIndex);
+        }
+        this.airHolderListArr.controls[index01].controls.observationComponentDetails.setValue('airHolderList' + index01);
+        this.airHolderListArr.controls[index01].controls.serialNo.setValue(indexHolder+1);
+        if(i[this.airHolderListName[j]]==""){
+          this.airHolderListArr.controls[index01].controls.observation.setValue('No Remarks Provided');
+        }
+        else{
+          this.airHolderListArr.controls[index01].controls.observation.setValue(i[this.airHolderListName[j]]);
+        }
+        index01++;
+        indexHolder++;
+      }
+      indexHolder=0;
+      holderListIndex++;
     }
-    else{
-      this.airHolderListArr.controls[index01].controls.observation.setValue(i[this.airHolderListName[j]]);
+    //clamps
+    this.airClampsArr=this.summaryArr.controls[w].controls.airClamps as FormArray;
+    let index4 =0;
+    for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airClamps){
+      for(let j = 0; j < this.airClampsName.length; j++){
+        this.airClampsArr.push(this.createAirClamps());
+        this.airClampsArr.controls[0].controls.heading.setValue('Clamps Observation');
+        this.airClampsArr.controls[index4].controls.observationComponentDetails.setValue('airClamps' + index4);
+        this.airClampsArr.controls[index4].controls.serialNo.setValue(index4+1);
+        if(i[this.airClampsName[j]]==""){
+          this.airClampsArr.controls[index4].controls.observation.setValue('No Remarks Provided');
+        }
+        else{
+          this.airClampsArr.controls[index4].controls.observation.setValue(i[this.airClampsName[j]]);
+        }
+        index4++;
+      }
     }
-    index01++;
-    indexHolder++;
-  }
-  indexHolder=0;
-  holderListIndex++;
-}
-//clamps
-this.airClampsArr=this.summaryArr.controls[w].controls.airClamps as FormArray;
-let index4 =0;
-for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airClamps){
-  for(let j = 0; j < this.airClampsName.length; j++){
-    this.airClampsArr.push(this.createAirClamps());
-    this.airClampsArr.controls[0].controls.heading.setValue('Clamps Observation');
-    this.airClampsArr.controls[0].controls.observationComponentDetails.setValue('airClamps' + index);
-    this.airClampsArr.controls[index4].controls.serialNo.setValue(index4+1);
-    if(i[this.airClampsName[j]]==""){
-      this.airClampsArr.controls[index4].controls.observation.setValue('No Remarks Provided');
+    //expansion
+    this.airExpansionArr=this.summaryArr.controls[w].controls.airExpansion as FormArray;
+    let index5 =0;
+    for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airExpansion){
+      for(let j = 0; j < this.airExpansionName.length; j++){
+      this.airExpansionArr.push(this.createAirExpansion());
+      this.airExpansionArr.controls[0].controls.heading.setValue('Expansion Observation');
+      this.airExpansionArr.controls[index5].controls.observationComponentDetails.setValue('airExpansion' + index5);
+      this.airExpansionArr.controls[index5].controls.serialNo.setValue(index5+1);
+      if(i[this.airClampsName[j]]==""){
+        this.airExpansionArr.controls[index5].controls.observation.setValue('No Remarks Provided');
+      }
+      else{
+        this.airExpansionArr.controls[index5].controls.observation.setValue(i[this.airExpansionName[j]]);
+      }
+      index5++;
+      }
     }
-    else{
-      this.airClampsArr.controls[index4].controls.observation.setValue(i[this.airClampsName[j]]);
+    //connectors
+    this.airConnectorsArr=this.summaryArr.controls[w].controls.airConnectors as FormArray;
+    let index6 =0;
+    for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airConnectors){
+      for(let j = 0; j < this.airConnectorsName.length; j++){
+      this.airConnectorsArr.push(this.createAirConnectors());
+      this.airConnectorsArr.controls[0].controls.heading.setValue('Connectors Observation');
+      this.airConnectorsArr.controls[index6].controls.observationComponentDetails.setValue('airConnectors' + index6);
+      this.airConnectorsArr.controls[index6].controls.serialNo.setValue(index6+1);
+      if(i[this.airConnectorsName[j]]==""){
+        this.airConnectorsArr.controls[index6].controls.observation.setValue('No Remarks Provided');
+      }
+      else{
+        this.airConnectorsArr.controls[index6].controls.observation.setValue(i[this.airConnectorsName[j]]);
+      }
+      index6++;
+      }
     }
-    index4++;
-  }
-}
-//expansion
-this.airExpansionArr=this.summaryArr.controls[w].controls.airExpansion as FormArray;
-let index5 =0;
-for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airExpansion){
-  for(let j = 0; j < this.airExpansionName.length; j++){
-  this.airExpansionArr.push(this.createAirExpansion());
-  this.airExpansionArr.controls[0].controls.heading.setValue('Expansion Observation');
-  this.airExpansionArr.controls[0].controls.observationComponentDetails.setValue('airExpansion' + index);
-  this.airExpansionArr.controls[index5].controls.serialNo.setValue(index5+1);
-  if(i[this.airClampsName[j]]==""){
-    this.airExpansionArr.controls[index5].controls.observation.setValue('No Remarks Provided');
-  }
-  else{
-    this.airExpansionArr.controls[index5].controls.observation.setValue(i[this.airExpansionName[j]]);
-  }
-  index5++;
-  }
-}
-//connectors
-this.airConnectorsArr=this.summaryArr.controls[w].controls.airConnectors as FormArray;
-let index6 =0;
-for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airConnectors){
-  for(let j = 0; j < this.airConnectorsName.length; j++){
-  this.airConnectorsArr.push(this.createAirConnectors());
-  this.airConnectorsArr.controls[0].controls.heading.setValue('Connectors Observation');
-  this.airConnectorsArr.controls[0].controls.observationComponentDetails.setValue('airConnectors' + index);
-  this.airConnectorsArr.controls[index6].controls.serialNo.setValue(index6+1);
-  if(i[this.airConnectorsName[j]]==""){
-    this.airConnectorsArr.controls[index6].controls.observation.setValue('No Remarks Provided');
-  }
-  else{
-    this.airConnectorsArr.controls[index6].controls.observation.setValue(i[this.airConnectorsName[j]]);
-  }
-  index6++;
-  }
-}
       } 
       //down conductors
       if(this.downConductorData.downConductorReport!=null){
@@ -1127,7 +1127,7 @@ for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airC
             for(let j = 0; j < this.downBasicName.length; j++){
               this.downConductorsBasicArr.push(this.createDownConductorsBasic());
               this.downConductorsBasicArr.controls[0].controls.basicDetailsHeading.setValue('Basic Details Observation');
-              this.downConductorsBasicArr.controls[0].controls.observationComponentDetails.setValue('downConductorDescription' + index);
+              this.downConductorsBasicArr.controls[index].controls.observationComponentDetails.setValue('downConductorDescription' + index);
               this.downConductorsBasicArr.controls[index].controls.serialNo.setValue(index+1);
               if(this.downConductorData.downConductorReport[0].downConductorDescription[w][this.downBasicName[j]]==""){
                 this.downConductorsBasicArr.controls[index].controls.observation.setValue('No Remarks Provided');
@@ -1145,7 +1145,7 @@ for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airC
           for(let j = 0; j < this.downConductorName.length; j++){
           this.downConductorsArr.push(this.createDownConductors());
           this.downConductorsArr.controls[0].controls.heading.setValue('Downconductors Observation');
-          this.downConductorsArr.controls[0].controls.observationComponentDetails.setValue('downConductor' + index);
+          this.downConductorsArr.controls[index1].controls.observationComponentDetails.setValue('downConductor' + index1);
           this.downConductorsArr.controls[index1].controls.serialNo.setValue(index1+1);
           if(i[this.downConductorName[j]]==""){
             this.downConductorsArr.controls[index1].controls.observation.setValue('No Remarks Provided');
@@ -1164,7 +1164,7 @@ for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airC
       for(let j = 0; j < this.bridgingName.length; j++){
         this.bridgingDescArr.push(this.createBridgingDesc());
         this.bridgingDescArr.controls[0].controls.heading.setValue('Bridging Observation');
-        this.bridgingDescArr.controls[0].controls.observationComponentDetails.setValue('bridgingDescription');
+        this.bridgingDescArr.controls[index2].controls.observationComponentDetails.setValue('bridgingDescription' + index2);
 
         this.bridgingDescArr.controls[index2].controls.serialNo.setValue(index2+1);
         if(i[this.bridgingName[j]]==""){
@@ -1183,7 +1183,7 @@ for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airC
     for(let j = 0; j < this.downHolderName.length; j++){
     this.downHoldersArr.push(this.createDownHolders());
     this.downHoldersArr.controls[0].controls.heading.setValue('Holder Observation');
-    this.downHoldersArr.controls[0].controls.observationComponentDetails.setValue('holder');
+    this.downHoldersArr.controls[index3].controls.observationComponentDetails.setValue('holder' + index3);
     this.downHoldersArr.controls[index3].controls.serialNo.setValue(index3+1);
     if(i[this.downHolderName[j]]==""){
       this.downHoldersArr.controls[index3].controls.observation.setValue('No Remarks Provided');
@@ -1195,57 +1195,60 @@ for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airC
     }
 }
 
-//connectors
-this.downConnectorsArr=this.summaryArr.controls[w].controls.downConnectors as FormArray;
-let index4 =0;
-for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].connectors){
-for(let j = 0; j < this.connectorsName.length; j++){
-  this.downConnectorsArr.push(this.createDownConnectors());
-  this.downConnectorsArr.controls[0].controls.heading.setValue('Connectors Observation');
-  this.downConnectorsArr.controls[index4].controls.serialNo.setValue(index4+1);
-  if(i[this.connectorsName[j]]==""){
-    this.downConnectorsArr.controls[index4].controls.observation.setValue('No Remarks Provided');
-  }
-  else{
-    this.downConnectorsArr.controls[index4].controls.observation.setValue(i[this.connectorsName[j]]);
-  }
-  index4++;
-}
-}
-//testingJoint
-this.testingJointArr=this.summaryArr.controls[w].controls.testingJoint as FormArray;
-let index5 =0;
-for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].testingJoint){
-for(let j = 0; j < this.testingJointName.length; j++){
-this.testingJointArr.push(this.createTestingJoints());
-this.testingJointArr.controls[0].controls.heading.setValue('TestingJoint Observation');
-this.testingJointArr.controls[index5].controls.serialNo.setValue(index5+1);
-if(i[this.testingJointName[j]]==""){
-  this.testingJointArr.controls[index5].controls.observation.setValue('No Remarks Provided');
-}
-else{
-  this.testingJointArr.controls[index5].controls.observation.setValue(i[this.testingJointName[j]]);
-}
-index5++;
-}
-}
-//lightingCounter
-this.lightingCounterArr=this.summaryArr.controls[w].controls.lightingCounter as FormArray;
-let index6 =0;
-for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].lightningCounter){
-for(let j = 0; j < this.lightingCounterName.length; j++){
-this.lightingCounterArr.push(this.createLightingCounter());
-this.lightingCounterArr.controls[0].controls.heading.setValue('LightningCounter Observation');
-this.lightingCounterArr.controls[index6].controls.serialNo.setValue(index6+1);
-if(i[this.lightingCounterName[j]]==""){
-  this.lightingCounterArr.controls[index6].controls.observation.setValue('No Remarks Provided');
-}
-else{
-  this.lightingCounterArr.controls[index6].controls.observation.setValue(i[this.lightingCounterName[j]]);
-}
-index6++;
-}
-}
+    //connectors
+    this.downConnectorsArr=this.summaryArr.controls[w].controls.downConnectors as FormArray;
+    let index4 =0;
+    for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].connectors){
+    for(let j = 0; j < this.connectorsName.length; j++){
+      this.downConnectorsArr.push(this.createDownConnectors());
+      this.downConnectorsArr.controls[0].controls.heading.setValue('Connectors Observation' + index4);
+      this.downConnectorsArr.controls[index4].controls.observationComponentDetails.setValue('connectors' + index4);
+      this.downConnectorsArr.controls[index4].controls.serialNo.setValue(index4+1);
+      if(i[this.connectorsName[j]]==""){
+        this.downConnectorsArr.controls[index4].controls.observation.setValue('No Remarks Provided');
+      }
+      else{
+        this.downConnectorsArr.controls[index4].controls.observation.setValue(i[this.connectorsName[j]]);
+      }
+      index4++;
+    }
+    }
+    //testingJoint
+    this.testingJointArr=this.summaryArr.controls[w].controls.testingJoint as FormArray;
+    let index5 =0;
+    for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].testingJoint){
+    for(let j = 0; j < this.testingJointName.length; j++){
+    this.testingJointArr.push(this.createTestingJoints());
+    this.testingJointArr.controls[0].controls.heading.setValue('TestingJoint Observation');
+    this.testingJointArr.controls[index5].controls.observationComponentDetails.setValue('testingJoint' + index5);
+    this.testingJointArr.controls[index5].controls.serialNo.setValue(index5+1);
+    if(i[this.testingJointName[j]]==""){
+      this.testingJointArr.controls[index5].controls.observation.setValue('No Remarks Provided');
+    }
+    else{
+      this.testingJointArr.controls[index5].controls.observation.setValue(i[this.testingJointName[j]]);
+    }
+    index5++;
+    }
+    }
+    //lightingCounter
+    this.lightingCounterArr=this.summaryArr.controls[w].controls.lightingCounter as FormArray;
+    let index6 =0;
+    for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].lightningCounter){
+    for(let j = 0; j < this.lightingCounterName.length; j++){
+    this.lightingCounterArr.push(this.createLightingCounter());
+    this.lightingCounterArr.controls[0].controls.heading.setValue('LightningCounter Observation');
+    this.lightingCounterArr.controls[index6].controls.observationComponentDetails.setValue('lightningCounter' + index6);
+    this.lightingCounterArr.controls[index6].controls.serialNo.setValue(index6+1);
+    if(i[this.lightingCounterName[j]]==""){
+      this.lightingCounterArr.controls[index6].controls.observation.setValue('No Remarks Provided');
+    }
+    else{
+      this.lightingCounterArr.controls[index6].controls.observation.setValue(i[this.lightingCounterName[j]]);
+    }
+    index6++;
+    }
+    }
 
   //downConductorTesting
   this.downConductorTestingArr=this.summaryArr.controls[w].controls.downConductorTesting as FormArray;
@@ -1254,6 +1257,7 @@ index6++;
   for(let j = 0; j < this.downConductorTestingName.length; j++){
   this.downConductorTestingArr.push(this.createDownConductorsTesting());
   this.downConductorTestingArr.controls[0].controls.heading.setValue('DownConductorTesting Observation');
+  this.downConductorTestingArr.controls[index8].controls.observationComponentDetails.setValue('downConductorTesting' + index8);
   this.downConductorTestingArr.controls[index8].controls.serialNo.setValue(index8+1);
   if(i[this.downConductorTestingName[j]]==""){
     this.downConductorTestingArr.controls[index8].controls.observation.setValue('No Remarks Provided');
@@ -1273,7 +1277,7 @@ index6++;
             for(let j = 0; j < this.earthingReportName.length; j++){
               this.earthingReportArr.push(this.createEarthingReport());
               this.earthingReportArr.controls[0].controls.heading.setValue('Basic Details Observation');
-              this.earthingReportArr.controls[0].controls.observationComponentDetails.setValue('earthingLpsDescription' + index);
+              this.earthingReportArr.controls[index].controls.observationComponentDetails.setValue('earthingLpsDescription' + index);
               this.earthingReportArr.controls[index].controls.serialNo.setValue(index+1);
               if(this.earthingData.earthingReport[0].earthingLpsDescription[w][this.earthingReportName[j]]==""){
                 this.earthingReportArr.controls[index].controls.observation.setValue('No Remarks Provided');
@@ -1291,7 +1295,7 @@ index6++;
           for(let j = 0; j < this.earthingDescriptionName.length; j++){
           this.earthingDescArr.push(this.createEarthingDescription());
           this.earthingDescArr.controls[0].controls.heading.setValue('EarthingDescription Observation');
-          this.earthingDescArr.controls[0].controls.observationComponentDetails.setValue('earthingDescription' + index);
+          this.earthingDescArr.controls[index1].controls.observationComponentDetails.setValue('earthingDescription' + index1);
           this.earthingDescArr.controls[index1].controls.serialNo.setValue(index1+1);
           if(i[this.earthingDescriptionName[j]]==""){
             this.earthingDescArr.controls[index1].controls.observation.setValue('No Remarks Provided');
@@ -1314,7 +1318,7 @@ index6++;
        if(this.earthingDescriptionListName[j]=='earthingConductorMaterialInRem'){
          this.earthingDescriptionListArr.controls[index0].controls.heading.setValue('EarthingDescription List-' + vatListIndex);
        }
-       this.earthingDescriptionListArr.controls[0].controls.observationComponentDetails.setValue('earthingDescriptionList' + index0);
+       this.earthingDescriptionListArr.controls[index0].controls.observationComponentDetails.setValue('earthingDescriptionList' + index0);
        this.earthingDescriptionListArr.controls[index0].controls.serialNo.setValue(indexVertical+1);
        if(i[this.earthingDescriptionListName[j]]==""){
          this.earthingDescriptionListArr.controls[index0].controls.observation.setValue('No Remarks Provided');
@@ -1335,7 +1339,7 @@ index6++;
       for(let j = 0; j < this.earthingClampsName.length; j++){
         this.earthingClampsArr.push(this.createEarthingClamps());
         this.earthingClampsArr.controls[0].controls.heading.setValue('EarthingClamps Observation');
-        this.earthingClampsArr.controls[0].controls.observationComponentDetails.setValue('earthingClamps');
+        this.earthingClampsArr.controls[index2].controls.observationComponentDetails.setValue('earthingClamps' + index2);
 
         this.earthingClampsArr.controls[index2].controls.serialNo.setValue(index2+1);
         if(i[this.earthingClampsName[j]]==""){
@@ -1354,7 +1358,7 @@ index6++;
     for(let j = 0; j < this.earthingElectrodeChamberName.length; j++){
     this.earthingElectrodeChamberArr.push(this.createEarthingElectrodeChamber());
     this.earthingElectrodeChamberArr.controls[0].controls.heading.setValue('EarthingElectrodeChamber Observation');
-    this.earthingElectrodeChamberArr.controls[0].controls.observationComponentDetails.setValue('earthingElectrodeChamber');
+    this.earthingElectrodeChamberArr.controls[index3].controls.observationComponentDetails.setValue('earthingElectrodeChamber' + index3);
     this.earthingElectrodeChamberArr.controls[index3].controls.serialNo.setValue(index3+1);
     if(i[this.earthingElectrodeChamberName[j]]==""){
       this.earthingElectrodeChamberArr.controls[index3].controls.observation.setValue('No Remarks Provided');
@@ -1373,6 +1377,7 @@ index6++;
     for(let j = 0; j < this.earthingSystemName.length; j++){
       this.earthingSystemArr.push(this.createEarthingSystem());
       this.earthingSystemArr.controls[0].controls.heading.setValue('EarthingSystem Observation');
+      this.earthingSystemArr.controls[index4].controls.observationComponentDetails.setValue('earthingSystem' + index4);
       this.earthingSystemArr.controls[index4].controls.serialNo.setValue(index4+1);
       if(i[this.earthingSystemName[j]]==""){
         this.earthingSystemArr.controls[index4].controls.observation.setValue('No Remarks Provided');
@@ -1390,6 +1395,7 @@ index6++;
     for(let j = 0; j < this.earthElectrodeTestingName.length; j++){
     this.earthElectrodeTestingArr.push(this.createEarthElectrodeTesting());
     this.earthElectrodeTestingArr.controls[0].controls.heading.setValue('EarthElectrodeTesting Observation');
+    this.earthElectrodeTestingArr.controls[index5].controls.observationComponentDetails.setValue('earthElectrodeTesting' + index5);
     this.earthElectrodeTestingArr.controls[index5].controls.serialNo.setValue(index5+1);
     if(i[this.earthElectrodeTestingName[j]]==""){
       this.earthElectrodeTestingArr.controls[index5].controls.observation.setValue('No Remarks Provided');
@@ -1410,7 +1416,7 @@ index6++;
             for(let j = 0; j < this.spdReportName.length; j++){
               this.spdReportArr.push(this.createSpdReport());
               this.spdReportArr.controls[0].controls.heading.setValue('SPD Details Observation');
-              this.spdReportArr.controls[0].controls.observationComponentDetails.setValue('spdReport' + index);
+              this.spdReportArr.controls[index].controls.observationComponentDetails.setValue('spdReport' + index);
               this.spdReportArr.controls[index].controls.serialNo.setValue(index+1);
               if(this.spdReportData.spdReport[0].spd[w][this.spdReportName[j]]==""){
                 this.spdReportArr.controls[index].controls.observation.setValue('No Remarks Provided');
@@ -1434,7 +1440,7 @@ index6++;
             this.spdListArr.controls[index07].controls.heading.setValue('SPD List-' + vatListIndex);
           }
          // this.spdListArr.controls[0].controls.heading.setValue('SPD List Observation');
-          this.spdListArr.controls[0].controls.observationComponentDetails.setValue('spdDescription' + index07);
+          this.spdListArr.controls[index07].controls.observationComponentDetails.setValue('spdDescription' + index07);
           this.spdListArr.controls[index07].controls.serialNo.setValue(indexVertical+1);
           if(i[this.spdReportListName[j]]==""){
             this.spdListArr.controls[index07].controls.observation.setValue('No Remarks Provided');
@@ -1458,7 +1464,7 @@ index6++;
             for(let j = 0; j < this.separationDistanceName.length; j++){
               this.separationDistanceArr.push(this.createSeparationDistance());
               this.separationDistanceArr.controls[0].controls.heading.setValue('SeparationDistance Observation');
-              this.separationDistanceArr.controls[0].controls.observationComponentDetails.setValue('seperationDistanceDescription' + index);
+              this.separationDistanceArr.controls[index].controls.observationComponentDetails.setValue('seperationDistanceDescription' + index);
               this.separationDistanceArr.controls[index].controls.serialNo.setValue(index+1);
               if(this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription[w][this.separationDistanceName[j]]==""){
                 this.separationDistanceArr.controls[index].controls.observation.setValue('No Remarks Provided');
@@ -1475,7 +1481,7 @@ index6++;
           for(let j = 0; j < this.separateDistanceName.length; j++){
             this.separateDistanceArr.push(this.createSeparateDistance());
             this.separateDistanceArr.controls[0].controls.heading.setValue('SeparateDistance Observation');
-            this.separateDistanceArr.controls[0].controls.observationComponentDetails.setValue('separateDistance' + indexS);
+            this.separateDistanceArr.controls[indexS].controls.observationComponentDetails.setValue('separateDistance' + indexS);
             this.separateDistanceArr.controls[indexS].controls.serialNo.setValue(indexS+1);
             if(i[this.separateDistanceName[j]]==""){
               this.separateDistanceArr.controls[indexS].controls.observation.setValue('No Remarks Provided');
@@ -1492,7 +1498,7 @@ index6++;
         for(let j = 0; j < this.separateDistanceDownName.length; j++){
           this.separationDistanceDownArr.push(this.createSeparationDownDistance());
           this.separationDistanceDownArr.controls[0].controls.heading.setValue('SeparationDistanceDown Observation');
-          this.separationDistanceDownArr.controls[0].controls.observationComponentDetails.setValue('separateDistanceDownConductors' + indexSD);
+          this.separationDistanceDownArr.controls[indexSD].controls.observationComponentDetails.setValue('separateDistanceDownConductors' + indexSD);
           this.separationDistanceDownArr.controls[indexSD].controls.serialNo.setValue(indexSD+1);
           if(i[this.separateDistanceDownName[j]]==""){
             this.separationDistanceDownArr.controls[indexSD].controls.observation.setValue('No Remarks Provided');
@@ -1512,7 +1518,7 @@ index6++;
             for(let j = 0; j < this.earthStudDescName.length; j++){
               this.equiBondingArr.push(this.createEarthStudDesc());
               this.equiBondingArr.controls[0].controls.heading.setValue('EarthStud Observation');
-              this.equiBondingArr.controls[0].controls.observationComponentDetails.setValue('earthStudDescription' + index);
+              this.equiBondingArr.controls[index].controls.observationComponentDetails.setValue('earthStudDescription' + index);
               this.equiBondingArr.controls[index].controls.serialNo.setValue(index+1);
               if(this.equiBondingData.earthStudReport[0].earthStudDescription[w][this.earthStudDescName[j]]==""){
                 this.equiBondingArr.controls[index].controls.observation.setValue('No Remarks Provided');
@@ -1532,10 +1538,10 @@ index6++;
   onSubmit(flag:any){
     this.submitted = true;
     this.summaryForm.value.summaryLpsBuildings;
-    if (this.summaryForm.invalid) 
-    { 
-      return 
-    }
+    // if (this.summaryForm.invalid) 
+    // { 
+    //   return 
+    // }
     this.lpsSummary.userName = this.router.snapshot.paramMap.get('email') || '{}';
     this.lpsSummary.basicLpsId = this.basicLpsId;
     let a:any=[];
@@ -1546,15 +1552,22 @@ index6++;
        summaryLpsObservationArr.push(j);
       }
       for(let j of i.controls.airVertical.controls){
+        if(j.controls.observationComponentDetails.value=='lpsVerticalAirTermination0'){
+          j.controls.summaryLpsInnerObservation.push(i.controls.airVerticalList);
+        }
         summaryLpsObservationArr.push(j);
        }
        for(let j of i.controls.airMesh.controls){
         summaryLpsObservationArr.push(j);
        }
        for(let j of i.controls.airHolder.controls){
+        if(j.controls.observationComponentDetails.value=='airHolderDescription0'){
+          j.controls.summaryLpsInnerObservation.push(i.controls.airHolderList);
+        }
         summaryLpsObservationArr.push(j);
        }
        for(let j of i.controls.airClamps.controls){
+       
         summaryLpsObservationArr.push(j);
        }
        for(let j of i.controls.airExpansion.controls){
@@ -1563,6 +1576,67 @@ index6++;
        for(let j of i.controls.airConnectors.controls){
         summaryLpsObservationArr.push(j);
        }
+
+       for(let j of i.controls.downConductorReport.controls){
+        summaryLpsObservationArr.push(j);
+       }for(let j of i.controls.downConductor.controls){
+        summaryLpsObservationArr.push(j);
+       }for(let j of i.controls.bridgingDesc.controls){
+        summaryLpsObservationArr.push(j);
+       }for(let j of i.controls.downHolders.controls){
+        summaryLpsObservationArr.push(j);
+       }for(let j of i.controls.downConnectors.controls){
+        summaryLpsObservationArr.push(j);
+       }for(let j of i.controls.testingJoint.controls){
+        summaryLpsObservationArr.push(j);
+       }for(let j of i.controls.lightingCounter.controls){
+        summaryLpsObservationArr.push(j);
+       }for(let j of i.controls.downConductorTesting.controls){
+        summaryLpsObservationArr.push(j);
+       }
+
+       for(let j of i.controls.earthingReport.controls){
+        summaryLpsObservationArr.push(j);
+       }
+       for(let j of i.controls.earthingDescription.controls){
+        if(j.controls.observationComponentDetails.value=='earthingDescription0'){
+          j.controls.summaryLpsInnerObservation.push(i.controls.earthingDescriptionList);
+        }
+        summaryLpsObservationArr.push(j);
+       }
+       for(let j of i.controls.earthingClamps.controls){
+        summaryLpsObservationArr.push(j);
+       }for(let j of i.controls.earthingElectrodeChamber.controls){
+        summaryLpsObservationArr.push(j);
+       }for(let j of i.controls.earthingSystem.controls){
+        summaryLpsObservationArr.push(j);
+       }for(let j of i.controls.earthElectrodeTesting.controls){
+        summaryLpsObservationArr.push(j);
+       }
+
+       for(let j of i.controls.spdReport.controls){
+        if(j.controls.observationComponentDetails.value=='spdReport0'){
+          j.controls.summaryLpsInnerObservation.push(i.controls.spdReportList);
+        }
+        summaryLpsObservationArr.push(j);
+       }
+
+       for(let j of i.controls.separationDistance.controls){
+        if(j.controls.observationComponentDetails.value=='seperationDistanceDescription0'){
+          for(let list1 of i.controls.separateDistance.controls){
+            j.controls.summaryLpsInnerObservation.push(list1);
+          }
+          for(let list2 of i.controls.separationDistanceDown.controls){
+            j.controls.summaryLpsInnerObservation.push(list2);
+          }
+        }
+        summaryLpsObservationArr.push(j);
+       }
+       for(let j of i.controls.earthStudDesc.controls){
+        summaryLpsObservationArr.push(j);
+       }
     }
+    this.lpsSummary.summaryLpsBuildings= this.summaryForm.value.summaryLpsBuildings;
+    this.lpsSummary.summaryLpsDeclaration= this.summaryForm.value.summaryLpsDeclaration;
   }
   }
