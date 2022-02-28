@@ -17,6 +17,7 @@ export class LpssummaryComponent implements OnInit {
     summaryLpsBuildings!: FormArray;
     submitted=false;
     summaryArr: any=[];
+    lpsSummary=new LpsSummary();
     email: String = '';
     flag: boolean=true;
     basicLpsId!: number;
@@ -378,7 +379,6 @@ export class LpssummaryComponent implements OnInit {
       'physicalDamageStudRem',
       'continutyExistaEarthRem',
     ];       
-  lpsSummary=new LpsSummary();
   
   constructor(private summaryService:SummaryServiceService,private formBuilder: FormBuilder,
     private airterminationServices: AirterminationService, private router: ActivatedRoute) { 
@@ -388,9 +388,10 @@ export class LpssummaryComponent implements OnInit {
     ngOnInit(): void {
       this.summaryForm = this.formBuilder.group({
         summaryLpsBuildings: this.formBuilder.array([this.summaryLPSArr()]),
-        //summaryLpsBuildings: this.formBuilder.array([]),
-        //Declaration1Arr: this.formBuilder.array([this.Declaration1Form()]),
-       // Declaration2Arr: this.formBuilder.array([this.Declaration2Form()]),
+        Declaration1Arr: this.formBuilder.array([this.Declaration1Form()]),
+        Declaration2Arr: this.formBuilder.array([this.Declaration2Form()]),
+        declarationDate: new FormControl('',Validators.required),
+        recommendYears: new FormControl('',Validators.required),
       });
       this.retrieveFromAirTermination();
     }
@@ -873,9 +874,12 @@ export class LpssummaryComponent implements OnInit {
     }
     getDeclaration1Controls(): AbstractControl[] {
       return (<FormArray>this.summaryForm.get('Declaration1Arr')).controls;
-    }
+    } 
     getDeclaration2Controls(): AbstractControl[] {
       return (<FormArray>this.summaryForm.get('Declaration2Arr')).controls;
+    }
+    get f():any {
+      return this.summaryForm.controls;
     }
     retrieveFromAirTermination() {
       if(this.basicLpsId != 0 && this.basicLpsId != undefined) {
@@ -883,7 +887,11 @@ export class LpssummaryComponent implements OnInit {
           (data) => {
             this.airTerminationValues = JSON.parse(data);
             this.summaryForm = this.formBuilder.group({
-              summaryLpsBuildings: this.formBuilder.array([])
+              summaryLpsBuildings: this.formBuilder.array([]),
+              Declaration1Arr: this.formBuilder.array([this.Declaration1Form()]),
+              Declaration2Arr: this.formBuilder.array([this.Declaration2Form()]),
+              declarationDate: new FormControl('',Validators.required),
+              recommendYears: new FormControl('',Validators.required),
             });
             this.airTerminationDesc = this.airTerminationValues[0].lpsAirDescription;
             if(this.airTerminationDesc != '' && this.airTerminationDesc != undefined && this.airTerminationDesc.length != 0) {
