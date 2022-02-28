@@ -455,6 +455,7 @@ onUpload(contentSpinner:any) {
       setTimeout(()=>{
         this.fileUploadServiceService.uploadFile(formData,this.emcId).subscribe(
           (data) => {
+            this.uploadDisable=true;
             this.finalSpinner=false;
             this.popup=true;
             this.filesuccess = true;
@@ -468,7 +469,7 @@ onUpload(contentSpinner:any) {
            },
           )
               
-          }, 1000);
+          }, 500);
     
   }
   

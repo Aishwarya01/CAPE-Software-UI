@@ -319,7 +319,7 @@
                                     </div>
                                     </div>
                                     <div class="col-md-3">
-                                      <button  class="btn btn-success" (click)="onUpload(contentSpinner)">
+                                      <button [disabled]="uploadDisable" class="btn btn-success" (click)="onUpload(contentSpinner)">
                                             Upload
                                       </button>
                                     </div>
