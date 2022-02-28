@@ -25,6 +25,12 @@ export class FileUploadServiceService {
       ),responseType: 'text' as 'json' 
     })
   }
+
+  public retriveFile(emcId:any) {
+    return this.http.get(this.apiUrl_EMC + '/downloadFile'+'/'+emcId, { responseType:'blob'})
+  }
+
+
   public downloadFile(emcId:any) {
     return this.http.get(this.apiUrl_EMC + '/downloadFile'+'/'+emcId, { responseType:'blob'}).subscribe(
       data =>{

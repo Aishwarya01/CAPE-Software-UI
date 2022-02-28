@@ -49,6 +49,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
   arr1: any = [];
   arr2: any = [];
   emcId: number = 0;
+  fileName: any = "";
   file!: any ; // Variable to store file
   uploadDisable: boolean=true;
   mode: any= 'indeterminate';
@@ -184,17 +185,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
     }
   }
   closeModalDialogFile(){
-    this.finalSpinner = true;
-    this.popup = false;
-    if (this.errorMsg != "") {
-      this.Error = false;
-      this.modalService.dismissAll((this.errorMsg = ""));
-    }
-    else {
-      this.success = false;
-      this.modalService.dismissAll((this.successMsg = ""));
-    }
-
+    this.modalService.dismissAll();
   }
 
   closeModalDialog() {
@@ -241,6 +232,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
     this.emcPowerAndEarthingData.powerNeutral = this.step1List2.powerNeutral;
     this.emcPowerAndEarthingData.psEarthing = this.step1List2.psEarthing;
     this.emcPowerAndEarthingData.peAttachement = this.step1List2.peAttachement;
+    //this.emcPowerAndEarthingData.peAttachement=this.fileName;
     this.emcPowerAndEarthingData.dedicatedTransfermation = this.step1List2.dedicatedTransfermation;
     this.emcPowerAndEarthingData.dedicatedTransfermationOtherBuilding = this.step1List2.dedicatedTransfermationOtherBuilding;
     this.emcPowerAndEarthingData.typeOFIncoming = this.step1List2.typeOFIncoming;
@@ -267,6 +259,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
         distributionPannelArr: [i],
       })
     }
+    this.retriveFIleName();
   }
 
   populateData() {
@@ -460,12 +453,15 @@ onUpload(contentSpinner:any) {
             this.popup=true;
             this.filesuccess = true;
             this.filesuccessMsg = "File Upload Successfully";
+           // this.EMCPowerAndEarthForm.controls.peAttachement.setValue(this.file[0].name);
+          //  this.EMCPowerAndEarthForm.controls['peAttachement'].setValidators(null);
+            this.retriveFIleName();
           },
           (error) => {
             this.finalSpinner=false;
             this.popup=true;
             this.filesuccess =false;
-         this.filesuccessMsg = "";
+            this.filesuccessMsg = "";
            },
           )
               
@@ -474,8 +470,17 @@ onUpload(contentSpinner:any) {
   }
   
     }
+
+    retriveFIleName() {
+      this.fileUploadServiceService.retriveFile(this.emcId).subscribe(
+        data =>{
+         console.log(data.type);
+           this.fileName = data.type;
+        }, 
+      )    
+    }
     onDownload(){
-      this.fileUploadServiceService.downloadFile(this.emcId);
+      this.fileUploadServiceService.downloadFile(this.emcId)
 
     }
     deleteFile(contentSpinnerDelete:any){
@@ -492,6 +497,10 @@ onUpload(contentSpinner:any) {
           this.popupDelete=true;
           this.fileDeleteSuccess = true;
           this.fileDeletesuccessMsg = data;
+          this.fileName="";
+         //  this.EMCPowerAndEarthForm.controls['peAttachement'].reset();
+          
+         // this.retriveFIleName();
         
         },
         (error) => {
