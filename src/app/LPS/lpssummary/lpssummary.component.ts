@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { flag } from 'ngx-bootstrap-icons';
+import { ConfirmationBoxComponent } from 'src/app/confirmation-box/confirmation-box.component';
 import { LpsSummary } from 'src/app/LPS_model/lps-summary';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
 import { SummaryServiceService } from 'src/app/LPS_services/summary-service.service';
@@ -381,7 +383,9 @@ export class LpssummaryComponent implements OnInit {
     ];       
   
   constructor(private summaryService:SummaryServiceService,private formBuilder: FormBuilder,
-    private airterminationServices: AirterminationService, private router: ActivatedRoute) { 
+    private airterminationServices: AirterminationService, private router: ActivatedRoute,
+    private dialog: MatDialog,
+    ) { 
       this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
 
@@ -1538,105 +1542,127 @@ export class LpssummaryComponent implements OnInit {
   onSubmit(flag:any){
     this.submitted = true;
     this.summaryForm.value.summaryLpsBuildings;
-    // if (this.summaryForm.invalid) 
-    // { 
-    //   return 
-    // }
+    if (this.summaryForm.invalid) 
+    { 
+      return 
+    }
     this.lpsSummary.userName = this.router.snapshot.paramMap.get('email') || '{}';
     this.lpsSummary.basicLpsId = this.basicLpsId;
-    let a:any=[];
-    a=this.summaryForm.controls.summaryLpsBuildings as FormArray;
-    for(let i of a.controls){
-      let summaryLpsObservationArr=i.controls.summaryLpsObservation as FormArray;
-      for(let j of i.controls.airTermination.controls){
-       summaryLpsObservationArr.push(j);
+
+    const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+      width: '420px',
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+    dialogRef.componentInstance.summaryModal = true;
+    dialogRef.componentInstance.confirmBox.subscribe(
+      (data)=>{
+      if(data) {
+      let a:any=[];
+      a=this.summaryForm.controls.summaryLpsBuildings as FormArray;
+      for(let i of a.controls){
+        let summaryLpsObservationArr=i.controls.summaryLpsObservation as FormArray;
+        for(let j of i.controls.airTermination.controls){
+        summaryLpsObservationArr.push(j);
+        }
+        for(let j of i.controls.airVertical.controls){
+          if(j.controls.observationComponentDetails.value=='lpsVerticalAirTermination0'){
+            j.controls.summaryLpsInnerObservation.push(i.controls.airVerticalList);
+          }
+          summaryLpsObservationArr.push(j);
+        }
+        for(let j of i.controls.airMesh.controls){
+          summaryLpsObservationArr.push(j);
+        }
+        for(let j of i.controls.airHolder.controls){
+          if(j.controls.observationComponentDetails.value=='airHolderDescription0'){
+            j.controls.summaryLpsInnerObservation.push(i.controls.airHolderList);
+          }
+          summaryLpsObservationArr.push(j);
+        }
+        for(let j of i.controls.airClamps.controls){
+        
+          summaryLpsObservationArr.push(j);
+        }
+        for(let j of i.controls.airExpansion.controls){
+          summaryLpsObservationArr.push(j);
+        }
+        for(let j of i.controls.airConnectors.controls){
+          summaryLpsObservationArr.push(j);
+        }
+
+        for(let j of i.controls.downConductorReport.controls){
+          summaryLpsObservationArr.push(j);
+        }for(let j of i.controls.downConductor.controls){
+          summaryLpsObservationArr.push(j);
+        }for(let j of i.controls.bridgingDesc.controls){
+          summaryLpsObservationArr.push(j);
+        }for(let j of i.controls.downHolders.controls){
+          summaryLpsObservationArr.push(j);
+        }for(let j of i.controls.downConnectors.controls){
+          summaryLpsObservationArr.push(j);
+        }for(let j of i.controls.testingJoint.controls){
+          summaryLpsObservationArr.push(j);
+        }for(let j of i.controls.lightingCounter.controls){
+          summaryLpsObservationArr.push(j);
+        }for(let j of i.controls.downConductorTesting.controls){
+          summaryLpsObservationArr.push(j);
+        }
+
+        for(let j of i.controls.earthingReport.controls){
+          summaryLpsObservationArr.push(j);
+        }
+        for(let j of i.controls.earthingDescription.controls){
+          if(j.controls.observationComponentDetails.value=='earthingDescription0'){
+            j.controls.summaryLpsInnerObservation.push(i.controls.earthingDescriptionList);
+          }
+          summaryLpsObservationArr.push(j);
+        }
+        for(let j of i.controls.earthingClamps.controls){
+          summaryLpsObservationArr.push(j);
+        }for(let j of i.controls.earthingElectrodeChamber.controls){
+          summaryLpsObservationArr.push(j);
+        }for(let j of i.controls.earthingSystem.controls){
+          summaryLpsObservationArr.push(j);
+        }for(let j of i.controls.earthElectrodeTesting.controls){
+          summaryLpsObservationArr.push(j);
+        }
+
+        for(let j of i.controls.spdReport.controls){
+          if(j.controls.observationComponentDetails.value=='spdReport0'){
+            j.controls.summaryLpsInnerObservation.push(i.controls.spdReportList);
+          }
+          summaryLpsObservationArr.push(j);
+        }
+
+        for(let j of i.controls.separationDistance.controls){
+          if(j.controls.observationComponentDetails.value=='seperationDistanceDescription0'){
+            for(let list1 of i.controls.separateDistance.controls){
+              j.controls.summaryLpsInnerObservation.push(list1);
+            }
+            for(let list2 of i.controls.separationDistanceDown.controls){
+              j.controls.summaryLpsInnerObservation.push(list2);
+            }
+          }
+          summaryLpsObservationArr.push(j);
+        }
+        for(let j of i.controls.earthStudDesc.controls){
+          summaryLpsObservationArr.push(j);
+        }
       }
-      for(let j of i.controls.airVertical.controls){
-        if(j.controls.observationComponentDetails.value=='lpsVerticalAirTermination0'){
-          j.controls.summaryLpsInnerObservation.push(i.controls.airVerticalList);
+      this.lpsSummary.summaryLpsBuildings= this.summaryForm.value.summaryLpsBuildings;
+      this.lpsSummary.summaryLpsDeclaration= this.summaryForm.value.Declaration1Arr;
+      this.lpsSummary.summaryLpsDeclaration = this.lpsSummary.summaryLpsDeclaration.concat(this.summaryForm.value.Declaration2Arr);
+      
+      this.summaryService.addSummaryLps(this.lpsSummary).subscribe(
+        (data)=> {
+          console.log("worked");
+        },
+        (error)=> {
+          console.log("error");
         }
-        summaryLpsObservationArr.push(j);
-       }
-       for(let j of i.controls.airMesh.controls){
-        summaryLpsObservationArr.push(j);
-       }
-       for(let j of i.controls.airHolder.controls){
-        if(j.controls.observationComponentDetails.value=='airHolderDescription0'){
-          j.controls.summaryLpsInnerObservation.push(i.controls.airHolderList);
-        }
-        summaryLpsObservationArr.push(j);
-       }
-       for(let j of i.controls.airClamps.controls){
-       
-        summaryLpsObservationArr.push(j);
-       }
-       for(let j of i.controls.airExpansion.controls){
-        summaryLpsObservationArr.push(j);
-       }
-       for(let j of i.controls.airConnectors.controls){
-        summaryLpsObservationArr.push(j);
-       }
-
-       for(let j of i.controls.downConductorReport.controls){
-        summaryLpsObservationArr.push(j);
-       }for(let j of i.controls.downConductor.controls){
-        summaryLpsObservationArr.push(j);
-       }for(let j of i.controls.bridgingDesc.controls){
-        summaryLpsObservationArr.push(j);
-       }for(let j of i.controls.downHolders.controls){
-        summaryLpsObservationArr.push(j);
-       }for(let j of i.controls.downConnectors.controls){
-        summaryLpsObservationArr.push(j);
-       }for(let j of i.controls.testingJoint.controls){
-        summaryLpsObservationArr.push(j);
-       }for(let j of i.controls.lightingCounter.controls){
-        summaryLpsObservationArr.push(j);
-       }for(let j of i.controls.downConductorTesting.controls){
-        summaryLpsObservationArr.push(j);
-       }
-
-       for(let j of i.controls.earthingReport.controls){
-        summaryLpsObservationArr.push(j);
-       }
-       for(let j of i.controls.earthingDescription.controls){
-        if(j.controls.observationComponentDetails.value=='earthingDescription0'){
-          j.controls.summaryLpsInnerObservation.push(i.controls.earthingDescriptionList);
-        }
-        summaryLpsObservationArr.push(j);
-       }
-       for(let j of i.controls.earthingClamps.controls){
-        summaryLpsObservationArr.push(j);
-       }for(let j of i.controls.earthingElectrodeChamber.controls){
-        summaryLpsObservationArr.push(j);
-       }for(let j of i.controls.earthingSystem.controls){
-        summaryLpsObservationArr.push(j);
-       }for(let j of i.controls.earthElectrodeTesting.controls){
-        summaryLpsObservationArr.push(j);
-       }
-
-       for(let j of i.controls.spdReport.controls){
-        if(j.controls.observationComponentDetails.value=='spdReport0'){
-          j.controls.summaryLpsInnerObservation.push(i.controls.spdReportList);
-        }
-        summaryLpsObservationArr.push(j);
-       }
-
-       for(let j of i.controls.separationDistance.controls){
-        if(j.controls.observationComponentDetails.value=='seperationDistanceDescription0'){
-          for(let list1 of i.controls.separateDistance.controls){
-            j.controls.summaryLpsInnerObservation.push(list1);
-          }
-          for(let list2 of i.controls.separationDistanceDown.controls){
-            j.controls.summaryLpsInnerObservation.push(list2);
-          }
-        }
-        summaryLpsObservationArr.push(j);
-       }
-       for(let j of i.controls.earthStudDesc.controls){
-        summaryLpsObservationArr.push(j);
-       }
-    }
-    this.lpsSummary.summaryLpsBuildings= this.summaryForm.value.summaryLpsBuildings;
-    this.lpsSummary.summaryLpsDeclaration= this.summaryForm.value.summaryLpsDeclaration;
+      )
+      }
+    });
   }
   }
