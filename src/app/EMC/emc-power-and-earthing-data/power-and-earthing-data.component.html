@@ -319,15 +319,28 @@
                                     </div>
                                     </div>
                                     <div class="col-md-3">
-                                      <button [disabled]="uploadDisable" class="btn btn-success" (click)="onUpload()">
+                                      <button  class="btn btn-success" (click)="onUpload()">
                                             Upload
                                       </button>
                                     </div>
+                                    <div class="col-md-3">
+                                        <button class="btn btn-success" (click)="onDownload()">
+                                              Download
+                                        </button>
+                                      </div>
+                                      <div class="col-md-3">
+                                        <button class="btn btn-success" (click)="deleteFile()">
+                                              Delete
+                                        </button>
+                                        <div *ngIf="filesuccess" style="text-align: center;">
+                                            <span class="successshow">{{filesuccessMsg}}</span>
+                                        </div>
+                                      </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
+                
                     <!-- 6.Building Service Entrance -->
                     <div>
                         <label class="form-label">6. Building Service Entrance</label>
