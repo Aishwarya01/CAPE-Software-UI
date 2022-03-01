@@ -499,6 +499,7 @@ onUpload(contentSpinner:any) {
     retriveFIleName() {
       this.fileUploadServiceService.retriveFile(this.emcId).subscribe(
         data =>{
+          if(data != "" && data != undefined && data != null){
           this.uploadFlag =false;
           this.JSONdata= JSON.parse(data);
           this.fileName = this.JSONdata.fileName;
@@ -506,6 +507,10 @@ onUpload(contentSpinner:any) {
           this.EMCPowerAndEarthForm.controls['peAttachement'].setValue('');
           this.EMCPowerAndEarthForm.controls['peAttachement'].clearValidators();
           this.EMCPowerAndEarthForm.controls['peAttachement'].updateValueAndValidity();
+          }else {
+            this.uploadFlag =true;
+          }
+          
         }, 
         error => {
           this.uploadFlag =true;
