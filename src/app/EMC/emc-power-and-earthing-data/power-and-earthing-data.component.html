@@ -91,9 +91,9 @@
                     </div>
                     <br>
 
-                    <!-- Discription of supply -->
+                    <!-- Description of supply -->
                     <div>
-                        <label class="form-label">*Discription of Supply:</label>
+                        <label class="form-label">*Description of Supply:</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
@@ -102,10 +102,10 @@
                             </div>
                             <textarea class="textarea-size" class="form-control"
                                 [(ngModel)]="emcPowerAndEarthingData.powerDiscSupply" formControlName="powerDiscSupply"
-                                placeholder="Enter Discription of supply"
+                                placeholder="Enter Description of supply"
                                 [ngClass]="{'is-invalid':submitted && f.powerDiscSupply?.errors}"></textarea>
                             <div *ngIf="submitted &&f.powerDiscSupply?.errors" class="invalid-feedback">
-                                <div *ngIf="f.powerDiscSupply?.errors?.required">Discription Of Supply Is Required</div>
+                                <div *ngIf="f.powerDiscSupply?.errors?.required">Description Of Supply Is Required</div>
                             </div>
                         </div>
                     </div>
