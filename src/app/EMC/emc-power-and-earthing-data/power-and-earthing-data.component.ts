@@ -87,7 +87,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
       powerIncomingAmps: ['', Validators.required],
       powerNeutral: ['', Validators.required],
       psEarthing: ['', Validators.required],
-      peAttachement: ['', Validators.required],
+      peAttachement: ['',Validators.required],
       dedicatedTransfermation: ['', Validators.required],
       dedicatedTransfermationOtherBuilding: ['', Validators.required],
       typeOFIncoming: ['', Validators.required],
@@ -453,7 +453,7 @@ onUpload(contentSpinner:any) {
             this.popup=true;
             this.filesuccess = true;
             this.filesuccessMsg = "File Upload Successfully";
-           // this.EMCPowerAndEarthForm.controls.peAttachement.setValue(this.file[0].name);
+            this.EMCPowerAndEarthForm.controls.peAttachement.setValue('');
           //  this.EMCPowerAndEarthForm.controls['peAttachement'].setValidators(null);
             this.retriveFIleName();
           },
@@ -474,9 +474,17 @@ onUpload(contentSpinner:any) {
     retriveFIleName() {
       this.fileUploadServiceService.retriveFile(this.emcId).subscribe(
         data =>{
-         console.log(data.type);
            this.fileName = data.type;
+          this.EMCPowerAndEarthForm.controls['peAttachement'].setValue('');
+          this.EMCPowerAndEarthForm.controls['peAttachement'].clearValidators();
+          this.EMCPowerAndEarthForm.controls['peAttachement'].updateValueAndValidity();
         }, 
+        error => {
+
+          this.fileName = '';
+          this.EMCPowerAndEarthForm.controls['peAttachement'].setValidators([Validators.required]);
+          this.EMCPowerAndEarthForm.controls['peAttachement'].updateValueAndValidity();
+        }
       )    
     }
     onDownload(){
@@ -500,7 +508,7 @@ onUpload(contentSpinner:any) {
           this.fileName="";
          //  this.EMCPowerAndEarthForm.controls['peAttachement'].reset();
           
-         // this.retriveFIleName();
+         this.retriveFIleName();
         
         },
         (error) => {

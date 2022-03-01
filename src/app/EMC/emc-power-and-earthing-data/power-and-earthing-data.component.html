@@ -313,22 +313,22 @@
                                         formControlName="peAttachement"  [(ngModel)]="emcPowerAndEarthingData.peAttachement"
                                         [ngClass]="{'is-invalid':submitted && f.peAttachement?.errors}" 
                                         accept=".txt,.jpeg,.png,.jpg,.pdf">
-                                        <a style="color: #185fe2;text-decoration: underline;position: relative; top:-48%;
-                                        float:right;right:20px;" 
-                                        (click)="onDownload()" href='javascript:onDownload()'>
-                                        <label for="inputGroupFile01">{{fileName}}</label></a>
 
-                                    <div *ngIf="submitted &&f.peAttachement?.errors" class="invalid-feedback">
+
+                                <div *ngIf="submitted &&f.peAttachement?.errors" class="invalid-feedback">
                                         <div *ngIf="f.peAttachement?.errors?.required">Field Is Required</div>
                                     </div>
                                     </div>
-                                    <div class="col-md-3">
-                                      <button [disabled]="uploadDisable" class="btn btn-success" (click)="onUpload(contentSpinner)">
+                                    <div class="col-md-6">
+                                      <button type="button" [disabled]="uploadDisable" class="btn btn-success" (click)="onUpload(contentSpinner)">
                                             Upload
                                       </button>
-                                      <mat-icon class="mousechange" class="dlt" type="button" title="Delete" 
+                                      <a (click)="onDownload()"  *ngIf="fileName != ''" href='javascript:onDownload()' style="margin-left: 30px;">
+                                        <label>{{fileName}}</label></a>
+                                      <mat-icon *ngIf="fileName != ''" class="mousechange" class="dlt" type="button" title="Delete" style="position: absolute;
+                                      margin-left: 40px; margin-top: 5px;"
                                       (click)="deleteFile(contentSpinnerDelete)"
-                                       style="float: right;position: relative;padding: 3px;font-size: 26px;">remove_circle_outline</mat-icon>
+                                       >remove_circle_outline</mat-icon>
         
                                     </div>
 
@@ -1321,7 +1321,7 @@
 
             <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
                 <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
-                <button class="next" (click)="gotoNextModal(content2, content)" mat-button>Next &raquo;</button>
+                <button type="submit" class="next" (click)="gotoNextModal(content2, content)" mat-button>Next &raquo;</button>
             </div>
 
 
