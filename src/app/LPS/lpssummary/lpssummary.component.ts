@@ -70,29 +70,29 @@ export class LpssummaryComponent implements OnInit {
     equiBondingArr:  any=[];
     //air termination
     airBasicName: string[] = [
-      'approvedByRemarks',
+      'consultantNameRemarks',
       'architectNameRemarks',
-      'bondingEquipotentialRe',
-      'combustablePartRe',
+      'designDateRemarks',
+      'approvedByRemarks',
+      'dateOfApprovalRem',
+      'drawingRemarks',
+      'revisionNoRemarks',
+      'deviationRemarks',
+      'deviationInstallationRemarks',
       'companyNameRemarks',
       'connectionMadeBraRe',
-      'consultantNameRemarks',
-      'dateOfApprovalRem',
-      'designDateRemarks',
-      'deviationInstallationRemarks',
-      'deviationRemarks',
-      'drawingRemarks',
       'electricalEquipPlacedRe',
-      'revisionNoRemarks',
+      'combustablePartRe',
       'terminationMeshConductorRe',
+      'bondingEquipotentialRe',
     ];
     airVerticalName: string[] = [
-      'inspFaileddNoRe',
-      'inspNoRe',
-      'inspPassedNoRe',
-      'lpsVerticalAirTerminationId',
       'physicalInspectionRe',
       'totalNumberRe',
+      'inspNoRe',
+      'inspPassedNoRe',
+      'inspFaileddNoRe',
+
     ];
     airVerticalListName: string[] = [
       'materialOfTerminalRe',
@@ -106,8 +106,8 @@ export class LpssummaryComponent implements OnInit {
     airClampsName: string[] = [
       'physicalInspectionRe',
       'conductorClampsFlatSurafaceRe',
-      'clampTypRe',
       'interConnectionOfClampsRe',
+      'clampTypRe',
       'materialOfWallClampsRe',
       'materialOfFoldingClampsRe',
       'totalClampsNoRe',
@@ -134,7 +134,6 @@ export class LpssummaryComponent implements OnInit {
       'materialOfExpansionRe',
       'intervalBwExpansionRe',
       'totalNoExpansionRe',
-      'totalNoConnectorRe',
       'inspectionNoRe',
       'inspectionPassedNoRe',
       'inspectionFailedNoRe'
@@ -142,7 +141,7 @@ export class LpssummaryComponent implements OnInit {
     airHolderName: string[] = [
       'physicalInspectionRe',
       'conductorHolderFlatSurfaceRe',
-      'conductorHolderRe',
+      'conductorHolderRe',    
       'materailOfParpetHolderRem',
       'totalParpetHolderNoRe',
       'parpetInspectionNoRe',
@@ -163,8 +162,8 @@ export class LpssummaryComponent implements OnInit {
       'sizeOfConductorRe',
       'meshSizeRe',
       'maximumDistanceXRe',
-      'maximumDistanceYRe',
       'minimumDistanceXRe',
+      'maximumDistanceYRe',
       'minimumDistanceYRe',
       'heightOfConductorFlatSurfaceRe',
     ];
