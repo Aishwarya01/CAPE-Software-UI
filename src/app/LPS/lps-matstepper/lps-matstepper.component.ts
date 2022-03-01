@@ -105,6 +105,9 @@ export class LpsMatstepperComponent implements OnInit {
     this.tabs._handleClick = this.interceptTabChange.bind(this);
   }
   public doSomething1(next: any): void {
+
+    this.downConductors.availabilityOfPreviousReport=this.basic.basicDetails.availabilityOfPreviousReport;
+    this.earthing.availabilityOfPreviousReport=this.basic.basicDetails.availabilityOfPreviousReport;
  
     this.basic.isEditable=this.isEditable;
     // AirTermination
@@ -128,6 +131,9 @@ export class LpsMatstepperComponent implements OnInit {
     this.earthStud.isEditable=this.isEditable;
 
     this.Completed1 = this.basic.success;
+    this.earthing.isAirterminationUpdated = true;
+    this.earthing.ngOnInit();
+    this.downConductors.updateMethod();
     this.saved.ngOnInit();
     this.refresh();
   }

@@ -2202,8 +2202,7 @@
                     </div>
                     </div>
                 </mat-expansion-panel>
-
-                <mat-expansion-panel>
+                <mat-expansion-panel *ngIf="availabilityOfPreviousReport == 'NO'">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             <h3>Testing of earth electrodes</h3>
@@ -2252,7 +2251,7 @@
                                                 <td> 
                                                     <div class="input-group">
                                                         <input class="form-control" [readonly]="isEditable" formControlName="serialNo" placeholder="SI.No"
-                                                            [ngClass]="{ 'is-invalid': submitted && a.get('serialNo')?.errors}" style="height: 4rem; width: 5rem;">
+                                                            [ngClass]="{ 'is-invalid': submitted && a.get('serialNo')?.errors}" style="height: 3rem; width: 5rem;">
                                                         <div *ngIf="submitted && a.get('serialNo')?.errors" class="invalid-feedback">
                                                             <div *ngIf="a.get('serialNo')?.errors?.required">serial No is required</div>
                                                         </div>
@@ -2299,7 +2298,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <textarea class="form-control" [readonly]="isEditable" formControlName="earthingElectrodeSize"
+                                                        <textarea class="form-control" [readonly]="isEditable" formControlName="earthingElectrodeSize" type="number" (keypress)="keyPressNumbers($event)"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('earthingElectrodeSize')?.errors}"
                                                             placeholder="Information to user: incase of 1. rod -diameter (mm)/cross sectional area (sq.mm), 2. pipe- inner&outer diameter (mm), 3.flat - cross sectional area (sq.mm), 4. chemical pipe-diameter (mm)"></textarea>
                                                         <div *ngIf="submitted && a.get('earthingElectrodeSize')?.errors" class="invalid-feedback">

@@ -89,7 +89,7 @@ export class LpsEarthingComponent implements OnInit {
   earthingType: String='';
   airterminationData: any=[];
   isAirterminationUpdated:boolean=false;
-
+  availabilityOfPreviousReport: String="";
   constructor(
     private formBuilder: FormBuilder,private dialog: MatDialog,
     private lpsEarthings: LpsEarthing,
@@ -135,13 +135,13 @@ export class LpsEarthingComponent implements OnInit {
      // earthingSystemAvailabilityRem:  new FormControl(''),
      // earthingElectrodeTestingAvailabilityOb: new FormControl(''),
      // earthingElectrodeTestingAvailabilityRem:  new FormControl(''),                              
-     earthingElectrodeTestingAvailabilityOb:  new FormControl('', Validators.required),                          
+     earthingElectrodeTestingAvailabilityOb:  new FormControl(''),                          
 
       earthingDescription: this.formBuilder.array([this.earthingDescriptionArray()]),
       earthingClamps: this.formBuilder.array([]),
       earthingElectrodeChamber: this.formBuilder.array([]),
       earthingSystem: this.formBuilder.array([this.earthingSystemArray()]),
-      earthElectrodeTesting: this.formBuilder.array([this.earthElectrodeTestingArray()])
+      earthElectrodeTesting: this.formBuilder.array([])
     });
   }
   
@@ -613,9 +613,12 @@ export class LpsEarthingComponent implements OnInit {
 
     populateEarthElectrodeTesting(item:any){
       let earthElectrodeTesting:any=[];
-      for (let value of item.earthElectrodeTesting) {
-        earthElectrodeTesting.push(this.earthElectrodeTestingFormGroup(value)); 
-      } 
+      if(this.availabilityOfPreviousReport =="NO"){
+        for (let value of item.earthElectrodeTesting) {
+          earthElectrodeTesting.push(this.earthElectrodeTestingFormGroup(value)); 
+        } 
+      }
+      
       return earthElectrodeTesting;   
     } 
 
@@ -1071,6 +1074,10 @@ export class LpsEarthingComponent implements OnInit {
            this.typeBearthingsystem[index] = false;
            //this.testingofearthelectrodes[index]=true;
            if (formarray != null) {
+            if(this.availabilityOfPreviousReport =="NO"){
+              formarray.controls.earthingElectrodeTestingAvailabilityOb.setValidators(Validators.required);
+              formarray.controls.earthingElectrodeTestingAvailabilityOb.updateValueAndValidity();
+             }
              formarray.controls.earthingElectrodeChamberAvailabilityOb.setValidators(Validators.required);
              formarray.controls.earthingElectrodeChamberAvailabilityOb.updateValueAndValidity();
              formarray.controls.earthingClampsAvailabilityOb.setValidators(Validators.required);
@@ -1086,6 +1093,10 @@ export class LpsEarthingComponent implements OnInit {
           //this.testingofearthelectrodes[index]=true;  
 
           if (formarray != null) {
+            if(this.availabilityOfPreviousReport =="NO"){
+              formarray.controls.earthingElectrodeTestingAvailabilityOb.setValidators(Validators.required);
+              formarray.controls.earthingElectrodeTestingAvailabilityOb.updateValueAndValidity();
+             }
             formarray.controls.earthingElectrodeChamberAvailabilityOb.clearValidators();
             formarray.controls.earthingElectrodeChamberAvailabilityOb.updateValueAndValidity();
             formarray.controls.earthingClampsAvailabilityOb.clearValidators();
@@ -1103,6 +1114,10 @@ export class LpsEarthingComponent implements OnInit {
           this.typeBearthingsystem[index] = true;
           // this.testingofearthelectrodes[index]=true; 
           if (formarray != null) {
+            if(this.availabilityOfPreviousReport =="NO"){
+              formarray.controls.earthingElectrodeTestingAvailabilityOb.setValidators(Validators.required);
+              formarray.controls.earthingElectrodeTestingAvailabilityOb.updateValueAndValidity();
+             }
             formarray.controls.earthingElectrodeChamberAvailabilityOb.setValidators(Validators.required);
             formarray.controls.earthingElectrodeChamberAvailabilityOb.updateValueAndValidity();
             formarray.controls.earthingClampsAvailabilityOb.setValidators(Validators.required);
@@ -1117,6 +1132,10 @@ export class LpsEarthingComponent implements OnInit {
          // this.testingofearthelectrodes[index]=true;
 
           if (formarray != null) {
+            if(this.availabilityOfPreviousReport =="NO"){
+              formarray.controls.earthingElectrodeTestingAvailabilityOb.setValidators(Validators.required);
+              formarray.controls.earthingElectrodeTestingAvailabilityOb.updateValueAndValidity();
+             }
             formarray.controls.earthingElectrodeChamberAvailabilityOb.clearValidators();
             formarray.controls.earthingElectrodeChamberAvailabilityOb.updateValueAndValidity();
             formarray.controls.earthingClampsAvailabilityOb.clearValidators();
@@ -1154,7 +1173,7 @@ export class LpsEarthingComponent implements OnInit {
       this.earthingSystem.push((this.earthingSystemArray()));
 
     }
-    if(formarray.controls.earthElectrodeTesting == undefined || formarray.controls.earthElectrodeTesting.controls.length ==0){
+    if((formarray.controls.earthElectrodeTesting == undefined || formarray.controls.earthElectrodeTesting.controls.length ==0) && this.availabilityOfPreviousReport =="NO"){
       this.earthElectrodeTesting =  formarray.get('earthElectrodeTesting') as FormArray;
       this.earthElectrodeTesting.push(this.earthElectrodeTestingArray());
        

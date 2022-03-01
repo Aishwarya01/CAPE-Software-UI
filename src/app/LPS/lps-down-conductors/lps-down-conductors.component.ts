@@ -136,6 +136,7 @@ export class LpsDownConductorsComponent implements OnInit {
   deletedDownConductorTesting: any= [];
   tempArray: any = [];
   step3List1: any = [];
+  availabilityOfPreviousReport: String="";
   constructor(
     private formBuilder: FormBuilder, lpsDownconductorService: LpsDownconductorService,
     private modalService: NgbModal, private router: ActivatedRoute,
@@ -255,7 +256,7 @@ export class LpsDownConductorsComponent implements OnInit {
       testingJointAvailabilityRem: new FormControl(''),
       downConductorAvailabilityOb: new FormControl('', Validators.required),
       downConductorAvailabilityRem: new FormControl(''),
-      downConductorTestingAvailabilityOb: new FormControl('', Validators.required),
+      downConductorTestingAvailabilityOb: new FormControl(''),
       downConductorTestingAvailabilityRem: new FormControl(''),
 
       downConductor: this.formBuilder.array([this.createDownArrForm()]),
@@ -264,7 +265,7 @@ export class LpsDownConductorsComponent implements OnInit {
       connectors: this.formBuilder.array([this.createConnectorArrForm()]),
       lightningCounter: this.formBuilder.array([this.createLightArrForm()]),
       testingJoint: this.formBuilder.array([this.createTestJointsArrForm()]),
-      downConductorTesting: this.formBuilder.array([this.createDownConductorTestingForm()]),
+      downConductorTesting: this.formBuilder.array([]),
     });
   }
 
@@ -614,7 +615,7 @@ export class LpsDownConductorsComponent implements OnInit {
         testingJointAvailabilityRem: new FormControl({disabled: false, value: item.testingJointAvailabilityRem}),
         downConductorAvailabilityOb: new FormControl({disabled: false, value: item.downConductorAvailabilityOb}, Validators.required),
         downConductorAvailabilityRem: new FormControl({disabled: false, value: item.downConductorAvailabilityRem}),
-        downConductorTestingAvailabilityOb: new FormControl({disabled: false, value: item.downConductorTestingAvailabilityOb}, Validators.required),
+        downConductorTestingAvailabilityOb: new FormControl({disabled: false, value: item.downConductorTestingAvailabilityOb}),
         downConductorTestingAvailabilityRem: new FormControl({disabled: false, value: item.downConductorTestingAvailabilityRem}),
   
         downConductor: this.formBuilder.array(this.retrieveDownArrForm(item)),
@@ -909,9 +910,11 @@ export class LpsDownConductorsComponent implements OnInit {
 
     retrieveDownConductorTestingForm(item:any){
       let retrieveDownConductorTestingFormDataArr:any=[];
-      for (let value of item.downConductorTesting) {
-        retrieveDownConductorTestingFormDataArr.push(this.createGroup6(value,item.downConduDescId));   
-      } 
+      if(this.availabilityOfPreviousReport =="NO"){
+        for (let value of item.downConductorTesting) {
+          retrieveDownConductorTestingFormDataArr.push(this.createGroup6(value,item.downConduDescId));   
+        } 
+      }
       return retrieveDownConductorTestingFormDataArr;
     }
 
@@ -1180,38 +1183,51 @@ export class LpsDownConductorsComponent implements OnInit {
       this.downConductorForm.markAsDirty();
     }
 
-    onChangeDownConductorTesting(event: any,a:any) {
-      this.downConductorForm.markAsTouched();
-      let changedValue;
-      if(event.target != undefined) {
-        changedValue = event.target.value;
-      }
-      else{
-        changedValue = event;
-      }
-      let downConductorTestingArray: any = [];
-      downConductorTestingArray =  a.controls.downConductorTesting as FormArray;
-      if (changedValue == 'Not in Scope') {
-        if(downConductorTestingArray.length>0) {
-          let length = downConductorTestingArray.length
-          for(let i=0; i<length; i++) {
-            let z = downConductorTestingArray.length-1
-            if(this.flag && downConductorTestingArray.value[z].downConductorTestingId !=null && downConductorTestingArray.value[z].downConductorTestingId !='' && downConductorTestingArray.value[z].downConductorTestingId !=undefined){
-              downConductorTestingArray.value[z].flag ='R';
-              this.deletedDownConductorTesting.push(downConductorTestingArray.value[z]);
-            }
-            downConductorTestingArray.removeAt(z);
-          }    
-        }
-      }
-      else if(changedValue == 'In Scope'){
-        if(downConductorTestingArray.length == 0) {
-          downConductorTestingArray.push(this.createDownConductorTestingForm());
-        }
-      }
-
-      this.downConductorForm.markAsDirty();
+  onChangeDownConductorTesting(event: any, a: any) {
+    this.downConductorForm.markAsTouched();
+    let changedValue;
+    if (event.target != undefined) {
+      changedValue = event.target.value;
     }
+    else {
+      changedValue = event;
+    }
+    let downConductorTestingArray: any = [];
+    downConductorTestingArray = a.controls.downConductorTesting as FormArray;
+    if (changedValue == 'Not in Scope') {
+
+      a.controls.downConductorTestingAvailabilityOb.clearValidators();
+      a.controls.downConductorTestingAvailabilityOb.updateValueAndValidity();
+
+      if (downConductorTestingArray.length > 0) {
+        let length = downConductorTestingArray.length
+        for (let i = 0; i < length; i++) {
+          let z = downConductorTestingArray.length - 1
+          if (this.flag && downConductorTestingArray.value[z].downConductorTestingId != null && downConductorTestingArray.value[z].downConductorTestingId != '' && downConductorTestingArray.value[z].downConductorTestingId != undefined) {
+            downConductorTestingArray.value[z].flag = 'R';
+            this.deletedDownConductorTesting.push(downConductorTestingArray.value[z]);
+          }
+          downConductorTestingArray.removeAt(z);
+        }
+      }
+    }
+    else if (changedValue == 'In Scope') {
+
+      a.controls.downConductorTestingAvailabilityOb.setValidators(Validators.required);
+      a.controls.downConductorTestingAvailabilityOb.updateValueAndValidity();
+
+      if (downConductorTestingArray.length == 0) {
+        downConductorTestingArray.push(this.createDownConductorTestingForm());
+      }
+    }
+
+    else if (changedValue == '') {
+      a.controls.downConductorTestingAvailabilityOb.setValidators(Validators.required);
+      a.controls.downConductorTestingAvailabilityOb.updateValueAndValidity();
+    }
+
+    this.downConductorForm.markAsDirty();
+  }
 
     validationChangeBasicDown(event: any,q: any,formControl: any) {
 

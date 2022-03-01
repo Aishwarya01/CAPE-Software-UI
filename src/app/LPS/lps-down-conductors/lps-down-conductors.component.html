@@ -2823,7 +2823,7 @@
                         </div>
                     </mat-expansion-panel>
 
-                    <mat-expansion-panel>
+                    <mat-expansion-panel *ngIf="availabilityOfPreviousReport == 'NO'">
                         <mat-expansion-panel-header>
                             <mat-panel-title>
                                 <h3>Testing of earth electrodes</h3>
