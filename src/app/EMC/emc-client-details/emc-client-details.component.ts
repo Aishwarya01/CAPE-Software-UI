@@ -64,7 +64,7 @@ export class EmcClientDetailsComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // this.countryCode = '91';
+     this.countryCode = '91';
 
     this.EmcClientDetailsForm = this.formBuilder.group({
       clientArr: this.formBuilder.array([
