@@ -53,6 +53,9 @@ export class PowerAndEarthingDataComponent implements OnInit {
   file!: any ; // Variable to store file
   uploadDisable: boolean=true;
   mode: any= 'indeterminate';
+  uploadFlag: boolean = false;
+  fileId: number=0;
+  JSONdata: any = [];
 
  
   constructor(
@@ -446,6 +449,7 @@ onUpload(contentSpinner:any) {
         formData.append('file',f,f.name);
       }
       setTimeout(()=>{
+        if(this.uploadFlag) {
         this.fileUploadServiceService.uploadFile(formData,this.emcId).subscribe(
           (data) => {
             this.uploadDisable=true;
@@ -464,8 +468,29 @@ onUpload(contentSpinner:any) {
             this.filesuccessMsg = "";
            },
           )
+        }
+        else {
+          this.fileUploadServiceService.updateFile(formData,this.fileId).subscribe(
+            (data) => {
+              this.uploadDisable=true;
+              this.finalSpinner=false;
+              this.popup=true;
+              this.filesuccess = true;
+              this.filesuccessMsg = "File Updated Successfully";
+              this.EMCPowerAndEarthForm.controls.peAttachement.setValue('');
+            //  this.EMCPowerAndEarthForm.controls['peAttachement'].setValidators(null);
+              this.retriveFIleName();
+            },
+            (error) => {
+              this.finalSpinner=false;
+              this.popup=true;
+              this.filesuccess =false;
+              this.filesuccessMsg = "";
+             },
+            )
+        }
               
-          }, 500);
+          }, 1000);
     
   }
   
@@ -474,13 +499,16 @@ onUpload(contentSpinner:any) {
     retriveFIleName() {
       this.fileUploadServiceService.retriveFile(this.emcId).subscribe(
         data =>{
-           this.fileName = data.type;
+          this.uploadFlag =false;
+          this.JSONdata= JSON.parse(data);
+          this.fileName = this.JSONdata.fileName;
+          this.fileId = this.JSONdata.fileId;
           this.EMCPowerAndEarthForm.controls['peAttachement'].setValue('');
           this.EMCPowerAndEarthForm.controls['peAttachement'].clearValidators();
           this.EMCPowerAndEarthForm.controls['peAttachement'].updateValueAndValidity();
         }, 
         error => {
-
+          this.uploadFlag =true;
           this.fileName = '';
           this.EMCPowerAndEarthForm.controls['peAttachement'].setValidators([Validators.required]);
           this.EMCPowerAndEarthForm.controls['peAttachement'].updateValueAndValidity();

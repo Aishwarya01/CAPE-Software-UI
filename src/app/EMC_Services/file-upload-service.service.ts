@@ -26,8 +26,18 @@ export class FileUploadServiceService {
     })
   }
 
+  public updateFile(formData: FormData,fileId: number): Observable<HttpEvent<any>> {
+    return this.http.put<any>(this.apiUrl_EMC + '/updateFile'+ '/'+fileId,formData, {
+      headers: new HttpHeaders(
+        {
+          'Content-Type': 'multipart/form-data'
+        }
+      ),responseType: 'text' as 'json' 
+    })
+  }
+
   public retriveFile(emcId:any) {
-    return this.http.get(this.apiUrl_EMC + '/downloadFile'+'/'+emcId, { responseType:'blob'})
+    return this.http.get<any>(this.apiUrl_EMC + '/retrieveFileName'+'/'+emcId, { responseType:'text' as 'json'})
   }
 
 

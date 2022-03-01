@@ -323,8 +323,8 @@
                                       <button type="button" [disabled]="uploadDisable" class="btn btn-success" (click)="onUpload(contentSpinner)">
                                             Upload
                                       </button>
-                                      <a (click)="onDownload()"  *ngIf="fileName != ''" href='javascript:onDownload()' style="margin-left: 30px;">
-                                        <label>{{fileName}}</label></a>
+                                      <a (click)="onDownload()"  *ngIf="fileName != ''" href='javascript:onDownload()' title="Download" style="margin-left: 30px;text-decoration: underline;">
+                                        {{fileName}}</a>
                                       <mat-icon *ngIf="fileName != ''" class="mousechange" class="dlt" type="button" title="Delete" style="position: absolute;
                                       margin-left: 40px; margin-top: 5px;"
                                       (click)="deleteFile(contentSpinnerDelete)"
