@@ -509,6 +509,8 @@ onUpload(contentSpinner:any) {
           this.EMCPowerAndEarthForm.controls['peAttachement'].updateValueAndValidity();
           }else {
             this.uploadFlag =true;
+            this.EMCPowerAndEarthForm.controls['peAttachement'].setValidators([Validators.required]);
+            this.EMCPowerAndEarthForm.controls['peAttachement'].updateValueAndValidity();
           }
           
         }, 
@@ -520,6 +522,7 @@ onUpload(contentSpinner:any) {
         }
       )    
     }
+  
     onDownload(){
       this.fileUploadServiceService.downloadFile(this.emcId)
 
