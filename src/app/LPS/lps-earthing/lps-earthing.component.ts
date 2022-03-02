@@ -90,6 +90,7 @@ export class LpsEarthingComponent implements OnInit {
   airterminationData: any=[];
   isAirterminationUpdated:boolean=false;
   availabilityOfPreviousReport: String="";
+  earthelectMaxiDistEditable:boolean=false;
   constructor(
     private formBuilder: FormBuilder,private dialog: MatDialog,
     private lpsEarthings: LpsEarthing,
@@ -323,16 +324,43 @@ export class LpsEarthingComponent implements OnInit {
   
 
   // Only Accept numbers
-  keyPressNumbers(event:any) {
+  keyPressNumbers(event: any) {
     var charCode = (event.which) ? event.which : event.keyCode;
-    // Only Numbers 0-9
-    if ((charCode < 48 || charCode > 57)) {
+    // Only Numbers 0-9 with dot
+    if (charCode != 46 && (charCode < 48 || charCode > 57)) {
       event.preventDefault();
       return false;
     } else {
-      return true;
+        return true;
     }
   }
+
+  
+  checkEarthelectMaxiDistWallInOb(event: any, form: any, fromcontrolName: any) {
+    let number = parseInt(event.target.value);
+    if (fromcontrolName == "earthelectMaxiDistWallInRem" || fromcontrolName == "earthelectManimumDistanceWallInRem"
+      || fromcontrolName == "ringWallEarthSouthRem" || fromcontrolName == "ringWallEarthNorthRem"
+      || fromcontrolName == "ringWallEarthWestRem" || fromcontrolName == "ringWallEarthEastRem"
+    ) {
+      if (number < 1) {
+        form.controls[fromcontrolName].setValue('To avoid step potential and touch potential distance should be more than 1 meter');
+      }
+      else {
+        form.controls[fromcontrolName].setValue('');
+      }
+    }
+    else if (fromcontrolName == "eastRem" || fromcontrolName == "westRem"
+      || fromcontrolName == "northRem" || fromcontrolName == "southRem"
+    ) {
+      if (number < 0.5) {
+        form.controls[fromcontrolName].setValue('As per latest standard IS/IEC 62305, depth should be 0.5 meter or more');
+      }
+      else {
+        form.controls[fromcontrolName].setValue('');
+      }
+    }
+  }
+
 
   reset(){
     this.earthingForm.reset();

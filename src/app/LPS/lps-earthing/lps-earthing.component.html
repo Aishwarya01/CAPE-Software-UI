@@ -586,7 +586,7 @@
                                                         <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
+                                                <input type="text" (change)="checkEarthelectMaxiDistWallInOb($event,a,'earthelectMaxiDistWallInRem')" (keypress)="keyPressNumbers($event)" class="form-control"
                                                     [readonly]="isEditable" formControlName="earthelectMaxiDistWallInOb" placeholder="The value must be a number"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('earthelectMaxiDistWallInOb')?.errors}" style="height: 3rem;">
                                                 <div *ngIf="submitted && a.get('earthelectMaxiDistWallInOb')?.errors"
@@ -604,7 +604,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea type="text" class="form-control"
-                                                    [readonly]="isEditable" formControlName="earthelectMaxiDistWallInRem" 
+                                                    [readonly]="isEditable || a.get('earthelectMaxiDistWallInRem')?.value ==='To avoid step potential and touch potential distance should be more than 1 meter'" formControlName="earthelectMaxiDistWallInRem" 
                                                     placeholder="Please enter Remarks here"></textarea>
                                             </div>
                                         </td>
@@ -619,7 +619,7 @@
                                                         <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
+                                                <input type="number" (change)="checkEarthelectMaxiDistWallInOb($event,a,'earthelectManimumDistanceWallInRem')" (keypress)="keyPressNumbers($event)" class="form-control"
                                                     [readonly]="isEditable" formControlName="earthelectManimumDistanceWallInOb"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('earthelectManimumDistanceWallInOb')?.errors}" placeholder="The value must be a number" style="height: 3rem;">
                                                 <div *ngIf="submitted && a.get('earthelectManimumDistanceWallInOb')?.errors"
@@ -638,7 +638,10 @@
                                                     </span>
                                                 </div>
                                                 <textarea type="text" class="form-control"
-                                                    [readonly]="isEditable" formControlName="earthelectManimumDistanceWallInRem" placeholder="Please enter Remarks here"
+                                                    [readonly]="isEditable || 
+                                                    a.get('earthelectManimumDistanceWallInRem')?.value 
+                                                    ==='To avoid step potential and touch potential distance should be more than 1 meter'" 
+                                                    formControlName="earthelectManimumDistanceWallInRem" placeholder="Please enter Remarks here"
                                                     ></textarea>
                                             </div>
                                         </td>
@@ -1702,7 +1705,7 @@
                                                         <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" (keypress)="keyPressNumbers($event)" class="form-control" [readonly]="isEditable" formControlName="eastOb" placeholder="The value must be a number" style="height: 3rem;"
+                                                <input type="number" (change)="checkEarthelectMaxiDistWallInOb($event,a,'eastRem')" (keypress)="keyPressNumbers($event)" class="form-control" [readonly]="isEditable" formControlName="eastOb" placeholder="The value must be a number" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('eastOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('eastOb')?.errors"
                                                     class="invalid-feedback">
@@ -1718,7 +1721,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="eastRem"
+                                                <textarea type="text" class="form-control" [readonly]="isEditable ||  a.get('eastRem')?.value ==='As per latest standard IS/IEC 62305, depth should be 0.5 meter or more'" formControlName="eastRem"
                                                 placeholder="Please enter Remarks here"  ></textarea>
                                             </div>
                                         </td>
@@ -1732,7 +1735,7 @@
                                                         <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" (keypress)="keyPressNumbers($event)" class="form-control" [readonly]="isEditable" formControlName="westOb"
+                                                <input type="number" (change)="checkEarthelectMaxiDistWallInOb($event,a,'westRem')" (keypress)="keyPressNumbers($event)" class="form-control" [readonly]="isEditable" formControlName="westOb"
                                                 placeholder="The value must be a number" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('westOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('westOb')?.errors"
@@ -1749,7 +1752,9 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="westRem" placeholder="Please enter Remarks here"
+                                                <textarea type="text" class="form-control" [readonly]="isEditable || 
+                                                a.get('westRem')?.value 
+                                                ==='As per latest standard IS/IEC 62305, depth should be 0.5 meter or more'" formControlName="westRem" placeholder="Please enter Remarks here"
                                                     ></textarea>
                                             </div>
                                         </td>
@@ -1763,7 +1768,7 @@
                                                         <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" (keypress)="keyPressNumbers($event)" class="form-control" [readonly]="isEditable" formControlName="northOb"
+                                                <input type="number" (change)="checkEarthelectMaxiDistWallInOb($event,a,'northRem')" (keypress)="keyPressNumbers($event)" class="form-control" [readonly]="isEditable" formControlName="northOb"
                                                 placeholder="The value must be a number" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('northOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('northOb')?.errors"
@@ -1780,7 +1785,9 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="northRem"
+                                                <textarea type="text" class="form-control" [readonly]="isEditable || 
+                                                a.get('northRem')?.value 
+                                                ==='As per latest standard IS/IEC 62305, depth should be 0.5 meter or more'" formControlName="northRem"
                                                 placeholder="Please enter Remarks here"></textarea>
                                             </div>
                                         </td>
@@ -1794,7 +1801,7 @@
                                                         <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" (keypress)="keyPressNumbers($event)" class="form-control" [readonly]="isEditable" formControlName="southOb"
+                                                <input type="number" (change)="checkEarthelectMaxiDistWallInOb($event,a,'southRem')" (keypress)="keyPressNumbers($event)" class="form-control" [readonly]="isEditable" formControlName="southOb"
                                                 placeholder="The value must be a number" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('southOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('southOb')?.errors"
@@ -1811,7 +1818,9 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="southRem" placeholder="Please enter Remarks here"
+                                                <textarea type="text" class="form-control"  [readonly]="isEditable || 
+                                                a.get('southRem')?.value 
+                                                ==='As per latest standard IS/IEC 62305, depth should be 0.5 meter or more'" formControlName="southRem" placeholder="Please enter Remarks here"
                                                     ></textarea>
                                             </div>
                                         </td>
@@ -1831,7 +1840,7 @@
                                                         <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
+                                                <input type="number" (change)="checkEarthelectMaxiDistWallInOb($event,a,'ringWallEarthEastRem')" (keypress)="keyPressNumbers($event)" class="form-control"
                                                     [readonly]="isEditable" formControlName="ringWallEarthEastOb" placeholder="The value must be a number" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('ringWallEarthEastOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('ringWallEarthEastOb')?.errors"
@@ -1849,7 +1858,9 @@
                                                     </span>
                                                 </div>
                                                 <textarea type="text" class="form-control"
-                                                    [readonly]="isEditable" formControlName="ringWallEarthEastRem" placeholder="Please enter Remarks here"></textarea>
+                                                [readonly]="isEditable || 
+                                                a.get('ringWallEarthEastRem')?.value 
+                                                ==='To avoid step potential and touch potential distance should be more than 1 meter'"  formControlName="ringWallEarthEastRem" placeholder="Please enter Remarks here"></textarea>
                                             </div>
                                         </td>
                                     </tr>
@@ -1862,7 +1873,7 @@
                                                         <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
+                                                <input type="number"  (change)="checkEarthelectMaxiDistWallInOb($event,a,'ringWallEarthWestRem')" (keypress)="keyPressNumbers($event)" class="form-control"
                                                     [readonly]="isEditable" formControlName="ringWallEarthWestOb" placeholder="The value must be a number" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('ringWallEarthWestOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('ringWallEarthWestOb')?.errors"
@@ -1880,7 +1891,9 @@
                                                     </span>
                                                 </div>
                                                 <textarea type="text" class="form-control"
-                                                    [readonly]="isEditable" formControlName="ringWallEarthWestRem" placeholder="Please enter Remarks here"></textarea>
+                                                [readonly]="isEditable || 
+                                                a.get('ringWallEarthWestRem')?.value 
+                                                ==='To avoid step potential and touch potential distance should be more than 1 meter'" formControlName="ringWallEarthWestRem" placeholder="Please enter Remarks here"></textarea>
                                             </div>
                                         </td>
                                     </tr>
@@ -1893,7 +1906,7 @@
                                                         <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="text"type="number" (keypress)="keyPressNumbers($event)" class="form-control"
+                                                <input type="text"type="number" (change)="checkEarthelectMaxiDistWallInOb($event,a,'ringWallEarthNorthRem')" (keypress)="keyPressNumbers($event)" class="form-control"
                                                     [readonly]="isEditable" formControlName="ringWallEarthNorthOb" placeholder="The value must be a number" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('ringWallEarthNorthOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('ringWallEarthNorthOb')?.errors"
@@ -1911,7 +1924,9 @@
                                                     </span>
                                                 </div>
                                                 <textarea type="text" class="form-control"
-                                                    [readonly]="isEditable" formControlName="ringWallEarthNorthRem" placeholder="Please enter Remarks here"></textarea>
+                                                [readonly]="isEditable || 
+                                                a.get('ringWallEarthNorthRem')?.value 
+                                                ==='To avoid step potential and touch potential distance should be more than 1 meter'"  formControlName="ringWallEarthNorthRem" placeholder="Please enter Remarks here"></textarea>
                                             </div>
                                         </td>
                                     </tr>
@@ -1924,7 +1939,7 @@
                                                         <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
+                                                <input type="number" (change)="checkEarthelectMaxiDistWallInOb($event,a,'ringWallEarthSouthRem')" (keypress)="keyPressNumbers($event)" class="form-control"
                                                     [readonly]="isEditable" formControlName="ringWallEarthSouthOb" placeholder="The value must be a number" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('ringWallEarthSouthOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('ringWallEarthSouthOb')?.errors"
@@ -1942,7 +1957,9 @@
                                                     </span>
                                                 </div>
                                                 <textarea type="text" class="form-control"
-                                                    [readonly]="isEditable" formControlName="ringWallEarthSouthRem" placeholder="Please enter Remarks here" ></textarea>
+                                                [readonly]="isEditable || 
+                                                a.get('ringWallEarthSouthRem')?.value 
+                                                ==='To avoid step potential and touch potential distance should be more than 1 meter'" formControlName="ringWallEarthSouthRem" placeholder="Please enter Remarks here" ></textarea>
                                             </div>
                                         </td>
                                     </tr>
