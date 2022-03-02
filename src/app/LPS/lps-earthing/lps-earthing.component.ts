@@ -337,7 +337,7 @@ export class LpsEarthingComponent implements OnInit {
 
   
   checkEarthelectMaxiDistWallInOb(event: any, form: any, fromcontrolName: any) {
-    let number = parseInt(event.target.value);
+    let number =event.target.value.replace(/^"|"$/g, '');
     if (fromcontrolName == "earthelectMaxiDistWallInRem" || fromcontrolName == "earthelectManimumDistanceWallInRem"
       || fromcontrolName == "ringWallEarthSouthRem" || fromcontrolName == "ringWallEarthNorthRem"
       || fromcontrolName == "ringWallEarthWestRem" || fromcontrolName == "ringWallEarthEastRem"
