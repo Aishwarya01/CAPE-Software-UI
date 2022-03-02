@@ -25,7 +25,6 @@
                 
                                 <div class="col-md-6">
                                     <label for="buildingName">Building Name</label>
-                                    <mat-icon aria-hidden="false" style="position: relative; top: -4px; float: right;cursor: pointer;" *ngIf="overAllControl().length > 1" (click)="removeItem(q,j)" title="Delete Above Building" aria-label="Example home icon" mat-list-icon>remove_circle_outline</mat-icon>	
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">
@@ -1549,7 +1548,7 @@
                                             </tr>
                                             <tr>
                                                 <td style="text-align: center;">7(e)</td>
-                                                <td>Maximum distance between mesh conductors(in x direction) in meters 
+                                                <td>Maximum distance between mesh conductors(in x direction) in meters
                                                     <mat-icon style="font-size: 18px;margin-left: 4px;position: relative !important; top: -3px;"
                                                     matTooltip="If any deviation with standard, measure distance between all conductors, use additional sheet"
                                                     matTooltipClass="multiline-tooltip"
@@ -1633,7 +1632,7 @@
                                             <tr>
                                                 <td style="text-align: center;">7(e)</td>
                                                 <td>Maximum distance between mesh conductors(in y direction) in meters
-                                                    <mat-icon style="font-size: 18px;margin-left: 4px;position: relative !important; top: -3px;"
+                                                    <mat-icon style="font-size: 18px;margin-left: 4px;position: relative !important; top: -3px; float: right;"
                                                     matTooltip="If any deviation with standard, measure distance between all conductors, use additional sheet"
                                                     matTooltipClass="multiline-tooltip"
                                                     aria-label="Button that shows a red tooltip"
@@ -3563,15 +3562,18 @@
                             </div>                            
                         </mat-expansion-panel>
                     </mat-accordion>
-
-                    <button class="btn btn-info mousechange" *ngIf="overAllControl().length == j+1" (click)="addItem()" title="Add Another Building" 
-                    style="padding: 5px 0px 0px 0px; width: 3%;	height: 35px; position: relative; margin-top: 10px; margin-right: 15px;">	
                     
-                    <mat-icon aria-hidden="false" aria-label="Example home icon" mat-list-icon>add_box</mat-icon>	
-                    </button>	
-
-                    
-
+                    <div class="col-md-12 text-right">
+                        <button class="btn btn-info mousechange" *ngIf="overAllControl().length == j+1" (click)="addItem()" title="Add Another Building" 
+                            style="padding: 5px 0px 0px 0px;width: 3%;height: 35px;position: relative;margin-right: 10px;margin-top: 10px;">	
+                            <mat-icon aria-hidden="false" aria-label="Example home icon" mat-list-icon>add_box</mat-icon>	
+                        </button>
+                        <button class="btn btn-danger" *ngIf="overAllControl().length > 1" (click)="removeItem(q,j)" title="Delete Above Building" 
+                            style="padding: 5px 0px 0px 0px;width: 3%;height: 35px;position: relative;margin-top: 10px;">	
+                            <mat-icon aria-hidden="false" aria-label="Example home icon" mat-list-icon>remove_circle_outline</mat-icon>	
+                        </button>
+                    </div> 
+                 
                 </div>
             </div>
 
