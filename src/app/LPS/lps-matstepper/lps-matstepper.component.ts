@@ -180,11 +180,6 @@ export class LpsMatstepperComponent implements OnInit {
     this.Completed7 = this.earthStud.success;
     // this.final.ngOnInit();
   }
-  // public doSomething8(next: any): void {
-  //   // this.Completed8 = this.earthStud.success;
-  //   // this.final.ngOnInit();
-  // }
-
   public doSomething8(next: any): void {
    // this.Completed8 = this.lpsSummary.success;
   }
@@ -197,8 +192,6 @@ export class LpsMatstepperComponent implements OnInit {
     this.spdValue = false;
     this.seperationValue = false;
     this.equipotentialBond = false;
-
-
     this.summary=false;
     setTimeout(() => {
       this.basicDetails = true;
@@ -209,7 +202,6 @@ export class LpsMatstepperComponent implements OnInit {
       this.seperationValue = true;
       this.equipotentialBond = true;
       this.summary = true;
-
     }, 50);
 
     setTimeout(() => {

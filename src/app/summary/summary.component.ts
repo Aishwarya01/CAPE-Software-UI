@@ -647,7 +647,6 @@ export class SummaryComponent implements OnInit,OnDestroy {
     }
   }
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
-
        this.summaryList = JSON.parse(data);
        this.summary.siteId = siteId;
        this.summary.summaryId = this.summaryList.summary.summaryId;
@@ -1807,8 +1806,8 @@ showHideAccordion(index: number) {
                 this.service.disableSubmitSummary=true;
                 this.finalFlag = true;
                 this.service.windowTabClick=0;
-            this.service.logoutClick=0; 
-            this.service.lvClick=0; 
+                this.service.logoutClick=0; 
+                this.service.lvClick=0; 
               },
               (error) => {
                 this.popup=true;

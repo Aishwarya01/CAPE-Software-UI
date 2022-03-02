@@ -3,7 +3,7 @@
   </div> -->
   <div class="card">
     <div class="card-body">
-  <form [formGroup]="summaryForm" (ngSubmit)="onSubmit(flag)">
+  <form [formGroup]="summaryForm" (ngSubmit)="onSubmit(flag,content5)">
     <div formArrayName="summaryLpsBuildings" *ngFor="let q of summaryLpsBuildingsControl(); let j = index">
       <div class="form-group" [formGroupName]="j">
     <div class="search-bar">
@@ -148,7 +148,7 @@
 
                     <tbody formArrayName="airHolderList" *ngFor="let a of airHolderListControl(q); let i= index">
                       <tr [formGroupName]="i">
-                      <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                      <td nowrap="nowrap" style="padding-left: 60px;">{{a.get("heading")?.value}}</td>
                       <td>{{a.get("serialNo")?.value}}</td>
                       <td>
                         <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
@@ -234,7 +234,7 @@
                             </thead>
                             <tbody formArrayName="downConductorReport" *ngFor="let a of downConductorBasicControl(q); let i= index">
                                 <tr [formGroupName]="i">
-                                <td nowrap="nowrap" style="font-weight: bold;">{{a.get("basicDetailsHeading")?.value}}</td>
+                                <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
                                 <td>{{a.get("serialNo")?.value}}</td>
                                 <td>
                                   <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
@@ -675,18 +675,9 @@
             </mat-expansion-panel>
         </mat-accordion>
        
-        <!-- <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
+        <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
           <span class="alert alert-danger">{{validationErrorMsg}}</span>
       </div>
-      <div *ngIf="commentSuccess" style="text-align: center;margin-top: 30px;">
-        <span class="successshow">Your comment has been sent to Inspector</span>
-      </div>
-      <div *ngIf="commentApprove" style="text-align: center;margin-top: 30px;">
-        <span class="alert alert-success">Your response to comments has been approved</span>
-      </div>
-      <div *ngIf="commentReject" style="text-align: center;margin-top: 30px;">
-        <span class="alert alert-danger">Your response to comments has been rejected</span>
-      </div> -->
     </div>
   </div>
 
@@ -890,18 +881,47 @@
       
     </mat-expansion-panel>
 </mat-accordion>
-  <div class="row" style="margin-top: 20px;">
-    <div class="col-sm-12">
-    <div style="text-align: center;"> 
-    <button  style="width: auto;margin-left: 50px;" type="submit" 
-    class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn next"
-    mat-button>
-      <i class="bi bi-journal-arrow-up icon"></i> Submit</button>
+<div class="row" style="margin-top: 20px;">
+  <div class="col-sm-12">
+  <div style="text-align: center;"> 
+  <button  style="width: auto;margin-left: 50px;" type="submit" 
+  class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn next"
+  mat-button [ngClass]="{'disableSubmit':service.disableSubmitSummary}">
+    <i class="bi bi-journal-arrow-up icon"></i> Submit</button>
 </div>
-    </div>
   </div>
+</div>
     </form>
   </div>
   </div>
+
+  <ng-template #content5 let-modal>
+    <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinner"
+     color="primary"
+     [mode]="mode"
+     value="50"
+     diameter="50">
+     </mat-progress-spinner>
+     <br>
+     <div *ngIf="finalSpinner" style="text-align: center;">
+      Submission in Progress!
+     </div>
+   <div class="modal-body" *ngIf="popup">
+       <div class="centre-text m-btm30">
+           <div *ngIf="success" style="text-align: center;">
+               <span class="alert alert-success">{{successMsg}}</span>
+           </div>
+           <div *ngIf="Error" style="text-align: center;">
+               <span class="alert alert-danger">{{errorMsg}}</span>
+           </div>
+       </div>
+   </div>
+   <br>
+   <button type="button" class="col-md-6" class="close" 
+   class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+  aria-label="Close" (click)="closeModalDialog()" *ngIf="popup" style="width: 10%;margin: 0 auto;">
+   <span aria-hidden="true">Ok</span>
+</button>
+</ng-template>
   
    
