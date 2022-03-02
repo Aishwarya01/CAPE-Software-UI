@@ -53,7 +53,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
   file!: any ; // Variable to store file
   uploadDisable: boolean=true;
   mode: any= 'indeterminate';
-  uploadFlag: boolean = false;
+  uploadFlag: boolean;
   fileId: number=0;
   JSONdata: any = [];
 
@@ -67,6 +67,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
     private fileUploadServiceService:FileUploadServiceService
   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
+    this.uploadFlag = true;
   }
 
   ngOnInit(): void {
