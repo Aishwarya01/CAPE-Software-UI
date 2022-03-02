@@ -1,4 +1,4 @@
-import { Component, OnInit,Output ,EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -35,6 +35,8 @@ export class EmcFacilityDataComponent implements OnInit {
   errorMsg: string = "";
   validationErrorTab: boolean = false;
   validationErrorMsgTab: string = "";
+  tabError: boolean = false;
+  tabErrorMsg: string = "";
   validationError: boolean = false;
   validationErrorMsg: String = "";
   email: String;
@@ -46,7 +48,7 @@ export class EmcFacilityDataComponent implements OnInit {
 
   arr1: any = [];
   emcId!: number;
-  
+
   constructor(
     private formBuilder: FormBuilder,
     private router: ActivatedRoute,
@@ -145,7 +147,7 @@ export class EmcFacilityDataComponent implements OnInit {
     this.flag = true;
     this.step1List = data.facilityData;
     this.emcFacilityData.emcId = emcId;
-    this.emcFacilityData.facilityDataId=this.step1List.facilityDataId
+    this.emcFacilityData.facilityDataId = this.step1List.facilityDataId
     this.emcFacilityData.blType = this.step1List.blType;
     this.emcFacilityData.blOtherDescription = this.step1List.blOtherDescription;
     this.emcFacilityData.bcType = this.step1List.bcType;
@@ -194,7 +196,7 @@ export class EmcFacilityDataComponent implements OnInit {
         floorCoveringArr: [i],
       })
     }
-   
+
   }
 
   populateData() {
@@ -258,7 +260,7 @@ export class EmcFacilityDataComponent implements OnInit {
     this.step1List = JSON.parse(data);
     this.emcFacilityData.userName = userName;
     this.emcFacilityData.emcId = emcId;
-    this.emcFacilityData.facilityDataId =this.step1List[0].facilityDataId ;
+    this.emcFacilityData.facilityDataId = this.step1List[0].facilityDataId;
     this.emcFacilityData.blType = this.step1List[0].blType;
     this.emcFacilityData.blOtherDescription = this.step1List[0].blOtherDescription;
     this.emcFacilityData.bcType = this.step1List[0].bcType;
@@ -298,7 +300,7 @@ export class EmcFacilityDataComponent implements OnInit {
     this.emcFacilityData.createdBy = this.step1List[0].createdBy;
     this.emcFacilityData.updatedDate = this.step1List[0].updatedDate;
     this.emcFacilityData.updatedBy = this.step1List[0].updatedBy;
-   
+
     for (let i of this.step1List[0].floorCovering) {
       this.EMCFacilityForm.patchValue({
         floorCoveringArr: [i],
@@ -358,17 +360,46 @@ export class EmcFacilityDataComponent implements OnInit {
     this.popup = false;
     if (this.errorMsg != "") {
       this.Error = false;
-      // this.service.isCompleted3= false;
-      // this.service.isLinear=true;
-      this.modalService.dismissAll((this.errorMsg = ""));
+      this.service.isCompletedEmc1 = false;
+      this.service.isLinear = true;
+      this.modalService.dismissAll(this.errorMsg = "");
     }
     else {
       this.success = false;
-      // this.service.isCompleted3= true;
-      // this.service.isLinear=false;
-      this.modalService.dismissAll((this.successMsg = ""));
-      // this.disable = false;
+      this.service.isCompletedEmc1 = true;
+      this.service.isLinear = false;
+      this.modalService.dismissAll(this.successMsg = "");
+    }
+  }
 
+  gotoNextTab() {
+    if (this.EMCFacilityForm.dirty && this.EMCFacilityForm.invalid) {
+      this.service.isCompletedEmc1 = false;
+      this.service.isLinear = true;
+      this.service.editable = false;
+      //this.validationError=false;
+      this.validationErrorTab = true;
+      this.validationErrorMsgTab = 'Please check all the fields in facility details';
+      setTimeout(() => {
+        this.validationErrorTab = false;
+      }, 3000);
+      return;
+    }
+    else if (this.EMCFacilityForm.dirty && this.EMCFacilityForm.touched) {
+      this.service.isCompletedEmc1 = false;
+      this.service.isLinear = true;
+      this.service.editable = false;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
+      return;
+    }
+    else {
+      this.service.isCompletedEmc1 = true;
+      this.service.isLinear = false;
+      this.service.editable = true;
     }
   }
 
@@ -417,8 +448,8 @@ export class EmcFacilityDataComponent implements OnInit {
               this.success = true;
               this.successMsg = data;
               this.retriveFacilityDetails();
-
-            },
+              this.proceedNext.emit(true);
+       },
             (error: any) => {
               this.finalSpinner = false;
               this.popup = true;
@@ -426,7 +457,7 @@ export class EmcFacilityDataComponent implements OnInit {
               this.errorArr = [];
               this.errorArr = JSON.parse(error.error);
               this.errorMsg = this.errorArr.message;
-
+              this.proceedNext.emit(false);
             });
       }
     }
@@ -462,7 +493,7 @@ export class EmcFacilityDataComponent implements OnInit {
   retriveFacilityDetails() {
     this.emcFacilityDataService.retrieveFacilityData(this.emcFacilityData.userName, this.emcFacilityData.emcId).subscribe(
       data => {
-        this.retriveFacilityData(this.emcFacilityData.userName, this.emcFacilityData.emcId,data);
+        this.retriveFacilityData(this.emcFacilityData.userName, this.emcFacilityData.emcId, data);
       },
       error => {
       }

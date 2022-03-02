@@ -1,6 +1,9 @@
+<div *ngIf="tabError" style="text-align: center;">
+    <span class="alert alert-danger">{{tabErrorMsg}}</span>
+  </div>
 <div *ngIf="validationErrorTab" style="text-align: center;">
     <span class="alert alert-danger">{{validationErrorMsgTab}}</span>
-</div>
+  </div>
 <div class="card">
     <div class="card-body">
         <form [formGroup]="EMCPowerAndEarthForm" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)"

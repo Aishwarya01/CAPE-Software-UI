@@ -10,6 +10,7 @@ import { EmcAssessmentInstallationComponent } from 'src/app/emc-assessment-insta
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { not } from '@angular/compiler/src/output/output_ast';
+import { GlobalsService } from 'src/app/globals.service';
 
 @Component({
   selector: 'app-emc-client-details',
@@ -48,6 +49,8 @@ export class EmcClientDetailsComponent implements OnInit {
   modalReference: any;
   validationErrorTab: boolean = false;
   validationErrorMsgTab: string = "";
+  tabError: boolean=false;
+  tabErrorMsg: string="";
   data: any = [];
   errorArr: any = [];
   setReadOnly: boolean = false;
@@ -58,6 +61,7 @@ export class EmcClientDetailsComponent implements OnInit {
     private router: ActivatedRoute,
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
+    public service: GlobalsService,
     public emcClientDetailsService: EmcClientDetailsService,
   ) { }
 
@@ -295,6 +299,36 @@ export class EmcClientDetailsComponent implements OnInit {
       // this.service.windowTabClick=1;
     }
   }
+  gotoNextTab() {
+    if (this.EmcClientDetailsForm.dirty && this.EmcClientDetailsForm.invalid) {
+      this.service.isCompletedEmc= false;
+      this.service.isLinear=true;
+       this.service.editable=false;
+      //this.validationError=false;
+      this.validationErrorTab = true;
+      this.validationErrorMsgTab = 'Please check all the fields in client details';
+      setTimeout(() => {
+        this.validationErrorTab = false;
+      }, 3000);
+      return;
+    }
+    else if(this.EmcClientDetailsForm.dirty && this.EmcClientDetailsForm.touched){
+      this.service.isCompletedEmc= false;
+      this.service.isLinear=true;
+      this.service.editable=false;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
+      return;
+   }
+    else{
+      this.service.isCompletedEmc= true;
+    //  this.service.isLinear=false;
+    //  this.service.editable=true;
+    }
+  }
 
   gotoNextModal(content: any, content2: any) {
     if (this.EmcClientDetailsForm.invalid) {
@@ -368,6 +402,7 @@ export class EmcClientDetailsComponent implements OnInit {
               this.success = true;
               this.successMsg = data;
               this.retriveClientDetails();
+              this.proceedNext.emit(true);
 
             },
             (error: any) => {
@@ -377,6 +412,7 @@ export class EmcClientDetailsComponent implements OnInit {
               this.errorArr = [];
               this.errorArr = JSON.parse(error.error);
               this.errorMsg = this.errorArr.message;
+              this.proceedNext.emit(false);
 
             });
       }

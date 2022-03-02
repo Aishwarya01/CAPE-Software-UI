@@ -65,6 +65,16 @@ export class GlobalsService {
  isCompleted3: boolean = true;
  goBacktoprevious: boolean=false;
  editable: boolean = true;
+
+
+ isCompletedEmc: boolean = true;
+ isCompletedEmc1: boolean = true;
+ isCompletedEmc2: boolean = true;
+ isCompletedEmc3: boolean = true;
+
+
+
+
 jointType: any;
 noOfjoint: any; 
 msgForStep1:boolean=false;

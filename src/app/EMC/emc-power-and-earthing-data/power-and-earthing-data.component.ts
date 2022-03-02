@@ -1,4 +1,4 @@
-import { Component, OnInit,Output ,EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -41,6 +41,8 @@ export class PowerAndEarthingDataComponent implements OnInit {
   validationErrorTab: boolean = false;
   validationErrorMsgTab: string = "";
   validationError: boolean = false;
+  tabError: boolean = false;
+  tabErrorMsg: string = "";
   validationErrorMsg: String = "";
   popup: boolean = false;
   modalReference: any;
@@ -50,21 +52,21 @@ export class PowerAndEarthingDataComponent implements OnInit {
   arr2: any = [];
   emcId: number = 0;
   fileName: any = "";
-  file!: any ; // Variable to store file
-  uploadDisable: boolean=true;
-  mode: any= 'indeterminate';
+  file!: any; // Variable to store file
+  uploadDisable: boolean = true;
+  mode: any = 'indeterminate';
   uploadFlag: boolean;
-  fileId: number=0;
+  fileId: number = 0;
   JSONdata: any = [];
 
- 
+
   constructor(
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
     private router: ActivatedRoute,
     public service: GlobalsService,
     private emcPowerAndEarthingDataService: EmcPowerAndEarthingDataService,
-    private fileUploadServiceService:FileUploadServiceService
+    private fileUploadServiceService: FileUploadServiceService
   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
     this.uploadFlag = true;
@@ -91,7 +93,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
       powerIncomingAmps: ['', Validators.required],
       powerNeutral: ['', Validators.required],
       psEarthing: ['', Validators.required],
-      peAttachement: ['',Validators.required],
+      peAttachement: ['', Validators.required],
       dedicatedTransfermation: ['', Validators.required],
       dedicatedTransfermationOtherBuilding: ['', Validators.required],
       typeOFIncoming: ['', Validators.required],
@@ -166,7 +168,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
     return (<FormArray>this.EMCPowerAndEarthForm.get('distributionPannelArr')).controls
   }
 
-  gotoNextModal(content2: any,content:any) {
+  gotoNextModal(content2: any, content: any) {
     if (this.EMCPowerAndEarthForm.invalid) {
       this.validationError = true;
       this.validationErrorMsg = "Please check all the fields";
@@ -175,7 +177,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
       //  }, 3000);
       return;
     }
-    
+
     if (this.EMCPowerAndEarthForm.touched || this.EMCPowerAndEarthForm.untouched) {
       this.modalReference = this.modalService.open(content, {
         centered: true,
@@ -188,7 +190,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
       this.modalReference.close();
     }
   }
-  closeModalDialogFile(){
+  closeModalDialogFile() {
     this.modalService.dismissAll();
   }
 
@@ -248,7 +250,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
     this.emcPowerAndEarthingData.createdBy = this.step1List2.createdBy;
     this.emcPowerAndEarthingData.updatedDate = this.step1List2.updatedDate;
     this.emcPowerAndEarthingData.updatedBy = this.step1List2.updatedBy;
-    
+
     // this.populateData();
     this.flag = true;
 
@@ -433,128 +435,160 @@ export class PowerAndEarthingDataComponent implements OnInit {
   }
   onChange(event: any) {
     this.file = event.target.files;
-    if(this.file!=null){
-      this.uploadDisable=false;
+    if (this.file != null) {
+      this.uploadDisable = false;
     }
   }
 
-onUpload(contentSpinner:any) {
-  if(this.file != undefined) {
-    this.modalService.open(contentSpinner, {
-      centered: true, 
-      size: 'md',
-      backdrop: 'static'
-     });
-    const formData =new FormData();
-      for(let f of this.file) {
-        formData.append('file',f,f.name);
+  onUpload(contentSpinner: any) {
+    if (this.file != undefined) {
+      this.modalService.open(contentSpinner, {
+        centered: true,
+        size: 'md',
+        backdrop: 'static'
+      });
+      const formData = new FormData();
+      for (let f of this.file) {
+        formData.append('file', f, f.name);
       }
-      setTimeout(()=>{
-        if(this.uploadFlag) {
-        this.fileUploadServiceService.uploadFile(formData,this.emcId).subscribe(
-          (data) => {
-            this.uploadDisable=true;
-            this.finalSpinner=false;
-            this.popup=true;
-            this.filesuccess = true;
-            this.filesuccessMsg = "File Upload Successfully";
-            this.EMCPowerAndEarthForm.controls.peAttachement.setValue('');
-          //  this.EMCPowerAndEarthForm.controls['peAttachement'].setValidators(null);
-            this.retriveFIleName();
-          },
-          (error) => {
-            this.finalSpinner=false;
-            this.popup=true;
-            this.filesuccess =false;
-            this.filesuccessMsg = "";
-           },
-          )
-        }
-        else {
-          this.fileUploadServiceService.updateFile(formData,this.fileId).subscribe(
+      setTimeout(() => {
+        if (this.uploadFlag) {
+          this.fileUploadServiceService.uploadFile(formData, this.emcId).subscribe(
             (data) => {
-              this.uploadDisable=true;
-              this.finalSpinner=false;
-              this.popup=true;
+              this.uploadDisable = true;
+              this.finalSpinner = false;
+              this.popup = true;
               this.filesuccess = true;
-              this.filesuccessMsg = "File Updated Successfully";
+              this.filesuccessMsg = "File Upload Successfully";
               this.EMCPowerAndEarthForm.controls.peAttachement.setValue('');
-            //  this.EMCPowerAndEarthForm.controls['peAttachement'].setValidators(null);
+              //  this.EMCPowerAndEarthForm.controls['peAttachement'].setValidators(null);
               this.retriveFIleName();
             },
             (error) => {
-              this.finalSpinner=false;
-              this.popup=true;
-              this.filesuccess =false;
+              this.finalSpinner = false;
+              this.popup = true;
+              this.filesuccess = false;
               this.filesuccessMsg = "";
-             },
-            )
+            },
+          )
         }
-              
-          }, 1000);
-    
-  }
-  
+        else {
+          this.fileUploadServiceService.updateFile(formData, this.fileId).subscribe(
+            (data) => {
+              this.uploadDisable = true;
+              this.finalSpinner = false;
+              this.popup = true;
+              this.filesuccess = true;
+              this.filesuccessMsg = "File Updated Successfully";
+              this.EMCPowerAndEarthForm.controls.peAttachement.setValue('');
+              //  this.EMCPowerAndEarthForm.controls['peAttachement'].setValidators(null);
+              this.retriveFIleName();
+            },
+            (error) => {
+              this.finalSpinner = false;
+              this.popup = true;
+              this.filesuccess = false;
+              this.filesuccessMsg = "";
+            },
+          )
+        }
+
+      }, 1000);
+
     }
 
-    retriveFIleName() {
-      this.fileUploadServiceService.retriveFile(this.emcId).subscribe(
-        data =>{
-          if(data != "" && data != undefined && data != null){
-          this.uploadFlag =false;
-          this.JSONdata= JSON.parse(data);
+  }
+
+  retriveFIleName() {
+    this.fileUploadServiceService.retriveFile(this.emcId).subscribe(
+      data => {
+        if (data != "" && data != undefined && data != null) {
+          this.uploadFlag = false;
+          this.JSONdata = JSON.parse(data);
           this.fileName = this.JSONdata.fileName;
           this.fileId = this.JSONdata.fileId;
           this.EMCPowerAndEarthForm.controls['peAttachement'].setValue('');
           this.EMCPowerAndEarthForm.controls['peAttachement'].clearValidators();
           this.EMCPowerAndEarthForm.controls['peAttachement'].updateValueAndValidity();
-          }else {
-            this.uploadFlag =true;
-            this.EMCPowerAndEarthForm.controls['peAttachement'].setValidators([Validators.required]);
-            this.EMCPowerAndEarthForm.controls['peAttachement'].updateValueAndValidity();
-          }
-          
-        }, 
-        error => {
-          this.uploadFlag =true;
-          this.fileName = '';
+        } else {
+          this.uploadFlag = true;
           this.EMCPowerAndEarthForm.controls['peAttachement'].setValidators([Validators.required]);
           this.EMCPowerAndEarthForm.controls['peAttachement'].updateValueAndValidity();
         }
-      )    
-    }
-  
-    onDownload(){
-      this.fileUploadServiceService.downloadFile(this.emcId)
 
+      },
+      error => {
+        this.uploadFlag = true;
+        this.fileName = '';
+        this.EMCPowerAndEarthForm.controls['peAttachement'].setValidators([Validators.required]);
+        this.EMCPowerAndEarthForm.controls['peAttachement'].updateValueAndValidity();
+      }
+    )
+  }
+
+  gotoNextTab() {
+    if (this.EMCPowerAndEarthForm.dirty && this.EMCPowerAndEarthForm.invalid) {
+      this.service.isCompletedEmc2 = false;
+      this.service.isLinear = true;
+      this.service.editable = false;
+      //this.validationError=false;
+      this.validationErrorTab = true;
+      this.validationErrorMsgTab = 'Please check all the fields in power and Earthing details';
+      setTimeout(() => {
+        this.validationErrorTab = false;
+      }, 3000);
+      return;
     }
-    deleteFile(contentSpinnerDelete:any){
-        this.modalService.open(contentSpinnerDelete, {
-          centered: true, 
-          size: 'md',
-          backdrop: 'static'
-         });
-        
-         setTimeout(()=>{ 
+    else if (this.EMCPowerAndEarthForm.dirty && this.EMCPowerAndEarthForm.touched) {
+      this.service.isCompletedEmc2 = false;
+      this.service.isLinear = true;
+      this.service.editable = false;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
+      return;
+    }
+    else {
+      this.service.isCompletedEmc2 = true;
+      this.service.isLinear = false;
+      this.service.editable = true;
+    }
+  }
+
+
+  onDownload() {
+    this.fileUploadServiceService.downloadFile(this.emcId)
+
+  }
+  deleteFile(contentSpinnerDelete: any) {
+    this.modalService.open(contentSpinnerDelete, {
+      centered: true,
+      size: 'md',
+      backdrop: 'static'
+    });
+
+    setTimeout(() => {
       this.fileUploadServiceService.deleteFile(this.emcId).subscribe(
-        (data:any) => {
-          this.finalSpinnerDelete=false;
-          this.popupDelete=true;
+        (data: any) => {
+          this.finalSpinnerDelete = false;
+          this.popupDelete = true;
           this.fileDeleteSuccess = true;
           this.fileDeletesuccessMsg = data;
-          this.fileName="";
-         //  this.EMCPowerAndEarthForm.controls['peAttachement'].reset();
-          
-         this.retriveFIleName();
-        
+          this.fileName = "";
+          //  this.EMCPowerAndEarthForm.controls['peAttachement'].reset();
+
+          this.retriveFIleName();
+
         },
         (error) => {
         },
-        )
-      }, 1000);
-    
-    }
-  
+      )
+    }, 1000);
+
+  }
+
 
   savePowerAndEarthingData(flag: any) {
     this.submitted = true;
@@ -581,6 +615,8 @@ onUpload(contentSpinner:any) {
               this.success = true;
               this.successMsg = data;
               this.retrivePowerAndEarthingDetails();
+              this.proceedNext.emit(true);
+
 
             },
             (error: any) => {
@@ -596,7 +632,7 @@ onUpload(contentSpinner:any) {
     }
 
     else {
-     
+
       this.emcPowerAndEarthingDataService.savePowerEarthingData(this.emcPowerAndEarthingData).subscribe(
 
         data => {
@@ -625,8 +661,8 @@ onUpload(contentSpinner:any) {
   retrivePowerAndEarthingDetails() {
     this.emcPowerAndEarthingDataService.retrievePowerEarthingData(this.emcPowerAndEarthingData.userName, this.emcPowerAndEarthingData.emcId).subscribe(
       data => {
-        this.retrivePowerEarthingData(this.emcPowerAndEarthingData.userName, this.emcPowerAndEarthingData.emcId,data);
-        
+        this.retrivePowerEarthingData(this.emcPowerAndEarthingData.userName, this.emcPowerAndEarthingData.emcId, data);
+
       },
       error => {
       }
