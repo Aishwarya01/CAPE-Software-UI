@@ -146,6 +146,7 @@ export class LpsMatstepperComponent implements OnInit {
       this.earthStud.isAirterminationUpdated = true;
       if(next) {
         this.downConductors.ngOnInit();
+        this.lpsSummary.ngOnInit();
       }
       else {
         this.downConductors.updateMethod();
@@ -181,10 +182,17 @@ export class LpsMatstepperComponent implements OnInit {
     // this.final.ngOnInit();
   }
   public doSomething8(next: any): void {
+    this.saved.ngOnInit();
+    this.final.ngOnInit();
+    //this.service.isLinear=false;
+    //this.service.isCompleted5 = next;
+    if(next){
+    this.selectedIndex=2;
+    }
    // this.Completed8 = this.lpsSummary.success;
   }
   public changeTabLpsSavedReport(index: number, basicLpsId: any, userName: any, clientName: any) {
-    this.selectedIndex = 1;
+   // this.selectedIndex = 1;
     this.basicDetails = false;
     this.airTermValue = false;
     this.downValue = false;
@@ -207,7 +215,21 @@ export class LpsMatstepperComponent implements OnInit {
     setTimeout(() => {
       this.basicLpsService.retrieveFinalLps(userName, basicLpsId).subscribe(
         (data) => {
+          this.final.finalReportSpinner = false;
+          this.final.finalReportBody = true;
           this.dataJSON = JSON.parse(data);
+          // if(flag){
+          //   this.service.allStepsCompleted=true;
+          // }
+          if(this.dataJSON.basicLps != null 
+               && this.dataJSON.airTermination != null 
+                 && this.dataJSON.downConductorDesc != null 
+                   && this.dataJSON.earthingReport != null && this.dataJSON.spdReport != null
+                   && this.dataJSON.seperationDistanceReport != null && this.dataJSON.earthStudReport != null
+                     && this.dataJSON.summaryLps != null) {
+                      this.service.allFieldsDisable = true;
+                      this.service.disableSubmitSummary=true;
+                     }
           if (this.dataJSON.basicLps != null) {
             this.selectedIndex = index;
             this.basic.retrieveDetailsfromSavedReports(basicLpsId, this.dataJSON);
