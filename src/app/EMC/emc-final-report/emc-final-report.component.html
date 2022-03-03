@@ -6,8 +6,17 @@
         <mat-label>Filter Client</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Client Name" #input>
       </mat-form-field>
-
-      <table mat-table [dataSource]="finalReport_dataSource" class="mat-elevation-z8 table" matSort
+      <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalReportSpinner"
+      color="primary"
+      [mode]="mode"
+      value="50"
+      diameter="50">
+      </mat-progress-spinner>
+      <br>
+      <div *ngIf="finalReportSpinner" style="text-align: center;">
+        {{spinnerValue}}
+      </div>
+      <table mat-table  *ngIf="finalReportBody" [dataSource]="finalReport_dataSource" class="mat-elevation-z8 table" matSort
         #finalReportSort="matSort">
 
         <ng-container matColumnDef="clientName">
@@ -62,8 +71,8 @@
         </th>
         <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
             <!-- Preview -->
-          <button class="btn btn-outline-danger delete" title="View Client Details" >
-          <!-- (click)="priviewPdf(element.basicLpsId,element.clientName)"> -->
+          <button class="btn btn-outline-danger delete" title="View Client Details" 
+          (click)="continue(element.emcId,element.clientName)">
             <mat-icon>visibility</mat-icon>
           </button>
             <!-- Download -->

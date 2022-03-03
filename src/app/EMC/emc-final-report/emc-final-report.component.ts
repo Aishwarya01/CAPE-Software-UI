@@ -44,6 +44,10 @@ export class EmcFinalReportComponent implements OnInit {
   errorMsg: string="";
   errorArr: any=[];
   disable: boolean=false;
+  finalReportSpinner: boolean = false;
+  finalReportBody: boolean = true;
+  spinnerValue: String = '';
+  mode: any = 'indeterminate';
 
   @ViewChild('input') input!: MatInput;
   clientService: any;
@@ -54,6 +58,7 @@ export class EmcFinalReportComponent implements OnInit {
               private emcSavedReportService: EmcSavedReportService,
               private ChangeDetectorRef: ChangeDetectorRef,
               // private finalpdf: FinalPdfServiceService,
+              public emcParent: EmcMatstepperComponent,
               private emcmatstepper:EmcMatstepperComponent,
               private modalService: NgbModal) { 
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
@@ -104,6 +109,13 @@ closeModalDialog() {
 refresh() {
   this.ChangeDetectorRef.detectChanges();
 }
+
+continue(emcId: any,clientName: any) {
+  this.finalReportBody = false;
+  this.finalReportSpinner = true;
+  this.spinnerValue = "Please wait, the details are loading!";
+   this.emcParent.continue(emcId,clientName,false);
+ } 
 
 userName=this.router.snapshot.paramMap.get('email') || '{}';
 
