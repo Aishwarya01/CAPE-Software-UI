@@ -447,6 +447,8 @@ export class EmcFacilityDataComponent implements OnInit {
               this.popup = true;
               this.success = true;
               this.successMsg = data;
+              this.service.isCompletedEmc1= true;
+              this.service.isLinearEmc=false;
               this.retriveFacilityDetails();
               this.proceedNext.emit(true);
        },
@@ -472,6 +474,8 @@ export class EmcFacilityDataComponent implements OnInit {
           this.popup = true;
           this.success = true;
           this.successMsg = data;
+          this.service.isCompletedEmc1= true;
+          this.service.isLinearEmc=false;
           //this.disable = true;
           this.retriveFacilityDetails();
           this.proceedNext.emit(true);
@@ -483,6 +487,8 @@ export class EmcFacilityDataComponent implements OnInit {
           this.errorArr = [];
           this.errorArr = JSON.parse(error.error);
           this.errorMsg = this.errorArr.message;
+          this.service.isCompletedEmc1= false;
+          this.service.isLinearEmc=true;
           this.proceedNext.emit(false);
         }
       )

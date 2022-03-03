@@ -199,14 +199,14 @@ export class PowerAndEarthingDataComponent implements OnInit {
     this.popup = false;
     if (this.errorMsg != "") {
       this.Error = false;
-      // this.service.isCompleted3= false;
-      // this.service.isLinear=true;
+      this.service.isCompletedEmc2 = false;
+      this.service.isLinear = true;
       this.modalService.dismissAll((this.errorMsg = ""));
     }
     else {
       this.success = false;
-      // this.service.isCompleted3= true;
-      // this.service.isLinear=false;
+      this.service.isCompletedEmc2 = true;
+      this.service.isLinear = false;
       this.modalService.dismissAll((this.successMsg = ""));
       // this.disable = false;
 
@@ -529,8 +529,8 @@ export class PowerAndEarthingDataComponent implements OnInit {
   gotoNextTab() {
     if (this.EMCPowerAndEarthForm.dirty && this.EMCPowerAndEarthForm.invalid) {
       this.service.isCompletedEmc2 = false;
-      this.service.isLinear = true;
-      this.service.editable = false;
+      this.service.isLinearEmc = true;
+      this.service.editableEmc = false;
       //this.validationError=false;
       this.validationErrorTab = true;
       this.validationErrorMsgTab = 'Please check all the fields in power and Earthing details';
@@ -614,6 +614,8 @@ export class PowerAndEarthingDataComponent implements OnInit {
               this.popup = true;
               this.success = true;
               this.successMsg = data;
+              this.service.isCompletedEmc2= true;
+              this.service.isLinearEmc=false;
               this.retrivePowerAndEarthingDetails();
               this.proceedNext.emit(true);
 
@@ -641,6 +643,8 @@ export class PowerAndEarthingDataComponent implements OnInit {
           this.success = true;
           this.successMsg = data;
           //this.disable = true;
+          this.service.isCompletedEmc2= true;
+          this.service.isLinearEmc=false;
           this.retrivePowerAndEarthingDetails();
           this.proceedNext.emit(true);
         },
@@ -649,6 +653,8 @@ export class PowerAndEarthingDataComponent implements OnInit {
           this.popup = true;
           this.Error = true;
           this.errorArr = [];
+          this.service.isCompletedEmc2= false;
+          this.service.isLinearEmc=true;
           this.errorArr = JSON.parse(error.error);
           this.errorMsg = this.errorArr.message;
           this.proceedNext.emit(false);
