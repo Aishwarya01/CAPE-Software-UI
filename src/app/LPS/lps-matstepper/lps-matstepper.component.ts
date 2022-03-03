@@ -131,8 +131,7 @@ export class LpsMatstepperComponent implements OnInit {
     this.earthStud.isEditable=this.isEditable;
 
     this.Completed1 = this.basic.success;
-    this.earthing.isAirterminationUpdated = true;
-    this.earthing.ngOnInit();
+    this.earthing.retriveEarthingDetails();
     this.downConductors.updateMethod();
     this.saved.ngOnInit();
     this.refresh();
@@ -329,7 +328,12 @@ export class LpsMatstepperComponent implements OnInit {
     
         dialogRef.componentInstance.confirmBox.subscribe(data=>{
           if(data) {
-            this.selectedIndex=1; 
+            if(tab.textLabel == "Saved Reports"){
+              this.selectedIndex=1;
+              }
+              else if(tab.textLabel == "Final Reports"){
+              this.selectedIndex=2;
+            } 
             this.service.windowTabClick=0;
             this.service.logoutClick=0; 
             this.service.lvClick=0; 

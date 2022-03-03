@@ -199,7 +199,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>
+                                            <td style="width: 38rem;">
                                                 <select class="form-control"  (change)="onChangeBasic($event,q)" formControlName="airBasicDescriptionAvailabilityOb"
                                                 [ngClass]="{ 'is-invalid': submitted && q.get('airBasicDescriptionAvailabilityOb')?.errors }">
                                                     <option value="" selected>Select Option</option>
@@ -311,7 +311,7 @@
                                         
                                         <tr>
                                             <td style="width: 1rem; text-align: center;">1(b)</td>
-                                            <td style="width: 24rem;">Architect/designer Name</td>
+                                            <td style="width: 24rem;">Architect/ Designer Name</td>
                                             <td style="width: 43rem;">
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
@@ -556,7 +556,7 @@
                                                         </select>
                                                         <div *ngIf="submitted && a.get('deviationInstallationObserv')?.errors"
                                                                 class="invalid-feedback">
-                                                                <div *ngIf="a.get('deviationInstallationObserv')?.errors?.required">Quality of installation is required</div>
+                                                                <div *ngIf="a.get('deviationInstallationObserv')?.errors?.required">Check for any deviation of installation with design</div>
                                                         </div>
                                                 </div>
                                             </td>
@@ -592,7 +592,7 @@
                                                         required></textarea>
                                                         <div *ngIf="submitted && a.get('companyNameObserv')?.errors"
                                                                 class="invalid-feedback">
-                                                                <div *ngIf="a.get('companyNameObserv')?.errors?.required">Quality of installation is required</div>
+                                                                <div *ngIf="a.get('companyNameObserv')?.errors?.required">Name of company who done the installation</div>
                                                         </div>
                                                 </div>
                                             </td>
@@ -631,7 +631,7 @@
                                                             <div *ngIf="submitted && a.get('connectionMadeBraOb')?.errors"
                                                                     class="invalid-feedback">
                                                                     <div *ngIf="a.get('connectionMadeBraOb')?.errors?.required">
-                                                                        Connections are made by brazing observation is required</div>
+                                                                        Type of connection</div>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -666,7 +666,7 @@
                                                             <div *ngIf="submitted && a.get('electricalEquipPlacedOb')?.errors"
                                                                     class="invalid-feedback">
                                                                     <div *ngIf="a.get('electricalEquipPlacedOb')?.errors?.required">
-                                                                        Electronic equipment observation is required</div>
+                                                                        Electrical and electronic equipment observation is required</div>
                                                                 </div>
 
                                                         </div>
@@ -745,7 +745,7 @@
                                                                 <div *ngIf="submitted && a.get('terminationMeshConductorOb')?.errors"
                                                                     class="invalid-feedback">
                                                                     <div *ngIf="a.get('terminationMeshConductorOb')?.errors?.required">
-                                                                        Air termination mesh conductor observation is required</div>
+                                                                        Presence of power/ control/ instrumentation/telecommunication observation is required</div>
                                                                 </div>
                                                         </div>
                                                     </td>
@@ -767,7 +767,7 @@
                                                 
                                         <tr>
                                                     <td style="width: 1rem; text-align: center;">5.</td>
-                                                    <td style="width: 24rem;">Equipotenial bonding of terrace equipments (i.e expeosed and extraneous conductive parts) are carried out</td>
+                                                    <td style="width: 24rem;">Equipotenial bonding of terrace equipments (i.e exposed and extraneous conductive parts) are carried out</td>
                                                     <td style="width: 43rem;">
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
@@ -784,7 +784,7 @@
                                                             <div *ngIf="submitted && a.get('bondingEquipotentialOb')?.errors"
                                                                     class="invalid-feedback">
                                                                     <div *ngIf="a.get('bondingEquipotentialOb')?.errors?.required">
-                                                                        Equipotenial bonding carried out or not observation is required</div>
+                                                                        Equipotenial bonding of terrace equipments observation is required</div>
                                                                 </div>
 
                                                         </div>
@@ -1145,7 +1145,7 @@
                                                             <div *ngIf="submitted && z.get('heightFlatSurfaceOb')?.errors"
                                                                 class="invalid-feedback">
                                                                 <div *ngIf="z.get('heightFlatSurfaceOb')?.errors?.required">
-                                                                    Height of air terminals above flat surface observation
+                                                                    Vertical air terminal is firmly over the flat surface observation
                                                                     is required</div>
                                                             </div>
                                                         </div>
@@ -1184,39 +1184,7 @@
                                             </tr>
 
                                             <br>
-                                            <!-- <tr>
-                                                <td style="text-align: center;">6(i)</td>
-                                                <td style="width: 24rem;">Physical inspection of interconnection of VAT to roof conductor & metal bodies to roof conductors (check for connections (tight/loose), its conditions (healthy/corroded)and its position/location w.r.t. design</td>
-                                                <td style="width: 43rem;">
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text">
-                                                                <i class="bi bi-text-paragraph"></i>
-                                                            </span>
-                                                        </div>
-                                                        <textarea type="text" class="form-control" placeholder="Please enter Observation here"
-                                                            [readonly]="isEditable" formControlName="vatToRoofConductorOB"
-                                                            [ngClass]="{ 'is-invalid': submitted && a.get('vatToRoofConductorOB')?.errors}"></textarea>
-                                                        <div *ngIf="submitted && a.get('vatToRoofConductorOB')?.errors"
-                                                            class="invalid-feedback">
-                                                            <div *ngIf="a.get('vatToRoofConductorOB')?.errors?.required">
-                                                                Interconnection VAT to roof conductor observation
-                                                                is required</div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text">
-                                                                <i class="bi bi-text-paragraph"></i>
-                                                            </span>
-                                                        </div>
-                                                        <textarea [readonly]="isEditable" formControlName="vatToRoofConductorRe" type="text"
-                                                            class="form-control" ></textarea>
-                                                    </div>
-                                                </td>
-                                            </tr> -->
+
                                             <tr>
                                                 <td style="width: 1rem; text-align: center;">6(j)</td>
                                                 <td style="width: 24rem;">Total number of air terminals</td>
@@ -1659,7 +1627,7 @@
                                                         <div *ngIf="submitted && a.get('maximumDistanceYOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('maximumDistanceYOb')?.errors?.required">
-                                                                Minimum distance between mesh conductors observation is required
+                                                                Maximum distance between mesh conductors in meters observation is required
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1823,7 +1791,7 @@
                                                             </span>
                                                         </div>
                                                             <select class="form-control" formControlName="physicalInspectionOb" [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionOb')?.errors}"
-                                                            (change)="validationChangeHolder($event,q,'physicalInspectionRe')">
+                                                            (change)="validationChangeHolder($event,q,'physicalInspectionRe')" style="height: 3rem;">
                                                                 <option value="" selected>Select Option</option>
                                                                 <option value="Physically good" >Physically good</option>
                                                                 <option value="Not good" >Not good</option>
@@ -2089,7 +2057,7 @@
                                                             <div *ngIf="submitted && h.get('holderInspPassedNoOb')?.errors"
                                                                 class="invalid-feedback">
                                                                 <div *ngIf="h.get('holderInspPassedNoOb')?.errors?.required">
-                                                                    Number of holders inspected observation is Required</div>
+                                                                    Number of inspections passed observation is Required</div>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -2121,7 +2089,7 @@
                                                             <div *ngIf="submitted && h.get('holderInspFailedNoOb')?.errors"
                                                                 class="invalid-feedback">
                                                                 <div *ngIf="h.get('holderInspFailedNoOb')?.errors?.required">
-                                                                    Number of inspections passed observation is Required</div>
+                                                                    Number of inspections failed observation is Required</div>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -2154,7 +2122,7 @@
                                             <br>
                                             <tr>
                                                 <td style="width: 1rem;text-align: center;">8(j)</td>
-                                                <td style="width: 24rem;">Material of parpet holder</td>
+                                                <td style="width: 24rem;">Material of parapet holder</td>
                                                 <td style="width: 43rem;">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
@@ -2179,7 +2147,7 @@
                                                         <div *ngIf="submitted && a.get('materailOfParpetHolderOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('materailOfParpetHolderOb')?.errors?.required">
-                                                                Number of inspections failed observation is required</div>
+                                                                Material of parapet holder observation is required</div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -2211,7 +2179,7 @@
                                                         <div *ngIf="submitted && a.get('totalParpetHolderNoOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('totalParpetHolderNoOb')?.errors?.required">
-                                                                Material of parpet holder observation is required</div>
+                                                                Total number of holders observation is required</div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -2243,7 +2211,7 @@
                                                         <div *ngIf="submitted && a.get('parpetInspectionNoOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('parpetInspectionNoOb')?.errors?.required">
-                                                                Total number of holders observation is required</div>
+                                                                Number of holders inspected observation is required</div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -2275,7 +2243,7 @@
                                                         <div *ngIf="submitted && a.get('parpetInspectionPassedNoOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('parpetInspectionPassedNoOb')?.errors?.required">
-                                                                Number of holders inspected observation is required</div>
+                                                                Number of inspections passed observation is required</div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -2307,7 +2275,7 @@
                                                         <div *ngIf="submitted && a.get('parpetInspectionFailedNoOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('parpetInspectionFailedNoOb')?.errors?.required">
-                                                                Number of inspections passed observation is required</div>
+                                                                Number of inspections failed observation is required</div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -2560,7 +2528,7 @@
                                                         <div *ngIf="submitted && a.get('materialOfWallClampsOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('materialOfWallClampsOb')?.errors?.required">
-                                                                Material of clamp observation is required</div>
+                                                                Material of wall clamp observation is required</div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -2578,7 +2546,7 @@
                                             </tr>
                                             <tr>
                                                 <td style="text-align: center;">9(f)</td>
-                                                <td>Material of folding clamp (for stright joints, cross joints etc)</td>
+                                                <td>Material of folding clamp (for straight joints, cross joints etc)</td>
                                                 <td>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
@@ -2601,7 +2569,7 @@
                                                         <div *ngIf="submitted && a.get('materialOfFoldingClampsOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('materialOfFoldingClampsOb')?.errors?.required">
-                                                                Total number of clamps observation is required</div>
+                                                                Material of folding clamp observation is required</div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -2634,7 +2602,7 @@
                                                         <div *ngIf="submitted && a.get('totalClampsNoOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('totalClampsNoOb')?.errors?.required">
-                                                                Number of clamps inspected observation is required</div>
+                                                                Total number of clamps observation is required</div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -2865,7 +2833,7 @@
                                                         <div *ngIf="submitted && a.get('strightConnectorPiecOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('strightConnectorPiecOb')?.errors?.required">
-                                                                Straight connector is properly crimped observation is required</div>
+                                                                Connector/ ferrule / tube  is properly crimped/fixed observation is required</div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -2886,7 +2854,7 @@
                                             </tr>
                                             <tr>
                                                 <td style="text-align: center;">10(c)</td>
-                                                <td>Material of  connector/ferrule/tube</td>
+                                                <td>Material of connector/ferrule/tube</td>
                                                 <td>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
@@ -2908,7 +2876,7 @@
                                                         <div *ngIf="submitted && a.get('materialOfConnectorOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('materialOfConnectorOb')?.errors?.required">
-                                                                Material of expansion piece observation is required</div>
+                                                                Material of connector/ferrule/tube observation is required</div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -2948,7 +2916,7 @@
                                                         <div *ngIf="submitted && a.get('materialOfExpansionOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('materialOfExpansionOb')?.errors?.required">
-                                                                Total number of expansion pieces observation is required</div>
+                                                                Material of expansion arrangements observation is required</div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -2966,7 +2934,7 @@
                                             </tr>
                                             <tr>
                                                 <td style="text-align: center;">10(e)</td>
-                                                <td>Interval between two successice expansion piece in meters</td>
+                                                <td>Interval between two successive expansion piece in meters</td>
                                                 <td>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
@@ -2980,7 +2948,7 @@
                                                         <div *ngIf="submitted && a.get('intervalBwExpansionOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('intervalBwExpansionOb')?.errors?.required">
-                                                                Number of expansion pieces inspected observation is required</div>
+                                                                Successive expansion pieces observation is required</div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -3012,7 +2980,7 @@
                                                         <div *ngIf="submitted && a.get('totalNoExpansionOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('totalNoExpansionOb')?.errors?.required">
-                                                                Number of inspections passed observation is required</div>
+                                                                Total number of arrangements observation is required</div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -3044,7 +3012,7 @@
                                                         <div *ngIf="submitted && a.get('inspectionNoOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('inspectionNoOb')?.errors?.required">
-                                                                Number of inspections failed observation is required</div>
+                                                                Number of expansion arrangements inspected observation is required</div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -3077,7 +3045,7 @@
                                                         <div *ngIf="submitted && a.get('inspectionPassedNoOb')?.errors"
                                                             class="invalid-feedback">
                                                             <div *ngIf="a.get('inspectionPassedNoOb')?.errors?.required">
-                                                                Number of inspections failed observation is required</div>
+                                                                Number of inspections passed observation is required</div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -3222,7 +3190,7 @@
                                             </tr>
                                             <tr>
                                                 <td style="text-align: center;">11(b)</td>
-                                                <td>check the connection of cross connector /T connector /straight connector or ferrule or tube/L connector (tight/loose/corroded)</td>
+                                                <td>Check the connection of cross connector /T connector /straight connector or ferrule or tube/L connector (tight/loose/corroded)</td>
                                                 <td>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">

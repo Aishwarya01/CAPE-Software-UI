@@ -54,7 +54,7 @@
                             <tbody>
                                 <tr>
                                     <td style="width: 1rem; text-align: center;">1</td>
-                                    <td style="width: 24rem;">Type of Earthing (Type-A/Type-B/both)</td>
+                                    <td style="width: 24rem;">Type of Earthing (Type-A/Type-B/Both)</td>
                                     <td style="width: 35rem;">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
@@ -246,7 +246,7 @@
                                                     </select>
                                                 <div *ngIf="submitted && a.get('earthElectrodeLesthanDownConductorInOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('earthElectrodeLesthanDownConductorInOb')?.errors?.required">Earth pit work - Digging observation is
+                                                    <div *ngIf="a.get('earthElectrodeLesthanDownConductorInOb')?.errors?.required">Number of earth electrode observation is
                                                         required</div>
                                                 </div>
                                             </div>
@@ -327,7 +327,7 @@
                                                 <div *ngIf="submitted && a.get('testJointEarthElectrodeInOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('testJointEarthElectrodeInOb')?.errors?.required">
-                                                        Ensure all down conductors are connected observation is required</div>
+                                                        Route of earthing conductor from test joint to earth electrode observation is required</div>
                                                 </div>
                                             </div>
                                         </td>
@@ -362,7 +362,7 @@
                                                 <div *ngIf="submitted && a.get('grountLevelComponentFilledInOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('grountLevelComponentFilledInOb')?.errors?.required">
-                                                        Route of earthing conductor from test joint to earth electrode observation is required</div>
+                                                        Earth enhancement materials observation is required</div>
                                                 </div>
                                             </div>
                                         </td>
@@ -403,8 +403,7 @@
                                                             <option value="Cast Iron">Cast Iron</option>
                                                         </select>
                                                         <div *ngIf="submitted && h.get('earthingConductorMaterialInOb')?.errors" class="invalid-feedback">
-                                                            <div *ngIf="h.get('earthingConductorMaterialInOb')?.errors?.required">Coumpound filled properly
-                                                                upto gorund level observation is required</div>
+                                                            <div *ngIf="h.get('earthingConductorMaterialInOb')?.errors?.required">Material of earthing conductor observation is required</div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -444,7 +443,7 @@
                                                         </select>
                                                         <div *ngIf="submitted && h.get('earthElectrodeMaterialInOb')?.errors" class="invalid-feedback">
                                                             <div *ngIf="h.get('earthElectrodeMaterialInOb')?.errors?.required">
-                                                                Location of earth electrode observation is required</div>
+                                                                Material of earth electrode observation is required</div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -481,8 +480,7 @@
                                                             <option value="Chemical pipe">Chemical pipe</option>
                                                         </select>
                                                         <div *ngIf="submitted && h.get('earthElectrodeTypeInOb')?.errors" class="invalid-feedback">
-                                                            <div *ngIf="h.get('earthElectrodeTypeInOb')?.errors?.required">Material of earth electrode
-                                                                observation is required</div>
+                                                            <div *ngIf="h.get('earthElectrodeTypeInOb')?.errors?.required">Type of earth electrode observation is required</div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -530,7 +528,7 @@
                                             <tr>
                                     
                                                 <td style="width: 1rem;text-align: center;">4.{{x+1}}(j)</td>
-                                                <td style="width: 24rem;">Length/depth of earth electrode in meters</td>
+                                                <td style="width: 24rem;">Length/Depth of earth electrode in meters</td>
                                                 <td style="width: 43rem;">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
@@ -919,7 +917,7 @@
                                             <th>Remarks(Optional)</th>
                                         </thead>
                                         <tr>
-                                            <td style="width: 1rem; text-align: center;">5.1</td>
+                                            <td style="width: 1rem; text-align: center;">5(a)</td>
                                             <td style="width: 24rem;">Physical inspection (damage/break/corroded)</td>
                                             <td style="width: 43rem;">
                                                 <div class="input-group">
@@ -953,14 +951,13 @@
                                                         ></textarea>
                                                         <div *ngIf="submitted && a.get('psysicalInspectionInRem')?.errors"
                                                         class="invalid-feedback">
-                                                        <div *ngIf="a.get('psysicalInspectionInRem')?.errors?.required">
-                                                            Remarks is required</div>
-                                                            </div>
+                                                        <div *ngIf="a.get('psysicalInspectionInRem')?.errors?.required">Remarks is required</div>
+                                                        </div>
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style="text-align: center;">5.2</td>
+                                            <td style="text-align: center;">5(b)</td>
                                             <td>Clamp is firmly fixed/mounted on to earth electrode</td>
                                             <td>
                                                 <div class="input-group">
@@ -993,7 +990,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>5.3</td>
+                                            <td>5(c)</td>
                                             <td>Interconnection of earthing conductor with clamp (tight/loose/corroded)</td>
                                             <td>
                                                 <div class="input-group">
@@ -1009,9 +1006,7 @@
                                                         </select>
                                                     <div *ngIf="submitted && a.get('interConnectOfEarthClampInOb')?.errors"
                                                         class="invalid-feedback">
-                                                        <div
-                                                            *ngIf="a.get('interConnectOfEarthClampInOb')?.errors?.required">
-                                                            Interconnection of earthing conductor with clamp observation is required</div>
+                                                        <div *ngIf="a.get('interConnectOfEarthClampInOb')?.errors?.required">Interconnection of earthing conductor with clamp observation is required</div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -1034,7 +1029,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>5.4</td>
+                                            <td>5(d)</td>
                                             <td>Type of clamp</td>
                                             <td>
                                                 <div class="input-group">
@@ -1070,7 +1065,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>5.5</td>
+                                            <td>5(e)</td>
                                             <td>Material of clamp</td>
                                             <td>
                                                 <div class="input-group">
@@ -1111,7 +1106,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>5.6</td>
+                                            <td>5(f)</td>
                                             <td>Total number of clamps</td>
                                             <td>
                                                 <div class="input-group">
@@ -1144,7 +1139,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>5.7</td>
+                                            <td>5(g)</td>
                                             <td>Number of clamps inspected</td>
                                             <td>
                                                 <div class="input-group">
@@ -1177,7 +1172,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>5.8</td>
+                                            <td>5(h)</td>
                                             <td>Number of inspections passed</td>
                                             <td>
                                                 <div class="input-group">
@@ -1210,7 +1205,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>5.9</td>
+                                            <td>5(i)</td>
                                             <td>Number of inspections failed</td>
                                             <td>
                                                 <div class="input-group">
@@ -1337,8 +1332,7 @@
                                                     </select>
                                                 <div *ngIf="submitted && a.get('physicalInspeOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('physicalInspeOb')?.errors?.required">Physical inspection observation
-                                                        is required</div>
+                                                    <div *ngIf="a.get('physicalInspeOb')?.errors?.required">Physical inspection observation is required</div>
                                                 </div>
                                             </div>
                                         </td>
@@ -1465,7 +1459,7 @@
                                                 <div *ngIf="submitted && a.get('chamberLocationOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('chamberLocationOb')?.errors?.required">
-                                                        Chamber is properly placed in soil observation is required</div>
+                                                        Location of chamber observation is required</div>
                                                 </div>
                                             </div>
                                         </td>
@@ -1501,7 +1495,7 @@
                                                 <div *ngIf="submitted && a.get('maximumPlacedSoilOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('maximumPlacedSoilOb')?.errors?.required">
-                                                        Chamber is properly placed in soil observation is required</div>
+                                                        Chamber is properly placed in soil and numbered observation is required</div>
                                                 </div>
                                             </div>
                                         </td>
@@ -1984,7 +1978,7 @@
                                                 <div *ngIf="submitted && a.get('connectedEarthElectrodeOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('connectedEarthElectrodeOb')?.errors?.required">
-                                                        South observation is required</div>
+                                                        Type B ring earth electrode observation is required</div>
                                                 </div>
                                             </div>
                                         </td>
@@ -2022,7 +2016,7 @@
                                                 <div *ngIf="submitted && a.get('jointsMadeBrazingOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('jointsMadeBrazingOb')?.errors?.required">
-                                                        South observation is required</div>
+                                                        Type of Joints observation is required</div>
                                                 </div>
                                             </div>
                                         </td>
@@ -2064,7 +2058,7 @@
                                                 <div *ngIf="submitted && a.get('materialOfEartElectrodeOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('materialOfEartElectrodeOb')?.errors?.required">
-                                                        South observation is required</div>
+                                                        Material of earth electrode observation is required</div>
                                                 </div>
                                             </div>
                                         </td>
@@ -2103,7 +2097,7 @@
                                                 <div *ngIf="submitted && a.get('typeOfEarthElectrodeOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('typeOfEarthElectrodeOb')?.errors?.required">
-                                                        South observation is required</div>
+                                                        Type of earth electrode observation is required</div>
                                                 </div>
                                             </div>
                                         </td>
@@ -2179,7 +2173,7 @@
 
                                     <tr>
                                         <td style="text-align: center;">7(j)</td>
-                                        <td>Minimum distance between earth electrode and wall</td>
+                                        <td>Minimum distance between earth electrode and wall in meters</td>
                                         <td>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
@@ -2219,6 +2213,7 @@
                     </div>
                     </div>
                 </mat-expansion-panel>
+
                 <mat-expansion-panel *ngIf="availabilityOfPreviousReport == 'NO'">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
@@ -2319,7 +2314,7 @@
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('earthingElectrodeSize')?.errors}"
                                                             placeholder="Information to user: incase of 1. rod -diameter (mm)/cross sectional area (sq.mm), 2. pipe- inner&outer diameter (mm), 3.flat - cross sectional area (sq.mm), 4. chemical pipe-diameter (mm)"></textarea>
                                                         <div *ngIf="submitted && a.get('earthingElectrodeSize')?.errors" class="invalid-feedback">
-                                                            <div *ngIf="a.get('earthingElectrodeSize')?.errors?.required">Material of earth elctrode is required</div>
+                                                            <div *ngIf="a.get('earthingElectrodeSize')?.errors?.required">Size of earth electrode is required</div>
                                                         </div>
                                                     </div>
                                                 </td>

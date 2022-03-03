@@ -68,7 +68,7 @@
                                                             <option value="No" >No</option>
                                                         </select>
                                                         <div *ngIf="submitted && q.get('biMetallicIssueOb')?.errors"  class="invalid-feedback">
-                                                            <div *ngIf="q.get('biMetallicIssueOb')?.errors?.required">Presence of  Bi-metalllic corrosion issue is required</div>
+                                                            <div *ngIf="q.get('biMetallicIssueOb')?.errors?.required">Presence of  Bi-metalllic corrosion issue observation is required</div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -104,7 +104,7 @@
                                                             <option value="Not Applicable" >Not Applicable</option>
                                                         </select>
                                                         <div *ngIf="submitted && q.get('warningNoticeGroundLevelOb')?.errors"  class="invalid-feedback">
-                                                            <div *ngIf="q.get('warningNoticeGroundLevelOb')?.errors?.required">Presence of warning notice at ground level is required</div>
+                                                            <div *ngIf="q.get('warningNoticeGroundLevelOb')?.errors?.required">Presence of warning notice at ground level observation is required</div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -136,7 +136,7 @@
                                                             <option value="Not Applicable" >Not Applicable</option>
                                                         </select>
                                                         <div *ngIf="submitted && q.get('insulationPresenceOb')?.errors"  class="invalid-feedback">
-                                                            <div *ngIf="q.get('insulationPresenceOb')?.errors?.required">Presence of insulation of down conductors is required</div>
+                                                            <div *ngIf="q.get('insulationPresenceOb')?.errors?.required">Presence of insulation of down conductors observation is required</div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -153,7 +153,7 @@
                                             </tr>
                                             <tr>
                                                 <td style="text-align: center;">3</td>
-                                                <td>presence of power/ control/ instrumentation/telecommunication cable or cable passage  in path/near/parallel to down conductors</td>
+                                                <td>Presence of power/ control/ instrumentation/telecommunication cable or cable passage  in path/near/parallel to down conductors</td>
                                                 <td>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
@@ -168,7 +168,7 @@
                                                             <option value="No" >No</option>
                                                         </select>
                                                         <div *ngIf="submitted && q.get('noPowerDownConductorOb')?.errors"  class="invalid-feedback">
-                                                            <div *ngIf="q.get('noPowerDownConductorOb')?.errors?.required">presence of power/ control/ instrumentation/telecommunication is required</div>
+                                                            <div *ngIf="q.get('noPowerDownConductorOb')?.errors?.required">Presence of power/ control/ instrumentation/telecommunication observation is required</div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -207,7 +207,7 @@
                                                             <option value="Bolting (connectors)" >Bolting (connectors)</option>
                                                         </select>
                                                         <div *ngIf="submitted && q.get('connectMadeBrazingOb')?.errors" class="invalid-feedback">
-                                                            <div *ngIf="q.get('connectMadeBrazingOb')?.errors?.required">Type of connections is required</div>
+                                                            <div *ngIf="q.get('connectMadeBrazingOb')?.errors?.required">Type of connections observation is required</div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -240,7 +240,7 @@
                                                             <option value="No" >No</option>
                                                         </select>
                                                         <div *ngIf="submitted && q.get('chemicalSprinklerOb')?.errors"  class="invalid-feedback">
-                                                            <div *ngIf="q.get('chemicalSprinklerOb')?.errors?.required">Presence of corrosive material near the down conductor is required</div>
+                                                            <div *ngIf="q.get('chemicalSprinklerOb')?.errors?.required">Presence of corrosive material near the down conductor observation is required</div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -278,7 +278,7 @@
                                                             <option value="Not applicable < 1m" >Not applicable < 1m </option>
                                                         </select>
                                                         <div *ngIf="submitted && q.get('cobustMaterialWallOB')?.errors"  class="invalid-feedback">
-                                                            <div *ngIf="q.get('cobustMaterialWallOB')?.errors?.required">If wall is a combustible material is required</div>
+                                                            <div *ngIf="q.get('cobustMaterialWallOB')?.errors?.required">If wall is a combustible material observation is required</div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -367,7 +367,7 @@
                                                         <option value="Not good" >Not good</option>
                                                     </select>
                                                     <div *ngIf="submitted && a.get('physicalInspectionOb')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('physicalInspectionOb')?.errors?.required">Physical inspection is required</div>
+                                                        <div *ngIf="a.get('physicalInspectionOb')?.errors?.required">Physical inspection observation is required</div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -408,7 +408,7 @@
                                                         <option value="Cast Iron" >Cast Iron</option>
                                                     </select>
                                                     <div *ngIf="submitted && a.get('conductMaterialOb')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('conductMaterialOb')?.errors?.required">Material of conductor is required</div>
+                                                        <div *ngIf="a.get('conductMaterialOb')?.errors?.required">Material of conductor observation is required</div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -433,7 +433,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <textarea typ [readonly]="isEditable" formControlName="conductSizeOb" type="text" class="form-control" placeholder="Please enter Observation here"></textarea>
+                                                    <textarea typ [readonly]="isEditable" formControlName="conductSizeOb" type="text" class="form-control" placeholder="Please enter Observation here (Optional)"></textarea>
                                                 </div>
                                             </td>
                                             <td>
@@ -464,7 +464,7 @@
                                                         <option value="Insulated cable" >Insulated cable</option>
                                                     </select>
                                                     <div *ngIf="submitted && a.get('downConductExposedOb')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('downConductExposedOb')?.errors?.required">Type of down conductor is required</div>
+                                                        <div *ngIf="a.get('downConductExposedOb')?.errors?.required">Type of down conductor observation is required</div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -499,7 +499,7 @@
                                                         <option value="Not applicable" >Not applicable</option>
                                                     </select>
                                                     <div *ngIf="submitted && a.get('downConductLocationdOb')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('downConductLocationdOb')?.errors?.required">Down conductor location is required</div>
+                                                        <div *ngIf="a.get('downConductLocationdOb')?.errors?.required">Down conductor location observation is required</div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -535,7 +535,7 @@
                                                         <option value="No" >No</option>
                                                     </select>
                                                     <div *ngIf="submitted && a.get('downConductGutterOb')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('downConductGutterOb')?.errors?.required">Presence of gutters is required</div>
+                                                        <div *ngIf="a.get('downConductGutterOb')?.errors?.required">Presence of gutters observation is required</div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -571,7 +571,7 @@
                                                         <option value="No" >No</option>
                                                     </select>
                                                     <div *ngIf="submitted && a.get('installedShaftDownConductorOb')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('installedShaftDownConductorOb')?.errors?.required">Installed in service shaft is required</div>
+                                                        <div *ngIf="a.get('installedShaftDownConductorOb')?.errors?.required">Installed in service shaft observation is required</div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -608,7 +608,7 @@
                                                         <option value="No" >No</option>
                                                     </select>
                                                     <div *ngIf="submitted && a.get('ensureDownCnoductOb')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('ensureDownCnoductOb')?.errors?.required">Presence of connection is required</div>
+                                                        <div *ngIf="a.get('ensureDownCnoductOb')?.errors?.required">Presence of connection observation is required</div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -646,7 +646,7 @@
                                                         <option value="No" >No</option>
                                                     </select>
                                                     <div *ngIf="submitted && a.get('installationDownConductOb')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('installationDownConductOb')?.errors?.required">Installation of down conductor at equal spacing around perimeter is required</div>
+                                                        <div *ngIf="a.get('installationDownConductOb')?.errors?.required">Installation of down conductor at equal spacing around perimeter observation is required</div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -679,7 +679,7 @@
                                                     <input type="number" [readonly]="isEditable" formControlName="maximumDownConductOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Observation here"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('maximumDownConductOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('maximumDownConductOb')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('maximumDownConductOb')?.errors?.required">Maximum distance between down conductors is required</div>
+                                                        <div *ngIf="a.get('maximumDownConductOb')?.errors?.required">Maximum distance between down conductors observation is required</div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -708,7 +708,7 @@
                                                     <input type="number" [readonly]="isEditable" formControlName="manimumDownConductOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Observation here"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('manimumDownConductOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('manimumDownConductOb')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('manimumDownConductOb')?.errors?.required">Minimum distance between down conductors is required</div>
+                                                        <div *ngIf="a.get('manimumDownConductOb')?.errors?.required">Minimum distance between down conductors observation is required</div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -737,7 +737,7 @@
                                                     <input type="number" [readonly]="isEditable" formControlName="totalNoDownConductOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Observation here"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('totalNoDownConductOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('totalNoDownConductOb')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('totalNoDownConductOb')?.errors?.required">Total number of down conductors is required</div>
+                                                        <div *ngIf="a.get('totalNoDownConductOb')?.errors?.required">Total number of down conductors observation is required</div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -766,7 +766,7 @@
                                                     <input type="number" [readonly]="isEditable" formControlName="inspectedNoOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Observation here"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('inspectedNoOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('inspectedNoOb')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('inspectedNoOb')?.errors?.required">Number of down conductors inspected is required</div>
+                                                        <div *ngIf="a.get('inspectedNoOb')?.errors?.required">Number of down conductors inspected observation is required</div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -795,7 +795,7 @@
                                                     <input type="number" [readonly]="isEditable" formControlName="inspectionPassedNoOb" (keypress)="keyPressNumbers($event)"class="form-control" placeholder="Please enter Observation here"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('inspectionPassedNoOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('inspectionPassedNoOb')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('inspectionPassedNoOb')?.errors?.required">Number of inspections passed is required</div>
+                                                        <div *ngIf="a.get('inspectionPassedNoOb')?.errors?.required">Number of inspections passed observation is required</div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -826,7 +826,7 @@
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedNoOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('inspectionFailedNoOb')?.errors"
                                                         class="invalid-feedback">
-                                                        <div *ngIf="a.get('inspectionFailedNoOb')?.errors?.required">Number of inspections failed is required</div>
+                                                        <div *ngIf="a.get('inspectionFailedNoOb')?.errors?.required">Number of inspections failed observation is required</div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -860,7 +860,7 @@
                                                     <input type="number" class="form-control" formControlName="averageBendsOb" placeholder="Please enter Observation here"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('averageBendsOb')?.errors}" (keyup)="validationChangeDownConductorKey($event,q,'averageBendsRem')" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('averageBendsOb')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('averageBendsOb')?.errors?.required">Average number of dangerous bends is required</div>
+                                                        <div *ngIf="a.get('averageBendsOb')?.errors?.required">Average number of dangerous bends observation is required</div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -890,7 +890,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <textarea type="text" class="form-control" formControlName="naturalDownCondutTypeOb" placeholder="Please enter Observation here"></textarea>
+                                                    <textarea type="text" class="form-control" formControlName="naturalDownCondutTypeOb" placeholder="Please enter Observation here (Optional)"></textarea>
                                                 </div>
                                             </td>
                                             <td style="width: 43rem;">
@@ -918,7 +918,7 @@
                                                     <textarea class="form-control" formControlName="naturalDownCondDimensionOb" placeholder="Please enter Observation here"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('naturalDownCondDimensionOb')?.errors}"></textarea>
                                                     <div *ngIf="submitted && a.get('naturalDownCondDimensionOb')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('naturalDownCondDimensionOb')?.errors?.required">Dimensions of natural down conductor is required</div>
+                                                        <div *ngIf="a.get('naturalDownCondDimensionOb')?.errors?.required">Dimensions of natural down conductor observation is required</div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -1010,7 +1010,7 @@
                                                         <option value="No" >No</option>
                                                     </select>
                                                     <div *ngIf="submitted && a.get('ensureBridgingCableOb')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('ensureBridgingCableOb')?.errors?.required">Ensure bridging cable is required</div>
+                                                        <div *ngIf="a.get('ensureBridgingCableOb')?.errors?.required">Ensure bridging cable observation is required</div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -1046,7 +1046,7 @@
                                                         <option value="No" >No</option>
                                                     </select>
                                                     <div *ngIf="submitted && a.get('aluminiumConductorSideWallOb')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('aluminiumConductorSideWallOb')?.errors?.required">Connection of aluminium conductor into the side wall is required</div>
+                                                        <div *ngIf="a.get('aluminiumConductorSideWallOb')?.errors?.required">Connection of aluminium conductor into the side wall observation is required</div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -1082,7 +1082,7 @@
                                                         <option value="Not good" >Not good</option>
                                                     </select>
                                                     <div *ngIf="submitted && a.get('bridgingCableConnectionOb')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('bridgingCableConnectionOb')?.errors?.required">Ensure the connection of bridging cable is required</div>
+                                                        <div *ngIf="a.get('bridgingCableConnectionOb')?.errors?.required">Ensure the connection of bridging cable observation is required</div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -1124,7 +1124,7 @@
                                                         <option value="Cast Iron" >Cast Iron</option>
                                                     </select>
                                                     <div *ngIf="submitted && a.get('bridgingCableMaterialOb')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('bridgingCableMaterialOb')?.errors?.required">Material of bridging cable is required</div>
+                                                        <div *ngIf="a.get('bridgingCableMaterialOb')?.errors?.required">Material of bridging cable observation is required</div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -1150,7 +1150,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <textarea class="form-control" formControlName="bridgingCableSizeOb" placeholder="Please enter Observation here"></textarea>
+                                                    <textarea class="form-control" formControlName="bridgingCableSizeOb" placeholder="Please enter Observation here (Optional)"></textarea>
                                                 </div>
                                             </td>
                                             <td>
@@ -1368,7 +1368,7 @@
                                                             <option value="Not good" >Not good</option>
                                                         </select>
                                                         <div *ngIf="submitted && a.get('physicalInspectionOb')?.errors" class="invalid-feedback">
-                                                            <div *ngIf="a.get('physicalInspectionOb')?.errors?.required"> Physical inspection is required</div>
+                                                            <div *ngIf="a.get('physicalInspectionOb')?.errors?.required"> Physical inspection observation is required</div>
                                                         </div>
                                                 </div>
                                             </td>
@@ -1404,7 +1404,7 @@
                                                             <option value="No" >No</option>
                                                         </select>
                                                         <div *ngIf="submitted && a.get('conductHolderFlatSurfaceOb')?.errors" class="invalid-feedback">
-                                                            <div *ngIf="a.get('conductHolderFlatSurfaceOb')?.errors?.required">Conductor holder is required</div>
+                                                            <div *ngIf="a.get('conductHolderFlatSurfaceOb')?.errors?.required">Conductor holder observation is required</div>
                                                         </div>
                                                 </div>
                                             </td>
@@ -1440,7 +1440,7 @@
                                                             <option value="No" >No</option>
                                                         </select>
                                                         <div *ngIf="submitted && a.get('conductorHoldedOb')?.errors" class="invalid-feedback">
-                                                            <div *ngIf="a.get('conductorHoldedOb')?.errors?.required">Conductor is properly is required</div>
+                                                            <div *ngIf="a.get('conductorHoldedOb')?.errors?.required">Conductor is properly observation is required</div>
                                                         </div>
                                                 </div>
                                             </td>
@@ -1472,7 +1472,7 @@
                                                     <input type="number" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="successiveDistanceOb" 
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('successiveDistanceOb')?.errors}" placeholder="Please enter Observation here" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('successiveDistanceOb')?.errors"class="invalid-feedback">
-                                                        <div *ngIf="a.get('successiveDistanceOb')?.errors?.required">Distance between two successive holder in meters is required</div>
+                                                        <div *ngIf="a.get('successiveDistanceOb')?.errors?.required">Distance between two successive holder in meters observation is required</div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -1513,7 +1513,7 @@
                                                         <option value="Insulated" >Insulated</option>
                                                         </select>
                                                         <div *ngIf="submitted && a.get('materialHolderOb')?.errors" class="invalid-feedback">
-                                                            <div *ngIf="a.get('materialHolderOb')?.errors?.required">Material of holder is required</div>
+                                                            <div *ngIf="a.get('materialHolderOb')?.errors?.required">Material of holder observation is required</div>
                                                         </div>
                                                 </div>
                                             </td>
@@ -1726,7 +1726,7 @@
                                                             <option value="Not possible to verify" >Not possible to verify</option>
                                                         </select>
                                                         <div *ngIf="submitted && a.get('physicalInspectionOb')?.errors" class="invalid-feedback">
-                                                            <div *ngIf="a.get('physicalInspectionOb')?.errors?.required">Physical inspection is required</div>
+                                                            <div *ngIf="a.get('physicalInspectionOb')?.errors?.required">Physical inspection observation is required</div>
                                                         </div>
                                                 </div>
                                             </td>
@@ -1763,7 +1763,7 @@
                                                             <option value="Not possible to verify" >Not possible to verify</option>
                                                         </select>
                                                         <div *ngIf="submitted && a.get('strightConnectCheckOb')?.errors" class="invalid-feedback">
-                                                            <div *ngIf="a.get('strightConnectCheckOb')?.errors?.required">Straight connector is required</div>
+                                                            <div *ngIf="a.get('strightConnectCheckOb')?.errors?.required">Straight connector observation is required</div>
                                                         </div>
                                                 </div>
                                             </td>
@@ -1805,7 +1805,7 @@
                                                             <option value="Cast Iron" >Cast Iron</option>
                                                         </select>
                                                         <div *ngIf="submitted && a.get('materialConnectorOb')?.errors" class="invalid-feedback">
-                                                            <div *ngIf="a.get('materialConnectorOb')?.errors?.required">Material of straight connector is required</div>
+                                                            <div *ngIf="a.get('materialConnectorOb')?.errors?.required">Material of straight connector observation is required</div>
                                                         </div>
                                                 </div>
                                             </td>
@@ -1835,7 +1835,7 @@
                                                     <input type="number" [readonly]="isEditable" formControlName="maxConnectorsDownConductorOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Observation here"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('maxConnectorsDownConductorOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('maxConnectorsDownConductorOb')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('maxConnectorsDownConductorOb')?.errors?.required">Max number of connector in a down conductor is required</div>
+                                                        <div *ngIf="a.get('maxConnectorsDownConductorOb')?.errors?.required">Max number of connector in a down conductor observation is required</div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -2657,7 +2657,7 @@
                                                     <div *ngIf="submitted && a.get('touchingConductorsOb')?.errors"
                                                         class="invalid-feedback">
                                                         <div *ngIf="a.get('touchingConductorsOb')?.errors?.required">
-                                                            Bi-metalllic issue observation is required</div>
+                                                            earthing conductor touch each other at test joint observation is required</div>
                                                     </div>
                                                 </div>
                                             </td>

@@ -185,9 +185,9 @@ export class LpsDownConductorsComponent implements OnInit {
 
   updateMethod(){
     this.ngOnInit();
-    this.lpsDownconductorService.retrieveDownConductor(this.email,this.downConductorReport.basicLpsId).subscribe(
+    this.lpsDownconductorService.retrieveDownConductor(this.email,this.basicLpsId).subscribe(
       data=>{
-       this.retrieveDetailsfromSavedReports1(this.email,this.downConductorReport.basicLpsId,'clientName',data);    
+       this.retrieveDetailsfromSavedReports1(this.email,this.basicLpsId,'clientName',data);    
        
        setTimeout(() => {
         this.downConductorDescription = this.downConductorForm.get(

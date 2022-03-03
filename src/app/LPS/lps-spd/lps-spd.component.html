@@ -243,7 +243,7 @@
                                                     <textarea type="text" [readonly]="isEditable" formControlName="spdMakeOb" class="form-control" placeholder="Please enter Make"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('spdMakeOb')?.errors}"></textarea>
                                                     <div *ngIf="submitted && a.get('spdMakeOb')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('spdMakeOb')?.errors?.required">Make is required</div>
+                                                        <div *ngIf="a.get('spdMakeOb')?.errors?.required">Make observation is required</div>
                                                     </div>    
                                                 </div>
                                             </td>
@@ -271,7 +271,7 @@
                                                     <textarea type="text" [readonly]="isEditable" formControlName="spdModelOb" class="form-control" placeholder="Please enter Model"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('spdModelOb')?.errors}"></textarea>
                                                     <div *ngIf="submitted && a.get('spdModelOb')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('spdModelOb')?.errors?.required">Model is required</div>
+                                                        <div *ngIf="a.get('spdModelOb')?.errors?.required">Model observation is required</div>
                                                     </div>  
                                                 </div>
                                             </td>
@@ -304,7 +304,7 @@
                                                         <option value="class III" >class III</option>
                                                     </select>
                                                     <div *ngIf="submitted && a.get('spdClassTypeOb')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('spdClassTypeOb')?.errors?.required">Class Type is required</div>
+                                                        <div *ngIf="a.get('spdClassTypeOb')?.errors?.required">Class Type observation is required</div>
                                                     </div> 
                                                 </div>
                                             </td>
@@ -336,7 +336,7 @@
                                                         <option value="Telecom line" >Telecom line</option>
                                                     </select>
                                                     <div *ngIf="submitted && a.get('spdApplicationOb')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('spdApplicationOb')?.errors?.required">ApplicationOb is required</div>
+                                                        <div *ngIf="a.get('spdApplicationOb')?.errors?.required">Application observation is required</div>
                                                     </div> 
                                                 </div>
                                             </td>
@@ -369,7 +369,7 @@
                                                         <option value="Continuation of protection to equipment" >Continuation of protection to equipment</option>
                                                     </select>
                                                     <div *ngIf="submitted && a.get('spdMainApplicationOb')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('spdMainApplicationOb')?.errors?.required">Application is required</div>
+                                                        <div *ngIf="a.get('spdMainApplicationOb')?.errors?.required">Application observation is required</div>
                                                     </div> 
                                                 </div>
                                             </td>
@@ -401,7 +401,7 @@
                                                         <option value="No" >No</option>
                                                     </select>
                                                     <div *ngIf="submitted && a.get('properConnectionOb')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('properConnectionOb')?.errors?.required">ApplicationOb is required</div>
+                                                        <div *ngIf="a.get('properConnectionOb')?.errors?.required">Proper connection observation is required</div>
                                                     </div> 
                                                 </div>
                                             </td>
@@ -430,7 +430,7 @@
                                                     <input type="number" [readonly]="isEditable" (keypress)="keyPressNumbers($event)" formControlName="incomerRatingOb" class="form-control" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('incomerRatingOb')?.errors}" placeholder="The value must be a number">
                                                     <div *ngIf="submitted && a.get('incomerRatingOb')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('incomerRatingOb')?.errors?.required">Incomer rating is required</div>
+                                                        <div *ngIf="a.get('incomerRatingOb')?.errors?.required">Incomer rating observation is required</div>
                                                     </div> 
                                                 </div>
                                             </td>
@@ -459,7 +459,7 @@
                                                     <input type="number" [readonly]="isEditable" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="fuseBackUpOb" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('fuseBackUpOb')?.errors}" placeholder="The value must be a number">
                                                     <div *ngIf="submitted && a.get('fuseBackUpOb')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('fuseBackUpOb')?.errors?.required">fuse/MCB rating is required</div>
+                                                        <div *ngIf="a.get('fuseBackUpOb')?.errors?.required">fuse/MCB rating observation is required</div>
                                                     </div> 
                                                 </div>
                                             </td>
@@ -499,7 +499,7 @@
                                                     <input type="number" [readonly]="isEditable" (keypress)="keyPressNumbers($event)" formControlName="lengthOfConnectingWirePhaseOb" class="form-control" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('lengthOfConnectingWirePhaseOb')?.errors}" placeholder="The value must be a number">
                                                     <div *ngIf="submitted && a.get('lengthOfConnectingWirePhaseOb')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('lengthOfConnectingWirePhaseOb')?.errors?.required">Phase is required</div>
+                                                        <div *ngIf="a.get('lengthOfConnectingWirePhaseOb')?.errors?.required">Phase observation is required</div>
                                                     </div> 
                                                 </div>
                                             </td>
@@ -527,7 +527,7 @@
                                                     <input type="number" [readonly]="isEditable" (keypress)="keyPressNumbers($event)" formControlName="lengthOfConnectingWireProtectiveOb" class="form-control" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('lengthOfConnectingWireProtectiveOb')?.errors}" placeholder="The value must be a number">
                                                     <div *ngIf="submitted && a.get('lengthOfConnectingWireProtectiveOb')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('lengthOfConnectingWireProtectiveOb')?.errors?.required">Protective conductor is required</div>
+                                                        <div *ngIf="a.get('lengthOfConnectingWireProtectiveOb')?.errors?.required">Protective conductor observation is required</div>
                                                     </div> 
                                                 </div>
                                             </td>
@@ -560,7 +560,7 @@
                                                     <input type="number" [readonly]="isEditable" (keypress)="keyPressNumbers($event)" formControlName="sizeOfConnectingWirePhaseOb" class="form-control" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('sizeOfConnectingWirePhaseOb')?.errors}" placeholder="The value must be a number">
                                                     <div *ngIf="submitted && a.get('sizeOfConnectingWirePhaseOb')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('sizeOfConnectingWirePhaseOb')?.errors?.required">Phase is required</div>
+                                                        <div *ngIf="a.get('sizeOfConnectingWirePhaseOb')?.errors?.required">Phase observation is required</div>
                                                     </div> 
                                                 </div>
                                             </td>
@@ -588,7 +588,7 @@
                                                     <input type="number" [readonly]="isEditable" (keypress)="keyPressNumbers($event)" formControlName="sizeOfConnectingWireProtectiveOb" class="form-control" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('sizeOfConnectingWireProtectiveOb')?.errors}" placeholder="The value must be a number">
                                                     <div *ngIf="submitted && a.get('sizeOfConnectingWireProtectiveOb')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('sizeOfConnectingWireProtectiveOb')?.errors?.required">Protective conductor is required</div>
+                                                        <div *ngIf="a.get('sizeOfConnectingWireProtectiveOb')?.errors?.required">Protective conductor observation is required</div>
                                                     </div> 
                                                 </div>
                                             </td>

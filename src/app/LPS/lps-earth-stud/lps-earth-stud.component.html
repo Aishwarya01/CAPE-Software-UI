@@ -66,7 +66,7 @@
                                                     <option value="No" >No</option>
                                         </select>
                                         <div *ngIf="submitted && f.get('availableEquipotentialBondingOb')?.errors" class="invalid-feedback">
-                                            <div *ngIf="f.get('availableEquipotentialBondingOb')?.errors?.required" >Whether equipotential bonding between LPS and MET is available is required</div>
+                                            <div *ngIf="f.get('availableEquipotentialBondingOb')?.errors?.required" >Whether equipotential bonding between LPS and MET observation required</div>
                                         </div>
                                     </div>
                                 </td>
@@ -95,7 +95,7 @@
                                         </div>
                                         <textarea [readonly]="isEditable" formControlName="numberOfEquipotentialBondingOb" type="text" class="form-control" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && f.get('numberOfEquipotentialBondingOb')?.errors }"></textarea>
                                         <div *ngIf="submitted && f.get('numberOfEquipotentialBondingOb')?.errors" class="invalid-feedback">
-                                            <div *ngIf="f.get('numberOfEquipotentialBondingOb')?.errors?.required">Number of Equipotential bondings is required</div>
+                                            <div *ngIf="f.get('numberOfEquipotentialBondingOb')?.errors?.required">Number of Equipotential bondings observation is required</div>
                                         </div>
                                     </div>
                                 </td>
@@ -124,7 +124,7 @@
                                             </div>
                                             <textarea [readonly]="isEditable" formControlName="sizeOfEarthingConductorOb" type="text" class="form-control" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && f.get('sizeOfEarthingConductorOb')?.errors }"></textarea>
                                             <div *ngIf="submitted && f.get('sizeOfEarthingConductorOb')?.errors" class="invalid-feedback">
-                                                <div *ngIf="f.get('sizeOfEarthingConductorOb')?.errors?.required">Size of earthing conductor is required</div>
+                                                <div *ngIf="f.get('sizeOfEarthingConductorOb')?.errors?.required">Size of earthing conductor observation is required</div>
                                             </div>
                                         </div>
                                     </td>
@@ -158,7 +158,7 @@
                                             <option value="partially">Partially</option>
                                         </select>
                                         <div *ngIf="submitted && f.get('conceptOfEquipotentialBondingOb')?.errors" class="invalid-feedback">
-                                            <div *ngIf="f.get('conceptOfEquipotentialBondingOb')?.errors?.required">Concept of protevtive equipotential bonding is available is required</div>
+                                            <div *ngIf="f.get('conceptOfEquipotentialBondingOb')?.errors?.required">Concept of protevtive equipotential bonding observation is required</div>
                                         </div>
                                     </div>
                                 </td>
@@ -186,7 +186,7 @@
                                         </div>
                                         <textarea [readonly]="isEditable" formControlName="mainProtectiveEquipotentialBondingOb"  type="text" class="form-control" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && f.get('mainProtectiveEquipotentialBondingOb')?.errors }"></textarea>
                                         <div *ngIf="submitted && f.get('mainProtectiveEquipotentialBondingOb')?.errors" class="invalid-feedback">
-                                            <div *ngIf="f.get('mainProtectiveEquipotentialBondingOb')?.errors?.required">Main protective equipotential bonding is required</div>
+                                            <div *ngIf="f.get('mainProtectiveEquipotentialBondingOb')?.errors?.required">Main protective equipotential bonding observation is required</div>
                                         </div>
                                     </div>
                                 </td>
@@ -213,7 +213,7 @@
                                         </div>
                                         <textarea [readonly]="isEditable" formControlName="sizeOfMainProtectiveOb"  type="text" class="form-control" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && f.get('sizeOfMainProtectiveOb')?.errors }"></textarea>
                                         <div *ngIf="submitted && f.get('sizeOfMainProtectiveOb')?.errors" class="invalid-feedback">
-                                            <div *ngIf="f.get('sizeOfMainProtectiveOb')?.errors?.required">Size of main protective equipotential bonding is required</div>
+                                            <div *ngIf="f.get('sizeOfMainProtectiveOb')?.errors?.required">Size of main protective equipotential bonding observation is required</div>
                                         </div>
                                     </div>
                                 </td>
@@ -232,7 +232,7 @@
 
                             <tr *ngIf="supplimentaryProtective[j]">
                                 <td style="text-align: center;">7.</td>
-                                <td>Supplimentary Protective equipotential bondding in numbers</td>
+                                <td>Supplimentary protective equipotential bondding in numbers</td>
                                 <td>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -242,7 +242,7 @@
                                         </div>
                                         <textarea [readonly]="isEditable" formControlName="supplimentaryMainProtectiveOb"  type="text" class="form-control" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && f.get('supplimentaryMainProtectiveOb')?.errors }"></textarea>
                                         <div *ngIf="submitted && f.get('supplimentaryMainProtectiveOb')?.errors" class="invalid-feedback">
-                                            <div *ngIf="f.get('supplimentaryMainProtectiveOb')?.errors?.required">Main protective equipotential bonding is required</div>
+                                            <div *ngIf="f.get('supplimentaryMainProtectiveOb')?.errors?.required">Supplimentary protective equipotential bonding observation is required</div>
                                         </div>
                                     </div>
                                 </td>
@@ -269,7 +269,7 @@
                                         </div>
                                         <textarea [readonly]="isEditable" formControlName="sizeOfSupplimentaryProtectiveOb"  type="text" class="form-control" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && f.get('sizeOfSupplimentaryProtectiveOb')?.errors }"></textarea>
                                         <div *ngIf="submitted && f.get('sizeOfSupplimentaryProtectiveOb')?.errors" class="invalid-feedback">
-                                            <div *ngIf="f.get('sizeOfSupplimentaryProtectiveOb')?.errors?.required">Size of main protective equipotential bonding is required</div>
+                                            <div *ngIf="f.get('sizeOfSupplimentaryProtectiveOb')?.errors?.required">Size of main protective equipotential bonding observation is required</div>
                                         </div>
                                     </div>
                                 </td>
@@ -317,7 +317,7 @@
                                     </div>
                                     <textarea [readonly]="isEditable" formControlName="earthStudVisibilityOb"  type="text" class="form-control" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && f.get('earthStudVisibilityOb')?.errors }"></textarea>
                                     <div *ngIf="submitted && f.get('earthStudVisibilityOb')?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.get('earthStudVisibilityOb')?.errors?.required">Integrated LPS tests during construction is required</div>
+                                        <div *ngIf="f.get('earthStudVisibilityOb')?.errors?.required">Earth stud visibility observation is required</div>
                                     </div>
                                 </div>
                             </td>
@@ -336,7 +336,7 @@
 
                          <tr>
                             <td style="text-align: center;">8.2</td>
-                            <td>Earth stud visibility if any</td>
+                            <td>Earth stud bend if any</td>
                             <td>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -346,7 +346,7 @@
                                     </div>
                                     <textarea [readonly]="isEditable" formControlName="earthStudBendOb"  type="text" class="form-control" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && f.get('earthStudBendOb')?.errors }"></textarea>
                                     <div *ngIf="submitted && f.get('earthStudBendOb')?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.get('earthStudBendOb')?.errors?.required">Earth stud visibility if any is required</div>
+                                        <div *ngIf="f.get('earthStudBendOb')?.errors?.required">Earth stud bend observation is required</div>
                                     </div>
                                 </div>
                             </td>
@@ -375,7 +375,7 @@
                                     </div>
                                     <textarea [readonly]="isEditable" formControlName="properBondingRailOb"  type="text" class="form-control" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && f.get('properBondingRailOb')?.errors }"></textarea>
                                     <div *ngIf="submitted && f.get('properBondingRailOb')?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.get('properBondingRailOb')?.errors?.required">Proper bonding rail is required</div>
+                                        <div *ngIf="f.get('properBondingRailOb')?.errors?.required">Proper bonding rail observation is required</div>
                                     </div>
                                 </div>
                             </td>
@@ -404,7 +404,7 @@
                                     </div>
                                     <textarea [readonly]="isEditable" formControlName="physicalDamageStudOb"  type="text" class="form-control" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && f.get('physicalDamageStudOb')?.errors }"></textarea>
                                     <div *ngIf="submitted && f.get('physicalDamageStudOb')?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.get('physicalDamageStudOb')?.errors?.required">Physical damage of stud is required</div>
+                                        <div *ngIf="f.get('physicalDamageStudOb')?.errors?.required">Physical damage of stud observation is required</div>
                                     </div>
                                 </div>
                             </td>
@@ -433,7 +433,7 @@
                                     </div>
                                     <textarea [readonly]="isEditable" formControlName="continutyExistaEarthOb"  type="text" class="form-control" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && f.get('continutyExistaEarthOb')?.errors }"></textarea>
                                     <div *ngIf="submitted && f.get('continutyExistaEarthOb')?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.get('continutyExistaEarthOb')?.errors?.required">Whether continuity exist in earth stud is required</div>
+                                        <div *ngIf="f.get('continutyExistaEarthOb')?.errors?.required">Continuity exist in earth stud observation is required</div>
                                     </div>
                                 </div>
                             </td>
