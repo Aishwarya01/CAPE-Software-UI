@@ -1,15 +1,15 @@
 <mat-tab-group  [selectedIndex]="selectedIndex" style="background-color:white;" #tabs>
     <mat-tab label="Electro Magnetic Compatibility">
-        <mat-horizontal-stepper  [linear]="service.isLinearEmc" #stepper>
+        <mat-horizontal-stepper  [linear]="service.isLinear" #stepper>
          
-            <mat-step  [completed]="service.isCompletedEmc" [editable]="service.editableEmc">
+            <mat-step  [completed]="service.isCompleted" [editable]="service.editable">
              <ng-template matStepLabel>
                 <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
                 Client Details</ng-template>
                 <app-emc-client-details (proceedNext)="doSomething($event)"></app-emc-client-details>
             </mat-step>
 
-            <mat-step [completed]="service.isCompletedEmc1" [editable]="service.editableEmc">
+            <mat-step [completed]="service.isCompleted2" [editable]="service.editable">
                 <ng-template matStepLabel>
                     <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
                     Facility Data</ng-template>

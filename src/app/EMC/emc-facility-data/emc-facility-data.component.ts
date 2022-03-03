@@ -360,13 +360,13 @@ export class EmcFacilityDataComponent implements OnInit {
     this.popup = false;
     if (this.errorMsg != "") {
       this.Error = false;
-      this.service.isCompletedEmc1 = false;
+      this.service.isCompleted2 = false;
       this.service.isLinear = true;
       this.modalService.dismissAll(this.errorMsg = "");
     }
     else {
       this.success = false;
-      this.service.isCompletedEmc1 = true;
+      this.service.isCompleted2 = true;
       this.service.isLinear = false;
       this.modalService.dismissAll(this.successMsg = "");
     }
@@ -374,7 +374,7 @@ export class EmcFacilityDataComponent implements OnInit {
 
   gotoNextTab() {
     if (this.EMCFacilityForm.dirty && this.EMCFacilityForm.invalid) {
-      this.service.isCompletedEmc1 = false;
+      this.service.isCompleted2 = false;
       this.service.isLinear = true;
       this.service.editable = false;
       //this.validationError=false;
@@ -386,9 +386,9 @@ export class EmcFacilityDataComponent implements OnInit {
       return;
     }
     else if (this.EMCFacilityForm.dirty && this.EMCFacilityForm.touched) {
-      this.service.isCompletedEmc1 = false;
-      this.service.isLinearEmc = true;
-      this.service.editableEmc = false;
+      this.service.isCompleted2 = false;
+      this.service.isLinear = true;
+      this.service.editable = false;
       this.tabError = true;
       this.tabErrorMsg = 'Kindly click on next button to update the changes!';
       setTimeout(() => {
@@ -397,9 +397,9 @@ export class EmcFacilityDataComponent implements OnInit {
       return;
     }
     else {
-      this.service.isCompletedEmc1 = true;
-      this.service.isLinearEmc = false;
-      this.service.editableEmc = true;
+      this.service.isCompleted2 = true;
+      this.service.isLinear = false;
+      this.service.editable = true;
     }
   }
 
@@ -447,8 +447,8 @@ export class EmcFacilityDataComponent implements OnInit {
               this.popup = true;
               this.success = true;
               this.successMsg = data;
-              this.service.isCompletedEmc1= true;
-              this.service.isLinearEmc=false;
+              this.service.isCompleted2= true;
+              this.service.isLinear=false;
               this.retriveFacilityDetails();
               this.proceedNext.emit(true);
        },
@@ -474,8 +474,8 @@ export class EmcFacilityDataComponent implements OnInit {
           this.popup = true;
           this.success = true;
           this.successMsg = data;
-          this.service.isCompletedEmc1= true;
-          this.service.isLinearEmc=false;
+          this.service.isCompleted2= true;
+          this.service.isLinear=false;
           //this.disable = true;
           this.retriveFacilityDetails();
           this.proceedNext.emit(true);
@@ -487,8 +487,8 @@ export class EmcFacilityDataComponent implements OnInit {
           this.errorArr = [];
           this.errorArr = JSON.parse(error.error);
           this.errorMsg = this.errorArr.message;
-          this.service.isCompletedEmc1= false;
-          this.service.isLinearEmc=true;
+          this.service.isCompleted2= false;
+          this.service.isLinear=true;
           this.proceedNext.emit(false);
         }
       )

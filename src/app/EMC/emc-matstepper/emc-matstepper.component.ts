@@ -80,30 +80,30 @@ export class EmcMatstepperComponent implements OnInit {
     this.electroMagneticCopatibility.emcId = this.clientData.emcClientDetails.emcId;
 
     // this.Completed = this.clientData.success;
-    this.service.isLinearEmc = false;
-    this.service.isCompletedEmc = next;
+    this.service.isLinear = false;
+    this.service.isCompleted = next;
     this.saved.ngOnInit();
     this.refresh();
   }
 
   triggerClickTab() {
-    this.clientData.gotoNextTab();
-    this.facility.gotoNextTab();
-    this.powerAndEarthing.gotoNextTab();
-    this.electroMagneticCopatibility.gotoNextTab();
+    // this.clientData.gotoNextTab();
+    // this.facility.gotoNextTab();
+    // this.powerAndEarthing.gotoNextTab();
+    // this.electroMagneticCopatibility.gotoNextTab();
   }
   public doSomething1(next: any): void {
-    this.service.isLinearEmc = false;
-    this.service.isCompletedEmc1 = next;
+    this.service.isLinear = false;
+    this.service.isCompleted = next;
     // this.Completed1 = this.facility.success;
     this.refresh();
   }
 
   public doSomething2(next: any): void {
-    this.service.isLinearEmc = false;
+    this.service.isLinear = false;
 
     //this.service.supplycharesteristicForm = next;
-    this.service.isCompletedEmc2 = next;
+    this.service.isCompleted2 = next;
 
     // this.Completed2 = this.powerAndEarthing.success;
     this.refresh();

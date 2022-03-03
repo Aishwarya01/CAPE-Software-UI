@@ -241,14 +241,14 @@ export class EmcClientDetailsComponent implements OnInit {
     this.popup = false;
     if (this.errorMsg != "") {
       this.Error = false;
-      this.service.isCompletedEmc= false;
-      this.service.isLinearEmc=true;
+      this.service.isCompleted= false;
+      this.service.isLinear=true;
       this.modalService.dismissAll((this.errorMsg = ""));
     }
     else {
       this.success = false;
-      this.service.isCompletedEmc= true;
-      this.service.isLinearEmc=false;
+      this.service.isCompleted= true;
+      this.service.isLinear=false;
       this.modalService.dismissAll((this.successMsg = ""));
       // this.disable = false;
 
@@ -299,23 +299,24 @@ export class EmcClientDetailsComponent implements OnInit {
       // this.service.windowTabClick=1;
     }
   }
+
   gotoNextTab() {
     if (this.EmcClientDetailsForm.dirty && this.EmcClientDetailsForm.invalid) {
-      this.service.isCompletedEmc= false;
-      this.service.isLinearEmc=true;
-       this.service.editableEmc=false;
+      this.service.isCompleted= false;
+      this.service.isLinear=true;
+      this.service.editable=false;
       //this.validationError=false;
       this.validationErrorTab = true;
-      this.validationErrorMsgTab = 'Please check all the fields in client details';
+      this.validationErrorMsgTab = 'Please check all the fields in basic information';
       setTimeout(() => {
         this.validationErrorTab = false;
       }, 3000);
       return;
     }
     else if(this.EmcClientDetailsForm.dirty && this.EmcClientDetailsForm.touched){
-      this.service.isCompletedEmc= false;
-      this.service.isLinearEmc=true;
-      this.service.editableEmc=false;
+      this.service.isCompleted= false;
+      this.service.isLinear=true;
+      this.service.editable=false;
       this.tabError = true;
       this.tabErrorMsg = 'Kindly click on next button to update the changes!';
       setTimeout(() => {
@@ -324,12 +325,12 @@ export class EmcClientDetailsComponent implements OnInit {
       return;
    }
     else{
-      this.service.isCompletedEmc= true;
-     this.service.isLinearEmc=false;
-     this.service.editableEmc=true;
+      this.service.isCompleted= true;
+      this.service.isLinear=false;
+      this.service.editable=true;
     }
   }
-
+ 
   gotoNextModal(content: any, content2: any) {
     if (this.EmcClientDetailsForm.invalid) {
       this.validationError = true;
@@ -401,8 +402,8 @@ export class EmcClientDetailsComponent implements OnInit {
               this.popup = true;
               this.success = true;
               this.successMsg = data;
-              this.service.isCompletedEmc= true;
-              this.service.isLinearEmc=false;
+              this.service.isCompleted= true;
+              this.service.isLinear=false;
               this.retriveClientDetails();
               //this.proceedNext.emit(true);
               
@@ -433,8 +434,8 @@ export class EmcClientDetailsComponent implements OnInit {
           this.success = true;
           this.successMsg = "Client Details Successfully Saved";
           //this.disable = true;
-          this.service.isCompletedEmc= true;
-          this.service.isLinearEmc=false;
+          this.service.isCompleted= true;
+          this.service.isLinear=false;
           this.retriveClientDetails();
           this.proceedNext.emit(true);
         },
@@ -445,8 +446,8 @@ export class EmcClientDetailsComponent implements OnInit {
           this.errorArr = [];
           this.errorArr = JSON.parse(error.error);
           this.errorMsg = this.errorArr.message;
-          this.service.isCompletedEmc= false;
-          this.service.isLinearEmc=true;
+          this.service.isCompleted= false;
+          this.service.isLinear=true;
           this.proceedNext.emit(false);
         }
       )
