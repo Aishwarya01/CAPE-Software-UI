@@ -1,3 +1,6 @@
+<div *ngIf="proceedFlag" style="text-align: center;margin-top: 30px;">
+    <span class="successshow">Please fill Air Termination for building number & name to proceed further!</span>
+</div>
 <div class="card">
     <div class="card-body">
         <form [formGroup]="airTerminationForm" (ngSubmit)="onSubmit(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">

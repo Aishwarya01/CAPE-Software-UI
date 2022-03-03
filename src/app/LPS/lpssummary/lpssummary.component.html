@@ -57,11 +57,16 @@
                 <div class="form-group">
                 <!-- Observation starts here -->
                 <label>
-                  <h3><b>Air termination :</b></h3>
+                  <h3 style="cursor: pointer;" (click)= "navigateToStep(1)"><b><u>Air termination :</u></b></h3>
                 </label>
                 <br>
                 <!-- <label><h3 style="cursor: pointer;"><b><u>Basic details Observations :</u></b></h3></label>                     -->
-                    <div class="table-responsive" id="style-1" style="border: 1px solid black">
+                    <div class="table-responsive" id="style-1" style="border: 1px solid black"
+                     *ngIf="airTerminationControl(q).length != 0 || airVerticalControl(q).length != 0 ||
+                                airVerticalListControl(q).length != 0 || airMeshControl(q).length != 0 ||
+                                 airHolderControl(q).length != 0 || airHolderListControl(q).length != 0 ||
+                                  airClampsControl(q).length != 0 || airExpansionControl(q).length != 0 || 
+                                    airConnectorsControl(q).length != 0">
                         <table class="table">
                           <thead>
                             <tr>
@@ -205,11 +210,16 @@
                     </tbody>
                         </table>
                       </div>
-                      <!-- <div class="row" *ngIf="noObserveSupply">
+                      <div class="row" 
+                      *ngIf="(airTerminationControl(q).length != 0) && (airVerticalControl(q).length != 0) &&
+                                (airVerticalListControl(q).length != 0) && (airMeshControl(q).length != 0) &&
+                                 (airHolderControl(q).length != 0) && (airHolderListControl(q).length != 0) &&
+                                  (airClampsControl(q).length != 0) && (airExpansionControl(q).length != 0) && 
+                                    (airConnectorsControl(q).length != 0)">
                         <div class="col-sm-12">
-                          <h3 style="color: #eea80a;">Currently, you have not provided Observations for Supply Characteristics!</h3>
+                          <h3 style="color: #eea80a;">Currently, you have not provided Observations for Air termination!</h3>
                         </div>
-                      </div> -->
+                      </div>
                  <br>
                   </div>
                 </div>
@@ -218,11 +228,15 @@
                   <div class="form-group">
                   <!-- Observation starts here -->
                   <label>
-                    <h3><b>Down Conductors :</b></h3>
+                    <h3 style="cursor: pointer;" (click)= "navigateToStep(2)"><b><u>Down Conductors :</u></b></h3>
                   </label>
                   <br>
                   <!-- <label><h3 style="cursor: pointer;"><b><u>Basic details Observations :</u></b></h3></label>                     -->
-                      <div class="table-responsive" id="style-1" style="border: 1px solid black">
+                      <div class="table-responsive" id="style-1" style="border: 1px solid black"
+                      *ngIf="downConductorBasicControl(q).length != 0 || downConductorControl(q).length != 0 ||
+                      bridgingDescControl(q).length != 0 || downHoldersControl(q).length != 0 ||
+                      downConnectorsControl(q).length != 0 || testingJointsControl(q).length != 0 ||
+                      lightningCountersControl(q).length != 0 || downConductorTestingControl(q).length != 0 ">
                           <table class="table">
                             <thead>
                               <tr>
@@ -353,11 +367,14 @@
                     
                           </table>
                         </div>
-                        <!-- <div class="row" *ngIf="noObserveSupply">
+                        <div class="row" *ngIf="downConductorBasicControl(q).length == 0 && downConductorControl(q).length == 0 &&
+                        bridgingDescControl(q).length == 0 && downHoldersControl(q).length == 0 &&
+                        downConnectorsControl(q).length == 0 && testingJointsControl(q).length == 0 &&
+                        lightningCountersControl(q).length == 0 && downConductorTestingControl(q).length == 0 ">
                           <div class="col-sm-12">
-                            <h3 style="color: #eea80a;">Currently, you have not provided Observations for Supply Characteristics!</h3>
+                            <h3 style="color: #eea80a;">Currently, you have not provided Observations for Down Conductor!</h3>
                           </div>
-                        </div> -->
+                        </div>
                    
                    <br>
                     </div>
@@ -367,11 +384,15 @@
                     <div class="form-group">
                     <!-- Observation starts here -->
                     <label>
-                      <h3><b>Earthing :</b></h3>
+                      <h3 style="cursor: pointer;" (click)= "navigateToStep(3)"><b><u>Earthing :</u></b></h3>
                     </label>
                     <br>
                     <!-- <label><h3 style="cursor: pointer;"><b><u>Basic details Observations :</u></b></h3></label>                     -->
-                        <div class="table-responsive" id="style-1" style="border: 1px solid black">
+                        <div class="table-responsive" id="style-1" style="border: 1px solid black" 
+                        *ngIf="(earthingReportControl(q).length != 0) || (earthingDescriptionControl(q).length != 0) ||
+                        (earthingDescriptionListControl(q).length != 0) || (earthingClampsControl(q).length != 0) ||
+                         (earthingElectrodeChamberControl(q).length != 0) || (earthingSystemControl(q).length != 0) ||
+                          (earthElectrodeTestingControl(q).length != 0) ">
                             <table class="table">
                               <thead>
                                 <tr>
@@ -487,11 +508,14 @@
                       </tbody>
                             </table>
                           </div>
-                          <!-- <div class="row" *ngIf="noObserveSupply">
+                          <div class="row" *ngIf="(earthingReportControl(q).length == 0) && (earthingDescriptionControl(q).length == 0) &&
+                          (earthingDescriptionListControl(q).length == 0) && (earthingClampsControl(q).length == 0) &&
+                           (earthingElectrodeChamberControl(q).length == 0) && (earthingSystemControl(q).length == 0) &&
+                            (earthElectrodeTestingControl(q).length == 0) ">
                             <div class="col-sm-12">
-                              <h3 style="color: #eea80a;">Currently, you have not provided Observations for Supply Characteristics!</h3>
+                              <h3 style="color: #eea80a;">Currently, you have not provided Observations for Earthing!</h3>
                             </div>
-                          </div> -->
+                          </div>
                      
                      <br>
                       </div>
@@ -501,11 +525,12 @@
                       <div class="form-group">
                       <!-- Observation starts here -->
                       <label>
-                        <h3><b>SPD :</b></h3>
+                        <h3 style="cursor: pointer;" (click)= "navigateToStep(4)"><b><u>SPD :</u></b></h3>
                       </label>
                       <br>
-                      <!-- <label><h3 style="cursor: pointer;"><b><u>Basic details Observations :</u></b></h3></label>                     -->
-                          <div class="table-responsive" id="style-1" style="border: 1px solid black">
+                      <!-- <label><h3 style="cursor: pointer;"><b><u>Basic details Observations :</u></b></h3></label>-->
+                          <div class="table-responsive" id="style-1" style="border: 1px solid black" 
+                          *ngIf="(spdReportControl(q).length != 0) || (spdReportListControl(q).length != 0)">
                               <table class="table">
                                 <thead>
                                   <tr>
@@ -546,11 +571,11 @@
                               </tbody>
                               </table>
                             </div>
-                            <!-- <div class="row" *ngIf="noObserveSupply">
+                            <div class="row" *ngIf="(spdReportControl(q).length == 0) && (spdReportListControl(q).length == 0)">
                               <div class="col-sm-12">
-                                <h3 style="color: #eea80a;">Currently, you have not provided Observations for Supply Characteristics!</h3>
+                                <h3 style="color: #eea80a;">Currently, you have not provided Observations for SPD!</h3>
                               </div>
-                            </div> -->
+                            </div>
                        
                        <br>
                         </div>
@@ -560,11 +585,13 @@
                         <div class="form-group">
                         <!-- Observation starts here -->
                         <label>
-                          <h3><b>Separation distance :</b></h3>
+                          <h3 style="cursor: pointer;" (click)= "navigateToStep(5)"><b><u>Separation distance :</u></b></h3>
                         </label>
                         <br>
                         <!-- <label><h3 style="cursor: pointer;"><b><u>Basic details Observations :</u></b></h3></label>                     -->
-                            <div class="table-responsive" id="style-1" style="border: 1px solid black">
+                            <div class="table-responsive" id="style-1" style="border: 1px solid black"
+                            *ngIf="(separationDistanceControl(q).length != 0) || (separateDistanceControl(q).length != 0) &&
+                            (separationDistanceDownControl(q).length != 0)">
                                 <table class="table">
                                   <thead>
                                     <tr>
@@ -618,11 +645,12 @@
                               </tbody>
                                 </table>
                               </div>
-                              <!-- <div class="row" *ngIf="noObserveSupply">
+                              <div class="row" *ngIf="(separationDistanceControl(q).length == 0) && (separateDistanceControl(q).length == 0) &&
+                              (separationDistanceDownControl(q).length == 0)">
                                 <div class="col-sm-12">
-                                  <h3 style="color: #eea80a;">Currently, you have not provided Observations for Supply Characteristics!</h3>
+                                  <h3 style="color: #eea80a;">Currently, you have not provided Observations for Separation distance!</h3>
                                 </div>
-                              </div> -->
+                              </div>
                          
                          <br>
                           </div>
@@ -632,11 +660,12 @@
                           <div class="form-group">
                           <!-- Observation starts here -->
                           <label>
-                            <h3><b>Equipotential bonding :</b></h3>
+                            <h3 style="cursor: pointer;" (click)= "navigateToStep(6)"><b><u>Equipotential bonding :</u></b></h3>
                           </label>
                           <br>
                           <!-- <label><h3 style="cursor: pointer;"><b><u>Basic details Observations :</u></b></h3></label>                     -->
-                              <div class="table-responsive" id="style-1" style="border: 1px solid black">
+                              <div class="table-responsive" id="style-1" style="border: 1px solid black"
+                              *ngIf="earthStudDescControl(q).length != 0">
                                   <table class="table">
                                     <thead>
                                       <tr>
@@ -663,11 +692,11 @@
                                   
                                   </table>
                                 </div>
-                                <!-- <div class="row" *ngIf="noObserveSupply">
+                                <div class="row" *ngIf="earthStudDescControl(q).length == 0">
                                   <div class="col-sm-12">
-                                    <h3 style="color: #eea80a;">Currently, you have not provided Observations for Supply Characteristics!</h3>
+                                    <h3 style="color: #eea80a;">Currently, you have not provided Observations for Equipotential bonding!</h3>
                                   </div>
-                                </div> -->
+                                </div>
                            
                            <br>
                             </div>
