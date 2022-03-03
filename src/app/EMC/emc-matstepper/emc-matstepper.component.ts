@@ -122,14 +122,21 @@ export class EmcMatstepperComponent implements OnInit {
     }
   }
 
-  public changeTabEmcSavedReport(index: number, emcId: any, userName: any, ClientName: any) {
-
-    this.selectedIndex = 1;
+  public changeTabEmcSavedReport(index: number, emcId: any, userName: any, ClientName: any,flag: any) {
+    if(flag){
+      this.selectedIndex = 1;
+    } else{
+      this.selectedIndex = 2;
+    }
+   // this.selectedIndex = 1;
     setTimeout(() => {
       this.emcSavedReportService.retrieveFinalEmcReport(userName, emcId).subscribe(
         (data) => {
           this.saved.savedReportSpinner = false;
           this.saved.savedReportBody = true;
+
+          this.final.finalReportSpinner= false;
+          this.final.finalReportBody = true;
 
           this.dataJSON = JSON.parse(data);
           if (this.dataJSON.clientDetails != null) {
@@ -188,18 +195,18 @@ export class EmcMatstepperComponent implements OnInit {
     this.ngOnInit();
     // this.isEditable = true;
     let userName = this.router.snapshot.paramMap.get('email') || '{}';
-    this.changeTabEmcSavedReport(0, emcId, userName, ClientName);
+  //  this.changeTabEmcSavedReport(0, emcId, userName, ClientName);
 
   }
 
-  continue(emcId: any, ClientName: any): void {
+  continue(emcId: any, ClientName: any,flag:any): void {
     this.refresh();
     this.ngOnInit();
     // this.isEditable = false;
     //  this.final.finalReportSpinner = false;
     //  this.final.finalReportBody = true;
     let userName = this.router.snapshot.paramMap.get('email') || '{}';
-    this.changeTabEmcSavedReport(0, emcId, userName, ClientName);
+    this.changeTabEmcSavedReport(0, emcId, userName, ClientName,flag);
 
   }
 }

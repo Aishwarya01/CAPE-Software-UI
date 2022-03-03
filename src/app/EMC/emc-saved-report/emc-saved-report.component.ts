@@ -97,7 +97,7 @@ export class EmcSavedReportComponent implements OnInit {
     //this.service.commentScrollToBottom=1;
   //  this.service.allFieldsDisable = false;
    // this.service.disableSubmitSummary=false;
-     this.emcParent.continue(emcId,clientName);
+     this.emcParent.continue(emcId,clientName,true);
    } 
  }
  
