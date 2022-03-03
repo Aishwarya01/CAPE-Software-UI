@@ -541,8 +541,8 @@ export class PowerAndEarthingDataComponent implements OnInit {
     }
     else if (this.EMCPowerAndEarthForm.dirty && this.EMCPowerAndEarthForm.touched) {
       this.service.isCompletedEmc2 = false;
-      this.service.isLinear = true;
-      this.service.editable = false;
+      this.service.isLinearEmc = true;
+      this.service.editableEmc = false;
       this.tabError = true;
       this.tabErrorMsg = 'Kindly click on next button to update the changes!';
       setTimeout(() => {
@@ -552,8 +552,8 @@ export class PowerAndEarthingDataComponent implements OnInit {
     }
     else {
       this.service.isCompletedEmc2 = true;
-      this.service.isLinear = false;
-      this.service.editable = true;
+      this.service.isLinearEmc = false;
+      this.service.editableEmc = true;
     }
   }
 

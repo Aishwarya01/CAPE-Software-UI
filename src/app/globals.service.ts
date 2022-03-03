@@ -66,12 +66,13 @@ export class GlobalsService {
  goBacktoprevious: boolean=false;
  editable: boolean = true;
 
-
+ 
+ editableEmc: boolean = true;
  isCompletedEmc: boolean = true;
  isCompletedEmc1: boolean = true;
  isCompletedEmc2: boolean = true;
  isCompletedEmc3: boolean = true;
-
+ isLinearEmc: boolean=false; 
 
 
 

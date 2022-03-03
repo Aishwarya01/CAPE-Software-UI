@@ -35,10 +35,10 @@ export class EmcMatstepperComponent implements OnInit {
 
   @ViewChild(MatTabGroup) tabGroup!: MatTabGroup;
   selectedIndex: any;
-  Completed: boolean = true;
-  Completed1: boolean = true;
-  Completed2: boolean = true;
-  Completed3: boolean = true;
+  // Completed: boolean = true;
+  // Completed1: boolean = true;
+  // Completed2: boolean = true;
+  // Completed3: boolean = true;
 
   @ViewChild(EmcClientDetailsComponent)
   clientData!: EmcClientDetailsComponent;
@@ -52,7 +52,7 @@ export class EmcMatstepperComponent implements OnInit {
   @ViewChild(EmcSavedReportComponent) saved!: EmcSavedReportComponent;
   @ViewChild(EmcFinalReportComponent) final!: EmcFinalReportComponent;
 
-  isEditable: boolean = false;
+  //isEditable: boolean = false;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -79,9 +79,9 @@ export class EmcMatstepperComponent implements OnInit {
     // electroMagneticCopatibility
     this.electroMagneticCopatibility.emcId = this.clientData.emcClientDetails.emcId;
 
-    this.Completed = this.clientData.success;
-   // this.service.isLinear = false;
-    //this.service.isCompletedEmc = next;
+   // this.Completed = this.clientData.success;
+    this.service.isLinearEmc = false;
+    this.service.isCompletedEmc = next;
     this.saved.ngOnInit();
     this.refresh();
   }
@@ -93,27 +93,26 @@ export class EmcMatstepperComponent implements OnInit {
     this.electroMagneticCopatibility.gotoNextTab();
   }
   public doSomething1(next: any): void {
-    // this.service.isLinear = false;
-    // this.service.isCompletedEmc1 = next;
-    this.Completed1 = this.facility.success;
+    this.service.isLinearEmc = false;
+    this.service.isCompletedEmc1 = next;
+   // this.Completed1 = this.facility.success;
     this.refresh();
   }
 
   public doSomething2(next: any): void {
- //   this.service.isLinear = false;
-    console.log(this.service.isCompletedEmc);
+  //// this.service.isLinearEmc = false;
+   
     //this.service.supplycharesteristicForm = next;
-  //  this.service.isCompletedEmc2 = next;
+    //this.service.isCompletedEmc2 = next;
 
-    this.Completed2 = this.powerAndEarthing.success;
+   // this.Completed2 = this.powerAndEarthing.success;
     this.refresh();
   }
 
   public doSomething3(next: any): void {
-    this.Completed3 = this.electroMagneticCopatibility.success;
+  //  this.Completed3 = this.electroMagneticCopatibility.success;
     this.saved.ngOnInit();
     this.final.ngOnInit();
-    console.log(this.service.isCompletedEmc);
     //this.service.isLinear=false;
     //this.service.addsummary = next;
     //this.service.isCompleted5 = next;
@@ -125,32 +124,35 @@ export class EmcMatstepperComponent implements OnInit {
 
   public changeTabEmcSavedReport(index: number, emcId: any, userName: any, ClientName: any) {
 
-    this.selectedIndex = 1;
+   this.selectedIndex = 1;
+   setTimeout(() => {
     this.emcSavedReportService.retrieveFinalEmcReport(userName, emcId).subscribe(
       (data) => {
-
+        this.saved.savedReportSpinner =false;
+        this.saved.savedReportBody = true;
+       
         this.dataJSON = JSON.parse(data);
         if (this.dataJSON.clientDetails != null) {
 
           this.selectedIndex = index;
           this.clientData.retrieveDetailsfromSavedReports(userName, emcId, this.dataJSON);
           this.doSomething(false);
-          this.Completed = true;
+       //   this.Completed = true;
 
           if (this.dataJSON.facilityData != null) {
             this.facility.retrieveDetailsfromSavedReports(userName, emcId, this.dataJSON);
             this.doSomething1(false);
-            this.Completed1 = true;
+           // this.Completed1 = true;
 
             if (this.dataJSON.powerEarthingData != null) {
               this.powerAndEarthing.retrieveDetailsfromSavedReports(userName, emcId, this.dataJSON);
               this.doSomething2(false);
-              this.Completed2 = true;
+            //  this.Completed2 = true;
 
               if (this.dataJSON.electromagneticCompatability != null) {
                 this.electroMagneticCopatibility.retrieveDetailsfromSavedReports(userName, emcId, this.dataJSON);
                 this.doSomething3(false);
-                this.Completed3 = true;
+                //this.Completed3 = true;
 
               }
             }
@@ -161,7 +163,9 @@ export class EmcMatstepperComponent implements OnInit {
 
       }
     )
+   },3000);
   }
+
   // Final Report 
   // changeTab1(index: number): void {
   //   this.ngOnInit();
@@ -177,7 +181,7 @@ export class EmcMatstepperComponent implements OnInit {
   // Final Report 
   preview(emcId: any, ClientName: any): void {
     this.ngOnInit();
-    this.isEditable = true;
+   // this.isEditable = true;
     let userName = this.router.snapshot.paramMap.get('email') || '{}';
     this.changeTabEmcSavedReport(0, emcId, userName, ClientName);
 
@@ -186,7 +190,9 @@ export class EmcMatstepperComponent implements OnInit {
   continue(emcId: any, ClientName: any): void {
     this.refresh();
     this.ngOnInit();
-    this.isEditable = false;
+   // this.isEditable = false;
+  //  this.final.finalReportSpinner = false;
+  //  this.final.finalReportBody = true;
     let userName = this.router.snapshot.paramMap.get('email') || '{}';
     this.changeTabEmcSavedReport(0, emcId, userName, ClientName);
 

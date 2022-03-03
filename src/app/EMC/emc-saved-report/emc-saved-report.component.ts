@@ -40,6 +40,10 @@ export class EmcSavedReportComponent implements OnInit {
    userData: any=[];
    //viewerFilterData:any=[];
    selectedIndex: number=0;
+   savedReportSpinner: boolean = false;
+   savedReportBody: boolean = true;
+   spinnerValue: String = '';
+   mode: any = 'indeterminate';
   
   @ViewChild('input') input!: MatInput;
   emcData: any=[];
@@ -87,6 +91,12 @@ export class EmcSavedReportComponent implements OnInit {
    }
  
    continue(emcId: any,clientName: any) {
+    this.savedReportBody = false;
+    this.savedReportSpinner = true;
+    this.spinnerValue = "Please wait, the details are loading!";
+    //this.service.commentScrollToBottom=1;
+  //  this.service.allFieldsDisable = false;
+   // this.service.disableSubmitSummary=false;
      this.emcParent.continue(emcId,clientName);
    } 
  }

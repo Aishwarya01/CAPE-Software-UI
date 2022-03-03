@@ -241,14 +241,14 @@ export class EmcClientDetailsComponent implements OnInit {
     this.popup = false;
     if (this.errorMsg != "") {
       this.Error = false;
-      // this.service.isCompleted3= false;
-      // this.service.isLinear=true;
+      this.service.isCompletedEmc= false;
+      this.service.isLinearEmc=true;
       this.modalService.dismissAll((this.errorMsg = ""));
     }
     else {
       this.success = false;
-      // this.service.isCompleted3= true;
-      // this.service.isLinear=false;
+      this.service.isCompletedEmc= true;
+      this.service.isLinearEmc=false;
       this.modalService.dismissAll((this.successMsg = ""));
       // this.disable = false;
 
@@ -302,8 +302,8 @@ export class EmcClientDetailsComponent implements OnInit {
   gotoNextTab() {
     if (this.EmcClientDetailsForm.dirty && this.EmcClientDetailsForm.invalid) {
       this.service.isCompletedEmc= false;
-      this.service.isLinear=true;
-       this.service.editable=false;
+      this.service.isLinearEmc=true;
+       this.service.editableEmc=false;
       //this.validationError=false;
       this.validationErrorTab = true;
       this.validationErrorMsgTab = 'Please check all the fields in client details';
@@ -314,8 +314,8 @@ export class EmcClientDetailsComponent implements OnInit {
     }
     else if(this.EmcClientDetailsForm.dirty && this.EmcClientDetailsForm.touched){
       this.service.isCompletedEmc= false;
-      this.service.isLinear=true;
-      this.service.editable=false;
+      this.service.isLinearEmc=true;
+      this.service.editableEmc=false;
       this.tabError = true;
       this.tabErrorMsg = 'Kindly click on next button to update the changes!';
       setTimeout(() => {
@@ -325,8 +325,8 @@ export class EmcClientDetailsComponent implements OnInit {
    }
     else{
       this.service.isCompletedEmc= true;
-    //  this.service.isLinear=false;
-    //  this.service.editable=true;
+     this.service.isLinearEmc=false;
+     this.service.editableEmc=true;
     }
   }
 
@@ -401,8 +401,11 @@ export class EmcClientDetailsComponent implements OnInit {
               this.popup = true;
               this.success = true;
               this.successMsg = data;
+              this.service.isCompletedEmc= true;
+              this.service.isLinearEmc=false;
               this.retriveClientDetails();
-              this.proceedNext.emit(true);
+              //this.proceedNext.emit(true);
+              
 
             },
             (error: any) => {
@@ -412,7 +415,7 @@ export class EmcClientDetailsComponent implements OnInit {
               this.errorArr = [];
               this.errorArr = JSON.parse(error.error);
               this.errorMsg = this.errorArr.message;
-              this.proceedNext.emit(false);
+              //this.proceedNext.emit(false);
 
             });
       }
@@ -430,6 +433,8 @@ export class EmcClientDetailsComponent implements OnInit {
           this.success = true;
           this.successMsg = "Client Details Successfully Saved";
           //this.disable = true;
+          this.service.isCompletedEmc= true;
+          this.service.isLinearEmc=false;
           this.retriveClientDetails();
           this.proceedNext.emit(true);
         },
@@ -440,6 +445,8 @@ export class EmcClientDetailsComponent implements OnInit {
           this.errorArr = [];
           this.errorArr = JSON.parse(error.error);
           this.errorMsg = this.errorArr.message;
+          this.service.isCompletedEmc= false;
+          this.service.isLinearEmc=true;
           this.proceedNext.emit(false);
         }
       )

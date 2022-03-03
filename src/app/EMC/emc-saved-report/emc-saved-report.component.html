@@ -8,7 +8,18 @@
       <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Client Name" #input>
     </mat-form-field>
 
-    <table mat-table [dataSource]="savedReportEmc_dataSource" class="mat-elevation-z8 table" matSort
+    <mat-progress-spinner style="margin: 0 auto;" *ngIf="savedReportSpinner"
+    color="primary"
+    [mode]="mode"
+    value="50"
+    diameter="50">
+    </mat-progress-spinner>
+    <br>
+    <div *ngIf="savedReportSpinner" style="text-align: center;">
+      {{spinnerValue}}
+    </div>
+
+    <table mat-table *ngIf="savedReportBody" [dataSource]="savedReportEmc_dataSource" class="mat-elevation-z8 table" matSort
       #savedReportSort="matSort">
 
       <!-- Client Name Column -->
