@@ -267,12 +267,13 @@ export class LpsBasicPageComponent implements OnInit {
           this.successMsg = data;
           this.retriveBasicDetails();
           this.LPSBasicForm.markAsPristine();
+          this.isBasicFormUpdated=true;
           this.proceedNext.emit(true);
           this.service.lvClick=0;
           this.service.logoutClick=0;
           this.service.windowTabClick=0;
           this.basicLpsIdRetrive=0;
-          this.isBasicFormUpdated=true;
+          
         },
           // update failed msg
         error => {
@@ -312,11 +313,12 @@ export class LpsBasicPageComponent implements OnInit {
           //this.disable = true;
           this.retriveBasicDetails();
           this.LPSBasicForm.markAsPristine();
+          this.isBasicFormUpdated=true;
           this.proceedNext.emit(true);
           this.service.lvClick=0;
           this.service.logoutClick=0;
           this.service.windowTabClick=0;
-          this.isBasicFormUpdated=true;
+          
         },
         error => {
           this.Error = true;
