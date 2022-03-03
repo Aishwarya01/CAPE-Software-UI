@@ -106,54 +106,50 @@ export class LpsMatstepperComponent implements OnInit {
   }
   public doSomething1(next: any): void {
 
-    this.downConductors.availabilityOfPreviousReport=this.basic.basicDetails.availabilityOfPreviousReport;
-    this.earthing.availabilityOfPreviousReport=this.basic.basicDetails.availabilityOfPreviousReport;
- 
-    this.basic.isEditable=this.isEditable;
-    // AirTermination
-    this.airTermination.appendBasicLpsId(this.basic.basicDetails.basicLpsId);   
-    this.airTermination.basicLpsId=this.basic.basicDetails.basicLpsId;   
-    this.airTermination.isEditable=this.isEditable;
-    // DownConductor
-    this.downConductors.basicLpsId=this.basic.basicDetails.basicLpsId;
-    this.downConductors.isEditable=this.isEditable;
-    // Earthing
-    this.earthing.basicLpsId=this.basic.basicDetails.basicLpsId;
-    this.earthing.isEditable=this.isEditable;
-    // SPD
-    this.spd.basicLpsId=this.basic.basicDetails.basicLpsId;
-    this.spd.isEditable=this.isEditable;
-    // Seperation Distance
-    this.seperationDistance.basicLpsId=this.basic.basicDetails.basicLpsId;
-    this.seperationDistance.isEditable=this.isEditable;
-    // EarthStud
-    this.earthStud.basicLpsId=this.basic.basicDetails.basicLpsId;
-    this.earthStud.isEditable=this.isEditable;
-
+    this.downConductors.availabilityOfPreviousReport = this.basic.basicDetails.availabilityOfPreviousReport;
+    this.earthing.availabilityOfPreviousReport = this.basic.basicDetails.availabilityOfPreviousReport;
     this.Completed1 = this.basic.success;
-    this.earthing.retriveEarthingDetails();
-    this.downConductors.updateMethod();
+
+    if (this.basic.isBasicFormUpdated) {
+      this.earthing.isAirterminationUpdated = true;
+      this.earthing.ngOnInit();
+      this.downConductors.updateMethod();
+      this.initializeLpsId();
+      this.basic.isBasicFormUpdated=false;
+    }
+
     this.saved.ngOnInit();
     this.refresh();
   }
   public doSomething2(next: any): void {  
-    this.Completed2 = this.airTermination.success;
+    this.Completed2 = this.airTermination.success; 
 
-      this.earthing.isAirterminationUpdated = true;
-      this.spd.isAirterminationUpdated = true;
-      this.seperationDistance.isAirterminationUpdated = true;
-      this.earthStud.isAirterminationUpdated = true;
-      if(next) {
+      // if(this.airTermination.isAirterminationUpdated) {
+      //   this.downConductors.ngOnInit();
+      //   this.lpsSummary.ngOnInit();
+      // }
+      // else {
+      //   this.downConductors.updateMethod();
+      // }
+
+      if (this.airTermination.isAirterminationUpdated) {
+        this.earthing.isAirterminationUpdated = true;
+        this.spd.isAirterminationUpdated = true;
+        this.seperationDistance.isAirterminationUpdated = true;
+        this.earthStud.isAirterminationUpdated = true;
         this.downConductors.ngOnInit();
         this.lpsSummary.ngOnInit();
+        this.earthing.ngOnInit();
+        this.spd.ngOnInit();
+        this.seperationDistance.ngOnInit();
+        this.earthStud.ngOnInit();
+        this.initializeLpsId();
+        this.airTermination.isAirterminationUpdated=false;
       }
       else {
         this.downConductors.updateMethod();
       }
-      this.earthing.ngOnInit();
-      this.spd.ngOnInit();
-      this.seperationDistance.ngOnInit();
-      this.earthStud.ngOnInit();
+      
       setTimeout(() => {
         this.getAirterminationData(this.basic.basicDetails.basicLpsId);
       }, 3000);
@@ -234,7 +230,7 @@ export class LpsMatstepperComponent implements OnInit {
             this.basic.retrieveDetailsfromSavedReports(basicLpsId, this.dataJSON);
             this.airTermination.appendBasicLpsId(basicLpsId);
          //   setTimeout(() => {
-              this.doSomething1(false);
+              this.initializeLpsId();
               this.Completed1 = true;
            // }, 500);
           }
@@ -302,7 +298,7 @@ export class LpsMatstepperComponent implements OnInit {
   changeTab1(index: number): void {
     this.ngOnInit();
     let userName=this.router.snapshot.paramMap.get('email') || '{}';
-    this.doSomething1(false);
+   // this.doSomething1(false);
     this.changeTabLpsSavedReport(index,this.earthStud.basicLpsId,userName,this.earthStud.ClientName);
     this.selectedIndex = index;
     
@@ -328,12 +324,13 @@ export class LpsMatstepperComponent implements OnInit {
     
         dialogRef.componentInstance.confirmBox.subscribe(data=>{
           if(data) {
+           
             if(tab.textLabel == "Saved Reports"){
-              this.selectedIndex=1;
-              }
-              else if(tab.textLabel == "Final Reports"){
-              this.selectedIndex=2;
-            } 
+              this.selectedIndex=1; 
+            }
+            else if(tab.textLabel == "Final Reports"){
+              this.selectedIndex=2; 
+            }
             this.service.windowTabClick=0;
             this.service.logoutClick=0; 
             this.service.lvClick=0; 
@@ -357,9 +354,7 @@ export class LpsMatstepperComponent implements OnInit {
         this.service.logoutClick=0;
         this.service.lvClick=0; 
         const tabs = tab.textLabel;
-        if((tabs==="Lightning Protection System"))
-          
-           {
+        if((tabs==="Lightning Protection System"))  {
              this.selectedIndex=0; 
               // this.basic.reset();
               // this.airTermination.reset();
@@ -382,18 +377,16 @@ export class LpsMatstepperComponent implements OnInit {
   preview(basicLpsId: any,ClientName:any): void {
     this.ngOnInit();
     this.isEditable=true;
-    let userName=this.router.snapshot.paramMap.get('email') || '{}';
-    this.changeTabLpsSavedReport(0,basicLpsId,userName,ClientName);
-    this.doSomething1(false);
+    this.changeTabLpsSavedReport(0,basicLpsId,this.router.snapshot.paramMap.get('email') || '{}',ClientName);
+  //  this.doSomething1(false);
   }
 
   continue(basicLpsId: any,ClientName:any): void {
     this.refresh();
     this.ngOnInit();
     this.isEditable=false;
-    let userName=this.router.snapshot.paramMap.get('email') || '{}';
-    this.doSomething1(false);
-    this.changeTabLpsSavedReport(0,basicLpsId,userName,ClientName);
+   // this.doSomething1(false);
+    this.changeTabLpsSavedReport(0,basicLpsId,this.router.snapshot.paramMap.get('email') || '{}',ClientName);
 
     setTimeout(() => {
       this.saved.spinner=false;
@@ -414,5 +407,28 @@ export class LpsMatstepperComponent implements OnInit {
     this.spd.createSpdForm(airtermination);
     this.seperationDistance.createSeperationForm(airtermination);
     this.earthStud.createearthStudForm(airtermination);
+  }
+
+  initializeLpsId(){
+    this.basic.isEditable=this.isEditable;
+    // AirTermination
+    this.airTermination.appendBasicLpsId(this.basic.basicDetails.basicLpsId);   
+    this.airTermination.basicLpsId=this.basic.basicDetails.basicLpsId;   
+    this.airTermination.isEditable=this.isEditable;
+    // DownConductor
+    this.downConductors.basicLpsId=this.basic.basicDetails.basicLpsId;
+    this.downConductors.isEditable=this.isEditable;
+    // Earthing
+    this.earthing.basicLpsId=this.basic.basicDetails.basicLpsId;
+    this.earthing.isEditable=this.isEditable;
+    // SPD
+    this.spd.basicLpsId=this.basic.basicDetails.basicLpsId;
+    this.spd.isEditable=this.isEditable;
+    // Seperation Distance
+    this.seperationDistance.basicLpsId=this.basic.basicDetails.basicLpsId;
+    this.seperationDistance.isEditable=this.isEditable;
+    // EarthStud
+    this.earthStud.basicLpsId=this.basic.basicDetails.basicLpsId;
+    this.earthStud.isEditable=this.isEditable;
   }
 }

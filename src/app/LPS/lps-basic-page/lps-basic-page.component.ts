@@ -35,6 +35,7 @@ export class LpsBasicPageComponent implements OnInit {
   countryCode: String = '';
   stepBack:any;
   basicLpsIdRetrive:number=0;
+  isBasicFormUpdated: boolean =false;
 
   constructor(private formBuilder: FormBuilder, 
     private lPSBasicDetailsService: LPSBasicDetailsService,
@@ -271,6 +272,7 @@ export class LpsBasicPageComponent implements OnInit {
           this.service.logoutClick=0;
           this.service.windowTabClick=0;
           this.basicLpsIdRetrive=0;
+          this.isBasicFormUpdated=true;
         },
           // update failed msg
         error => {
@@ -314,6 +316,7 @@ export class LpsBasicPageComponent implements OnInit {
           this.service.lvClick=0;
           this.service.logoutClick=0;
           this.service.windowTabClick=0;
+          this.isBasicFormUpdated=true;
         },
         error => {
           this.Error = true;

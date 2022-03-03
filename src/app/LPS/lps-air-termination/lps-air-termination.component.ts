@@ -39,6 +39,7 @@ export class LpsAirTerminationComponent implements OnInit {
   Error: boolean=false;
   errorArr: any=[];
   disable: boolean = false;
+  isAirterminationUpdated: boolean = false;
   i: any;
   j: any;
   success1 = false;
@@ -1612,6 +1613,7 @@ export class LpsAirTerminationComponent implements OnInit {
                   this.service.logoutClick=0;
                   this.service.windowTabClick=0;
                   this.retriveAirTermination();
+                  this.isAirterminationUpdated=true
                   // setTimeout(() => {
                   //   this.proceedNext.emit(true);
                   // }, 4000);
@@ -1651,6 +1653,7 @@ export class LpsAirTerminationComponent implements OnInit {
                     this.service.lvClick=0;
                     this.service.logoutClick=0;
                     this.service.windowTabClick=0;
+                    this.isAirterminationUpdated=true
                   },
                   (error) => {
                     this.Error = true;
