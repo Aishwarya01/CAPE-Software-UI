@@ -453,6 +453,7 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
             this.popup = true;
             this.success = true;
             this.successMsg = data;
+            this.service.disableSubmitElectromagnetic=true;
             //this.disable = true;
             this.retriveElectroMagneticCompatibilityDetails();
            this.proceedNext.emit(true);
@@ -462,6 +463,7 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
             this.popup = true;
             this.Error = true;
             this.errorArr = [];
+            this.service.disableSubmitElectromagnetic=false;
             this.errorArr = JSON.parse(error.error);
             this.errorMsg = this.errorArr.message;
            this.proceedNext.emit(false);

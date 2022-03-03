@@ -67,6 +67,8 @@ export class GlobalsService {
  editable: boolean = true;
 
  
+
+ disableSubmitElectromagnetic:boolean=false;
  editableEmc: boolean = true;
  isCompletedEmc: boolean = true;
  isCompletedEmc1: boolean = true;

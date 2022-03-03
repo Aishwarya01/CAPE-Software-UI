@@ -79,7 +79,7 @@ export class EmcMatstepperComponent implements OnInit {
     // electroMagneticCopatibility
     this.electroMagneticCopatibility.emcId = this.clientData.emcClientDetails.emcId;
 
-   // this.Completed = this.clientData.success;
+    // this.Completed = this.clientData.success;
     this.service.isLinearEmc = false;
     this.service.isCompletedEmc = next;
     this.saved.ngOnInit();
@@ -95,22 +95,22 @@ export class EmcMatstepperComponent implements OnInit {
   public doSomething1(next: any): void {
     this.service.isLinearEmc = false;
     this.service.isCompletedEmc1 = next;
-   // this.Completed1 = this.facility.success;
+    // this.Completed1 = this.facility.success;
     this.refresh();
   }
 
   public doSomething2(next: any): void {
-  //// this.service.isLinearEmc = false;
-   
-    //this.service.supplycharesteristicForm = next;
-    //this.service.isCompletedEmc2 = next;
+    this.service.isLinearEmc = false;
 
-   // this.Completed2 = this.powerAndEarthing.success;
+    //this.service.supplycharesteristicForm = next;
+    this.service.isCompletedEmc2 = next;
+
+    // this.Completed2 = this.powerAndEarthing.success;
     this.refresh();
   }
 
   public doSomething3(next: any): void {
-  //  this.Completed3 = this.electroMagneticCopatibility.success;
+    //  this.Completed3 = this.electroMagneticCopatibility.success;
     this.saved.ngOnInit();
     this.final.ngOnInit();
     //this.service.isLinear=false;
@@ -124,46 +124,51 @@ export class EmcMatstepperComponent implements OnInit {
 
   public changeTabEmcSavedReport(index: number, emcId: any, userName: any, ClientName: any) {
 
-   this.selectedIndex = 1;
-   setTimeout(() => {
-    this.emcSavedReportService.retrieveFinalEmcReport(userName, emcId).subscribe(
-      (data) => {
-        this.saved.savedReportSpinner =false;
-        this.saved.savedReportBody = true;
-       
-        this.dataJSON = JSON.parse(data);
-        if (this.dataJSON.clientDetails != null) {
+    this.selectedIndex = 1;
+    setTimeout(() => {
+      this.emcSavedReportService.retrieveFinalEmcReport(userName, emcId).subscribe(
+        (data) => {
+          this.saved.savedReportSpinner = false;
+          this.saved.savedReportBody = true;
 
-          this.selectedIndex = index;
-          this.clientData.retrieveDetailsfromSavedReports(userName, emcId, this.dataJSON);
-          this.doSomething(false);
-       //   this.Completed = true;
+          this.dataJSON = JSON.parse(data);
+          if (this.dataJSON.clientDetails != null) {
 
-          if (this.dataJSON.facilityData != null) {
-            this.facility.retrieveDetailsfromSavedReports(userName, emcId, this.dataJSON);
-            this.doSomething1(false);
-           // this.Completed1 = true;
+            this.selectedIndex = index;
+            this.clientData.retrieveDetailsfromSavedReports(userName, emcId, this.dataJSON);
+            this.doSomething(false);
+            //   this.Completed = true;
 
-            if (this.dataJSON.powerEarthingData != null) {
-              this.powerAndEarthing.retrieveDetailsfromSavedReports(userName, emcId, this.dataJSON);
-              this.doSomething2(false);
-            //  this.Completed2 = true;
+            if (this.dataJSON.facilityData != null) {
+              this.facility.retrieveDetailsfromSavedReports(userName, emcId, this.dataJSON);
+              this.doSomething1(false);
+              // this.Completed1 = true;
 
-              if (this.dataJSON.electromagneticCompatability != null) {
-                this.electroMagneticCopatibility.retrieveDetailsfromSavedReports(userName, emcId, this.dataJSON);
-                this.doSomething3(false);
-                //this.Completed3 = true;
+              if (this.dataJSON.powerEarthingData != null) {
+                this.powerAndEarthing.retrieveDetailsfromSavedReports(userName, emcId, this.dataJSON);
+                this.doSomething2(false);
+                //  this.Completed2 = true;
 
+                if (this.dataJSON.electromagneticCompatability != null) {
+                  this.electroMagneticCopatibility.retrieveDetailsfromSavedReports(userName, emcId, this.dataJSON);
+                  this.doSomething3(false);
+                  //this.Completed3 = true;
+                  if (this.dataJSON.clientDetails != null
+                    && this.dataJSON.facilityData != null
+                    && this.dataJSON.powerEarthingData != null
+                    && this.dataJSON.electromagneticCompatability != null) {
+                    this.service.disableSubmitElectromagnetic = true;
+                  }
+                }
               }
             }
           }
-        }
-      },
-      (error) => {
+        },
+        (error) => {
 
-      }
-    )
-   },3000);
+        }
+      )
+    }, 3000);
   }
 
   // Final Report 
@@ -181,7 +186,7 @@ export class EmcMatstepperComponent implements OnInit {
   // Final Report 
   preview(emcId: any, ClientName: any): void {
     this.ngOnInit();
-   // this.isEditable = true;
+    // this.isEditable = true;
     let userName = this.router.snapshot.paramMap.get('email') || '{}';
     this.changeTabEmcSavedReport(0, emcId, userName, ClientName);
 
@@ -190,9 +195,9 @@ export class EmcMatstepperComponent implements OnInit {
   continue(emcId: any, ClientName: any): void {
     this.refresh();
     this.ngOnInit();
-   // this.isEditable = false;
-  //  this.final.finalReportSpinner = false;
-  //  this.final.finalReportBody = true;
+    // this.isEditable = false;
+    //  this.final.finalReportSpinner = false;
+    //  this.final.finalReportBody = true;
     let userName = this.router.snapshot.paramMap.get('email') || '{}';
     this.changeTabEmcSavedReport(0, emcId, userName, ClientName);
 
