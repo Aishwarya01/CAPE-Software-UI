@@ -111,7 +111,7 @@
                                                                         <i class="bi bi-text-paragraph"></i>
                                                                     </span>
                                                                 </div>
-                                                                <textarea type="number" [readonly]="isEditable"
+                                                                <textarea type="text" [readonly]="isEditable"
                                                                     formControlName="seperationDistanceDesc" class="form-control"
                                                                     placeholder="Please enter Observation here"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.get('seperationDistanceDesc')?.errors }"></textarea>
@@ -132,11 +132,10 @@
                                                                         <i class="bi bi-text-paragraph"></i>
                                                                     </span>
                                                                 </div>
-                                                                <textarea type="number" [readonly]="isEditable"
+                                                                <input type="number" [readonly]="isEditable"
                                                                     formControlName="seperationDistanceOb" class="form-control"
                                                                     placeholder="Please enter Observation here"
-                                                                    [ngClass]="{ 'is-invalid': submitted && f.get('seperationDistanceOb')?.errors }"></textarea>
-                                                                <div *ngIf="submitted && f.get('seperationDistanceOb')?.errors"
+                                                                    [ngClass]="{ 'is-invalid': submitted && f.get('seperationDistanceOb')?.errors }">                                                                <div *ngIf="submitted && f.get('seperationDistanceOb')?.errors"
                                                                     class="invalid-feedback">
                                                                     <div *ngIf="f.get('seperationDistanceOb')?.errors?.required">
                                                                         Measured Seperation distance between air termination and electrical
@@ -152,7 +151,7 @@
                                                                         <i class="bi bi-text-paragraph"></i>
                                                                     </span>
                                                                 </div>
-                                                                <textarea type="number" [readonly]="isEditable" formControlName="seperationDistanceRem"
+                                                                <textarea type="text" [readonly]="isEditable" formControlName="seperationDistanceRem"
                                                                     class="form-control"
                                                                     placeholder="Please enter Remarks here (Optional)"></textarea>
                                                             </div>
@@ -198,7 +197,7 @@
                                                                         <i class="bi bi-text-paragraph"></i>
                                                                     </span>
                                                                 </div>
-                                                                <textarea type="number" class="form-control" [readonly]="isEditable"
+                                                                <textarea type="text" class="form-control" [readonly]="isEditable"
                                                                     formControlName="seperationDistanceDesc"
                                                                     placeholder="Please enter Observation here"
                                                                     [ngClass]="{'is-invalid': submitted && f.get('seperationDistanceDesc')?.errors}"></textarea>
@@ -219,10 +218,10 @@
                                                                         <i class="bi bi-text-paragraph"></i>
                                                                     </span>
                                                                 </div>
-                                                                <textarea type="number" class="form-control" [readonly]="isEditable"
+                                                                <input type="number" class="form-control" [readonly]="isEditable"
                                                                     formControlName="seperationDistanceOb"
                                                                     placeholder="Please enter Observation here"
-                                                                    [ngClass]="{'is-invalid': submitted && f.get('seperationDistanceOb')?.errors}"></textarea>
+                                                                    [ngClass]="{'is-invalid': submitted && f.get('seperationDistanceOb')?.errors}">
                                                                 <div *ngIf="submitted && f.get('seperationDistanceOb')?.errors"
                                                                     class="invalid-feedback">
                                                                     <div *ngIf="f.get('seperationDistanceOb')?.errors?.required">
@@ -239,7 +238,7 @@
                                                                         <i class="bi bi-text-paragraph"></i>
                                                                     </span>
                                                                 </div>
-                                                                <textarea type="number" class="form-control" [readonly]="isEditable"
+                                                                <textarea type="text" class="form-control" [readonly]="isEditable"
                                                                     formControlName="seperationDistanceRem"
                                                                     placeholder="Please enter Remarks here (Optional)"></textarea>
                                                             </div>

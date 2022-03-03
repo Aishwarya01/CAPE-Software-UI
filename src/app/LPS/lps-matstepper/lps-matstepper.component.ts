@@ -27,6 +27,7 @@ import { GlobalsService } from 'src/app/globals.service';
 import { ConfirmationBoxComponent } from 'src/app/confirmation-box/confirmation-box.component';
 import { tree } from 'ngx-bootstrap-icons';
 import { LpssummaryComponent } from '../lpssummary/lpssummary.component';
+import { MatStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-lps-matstepper',
@@ -45,6 +46,8 @@ export class LpsMatstepperComponent implements OnInit {
   secondFormGroup!: FormGroup;
 
   @ViewChild(MatTabGroup) tabGroup!: MatTabGroup;
+  @ViewChild('stepper', { static: false }) stepper!: MatStepper;
+
   selectedIndex: any;
   Completed1: boolean=true;
   Completed2: boolean=true;
@@ -122,30 +125,25 @@ export class LpsMatstepperComponent implements OnInit {
   public doSomething2(next: any): void {  
     this.Completed2 = this.airTermination.success; 
 
-      // if(this.airTermination.isAirterminationUpdated) {
-      //   this.downConductors.ngOnInit();
-      //   this.lpsSummary.ngOnInit();
-      // }
-      // else {
-      //   this.downConductors.updateMethod();
-      // }
-
+      if(next) {
+        this.downConductors.ngOnInit();
+        this.lpsSummary.ngOnInit();
+      }
+      else {
+        this.downConductors.updateMethod();
+      }
+          
       if (this.airTermination.isAirterminationUpdated) {
         this.earthing.isAirterminationUpdated = true;
         this.spd.isAirterminationUpdated = true;
         this.seperationDistance.isAirterminationUpdated = true;
         this.earthStud.isAirterminationUpdated = true;
-        this.downConductors.ngOnInit();
-        this.lpsSummary.ngOnInit();
         this.earthing.ngOnInit();
         this.spd.ngOnInit();
         this.seperationDistance.ngOnInit();
         this.earthStud.ngOnInit();
         this.initializeLpsId();
         this.airTermination.isAirterminationUpdated=false;
-      }
-      else {
-        this.downConductors.updateMethod();
       }
       
       setTimeout(() => {
@@ -157,21 +155,26 @@ export class LpsMatstepperComponent implements OnInit {
 
   public doSomething3(next: any): void {
     this.Completed3 = this.downConductors.success;
+    this.lpsSummary.ngOnInit();
   }
 
   public doSomething4(next: any): void {
     this.Completed4 = this.earthing.success;
+    this.lpsSummary.ngOnInit();
     this.refresh();
   }
 
   public doSomething5(next: any): void {
     this.Completed5 = this.spd.success;
+    this.lpsSummary.ngOnInit();
   }
   public doSomething6(next: any): void {
     this.Completed6 = this.seperationDistance.success;
+    this.lpsSummary.ngOnInit();
   }
   public doSomething7(next: any): void {
     this.Completed7 = this.earthStud.success;
+    this.lpsSummary.ngOnInit();
     // this.final.ngOnInit();
   }
   public doSomething8(next: any): void {
@@ -238,7 +241,9 @@ export class LpsMatstepperComponent implements OnInit {
             this.lpsSummary.retrieveDetailsfromSavedReports(userName, basicLpsId, clientName, this.dataJSON);
             
             if(this.dataJSON.summaryLps==null){
-             this.lpsSummary.retrieveObservationLpsSummary(basicLpsId);
+              setTimeout(() => {
+                this.lpsSummary.retrieveObservationLpsSummary(basicLpsId);
+              }, 1000);
             }
             this.Completed2 = true;
           }
@@ -407,6 +412,10 @@ export class LpsMatstepperComponent implements OnInit {
     this.earthStud.createearthStudForm(airtermination);
   }
 
+  navigateStep(index: any) {
+    this.stepper.selectedIndex = index;
+  }
+
   initializeLpsId(){
 
     this.downConductors.availabilityOfPreviousReport = this.basic.basicDetails.availabilityOfPreviousReport;
@@ -432,5 +441,8 @@ export class LpsMatstepperComponent implements OnInit {
     // EarthStud
     this.earthStud.basicLpsId=this.basic.basicDetails.basicLpsId;
     this.earthStud.isEditable=this.isEditable;
+    // Summary
+    this.lpsSummary.basicLpsId=this.basic.basicDetails.basicLpsId;
+    this.lpsSummary.isEditable=this.isEditable;
   }
 }

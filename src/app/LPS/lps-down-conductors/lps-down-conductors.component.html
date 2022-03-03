@@ -318,7 +318,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td style="width: 55rem;">
+                                        <td class="col-md-6">
                                             <select class="form-control"  (change)="onChangeDownCon($event,q)" formControlName="downConductorAvailabilityOb"
                                             [ngClass]="{ 'is-invalid': submitted && q.get('downConductorAvailabilityOb')?.errors }" style="height: 3rem;" >
                                                 <option value="" selected>Select Option</option>
@@ -329,7 +329,7 @@
                                                 <div *ngIf="q.get('downConductorAvailabilityOb')?.errors?.required">Please select the field</div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td class="col-md-6">
                                             <textarea [readonly]="isEditable" formControlName="downConductorAvailabilityRem" type="text"
                                                 class="form-control" placeholder="Please enter Remarks here"></textarea>
                                         </td>
@@ -960,7 +960,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td style="width: 55rem;">
+                                        <td class="col-md-6">
                                             <select class="form-control"  (change)="onChangeCables($event,q)" formControlName="bridgingDescriptionAvailabilityOb"
                                             [ngClass]="{ 'is-invalid': submitted && q.get('bridgingDescriptionAvailabilityOb')?.errors }" style="height: 3rem;">
                                                 <option value="" selected>Select Option</option>
@@ -971,7 +971,7 @@
                                                 <div *ngIf="q.get('bridgingDescriptionAvailabilityOb')?.errors?.required">Please select the field</div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td class="col-md-6">
                                             <textarea [readonly]="isEditable" formControlName="bridgingDescriptionAvailabilityRem" type="text"
                                             placeholder="Please enter Remarks here" class="form-control" ></textarea>
                                         </td>
@@ -1318,7 +1318,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td style="width: 55rem;">
+                                        <td class="col-md-6">
                                             <select class="form-control"  (change)="onChangeHolders($event,q)" formControlName="holderAvailabilityOb"
                                             [ngClass]="{ 'is-invalid': submitted && q.get('holderAvailabilityOb')?.errors }" style="height: 3rem;">
                                                 <option value="" selected>Select Option</option>
@@ -1329,7 +1329,7 @@
                                                 <div *ngIf="q.get('holderAvailabilityOb')?.errors?.required">Please select the field</div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td class="col-md-6">
                                             <textarea [readonly]="isEditable" formControlName="holderAvailabilityRem" type="text"
                                             placeholder="Please enter Remarks here" class="form-control" ></textarea>
                                         </td>
@@ -1676,7 +1676,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td style="width: 55rem;">
+                                        <td class="col-md-6">
                                             <select class="form-control"  (change)="onChangeConnectors($event,q)" formControlName="connectorsAvailabilityOb"
                                             [ngClass]="{ 'is-invalid': submitted && q.get('connectorsAvailabilityOb')?.errors }" style="height: 3rem;">
                                                 <option value="" selected>Select Option</option>
@@ -1687,7 +1687,7 @@
                                                 <div *ngIf="q.get('connectorsAvailabilityOb')?.errors?.required">Please select the field</div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td class="col-md-6">
                                             <textarea [readonly]="isEditable" formControlName="connectorsAvailabilityRem" type="text"
                                             placeholder="Please enter Remarks here" class="form-control" ></textarea>
                                         </td>
@@ -2001,7 +2001,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td style="width: 55rem;">
+                                        <td class="col-md-6">
                                             <select class="form-control"  (change)="onChangeCounters($event,q)" formControlName="lightningCounterAvailabilityOb"
                                             [ngClass]="{ 'is-invalid': submitted && q.get('lightningCounterAvailabilityOb')?.errors }" style="height: 3rem;">
                                                 <option value="" selected>Select Option</option>
@@ -2012,7 +2012,7 @@
                                                 <div *ngIf="q.get('lightningCounterAvailabilityOb')?.errors?.required">Please select the field</div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td class="col-md-6">
                                             <textarea [readonly]="isEditable || q.get('lightningCounterAvailabilityRem')?.value ==='As per latest standard IS/IEC 62305,installation of single lightning counter for whole building is mandatory'" formControlName="lightningCounterAvailabilityRem" type="text"
                                             placeholder="Please enter Remarks here" class="form-control" ></textarea>
                                         </td>
@@ -2412,7 +2412,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td style="width: 55rem;">
+                                        <td class="col-md-6">
                                             <select class="form-control"  (change)="onChangeJoints($event,q)" formControlName="testingJointAvailabilityOb"
                                             [ngClass]="{ 'is-invalid': submitted && q.get('testingJointAvailabilityOb')?.errors }" style="height: 3rem;">
                                                 <option value="" selected>Select Option</option>
@@ -2423,7 +2423,7 @@
                                                 <div *ngIf="q.get('testingJointAvailabilityOb')?.errors?.required">Please select the field</div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td class="col-md-6">
                                             <textarea [readonly]="isEditable || q.get('testingJointAvailabilityRem')?.value === 'As per latest standard IS/IEC62305, installation of test joint at each down conductor is mandatory for the purpose of testing of down conductors and earth electrode as well'" 
                                             formControlName="testingJointAvailabilityRem" type="text"
                                             placeholder="Please enter Remarks here" class="form-control" ></textarea>
@@ -2837,7 +2837,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td style="width: 55rem;">
+                                        <td class="col-md-6">
                                             <select class="form-control" (change)="onChangeDownConductorTesting($event,q)"  formControlName="downConductorTestingAvailabilityOb"
                                             [ngClass]="{ 'is-invalid': submitted && q.get('downConductorTestingAvailabilityOb')?.errors }" style="height: 3rem;">
                                                 <option value="" selected>Select Option</option>
@@ -2848,7 +2848,7 @@
                                                 <div *ngIf="q.get('downConductorTestingAvailabilityOb')?.errors?.required">Please select the field</div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td class="col-md-6">
                                             <textarea [readonly]="isEditable" formControlName="downConductorTestingAvailabilityRem" type="text"
                                             placeholder="Please enter Remarks here"  class="form-control" ></textarea>
                                         </td>

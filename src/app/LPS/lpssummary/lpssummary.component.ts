@@ -9,6 +9,7 @@ import { GlobalsService } from 'src/app/globals.service';
 import { LpsSummary } from 'src/app/LPS_model/lps-summary';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
 import { SummaryServiceService } from 'src/app/LPS_services/summary-service.service';
+import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
 
 @Component({
   selector: 'app-lpssummary',
@@ -400,6 +401,7 @@ export class LpssummaryComponent implements OnInit {
   constructor(private summaryService:SummaryServiceService,private formBuilder: FormBuilder,
     private airterminationServices: AirterminationService, private router: ActivatedRoute,
     private dialog: MatDialog,private modalService: NgbModal,public service: GlobalsService,
+    private matStepper: LpsMatstepperComponent
     ) { 
       this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
@@ -417,7 +419,9 @@ export class LpssummaryComponent implements OnInit {
         recommendYears: new FormControl('',Validators.required),
       });
       this.retrieveFromAirTermination();
-      this.retrieveObservationLpsSummaryOnload();
+      setTimeout(() => {
+        this.retrieveObservationLpsSummaryOnload();
+      }, 1000);
     }
     summaryLPSArr(){
       return this.formBuilder.group({
@@ -1219,7 +1223,7 @@ export class LpssummaryComponent implements OnInit {
               for(let j = 0; j < this.airBasicName.length; j++){
                 if(i[this.airBasicName[j]]!=""){
                   this.airTerminationArr.push(this.createAirTermination());
-                  this.airTerminationArr.controls[0].controls.heading.setValue('Basic Details Observation');
+                  this.airTerminationArr.controls[0].controls.heading.setValue('AT_Basic Details Observation');
                   this.airTerminationArr.controls[index].controls.observationComponentDetails.setValue('airBasicDescription' + index);
                   this.airTerminationArr.controls[index].controls.serialNo.setValue(index+1);
                   this.airTerminationArr.controls[index].controls.observation.setValue(i[this.airBasicName[j]]);
@@ -1379,7 +1383,7 @@ export class LpssummaryComponent implements OnInit {
             for(let j = 0; j < this.downBasicName.length; j++){
               if(this.downConductorData.downConductorReport[0].downConductorDescription[w][this.downBasicName[j]]!=""){
                 this.downConductorsBasicArr.push(this.createDownConductorsBasic());
-                this.downConductorsBasicArr.controls[0].controls.heading.setValue('Basic Details Observation');
+                this.downConductorsBasicArr.controls[0].controls.heading.setValue('DC_Basic Details Observation');
                 this.downConductorsBasicArr.controls[index].controls.observationComponentDetails.setValue('downConductorBasicDescription' + index);
                 this.downConductorsBasicArr.controls[index].controls.serialNo.setValue(index+1);
                 this.downConductorsBasicArr.controls[index].controls.observation.setValue(this.downConductorData.downConductorReport[0].downConductorDescription[w][this.downBasicName[j]]);
@@ -1504,7 +1508,7 @@ export class LpssummaryComponent implements OnInit {
             for(let j = 0; j < this.earthingReportName.length; j++){
               if(this.earthingData.earthingReport[0].earthingLpsDescription[w][this.earthingReportName[j]]!=""){
                 this.earthingReportArr.push(this.createEarthingReport());
-                this.earthingReportArr.controls[0].controls.heading.setValue('Basic Details Observation');
+                this.earthingReportArr.controls[0].controls.heading.setValue('ET_Basic Details Observation');
                 this.earthingReportArr.controls[index].controls.observationComponentDetails.setValue('earthingLpsDescription' + index);
                 this.earthingReportArr.controls[index].controls.serialNo.setValue(index+1);
                 this.earthingReportArr.controls[index].controls.observation.setValue(this.earthingData.earthingReport[0].earthingLpsDescription[w][this.earthingReportName[j]]);
@@ -1746,7 +1750,7 @@ export class LpssummaryComponent implements OnInit {
                 for(let j = 0; j < this.airBasicName.length; j++){
                   if(i[this.airBasicName[j]]!=""){
                     this.airTerminationArr.push(this.createAirTermination());
-                    this.airTerminationArr.controls[0].controls.heading.setValue('Basic Details Observation');
+                    this.airTerminationArr.controls[0].controls.heading.setValue('AT_Basic Details Observation');
                     this.airTerminationArr.controls[index].controls.observationComponentDetails.setValue('airBasicDescription' + index);
                     this.airTerminationArr.controls[index].controls.serialNo.setValue(index+1);
                     this.airTerminationArr.controls[index].controls.observation.setValue(i[this.airBasicName[j]]);
@@ -1906,7 +1910,7 @@ export class LpssummaryComponent implements OnInit {
               for(let j = 0; j < this.downBasicName.length; j++){
                 if(this.downConductorData.downConductorReport[0].downConductorDescription[w][this.downBasicName[j]]!=""){
                   this.downConductorsBasicArr.push(this.createDownConductorsBasic());
-                  this.downConductorsBasicArr.controls[0].controls.heading.setValue('Basic Details Observation');
+                  this.downConductorsBasicArr.controls[0].controls.heading.setValue('DC_Basic Details Observation');
                   this.downConductorsBasicArr.controls[index].controls.observationComponentDetails.setValue('downConductorBasicDescription' + index);
                   this.downConductorsBasicArr.controls[index].controls.serialNo.setValue(index+1);
                   this.downConductorsBasicArr.controls[index].controls.observation.setValue(this.downConductorData.downConductorReport[0].downConductorDescription[w][this.downBasicName[j]]);
@@ -2031,7 +2035,7 @@ export class LpssummaryComponent implements OnInit {
               for(let j = 0; j < this.earthingReportName.length; j++){
                 if(this.earthingData.earthingReport[0].earthingLpsDescription[w][this.earthingReportName[j]]!=""){
                   this.earthingReportArr.push(this.createEarthingReport());
-                  this.earthingReportArr.controls[0].controls.heading.setValue('Basic Details Observation');
+                  this.earthingReportArr.controls[0].controls.heading.setValue('ET_Basic Details Observation');
                   this.earthingReportArr.controls[index].controls.observationComponentDetails.setValue('earthingLpsDescription' + index);
                   this.earthingReportArr.controls[index].controls.serialNo.setValue(index+1);
                   this.earthingReportArr.controls[index].controls.observation.setValue(this.earthingData.earthingReport[0].earthingLpsDescription[w][this.earthingReportName[j]]);
@@ -2280,6 +2284,10 @@ export class LpssummaryComponent implements OnInit {
       //   this.finalFlag = false;
   
       // }
+    }
+
+    navigateToStep(index: any) {
+      this.matStepper.navigateStep(index);
     }
 
   onSubmit(flag:any,content5:any){

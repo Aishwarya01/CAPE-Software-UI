@@ -36,6 +36,7 @@ export class LpsBasicPageComponent implements OnInit {
   stepBack:any;
   basicLpsIdRetrive:number=0;
   isBasicFormUpdated: boolean =false;
+  proceedFlag: boolean = true;
 
   constructor(private formBuilder: FormBuilder, 
     private lPSBasicDetailsService: LPSBasicDetailsService,
@@ -88,7 +89,7 @@ export class LpsBasicPageComponent implements OnInit {
 
   retrieveDetailsfromSavedReports(basicLpsId: any,data: any){
     //this.service.lvClick=1;
-  
+    this.proceedFlag = false;  
      this.step1List = data.basicLps;
     //  if(this.step1List.clientName != null){
       this.success = true;
@@ -125,7 +126,7 @@ export class LpsBasicPageComponent implements OnInit {
 
     retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
       //this.service.lvClick=1;
-
+      this.proceedFlag = false;
       this.stepBack=JSON.parse(data);
       this.basicLpsIdRetrive = basicLpsId;
       this.basicDetails.clientName = this.stepBack[0].clientName;
@@ -265,6 +266,7 @@ export class LpsBasicPageComponent implements OnInit {
           this.success1 = false;
           this.success = true;
           this.successMsg = data;
+          this.isBasicFormUpdated=true;
           this.retriveBasicDetails();
           this.LPSBasicForm.markAsPristine();
           this.isBasicFormUpdated=true;
@@ -306,7 +308,7 @@ export class LpsBasicPageComponent implements OnInit {
     
         data => {
           let basicDetailsItr=JSON.parse(data);              
-          
+          this.proceedFlag = false;
           this.basicDetails.basicLpsId=basicDetailsItr.basicLpsId;
           this.success = true;
           this.successMsg = "Basic Information sucessfully Saved";
@@ -323,6 +325,7 @@ export class LpsBasicPageComponent implements OnInit {
         error => {
           this.Error = true;
           this.errorArr = [];
+          this.proceedFlag = true;
           this.errorArr = JSON.parse(error.error);
           this.errorMsg = this.errorArr.message;
           this.proceedNext.emit(false);
@@ -368,6 +371,7 @@ export class LpsBasicPageComponent implements OnInit {
   }
 
   retriveBasicDetails(){
+    this.proceedFlag = false;
     this.lPSBasicDetailsService.retriveLpsbasicDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicDetails.basicLpsId).subscribe(
       data => {
         this.retrieveDetailsfromSavedReports1(this.basicDetails.userName,this.basicDetails.basicLpsId,this.basicDetails.clientName,data);

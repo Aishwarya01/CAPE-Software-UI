@@ -43,7 +43,7 @@ export class LpsAirTerminationComponent implements OnInit {
   i: any;
   j: any;
   success1 = false;
-
+  proceedFlag: boolean = true;
   airTerminationPushArr: any=[];
   // successMsg1: String="";
 
@@ -497,6 +497,7 @@ export class LpsAirTerminationComponent implements OnInit {
 
     retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
       // this.service.lvClick=1;
+      this.proceedFlag = false;
       this.step2List = data.airTermination;
       this.airtermination.basicLpsId = basicLpsId;
       this.airtermination.airTerminationId = this.step2List.airTerminationId;     
@@ -518,6 +519,7 @@ export class LpsAirTerminationComponent implements OnInit {
 
     retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
       //this.service.lvClick=1;
+        this.proceedFlag = false;
         let list=JSON.parse(data);
         this.step2List = list[0];       
         this.airtermination.basicLpsId = basicLpsId;
@@ -1643,9 +1645,11 @@ export class LpsAirTerminationComponent implements OnInit {
                 this.airterminationService.saveAirtermination(this.airtermination).subscribe(
                   (data) => {
                     this.success = true;
+                    this.isAirterminationUpdated=true
                     this.proceedNext.emit(true);
                     this.successMsg = data;
                     this.disable = true;
+                    this.proceedFlag = false;
                     this.retriveAirTermination();
                     // setTimeout(() => {
                     //   this.proceedNext.emit(true);
@@ -1653,13 +1657,13 @@ export class LpsAirTerminationComponent implements OnInit {
                     this.service.lvClick=0;
                     this.service.logoutClick=0;
                     this.service.windowTabClick=0;
-                    this.isAirterminationUpdated=true
                   },
                   (error) => {
                     this.Error = true;
                     this.errorArr = [];
                     this.errorArr = JSON.parse(error.error);
                     this.errorMsg = this.errorArr.message;
+                    this.proceedFlag = true;
                     //this.proceedNext.emit(false);
                   });
             }
