@@ -38,7 +38,7 @@ export class EmcSavedReportComponent implements OnInit {
    currentUser: any = [];
    currentUser1: any = [];
    userData: any=[];
-   viewerFilterData:any=[];
+   //viewerFilterData:any=[];
    selectedIndex: number=0;
   
   @ViewChild('input') input!: MatInput;
@@ -68,8 +68,7 @@ export class EmcSavedReportComponent implements OnInit {
    }
  
    retrieveEmcDetails() {
-     if(this.currentUser1.role == 'Inspector') {
-       //
+    
        this.emcSavedReportService.retrieveListOfClientDetails(this.email).subscribe(
          data => {
            this.emcData=JSON.parse(data);
@@ -84,26 +83,6 @@ export class EmcSavedReportComponent implements OnInit {
            this.savedReportEmc_dataSource.paginator = this.savedReportEmcPaginator;
            this.savedReportEmc_dataSource.sort = this.savedReportEmcSort;
          });
-     }
-     else { //viewer
-       if(this.currentUser1.assignedBy!=null) {
-         this.viewerFilterData=[];
-         this.emcSavedReportService.retrieveListOfClientDetails(this.currentUser1.assignedBy).subscribe(
-           data => {
-             this.userData=JSON.parse(data);
-             for(let i of this.emcData){
-               if(i.allStepsCompleted != "AllStepCompleted"){
-                 this.completedFilterData.push(i);
-               }
-             }
-            this.savedReportEmc_dataSource = new MatTableDataSource(this.completedFilterData);
-            this.completedFilterData = [];
-            this.emcData = [];
-            this.savedReportEmc_dataSource.paginator = this.savedReportEmcPaginator;
-            this.savedReportEmc_dataSource.sort = this.savedReportEmcSort;
-           });
-       } 
-     }
          
    }
  
