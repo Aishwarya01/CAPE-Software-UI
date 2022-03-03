@@ -106,8 +106,6 @@ export class LpsMatstepperComponent implements OnInit {
   }
   public doSomething1(next: any): void {
 
-    this.downConductors.availabilityOfPreviousReport = this.basic.basicDetails.availabilityOfPreviousReport;
-    this.earthing.availabilityOfPreviousReport = this.basic.basicDetails.availabilityOfPreviousReport;
     this.Completed1 = this.basic.success;
 
     if (this.basic.isBasicFormUpdated) {
@@ -410,6 +408,10 @@ export class LpsMatstepperComponent implements OnInit {
   }
 
   initializeLpsId(){
+
+    this.downConductors.availabilityOfPreviousReport = this.basic.basicDetails.availabilityOfPreviousReport;
+    this.earthing.availabilityOfPreviousReport = this.basic.basicDetails.availabilityOfPreviousReport;
+
     this.basic.isEditable=this.isEditable;
     // AirTermination
     this.airTermination.appendBasicLpsId(this.basic.basicDetails.basicLpsId);   
