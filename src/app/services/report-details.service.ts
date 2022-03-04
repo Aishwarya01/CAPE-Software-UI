@@ -10,7 +10,7 @@ import { Reportdetails } from '../model/reportdetails';
 })
 export class ReportDetailsService {
 
-  apiUrl = environment.apiUrl;
+  apiUrl = environment.apiUrl_v2;
   constructor(private http: HttpClient) { }
 
   public addReportDetails(reportDetails: Reportdetails): Observable<any> {

@@ -15,7 +15,7 @@ const httpoption ={
   providedIn: 'root'
 })
 export class RegisterserviceService {
-  apiUrl = environment.apiUrl;
+  apiUrl = environment.apiUrl_v2;
   constructor ( private http: HttpClient) { }
   
   public  register (user :User): Observable<any> {
