@@ -9,10 +9,12 @@
         <form [formGroup]="EMCPowerAndEarthForm" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)"
             (ngSubmit)="savePowerAndEarthingData(flag)">
 
-            <mat-accordion displayMode="default" [hideToggle]="false">
-                <mat-expansion-panel [hideToggle]="false" class="body">
+            <mat-accordion>
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                     <mat-expansion-panel-header>
-                        Service Entrance
+                         <mat-panel-title>
+                            <h3>Service Entrance</h3>
+                        </mat-panel-title>
                     </mat-expansion-panel-header>
 
                     <!-- Electrical utility service supplier -->
@@ -26,7 +28,7 @@
                                 </span>
                             </div>
                             <textarea class="textarea-size" class="form-control"
-                                formControlName="powerElectricalUtility"
+                                formControlName="powerElectricalUtility" cols="60" rows="1"
                                 placeholder="describe type, demand, system earthing, protection at incoming...!"
                                 [ngClass]="{'is-invalid':submitted && f.powerElectricalUtility?.errors}"
                                 [(ngModel)]="emcPowerAndEarthingData.powerElectricalUtility"></textarea>
@@ -47,7 +49,7 @@
                             </div>
                             <textarea class="textarea-size" class="form-control" style="font-size: medium;"
                                 [(ngModel)]="emcPowerAndEarthingData.powerBackupSource"
-                                formControlName="powerBackupSource"
+                                formControlName="powerBackupSource" cols="60" rows="1"
                                 [ngClass]="{'is-invalid':submitted && f.powerBackupSource?.errors}"
                                 placeholder="describe type, capacity, time delay, loads, etc...!"></textarea>
                             <div *ngIf="submitted &&f.powerBackupSource?.errors" class="invalid-feedback">
@@ -66,7 +68,7 @@
                                 </span>
                             </div>
                             <textarea class="form-control" formControlName="powerDistanceHvLv"
-                                [(ngModel)]="emcPowerAndEarthingData.powerDistanceHvLv"
+                                [(ngModel)]="emcPowerAndEarthingData.powerDistanceHvLv" cols="60" rows="1"
                                 [ngClass]="{'is-invalid':submitted && f.powerDistanceHvLv?.errors}"
                                 placeholder="In case transformer with in the premise (HV supply), describe this and the distance to the suppliers substation...!"></textarea>
                             <div *ngIf="submitted &&f.powerDistanceHvLv?.errors" class="invalid-feedback">
@@ -96,14 +98,14 @@
 
                     <!-- Description of supply -->
                     <div>
-                        <label class="form-label">*Description of Supply:</label>
+                        <label class="form-label">Description of Supply:</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     <i class="bi bi-text-paragraph"></i>
                                 </span>
                             </div>
-                            <textarea class="textarea-size" class="form-control"
+                            <textarea class="textarea-size" class="form-control" cols="60" rows="1"
                                 [(ngModel)]="emcPowerAndEarthingData.powerDiscSupply" formControlName="powerDiscSupply"
                                 placeholder="Enter Description of supply"
                                 [ngClass]="{'is-invalid':submitted && f.powerDiscSupply?.errors}"></textarea>
@@ -114,7 +116,7 @@
                     </div>
 
                     <!-- Transformer characteristics -->
-
+                    <br>
                     <div class="acc_font">
                         <label class="form-label">5. Transformer characteristics:</label>
                         <div>
@@ -133,7 +135,7 @@
                             </div>
                             <br>
                             <div>
-                                <label style="font-size: medium;">Input:</label>
+                                <h3 style="font-size: medium;">Input:</h3>
                             </div>
 
                             <div class="row">
@@ -184,14 +186,14 @@
                             </div>
 
                             <div>
-                                <label class="form-label">Describe Other</label>
+                                <label class="form-label">Describe Other:</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea class="textarea-size" class="form-control"
+                                    <textarea class="textarea-size" class="form-control" cols="60" rows="1"
                                         [ngClass]="{'is-invalid':submitted && f.powerInputDesc?.errors}"
                                         formControlName="powerInputDesc"
                                         [(ngModel)]="emcPowerAndEarthingData.powerInputDesc"
@@ -206,7 +208,7 @@
 
                             <!-- Output to MDB -->
                             <div>
-                                <label class="form-label">Output to MDB</label>
+                                <h3 class="form-label">Output to MDB:</h3>
                                 <div class="row">
                                     <div class="col-md-4">
                                         <label class="form-label">Volts:</label>
@@ -273,7 +275,7 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>Neutral</label>
+                                            <label>Neutral:</label>
                                             <select class="form-control"
                                                 [(ngModel)]="emcPowerAndEarthingData.powerNeutral"
                                                 formControlName="powerNeutral"
@@ -298,7 +300,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea class="textarea-size" class="form-control"
+                                    <textarea class="textarea-size" class="form-control" cols="60" rows="1"
                                         [(ngModel)]="emcPowerAndEarthingData.psEarthing" formControlName="psEarthing"
                                         placeholder="describe how and where?"
                                         [ngClass]="{'is-invalid':submitted && f.psEarthing?.errors}"></textarea>
@@ -309,7 +311,7 @@
                             </div>
                             <br>
                             <div>
-                                <label class="form-label">Attach SLD of power supply system</label>
+                                <label class="form-label">Attach SLD of power supply system:</label>
                                 <div class="row input-group mb-2">
                                     <div class="col-md-6">
                                     <input type="file" class="form-control" id="inputGroupFile01" (change)="onChange($event)"
@@ -334,8 +336,6 @@
                                        >remove_circle_outline</mat-icon>
         
                                     </div>
-
-                                    
                                 </div>
                                 <!-- <div class="row">
                                     <div class="col-md-3">
@@ -349,10 +349,10 @@
                             </div>
                         </div>
                     </div>
-                
+                <br>
                     <!-- 6.Building Service Entrance -->
                     <div>
-                        <label class="form-label">6. Building Service Entrance</label>
+                        <label class="form-label">6. Building Service Entrance:</label>
                         <div>
                             <label class="form-label">Dedicated transformer:</label>
                             <select class="form-control" [(ngModel)]="emcPowerAndEarthingData.dedicatedTransfermation"
@@ -375,7 +375,7 @@
                                         <i class="bi bi-text-paragraph"></i>
                                     </span>
                                 </div>
-                                <textarea class="textarea-size" class="form-control"
+                                <textarea class="textarea-size" class="form-control" cols="60" rows="1"
                                     [(ngModel)]="emcPowerAndEarthingData.dedicatedTransfermationOtherBuilding"
                                     formControlName="dedicatedTransfermationOtherBuilding"
                                     [ngClass]="{'is-invalid':submitted && f.dedicatedTransfermationOtherBuilding?.errors}"
@@ -398,7 +398,7 @@
                                         <i class="bi bi-text-paragraph"></i>
                                     </span>
                                 </div>
-                                <textarea class="textarea-size" class="form-control"
+                                <textarea class="textarea-size" class="form-control" cols="60" rows="1"
                                     [(ngModel)]="emcPowerAndEarthingData.typeOFIncoming"
                                     formControlName="typeOFIncoming"
                                     [ngClass]="{'is-invalid':submitted && f.typeOFIncoming?.errors}"
@@ -418,7 +418,7 @@
                                         <i class="bi bi-text-paragraph"></i>
                                     </span>
                                 </div>
-                                <textarea class="textarea-size" class="form-control"
+                                <textarea class="textarea-size" class="form-control" cols="60" rows="1"
                                     [(ngModel)]="emcPowerAndEarthingData.descOfService" formControlName="descOfService"
                                     [ngClass]="{'is-invalid':submitted && f.descOfService?.errors}"
                                     placeholder="foundation earth / building steel / ring earth / rod / multiple rods / grid / earth plate / burried conduit / metal water pipe etc...!"></textarea>
@@ -438,7 +438,7 @@
                                         <i class="bi bi-text-paragraph"></i>
                                     </span>
                                 </div>
-                                <textarea class="textarea-size" class="form-control"
+                                <textarea class="textarea-size" class="form-control" cols="60" rows="1"
                                     [(ngModel)]="emcPowerAndEarthingData.descOfTestingService"
                                     formControlName="descOfTestingService"
                                     [ngClass]="{'is-invalid':submitted && f.descOfTestingService?.errors}"
@@ -461,7 +461,7 @@
                                         <i class="bi bi-text-paragraph"></i>
                                     </span>
                                 </div>
-                                <textarea class="textarea-size" class="form-control"
+                                <textarea class="textarea-size" class="form-control" cols="60" rows="1"
                                     [(ngModel)]="emcPowerAndEarthingData.descOfEquipotentilaBonding"
                                     formControlName="descOfEquipotentilaBonding"
                                     [ngClass]="{'is-invalid':submitted && f.descOfEquipotentilaBonding?.errors}"
@@ -475,11 +475,13 @@
                 </mat-expansion-panel>
 
                 <div formArrayName="electronicSystemArr" *ngFor="let a of getElectronicSystemControl(); let i = index">
-                    <div class="form-group" [formGroupName]="i">
-
-                        <mat-expansion-panel [hideToggle]="false" class="body">
-                            <mat-expansion-panel-header>Building Distribution</mat-expansion-panel-header>
-
+                    <div [formGroupName]="i">
+                        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    <h3>Building Distribution</h3>
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
                             <!-- SLD -->
                             <div>
                                 <div>
@@ -491,7 +493,7 @@
                                             </span>
                                         </div>
                                         <textarea class="textarea-size" class="form-control" formControlName="bDSld"
-                                            [ngClass]="{'is-invalid':submitted && a.get('bDSld')?.errors}"
+                                            [ngClass]="{'is-invalid':submitted && a.get('bDSld')?.errors}" cols="60" rows="1"
                                             placeholder="Ex. An one-line diagram of the site power distribution system from the service entrance to the electronic system power distribution panel(s). Show all transformers, load centres, power conditioning equipment, emergency load transfer switches, etc. Also indicate nominal voltage, kVA, type of feed, how run, number of conductors, and approximate length of feeders involved...!"></textarea>
                                         <div *ngIf="submitted &&a.get('bDSld')?.errors" class="invalid-feedback">
                                             <div *ngIf="a.get('bDSld')?.errors?.required">SLD Is Required</div>
@@ -524,7 +526,7 @@
                                             </span>
                                         </div>
                                         <textarea class="textarea-size" class="form-control"
-                                            formControlName="bDRecordData"
+                                            formControlName="bDRecordData" cols="60" rows="1"
                                             [ngClass]="{'is-invalid':submitted && a.get('bDRecordData')?.errors}"
                                             placeholder="Ex. Record data (including name-plate data) note any power conditioning equipment and/or last transformer before electronic system load...!"></textarea>
                                         <div *ngIf="submitted &&a.get('bDRecordData')?.errors" class="invalid-feedback">
@@ -544,7 +546,7 @@
                                             </span>
                                         </div>
                                         <textarea class="textarea-size" class="form-control"
-                                            formControlName="bDEarthing"
+                                            formControlName="bDEarthing" cols="60" rows="1"
                                             [ngClass]="{'is-invalid':submitted && a.get('bDEarthing')?.errors}"
                                             placeholder="Ex. Describe how and where earthing of power conditioning equipment carried out...!"></textarea>
                                         <div *ngIf="submitted &&a.get('bDEarthing')?.errors" class="invalid-feedback">
@@ -556,8 +558,12 @@
                             </div>
                         </mat-expansion-panel>
 
-                        <mat-expansion-panel [hideToggle]="false" class="body">
-                            <mat-expansion-panel-header>Electronics System Room Power Distribution
+                        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    <h3>Electronics System Room Power Distribution</h3>
+                                </mat-panel-title>
+                                
                             </mat-expansion-panel-header>
 
                             <!--1. Using the SLD, sketch the system power and ground distribution system, including all major components in (or immediately adjacent to) the computer room. Clearly identify all major components -->
@@ -573,7 +579,7 @@
                                             </span>
                                         </div>
                                         <textarea class="textarea-size" class="form-control"
-                                            formControlName="electronicDesc"
+                                            formControlName="electronicDesc" cols="60" rows="1"
                                             [ngClass]="{'is-invalid':submitted && a.get('electronicDesc')?.errors}"
                                             placeholder="Ex. Using the SLD, sketch the system power and ground distribution system, including all major components in (or immediately adjacent to) the computer room. Clearly identify all major components...!"></textarea>
                                         <div *ngIf="submitted &&a.get('electronicDesc')?.errors"
@@ -585,7 +591,7 @@
                                     </div>
                                 </div>
                                 <br>
-                                <label class="form-label">2. Electronic system power distribution panel</label>
+                                <label class="form-label">2. Electronic system power distribution panel:</label>
 
                                 <div class="container-fluid">
                                     <table cellpadding="7" cellspacing="7" border="1"
@@ -617,7 +623,7 @@
                                                 <label class="form-label">b.</label>
                                             </td>
                                             <td style="width: 27rem;">
-                                                <label class="form-label">Name plate data (manufacturer)</label>
+                                                <label class="form-label">Name plate data (manufacturer):</label>
                                             </td>
                                             <td>
                                                 <input type="text" class="form-control" formControlName="namePlateData"
@@ -640,7 +646,7 @@
                                                 <label class="form-label">c.</label>
                                             </td>
                                             <td style="width: 27rem;">
-                                                <label class="form-label">Main circuit breaker</label>
+                                                <label class="form-label">Main circuit breaker:</label>
                                             </td>
                                             <td style="width: 36rem;">
                                                 <select class="form-control" formControlName="mainCircuteBraker"
@@ -975,11 +981,13 @@
                     </div>
                 </div>
 
-
-
-                <mat-expansion-panel [hideToggle]="false" class="body" style="margin-top: -16px;">
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                     <!-- Distribution panel at load (final circuits) -->
-                    <mat-expansion-panel-header>Distribution panel At Load (Final Circuits)
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h3>Distribution panel At Load (Final Circuits)</h3>
+                        </mat-panel-title>
+                        
                     </mat-expansion-panel-header>
 
                     <div formArrayName="distributionPannelArr"
@@ -988,9 +996,9 @@
 
                             <!-- a. Branch circuit wire size -->
                             <div>
-                                <label class="form-label">a. Branch circuit wire size</label>
+                                <label class="form-label">a. Branch circuit wire size:</label>
                                 <br>
-                                <label class="form-label">Wire size compatilble to circuit braker</label>
+                                <label class="form-label">Wire size compatilble to circuit braker:</label>
                                 <select class="form-control" formControlName="cbWireSize"
                                     [ngClass]="{'is-invalid':submitted && b.get('nonComputerLoads')?.errors}">
                                     <option [ngValue]="null">Select Option</option>
@@ -1001,7 +1009,7 @@
                                         Required</div>
                                 </div>
                                 <div>
-                                    <label class="form-label">Description</label>
+                                    <label class="form-label">Description:</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">
@@ -1009,7 +1017,7 @@
                                             </span>
                                         </div>
                                         <textarea class="textarea-size" class="form-control" formControlName="cbDesc"
-                                            [ngClass]="{'is-invalid':submitted && b.get('cbDesc')?.errors}"
+                                            [ngClass]="{'is-invalid':submitted && b.get('cbDesc')?.errors}" cols="60" rows="1"
                                             placeholder="Description"></textarea>
                                         <div *ngIf="submitted &&b.get('cbDesc')?.errors" class="invalid-feedback">
                                             <div *ngIf="b.get('cbDesc')?.errors?.required">Description Is Required</div>
@@ -1030,7 +1038,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <label class="form-label">Description</label>
+                                        <label class="form-label">Description:</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
@@ -1038,7 +1046,7 @@
                                                 </span>
                                             </div>
                                             <textarea class="textarea-size" class="form-control"
-                                                formControlName="matchesReceptableDesc"
+                                                formControlName="matchesReceptableDesc" cols="60" rows="1"
                                                 [ngClass]="{'is-invalid':submitted && b.get('matchesReceptableDesc')?.errors}"
                                                 placeholder="Description"></textarea>
                                             <div *ngIf="submitted &&b.get('matchesReceptableDesc')?.errors"
@@ -1056,7 +1064,7 @@
                             <div>
                                 <div>
                                     <label class="form-label">b. Individual insulated PE wire run in each
-                                        electronics load circuit</label>
+                                        electronics load circuit:</label>
                                     <select name="" id="" class="form-control" formControlName="indivdialPwire"
                                         [ngClass]="{'is-invalid':submitted && b.get('indivdialPwire')?.errors}">
                                         <option [ngValue]="null">Select Option</option>
@@ -1066,7 +1074,7 @@
                                         <div *ngIf="b.get('indivdialPwire')?.errors?.required">Field Is Required</div>
                                     </div>
                                     <div>
-                                        <label class="form-label">Description</label>
+                                        <label class="form-label">Description:</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
@@ -1074,7 +1082,7 @@
                                                 </span>
                                             </div>
                                             <textarea class="textarea-size" class="form-control"
-                                                formControlName="indivdialPwireDesc"
+                                                formControlName="indivdialPwireDesc" cols="60" rows="1"
                                                 [ngClass]="{'is-invalid':submitted && b.get('indivdialPwireDesc')?.errors}"
                                                 placeholder="Description"></textarea>
                                             <div *ngIf="submitted &&b.get('indivdialPwireDesc')?.errors"
@@ -1104,7 +1112,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <label class="form-label">Description</label>
+                                        <label class="form-label">Description:</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
@@ -1112,7 +1120,7 @@
                                                 </span>
                                             </div>
                                             <textarea class="textarea-size" class="form-control"
-                                                formControlName="indivdialNeutralwireDesc"
+                                                formControlName="indivdialNeutralwireDesc" cols="60" rows="1"
                                                 [ngClass]="{'is-invalid':submitted && b.get('indivdialNeutralwireDesc')?.errors}"
                                                 placeholder="Description"></textarea>
                                             <div *ngIf="submitted &&b.get('indivdialNeutralwireDesc')?.errors"
@@ -1130,7 +1138,7 @@
                             <div>
                                 <div>
                                     <label class="form-label">d. All computer load circuits correctly
-                                        identified</label>
+                                        identified:</label>
                                     <select name="" id="" class="form-control" formControlName="computerLoadCircute"
                                         [ngClass]="{'is-invalid':submitted && b.get('computerLoadCircute')?.errors}">
                                         <option [ngValue]="null">Select Option</option>
@@ -1142,7 +1150,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <label class="form-label">Description</label>
+                                        <label class="form-label">Description:</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
@@ -1150,7 +1158,7 @@
                                                 </span>
                                             </div>
                                             <textarea class="textarea-size" class="form-control"
-                                                formControlName="computerLoadCircuteDes"
+                                                formControlName="computerLoadCircuteDes" cols="60" rows="1"
                                                 [ngClass]="{'is-invalid':submitted && b.get('computerLoadCircuteDes')?.errors}"
                                                 placeholder="Description"></textarea>
                                             <div *ngIf="submitted &&b.get('computerLoadCircuteDes')?.errors"
@@ -1168,7 +1176,7 @@
                             <div>
                                 <div>
                                     <label class="form-label">e. All computer load circuits (30/Aphase)
-                                        terminated in isolated earth receptacles</label>
+                                        terminated in isolated earth receptacles:</label>
                                     <select name="" id="" class="form-control" formControlName="computerLoadReceptable"
                                         [ngClass]="{'is-invalid':submitted && b.get('computerLoadReceptable')?.errors}">
                                         <option [ngValue]="null">Select Option</option>
@@ -1180,7 +1188,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <label class="form-label">Description</label>
+                                        <label class="form-label">Description:</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
@@ -1188,7 +1196,7 @@
                                                 </span>
                                             </div>
                                             <textarea class="textarea-size" class="form-control"
-                                                formControlName="computerLoadReceptableDesc"
+                                                formControlName="computerLoadReceptableDesc" cols="60" rows="1"
                                                 [ngClass]="{'is-invalid':submitted && b.get('computerLoadReceptableDesc')?.errors}"
                                                 placeholder="Description"></textarea>
                                             <div *ngIf="submitted &&b.get('computerLoadReceptableDesc')?.errors"
@@ -1206,7 +1214,7 @@
                             <div>
                                 <div>
                                     <label class="form-label">f. System branch circuits run in (metallic
-                                        conduits / non metallic conduits)</label>
+                                        conduits / non metallic conduits):</label>
                                     <select name="" id="" class="form-control" formControlName="branchCircuteRun"
                                         [ngClass]="{'is-invalid':submitted && b.get('branchCircuteRun')?.errors}">
                                         <option [ngValue]="null">Select Option</option>
@@ -1217,7 +1225,7 @@
                                     </div>
 
                                     <div>
-                                        <label class="form-label">Description</label>
+                                        <label class="form-label">Description:</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
@@ -1225,7 +1233,7 @@
                                                 </span>
                                             </div>
                                             <textarea class="textarea-size" class="form-control"
-                                                formControlName="branchCircuteRunDesc"
+                                                formControlName="branchCircuteRunDesc" cols="60" rows="1"
                                                 [ngClass]="{'is-invalid':submitted && b.get('branchCircuteRunDesc')?.errors}"
                                                 placeholder="Description"></textarea>
                                             <div *ngIf="submitted &&b.get('branchCircuteRunDesc')?.errors"
@@ -1243,7 +1251,7 @@
                             <div>
                                 <div>
                                     <label class="form-label">g. Frequently cyclid loads (disks/tapes etc) power
-                                        circuit run seperately or in same physical closure</label>
+                                        circuit run seperately or in same physical closure:</label>
                                     <select name="" id="" class="form-control" formControlName="frequencyCyclidLoads"
                                         [ngClass]="{'is-invalid':submitted && b.get('frequencyCyclidLoads')?.errors}">
                                         <option [ngValue]="null">Select Option</option>
@@ -1255,7 +1263,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <label class="form-label">Description</label>
+                                        <label class="form-label">Description:</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
@@ -1263,7 +1271,7 @@
                                                 </span>
                                             </div>
                                             <textarea class="textarea-size" class="form-control"
-                                                formControlName="frequencyCyclidLoadsDesc"
+                                                formControlName="frequencyCyclidLoadsDesc" cols="60" rows="1"
                                                 [ngClass]="{'is-invalid':submitted && b.get('frequencyCyclidLoadsDesc')?.errors}"
                                                 placeholder="Description"></textarea>
                                             <div *ngIf="submitted &&b.get('frequencyCyclidLoadsDesc')?.errors"
@@ -1291,7 +1299,7 @@
                                         <div *ngIf="b.get('conductors')?.errors?.required">Field Is Required</div>
                                     </div>
                                     <div>
-                                        <label class="form-label">Description</label>
+                                        <label class="form-label">Description:</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
@@ -1299,7 +1307,7 @@
                                                 </span>
                                             </div>
                                             <textarea class="textarea-size" class="form-control"
-                                                formControlName="conductorsDesc"
+                                                formControlName="conductorsDesc" cols="60" rows="1"
                                                 [ngClass]="{'is-invalid':submitted && b.get('conductorsDesc')?.errors}"
                                                 placeholder="Description"></textarea>
                                             <div *ngIf="submitted &&b.get('conductorsDesc')?.errors"
@@ -1323,12 +1331,9 @@
             </div>
 
             <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
-                <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
+                <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
                 <button type="submit" class="next" (click)="gotoNextModal(content2, content)" mat-button>Next &raquo;</button>
             </div>
-
-
-
         </form>
     </div>
 
