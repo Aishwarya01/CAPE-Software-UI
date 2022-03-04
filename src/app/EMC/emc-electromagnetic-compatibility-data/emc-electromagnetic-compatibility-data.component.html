@@ -1,24 +1,24 @@
+<div *ngIf="tabError" style="text-align: center;">
+    <span class="alert alert-danger">{{tabErrorMsg}}</span>
+  </div>
 <div *ngIf="validationErrorTab" style="text-align: center;">
     <span class="alert alert-danger">{{validationErrorMsgTab}}</span>
 </div>
 <div class="card">
     <div class="card-body">
-        <mat-accordion>
-            <form [formGroup]="EMCElectroMagneticFormm" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)"
+        <form [formGroup]="EMCElectroMagneticFormm" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)"
                 (ngSubmit)="saveElectroMagneticData(flag,content3)">
-               
-                <mat-expansion-panel class="body">
-
+        <mat-accordion>
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             <h3>System Earth Reference Summary</h3>
                         </mat-panel-title>
-
                     </mat-expansion-panel-header>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="form-label">System earth referance a single point referance</label>
+                                <label class="form-label">System earth referance a single point referance:</label>
                                 <select class="form-control" formControlName="seSinglePoint"
                                     [(ngModel)]="emcElectromagneticCompatibility.seSinglePoint"
                                     [ngClass]="{'is-invalid':submitted && f.seSinglePoint?.errors}">
@@ -33,7 +33,7 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>System earth referance a meshed arrangement</label>
+                                <label>System earth referance a meshed arrangement:</label>
                                 <select class="form-control" formControlName="seMeshedArrangment"
                                     [ngClass]="{'is-invalid':submitted && f.seMeshedArrangment?.errors}"
                                     [(ngModel)]="emcElectromagneticCompatibility.seMeshedArrangment">
@@ -48,9 +48,9 @@
                         </div>
                         <div class="col-md-4">
                             <div>
-                                <label>Descriptions</label>
+                                <label>Descriptions:</label>
                                 <textarea class="textarea-size" class="form-control" style="font-size: 100%;"
-                                    [(ngModel)]="emcElectromagneticCompatibility.seDescription"
+                                    [(ngModel)]="emcElectromagneticCompatibility.seDescription" cols="60" rows="1"
                                     [ngClass]="{'is-invalid':submitted && f.seDescription?.errors}"
                                     formControlName="seDescription"
                                     placeholder="other connections to facility safety earth system (or earth electrodes)...!"></textarea>
@@ -62,7 +62,7 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Provide A Schematic Of Equipotential Bonding</label>
+                                <label>Provide A Schematic Of Equipotential Bonding:</label>
                                 <input type="text" class="form-control" formControlName="equiptentialBonding"
                                     [ngClass]="{'is-invalid':submitted && f.equiptentialBonding?.errors}"
                                     [(ngModel)]="emcElectromagneticCompatibility.equiptentialBonding"
@@ -75,7 +75,7 @@
                     </div>
                 </mat-expansion-panel>
                 <!-- Provide a schematic of equipotential bonding -->
-                <mat-expansion-panel class="body">
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
 
                     <mat-expansion-panel-header>
                         <mat-panel-title>
@@ -86,7 +86,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>RFI - resistant cabinets used</label>
+                                <label>RFI - resistant cabinets used:</label>
                                 <select class="form-control" formControlName="resistanceCabinet"
                                     [ngClass]="{'is-invalid':submitted && f.equiptentialBonding?.errors}"
                                     [(ngModel)]="emcElectromagneticCompatibility.resistanceCabinet">
@@ -100,9 +100,9 @@
                         </div>
                         <div class="col-md-4">
                             <div>
-                                <label>Descriptions</label>
+                                <label>Descriptions:</label>
                                 <textarea class="textarea-size" class="form-control" style="font-size: 100%;"
-                                    [ngClass]="{'is-invalid':submitted && f.resistanceCabinetDesc?.errors}"
+                                    [ngClass]="{'is-invalid':submitted && f.resistanceCabinetDesc?.errors}" cols="60" rows="1"
                                     [(ngModel)]="emcElectromagneticCompatibility.resistanceCabinetDesc"
                                     formControlName="resistanceCabinetDesc" placeholder="Enter Descriptions"></textarea>
                                 <div *ngIf="submitted &&f.resistanceCabinetDesc?.errors" class="invalid-feedback">
@@ -112,7 +112,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Computer room shield</label>
+                                <label>Computer room shield:</label>
                                 <select class="form-control" formControlName="roomShield"
                                     [ngClass]="{'is-invalid':submitted && f.roomShield?.errors}"
                                     [(ngModel)]="emcElectromagneticCompatibility.roomShield">
@@ -126,8 +126,8 @@
                         </div>
                         <div class="col-md-4">
                             <div>
-                                <label>Descriptions</label>
-                                <textarea class="textarea-size" class="form-control"
+                                <label>Descriptions:</label>
+                                <textarea class="textarea-size" class="form-control" cols="60" rows="1"
                                     [ngClass]="{'is-invalid':submitted && f.roomShieldDesc?.errors}"
                                     [(ngModel)]="emcElectromagneticCompatibility.roomShieldDesc"
                                     formControlName="roomShieldDesc" placeholder="Enter Descriptions"></textarea>
@@ -138,8 +138,8 @@
                         </div>
                         <div class="col-md-4">
                             <div>
-                                <label>Describe other shielding provisions </label>
-                                <textarea class="textarea-size" class="form-control"
+                                <label>Describe other shielding provisions: :</label>
+                                <textarea class="textarea-size" class="form-control" cols="60" rows="1"
                                     [ngClass]="{'is-invalid':submitted && f.shieldingOtherDesc?.errors}"
                                     [(ngModel)]="emcElectromagneticCompatibility.shieldingOtherDesc"
                                     formControlName="shieldingOtherDesc"
@@ -153,7 +153,7 @@
                     </div>
                 </mat-expansion-panel>
                 <!-- SITE RF SOURCE -->
-                <mat-expansion-panel class="body">
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             <h3>Site RF Source</h3>
@@ -166,7 +166,7 @@
                                 <label>Any equipment in the building or near computer room using high-frequency energy
                                     (e.g., welding machine, ultrasonic cleaners, high-energy medical equipment, relay
                                     banks, microwave equipment, sodium or mercury arc lamps, equipment engines using
-                                    spark plugs, other)?</label>
+                                    spark plugs, other)?:</label>
                                 <select class="form-control" formControlName="equipmentHighFrequency"
                                     [ngClass]="{'is-invalid':submitted && f.equipmentHighFrequency?.errors}"
                                     [(ngModel)]="emcElectromagneticCompatibility.equipmentHighFrequency">
@@ -180,8 +180,8 @@
                         </div>
                         <div class="col-md-4">
                             <div>
-                                <label class="form-label">Describe</label>
-                                <textarea class="textarea-size" class="form-control"
+                                <label class="form-label">Describe:</label>
+                                <textarea class="textarea-size" class="form-control" cols="60" rows="1"
                                     [ngClass]="{'is-invalid':submitted && f.equipmentHighFrequencyDesc?.errors}"
                                     [(ngModel)]="emcElectromagneticCompatibility.equipmentHighFrequencyDesc"
                                     formControlName="equipmentHighFrequencyDesc"
@@ -195,7 +195,7 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Approximate distance from electronic system in meters</label>
+                                <label>Approximate distance from electronic system in meters:</label>
                                 <input type="text" class="form-control" formControlName="approximateDistance"
                                     [ngClass]="{'is-invalid':submitted && f.approximateDistance?.errors}"
                                     [(ngModel)]="emcElectromagneticCompatibility.approximateDistance"
@@ -208,7 +208,7 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Equipment maintained and operated properly (access doors/panels closed??)</label>
+                                <label>Equipment maintained and operated properly (access doors/panels closed??):</label>
                                 <select class="form-control" formControlName="equipmentMaintence"
                                     [ngClass]="{'is-invalid':submitted && f.equipmentMaintence?.errors}"
                                     [(ngModel)]="emcElectromagneticCompatibility.equipmentMaintence">
@@ -223,8 +223,8 @@
 
                         <div class="col-md-4">
                             <div>
-                                <label>Describe</label>
-                                <textarea class="textarea-size" class="form-control"
+                                <label>Describe:</label>
+                                <textarea class="textarea-size" class="form-control" cols="60" rows="1"
                                     [ngClass]="{'is-invalid':submitted && f.equipmentMaintenceDesc?.errors}"
                                     [(ngModel)]="emcElectromagneticCompatibility.equipmentMaintenceDesc"
                                     formControlName="equipmentMaintenceDesc" placeholder="Enter Describe"></textarea>
@@ -236,7 +236,7 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Operational frequency</label>
+                                <label>Operational frequency:</label>
                                 <input type="text" class="form-control" formControlName="operationFrequency"
                                     [ngClass]="{'is-invalid':submitted && f.operationFrequency?.errors}"
                                     [(ngModel)]="emcElectromagneticCompatibility.operationFrequency"
@@ -249,7 +249,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Radiated power or power consumption in RF section</label>
+                                <label>Radiated power or power consumption in RF section:</label>
                                 <input type="text" class="form-control" formControlName="radiatedPower"
                                     [ngClass]="{'is-invalid':submitted && f.radiatedPower?.errors}"
                                     [(ngModel)]="emcElectromagneticCompatibility.radiatedPower"
@@ -267,7 +267,7 @@
                     <div class="form-group" [formGroupName]="i">
 
                         <!-- EXTRENAL RFI SOURCES -->
-                        <mat-expansion-panel class="body">
+                        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
 
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
@@ -278,7 +278,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Communications / navigation</label>
+                                        <label>Communications / navigation:</label>
                                         <input type="text" class="form-control" formControlName="communication"
                                             [ngClass]="{'is-invalid':submitted && a.get('communication')?.errors}"
                                             placeholder="Enter Communications navigation ">
@@ -293,7 +293,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Any broadcast or communication antennas visible on or near the customers
-                                            site?</label>
+                                            site?:</label>
                                         <select class="form-control" formControlName="visibilityOfAntennas"
                                             [ngClass]="{'is-invalid':submitted && a.get('visibilityOfAntennas')?.errors}">
                                             <option [ngValue]="null">Select Option</option>
@@ -310,7 +310,7 @@
                                     <div class="form-group">
                                         <label>Type (s) of transmission (radar, radio/tv broadcse, amateur, microwave,
                                             other, if
-                                            known)</label>
+                                            known):</label>
                                         <input type="text" class="form-control" formControlName="typeOfTransmission"
                                             [ngClass]="{'is-invalid':submitted && a.get('typeOfTransmission')?.errors}"
                                             placeholder="Enter Type (s) of transmission (radar, radio/tv broadcse, amateur, microwave, other, if known)">
@@ -323,9 +323,9 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div>
-                                        <label>Describe</label>
+                                        <label>Describe:</label>
                                         <textarea class="textarea-size" class="form-control"
-                                            formControlName="transmissionDesc"
+                                            formControlName="transmissionDesc" cols="60" rows="1"
                                             [ngClass]="{'is-invalid':submitted && a.get('transmissionDesc')?.errors}"
                                             placeholder="Enter Describe"></textarea>
                                         <div *ngIf="submitted && a.get('transmissionDesc')?.errors"
@@ -338,7 +338,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Distance from antenna to electronic system in meters</label>
+                                        <label>Distance from antenna to electronic system in meters:</label>
                                         <input type="text" class="form-control" formControlName="antennaDistance"
                                             [ngClass]="{'is-invalid':submitted && a.get('antennaDistance')?.errors}"
                                             placeholder="Enter Distance from antenna to electronic system in meters">
@@ -365,9 +365,9 @@
 
                                 <div class="col-md-4">
                                     <div>
-                                        <label>Describe</label>
+                                        <label>Describe:</label>
                                         <textarea class="textarea-size" class="form-control" formControlName="losDesc"
-                                            [ngClass]="{'is-invalid':submitted && a.get('losDesc')?.errors}"
+                                            [ngClass]="{'is-invalid':submitted && a.get('losDesc')?.errors}" cols="60" rows="1"
                                             placeholder="Enter Describe"></textarea>
                                         <div *ngIf="submitted && a.get('losDesc')?.errors" class="invalid-feedback">
                                             <div *ngIf="a.get('losDesc')?.errors?.required">Describe Is Required</div>
@@ -377,7 +377,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Distance from electronic system to outside wall near to source in meters
-                                        </label>
+                                        :</label>
                                         <input type="text" class="form-control"
                                             formControlName="electronicSystemDistance"
                                             [ngClass]="{'is-invalid':submitted && a.get('electronicSystemDistance')?.errors}"
@@ -391,7 +391,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Transmitter power (if known) in watts (ERP)</label>
+                                        <label>Transmitter power (if known) in watts (ERP):</label>
                                         <input type="text" class="form-control" formControlName="transmitterPower"
                                             [ngClass]="{'is-invalid':submitted && a.get('transmitterPower')?.errors}"
                                             placeholder="Enter Transmitter power (if known) in watts (ERP)">
@@ -405,7 +405,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Frequency (if known)</label>
+                                        <label>Frequency (if known):</label>
                                         <input type="text" class="form-control" formControlName="frequency"
                                             [ngClass]="{'is-invalid':submitted && a.get('frequency')?.errors}"
                                             placeholder="Enter Frequency (if known)">
@@ -417,7 +417,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Orientation of electronic system to antenna</label>
+                                        <label>Orientation of electronic system to antenna:</label>
                                         <input type="text" class="form-control" formControlName="orientationAntinna"
                                             [ngClass]="{'is-invalid':submitted && a.get('orientationAntinna')?.errors}"
                                             placeholder="Enter Orintation of electronic system to antenna">
@@ -431,7 +431,7 @@
                             </div>
                         </mat-expansion-panel>
                         <!-- INCIDENTAL EMI SOURCE -->
-                        <mat-expansion-panel class="body">
+                        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
 
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
@@ -444,7 +444,7 @@
                                     <div class="form-group">
                                         <label>CB, walkie talkies, wireless intercom, or clock synchronisation syste
                                             used on
-                                            site</label>
+                                            site:</label>
                                         <select class="form-control" formControlName="systemSite"
                                             [ngClass]="{'is-invalid':submitted && a.get('systemSite')?.errors}">
                                             <option [ngValue]="null">Select Option</option>
@@ -457,8 +457,8 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div>
-                                        <label>Describe</label>
-                                        <textarea class="textarea-size" class="form-control"
+                                        <label>Describe:</label>
+                                        <textarea class="textarea-size" class="form-control" cols="60" rows="1"
                                             [ngClass]="{'is-invalid':submitted && a.get('systemSiteDesc')?.errors}"
                                             formControlName="systemSiteDesc" placeholder="Enter Describe"></textarea>
                                         <div *ngIf="submitted && a.get('systemSiteDesc')?.errors"
@@ -470,7 +470,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Dimmer switches or large SCR cotrolled loads</label>
+                                        <label>Dimmer switches or large SCR cotrolled loads:</label>
                                         <select class="form-control" formControlName="controlledLoads"
                                             [ngClass]="{'is-invalid':submitted && a.get('controlledLoads')?.errors}">
                                             <option [ngValue]="null">Select Option</option>
@@ -485,9 +485,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div>
-                                        <label>Describe</label>
+                                        <label>Describe:</label>
                                         <textarea class="textarea-size" class="form-control"
-                                            formControlName="controlledLoadsDesc"
+                                            formControlName="controlledLoadsDesc" cols="60" rows="1"
                                             [ngClass]="{'is-invalid':submitted && a.get('controlledLoadsDesc')?.errors}"
                                             placeholder="Enter Describe"></textarea>
                                         <div *ngIf="submitted && a.get('controlledLoadsDesc')?.errors"
@@ -499,7 +499,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Electric railway / traction near by</label>
+                                        <label>Electric railway / traction near by:</label>
                                         <select class="form-control" formControlName="electricRailway"
                                             [ngClass]="{'is-invalid':submitted && a.get('electricRailway')?.errors}">
                                             <option [ngValue]="null">Select Option</option>
@@ -514,9 +514,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div>
-                                        <label>Describe</label>
+                                        <label>Describe:</label>
                                         <textarea class="textarea-size" class="form-control"
-                                            formControlName="electricRailwayDesc"
+                                            formControlName="electricRailwayDesc" cols="60" rows="1"
                                             [ngClass]="{'is-invalid':submitted && a.get('electricRailwayDesc')?.errors}"
                                             placeholder="Enter Describe"></textarea>
                                         <div *ngIf="submitted && a.get('electricRailwayDesc')?.errors"
@@ -528,7 +528,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>High voltage transmission lines near by</label>
+                                        <label>High voltage transmission lines near by:</label>
                                         <select class="form-control" formControlName="hvTransmission"
                                             [ngClass]="{'is-invalid':submitted && a.get('hvTransmission')?.errors}">
                                             <option [ngValue]="null">Select Option</option>
@@ -543,9 +543,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div>
-                                        <label>Describe</label>
+                                        <label>Describe:</label>
                                         <textarea class="textarea-size" class="form-control"
-                                            formControlName="hvTransmissionDesc"
+                                            formControlName="hvTransmissionDesc" cols="60" rows="1"
                                             [ngClass]="{'is-invalid':submitted && a.get('hvTransmissionDesc')?.errors}"
                                             placeholder="Enter Describe"></textarea>
                                         <div *ngIf="submitted && a.get('hvTransmissionDesc')?.errors"
@@ -557,7 +557,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>High power a.c magets or high current feeders nearby</label>
+                                        <label>High power a.c magets or high current feeders nearby:</label>
                                         <select class="form-control" formControlName="hpAcMangets"
                                             [ngClass]="{'is-invalid':submitted && a.get('hpAcMangets')?.errors}">
                                             <option [ngValue]="null">Select Option</option>
@@ -570,9 +570,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div>
-                                        <label>Describe</label>
+                                        <label>Describe:</label>
                                         <textarea class="textarea-size" class="form-control"
-                                            formControlName="hpAcMangetsDesc"
+                                            formControlName="hpAcMangetsDesc" cols="60" rows="1"
                                             [ngClass]="{'is-invalid':submitted && a.get('hpAcMangetsDesc')?.errors}"
                                             placeholder="Enter Describe"></textarea>
                                         <div *ngIf="submitted && a.get('hpAcMangetsDesc')?.errors"
@@ -586,7 +586,7 @@
                                     <div class="form-group">
                                         <label>Approximate distance between electronics system and cable connected to
                                             metal
-                                            parts of the lightning protection system: (in meters)</label>
+                                            parts of the lightning protection system: (in meters):</label>
                                         <input type="text" class="form-control" formControlName="approximateDistance"
                                             [ngClass]="{'is-invalid':submitted && a.get('approximateDistance')?.errors}"
                                             placeholder="Approximate distance between electronics...">
@@ -600,7 +600,7 @@
                             </div>
                         </mat-expansion-panel>
                         <!-- SITE RFI SURVEY -->
-                        <mat-expansion-panel class="body">
+                        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
 
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
@@ -611,7 +611,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>RFI survey been condcuted on this site</label>
+                                        <label>RFI survey been condcuted on this site:</label>
                                         <select class="form-control" formControlName="rfiSurvey"
                                             [ngClass]="{'is-invalid':submitted && a.get('rfiSurvey')?.errors}">
                                             <option [ngValue]="null">Select Option</option>
@@ -624,7 +624,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="form-label">RFI survey needed</label>
+                                        <label class="form-label">RFI survey needed:</label>
                                         <select class="form-control" formControlName="newRfiSurvey"
                                             [ngClass]="{'is-invalid':submitted && a.get('newRfiSurvey')?.errors}">
                                             <option [ngValue]="null">Select Option</option>
@@ -639,8 +639,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div>
-                                        <label>Describe</label>
-                                        <textarea class="textarea-size" class="form-control"
+                                        <label>Describe:</label>
+                                        <textarea class="textarea-size" class="form-control" cols="60" rows="1"
                                             [ngClass]="{'is-invalid':submitted && a.get('newRfiSurveyDesc')?.errors}"
                                             formControlName="newRfiSurveyDesc" placeholder="Enter Describe"></textarea>
                                         <div *ngIf="submitted && a.get('newRfiSurveyDesc')?.errors"
@@ -663,7 +663,7 @@
                 <div class="row" style="margin-top: 20px;">
                     <div class="col-sm-12">
                         <div style="text-align: center;">
-                            <button class="previous"  mat-button matStepperPrevious>&laquo; Back</button>
+                            <!-- <button class="previous"  mat-button matStepperPrevious>&laquo; Back</button> -->
                             <button style="width: auto;margin-left: 50px;" (click)="gotoNextModal(content3)"
                                 type="submit"
                                 class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn next"
@@ -674,10 +674,8 @@
                         </div>
                     </div>
                 </div>
-
-            
-            </form>
         </mat-accordion>
+    </form>
     </div>
 </div>
 

@@ -39,6 +39,9 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
   popup: boolean = false;
   modalReference: any;
   emcId!: number;
+  tabError: boolean = false;
+  tabErrorMsg: string = "";
+  panelOpenState = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -114,24 +117,19 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
   }
 
   closeModalDialog() {
-    this.finalSpinner = true;
-    this.popup = false;
+    this.finalSpinner=true;
+    this.popup=false;
     if (this.errorMsg != "") {
       this.Error = false;
-      // this.service.isCompleted3= false;
-      //  this.service.isLinear=true;
+      this.service.isCompleted4= false;
+      this.service.isLinear=true;
       this.modalService.dismissAll((this.errorMsg = ""));
-      this.proceedNext.emit(false);
-    }
+    } 
     else {
       this.success = false;
-      // this.service.isCompleted3= true;
-      // this.service.isLinear=false;
+      this.service.isCompleted4= true;
+      this.service.isLinear=false;
       this.modalService.dismissAll((this.successMsg = ""));
-      // this.disable = false;
-      this.proceedNext.emit(true);
-    
-
     }
   }
 
@@ -315,81 +313,108 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
     //   this.modalReference.close();
     // }
   }
-  onKeyForm(event: KeyboardEvent) {
-    if (!this.EMCElectroMagneticFormm.invalid) {
-      if (this.EMCElectroMagneticFormm.dirty) {
-        this.validationError = false;
-        //  this.service.lvClick=1;
-        //  this.service.logoutClick=1;
-        //  this.service.windowTabClick=1;
+  onChangeForm(event:any){
+    if(!this.EMCElectroMagneticFormm.invalid){
+      if(this.EMCElectroMagneticFormm.dirty){
+        this.validationError=false;
+        this.service.lvClick=1;
+        this.service.logoutClick=1;
+         this.service.windowTabClick=1;
       }
-      else {
-        this.validationError = false;
-        //  this.service.lvClick=0;
-        //  this.service.logoutClick=0;
-        //  this.service.windowTabClick=0;
+      else{
+        this.validationError=false;
+        this.service.lvClick=0;
+        this.service.logoutClick=0;
+        this.service.windowTabClick=0;
       }
-    }
-    else {
-      //  this.service.lvClick=1;
-      //  this.service.logoutClick=1;
-      //  this.service.windowTabClick=1;
-    }
+     }
+     else {
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
+     }
   }
-
-  onChangeForm(event: any) {
-    if (!this.EMCElectroMagneticFormm.invalid) {
-      if (this.EMCElectroMagneticFormm.dirty) {
-        this.validationError = false;
-        // this.service.lvClick=1;
-        // this.service.logoutClick=1;
-        //  this.service.windowTabClick=1;
-      }
-      else {
-        this.validationError = false;
-        // this.service.lvClick=0;
-        // this.service.logoutClick=0;
-        // this.service.windowTabClick=0;
-      }
+  onKeyForm(event: KeyboardEvent) { 
+   if(!this.EMCElectroMagneticFormm.invalid){ 
+    if(this.EMCElectroMagneticFormm.dirty){
+      this.validationError=false;
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
     }
-    else {
-      // this.service.lvClick=1;
-      // this.service.logoutClick=1;
-      // this.service.windowTabClick=1;
+    else{
+      this.validationError=false;
+      this.service.lvClick=0;
+      this.service.logoutClick=0;
+      this.service.windowTabClick=0;
     }
-  }
-
-
-  gotoNextTab() {
-    if (this.EMCElectroMagneticFormm.dirty && this.EMCElectroMagneticFormm.invalid) {
-      this.service.isCompletedEmc3= false;
+   }
+   else {
+    this.service.lvClick=1;
+    this.service.logoutClick=1;
+    this.service.windowTabClick=1;
+   }
+  } 
+  reloadFromBack(){
+    if(this.EMCElectroMagneticFormm.invalid){
+     this.service.isCompleted4= false;
+     this.service.isLinear=true;
+     this.service.editable=false;
+     this.validationErrorTab = true;
+     this.validationErrorMsgTab= 'Please check all the fields in testing';
+     setTimeout(() => {
+       this.validationErrorTab = false;
+     }, 3000);
+     return false;
+    }
+    else if(this.EMCElectroMagneticFormm.dirty && this.EMCElectroMagneticFormm.touched){
+      this.service.isCompleted4= false;
       this.service.isLinear=true;
-       this.service.editable=false;
-      //this.validationError=false;
+      this.service.editable=false;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
+      return false;
+    }
+    else{
+      this.service.isCompleted4= true;
+      this.service.isLinear=false;
+      this.service.editable=true;
+      this.EMCElectroMagneticFormm.markAsPristine();
+   return true;
+    }
+  }
+  gotoNextTab() {
+    if ((this.EMCElectroMagneticFormm.dirty && this.EMCElectroMagneticFormm.invalid) || this.service.isCompleted3==false){
+      this.service.isCompleted4= false;
+      this.service.isLinear=true;
+      this.service.editable=false;
       this.validationErrorTab = true;
-      this.validationErrorMsgTab = 'Please check all the fields in power and Earthing details';
+      this.validationErrorMsgTab= 'Please check all the fields in testing';
       setTimeout(() => {
         this.validationErrorTab = false;
       }, 3000);
       return;
     }
     else if(this.EMCElectroMagneticFormm.dirty && this.EMCElectroMagneticFormm.touched){
-      this.service.isCompletedEmc3= false;
-     this.service.isLinearEmc=true;
-      this.service.editableEmc=false;
-      // this.tabError = true;
-      // this.tabErrorMsg = 'Kindly click on next button to update the changes!';
-      // setTimeout(() => {
-      //   this.tabError = false;
-      // }, 3000);
-      // return;
+      this.service.isCompleted4= false;
+      this.service.isLinear=true;
+      this.service.editable=false;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
    }
     else{
-      this.service.isCompletedEmc3= true;
-     this.service.isLinearEmc=false;
-     this.service.editableEmc=true;
+      this.service.isCompleted4= true;
+      this.service.isLinear=false;
+      this.service.editable=true;
     }
   }
+
   saveElectroMagneticData(flag: any,content3: any) {
 
     this.submitted = true;

@@ -58,6 +58,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
   uploadFlag: boolean;
   fileId: number = 0;
   JSONdata: any = [];
+  panelOpenState = false;
 
 
   constructor(
@@ -193,26 +194,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
   closeModalDialogFile() {
     this.modalService.dismissAll();
   }
-
-  closeModalDialog() {
-    this.finalSpinner = true;
-    this.popup = false;
-    if (this.errorMsg != "") {
-      this.Error = false;
-      this.service.isCompletedEmc2 = false;
-      this.service.isLinear = true;
-      this.modalService.dismissAll((this.errorMsg = ""));
-    }
-    else {
-      this.success = false;
-      this.service.isCompletedEmc2 = true;
-      this.service.isLinear = false;
-      this.modalService.dismissAll((this.successMsg = ""));
-      // this.disable = false;
-
-    }
-  }
-
+ 
   retrieveDetailsfromSavedReports(userName: any, emcId: any, data: any) {
 
     this.step1List2 = data.powerEarthingData
@@ -386,50 +368,6 @@ export class PowerAndEarthingDataComponent implements OnInit {
 
   }
 
-  onChangeForm(event: any) {
-    if (!this.EMCPowerAndEarthForm.invalid) {
-      if (this.EMCPowerAndEarthForm.dirty) {
-        this.validationError = false;
-        // this.service.lvClick=1;
-        // this.service.logoutClick=1;
-        //  this.service.windowTabClick=1;
-      }
-      else {
-        this.validationError = false;
-        // this.service.lvClick=0;
-        // this.service.logoutClick=0;
-        // this.service.windowTabClick=0;
-      }
-    }
-    else {
-      // this.service.lvClick=1;
-      // this.service.logoutClick=1;
-      // this.service.windowTabClick=1;
-    }
-  }
-
-  onKeyForm(event: KeyboardEvent) {
-    if (!this.EMCPowerAndEarthForm.invalid) {
-      if (this.EMCPowerAndEarthForm.dirty) {
-        this.validationError = false;
-        //  this.service.lvClick=1;
-        //  this.service.logoutClick=1;
-        //  this.service.windowTabClick=1;
-      }
-      else {
-        this.validationError = false;
-        //  this.service.lvClick=0;
-        //  this.service.logoutClick=0;
-        //  this.service.windowTabClick=0;
-      }
-    }
-    else {
-      //  this.service.lvClick=1;
-      //  this.service.logoutClick=1;
-      //  this.service.windowTabClick=1;
-    }
-  }
-
   get f(): any {
     return this.EMCPowerAndEarthForm.controls;
   }
@@ -525,39 +463,126 @@ export class PowerAndEarthingDataComponent implements OnInit {
       }
     )
   }
-
-  gotoNextTab() {
-    if (this.EMCPowerAndEarthForm.dirty && this.EMCPowerAndEarthForm.invalid) {
-      this.service.isCompletedEmc2 = false;
-      this.service.isLinearEmc = true;
-      this.service.editableEmc = false;
-      //this.validationError=false;
-      this.validationErrorTab = true;
-      this.validationErrorMsgTab = 'Please check all the fields in power and Earthing details';
-      setTimeout(() => {
-        this.validationErrorTab = false;
-      }, 3000);
-      return;
+  closeModalDialog() {
+    this.finalSpinner = true;
+    this.popup = false;
+    if (this.errorMsg != "") {
+      this.Error = false;
+      this.service.isCompleted= false;
+      this.service.isLinear=true;
+      this.modalService.dismissAll((this.errorMsg = ""));
     }
-    else if (this.EMCPowerAndEarthForm.dirty && this.EMCPowerAndEarthForm.touched) {
-      this.service.isCompletedEmc2 = false;
-      this.service.isLinearEmc = true;
-      this.service.editableEmc = false;
+    else {
+      this.success = false;
+      this.service.isCompleted= true;
+      this.service.isLinear=false;
+      this.modalService.dismissAll((this.successMsg = ""));
+      // this.disable = false;
+
+    }
+  }
+
+  onChangeForm(event:any){
+    if(!this.EMCPowerAndEarthForm.invalid){
+      if(this.EMCPowerAndEarthForm.dirty){
+        this.validationError=false;
+        this.service.lvClick=1;
+        this.service.logoutClick=1;
+         this.service.windowTabClick=1;
+      }
+      else{
+        this.validationError=false;
+        this.service.lvClick=0;
+        this.service.logoutClick=0;
+        this.service.windowTabClick=0;
+      }
+     }
+     else {
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
+     }
+  }
+  onKeyForm(event: KeyboardEvent) { 
+   if(!this.EMCPowerAndEarthForm.invalid){ 
+    if(this.EMCPowerAndEarthForm.dirty){
+      this.validationError=false;
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
+    }
+    else{
+      this.validationError=false;
+      this.service.lvClick=0;
+      this.service.logoutClick=0;
+      this.service.windowTabClick=0;
+    }
+   }
+   else {
+    this.service.lvClick=1;
+    this.service.logoutClick=1;
+    this.service.windowTabClick=1;
+   }
+  }
+  reloadFromBack(){
+    if(this.EMCPowerAndEarthForm.invalid){
+     this.service.isCompleted3= false;
+     this.service.isLinear=true;
+     this.service.editable=false;
+     this.validationErrorTab = true;
+     this.validationErrorMsgTab= 'Please check all the fields in inspection';
+     setTimeout(() => {
+       this.validationErrorTab = false;
+     }, 3000);
+     return false;
+    }
+    else if(this.EMCPowerAndEarthForm.dirty && this.EMCPowerAndEarthForm.touched){
+      this.service.isCompleted3= false;
+      this.service.isLinear=true;
+      this.service.editable=false;
       this.tabError = true;
       this.tabErrorMsg = 'Kindly click on next button to update the changes!';
       setTimeout(() => {
         this.tabError = false;
       }, 3000);
-      return;
+      return false;
     }
-    else {
-      this.service.isCompletedEmc2 = true;
-      this.service.isLinearEmc = false;
-      this.service.editableEmc = true;
+    else{
+   this.service.isCompleted3= true;
+   this.service.isLinear=false;
+   this.service.editable=true;
+   this.EMCPowerAndEarthForm.markAsPristine();
+   return true;
     }
   }
-
-
+  gotoNextTab() {
+    if ((this.EMCPowerAndEarthForm.dirty && this.EMCPowerAndEarthForm.invalid) || this.service.isCompleted2==false) {
+      this.service.isCompleted3= false;
+      this.service.isLinear=true;      
+      this.service.editable=false;
+      this.validationErrorTab = true;
+      this.validationErrorMsgTab= 'Please check all the fields in inspection';
+      setTimeout(() => {
+        this.validationErrorTab = false;
+      }, 3000);
+      return;
+    }
+    else if(this.EMCPowerAndEarthForm.dirty && this.EMCPowerAndEarthForm.touched){
+      this.service.isCompleted3= false;
+      this.service.isLinear=true;
+      this.service.editable=false;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
+   }
+    else{
+      this.service.isCompleted3= true;
+      this.service.isLinear=false;
+      this.service.editable=true;
+    }
+  }
   onDownload() {
     this.fileUploadServiceService.downloadFile(this.emcId)
 
