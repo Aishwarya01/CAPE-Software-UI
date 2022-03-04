@@ -69,8 +69,6 @@ completedFilterData: any=[];
   }
 
   retrieveLpsDetails() {
-    if(this.currentUser1.role == 'Inspector') {
-      //
       this.lpsService.retrieveListOfBasicLps(this.email).subscribe(
         data => {
           this.lpsData=JSON.parse(data);
@@ -85,26 +83,6 @@ completedFilterData: any=[];
           this.savedReportLps_dataSource.paginator = this.savedReportLpsPaginator;
           this.savedReportLps_dataSource.sort = this.savedReportLpsSort;
         });
-    }
-    else { //viewer
-      if(this.currentUser1.assignedBy!=null) {
-        this.viewerFilterData=[];
-        this.lpsService.retrieveListOfBasicLps(this.currentUser1.assignedBy).subscribe(
-          data => {
-            this.userData=JSON.parse(data);
-            for(let i of this.lpsData){
-              if(i.allStepsCompleted != "AllStepCompleted"){
-                this.completedFilterData.push(i);
-              }
-            }
-           this.savedReportLps_dataSource = new MatTableDataSource(this.completedFilterData);
-           this.completedFilterData = [];
-           this.lpsData = [];
-           this.savedReportLps_dataSource.paginator = this.savedReportLpsPaginator;
-           this.savedReportLps_dataSource.sort = this.savedReportLpsSort;
-          });
-      } 
-    }
   }
 
   continue(basicLpsId: any,clientName: any) {

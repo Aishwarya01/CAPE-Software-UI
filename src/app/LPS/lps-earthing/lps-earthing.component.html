@@ -62,7 +62,7 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                                <select class="form-control"  (change)="onKey($event,q,j)" formControlName="earthingTypeInOb" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && q.get('earthingTypeInOb')?.errors}" style="height: 3rem;">
+                                                <select class="form-control"  (change)="onKey($event,q,j)" formControlName="earthingTypeInOb" [attr.disabled]="isEditable ? '' : null" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && q.get('earthingTypeInOb')?.errors}" style="height: 3rem;">
                                                     <option  value="" selected>Select Option</option>
                                                     <option value="Type A" >Type A</option>
                                                     <option value="Type-B (ring)" >Type-B (ring)</option>
@@ -99,7 +99,7 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                                <select class="form-control"  style="height: 3rem;" (change)="dropDown($event,q)" formControlName="bimetallicIssueInOb" placeholder="Please enter Observation here"
+                                                <select class="form-control"  style="height: 3rem;" (change)="dropDown($event,q)" [attr.disabled]="isEditable ? '' : null" formControlName="bimetallicIssueInOb" placeholder="Please enter Observation here"
                                                 [ngClass]="{ 'is-invalid': submitted && q.get('bimetallicIssueInOb')?.errors}">
                                                     <option  value="" selected>Select Option</option>
                                                     <option value="YES" >Yes</option>
@@ -142,7 +142,7 @@
                                                 </span>
                                             </div>
                                                 <select class="form-control"  formControlName="brazingConnectInOb" placeholder="Please enter Observation here"
-                                                [ngClass]="{ 'is-invalid': submitted && q.get('brazingConnectInOb')?.errors}" style="height: 3rem;">
+                                                [ngClass]="{ 'is-invalid': submitted && q.get('brazingConnectInOb')?.errors}" style="height: 3rem;" [attr.disabled]="isEditable ? '' : null">
                                                     <option  value="" selected>Select Option</option>
                                                     <option value="Brazing" >Brazing</option>
                                                     <option value="Welding" >Welding</option>
@@ -238,7 +238,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                    <select class="form-control"  formControlName="earthElectrodeLesthanDownConductorInOb" (change)="typeAEarthingValidationChangeB($event,a)" placeholder="Please enter Observation here"
+                                                    <select class="form-control"  formControlName="earthElectrodeLesthanDownConductorInOb" [attr.disabled]="isEditable ? '' : null" (change)="typeAEarthingValidationChangeB($event,a)" placeholder="Please enter Observation here"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('earthElectrodeLesthanDownConductorInOb')?.errors}" style="height: 3rem;">
                                                         <option  value="" selected>Select Option</option>
                                                         <option value="Ok" >Ok</option>
@@ -278,7 +278,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                    <select class="form-control"  formControlName="connectedEarthTerminalInOb" (change)="typeAEarthingValidationChangeC($event,a)" placeholder="Please enter Observation here"
+                                                    <select class="form-control"  formControlName="connectedEarthTerminalInOb" [attr.disabled]="isEditable ? '' : null" (change)="typeAEarthingValidationChangeC($event,a)" placeholder="Please enter Observation here"
                                                      [ngClass]="{ 'is-invalid': submitted && a.get('connectedEarthTerminalInOb')?.errors}" style="height: 3rem;">
                                                         <option  value="" selected>Select Option</option>
                                                         <option value="Ok" >Ok</option>
@@ -317,7 +317,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                    <select class="form-control"  formControlName="testJointEarthElectrodeInOb" placeholder="Please enter Observation here"
+                                                    <select class="form-control" [attr.disabled]="isEditable ? '' : null" formControlName="testJointEarthElectrodeInOb" placeholder="Please enter Observation here"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('testJointEarthElectrodeInOb')?.errors}" style="height: 3rem;">
                                                         <option  value="" selected>Select Option</option>
                                                         <option value="Under soil" >Under soil</option>
@@ -354,7 +354,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                    <select class="form-control"  formControlName="grountLevelComponentFilledInOb" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && a.get('grountLevelComponentFilledInOb')?.errors}" style="height: 3rem;">
+                                                    <select class="form-control" [attr.disabled]="isEditable ? '' : null" formControlName="grountLevelComponentFilledInOb" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && a.get('grountLevelComponentFilledInOb')?.errors}" style="height: 3rem;">
                                                         <option  value="" selected>Select Option</option>
                                                         <option value="Yes" >Yes</option>
                                                         <option value="No" >No</option>
@@ -392,7 +392,7 @@
                                                             </span>
                                                         </div>
                                                         <select class="form-control" formControlName="earthingConductorMaterialInOb"  placeholder="Please enter Observation here"
-                                                            [ngClass]="{ 'is-invalid': submitted && h.get('earthingConductorMaterialInOb')?.errors}" style="height: 3rem;">
+                                                            [ngClass]="{ 'is-invalid': submitted && h.get('earthingConductorMaterialInOb')?.errors}" style="height: 3rem;" [attr.disabled]="isEditable ? '' : null">
                                                             <option value="" selected>Select Option</option>
                                                             <option value="Copper">Copper</option>
                                                             <option value="Copper bonded steel">Copper bonded steel</option>
@@ -430,7 +430,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <select class="form-control" formControlName="earthElectrodeMaterialInOb"  placeholder="Please enter Observation here" style="height: 3rem;"
+                                                        <select class="form-control" formControlName="earthElectrodeMaterialInOb" [attr.disabled]="isEditable ? '' : null" placeholder="Please enter Observation here" style="height: 3rem;"
                                                             [ngClass]="{ 'is-invalid': submitted && h.get('earthElectrodeMaterialInOb')?.errors}">
                                                             <option value="" selected>Select Option</option>
                                                             <option value="Copper">Copper</option>
@@ -470,7 +470,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <select class="form-control" formControlName="earthElectrodeTypeInOb"  placeholder="Please enter Observation here"
+                                                        <select class="form-control" formControlName="earthElectrodeTypeInOb" [attr.disabled]="isEditable ? '' : null" placeholder="Please enter Observation here"
                                                             [ngClass]="{ 'is-invalid': submitted && h.get('earthElectrodeTypeInOb')?.errors}"
                                                             style="height: 3rem;">
                                                             <option value="" selected>Select Option</option>
@@ -562,12 +562,12 @@
                                             </tr>
                                             <div class="row" style="float: right;margin-right: 10px;" >
                                                 <mat-icon style="cursor: pointer;padding: 0px 33px 0px 0px;" 
-                                                    [ngClass]="{'disableForm':service.allFieldsDisable}" title="Add above fields"
+                                                   [ngClass]="{'disableForm':isEditable}" title="Add above fields"
                                                     *ngIf="earthingDescriptionListControls(a).length == x+1" (click)="addItemTypeAEarthing(a)">add_box
                                                 </mat-icon>
                                     
                                                 <mat-icon class="mousechange" class="dlt" type="button" title="Delete above fields"
-                                                    [ngClass]="{'disableForm':service.allFieldsDisable}"
+                                                   [ngClass]="{'disableForm':isEditable}"
                                                     *ngIf="earthingDescriptionListControls(a).length > 1" (click)="removeItemTypeAEarthing(a,x,q)"
                                                     style="cursor: pointer;float: right;">remove_circle_outline</mat-icon>
                                             </div>
@@ -884,7 +884,7 @@
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <select class="form-control" (change)="onChangeClamps($event,q,j)"  formControlName="earthingClampsAvailabilityOb"
+                                                <select class="form-control" (change)="onChangeClamps($event,q,j)" [attr.disabled]="isEditable ? '' : null" formControlName="earthingClampsAvailabilityOb"
                                                 [ngClass]="{ 'is-invalid': submitted && q.get('earthingClampsAvailabilityOb')?.errors }">
                                                     <option value="" selected>Select Option</option>
                                                     <option value="Applicable" >Applicable</option>
@@ -926,7 +926,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                        <select class="form-control" formControlName="physicalInspectionInOb"  (change)="clampsValidationChange($event,a,'psysicalInspectionInRem')" placeholder="Please enter Observation here"
+                                                        <select class="form-control" formControlName="physicalInspectionInOb" [attr.disabled]="isEditable ? '' : null" (change)="clampsValidationChange($event,a,'psysicalInspectionInRem')" placeholder="Please enter Observation here"
                                                          [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionInOb')?.errors}" style="height: 3rem;">
                                                             <option  value="" selected>Select Option</option>
                                                             <option value="Physically good" >Physically good</option>
@@ -966,7 +966,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                        <select class="form-control"  formControlName="clampsFirmlyOb"  placeholder="Please enter Observation here"
+                                                        <select class="form-control"  formControlName="clampsFirmlyOb" [attr.disabled]="isEditable ? '' : null" placeholder="Please enter Observation here"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('clampsFirmlyOb')?.errors}" style="height: 3rem;">
                                                             <option  value="" selected>Select Option</option>
                                                             <option value="YES" >Yes</option>
@@ -999,7 +999,8 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                        <select class="form-control"  formControlName="interConnectOfEarthClampInOb" (change)="clampsValidationChange($event,a,'interConnectOfEarthClampInRem')" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && a.get('interConnectOfEarthClampInOb')?.errors}" style="height: 3rem;">
+                                                        <select class="form-control"  formControlName="interConnectOfEarthClampInOb" (change)="clampsValidationChange($event,a,'interConnectOfEarthClampInRem')" placeholder="Please enter Observation here" 
+                                                        [ngClass]="{ 'is-invalid': submitted && a.get('interConnectOfEarthClampInOb')?.errors}" [attr.disabled]="isEditable ? '' : null" style="height: 3rem;">
                                                             <option  value="" selected>Select Option</option>
                                                             <option value="Physically good" >Physically good</option>
                                                             <option value="Not good" >Not good</option>
@@ -1038,7 +1039,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                        <select class="form-control"  formControlName="typeOfClampsInOb" placeholder="Please enter Observation here"
+                                                        <select class="form-control"  formControlName="typeOfClampsInOb" placeholder="Please enter Observation here" [attr.disabled]="isEditable ? '' : null"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('typeOfClampsInOb')?.errors}" style="height: 3rem;">
                                                             <option  value="" selected>Select Option</option>
                                                             <option value="Universal" >Universal</option>
@@ -1074,7 +1075,8 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                        <select class="form-control"  formControlName="materialOfClampsInOb" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && a.get('materialOfClampsInOb')?.errors}" style="height: 3rem;">
+                                                        <select class="form-control"  formControlName="materialOfClampsInOb" placeholder="Please enter Observation here" 
+                                                        [ngClass]="{ 'is-invalid': submitted && a.get('materialOfClampsInOb')?.errors}" [attr.disabled]="isEditable ? '' : null" style="height: 3rem;">
                                                             <option  value="" selected>Select Option</option>
                                                             <option value="Copper" >Copper</option>
                                                             <option value="Copper bonded steel" >Copper bonded steel</option>
@@ -1280,7 +1282,7 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        <select class="form-control"  (change)="onChangeChambers($event,q,j)"  formControlName="earthingElectrodeChamberAvailabilityOb"
+                                        <select class="form-control"  (change)="onChangeChambers($event,q,j)" [attr.disabled]="isEditable ? '' : null" formControlName="earthingElectrodeChamberAvailabilityOb"
                                         [ngClass]="{ 'is-invalid': submitted && q.get('earthingElectrodeChamberAvailabilityOb')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="Applicable" >Applicable </option>
@@ -1323,9 +1325,8 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                    <select class="form-control"  formControlName="physicalInspeOb"
-                                                     (change)="clampsValidationChange($event,a,'physicalInspeRem')"
-                                                      placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspeOb')?.errors}" style="height: 3rem;">
+                                                    <select class="form-control"  formControlName="physicalInspeOb"(change)="clampsValidationChange($event,a,'physicalInspeRem')" [attr.disabled]="isEditable ? '' : null"
+                                                       [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspeOb')?.errors}" style="height: 3rem;">
                                                         <option  value="" selected>Select Option</option>
                                                         <option value="Physically good" >Physically good</option>
                                                         <option value="Not good" >Not good</option>
@@ -1363,8 +1364,8 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                    <select class="form-control"  formControlName="chamberTypeOb" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('chamberTypeOb')?.errors}" style="height: 3rem;">
+                                                    <select class="form-control"  formControlName="chamberTypeOb"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('chamberTypeOb')?.errors}" [attr.disabled]="isEditable ? '' : null" style="height: 3rem;">
                                                         <option  value="" selected>Select Option</option>
                                                         <option value="Concrete" >Concrete</option>
                                                         <option value="Metal" >Metal</option>
@@ -1450,7 +1451,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <select class="form-control"  formControlName="chamberLocationOb" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && a.get('chamberLocationOb')?.errors}" style="height: 3rem;">
+                                                <select class="form-control"  formControlName="chamberLocationOb" [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && a.get('chamberLocationOb')?.errors}" style="height: 3rem;">
                                                     <option  value="" selected>Select Option</option>
                                                     <option value="Walk pathway" >Walk pathway</option>
                                                     <option value="Vehicle runway" >Vehicle runway</option>
@@ -1485,7 +1486,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                    <select class="form-control"  formControlName="maximumPlacedSoilOb" placeholder="Please enter Observation here"
+                                                    <select class="form-control"  formControlName="maximumPlacedSoilOb" [attr.disabled]="isEditable ? '' : null"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('maximumPlacedSoilOb')?.errors}" style="height: 3rem;">
                                                         <option  value="" selected>Select Option</option>
                                                         <option value="Yes" >Yes</option>
@@ -1967,7 +1968,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <select class="form-control"  formControlName="connectedEarthElectrodeOb"
+                                                <select class="form-control"  formControlName="connectedEarthElectrodeOb" [attr.disabled]="isEditable ? '' : null"
                                                 [ngClass]="{ 'is-invalid': submitted && a.get('connectedEarthElectrodeOb')?.errors}" style="height: 3rem;">
                                                     <option  value="" selected>Select Option</option>
                                                     <option value="Every 5 meters" >Every 5 meters</option>
@@ -2003,7 +2004,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <select class="form-control"  formControlName="jointsMadeBrazingOb"
+                                                <select class="form-control"  formControlName="jointsMadeBrazingOb" [attr.disabled]="isEditable ? '' : null"
                                                 [ngClass]="{ 'is-invalid': submitted && a.get('jointsMadeBrazingOb')?.errors}" style="height: 3rem;">
                                                     <option  value="" selected>Select Option</option>
                                                     <option value="brazing" >brazing</option>
@@ -2043,7 +2044,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <select class="form-control"  formControlName="materialOfEartElectrodeOb"
+                                                <select class="form-control"  formControlName="materialOfEartElectrodeOb" [attr.disabled]="isEditable ? '' : null"
                                                  [ngClass]="{ 'is-invalid': submitted && a.get('materialOfEartElectrodeOb')?.errors}" style="height: 3rem;">
                                                     <option  value="" selected>Select Option</option>
                                                     <option value="Copper" >Copper</option>
@@ -2086,7 +2087,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <select class="form-control"  formControlName="typeOfEarthElectrodeOb"
+                                                <select class="form-control"  formControlName="typeOfEarthElectrodeOb" [attr.disabled]="isEditable ? '' : null"
                                                 [ngClass]="{ 'is-invalid': submitted && a.get('typeOfEarthElectrodeOb')?.errors}" style="height: 3rem;">
                                                     <option  value="" selected>Select Option</option>
                                                     <option value="rod" >rod</option>
@@ -2222,7 +2223,7 @@
                         </mat-panel-title>
                     </mat-expansion-panel-header>
                     <div>
-                        <select class="form-control"  style="width: 30%;"  formControlName="earthingElectrodeTestingAvailabilityOb"
+                        <select class="form-control"  style="width: 30%;" [attr.disabled]="isEditable ? '' : null" formControlName="earthingElectrodeTestingAvailabilityOb"
                           [ngClass]="{ 'is-invalid': submitted && q.get('earthingElectrodeTestingAvailabilityOb')?.errors}"
                           (change)="onEarthElectrodes($event,q,j)">
                           <option value="" selected>Select Option</option>
@@ -2370,10 +2371,10 @@
 
                                                 <div class="row" style="float: right;" >
                                                     <mat-icon style="cursor: pointer; margin-right: 22px;" title="Add"
-                                                    [ngClass]="{'disableForm':service.allFieldsDisable}" *ngIf="earthElectrodeTestingarr(q).length == j+1" 
+                                                    [ngClass]="{'disableForm':isEditable}" *ngIf="earthElectrodeTestingarr(q).length == j+1" 
                                                     (click)="addElectrodeTesting(q)">add_box</mat-icon>
             
-                                                    <mat-icon class="mousechange" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" 
+                                                    <mat-icon class="mousechange" type="button" title="Delete" [ngClass]="{'disableForm':isEditable}" 
                                                     *ngIf="earthElectrodeTestingarr(q).length > 1" 
                                                     (click)="removeElectrodeTesting(a,j,q)" style="cursor: pointer; margin-right: 20px;">remove_circle_outline</mat-icon>
                                                 </div>

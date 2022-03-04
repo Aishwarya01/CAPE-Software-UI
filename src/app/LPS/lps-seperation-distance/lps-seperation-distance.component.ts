@@ -120,6 +120,18 @@ export class LpsSeperationDistanceComponent implements OnInit {
     this.separeteDistanceForm.reset();
   }
 
+      // Only Accept numbers
+      keyPressNumbers(event:any) {
+        var charCode = (event.which) ? event.which : event.keyCode;
+            // Only Numbers 0-9
+        if ((charCode < 48 || charCode > 57)) {
+          event.preventDefault();
+          return false;
+          } else {
+              return true;
+        }
+      }
+
   retrieveDetailsfromSavedReports(data: any){
       // this.service.lvClick=1;
       if(data.basicLpsId != undefined && data.basicLpsId != 0){

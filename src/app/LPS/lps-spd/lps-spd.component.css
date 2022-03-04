@@ -66,3 +66,7 @@ label{
 ::placeholder{
   font-size: 10px;
 }
+
+.disableForm{
+  pointer-events: none;
+}

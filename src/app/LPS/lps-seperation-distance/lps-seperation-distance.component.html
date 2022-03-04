@@ -61,15 +61,7 @@
                                                                 </div>
                                                                 <textarea [readonly]="isEditable"
                                                                     formControlName="calculatedSeperationDistanceOb" type="text"
-                                                                    class="form-control" placeholder="Please enter Observation here"
-                                                                    [ngClass]="{ 'is-invalid': submitted && q.get('calculatedSeperationDistanceOb')?.errors }"></textarea>
-                                                                <div *ngIf="submitted && q.get('calculatedSeperationDistanceOb')?.errors"
-                                                                    class="invalid-feedback">
-                                                                    <div *ngIf="q.get('calculatedSeperationDistanceOb')?.errors?.required">
-                                                                        Calculated seperation distance between LPS and other metallic parts
-                                                                        of
-                                                                        building Observation is required</div>
-                                                                </div>
+                                                                    class="form-control" placeholder="Please enter Observation here"></textarea>
                                                             </div>
                                                         </td>
                                                         <td style="width: 43rem;">
@@ -111,16 +103,10 @@
                                                                         <i class="bi bi-text-paragraph"></i>
                                                                     </span>
                                                                 </div>
-                                                                <textarea type="text" [readonly]="isEditable"
-                                                                    formControlName="seperationDistanceDesc" class="form-control"
-                                                                    placeholder="Please enter Observation here"
+                                                                <textarea type="text" [readonly]="isEditable" formControlName="seperationDistanceDesc" class="form-control" placeholder="Please enter Observation here"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.get('seperationDistanceDesc')?.errors }"></textarea>
-                                                                <div *ngIf="submitted && f.get('seperationDistanceDesc')?.errors"
-                                                                    class="invalid-feedback">
-                                                                    <div *ngIf="f.get('seperationDistanceDesc')?.errors?.required">Measured
-                                                                        Seperation distance between air termination and electrical
-                                                                        Description is
-                                                                        required</div>
+                                                                <div *ngIf="submitted && f.get('seperationDistanceDesc')?.errors" class="invalid-feedback">
+                                                                    <div *ngIf="f.get('seperationDistanceDesc')?.errors?.required">Measured Seperation distance between air termination and electrical Description is required</div>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -132,14 +118,11 @@
                                                                         <i class="bi bi-text-paragraph"></i>
                                                                     </span>
                                                                 </div>
-                                                                <input type="number" [readonly]="isEditable"
-                                                                    formControlName="seperationDistanceOb" class="form-control"
-                                                                    placeholder="Please enter Observation here"
-                                                                    [ngClass]="{ 'is-invalid': submitted && f.get('seperationDistanceOb')?.errors }">                                                                <div *ngIf="submitted && f.get('seperationDistanceOb')?.errors"
-                                                                    class="invalid-feedback">
+                                                                <input type="number" (keypress)="keyPressNumbers($event)" [readonly]="isEditable" formControlName="seperationDistanceOb" class="form-control" placeholder="Please enter Observation here"
+                                                                    [ngClass]="{ 'is-invalid': submitted && f.get('seperationDistanceOb')?.errors }" style="height: 3rem;">                                                               
+                                                                 <div *ngIf="submitted && f.get('seperationDistanceOb')?.errors" class="invalid-feedback">
                                                                     <div *ngIf="f.get('seperationDistanceOb')?.errors?.required">
-                                                                        Measured Seperation distance between air termination and electrical
-                                                                        Observation is required</div>
+                                                                        Measured Seperation distance between air termination and electrical Observation is required</div>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -158,14 +141,11 @@
                                                         </td>
                                                     </tr>
                                                     <div class="row" style="float: right;">
-                                                        <mat-icon class="mousechange" type="button"
-                                                            *ngIf="getseparateDistanceDescriptionControls(q).length == i+1"
-                                                            [ngClass]="{'disableForm':service.allFieldsDisable}" title="Add another Section"
-                                                            style="float: right;position: relative; margin-top: 5px;"
-                                                            (click)="addSeparateDistance(q,f)">add_box</mat-icon>
+                                                        <mat-icon class="mousechange" type="button" *ngIf="getseparateDistanceDescriptionControls(q).length == i+1" [ngClass]="{'disableForm':isEditable}" title="Add another Section"
+                                                            style="float: right;position: relative; margin-top: 5px;" (click)="addSeparateDistance(q,f)">add_box</mat-icon>
                     
                                                         <mat-icon class="mousechange" class="dlt" type="button" title="Delete Above Section"
-                                                            [ngClass]="{'disableForm':service.allFieldsDisable}"
+                                                            [ngClass]="{'disableForm':isEditable}"
                                                             *ngIf="getseparateDistanceDescriptionControls(q).length > 1 "
                                                             style="float: right;position: relative; margin-top: 5px; margin-bottom: 5px;"
                                                             (click)="removeSeparateDistance(q,f,i)">remove_circle_outline</mat-icon>
@@ -218,10 +198,8 @@
                                                                         <i class="bi bi-text-paragraph"></i>
                                                                     </span>
                                                                 </div>
-                                                                <input type="number" class="form-control" [readonly]="isEditable"
-                                                                    formControlName="seperationDistanceOb"
-                                                                    placeholder="Please enter Observation here"
-                                                                    [ngClass]="{'is-invalid': submitted && f.get('seperationDistanceOb')?.errors}">
+                                                                <input type="number" (keypress)="keyPressNumbers($event)" class="form-control" [readonly]="isEditable" formControlName="seperationDistanceOb" placeholder="Please enter Observation here"
+                                                                    [ngClass]="{'is-invalid': submitted && f.get('seperationDistanceOb')?.errors}" style="height: 3rem;">
                                                                 <div *ngIf="submitted && f.get('seperationDistanceOb')?.errors"
                                                                     class="invalid-feedback">
                                                                     <div *ngIf="f.get('seperationDistanceOb')?.errors?.required">
@@ -245,13 +223,13 @@
                                                         </td>
                                                     </tr>
                                                     <div class="row" style="float: right;" >
-                                                        <mat-icon [ngClass]="{'disableForm':service.allFieldsDisable}" class="mousechange" type="button"
+                                                        <mat-icon [ngClass]="{'disableForm':isEditable}" class="mousechange" type="button"
                                                             style="float: right;position: relative; margin-top: 5px;" title="Add Another Section"
                                                             *ngIf="getSeparateDistanceDownConductorsControls(q).length == i+1 "
                                                             (click)="addSeparateDistanceDownConductors(q,f)">add_box</mat-icon>
                     
                                                         <mat-icon class="mousechange" class="dlt" type="button" title="Delete Above Section"
-                                                            [ngClass]="{'disableForm':service.allFieldsDisable}"
+                                                            [ngClass]="{'disableForm':isEditable}"
                                                             *ngIf="getSeparateDistanceDownConductorsControls(q).length > 1"
                                                             (click)="removeSeparateDistanceDownConductors(q,f,i)"
                                                             style="float: right;position: relative; margin-top: 5px; margin-bottom: 5px;">

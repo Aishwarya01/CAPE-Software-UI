@@ -60,7 +60,7 @@
                                                 <i class="bi bi-text-paragraph"></i>
                                             </span>
                                         </div>
-                                        <select class="form-control" (change)="dropDown($event,f,j)" formControlName="availableEquipotentialBondingOb" [ngClass]="{ 'is-invalid': submitted && f.get('availableEquipotentialBondingOb')?.errors }" style="height: 3rem;">
+                                        <select class="form-control" (change)="dropDown($event,f,j)" formControlName="availableEquipotentialBondingOb" [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && f.get('availableEquipotentialBondingOb')?.errors }" style="height: 3rem;">
                                                     <option value="" selected>Select Option</option>
                                                     <option value="Yes" >Yes</option>
                                                     <option value="No" >No</option>
@@ -151,7 +151,7 @@
                                                 <i class="bi bi-text-paragraph"></i>
                                             </span>
                                         </div>
-                                        <select class="form-control"  formControlName="conceptOfEquipotentialBondingOb" [ngClass]="{ 'is-invalid': submitted && f.get('conceptOfEquipotentialBondingOb')?.errors }" style="height: 3rem;">
+                                        <select class="form-control"  formControlName="conceptOfEquipotentialBondingOb" [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && f.get('conceptOfEquipotentialBondingOb')?.errors }" style="height: 3rem;">
                                             <option value="" selected>Select Option</option>
                                             <option value="yes">Yes</option>
                                             <option value="no">No</option>

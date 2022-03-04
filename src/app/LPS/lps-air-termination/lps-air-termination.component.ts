@@ -917,37 +917,85 @@ export class LpsAirTerminationComponent implements OnInit {
 
     onChangeBasic(event: any,a:any) {
       this.airTerminationForm.markAsTouched();
-      let changedValue;
-      if(event.target != undefined) {
-        changedValue = event.target.value;
+      
+      if (event.target.value == 'Not available') {    
+      
+        a.controls.airBasicDescription.controls[0].controls.consultantNameObserv.clearValidators();
+        a.controls.airBasicDescription.controls[0].controls.consultantNameObserv.updateValueAndValidity();
+
+        a.controls.airBasicDescription.controls[0].controls.architectNameObserv.clearValidators();
+        a.controls.airBasicDescription.controls[0].controls.architectNameObserv.updateValueAndValidity();
+
+        a.controls.airBasicDescription.controls[0].controls.designDateObserv.clearValidators();
+        a.controls.airBasicDescription.controls[0].controls.designDateObserv.updateValueAndValidity();
+
+        a.controls.airBasicDescription.controls[0].controls.approvedByObserv.clearValidators();
+        a.controls.airBasicDescription.controls[0].controls.approvedByObserv.updateValueAndValidity();
+
+        a.controls.airBasicDescription.controls[0].controls.dateOfApprovalOb.clearValidators();
+        a.controls.airBasicDescription.controls[0].controls.dateOfApprovalOb.updateValueAndValidity();
+
+        a.controls.airBasicDescription.controls[0].controls.drawingObserv.clearValidators();
+        a.controls.airBasicDescription.controls[0].controls.drawingObserv.updateValueAndValidity();
+
+        a.controls.airBasicDescription.controls[0].controls.revisionNoObserv.clearValidators();
+        a.controls.airBasicDescription.controls[0].controls.revisionNoObserv.updateValueAndValidity();
+
+        a.controls.airBasicDescription.controls[0].controls.deviationObserv.clearValidators();
+        a.controls.airBasicDescription.controls[0].controls.deviationObserv.updateValueAndValidity();
+
+        a.controls.airBasicDescription.controls[0].controls.deviationInstallationObserv.clearValidators();
+        a.controls.airBasicDescription.controls[0].controls.deviationInstallationObserv.updateValueAndValidity();
+
+        a.controls.airBasicDescription.controls[0].controls.consultantNameObserv.setValue(null);
+        a.controls.airBasicDescription.controls[0].controls.architectNameObserv.setValue(null);
+        a.controls.airBasicDescription.controls[0].controls.designDateObserv.setValue(null);
+        a.controls.airBasicDescription.controls[0].controls.approvedByObserv.setValue(null);
+        a.controls.airBasicDescription.controls[0].controls.dateOfApprovalOb.setValue(null);
+        a.controls.airBasicDescription.controls[0].controls.drawingObserv.setValue(null);
+        a.controls.airBasicDescription.controls[0].controls.revisionNoObserv.setValue(null);
+        a.controls.airBasicDescription.controls[0].controls.deviationObserv.setValue(null);
+        a.controls.airBasicDescription.controls[0].controls.deviationInstallationObserv.setValue(null);
+
+        a.controls.airBasicDescription.controls[0].controls.consultantNameRemarks.setValue(null);
+        a.controls.airBasicDescription.controls[0].controls.architectNameRemarks.setValue(null);
+        a.controls.airBasicDescription.controls[0].controls.designDateRemarks.setValue(null);
+        a.controls.airBasicDescription.controls[0].controls.approvedByRemarks.setValue(null);
+        a.controls.airBasicDescription.controls[0].controls.dateOfApprovalRem.setValue(null);
+        a.controls.airBasicDescription.controls[0].controls.drawingRemarks.setValue(null);
+        a.controls.airBasicDescription.controls[0].controls.revisionNoRemarks.setValue(null);
+        a.controls.airBasicDescription.controls[0].controls.deviationRemarks.setValue(null);
+        a.controls.airBasicDescription.controls[0].controls.deviationInstallationRemarks.setValue(null);
       }
-      else{
-        changedValue = event;
-      }
-      let basicArray: any = [];
-      basicArray =  a.controls.airBasicDescription as FormArray;
-      if (changedValue == 'Not available') {    
-        if(basicArray.length>0) {
-          if(this.flag && basicArray.value[0].airBasicDescriptionId !=null && basicArray.value[0].airBasicDescriptionId !='' && basicArray.value[0].airBasicDescriptionId !=undefined){
-            basicArray.value[0].flag ='R';
-            this.deletedAirBasicArr.push(basicArray.value[0]);
-          }
-          basicArray.removeAt(basicArray.length-1)    
-        }
-      // for(let x in a.controls){
-      //   console.log(x);
-      //   a.controls[x].clearValidators();
-      //   a.controls[x].updateValueAndValidity();
-      // }
-       // a.controls['physicalInspectionOb'].clearValidators();
-       // a.controls['physicalInspectionOb'].updateValueAndValidity();
-      }
-      else if(changedValue == 'Available'){
-        if(basicArray.length == 0) {
-          basicArray.push(this.createLpsDescriptionarr());
-        }
-       // a.controls['physicalInspectionOb'].setValidators([Validators.required]);
-        //a.controls['physicalInspectionOb'].updateValueAndValidity();   
+      else{  
+
+        a.controls.airBasicDescription.controls[0].controls.consultantNameObserv.setValidators(Validators.required);
+        a.controls.airBasicDescription.controls[0].controls.consultantNameObserv.updateValueAndValidity();
+
+        a.controls.airBasicDescription.controls[0].controls.architectNameObserv.setValidators(Validators.required);
+        a.controls.airBasicDescription.controls[0].controls.architectNameObserv.updateValueAndValidity();
+
+        a.controls.airBasicDescription.controls[0].controls.designDateObserv.setValidators(Validators.required);
+        a.controls.airBasicDescription.controls[0].controls.designDateObserv.updateValueAndValidity();
+
+        a.controls.airBasicDescription.controls[0].controls.approvedByObserv.setValidators(Validators.required);
+        a.controls.airBasicDescription.controls[0].controls.approvedByObserv.updateValueAndValidity();
+
+        a.controls.airBasicDescription.controls[0].controls.dateOfApprovalOb.setValidators(Validators.required);
+        a.controls.airBasicDescription.controls[0].controls.dateOfApprovalOb.updateValueAndValidity();
+
+        a.controls.airBasicDescription.controls[0].controls.drawingObserv.setValidators(Validators.required);
+        a.controls.airBasicDescription.controls[0].controls.drawingObserv.updateValueAndValidity();
+
+        a.controls.airBasicDescription.controls[0].controls.revisionNoObserv.setValidators(Validators.required);
+        a.controls.airBasicDescription.controls[0].controls.revisionNoObserv.updateValueAndValidity();
+
+        a.controls.airBasicDescription.controls[0].controls.deviationObserv.setValidators(Validators.required);
+        a.controls.airBasicDescription.controls[0].controls.deviationObserv.updateValueAndValidity();
+
+        a.controls.airBasicDescription.controls[0].controls.deviationInstallationObserv.setValidators(Validators.required);
+        a.controls.airBasicDescription.controls[0].controls.deviationInstallationObserv.updateValueAndValidity();
+
       }
       this.airTerminationForm.markAsDirty();
 

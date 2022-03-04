@@ -56,8 +56,7 @@
                                                     <span class="input-group-text">
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span></div>
-                                                <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="mainsIncomingOb"
-                                                    placeholder="Please enter Observation here"
+                                                <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="mainsIncomingOb" placeholder="Please enter Observation here"
                                                     [ngClass]="{'is-invalid': submitted && q.get('mainsIncomingOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && q.get('mainsIncomingOb')?.errors" class="invalid-feedback">
                                                     <div *ngIf="q.get('mainsIncomingOb')?.errors?.required">Mains incoming panel observation is required
@@ -87,8 +86,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea type="text" class="form-control"
-                                                    [readonly]="isEditable" formControlName="totalMainsIncomingOb"  
-                                                    placeholder="Please enter Observation here"
+                                                    [readonly]="isEditable" formControlName="totalMainsIncomingOb" placeholder="Please enter Observation here"
                                                     [ngClass]="{'is-invalid': submitted && q.get('totalMainsIncomingOb')?.errors}"></textarea>
                                                     <div *ngIf="submitted && q.get('totalMainsIncomingOb')?.errors" class="invalid-feedback">
                                                     <div *ngIf="q.get('totalMainsIncomingOb')?.errors?.required">Total Number of mains incoming panels observation is required</div>
@@ -147,9 +145,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" class="form-control"
-                                                    [readonly]="isEditable" formControlName="totalNoOutDoorRequipmentOb"
-                                                    placeholder="Please enter Observation here"
+                                                <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="totalNoOutDoorRequipmentOb" placeholder="Please enter Observation here"
                                                     [ngClass]="{'is-invalid': submitted && q.get('totalNoOutDoorRequipmentOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && q.get('totalNoOutDoorRequipmentOb')?.errors" class="invalid-feedback">
                                                     <div *ngIf="q.get('totalNoOutDoorRequipmentOb')?.errors?.required">Total Number of outdoor equipment observation is
@@ -164,8 +160,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" class="form-control" 
-                                                    [readonly]="isEditable" formControlName="totalNoOutDoorRequipmentRem"  placeholder="Please enter Remarks here (Optional)"></textarea>
+                                                <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="totalNoOutDoorRequipmentRem"  placeholder="Please enter Remarks here (Optional)"></textarea>
                                             </div>
                                         </td>
                                     </tr>
@@ -188,6 +183,7 @@
                         <div class="table-responsive" style="overflow-x: unset;">
                             <table class="table TableBorder">
                                 <tbody formArrayName="spdDescription" *ngFor="let a of spdDescriptionControl(q); let i= index">
+                                    <div></div>
                                     <div class="form-group" [formGroupName]="i">
                                         <thead>
                                             <th>SI.No</th>
@@ -296,7 +292,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <select class="form-control"  formControlName="spdClassTypeOb" style="height: 3rem;"
+                                                    <select class="form-control" [attr.disabled]="isEditable ? '' : null" formControlName="spdClassTypeOb" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('spdClassTypeOb')?.errors}"> 
                                                         <option  value="" selected>Select Option</option>
                                                         <option value="class I" >class I</option>
@@ -329,7 +325,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <select class="form-control"  formControlName="spdApplicationOb" style="height: 3rem;"
+                                                    <select class="form-control"  formControlName="spdApplicationOb" style="height: 3rem;" [attr.disabled]="isEditable ? '' : null"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('spdApplicationOb')?.errors}">
                                                         <option  value="" selected>Select Option</option>
                                                         <option value="Power line" >Power line</option>
@@ -362,7 +358,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <select class="form-control"  formControlName="spdMainApplicationOb" style="height: 3rem;"
+                                                    <select class="form-control"  formControlName="spdMainApplicationOb" style="height: 3rem;" [attr.disabled]="isEditable ? '' : null"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('spdMainApplicationOb')?.errors}">
                                                         <option  value="" selected>Select Option</option>
                                                         <option value="Continuation of supply to equipment" >Continuation of supply to equipment</option>
@@ -395,7 +391,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <select class="form-control"  formControlName="properConnectionOb" style="height: 3rem;" [ngClass]="{ 'is-invalid': submitted && a.get('properConnectionOb')?.errors}">
+                                                    <select class="form-control"  formControlName="properConnectionOb" style="height: 3rem;" [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && a.get('properConnectionOb')?.errors}">
                                                         <option  value="" selected>Select Option</option>
                                                         <option value="Yes" >Yes</option>
                                                         <option value="No" >No</option>
@@ -604,16 +600,15 @@
                                             </td>
                                         </tr>
                                         
-                                        <div class="row" style="float: right;" >
-                                            <mat-icon class="mousechange" class="add" (click)="add(q)" type="button" style="float: right;position: relative; margin-top: 5px;"
+                                        <div class="row" style="float: right;">
+                                            <mat-icon [ngClass]="{'disableForm':isEditable}" class="mousechange" type="button" (click)="add(q)" style="cursor: pointer;position: relative;margin-top: 5px;margin-right: 15px;"
                                             *ngIf="spdDescriptionControl(q).length == i+1" title="Add Another Location">add_box</mat-icon>
     
-                                            <mat-icon class="mousechange" class="dlt" type="button" title="Delete Above Location" style="float: right;position: relative; margin-top: 5px; margin-bottom: 5px;"
+                                            <mat-icon [ngClass]="{'disableForm':isEditable}" class="mousechange" type="button" class="dlt" title="Delete Above Location" style="position: relative;margin-top: 5px;margin-bottom: 5px;margin-right: 15px;"
                                             *ngIf="spdDescriptionControl(q).length > 1" (click)="removeItem(q,a,i)">remove_circle_outline</mat-icon>
                                         </div>
-    
+                                        
                                     </div>
-                              
                                 </tbody>
                             </table>
                         </div>
