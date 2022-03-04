@@ -10,7 +10,7 @@ import { CommentsSection } from '../model/comments-section';
 })
 export class TestingService {
   
-  apiUrl = environment.apiUrl_v2;
+  apiUrl = environment.apiUrl;
   constructor(private http: HttpClient) { }
 
   public savePeriodicTesting(testing: TestingDetails): Observable<any> {

@@ -15,7 +15,6 @@ export class BasicAuthHtppInterceptorService implements HttpInterceptor {
     if (this.loginService.isUserLoggedIn() && req.url.indexOf('authentication') === -1) {
         const authReq = req.clone({
             headers: new HttpHeaders({
-                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${this.loginService.token}`
             })
         });

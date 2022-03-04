@@ -10,7 +10,7 @@ import { CommentsSection } from '../model/comments-section';
 })
 export class SupplyCharacteristicsService {
 
-  apiUrl = environment.apiUrl_v2;
+  apiUrl = environment.apiUrl;
   constructor(private http: HttpClient) { }
 
   public addSupplyCharacteristics(supplycharacteristics: Supplycharacteristics): Observable<any> {

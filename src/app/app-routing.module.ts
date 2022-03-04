@@ -18,6 +18,13 @@ import { SingInPageComponent } from './signin-page/signin-page.component';
 import { GenerateOtpComponent } from './generate-otp/generate-otp.component';
 import { GenerateOtpContactnumberComponent } from './generate-otp-contactnumber/generate-otp-contactnumber.component';
 import { ChangeContactnumberComponent } from './change-contactnumber/change-contactnumber.component';
+import { EmcFacilityDataComponent } from './EMC/emc-facility-data/emc-facility-data.component';
+import { PowerAndEarthingDataComponent } from './EMC/emc-power-and-earthing-data/power-and-earthing-data.component';
+import { EmcElectromagneticCompatibilityDataComponent } from './EMC/emc-electromagnetic-compatibility-data/emc-electromagnetic-compatibility-data.component';
+import { EmcMatstepperComponent } from './EMC/emc-matstepper/emc-matstepper.component';
+import { EmcSavedReportComponent } from './EMC/emc-saved-report/emc-saved-report.component';
+import { EmcFinalReportComponent } from './EMC/emc-final-report/emc-final-report.component';
+import { EmcClientDetailsComponent } from './EMC/emc-client-details/emc-client-details.component';
 import { LpsEarthingComponent } from './LPS/lps-earthing/lps-earthing.component';
 import { LpsSpdComponent } from './LPS/lps-spd/lps-spd.component';
 import { LpsMatstepperComponent } from './LPS/lps-matstepper/lps-matstepper.component';
@@ -46,6 +53,14 @@ const routes: Routes = [
   {path: 'generateOtp',component:GenerateOtpComponent},
   {path: 'generateContactNumber',component:GenerateOtpContactnumberComponent},
   {path: 'createContactNumber',component:ChangeContactnumberComponent},
+  {path: 'EmcFacilityDataComponent',component:EmcFacilityDataComponent},
+  {path: 'PowerAndEarthingDataComponent',component:PowerAndEarthingDataComponent},
+  {path: 'EmcElectromagneticCompatibilityDataComponent',component:EmcElectromagneticCompatibilityDataComponent},
+  {path: 'EmcMatstepperComponent',component:EmcMatstepperComponent},
+  {path: 'EmcSavedReportComponent',component:EmcSavedReportComponent},
+  {path: 'EmcFinalReportComponent',component:EmcFinalReportComponent},
+  {path: 'EmcClientDetailsComponent',component:EmcClientDetailsComponent},
+  
   {path: 'LpsEarthingComponent',component:LpsEarthingComponent},
   {path: 'LpsSpdComponent',component:LpsSpdComponent},
 ];
