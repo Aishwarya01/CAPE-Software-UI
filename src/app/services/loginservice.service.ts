@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class LoginserviceService {
-  
+  apiUrl = environment.apiUrl;
   USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser';
   public token: String = '';
   apiUrl_v2 = environment.apiUrl_v2;

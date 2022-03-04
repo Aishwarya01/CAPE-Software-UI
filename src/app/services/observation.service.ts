@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class ObservationService {
-  apiUrl = environment.apiUrl_v2;
+  apiUrl = environment.apiUrl;
   constructor(private http: HttpClient) { }
 
   public addObservation(observation: any): Observable<any> {

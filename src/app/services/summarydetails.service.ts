@@ -9,7 +9,7 @@ import { CommentsSection } from '../model/comments-section';
   providedIn: 'root'
 })
 export class SummarydetailsService {
-  apiUrl = environment.apiUrl_v2;
+  apiUrl = environment.apiUrl;
   constructor(private http: HttpClient) { }
 
   public addSummary(summary: Summary): Observable<any> {

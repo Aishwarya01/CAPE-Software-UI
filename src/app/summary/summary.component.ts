@@ -24,7 +24,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../model/user';
 import { MatRadioChange } from '@angular/material/radio';
@@ -324,6 +324,10 @@ export class SummaryComponent implements OnInit,OnDestroy {
   reset(){
     this.addsummary.reset();
     }
+
+/*e-siganture starts in progress*/ 
+
+/*e-siganture ends*/
 
   retreiveFromObservation(){
     if(this.service.siteCount!=0 && this.service.siteCount!=undefined){
@@ -885,7 +889,6 @@ getViewerFirstMessage(x: any) {
   return x.controls.completedCommentArr.controls[0].controls.viewerComments.value;
 }
 showHideAccordion(index: number) {  
-  //console.log(x);
   this.expandedIndexx = index === this.expandedIndexx ? -1 : index;  
   this.isClicked[index] = !this.isClicked[index];
   }
