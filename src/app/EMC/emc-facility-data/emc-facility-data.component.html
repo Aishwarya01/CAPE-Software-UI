@@ -7,22 +7,19 @@
   </div>
 <div class="card">
     <div class="card-body">
-
+        <form [formGroup]="EMCFacilityForm" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)"
+        (ngSubmit)="saveFacilityData(flag)">
         <mat-accordion>
-            <form [formGroup]="EMCFacilityForm" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)"
-                (ngSubmit)="saveFacilityData(flag)">
-
-                <mat-expansion-panel class="body">
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             <h3>Building Location / Setting</h3>
                         </mat-panel-title>
-
                     </mat-expansion-panel-header>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Type</label>
+                                <label>Type:</label>
                                 <select class="form-control" formControlName="blType"
                                     [(ngModel)]="emcFacilityData.blType"
                                     [ngClass]="{'is-invalid':submitted && f.blType?.errors}">
@@ -37,8 +34,8 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Describe others</label>
-                                <textarea class="textarea-size" class="form-control"
+                                <label>Describe others:</label>
+                                <textarea class="textarea-size" class="form-control" cols="60" rows="1"
                                     [(ngModel)]="emcFacilityData.blOtherDescription"
                                     [ngClass]="{'is-invalid':submitted && f.blOtherDescription?.errors}"
                                     formControlName="blOtherDescription" placeholder="Describe others"></textarea>
@@ -51,7 +48,7 @@
                     </div>
 
                 </mat-expansion-panel>
-                <mat-expansion-panel class="body">
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             <h3>Building Construction</h3>
@@ -61,7 +58,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Type </label>
+                                <label>Type: </label>
                                 <select class="form-control" formControlName="bcType"
                                     [(ngModel)]="emcFacilityData.bcType"
                                     [ngClass]="{'is-invalid':submitted && f.bcType?.errors}">
@@ -76,7 +73,7 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>No. of floors </label>
+                                <label>No. of floors: </label>
                                 <input type="number" class="form-control" formControlName="bcNoOfFloors"
                                     [(ngModel)]="emcFacilityData.bcNoOfFloors"
                                     [ngClass]="{'is-invalid':submitted && f.bcNoOfFloors?.errors}"
@@ -89,7 +86,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Computer room floor location </label>
+                                <label>Computer room floor location: </label>
                                 <input type="text" class="form-control" formControlName="bcRoomFloorLocation"
                                     [(ngModel)]="emcFacilityData.bcRoomFloorLocation"
                                     placeholder="Enter Computer room floor location"
@@ -103,7 +100,7 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Building primary use </label>
+                                <label>Building primary use: </label>
                                 <input type="text" class="form-control" formControlName="bcBuildingPrimaryUse"
                                     [(ngModel)]="emcFacilityData.bcBuildingPrimaryUse"
                                     placeholder="Enter Building primary use"
@@ -117,7 +114,7 @@
                         </div>
                         <div class="col-md-4">
                             <div>
-                                <label>Other uses / processes</label>
+                                <label>Other uses / processes:</label>
                                 <input type="text" class="form-control" formControlName="bcOtherUses"
                                     [(ngModel)]="emcFacilityData.bcOtherUses"
                                     [ngClass]="{'is-invalid':submitted && f.bcOtherUses?.errors}"
@@ -130,7 +127,7 @@
                         </div>
                     </div>
                 </mat-expansion-panel>
-                <mat-expansion-panel class="body">
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             <h3>Room Location</h3>
@@ -140,7 +137,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Interior room</label>
+                                <label>Interior room:</label>
                                 <input type="text" class="form-control" formControlName="rlInteriorRoom"
                                     [ngClass]="{'is-invalid':submitted && f.rlInteriorRoom?.errors}"
                                     [(ngModel)]="emcFacilityData.rlInteriorRoom" placeholder="Enter Interior room">
@@ -151,7 +148,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Exterior room </label>
+                                <label>Exterior room: </label>
                                 <input type="text" class="form-control" formControlName="rlExteriorRoom"
                                     [ngClass]="{'is-invalid':submitted && f.rlExteriorRoom?.errors}"
                                     [(ngModel)]="emcFacilityData.rlExteriorRoom" placeholder="Enter Exterior room">
@@ -162,7 +159,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Solid exterior walls</label>
+                                <label>Solid exterior walls:</label>
                                 <input type="text" class="form-control" formControlName="rlSolidExterior"
                                     [(ngModel)]="emcFacilityData.rlSolidExterior"
                                     [ngClass]="{'is-invalid':submitted && f.rlSolidExterior?.errors}"
@@ -176,7 +173,7 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Windowed exterior walls </label>
+                                <label>Windowed exterior walls: </label>
                                 <input type="text" class="form-control" formControlName="rlWindowedExterior"
                                     [(ngModel)]="emcFacilityData.rlWindowedExterior"
                                     [ngClass]="{'is-invalid':submitted && f.rlWindowedExterior?.errors}"
@@ -189,7 +186,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Windows face (north, south, east, or west)</label>
+                                <label>Windows face (north, south, east, or west):</label>
                                 <input type="text" class="form-control" formControlName="rlWindsFace"
                                     [(ngModel)]="emcFacilityData.rlWindsFace"
                                     [ngClass]="{'is-invalid':submitted && f.rlWindsFace?.errors}"
@@ -202,7 +199,7 @@
                     </div>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel class="body">
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             <h3>Room Use</h3>
@@ -210,9 +207,9 @@
 
                     </mat-expansion-panel-header>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label>Dedicated room for system</label>
+                                <label>Dedicated room for system:</label>
                                 <!-- <input type="text" class="form-control" placeholder="Enter Dedicated room for system"> -->
                                 <select class="form-control" formControlName="ruDedicated"
                                     [(ngModel)]="emcFacilityData.ruDedicated"
@@ -232,10 +229,10 @@
                                 <input type="text" class="form-control" placeholder="Enter Non dedicated room">
                             </div>
                         </div> -->
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div>
-                                <label>Describe other equipment in room</label>
-                                <textarea class="textarea-size" class="form-control" style="font-size: medium;"
+                                <label>Describe other equipment in room:</label>
+                                <textarea class="textarea-size" class="form-control" style="font-size: medium;" cols="60" rows="1"
                                     [(ngModel)]="emcFacilityData.ruOtherDesc" formControlName="ruOtherDesc"
                                     [ngClass]="{'is-invalid':submitted && f.ruOtherDesc?.errors}"
                                     placeholder="Enter Describe other equipment in room"></textarea>
@@ -247,7 +244,7 @@
                         </div>
                     </div>
                 </mat-expansion-panel>
-                <mat-expansion-panel class="body">
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             <h3>Room Dimentions</h3>
@@ -257,7 +254,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Height (true floor to true ceiling)</label>
+                                <label>Height (true floor to true ceiling):</label>
                                 <input type="text" class="form-control" formControlName="rmHeightTrueFloor"
                                     [(ngModel)]="emcFacilityData.rmHeightTrueFloor"
                                     [ngClass]="{'is-invalid':submitted && f.rmHeightTrueFloor?.errors}"
@@ -270,7 +267,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Height (false floor to drop ceiling)</label>
+                                <label>Height (false floor to drop ceiling):</label>
                                 <input type="number" class="form-control" formControlName="rmHeightFalseFloor"
                                     [(ngModel)]="emcFacilityData.rmHeightFalseFloor"
                                     [ngClass]="{'is-invalid':submitted && f.rmHeightFalseFloor?.errors}"
@@ -283,7 +280,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Width</label>
+                                <label>Width:</label>
                                 <input type="number" class="form-control" formControlName="rmWidth"
                                     [ngClass]="{'is-invalid':submitted && f.rmWidth?.errors}"
                                     [(ngModel)]="emcFacilityData.rmWidth" placeholder="Enter Width">
@@ -294,7 +291,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Length</label>
+                                <label>Length:</label>
                                 <input type="number" class="form-control" formControlName="rmLength"
                                     [ngClass]="{'is-invalid':submitted && f.rmLength?.errors}"
                                     [(ngModel)]="emcFacilityData.rmLength" placeholder="Enter Length">
@@ -305,7 +302,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Maximum allowable floor loading (Kg/m2)</label>
+                                <label>Maximum allowable floor loading (Kg/m2):</label>
                                 <input type="number" class="form-control" formControlName="rmMaxFloor"
                                     [(ngModel)]="emcFacilityData.rmMaxFloor"
                                     [ngClass]="{'is-invalid':submitted && f.rmMaxFloor?.errors}"
@@ -318,7 +315,7 @@
                         </div>
                     </div>
                 </mat-expansion-panel>
-                <mat-expansion-panel class="body">
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             <h3>Floor Type</h3>
@@ -328,7 +325,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Raised floor</label>
+                                <label>Raised floor:</label>
                                 <input type="text" class="form-control" formControlName="ftRaisedFloor"
                                     [ngClass]="{'is-invalid':submitted && f.ftRaisedFloor?.errors}"
                                     [(ngModel)]="emcFacilityData.ftRaisedFloor" placeholder="Enter Raised floor">
@@ -339,7 +336,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Used as air supply plenum</label>
+                                <label>Used as air supply plenum:</label>
                                 <input type="text" class="form-control" formControlName="ftAirSupply"
                                     [(ngModel)]="emcFacilityData.ftAirSupply"
                                     [ngClass]="{'is-invalid':submitted && f.ftAirSupply?.errors}"
@@ -352,7 +349,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Height</label>
+                                <label>Height:</label>
                                 <input type="number" class="form-control" formControlName="ftHeight"
                                     [ngClass]="{'is-invalid':submitted && f.ftHeight?.errors}"
                                     [(ngModel)]="emcFacilityData.ftHeight" placeholder="Enter Height">
@@ -363,7 +360,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Air flow obstructions</label>
+                                <label>Air flow obstructions:</label>
                                 <input type="text" class="form-control" formControlName="ftAirFlowObservation"
                                     [ngClass]="{'is-invalid':submitted && f.ftAirFlowObservation?.errors}"
                                     [(ngModel)]="emcFacilityData.ftAirFlowObservation"
@@ -374,10 +371,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4    ">
+                        <div class="col-md-4">
                             <div>
-                                <label>Description</label>
-                                <textarea class="textarea-size" class="form-control" style="font-size: medium;"
+                                <label>Description:</label>
+                                <textarea class="textarea-size" class="form-control" style="font-size: medium;" cols="60" rows="1"
                                     [(ngModel)]="emcFacilityData.ftDescription" formControlName="ftDescription"
                                     [ngClass]="{'is-invalid':submitted && f.ftDescription?.errors}"
                                     placeholder="Enter Description"></textarea>
@@ -388,7 +385,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Air grill dampers</label>
+                                <label>Air grill dampers:</label>
                                 <input type="text" class="form-control" formControlName="ftAirGrillDampers"
                                     [(ngModel)]="emcFacilityData.ftAirGrillDampers"
                                     [ngClass]="{'is-invalid':submitted && f.ftAirGrillDampers?.errors}"
@@ -401,7 +398,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Cable hole edge guards</label>
+                                <label>Cable hole edge guards:</label>
                                 <input type="text" class="form-control" formControlName="ftCableHole"
                                     [(ngModel)]="emcFacilityData.ftCableHole"
                                     [ngClass]="{'is-invalid':submitted && f.ftCableHole?.errors}"
@@ -414,7 +411,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Pedestals</label>
+                                <label>Pedestals:</label>
                                 <input type="text" class="form-control" formControlName="ftPedestals"
                                     [ngClass]="{'is-invalid':submitted && f.ftPedestals?.errors}"
                                     [(ngModel)]="emcFacilityData.ftPedestals" placeholder="Enter Pedestals">
@@ -425,7 +422,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Grids</label>
+                                <label>Grids:</label>
                                 <input type="text" class="form-control" formControlName="ftGrids"
                                     [ngClass]="{'is-invalid':submitted && f.ftGrids?.errors}"
                                     [(ngModel)]="emcFacilityData.ftGrids" placeholder="Enter Grids">
@@ -436,7 +433,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Bolted</label>
+                                <label>Bolted:</label>
                                 <input type="text" class="form-control" formControlName="ftBolted"
                                     [ngClass]="{'is-invalid':submitted && f.ftBolted?.errors}"
                                     [(ngModel)]="emcFacilityData.ftBolted" placeholder="Enter Bolted">
@@ -447,7 +444,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Welded</label>
+                                <label>Welded:</label>
                                 <input type="text" class="form-control" formControlName="ftWelded"
                                     [ngClass]="{'is-invalid':submitted && f.ftWelded?.errors}"
                                     [(ngModel)]="emcFacilityData.ftWelded" placeholder="Enter welded">
@@ -458,8 +455,8 @@
                         </div>
                         <div class="col-md-4">
                             <div>
-                                <label>Description of earthing</label>
-                                <textarea class="textarea-size" class="form-control" style="font-size: medium;"
+                                <label>Description of earthing:</label>
+                                <textarea class="textarea-size" class="form-control" style="font-size: medium;" cols="60" rows="1"
                                     [(ngModel)]="emcFacilityData.ftEarthingDesc" formControlName="ftEarthingDesc"
                                     [ngClass]="{'is-invalid':submitted && f.ftEarthingDesc?.errors}"
                                     placeholder="Enter Description of earthing"></textarea>
@@ -478,7 +475,7 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>True floor: material </label>
+                                <label>True floor: material: </label>
                                 <select class="form-control" formControlName="ftTrueFloorMaterial"
                                     [(ngModel)]="emcFacilityData.ftTrueFloorMaterial"
                                     [ngClass]="{'is-invalid':submitted && f.ftTrueFloorMaterial?.errors}">
@@ -500,8 +497,8 @@
                         </div> -->
                         <div class="col-md-4">
                             <div>
-                                <label>Describe</label>
-                                <textarea class="textarea-size" class="form-control" style="font-size: medium;"
+                                <label>Describe:</label>
+                                <textarea class="textarea-size" class="form-control" style="font-size: medium;" cols="60" rows="1"
                                     [(ngModel)]="emcFacilityData.ftDescribe" formControlName="ftDescribe"
                                     [ngClass]="{'is-invalid':submitted && f.ftDescribe?.errors}"
                                     placeholder="Enter Describe"></textarea>
@@ -512,7 +509,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Cleanliness</label>
+                                <label>Cleanliness:</label>
                                 <input type="text" class="form-control" formControlName="ftCleanliness"
                                     [ngClass]="{'is-invalid':submitted && f.ftDescribe?.errors}"
                                     [(ngModel)]="emcFacilityData.ftCleanliness" placeholder="Enter Cleanliness">
@@ -523,8 +520,8 @@
                         </div>
                         <div class="col-md-4">
                             <div>
-                                <label>Other descriptions</label>
-                                <textarea class="textarea-size" class="form-control" style="font-size: medium;"
+                                <label>Other descriptions:</label>
+                                <textarea class="textarea-size" class="form-control" style="font-size: medium;" cols="60" rows="1"
                                     [(ngModel)]="emcFacilityData.ftOtherDescription"
                                     formControlName="ftOtherDescription"
                                     [ngClass]="{'is-invalid':submitted && f.ftOtherDescription?.errors}"
@@ -541,7 +538,7 @@
                 <div formArrayName="floorCoveringArr" *ngFor="let a of getfloorCoveringarrControl(); let i = index">
                     <div class="form-group" [formGroupName]="i">
 
-                        <mat-expansion-panel class="body">
+                        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
                                     <h3>Floor Covering</h3>
@@ -551,7 +548,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Type</label>
+                                        <label>Type:</label>
                                         <input type="text" class="form-control" formControlName="fcType"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('fcType')?.errors }"
                                             placeholder="Enter Type">
@@ -562,7 +559,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Manufacturer</label>
+                                        <label>Manufacturer:</label>
                                         <input type="text" class="form-control" formControlName="fcManufactor"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('fcManufactor')?.errors }"
                                             placeholder="Enter Manufacturer">
@@ -575,7 +572,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Static tratment type and description</label>
+                                        <label>Static tratment type and description:</label>
                                         <input type="text" class="form-control" formControlName="fcDescription"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('fcDescription')?.errors }"
                                             placeholder="Enter Static tratment type and description ">
@@ -588,7 +585,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Woven</label>
+                                        <label>Woven:</label>
                                         <input type="text" class="form-control" formControlName="fcWoven"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('fcWoven')?.errors }"
                                             placeholder="Enter Woven">
@@ -599,7 +596,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Chemical</label>
+                                        <label>Chemical:</label>
                                         <input type="text" class="form-control" formControlName="fcChemical"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('fcChemical')?.errors }"
                                             placeholder="Enter Chemical">
@@ -611,7 +608,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>None</label>
+                                        <label>None:</label>
                                         <input type="text" class="form-control" formControlName="fcNone"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('fcNone')?.errors }"
                                             placeholder="Enter None">
@@ -622,8 +619,8 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div>
-                                        <label>Others - Describe</label>
-                                        <textarea class="textarea-size" class="form-control" style="font-size: medium;"
+                                        <label>Others - Describe:</label>
+                                        <textarea class="textarea-size" class="form-control" style="font-size: medium;" cols="60" rows="1"
                                             formControlName="fcOtherDecription"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('fcOtherDecription')?.errors }"
                                             placeholder="Enter Others - Describe"></textarea>
@@ -637,7 +634,7 @@
                             </div>
                         </mat-expansion-panel>
 
-                        <mat-expansion-panel class="body">
+                        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
                                     <h3>Walls</h3>
@@ -646,7 +643,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Type of construction</label>
+                                        <label>Type of construction:</label>
                                         <input type="text" class="form-control" formControlName="wallType"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('wallType')?.errors }"
                                             placeholder="Enter Type of construction">
@@ -658,7 +655,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Material</label>
+                                        <label>Material:</label>
                                         <input type="text" class="form-control" formControlName="wallMaterial"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('wallMaterial')?.errors }"
                                             placeholder="Enter Material">
@@ -671,7 +668,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Covering type</label>
+                                        <label>Covering type:</label>
                                         <input type="text" class="form-control" formControlName="wallCoveringType"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('wallCoveringType')?.errors }"
                                             placeholder="Enter Covering type">
@@ -684,7 +681,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Humidity and dust control</label>
+                                        <label>Humidity and dust control:</label>
                                         <input type="text" class="form-control" formControlName="wallHumidity"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('wallHumidity')?.errors }"
                                             placeholder="Enter Humidity and dust control">
@@ -697,7 +694,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>True floor to true sealing</label>
+                                        <label>True floor to true sealing:</label>
                                         <input type="text" class="form-control" formControlName="wallSealing"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('wallSealing')?.errors }"
                                             placeholder="Enter True floor to true sealing">
@@ -709,7 +706,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Additional description</label>
+                                        <label>Additional description:</label>
                                         <input type="text" class="form-control" formControlName="wallDesc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('wallDesc')?.errors }"
                                             placeholder="Enter Additional description">
@@ -721,7 +718,7 @@
                                 </div>
                             </div>
                         </mat-expansion-panel>
-                        <mat-expansion-panel class="body">
+                        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
                                     <h3>Ceiling Construction</h3>
@@ -731,9 +728,9 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div>
-                                        <label>Description of False (drop) ceiling</label>
+                                        <label>Description of False (drop) ceiling:</label>
                                         <textarea class="textarea-size" class="form-control" style="font-size: medium;"
-                                            formControlName="ccFalseDesc"
+                                            formControlName="ccFalseDesc" cols="60" rows="1"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('ccFalseDesc')?.errors }"
                                             placeholder="Enter Description of False (drop) ceiling"></textarea>
                                         <div *ngIf="submitted && a.get('ccFalseDesc')?.errors" class="invalid-feedback">
@@ -743,7 +740,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Humidity and dust control</label>
+                                        <label>Humidity and dust control:</label>
                                         <input type="text" class="form-control" formControlName="ccFalseHumidity"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('ccFalseHumidity')?.errors }"
                                             placeholder="Enter Humidity and dust control">
@@ -756,7 +753,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Height and use of void space</label>
+                                        <label>Height and use of void space:</label>
                                         <input type="text" class="form-control" formControlName="ccFalseHeight"
                                             placeholder="Enter Height and use of void space"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('ccFalseHeight')?.errors }">
@@ -776,7 +773,7 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Utilisation of void</label>
+                                        <label>Utilisation of void:</label>
                                         <select class="form-control" formControlName="ccUtilisation"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('ccUtilisation')?.errors }">
                                             <option [ngValue]="null">Select Option</option>
@@ -792,9 +789,9 @@
 
                                 <div class="col-md-4">
                                     <div>
-                                        <label>Description of true ceiling</label>
+                                        <label>Description of true ceiling:</label>
                                         <textarea class="textarea-size" class="form-control" style="font-size: medium;"
-                                            formControlName="ccTrueDesc"
+                                            formControlName="ccTrueDesc" cols="60" rows="1"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('ccTrueDesc')?.errors }"
                                             placeholder="Enter Description of true ceiling"></textarea>
                                         <div *ngIf="submitted && a.get('ccTrueDesc')?.errors" class="invalid-feedback">
@@ -805,7 +802,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Humidity and dust control</label>
+                                        <label>Humidity and dust control:</label>
                                         <input type="text" class="form-control" formControlName="ccTrueHumidity"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('ccTrueHumidity')?.errors }"
                                             placeholder="Enter Humidity and dust control">
@@ -818,9 +815,9 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div>
-                                        <label>Description of surface tratment and condition/clealiness</label>
+                                        <label>Description of surface tratment and condition/clealiness:</label>
                                         <textarea class="textarea-size" class="form-control" style="font-size: medium;"
-                                            formControlName="ccSurfaceDesc"
+                                            formControlName="ccSurfaceDesc" cols="60" rows="1"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('ccSurfaceDesc')?.errors }"
                                             placeholder="Enter Description of surface tratment and condition/clealiness"></textarea>
                                         <div *ngIf="submitted && a.get('ccSurfaceDesc')?.errors"
@@ -832,7 +829,7 @@
                                 </div>
                             </div>
                         </mat-expansion-panel>
-                        <mat-expansion-panel class="body">
+                        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
                                     <h3>Windows</h3>
@@ -842,7 +839,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>External</label>
+                                        <label>External:</label>
                                         <select class="form-control" formControlName="windowsExternal"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('windowsExternal')?.errors }">
                                             <option [ngValue]="null">Select Option</option>
@@ -858,9 +855,9 @@
 
                                 <div class="col-md-4">
                                     <div>
-                                        <label>Description of construction</label>
+                                        <label>Description of construction:</label>
                                         <textarea class="textarea-size" class="form-control" style="font-size: medium;"
-                                            formControlName="windowsDescription"
+                                            formControlName="windowsDescription" cols="60" rows="1"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('windowsDescription')?.errors }"
                                             placeholder="(can the windows be opened?)...!"></textarea>
                                         <div *ngIf="submitted && a.get('windowsDescription')?.errors"
@@ -873,7 +870,7 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Window covering</label>
+                                        <label>Window covering:</label>
                                         <select class="form-control" formControlName="windowsCovering"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('windowsCovering')?.errors }">
                                             <option [ngValue]="null">Select Option</option>
@@ -889,9 +886,9 @@
 
                                 <div class="col-md-4">
                                     <div>
-                                        <label>Describe others</label>
+                                        <label>Describe others:</label>
                                         <textarea class="textarea-size" class="form-control" style="font-size: medium;"
-                                            formControlName="windowsOtherDesc"
+                                            formControlName="windowsOtherDesc" cols="60" rows="1"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('windowsOtherDesc')?.errors }"
                                             placeholder="Enter Describe others"></textarea>
                                         <div *ngIf="submitted && a.get('windowsOtherDesc')?.errors"
@@ -904,9 +901,9 @@
 
                                 <div class="col-md-4">
                                     <div>
-                                        <label>Description of Internal windows </label>
+                                        <label>Description of Internal windows: </label>
                                         <textarea class="textarea-size" class="form-control" style="font-size: medium;"
-                                            formControlName="windowsInternalDesc"
+                                            formControlName="windowsInternalDesc" cols="60" rows="1"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('windowsInternalDesc')?.errors }"
                                             placeholder="Enter Description of Internal windows "></textarea>
                                         <div *ngIf="submitted && a.get('windowsInternalDesc')?.errors"
@@ -919,7 +916,7 @@
                             </div>
                         </mat-expansion-panel>
 
-                        <mat-expansion-panel class="body">
+                        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
                                     <h3>Doors</h3>
@@ -929,7 +926,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Material</label>
+                                        <label>Material:</label>
                                         <input type="text" class="form-control" formControlName="doorsMaterial"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('doorsMaterial')?.errors }"
                                             placeholder="Enter Material">
@@ -942,7 +939,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Number</label>
+                                        <label>Number:</label>
                                         <input type="number" class="form-control" formControlName="doorsNumber"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('doorsNumber')?.errors }"
                                             placeholder="Enter Number">
@@ -953,7 +950,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Width</label>
+                                        <label>Width:</label>
                                         <input type="text" class="form-control" formControlName="doorsWidth"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('doorsWidth')?.errors }"
                                             placeholder="Enter Width">
@@ -964,7 +961,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Height</label>
+                                        <label>Height:</label>
                                         <input type="text" class="form-control" formControlName="doorsHeight"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('doorsHeight')?.errors }"
                                             placeholder="Enter Height">
@@ -975,7 +972,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Closure mechanism</label>
+                                        <label>Closure mechanism:</label>
                                         <input type="text" class="form-control" formControlName="doorsCloserMechanish"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('doorsCloserMechanish')?.errors }"
                                             placeholder="Enter Closure mechanism">
@@ -988,7 +985,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Quality of air sealing</label>
+                                        <label>Quality of air sealing:</label>
                                         <input type="text" class="form-control" formControlName="doorsQualitySealing"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('doorsQualitySealing')?.errors }"
                                             placeholder="Enter Quality of air sealing">
@@ -1001,9 +998,9 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div>
-                                        <label>Description of service area provided</label>
+                                        <label>Description of service area provided:</label>
                                         <textarea class="textarea-size" class="form-control" style="font-size: medium;"
-                                            formControlName="doorsDesc"
+                                            formControlName="doorsDesc" cols="60" rows="1"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('doorsDesc')?.errors }"
                                             placeholder="Enter Description of service area provided"></textarea>
                                         <div *ngIf="submitted && a.get('doorsDesc')?.errors" class="invalid-feedback">
@@ -1031,7 +1028,8 @@
                                 </p>
                             </div>
                         </div> -->
-                                <div>
+                        <br>
+                                <div class="col-sm-12">
                                     <label for="" style="font-weight: normal;">Note: Attach room layout as close to
                                         scale as
                                         possible (or attach site plan drawing, if current). Show all major equipment:
@@ -1054,12 +1052,11 @@
                 </div> -->
 
                 <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
-                    <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
+                    <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
                     <button class="next" (click)="gotoNextModal(content1, content2)" mat-button>Next &raquo;</button>
                 </div>
-
-            </form>
         </mat-accordion>
+    </form>
     </div>
 
 </div>

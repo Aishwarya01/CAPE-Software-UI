@@ -255,50 +255,48 @@ export class EmcClientDetailsComponent implements OnInit {
     }
   }
 
-  onKeyForm(event: KeyboardEvent) {
-    if (!this.EmcClientDetailsForm.invalid) {
-      if (this.EmcClientDetailsForm.dirty) {
-        this.validationError = false;
-        //  this.service.lvClick=1;
-        //  this.service.logoutClick=1;
-        //  this.service.windowTabClick=1;
+  onChangeForm(event:any){
+    if(!this.EmcClientDetailsForm.invalid){
+      if(this.EmcClientDetailsForm.dirty){
+        this.validationError=false;
+        this.service.lvClick=1;
+        this.service.logoutClick=1;
+         this.service.windowTabClick=1;
       }
-      else {
-        this.validationError = false;
-        //  this.service.lvClick=0;
-        //  this.service.logoutClick=0;
-        //  this.service.windowTabClick=0;
+      else{
+        this.validationError=false;
+        this.service.lvClick=0;
+        this.service.logoutClick=0;
+        this.service.windowTabClick=0;
       }
-    }
-    else {
-      //  this.service.lvClick=1;
-      //  this.service.logoutClick=1;
-      //  this.service.windowTabClick=1;
-    }
+     }
+     else {
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
+     }
   }
-
-
-  onChangeForm(event: any) {
-    if (!this.EmcClientDetailsForm.invalid) {
-      if (this.EmcClientDetailsForm.dirty) {
-        this.validationError = false;
-        // this.service.lvClick=1;
-        // this.service.logoutClick=1;
-        //  this.service.windowTabClick=1;
-      }
-      else {
-        this.validationError = false;
-        // this.service.lvClick=0;
-        // this.service.logoutClick=0;
-        // this.service.windowTabClick=0;
-      }
+  onKeyForm(event: KeyboardEvent) { 
+   if(!this.EmcClientDetailsForm.invalid){ 
+    if(this.EmcClientDetailsForm.dirty){
+      this.validationError=false;
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
     }
-    else {
-      // this.service.lvClick=1;
-      // this.service.logoutClick=1;
-      // this.service.windowTabClick=1;
+    else{
+      this.validationError=false;
+      this.service.lvClick=0;
+      this.service.logoutClick=0;
+      this.service.windowTabClick=0;
     }
-  }
+   }
+   else {
+    this.service.lvClick=1;
+    this.service.logoutClick=1;
+    this.service.windowTabClick=1;
+   }
+  } 
 
   gotoNextTab() {
     if (this.EmcClientDetailsForm.dirty && this.EmcClientDetailsForm.invalid) {

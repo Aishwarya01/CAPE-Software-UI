@@ -5,3 +5,61 @@
     width: 100%;
     height: 100%;
   }
+  .previous {
+    background-color: #f1f1f1;
+    color: black;
+    position: relative;
+    bottom: 92px;
+    left: 40%;
+  }
+  .previous:hover {
+    background-color: #747a76;
+    color: white;
+    position: relative;
+    bottom: 92px;
+    left: 40%;
+  }
+  
+  .previousSupply {
+    background-color: #f1f1f1;
+    color: black;
+    position: relative;
+    bottom: 57px;
+    left: 40%;
+  }
+  .previousSupply:hover {
+    background-color: #747a76;
+    color: white;
+    position: relative;
+    bottom: 57px;
+    left: 40%;
+  }
+  
+  .previousBtn {
+    background-color: #f1f1f1;
+    color: black;
+    position: relative;
+    bottom: 77px;
+    left: 40%;
+  }
+  .previousBtn:hover {
+    background-color: #747a76;
+    color: white;
+    position: relative;
+    bottom: 77px;
+    left: 40%;
+  }
+  .previous4{
+      background-color: #f1f1f1;
+      color: black;
+      position: relative;
+      bottom: 56px;
+      left: 40%;
+  }
+  .previous4:hover{
+    background-color: #747a76;
+    color: white;
+    position: relative;
+    bottom: 56px;
+    left: 40%;
+}
