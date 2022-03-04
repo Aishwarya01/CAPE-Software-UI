@@ -107,7 +107,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
       buildingNumber: new FormControl(buildingNumber),
       buildingCount: new FormControl(buildingCount),
       buildingName:new FormControl(buildingName),
-      calculatedSeperationDistanceOb:new FormControl('',Validators.required),
+      calculatedSeperationDistanceOb:new FormControl(''),
       calculatedSeperationDistanceRem:new FormControl(''),
       flag:new FormControl('A'),
 
@@ -188,7 +188,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
     buildingNumber: new FormControl({disabled: false, value: item.buildingNumber}),
     buildingCount: new FormControl({disabled: false, value: item.buildingCount}),
     buildingName: new FormControl({disabled: false, value: item.buildingName}),
-    calculatedSeperationDistanceOb: new FormControl({disabled: false, value: item.calculatedSeperationDistanceOb}, Validators.required),
+    calculatedSeperationDistanceOb: new FormControl({disabled: false, value: item.calculatedSeperationDistanceOb}),
     calculatedSeperationDistanceRem: new FormControl({disabled: false, value: item.calculatedSeperationDistanceRem}),
     flag: new FormControl({disabled: false, value: item.flag}), 
  

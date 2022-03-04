@@ -1,9 +1,10 @@
 <div class="card">
 <div class="card-body">
     <form [formGroup]="LPSBasicForm" (ngSubmit)="onSubmit(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)" (window:beforeunload)="doBeforeUnload()">
+        <div  formArrayName="lpsBasic" *ngFor="let f of overAllControl(); let j = index">
+            <div class="col-md-4" class="form-group" [formGroupName]="j">
             <div class="row" style="font-weight: bold;">
-                <label for="Basicdetails" style="font-weight: bold;margin: 10px;
-                font-size: 16px;">Basic Details</label>
+                <label for="Basicdetails" style="font-weight: bold;margin: 10px;font-size: 16px;">Basic Details</label>
             </div>
             <div class="row">
                 <div class="col-md-4">
@@ -16,10 +17,10 @@
                             </span>
                         </div>
                         <input tpe="text" class="form-control" placeholder="Enter clientname"
-                            [readonly]="isEditable" formControlName="clientName"[(ngModel)]="basicDetails.clientName"
-                            [ngClass]="{ 'is-invalid': submitted && f.clientName.errors}" [readonly]="isEditable"/>
-                        <div *ngIf="submitted && f.clientName.errors" class="invalid-feedback">
-                            <div *ngIf="f.clientName.errors.required">ClientName is required</div>
+                            [readonly]="isEditable" formControlName="clientName" [readonly]="isEditable"
+                            [ngClass]="{ 'is-invalid': submitted && f.get('clientName')?.errors }"/>
+                        <div *ngIf="submitted && f.get('clientName')?.errors" class="invalid-feedback">
+                                <div *ngIf="f.get('clientName')?.errors?.required">ClientName is required</div>
                         </div>
                     </div>
                 </div>
@@ -33,10 +34,9 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter project name"
-                            [readonly]="isEditable" formControlName="projectName" [(ngModel)]="basicDetails.projectName"
-                            [ngClass]="{ 'is-invalid': submitted && f.projectName.errors}" [readonly]="isEditable"/>
-                        <div *ngIf="submitted && f.projectName.errors" class="invalid-feedback">
-                            <div *ngIf="f.projectName.errors.required">ProjectName is required</div>
+                            [readonly]="isEditable" formControlName="projectName" [ngClass]="{ 'is-invalid': submitted && f.get('projectName')?.errors }"/>
+                            <div *ngIf="submitted && f.get('projectName')?.errors" class="invalid-feedback">
+                                <div *ngIf="f.get('projectName')?.errors?.required">ProjectName is required</div>
                         </div>
                     </div>
                 </div>
@@ -49,10 +49,10 @@
                                 <i class="bi bi-person-lines-fill"></i>
                             </span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Enter PMC name" [readonly]="isEditable" formControlName="pmcName" [(ngModel)]="basicDetails.pmcName"
-                            [ngClass]="{ 'is-invalid': submitted && f.pmcName.errors}" [readonly]="isEditable"/>
-                        <div *ngIf="submitted && f.pmcName.errors" class="invalid-feedback">
-                            <div *ngIf="f.pmcName.errors.required">PMC Name is required</div>
+                        <input type="text" class="form-control" placeholder="Enter PMC name" [readonly]="isEditable" formControlName="pmcName"
+                        [ngClass]="{ 'is-invalid': submitted && f.get('pmcName')?.errors }"/>
+                        <div *ngIf="submitted && f.get('pmcName')?.errors" class="invalid-feedback">
+                            <div *ngIf="f.get('pmcName')?.errors?.required">PMC Name is required</div>
                         </div>
                     </div>
                 </div>
@@ -66,10 +66,9 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter consultant name"
-                            [readonly]="isEditable" formControlName="consultantName" [(ngModel)]="basicDetails.consultantName"
-                            [ngClass]="{ 'is-invalid': submitted && f.consultantName.errors}" [readonly]="isEditable"/>
-                        <div *ngIf="submitted && f.consultantName.errors" class="invalid-feedback">
-                            <div *ngIf="f.consultantName.errors.required">Consultant Name is required</div>
+                            [readonly]="isEditable" formControlName="consultantName" [ngClass]="{ 'is-invalid': submitted && f.get('consultantName')?.errors }"/>
+                            <div *ngIf="submitted && f.get('consultantName')?.errors" class="invalid-feedback">
+                                <div *ngIf="f.get('consultantName')?.errors?.required">Consultant Name is required</div>
                         </div>
                     </div>
                 </div>
@@ -83,10 +82,9 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter contractor name"
-                            [readonly]="isEditable" formControlName="contractorName" [(ngModel)]="basicDetails.contractorName"
-                            [ngClass]="{ 'is-invalid': submitted && f.contractorName.errors}" />
-                        <div *ngIf="submitted && f.contractorName.errors" class="invalid-feedback">
-                            <div *ngIf="f.contractorName.errors.required">Contractor Name is required</div>
+                            [readonly]="isEditable" formControlName="contractorName" [ngClass]="{ 'is-invalid': submitted && f.get('contractorName')?.errors }"/>
+                            <div *ngIf="submitted && f.get('contractorName')?.errors" class="invalid-feedback">
+                                <div *ngIf="f.get('contractorName')?.errors?.required">Contractor Name is required</div>
                         </div>
                     </div>
                 </div>
@@ -100,10 +98,9 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter dealer/sub-contractor name"
-                            [readonly]="isEditable" formControlName="dealerContractorName"  [(ngModel)]="basicDetails.dealerContractorName"
-                            [ngClass]="{ 'is-invalid': submitted && f.dealerContractorName.errors}" />
-                        <div *ngIf="submitted && f.dealerContractorName.errors" class="invalid-feedback">
-                            <div *ngIf="f.dealerContractorName.errors.required">Dealer/Sub-contractor is required</div>
+                            [readonly]="isEditable" formControlName="dealerContractorName" [ngClass]="{ 'is-invalid': submitted && f.get('dealerContractorName')?.errors }"/>
+                            <div *ngIf="submitted && f.get('dealerContractorName')?.errors" class="invalid-feedback">
+                                <div *ngIf="f.get('dealerContractorName')?.errors?.required">Dealer/Sub-contractor is required</div>
                         </div>
                     </div>
                 </div>
@@ -116,10 +113,10 @@
                                 <i class="bi bi-geo-fill"></i>
                             </span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Enter address name"  [(ngModel)]="basicDetails.address"
-                            [readonly]="isEditable" formControlName="address" [ngClass]="{ 'is-invalid': submitted && f.address.errors}" />
-                        <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
-                            <div *ngIf="f.address.errors.required">Address is required</div>
+                        <input type="text" class="form-control" placeholder="Enter address name"
+                            [readonly]="isEditable" formControlName="address" [ngClass]="{ 'is-invalid': submitted && f.get('address')?.errors }"/>
+                            <div *ngIf="submitted && f.get('address')?.errors" class="invalid-feedback">
+                                <div *ngIf="f.get('address')?.errors?.required">Address is required</div>
                         </div>
                     </div>
                 </div>
@@ -132,33 +129,13 @@
                                 <i class="bi bi-geo-fill"></i>
                             </span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Enter Location/Region/Branch name" [(ngModel)]="basicDetails.location"
-                            [readonly]="isEditable" formControlName="location" [ngClass]="{ 'is-invalid': submitted && f.location.errors}" />
-                        <div *ngIf="submitted && f.location.errors" class="invalid-feedback">
-                            <div *ngIf="f.location.errors.required">Location/Region/Branch is required</div>
+                        <input type="text" class="form-control" placeholder="Enter Location/Region/Branch name"
+                            [readonly]="isEditable" formControlName="location" [ngClass]="{ 'is-invalid': submitted && f.get('location')?.errors }"/>
+                            <div *ngIf="submitted && f.get('location')?.errors" class="invalid-feedback">
+                                <div *ngIf="f.get('location')?.errors?.required">Location/Region/Branch is required</div>
                         </div>
                     </div>
                 </div>
-
-                <!-- <div class="col-md-4">
-                    <label for="installationbyCAPE/contractor/dealer">Installation by CAPE /
-                        Contractor/Dealer </label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                <i class="bi bi-person-lines-fill"></i>
-                            </span>
-                        </div>
-                        <input type="text" class="form-control"
-                            placeholder="Enter Installation by CAPE / Contractor/Dealer name"
-                            [readonly]="isEditable" formControlName="installationContractor" [(ngModel)]="basicDetails.installationContractor"
-                            [ngClass]="{ 'is-invalid': submitted && f.installationContractor.errors}" />
-                        <div *ngIf="submitted && f.installationContractor.errors" class="invalid-feedback">
-                            <div *ngIf="f.installationContractor.errors.required">Installation by CAPE /
-                                Contractor/Dealer is required</div>
-                        </div>
-                    </div>
-                </div> -->
 
                 <div class="col-md-4">
                     <label for="typeofindustry">Type of Industry </label>
@@ -169,10 +146,9 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter Type of Industry name"
-                            [readonly]="isEditable" formControlName="industryType" [(ngModel)]="basicDetails.industryType"
-                            [ngClass]="{ 'is-invalid': submitted && f.industryType.errors}" />
-                        <div *ngIf="submitted && f.industryType.errors" class="invalid-feedback">
-                            <div *ngIf="f.industryType.errors.required">Type of Industry is required</div>
+                            [readonly]="isEditable" formControlName="industryType" [ngClass]="{ 'is-invalid': submitted && f.get('industryType')?.errors }"/>
+                            <div *ngIf="submitted && f.get('industryType')?.errors" class="invalid-feedback">
+                                <div *ngIf="f.get('industryType')?.errors?.required">Type of Industry is required</div>
                         </div>
                     </div>
                 </div>
@@ -186,7 +162,7 @@
                             </span>
                         </div>
                         <input (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Enter Soil Resistivity"
-                            [readonly]="isEditable" formControlName="soilResistivity" [(ngModel)]="basicDetails.soilResistivity"
+                            [readonly]="isEditable" formControlName="soilResistivity"
                             />
                     </div>
                 </div>                
@@ -207,10 +183,9 @@
                             </span>
                         </div>
                         <input tpe="text" class="form-control" placeholder="Enter Name"
-                         formControlName="name"  [readonly]="isEditable" [(ngModel)]="basicDetails.name"
-                        [ngClass]="{ 'is-invalid': submitted && f.name.errors}" />
-                        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-                            <div *ngIf="f.name.errors.required">Name is required</div>
+                         formControlName="name"  [readonly]="isEditable" [ngClass]="{ 'is-invalid': submitted && f.get('name')?.errors }"/>
+                         <div *ngIf="submitted && f.get('name')?.errors" class="invalid-feedback">
+                             <div *ngIf="f.get('name')?.errors?.required">Name is required</div>
                         </div>
                     </div>
                 </div>
@@ -224,10 +199,10 @@
                                 <i class="bi bi-building"></i>
                             </span>
                         </div>
-                        <input tpe="text" class="form-control" placeholder="Enter Company"  [(ngModel)]="basicDetails.company"
-                        [readonly]="isEditable" formControlName="company" [ngClass]="{ 'is-invalid': submitted && f.company.errors}" />
-                        <div *ngIf="submitted && f.company.errors" class="invalid-feedback">
-                            <div *ngIf="f.company.errors.required">Company is required</div>
+                        <input tpe="text" class="form-control" placeholder="Enter Company" 
+                        [readonly]="isEditable" formControlName="company" [ngClass]="{ 'is-invalid': submitted && f.get('company')?.errors }"/>
+                        <div *ngIf="submitted && f.get('company')?.errors" class="invalid-feedback">
+                            <div *ngIf="f.get('company')?.errors?.required">Company is required</div>
                         </div>
                     </div>
                 </div>
@@ -241,10 +216,10 @@
                                 <i class="bi bi-person-lines-fill"></i>
                             </span>
                         </div>
-                        <input tpe="text" class="form-control" placeholder="Enter Designation"  [(ngModel)]="basicDetails.designation"
-                        [readonly]="isEditable" formControlName="designation"   [ngClass]="{ 'is-invalid': submitted && f.designation.errors}" />
-                        <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
-                            <div *ngIf="f.designation.errors.required">Designation is required</div>
+                        <input tpe="text" class="form-control" placeholder="Enter Designation" 
+                        [readonly]="isEditable" formControlName="designation" [ngClass]="{ 'is-invalid': submitted && f.get('designation')?.errors }"/>
+                        <div *ngIf="submitted && f.get('designation')?.errors" class="invalid-feedback">
+                            <div *ngIf="f.get('designation')?.errors?.required">Designation is required</div>
                         </div>
                     </div>
                 </div>
@@ -253,16 +228,13 @@
 
                 <div class="col-md-4">
                     <label for="contactNumber">* Contact Number</label>
-                    
-                        <input type="tel" class="form-control" type="tel" ng2TelInput [(ngModel)]="basicDetails.contactNumber"
-                        [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
-                       (keypress)="keyPressNumbers($event)" (countryChange)="countryChange($event)"
-                       placeholder="Enter Contact Number"  [(ngModel)]="basicDetails.contactNumber"
-                       [readonly]="isEditable" formControlName="contactNumber"   [ngClass]="{ 'is-invalid': submitted && f.contactNumber.errors}" />
-                       <div *ngIf="submitted && f.contactNumber.errors" class="invalid-feedback">
-                           <div *ngIf="f.contactNumber.errors.required">Contact Number is required</div>
-                           <div *ngIf="f.contactNumber?.errors?.minlength">Enter 10 Digit Number</div> 
-                                    <div *ngIf="f.contactNumber?.errors?.maxlength">Enter 10 Digit Number</div>
+                    <input type="tel" class="form-control" type="tel" ng2TelInput  [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
+                       (keypress)="keyPressNumbers($event)" (countryChange)="countryChange($event)" placeholder="Enter Contact Number" 
+                       [readonly]="isEditable" formControlName="contactNumber"  [ngClass]="{ 'is-invalid': submitted && f.get('contactNumber')?.errors }"/>
+                       <div *ngIf="submitted && f.get('contactNumber')?.errors" class="invalid-feedback">
+                           <div *ngIf="f.get('contactNumber')?.errors?.required">Contact Number is required</div>
+                           <div *ngIf="f.get('contactNumber')?.errors?.minlength">Enter 10 Digit Number</div> 
+                                <div *ngIf="f.get('contactNumber')?.errors?.maxlength">Enter 10 Digit Number</div>
                        </div>
             </div>
 
@@ -275,11 +247,11 @@
                                 <i class="bi bi-envelope-fill"></i>
                             </span>
                         </div>
-                        <input tpe="text" [readonly]="isEditable" formControlName="mailId" [(ngModel)]="basicDetails.mailId"
-                         class="form-control" placeholder="Enter Email Id"  [ngClass]="{ 'is-invalid': submitted && f.mailId.errors}" />
-                        <div *ngIf="submitted && f.mailId.errors" class="invalid-feedback">
-                            <div *ngIf="f.mailId.errors.required">Email Id is required</div>
-                            <div *ngIf="f.mailId.errors.pattern">Enter valid email</div>
+                        <input tpe="text" [readonly]="isEditable" formControlName="mailId" 
+                         class="form-control" placeholder="Enter Email Id"  [ngClass]="{ 'is-invalid': submitted && f.get('mailId')?.errors }"/>
+                         <div *ngIf="submitted && f.get('mailId')?.errors" class="invalid-feedback">
+                             <div *ngIf="f.get('mailId')?.errors?.required">Email Id is required</div>
+                            <div *ngIf="f.get('mailId')?.errors?.pattern">Enter valid email</div>
                         </div>
                     </div>
                 </div>
@@ -297,20 +269,21 @@
                         </span>
                     </div>
 
-                    <select class="form-control" formControlName="availabilityOfPreviousReport"  
-                    [ngClass]="{ 'is-invalid': submitted && f.availabilityOfPreviousReport.errors}" [attr.disabled]="isEditable ? '' : null" [(ngModel)]="basicDetails.availabilityOfPreviousReport">
+                    <select class="form-control" formControlName="availabilityOfPreviousReport" [attr.disabled]="isEditable ? '' : null" 
+                    [ngClass]="{ 'is-invalid': submitted && f.get('availabilityOfPreviousReport')?.errors }">
                         <option  value="" selected>Select Option</option>
                         <option value="YES" >Yes</option>
                         <option value="NO" >No</option>
                     </select>
 
-                    <div *ngIf="submitted && f.availabilityOfPreviousReport.errors" class="invalid-feedback">
-                        <div *ngIf="f.availabilityOfPreviousReport.errors.required">Availability of previous report is required</div>
+                    <div *ngIf="submitted && f.get('availabilityOfPreviousReport')?.errors" class="invalid-feedback">
+                        <div *ngIf="f.get('availabilityOfPreviousReport')?.errors?.required">Availability of previous report is required</div>
                     </div>
                     </div>
                 </div>
             </div>
-
+            </div>
+        </div>
             <div style="text-align: center;margin-top: 40px;margin-left: 80px;">
                 <button class="next" (click)="gotoNextModal(content,contents)" mat-button >Next &raquo;</button>
             </div>

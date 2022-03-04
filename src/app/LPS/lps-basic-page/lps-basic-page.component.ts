@@ -29,7 +29,6 @@ export class LpsBasicPageComponent implements OnInit {
   step1List: any = [];
   flag: boolean = false;
   isEditable!:boolean
-
   success1: boolean =false;
   successMsg1: string="";
   countryCode: String = '';
@@ -50,29 +49,57 @@ export class LpsBasicPageComponent implements OnInit {
 
   
   ngOnInit(): void {
-    
+    this.countryCode = '91';
     this.LPSBasicForm = this.formBuilder.group({
-     
-      clientName: ['', Validators.required],
-      projectName: ['', Validators.required],
-      pmcName: ['', Validators.required],
-      consultantName: ['', Validators.required],
-      contractorName: ['', Validators.required],
-      dealerContractorName: ['', Validators.required],
-      address: ['', Validators.required],
-      location: ['', Validators.required],
-      industryType: ['', Validators.required],
-      soilResistivity: [''],
-      name: ['', Validators.required],
-      company: ['', Validators.required],
-      designation: ['', Validators.required],
-      contactNumber: ['',[Validators.required ,Validators.maxLength(10),Validators.minLength(10)]],
-      mailId: ['', [
-        Validators.required,
-        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-      availabilityOfPreviousReport: ['', Validators.required],
+      lpsBasic: this.formBuilder.array([this.allBasicForm()])
     });
+  }
 
+  allBasicForm(): FormGroup {
+    return new FormGroup({
+      clientName: new FormControl('', Validators.required),
+      projectName:new FormControl('', Validators.required),
+      pmcName:new FormControl('', Validators.required),
+      consultantName:new FormControl('', Validators.required),
+      contractorName:new FormControl('', Validators.required),
+      dealerContractorName:new FormControl('', Validators.required),
+      address:new FormControl('', Validators.required),
+      location:new FormControl('', Validators.required),
+      industryType:new FormControl('', Validators.required),
+      soilResistivity:new FormControl(''),
+      name:new FormControl('', Validators.required),
+      company:new FormControl('', Validators.required),
+      designation:new FormControl('', Validators.required),
+      contactNumber:new FormControl('',[Validators.required ,Validators.maxLength(10),Validators.minLength(10)]),
+      mailId:new FormControl('', [Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+      availabilityOfPreviousReport:new FormControl('', Validators.required),
+    });
+  }
+
+  createGroup(item: any): FormGroup {
+    return this.formBuilder.group({
+
+      clientName: new FormControl({disabled: false, value: item.clientName}),
+      projectName: new FormControl({disabled: false, value: item.projectName}),
+      pmcName: new FormControl({disabled: false, value: item.pmcName}),
+      consultantName: new FormControl({disabled: false, value: item.consultantName}),
+      contractorName: new FormControl({disabled: false, value: item.contractorName}),
+      dealerContractorName: new FormControl({disabled: false, value: item.dealerContractorName}),
+      address: new FormControl({disabled: false, value: item.address}),
+      location: new FormControl({disabled: false, value: item.location}),
+      industryType: new FormControl({disabled: false, value: item.industryType}),
+      soilResistivity: new FormControl({disabled: false, value: item.soilResistivity}),
+      name: new FormControl({disabled: false, value: item.name}),
+      company: new FormControl({disabled: false, value: item.company}),
+      designation: new FormControl({disabled: false, value: item.designation}),
+      contactNumber: new FormControl({disabled: false, value: item.contactNumber}),
+      mailId: new FormControl({disabled: false, value: item.mailId}),
+      availabilityOfPreviousReport: new FormControl({disabled: false, value: item.availabilityOfPreviousReport}),
+    });
+  }
+
+  overAllControl(): AbstractControl[] {
+    return(<FormArray>this.LPSBasicForm.get('lpsBasic')).controls;
   }
 
     // Only Accept numbers
@@ -95,29 +122,14 @@ export class LpsBasicPageComponent implements OnInit {
       this.success = true;
       this.basicLpsIdRetrive = basicLpsId;
       this.basicDetails.basicLpsId = basicLpsId;
-      this.basicDetails.clientName = this.step1List.clientName;
-      this.basicDetails.projectName = this.step1List.projectName;
-      this.basicDetails.pmcName = this.step1List.pmcName;
-      this.basicDetails.address = this.step1List.address;
-      this.basicDetails.consultantName = this.step1List.consultantName;
-      this.basicDetails.contractorName = this.step1List.contractorName;
-      this.basicDetails.createdBy = this.step1List.createdBy;
-      this.basicDetails.createdDate = this.step1List.createdDate;
-      this.basicDetails.dealerContractorName = this.step1List.dealerContractorName;
-      this.basicDetails.industryType = this.step1List.industryType;
-      this.basicDetails.location = this.step1List.location;
-      this.basicDetails.soilResistivity = this.step1List.soilResistivity;
-      this.basicDetails.userName = this.step1List.userName;
-      this.basicDetails.allStepsCompleted = this.step1List.allStepsCompleted;
-      this.basicDetails.name = this.step1List.name;
-      this.basicDetails.company = this.step1List.company;
-      this.basicDetails.designation = this.step1List.designation;
-      this.basicDetails.contactNumber = this.step1List.contactNumber;
-      this.basicDetails.mailId = this.step1List.mailId;
-      this.basicDetails.availabilityOfPreviousReport = this.step1List.availabilityOfPreviousReport;
-      this.basicDetails.updatedBy = this.step1List.updatedBy;
+       this.basicDetails.updatedBy = this.step1List.updatedBy;
       this.basicDetails.updatedDate = this.step1List.updatedDate;
       this.flag=true
+
+      this.LPSBasicForm = this.formBuilder.group({
+        lpsBasic: this.formBuilder.array([this.createGroup(this.step1List)])
+      });
+
     }
 
     reset(){
@@ -337,25 +349,30 @@ export class LpsBasicPageComponent implements OnInit {
   }
 
   getBasicDetailsObject(){
+    let contactNum
     if(this.basicLpsIdRetrive !=0){
       this.basicDetails.basicLpsId=this.basicLpsIdRetrive;
+      contactNum = "+"+this.countryCode+"-"+this.LPSBasicForm.value.lpsBasic[0].contactNumber.split("-")[1];
     }
-    this.basicDetails.clientName = this.LPSBasicForm.value.clientName;
-    this.basicDetails.projectName = this.LPSBasicForm.value.projectName;
-    this.basicDetails.pmcName = this.LPSBasicForm.value.pmcName;
-    this.basicDetails.consultantName = this.LPSBasicForm.value.consultantName;
-    this.basicDetails.contractorName = this.LPSBasicForm.value.contractorName;
-    this.basicDetails.dealerContractorName = this.LPSBasicForm.value.dealerContractorName;
-    this.basicDetails.address = this.LPSBasicForm.value.address;
-    this.basicDetails.location = this.LPSBasicForm.value.location;
-    this.basicDetails.industryType = this.LPSBasicForm.value.industryType;
-    this.basicDetails.soilResistivity = this.LPSBasicForm.value.soilResistivity;
-    this.basicDetails.name = this.LPSBasicForm.value.name;
-    this.basicDetails.company = this.LPSBasicForm.value.company;
-    this.basicDetails.designation = this.LPSBasicForm.value.designation;
-    this.basicDetails.contactNumber = this.LPSBasicForm.value.contactNumber;
-    this.basicDetails.mailId = this.LPSBasicForm.value.mailId;
-    this.basicDetails.availabilityOfPreviousReport = this.LPSBasicForm.value.availabilityOfPreviousReport;
+    else{
+      contactNum = "+"+this.countryCode+"-"+this.LPSBasicForm.value.lpsBasic[0].contactNumber;
+    }
+    this.basicDetails.clientName = this.LPSBasicForm.value.lpsBasic[0].clientName;
+    this.basicDetails.projectName = this.LPSBasicForm.value.lpsBasic[0].projectName;
+    this.basicDetails.pmcName = this.LPSBasicForm.value.lpsBasic[0].pmcName;
+    this.basicDetails.consultantName = this.LPSBasicForm.value.lpsBasic[0].consultantName;
+    this.basicDetails.contractorName = this.LPSBasicForm.value.lpsBasic[0].contractorName;
+    this.basicDetails.dealerContractorName = this.LPSBasicForm.value.lpsBasic[0].dealerContractorName;
+    this.basicDetails.address = this.LPSBasicForm.value.lpsBasic[0].address;
+    this.basicDetails.location = this.LPSBasicForm.value.lpsBasic[0].location;
+    this.basicDetails.industryType = this.LPSBasicForm.value.lpsBasic[0].industryType;
+    this.basicDetails.soilResistivity = this.LPSBasicForm.value.lpsBasic[0].soilResistivity;
+    this.basicDetails.name = this.LPSBasicForm.value.lpsBasic[0].name;
+    this.basicDetails.company = this.LPSBasicForm.value.lpsBasic[0].company;
+    this.basicDetails.designation = this.LPSBasicForm.value.lpsBasic[0].designation;
+    this.basicDetails.contactNumber = contactNum;
+    this.basicDetails.mailId = this.LPSBasicForm.value.lpsBasic[0].mailId;
+    this.basicDetails.availabilityOfPreviousReport = this.LPSBasicForm.value.lpsBasic[0].availabilityOfPreviousReport;
     this.basicDetails.userName=this.router.snapshot.paramMap.get('email') || '{}';
 
     return this.basicDetails;
@@ -387,8 +404,10 @@ export class LpsBasicPageComponent implements OnInit {
     // Only Numbers 0-9
     if ((charCode < 48 || charCode > 57)) {event.preventDefault();return false;} else {return true;}} 
 
-countryChange(country: any) {this.countryCode = country.dialCode;}
+  countryChange(country: any) {
+    this.countryCode = country.dialCode;
+    this.LPSBasicForm.markAsDirty();
+    this.LPSBasicForm.markAsTouched();
+  }
 
-
-  
 }
