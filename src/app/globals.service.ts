@@ -65,13 +65,23 @@ export class GlobalsService {
  isCompleted3: boolean = true;
  goBacktoprevious: boolean=false;
  editable: boolean = true;
-  jointType: any;
-  noOfjoint: any; 
-  msgForStep1:boolean=false;
-  msgForStep1Flag:boolean=false;
-  lvClick: number=0;  
-  windowTabClick: number=0; 
-  logoutClick:number=0;
+ jointType: any;
+ noOfjoint: any; 
+ msgForStep1:boolean=false;
+ msgForStep1Flag:boolean=false;
+ lvClick: number=0;  
+ windowTabClick: number=0; 
+ logoutClick:number=0;
+ disableSubmitElectromagnetic:boolean=false;
+ editableEmc: boolean = true;
+ isCompletedEmc: boolean = true;
+ isCompletedEmc1: boolean = true;
+ isCompletedEmc2: boolean = true;
+ isCompletedEmc3: boolean = true;
+ isLinearEmc: boolean=false; 
+//remember me
+autoLoginToken:number=0;
+
 
  constructor(private _scrollToService: ScrollToService
   ) {}

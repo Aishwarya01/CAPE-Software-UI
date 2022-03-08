@@ -10,7 +10,7 @@ import { CommentsSection } from '../model/comments-section';
 })
 export class InspectiondetailsService {
 
-  apiUrl = environment.apiUrl;
+  apiUrl = environment.apiUrl_v2;
   constructor(private http: HttpClient) { }
 
   public addInspectionDetails(inspectionDetails: InspectionDetails): Observable<any> {
