@@ -122,8 +122,10 @@ export class LpsBasicPageComponent implements OnInit {
       this.success = true;
       this.basicLpsIdRetrive = basicLpsId;
       this.basicDetails.basicLpsId = basicLpsId;
-       this.basicDetails.updatedBy = this.step1List.updatedBy;
+      this.basicDetails.updatedBy = this.step1List.updatedBy;
       this.basicDetails.updatedDate = this.step1List.updatedDate;
+      this.basicDetails.createdBy = this.step1List.createdBy;
+      this.basicDetails.createdDate = this.step1List.createdDate;
       this.flag=true
 
       this.LPSBasicForm = this.formBuilder.group({
@@ -391,7 +393,7 @@ export class LpsBasicPageComponent implements OnInit {
     this.proceedFlag = false;
     this.lPSBasicDetailsService.retriveLpsbasicDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicDetails.basicLpsId).subscribe(
       data => {
-        this.retrieveDetailsfromSavedReports1(this.basicDetails.userName,this.basicDetails.basicLpsId,this.basicDetails.clientName,data);
+        this.retrieveDetailsfromSavedReports1(this.basicDetails.userName,this.basicDetails.basicLpsId,this.basicDetails.clientName,JSON.parse(data)[0]);
       },
       error=>{
       }

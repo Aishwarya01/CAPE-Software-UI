@@ -54,6 +54,7 @@ export class LpsEarthStudComponent implements OnInit {
   sizeOfMainProtective: any=[]; 
   supplimentaryProtective: any=[];
   isAirterminationUpdated:boolean=false;
+  modalReference: any;
   
   constructor(
     private formBuilder: FormBuilder,
@@ -400,17 +401,17 @@ export class LpsEarthStudComponent implements OnInit {
       
        this.validationErrorMsg = 'Please check all the fields';
        setTimeout(() => {
-        this.validationError = false;
-       }, 3000);
+       this.validationError = false;
+      }, 3000);
        return;
      }
 
      if (this.basicLpsId == 0) {
       this.validationError = true;
       this.validationErrorMsg = 'Basics Form is Required, Please fill';
-      setTimeout(() => {
-        this.validationError = false;
-      }, 3000);
+     setTimeout(() => {
+       this.validationError = false;
+     }, 3000);
       return;
     }
       //  Update and Success msg will be showing
@@ -420,6 +421,7 @@ export class LpsEarthStudComponent implements OnInit {
     //  For Dirty popup
      else{
       this.modalService.open(contents, { centered: true,backdrop: 'static' });
+      this.modalReference.close();
      }
   }
 
