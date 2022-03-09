@@ -1502,7 +1502,7 @@ export class LpsAirTerminationComponent implements OnInit {
     retriveAirTermination(){
       this.airterminationServices.retriveAirTerminationDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
         data => {
-          if(JSON.parse(data)[0].basicLpsId !=null){
+          if(JSON.parse(data)[0] !=undefined && JSON.parse(data)[0].basicLpsId !=null){
           this.retrieveDetailsfromSavedReports1(this.airtermination.userName,this.basicLpsId,this.ClientName,data);
           }
         },

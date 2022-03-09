@@ -497,8 +497,9 @@ export class LpsSpdComponent implements OnInit {
   retriveSPD() {
     this.lpsSpd_Services.retrieveSPDDetails(this.router.snapshot.paramMap.get('email') || '{}', this.basicLpsId).subscribe(
       data => {
-        if(JSON.parse(data)[0].basicLpsId !=null){
-          this.retrieveDetailsfromSavedReports(JSON.parse(data)[0]);
+        let spd=JSON.parse(data)[0];
+        if(spd !=undefined && spd.basicLpsId !=null){
+          this.retrieveDetailsfromSavedReports(spd);
         }
       },
       error => {
@@ -509,7 +510,10 @@ export class LpsSpdComponent implements OnInit {
   getAirterminationData() {
     this.airterminationServices.retriveAirTerminationDetails(this.router.snapshot.paramMap.get('email') || '{}', this.basicLpsId).subscribe(
       data => {
-        this.createSpdForm(JSON.parse(data)[0]);
+        let spd_air=JSON.parse(data)[0];
+        if(spd_air !=undefined && spd_air.basicLpsId !=null){
+        this.createSpdForm(spd_air);
+        }
       }
     );
   }

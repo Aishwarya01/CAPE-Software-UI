@@ -1258,8 +1258,9 @@ export class LpsEarthingComponent implements OnInit {
   retriveEarthingDetails(){
     this.lpsEarthings.retrieveEarthingLps(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
       data => {
-        if(JSON.parse(data)[0].basicLpsId !=null){
-          this.retrieveDetailsfromSavedReports(this.basicLpsId,JSON.parse(data)[0]);
+       let earthing = JSON.parse(data)[0];
+        if(earthing != undefined && earthing.basicLpsId !=null){
+          this.retrieveDetailsfromSavedReports(this.basicLpsId,earthing);
         }
       },
       error=>{
@@ -1270,7 +1271,10 @@ export class LpsEarthingComponent implements OnInit {
   getAirterminationData(){
     this.airterminationServices.retriveAirTerminationDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
       data => {
-        this.createEarthingForm(JSON.parse(data)[0]);
+        let earthing_air = JSON.parse(data)[0];
+        if(earthing_air != undefined && earthing_air.basicLpsId !=null){
+        this.createEarthingForm(earthing_air);
+       }
       }       
     ); 
   }

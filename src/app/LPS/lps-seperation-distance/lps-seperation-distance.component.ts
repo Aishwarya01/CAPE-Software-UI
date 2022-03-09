@@ -485,8 +485,9 @@ export class LpsSeperationDistanceComponent implements OnInit {
   retriveSeperationDistance(){
     this.separatedistanceService.retriveSeperationDistance(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
       data => {
-        if(JSON.parse(data)[0].basicLpsId !=null){
-          this.retrieveDetailsfromSavedReports(JSON.parse(data)[0]);
+        let seprationDistance=JSON.parse(data)[0];
+        if(seprationDistance !=undefined && seprationDistance.basicLpsId !=null){
+          this.retrieveDetailsfromSavedReports(seprationDistance);
         }
       },
       error=>{
@@ -497,7 +498,10 @@ export class LpsSeperationDistanceComponent implements OnInit {
   getAirterminationData(){
     this.airterminationServices.retriveAirTerminationDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
       data => {
-        this.createSeperationForm(JSON.parse(data)[0]);
+        let seprationDistance_air=JSON.parse(data)[0];
+        if(seprationDistance_air !=undefined && seprationDistance_air.basicLpsId !=null){
+        this.createSeperationForm(seprationDistance_air);
+        }
       }       
     ); 
   }

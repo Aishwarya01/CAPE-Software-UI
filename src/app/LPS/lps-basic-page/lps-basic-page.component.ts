@@ -32,6 +32,7 @@ export class LpsBasicPageComponent implements OnInit {
   success1: boolean =false;
   successMsg1: string="";
   countryCode: String = '';
+  isCountryCodeDirty:boolean =false;
   stepBack:any;
   basicLpsIdRetrive:number=0;
   isBasicFormUpdated: boolean =false;
@@ -81,24 +82,26 @@ export class LpsBasicPageComponent implements OnInit {
   }
 
   createGroup(item: any): FormGroup {
+    this.countryCode =item.contactNumber.split("-")[0]
     return this.formBuilder.group({
 
-      clientName: new FormControl({disabled: false, value: item.clientName}),
-      projectName: new FormControl({disabled: false, value: item.projectName}),
-      pmcName: new FormControl({disabled: false, value: item.pmcName}),
-      consultantName: new FormControl({disabled: false, value: item.consultantName}),
-      contractorName: new FormControl({disabled: false, value: item.contractorName}),
-      dealerContractorName: new FormControl({disabled: false, value: item.dealerContractorName}),
-      address: new FormControl({disabled: false, value: item.address}),
-      location: new FormControl({disabled: false, value: item.location}),
-      industryType: new FormControl({disabled: false, value: item.industryType}),
+      clientName: new FormControl({disabled: false, value: item.clientName}, Validators.required),
+      projectName: new FormControl({disabled: false, value: item.projectName}, Validators.required),
+      pmcName: new FormControl({disabled: false, value: item.pmcName}, Validators.required),
+      consultantName: new FormControl({disabled: false, value: item.consultantName}, Validators.required),
+      contractorName: new FormControl({disabled: false, value: item.contractorName}, Validators.required),
+      dealerContractorName: new FormControl({disabled: false, value: item.dealerContractorName}, Validators.required),
+      address: new FormControl({disabled: false, value: item.address}, Validators.required),
+      location: new FormControl({disabled: false, value: item.location}, Validators.required),
+      industryType: new FormControl({disabled: false, value: item.industryType}, Validators.required),
       soilResistivity: new FormControl({disabled: false, value: item.soilResistivity}),
-      name: new FormControl({disabled: false, value: item.name}),
-      company: new FormControl({disabled: false, value: item.company}),
-      designation: new FormControl({disabled: false, value: item.designation}),
+      name: new FormControl({disabled: false, value: item.name}, Validators.required),
+      company: new FormControl({disabled: false, value: item.company}, Validators.required),
+      designation: new FormControl({disabled: false, value: item.designation}, Validators.required),
       contactNumber: new FormControl({disabled: false, value: item.contactNumber}),
-      mailId: new FormControl({disabled: false, value: item.mailId}),
-      availabilityOfPreviousReport: new FormControl({disabled: false, value: item.availabilityOfPreviousReport}),
+      mailId: new FormControl({disabled: false, value: item.mailId},
+         [Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+      availabilityOfPreviousReport: new FormControl({disabled: false, value: item.availabilityOfPreviousReport}, Validators.required),
     });
   }
 
@@ -129,8 +132,8 @@ export class LpsBasicPageComponent implements OnInit {
       this.step1List = data.basicLps;
      }
       this.success = true;
-      this.basicLpsIdRetrive = basicLpsId;
-      this.basicDetails.basicLpsId = basicLpsId;
+      this.basicLpsIdRetrive = this.step1List.basicLpsId;
+      this.basicDetails.basicLpsId = this.step1List.basicLpsId;
       this.basicDetails.updatedBy = this.step1List.updatedBy;
       this.basicDetails.updatedDate = this.step1List.updatedDate;
       this.basicDetails.createdBy = this.step1List.createdBy;
@@ -331,7 +334,7 @@ export class LpsBasicPageComponent implements OnInit {
     let contactNum
     if(this.basicLpsIdRetrive !=0){
       this.basicDetails.basicLpsId=this.basicLpsIdRetrive;
-      contactNum = "+"+this.countryCode+"-"+this.LPSBasicForm.value.lpsBasic[0].contactNumber.split("-")[1];
+        contactNum = "+"+this.countryCode+"-"+this.LPSBasicForm.value.lpsBasic[0].contactNumber.split("-")[1];
     }
     else{
       contactNum = "+"+this.countryCode+"-"+this.LPSBasicForm.value.lpsBasic[0].contactNumber;
@@ -370,8 +373,9 @@ export class LpsBasicPageComponent implements OnInit {
     this.proceedFlag = false;
     this.lPSBasicDetailsService.retriveLpsbasicDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicDetails.basicLpsId).subscribe(
       data => {
-        if(JSON.parse(data)[0].basicLpsId !=null){
-        this.retrieveDetailsfromSavedReports(this.basicDetails.basicLpsId,JSON.parse(data)[0]);
+        let basic=JSON.parse(data)[0];
+        if(basic !=undefined && basic.basicLpsId !=null){
+        this.retrieveDetailsfromSavedReports('',basic);
         }
       },
       error=>{
@@ -386,6 +390,7 @@ export class LpsBasicPageComponent implements OnInit {
     if ((charCode < 48 || charCode > 57)) {event.preventDefault();return false;} else {return true;}} 
 
   countryChange(country: any) {
+    this.isCountryCodeDirty=true;
     this.countryCode = country.dialCode;
     this.LPSBasicForm.markAsDirty();
     this.LPSBasicForm.markAsTouched();

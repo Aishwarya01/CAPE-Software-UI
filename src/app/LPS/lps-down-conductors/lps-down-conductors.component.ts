@@ -165,6 +165,7 @@ export class LpsDownConductorsComponent implements OnInit {
       this.airterminationServices.retriveAirTerminationDetails(this.email,this.basicLpsId).subscribe(
         (data) => {
           this.airTerminationValues = JSON.parse(data);
+          if(this.airTerminationValues != undefined && this.airTerminationValues[0] != undefined && this.airTerminationValues !=null  ){
           this.downConductorForm = this.formBuilder.group({
             downConductorDescription: this.formBuilder.array([])
           });
@@ -180,6 +181,7 @@ export class LpsDownConductorsComponent implements OnInit {
             this.downConductorDescription.controls[j].controls.buildingNumber.setValue(this.airTerminationDesc[j].buildingNumber);
             this.downConductorDescription.controls[j].controls.buildingCount.setValue(this.airTerminationDesc[j].buildingCount);
           }
+        }
         },
         (error) => {
 
@@ -192,9 +194,9 @@ export class LpsDownConductorsComponent implements OnInit {
     this.ngOnInit();
     this.lpsDownconductorService.retrieveDownConductor(this.email,this.basicLpsId).subscribe(
       data=>{
-      if(JSON.parse(data)[0].basicLpsId !=null){
+      if(JSON.parse(data)[0] != undefined && JSON.parse(data)[0].basicLpsId !=null){
        this.retrieveDetailsfromSavedReports1(this.email,this.basicLpsId,'clientName',data); 
-      }   
+         
        setTimeout(() => {
         this.downConductorDescription = this.downConductorForm.get(
           'downConductorDescription'
@@ -226,6 +228,7 @@ export class LpsDownConductorsComponent implements OnInit {
         }
       }, 3000);	
       } 
+    }
     )
   }
 
@@ -1555,7 +1558,8 @@ export class LpsDownConductorsComponent implements OnInit {
     retriveDownConductor(){
       this.lpsDownconductorService.retrieveDownConductor(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
         data => {
-          if(JSON.parse(data)[0].basicLpsId !=null){
+          let dwonconductor=JSON.parse(data)[0];
+          if(dwonconductor!=undefined && dwonconductor.basicLpsId !=null){
           this.retrieveDetailsfromSavedReports1(this.downConductorReport.userName,this.basicLpsId,this.ClientName,data);
           }
         },
