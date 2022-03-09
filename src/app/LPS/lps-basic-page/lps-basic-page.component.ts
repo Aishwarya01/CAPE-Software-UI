@@ -147,38 +147,6 @@ export class LpsBasicPageComponent implements OnInit {
       this.LPSBasicForm.reset();
     }
 
-    retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
-      //this.service.lvClick=1;
-      this.proceedFlag = false;
-      this.stepBack=JSON.parse(data);
-      this.basicLpsIdRetrive = basicLpsId;
-      this.basicDetails.clientName = this.stepBack[0].clientName;
-      this.basicDetails.projectName = this.stepBack[0].projectName;
-      this.basicDetails.pmcName = this.stepBack[0].pmcName;
-      this.basicDetails.address = this.stepBack[0].address;
-      this.basicDetails.consultantName = this.stepBack[0].consultantName;
-      this.basicDetails.contractorName = this.stepBack[0].contractorName;
-      this.basicDetails.createdBy = this.stepBack[0].createdBy;
-      this.basicDetails.createdDate = this.stepBack[0].createdDate;
-      this.basicDetails.dealerContractorName = this.stepBack[0].dealerContractorName;
-      this.basicDetails.industryType = this.stepBack[0].industryType;
-      this.basicDetails.location = this.stepBack[0].location;
-      this.basicDetails.soilResistivity = this.stepBack[0].soilResistivity;
-      this.basicDetails.userName = this.stepBack[0].userName;
-      this.basicDetails.allStepsCompleted = this.stepBack[0].allStepsCompleted;
-      this.basicDetails.name = this.stepBack[0].name;
-      this.basicDetails.company = this.stepBack[0].company;
-      this.basicDetails.designation = this.stepBack[0].designation;
-      this.basicDetails.contactNumber = this.stepBack[0].contactNumber;
-      this.basicDetails.mailId = this.stepBack[0].mailId;
-      this.basicDetails.availabilityOfPreviousReport = this.stepBack[0].availabilityOfPreviousReport;
-      this.basicDetails.updatedBy = this.stepBack[0].updatedBy;
-      this.basicDetails.updatedDate = this.stepBack[0].updatedDate;
-      this.flag=true
-     this.LPSBasicForm.markAsPristine();
-     }
-  
-  
   onChangeForm(event:any){
     if(!this.LPSBasicForm.invalid){
       if(this.LPSBasicForm.dirty){
@@ -402,7 +370,9 @@ export class LpsBasicPageComponent implements OnInit {
     this.proceedFlag = false;
     this.lPSBasicDetailsService.retriveLpsbasicDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicDetails.basicLpsId).subscribe(
       data => {
+        if(JSON.parse(data)[0].basicLpsId !=null){
         this.retrieveDetailsfromSavedReports(this.basicDetails.basicLpsId,JSON.parse(data)[0]);
+        }
       },
       error=>{
       }

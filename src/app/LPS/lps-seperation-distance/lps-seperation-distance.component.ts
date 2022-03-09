@@ -485,7 +485,9 @@ export class LpsSeperationDistanceComponent implements OnInit {
   retriveSeperationDistance(){
     this.separatedistanceService.retriveSeperationDistance(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
       data => {
-        this.retrieveDetailsfromSavedReports(JSON.parse(data)[0]);
+        if(JSON.parse(data)[0].basicLpsId !=null){
+          this.retrieveDetailsfromSavedReports(JSON.parse(data)[0]);
+        }
       },
       error=>{
       }

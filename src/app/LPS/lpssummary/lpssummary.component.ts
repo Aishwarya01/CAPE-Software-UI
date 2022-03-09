@@ -918,6 +918,7 @@ export class LpssummaryComponent implements OnInit {
         this.airterminationServices.retriveAirTerminationDetails(this.email,this.basicLpsId).subscribe(
           (data) => {
             this.airTerminationValues = JSON.parse(data);
+            if(this.airTerminationValues[0].lpsAirDescription !=undefined && this.airTerminationValues[0].lpsAirDescription !=null){
             this.summaryForm = this.formBuilder.group({
               summaryLpsBuildings: this.formBuilder.array([]),
               Declaration1Arr: this.formBuilder.array([this.Declaration1Form()]),
@@ -937,6 +938,7 @@ export class LpssummaryComponent implements OnInit {
               this.summaryLpsBuildingsArr.controls[j].controls.buildingNumber.setValue(this.airTerminationDesc[j].buildingNumber);
               this.summaryLpsBuildingsArr.controls[j].controls.buildingCount.setValue(this.airTerminationDesc[j].buildingCount);
             }
+           }
           },
           (error) => {
   

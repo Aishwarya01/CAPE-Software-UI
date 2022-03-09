@@ -497,7 +497,9 @@ export class LpsSpdComponent implements OnInit {
   retriveSPD() {
     this.lpsSpd_Services.retrieveSPDDetails(this.router.snapshot.paramMap.get('email') || '{}', this.basicLpsId).subscribe(
       data => {
-        this.retrieveDetailsfromSavedReports(JSON.parse(data)[0]);
+        if(JSON.parse(data)[0].basicLpsId !=null){
+          this.retrieveDetailsfromSavedReports(JSON.parse(data)[0]);
+        }
       },
       error => {
       }

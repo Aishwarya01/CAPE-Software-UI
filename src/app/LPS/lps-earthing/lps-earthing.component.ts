@@ -1258,7 +1258,9 @@ export class LpsEarthingComponent implements OnInit {
   retriveEarthingDetails(){
     this.lpsEarthings.retrieveEarthingLps(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
       data => {
-        this.retrieveDetailsfromSavedReports(this.basicLpsId,JSON.parse(data)[0]);
+        if(JSON.parse(data)[0].basicLpsId !=null){
+          this.retrieveDetailsfromSavedReports(this.basicLpsId,JSON.parse(data)[0]);
+        }
       },
       error=>{
       }

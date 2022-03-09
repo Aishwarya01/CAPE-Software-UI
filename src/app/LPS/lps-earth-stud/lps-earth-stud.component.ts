@@ -432,7 +432,9 @@ export class LpsEarthStudComponent implements OnInit {
   retriveStud(){
     this.earthStudService.retrieveEarthStud(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
       data => {
-        this.retrieveDetailsfromSavedReports(JSON.parse(data)[0]);
+        if(JSON.parse(data)[0].basicLpsId !=null){
+          this.retrieveDetailsfromSavedReports(JSON.parse(data)[0]);
+        }
       },
       error=>{
       }

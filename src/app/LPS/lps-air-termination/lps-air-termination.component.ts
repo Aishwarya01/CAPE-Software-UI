@@ -524,23 +524,26 @@ export class LpsAirTerminationComponent implements OnInit {
       //this.service.lvClick=1;
         this.proceedFlag = false;
         let list=JSON.parse(data);
-        this.step2List = list[0];       
-        this.airtermination.basicLpsId = basicLpsId;
-        this.airtermination.airTerminationId = this.step2List.airTerminationId;       
-        this.airtermination.createdBy = this.step2List.createdBy;
-        this.airtermination.createdDate = this.step2List.createdDate;     
-        this.airtermination.userName = this.step2List.userName;
-        this.deletedAirBasicArr = [];
-        this.deletedAirTerminationArr = [];
-        this.deletedAirMeshArr = [];
-        this.deletedAirClampsArr = [];
-        this.deletedHoldersArr = [];
-        this.deletedExpansionArr = [];
-        this.deletedAirConnectorsArr = [];
-        this.deletedAirTerminationListArr = [];
-        this.deletedHoldersListArr = [];
-        this.airRetrieve();
-        this.flag=true;
+        this.step2List = list[0];
+        if(this.step2List.airTerminationId != null){
+          this.airtermination.basicLpsId = basicLpsId;
+          this.airtermination.airTerminationId = this.step2List.airTerminationId;       
+          this.airtermination.createdBy = this.step2List.createdBy;
+          this.airtermination.createdDate = this.step2List.createdDate;     
+          this.airtermination.userName = this.step2List.userName;
+          this.deletedAirBasicArr = [];
+          this.deletedAirTerminationArr = [];
+          this.deletedAirMeshArr = [];
+          this.deletedAirClampsArr = [];
+          this.deletedHoldersArr = [];
+          this.deletedExpansionArr = [];
+          this.deletedAirConnectorsArr = [];
+          this.deletedAirTerminationListArr = [];
+          this.deletedHoldersListArr = [];
+          this.airRetrieve();
+          this.flag=true;
+        }       
+       
       }
 
       airRetrieve() {
@@ -1499,7 +1502,9 @@ export class LpsAirTerminationComponent implements OnInit {
     retriveAirTermination(){
       this.airterminationServices.retriveAirTerminationDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
         data => {
+          if(JSON.parse(data)[0].basicLpsId !=null){
           this.retrieveDetailsfromSavedReports1(this.airtermination.userName,this.basicLpsId,this.ClientName,data);
+          }
         },
         error=>{
         }

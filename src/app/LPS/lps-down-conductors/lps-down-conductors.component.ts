@@ -192,8 +192,9 @@ export class LpsDownConductorsComponent implements OnInit {
     this.ngOnInit();
     this.lpsDownconductorService.retrieveDownConductor(this.email,this.basicLpsId).subscribe(
       data=>{
-       this.retrieveDetailsfromSavedReports1(this.email,this.basicLpsId,'clientName',data);    
-       
+      if(JSON.parse(data)[0].basicLpsId !=null){
+       this.retrieveDetailsfromSavedReports1(this.email,this.basicLpsId,'clientName',data); 
+      }   
        setTimeout(() => {
         this.downConductorDescription = this.downConductorForm.get(
           'downConductorDescription'
@@ -1554,23 +1555,25 @@ export class LpsDownConductorsComponent implements OnInit {
     retriveDownConductor(){
       this.lpsDownconductorService.retrieveDownConductor(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
         data => {
+          if(JSON.parse(data)[0].basicLpsId !=null){
           this.retrieveDetailsfromSavedReports1(this.downConductorReport.userName,this.basicLpsId,this.ClientName,data);
+          }
         },
         error=>{
         }
       );  
     }
 
-    dosomethingRetriveDownConductor(userName:any,basicLpsId:any){
-      this.lpsDownconductorService.retrieveDownConductor(userName,basicLpsId).subscribe(
-        data => {
-          this.retrieveDetailsfromSavedReports1(userName,basicLpsId,'',data);
-        },
-        error=>{
-          this.ngOnInit();
-        }
-      );  
-    }
+    // dosomethingRetriveDownConductor(userName:any,basicLpsId:any){
+    //   this.lpsDownconductorService.retrieveDownConductor(userName,basicLpsId).subscribe(
+    //     data => {
+    //       this.retrieveDetailsfromSavedReports1(userName,basicLpsId,'',data);
+    //     },
+    //     error=>{
+    //       this.ngOnInit();
+    //     }
+    //   );  
+    // }
 
   onSubmit(flag: any) {
     this.submitted = true;
