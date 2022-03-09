@@ -1206,6 +1206,7 @@ export class LpssummaryComponent implements OnInit {
     } 
     
     retrieveObservationLpsSummary(basicLpsId: any){
+     if (this.basicLpsId != undefined) {
       this.summaryService.retrieveObservationSummaryLps(basicLpsId).subscribe(
       data=>{
         this.airTerminationData=JSON.parse(data);
@@ -1730,9 +1731,11 @@ export class LpssummaryComponent implements OnInit {
     }
         } 
       )
+     }
     }
 
     retrieveObservationLpsSummaryOnload(){
+      if (this.basicLpsId != undefined) {
       this.summaryService.retrieveObservationSummaryLps(this.basicLpsId).subscribe(
       data=>{
         this.airTerminationData=JSON.parse(data);
@@ -2257,6 +2260,7 @@ export class LpssummaryComponent implements OnInit {
       }
         } 
       )
+      }
     }
 
     OkModalDialog(content5: any){
