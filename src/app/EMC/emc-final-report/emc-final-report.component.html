@@ -77,20 +77,20 @@
           </button>
             <!-- Download -->
           <button class="btn btn-outline-danger delete" title="Download Final PDF" 
-          style="border-color: #cdcecf;box-shadow: unset;">
-          <!-- (click)="downloadPdf(element.basicLpsId)"> -->
+          style="border-color: #cdcecf;box-shadow: unset;"
+           (click)="downloadPdf(element.emcId,element.userName,element.clientName)"> 
             <mat-icon>download</mat-icon>
           </button>
             <!-- Email -->
           <button class="btn btn-outline-danger delete" title="Trigger Email With Final PDF"
-          style="border-color: #cdcecf;box-shadow: unset;" >
-          <!-- (click)="emailPDF(element.basicLpsId,element.userName)"> -->
+          style="border-color: #cdcecf;box-shadow: unset;" 
+           (click)="emailPDF(element.emcId,element.userName,element.clientName)"> 
             <mat-icon>email</mat-icon>
           </button>
             <!-- Print -->
           <button class="btn btn-outline-danger delete" title="Print Final PDF" 
-          style="border-color: #cdcecf;box-shadow: unset;" >
-          <!-- (click)="printPDF(element.basicLpsId,element.userName)"> -->
+          style="border-color: #cdcecf;box-shadow: unset;" 
+          (click)="printPDF(element.emcId,element.userName,element.clientName)"> 
             <mat-icon>print</mat-icon>
           </button>
 
