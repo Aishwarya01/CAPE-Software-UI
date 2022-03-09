@@ -397,7 +397,10 @@ export class LpssummaryComponent implements OnInit {
       'physicalDamageStudRem',
       'continutyExistaEarthRem',
     ];       
-  
+  validationErrorTab: boolean = false;
+  validationErrorMsgTab: string="";
+  tabError: boolean=false;
+  tabErrorMsg: string="";
   constructor(private summaryService:SummaryServiceService,private formBuilder: FormBuilder,
     private airterminationServices: AirterminationService, private router: ActivatedRoute,
     private dialog: MatDialog,private modalService: NgbModal,public service: GlobalsService,
@@ -2438,5 +2441,65 @@ export class LpssummaryComponent implements OnInit {
       )
       }
     });
+  }
+  gotoNextTab() {
+    if ((this.summaryForm.dirty && this.summaryForm.invalid) || this.service.isCompleted7 == false) {
+      this.service.isCompleted8 = false;
+      this.service.isLinear = true;
+      this.service.editable = false;
+      this.validationErrorTab = true;
+      this.validationErrorMsgTab = 'Please check all the fields in SummaryForm';
+      setTimeout(() => {
+        this.validationErrorTab = false;
+      }, 3000);
+      return;
+    }
+    else if (this.summaryForm.dirty && this.summaryForm.touched) {
+      this.service.isCompleted8 = false;
+      this.service.isLinear = true;
+      this.service.editable = false;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
+    }
+    else {
+      this.service.isCompleted8 = true;
+      this.service.isLinear = false;
+      this.service.editable = true;
+    }
+  }
+
+  reloadFromBack(){
+    if(this.summaryForm.invalid){
+     this.service.isCompleted8= false;
+     this.service.isLinear=true;
+     this.service.editable=false;
+     this.validationErrorTab = true;
+     this.validationErrorMsgTab= 'Please check all the fields in SummaryForm';
+     setTimeout(() => {
+       this.validationErrorTab = false;
+     }, 3000);
+     return false;
+    }
+    else if(this.summaryForm.dirty && this.summaryForm.touched){
+      this.service.isCompleted8= false;
+      this.service.isLinear=true;
+      this.service.editable=false;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
+      return false;
+    } 
+    else{
+      this.service.isCompleted8= true;
+      this.service.isLinear=false;
+      this.service.editable=true;
+      this.summaryForm.markAsPristine();
+   return true;
+    }
   }
   }

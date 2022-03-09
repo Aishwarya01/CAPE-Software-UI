@@ -78,7 +78,10 @@ export class GlobalsService {
  isCompletedEmc1: boolean = true;
  isCompletedEmc2: boolean = true;
  isCompletedEmc3: boolean = true;
- isLinearEmc: boolean=false; 
+ isLinearEmc: boolean=false;
+ isCompleted6: boolean = true;
+ isCompleted7: boolean = true;
+ isCompleted8: boolean = true; 
 //remember me
 autoLoginToken:number=0;
 

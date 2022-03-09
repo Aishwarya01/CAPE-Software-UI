@@ -111,7 +111,10 @@ export class LpsAirTerminationComponent implements OnInit {
   deletedExpansionArr: any = [];
   deletedAirConnectorsArr: any = [];
   airTerminationBasicArr:any=[];
-
+  validationErrorTab: boolean = false;
+  validationErrorMsgTab: string="";
+  tabError: boolean=false;
+  tabErrorMsg: string="";
 
   constructor(
     private formBuilder: FormBuilder,private dialog: MatDialog,
@@ -1717,4 +1720,65 @@ export class LpsAirTerminationComponent implements OnInit {
             }
           }
     }
+
+  gotoNextTab() {
+    if ((this.airTerminationForm.dirty && this.airTerminationForm.invalid) || this.service.isCompleted == false) {
+      this.service.isCompleted2 = false;
+      this.service.isLinear = true;
+      this.service.editable = false;
+      this.validationErrorTab = true;
+      this.validationErrorMsgTab = 'Please check all the fields in Airtermination';
+      setTimeout(() => {
+        this.validationErrorTab = false;
+      }, 3000);
+      return;
+    }
+    else if (this.airTerminationForm.dirty && this.airTerminationForm.touched) {
+      this.service.isCompleted2 = false;
+      this.service.isLinear = true;
+      this.service.editable = false;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
+    }
+    else {
+      this.service.isCompleted2 = true;
+      this.service.isLinear = false;
+      this.service.editable = true;
+    }
+  }
+
+  reloadFromBack(){
+    if(this.airTerminationForm.invalid){
+     this.service.isCompleted2= false;
+     this.service.isLinear=true;
+     this.service.editable=false;
+     this.validationErrorTab = true;
+     this.validationErrorMsgTab= 'Please check all the fields in Airtermination';
+     setTimeout(() => {
+       this.validationErrorTab = false;
+     }, 3000);
+     return false;
+    }
+    else if(this.airTerminationForm.dirty && this.airTerminationForm.touched){
+      this.service.isCompleted2= false;
+      this.service.isLinear=true;
+      this.service.editable=false;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
+      return false;
+    } 
+    else{
+      this.service.isCompleted2= true;
+      this.service.isLinear=false;
+      this.service.editable=true;
+      this.airTerminationForm.markAsPristine();
+   return true;
+    }
+  }
 }

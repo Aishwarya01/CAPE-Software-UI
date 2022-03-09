@@ -137,6 +137,11 @@ export class LpsDownConductorsComponent implements OnInit {
   tempArray: any = [];
   step3List1: any = [];
   availabilityOfPreviousReport: String="";
+  validationErrorTab: boolean = false;
+  validationErrorMsgTab: string="";
+  tabError: boolean=false;
+  tabErrorMsg: string="";
+
   constructor(
     private formBuilder: FormBuilder, lpsDownconductorService: LpsDownconductorService,
     private modalService: NgbModal, private router: ActivatedRoute,
@@ -1700,5 +1705,67 @@ export class LpsDownConductorsComponent implements OnInit {
     }
   
   }
+
+  gotoNextTab() {
+    if ((this.downConductorForm.dirty && this.downConductorForm.invalid) || this.service.isCompleted2 == false) {
+      this.service.isCompleted3 = false;
+      this.service.isLinear = true;
+      this.service.editable = false;
+      this.validationErrorTab = true;
+      this.validationErrorMsgTab = 'Please check all the fields in DownConductorForm';
+      setTimeout(() => {
+        this.validationErrorTab = false;
+      }, 3000);
+      return;
+    }
+    else if (this.downConductorForm.dirty && this.downConductorForm.touched) {
+      this.service.isCompleted3 = false;
+      this.service.isLinear = true;
+      this.service.editable = false;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
+    }
+    else {
+      this.service.isCompleted3 = true;
+      this.service.isLinear = false;
+      this.service.editable = true;
+    }
+  }
+
+  reloadFromBack(){
+    if(this.downConductorForm.invalid){
+     this.service.isCompleted3= false;
+     this.service.isLinear=true;
+     this.service.editable=false;
+     this.validationErrorTab = true;
+     this.validationErrorMsgTab= 'Please check all the fields in DownConductorForm';
+     setTimeout(() => {
+       this.validationErrorTab = false;
+     }, 3000);
+     return false;
+    }
+    else if(this.downConductorForm.dirty && this.downConductorForm.touched){
+      this.service.isCompleted3= false;
+      this.service.isLinear=true;
+      this.service.editable=false;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
+      return false;
+    } 
+    else{
+      this.service.isCompleted3= true;
+      this.service.isLinear=false;
+      this.service.editable=true;
+      this.downConductorForm.markAsPristine();
+   return true;
+    }
+  }
+
 }
 

@@ -36,6 +36,10 @@ export class LpsBasicPageComponent implements OnInit {
   basicLpsIdRetrive:number=0;
   isBasicFormUpdated: boolean =false;
   proceedFlag: boolean = true;
+  validationErrorTab: boolean = false;
+  validationErrorMsgTab: string="";
+  tabError: boolean=false;
+  tabErrorMsg: string="";
 
   constructor(private formBuilder: FormBuilder, 
     private lPSBasicDetailsService: LPSBasicDetailsService,
@@ -393,7 +397,7 @@ export class LpsBasicPageComponent implements OnInit {
     this.proceedFlag = false;
     this.lPSBasicDetailsService.retriveLpsbasicDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicDetails.basicLpsId).subscribe(
       data => {
-        this.retrieveDetailsfromSavedReports1(this.basicDetails.userName,this.basicDetails.basicLpsId,this.basicDetails.clientName,JSON.parse(data)[0]);
+        this.retrieveDetailsfromSavedReports(this.basicDetails.basicLpsId,JSON.parse(data)[0]);
       },
       error=>{
       }
@@ -412,4 +416,34 @@ export class LpsBasicPageComponent implements OnInit {
     this.LPSBasicForm.markAsTouched();
   }
 
+  gotoNextTab() {
+    if (this.LPSBasicForm.dirty && this.LPSBasicForm.invalid) {
+      this.service.isCompleted = false;
+      this.service.isLinear = true;
+      this.service.editable = false;
+      this.validationError = false;
+      this.validationErrorTab = true;
+      this.validationErrorMsgTab = 'Please check all the fields in basic information';
+      setTimeout(() => {
+        this.validationErrorTab = false;
+      }, 3000);
+      return;
+    }
+    else if (this.LPSBasicForm.dirty && this.LPSBasicForm.touched) {
+      this.service.isCompleted = false;
+      this.service.isLinear = true;
+      this.service.editable = false;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
+      return;
+    }
+    else {
+      this.service.isCompleted = true;
+      this.service.isLinear = false;
+      this.service.editable = true;
+    }
+  }
 }

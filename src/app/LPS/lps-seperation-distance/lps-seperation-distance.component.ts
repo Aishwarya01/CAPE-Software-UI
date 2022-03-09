@@ -52,7 +52,10 @@ export class LpsSeperationDistanceComponent implements OnInit {
   separateDistanceDownConductorsPushArr:any=[];
   isEditable!:boolean
   isAirterminationUpdated:boolean=false;
-
+  validationErrorTab: boolean = false;
+  validationErrorMsgTab: string="";
+  tabError: boolean=false;
+  tabErrorMsg: string="";
   
   constructor(private formBuilder: FormBuilder,
             private separatedistanceService: SeparatedistanceService,
@@ -535,4 +538,66 @@ export class LpsSeperationDistanceComponent implements OnInit {
       }
     }
   }
+
+  gotoNextTab() {
+    if ((this.separeteDistanceForm.dirty && this.separeteDistanceForm.invalid) || this.service.isCompleted5 == false) {
+      this.service.isCompleted6 = false;
+      this.service.isLinear = true;
+      this.service.editable = false;
+      this.validationErrorTab = true;
+      this.validationErrorMsgTab = 'Please check all the fields in SepareteDistanceForm';
+      setTimeout(() => {
+        this.validationErrorTab = false;
+      }, 3000);
+      return;
+    }
+    else if (this.separeteDistanceForm.dirty && this.separeteDistanceForm.touched) {
+      this.service.isCompleted6 = false;
+      this.service.isLinear = true;
+      this.service.editable = false;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
+    }
+    else {
+      this.service.isCompleted6 = true;
+      this.service.isLinear = false;
+      this.service.editable = true;
+    }
+  }
+
+  reloadFromBack(){
+    if(this.separeteDistanceForm.invalid){
+     this.service.isCompleted6= false;
+     this.service.isLinear=true;
+     this.service.editable=false;
+     this.validationErrorTab = true;
+     this.validationErrorMsgTab= 'Please check all the fields in SepareteDistanceForm';
+     setTimeout(() => {
+       this.validationErrorTab = false;
+     }, 3000);
+     return false;
+    }
+    else if(this.separeteDistanceForm.dirty && this.separeteDistanceForm.touched){
+      this.service.isCompleted6= false;
+      this.service.isLinear=true;
+      this.service.editable=false;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
+      return false;
+    } 
+    else{
+      this.service.isCompleted6= true;
+      this.service.isLinear=false;
+      this.service.editable=true;
+      this.separeteDistanceForm.markAsPristine();
+   return true;
+    }
+  }
+
 }

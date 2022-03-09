@@ -49,8 +49,8 @@ export class LpsMatstepperComponent implements OnInit {
   @ViewChild('stepper', { static: false }) stepper!: MatStepper;
 
   selectedIndex: any;
-  Completed1: boolean=true;
-  Completed2: boolean=true;
+  // Completed1: boolean=true;
+  //Completed2: boolean=true;
   Completed3: boolean=true;
   Completed4: boolean=true;
   Completed5: boolean=true;
@@ -99,7 +99,8 @@ export class LpsMatstepperComponent implements OnInit {
     private basicLpsService: LPSBasicDetailsService,
     private router: ActivatedRoute, public service: GlobalsService,
     private ChangeDetectorRef: ChangeDetectorRef,
-    private airterminationServices: AirterminationService
+    private airterminationServices: AirterminationService,
+ 
     ) { 
     }
 
@@ -108,8 +109,8 @@ export class LpsMatstepperComponent implements OnInit {
     this.tabs._handleClick = this.interceptTabChange.bind(this);
   }
   public doSomething1(next: any): void {
-
-    this.Completed1 = this.basic.success;
+    this.service.isLinear=false;
+    this.service.isCompleted = next;
 
     if (this.basic.isBasicFormUpdated) {
       this.earthing.isAirterminationUpdated = true;
@@ -123,7 +124,8 @@ export class LpsMatstepperComponent implements OnInit {
     this.refresh();
   }
   public doSomething2(next: any): void {  
-    this.Completed2 = this.airTermination.success; 
+    this.service.isLinear=false;
+    this.service.isCompleted2 = next;
 
       if(next) {
         this.downConductors.ngOnInit();
@@ -154,30 +156,37 @@ export class LpsMatstepperComponent implements OnInit {
   }
 
   public doSomething3(next: any): void {
-    this.Completed3 = this.downConductors.success;
+    this.service.isLinear=false;
+    this.service.isCompleted3 = next;
     this.lpsSummary.ngOnInit();
   }
 
   public doSomething4(next: any): void {
-    this.Completed4 = this.earthing.success;
+    this.service.isLinear=false;
+    this.service.isCompleted4 = next;
     this.lpsSummary.ngOnInit();
     this.refresh();
   }
 
   public doSomething5(next: any): void {
-    this.Completed5 = this.spd.success;
+    this.service.isLinear=false;
+    this.service.isCompleted5 = next;
     this.lpsSummary.ngOnInit();
   }
   public doSomething6(next: any): void {
-    this.Completed6 = this.seperationDistance.success;
+    this.service.isLinear=false;
+    this.service.isCompleted6 = next;
     this.lpsSummary.ngOnInit();
   }
   public doSomething7(next: any): void {
-    this.Completed7 = this.earthStud.success;
+    this.service.isLinear=false;
+    this.service.isCompleted7 = next;
     this.lpsSummary.ngOnInit();
     // this.final.ngOnInit();
   }
   public doSomething8(next: any): void {
+    this.service.isLinear=false;
+    this.service.isCompleted8 = next;
     this.saved.ngOnInit();
     this.final.ngOnInit();
     //this.service.isLinear=false;
@@ -232,7 +241,7 @@ export class LpsMatstepperComponent implements OnInit {
             this.airTermination.appendBasicLpsId(basicLpsId);
          //   setTimeout(() => {
               this.initializeLpsId();
-              this.Completed1 = true;
+             // this.service.isCompleted = true;
            // }, 500);
           }
           if (this.dataJSON.airTermination != null) {
@@ -245,7 +254,7 @@ export class LpsMatstepperComponent implements OnInit {
                 this.lpsSummary.retrieveObservationLpsSummary(basicLpsId);
               }, 1000);
             }
-            this.Completed2 = true;
+           // this.service.isCompleted2 = true;
           }
           if (this.dataJSON.downConductorDesc != null) {
             this.Completed3 = true;
@@ -444,5 +453,52 @@ export class LpsMatstepperComponent implements OnInit {
     // Summary
     this.lpsSummary.basicLpsId=this.basic.basicDetails.basicLpsId;
     this.lpsSummary.isEditable=this.isEditable;
+  }
+
+  triggerClickTab(){
+    this.basic.gotoNextTab();
+    this.airTermination.gotoNextTab();
+     this.downConductors.gotoNextTab();
+     this.earthing.gotoNextTab();
+     this.spd.gotoNextTab();
+     this.seperationDistance.gotoNextTab();
+     this.earthStud.gotoNextTab(); 
+     this.lpsSummary.gotoNextTab(); 
+  }
+
+  goBack2(stepper: MatStepper) {
+    if(this.airTermination.reloadFromBack()){
+      stepper.previous();
+    }
+  }
+  goBack3(stepper: MatStepper) {
+    if(this.downConductors.reloadFromBack()){
+      stepper.previous();
+    }
+  }
+  goBack4(stepper: MatStepper) {
+    if(this.earthing.reloadFromBack()){
+      stepper.previous();
+    }
+  }
+  goBack5(stepper: MatStepper) {
+    if(this.spd.reloadFromBack()){
+      stepper.previous();
+    }
+  }
+  goBack6(stepper: MatStepper) {
+    if(this.seperationDistance.reloadFromBack()){
+      stepper.previous();
+    }
+  }
+  goBack7(stepper: MatStepper) {
+    if(this.earthStud.reloadFromBack()){
+      stepper.previous();
+    }
+  }
+  goBack8(stepper: MatStepper) {
+    if(this.lpsSummary.reloadFromBack()){
+      stepper.previous();
+    }
   }
 }

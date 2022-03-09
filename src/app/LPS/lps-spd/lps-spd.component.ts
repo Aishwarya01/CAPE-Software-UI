@@ -50,6 +50,10 @@ export class LpsSpdComponent implements OnInit {
   isAirterminationUpdated:boolean=false;
 
   spdDescriptionDelArr: any=[];
+  validationErrorTab: boolean = false;
+  validationErrorMsgTab: string="";
+  tabError: boolean=false;
+  tabErrorMsg: string="";
 
   constructor(
     private formBuilder: FormBuilder, 
@@ -548,4 +552,65 @@ export class LpsSpdComponent implements OnInit {
     }
   }
     
+  gotoNextTab() {
+    if ((this.spdForm.dirty && this.spdForm.invalid) || this.service.isCompleted4 == false) {
+      this.service.isCompleted5 = false;
+      this.service.isLinear = true;
+      this.service.editable = false;
+      this.validationErrorTab = true;
+      this.validationErrorMsgTab = 'Please check all the fields in SpdForm';
+      setTimeout(() => {
+        this.validationErrorTab = false;
+      }, 3000);
+      return;
+    }
+    else if (this.spdForm.dirty && this.spdForm.touched) {
+      this.service.isCompleted5 = false;
+      this.service.isLinear = true;
+      this.service.editable = false;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
+    }
+    else {
+      this.service.isCompleted5 = true;
+      this.service.isLinear = false;
+      this.service.editable = true;
+    }
+  }
+
+  reloadFromBack(){
+    if(this.spdForm.invalid){
+     this.service.isCompleted5= false;
+     this.service.isLinear=true;
+     this.service.editable=false;
+     this.validationErrorTab = true;
+     this.validationErrorMsgTab= 'Please check all the fields in EarthingForm';
+     setTimeout(() => {
+       this.validationErrorTab = false;
+     }, 3000);
+     return false;
+    }
+    else if(this.spdForm.dirty && this.spdForm.touched){
+      this.service.isCompleted5= false;
+      this.service.isLinear=true;
+      this.service.editable=false;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
+      return false;
+    } 
+    else{
+      this.service.isCompleted5= true;
+      this.service.isLinear=false;
+      this.service.editable=true;
+      this.spdForm.markAsPristine();
+   return true;
+    }
+  }
+
 }

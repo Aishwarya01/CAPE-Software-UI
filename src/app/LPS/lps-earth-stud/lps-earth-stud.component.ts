@@ -55,7 +55,11 @@ export class LpsEarthStudComponent implements OnInit {
   supplimentaryProtective: any=[];
   isAirterminationUpdated:boolean=false;
   modalReference: any;
-  
+  validationErrorTab: boolean = false;
+  validationErrorMsgTab: string="";
+  tabError: boolean=false;
+  tabErrorMsg: string="";
+
   constructor(
     private formBuilder: FormBuilder,
     private earthStudService: EarthStudService,
@@ -566,6 +570,66 @@ export class LpsEarthStudComponent implements OnInit {
     ); 
   }
 
+  gotoNextTab() {
+    if ((this.EarthStudForm.dirty && this.EarthStudForm.invalid) || this.service.isCompleted6 == false) {
+      this.service.isCompleted7 = false;
+      this.service.isLinear = true;
+      this.service.editable = false;
+      this.validationErrorTab = true;
+      this.validationErrorMsgTab = 'Please check all the fields in EarthStudForm';
+      setTimeout(() => {
+        this.validationErrorTab = false;
+      }, 3000);
+      return;
+    }
+    else if (this.EarthStudForm.dirty && this.EarthStudForm.touched) {
+      this.service.isCompleted7 = false;
+      this.service.isLinear = true;
+      this.service.editable = false;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
+    }
+    else {
+      this.service.isCompleted7 = true;
+      this.service.isLinear = false;
+      this.service.editable = true;
+    }
+  }
+
+  reloadFromBack(){
+    if(this.EarthStudForm.invalid){
+     this.service.isCompleted7= false;
+     this.service.isLinear=true;
+     this.service.editable=false;
+     this.validationErrorTab = true;
+     this.validationErrorMsgTab= 'Please check all the fields in EarthStudForm';
+     setTimeout(() => {
+       this.validationErrorTab = false;
+     }, 3000);
+     return false;
+    }
+    else if(this.EarthStudForm.dirty && this.EarthStudForm.touched){
+      this.service.isCompleted7= false;
+      this.service.isLinear=true;
+      this.service.editable=false;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
+      return false;
+    } 
+    else{
+      this.service.isCompleted7= true;
+      this.service.isLinear=false;
+      this.service.editable=true;
+      this.EarthStudForm.markAsPristine();
+   return true;
+    }
+  }
 }
 
 
