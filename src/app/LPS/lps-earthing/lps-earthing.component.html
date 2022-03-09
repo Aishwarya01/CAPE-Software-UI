@@ -593,7 +593,7 @@
                                                         <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="text" (change)="checkEarthelectMaxiDistWallInOb($event,a,'earthelectMaxiDistWallInRem')" (keypress)="keyPressNumbers($event)" class="form-control"
+                                                <input type="number" (change)="checkEarthelectMaxiDistWallInOb($event,a,'earthelectMaxiDistWallInRem')" (keypress)="keyPressNumbers($event)" class="form-control"
                                                     [readonly]="isEditable" formControlName="earthelectMaxiDistWallInOb" placeholder="The value must be a number"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('earthelectMaxiDistWallInOb')?.errors}" style="height: 3rem;">
                                                 <div *ngIf="submitted && a.get('earthelectMaxiDistWallInOb')?.errors"
@@ -2160,8 +2160,8 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="maximumDistanceEartElectrodeWalOb" 
-                                                placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && a.get('maximumDistanceEartElectrodeWalOb')?.errors}"></textarea>
+                                                <input type="number" class="form-control" [readonly]="isEditable" formControlName="maximumDistanceEartElectrodeWalOb" 
+                                                placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && a.get('maximumDistanceEartElectrodeWalOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('maximumDistanceEartElectrodeWalOb')?.errors" class="invalid-feedback">
                                                     <div *ngIf="a.get('maximumDistanceEartElectrodeWalOb')?.errors?.required">Maximum distance between earth electrode and wall observation is required</div>
                                                 </div>
@@ -2191,10 +2191,10 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" class="form-control"
+                                                <input type="number" class="form-control"
                                                     [readonly]="isEditable" formControlName="manimumDistanceEartElectrodeWalOb"
                                                     placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('manimumDistanceEartElectrodeWalOb')?.errors}"></textarea>
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('manimumDistanceEartElectrodeWalOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('manimumDistanceEartElectrodeWalOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div

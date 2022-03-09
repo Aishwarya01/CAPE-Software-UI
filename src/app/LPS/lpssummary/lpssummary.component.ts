@@ -1242,7 +1242,7 @@ export class LpssummaryComponent implements OnInit {
             for(let j = 0; j < this.airVerticalName.length; j++){
               if(i[this.airVerticalName[j]]!=""){
                 this.airVerticalArr.push(this.createAirVertical());
-                this.airVerticalArr.controls[0].controls.heading.setValue('Vertical Observation');
+                this.airVerticalArr.controls[0].controls.heading.setValue('AT_Vertical Observation');
                 this.airVerticalArr.controls[index1].controls.observationComponentDetails.setValue('lpsVerticalAirTermination' + index1);
                 this.airVerticalArr.controls[index1].controls.serialNo.setValue(index1 + 1);
                 this.airVerticalArr.controls[index1].controls.observation.setValue(i[this.airVerticalName[j]]);
@@ -1262,7 +1262,7 @@ export class LpssummaryComponent implements OnInit {
               if(i[this.airVerticalListName[j]]!=""){
                 this.airVerticalListArr.push(this.createAirVerticalList());
                 if(this.airVerticalListName[j]=='materialOfTerminalRe'){
-                  this.airVerticalListArr.controls[index0].controls.heading.setValue('Vertical List-' + vatListIndex);
+                  this.airVerticalListArr.controls[index0].controls.heading.setValue('AT_Vertical List-' + vatListIndex);
                 }
                 this.airVerticalListArr.controls[index0].controls.observationComponentDetails.setValue('verticalAirTerminationList' + index0);
                 this.airVerticalListArr.controls[index0].controls.serialNo.setValue(indexVertical + 1);
@@ -1283,7 +1283,7 @@ export class LpssummaryComponent implements OnInit {
       for(let j = 0; j < this.airMeshName.length; j++){
         if(i[this.airMeshName[j]]!=""){
         this.airMeshArr.push(this.createAirMesh());
-        this.airMeshArr.controls[0].controls.heading.setValue('Mesh Observation');
+        this.airMeshArr.controls[0].controls.heading.setValue('AT_Mesh Observation');
         this.airMeshArr.controls[index2].controls.observationComponentDetails.setValue('airMeshDescription' + index2);
         this.airMeshArr.controls[index2].controls.serialNo.setValue(index2+1);
         this.airMeshArr.controls[index2].controls.observation.setValue(i[this.airMeshName[j]]);
@@ -1298,7 +1298,7 @@ export class LpssummaryComponent implements OnInit {
       for(let j = 0; j < this.airHolderName.length; j++){
         if(i[this.airHolderName[j]]!=""){
           this.airHolderArr.push(this.createAirHolder());
-          this.airHolderArr.controls[0].controls.heading.setValue('Holder Observation');
+          this.airHolderArr.controls[0].controls.heading.setValue('AT_Holder Observation');
           this.airHolderArr.controls[index3].controls.observationComponentDetails.setValue('airHolderDescription' + index3);
           this.airHolderArr.controls[index3].controls.serialNo.setValue(index3+1);
           this.airHolderArr.controls[index3].controls.observation.setValue(i[this.airHolderName[j]]);
@@ -1319,7 +1319,7 @@ export class LpssummaryComponent implements OnInit {
           if(i[this.airHolderListName[j]]!=""){
             this.airHolderListArr.push(this.createAirHolderList());
             if(this.airHolderListName[j]=='holderTypeRe'){
-            this.airHolderListArr.controls[index01].controls.heading.setValue('Holder List-' + holderListIndex);
+            this.airHolderListArr.controls[index01].controls.heading.setValue('AT_Holder List-' + holderListIndex);
             }
             this.airHolderListArr.controls[index01].controls.observationComponentDetails.setValue('airHolderList' + index01);
             this.airHolderListArr.controls[index01].controls.serialNo.setValue(indexHolder+1);
@@ -1340,7 +1340,7 @@ export class LpssummaryComponent implements OnInit {
       for(let j = 0; j < this.airClampsName.length; j++){
         if(i[this.airClampsName[j]]!=""){
           this.airClampsArr.push(this.createAirClamps());
-          this.airClampsArr.controls[0].controls.heading.setValue('Clamps Observation');
+          this.airClampsArr.controls[0].controls.heading.setValue('AT_Clamps Observation');
           this.airClampsArr.controls[index4].controls.observationComponentDetails.setValue('airClamps' + index4);
           this.airClampsArr.controls[index4].controls.serialNo.setValue(index4+1);
           this.airClampsArr.controls[index4].controls.observation.setValue(i[this.airClampsName[j]]);
@@ -1355,7 +1355,7 @@ export class LpssummaryComponent implements OnInit {
       for(let j = 0; j < this.airExpansionName.length; j++){
         if(i[this.airClampsName[j]]!=""){
           this.airExpansionArr.push(this.createAirExpansion());
-          this.airExpansionArr.controls[0].controls.heading.setValue('Expansion Observation');
+          this.airExpansionArr.controls[0].controls.heading.setValue('AT_Expansion Observation');
           this.airExpansionArr.controls[index5].controls.observationComponentDetails.setValue('airExpansion' + index5);
           this.airExpansionArr.controls[index5].controls.serialNo.setValue(index5+1);
           this.airExpansionArr.controls[index5].controls.observation.setValue(i[this.airExpansionName[j]]);
@@ -1370,7 +1370,7 @@ export class LpssummaryComponent implements OnInit {
       for(let j = 0; j < this.airConnectorsName.length; j++){
         if(i[this.airConnectorsName[j]]!=""){
           this.airConnectorsArr.push(this.createAirConnectors());
-          this.airConnectorsArr.controls[0].controls.heading.setValue('Connectors Observation');
+          this.airConnectorsArr.controls[0].controls.heading.setValue('AT_Connectors Observation');
           this.airConnectorsArr.controls[index6].controls.observationComponentDetails.setValue('airConnectors' + index6);
           this.airConnectorsArr.controls[index6].controls.serialNo.setValue(index6+1);
           this.airConnectorsArr.controls[index6].controls.observation.setValue(i[this.airConnectorsName[j]]);
@@ -1402,7 +1402,7 @@ export class LpssummaryComponent implements OnInit {
           for(let j = 0; j < this.downConductorName.length; j++){
             if(i[this.downConductorName[j]]!=""){
               this.downConductorsArr.push(this.createDownConductors());
-              this.downConductorsArr.controls[0].controls.heading.setValue('Downconductors Observation');
+              this.downConductorsArr.controls[0].controls.heading.setValue('DC_Downconductors Observation');
               this.downConductorsArr.controls[index1].controls.observationComponentDetails.setValue('downConductorDescription' + index1);
               this.downConductorsArr.controls[index1].controls.serialNo.setValue(index1+1);
               this.downConductorsArr.controls[index1].controls.observation.setValue(i[this.downConductorName[j]]);
@@ -1418,7 +1418,7 @@ export class LpssummaryComponent implements OnInit {
       for(let j = 0; j < this.bridgingName.length; j++){
         if(i[this.bridgingName[j]]!=""){
           this.bridgingDescArr.push(this.createBridgingDesc());
-          this.bridgingDescArr.controls[0].controls.heading.setValue('Bridging Observation');
+          this.bridgingDescArr.controls[0].controls.heading.setValue('DC_Bridging Observation');
           this.bridgingDescArr.controls[index2].controls.observationComponentDetails.setValue('bridgingDescription' + index2);
           this.bridgingDescArr.controls[index2].controls.serialNo.setValue(index2+1);
           this.bridgingDescArr.controls[index2].controls.observation.setValue(i[this.bridgingName[j]]);
@@ -1433,7 +1433,7 @@ export class LpssummaryComponent implements OnInit {
     for(let j = 0; j < this.downHolderName.length; j++){
       if(i[this.downHolderName[j]]!=""){
         this.downHoldersArr.push(this.createDownHolders());
-        this.downHoldersArr.controls[0].controls.heading.setValue('Holder Observation');
+        this.downHoldersArr.controls[0].controls.heading.setValue('DC_Holder Observation');
         this.downHoldersArr.controls[index3].controls.observationComponentDetails.setValue('holder' + index3);
         this.downHoldersArr.controls[index3].controls.serialNo.setValue(index3+1);
         this.downHoldersArr.controls[index3].controls.observation.setValue(i[this.downHolderName[j]]);
@@ -1449,7 +1449,7 @@ export class LpssummaryComponent implements OnInit {
     for(let j = 0; j < this.connectorsName.length; j++){
       if(i[this.connectorsName[j]]!=""){
         this.downConnectorsArr.push(this.createDownConnectors());
-        this.downConnectorsArr.controls[0].controls.heading.setValue('Connectors Observation');
+        this.downConnectorsArr.controls[0].controls.heading.setValue('DC_Connectors Observation');
         this.downConnectorsArr.controls[index4].controls.observationComponentDetails.setValue('connectors' + index4);
         this.downConnectorsArr.controls[index4].controls.serialNo.setValue(index4+1);
         this.downConnectorsArr.controls[index4].controls.observation.setValue(i[this.connectorsName[j]]);
@@ -1464,7 +1464,7 @@ export class LpssummaryComponent implements OnInit {
     for(let j = 0; j < this.testingJointName.length; j++){
       if(i[this.testingJointName[j]]!=""){
         this.testingJointArr.push(this.createTestingJoints());
-        this.testingJointArr.controls[0].controls.heading.setValue('TestingJoint Observation');
+        this.testingJointArr.controls[0].controls.heading.setValue('DC_TestingJoint Observation');
         this.testingJointArr.controls[index5].controls.observationComponentDetails.setValue('testingJoint' + index5);
         this.testingJointArr.controls[index5].controls.serialNo.setValue(index5+1);
         this.testingJointArr.controls[index5].controls.observation.setValue(i[this.testingJointName[j]]);
@@ -1479,7 +1479,7 @@ export class LpssummaryComponent implements OnInit {
     for(let j = 0; j < this.lightingCounterName.length; j++){
       if(i[this.lightingCounterName[j]]!=""){
         this.lightingCounterArr.push(this.createLightingCounter());
-        this.lightingCounterArr.controls[0].controls.heading.setValue('LightningCounter Observation');
+        this.lightingCounterArr.controls[0].controls.heading.setValue('DC_LightningCounter Observation');
         this.lightingCounterArr.controls[index6].controls.observationComponentDetails.setValue('lightningCounter' + index6);
         this.lightingCounterArr.controls[index6].controls.serialNo.setValue(index6+1);
         this.lightingCounterArr.controls[index6].controls.observation.setValue(i[this.lightingCounterName[j]]);
@@ -1495,7 +1495,7 @@ export class LpssummaryComponent implements OnInit {
   for(let j = 0; j < this.downConductorTestingName.length; j++){
     if(i[this.downConductorTestingName[j]]!=""){
       this.downConductorTestingArr.push(this.createDownConductorsTesting());
-      this.downConductorTestingArr.controls[0].controls.heading.setValue('DownConductorTesting Observation');
+      this.downConductorTestingArr.controls[0].controls.heading.setValue('DC_DownConductorTesting Observation');
       this.downConductorTestingArr.controls[index8].controls.observationComponentDetails.setValue('downConductorTesting' + index8);
       this.downConductorTestingArr.controls[index8].controls.serialNo.setValue(index8+1);
       this.downConductorTestingArr.controls[index8].controls.observation.setValue(i[this.downConductorTestingName[j]]);
@@ -1771,7 +1771,7 @@ export class LpssummaryComponent implements OnInit {
               for(let j = 0; j < this.airVerticalName.length; j++){
                 if(i[this.airVerticalName[j]]!=""){
                   this.airVerticalArr.push(this.createAirVertical());
-                  this.airVerticalArr.controls[0].controls.heading.setValue('Vertical Observation');
+                  this.airVerticalArr.controls[0].controls.heading.setValue('AT_Vertical Observation');
                   this.airVerticalArr.controls[index1].controls.observationComponentDetails.setValue('lpsVerticalAirTermination' + index1);
                   this.airVerticalArr.controls[index1].controls.serialNo.setValue(index1 + 1);
                   this.airVerticalArr.controls[index1].controls.observation.setValue(i[this.airVerticalName[j]]);
@@ -1791,7 +1791,7 @@ export class LpssummaryComponent implements OnInit {
                 if(i[this.airVerticalListName[j]]!=""){
                   this.airVerticalListArr.push(this.createAirVerticalList());
                   if(this.airVerticalListName[j]=='materialOfTerminalRe'){
-                    this.airVerticalListArr.controls[index0].controls.heading.setValue('Vertical List-' + vatListIndex);
+                    this.airVerticalListArr.controls[index0].controls.heading.setValue('AT_Vertical List-' + vatListIndex);
                   }
                   this.airVerticalListArr.controls[index0].controls.observationComponentDetails.setValue('verticalAirTerminationList' + index0);
                   this.airVerticalListArr.controls[index0].controls.serialNo.setValue(indexVertical + 1);
@@ -1812,7 +1812,7 @@ export class LpssummaryComponent implements OnInit {
         for(let j = 0; j < this.airMeshName.length; j++){
           if(i[this.airMeshName[j]]!=""){
           this.airMeshArr.push(this.createAirMesh());
-          this.airMeshArr.controls[0].controls.heading.setValue('Mesh Observation');
+          this.airMeshArr.controls[0].controls.heading.setValue('AT_Mesh Observation');
           this.airMeshArr.controls[index2].controls.observationComponentDetails.setValue('airMeshDescription' + index2);
           this.airMeshArr.controls[index2].controls.serialNo.setValue(index2+1);
           this.airMeshArr.controls[index2].controls.observation.setValue(i[this.airMeshName[j]]);
@@ -1827,7 +1827,7 @@ export class LpssummaryComponent implements OnInit {
         for(let j = 0; j < this.airHolderName.length; j++){
           if(i[this.airHolderName[j]]!=""){
             this.airHolderArr.push(this.createAirHolder());
-            this.airHolderArr.controls[0].controls.heading.setValue('Holder Observation');
+            this.airHolderArr.controls[0].controls.heading.setValue('AT_Holder Observation');
             this.airHolderArr.controls[index3].controls.observationComponentDetails.setValue('airHolderDescription' + index3);
             this.airHolderArr.controls[index3].controls.serialNo.setValue(index3+1);
             this.airHolderArr.controls[index3].controls.observation.setValue(i[this.airHolderName[j]]);
@@ -1848,7 +1848,7 @@ export class LpssummaryComponent implements OnInit {
             if(i[this.airHolderListName[j]]!=""){
               this.airHolderListArr.push(this.createAirHolderList());
               if(this.airHolderListName[j]=='holderTypeRe'){
-              this.airHolderListArr.controls[index01].controls.heading.setValue('Holder List-' + holderListIndex);
+              this.airHolderListArr.controls[index01].controls.heading.setValue('AT_Holder List-' + holderListIndex);
               }
               this.airHolderListArr.controls[index01].controls.observationComponentDetails.setValue('airHolderList' + index01);
               this.airHolderListArr.controls[index01].controls.serialNo.setValue(indexHolder+1);
@@ -1869,7 +1869,7 @@ export class LpssummaryComponent implements OnInit {
         for(let j = 0; j < this.airClampsName.length; j++){
           if(i[this.airClampsName[j]]!=""){
             this.airClampsArr.push(this.createAirClamps());
-            this.airClampsArr.controls[0].controls.heading.setValue('Clamps Observation');
+            this.airClampsArr.controls[0].controls.heading.setValue('AT_Clamps Observation');
             this.airClampsArr.controls[index4].controls.observationComponentDetails.setValue('airClamps' + index4);
             this.airClampsArr.controls[index4].controls.serialNo.setValue(index4+1);
             this.airClampsArr.controls[index4].controls.observation.setValue(i[this.airClampsName[j]]);
@@ -1884,7 +1884,7 @@ export class LpssummaryComponent implements OnInit {
         for(let j = 0; j < this.airExpansionName.length; j++){
           if(i[this.airClampsName[j]]!=""){
             this.airExpansionArr.push(this.createAirExpansion());
-            this.airExpansionArr.controls[0].controls.heading.setValue('Expansion Observation');
+            this.airExpansionArr.controls[0].controls.heading.setValue('AT_Expansion Observation');
             this.airExpansionArr.controls[index5].controls.observationComponentDetails.setValue('airExpansion' + index5);
             this.airExpansionArr.controls[index5].controls.serialNo.setValue(index5+1);
             this.airExpansionArr.controls[index5].controls.observation.setValue(i[this.airExpansionName[j]]);
@@ -1899,7 +1899,7 @@ export class LpssummaryComponent implements OnInit {
         for(let j = 0; j < this.airConnectorsName.length; j++){
           if(i[this.airConnectorsName[j]]!=""){
             this.airConnectorsArr.push(this.createAirConnectors());
-            this.airConnectorsArr.controls[0].controls.heading.setValue('Connectors Observation');
+            this.airConnectorsArr.controls[0].controls.heading.setValue('AT_Connectors Observation');
             this.airConnectorsArr.controls[index6].controls.observationComponentDetails.setValue('airConnectors' + index6);
             this.airConnectorsArr.controls[index6].controls.serialNo.setValue(index6+1);
             this.airConnectorsArr.controls[index6].controls.observation.setValue(i[this.airConnectorsName[j]]);
@@ -1931,7 +1931,7 @@ export class LpssummaryComponent implements OnInit {
             for(let j = 0; j < this.downConductorName.length; j++){
               if(i[this.downConductorName[j]]!=""){
                 this.downConductorsArr.push(this.createDownConductors());
-                this.downConductorsArr.controls[0].controls.heading.setValue('Downconductors Observation');
+                this.downConductorsArr.controls[0].controls.heading.setValue('DC_Downconductors Observation');
                 this.downConductorsArr.controls[index1].controls.observationComponentDetails.setValue('downConductorDescription' + index1);
                 this.downConductorsArr.controls[index1].controls.serialNo.setValue(index1+1);
                 this.downConductorsArr.controls[index1].controls.observation.setValue(i[this.downConductorName[j]]);
@@ -1947,7 +1947,7 @@ export class LpssummaryComponent implements OnInit {
         for(let j = 0; j < this.bridgingName.length; j++){
           if(i[this.bridgingName[j]]!=""){
             this.bridgingDescArr.push(this.createBridgingDesc());
-            this.bridgingDescArr.controls[0].controls.heading.setValue('Bridging Observation');
+            this.bridgingDescArr.controls[0].controls.heading.setValue('DC_Bridging Observation');
             this.bridgingDescArr.controls[index2].controls.observationComponentDetails.setValue('bridgingDescription' + index2);
             this.bridgingDescArr.controls[index2].controls.serialNo.setValue(index2+1);
             this.bridgingDescArr.controls[index2].controls.observation.setValue(i[this.bridgingName[j]]);
@@ -1962,7 +1962,7 @@ export class LpssummaryComponent implements OnInit {
       for(let j = 0; j < this.downHolderName.length; j++){
         if(i[this.downHolderName[j]]!=""){
           this.downHoldersArr.push(this.createDownHolders());
-          this.downHoldersArr.controls[0].controls.heading.setValue('Holder Observation');
+          this.downHoldersArr.controls[0].controls.heading.setValue('DC_Holder Observation');
           this.downHoldersArr.controls[index3].controls.observationComponentDetails.setValue('holder' + index3);
           this.downHoldersArr.controls[index3].controls.serialNo.setValue(index3+1);
           this.downHoldersArr.controls[index3].controls.observation.setValue(i[this.downHolderName[j]]);
@@ -1978,7 +1978,7 @@ export class LpssummaryComponent implements OnInit {
       for(let j = 0; j < this.connectorsName.length; j++){
         if(i[this.connectorsName[j]]!=""){
           this.downConnectorsArr.push(this.createDownConnectors());
-          this.downConnectorsArr.controls[0].controls.heading.setValue('Connectors Observation');
+          this.downConnectorsArr.controls[0].controls.heading.setValue('DC_Connectors Observation');
           this.downConnectorsArr.controls[index4].controls.observationComponentDetails.setValue('connectors' + index4);
           this.downConnectorsArr.controls[index4].controls.serialNo.setValue(index4+1);
           this.downConnectorsArr.controls[index4].controls.observation.setValue(i[this.connectorsName[j]]);
@@ -1993,7 +1993,7 @@ export class LpssummaryComponent implements OnInit {
       for(let j = 0; j < this.testingJointName.length; j++){
         if(i[this.testingJointName[j]]!=""){
           this.testingJointArr.push(this.createTestingJoints());
-          this.testingJointArr.controls[0].controls.heading.setValue('TestingJoint Observation');
+          this.testingJointArr.controls[0].controls.heading.setValue('DC_TestingJoint Observation');
           this.testingJointArr.controls[index5].controls.observationComponentDetails.setValue('testingJoint' + index5);
           this.testingJointArr.controls[index5].controls.serialNo.setValue(index5+1);
           this.testingJointArr.controls[index5].controls.observation.setValue(i[this.testingJointName[j]]);
@@ -2008,7 +2008,7 @@ export class LpssummaryComponent implements OnInit {
       for(let j = 0; j < this.lightingCounterName.length; j++){
         if(i[this.lightingCounterName[j]]!=""){
           this.lightingCounterArr.push(this.createLightingCounter());
-          this.lightingCounterArr.controls[0].controls.heading.setValue('LightningCounter Observation');
+          this.lightingCounterArr.controls[0].controls.heading.setValue('DC_LightningCounter Observation');
           this.lightingCounterArr.controls[index6].controls.observationComponentDetails.setValue('lightningCounter' + index6);
           this.lightingCounterArr.controls[index6].controls.serialNo.setValue(index6+1);
           this.lightingCounterArr.controls[index6].controls.observation.setValue(i[this.lightingCounterName[j]]);
@@ -2024,7 +2024,7 @@ export class LpssummaryComponent implements OnInit {
     for(let j = 0; j < this.downConductorTestingName.length; j++){
       if(i[this.downConductorTestingName[j]]!=""){
         this.downConductorTestingArr.push(this.createDownConductorsTesting());
-        this.downConductorTestingArr.controls[0].controls.heading.setValue('DownConductorTesting Observation');
+        this.downConductorTestingArr.controls[0].controls.heading.setValue('DC_DownConductorTesting Observation');
         this.downConductorTestingArr.controls[index8].controls.observationComponentDetails.setValue('downConductorTesting' + index8);
         this.downConductorTestingArr.controls[index8].controls.serialNo.setValue(index8+1);
         this.downConductorTestingArr.controls[index8].controls.observation.setValue(i[this.downConductorTestingName[j]]);

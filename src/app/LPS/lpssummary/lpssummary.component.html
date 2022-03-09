@@ -217,11 +217,11 @@
                         </table>
                       </div>
                       <div class="row" 
-                      *ngIf="(airTerminationControl(q).length != 0) && (airVerticalControl(q).length != 0) &&
-                                (airVerticalListControl(q).length != 0) && (airMeshControl(q).length != 0) &&
-                                 (airHolderControl(q).length != 0) && (airHolderListControl(q).length != 0) &&
-                                  (airClampsControl(q).length != 0) && (airExpansionControl(q).length != 0) && 
-                                    (airConnectorsControl(q).length != 0)">
+                      *ngIf="(airTerminationControl(q).length == 0) && (airVerticalControl(q).length == 0) &&
+                                (airVerticalListControl(q).length == 0) && (airMeshControl(q).length == 0) &&
+                                 (airHolderControl(q).length == 0) && (airHolderListControl(q).length == 0) &&
+                                  (airClampsControl(q).length == 0) && (airExpansionControl(q).length == 0) && 
+                                    (airConnectorsControl(q).length == 0)">
                         <div class="col-sm-12">
                           <h3 style="color: #eea80a;">Currently, you have not provided Observations for Air termination!</h3>
                         </div>
