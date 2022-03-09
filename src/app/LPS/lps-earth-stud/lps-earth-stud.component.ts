@@ -425,7 +425,7 @@ export class LpsEarthStudComponent implements OnInit {
     //  For Dirty popup
      else{
       this.modalService.open(contents, { centered: true,backdrop: 'static' });
-      this.modalReference.close();
+      // this.modalReference.close();
      }
   }
 
