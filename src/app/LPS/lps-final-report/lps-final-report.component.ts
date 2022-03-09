@@ -19,11 +19,19 @@ import { LpsWelcomePageComponent } from '../lps-welcome-page/lps-welcome-page.co
 })
 export class LpsFinalReportComponent implements OnInit {
 
-  finalReportsColumns: string[] = [ 'clientName', 'projectName', 'consultantName', 'contractorName', 'dealerContractorName' , 'address', 'createdDate', 'createdBy', 'action'];
+  finalReportsColumns: string[] = [ 'clientName', 
+                                    'projectName', 
+                                    'consultantName', 
+                                    'contractorName', 
+                                    'dealerContractorName', 
+                                    'address', 
+                                    'createdDate', 
+                                    'createdBy', 
+                                    'action'];
   finalReport_dataSource!: MatTableDataSource<BasicDetails[]>;
 
-  @ViewChild('finalReportPaginator', { static: true }) finalReportPaginator!: MatPaginator;
-  @ViewChild('finalReportSort', {static: true}) finalReportSort!: MatSort;
+  @ViewChild('finalReportPaginator', { static: false }) finalReportPaginator!: MatPaginator;
+  @ViewChild('finalReportSort', {static: false}) finalReportSort!: MatSort;
 
   email: String ="";
   basicDetails = new BasicDetails();

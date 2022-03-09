@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { MatInput } from '@angular/material/input';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -15,12 +15,21 @@ import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.compone
   styleUrls: ['./lps-saved-report.component.css']
 })
 export class LpsSavedReportComponent implements OnInit {
-  savedReportsLpsColumns: string[] = [ 'clientName', 'projectName', 'consultantName', 'contractorName', 'dealerContractorName' , 'address', 'createdDate', 'createdBy','continue'];
+  savedReportsLpsColumns: string[] = [ 'clientName', 
+                                       'projectName', 
+                                       'consultantName', 
+                                       'contractorName', 
+                                       'dealerContractorName' , 
+                                       'address', 
+                                       'createdDate', 
+                                       'createdBy',
+                                       'continue'];
   savedReportLps_dataSource!: MatTableDataSource<BasicDetails[]>;
-  @ViewChild('savedReportLpsPaginator', { static: true }) savedReportLpsPaginator!: MatPaginator;
-  @ViewChild('savedReportLpsSort', {static: true}) savedReportLpsSort!: MatSort;
+  @ViewChild('savedReportLpsPaginator', { static: false }) savedReportLpsPaginator!: MatPaginator;
+  @ViewChild('savedReportLpsSort', {static: false}) savedReportLpsSort!: MatSort;
 
   // @Output("changeTab") changeTab: EventEmitter<any> = new EventEmitter();
+
   email: String ="";
   basicDetails = new BasicDetails();
   clientName: String="";

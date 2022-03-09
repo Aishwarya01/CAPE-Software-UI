@@ -1,7 +1,6 @@
-<div class="card">
-    
-    <div class="card-body">
 
+<div class="card">
+    <div class="card-body">
        <!-- Filter Tag -->
        <mat-form-field appearance="standard" style=" font-size: 14px;width: 30%;">
         <mat-label>Filter Client</mat-label>
@@ -16,7 +15,7 @@
       </div>
 
       <table mat-table [dataSource]="savedReportLps_dataSource" class="mat-elevation-z8 table" matSort
-        #savedReportSort="matSort" *ngIf="disablepage">
+        #savedReportLpsSort="matSort" *ngIf="disablepage">
 
         <!-- Name Column -->
         <ng-container matColumnDef="clientName">
