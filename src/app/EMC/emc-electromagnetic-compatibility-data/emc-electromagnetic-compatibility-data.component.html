@@ -665,12 +665,10 @@
                         <div style="text-align: center;">
                             <!-- <button class="previous"  mat-button matStepperPrevious>&laquo; Back</button> -->
                             <button style="width: auto;margin-left: 50px;" (click)="gotoNextModal(content3)"
-                                type="submit"
+                                type="submit"  [ngClass]="{'disableSubmit':service.disableSubmitElectromagnetic}"
                                 class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn next"
                                 mat-button>
-                                <i class="bi bi-journal-arrow-up icon"></i> Save</button>
-
-                                <!-- [ngClass]="{'disableSubmit':service.disableSubmitElectromagnetic}" -->
+                                <i class="bi bi-journal-arrow-up icon"></i> Submit</button>
                         </div>
                     </div>
                 </div>
