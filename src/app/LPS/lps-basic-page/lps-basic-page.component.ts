@@ -121,8 +121,13 @@ export class LpsBasicPageComponent implements OnInit {
   retrieveDetailsfromSavedReports(basicLpsId: any,data: any){
     //this.service.lvClick=1;
     this.proceedFlag = false;  
-     this.step1List = data.basicLps;
-    //  if(this.step1List.clientName != null){
+     
+     if(data.basicLps == undefined){
+      this.step1List = data;
+     }
+     else{
+      this.step1List = data.basicLps;
+     }
       this.success = true;
       this.basicLpsIdRetrive = basicLpsId;
       this.basicDetails.basicLpsId = basicLpsId;
