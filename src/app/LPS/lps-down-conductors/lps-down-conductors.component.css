@@ -1,8 +1,4 @@
-h3 {
-    background-color: aliceblue;
-    font-weight: bolder;
-    text-align: center;
-}
+
 
 label {
     font-size: smaller;
@@ -10,6 +6,12 @@ label {
 
 td {
     font-size: smaller;
+}
+.search-bar {
+  border: 2px solid #b1b1b1;
+  padding: 15px;
+  border-radius: 4px;
+  margin-top: 10px;
 }
 /* textarea.form-control{height: 30px !important} */
 .previous {
@@ -86,4 +88,26 @@ textarea{
 
 .disableForm{
   pointer-events: none;
+}
+.ButtonSave {
+  color: black;
+  line-height: 32px !important;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 83%;
+}
+.ButtonSave:hover {
+  background-color: #04AA6D;
+  color: white;
+  line-height: 32px !important;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 83%;
+  border-radius: 5px;
 }

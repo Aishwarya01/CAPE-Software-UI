@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { MatInput } from '@angular/material/input';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -15,12 +15,21 @@ import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.compone
   styleUrls: ['./lps-saved-report.component.css']
 })
 export class LpsSavedReportComponent implements OnInit {
-  savedReportsLpsColumns: string[] = [ 'clientName', 'projectName', 'consultantName', 'contractorName', 'dealerContractorName' , 'address', 'createdDate', 'createdBy','continue'];
+  savedReportsLpsColumns: string[] = [ 'clientName', 
+                                       'projectName', 
+                                       'consultantName', 
+                                       'contractorName', 
+                                       'dealerContractorName' , 
+                                       'address', 
+                                       'createdDate', 
+                                       'createdBy',
+                                       'continue'];
   savedReportLps_dataSource!: MatTableDataSource<BasicDetails[]>;
-  @ViewChild('savedReportLpsPaginator', { static: true }) savedReportLpsPaginator!: MatPaginator;
-  @ViewChild('savedReportLpsSort', {static: true}) savedReportLpsSort!: MatSort;
+  @ViewChild('savedReportLpsPaginator', { static: false }) savedReportLpsPaginator!: MatPaginator;
+  @ViewChild('savedReportLpsSort', {static: false}) savedReportLpsSort!: MatSort;
 
   // @Output("changeTab") changeTab: EventEmitter<any> = new EventEmitter();
+
   email: String ="";
   basicDetails = new BasicDetails();
   clientName: String="";
@@ -36,6 +45,10 @@ export class LpsSavedReportComponent implements OnInit {
   userData: any=[];
   viewerFilterData:any=[];
   selectedIndex: number=0;
+  mode: any = 'indeterminate';
+  disablepage: boolean=true;
+  spinner: boolean=false;
+  spinnerValue: String = '';
  
  @ViewChild('input') input!: MatInput;
  lpsData: any=[];
@@ -65,8 +78,6 @@ completedFilterData: any=[];
   }
 
   retrieveLpsDetails() {
-    if(this.currentUser1.role == 'Inspector') {
-      //
       this.lpsService.retrieveListOfBasicLps(this.email).subscribe(
         data => {
           this.lpsData=JSON.parse(data);
@@ -81,30 +92,12 @@ completedFilterData: any=[];
           this.savedReportLps_dataSource.paginator = this.savedReportLpsPaginator;
           this.savedReportLps_dataSource.sort = this.savedReportLpsSort;
         });
-    }
-    else { //viewer
-      if(this.currentUser1.assignedBy!=null) {
-        this.viewerFilterData=[];
-        this.lpsService.retrieveListOfBasicLps(this.currentUser1.assignedBy).subscribe(
-          data => {
-            this.userData=JSON.parse(data);
-            for(let i of this.lpsData){
-              if(i.allStepsCompleted != "AllStepCompleted"){
-                this.completedFilterData.push(i);
-              }
-            }
-           this.savedReportLps_dataSource = new MatTableDataSource(this.completedFilterData);
-           this.completedFilterData = [];
-           this.lpsData = [];
-           this.savedReportLps_dataSource.paginator = this.savedReportLpsPaginator;
-           this.savedReportLps_dataSource.sort = this.savedReportLpsSort;
-          });
-      } 
-    }
-        
   }
 
   continue(basicLpsId: any,clientName: any) {
+    this.spinner=true;
+    this.disablepage=false;
+    this.spinnerValue = "Please wait, the details are loading!";
     this.lpsParent.continue(basicLpsId,clientName);
   } 
 }

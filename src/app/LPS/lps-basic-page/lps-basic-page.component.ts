@@ -29,11 +29,18 @@ export class LpsBasicPageComponent implements OnInit {
   step1List: any = [];
   flag: boolean = false;
   isEditable!:boolean
-
   success1: boolean =false;
   successMsg1: string="";
-
+  countryCode: String = '';
+  isCountryCodeDirty:boolean =false;
   stepBack:any;
+  basicLpsIdRetrive:number=0;
+  isBasicFormUpdated: boolean =false;
+  proceedFlag: boolean = true;
+  validationErrorTab: boolean = false;
+  validationErrorMsgTab: string="";
+  tabError: boolean=false;
+  tabErrorMsg: string="";
 
   constructor(private formBuilder: FormBuilder, 
     private lPSBasicDetailsService: LPSBasicDetailsService,
@@ -47,28 +54,59 @@ export class LpsBasicPageComponent implements OnInit {
 
   
   ngOnInit(): void {
-    
+    this.countryCode = '91';
     this.LPSBasicForm = this.formBuilder.group({
-    
-      clientName: ['', Validators.required],
-      projectName: ['', Validators.required],
-      pmcName: ['', Validators.required],
-      consultantName: ['', Validators.required],
-      contractorName: ['', Validators.required],
-      address: ['', Validators.required],
-      location: ['', Validators.required],
-      installationContractor: ['', Validators.required],
-      industryType: ['', Validators.required],
-      buildingType: ['', Validators.required],
-      buildingLength: ['', Validators.required],
-      buildingHeight: ['', Validators.required],
-      levelOfProtection: ['', Validators.required],
-      soilResistivity: [''],
-      dealerContractorName: ['', Validators.required],
-      buildingWidth: ['', Validators.required],
-      basicLpsDescription: this.formBuilder.array([this.createLpsDescriptionarr()])
+      lpsBasic: this.formBuilder.array([this.allBasicForm()])
     });
+  }
 
+  allBasicForm(): FormGroup {
+    return new FormGroup({
+      clientName: new FormControl('', Validators.required),
+      projectName:new FormControl('', Validators.required),
+      pmcName:new FormControl('', Validators.required),
+      consultantName:new FormControl('', Validators.required),
+      contractorName:new FormControl('', Validators.required),
+      dealerContractorName:new FormControl('', Validators.required),
+      address:new FormControl('', Validators.required),
+      location:new FormControl('', Validators.required),
+      industryType:new FormControl('', Validators.required),
+      soilResistivity:new FormControl(''),
+      name:new FormControl('', Validators.required),
+      company:new FormControl('', Validators.required),
+      designation:new FormControl('', Validators.required),
+      contactNumber:new FormControl('',[Validators.required ,Validators.maxLength(10),Validators.minLength(10)]),
+      mailId:new FormControl('', [Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+      availabilityOfPreviousReport:new FormControl('', Validators.required),
+    });
+  }
+
+  createGroup(item: any): FormGroup {
+    this.countryCode =item.contactNumber.split("-")[0]
+    return this.formBuilder.group({
+
+      clientName: new FormControl({disabled: false, value: item.clientName}, Validators.required),
+      projectName: new FormControl({disabled: false, value: item.projectName}, Validators.required),
+      pmcName: new FormControl({disabled: false, value: item.pmcName}, Validators.required),
+      consultantName: new FormControl({disabled: false, value: item.consultantName}, Validators.required),
+      contractorName: new FormControl({disabled: false, value: item.contractorName}, Validators.required),
+      dealerContractorName: new FormControl({disabled: false, value: item.dealerContractorName}, Validators.required),
+      address: new FormControl({disabled: false, value: item.address}, Validators.required),
+      location: new FormControl({disabled: false, value: item.location}, Validators.required),
+      industryType: new FormControl({disabled: false, value: item.industryType}, Validators.required),
+      soilResistivity: new FormControl({disabled: false, value: item.soilResistivity}),
+      name: new FormControl({disabled: false, value: item.name}, Validators.required),
+      company: new FormControl({disabled: false, value: item.company}, Validators.required),
+      designation: new FormControl({disabled: false, value: item.designation}, Validators.required),
+      contactNumber: new FormControl({disabled: false, value: item.contactNumber}),
+      mailId: new FormControl({disabled: false, value: item.mailId},
+         [Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+      availabilityOfPreviousReport: new FormControl({disabled: false, value: item.availabilityOfPreviousReport}, Validators.required),
+    });
+  }
+
+  overAllControl(): AbstractControl[] {
+    return(<FormArray>this.LPSBasicForm.get('lpsBasic')).controls;
   }
 
     // Only Accept numbers
@@ -83,106 +121,35 @@ export class LpsBasicPageComponent implements OnInit {
       }
     }
 
-  retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
+  retrieveDetailsfromSavedReports(basicLpsId: any,data: any){
     //this.service.lvClick=1;
-
-     this.step1List = data.basicLps;
-    //  if(this.step1List.clientName != null){
+    this.proceedFlag = false;  
+     
+     if(data.basicLps == undefined){
+      this.step1List = data;
+     }
+     else{
+      this.step1List = data.basicLps;
+     }
       this.success = true;
-      this.basicDetails.basicLpsId = basicLpsId;
-      this.basicDetails.clientName = this.step1List.clientName;
-      this.basicDetails.projectName = this.step1List.projectName;
-      this.basicDetails.pmcName = this.step1List.pmcName;
-      this.basicDetails.address = this.step1List.address;
-      this.basicDetails.buildingHeight = this.step1List.buildingHeight;
-      this.basicDetails.buildingLength = this.step1List.buildingLength;
-      this.basicDetails.buildingType = this.step1List.buildingType;
-      this.basicDetails.buildingWidth = this.step1List.buildingWidth;
-      this.basicDetails.consultantName = this.step1List.consultantName;
-      this.basicDetails.contractorName = this.step1List.contractorName;
+      this.basicLpsIdRetrive = this.step1List.basicLpsId;
+      this.basicDetails.basicLpsId = this.step1List.basicLpsId;
+      this.basicDetails.updatedBy = this.step1List.updatedBy;
+      this.basicDetails.updatedDate = this.step1List.updatedDate;
       this.basicDetails.createdBy = this.step1List.createdBy;
       this.basicDetails.createdDate = this.step1List.createdDate;
-      this.basicDetails.dealerContractorName = this.step1List.dealerContractorName;
-      this.basicDetails.industryType = this.step1List.industryType;
-      this.basicDetails.installationContractor = this.step1List.installationContractor;
-      this.basicDetails.levelOfProtection = this.step1List.levelOfProtection;
-      this.basicDetails.location = this.step1List.location;
-      this.basicDetails.soilResistivity = this.step1List.soilResistivity;
-      this.basicDetails.userName = this.step1List.userName;
-      this.basicDetails.allStepsCompleted = this.step1List.allStepsCompleted;
-      for(let i of this.step1List.basicLpsDescription) {
-        this.LPSBasicForm.patchValue ({
-         basicLpsDescription: [i],
-        })
-       }
-    //  }
-     
-    this.flag=true;
+      this.flag=true
+
+      this.LPSBasicForm = this.formBuilder.group({
+        lpsBasic: this.formBuilder.array([this.createGroup(this.step1List)])
+      });
+
     }
 
     reset(){
       this.LPSBasicForm.reset();
     }
 
-    retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
-      //this.service.lvClick=1;
-
-       this.stepBack=JSON.parse(data);
-       this.basicDetails.basicLpsId = basicLpsId;
-       this.basicDetails.clientName = this.stepBack[0].clientName;
-       this.basicDetails.projectName = this.stepBack[0].projectName;
-       this.basicDetails.pmcName = this.stepBack[0].pmcName;
-       this.basicDetails.address = this.stepBack[0].address;
-       this.basicDetails.buildingHeight = this.stepBack[0].buildingHeight;
-       this.basicDetails.buildingLength = this.stepBack[0].buildingLength;
-       this.basicDetails.buildingType = this.stepBack[0].buildingType;
-       this.basicDetails.buildingWidth = this.stepBack[0].buildingWidth;
-       this.basicDetails.consultantName = this.stepBack[0].consultantName;
-       this.basicDetails.contractorName = this.stepBack[0].contractorName;
-       this.basicDetails.createdBy = this.stepBack[0].createdBy;
-       this.basicDetails.createdDate = this.stepBack[0].createdDate;
-       this.basicDetails.dealerContractorName = this.stepBack[0].dealerContractorName;
-       this.basicDetails.industryType = this.stepBack[0].industryType;
-       this.basicDetails.installationContractor = this.stepBack[0].installationContractor;
-       this.basicDetails.levelOfProtection = this.stepBack[0].levelOfProtection;
-       this.basicDetails.location = this.stepBack[0].location;
-       this.basicDetails.soilResistivity = this.stepBack[0].soilResistivity;
-       this.basicDetails.userName = this.stepBack[0].userName;
-       this.basicDetails.allStepsCompleted = this.stepBack[0].allStepsCompleted;
-       for(let i of this.stepBack[0].basicLpsDescription) {
-         this.LPSBasicForm.patchValue ({
-          basicLpsDescription: [i],
-         })
-        }
-     this.flag=true;
-     this.LPSBasicForm.markAsPristine();
-     }
- 
-
-
-  private createLpsDescriptionarr() {
-    return this.formBuilder.group({
-      basicLpsDescriptionId: [''],
-      approvedDrawingObserv: ['', Validators.required],
-      approvedDrawingRemarks: [''],
-      architectNameObserv: ['', Validators.required],
-      architectNameRemarks: [''],
-      designDateObserv: ['', Validators.required],
-      designDateRemarks: [''],
-      approvedByObserv: ['', Validators.required],
-      approvedByRemarks: [''],
-      dateOfApprovalOb: ['', Validators.required],
-      dateOfApprovalRem: [''],
-      drawingObserv: ['', Validators.required],
-      drawingRemarks: [''],
-      revisionNoObserv: ['', Validators.required],
-      revisionNoRemarks: [''],
-      deviationObserv: ['', Validators.required],
-      deviationRemarks: [''],
-      installationQualityObserv: ['', Validators.required],
-      installationQualityRemarks: ['']
-    });
-  }
   onChangeForm(event:any){
     if(!this.LPSBasicForm.invalid){
       if(this.LPSBasicForm.dirty){
@@ -283,23 +250,26 @@ export class LpsBasicPageComponent implements OnInit {
        return;
      }
      
-
-    this.basicDetails.userName=this.router.snapshot.paramMap.get('email') || '{}';
-    this.basicDetails.basicLpsDescription = this.LPSBasicForm.value.basicLpsDescription;
     if (!this.validationError) {
     if(flag) {
+        
       if(this.LPSBasicForm.dirty && this.LPSBasicForm.touched){ 
-      this.lPSBasicDetailsService.updateLpsBasicDetails(this.basicDetails).subscribe(
+      this.lPSBasicDetailsService.updateLpsBasicDetails(this.getBasicDetailsObject()).subscribe(
         data => {
           // update success msg
           this.success1 = false;
           this.success = true;
           this.successMsg = data;
+          this.isBasicFormUpdated=true;
+          this.retriveBasicDetails();
           this.LPSBasicForm.markAsPristine();
+          this.isBasicFormUpdated=true;
           this.proceedNext.emit(true);
           this.service.lvClick=0;
           this.service.logoutClick=0;
           this.service.windowTabClick=0;
+          this.basicLpsIdRetrive=0;
+          
         },
           // update failed msg
         error => {
@@ -328,25 +298,28 @@ export class LpsBasicPageComponent implements OnInit {
       
     }
     else {
-      this.lPSBasicDetailsService.saveLPSBasicDetails(this.basicDetails).subscribe(
+      this.lPSBasicDetailsService.saveLPSBasicDetails(this.getBasicDetailsObject()).subscribe(
     
         data => {
           let basicDetailsItr=JSON.parse(data);              
-          
+          this.proceedFlag = false;
           this.basicDetails.basicLpsId=basicDetailsItr.basicLpsId;
           this.success = true;
           this.successMsg = "Basic Information sucessfully Saved";
           //this.disable = true;
           this.retriveBasicDetails();
           this.LPSBasicForm.markAsPristine();
+          this.isBasicFormUpdated=true;
           this.proceedNext.emit(true);
           this.service.lvClick=0;
           this.service.logoutClick=0;
           this.service.windowTabClick=0;
+          
         },
         error => {
           this.Error = true;
           this.errorArr = [];
+          this.proceedFlag = true;
           this.errorArr = JSON.parse(error.error);
           this.errorMsg = this.errorArr.message;
           this.proceedNext.emit(false);
@@ -357,22 +330,100 @@ export class LpsBasicPageComponent implements OnInit {
     //(this.basicDetails);
   }
 
+  getBasicDetailsObject(){
+    let contactNum
+    if(this.basicLpsIdRetrive !=0){
+      this.basicDetails.basicLpsId=this.basicLpsIdRetrive;
+        contactNum = "+"+this.countryCode+"-"+this.LPSBasicForm.value.lpsBasic[0].contactNumber.split("-")[1];
+    }
+    else{
+      contactNum = "+"+this.countryCode+"-"+this.LPSBasicForm.value.lpsBasic[0].contactNumber;
+    }
+    this.basicDetails.clientName = this.LPSBasicForm.value.lpsBasic[0].clientName;
+    this.basicDetails.projectName = this.LPSBasicForm.value.lpsBasic[0].projectName;
+    this.basicDetails.pmcName = this.LPSBasicForm.value.lpsBasic[0].pmcName;
+    this.basicDetails.consultantName = this.LPSBasicForm.value.lpsBasic[0].consultantName;
+    this.basicDetails.contractorName = this.LPSBasicForm.value.lpsBasic[0].contractorName;
+    this.basicDetails.dealerContractorName = this.LPSBasicForm.value.lpsBasic[0].dealerContractorName;
+    this.basicDetails.address = this.LPSBasicForm.value.lpsBasic[0].address;
+    this.basicDetails.location = this.LPSBasicForm.value.lpsBasic[0].location;
+    this.basicDetails.industryType = this.LPSBasicForm.value.lpsBasic[0].industryType;
+    this.basicDetails.soilResistivity = this.LPSBasicForm.value.lpsBasic[0].soilResistivity;
+    this.basicDetails.name = this.LPSBasicForm.value.lpsBasic[0].name;
+    this.basicDetails.company = this.LPSBasicForm.value.lpsBasic[0].company;
+    this.basicDetails.designation = this.LPSBasicForm.value.lpsBasic[0].designation;
+    this.basicDetails.contactNumber = contactNum;
+    this.basicDetails.mailId = this.LPSBasicForm.value.lpsBasic[0].mailId;
+    this.basicDetails.availabilityOfPreviousReport = this.LPSBasicForm.value.lpsBasic[0].availabilityOfPreviousReport;
+    this.basicDetails.userName=this.router.snapshot.paramMap.get('email') || '{}';
 
-  getDescriptionControl(): AbstractControl[] {
-    return (<FormArray>this.LPSBasicForm.get('basicLpsDescription')).controls;
+    return this.basicDetails;
   }
+
+
+  // getDescriptionControl(): AbstractControl[] {
+  //   return (<FormArray>this.LPSBasicForm.get('basicLpsDescription')).controls;
+  // }
+  
   get f() {
     return this.LPSBasicForm.controls;
   }
 
   retriveBasicDetails(){
+    this.proceedFlag = false;
     this.lPSBasicDetailsService.retriveLpsbasicDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicDetails.basicLpsId).subscribe(
       data => {
-        this.retrieveDetailsfromSavedReports1(this.basicDetails.userName,this.basicDetails.basicLpsId,this.basicDetails.clientName,data);
+        let basic=JSON.parse(data)[0];
+        if(basic !=undefined && basic.basicLpsId !=null){
+        this.retrieveDetailsfromSavedReports('',basic);
+        }
       },
       error=>{
       }
     );  
   }
-  
+
+// Only Integer
+ NumberskeyPressNumbers(event:any)
+  {var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {event.preventDefault();return false;} else {return true;}} 
+
+  countryChange(country: any) {
+    this.isCountryCodeDirty=true;
+    this.countryCode = country.dialCode;
+    this.LPSBasicForm.markAsDirty();
+    this.LPSBasicForm.markAsTouched();
+  }
+
+  gotoNextTab() {
+    if (this.LPSBasicForm.dirty && this.LPSBasicForm.invalid) {
+      this.service.isCompleted = false;
+      this.service.isLinear = true;
+      this.service.editable = false;
+      this.validationError = false;
+      this.validationErrorTab = true;
+      this.validationErrorMsgTab = 'Please check all the fields in basic information';
+      setTimeout(() => {
+        this.validationErrorTab = false;
+      }, 3000);
+      return;
+    }
+    else if (this.LPSBasicForm.dirty && this.LPSBasicForm.touched) {
+      this.service.isCompleted = false;
+      this.service.isLinear = true;
+      this.service.editable = false;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
+      return;
+    }
+    else {
+      this.service.isCompleted = true;
+      this.service.isLinear = false;
+      this.service.editable = true;
+    }
+  }
 }

@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { GlobalsService } from 'src/app/globals.service';
 import { BasicDetails } from 'src/app/LPS_model/basic-details';
 import { FinalPdfServiceService } from 'src/app/LPS_services/final-pdf-service.service';
 import { LPSBasicDetailsService } from 'src/app/LPS_services/lpsbasic-details.service';
@@ -18,11 +19,19 @@ import { LpsWelcomePageComponent } from '../lps-welcome-page/lps-welcome-page.co
 })
 export class LpsFinalReportComponent implements OnInit {
 
-  finalReportsColumns: string[] = [ 'clientName', 'projectName', 'consultantName', 'contractorName', 'dealerContractorName' , 'address', 'createdDate', 'createdBy', 'action'];
+  finalReportsColumns: string[] = [ 'clientName', 
+                                    'projectName', 
+                                    'consultantName', 
+                                    'contractorName', 
+                                    'dealerContractorName', 
+                                    'address', 
+                                    'createdDate', 
+                                    'createdBy', 
+                                    'action'];
   finalReport_dataSource!: MatTableDataSource<BasicDetails[]>;
 
-  @ViewChild('finalReportPaginator', { static: true }) finalReportPaginator!: MatPaginator;
-  @ViewChild('finalReportSort', {static: true}) finalReportSort!: MatSort;
+  @ViewChild('finalReportPaginator', { static: false }) finalReportPaginator!: MatPaginator;
+  @ViewChild('finalReportSort', {static: false}) finalReportSort!: MatSort;
 
   email: String ="";
   basicDetails = new BasicDetails();
@@ -46,6 +55,10 @@ export class LpsFinalReportComponent implements OnInit {
   errorMsg: string="";
   errorArr: any=[];
   disable: boolean=false;
+  finalReportSpinner: boolean = false;
+  finalReportBody: boolean = true;
+  spinnerValue: String = '';
+  mode: any= 'indeterminate';
 
   @ViewChild('input') input!: MatInput;
   clientService: any;
@@ -56,7 +69,7 @@ export class LpsFinalReportComponent implements OnInit {
               private lpsService: LPSBasicDetailsService,
               private ChangeDetectorRef: ChangeDetectorRef,
               private welcome: LpsWelcomePageComponent,
-              private finalpdf: FinalPdfServiceService,
+              private finalpdf: FinalPdfServiceService,public service: GlobalsService,
               private matstepper:LpsMatstepperComponent,
               private modalService: NgbModal) { 
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
@@ -116,9 +129,12 @@ export class LpsFinalReportComponent implements OnInit {
      this.finalpdf.downloadPDF(basicLpsId,this.userName, projectName)
    }
 
-  priviewPdf(basicLpsId:any,clientName:any){
-     
-     this.matstepper.preview(basicLpsId,clientName);
+   continue(basicLpsId:any,clientName:any){
+    this.finalReportBody = false;
+    this.finalReportSpinner = true;
+    this.spinnerValue = "Please wait, the details are loading!";
+    this.service.allFieldsDisable = true;
+    this.matstepper.preview(basicLpsId,clientName);
    }
 
   emailPDF(basicLpsId:any,userName:any, projectName: any){

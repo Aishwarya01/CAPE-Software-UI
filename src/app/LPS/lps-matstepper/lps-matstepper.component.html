@@ -1,42 +1,78 @@
 <mat-tab-group [selectedIndex]="selectedIndex" style="background-color:white;" #tabs>
     <mat-tab label="Lightning Protection System" >
-      <mat-horizontal-stepper linear #stepper>
-  
-        <mat-step [completed]=Completed1>
-          <ng-template matStepLabel >Basics</ng-template>
+      <mat-horizontal-stepper  [linear]="service.isLinear" #stepper>
+     <!-- step_1 Basics-->
+        <mat-step [completed]=service.isCompleted [editable]="service.editable" >
+          <ng-template matStepLabel >
+            <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
+            Basics
+          </ng-template>
           <app-lps-basic-page *ngIf="basicDetails" (proceedNext)="doSomething1($event)"></app-lps-basic-page>
         </mat-step>
      
-        <mat-step [completed]=Completed2>
-          <ng-template matStepLabel>Air Termination</ng-template>
+ <!-- step_2 Air Termination-->
+        <mat-step  [completed]="service.isCompleted2" [editable]="service.editable">
+          <ng-template matStepLabel>
+            <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
+            Air Termination</ng-template>
           <app-lps-air-termination *ngIf="airTermValue" (proceedNext)="doSomething2($event)"></app-lps-air-termination>
+          <button class="previousAirtermination" mat-button (click)="goBack2(stepper)">&laquo; Back</button> 
         </mat-step>
 
-        <mat-step [completed]=Completed3>
-          <ng-template matStepLabel >Down Conductors</ng-template>
+ <!-- step_3 Down Conductors-->
+        <mat-step [completed]="service.isCompleted3" [editable]="service.editable">
+          <ng-template matStepLabel>
+            <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
+            Down Conductors</ng-template>
           <app-lps-down-conductors *ngIf="downValue" (proceedNext)="doSomething3($event)"></app-lps-down-conductors>
+          <button class="previousDwonconductor" mat-button (click)="goBack3(stepper)">&laquo; Back</button> 
         </mat-step>
   
-        <mat-step [completed]=Completed4>
-          <ng-template matStepLabel>Earthing</ng-template>
+  <!-- step_4 Earthing-->       
+        <mat-step [completed]="service.isCompleted4" [editable]="service.editable">
+          <ng-template matStepLabel>
+            <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
+            Earthing</ng-template>
           <app-lps-earthing *ngIf="earthingValue" (proceedNext)="doSomething4($event)"></app-lps-earthing>
+          <button class="previousEarthing" mat-button (click)="goBack4(stepper)">&laquo; Back</button> 
         </mat-step>
   
-        <mat-step [completed]=Completed5>
-          <ng-template matStepLabel>SPD</ng-template>
+  <!-- step_5 SPD-->            
+        <mat-step [completed]="service.isCompleted5" [editable]="service.editable">
+          <ng-template matStepLabel>
+            <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
+            SPD</ng-template>
           <app-lps-spd *ngIf="spdValue" (proceedNext)="doSomething5($event)"></app-lps-spd>
+          <button class="previousSPD" mat-button (click)="goBack5(stepper)">&laquo; Back</button> 
         </mat-step>
   
-        <mat-step [completed]=Completed6>
-          <ng-template matStepLabel>Seperation Distance</ng-template>
+  <!-- step_6 Seperation Distance-->          
+        <mat-step [completed]="service.isCompleted6" [editable]="service.editable">
+          <ng-template matStepLabel>
+            <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
+            Seperation Distance</ng-template>
           <app-lps-seperation-distance *ngIf="seperationValue" (proceedNext)="doSomething6($event)"></app-lps-seperation-distance>
+          <button class="previousSepration" mat-button (click)="goBack6(stepper)">&laquo; Back</button> 
         </mat-step>
-  
-        <mat-step [completed]=Completed7>
-          <ng-template matStepLabel>Equipotential Bonding</ng-template>
+
+<!-- step_7 Equipotential Bonding-->  
+        <mat-step [completed]="service.isCompleted7" [editable]="service.editable">
+          <ng-template matStepLabel>
+            <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
+            Equipotential Bonding</ng-template>
           <app-lps-earth-stud *ngIf="equipotentialBond" (proceedNext)="doSomething7($event)"></app-lps-earth-stud>
+          <button class="previousEarthStud" mat-button (click)="goBack7(stepper)">&laquo; Back</button> 
         </mat-step>
-  
+
+<!-- step_8 Summary--> 
+        <mat-step [completed]="service.isCompleted8" [editable]="service.editable">
+          <ng-template matStepLabel>
+            <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
+            Summary</ng-template>
+          <app-lpssummary *ngIf="summary" (proceedNext)="doSomething8($event)"></app-lpssummary>
+          <button class="previousSummary" mat-button (click)="goBack8(stepper)">&laquo; Back</button> 
+        </mat-step>
+
       </mat-horizontal-stepper>
     </mat-tab>
 

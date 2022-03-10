@@ -41,6 +41,7 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
   emcId!: number;
   tabError: boolean = false;
   tabErrorMsg: string = "";
+  mode: any= 'indeterminate';
   panelOpenState = false;
 
   constructor(
@@ -124,12 +125,14 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
       this.service.isCompleted4= false;
       this.service.isLinear=true;
       this.modalService.dismissAll((this.errorMsg = ""));
+      this.proceedNext.emit(false);
     } 
     else {
       this.success = false;
       this.service.isCompleted4= true;
       this.service.isLinear=false;
       this.modalService.dismissAll((this.successMsg = ""));
+      this.proceedNext.emit(true);
     }
   }
 
@@ -481,7 +484,7 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
             this.service.disableSubmitElectromagnetic=true;
             //this.disable = true;
             this.retriveElectroMagneticCompatibilityDetails();
-           this.proceedNext.emit(true);
+         //  this.proceedNext.emit(true);
           },
           error => {
             this.finalSpinner = false;
