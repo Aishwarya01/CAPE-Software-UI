@@ -1,4 +1,4 @@
-import { Spd } from './spd';
+import { Spd } from './spdReport';
 
 describe('Spd', () => {
   it('should create an instance', () => {

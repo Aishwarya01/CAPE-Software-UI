@@ -1,7 +1,7 @@
-import { DownConductor } from './down-conductor';
+import { downConductorReport } from './downConductorReport';
 
 describe('DownConductor', () => {
   it('should create an instance', () => {
-    expect(new DownConductor()).toBeTruthy();
+    expect(new downConductorReport()).toBeTruthy();
   });
 });

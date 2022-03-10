@@ -4,6 +4,14 @@ h3 {
     text-align: center;
 }
 
+.search-bar {
+  border: 2px solid #b1b1b1;
+  padding: 15px;
+  border-radius: 4px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
 /* textarea.form-control{height: 30px !important} */
 .previous {
     background-color: #f1f1f1;
@@ -57,4 +65,8 @@ label{
 
 ::placeholder{
   font-size: 10px;
+}
+
+.disableForm{
+  pointer-events: none;
 }
