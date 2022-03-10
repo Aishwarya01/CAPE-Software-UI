@@ -680,8 +680,16 @@
 
 
 <ng-template #content3 let-modal>
-    <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinner" color="primary">
+    <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinner"
+        color="primary"
+        [mode]="mode"
+        value="50"
+        diameter="50">
     </mat-progress-spinner>
+    <br>
+    <div *ngIf="finalSpinner" style="text-align: center;">
+     Submission in Progress!
+    </div>
     <div class="modal-body" *ngIf="popup">
         <div class="centre-text m-btm30">
             <div *ngIf="success" style="text-align: center;">

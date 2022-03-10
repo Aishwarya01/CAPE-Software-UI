@@ -159,6 +159,16 @@ export class EmcMatstepperComponent implements OnInit {
           this.final.finalReportBody = true;
 
           this.dataJSON = JSON.parse(data);
+
+          if (this.dataJSON.clientDetails != null
+            && this.dataJSON.facilityData != null
+            && this.dataJSON.powerEarthingData != null
+            && this.dataJSON.electromagneticCompatability != null) {
+            this.service.disableSubmitElectromagnetic = true;
+          }
+          else{
+            this.service.disableSubmitElectromagnetic = false;
+          }
           if (this.dataJSON.clientDetails != null) {
 
             this.selectedIndex = index;
@@ -180,12 +190,6 @@ export class EmcMatstepperComponent implements OnInit {
                   this.electroMagneticCopatibility.retrieveDetailsfromSavedReports(userName, emcId, this.dataJSON);
                   this.doSomething3(false);
                   //this.Completed3 = true;
-                  if (this.dataJSON.clientDetails != null
-                    && this.dataJSON.facilityData != null
-                    && this.dataJSON.powerEarthingData != null
-                    && this.dataJSON.electromagneticCompatability != null) {
-                    this.service.disableSubmitElectromagnetic = true;
-                  }
                 }
               }
             }
