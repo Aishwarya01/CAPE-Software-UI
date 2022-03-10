@@ -304,9 +304,9 @@
                                                     <select class="form-control" [attr.disabled]="isEditable ? '' : null" formControlName="spdClassTypeOb" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('spdClassTypeOb')?.errors}"> 
                                                         <option  value="" selected>Select Option</option>
-                                                        <option value="class I" >class I</option>
-                                                        <option value="class II" >class II</option>
-                                                        <option value="class III" >class III</option>
+                                                        <option value="Class I" >Class I</option>
+                                                        <option value="Class II" >Class II</option>
+                                                        <option value="Class III" >Class III</option>
                                                     </select>
                                                     <div *ngIf="submitted && a.get('spdClassTypeOb')?.errors" class="invalid-feedback">
                                                         <div *ngIf="a.get('spdClassTypeOb')?.errors?.required">Class Type observation is required</div>

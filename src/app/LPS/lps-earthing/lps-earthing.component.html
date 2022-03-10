@@ -111,8 +111,8 @@
                                                 <select class="form-control"  style="height: 3rem;" (change)="dropDown($event,q)" [attr.disabled]="isEditable ? '' : null" formControlName="bimetallicIssueInOb" placeholder="Please enter Observation here"
                                                 [ngClass]="{ 'is-invalid': submitted && q.get('bimetallicIssueInOb')?.errors}">
                                                     <option  value="" selected>Select Option</option>
-                                                    <option value="YES" >Yes</option>
-                                                    <option value="NO" >No</option>
+                                                    <option value="Yes" >Yes</option>
+                                                    <option value="No" >No</option>
                                                 </select>
                                                 <div *ngIf="submitted && q.get('bimetallicIssueInOb')?.errors"
                                                     class="invalid-feedback">
@@ -158,7 +158,7 @@
                                                     <option value="Crimping" >Crimping</option>
                                                     <option value="Seaming" >Seaming</option>
                                                     <option value="Screwing" >Screwing</option>
-                                                    <option value="Bolting" >Bolting (clamps)</option>
+                                                    <option value="Bolting (clamps)" >Bolting (clamps)</option>
                                                 </select>
                                                 <div *ngIf="submitted && q.get('brazingConnectInOb')?.errors" class="invalid-feedback">
                                                     <div *ngIf="q.get('brazingConnectInOb')?.errors?.required">Connections made by brazing/welding/crimping /seaming/screwing/bolting Observation is required</div>
@@ -2016,12 +2016,12 @@
                                                 <select class="form-control"  formControlName="jointsMadeBrazingOb" [attr.disabled]="isEditable ? '' : null"
                                                 [ngClass]="{ 'is-invalid': submitted && a.get('jointsMadeBrazingOb')?.errors}" style="height: 3rem;">
                                                     <option  value="" selected>Select Option</option>
-                                                    <option value="brazing" >brazing</option>
-                                                    <option value="welding" >welding</option>
-                                                    <option value="crimping" >crimping</option>
-                                                    <option value="seaming" >seaming</option>
-                                                    <option value="screwing" >screwing</option>
-                                                    <option value="bolting (connectors)" >bolting (connectors)</option>
+                                                    <option value="Brazing" >Brazing</option>
+                                                    <option value="Welding" >Welding</option>
+                                                    <option value="Crimping" >Crimping</option>
+                                                    <option value="Seaming" >Seaming</option>
+                                                    <option value="Screwing" >Screwing</option>
+                                                    <option value="Bolting (connectors)" >Bolting (connectors)</option>
                                                 </select>
                                                 <div *ngIf="submitted && a.get('jointsMadeBrazingOb')?.errors"
                                                     class="invalid-feedback">
@@ -2099,10 +2099,10 @@
                                                 <select class="form-control"  formControlName="typeOfEarthElectrodeOb" [attr.disabled]="isEditable ? '' : null"
                                                 [ngClass]="{ 'is-invalid': submitted && a.get('typeOfEarthElectrodeOb')?.errors}" style="height: 3rem;">
                                                     <option  value="" selected>Select Option</option>
-                                                    <option value="rod" >rod</option>
-                                                    <option value="pipe" >pipe</option>
-                                                    <option value="flat" >flat</option>
-                                                    <option value="chemical pipe" >chemical pipe</option>
+                                                    <option value="Rod" >Rod</option>
+                                                    <option value="Pipe" >Pipe</option>
+                                                    <option value="Flat" >Flat</option>
+                                                    <option value="Chemical pipe" >Chemical pipe</option>
                                                 </select>
                                                 <div *ngIf="submitted && a.get('typeOfEarthElectrodeOb')?.errors"
                                                     class="invalid-feedback">

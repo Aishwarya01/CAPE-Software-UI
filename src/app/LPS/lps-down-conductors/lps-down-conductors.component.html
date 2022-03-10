@@ -285,9 +285,9 @@
                                                         <select class="form-control" formControlName="cobustMaterialWallOB" [attr.disabled]="isEditable ? '' : null"
                                                         (change)="validationChangeBasicDown($event,q,'cobustMaterialWallRem')" [ngClass]="{ 'is-invalid': submitted && q.get('cobustMaterialWallOB')?.errors}">
                                                             <option  value="" selected>Select Option</option>
-                                                            <option value="Distance>1m" >Distance >1m</option>
-                                                            <option value="Distance<1m" >Distance < 1m </option>
-                                                            <option value="Not applicable < 1m" >Not applicable < 1m </option>
+                                                            <option value="Distance >1m" >Distance >1m</option>
+                                                            <option value="Distance < 1m" >Distance < 1m</option>
+                                                            <option value="Not applicable < 1m" >Not applicable < 1m</option>
                                                         </select>
                                                         <div *ngIf="submitted && q.get('cobustMaterialWallOB')?.errors"  class="invalid-feedback">
                                                             <div *ngIf="q.get('cobustMaterialWallOB')?.errors?.required">If wall is a combustible material observation is required</div>
@@ -335,7 +335,7 @@
                                             [ngClass]="{ 'is-invalid': submitted && q.get('downConductorAvailabilityOb')?.errors }" style="height: 3rem;" >
                                                 <option value="" selected>Select Option</option>
                                                 <option value="Applicable">Applicable </option>
-                                                <option value="not applicable in case of natural down conductors">not applicable in case of natural down conductors</option>
+                                                <option value="Not applicable in case of natural down conductors">Not applicable in case of natural down conductors</option>
                                             </select>
                                             <div *ngIf="submitted && q.get('downConductorAvailabilityOb')?.errors" class="invalid-feedback">
                                                 <div *ngIf="q.get('downConductorAvailabilityOb')?.errors?.required">Please select the field</div>
