@@ -279,10 +279,10 @@
                     </div>
 
                     <select class="form-control" formControlName="availabilityOfPreviousReport" [attr.disabled]="isEditable ? '' : null" 
-                    [ngClass]="{ 'is-invalid': submitted && f.get('availabilityOfPreviousReport')?.errors }">
+                    [ngClass]="{ 'is-invalid': submitted && f.get('availabilityOfPreviousReport')?.errors }" [(ngModel)]="availableReportNo">
                         <option  value="" selected>Select Option</option>
-                        <option value="YES" >Yes</option>
-                        <option value="NO" >No</option>
+                        <option value="Yes" >Yes</option>
+                        <option value="No" >No</option>
                     </select>
 
                     <div *ngIf="submitted && f.get('availabilityOfPreviousReport')?.errors" class="invalid-feedback">

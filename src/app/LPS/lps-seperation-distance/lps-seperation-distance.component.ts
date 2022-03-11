@@ -76,7 +76,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
       return;
     }
     
-    if (this.basicLpsId == 0) {
+    else if(this.basicLpsId == 0) {
       this.validationError = true;
       this.validationErrorMsg = 'Basics Form is Required, Please fill';
       setTimeout(() => {
@@ -84,7 +84,15 @@ export class LpsSeperationDistanceComponent implements OnInit {
       }, 3000);
       return;
     }
-    if(this.separeteDistanceForm.dirty && this.separeteDistanceForm.touched){
+    else if(this.separeteDistanceForm.value.seperationDistanceDescription[0].buildingNumber != undefined || this.separeteDistanceForm.value.seperationDistanceDescription[0].buildingNumber != ''){
+      this.validationError = true;
+      this.validationErrorMsg = 'Air Termination Form is Required, Please fill';
+      setTimeout(() => {
+        this.validationError = false;
+      }, 3000);
+      return;
+    }
+    else if(this.separeteDistanceForm.dirty && this.separeteDistanceForm.touched){
       this.modalService.open(content, { centered: true,backdrop: 'static' });
    }
   //  For Dirty popup
@@ -344,53 +352,11 @@ export class LpsSeperationDistanceComponent implements OnInit {
     }
   }
 
-  // createSeperationForm(noOfBuildingNumber:any){
-  //   
-  //   this.seperationDistanceDescription = this.separeteDistanceForm.get('seperationDistanceDescription') as FormArray;
-  //   let sizeOfSeperation=this.separeteDistanceForm.value.seperationDistanceDescription.length;
-  //    if(noOfBuildingNumber !=null && noOfBuildingNumber !='' && noOfBuildingNumber !=undefined){
-      
-  //     for (let i = 0; i < noOfBuildingNumber.length; i++) {
-  //       let buildingNumber=null;
-  //       let buildingName=null;
-  //       let isBuildingRequired=false;
-        
-  //       //spliting locationNum and locationName from airtermination
-  //       const myArray = noOfBuildingNumber[i].split(",");
-  //       buildingNumber=parseInt(myArray[0])
-  //       buildingName=myArray[1]
-  //           for (let j = 0; !isBuildingRequired && j < sizeOfSeperation; j++) { 
-  //             //if form dont have any data
-  //             if((this.separeteDistanceForm.value.seperationDistanceDescription[j].buildingNumber==null || this.separeteDistanceForm.value.seperationDistanceDescription[j].buildingNumber=='') && (this.separeteDistanceForm.value.seperationDistanceDescription[j].seperationDistanceDescId == null ||
-  //             this.separeteDistanceForm.value.seperationDistanceDescription[j].seperationDistanceDescId == undefined)){
-  //               //first removing empty form
-  //              (this.separeteDistanceForm.get('seperationDistanceDescription') as FormArray).removeAt(j);
-  //              this.seperationDistanceDescription.push(this.allSeparateDistance(buildingNumber,buildingName));
-  //               isBuildingRequired=true;
-  //             }
-  //             else{
-  //               //verifying form have coressponding buildingName,buildingNumber
-  //               if(myArray !=null && this.separeteDistanceForm.value.seperationDistanceDescription[j].buildingNumber !=null
-  //                 && this.separeteDistanceForm.value.seperationDistanceDescription[j].buildingName !=null 
-  //                 && buildingNumber==this.separeteDistanceForm.value.seperationDistanceDescription[j].buildingNumber && buildingName==this.separeteDistanceForm.value.seperationDistanceDescription[j].buildingName){
-  //                 isBuildingRequired=true;
-  //               }
-                
-  //             }
-  //           }
-  //       //adding new dwonconductor
-  //       if(!isBuildingRequired){
-  //       this.seperationDistanceDescription.push(this.allSeparateDistance(buildingNumber,buildingName));
-  //          buildingName=null;
-  //          isBuildingRequired=false;
-  //       }
-  //     }
-  //    }    
-  // }
+
 
   onSubmit(flag: any) {
     this.submitted = true;
-    if (this.separeteDistanceForm.invalid) {
+    if (this.separeteDistanceForm.invalid && (this.separeteDistanceForm.value.seperationDistanceDescription[0].buildingNumber != undefined || this.separeteDistanceForm.value.seperationDistanceDescription[0].buildingNumber != '')) {
       return;
     }
 

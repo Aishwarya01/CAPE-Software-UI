@@ -24,7 +24,7 @@
                                                 <i class="bi bi-align-start"></i>
                                             </span>
                                         </div>
-                                        <input type="number" class="form-control" formControlName="buildingNumber"  required readonly/>
+                                        <input type="number" class="form-control" formControlName="buildingNumber" readonly/>
                                     </div>
                                 </div>
                 
@@ -36,7 +36,7 @@
                                                 <i class="bi bi-align-start"></i>
                                             </span>
                                         </div>
-                                        <input type="text" class="form-control" formControlName="buildingName" required readonly/>
+                                        <input type="text" class="form-control" formControlName="buildingName" readonly/>
                                     </div>
                                 </div>
                             </div>
@@ -469,14 +469,13 @@
                     
         </div>
         </div>
+
+    <div *ngIf="validationError" style="text-align: center;margin-bottom: 2rem;margin-top: 2rem;">
+        <span class="alertDanger">{{validationErrorMsg}}</span>
+    </div>
     <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
         <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
-
         <button class="next" (click)="gotoNextModal(content,contents)" mat-button>Next &raquo;</button>
-
-    </div>
-    <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
-        <span class="alert alert-danger">{{validationErrorMsg}}</span>
     </div>
     </form>
 </div>

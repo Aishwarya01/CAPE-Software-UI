@@ -28,15 +28,15 @@
   .previousAirtermination {
     background-color: #f1f1f1;
     color: black;
-    position: relative;
-    bottom: 76px;
+    position: absolute;
+    bottom: 60px;
     left: 40%;
   }
   .previousAirtermination:hover {
     background-color: #747a76;
     color: white;
     position: relative;
-    bottom: 76px;
+    bottom: 72px;
     left: 40%;
   }
 
@@ -44,14 +44,14 @@
     background-color: #f1f1f1;
     color: black;
     position: relative;
-    bottom: 76px;
+    bottom: 73px;
     left: 40%;
   }
   .previousSPD:hover {
     background-color: #747a76;
     color: white;
     position: relative;
-    bottom: 76px;
+    bottom: 72px;
     left: 40%;
   }
 
@@ -59,14 +59,14 @@
     background-color: #f1f1f1;
     color: black;
     position: relative;
-    bottom: 76px;
+    bottom: 73px;
     left: 40%;
   }
   .previousEarthing:hover {
     background-color: #747a76;
     color: white;
     position: relative;
-    bottom: 76px;
+    bottom: 75px;
     left: 40%;
   }
 
@@ -74,14 +74,14 @@
     background-color: #f1f1f1;
     color: black;
     position: relative;
-    bottom: 76px;
+    bottom: 73px;
     left: 40%;
   }
   .previousDwonconductor:hover {
     background-color: #747a76;
     color: white;
     position: relative;
-    bottom: 76px;
+    bottom: 72px;
     left: 40%;
   }
 
@@ -89,14 +89,14 @@
     background-color: #f1f1f1;
     color: black;
     position: relative;
-    bottom: 76px;
+    bottom: 73px;
     left: 40%;
   }
   .previousSepration:hover {
     background-color: #747a76;
     color: white;
     position: relative;
-    bottom: 76px;
+    bottom: 72px;
     left: 40%;
   }
 
@@ -104,14 +104,14 @@
     background-color: #f1f1f1;
     color: black;
     position: relative;
-    bottom: 76px;
+    bottom: 73px;
     left: 40%;
   }
   .previousEarthStud:hover {
     background-color: #747a76;
     color: white;
     position: relative;
-    bottom: 76px;
+    bottom: 72px;
     left: 40%;
   }
 
@@ -119,13 +119,13 @@
     background-color: #f1f1f1;
     color: black;
     position: relative;
-    bottom: 56px;
+    bottom: 52px;
     left: 40%;
   }
   .previousSummary:hover {
     background-color: #747a76;
     color: white;
     position: relative;
-    bottom: 56px;
+    bottom: 54px;
     left: 40%;
   }

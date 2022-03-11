@@ -2,7 +2,7 @@
     <mat-tab label="Lightning Protection System" >
       <mat-horizontal-stepper  [linear]="service.isLinear" #stepper>
      <!-- step_1 Basics-->
-        <mat-step [completed]=service.isCompleted [editable]="service.editable" >
+        <mat-step [completed]="service.isCompleted" [editable]="service.editable" >
           <ng-template matStepLabel >
             <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
             Basics

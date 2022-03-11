@@ -3522,15 +3522,15 @@
                  
                 </div>
             </div>
-
-            <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
+            <div *ngIf="validationError" style="text-align: center;margin-bottom: 2rem;">
+                <span class="alertDanger">{{validationErrorMsg}}</span>
+            </div>
+            <div style="text-align: center;margin-bottom: 20px;">
                 <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
                 <button class="next" (click)="gotoNextModal(content,contents)" mat-button >Next &raquo;</button>
             </div>
         </form>
-        <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
-            <span class="alert alert-danger">{{validationErrorMsg}}</span>
-        </div>
+        
     </div>
 </div>
 
