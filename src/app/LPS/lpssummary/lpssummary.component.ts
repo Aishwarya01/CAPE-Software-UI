@@ -88,7 +88,7 @@ export class LpssummaryComponent implements OnInit {
     Error: boolean=false;
     @Output() proceedNext = new EventEmitter<any>();
     mode: any= 'indeterminate';
-    isEditable:boolean=true;
+    isEditable:boolean=false;
 
     //air termination
     airBasicName: string[] = [
@@ -428,8 +428,8 @@ export class LpssummaryComponent implements OnInit {
     }
     summaryLPSArr(){
       return this.formBuilder.group({
-        buildingNumber: new FormControl('',Validators.required),
-        buildingName: new FormControl('', Validators.required),
+        buildingNumber: new FormControl(''),
+        buildingName: new FormControl(''),
         buildingCount: new FormControl(''),
         summaryLpsObservation: this.formBuilder.array([]),
        //air termination
@@ -2302,10 +2302,29 @@ export class LpssummaryComponent implements OnInit {
   onSubmit(flag:any,content5:any){
     this.submitted = true;
     this.summaryForm.value.summaryLpsBuildings;
-    if (this.summaryForm.invalid) 
+    if (this.summaryForm.invalid && (this.summaryForm.value.summaryLpsBuildings[0].buildingNumber != undefined || this.summaryForm.value.summaryLpsBuildings[0].buildingNumber != '')) 
     {
       this.validationError = true;
       this.validationErrorMsg = 'Please check all the fields';
+      setTimeout(() => {
+        this.validationError = false;
+      }, 3000);
+      return 
+    }
+    else if(this.basicLpsId == 0){
+      this.validationError = true;
+      this.validationErrorMsg = 'Basics Form is Required, Please fill';
+      setTimeout(() => {
+        this.validationError = false;
+      }, 3000);
+      return 
+    }
+    else if(this.summaryForm.value.summaryLpsBuildings[0].buildingNumber != undefined || this.summaryForm.value.summaryLpsBuildings[0].buildingNumber != ''){
+      this.validationError = true;
+      this.validationErrorMsg = 'Air Termination Form is Required, Please fill';
+      setTimeout(() => {
+        this.validationError = false;
+      }, 3000);
       return 
     }
     this.lpsSummary.userName = this.router.snapshot.paramMap.get('email') || '{}';
