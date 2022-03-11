@@ -403,7 +403,7 @@ export class EmcClientDetailsComponent implements OnInit {
               this.service.isCompleted= true;
               this.service.isLinear=false;
               this.retriveClientDetails();
-              //this.proceedNext.emit(true);
+              this.proceedNext.emit(true);
               
 
             },
@@ -414,7 +414,7 @@ export class EmcClientDetailsComponent implements OnInit {
               this.errorArr = [];
               this.errorArr = JSON.parse(error.error);
               this.errorMsg = this.errorArr.message;
-              //this.proceedNext.emit(false);
+              this.proceedNext.emit(false);
 
             });
       }
