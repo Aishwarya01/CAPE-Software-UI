@@ -330,14 +330,20 @@ export class LpsBasicPageComponent implements OnInit {
     //(this.basicDetails);
   }
 
-  getBasicDetailsObject(){
+  getBasicDetailsObject() {
     let contactNum
-    if(this.basicLpsIdRetrive !=0){
-      this.basicDetails.basicLpsId=this.basicLpsIdRetrive;
-        contactNum = "+"+this.countryCode+"-"+this.LPSBasicForm.value.lpsBasic[0].contactNumber.split("-")[1];
+    if (this.basicLpsIdRetrive != 0) {
+      this.basicDetails.basicLpsId = this.basicLpsIdRetrive;
+      if (this.isCountryCodeDirty) {
+        contactNum = "+" + this.countryCode + "-" + this.LPSBasicForm.value.lpsBasic[0].contactNumber.split("-")[1];
+        this.isCountryCodeDirty = false;
+      }
+      else {
+        contactNum = this.LPSBasicForm.value.lpsBasic[0].contactNumber;
+      }
     }
-    else{
-      contactNum = "+"+this.countryCode+"-"+this.LPSBasicForm.value.lpsBasic[0].contactNumber;
+    else {
+      contactNum = "+" + this.countryCode + "-" + this.LPSBasicForm.value.lpsBasic[0].contactNumber;
     }
     this.basicDetails.clientName = this.LPSBasicForm.value.lpsBasic[0].clientName;
     this.basicDetails.projectName = this.LPSBasicForm.value.lpsBasic[0].projectName;
@@ -355,7 +361,7 @@ export class LpsBasicPageComponent implements OnInit {
     this.basicDetails.contactNumber = contactNum;
     this.basicDetails.mailId = this.LPSBasicForm.value.lpsBasic[0].mailId;
     this.basicDetails.availabilityOfPreviousReport = this.LPSBasicForm.value.lpsBasic[0].availabilityOfPreviousReport;
-    this.basicDetails.userName=this.router.snapshot.paramMap.get('email') || '{}';
+    this.basicDetails.userName = this.router.snapshot.paramMap.get('email') || '{}';
 
     return this.basicDetails;
   }
