@@ -1079,7 +1079,7 @@ export class LpsEarthingComponent implements OnInit {
         }, 3000);
         return;
       }
-      else if(this.earthingForm.value.earthing[0].buildingNumber != undefined || this.earthingForm.value.earthing[0].buildingNumber != ''){
+      else if(this.earthingForm.value.earthing[0].buildingNumber == undefined || this.earthingForm.value.earthing[0].buildingNumber == ''){
         this.validationError = true;
         this.validationErrorMsg = 'Air Termination Form is Required, Please fill';
         setTimeout(() => {

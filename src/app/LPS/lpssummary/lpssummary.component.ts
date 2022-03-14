@@ -2319,7 +2319,7 @@ export class LpssummaryComponent implements OnInit {
       }, 3000);
       return 
     }
-    else if(this.summaryForm.value.summaryLpsBuildings[0].buildingNumber != undefined || this.summaryForm.value.summaryLpsBuildings[0].buildingNumber != ''){
+    else if(this.summaryForm.value.summaryLpsBuildings[0].buildingNumber == undefined || this.summaryForm.value.summaryLpsBuildings[0].buildingNumber == ''){
       this.validationError = true;
       this.validationErrorMsg = 'Air Termination Form is Required, Please fill';
       setTimeout(() => {
