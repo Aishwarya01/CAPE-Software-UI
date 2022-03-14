@@ -1533,7 +1533,7 @@ export class LpsDownConductorsComponent implements OnInit {
         return;
       }
 
-      else if(this.downConductorForm.value.downConductorDescription[0].buildingNumber != undefined || this.downConductorForm.value.downConductorDescription[0].buildingNumber != ''){
+      else if(this.downConductorForm.value.downConductorDescription[0].buildingNumber == undefined || this.downConductorForm.value.downConductorDescription[0].buildingNumber == ''){
         this.validationError = true;
         this.validationErrorMsg = 'Air Termination Form is Required, Please fill';
         setTimeout(() => {
