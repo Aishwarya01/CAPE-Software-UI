@@ -338,7 +338,8 @@ export class LpsSpdComponent implements OnInit {
   onSubmit(flag: any) {
 
     this.submitted = true;
-    if (this.spdForm.invalid) { return }
+    if (this.spdForm.invalid && (this.spdForm.value.spd[0].buildingNumber != undefined || this.spdForm.value.spd[0].buildingNumber != '')) 
+    { return }
 
     // this.spdReport.spd[0]=[]
     //this.spdReport=this.spdForm.value
@@ -477,7 +478,7 @@ export class LpsSpdComponent implements OnInit {
       }, 3000);
       return;
     }
-    if (this.basicLpsId == 0) {
+    else if (this.basicLpsId == 0) {
       this.validationError = true;
       this.validationErrorMsg = 'Basics Form is Required, Please fill';
       setTimeout(() => {
@@ -485,7 +486,15 @@ export class LpsSpdComponent implements OnInit {
       }, 3000);
       return;
     }
-    if (this.spdForm.dirty && this.spdForm.touched) {
+    else if(this.spdForm.value.spd[0].buildingNumber == undefined || this.spdForm.value.spd[0].buildingNumber == ''){
+      this.validationError = true;
+      this.validationErrorMsg = 'Air Termination Form is Required, Please fill';
+      setTimeout(() => {
+        this.validationError = false;
+      }, 3000);
+      return;
+    }
+    else if (this.spdForm.dirty && this.spdForm.touched) {
       this.modalService.open(content, { centered: true, backdrop: 'static' });
     }
     //  For Dirty popup

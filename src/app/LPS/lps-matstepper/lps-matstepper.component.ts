@@ -113,10 +113,10 @@ export class LpsMatstepperComponent implements OnInit {
     this.service.isCompleted = next;
 
     if (this.basic.isBasicFormUpdated) {
+      this.initializeLpsId();
       this.earthing.isAirterminationUpdated = true;
       this.earthing.ngOnInit();
       this.downConductors.updateMethod();
-      this.initializeLpsId();
       this.basic.isBasicFormUpdated=false;
     }
 
@@ -427,8 +427,11 @@ export class LpsMatstepperComponent implements OnInit {
 
   initializeLpsId(){
 
-    this.downConductors.availabilityOfPreviousReport = this.basic.basicDetails.availabilityOfPreviousReport;
-    this.earthing.availabilityOfPreviousReport = this.basic.basicDetails.availabilityOfPreviousReport;
+    // this.downConductors.availabilityOfPreviousReport = this.basic.basicDetails.availabilityOfPreviousReport;
+    // this.earthing.availabilityOfPreviousReport = this.basic.basicDetails.availabilityOfPreviousReport;
+ 
+    this.downConductors.availabilityOfPreviousReport = this.basic.availableReportNo;
+    this.earthing.availabilityOfPreviousReport = this.basic.availableReportNo;
 
     this.basic.isEditable=this.isEditable;
     // AirTermination

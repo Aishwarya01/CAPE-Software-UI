@@ -37,7 +37,7 @@
                               <i class="bi bi-align-start"></i>
                           </span>
                       </div>
-                      <input type="text" class="form-control"  placeholder="Enter Building Name" formControlName="buildingName"
+                      <input type="text" class="form-control" placeholder="Enter Building Name" formControlName="buildingName"
                       readonly/>
                   </div>
               </div>
@@ -56,10 +56,15 @@
                 <div class="col-sm-12 ReferringTT">
                   <div class="form-group">
                     <label>The following observations are made :</label>
+                    <!-- <label>No observations are made :</label> -->
                   </div>
                 </div>
            </div>
-                <div class="tableObserve">
+                <div class="tableObserve" *ngIf="airTerminationControl(q).length != 0 || airVerticalControl(q).length != 0 ||
+                airVerticalListControl(q).length != 0 || airMeshControl(q).length != 0 ||
+                 airHolderControl(q).length != 0 || airHolderListControl(q).length != 0 ||
+                  airClampsControl(q).length != 0 || airExpansionControl(q).length != 0 || 
+                    airConnectorsControl(q).length != 0">
                 <div class="form-group">
                 <!-- Observation starts here -->
                 <label>
@@ -67,12 +72,7 @@
                 </label>
                 <br>
                 <!-- <label><h3 style="cursor: pointer;"><b><u>Basic details Observations :</u></b></h3></label>                     -->
-                    <div class="table-responsive" id="style-1" style="border: 1px solid black"
-                     *ngIf="airTerminationControl(q).length != 0 || airVerticalControl(q).length != 0 ||
-                                airVerticalListControl(q).length != 0 || airMeshControl(q).length != 0 ||
-                                 airHolderControl(q).length != 0 || airHolderListControl(q).length != 0 ||
-                                  airClampsControl(q).length != 0 || airExpansionControl(q).length != 0 || 
-                                    airConnectorsControl(q).length != 0">
+                    <div class="table-responsive" id="style-1" style="border: 1px solid black">
                         <table class="table">
                           <thead>
                             <tr>
@@ -216,7 +216,7 @@
                     </tbody>
                         </table>
                       </div>
-                      <div class="row" 
+                      <!-- <div class="row" 
                       *ngIf="(airTerminationControl(q).length == 0) && (airVerticalControl(q).length == 0) &&
                                 (airVerticalListControl(q).length == 0) && (airMeshControl(q).length == 0) &&
                                  (airHolderControl(q).length == 0) && (airHolderListControl(q).length == 0) &&
@@ -225,12 +225,15 @@
                         <div class="col-sm-12">
                           <h3 style="color: #eea80a;">Currently, you have not provided Observations for Air termination!</h3>
                         </div>
-                      </div>
+                      </div> -->
                  <br>
                   </div>
                 </div>
 
-                <div class="tableObserve">
+                <div class="tableObserve" *ngIf="downConductorBasicControl(q).length != 0 || downConductorControl(q).length != 0 ||
+                bridgingDescControl(q).length != 0 || downHoldersControl(q).length != 0 ||
+                downConnectorsControl(q).length != 0 || testingJointsControl(q).length != 0 ||
+                lightningCountersControl(q).length != 0 || downConductorTestingControl(q).length != 0 ">
                   <div class="form-group">
                   <!-- Observation starts here -->
                   <label>
@@ -239,10 +242,7 @@
                   <br>
                   <!-- <label><h3 style="cursor: pointer;"><b><u>Basic details Observations :</u></b></h3></label>                     -->
                       <div class="table-responsive" id="style-1" style="border: 1px solid black"
-                      *ngIf="downConductorBasicControl(q).length != 0 || downConductorControl(q).length != 0 ||
-                      bridgingDescControl(q).length != 0 || downHoldersControl(q).length != 0 ||
-                      downConnectorsControl(q).length != 0 || testingJointsControl(q).length != 0 ||
-                      lightningCountersControl(q).length != 0 || downConductorTestingControl(q).length != 0 ">
+                      >
                           <table class="table">
                             <thead>
                               <tr>
@@ -373,20 +373,23 @@
                     
                           </table>
                         </div>
-                        <div class="row" *ngIf="downConductorBasicControl(q).length == 0 && downConductorControl(q).length == 0 &&
+                        <!-- <div class="row" *ngIf="downConductorBasicControl(q).length == 0 && downConductorControl(q).length == 0 &&
                         bridgingDescControl(q).length == 0 && downHoldersControl(q).length == 0 &&
                         downConnectorsControl(q).length == 0 && testingJointsControl(q).length == 0 &&
                         lightningCountersControl(q).length == 0 && downConductorTestingControl(q).length == 0 ">
                           <div class="col-sm-12">
                             <h3 style="color: #eea80a;">Currently, you have not provided Observations for Down Conductor!</h3>
                           </div>
-                        </div>
+                        </div> -->
                    
                    <br>
                     </div>
                   </div>
 
-                  <div class="tableObserve">
+                  <div class="tableObserve" *ngIf="(earthingReportControl(q).length != 0) || (earthingDescriptionControl(q).length != 0) ||
+                  (earthingDescriptionListControl(q).length != 0) || (earthingClampsControl(q).length != 0) ||
+                   (earthingElectrodeChamberControl(q).length != 0) || (earthingSystemControl(q).length != 0) ||
+                    (earthElectrodeTestingControl(q).length != 0) ">
                     <div class="form-group">
                     <!-- Observation starts here -->
                     <label>
@@ -395,10 +398,7 @@
                     <br>
                     <!-- <label><h3 style="cursor: pointer;"><b><u>Basic details Observations :</u></b></h3></label>                     -->
                         <div class="table-responsive" id="style-1" style="border: 1px solid black" 
-                        *ngIf="(earthingReportControl(q).length != 0) || (earthingDescriptionControl(q).length != 0) ||
-                        (earthingDescriptionListControl(q).length != 0) || (earthingClampsControl(q).length != 0) ||
-                         (earthingElectrodeChamberControl(q).length != 0) || (earthingSystemControl(q).length != 0) ||
-                          (earthElectrodeTestingControl(q).length != 0) ">
+                        >
                             <table class="table">
                               <thead>
                                 <tr>
@@ -514,7 +514,7 @@
                       </tbody>
                             </table>
                           </div>
-                          <div class="row" *ngIf="(earthingReportControl(q).length == 0) && (earthingDescriptionControl(q).length == 0) &&
+                          <!-- <div class="row" *ngIf="(earthingReportControl(q).length == 0) && (earthingDescriptionControl(q).length == 0) &&
                           (earthingDescriptionListControl(q).length == 0) && (earthingClampsControl(q).length == 0) &&
                            (earthingElectrodeChamberControl(q).length == 0) && (earthingSystemControl(q).length == 0) &&
                             (earthElectrodeTestingControl(q).length == 0) ">
@@ -522,12 +522,12 @@
                               <h3 style="color: #eea80a;">Currently, you have not provided Observations for Earthing!</h3>
                             </div>
                           </div>
-                     
+                      -->
                      <br>
                       </div>
                     </div>
 
-                    <div class="tableObserve">
+                    <div class="tableObserve" *ngIf="(spdReportControl(q).length != 0) || (spdReportListControl(q).length != 0)">
                       <div class="form-group">
                       <!-- Observation starts here -->
                       <label>
@@ -536,7 +536,7 @@
                       <br>
                       <!-- <label><h3 style="cursor: pointer;"><b><u>Basic details Observations :</u></b></h3></label>-->
                           <div class="table-responsive" id="style-1" style="border: 1px solid black" 
-                          *ngIf="(spdReportControl(q).length != 0) || (spdReportListControl(q).length != 0)">
+                          >
                               <table class="table">
                                 <thead>
                                   <tr>
@@ -577,17 +577,18 @@
                               </tbody>
                               </table>
                             </div>
-                            <div class="row" *ngIf="(spdReportControl(q).length == 0) && (spdReportListControl(q).length == 0)">
+                            <!-- <div class="row" *ngIf="(spdReportControl(q).length == 0) && (spdReportListControl(q).length == 0)">
                               <div class="col-sm-12">
                                 <h3 style="color: #eea80a;">Currently, you have not provided Observations for SPD!</h3>
                               </div>
                             </div>
-                       
+                        -->
                        <br>
                         </div>
                       </div>
 
-                      <div class="tableObserve">
+                      <div class="tableObserve" *ngIf="(separationDistanceControl(q).length != 0) || (separateDistanceControl(q).length != 0) &&
+                      (separationDistanceDownControl(q).length != 0)">
                         <div class="form-group">
                         <!-- Observation starts here -->
                         <label>
@@ -596,8 +597,7 @@
                         <br>
                         <!-- <label><h3 style="cursor: pointer;"><b><u>Basic details Observations :</u></b></h3></label>                     -->
                             <div class="table-responsive" id="style-1" style="border: 1px solid black"
-                            *ngIf="(separationDistanceControl(q).length != 0) || (separateDistanceControl(q).length != 0) &&
-                            (separationDistanceDownControl(q).length != 0)">
+                            >
                                 <table class="table">
                                   <thead>
                                     <tr>
@@ -651,18 +651,18 @@
                               </tbody>
                                 </table>
                               </div>
-                              <div class="row" *ngIf="(separationDistanceControl(q).length == 0) && (separateDistanceControl(q).length == 0) &&
+                              <!-- <div class="row" *ngIf="(separationDistanceControl(q).length == 0) && (separateDistanceControl(q).length == 0) &&
                               (separationDistanceDownControl(q).length == 0)">
                                 <div class="col-sm-12">
                                   <h3 style="color: #eea80a;">Currently, you have not provided Observations for Separation distance!</h3>
                                 </div>
-                              </div>
+                              </div> -->
                          
                          <br>
                           </div>
                         </div>
 
-                        <div class="tableObserve">
+                        <div class="tableObserve" *ngIf="earthStudDescControl(q).length != 0">
                           <div class="form-group">
                           <!-- Observation starts here -->
                           <label>
@@ -671,7 +671,7 @@
                           <br>
                           <!-- <label><h3 style="cursor: pointer;"><b><u>Basic details Observations :</u></b></h3></label>                     -->
                               <div class="table-responsive" id="style-1" style="border: 1px solid black"
-                              *ngIf="earthStudDescControl(q).length != 0">
+                              >
                                   <table class="table">
                                     <thead>
                                       <tr>
@@ -698,12 +698,12 @@
                                   
                                   </table>
                                 </div>
-                                <div class="row" *ngIf="earthStudDescControl(q).length == 0">
+                                <!-- <div class="row" *ngIf="earthStudDescControl(q).length == 0">
                                   <div class="col-sm-12">
                                     <h3 style="color: #eea80a;">Currently, you have not provided Observations for Equipotential bonding!</h3>
                                   </div>
                                 </div>
-                           
+                            -->
                            <br>
                             </div>
                           </div>

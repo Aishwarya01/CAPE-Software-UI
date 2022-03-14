@@ -1442,3 +1442,12 @@ input::-webkit-inner-spin-button {
      overflow-y: auto!important;
      height: 120px !important;
  }
+
+ .alertDanger {
+  margin-right: 70px;
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  padding: 13px;
+  border-radius: 4px;
+ }

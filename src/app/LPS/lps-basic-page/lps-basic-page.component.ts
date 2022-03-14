@@ -41,7 +41,7 @@ export class LpsBasicPageComponent implements OnInit {
   validationErrorMsgTab: string="";
   tabError: boolean=false;
   tabErrorMsg: string="";
-
+  availableReportNo: string="";
   constructor(private formBuilder: FormBuilder, 
     private lPSBasicDetailsService: LPSBasicDetailsService,
     private modalService: NgbModal,
@@ -139,7 +139,7 @@ export class LpsBasicPageComponent implements OnInit {
       this.basicDetails.createdBy = this.step1List.createdBy;
       this.basicDetails.createdDate = this.step1List.createdDate;
       this.flag=true
-
+      this.availableReportNo = this.step1List.availabilityOfPreviousReport;
       this.LPSBasicForm = this.formBuilder.group({
         lpsBasic: this.formBuilder.array([this.createGroup(this.step1List)])
       });
@@ -322,7 +322,7 @@ export class LpsBasicPageComponent implements OnInit {
           this.proceedFlag = true;
           this.errorArr = JSON.parse(error.error);
           this.errorMsg = this.errorArr.message;
-          this.proceedNext.emit(false);
+          this.proceedNext.emit(false); 
         }
       )
     }
@@ -330,14 +330,20 @@ export class LpsBasicPageComponent implements OnInit {
     //(this.basicDetails);
   }
 
-  getBasicDetailsObject(){
+  getBasicDetailsObject() {
     let contactNum
-    if(this.basicLpsIdRetrive !=0){
-      this.basicDetails.basicLpsId=this.basicLpsIdRetrive;
-        contactNum = "+"+this.countryCode+"-"+this.LPSBasicForm.value.lpsBasic[0].contactNumber.split("-")[1];
+    if (this.basicLpsIdRetrive != 0) {
+      this.basicDetails.basicLpsId = this.basicLpsIdRetrive;
+      if (this.isCountryCodeDirty) {
+        contactNum = "+" + this.countryCode + "-" + this.LPSBasicForm.value.lpsBasic[0].contactNumber.split("-")[1];
+        this.isCountryCodeDirty = false;
+      }
+      else {
+        contactNum = this.LPSBasicForm.value.lpsBasic[0].contactNumber;
+      }
     }
-    else{
-      contactNum = "+"+this.countryCode+"-"+this.LPSBasicForm.value.lpsBasic[0].contactNumber;
+    else {
+      contactNum = "+" + this.countryCode + "-" + this.LPSBasicForm.value.lpsBasic[0].contactNumber;
     }
     this.basicDetails.clientName = this.LPSBasicForm.value.lpsBasic[0].clientName;
     this.basicDetails.projectName = this.LPSBasicForm.value.lpsBasic[0].projectName;
@@ -355,7 +361,7 @@ export class LpsBasicPageComponent implements OnInit {
     this.basicDetails.contactNumber = contactNum;
     this.basicDetails.mailId = this.LPSBasicForm.value.lpsBasic[0].mailId;
     this.basicDetails.availabilityOfPreviousReport = this.LPSBasicForm.value.lpsBasic[0].availabilityOfPreviousReport;
-    this.basicDetails.userName=this.router.snapshot.paramMap.get('email') || '{}';
+    this.basicDetails.userName = this.router.snapshot.paramMap.get('email') || '{}';
 
     return this.basicDetails;
   }

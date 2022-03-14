@@ -23,7 +23,7 @@
                                                 <i class="bi bi-align-start"></i>
                                             </span>
                                         </div>
-                                        <input type="number" class="form-control" formControlName="buildingNumber"  required readonly/>
+                                        <input type="number" class="form-control" formControlName="buildingNumber" readonly/>
                                     </div>
                                 </div>
                 
@@ -35,7 +35,7 @@
                                                 <i class="bi bi-align-start"></i>
                                             </span>
                                         </div>
-                                        <input type="text" class="form-control" formControlName="buildingName" required readonly/>
+                                        <input type="text" class="form-control" formControlName="buildingName" readonly/>
                                     </div>
                                 </div>
                             </div>
@@ -892,7 +892,7 @@
                                             </td>
                                         </tr>
 
-                                        <tr *ngIf="q.get('downConductorAvailabilityOb')?.value == 'not applicable in case of natural down conductors'">
+                                        <tr *ngIf="q.get('downConductorAvailabilityOb')?.value == 'Not applicable in case of natural down conductors'">
                                             <td style="width: 1rem; text-align: center;">7(q)</td>
                                             <td style="width: 30rem;">Type of natural down conductor (Metal pipe/ I beam/ others)</td>
                                             <td style="width: 43rem;">
@@ -917,7 +917,7 @@
                                             </td>
                                         </tr>
 
-                                        <tr *ngIf="q.get('downConductorAvailabilityOb')?.value == 'not applicable in case of natural down conductors'">
+                                        <tr *ngIf="q.get('downConductorAvailabilityOb')?.value == 'Not applicable in case of natural down conductors'">
                                             <td style="width: 1rem; text-align: center;">7(r)</td>
                                             <td style="width:  30rem;">Dimensions of natural down conductor</td>
                                             <td style="width:  43rem;">
@@ -2834,16 +2834,16 @@
                         </div>
                     </mat-expansion-panel>
 
-                    <mat-expansion-panel *ngIf="availabilityOfPreviousReport == 'NO'">
+                    <mat-expansion-panel *ngIf="availabilityOfPreviousReport == 'No'">
                         <mat-expansion-panel-header>
                             <mat-panel-title>
-                                <h3>Testing of earth electrodes</h3>
+                                <h3>Testing of Down Conductors</h3>
                             </mat-panel-title>
                         </mat-expansion-panel-header>
                         <div class="table-responsive" style="overflow-x: unset;">
                             <table class="table TableBorder">
                                 <thead>
-                                    <th>Availability of Testing of earth electrodes</th>
+                                    <th>Availability of Testing of down conductors</th>
                                     <th>Remarks(Optional)</th>
                                 </thead>
                                 <tbody>
@@ -2996,13 +2996,13 @@
                 </mat-accordion>
                 </div>
             </div>
+            <div *ngIf="validationError" style="text-align: center;margin-bottom: 2rem;margin-top: 2rem;">
+                <span class="alertDanger">{{validationErrorMsg}}</span>
+            </div>
             <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
                 <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
                 <button class="next"  (click)="gotoNextModal(content,contents)"  mat-button >Next &raquo;</button>
            </div>
-            <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
-                <span class="alert alert-danger">{{validationErrorMsg}}</span>
-            </div>
         </form>
     </div>
 

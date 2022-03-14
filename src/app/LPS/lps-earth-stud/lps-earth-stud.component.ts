@@ -230,33 +230,6 @@ export class LpsEarthStudComponent implements OnInit {
     this.flag = true;
   }
 
-  // retrieveDetailsfromEarthStud(data: any){
-  //     this.step7List = JSON.parse(data);
-  //     this.earthStudReport.basicLpsId = this.step7List[0].basicLpsId;
-  //     this.earthStudReport.earthStudReportId = this.step7List[0].earthStudReportId;
-  //     this.earthStudReport.userName = this.step7List[0].userName;
-  //     this.earthStudReport.createdBy = this.step7List[0].createdBy;
-  //     this.earthStudReport.createdDate = this.step7List[0].createdDate;
-  //     this.flag=true;
-     
-  //    for(let i of this.step7List[0].earthStudDescription)
-  //     this.EarthStudForm.patchValue({
-  //       earthStud: [i],  
-  //     });
-  //     setTimeout(() => {
-  //       this.createearthStudForm(data.airTermination)
-  //     }, 500);
-  // }
-
-    // populateData(earthStudDescription:any){
-    //   let index = 0;
-    //   for(let item of earthStudDescription){
-    //     this.earthStud.push(this.createGroup(item));
-    //     this.dropDown(item.availableEquipotentialBondingOb,null,index);
-    //     this.EarthStudForm.setControl('earthStud', this.formBuilder.array(this.earthStud || []))
-    //   }
-    // }
-
     // Only Accept numbers
     keyPressNumbers(event:any) {
       var charCode = (event.which) ? event.which : event.keyCode;
@@ -271,7 +244,8 @@ export class LpsEarthStudComponent implements OnInit {
 
   onSubmit(flag: any){
     this.submitted=true;
-    if(this.EarthStudForm.invalid){return}
+    if(this.EarthStudForm.invalid && (this.EarthStudForm.value.earthStud[0].buildingNumber != undefined || this.EarthStudForm.value.earthStud[0].buildingNumber != ''))
+    {return}
 
   //  this.earthStudReport=this.EarthStudForm.value
     this.earthStudReport.userName = this.router.snapshot.paramMap.get('email') || '{}';;
@@ -410,7 +384,7 @@ export class LpsEarthStudComponent implements OnInit {
        return;
      }
 
-     if (this.basicLpsId == 0) {
+     else if (this.basicLpsId == 0) {
       this.validationError = true;
       this.validationErrorMsg = 'Basics Form is Required, Please fill';
      setTimeout(() => {
@@ -418,8 +392,16 @@ export class LpsEarthStudComponent implements OnInit {
      }, 3000);
       return;
     }
+    else if(this.EarthStudForm.value.earthStud[0].buildingNumber == undefined || this.EarthStudForm.value.earthStud[0].buildingNumber == ''){
+      this.validationError = true;
+      this.validationErrorMsg = 'Air Termination Form is Required, Please fill';
+      setTimeout(() => {
+        this.validationError = false;
+      }, 3000);
+      return;
+    }
       //  Update and Success msg will be showing
-      if(this.EarthStudForm.dirty && this.EarthStudForm.touched){
+     else if(this.EarthStudForm.dirty && this.EarthStudForm.touched){
         this.modalService.open(content, { centered: true,backdrop: 'static' });
      }
     //  For Dirty popup

@@ -235,8 +235,8 @@ export class LpsDownConductorsComponent implements OnInit {
   allLPSDownConductor() {
     return this.formBuilder.group({
       downConduDescId: new FormControl(''),
-      buildingNumber : new FormControl('',Validators.required),
-      buildingName: new FormControl('', Validators.required),
+      buildingNumber : new FormControl(''),
+      buildingName: new FormControl(''),
       buildingCount: new FormControl(''),
       flag: new FormControl('A'),
       biMetallicIssueOb: new FormControl('', Validators.required),
@@ -594,8 +594,8 @@ export class LpsDownConductorsComponent implements OnInit {
     populateDownConductorMain(item: any) {
       return this.formBuilder.group({
         downConduDescId : new FormControl({disabled: false, value: item.downConduDescId}),
-        buildingNumber : new FormControl({disabled: false, value: item.buildingNumber},Validators.required),
-        buildingName: new FormControl({disabled: false, value: item.buildingName}, Validators.required),
+        buildingNumber : new FormControl({disabled: false, value: item.buildingNumber}),
+        buildingName: new FormControl({disabled: false, value: item.buildingName}),
         buildingCount: new FormControl({disabled: false, value: item.buildingCount}),
         flag: new FormControl({disabled: false, value: item.flag}),
         biMetallicIssueOb: new FormControl({disabled: false, value: item.biMetallicIssueOb}, Validators.required),
@@ -918,8 +918,9 @@ export class LpsDownConductorsComponent implements OnInit {
     }
 
     retrieveDownConductorTestingForm(item:any){
+      debugger
       let retrieveDownConductorTestingFormDataArr:any=[];
-      if(this.availabilityOfPreviousReport =="NO"){
+      if(this.availabilityOfPreviousReport =="No"){
         for (let value of item.downConductorTesting) {
           retrieveDownConductorTestingFormDataArr.push(this.createGroup6(value,item.downConduDescId));   
         } 
@@ -1001,20 +1002,6 @@ export class LpsDownConductorsComponent implements OnInit {
       }
       let downConductorArray: any = [];
       downConductorArray =  a.controls.downConductor as FormArray;
-      // if (changedValue == 'not applicable in case of natural down conductors') {
-      //   if(downConductorArray.length>0) {
-      //     if(this.flag && downConductorArray.value[0].downConductorId !=null && downConductorArray.value[0].downConductorId !='' && downConductorArray.value[0].downConductorId !=undefined){
-      //       downConductorArray.value[0].flag ='R';
-      //       this.deletedDownCoductors.push(downConductorArray.value[0]);
-      //     }
-      //     downConductorArray.removeAt(downConductorArray.length-1)    
-      //   }
-      // }
-      // else if(changedValue == 'Applicable'){
-      //   if(downConductorArray.length == 0) {
-      //     downConductorArray.push(this.createDownArrForm());
-      //   }
-      // }
 
       if(changedValue == 'Applicable') {
         for(let i=0;i<this.downConductorNames.length;i++) {
@@ -1029,7 +1016,7 @@ export class LpsDownConductorsComponent implements OnInit {
         downConductorArray.controls[0].controls.naturalDownCondDimensionOb.setValue('');
         downConductorArray.controls[0].controls.naturalDownCondDimensionRem.setValue('');
       }
-      else if(changedValue == 'not applicable in case of natural down conductors') {
+      else if(changedValue == 'Not applicable in case of natural down conductors') {
         downConductorArray.controls[0].controls.naturalDownCondDimensionOb.setValidators([Validators.required]);
         downConductorArray.controls[0].controls.naturalDownCondDimensionOb.updateValueAndValidity('');
 
@@ -1537,7 +1524,7 @@ export class LpsDownConductorsComponent implements OnInit {
         return;
       }
 
-      if (this.basicLpsId == 0) {
+      else if (this.basicLpsId == 0) {
         this.validationError = true;
         this.validationErrorMsg = 'Basics Form is Required, Please fill';
         setTimeout(() => {
@@ -1545,8 +1532,17 @@ export class LpsDownConductorsComponent implements OnInit {
         }, 3000);
         return;
       }
+
+      else if(this.downConductorForm.value.downConductorDescription[0].buildingNumber == undefined || this.downConductorForm.value.downConductorDescription[0].buildingNumber == ''){
+        this.validationError = true;
+        this.validationErrorMsg = 'Air Termination Form is Required, Please fill';
+        setTimeout(() => {
+          this.validationError = false;
+        }, 3000);
+        return;
+      }
         //  Update and Success msg will be showing
-        if(this.downConductorForm.dirty && this.downConductorForm.touched){
+      else if(this.downConductorForm.dirty && this.downConductorForm.touched){
           this.modalService.open(content, { centered: true,backdrop: 'static' });
       }
       //  For Dirty popup
@@ -1581,7 +1577,7 @@ export class LpsDownConductorsComponent implements OnInit {
 
   onSubmit(flag: any) {
     this.submitted = true;
-    if (this.downConductorForm.invalid) {
+    if (this.downConductorForm.invalid && (this.downConductorForm.value.downConductorDescription[0].buildingNumber != undefined || this.downConductorForm.value.downConductorDescription[0].buildingNumber != '')) {
       return;
     }
     
