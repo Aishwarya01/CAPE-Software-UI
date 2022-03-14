@@ -244,7 +244,7 @@ export class LpsEarthStudComponent implements OnInit {
 
   onSubmit(flag: any){
     this.submitted=true;
-    if(this.EarthStudForm.invalid && this.EarthStudForm.value.earthStud[0].buildingNumber != undefined || this.EarthStudForm.value.earthStud[0].buildingNumber != '')
+    if(this.EarthStudForm.invalid && (this.EarthStudForm.value.earthStud[0].buildingNumber != undefined || this.EarthStudForm.value.earthStud[0].buildingNumber != ''))
     {return}
 
   //  this.earthStudReport=this.EarthStudForm.value
