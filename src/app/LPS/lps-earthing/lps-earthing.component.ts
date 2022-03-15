@@ -131,16 +131,11 @@ export class LpsEarthingComponent implements OnInit {
       brazingConnectInOb: new FormControl('', Validators.required),
       brazingConnectInRem: new FormControl(''),
       flag: new FormControl('A'), 
-     // earthingDescriptionAvailabilityOb: new FormControl(''),
-     // earthingDescriptionAvailabilityRem: new FormControl(''),
       earthingClampsAvailabilityOb: new FormControl(''),
       earthingClampsAvailabilityRem: new FormControl(''),
       earthingElectrodeChamberAvailabilityOb: new FormControl(''),
       earthingElectrodeChamberAvailabilityRem:  new FormControl(''),
-     // earthingSystemAvailabilityOb: new FormControl(''),
-     // earthingSystemAvailabilityRem:  new FormControl(''),
-     // earthingElectrodeTestingAvailabilityOb: new FormControl(''),
-     // earthingElectrodeTestingAvailabilityRem:  new FormControl(''),                              
+     earthingElectrodeTestingAvailabilityRem:  new FormControl(''),                              
      earthingElectrodeTestingAvailabilityOb:  new FormControl(''),                          
 
       earthingDescription: this.formBuilder.array([this.earthingDescriptionArray()]),
@@ -442,7 +437,7 @@ export class LpsEarthingComponent implements OnInit {
       earthingClampsAvailabilityOb: new FormControl({disabled: false, value: item.earthingClampsAvailabilityOb}),
       earthingClampsAvailabilityRem: new FormControl({disabled: false, value: item.earthingClampsAvailabilityRem}),
       earthingElectrodeChamberAvailabilityOb: new FormControl({disabled: false, value: item.earthingElectrodeChamberAvailabilityOb}),
-      earthingElectrodeChamberAvailabilityRem:  new FormControl({disabled: false, value: item.earthingElectrodeChamberAvailabilityRem}),
+      earthingElectrodeTestingAvailabilityRem:  new FormControl({disabled: false, value: item.earthingElectrodeTestingAvailabilityRem}),
       earthingElectrodeTestingAvailabilityOb:  new FormControl({disabled: false, value: item.earthingElectrodeTestingAvailabilityOb}),
 
       earthingDescription: this.formBuilder.array(this.populateEarthingDescription(item)),
@@ -706,7 +701,18 @@ export class LpsEarthingComponent implements OnInit {
     return form.controls.earthElectrodeTesting?.controls;
   }
    
-  
+  validationTesting1(){
+    debugger
+    this.earthingForm.markAsTouched();
+    let arr: any = [];
+    arr = this.earthingForm.get('earthing') as FormArray;
+    if(this.availabilityOfPreviousReport == 'No'){
+      for(let j=0; j<this.earthingForm.controls.earthing.value.length; j++){
+        arr.controls[0].controls.earthingElectrodeTestingAvailabilityOb.setValidators(Validators.required);
+        arr.controls[0].controls.earthingElectrodeTestingAvailabilityOb.updateValueAndValidity();
+      }
+    }
+  }
  
   onSubmit(flag: any) {
     this.submitted=true;

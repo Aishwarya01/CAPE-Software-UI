@@ -432,6 +432,13 @@ export class LpsMatstepperComponent implements OnInit {
  
     this.downConductors.availabilityOfPreviousReport = this.basic.availableReportNo;
     this.earthing.availabilityOfPreviousReport = this.basic.availableReportNo;
+    
+    setTimeout(() => {
+      if(this.basic.availableReportNo == 'No'){
+        this.downConductors.validationTesting();
+        this.earthing.validationTesting1();
+      }
+    }, 3000);
 
     this.basic.isEditable=this.isEditable;
     // AirTermination

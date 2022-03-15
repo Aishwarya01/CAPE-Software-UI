@@ -2231,20 +2231,33 @@
                             
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <div>
-                        <select class="form-control"  style="width: 30%;" [attr.disabled]="isEditable ? '' : null" formControlName="earthingElectrodeTestingAvailabilityOb"
-                          [ngClass]="{ 'is-invalid': submitted && q.get('earthingElectrodeTestingAvailabilityOb')?.errors}"
-                          (change)="onEarthElectrodes($event,q,j)">
-                          <option value="" selected>Select Option</option>
-                          <option value="In scope" >In scope </option>
-                          <option value="Not in scope" >Not in scope</option>
-                          </select>
-                          <div *ngIf="submitted && q.get('earthingElectrodeTestingAvailabilityOb')?.errors" class="invalid-feedback">
-                            <div *ngIf="q.get('earthingElectrodeTestingAvailabilityOb')?.errors?.required">In scope/Not in scope is required</div>
-                        </div>
+                    <div class="table-responsive" style="overflow-x: unset;">
+                        <table class="table TableBorder">
+                            <thead>
+                                <th>Availability of Testing of Earth Electrodes</th>
+                                <th>Remarks(Optional)</th>
+                            </thead>
+                            <tr>
+                                <td class="col-md-6">
+                                    <select class="form-control" [attr.disabled]="isEditable ? '' : null" formControlName="earthingElectrodeTestingAvailabilityOb"
+                                    [ngClass]="{ 'is-invalid': submitted && q.get('earthingElectrodeTestingAvailabilityOb')?.errors}" (change)="onEarthElectrodes($event,q,j)" style="height: 3rem;margin-top: 6px;">
+                                    <option value="" selected>Select Option</option>
+                                    <option value="In scope" >In scope </option>
+                                    <option value="Not in scope" >Not in scope</option>
+                                    </select>
+                                    <div *ngIf="submitted && q.get('earthingElectrodeTestingAvailabilityOb')?.errors" class="invalid-feedback">
+                                        <div *ngIf="q.get('earthingElectrodeTestingAvailabilityOb')?.errors?.required">In scope/Not in scope is required</div>
+                                    </div>
+                                </td>
+                                <td class="col-md-6">
+                                    <textarea [readonly]="isEditable" formControlName="earthingElectrodeTestingAvailabilityRem" type="text"
+                                        placeholder="Please enter Remarks here"  class="form-control" ></textarea>
+                                </td>
+                            </tr>  
+                        </table>
                     </div>
-                    <div *ngIf="testingofearthelectrodes[j]">
-                        
+
+                    <div *ngIf="testingofearthelectrodes[j]">    
                         <div class="row">
                             <div class="col-md-6">
                                 <label style="margin-top: 2rem;">8(a).Earth electrode resistance value (Table heading)</label>
