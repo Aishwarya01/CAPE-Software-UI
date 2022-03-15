@@ -435,10 +435,8 @@ export class LpssummaryComponent implements OnInit {
        //air termination
        airTermination: this.formBuilder.array([]),
        airVertical: this.formBuilder.array([]),
-       airVerticalList: this.formBuilder.array([]),
        airMesh: this.formBuilder.array([]),
        airHolder: this.formBuilder.array([]),
-       airHolderList: this.formBuilder.array([]),
        airClamps: this.formBuilder.array([]),
        airConnectors: this.formBuilder.array([]),
        airExpansion: this.formBuilder.array([]),
@@ -454,7 +452,6 @@ export class LpssummaryComponent implements OnInit {
        //earthing
        earthingReport: this.formBuilder.array([]),
        earthingDescription: this.formBuilder.array([]),
-       earthingDescriptionList: this.formBuilder.array([]),
        earthingClamps: this.formBuilder.array([]),
        earthingElectrodeChamber: this.formBuilder.array([]),
        earthingSystem: this.formBuilder.array([]),
@@ -516,6 +513,7 @@ export class LpssummaryComponent implements OnInit {
         recommendation: new FormControl(''),
         observationComponentDetails: new FormControl(''),
         summaryLpsInnerObservation: this.formBuilder.array([]),
+        airVerticalList: this.formBuilder.array([]),
       });
     }
     createAirVerticalList(){
@@ -546,6 +544,7 @@ export class LpssummaryComponent implements OnInit {
         recommendation: new FormControl(''),
         observationComponentDetails: new FormControl(''),
         summaryLpsInnerObservation: this.formBuilder.array([]),
+        airHolderList: this.formBuilder.array([]),
       });
     }
     createAirHolderList(){
@@ -688,6 +687,7 @@ export class LpssummaryComponent implements OnInit {
         recommendation: new FormControl(''),
         observationComponentDetails: new FormControl(''),
         summaryLpsInnerObservation: this.formBuilder.array([]),
+        earthingDescriptionList: this.formBuilder.array([]),
       });
     }
     createEarthingDescriptionList(){
@@ -815,7 +815,7 @@ export class LpssummaryComponent implements OnInit {
       return(q.get('airVertical')).controls;
     }
     airVerticalListControl(q:any): AbstractControl[] {
-      return(q.get('airVerticalList')).controls;
+      return(q.get('airVerticalList'))?.controls;
     }
     airClampsControl(q:any): AbstractControl[] {
       return(q.get('airClamps')).controls;
@@ -830,7 +830,7 @@ export class LpssummaryComponent implements OnInit {
       return(q.get('airHolder')).controls;
     }
     airHolderListControl(q:any): AbstractControl[] {
-      return(q.get('airHolderList')).controls;
+      return(q.get('airHolderList'))?.controls;
     }
     airMeshControl(q:any): AbstractControl[] {
       return(q.get('airMesh')).controls;
@@ -868,7 +868,7 @@ export class LpssummaryComponent implements OnInit {
       return(q.get('earthingDescription')).controls;
     } 
     earthingDescriptionListControl(q:any): AbstractControl[] {
-      return(q.get('earthingDescriptionList')).controls;
+      return(q.get('earthingDescriptionList'))?.controls;
     } 
     earthingClampsControl(q:any): AbstractControl[] {
       return(q.get('earthingClamps')).controls;
@@ -1028,22 +1028,12 @@ export class LpssummaryComponent implements OnInit {
           }
           if(i.observationComponentDetails.includes('lpsVerticalAirTermination')){
             airTermination1.push(i);
-            if(i.observationComponentDetails.includes('lpsVerticalAirTermination0')){
-              if(i.summaryLpsInnerObservation.length!=0){
-                airTerminationList=i.summaryLpsInnerObservation;
-              }
-            }
           }
           if(i.observationComponentDetails.includes('airMeshDescription')){
             airTermination2.push(i);
           }
           if(i.observationComponentDetails.includes('airHolderDescription')){
             airTermination3.push(i);
-            if(i.observationComponentDetails.includes('airHolderDescription0')){
-              if(i.summaryLpsInnerObservation.length!=0){
-                airTerminationHolderList=i.summaryLpsInnerObservation;
-              }
-            }
           }
           if(i.observationComponentDetails.includes('airClamps')){
             airTermination4.push(i);
@@ -1085,11 +1075,6 @@ export class LpssummaryComponent implements OnInit {
           }
           if(i.observationComponentDetails.includes('earthingDescription')){
             earthing2.push(i);
-            if(i.observationComponentDetails.includes('earthingDescription0')){
-              if(i.summaryLpsInnerObservation.length!=0){
-                earthingList=i.summaryLpsInnerObservation;
-              }
-            }
           }
           if(i.observationComponentDetails.includes('earthingClamps')){
             earthing3.push(i);
@@ -1138,11 +1123,11 @@ export class LpssummaryComponent implements OnInit {
         summaryLpsObservation: this.formBuilder.array([]),
         //air termination
         airTermination: this.formBuilder.array(this.populateArray(airTermination)),
-        airVertical: this.formBuilder.array(this.populateArray(airTermination1)),
-        airVerticalList: this.formBuilder.array(this.populateArray(airTerminationList)),
+        airVertical: this.formBuilder.array(this.populateArrayVertical(airTermination1)),
+        //airVerticalList: this.formBuilder.array(this.populateArray(airTerminationList)),
         airMesh: this.formBuilder.array(this.populateArray(airTermination2)),
-        airHolder: this.formBuilder.array(this.populateArray(airTermination3)),
-        airHolderList: this.formBuilder.array(this.populateArray(airTerminationHolderList)),
+        airHolder: this.formBuilder.array(this.populateArrayHolders(airTermination3)),
+        //airHolderList: this.formBuilder.array(this.populateArray(airTerminationHolderList)),
         airClamps: this.formBuilder.array(this.populateArray(airTermination4)),
         airExpansion: this.formBuilder.array(this.populateArray(airTermination5)),
         airConnectors: this.formBuilder.array(this.populateArray(airTermination6)),
@@ -1157,8 +1142,8 @@ export class LpssummaryComponent implements OnInit {
         downConductorTesting: this.formBuilder.array(this.populateArray(downConductor8)),
         //earthing 
         earthingReport: this.formBuilder.array(this.populateArray(earthing1)),
-        earthingDescription: this.formBuilder.array(this.populateArray(earthing2)),
-        earthingDescriptionList: this.formBuilder.array(this.populateArray(earthingList)),
+        earthingDescription: this.formBuilder.array(this.populateArrayEarthingDesc(earthing2)),
+        //earthingDescriptionList: this.formBuilder.array(this.populateArray(earthingList)),
         earthingClamps: this.formBuilder.array(this.populateArray(earthing3)),
         earthingElectrodeChamber: this.formBuilder.array(this.populateArray(earthing4)),
         earthingSystem: this.formBuilder.array(this.populateArray(earthing5)),
@@ -1184,6 +1169,30 @@ export class LpssummaryComponent implements OnInit {
       return arr;
     }
 
+    populateArrayVertical(item: any) {
+      let arr:any=[];
+      for(let w of item){
+        arr.push(this.populateFormVertical(w,w.summaryLpsInnerObservation));
+      }
+      return arr;
+    }
+
+    populateArrayHolders(item: any) {
+      let arr:any=[];
+      for(let w of item){
+        arr.push(this.populateFormHolders(w,w.summaryLpsInnerObservation));
+      }
+      return arr;
+    }
+
+    populateArrayEarthingDesc(item: any) {
+      let arr:any=[];
+      for(let w of item){
+        arr.push(this.populateFormEarthingDesc(w,w.summaryLpsInnerObservation));
+      }
+      return arr;
+    }
+
     populateForm(value:any){
       return this.formBuilder.group({
       heading: new FormControl({disabled: false,value: value.heading}),
@@ -1194,6 +1203,45 @@ export class LpssummaryComponent implements OnInit {
       summaryLpsInnerObservation: this.formBuilder.array([]),
     })
     }
+
+    populateFormVertical(value:any,airTerminationList: any){
+      return this.formBuilder.group({
+      heading: new FormControl({disabled: false,value: value.heading}),
+      serialNo: new FormControl({disabled: false,value: value.serialNo}),
+      observation: new FormControl({disabled: false,value: value.observation}),
+      recommendation: new FormControl({disabled: false,value: value.recommendation}),
+      observationComponentDetails: new FormControl({disabled: false,value: value.observationComponentDetails}),
+      summaryLpsInnerObservation: this.formBuilder.array([]),
+      airVerticalList: this.formBuilder.array(this.populateArray(airTerminationList)),
+    })
+    }
+
+    populateFormHolders(value:any,airTerminationHolderList: any){
+      return this.formBuilder.group({
+      heading: new FormControl({disabled: false,value: value.heading}),
+      serialNo: new FormControl({disabled: false,value: value.serialNo}),
+      observation: new FormControl({disabled: false,value: value.observation}),
+      recommendation: new FormControl({disabled: false,value: value.recommendation}),
+      observationComponentDetails: new FormControl({disabled: false,value: value.observationComponentDetails}),
+      summaryLpsInnerObservation: this.formBuilder.array([]),
+      airHolderList: this.formBuilder.array(this.populateArray(airTerminationHolderList)),
+    })
+    }
+
+    populateFormEarthingDesc(value:any,earthingList: any){
+      return this.formBuilder.group({
+      heading: new FormControl({disabled: false,value: value.heading}),
+      serialNo: new FormControl({disabled: false,value: value.serialNo}),
+      observation: new FormControl({disabled: false,value: value.observation}),
+      recommendation: new FormControl({disabled: false,value: value.recommendation}),
+      observationComponentDetails: new FormControl({disabled: false,value: value.observationComponentDetails}),
+      summaryLpsInnerObservation: this.formBuilder.array([]),
+      earthingDescriptionList: this.formBuilder.array(this.populateArray(earthingList)),
+    })
+    }
+
+
+
     createGroupDeclaration1(item:any):FormGroup{
       return this.formBuilder.group({
         declarationId: new FormControl({disabled: false,value: item.declarationId}),
@@ -1245,38 +1293,65 @@ export class LpssummaryComponent implements OnInit {
               if(i[this.airVerticalName[j]]!=""){
                 this.airVerticalArr.push(this.createAirVertical());
                 this.airVerticalArr.controls[0].controls.heading.setValue('AT_Vertical Observation');
-                this.airVerticalArr.controls[index1].controls.observationComponentDetails.setValue('lpsVerticalAirTermination' + index1);
+                this.airVerticalArr.controls[index1].controls.observationComponentDetails.setValue('lpsVerticalAirTermination' +index1);
                 this.airVerticalArr.controls[index1].controls.serialNo.setValue(index1 + 1);
                 this.airVerticalArr.controls[index1].controls.observation.setValue(i[this.airVerticalName[j]]);
+                if(this.airVerticalName[j] == 'physicalInspectionRe') {
+                  this.airVerticalListArr=this.airVerticalArr.controls[j].controls.airVerticalList as FormArray;
+                  let index0 =0;
+                  let vatListIndex=1;
+                  let indexVertical=0;
+                  if(this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination.length!=0){
+                    for(let x of this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination[0].verticalAirTerminationList)
+                    {
+                      for(let z = 0; z < this.airVerticalListName.length; z++){
+                        if(x[this.airVerticalListName[z]]!=""){
+                          this.airVerticalListArr.push(this.createAirVerticalList());
+                          if(this.airVerticalListName[z]=='materialOfTerminalRe'){
+                            this.airVerticalListArr.controls[index0].controls.heading.setValue('AT_Vertical List-' + vatListIndex);
+                          }
+                          this.airVerticalListArr.controls[index0].controls.observationComponentDetails.setValue('verticalAirTerminationList' + index0);
+                          this.airVerticalListArr.controls[index0].controls.serialNo.setValue((j+1)+'.'+(indexVertical + 1));
+                          this.airVerticalListArr.controls[index0].controls.observation.setValue(x[this.airVerticalListName[z]]);
+                          index0++;
+                          indexVertical++;
+                        }
+                      }
+                      indexVertical=0;
+                      vatListIndex++;
+                    }
+                  }
+                  
+                }
                 index1++;
               }
             }
-      }
-        //vertical list
-        this.airVerticalListArr=this.summaryArr.controls[w].controls.airVerticalList as FormArray;
-        let index0 =0;
-        let vatListIndex=1;
-        let indexVertical=0;
-        if(this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination.length!=0){
-          for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination[0].verticalAirTerminationList)
-          {
-            for(let j = 0; j < this.airVerticalListName.length; j++){
-              if(i[this.airVerticalListName[j]]!=""){
-                this.airVerticalListArr.push(this.createAirVerticalList());
-                if(this.airVerticalListName[j]=='materialOfTerminalRe'){
-                  this.airVerticalListArr.controls[index0].controls.heading.setValue('AT_Vertical List-' + vatListIndex);
-                }
-                this.airVerticalListArr.controls[index0].controls.observationComponentDetails.setValue('verticalAirTerminationList' + index0);
-                this.airVerticalListArr.controls[index0].controls.serialNo.setValue(indexVertical + 1);
-                this.airVerticalListArr.controls[index0].controls.observation.setValue(i[this.airVerticalListName[j]]);
-                index0++;
-                indexVertical++;
-              }
-            }
-            indexVertical=0;
-            vatListIndex++;
           }
-        }
+        //vertical list
+        // this.airVerticalListArr=this.summaryArr.controls[w].controls.airVerticalList as FormArray;
+        // let index0 =0;
+        // let vatListIndex=1;
+        // let indexVertical=0;
+        // if(this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination.length!=0){
+        //   for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination[0].verticalAirTerminationList)
+        //   {
+        //     for(let j = 0; j < this.airVerticalListName.length; j++){
+        //       if(i[this.airVerticalListName[j]]!=""){
+        //         this.airVerticalListArr.push(this.createAirVerticalList());
+        //         if(this.airVerticalListName[j]=='materialOfTerminalRe'){
+        //           this.airVerticalListArr.controls[index0].controls.heading.setValue('AT_Vertical List-' + vatListIndex);
+        //         }
+        //         this.airVerticalListArr.controls[index0].controls.observationComponentDetails.setValue('verticalAirTerminationList' + index0);
+        //         this.airVerticalListArr.controls[index0].controls.serialNo.setValue(indexVertical + 1);
+        //         this.airVerticalListArr.controls[index0].controls.observation.setValue(i[this.airVerticalListName[j]]);
+        //         index0++;
+        //         indexVertical++;
+        //       }
+        //     }
+        //     indexVertical=0;
+        //     vatListIndex++;
+        //   }
+        // }
        
     //mesh
     this.airMeshArr=this.summaryArr.controls[w].controls.airMesh as FormArray;
@@ -1304,36 +1379,63 @@ export class LpssummaryComponent implements OnInit {
           this.airHolderArr.controls[index3].controls.observationComponentDetails.setValue('airHolderDescription' + index3);
           this.airHolderArr.controls[index3].controls.serialNo.setValue(index3+1);
           this.airHolderArr.controls[index3].controls.observation.setValue(i[this.airHolderName[j]]);
+          if(this.airHolderName[j] == 'conductorHolderRe') {
+            //holder list
+            this.airHolderListArr=this.airHolderArr.controls[j].controls.airHolderList as FormArray;
+            let index01 =0;
+            let holderListIndex=1;
+            let indexHolder=0;
+            if(this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription.length!=0){
+              for(let x of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription[0].airHolderList)
+              {
+                for(let z = 0; z < this.airHolderListName.length; z++){
+                  if(x[this.airHolderListName[z]]!=""){
+                    this.airHolderListArr.push(this.createAirHolderList());
+                    if(this.airHolderListName[z]=='holderTypeRe'){
+                    this.airHolderListArr.controls[index01].controls.heading.setValue('AT_Holder List-' + holderListIndex);
+                    }
+                    this.airHolderListArr.controls[index01].controls.observationComponentDetails.setValue('airHolderList' + index01);
+                    this.airHolderListArr.controls[index01].controls.serialNo.setValue((j+1)+'.'+(indexHolder + 1));
+                    this.airHolderListArr.controls[index01].controls.observation.setValue(x[this.airHolderListName[z]]);
+                    index01++;
+                    indexHolder++;
+                  }
+                }
+                indexHolder=0;
+                holderListIndex++;
+              }
+            }
+          }          
           index3++;        
         }
     
       }
     }
-    //holder list
-    this.airHolderListArr=this.summaryArr.controls[w].controls.airHolderList as FormArray;
-    let index01 =0;
-    let holderListIndex=1;
-    let indexHolder=0;
-    if(this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription.length!=0){
-      for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription[0].airHolderList)
-      {
-        for(let j = 0; j < this.airHolderListName.length; j++){
-          if(i[this.airHolderListName[j]]!=""){
-            this.airHolderListArr.push(this.createAirHolderList());
-            if(this.airHolderListName[j]=='holderTypeRe'){
-            this.airHolderListArr.controls[index01].controls.heading.setValue('AT_Holder List-' + holderListIndex);
-            }
-            this.airHolderListArr.controls[index01].controls.observationComponentDetails.setValue('airHolderList' + index01);
-            this.airHolderListArr.controls[index01].controls.serialNo.setValue(indexHolder+1);
-            this.airHolderListArr.controls[index01].controls.observation.setValue(i[this.airHolderListName[j]]);
-            index01++;
-            indexHolder++;
-          }
-        }
-        indexHolder=0;
-        holderListIndex++;
-      }
-    }
+    // //holder list
+    // this.airHolderListArr=this.summaryArr.controls[w].controls.airHolderList as FormArray;
+    // let index01 =0;
+    // let holderListIndex=1;
+    // let indexHolder=0;
+    // if(this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription.length!=0){
+    //   for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription[0].airHolderList)
+    //   {
+    //     for(let j = 0; j < this.airHolderListName.length; j++){
+    //       if(i[this.airHolderListName[j]]!=""){
+    //         this.airHolderListArr.push(this.createAirHolderList());
+    //         if(this.airHolderListName[j]=='holderTypeRe'){
+    //         this.airHolderListArr.controls[index01].controls.heading.setValue('AT_Holder List-' + holderListIndex);
+    //         }
+    //         this.airHolderListArr.controls[index01].controls.observationComponentDetails.setValue('airHolderList' + index01);
+    //         this.airHolderListArr.controls[index01].controls.serialNo.setValue(indexHolder+1);
+    //         this.airHolderListArr.controls[index01].controls.observation.setValue(i[this.airHolderListName[j]]);
+    //         index01++;
+    //         indexHolder++;
+    //       }
+    //     }
+    //     indexHolder=0;
+    //     holderListIndex++;
+    //   }
+    // }
    
     //clamps
     this.airClampsArr=this.summaryArr.controls[w].controls.airClamps as FormArray;
@@ -1533,35 +1635,62 @@ export class LpssummaryComponent implements OnInit {
               this.earthingDescArr.controls[index1].controls.observationComponentDetails.setValue('earthingDescription' + index1);
               this.earthingDescArr.controls[index1].controls.serialNo.setValue(index1+1);
               this.earthingDescArr.controls[index1].controls.observation.setValue(i[this.earthingDescriptionName[j]]);
+              if(this.earthingDescriptionName[j] == 'grountLevelComponentFilledInRem') {
+                //earthingDescription list
+                this.earthingDescriptionListArr=this.earthingDescArr.controls[j].controls.earthingDescriptionList as FormArray;
+                let index0 =0;
+                let vatListIndex=1;
+                let indexVertical=0;
+                if(this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingDescription.length!=0){
+                  for(let x of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingDescription[0].earthingDescriptionList)
+                  {
+                    for(let z = 0; z < this.earthingDescriptionListName.length; z++){
+                      if(x[this.earthingDescriptionListName[z]]!=""){
+                        this.earthingDescriptionListArr.push(this.createEarthingDescriptionList());
+                        if(this.earthingDescriptionListName[z]=='earthingConductorMaterialInRem'){
+                          this.earthingDescriptionListArr.controls[index0].controls.heading.setValue('EarthingDescription List-' + vatListIndex);
+                        }
+                        this.earthingDescriptionListArr.controls[index0].controls.observationComponentDetails.setValue('earthingDescriptionList' + index0);
+                        this.earthingDescriptionListArr.controls[index0].controls.serialNo.setValue((j+1)+'.'+(indexVertical + 1));
+                        this.earthingDescriptionListArr.controls[index0].controls.observation.setValue(x[this.earthingDescriptionListName[z]]);
+                        index0++;
+                        indexVertical++;        
+                      }
+                    }
+                    indexVertical=0;
+                    vatListIndex++;
+                  }
+                }
+              }
               index1++;            
             }
           }
-    }
-    //earthingDescription list
-    this.earthingDescriptionListArr=this.summaryArr.controls[w].controls.earthingDescriptionList as FormArray;
-    let index0 =0;
-    let vatListIndex=1;
-    let indexVertical=0;
-    if(this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingDescription.length!=0){
-      for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingDescription[0].earthingDescriptionList)
-      {
-        for(let j = 0; j < this.earthingDescriptionListName.length; j++){
-          if(i[this.earthingDescriptionListName[j]]!=""){
-            this.earthingDescriptionListArr.push(this.createEarthingDescriptionList());
-            if(this.earthingDescriptionListName[j]=='earthingConductorMaterialInRem'){
-              this.earthingDescriptionListArr.controls[index0].controls.heading.setValue('EarthingDescription List-' + vatListIndex);
-            }
-            this.earthingDescriptionListArr.controls[index0].controls.observationComponentDetails.setValue('earthingDescriptionList' + index0);
-            this.earthingDescriptionListArr.controls[index0].controls.serialNo.setValue(indexVertical+1);
-            this.earthingDescriptionListArr.controls[index0].controls.observation.setValue(i[this.earthingDescriptionListName[j]]);
-            index0++;
-            indexVertical++;        
-          }
         }
-        indexVertical=0;
-        vatListIndex++;
-  }
-    }
+  //   //earthingDescription list
+  //   this.earthingDescriptionListArr=this.summaryArr.controls[w].controls.earthingDescriptionList as FormArray;
+  //   let index0 =0;
+  //   let vatListIndex=1;
+  //   let indexVertical=0;
+  //   if(this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingDescription.length!=0){
+  //     for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingDescription[0].earthingDescriptionList)
+  //     {
+  //       for(let j = 0; j < this.earthingDescriptionListName.length; j++){
+  //         if(i[this.earthingDescriptionListName[j]]!=""){
+  //           this.earthingDescriptionListArr.push(this.createEarthingDescriptionList());
+  //           if(this.earthingDescriptionListName[j]=='earthingConductorMaterialInRem'){
+  //             this.earthingDescriptionListArr.controls[index0].controls.heading.setValue('EarthingDescription List-' + vatListIndex);
+  //           }
+  //           this.earthingDescriptionListArr.controls[index0].controls.observationComponentDetails.setValue('earthingDescriptionList' + index0);
+  //           this.earthingDescriptionListArr.controls[index0].controls.serialNo.setValue(indexVertical+1);
+  //           this.earthingDescriptionListArr.controls[index0].controls.observation.setValue(i[this.earthingDescriptionListName[j]]);
+  //           index0++;
+  //           indexVertical++;        
+  //         }
+  //       }
+  //       indexVertical=0;
+  //       vatListIndex++;
+  // }
+  //   }
    
     //earthingClamps
     this.earthingClampsArr=this.summaryArr.controls[w].controls.earthingClamps as FormArray;
@@ -1767,45 +1896,72 @@ export class LpssummaryComponent implements OnInit {
                 }
             }
             //vertical
-            this.airVerticalArr=this.summaryArr.controls[w].controls.airVertical as FormArray;
-            let index1 =0;
-            for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination){
-              for(let j = 0; j < this.airVerticalName.length; j++){
-                if(i[this.airVerticalName[j]]!=""){
-                  this.airVerticalArr.push(this.createAirVertical());
-                  this.airVerticalArr.controls[0].controls.heading.setValue('AT_Vertical Observation');
-                  this.airVerticalArr.controls[index1].controls.observationComponentDetails.setValue('lpsVerticalAirTermination' + index1);
-                  this.airVerticalArr.controls[index1].controls.serialNo.setValue(index1 + 1);
-                  this.airVerticalArr.controls[index1].controls.observation.setValue(i[this.airVerticalName[j]]);
-                  index1++;
-                }
-              }
-        }
-          //vertical list
-          this.airVerticalListArr=this.summaryArr.controls[w].controls.airVerticalList as FormArray;
-          let index0 =0;
-          let vatListIndex=1;
-          let indexVertical=0;
-          if(this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination.length!=0){
-            for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination[0].verticalAirTerminationList)
-            {
-              for(let j = 0; j < this.airVerticalListName.length; j++){
-                if(i[this.airVerticalListName[j]]!=""){
-                  this.airVerticalListArr.push(this.createAirVerticalList());
-                  if(this.airVerticalListName[j]=='materialOfTerminalRe'){
-                    this.airVerticalListArr.controls[index0].controls.heading.setValue('AT_Vertical List-' + vatListIndex);
+          this.airVerticalArr=this.summaryArr.controls[w].controls.airVertical as FormArray;
+          let index1 =0;
+          for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination){
+            for(let j = 0; j < this.airVerticalName.length; j++){
+              if(i[this.airVerticalName[j]]!=""){
+                this.airVerticalArr.push(this.createAirVertical());
+                this.airVerticalArr.controls[0].controls.heading.setValue('AT_Vertical Observation');
+                this.airVerticalArr.controls[index1].controls.observationComponentDetails.setValue('lpsVerticalAirTermination' + index1);
+                this.airVerticalArr.controls[index1].controls.serialNo.setValue(index1 + 1);
+                this.airVerticalArr.controls[index1].controls.observation.setValue(i[this.airVerticalName[j]]);
+                if(this.airVerticalName[j] == 'physicalInspectionRe') {
+                  this.airVerticalListArr=this.airVerticalArr.controls[0].controls.airVerticalList as FormArray;
+                  let index0 =0;
+                  let vatListIndex=1;
+                  let indexVertical=0;
+                  if(this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination.length!=0){
+                    for(let x of this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination[0].verticalAirTerminationList)
+                    {
+                      for(let z = 0; z < this.airVerticalListName.length; z++){
+                        if(x[this.airVerticalListName[z]]!=""){
+                          this.airVerticalListArr.push(this.createAirVerticalList());
+                          if(this.airVerticalListName[z]=='materialOfTerminalRe'){
+                            this.airVerticalListArr.controls[index0].controls.heading.setValue('AT_Vertical List-' + vatListIndex);
+                          }
+                          this.airVerticalListArr.controls[index0].controls.observationComponentDetails.setValue('verticalAirTerminationList' + index0);
+                          this.airVerticalListArr.controls[index0].controls.serialNo.setValue((j+1)+'.'+(indexVertical + 1));
+                          this.airVerticalListArr.controls[index0].controls.observation.setValue(x[this.airVerticalListName[z]]);
+                          index0++;
+                          indexVertical++;
+                        }
+                      }
+                      indexVertical=0;
+                      vatListIndex++;
+                    }
                   }
-                  this.airVerticalListArr.controls[index0].controls.observationComponentDetails.setValue('verticalAirTerminationList' + index0);
-                  this.airVerticalListArr.controls[index0].controls.serialNo.setValue(indexVertical + 1);
-                  this.airVerticalListArr.controls[index0].controls.observation.setValue(i[this.airVerticalListName[j]]);
-                  index0++;
-                  indexVertical++;
+                  
                 }
+                index1++;
               }
-              indexVertical=0;
-              vatListIndex++;
             }
-          }
+      }
+          //vertical list
+          // this.airVerticalListArr=this.summaryArr.controls[w].controls.airVerticalList as FormArray;
+          // let index0 =0;
+          // let vatListIndex=1;
+          // let indexVertical=0;
+          // if(this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination.length!=0){
+          //   for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination[0].verticalAirTerminationList)
+          //   {
+          //     for(let j = 0; j < this.airVerticalListName.length; j++){
+          //       if(i[this.airVerticalListName[j]]!=""){
+          //         this.airVerticalListArr.push(this.createAirVerticalList());
+          //         if(this.airVerticalListName[j]=='materialOfTerminalRe'){
+          //           this.airVerticalListArr.controls[index0].controls.heading.setValue('AT_Vertical List-' + vatListIndex);
+          //         }
+          //         this.airVerticalListArr.controls[index0].controls.observationComponentDetails.setValue('verticalAirTerminationList' + index0);
+          //         this.airVerticalListArr.controls[index0].controls.serialNo.setValue(indexVertical + 1);
+          //         this.airVerticalListArr.controls[index0].controls.observation.setValue(i[this.airVerticalListName[j]]);
+          //         index0++;
+          //         indexVertical++;
+          //       }
+          //     }
+          //     indexVertical=0;
+          //     vatListIndex++;
+          //   }
+          // }
          
       //mesh
       this.airMeshArr=this.summaryArr.controls[w].controls.airMesh as FormArray;
@@ -1823,46 +1979,74 @@ export class LpssummaryComponent implements OnInit {
         }
     }
       //holder
-      this.airHolderArr=this.summaryArr.controls[w].controls.airHolder as FormArray;
-      let index3 =0;
-      for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription){
-        for(let j = 0; j < this.airHolderName.length; j++){
-          if(i[this.airHolderName[j]]!=""){
-            this.airHolderArr.push(this.createAirHolder());
-            this.airHolderArr.controls[0].controls.heading.setValue('AT_Holder Observation');
-            this.airHolderArr.controls[index3].controls.observationComponentDetails.setValue('airHolderDescription' + index3);
-            this.airHolderArr.controls[index3].controls.serialNo.setValue(index3+1);
-            this.airHolderArr.controls[index3].controls.observation.setValue(i[this.airHolderName[j]]);
-            index3++;        
-          }
-      
-        }
-      }
-      //holder list
-      this.airHolderListArr=this.summaryArr.controls[w].controls.airHolderList as FormArray;
-      let index01 =0;
-      let holderListIndex=1;
-      let indexHolder=0;
-      if(this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription.length!=0){
-        for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription[0].airHolderList)
-        {
-          for(let j = 0; j < this.airHolderListName.length; j++){
-            if(i[this.airHolderListName[j]]!=""){
-              this.airHolderListArr.push(this.createAirHolderList());
-              if(this.airHolderListName[j]=='holderTypeRe'){
-              this.airHolderListArr.controls[index01].controls.heading.setValue('AT_Holder List-' + holderListIndex);
+      //holder
+    this.airHolderArr=this.summaryArr.controls[w].controls.airHolder as FormArray;
+    let index3 =0;
+    for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription){
+      for(let j = 0; j < this.airHolderName.length; j++){
+        if(i[this.airHolderName[j]]!=""){
+          this.airHolderArr.push(this.createAirHolder());
+          this.airHolderArr.controls[0].controls.heading.setValue('AT_Holder Observation');
+          this.airHolderArr.controls[index3].controls.observationComponentDetails.setValue('airHolderDescription' + index3);
+          this.airHolderArr.controls[index3].controls.serialNo.setValue(index3+1);
+          this.airHolderArr.controls[index3].controls.observation.setValue(i[this.airHolderName[j]]);
+          if(this.airHolderName[j] == 'conductorHolderRe') {
+            //holder list
+            this.airHolderListArr=this.airHolderArr.controls[j].controls.airHolderList as FormArray;
+            let index01 =0;
+            let holderListIndex=1;
+            let indexHolder=0;
+            if(this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription.length!=0){
+              for(let x of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription[0].airHolderList)
+              {
+                for(let z = 0; z < this.airHolderListName.length; z++){
+                  if(x[this.airHolderListName[z]]!=""){
+                    this.airHolderListArr.push(this.createAirHolderList());
+                    if(this.airHolderListName[z]=='holderTypeRe'){
+                    this.airHolderListArr.controls[index01].controls.heading.setValue('AT_Holder List-' + holderListIndex);
+                    }
+                    this.airHolderListArr.controls[index01].controls.observationComponentDetails.setValue('airHolderList' + index01);
+                    this.airHolderListArr.controls[index01].controls.serialNo.setValue((j+1)+'.'+(indexHolder + 1));
+                    this.airHolderListArr.controls[index01].controls.observation.setValue(x[this.airHolderListName[z]]);
+                    index01++;
+                    indexHolder++;
+                  }
+                }
+                indexHolder=0;
+                holderListIndex++;
               }
-              this.airHolderListArr.controls[index01].controls.observationComponentDetails.setValue('airHolderList' + index01);
-              this.airHolderListArr.controls[index01].controls.serialNo.setValue(indexHolder+1);
-              this.airHolderListArr.controls[index01].controls.observation.setValue(i[this.airHolderListName[j]]);
-              index01++;
-              indexHolder++;
             }
-          }
-          indexHolder=0;
-          holderListIndex++;
+          }          
+          index3++;        
         }
+    
       }
+    }
+      // //holder list
+      // this.airHolderListArr=this.summaryArr.controls[w].controls.airHolderList as FormArray;
+      // let index01 =0;
+      // let holderListIndex=1;
+      // let indexHolder=0;
+      // if(this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription.length!=0){
+      //   for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription[0].airHolderList)
+      //   {
+      //     for(let j = 0; j < this.airHolderListName.length; j++){
+      //       if(i[this.airHolderListName[j]]!=""){
+      //         this.airHolderListArr.push(this.createAirHolderList());
+      //         if(this.airHolderListName[j]=='holderTypeRe'){
+      //         this.airHolderListArr.controls[index01].controls.heading.setValue('AT_Holder List-' + holderListIndex);
+      //         }
+      //         this.airHolderListArr.controls[index01].controls.observationComponentDetails.setValue('airHolderList' + index01);
+      //         this.airHolderListArr.controls[index01].controls.serialNo.setValue(indexHolder+1);
+      //         this.airHolderListArr.controls[index01].controls.observation.setValue(i[this.airHolderListName[j]]);
+      //         index01++;
+      //         indexHolder++;
+      //       }
+      //     }
+      //     indexHolder=0;
+      //     holderListIndex++;
+      //   }
+      // }
      
       //clamps
       this.airClampsArr=this.summaryArr.controls[w].controls.airClamps as FormArray;
@@ -2052,45 +2236,73 @@ export class LpssummaryComponent implements OnInit {
               }
           //}
           //earthingDescription
-          this.earthingDescArr=this.summaryArr.controls[w].controls.earthingDescription as FormArray;
-          let index1 =0;
-          for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingDescription){
-            for(let j = 0; j < this.earthingDescriptionName.length; j++){
-              if(i[this.earthingDescriptionName[j]]!=""){
-                this.earthingDescArr.push(this.createEarthingDescription());
-                this.earthingDescArr.controls[0].controls.heading.setValue('EarthingDescription Observation');
-                this.earthingDescArr.controls[index1].controls.observationComponentDetails.setValue('earthingDescription' + index1);
-                this.earthingDescArr.controls[index1].controls.serialNo.setValue(index1+1);
-                this.earthingDescArr.controls[index1].controls.observation.setValue(i[this.earthingDescriptionName[j]]);
-                index1++;            
+        this.earthingDescArr=this.summaryArr.controls[w].controls.earthingDescription as FormArray;
+        let index1 =0;
+        for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingDescription){
+          for(let j = 0; j < this.earthingDescriptionName.length; j++){
+            if(i[this.earthingDescriptionName[j]]!=""){
+              this.earthingDescArr.push(this.createEarthingDescription());
+              this.earthingDescArr.controls[0].controls.heading.setValue('EarthingDescription Observation');
+              this.earthingDescArr.controls[index1].controls.observationComponentDetails.setValue('earthingDescription' + index1);
+              this.earthingDescArr.controls[index1].controls.serialNo.setValue(index1+1);
+              this.earthingDescArr.controls[index1].controls.observation.setValue(i[this.earthingDescriptionName[j]]);
+              if(this.earthingDescriptionName[j] == 'grountLevelComponentFilledInRem') {
+                //earthingDescription list
+                this.earthingDescriptionListArr=this.earthingDescArr.controls[j].controls.earthingDescriptionList as FormArray;
+                let index0 =0;
+                let vatListIndex=1;
+                let indexVertical=0;
+                if(this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingDescription.length!=0){
+                  for(let x of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingDescription[0].earthingDescriptionList)
+                  {
+                    for(let z = 0; z < this.earthingDescriptionListName.length; z++){
+                      if(x[this.earthingDescriptionListName[z]]!=""){
+                        this.earthingDescriptionListArr.push(this.createEarthingDescriptionList());
+                        if(this.earthingDescriptionListName[z]=='earthingConductorMaterialInRem'){
+                          this.earthingDescriptionListArr.controls[index0].controls.heading.setValue('EarthingDescription List-' + vatListIndex);
+                        }
+                        this.earthingDescriptionListArr.controls[index0].controls.observationComponentDetails.setValue('earthingDescriptionList' + index0);
+                        this.earthingDescriptionListArr.controls[index0].controls.serialNo.setValue((j+1)+'.'+(indexVertical + 1));
+                        this.earthingDescriptionListArr.controls[index0].controls.observation.setValue(x[this.earthingDescriptionListName[z]]);
+                        index0++;
+                        indexVertical++;        
+                      }
+                    }
+                    indexVertical=0;
+                    vatListIndex++;
+                  }
+                }
               }
-            }
-      }
-      //earthingDescription list
-      this.earthingDescriptionListArr=this.summaryArr.controls[w].controls.earthingDescriptionList as FormArray;
-      let index0 =0;
-      let vatListIndex=1;
-      let indexVertical=0;
-      if(this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingDescription.length!=0){
-        for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingDescription[0].earthingDescriptionList)
-        {
-          for(let j = 0; j < this.earthingDescriptionListName.length; j++){
-            if(i[this.earthingDescriptionListName[j]]!=""){
-              this.earthingDescriptionListArr.push(this.createEarthingDescriptionList());
-              if(this.earthingDescriptionListName[j]=='earthingConductorMaterialInRem'){
-                this.earthingDescriptionListArr.controls[index0].controls.heading.setValue('EarthingDescription List-' + vatListIndex);
-              }
-              this.earthingDescriptionListArr.controls[index0].controls.observationComponentDetails.setValue('earthingDescriptionList' + index0);
-              this.earthingDescriptionListArr.controls[index0].controls.serialNo.setValue(indexVertical+1);
-              this.earthingDescriptionListArr.controls[index0].controls.observation.setValue(i[this.earthingDescriptionListName[j]]);
-              index0++;
-              indexVertical++;        
+              index1++;            
             }
           }
-          indexVertical=0;
-          vatListIndex++;
-    }
-      }
+        }
+        
+    //   //earthingDescription list
+    //   this.earthingDescriptionListArr=this.summaryArr.controls[w].controls.earthingDescriptionList as FormArray;
+    //   let index0 =0;
+    //   let vatListIndex=1;
+    //   let indexVertical=0;
+    //   if(this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingDescription.length!=0){
+    //     for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingDescription[0].earthingDescriptionList)
+    //     {
+    //       for(let j = 0; j < this.earthingDescriptionListName.length; j++){
+    //         if(i[this.earthingDescriptionListName[j]]!=""){
+    //           this.earthingDescriptionListArr.push(this.createEarthingDescriptionList());
+    //           if(this.earthingDescriptionListName[j]=='earthingConductorMaterialInRem'){
+    //             this.earthingDescriptionListArr.controls[index0].controls.heading.setValue('EarthingDescription List-' + vatListIndex);
+    //           }
+    //           this.earthingDescriptionListArr.controls[index0].controls.observationComponentDetails.setValue('earthingDescriptionList' + index0);
+    //           this.earthingDescriptionListArr.controls[index0].controls.serialNo.setValue(indexVertical+1);
+    //           this.earthingDescriptionListArr.controls[index0].controls.observation.setValue(i[this.earthingDescriptionListName[j]]);
+    //           index0++;
+    //           indexVertical++;        
+    //         }
+    //       }
+    //       indexVertical=0;
+    //       vatListIndex++;
+    // }
+    //   }
      
       //earthingClamps
       this.earthingClampsArr=this.summaryArr.controls[w].controls.earthingClamps as FormArray;
@@ -2348,10 +2560,8 @@ export class LpssummaryComponent implements OnInit {
         summaryLpsObservationArr.push(j);
         }
         for(let j of i.controls.airVertical.controls){
-          if(j.controls.observationComponentDetails.value=='lpsVerticalAirTermination0'){
-            for(let list1 of i.controls.airVerticalList.controls){
-              j.controls.summaryLpsInnerObservation.push(list1);
-            }
+          for(let list1 of j.controls.airVerticalList.controls){
+            j.controls.summaryLpsInnerObservation.push(list1);
           }
           summaryLpsObservationArr.push(j);
         }
@@ -2359,10 +2569,8 @@ export class LpssummaryComponent implements OnInit {
           summaryLpsObservationArr.push(j);
         }
         for(let j of i.controls.airHolder.controls){
-          if(j.controls.observationComponentDetails.value=='airHolderDescription0'){
-            for(let list1 of i.controls.airHolderList.controls){
-              j.controls.summaryLpsInnerObservation.push(list1);
-            }
+          for(let list1 of j.controls.airHolderList.controls){
+            j.controls.summaryLpsInnerObservation.push(list1);
           }
           summaryLpsObservationArr.push(j);
         }
@@ -2399,10 +2607,8 @@ export class LpssummaryComponent implements OnInit {
           summaryLpsObservationArr.push(j);
         }
         for(let j of i.controls.earthingDescription.controls){
-          if(j.controls.observationComponentDetails.value=='earthingDescription0'){
-            for(let list1 of i.controls.earthingDescriptionList.controls){
-              j.controls.summaryLpsInnerObservation.push(list1);
-            }
+          for(let list1 of j.controls.earthingDescriptionList.controls){
+            j.controls.summaryLpsInnerObservation.push(list1);
           }
           summaryLpsObservationArr.push(j);
         }

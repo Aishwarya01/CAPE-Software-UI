@@ -61,8 +61,8 @@
                 </div>
            </div>
                 <div class="tableObserve" *ngIf="airTerminationControl(q).length != 0 || airVerticalControl(q).length != 0 ||
-                airVerticalListControl(q).length != 0 || airMeshControl(q).length != 0 ||
-                 airHolderControl(q).length != 0 || airHolderListControl(q).length != 0 ||
+                 airMeshControl(q).length != 0 ||
+                 airHolderControl(q).length != 0 ||
                   airClampsControl(q).length != 0 || airExpansionControl(q).length != 0 || 
                     airConnectorsControl(q).length != 0">
                 <div class="form-group">
@@ -98,21 +98,39 @@
                           </tbody>
 
                           <tbody formArrayName="airVertical" *ngFor="let a of airVerticalControl(q); let i= index">
-                            <tr [formGroupName]="i">
-                            <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
-                            <td>{{a.get("serialNo")?.value}}</td>
-                            <td>
-                              <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
-                              placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
-                            </td>
-                            <td> 
-                              <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
-                              placeholder="Ex. Recommendations..."></textarea> 
-                            </td>
-                            </tr>
+                            <ng-container [formGroupName]="i">
+                              <tr >
+                                <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                                <td>{{a.get("serialNo")?.value}}</td>
+                                <td>
+                                  <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                                  placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                                </td>
+                                <td> 
+                                  <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                                  placeholder="Ex. Recommendations..."></textarea> 
+                                </td>
+                                </tr>
+                            
+                            <ng-container formArrayName="airVerticalList" *ngFor="let b of airVerticalListControl(a); let j= index">
+                              <tr [formGroupName]="j">
+                                <td nowrap="nowrap" style="padding-left: 60px;">{{b.get("heading")?.value}}</td>
+                                <td>{{b.get("serialNo")?.value}}</td>
+                                <td>
+                                  <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                                  placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                                </td>
+                                <td> 
+                                  <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                                  placeholder="Ex. Recommendations..."></textarea> 
+                                </td>
+                                </tr>
+                            </ng-container>
+                          </ng-container>
+
                         </tbody>
                         
-                        <tbody formArrayName="airVerticalList" *ngFor="let a of airVerticalListControl(q); let i= index">
+                        <!-- <tbody formArrayName="airVerticalList" *ngFor="let a of airVerticalListControl(q); let i= index">
                           <tr [formGroupName]="i">
                           <td nowrap="nowrap" style="padding-left: 60px;">{{a.get("heading")?.value}}</td>
                           <td>{{a.get("serialNo")?.value}}</td>
@@ -125,7 +143,7 @@
                             placeholder="Ex. Recommendations..."></textarea> 
                           </td>
                           </tr>
-                      </tbody>
+                      </tbody> -->
                 
                         <tbody formArrayName="airMesh" *ngFor="let a of airMeshControl(q); let i= index">
                           <tr [formGroupName]="i">
@@ -143,34 +161,38 @@
                       </tbody>
 
                       <tbody formArrayName="airHolder" *ngFor="let a of airHolderControl(q); let i= index">
-                        <tr [formGroupName]="i">
-                        <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
-                        <td>{{a.get("serialNo")?.value}}</td>
-                        <td>
-                          <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
-                          placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
-                        </td>
-                        <td> 
-                          <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
-                          placeholder="Ex. Recommendations..."></textarea> 
-                        </td>
-                        </tr>
+                        <ng-container [formGroupName]="i">
+                          <tr>
+                            <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                            <td>{{a.get("serialNo")?.value}}</td>
+                            <td>
+                              <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                              placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                            </td>
+                            <td> 
+                              <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                              placeholder="Ex. Recommendations..."></textarea> 
+                            </td>
+                          </tr>
+
+                          <ng-container formArrayName="airHolderList" *ngFor="let b of airHolderListControl(a); let j= index">
+                            <tr [formGroupName]="j">
+                              <td nowrap="nowrap" style="padding-left: 60px;">{{b.get("heading")?.value}}</td>
+                              <td>{{b.get("serialNo")?.value}}</td>
+                              <td>
+                                <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                                placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                              </td>
+                              <td> 
+                                <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                                placeholder="Ex. Recommendations..."></textarea> 
+                              </td>
+                            </tr>
+                          </ng-container>
+                        </ng-container>
                     </tbody>
 
-                    <tbody formArrayName="airHolderList" *ngFor="let a of airHolderListControl(q); let i= index">
-                      <tr [formGroupName]="i">
-                      <td nowrap="nowrap" style="padding-left: 60px;">{{a.get("heading")?.value}}</td>
-                      <td>{{a.get("serialNo")?.value}}</td>
-                      <td>
-                        <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
-                        placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
-                      </td>
-                      <td> 
-                        <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
-                        placeholder="Ex. Recommendations..."></textarea> 
-                      </td>
-                      </tr>
-                  </tbody>
+                    
 
                         <tbody formArrayName="airClamps" *ngFor="let a of airClampsControl(q); let i= index">
                           <tr [formGroupName]="i">
@@ -218,8 +240,7 @@
                       </div>
                       <!-- <div class="row" 
                       *ngIf="(airTerminationControl(q).length == 0) && (airVerticalControl(q).length == 0) &&
-                                (airVerticalListControl(q).length == 0) && (airMeshControl(q).length == 0) &&
-                                 (airHolderControl(q).length == 0) && (airHolderListControl(q).length == 0) &&
+                                 (airMeshControl(q).length == 0) && (airHolderControl(q).length == 0) &&
                                   (airClampsControl(q).length == 0) && (airExpansionControl(q).length == 0) && 
                                     (airConnectorsControl(q).length == 0)">
                         <div class="col-sm-12">
@@ -387,7 +408,7 @@
                   </div>
 
                   <div class="tableObserve" *ngIf="(earthingReportControl(q).length != 0) || (earthingDescriptionControl(q).length != 0) ||
-                  (earthingDescriptionListControl(q).length != 0) || (earthingClampsControl(q).length != 0) ||
+                   (earthingClampsControl(q).length != 0) ||
                    (earthingElectrodeChamberControl(q).length != 0) || (earthingSystemControl(q).length != 0) ||
                     (earthElectrodeTestingControl(q).length != 0) ">
                     <div class="form-group">
@@ -397,8 +418,7 @@
                     </label>
                     <br>
                     <!-- <label><h3 style="cursor: pointer;"><b><u>Basic details Observations :</u></b></h3></label>                     -->
-                        <div class="table-responsive" id="style-1" style="border: 1px solid black" 
-                        >
+                        <div class="table-responsive" id="style-1" style="border: 1px solid black" >
                             <table class="table">
                               <thead>
                                 <tr>
@@ -424,35 +444,37 @@
                               </tbody>
     
                               <tbody formArrayName="earthingDescription" *ngFor="let a of earthingDescriptionControl(q); let i= index">
-                                <tr [formGroupName]="i">
-                                <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
-                                <td>{{a.get("serialNo")?.value}}</td>
-                                <td>
-                                  <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
-                                  placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
-                                </td>
-                                <td> 
-                                  <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
-                                  placeholder="Ex. Recommendations..."></textarea> 
-                                </td>
-                                </tr>
-                            </tbody>
-                            
-                            <tbody formArrayName="earthingDescriptionList" *ngFor="let a of earthingDescriptionListControl(q); let i= index">
-                              <tr [formGroupName]="i">
-                              <td nowrap="nowrap" style="padding-left: 60px;">{{a.get("heading")?.value}}</td>
-                              <td>{{a.get("serialNo")?.value}}</td>
-                              <td>
-                                <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
-                                placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
-                              </td>
-                              <td> 
-                                <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
-                                placeholder="Ex. Recommendations..."></textarea> 
-                              </td>
-                              </tr>
-                          </tbody>
+                                <ng-container  [formGroupName]="i">
+                                  <tr>
+                                    <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                                    <td>{{a.get("serialNo")?.value}}</td>
+                                    <td>
+                                      <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                                      placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                                    </td>
+                                    <td> 
+                                      <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                                      placeholder="Ex. Recommendations..."></textarea> 
+                                    </td>
+                                  </tr>
 
+                                  <ng-container formArrayName="earthingDescriptionList" *ngFor="let b of earthingDescriptionListControl(a); let j= index">
+                                    <tr [formGroupName]="j">
+                                      <td nowrap="nowrap" style="padding-left: 60px;">{{b.get("heading")?.value}}</td>
+                                      <td>{{b.get("serialNo")?.value}}</td>
+                                      <td>
+                                        <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                                        placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                                      </td>
+                                      <td> 
+                                        <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                                        placeholder="Ex. Recommendations..."></textarea> 
+                                      </td>
+                                    </tr>
+                                  </ng-container>
+                                </ng-container>
+                            </tbody>
+                                                 
                             <tbody formArrayName="earthingClamps" *ngFor="let a of earthingClampsControl(q); let i= index">
                               <tr [formGroupName]="i">
                               <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
