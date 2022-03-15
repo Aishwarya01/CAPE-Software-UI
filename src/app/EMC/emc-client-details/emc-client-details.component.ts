@@ -46,6 +46,7 @@ export class EmcClientDetailsComponent implements OnInit {
   popup: boolean = false;
   step1List: any;
   flag: boolean = false;
+  isEditableEmc!:boolean
   modalReference: any;
   validationErrorTab: boolean = false;
   validationErrorMsgTab: string = "";

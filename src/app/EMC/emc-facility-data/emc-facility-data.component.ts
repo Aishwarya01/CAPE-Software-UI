@@ -46,6 +46,7 @@ export class EmcFacilityDataComponent implements OnInit {
   finalSpinner: boolean = true;
   popup: boolean = false;
   modalReference: any;
+  isEditableEmc!:boolean
 
   arr1: any = [];
   emcId!: number;

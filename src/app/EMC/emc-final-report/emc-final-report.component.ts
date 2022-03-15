@@ -9,6 +9,7 @@ import { EmcClientDetailsService } from 'src/app/EMC_Services/emc-client-details
 import { EmcMatstepperComponent } from '../emc-matstepper/emc-matstepper.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EmcSavedReportService } from 'src/app/EMC_Services/emc-saved-report.service';
+import { GlobalsService } from 'src/app/globals.service';
 
 @Component({
   selector: 'app-emc-final-report',
@@ -58,6 +59,7 @@ export class EmcFinalReportComponent implements OnInit {
               private emcSavedReportService: EmcSavedReportService,
               private ChangeDetectorRef: ChangeDetectorRef,
               // private finalpdf: FinalPdfServiceService,
+              public service: GlobalsService,
               public emcParent: EmcMatstepperComponent,
               private emcmatstepper:EmcMatstepperComponent,
               public emcClientDetailsService: EmcClientDetailsService,
@@ -115,7 +117,8 @@ continue(emcId: any,clientName: any) {
   this.finalReportBody = false;
   this.finalReportSpinner = true;
   this.spinnerValue = "Please wait, the details are loading!";
-   this.emcParent.continue(emcId,clientName,false);
+  this.service.allStepsCompletedEmc = true;
+   this.emcParent.preview(emcId,clientName,false);
  } 
 
 userName=this.router.snapshot.paramMap.get('email') || '{}';
