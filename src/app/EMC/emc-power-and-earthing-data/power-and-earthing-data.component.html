@@ -320,7 +320,7 @@
                                         accept=".txt,.jpeg,.png,.jpg,.pdf">
 
 
-                                <div *ngIf="submitted &&f.peAttachement?.errors" class="invalid-feedback">
+                                    <div *ngIf="submitted &&f.peAttachement?.errors" class="invalid-feedback">
                                         <div *ngIf="f.peAttachement?.errors?.required">Field Is Required</div>
                                     </div>
                                     </div>
@@ -328,13 +328,10 @@
                                       <button type="button" [disabled]="uploadDisable" class="btn btn-success" (click)="onUpload(contentSpinner)">
                                             Upload
                                       </button>
-                                      <a (click)="onDownload()"  [attr.disabled]="isEditableEmc ? '' : null"  *ngIf="fileName != ''" href='javascript:onDownload()' title="Download" style="margin-left: 30px;text-decoration: underline;">
+                                      <a (click)="onDownload()" *ngIf="fileName != ''" href='javascript:onDownload()' title="Download" style="margin-left: 30px;text-decoration: underline;" [ngClass]="{'disableForm':isEditableEmc}">
                                         {{fileName}}</a>
-                                      <mat-icon *ngIf="fileName != ''" class="mousechange" class="dlt" type="button" title="Delete" style="position: absolute;
-                                      margin-left: 40px; margin-top: 5px;" [ngClass]="{'disableButton':isEditableEmc}"
-                                      (click)="deleteFile(contentSpinnerDelete)" 
+                                      <mat-icon *ngIf="fileName != ''" class="mousechange" class="dlt" type="button" title="Delete" style="position: absolute;margin-left: 40px; margin-top: 5px;"(click)="deleteFile(contentSpinnerDelete)" [ngClass]="{'disableForm':isEditableEmc}"
                                        >remove_circle_outline</mat-icon>
-        
                                     </div>
                                 </div>
                                 <!-- <div class="row">
