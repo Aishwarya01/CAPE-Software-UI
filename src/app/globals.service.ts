@@ -54,6 +54,7 @@ export class GlobalsService {
 //completed-saved-final
  disableFields:boolean=false;
  allStepsCompleted:boolean=false;
+ allStepsCompletedEmc:boolean=false;
  allFieldsDisable:boolean=false; //after submiting all 5 steps
  disableSubmitSummary:boolean=false; //after submiting all 5 steps
 //verification component for stepper

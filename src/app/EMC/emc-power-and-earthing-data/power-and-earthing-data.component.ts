@@ -59,6 +59,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
   fileId: number = 0;
   JSONdata: any = [];
   panelOpenState = false;
+  isEditableEmc!:boolean
 
 
   constructor(
