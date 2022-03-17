@@ -43,6 +43,7 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
   tabErrorMsg: string = "";
   mode: any= 'indeterminate';
   panelOpenState = false;
+  isEditableEmc!:boolean
 
   constructor(
     private formBuilder: FormBuilder,
