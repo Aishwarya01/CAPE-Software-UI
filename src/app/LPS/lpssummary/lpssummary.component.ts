@@ -1028,23 +1028,31 @@ export class LpssummaryComponent implements OnInit {
           }
           if(i.observationComponentDetails.includes('lpsVerticalAirTermination')){
             airTermination1.push(i);
-            if(i.observationComponentDetails.includes('lpsVerticalAirTermination0')){
-              if(i.summaryLpsInnerObservation.length!=0){
-                airTerminationList=i.summaryLpsInnerObservation;
-              }
-            }
+            // if(i.observationComponentDetails.includes('lpsVerticalAirTermination0')){
+            //   if(i.summaryLpsInnerObservation.length!=0){
+            //     airTerminationList=i.summaryLpsInnerObservation;
+            //   }
+            // }
+          }
+          if(i.observationComponentDetails.includes('verticalAirTerminationList')) {
+            airTerminationList.push(i);
           }
           if(i.observationComponentDetails.includes('airMeshDescription')){
             airTermination2.push(i);
           }
           if(i.observationComponentDetails.includes('airHolderDescription')){
             airTermination3.push(i);
-            if(i.observationComponentDetails.includes('airHolderDescription0')){
-              if(i.summaryLpsInnerObservation.length!=0){
-                airTerminationHolderList=i.summaryLpsInnerObservation;
-              }
-            }
+            // if(i.observationComponentDetails.includes('airHolderDescription0')){
+            //   if(i.summaryLpsInnerObservation.length!=0){
+            //     airTerminationHolderList=i.summaryLpsInnerObservation;
+            //   }
+            // }
           }
+
+          if(i.observationComponentDetails.includes('airHolderList')){
+            airTerminationHolderList.push(i);
+          }
+
           if(i.observationComponentDetails.includes('airClamps')){
             airTermination4.push(i);
           }
@@ -1083,13 +1091,16 @@ export class LpssummaryComponent implements OnInit {
           if(i.observationComponentDetails.includes('earthingLpsDescription')){
             earthing1.push(i);
           }
-          if(i.observationComponentDetails.includes('earthingDescription')){
+          if(i.observationComponentDetails.includes('earthingDescriptionMain')){
             earthing2.push(i);
-            if(i.observationComponentDetails.includes('earthingDescription0')){
-              if(i.summaryLpsInnerObservation.length!=0){
-                earthingList=i.summaryLpsInnerObservation;
-              }
-            }
+            // if(i.observationComponentDetails.includes('earthingDescription0')){
+            //   if(i.summaryLpsInnerObservation.length!=0){
+            //     earthingList=i.summaryLpsInnerObservation;
+            //   }
+            // }
+          }
+          if(i.observationComponentDetails.includes('earthingDescriptionList')){
+            earthingList.push(i);
           }
           if(i.observationComponentDetails.includes('earthingClamps')){
             earthing3.push(i);
@@ -1105,26 +1116,38 @@ export class LpssummaryComponent implements OnInit {
           }
            //spd
            if(i.observationComponentDetails.includes('spdReport')){
-            spd1.push(i);
-            if(i.observationComponentDetails.includes('spdReport0')){
-              if(i.summaryLpsInnerObservation.length!=0){
-                spd2=i.summaryLpsInnerObservation;
-              }
+              spd1.push(i);
+              // if(i.observationComponentDetails.includes('spdReport0')){
+              //   if(i.summaryLpsInnerObservation.length!=0){
+              //     spd2=i.summaryLpsInnerObservation;
+              //   }
+              // }
             }
-          }
+
+            if(i.observationComponentDetails.includes('spdDescription')){
+              spd2.push(i);
+            }
            //separation distance
            if(i.observationComponentDetails.includes('seperationDistanceDescription')){
             separation1.push(i);
-            if(i.summaryLpsInnerObservation.length!=0){
-              for(let value of i.summaryLpsInnerObservation){
-                if(value.observationComponentDetails.includes('separateDistanceDesc')){
-                  separation2.push(value);
-                }
-                if(value.observationComponentDetails.includes('separateDistanceDownConductors')){
-                  separation3.push(value);
-                }
-              }
-            }
+            // if(i.summaryLpsInnerObservation.length!=0){
+            //   for(let value of i.summaryLpsInnerObservation){
+            //     if(value.observationComponentDetails.includes('separateDistanceDesc')){
+            //       separation2.push(value);
+            //     }
+            //     if(value.observationComponentDetails.includes('separateDistanceDownConductors')){
+            //       separation3.push(value);
+            //     }
+            //   }
+            // }
+          }
+
+          if(i.observationComponentDetails.includes('separateDistanceDesc')){
+            separation2.push(i);
+          }
+
+          if(i.observationComponentDetails.includes('separateDistanceDownConductors')){
+            separation3.push(i);
           }
           //equipotential
           if(i.observationComponentDetails.includes('earthStudDescription')){
@@ -1530,7 +1553,7 @@ export class LpssummaryComponent implements OnInit {
             if(i[this.earthingDescriptionName[j]]!=""){
               this.earthingDescArr.push(this.createEarthingDescription());
               this.earthingDescArr.controls[0].controls.heading.setValue('EarthingDescription Observation');
-              this.earthingDescArr.controls[index1].controls.observationComponentDetails.setValue('earthingDescription' + index1);
+              this.earthingDescArr.controls[index1].controls.observationComponentDetails.setValue('earthingDescriptionMain' + index1);
               this.earthingDescArr.controls[index1].controls.serialNo.setValue(index1+1);
               this.earthingDescArr.controls[index1].controls.observation.setValue(i[this.earthingDescriptionName[j]]);
               index1++;            
@@ -2059,7 +2082,7 @@ export class LpssummaryComponent implements OnInit {
               if(i[this.earthingDescriptionName[j]]!=""){
                 this.earthingDescArr.push(this.createEarthingDescription());
                 this.earthingDescArr.controls[0].controls.heading.setValue('EarthingDescription Observation');
-                this.earthingDescArr.controls[index1].controls.observationComponentDetails.setValue('earthingDescription' + index1);
+                this.earthingDescArr.controls[index1].controls.observationComponentDetails.setValue('earthingDescriptionMain' + index1);
                 this.earthingDescArr.controls[index1].controls.serialNo.setValue(index1+1);
                 this.earthingDescArr.controls[index1].controls.observation.setValue(i[this.earthingDescriptionName[j]]);
                 index1++;            
@@ -2348,24 +2371,34 @@ export class LpssummaryComponent implements OnInit {
         summaryLpsObservationArr.push(j);
         }
         for(let j of i.controls.airVertical.controls){
-          if(j.controls.observationComponentDetails.value=='lpsVerticalAirTermination0'){
-            for(let list1 of i.controls.airVerticalList.controls){
-              j.controls.summaryLpsInnerObservation.push(list1);
-            }
-          }
+          //if(j.controls.observationComponentDetails.value=='lpsVerticalAirTermination0'){
+            // for(let list1 of i.controls.airVerticalList.controls){
+            //   j.controls.summaryLpsInnerObservation.push(list1);
+            // }
+          //}
           summaryLpsObservationArr.push(j);
         }
+
+        for(let j of i.controls.airVerticalList.controls){
+          summaryLpsObservationArr.push(j);
+        }
+        
         for(let j of i.controls.airMesh.controls){
           summaryLpsObservationArr.push(j);
         }
         for(let j of i.controls.airHolder.controls){
-          if(j.controls.observationComponentDetails.value=='airHolderDescription0'){
-            for(let list1 of i.controls.airHolderList.controls){
-              j.controls.summaryLpsInnerObservation.push(list1);
-            }
-          }
+          // if(j.controls.observationComponentDetails.value=='airHolderDescription0'){
+          //   for(let list1 of i.controls.airHolderList.controls){
+          //     j.controls.summaryLpsInnerObservation.push(list1);
+          //   }
+          // }
           summaryLpsObservationArr.push(j);
         }
+
+        for(let j of i.controls.airHolderList.controls){       
+          summaryLpsObservationArr.push(j);
+        }
+
         for(let j of i.controls.airClamps.controls){
         
           summaryLpsObservationArr.push(j);
@@ -2399,11 +2432,14 @@ export class LpssummaryComponent implements OnInit {
           summaryLpsObservationArr.push(j);
         }
         for(let j of i.controls.earthingDescription.controls){
-          if(j.controls.observationComponentDetails.value=='earthingDescription0'){
-            for(let list1 of i.controls.earthingDescriptionList.controls){
-              j.controls.summaryLpsInnerObservation.push(list1);
-            }
-          }
+          // if(j.controls.observationComponentDetails.value=='earthingDescription0'){
+          //   for(let list1 of i.controls.earthingDescriptionList.controls){
+          //     j.controls.summaryLpsInnerObservation.push(list1);
+          //   }
+          // }
+          summaryLpsObservationArr.push(j);
+        }
+        for(let j of i.controls.earthingDescriptionList.controls){
           summaryLpsObservationArr.push(j);
         }
         for(let j of i.controls.earthingClamps.controls){
@@ -2417,23 +2453,35 @@ export class LpssummaryComponent implements OnInit {
         }
 
         for(let j of i.controls.spdReport.controls){
-          if(j.controls.observationComponentDetails.value=='spdReport0'){
-            for(let list1 of i.controls.spdReportList.controls){
-              j.controls.summaryLpsInnerObservation.push(list1);
-            }
-          }
+          // if(j.controls.observationComponentDetails.value=='spdReport0'){
+          //   for(let list1 of i.controls.spdReportList.controls){
+          //     j.controls.summaryLpsInnerObservation.push(list1);
+          //   }
+          // }
+          summaryLpsObservationArr.push(j);
+        }
+
+        for(let j of i.controls.spdReportList.controls){
           summaryLpsObservationArr.push(j);
         }
 
         for(let j of i.controls.separationDistance.controls){
-          if(j.controls.observationComponentDetails.value=='seperationDistanceDescription0'){
-            for(let list1 of i.controls.separateDistance.controls){
-              j.controls.summaryLpsInnerObservation.push(list1);
-            }
-            for(let list2 of i.controls.separationDistanceDown.controls){
-              j.controls.summaryLpsInnerObservation.push(list2);
-            }
-          }
+          // if(j.controls.observationComponentDetails.value=='seperationDistanceDescription0'){
+          //   for(let list1 of i.controls.separateDistance.controls){
+          //     j.controls.summaryLpsInnerObservation.push(list1);
+          //   }
+          //   for(let list2 of i.controls.separationDistanceDown.controls){
+          //     j.controls.summaryLpsInnerObservation.push(list2);
+          //   }
+          // }
+          summaryLpsObservationArr.push(j);
+        }
+
+        for(let j of i.controls.separateDistance.controls){
+          summaryLpsObservationArr.push(j);
+        }
+
+        for(let j of i.controls.separationDistanceDown.controls){
           summaryLpsObservationArr.push(j);
         }
         for(let j of i.controls.earthStudDesc.controls){
