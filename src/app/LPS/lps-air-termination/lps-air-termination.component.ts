@@ -48,6 +48,7 @@ export class LpsAirTerminationComponent implements OnInit {
   airTerminationPushArr: any=[];
   rangeOfAngle:String='';
   isRangeOfAngle : boolean = false;
+  angleDistance : String='';
   // successMsg1: Strin:g="";
 
   @Output() proceedNext = new EventEmitter<any>();
@@ -199,6 +200,25 @@ export class LpsAirTerminationComponent implements OnInit {
       materialOfTerminalOb: new FormControl('', Validators.required),
       installationTerminationsystemOb: new FormControl('', Validators.required),
       angleProtectionHeightOb: new FormControl('', Validators.required),
+      supportFlatSurfaceOb: new FormControl('', Validators.required),
+      heightFlatSurfaceOb: new FormControl('', Validators.required),
+      heightFlatSurfaceRe: new FormControl(''),
+      supportFlatSurfaceRe: new FormControl(''),
+      installationTerminationsystemRem: new FormControl(''),
+      angleProtectionHeightRe: new FormControl(''),
+      heightOfTerminalRe: new FormControl(''),
+      sizeOfTerminalRe: new FormControl(''),
+      materialOfTerminalRe: new FormControl(''),
+      flag: new FormControl('A'),
+    });
+  }
+  createAirIterationForRiskAssesment(angleProtectionHeight:any)  : FormGroup {
+    return this.formBuilder.group({
+      sizeOfTerminalOb: new FormControl('', Validators.required),
+      heightOfTerminalOb: new FormControl('', Validators.required),
+      materialOfTerminalOb: new FormControl('', Validators.required),
+      installationTerminationsystemOb: new FormControl('', Validators.required),
+      angleProtectionHeightOb: new FormControl(angleProtectionHeight, Validators.required),
       supportFlatSurfaceOb: new FormControl('', Validators.required),
       heightFlatSurfaceOb: new FormControl('', Validators.required),
       heightFlatSurfaceRe: new FormControl(''),
@@ -411,7 +431,7 @@ export class LpsAirTerminationComponent implements OnInit {
     }
 
 
-  addItemAir(a:any) {
+  addItemAir(a:any,protectionLevel:any) {
     const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
       width: '420px',
       maxHeight: '90vh',
@@ -429,7 +449,13 @@ export class LpsAirTerminationComponent implements OnInit {
     dialogRef.componentInstance.confirmBox.subscribe(data=>{
       if(data) {
         this.airterminationArr = a.controls.verticalAirTerminationList as FormArray;
-        this.airterminationArr.push(this.createAirIteration());
+        if(protectionLevel == 'Risk Assesment not carried out'){
+          this.airterminationArr.push(this.createAirIterationForRiskAssesment("No Value Applicable"));
+        }
+        else{
+          this.airterminationArr.push(this.createAirIteration());
+        }
+        
       }
       else{
         return;
@@ -1791,75 +1817,85 @@ export class LpsAirTerminationComponent implements OnInit {
     }
   }
 
-  findAngleDistance(form:any,a:any,index:any){
-     
-    let protectionLevel=form.controls.protectionLevel.value; 
-    let verticalAirTerminationListArray=form.controls.lpsVerticalAirTermination.controls[form.controls.lpsVerticalAirTermination.controls.length-1].controls.verticalAirTerminationList; 
-  
-    for(let j=0; j<verticalAirTerminationListArray.value.length; j++){
-      let heightOfAirterminal=verticalAirTerminationListArray.controls[0].value.heightOfTerminalOb;
-      
-      if(heightOfAirterminal == 0){
-       // this.rangeOfAngle = "0";
-          //this.isRangeOfAngle = true; 
-          verticalAirTerminationListArray.controls[0].controls.angleProtectionHeightOb.setValue('');
-          return;
-        
-       }
+  protectionLevels(form: any, a: any, index: any) {
+    let protectionLevel = form.controls.protectionLevel.value;
+    let verticalAirTerminationListArray = form.controls.lpsVerticalAirTermination.controls[form.controls.lpsVerticalAirTermination.controls.length - 1].controls.verticalAirTerminationList;
+   
+    if(protectionLevel == "Risk Assesment not carried out"){
+      this.updateAngleProtectionValue('No value Applicable',verticalAirTerminationListArray);
+    }
+    else{
+      this.updateAngleProtectionValue('',verticalAirTerminationListArray);
+    }
+    
+  }
+  findAngleDistance(form: any, a: any, index: any) {
 
-     else if(protectionLevel == "Level I"){ 
-        this.rangeOfAngle = this.AIRTERMINATION_CONSTANTS.LEVEL_I.length +" for Level_I";
-        if(heightOfAirterminal > 20){
-          debugger
-          this.isRangeOfAngle = true; 
-          verticalAirTerminationListArray.controls[0].controls.angleProtectionHeightOb.setValue('');
-          return;
-        }
-        verticalAirTerminationListArray.controls[0].controls.angleProtectionHeightOb
-        .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_I[heightOfAirterminal-1].angle+"˚ / "+this.AIRTERMINATION_CONSTANTS.LEVEL_I[heightOfAirterminal-1].distance+"m");
-      }
+    let protectionLevel = form.controls.protectionLevel.value;
+    let verticalAirTerminationListArray = form.controls.lpsVerticalAirTermination.controls[form.controls.lpsVerticalAirTermination.controls.length - 1].controls.verticalAirTerminationList;
+    let heightOfAirterminal = verticalAirTerminationListArray.controls[0].value.heightOfTerminalOb;
 
-      else if(protectionLevel == "Level II"){
-        this.rangeOfAngle = this.AIRTERMINATION_CONSTANTS.LEVEL_II.length +" for Level_II";
-        if(heightOfAirterminal > 30){
-          verticalAirTerminationListArray.controls[0].controls.angleProtectionHeightOb.setValue('');
-          this.isRangeOfAngle = true; 
-          return;
-        }
-        verticalAirTerminationListArray.controls[0].controls.angleProtectionHeightOb
-        .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_II[heightOfAirterminal-1].angle+"˚ / "+this.AIRTERMINATION_CONSTANTS.LEVEL_II[heightOfAirterminal-1].distance+"m");
-      }
-
-      else if(protectionLevel == "Level III"){
-        this.rangeOfAngle = this.AIRTERMINATION_CONSTANTS.LEVEL_III.length +" for Level_III";
-        if(heightOfAirterminal > 45){
-          verticalAirTerminationListArray.controls[0].controls.angleProtectionHeightOb.setValue('');
-          this.isRangeOfAngle = true; 
-          return;
-        }
-        verticalAirTerminationListArray.controls[0].controls.angleProtectionHeightOb
-        .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_III[heightOfAirterminal-1].angle+"˚ / "+this.AIRTERMINATION_CONSTANTS.LEVEL_III[heightOfAirterminal-1].distance+"m");
-      }
-
-      else if(protectionLevel == "Level IV"){
-        this.rangeOfAngle = this.AIRTERMINATION_CONSTANTS.LEVEL_IV.length +" for Level_IV";
-        if(heightOfAirterminal > 60){
-          verticalAirTerminationListArray.controls[0].controls.angleProtectionHeightOb.setValue('');
-          this.isRangeOfAngle = true; 
-          return;
-        }
-        verticalAirTerminationListArray.controls[0].controls.angleProtectionHeightOb
-        .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_IV[heightOfAirterminal-1].angle+"˚ / "+this.AIRTERMINATION_CONSTANTS.LEVEL_IV[heightOfAirterminal-1].distance+"m");
-      }
-      else if(protectionLevel == "Risk Assesment not carried out"){
-        verticalAirTerminationListArray.controls[0].controls.angleProtectionHeightOb
-        .setValue("No value Applicable")
-      }
-
-      verticalAirTerminationListArray.controls[0].controls.angleProtectionHeightOb.updateValueAndValidity();
-      this.isRangeOfAngle = false;
+    if ( protectionLevel == "Risk Assesment not carried out") {
+      verticalAirTerminationListArray.controls[index].controls.angleProtectionHeightOb.setValue('No value Applicable');
+      return;
     }
 
+    else if (heightOfAirterminal == 0) {
+      verticalAirTerminationListArray.controls[index].controls.angleProtectionHeightOb.setValue('');
+      return;
+    }
+
+    else if (protectionLevel == "Level I") {
+      this.rangeOfAngle = this.AIRTERMINATION_CONSTANTS.LEVEL_I.length + " for Level_I";
+      if (heightOfAirterminal > 20) {
+        this.isRangeOfAngle = true;
+        verticalAirTerminationListArray.controls[index].controls.angleProtectionHeightOb.setValue('');
+        return;
+      }
+      verticalAirTerminationListArray.controls[index].controls.angleProtectionHeightOb
+        .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_I[heightOfAirterminal - 1].angle + "˚ / " + this.AIRTERMINATION_CONSTANTS.LEVEL_I[heightOfAirterminal - 1].distance + "m");
+    }
+
+    else if (protectionLevel == "Level II") {
+      this.rangeOfAngle = this.AIRTERMINATION_CONSTANTS.LEVEL_II.length + " for Level_II";
+      if (heightOfAirterminal > 30) {
+        verticalAirTerminationListArray.controls[index].controls.angleProtectionHeightOb.setValue('');
+        this.isRangeOfAngle = true;
+        return;
+      }
+      verticalAirTerminationListArray.controls[index].controls.angleProtectionHeightOb
+        .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_II[heightOfAirterminal - 1].angle + "˚ / " + this.AIRTERMINATION_CONSTANTS.LEVEL_II[heightOfAirterminal - 1].distance + "m");
+    }
+
+    else if (protectionLevel == "Level III") {
+      this.rangeOfAngle = this.AIRTERMINATION_CONSTANTS.LEVEL_III.length + " for Level_III";
+      if (heightOfAirterminal > 45) {
+        verticalAirTerminationListArray.controls[index].controls.angleProtectionHeightOb.setValue('');
+        this.isRangeOfAngle = true;
+        return;
+      }
+      verticalAirTerminationListArray.controls[index].controls.angleProtectionHeightOb
+        .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_III[heightOfAirterminal - 1].angle + "˚ / " + this.AIRTERMINATION_CONSTANTS.LEVEL_III[heightOfAirterminal - 1].distance + "m");
+    }
+
+    else if (protectionLevel == "Level IV") {
+      this.rangeOfAngle = this.AIRTERMINATION_CONSTANTS.LEVEL_IV.length + " for Level_IV";
+      if (heightOfAirterminal > 60) {
+        verticalAirTerminationListArray.controls[index].controls.angleProtectionHeightOb.setValue('');
+        this.isRangeOfAngle = true;
+        return;
+      }
+      verticalAirTerminationListArray.controls[index].controls.angleProtectionHeightOb
+        .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_IV[heightOfAirterminal - 1].angle + "˚ / " + this.AIRTERMINATION_CONSTANTS.LEVEL_IV[heightOfAirterminal - 1].distance + "m");
+    }
+
+    verticalAirTerminationListArray.controls[index].controls.angleProtectionHeightOb.updateValueAndValidity();
+    this.isRangeOfAngle = false;
   }
- 
+
+  updateAngleProtectionValue(protectionLevel:any,verticalAir:any){
+    for(let j=0; j<verticalAir.value.length; j++){
+      verticalAir.controls[j].controls.angleProtectionHeightOb.setValue(protectionLevel);
+    }
+  }
 }
