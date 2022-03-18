@@ -45,7 +45,17 @@
           </div>
       </div>
   </div>
-          <mat-accordion>
+          <mat-accordion *ngIf="airTerminationControl(q).length != 0 || airVerticalControl(q).length != 0 ||
+          airVerticalListControl(q).length != 0 || airMeshControl(q).length != 0 || airHolderControl(q).length != 0 ||
+            airHolderListControl(q).length != 0 || airClampsControl(q).length != 0 || airExpansionControl(q).length != 0 || 
+              airConnectorsControl(q).length != 0 || downConductorBasicControl(q).length != 0 || downConductorControl(q).length != 0 ||
+                bridgingDescControl(q).length != 0 || downHoldersControl(q).length != 0 ||
+                  downConnectorsControl(q).length != 0 || testingJointsControl(q).length != 0 ||
+                    lightningCountersControl(q).length != 0 || downConductorTestingControl(q).length != 0 || (earthingReportControl(q).length != 0) || (earthingDescriptionControl(q).length != 0) ||
+                    (earthingDescriptionListControl(q).length != 0) || (earthingClampsControl(q).length != 0) || (earthingElectrodeChamberControl(q).length != 0) || (earthingSystemControl(q).length != 0) ||
+                        (earthElectrodeTestingControl(q).length != 0) || (spdReportControl(q).length != 0) || 
+                          (spdReportListControl(q).length != 0) || (separationDistanceControl(q).length != 0) || (separateDistanceControl(q).length != 0) &&
+                            (separationDistanceDownControl(q).length != 0) || earthStudDescControl(q).length != 0">
             <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
               <mat-expansion-panel-header>
                 <mat-panel-title>

@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmationBoxComponent } from 'src/app/confirmation-box/confirmation-box.component';
 import { GlobalsService } from 'src/app/globals.service';
+import { AirterminationConstants } from 'src/app/LPS_constants/airtermination-constants';
 import { Airtermination } from 'src/app/LPS_model/airtermination';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
 import { LpsDownconductorService } from 'src/app/LPS_services/lps-downconductor.service';
@@ -45,7 +46,10 @@ export class LpsAirTerminationComponent implements OnInit {
   success1 = false;
   proceedFlag: boolean = true;
   airTerminationPushArr: any=[];
-  // successMsg1: String="";
+  rangeOfAngle:String='';
+  isRangeOfAngle : boolean = false;
+  angleDistance : String='';
+  // successMsg1: Strin:g="";
 
   @Output() proceedNext = new EventEmitter<any>();
   basicLpsId: number = 0;
@@ -115,6 +119,7 @@ export class LpsAirTerminationComponent implements OnInit {
   validationErrorMsgTab: string="";
   tabError: boolean=false;
   tabErrorMsg: string="";
+  AIRTERMINATION_CONSTANTS=new AirterminationConstants();
 
   constructor(
     private formBuilder: FormBuilder,private dialog: MatDialog,
@@ -195,6 +200,25 @@ export class LpsAirTerminationComponent implements OnInit {
       materialOfTerminalOb: new FormControl('', Validators.required),
       installationTerminationsystemOb: new FormControl('', Validators.required),
       angleProtectionHeightOb: new FormControl('', Validators.required),
+      supportFlatSurfaceOb: new FormControl('', Validators.required),
+      heightFlatSurfaceOb: new FormControl('', Validators.required),
+      heightFlatSurfaceRe: new FormControl(''),
+      supportFlatSurfaceRe: new FormControl(''),
+      installationTerminationsystemRem: new FormControl(''),
+      angleProtectionHeightRe: new FormControl(''),
+      heightOfTerminalRe: new FormControl(''),
+      sizeOfTerminalRe: new FormControl(''),
+      materialOfTerminalRe: new FormControl(''),
+      flag: new FormControl('A'),
+    });
+  }
+  createAirIterationForRiskAssesment(angleProtectionHeight:any)  : FormGroup {
+    return this.formBuilder.group({
+      sizeOfTerminalOb: new FormControl('', Validators.required),
+      heightOfTerminalOb: new FormControl('', Validators.required),
+      materialOfTerminalOb: new FormControl('', Validators.required),
+      installationTerminationsystemOb: new FormControl('', Validators.required),
+      angleProtectionHeightOb: new FormControl(angleProtectionHeight, Validators.required),
       supportFlatSurfaceOb: new FormControl('', Validators.required),
       heightFlatSurfaceOb: new FormControl('', Validators.required),
       heightFlatSurfaceRe: new FormControl(''),
@@ -352,23 +376,23 @@ export class LpsAirTerminationComponent implements OnInit {
 
   private createLpsDescriptionarr(): FormGroup{
     return new FormGroup({
-      consultantNameObserv:  new FormControl('', Validators.required),
+      consultantNameObserv:  new FormControl(''),
       consultantNameRemarks: new FormControl(''),
-      architectNameObserv:  new FormControl('', Validators.required),
+      architectNameObserv:  new FormControl(''),
       architectNameRemarks: new FormControl(''),
-      designDateObserv:  new FormControl('', Validators.required),
+      designDateObserv:  new FormControl(''),
       designDateRemarks: new FormControl(''),
-      approvedByObserv:  new FormControl('', Validators.required),
+      approvedByObserv:  new FormControl(''),
       approvedByRemarks: new FormControl(''),
-      dateOfApprovalOb:  new FormControl('', Validators.required),
+      dateOfApprovalOb:  new FormControl(''),
       dateOfApprovalRem: new FormControl(''),
-      drawingObserv:  new FormControl('', Validators.required),
+      drawingObserv:  new FormControl(''),
       drawingRemarks: new FormControl(''),
-      revisionNoObserv:  new FormControl('', Validators.required),
+      revisionNoObserv:  new FormControl(''),
       revisionNoRemarks: new FormControl(''),
-      deviationObserv:  new FormControl('', Validators.required),
+      deviationObserv:  new FormControl(''),
       deviationRemarks: new FormControl(''),
-      deviationInstallationObserv:  new FormControl('', Validators.required),
+      deviationInstallationObserv:  new FormControl(''),
       deviationInstallationRemarks: new FormControl(''),
       companyNameObserv:  new FormControl('', Validators.required),
       companyNameRemarks: new FormControl(''),
@@ -407,7 +431,7 @@ export class LpsAirTerminationComponent implements OnInit {
     }
 
 
-  addItemAir(a:any) {
+  addItemAir(a:any,protectionLevel:any) {
     const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
       width: '420px',
       maxHeight: '90vh',
@@ -425,7 +449,13 @@ export class LpsAirTerminationComponent implements OnInit {
     dialogRef.componentInstance.confirmBox.subscribe(data=>{
       if(data) {
         this.airterminationArr = a.controls.verticalAirTerminationList as FormArray;
-        this.airterminationArr.push(this.createAirIteration());
+        if(protectionLevel == 'Risk Assesment not carried out'){
+          this.airterminationArr.push(this.createAirIterationForRiskAssesment("No Value Applicable"));
+        }
+        else{
+          this.airterminationArr.push(this.createAirIteration());
+        }
+        
       }
       else{
         return;
@@ -657,23 +687,23 @@ export class LpsAirTerminationComponent implements OnInit {
       return this.formBuilder.group({
         airBasicDescriptionId: new FormControl({disabled: false, value: item.airBasicDescriptionId}),  
         lpsAirDescId: new FormControl({disabled: false, value: lpsAirDescId}),  
-        consultantNameObserv:  new FormControl({disabled: false, value: item.consultantNameObserv}, Validators.required),
+        consultantNameObserv:  new FormControl({disabled: false, value: item.consultantNameObserv}),
         consultantNameRemarks: new FormControl({disabled: false, value: item.consultantNameRemarks}),
-        architectNameObserv:  new FormControl({disabled: false, value: item.architectNameObserv}, Validators.required),
+        architectNameObserv:  new FormControl({disabled: false, value: item.architectNameObserv}),
         architectNameRemarks: new FormControl({disabled: false, value: item.architectNameRemarks}),
-        designDateObserv:  new FormControl({disabled: false, value: item.designDateObserv}, Validators.required),
+        designDateObserv:  new FormControl({disabled: false, value: item.designDateObserv}),
         designDateRemarks: new FormControl({disabled: false, value: item.designDateRemarks}),
-        approvedByObserv:  new FormControl({disabled: false, value: item.approvedByObserv}, Validators.required),
+        approvedByObserv:  new FormControl({disabled: false, value: item.approvedByObserv}),
         approvedByRemarks: new FormControl({disabled: false, value: item.approvedByRemarks}),
-        dateOfApprovalOb:  new FormControl({disabled: false, value: item.dateOfApprovalOb}, Validators.required),
+        dateOfApprovalOb:  new FormControl({disabled: false, value: item.dateOfApprovalOb}),
         dateOfApprovalRem: new FormControl({disabled: false, value: item.dateOfApprovalRem}),
-        drawingObserv:  new FormControl({disabled: false, value: item.drawingObserv}, Validators.required),
+        drawingObserv:  new FormControl({disabled: false, value: item.drawingObserv}),
         drawingRemarks: new FormControl({disabled: false, value: item.drawingRemarks}),
-        revisionNoObserv:  new FormControl({disabled: false, value: item.revisionNoObserv}, Validators.required),
+        revisionNoObserv:  new FormControl({disabled: false, value: item.revisionNoObserv}),
         revisionNoRemarks: new FormControl({disabled: false, value: item.revisionNoRemarks}),
-        deviationObserv:  new FormControl({disabled: false, value: item.deviationObserv}, Validators.required),
+        deviationObserv:  new FormControl({disabled: false, value: item.deviationObserv}),
         deviationRemarks: new FormControl({disabled: false, value: item.deviationRemarks}),
-        deviationInstallationObserv:  new FormControl({disabled: false, value: item.deviationInstallationObserv}, Validators.required),
+        deviationInstallationObserv:  new FormControl({disabled: false, value: item.deviationInstallationObserv}),
         deviationInstallationRemarks: new FormControl({disabled: false, value: item.deviationInstallationRemarks}),
         companyNameObserv:  new FormControl({disabled: false, value: item.companyNameObserv}, Validators.required),
         companyNameRemarks: new FormControl({disabled: false, value: item.companyNameRemarks}),
@@ -1784,6 +1814,88 @@ export class LpsAirTerminationComponent implements OnInit {
       this.service.editable=true;
       this.airTerminationForm.markAsPristine();
    return true;
+    }
+  }
+
+  protectionLevels(form: any, a: any, index: any) {
+    let protectionLevel = form.controls.protectionLevel.value;
+    let verticalAirTerminationListArray = form.controls.lpsVerticalAirTermination.controls[form.controls.lpsVerticalAirTermination.controls.length - 1].controls.verticalAirTerminationList;
+   
+    if(protectionLevel == "Risk Assesment not carried out"){
+      this.updateAngleProtectionValue('No value Applicable',verticalAirTerminationListArray);
+    }
+    else{
+      this.updateAngleProtectionValue('',verticalAirTerminationListArray);
+    }
+    
+  }
+  findAngleDistance(form: any, a: any, index: any) {
+
+    let protectionLevel = form.controls.protectionLevel.value;
+    let verticalAirTerminationListArray = form.controls.lpsVerticalAirTermination.controls[form.controls.lpsVerticalAirTermination.controls.length - 1].controls.verticalAirTerminationList;
+    let heightOfAirterminal = verticalAirTerminationListArray.controls[0].value.heightOfTerminalOb;
+
+    if ( protectionLevel == "Risk Assesment not carried out") {
+      verticalAirTerminationListArray.controls[index].controls.angleProtectionHeightOb.setValue('No value Applicable');
+      return;
+    }
+
+    else if (heightOfAirterminal == 0) {
+      verticalAirTerminationListArray.controls[index].controls.angleProtectionHeightOb.setValue('');
+      return;
+    }
+
+    else if (protectionLevel == "Level I") {
+      this.rangeOfAngle = this.AIRTERMINATION_CONSTANTS.LEVEL_I.length + " for Level_I";
+      if (heightOfAirterminal > 20) {
+        this.isRangeOfAngle = true;
+        verticalAirTerminationListArray.controls[index].controls.angleProtectionHeightOb.setValue('');
+        return;
+      }
+      verticalAirTerminationListArray.controls[index].controls.angleProtectionHeightOb
+        .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_I[heightOfAirterminal - 1].angle + "˚ / " + this.AIRTERMINATION_CONSTANTS.LEVEL_I[heightOfAirterminal - 1].distance + "m");
+    }
+
+    else if (protectionLevel == "Level II") {
+      this.rangeOfAngle = this.AIRTERMINATION_CONSTANTS.LEVEL_II.length + " for Level_II";
+      if (heightOfAirterminal > 30) {
+        verticalAirTerminationListArray.controls[index].controls.angleProtectionHeightOb.setValue('');
+        this.isRangeOfAngle = true;
+        return;
+      }
+      verticalAirTerminationListArray.controls[index].controls.angleProtectionHeightOb
+        .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_II[heightOfAirterminal - 1].angle + "˚ / " + this.AIRTERMINATION_CONSTANTS.LEVEL_II[heightOfAirterminal - 1].distance + "m");
+    }
+
+    else if (protectionLevel == "Level III") {
+      this.rangeOfAngle = this.AIRTERMINATION_CONSTANTS.LEVEL_III.length + " for Level_III";
+      if (heightOfAirterminal > 45) {
+        verticalAirTerminationListArray.controls[index].controls.angleProtectionHeightOb.setValue('');
+        this.isRangeOfAngle = true;
+        return;
+      }
+      verticalAirTerminationListArray.controls[index].controls.angleProtectionHeightOb
+        .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_III[heightOfAirterminal - 1].angle + "˚ / " + this.AIRTERMINATION_CONSTANTS.LEVEL_III[heightOfAirterminal - 1].distance + "m");
+    }
+
+    else if (protectionLevel == "Level IV") {
+      this.rangeOfAngle = this.AIRTERMINATION_CONSTANTS.LEVEL_IV.length + " for Level_IV";
+      if (heightOfAirterminal > 60) {
+        verticalAirTerminationListArray.controls[index].controls.angleProtectionHeightOb.setValue('');
+        this.isRangeOfAngle = true;
+        return;
+      }
+      verticalAirTerminationListArray.controls[index].controls.angleProtectionHeightOb
+        .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_IV[heightOfAirterminal - 1].angle + "˚ / " + this.AIRTERMINATION_CONSTANTS.LEVEL_IV[heightOfAirterminal - 1].distance + "m");
+    }
+
+    verticalAirTerminationListArray.controls[index].controls.angleProtectionHeightOb.updateValueAndValidity();
+    this.isRangeOfAngle = false;
+  }
+
+  updateAngleProtectionValue(protectionLevel:any,verticalAir:any){
+    for(let j=0; j<verticalAir.value.length; j++){
+      verticalAir.controls[j].controls.angleProtectionHeightOb.setValue(protectionLevel);
     }
   }
 }

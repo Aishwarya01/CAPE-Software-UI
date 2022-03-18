@@ -42,7 +42,12 @@ label {
 }
 thead {
   text-align: center;
-  font-size: initial;
+  font-size: 16px;
+}
+
+textarea::placeholder {
+  position: relative;
+  top: 9px;
 }
 
 /* Text area description */
