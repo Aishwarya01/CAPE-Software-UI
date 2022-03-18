@@ -968,13 +968,13 @@
                                                                     <i class="bi bi-text-paragraph"></i>
                                                                 </span>
                                                             </div>
-                                                            <input type="number" class="form-control"  (change)="findAngleDistance(q,$event,j)" placeholder="Please enter Observation here"
+                                                            <input type="number" class="form-control" (change)="findAngleDistance(q,$event,j)" placeholder="Please enter Observation here"
                                                                 [readonly]="isEditable" formControlName="heightOfTerminalOb"
                                                                 [ngClass]="{ 'is-invalid': submitted && z.get('heightOfTerminalOb')?.errors}" style="height: 3rem;">
-                                                            <div *ngIf="submitted && z.get('heightOfTerminalOb')?.errors"
+                                                            <div *ngIf="(submitted && z.get('heightOfTerminalOb')?.errors) || isRangeOfAngle" 
                                                                 class="invalid-feedback">
-                                                                <div *ngIf="z.get('heightOfTerminalOb')?.errors?.required">
-                                                                    Height of vertical air terminal observation is Required</div>
+                                                                <div *ngIf="z.get('heightOfTerminalOb')?.errors?.required">Height of vertical air terminal observation is Required</div>
+                                                                <div *ngIf="isRangeOfAngle">Height of vertical air terminal value is should not be > {{rangeOfAngle}}</div>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -1001,7 +1001,7 @@
                                                                 </span>
                                                             </div>
                                                             <textarea type="text" class="form-control" placeholder="Please enter Observation here"
-                                                                [readonly]=true formControlName="angleProtectionHeightOb"
+                                                                [readonly]="!rangeOfAngle || isEditable" formControlName="angleProtectionHeightOb"
                                                                 [ngClass]="{ 'is-invalid': submitted && z.get('angleProtectionHeightOb')?.errors}" style="font-weight: bold;"></textarea>
                                                             <div *ngIf="submitted && z.get('angleProtectionHeightOb')?.errors"
                                                                 class="invalid-feedback">
