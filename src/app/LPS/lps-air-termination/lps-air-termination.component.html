@@ -1001,7 +1001,7 @@
                                                                 </span>
                                                             </div>
                                                             <textarea type="text" class="form-control" placeholder="Please enter Observation here"
-                                                                [readonly]="!rangeOfAngle || isEditable" formControlName="angleProtectionHeightOb"
+                                                                [readonly]="rangeOfAngle" formControlName="angleProtectionHeightOb"
                                                                 [ngClass]="{ 'is-invalid': submitted && z.get('angleProtectionHeightOb')?.errors}" style="font-weight: bold;"></textarea>
                                                             <div *ngIf="submitted && z.get('angleProtectionHeightOb')?.errors"
                                                                 class="invalid-feedback">
