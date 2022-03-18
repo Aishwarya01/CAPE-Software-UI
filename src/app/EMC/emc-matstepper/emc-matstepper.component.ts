@@ -53,7 +53,7 @@ export class EmcMatstepperComponent implements OnInit {
   @ViewChild(EmcSavedReportComponent) saved!: EmcSavedReportComponent;
   @ViewChild(EmcFinalReportComponent) final!: EmcFinalReportComponent;
 
-  //isEditable: boolean = false;
+  isEditableEmc: boolean = false;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -71,15 +71,18 @@ export class EmcMatstepperComponent implements OnInit {
 
   public doSomething(next: any): void {
 
+
+    this.clientData.isEditableEmc=this.isEditableEmc;
     // facilityData
     this.facility.emcId = this.clientData.emcClientDetails.emcId;
+    this.facility.isEditableEmc=this.isEditableEmc;
 
     // powerAndEarthing
     this.powerAndEarthing.emcId = this.clientData.emcClientDetails.emcId;
-
+    this.powerAndEarthing.isEditableEmc=this.isEditableEmc;
     // electroMagneticCopatibility
     this.electroMagneticCopatibility.emcId = this.clientData.emcClientDetails.emcId;
-
+    this.electroMagneticCopatibility.isEditableEmc=this.isEditableEmc;
     // this.Completed = this.clientData.success;
     this.service.isLinear = false;
     this.service.isCompleted = next;
@@ -159,6 +162,16 @@ export class EmcMatstepperComponent implements OnInit {
           this.final.finalReportBody = true;
 
           this.dataJSON = JSON.parse(data);
+
+          if (this.dataJSON.clientDetails != null
+            && this.dataJSON.facilityData != null
+            && this.dataJSON.powerEarthingData != null
+            && this.dataJSON.electromagneticCompatability != null) {
+            this.service.disableSubmitElectromagnetic = true;
+          }
+          else{
+            this.service.disableSubmitElectromagnetic = false;
+          }
           if (this.dataJSON.clientDetails != null) {
 
             this.selectedIndex = index;
@@ -180,12 +193,6 @@ export class EmcMatstepperComponent implements OnInit {
                   this.electroMagneticCopatibility.retrieveDetailsfromSavedReports(userName, emcId, this.dataJSON);
                   this.doSomething3(false);
                   //this.Completed3 = true;
-                  if (this.dataJSON.clientDetails != null
-                    && this.dataJSON.facilityData != null
-                    && this.dataJSON.powerEarthingData != null
-                    && this.dataJSON.electromagneticCompatability != null) {
-                    this.service.disableSubmitElectromagnetic = true;
-                  }
                 }
               }
             }
@@ -211,11 +218,12 @@ export class EmcMatstepperComponent implements OnInit {
   }
 
   // Final Report 
-  preview(emcId: any, ClientName: any): void {
+  preview(emcId: any, ClientName: any,flag:any): void {
+    this.refresh();
     this.ngOnInit();
-    // this.isEditable = true;
+     this.isEditableEmc = true;
     let userName = this.router.snapshot.paramMap.get('email') || '{}';
-  //  this.changeTabEmcSavedReport(0, emcId, userName, ClientName);
+    this.changeTabEmcSavedReport(0, emcId, userName, ClientName,flag);
 
   }
 
