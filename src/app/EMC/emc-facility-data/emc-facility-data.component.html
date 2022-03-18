@@ -572,10 +572,10 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Static tratment type and description:</label>
+                                        <label>Static treatment type and description:</label>
                                         <input type="text" class="form-control" formControlName="fcDescription" [readonly]="isEditableEmc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('fcDescription')?.errors }"
-                                            placeholder="Enter Static tratment type and description ">
+                                            placeholder="Enter Static treatment type and description ">
                                         <div *ngIf="submitted && a.get('fcDescription')?.errors"
                                             class="invalid-feedback">
                                             <div *ngIf="a.get('fcDescription')?.errors?.required">Field Is Required
@@ -773,7 +773,7 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Utilisation of void:</label>
+                                        <label>Utilization of void:</label>
                                         <select class="form-control" formControlName="ccUtilisation"  [attr.disabled]="isEditableEmc ? '' : null" 
                                             [ngClass]="{ 'is-invalid': submitted && a.get('ccUtilisation')?.errors }">
                                             <option [ngValue]="null">Select Option</option>
@@ -815,11 +815,11 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div>
-                                        <label>Description of surface tratment and condition/clealiness:</label>
+                                        <label>Description of surface treatment and condition/clealiness:</label>
                                         <textarea class="textarea-size" class="form-control" style="font-size: medium;"
                                             formControlName="ccSurfaceDesc" cols="60" rows="1" [readonly]="isEditableEmc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('ccSurfaceDesc')?.errors }"
-                                            placeholder="Enter Description of surface tratment and condition/clealiness"></textarea>
+                                            placeholder="Enter Description of surface treatment and condition/clealiness"></textarea>
                                         <div *ngIf="submitted && a.get('ccSurfaceDesc')?.errors"
                                             class="invalid-feedback">
                                             <div *ngIf="a.get('ccSurfaceDesc')?.errors?.required">Field Is Required
