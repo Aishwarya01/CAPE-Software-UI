@@ -367,7 +367,7 @@ export class LpsEarthingComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports(basicLpsId: any,data: any){
-    debugger
+    
       // this.service.lvClick=1;
       if(data.basicLpsId != undefined && data.basicLpsId != 0){
         this.step4List = data;
@@ -390,7 +390,7 @@ export class LpsEarthingComponent implements OnInit {
     }
 
   populateData(data: any) {
-    debugger
+    
     let index = 0;
     for (let item of data.earthingLpsDescription) {
       this.arr1.push(this.createGroup(item));
@@ -405,7 +405,7 @@ export class LpsEarthingComponent implements OnInit {
   }
 
     retrieveDetailsfromSavedReports1(basicLpsId: any,data: any){
-      debugger
+      
       this.step4List = data.earthingReport;
       this.earthingReport.basicLpsId = basicLpsId;
       this.earthingReport.earthingReportId = this.step4List.earthingReportId;
@@ -451,7 +451,7 @@ export class LpsEarthingComponent implements OnInit {
     }
 
     populateEarthingDescription(item:any){
-      debugger
+      
       let earthingDescription:any=[];
       for (let value of item.earthingDescription) {
         earthingDescription.push(this.populateEarthingDescriptionFormGroup(value));   
@@ -501,7 +501,7 @@ export class LpsEarthingComponent implements OnInit {
     }
 
     populateEarthingDescriptionList(item:any){
-      debugger
+      
       let earthingDescriptionList:any=[];
       for (let value of item.earthingDescriptionList) {
         earthingDescriptionList.push(this.earthingDescriptionListFormGroup(value));   
@@ -702,7 +702,7 @@ export class LpsEarthingComponent implements OnInit {
   }
    
   validationTesting1(){
-    debugger
+    
     this.earthingForm.markAsTouched();
     let arr: any = [];
     arr = this.earthingForm.get('earthing') as FormArray;
@@ -859,7 +859,7 @@ export class LpsEarthingComponent implements OnInit {
   }
 
   removeElectrodeTesting(a: any, x: any, earthingFormArray: any) {
-    debugger
+    
     this.earthingForm.markAsTouched();
 
     if (a.controls.earthingElectrodeTestingId != undefined &&
@@ -1181,7 +1181,7 @@ export class LpsEarthingComponent implements OnInit {
           }
         }
         else if(accordion=="Foundation"){
-          debugger
+          
           this.typeAearthingsystem[index]=false; 
           this.clamps[index]=false;              
           this.earthelectrodechambers[index]=false; 
@@ -1189,7 +1189,7 @@ export class LpsEarthingComponent implements OnInit {
          // this.testingofearthelectrodes[index]=true;
 
           if (formarray != null) {
-            debugger
+            
             if(this.availabilityOfPreviousReport =="No"){
               formarray.controls.earthingElectrodeTestingAvailabilityOb.setValidators(Validators.required);
               formarray.controls.earthingElectrodeTestingAvailabilityOb.updateValueAndValidity();
@@ -1210,7 +1210,7 @@ export class LpsEarthingComponent implements OnInit {
     }
 
   createFromArray(formarray:any) {
-    debugger
+    
     if(formarray.controls.earthingDescription == undefined || formarray.controls.earthingDescription.controls.length ==0){
       this.earthingDescription =  formarray.get('earthingDescription') as FormArray;
       this.earthingDescription.push(this.earthingDescriptionArray());

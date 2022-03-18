@@ -6,7 +6,6 @@ export class AirterminationConstants {
     LEVEL_IV: any = [];
 
     constructor() {
-        console.log("contants file created");
         this.classOne();
         this.classTwo();
         this.classThree();

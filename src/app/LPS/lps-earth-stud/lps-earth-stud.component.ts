@@ -266,6 +266,7 @@ export class LpsEarthStudComponent implements OnInit {
             this.service.lvClick=0;
             this.service.logoutClick=0;
             this.service.windowTabClick=0;
+            this.retriveStud();
             this.proceedNext.emit(true);
           }, 
           (error) => {
@@ -412,9 +413,10 @@ export class LpsEarthStudComponent implements OnInit {
   }
 
   retriveStud(){
+    
     this.earthStudService.retrieveEarthStud(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
       data => {
-        if(JSON.parse(data)[0].basicLpsId !=null){
+        if(JSON.parse(data)[0] != undefined && JSON.parse(data)[0].basicLpsId !=null){
           this.retrieveDetailsfromSavedReports(JSON.parse(data)[0]);
         }
       },

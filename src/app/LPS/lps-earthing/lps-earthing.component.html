@@ -2293,7 +2293,7 @@
                                                 <div class="form-group" [formGroupName]="j">
                                                 <td> 
                                                     <div class="input-group">
-                                                        <input class="form-control" [readonly]="isEditable" formControlName="serialNo" placeholder="SI.No"
+                                                        <input class="form-control" (keypress)="keyPressNumbers($event)" [readonly]="isEditable" formControlName="serialNo" placeholder="SI.No"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('serialNo')?.errors}" style="height: 3rem; width: 5rem;">
                                                         <div *ngIf="submitted && a.get('serialNo')?.errors" class="invalid-feedback">
                                                             <div *ngIf="a.get('serialNo')?.errors?.required">serial No is required</div>

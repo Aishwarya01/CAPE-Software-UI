@@ -916,7 +916,7 @@ export class LpsDownConductorsComponent implements OnInit {
     }
 
     retrieveDownConductorTestingForm(item:any){
-      debugger
+      
       let retrieveDownConductorTestingFormDataArr:any=[];
       if(this.availabilityOfPreviousReport =="No"){
         for (let value of item.downConductorTesting) {
@@ -1224,7 +1224,7 @@ export class LpsDownConductorsComponent implements OnInit {
   }
 
   validationTesting(){
-    debugger
+    
     this.downConductorForm.markAsTouched();
     let arr: any = [];
     arr = this.downConductorForm.get('downConductorDescription') as FormArray;
