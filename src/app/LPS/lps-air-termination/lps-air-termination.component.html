@@ -968,13 +968,15 @@
                                                                     <i class="bi bi-text-paragraph"></i>
                                                                 </span>
                                                             </div>
-                                                            <input type="number" class="form-control" (change)="findAngleDistance(q,$event,j)" placeholder="Please enter Observation here"
+                                                            <input type="number" minlength="1" (keypress)="keyPressNumbers($event)" class="form-control" (change)="findAngleDistance(q,$event,j)" placeholder="Please enter Observation here"
                                                                 [readonly]="isEditable" formControlName="heightOfTerminalOb"
                                                                 [ngClass]="{ 'is-invalid': submitted && z.get('heightOfTerminalOb')?.errors}" style="height: 3rem;">
-                                                            <div *ngIf="(submitted && z.get('heightOfTerminalOb')?.errors) || isRangeOfAngle" 
+                                                            <div *ngIf="(submitted && z.get('heightOfTerminalOb')?.errors) ||  (z.get('heightOfTerminalOb')?.value != 0) || 
+                                                            (z.get('heightOfTerminalOb')?.value == 0)" 
                                                                 class="invalid-feedback">
-                                                                <div *ngIf="z.get('heightOfTerminalOb')?.errors?.required">Height of vertical air terminal observation is Required</div>
-                                                                <div *ngIf="isRangeOfAngle">Height of vertical air terminal value is should not be > {{rangeOfAngle}}</div>
+                                                                <div *ngIf="(z.get('heightOfTerminalOb')?.errors?.required) && !isRangeOfAngle">Height of vertical air terminal observation is Required</div>
+                                                                <div *ngIf="isRangeOfAngle && (z.get('heightOfTerminalOb')?.value != 0)">Height of vertical air terminal value is should not be > {{rangeOfAngle}}</div>
+                                                                <div *ngIf="z.get('heightOfTerminalOb')?.value == 0">Height of vertical air terminal value is should not be Zero</div>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -1000,9 +1002,9 @@
                                                                     <i class="bi bi-text-paragraph"></i>
                                                                 </span>
                                                             </div>
-                                                            <textarea type="text" class="form-control" placeholder="Please enter Observation here"
-                                                                [readonly]="rangeOfAngle" formControlName="angleProtectionHeightOb"
-                                                                [ngClass]="{ 'is-invalid': submitted && z.get('angleProtectionHeightOb')?.errors}" style="font-weight: bold;"></textarea>
+                                                            <input type="text" class="form-control" placeholder="Please fill 6(d) Height of vertical air terminal in meters"
+                                                                [readonly]=true formControlName="angleProtectionHeightOb"
+                                                                [ngClass]="{ 'is-invalid': submitted && z.get('angleProtectionHeightOb')?.errors}" style="font-weight: bold;"/>
                                                             <div *ngIf="submitted && z.get('angleProtectionHeightOb')?.errors"
                                                                 class="invalid-feedback">
                                                                 <div *ngIf="z.get('angleProtectionHeightOb')?.errors?.required">

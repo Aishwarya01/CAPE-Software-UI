@@ -46,7 +46,7 @@ export class LpsAirTerminationComponent implements OnInit {
   success1 = false;
   proceedFlag: boolean = true;
   airTerminationPushArr: any=[];
-  rangeOfAngle:number=0;
+  rangeOfAngle:String='';
   isRangeOfAngle : boolean = false;
   // successMsg1: Strin:g="";
 
@@ -1800,17 +1800,15 @@ export class LpsAirTerminationComponent implements OnInit {
       let heightOfAirterminal=verticalAirTerminationListArray.controls[0].value.heightOfTerminalOb;
       
       if(heightOfAirterminal == 0){
-        this.rangeOfAngle = 0;
-        if(heightOfAirterminal > 20){
-          debugger
-          this.isRangeOfAngle = true; 
+       // this.rangeOfAngle = "0";
+          //this.isRangeOfAngle = true; 
           verticalAirTerminationListArray.controls[0].controls.angleProtectionHeightOb.setValue('');
           return;
-        }
+        
        }
 
      else if(protectionLevel == "Level I"){ 
-        this.rangeOfAngle = this.AIRTERMINATION_CONSTANTS.LEVEL_I.length;
+        this.rangeOfAngle = this.AIRTERMINATION_CONSTANTS.LEVEL_I.length +" for Level_I";
         if(heightOfAirterminal > 20){
           debugger
           this.isRangeOfAngle = true; 
@@ -1822,7 +1820,7 @@ export class LpsAirTerminationComponent implements OnInit {
       }
 
       else if(protectionLevel == "Level II"){
-        this.rangeOfAngle = this.AIRTERMINATION_CONSTANTS.LEVEL_II.length;
+        this.rangeOfAngle = this.AIRTERMINATION_CONSTANTS.LEVEL_II.length +" for Level_II";
         if(heightOfAirterminal > 30){
           verticalAirTerminationListArray.controls[0].controls.angleProtectionHeightOb.setValue('');
           this.isRangeOfAngle = true; 
@@ -1833,7 +1831,7 @@ export class LpsAirTerminationComponent implements OnInit {
       }
 
       else if(protectionLevel == "Level III"){
-        this.rangeOfAngle = this.AIRTERMINATION_CONSTANTS.LEVEL_III.length;
+        this.rangeOfAngle = this.AIRTERMINATION_CONSTANTS.LEVEL_III.length +" for Level_III";
         if(heightOfAirterminal > 45){
           verticalAirTerminationListArray.controls[0].controls.angleProtectionHeightOb.setValue('');
           this.isRangeOfAngle = true; 
@@ -1844,7 +1842,7 @@ export class LpsAirTerminationComponent implements OnInit {
       }
 
       else if(protectionLevel == "Level IV"){
-        this.rangeOfAngle = this.AIRTERMINATION_CONSTANTS.LEVEL_IV.length;
+        this.rangeOfAngle = this.AIRTERMINATION_CONSTANTS.LEVEL_IV.length +" for Level_IV";
         if(heightOfAirterminal > 60){
           verticalAirTerminationListArray.controls[0].controls.angleProtectionHeightOb.setValue('');
           this.isRangeOfAngle = true; 
@@ -1853,13 +1851,15 @@ export class LpsAirTerminationComponent implements OnInit {
         verticalAirTerminationListArray.controls[0].controls.angleProtectionHeightOb
         .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_IV[heightOfAirterminal-1].angle+"˚ / "+this.AIRTERMINATION_CONSTANTS.LEVEL_IV[heightOfAirterminal-1].distance+"m");
       }
-      // else if(protectionLevel == "Risk Assesment not carried out"){
-
-      // }
+      else if(protectionLevel == "Risk Assesment not carried out"){
+        verticalAirTerminationListArray.controls[0].controls.angleProtectionHeightOb
+        .setValue("No value Applicable")
+      }
 
       verticalAirTerminationListArray.controls[0].controls.angleProtectionHeightOb.updateValueAndValidity();
       this.isRangeOfAngle = false;
     }
 
   }
+ 
 }
