@@ -77,6 +77,10 @@ label{
 ::placeholder{
   font-size: 10px;
 }
+textarea::placeholder {
+  position: relative;
+  top: 9px;
+}
 
 table tr td {
   font-size: 14px;

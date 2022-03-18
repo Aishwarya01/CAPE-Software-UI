@@ -45,6 +45,11 @@ thead {
   font-size: 16px;
 }
 
+textarea::placeholder {
+  position: relative;
+  top: 9px;
+}
+
 /* Text area description */
 .client-box-description {
   height: 100px;

@@ -70,3 +70,8 @@ label{
 .disableForm{
   pointer-events: none;
 }
+
+textarea::placeholder {
+  position: relative;
+  top: 9px;
+}
