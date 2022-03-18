@@ -1250,7 +1250,7 @@ export class LpssummaryComponent implements OnInit {
           //let value=this.airTerminationData.airTermination[0].lpsAirDiscription[0];
           for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airBasicDescription){
               for(let j = 0; j < this.airBasicName.length; j++){
-                if(i[this.airBasicName[j]]!=""){
+                if(i[this.airBasicName[j]]!="" && i[this.airBasicName[j]]!=null){
                   this.airTerminationArr.push(this.createAirTermination());
                   this.airTerminationArr.controls[0].controls.heading.setValue('AT_Basic Details Observation');
                   this.airTerminationArr.controls[index].controls.observationComponentDetails.setValue('airBasicDescription' + index);
@@ -1265,7 +1265,7 @@ export class LpssummaryComponent implements OnInit {
           let index1 =0;
           for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination){
             for(let j = 0; j < this.airVerticalName.length; j++){
-              if(i[this.airVerticalName[j]]!=""){
+              if(i[this.airVerticalName[j]]!="" && i[this.airVerticalName[j]]!= null){
                 this.airVerticalArr.push(this.createAirVertical());
                 this.airVerticalArr.controls[0].controls.heading.setValue('AT_Vertical Observation');
                 this.airVerticalArr.controls[index1].controls.observationComponentDetails.setValue('lpsVerticalAirTermination' + index1);
@@ -1284,9 +1284,9 @@ export class LpssummaryComponent implements OnInit {
           for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination[0].verticalAirTerminationList)
           {
             for(let j = 0; j < this.airVerticalListName.length; j++){
-              if(i[this.airVerticalListName[j]]!=""){
+              if(i[this.airVerticalListName[j]]!=""  && i[this.airVerticalListName[j]]!= null){
                 this.airVerticalListArr.push(this.createAirVerticalList());
-                if(this.airVerticalListName[j]=='materialOfTerminalRe'){
+                if(indexVertical == 0){
                   this.airVerticalListArr.controls[index0].controls.heading.setValue('AT_Vertical List-' + vatListIndex);
                 }
                 this.airVerticalListArr.controls[index0].controls.observationComponentDetails.setValue('verticalAirTerminationList' + index0);
@@ -1306,7 +1306,7 @@ export class LpssummaryComponent implements OnInit {
     let index2 =0;
     for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airMeshDescription){
       for(let j = 0; j < this.airMeshName.length; j++){
-        if(i[this.airMeshName[j]]!=""){
+        if(i[this.airMeshName[j]]!="" && i[this.airMeshName[j]]!= null){
         this.airMeshArr.push(this.createAirMesh());
         this.airMeshArr.controls[0].controls.heading.setValue('AT_Mesh Observation');
         this.airMeshArr.controls[index2].controls.observationComponentDetails.setValue('airMeshDescription' + index2);
@@ -1321,7 +1321,7 @@ export class LpssummaryComponent implements OnInit {
     let index3 =0;
     for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription){
       for(let j = 0; j < this.airHolderName.length; j++){
-        if(i[this.airHolderName[j]]!=""){
+        if(i[this.airHolderName[j]]!="" && i[this.airHolderName[j]]!= null){
           this.airHolderArr.push(this.createAirHolder());
           this.airHolderArr.controls[0].controls.heading.setValue('AT_Holder Observation');
           this.airHolderArr.controls[index3].controls.observationComponentDetails.setValue('airHolderDescription' + index3);
@@ -1341,9 +1341,9 @@ export class LpssummaryComponent implements OnInit {
       for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription[0].airHolderList)
       {
         for(let j = 0; j < this.airHolderListName.length; j++){
-          if(i[this.airHolderListName[j]]!=""){
+          if(i[this.airHolderListName[j]]!="" && i[this.airHolderListName[j]]!= null){
             this.airHolderListArr.push(this.createAirHolderList());
-            if(this.airHolderListName[j]=='holderTypeRe'){
+            if(indexHolder == 0){
             this.airHolderListArr.controls[index01].controls.heading.setValue('AT_Holder List-' + holderListIndex);
             }
             this.airHolderListArr.controls[index01].controls.observationComponentDetails.setValue('airHolderList' + index01);
@@ -1363,7 +1363,7 @@ export class LpssummaryComponent implements OnInit {
     let index4 =0;
     for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airClamps){
       for(let j = 0; j < this.airClampsName.length; j++){
-        if(i[this.airClampsName[j]]!=""){
+        if(i[this.airClampsName[j]]!="" && i[this.airClampsName[j]]!= null){
           this.airClampsArr.push(this.createAirClamps());
           this.airClampsArr.controls[0].controls.heading.setValue('AT_Clamps Observation');
           this.airClampsArr.controls[index4].controls.observationComponentDetails.setValue('airClamps' + index4);
@@ -1378,7 +1378,7 @@ export class LpssummaryComponent implements OnInit {
     let index5 =0;
     for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airExpansion){
       for(let j = 0; j < this.airExpansionName.length; j++){
-        if(i[this.airClampsName[j]]!=""){
+        if(i[this.airExpansionName[j]]!="" && i[this.airExpansionName[j]]!= null){
           this.airExpansionArr.push(this.createAirExpansion());
           this.airExpansionArr.controls[0].controls.heading.setValue('AT_Expansion Observation');
           this.airExpansionArr.controls[index5].controls.observationComponentDetails.setValue('airExpansion' + index5);
@@ -1393,7 +1393,7 @@ export class LpssummaryComponent implements OnInit {
     let index6 =0;
     for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airConnectors){
       for(let j = 0; j < this.airConnectorsName.length; j++){
-        if(i[this.airConnectorsName[j]]!=""){
+        if(i[this.airConnectorsName[j]]!="" && i[this.airConnectorsName[j]]!= null){
           this.airConnectorsArr.push(this.createAirConnectors());
           this.airConnectorsArr.controls[0].controls.heading.setValue('AT_Connectors Observation');
           this.airConnectorsArr.controls[index6].controls.observationComponentDetails.setValue('airConnectors' + index6);
@@ -1410,7 +1410,8 @@ export class LpssummaryComponent implements OnInit {
         let index =0; 
         // for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w]){
             for(let j = 0; j < this.downBasicName.length; j++){
-              if(this.downConductorData.downConductorReport[0].downConductorDescription[w][this.downBasicName[j]]!=""){
+              if(this.downConductorData.downConductorReport[0].downConductorDescription[w][this.downBasicName[j]]!="" 
+                 && this.downConductorData.downConductorReport[0].downConductorDescription[w][this.downBasicName[j]] != null){
                 this.downConductorsBasicArr.push(this.createDownConductorsBasic());
                 this.downConductorsBasicArr.controls[0].controls.heading.setValue('DC_Basic Details Observation');
                 this.downConductorsBasicArr.controls[index].controls.observationComponentDetails.setValue('downConductorBasicDescription' + index);
@@ -1425,7 +1426,7 @@ export class LpssummaryComponent implements OnInit {
         let index1 =0;
         for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].downConductor){
           for(let j = 0; j < this.downConductorName.length; j++){
-            if(i[this.downConductorName[j]]!=""){
+            if(i[this.downConductorName[j]]!="" && i[this.downConductorName[j]]!= null){
               this.downConductorsArr.push(this.createDownConductors());
               this.downConductorsArr.controls[0].controls.heading.setValue('DC_Downconductors Observation');
               this.downConductorsArr.controls[index1].controls.observationComponentDetails.setValue('downConductorDescription' + index1);
@@ -1441,7 +1442,7 @@ export class LpssummaryComponent implements OnInit {
     let index2 =0;
     for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].bridgingDescription){
       for(let j = 0; j < this.bridgingName.length; j++){
-        if(i[this.bridgingName[j]]!=""){
+        if(i[this.bridgingName[j]]!="" && i[this.bridgingName[j]]!= null){
           this.bridgingDescArr.push(this.createBridgingDesc());
           this.bridgingDescArr.controls[0].controls.heading.setValue('DC_Bridging Observation');
           this.bridgingDescArr.controls[index2].controls.observationComponentDetails.setValue('bridgingDescription' + index2);
@@ -1456,7 +1457,7 @@ export class LpssummaryComponent implements OnInit {
   let index3 =0;
   for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].holder){
     for(let j = 0; j < this.downHolderName.length; j++){
-      if(i[this.downHolderName[j]]!=""){
+      if(i[this.downHolderName[j]]!="" && i[this.downHolderName[j]]!= null){
         this.downHoldersArr.push(this.createDownHolders());
         this.downHoldersArr.controls[0].controls.heading.setValue('DC_Holder Observation');
         this.downHoldersArr.controls[index3].controls.observationComponentDetails.setValue('holder' + index3);
@@ -1472,7 +1473,7 @@ export class LpssummaryComponent implements OnInit {
     let index4 =0;
     for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].connectors){
     for(let j = 0; j < this.connectorsName.length; j++){
-      if(i[this.connectorsName[j]]!=""){
+      if(i[this.connectorsName[j]]!="" && i[this.connectorsName[j]]!= null){
         this.downConnectorsArr.push(this.createDownConnectors());
         this.downConnectorsArr.controls[0].controls.heading.setValue('DC_Connectors Observation');
         this.downConnectorsArr.controls[index4].controls.observationComponentDetails.setValue('connectors' + index4);
@@ -1487,7 +1488,7 @@ export class LpssummaryComponent implements OnInit {
     let index5 =0;
     for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].testingJoint){
     for(let j = 0; j < this.testingJointName.length; j++){
-      if(i[this.testingJointName[j]]!=""){
+      if(i[this.testingJointName[j]]!="" && i[this.testingJointName[j]]!= null){
         this.testingJointArr.push(this.createTestingJoints());
         this.testingJointArr.controls[0].controls.heading.setValue('DC_TestingJoint Observation');
         this.testingJointArr.controls[index5].controls.observationComponentDetails.setValue('testingJoint' + index5);
@@ -1502,7 +1503,7 @@ export class LpssummaryComponent implements OnInit {
     let index6 =0;
     for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].lightningCounter){
     for(let j = 0; j < this.lightingCounterName.length; j++){
-      if(i[this.lightingCounterName[j]]!=""){
+      if(i[this.lightingCounterName[j]]!="" && i[this.lightingCounterName[j]]!= null){
         this.lightingCounterArr.push(this.createLightingCounter());
         this.lightingCounterArr.controls[0].controls.heading.setValue('DC_LightningCounter Observation');
         this.lightingCounterArr.controls[index6].controls.observationComponentDetails.setValue('lightningCounter' + index6);
@@ -1518,7 +1519,7 @@ export class LpssummaryComponent implements OnInit {
   let index8 =0;
   for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].downConductorTesting){
   for(let j = 0; j < this.downConductorTestingName.length; j++){
-    if(i[this.downConductorTestingName[j]]!=""){
+    if(i[this.downConductorTestingName[j]]!="" && i[this.downConductorTestingName[j]]!= null){
       this.downConductorTestingArr.push(this.createDownConductorsTesting());
       this.downConductorTestingArr.controls[0].controls.heading.setValue('DC_DownConductorTesting Observation');
       this.downConductorTestingArr.controls[index8].controls.observationComponentDetails.setValue('downConductorTesting' + index8);
@@ -1535,7 +1536,7 @@ export class LpssummaryComponent implements OnInit {
         let index =0; 
       // for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w]){
             for(let j = 0; j < this.earthingReportName.length; j++){
-              if(this.earthingData.earthingReport[0].earthingLpsDescription[w][this.earthingReportName[j]]!=""){
+              if(this.earthingData.earthingReport[0].earthingLpsDescription[w][this.earthingReportName[j]]!="" && this.earthingData.earthingReport[0].earthingLpsDescription[w][this.earthingReportName[j]]!= null){
                 this.earthingReportArr.push(this.createEarthingReport());
                 this.earthingReportArr.controls[0].controls.heading.setValue('ET_Basic Details Observation');
                 this.earthingReportArr.controls[index].controls.observationComponentDetails.setValue('earthingLpsDescription' + index);
@@ -1550,7 +1551,7 @@ export class LpssummaryComponent implements OnInit {
         let index1 =0;
         for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingDescription){
           for(let j = 0; j < this.earthingDescriptionName.length; j++){
-            if(i[this.earthingDescriptionName[j]]!=""){
+            if(i[this.earthingDescriptionName[j]]!="" && i[this.earthingDescriptionName[j]]!= null){
               this.earthingDescArr.push(this.createEarthingDescription());
               this.earthingDescArr.controls[0].controls.heading.setValue('EarthingDescription Observation');
               this.earthingDescArr.controls[index1].controls.observationComponentDetails.setValue('earthingDescriptionMain' + index1);
@@ -1569,9 +1570,9 @@ export class LpssummaryComponent implements OnInit {
       for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingDescription[0].earthingDescriptionList)
       {
         for(let j = 0; j < this.earthingDescriptionListName.length; j++){
-          if(i[this.earthingDescriptionListName[j]]!=""){
+          if(i[this.earthingDescriptionListName[j]]!="" && i[this.earthingDescriptionListName[j]]!= null){
             this.earthingDescriptionListArr.push(this.createEarthingDescriptionList());
-            if(this.earthingDescriptionListName[j]=='earthingConductorMaterialInRem'){
+            if(indexVertical == 0){
               this.earthingDescriptionListArr.controls[index0].controls.heading.setValue('EarthingDescription List-' + vatListIndex);
             }
             this.earthingDescriptionListArr.controls[index0].controls.observationComponentDetails.setValue('earthingDescriptionList' + index0);
@@ -1591,7 +1592,7 @@ export class LpssummaryComponent implements OnInit {
     let index2 =0;
     for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingClamps){
       for(let j = 0; j < this.earthingClampsName.length; j++){
-        if(i[this.earthingClampsName[j]]!=""){
+        if(i[this.earthingClampsName[j]]!="" && i[this.earthingClampsName[j]]!= null){
           this.earthingClampsArr.push(this.createEarthingClamps());
           this.earthingClampsArr.controls[0].controls.heading.setValue('EarthingClamps Observation');
           this.earthingClampsArr.controls[index2].controls.observationComponentDetails.setValue('earthingClamps' + index2);
@@ -1606,7 +1607,7 @@ export class LpssummaryComponent implements OnInit {
   let index3 =0;
   for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingElectrodeChamber){
     for(let j = 0; j < this.earthingElectrodeChamberName.length; j++){
-      if(i[this.earthingElectrodeChamberName[j]]!=""){
+      if(i[this.earthingElectrodeChamberName[j]]!="" && i[this.earthingElectrodeChamberName[j]]!= null){
         this.earthingElectrodeChamberArr.push(this.createEarthingElectrodeChamber());
         this.earthingElectrodeChamberArr.controls[0].controls.heading.setValue('EarthingElectrodeChamber Observation');
         this.earthingElectrodeChamberArr.controls[index3].controls.observationComponentDetails.setValue('earthingElectrodeChamber' + index3);
@@ -1622,7 +1623,7 @@ export class LpssummaryComponent implements OnInit {
     let index4 =0;
     for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingSystem){
     for(let j = 0; j < this.earthingSystemName.length; j++){
-      if(i[this.earthingSystemName[j]]!=""){
+      if(i[this.earthingSystemName[j]]!="" && i[this.earthingSystemName[j]]!= null){
         this.earthingSystemArr.push(this.createEarthingSystem());
         this.earthingSystemArr.controls[0].controls.heading.setValue('EarthingSystem Observation');
         this.earthingSystemArr.controls[index4].controls.observationComponentDetails.setValue('earthingSystem' + index4);
@@ -1637,7 +1638,7 @@ export class LpssummaryComponent implements OnInit {
     let index5 =0;
     for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthElectrodeTesting){
     for(let j = 0; j < this.earthElectrodeTestingName.length; j++){
-      if(i[this.earthElectrodeTestingName[j]]!=""){
+      if(i[this.earthElectrodeTestingName[j]]!="" && i[this.earthElectrodeTestingName[j]]!= null){
         this.earthElectrodeTestingArr.push(this.createEarthElectrodeTesting());
         this.earthElectrodeTestingArr.controls[0].controls.heading.setValue('EarthElectrodeTesting Observation');
         this.earthElectrodeTestingArr.controls[index5].controls.observationComponentDetails.setValue('earthElectrodeTesting' + index5);
@@ -1655,7 +1656,7 @@ export class LpssummaryComponent implements OnInit {
         let index =0;
         //for(let i of this.spdReportData.spdReport[0].spd){
             for(let j = 0; j < this.spdReportName.length; j++){
-              if(this.spdReportData.spdReport[0].spd[w][this.spdReportName[j]]!=""){
+              if(this.spdReportData.spdReport[0].spd[w][this.spdReportName[j]]!="" && this.spdReportData.spdReport[0].spd[w][this.spdReportName[j]]!= null){
                 this.spdReportArr.push(this.createSpdReport());
                 this.spdReportArr.controls[0].controls.heading.setValue('SPD Details Observation');
                 this.spdReportArr.controls[index].controls.observationComponentDetails.setValue('spdReport' + index);
@@ -1673,9 +1674,9 @@ export class LpssummaryComponent implements OnInit {
       for(let i of this.spdReportData.spdReport[0].spd[w].spdDescription)
       {
         for(let j = 0; j < this.spdReportListName.length; j++){
-          if(i[this.spdReportListName[j]]!=""){
+          if(i[this.spdReportListName[j]]!="" && i[this.spdReportListName[j]]!= null){
             this.spdListArr.push(this.createSpdReportList());
-            if(this.spdReportListName[j]=='spdMakeRem'){
+            if(indexVertical==0){
               this.spdListArr.controls[index07].controls.heading.setValue('SPD List-' + vatListIndex);
             }
           // this.spdListArr.controls[0].controls.heading.setValue('SPD List Observation');
@@ -1697,7 +1698,7 @@ export class LpssummaryComponent implements OnInit {
         let index =0;
         //for(let i of this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription){
             for(let j = 0; j < this.separationDistanceName.length; j++){
-              if(this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription[w][this.separationDistanceName[j]]!=""){
+              if(this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription[w][this.separationDistanceName[j]]!="" && this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription[w][this.separationDistanceName[j]]!= null){
                 this.separationDistanceArr.push(this.createSeparationDistance());
                 this.separationDistanceArr.controls[0].controls.heading.setValue('SeparationDistance Observation');
                 this.separationDistanceArr.controls[index].controls.observationComponentDetails.setValue('seperationDistanceDescription' + index);
@@ -1711,7 +1712,7 @@ export class LpssummaryComponent implements OnInit {
         let indexS =0;
         for(let i of this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription[w].separateDistance){
           for(let j = 0; j < this.separateDistanceName.length; j++){
-            if(i[this.separateDistanceName[j]]!=""){
+            if(i[this.separateDistanceName[j]]!="" && i[this.separateDistanceName[j]]!= null){
               this.separateDistanceArr.push(this.createSeparateDistance());
               this.separateDistanceArr.controls[0].controls.heading.setValue('SeparateDistance Observation');
               this.separateDistanceArr.controls[indexS].controls.observationComponentDetails.setValue('separateDistanceDesc' + indexS);
@@ -1725,7 +1726,7 @@ export class LpssummaryComponent implements OnInit {
       let indexSD =0;
       for(let i of this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription[w].separateDistanceDownConductors){
         for(let j = 0; j < this.separateDistanceDownName.length; j++){
-          if(i[this.separateDistanceDownName[j]]!=""){
+          if(i[this.separateDistanceDownName[j]]!="" && i[this.separateDistanceDownName[j]]!= null){
             this.separationDistanceDownArr.push(this.createSeparationDownDistance());
             this.separationDistanceDownArr.controls[0].controls.heading.setValue('SeparationDistanceDown Observation');
             this.separationDistanceDownArr.controls[indexSD].controls.observationComponentDetails.setValue('separateDistanceDownConductors' + indexSD);
@@ -1742,7 +1743,7 @@ export class LpssummaryComponent implements OnInit {
         let index =0;
         //for(let i of this.equiBondingData.earthStudReport[0].earthStudDescription){
             for(let j = 0; j < this.earthStudDescName.length; j++){
-              if(this.equiBondingData.earthStudReport[0].earthStudDescription[w][this.earthStudDescName[j]]!=""){
+              if(this.equiBondingData.earthStudReport[0].earthStudDescription[w][this.earthStudDescName[j]]!="" && this.equiBondingData.earthStudReport[0].earthStudDescription[w][this.earthStudDescName[j]]!= null){
                 this.equiBondingArr.push(this.createEarthStudDesc());
                 this.equiBondingArr.controls[0].controls.heading.setValue('EarthStud Observation');
                 this.equiBondingArr.controls[index].controls.observationComponentDetails.setValue('earthStudDescription' + index);
@@ -1762,15 +1763,15 @@ export class LpssummaryComponent implements OnInit {
     retrieveObservationLpsSummaryOnload(){
       if (this.basicLpsId != undefined) {
       this.summaryService.retrieveObservationSummaryLps(this.basicLpsId).subscribe(
-      data=>{
-        this.airTerminationData=JSON.parse(data);
-        this.downConductorData=JSON.parse(data);
-        this.earthingData=JSON.parse(data);
-        this.spdReportData=JSON.parse(data);
-        this.separationDistanceData=JSON.parse(data);
-        this.equiBondingData=JSON.parse(data);
-        this.summaryArr=this.summaryForm.get('summaryLpsBuildings') as FormArray;
-        for(let w=0; w<this.summaryArr.controls.length; w++){
+        data=>{
+          this.airTerminationData=JSON.parse(data);
+          this.downConductorData=JSON.parse(data);
+          this.earthingData=JSON.parse(data);
+          this.spdReportData=JSON.parse(data);
+          this.separationDistanceData=JSON.parse(data);
+          this.equiBondingData=JSON.parse(data);
+          this.summaryArr=this.summaryForm.get('summaryLpsBuildings') as FormArray;
+          for(let w=0; w<this.summaryArr.controls.length; w++){
             //air termination
         if(this.airTerminationData.airTermination!=null){
           //basic
@@ -1779,7 +1780,7 @@ export class LpssummaryComponent implements OnInit {
             //let value=this.airTerminationData.airTermination[0].lpsAirDiscription[0];
             for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airBasicDescription){
                 for(let j = 0; j < this.airBasicName.length; j++){
-                  if(i[this.airBasicName[j]]!=""){
+                  if(i[this.airBasicName[j]]!="" && i[this.airBasicName[j]]!=null){
                     this.airTerminationArr.push(this.createAirTermination());
                     this.airTerminationArr.controls[0].controls.heading.setValue('AT_Basic Details Observation');
                     this.airTerminationArr.controls[index].controls.observationComponentDetails.setValue('airBasicDescription' + index);
@@ -1794,7 +1795,7 @@ export class LpssummaryComponent implements OnInit {
             let index1 =0;
             for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination){
               for(let j = 0; j < this.airVerticalName.length; j++){
-                if(i[this.airVerticalName[j]]!=""){
+                if(i[this.airVerticalName[j]]!="" && i[this.airVerticalName[j]]!= null){
                   this.airVerticalArr.push(this.createAirVertical());
                   this.airVerticalArr.controls[0].controls.heading.setValue('AT_Vertical Observation');
                   this.airVerticalArr.controls[index1].controls.observationComponentDetails.setValue('lpsVerticalAirTermination' + index1);
@@ -1813,9 +1814,9 @@ export class LpssummaryComponent implements OnInit {
             for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination[0].verticalAirTerminationList)
             {
               for(let j = 0; j < this.airVerticalListName.length; j++){
-                if(i[this.airVerticalListName[j]]!=""){
+                if(i[this.airVerticalListName[j]]!=""  && i[this.airVerticalListName[j]]!= null){
                   this.airVerticalListArr.push(this.createAirVerticalList());
-                  if(this.airVerticalListName[j]=='materialOfTerminalRe'){
+                  if(indexVertical==0){
                     this.airVerticalListArr.controls[index0].controls.heading.setValue('AT_Vertical List-' + vatListIndex);
                   }
                   this.airVerticalListArr.controls[index0].controls.observationComponentDetails.setValue('verticalAirTerminationList' + index0);
@@ -1835,7 +1836,7 @@ export class LpssummaryComponent implements OnInit {
       let index2 =0;
       for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airMeshDescription){
         for(let j = 0; j < this.airMeshName.length; j++){
-          if(i[this.airMeshName[j]]!=""){
+          if(i[this.airMeshName[j]]!="" && i[this.airMeshName[j]]!= null){
           this.airMeshArr.push(this.createAirMesh());
           this.airMeshArr.controls[0].controls.heading.setValue('AT_Mesh Observation');
           this.airMeshArr.controls[index2].controls.observationComponentDetails.setValue('airMeshDescription' + index2);
@@ -1850,7 +1851,7 @@ export class LpssummaryComponent implements OnInit {
       let index3 =0;
       for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription){
         for(let j = 0; j < this.airHolderName.length; j++){
-          if(i[this.airHolderName[j]]!=""){
+          if(i[this.airHolderName[j]]!="" && i[this.airHolderName[j]]!= null){
             this.airHolderArr.push(this.createAirHolder());
             this.airHolderArr.controls[0].controls.heading.setValue('AT_Holder Observation');
             this.airHolderArr.controls[index3].controls.observationComponentDetails.setValue('airHolderDescription' + index3);
@@ -1870,9 +1871,9 @@ export class LpssummaryComponent implements OnInit {
         for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription[0].airHolderList)
         {
           for(let j = 0; j < this.airHolderListName.length; j++){
-            if(i[this.airHolderListName[j]]!=""){
+            if(i[this.airHolderListName[j]]!="" && i[this.airHolderListName[j]]!= null){
               this.airHolderListArr.push(this.createAirHolderList());
-              if(this.airHolderListName[j]=='holderTypeRe'){
+              if(indexHolder == 0){
               this.airHolderListArr.controls[index01].controls.heading.setValue('AT_Holder List-' + holderListIndex);
               }
               this.airHolderListArr.controls[index01].controls.observationComponentDetails.setValue('airHolderList' + index01);
@@ -1892,7 +1893,7 @@ export class LpssummaryComponent implements OnInit {
       let index4 =0;
       for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airClamps){
         for(let j = 0; j < this.airClampsName.length; j++){
-          if(i[this.airClampsName[j]]!=""){
+          if(i[this.airClampsName[j]]!="" && i[this.airClampsName[j]]!= null){
             this.airClampsArr.push(this.createAirClamps());
             this.airClampsArr.controls[0].controls.heading.setValue('AT_Clamps Observation');
             this.airClampsArr.controls[index4].controls.observationComponentDetails.setValue('airClamps' + index4);
@@ -1907,7 +1908,7 @@ export class LpssummaryComponent implements OnInit {
       let index5 =0;
       for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airExpansion){
         for(let j = 0; j < this.airExpansionName.length; j++){
-          if(i[this.airClampsName[j]]!=""){
+          if(i[this.airExpansionName[j]]!="" && i[this.airExpansionName[j]]!= null){
             this.airExpansionArr.push(this.createAirExpansion());
             this.airExpansionArr.controls[0].controls.heading.setValue('AT_Expansion Observation');
             this.airExpansionArr.controls[index5].controls.observationComponentDetails.setValue('airExpansion' + index5);
@@ -1922,7 +1923,7 @@ export class LpssummaryComponent implements OnInit {
       let index6 =0;
       for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airConnectors){
         for(let j = 0; j < this.airConnectorsName.length; j++){
-          if(i[this.airConnectorsName[j]]!=""){
+          if(i[this.airConnectorsName[j]]!="" && i[this.airConnectorsName[j]]!= null){
             this.airConnectorsArr.push(this.createAirConnectors());
             this.airConnectorsArr.controls[0].controls.heading.setValue('AT_Connectors Observation');
             this.airConnectorsArr.controls[index6].controls.observationComponentDetails.setValue('airConnectors' + index6);
@@ -1939,7 +1940,8 @@ export class LpssummaryComponent implements OnInit {
           let index =0; 
           // for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w]){
               for(let j = 0; j < this.downBasicName.length; j++){
-                if(this.downConductorData.downConductorReport[0].downConductorDescription[w][this.downBasicName[j]]!=""){
+                if(this.downConductorData.downConductorReport[0].downConductorDescription[w][this.downBasicName[j]]!="" 
+                   && this.downConductorData.downConductorReport[0].downConductorDescription[w][this.downBasicName[j]] != null){
                   this.downConductorsBasicArr.push(this.createDownConductorsBasic());
                   this.downConductorsBasicArr.controls[0].controls.heading.setValue('DC_Basic Details Observation');
                   this.downConductorsBasicArr.controls[index].controls.observationComponentDetails.setValue('downConductorBasicDescription' + index);
@@ -1954,7 +1956,7 @@ export class LpssummaryComponent implements OnInit {
           let index1 =0;
           for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].downConductor){
             for(let j = 0; j < this.downConductorName.length; j++){
-              if(i[this.downConductorName[j]]!=""){
+              if(i[this.downConductorName[j]]!="" && i[this.downConductorName[j]]!= null){
                 this.downConductorsArr.push(this.createDownConductors());
                 this.downConductorsArr.controls[0].controls.heading.setValue('DC_Downconductors Observation');
                 this.downConductorsArr.controls[index1].controls.observationComponentDetails.setValue('downConductorDescription' + index1);
@@ -1970,7 +1972,7 @@ export class LpssummaryComponent implements OnInit {
       let index2 =0;
       for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].bridgingDescription){
         for(let j = 0; j < this.bridgingName.length; j++){
-          if(i[this.bridgingName[j]]!=""){
+          if(i[this.bridgingName[j]]!="" && i[this.bridgingName[j]]!= null){
             this.bridgingDescArr.push(this.createBridgingDesc());
             this.bridgingDescArr.controls[0].controls.heading.setValue('DC_Bridging Observation');
             this.bridgingDescArr.controls[index2].controls.observationComponentDetails.setValue('bridgingDescription' + index2);
@@ -1985,7 +1987,7 @@ export class LpssummaryComponent implements OnInit {
     let index3 =0;
     for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].holder){
       for(let j = 0; j < this.downHolderName.length; j++){
-        if(i[this.downHolderName[j]]!=""){
+        if(i[this.downHolderName[j]]!="" && i[this.downHolderName[j]]!= null){
           this.downHoldersArr.push(this.createDownHolders());
           this.downHoldersArr.controls[0].controls.heading.setValue('DC_Holder Observation');
           this.downHoldersArr.controls[index3].controls.observationComponentDetails.setValue('holder' + index3);
@@ -1995,13 +1997,13 @@ export class LpssummaryComponent implements OnInit {
         }
       }
   }
-
+  
       //connectors
       this.downConnectorsArr=this.summaryArr.controls[w].controls.downConnectors as FormArray;
       let index4 =0;
       for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].connectors){
       for(let j = 0; j < this.connectorsName.length; j++){
-        if(i[this.connectorsName[j]]!=""){
+        if(i[this.connectorsName[j]]!="" && i[this.connectorsName[j]]!= null){
           this.downConnectorsArr.push(this.createDownConnectors());
           this.downConnectorsArr.controls[0].controls.heading.setValue('DC_Connectors Observation');
           this.downConnectorsArr.controls[index4].controls.observationComponentDetails.setValue('connectors' + index4);
@@ -2016,7 +2018,7 @@ export class LpssummaryComponent implements OnInit {
       let index5 =0;
       for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].testingJoint){
       for(let j = 0; j < this.testingJointName.length; j++){
-        if(i[this.testingJointName[j]]!=""){
+        if(i[this.testingJointName[j]]!="" && i[this.testingJointName[j]]!= null){
           this.testingJointArr.push(this.createTestingJoints());
           this.testingJointArr.controls[0].controls.heading.setValue('DC_TestingJoint Observation');
           this.testingJointArr.controls[index5].controls.observationComponentDetails.setValue('testingJoint' + index5);
@@ -2031,7 +2033,7 @@ export class LpssummaryComponent implements OnInit {
       let index6 =0;
       for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].lightningCounter){
       for(let j = 0; j < this.lightingCounterName.length; j++){
-        if(i[this.lightingCounterName[j]]!=""){
+        if(i[this.lightingCounterName[j]]!="" && i[this.lightingCounterName[j]]!= null){
           this.lightingCounterArr.push(this.createLightingCounter());
           this.lightingCounterArr.controls[0].controls.heading.setValue('DC_LightningCounter Observation');
           this.lightingCounterArr.controls[index6].controls.observationComponentDetails.setValue('lightningCounter' + index6);
@@ -2041,13 +2043,13 @@ export class LpssummaryComponent implements OnInit {
         }
       }
       }
-
+  
     //downConductorTesting
     this.downConductorTestingArr=this.summaryArr.controls[w].controls.downConductorTesting as FormArray;
     let index8 =0;
     for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].downConductorTesting){
     for(let j = 0; j < this.downConductorTestingName.length; j++){
-      if(i[this.downConductorTestingName[j]]!=""){
+      if(i[this.downConductorTestingName[j]]!="" && i[this.downConductorTestingName[j]]!= null){
         this.downConductorTestingArr.push(this.createDownConductorsTesting());
         this.downConductorTestingArr.controls[0].controls.heading.setValue('DC_DownConductorTesting Observation');
         this.downConductorTestingArr.controls[index8].controls.observationComponentDetails.setValue('downConductorTesting' + index8);
@@ -2064,7 +2066,7 @@ export class LpssummaryComponent implements OnInit {
           let index =0; 
         // for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w]){
               for(let j = 0; j < this.earthingReportName.length; j++){
-                if(this.earthingData.earthingReport[0].earthingLpsDescription[w][this.earthingReportName[j]]!=""){
+                if(this.earthingData.earthingReport[0].earthingLpsDescription[w][this.earthingReportName[j]]!="" && this.earthingData.earthingReport[0].earthingLpsDescription[w][this.earthingReportName[j]]!= null){
                   this.earthingReportArr.push(this.createEarthingReport());
                   this.earthingReportArr.controls[0].controls.heading.setValue('ET_Basic Details Observation');
                   this.earthingReportArr.controls[index].controls.observationComponentDetails.setValue('earthingLpsDescription' + index);
@@ -2079,7 +2081,7 @@ export class LpssummaryComponent implements OnInit {
           let index1 =0;
           for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingDescription){
             for(let j = 0; j < this.earthingDescriptionName.length; j++){
-              if(i[this.earthingDescriptionName[j]]!=""){
+              if(i[this.earthingDescriptionName[j]]!="" && i[this.earthingDescriptionName[j]]!= null){
                 this.earthingDescArr.push(this.createEarthingDescription());
                 this.earthingDescArr.controls[0].controls.heading.setValue('EarthingDescription Observation');
                 this.earthingDescArr.controls[index1].controls.observationComponentDetails.setValue('earthingDescriptionMain' + index1);
@@ -2098,9 +2100,9 @@ export class LpssummaryComponent implements OnInit {
         for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingDescription[0].earthingDescriptionList)
         {
           for(let j = 0; j < this.earthingDescriptionListName.length; j++){
-            if(i[this.earthingDescriptionListName[j]]!=""){
+            if(i[this.earthingDescriptionListName[j]]!="" && i[this.earthingDescriptionListName[j]]!= null){
               this.earthingDescriptionListArr.push(this.createEarthingDescriptionList());
-              if(this.earthingDescriptionListName[j]=='earthingConductorMaterialInRem'){
+              if(indexVertical==0){
                 this.earthingDescriptionListArr.controls[index0].controls.heading.setValue('EarthingDescription List-' + vatListIndex);
               }
               this.earthingDescriptionListArr.controls[index0].controls.observationComponentDetails.setValue('earthingDescriptionList' + index0);
@@ -2120,7 +2122,7 @@ export class LpssummaryComponent implements OnInit {
       let index2 =0;
       for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingClamps){
         for(let j = 0; j < this.earthingClampsName.length; j++){
-          if(i[this.earthingClampsName[j]]!=""){
+          if(i[this.earthingClampsName[j]]!="" && i[this.earthingClampsName[j]]!= null){
             this.earthingClampsArr.push(this.createEarthingClamps());
             this.earthingClampsArr.controls[0].controls.heading.setValue('EarthingClamps Observation');
             this.earthingClampsArr.controls[index2].controls.observationComponentDetails.setValue('earthingClamps' + index2);
@@ -2135,7 +2137,7 @@ export class LpssummaryComponent implements OnInit {
     let index3 =0;
     for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingElectrodeChamber){
       for(let j = 0; j < this.earthingElectrodeChamberName.length; j++){
-        if(i[this.earthingElectrodeChamberName[j]]!=""){
+        if(i[this.earthingElectrodeChamberName[j]]!="" && i[this.earthingElectrodeChamberName[j]]!= null){
           this.earthingElectrodeChamberArr.push(this.createEarthingElectrodeChamber());
           this.earthingElectrodeChamberArr.controls[0].controls.heading.setValue('EarthingElectrodeChamber Observation');
           this.earthingElectrodeChamberArr.controls[index3].controls.observationComponentDetails.setValue('earthingElectrodeChamber' + index3);
@@ -2145,13 +2147,13 @@ export class LpssummaryComponent implements OnInit {
         }
       }
     }
-
+  
       //earthingSystem
       this.earthingSystemArr=this.summaryArr.controls[w].controls.earthingSystem as FormArray;
       let index4 =0;
       for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingSystem){
       for(let j = 0; j < this.earthingSystemName.length; j++){
-        if(i[this.earthingSystemName[j]]!=""){
+        if(i[this.earthingSystemName[j]]!="" && i[this.earthingSystemName[j]]!= null){
           this.earthingSystemArr.push(this.createEarthingSystem());
           this.earthingSystemArr.controls[0].controls.heading.setValue('EarthingSystem Observation');
           this.earthingSystemArr.controls[index4].controls.observationComponentDetails.setValue('earthingSystem' + index4);
@@ -2166,7 +2168,7 @@ export class LpssummaryComponent implements OnInit {
       let index5 =0;
       for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthElectrodeTesting){
       for(let j = 0; j < this.earthElectrodeTestingName.length; j++){
-        if(i[this.earthElectrodeTestingName[j]]!=""){
+        if(i[this.earthElectrodeTestingName[j]]!="" && i[this.earthElectrodeTestingName[j]]!= null){
           this.earthElectrodeTestingArr.push(this.createEarthElectrodeTesting());
           this.earthElectrodeTestingArr.controls[0].controls.heading.setValue('EarthElectrodeTesting Observation');
           this.earthElectrodeTestingArr.controls[index5].controls.observationComponentDetails.setValue('earthElectrodeTesting' + index5);
@@ -2184,7 +2186,7 @@ export class LpssummaryComponent implements OnInit {
           let index =0;
           //for(let i of this.spdReportData.spdReport[0].spd){
               for(let j = 0; j < this.spdReportName.length; j++){
-                if(this.spdReportData.spdReport[0].spd[w][this.spdReportName[j]]!=""){
+                if(this.spdReportData.spdReport[0].spd[w][this.spdReportName[j]]!="" && this.spdReportData.spdReport[0].spd[w][this.spdReportName[j]]!= null){
                   this.spdReportArr.push(this.createSpdReport());
                   this.spdReportArr.controls[0].controls.heading.setValue('SPD Details Observation');
                   this.spdReportArr.controls[index].controls.observationComponentDetails.setValue('spdReport' + index);
@@ -2202,9 +2204,9 @@ export class LpssummaryComponent implements OnInit {
         for(let i of this.spdReportData.spdReport[0].spd[w].spdDescription)
         {
           for(let j = 0; j < this.spdReportListName.length; j++){
-            if(i[this.spdReportListName[j]]!=""){
+            if(i[this.spdReportListName[j]]!="" && i[this.spdReportListName[j]]!= null){
               this.spdListArr.push(this.createSpdReportList());
-              if(this.spdReportListName[j]=='spdMakeRem'){
+              if(indexVertical==0){
                 this.spdListArr.controls[index07].controls.heading.setValue('SPD List-' + vatListIndex);
               }
             // this.spdListArr.controls[0].controls.heading.setValue('SPD List Observation');
@@ -2226,7 +2228,7 @@ export class LpssummaryComponent implements OnInit {
           let index =0;
           //for(let i of this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription){
               for(let j = 0; j < this.separationDistanceName.length; j++){
-                if(this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription[w][this.separationDistanceName[j]]!=""){
+                if(this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription[w][this.separationDistanceName[j]]!="" && this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription[w][this.separationDistanceName[j]]!= null){
                   this.separationDistanceArr.push(this.createSeparationDistance());
                   this.separationDistanceArr.controls[0].controls.heading.setValue('SeparationDistance Observation');
                   this.separationDistanceArr.controls[index].controls.observationComponentDetails.setValue('seperationDistanceDescription' + index);
@@ -2240,7 +2242,7 @@ export class LpssummaryComponent implements OnInit {
           let indexS =0;
           for(let i of this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription[w].separateDistance){
             for(let j = 0; j < this.separateDistanceName.length; j++){
-              if(i[this.separateDistanceName[j]]!=""){
+              if(i[this.separateDistanceName[j]]!="" && i[this.separateDistanceName[j]]!= null){
                 this.separateDistanceArr.push(this.createSeparateDistance());
                 this.separateDistanceArr.controls[0].controls.heading.setValue('SeparateDistance Observation');
                 this.separateDistanceArr.controls[indexS].controls.observationComponentDetails.setValue('separateDistanceDesc' + indexS);
@@ -2254,7 +2256,7 @@ export class LpssummaryComponent implements OnInit {
         let indexSD =0;
         for(let i of this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription[w].separateDistanceDownConductors){
           for(let j = 0; j < this.separateDistanceDownName.length; j++){
-            if(i[this.separateDistanceDownName[j]]!=""){
+            if(i[this.separateDistanceDownName[j]]!="" && i[this.separateDistanceDownName[j]]!= null){
               this.separationDistanceDownArr.push(this.createSeparationDownDistance());
               this.separationDistanceDownArr.controls[0].controls.heading.setValue('SeparationDistanceDown Observation');
               this.separationDistanceDownArr.controls[indexSD].controls.observationComponentDetails.setValue('separateDistanceDownConductors' + indexSD);
@@ -2271,7 +2273,7 @@ export class LpssummaryComponent implements OnInit {
           let index =0;
           //for(let i of this.equiBondingData.earthStudReport[0].earthStudDescription){
               for(let j = 0; j < this.earthStudDescName.length; j++){
-                if(this.equiBondingData.earthStudReport[0].earthStudDescription[w][this.earthStudDescName[j]]!=""){
+                if(this.equiBondingData.earthStudReport[0].earthStudDescription[w][this.earthStudDescName[j]]!="" && this.equiBondingData.earthStudReport[0].earthStudDescription[w][this.earthStudDescName[j]]!= null){
                   this.equiBondingArr.push(this.createEarthStudDesc());
                   this.equiBondingArr.controls[0].controls.heading.setValue('EarthStud Observation');
                   this.equiBondingArr.controls[index].controls.observationComponentDetails.setValue('earthStudDescription' + index);
@@ -2283,7 +2285,7 @@ export class LpssummaryComponent implements OnInit {
         // }
       }
       }
-        } 
+          } 
       )
       }
     }
