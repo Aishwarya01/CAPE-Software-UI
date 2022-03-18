@@ -24,7 +24,7 @@
                                             <i class="bi bi-align-start"></i>
                                         </span>
                                     </div>
-                                    <input type="number" class="form-control" formControlName="buildingNumber"  required readonly/>
+                                    <input type="number" class="form-control" formControlName="buildingNumber" readonly/>
                                 </div>
                             </div>
             
@@ -36,7 +36,7 @@
                                             <i class="bi bi-align-start"></i>
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control" formControlName="buildingName" required readonly/>
+                                    <input type="text" class="form-control" formControlName="buildingName" readonly/>
                                 </div>
                             </div>
                         </div>
@@ -2224,27 +2224,40 @@
                     </div>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel *ngIf="availabilityOfPreviousReport == 'NO'">
+                <mat-expansion-panel *ngIf="availabilityOfPreviousReport == 'No'">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
-                            <h3>Testing of earth electrodes</h3>
+                            <h3>Testing of Earth Electrodes</h3>
                             
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <div>
-                        <select class="form-control"  style="width: 30%;" [attr.disabled]="isEditable ? '' : null" formControlName="earthingElectrodeTestingAvailabilityOb"
-                          [ngClass]="{ 'is-invalid': submitted && q.get('earthingElectrodeTestingAvailabilityOb')?.errors}"
-                          (change)="onEarthElectrodes($event,q,j)">
-                          <option value="" selected>Select Option</option>
-                          <option value="In scope" >In scope </option>
-                          <option value="Not in scope" >Not in scope</option>
-                          </select>
-                          <div *ngIf="submitted && q.get('earthingElectrodeTestingAvailabilityOb')?.errors" class="invalid-feedback">
-                            <div *ngIf="q.get('earthingElectrodeTestingAvailabilityOb')?.errors?.required">In scope/Not in scope is required</div>
-                        </div>
+                    <div class="table-responsive" style="overflow-x: unset;">
+                        <table class="table TableBorder">
+                            <thead>
+                                <th>Availability of Testing of Earth Electrodes</th>
+                                <th>Remarks(Optional)</th>
+                            </thead>
+                            <tr>
+                                <td class="col-md-6">
+                                    <select class="form-control" [attr.disabled]="isEditable ? '' : null" formControlName="earthingElectrodeTestingAvailabilityOb"
+                                    [ngClass]="{ 'is-invalid': submitted && q.get('earthingElectrodeTestingAvailabilityOb')?.errors}" (change)="onEarthElectrodes($event,q,j)" style="height: 3rem;margin-top: 6px;">
+                                    <option value="" selected>Select Option</option>
+                                    <option value="In scope" >In scope </option>
+                                    <option value="Not in scope" >Not in scope</option>
+                                    </select>
+                                    <div *ngIf="submitted && q.get('earthingElectrodeTestingAvailabilityOb')?.errors" class="invalid-feedback">
+                                        <div *ngIf="q.get('earthingElectrodeTestingAvailabilityOb')?.errors?.required">In scope/Not in scope is required</div>
+                                    </div>
+                                </td>
+                                <td class="col-md-6">
+                                    <textarea [readonly]="isEditable" formControlName="earthingElectrodeTestingAvailabilityRem" type="text"
+                                        placeholder="Please enter Remarks here"  class="form-control" ></textarea>
+                                </td>
+                            </tr>  
+                        </table>
                     </div>
-                    <div *ngIf="testingofearthelectrodes[j]">
-                        
+
+                    <div *ngIf="testingofearthelectrodes[j]">    
                         <div class="row">
                             <div class="col-md-6">
                                 <label style="margin-top: 2rem;">8(a).Earth electrode resistance value (Table heading)</label>
@@ -2259,7 +2272,15 @@
                                             <th style="width: 7rem;">SI.No</th>
                                             <th style="width: 13rem;">Types of earth electrode (rod/ pipe/ flat/ chemical pipe)</th>
                                             <th style="width: 13rem;">Material of earth elctrode (copper/ copper bonded steel/ galvanised steel/ galvanised iron/ cast iron)</th>
-                                            <th style="width: 12rem;">Size(diameter)of earth electrode (mm)</th>
+                                            <th style="width: 12rem;">Size(diameter)of earth electrode (mm)
+                                                <div style="float: right;">
+                                                <mat-icon style="font-size: 18px;margin-top: 14px;margin-right: 64px;float: right;"
+                                                matTooltip="Information to user: incase of 1. rod -diameter (mm)/cross sectional area (sq.mm), 2. pipe- inner&outer diameter (mm), 3.flat - cross sectional area (sq.mm), 4. chemical pipe-diameter (mm)"
+                                                matTooltipClass="multiline-tooltip"
+                                                aria-label="Button that shows a red tooltip"
+                                                class="example-button">info_outline
+                                                </mat-icon>
+                                                </div></th>
                                             <th style="width: 14rem;">Depth /length of earth electrode (m)</th>
                                             <th style="width: 12rem;">Electrode resistance to earth in (Ω)</th>
                                             <th style="width: 22rem;">Remarks</th>
@@ -2272,7 +2293,7 @@
                                                 <div class="form-group" [formGroupName]="j">
                                                 <td> 
                                                     <div class="input-group">
-                                                        <input class="form-control" [readonly]="isEditable" formControlName="serialNo" placeholder="SI.No"
+                                                        <input class="form-control" (keypress)="keyPressNumbers($event)" [readonly]="isEditable" formControlName="serialNo" placeholder="SI.No"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('serialNo')?.errors}" style="height: 3rem; width: 5rem;">
                                                         <div *ngIf="submitted && a.get('serialNo')?.errors" class="invalid-feedback">
                                                             <div *ngIf="a.get('serialNo')?.errors?.required">serial No is required</div>
@@ -2402,13 +2423,13 @@
             </mat-accordion>
             </div>
             </div>
+            <div *ngIf="validationError" style="text-align: center;margin-bottom: 2rem;margin-top: 2rem;">
+                <span class="alert alert-danger">{{validationErrorMsg}}</span>
+            </div>
             <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
                 <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
                 <button class="next" (click)="gotoNextModal(content,contents)" mat-button >Next &raquo;</button>
            </div>
-            <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
-                <span class="alert alert-danger">{{validationErrorMsg}}</span>
-            </div>
         </form>
     </div>
 </div>
