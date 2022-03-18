@@ -118,3 +118,7 @@ textarea{
   left: 83%; */
   border-radius: 5px;
 }
+textarea::placeholder {
+  position: relative;
+  top: 9px;
+}
