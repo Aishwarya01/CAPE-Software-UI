@@ -1833,7 +1833,7 @@ export class LpsAirTerminationComponent implements OnInit {
 
     let protectionLevel = form.controls.protectionLevel.value;
     let verticalAirTerminationListArray = form.controls.lpsVerticalAirTermination.controls[form.controls.lpsVerticalAirTermination.controls.length - 1].controls.verticalAirTerminationList;
-    let heightOfAirterminal = verticalAirTerminationListArray.controls[0].value.heightOfTerminalOb;
+    let heightOfAirterminal = verticalAirTerminationListArray.controls[index].value.heightOfTerminalOb;
 
     if ( protectionLevel == "Risk Assesment not carried out") {
       verticalAirTerminationListArray.controls[index].controls.angleProtectionHeightOb.setValue('No value Applicable');
