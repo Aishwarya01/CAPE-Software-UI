@@ -237,8 +237,8 @@
 
                 <div class="col-md-4">
                     <label for="contactNumber">Contact Number</label>
-                    <input type="tel" class="form-control" type="tel" ng2TelInput  [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
-                       (keypress)="keyPressNumbers($event)" (countryChange)="countryChange($event)" placeholder="Enter Contact Number" 
+                    <input type="tel" class="form-control" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
+                       (keypress)="keyPressNumbers($event)" (countryChange)="countryChange($event,f)" placeholder="Enter Contact Number" 
                        [readonly]="isEditable" formControlName="contactNumber"  [ngClass]="{ 'is-invalid': submitted && f.get('contactNumber')?.errors }"/>
                        <div *ngIf="submitted && f.get('contactNumber')?.errors" class="invalid-feedback">
                            <div *ngIf="f.get('contactNumber')?.errors?.required">Contact Number is required</div>

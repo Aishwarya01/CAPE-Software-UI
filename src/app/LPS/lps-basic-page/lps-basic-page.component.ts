@@ -98,7 +98,7 @@ export class LpsBasicPageComponent implements OnInit {
       name: new FormControl({disabled: false, value: item.name}, Validators.required),
       company: new FormControl({disabled: false, value: item.company}, Validators.required),
       designation: new FormControl({disabled: false, value: item.designation}, Validators.required),
-      contactNumber: new FormControl({disabled: false, value: item.contactNumber}),
+      contactNumber: new FormControl({disabled: false, value: item.contactNumber}, [Validators.required ,Validators.maxLength(15),Validators.minLength(10)]),
       mailId: new FormControl({disabled: false, value: item.mailId},
          [Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       availabilityOfPreviousReport: new FormControl({disabled: false, value: item.availabilityOfPreviousReport}, Validators.required),
@@ -122,10 +122,9 @@ export class LpsBasicPageComponent implements OnInit {
     }
 
   retrieveDetailsfromSavedReports(basicLpsId: any,data: any){
-    //this.service.lvClick=1;
     this.proceedFlag = false;  
-     
-     if(data.basicLps == undefined){
+    
+     if(data.basicLps == undefined ){
       this.step1List = data;
      }
      else{
@@ -335,11 +334,11 @@ export class LpsBasicPageComponent implements OnInit {
     if (this.basicLpsIdRetrive != 0) {
       this.basicDetails.basicLpsId = this.basicLpsIdRetrive;
       if (this.isCountryCodeDirty) {
-        contactNum = "+" + this.countryCode + "-" + this.LPSBasicForm.value.lpsBasic[0].contactNumber.split("-")[1];
+        contactNum = "+" + this.countryCode + "-" + this.LPSBasicForm.value.lpsBasic[0].contactNumber;
         this.isCountryCodeDirty = false;
       }
       else {
-        contactNum = this.LPSBasicForm.value.lpsBasic[0].contactNumber;
+        contactNum = this.countryCode + "-" + this.LPSBasicForm.value.lpsBasic[0].contactNumber;
       }
     }
     else {
@@ -380,7 +379,7 @@ export class LpsBasicPageComponent implements OnInit {
     this.lPSBasicDetailsService.retriveLpsbasicDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicDetails.basicLpsId).subscribe(
       data => {
         let basic=JSON.parse(data)[0];
-        if(basic !=undefined && basic.basicLpsId !=null){
+        if(basic !=undefined && basic.basicLpsId !=null && basic.basicLpsId != undefined){
         this.retrieveDetailsfromSavedReports('',basic);
         }
       },
@@ -395,9 +394,12 @@ export class LpsBasicPageComponent implements OnInit {
     // Only Numbers 0-9
     if ((charCode < 48 || charCode > 57)) {event.preventDefault();return false;} else {return true;}} 
 
-  countryChange(country: any) {
+  countryChange(country: any,form:any) {
     this.isCountryCodeDirty=true;
     this.countryCode = country.dialCode;
+    if(this.LPSBasicForm.value.lpsBasic[0].contactNumber.split("-")[1] != undefined && this.LPSBasicForm.value.lpsBasic[0].contactNumber.split("-")[1] !=null && this.LPSBasicForm.value.lpsBasic[0].contactNumber.split("-")[1] !=''){
+      form.controls.contactNumber.setValue(this.LPSBasicForm.value.lpsBasic[0].contactNumber.split("-")[1]);
+    }
     this.LPSBasicForm.markAsDirty();
     this.LPSBasicForm.markAsTouched();
   }
