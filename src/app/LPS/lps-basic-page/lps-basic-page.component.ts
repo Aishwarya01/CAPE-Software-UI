@@ -330,15 +330,22 @@ export class LpsBasicPageComponent implements OnInit {
   }
 
   getBasicDetailsObject() {
-    let contactNum
+    let contactNum;
     if (this.basicLpsIdRetrive != 0) {
       this.basicDetails.basicLpsId = this.basicLpsIdRetrive;
+      // If country code changed
       if (this.isCountryCodeDirty) {
         contactNum = "+" + this.countryCode + "-" + this.LPSBasicForm.value.lpsBasic[0].contactNumber;
         this.isCountryCodeDirty = false;
       }
       else {
-        contactNum = this.countryCode + "-" + this.LPSBasicForm.value.lpsBasic[0].contactNumber;
+        // If contact number is unTouched state
+        if(this.LPSBasicForm.value.lpsBasic[0].contactNumber.split("-").length == 2){
+          contactNum = this.LPSBasicForm.value.lpsBasic[0].contactNumber;
+        }
+        else{
+          contactNum = "+" + this.countryCode + "-" + this.LPSBasicForm.value.lpsBasic[0].contactNumber;
+        }
       }
     }
     else {
