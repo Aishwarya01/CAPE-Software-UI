@@ -1337,6 +1337,11 @@ position: absolute;
 {
   border: 1px solid #dee2e6;
 }
+@media print {
+  body {
+      display: none;
+  }
+}
 
 /* #mat-tab-label-0-3 {
   position: fixed;
