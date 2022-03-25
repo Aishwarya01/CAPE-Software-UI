@@ -64,6 +64,9 @@ export class LpsFinalReportComponent implements OnInit {
   clientService: any;
   lpsData: any=[];
   completedFilterData: any=[];
+  superAdminArr: any = [];
+  filteredData: any = [];
+  superAdminFlag: boolean = false;
 
   constructor(private router: ActivatedRoute,
               private lpsService: LPSBasicDetailsService,
@@ -76,9 +79,12 @@ export class LpsFinalReportComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.superAdminArr = [];
     this.currentUser=sessionStorage.getItem('authenticatedUser');
     this.currentUser1 = [];
     this.currentUser1=JSON.parse(this.currentUser);
+    this.superAdminArr.push('gk@capeindia.net');
+    this.superAdminArr.push('awstesting@rushforsafety.com');
     this.retrieveLpsDetails();
   }
  
@@ -90,7 +96,33 @@ export class LpsFinalReportComponent implements OnInit {
   }
   
   retrieveLpsDetails() {
+    this.filteredData = [];
+    this.completedFilterData=[];
+    for(let i of this.superAdminArr) {
+      if(this.email == i) {
+        this.superAdminFlag = true;
+      }
+    }
       
+    if(this.superAdminFlag) {
+      this.lpsService.retrieveAllBasicLps().subscribe(
+        data => {
+          // this.myfunction(data);
+          this.lpsData=JSON.parse(data);
+          for(let i of this.lpsData){
+            if(i.allStepsCompleted=="AllStepCompleted"){
+              this.filteredData.push(i);
+            }
+          }
+          this.finalReport_dataSource = new MatTableDataSource(this.filteredData);
+          this.filteredData = [];
+          this.lpsData = [];
+          this.finalReport_dataSource.paginator = this.finalReportPaginator;
+          this.finalReport_dataSource.sort = this.finalReportSort;
+        });
+      this.superAdminFlag = false;
+    }
+    else {
       this.lpsService.retrieveListOfBasicLps(this.email).subscribe(
         data => {
           // this.myfunction(data);
@@ -106,6 +138,8 @@ export class LpsFinalReportComponent implements OnInit {
           this.finalReport_dataSource.paginator = this.finalReportPaginator;
           this.finalReport_dataSource.sort = this.finalReportSort;
         });
+    }
+      
   }
 
   closeModalDialog() {

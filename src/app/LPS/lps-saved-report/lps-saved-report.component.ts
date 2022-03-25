@@ -53,6 +53,9 @@ export class LpsSavedReportComponent implements OnInit {
  @ViewChild('input') input!: MatInput;
  lpsData: any=[];
 completedFilterData: any=[];
+  filteredData: any = [];
+  superAdminArr: any = [];
+  superAdminFlag: boolean = false;
 
   constructor(private router: ActivatedRoute,
               public service: GlobalsService,
@@ -64,9 +67,12 @@ completedFilterData: any=[];
   }
 
   ngOnInit(): void {
+    this.superAdminArr = [];
     this.currentUser=sessionStorage.getItem('authenticatedUser');
     this.currentUser1 = [];
     this.currentUser1=JSON.parse(this.currentUser);
+    this.superAdminArr.push('gk@capeindia.net');
+    this.superAdminArr.push('awstesting@rushforsafety.com');
     this.retrieveLpsDetails();
    
   }
@@ -78,6 +84,34 @@ completedFilterData: any=[];
   }
 
   retrieveLpsDetails() {
+
+    this.filteredData = [];
+    this.completedFilterData=[];
+    for(let i of this.superAdminArr) {
+      if(this.email == i) {
+        this.superAdminFlag = true;
+      }
+    }
+
+    if(this.superAdminFlag) {
+      this.lpsService.retrieveAllBasicLps().subscribe(
+        data => {
+          this.lpsData=JSON.parse(data);
+          for(let i of this.lpsData){
+            if(i.allStepsCompleted != "AllStepCompleted"){
+              this.filteredData.push(i);
+            }
+          }
+          this.savedReportLps_dataSource = new MatTableDataSource(this.filteredData);
+          this.filteredData = [];
+          this.lpsData = [];
+          this.savedReportLps_dataSource.paginator = this.savedReportLpsPaginator;
+          this.savedReportLps_dataSource.sort = this.savedReportLpsSort;
+        });
+
+        this.superAdminFlag = false;
+    }
+    else {
       this.lpsService.retrieveListOfBasicLps(this.email).subscribe(
         data => {
           this.lpsData=JSON.parse(data);
@@ -92,6 +126,8 @@ completedFilterData: any=[];
           this.savedReportLps_dataSource.paginator = this.savedReportLpsPaginator;
           this.savedReportLps_dataSource.sort = this.savedReportLpsSort;
         });
+    }
+      
   }
 
   continue(basicLpsId: any,clientName: any) {
