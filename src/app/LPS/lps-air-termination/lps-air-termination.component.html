@@ -1232,14 +1232,16 @@
                                                                         vertical air terminal observation is Required
                                                                     </div>
                                                                     <div
-                                                                        *ngIf="isRangeOfAngle && (z.get('heightOfTerminalOb')?.value != 0)">
+                                                                        *ngIf="isRangeOfAngle[w] && (z.get('heightOfTerminalOb')?.value != 0)">
                                                                         Height of vertical air terminal value is should
-                                                                        not be > {{rangeOfAngle}}</div>
+                                                                        not be > {{rangeOfAngle[w]}}</div>
+                                                                        
                                                                     <div
                                                                         *ngIf="(z.get('heightOfTerminalOb')?.touched == true) && (z.get('heightOfTerminalOb')?.value == 0) && 
                                                                         (q.get('protectionLevel')?.value !='Risk Assesment not carried out')">
                                                                         Height of vertical air terminal value is should
                                                                         not be Zero</div>
+                                                                        
                                                                 </div>
                                                             </div>
                                                         </td>
