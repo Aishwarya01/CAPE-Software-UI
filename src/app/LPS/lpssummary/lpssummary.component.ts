@@ -90,6 +90,7 @@ export class LpssummaryComponent implements OnInit {
     mode: any= 'indeterminate';
     isEditable:boolean=false;
     submittedButton: boolean = true;
+    saveButton: boolean = true;
 
     //air termination
     airBasicName: string[] = [
@@ -478,7 +479,7 @@ export class LpssummaryComponent implements OnInit {
 
     private Declaration1Form(): FormGroup {
       return new FormGroup({
-        declarationId: new FormControl(''),
+        summaryLpsDeclarationId: new FormControl(''),
         name: new FormControl('', Validators.required),
         signature: new FormControl(''),
         company: new FormControl('', Validators.required),
@@ -491,7 +492,7 @@ export class LpssummaryComponent implements OnInit {
   
     private Declaration2Form(): FormGroup {
       return new FormGroup({
-        declarationId: new FormControl(''),
+        summaryLpsDeclarationId: new FormControl(''),
         name: new FormControl('', Validators.required),
         signature: new FormControl(''),
         company: new FormControl('', Validators.required),
@@ -967,6 +968,8 @@ export class LpssummaryComponent implements OnInit {
           this.lpsSummary.userName=this.jsonData.summaryLps.userName;
           this.lpsSummary.createdBy=this.jsonData.summaryLps.createdBy;
           this.lpsSummary.createdDate=this.jsonData.summaryLps.createdDate;
+          this.lpsSummary.updatedBy=this.jsonData.summaryLps.updatedBy;
+          this.lpsSummary.updatedDate=this.jsonData.summaryLps.updatedDate;
           this.lpsSummary.inspectedYear=this.jsonData.summaryLps.inspectedYear;
           this.lpsSummary.summaryDate=this.jsonData.summaryLps.summaryDate;
           this.lpsSummary.summaryLpsId=this.jsonData.summaryLps.summaryLpsId;
@@ -1159,6 +1162,7 @@ export class LpssummaryComponent implements OnInit {
           }
         }
         return this.formBuilder.group({
+        summaryLpsBuildingsId: new FormControl({disabled: false,value: item.summaryLpsBuildingsId}),
         buildingNumber: new FormControl({disabled: false,value: item.buildingNumber}),
         buildingName: new FormControl({disabled: false,value: item.buildingName}),
         buildingCount: new FormControl({disabled: false,value: item.buildingCount}),
@@ -1213,6 +1217,7 @@ export class LpssummaryComponent implements OnInit {
 
     populateForm(value:any){
       return this.formBuilder.group({
+      summaryLpsObservationId: new FormControl({disabled: false,value: value.summaryLpsObservationId}),
       heading: new FormControl({disabled: false,value: value.heading}),
       serialNo: new FormControl({disabled: false,value: value.serialNo}),
       observation: new FormControl({disabled: false,value: value.observation}),
@@ -1223,7 +1228,7 @@ export class LpssummaryComponent implements OnInit {
     }
     createGroupDeclaration1(item:any):FormGroup{
       return this.formBuilder.group({
-        declarationId: new FormControl({disabled: false,value: item.declarationId}),
+        summaryLpsDeclarationId: new FormControl({disabled: false,value: item.summaryLpsDeclarationId}),
         name: new FormControl({disabled: false,value: item.name}),
         signature: new FormControl({disabled: false,value: item.signature}),
         company: new FormControl({disabled: false,value: item.company}),
@@ -2329,7 +2334,7 @@ export class LpssummaryComponent implements OnInit {
       this.matStepper.navigateStep(index);
     }
 
-  onSubmit(flag:any,content5:any){
+  onSubmit(flag:any,content5:any,content:any){
     this.submitted = true;
     this.summaryForm.value.summaryLpsBuildings;
     if (this.summaryForm.invalid && (this.summaryForm.value.summaryLpsBuildings[0].buildingNumber != undefined || this.summaryForm.value.summaryLpsBuildings[0].buildingNumber != '')) 
@@ -2370,6 +2375,7 @@ export class LpssummaryComponent implements OnInit {
       (data)=>{
       if(data) {
       this.modalService.open(content5, { size: 'md', centered: true, backdrop: 'static'});
+      
       let a:any=[];
       a=this.summaryForm.controls.summaryLpsBuildings as FormArray;
       for(let i of a.controls){
@@ -2378,11 +2384,6 @@ export class LpssummaryComponent implements OnInit {
         summaryLpsObservationArr.push(j);
         }
         for(let j of i.controls.airVertical.controls){
-          //if(j.controls.observationComponentDetails.value=='lpsVerticalAirTermination0'){
-            // for(let list1 of i.controls.airVerticalList.controls){
-            //   j.controls.summaryLpsInnerObservation.push(list1);
-            // }
-          //}
           summaryLpsObservationArr.push(j);
         }
 
@@ -2499,7 +2500,7 @@ export class LpssummaryComponent implements OnInit {
       this.lpsSummary.summaryLpsDeclaration= this.summaryForm.value.Declaration1Arr;
       this.lpsSummary.summaryLpsDeclaration = this.lpsSummary.summaryLpsDeclaration.concat(this.summaryForm.value.Declaration2Arr);
 
-      if (this.summaryForm.dirty && this.summaryForm.touched && this.flag) {
+      if (this.summaryForm.dirty && this.summaryForm.touched && flag) {
       this.summaryService.updateSummaryLps(this.lpsSummary,this.submittedButton).subscribe(
         (data)=> {
           this.popup=true;
@@ -2617,5 +2618,9 @@ export class LpssummaryComponent implements OnInit {
       this.summaryForm.markAsPristine();
    return true;
     }
+  }
+
+  typeButton(button: any) {
+    this.saveButton=true;
   }
   }
