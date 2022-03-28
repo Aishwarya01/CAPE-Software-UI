@@ -196,7 +196,7 @@ export class LpsMatstepperComponent implements OnInit {
     }
    // this.Completed8 = this.lpsSummary.success;
   }
-  public changeTabLpsSavedReport(index: number, basicLpsId: any, userName: any, clientName: any) {
+  public changeTabLpsSavedReport(index: number, basicLpsId: any, userName: any) {
    // this.selectedIndex = 1;
     this.basicDetails = false;
     this.airTermValue = false;
@@ -245,9 +245,9 @@ export class LpsMatstepperComponent implements OnInit {
            // }, 500);
           }
           if (this.dataJSON.airTermination != null) {
-            this.airTermination.retrieveDetailsfromSavedReports(userName, basicLpsId, clientName, this.dataJSON);
-            this.downConductors.retrieveDetailsfromSavedReports(userName, basicLpsId, clientName, this.dataJSON);
-            this.lpsSummary.retrieveDetailsfromSavedReports(userName, basicLpsId, clientName, this.dataJSON);
+            this.airTermination.retrieveDetailsfromSavedReports(userName, basicLpsId, this.dataJSON);
+            this.downConductors.retrieveDetailsfromSavedReports(userName, basicLpsId, this.dataJSON);
+            this.lpsSummary.retrieveDetailsfromSavedReports(userName, basicLpsId, this.dataJSON);
             
             if(this.dataJSON.summaryLps==null){
               setTimeout(() => {
@@ -311,7 +311,7 @@ export class LpsMatstepperComponent implements OnInit {
     this.ngOnInit();
     let userName=this.router.snapshot.paramMap.get('email') || '{}';
    // this.doSomething1(false);
-    this.changeTabLpsSavedReport(index,this.earthStud.basicLpsId,userName,this.earthStud.ClientName);
+    this.changeTabLpsSavedReport(index,this.earthStud.basicLpsId,userName);
     this.selectedIndex = index;
     
   }
@@ -378,7 +378,15 @@ export class LpsMatstepperComponent implements OnInit {
               // this.changeTab1(0);
           }
           else if((tabs==="Saved Reports")){
-            this.selectedIndex=1; 
+            this.selectedIndex=1;
+            if(this.basic.basicDetails.basicLpsId != undefined){
+              // this.changeTabLpsSavedReport(1,this.basic.basicDetails.basicLpsId,this.router.snapshot.paramMap.get('email') || '{}');
+              this.saved.retrieveLpsDetails();
+              this.saved.disablepage=true;
+              // setTimeout(() => {
+              //   this.saved.spinner=true;
+              // }, 3000);
+            }
           }    
           else{
             this.selectedIndex=2; 
@@ -386,24 +394,24 @@ export class LpsMatstepperComponent implements OnInit {
         }
   }
 
-  preview(basicLpsId: any,ClientName:any): void {
+  preview(basicLpsId: any): void {
     this.ngOnInit();
     this.isEditable=true;
-    this.changeTabLpsSavedReport(0,basicLpsId,this.router.snapshot.paramMap.get('email') || '{}',ClientName);
+    this.changeTabLpsSavedReport(0,basicLpsId,this.router.snapshot.paramMap.get('email') || '{}');
   //  this.doSomething1(false);
   }
 
-  continue(basicLpsId: any,ClientName:any): void {
+  continue(basicLpsId: any): void {
     this.refresh();
     this.ngOnInit();
     this.isEditable=false;
    // this.doSomething1(false);
-    this.changeTabLpsSavedReport(0,basicLpsId,this.router.snapshot.paramMap.get('email') || '{}',ClientName);
+    this.changeTabLpsSavedReport(0,basicLpsId,this.router.snapshot.paramMap.get('email') || '{}');
 
     setTimeout(() => {
       this.saved.spinner=false;
       this.saved.disablepage=true;
-    }, 4000);
+    }, 3000);
   }
 
   getAirterminationData(basicLpsId: any) {

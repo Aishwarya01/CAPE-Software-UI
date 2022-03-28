@@ -25,8 +25,8 @@ export class LpsFinalReportComponent implements OnInit {
                                     'contractorName', 
                                     'dealerContractorName', 
                                     'address', 
-                                    'createdDate', 
-                                    'createdBy', 
+                                    'updatedDate', 
+                                    'updatedBy', 
                                     'action'];
   finalReport_dataSource!: MatTableDataSource<BasicDetails[]>;
 
@@ -163,12 +163,12 @@ export class LpsFinalReportComponent implements OnInit {
      this.finalpdf.downloadPDF(basicLpsId,this.userName, projectName)
    }
 
-   continue(basicLpsId:any,clientName:any){
+   continue(basicLpsId:any){
     this.finalReportBody = false;
     this.finalReportSpinner = true;
     this.spinnerValue = "Please wait, the details are loading!";
     this.service.allFieldsDisable = true;
-    this.matstepper.preview(basicLpsId,clientName);
+    this.matstepper.preview(basicLpsId);
    }
 
   emailPDF(basicLpsId:any,userName:any, projectName: any){

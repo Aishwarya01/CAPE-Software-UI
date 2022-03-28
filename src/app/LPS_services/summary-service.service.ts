@@ -11,8 +11,12 @@ export class SummaryServiceService {
   apiUrl = environment.apiUrl_LPS;
   constructor(private http: HttpClient) { }
 
-  public addSummaryLps(lpsSummary: LpsSummary): Observable<any> {
-    return this.http.post<LpsSummary>(this.apiUrl + '/addSummaryLps', lpsSummary, { responseType: 'text' as 'json' })
+  public addSummaryLps(lpsSummary: LpsSummary, submittedButton:boolean): Observable<any> {
+    return this.http.post<LpsSummary>(this.apiUrl + '/addSummaryLps' + '/' + submittedButton, lpsSummary, { responseType: 'text' as 'json' })
+  }
+
+  public updateSummaryLps(lpsSummary: LpsSummary, submittedButton:boolean): Observable<any> {
+    return this.http.post<LpsSummary>(this.apiUrl + '/updateSummaryLps' + '/' + submittedButton, lpsSummary, { responseType: 'text' as 'json' })
   }
 
   public retrieveObservationSummaryLps(basicLpsId:any): Observable<any> { 

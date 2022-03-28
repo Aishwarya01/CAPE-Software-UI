@@ -528,7 +528,7 @@ export class LpsAirTerminationComponent implements OnInit {
     this.basicLpsId=basicLpsId;
   }
 
-    retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
+    retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,data: any){
       // this.service.lvClick=1;
       this.proceedFlag = false;
       this.step2List = data.airTermination;

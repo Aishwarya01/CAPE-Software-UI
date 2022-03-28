@@ -120,12 +120,11 @@
     color: black;
     position: relative;
     bottom: 57px;
-    left: 40%;
+    left: 36%;
   }
   .previousSummary:hover {
     background-color: #747a76;
     color: white;
     /* position: relative;
     bottom: 54px; */
-    left: 40%;
   }

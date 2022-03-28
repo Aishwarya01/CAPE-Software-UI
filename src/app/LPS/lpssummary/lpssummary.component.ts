@@ -89,6 +89,7 @@ export class LpssummaryComponent implements OnInit {
     @Output() proceedNext = new EventEmitter<any>();
     mode: any= 'indeterminate';
     isEditable:boolean=false;
+    submittedButton: boolean = true;
 
     //air termination
     airBasicName: string[] = [
@@ -407,6 +408,9 @@ export class LpssummaryComponent implements OnInit {
     private matStepper: LpsMatstepperComponent
     ) { 
       this.email = this.router.snapshot.paramMap.get('email') || '{}'
+      if(this.email == 'gk@capeindia.net' || this.email == 'vinoth@capeindia.net' || this.email == 'awstesting@rushforsafety.com'){
+        this.submittedButton = false;
+      }
   }
   ngOnDestroy(): void {
     this.service.allFieldsDisable = false; 
@@ -952,7 +956,7 @@ export class LpssummaryComponent implements OnInit {
       this.summaryLpsBuildingsArr.push(this.summaryLPSArr());    
     }
 
-    retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
+    retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,data: any){
       this.jsonData=data;
       this.lpsSummary.basicLpsId = basicLpsId;
       this.basicLpsId = basicLpsId;
@@ -2288,6 +2292,7 @@ export class LpssummaryComponent implements OnInit {
           } 
       )
       }
+      this.flag = true;
     }
 
     OkModalDialog(content5: any){
@@ -2493,15 +2498,24 @@ export class LpssummaryComponent implements OnInit {
       this.lpsSummary.summaryLpsBuildings= this.summaryForm.value.summaryLpsBuildings;
       this.lpsSummary.summaryLpsDeclaration= this.summaryForm.value.Declaration1Arr;
       this.lpsSummary.summaryLpsDeclaration = this.lpsSummary.summaryLpsDeclaration.concat(this.summaryForm.value.Declaration2Arr);
-      
-      this.summaryService.addSummaryLps(this.lpsSummary).subscribe(
+
+      if (this.summaryForm.dirty && this.summaryForm.touched && this.flag) {
+      this.summaryService.updateSummaryLps(this.lpsSummary,this.submittedButton).subscribe(
         (data)=> {
           this.popup=true;
-          this.finalSpinner=false;
+          // this.finalSpinner=false;
           this.success = true;
+          this.summaryForm.markAsPristine();
           this.successMsg = data;
           this.service.allFieldsDisable = true;
           this.service.disableSubmitSummary=true;
+          if(this.submittedButton){
+            this.proceedNext.emit(false);
+            this.finalSpinner=false;
+          }
+          else{
+            this.proceedNext.emit(true);
+          }
         },
         (error)=> {
           this.popup=true;
@@ -2512,8 +2526,35 @@ export class LpssummaryComponent implements OnInit {
           this.errorMsg = this.errorArr.message;
           this.proceedNext.emit(false);
           this.service.disableSubmitSummary=false;
-        }
-      )
+        })}
+
+      else{
+        this.summaryService.addSummaryLps(this.lpsSummary,this.submittedButton).subscribe(
+          (data)=> {
+            this.popup=true;
+            this.success = true;
+            this.successMsg = data;
+            this.service.allFieldsDisable = true;
+            this.service.disableSubmitSummary=true;
+            if(this.submittedButton){
+              this.proceedNext.emit(false);
+              this.finalSpinner=false;
+            }
+            else{
+              this.proceedNext.emit(true);
+            }
+          },
+          (error)=> {
+            this.popup=true;
+            // this.finalSpinner=false;
+            this.Error = true;
+            this.errorArr = [];
+            this.errorArr = JSON.parse(error.error);
+            this.errorMsg = this.errorArr.message;
+            this.service.disableSubmitSummary=false;
+          }
+        )};
+      
       }
     });
   }

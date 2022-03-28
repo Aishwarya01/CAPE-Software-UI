@@ -929,10 +929,17 @@
     <div class="row" style="margin-top: 20px;">
       <div class="col-sm-12">
       <div style="text-align: center;"> 
-      <button  style="width: auto;margin-left: 50px;" type="submit" 
-      class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn next"
-      mat-button [ngClass]="{'disableSubmit':service.disableSubmitSummary}">
+
+        <button style="width: auto;margin-left: 50px;" type="submit" 
+          class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn next"
+          mat-button >
+        <i class="bi bi-journal-arrow-up icon"></i>Save</button>
+
+        <button  style="width: auto;margin-left: 50px;" type="submit" 
+          class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn next"
+          mat-button [ngClass]="{'disableSubmit':service.disableSubmitSummary}" [disabled]="submittedButton">
         <i class="bi bi-journal-arrow-up icon"></i> Submit</button>
+
     </div>
       </div>
     </div>
