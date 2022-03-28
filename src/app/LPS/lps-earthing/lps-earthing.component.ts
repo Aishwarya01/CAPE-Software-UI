@@ -437,9 +437,9 @@ export class LpsEarthingComponent implements OnInit {
       earthingClampsAvailabilityOb: new FormControl({disabled: false, value: item.earthingClampsAvailabilityOb}),
       earthingClampsAvailabilityRem: new FormControl({disabled: false, value: item.earthingClampsAvailabilityRem}),
       earthingElectrodeChamberAvailabilityOb: new FormControl({disabled: false, value: item.earthingElectrodeChamberAvailabilityOb}),
-      earthingElectrodeTestingAvailabilityRem:  new FormControl({disabled: false, value: item.earthingElectrodeTestingAvailabilityRem}),
+      earthingElectrodeChamberAvailabilityRem: new FormControl({disabled: false, value: item.earthingElectrodeChamberAvailabilityRem}),
       earthingElectrodeTestingAvailabilityOb:  new FormControl({disabled: false, value: item.earthingElectrodeTestingAvailabilityOb}),
-
+      earthingElectrodeTestingAvailabilityRem:  new FormControl({disabled: false, value: item.earthingElectrodeTestingAvailabilityRem}),
       earthingDescription: this.formBuilder.array(this.populateEarthingDescription(item)),
       earthingClamps: this.formBuilder.array(this.populateEarthingClamps(item)),
       earthingElectrodeChamber: this.formBuilder.array(this.populateEarthingElectrodeChamber(item)),
