@@ -39,6 +39,25 @@ import { LpsMatstepperComponent } from '../LPS/lps-matstepper/lps-matstepper.com
 import { LpsWelcomePageComponent } from '../LPS/lps-welcome-page/lps-welcome-page.component';
 import { wind } from 'ngx-bootstrap-icons';
 import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
+// import {
+//   DiagramComponent,Diagram, UndoRedo, ConnectorBridging, SnapConstraints,PointPortModel,PortVisibility,PortConstraints,
+//   NodeModel, ConnectorModel, PathAnnotationModel, DecoratorModel, PointModel,
+//  DiagramConstraints, SymbolInfo, PaletteModel, SymbolPreviewModel, SnapSettingsModel,
+
+// } from '@syncfusion/ej2-angular-diagrams';
+
+import {
+    DiagramComponent, NodeModel, ConnectorModel, PaletteModel,
+    SnapSettingsModel, SnapConstraints, SymbolPaletteComponent, PointPortModel, PortVisibility,
+    PortConstraints, ContextMenuSettingsModel, IDragEnterEventArgs, DiagramBeforeMenuOpenEventArgs,
+    SymbolPreviewModel,
+    SwimLaneModel, Node,
+    SymbolInfo,
+    LaneModel,
+    randomId,
+    cloneObject, ShapeStyleModel,
+    HeaderModel,
+} from '@syncfusion/ej2-angular-diagrams';
 
 export interface PeriodicElement {
   siteCd: string;
@@ -66,6 +85,190 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./main-nav.component.css']
 })
 export class MainNavComponent implements OnInit, OnDestroy {
+
+  @ViewChild("diagram")
+  public diagram!: DiagramComponent;
+  public nodes: NodeModel[] = [
+    { id: 'nodeIp1', offsetX: 100, offsetY: 50, width: 80, height: 20,annotations: [
+      {
+          content: 'Input 1',
+          style: { fontSize: 11 }
+      }],
+      shape: { type: 'Image', source: 'https://www.syncfusion.com/content/images/nuget/sync_logo_icon.png' } 
+ },
+    { id: 'nodeIp2', offsetX: 100, offsetY: 150, width: 80, height: 20,annotations: [
+      {
+          content: 'Input 2',
+          style: { fontSize: 11 }
+      }
+  ], },
+    { id: 'nodeIp3', offsetX: 100, offsetY: 250, width: 80, height: 20,annotations: [
+      {
+          content: 'Input 3',
+          style: { fontSize: 11 }
+      }
+  ], },
+    { id: 'nodeIp4', offsetX: 100, offsetY: 350, width: 80, height: 20,annotations: [
+      {
+          content: 'Input 4',
+          style: { fontSize: 11 }
+      }
+  ], },
+    { id: 'node1', offsetX: 250, offsetY: 200,width: 100, height: 200,annotations: [
+      {
+          content: '4X1',
+          style: { fontSize: 11 }
+      }
+  ], },
+    { id: 'node2', offsetX: 450, offsetY: 200, width: 100, height: 200,annotations: [
+      {
+          content: 'Output',
+          style: { fontSize: 11 }
+      }
+  ], },
+    ];
+
+  public getNodeDefaults(node: any): NodeModel {
+    // node.height = 200;
+    // node.width = 100;
+    //node.style.border = "#28a745";
+    node.style.strokeColor = "black";
+    return node;
+  }
+
+  public getConnectorDefaults(obj: ConnectorModel): any {
+    obj.style = {
+        strokeColor: '#6BA5D7',
+        fill: '#6BA5D7',
+        strokeWidth: 2
+    }
+    obj.targetDecorator = {
+        style: {
+            fill: '#6BA5D7',
+            strokeColor: '#6BA5D7'
+        }
+    }
+}
+
+// public portIp1: PointPortModel[] = [
+//   {
+//     id: 'portIp1',
+//     offset: {
+//       x: 1,
+//       y: 0.5
+//     },
+//     visibility: PortVisibility.Visible
+//   }
+// ]
+
+// public portIp2: PointPortModel[] = [
+//   {
+//     id: 'portIp2',
+//     offset: {
+//       x: 1,
+//       y: 0.5
+//     },
+//     visibility: PortVisibility.Visible
+//   }
+// ]
+
+// public portIp3: PointPortModel[] = [
+//   {
+//     id: 'portIp3',
+//     offset: {
+//       x: 1,
+//       y: 0.5
+//     },
+//     visibility: PortVisibility.Visible
+//   }
+// ]
+
+// public portIp4: PointPortModel[] = [
+//   {
+//     id: 'portIp4',
+//     offset: {
+//       x: 1,
+//       y: 0.5
+//     },
+//     visibility: PortVisibility.Visible
+//   }
+// ]
+
+// public ports: PointPortModel[] = [
+//   {
+//       id: 'port1',
+//       offset: {
+//           x: 0,
+//           y: 0.15
+//       },
+//       visibility: PortVisibility.Visible
+//   },
+//   {
+//       id: 'port2',
+//       offset: {
+//           x: 0,
+//           y: 0.35
+//       },
+//       visibility: PortVisibility.Visible
+//   },
+//   {
+//       id: 'port3',
+//       offset: {
+//           x: 0,
+//           y: 0.65
+//       },
+//       visibility: PortVisibility.Visible
+//   },
+//   {
+//       id: 'port4',
+//       offset: {
+//           x: 0,
+//           y: 0.85
+//       },
+//       visibility: PortVisibility.Visible
+//   }
+// ]
+
+
+
+
+//SymbolPalette Properties
+public expandMode: any = 'Multiple';
+
+public palettes: PaletteModel[] = [
+    { id: 'flow', expanded: true,  title: 'Flow Shapes', symbols: [
+      {
+        id: 'Terminator', addInfo: { tooltip: 'Terminator' }, width: 50, height: 60, shape: { type: 'Flow', shape: 'Terminator' }, style: { strokeWidth: 1, strokeColor: '#757575' }, ports: [
+            { offset: { x: 0, y: 0.5 }, visibility: PortVisibility.Connect | PortVisibility.Hover, constraints: PortConstraints.Draw },
+            { offset: { x: 0.5, y: 0 }, visibility: PortVisibility.Connect | PortVisibility.Hover, constraints: PortConstraints.Draw },
+            { offset: { x: 1, y: 0.5 }, visibility: PortVisibility.Connect | PortVisibility.Hover, constraints: PortConstraints.Draw },
+            { offset: { x: 0.5, y: 1 }, visibility: PortVisibility.Connect | PortVisibility.Hover, constraints: PortConstraints.Draw }
+        ]
+    },
+    {
+        id: 'Process',  addInfo: { tooltip: 'Process' }, width: 50, height: 60, shape: { type: 'Image', source: '../../assets/img/Cape-logo.png' }, style: { strokeWidth: 1, strokeColor: '#757575' }, ports: [
+            { offset: { x: 0, y: 0.5 }, visibility: PortVisibility.Connect | PortVisibility.Hover, constraints: PortConstraints.Draw },
+            { offset: { x: 0.5, y: 0 }, visibility: PortVisibility.Connect | PortVisibility.Hover, constraints: PortConstraints.Draw },
+            { offset: { x: 1, y: 0.5 }, visibility: PortVisibility.Connect | PortVisibility.Hover, constraints: PortConstraints.Draw },
+            { offset: { x: 0.5, y: 1 }, visibility: PortVisibility.Connect | PortVisibility.Hover, constraints: PortConstraints.Draw }
+        ]
+    },
+
+    ] },
+];
+//shape: { type: 'Image', source: 'https://www.syncfusion.com/content/images/nuget/sync_logo_icon.png' } 
+
+public symbolPreview: SymbolPreviewModel = { height: 50, width: 50 };
+
+public symbolMargin: any = { left: 10, right: 10, top: 10, bottom: 10 };
+
+public getSymbolInfo(symbol: NodeModel): SymbolInfo {
+    return { fit: true };
+};
+
+public getSymbolDefaults(symbol: any): void {
+    symbol.style.strokeColor = '#757575';
+};
 
   ongoingSiteColumns: string[] = [
     'siteCd',

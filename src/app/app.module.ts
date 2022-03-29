@@ -92,6 +92,7 @@ import { ConfirmationBoxComponent } from './confirmation-box/confirmation-box.co
 import { SignaturePadModule } from 'angular2-signaturepad';
 import { SignatureComponent } from './signature/signature.component';
 
+import { DiagramAllModule, SymbolPaletteAllModule, OverviewAllModule } from '@syncfusion/ej2-angular-diagrams';
 @NgModule({
   declarations: [
     AppComponent,
@@ -178,6 +179,9 @@ import { SignatureComponent } from './signature/signature.component';
     MatBadgeModule,
     MatProgressSpinnerModule,
     MatTooltipModule,
+    DiagramAllModule,
+    SymbolPaletteAllModule,
+    OverviewAllModule,
     BackButtonDisableModule.forRoot({
       preserveScrollPosition: true
     }),
