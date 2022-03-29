@@ -2500,7 +2500,7 @@ export class LpssummaryComponent implements OnInit {
       this.lpsSummary.summaryLpsDeclaration= this.summaryForm.value.Declaration1Arr;
       this.lpsSummary.summaryLpsDeclaration = this.lpsSummary.summaryLpsDeclaration.concat(this.summaryForm.value.Declaration2Arr);
 
-      if (this.summaryForm.dirty && this.summaryForm.touched && flag) {
+      if (flag) {
       this.summaryService.updateSummaryLps(this.lpsSummary,this.submittedButton).subscribe(
         (data)=> {
           this.popup=true;
