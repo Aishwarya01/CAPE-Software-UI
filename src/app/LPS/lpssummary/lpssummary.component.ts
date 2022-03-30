@@ -3,7 +3,7 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Valida
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { flag } from 'ngx-bootstrap-icons';
+import { flag, save } from 'ngx-bootstrap-icons';
 import { ConfirmationBoxComponent } from 'src/app/confirmation-box/confirmation-box.component';
 import { GlobalsService } from 'src/app/globals.service';
 import { LpsSummary } from 'src/app/LPS_model/lps-summary';
@@ -25,6 +25,7 @@ export class LpssummaryComponent implements OnInit {
     lpsSummary=new LpsSummary();
     email: String = '';
     flag: boolean=true;
+    flag1: boolean = false;
     basicLpsId!: number;
     airTerminationValues: any=[];
     airTerminationDesc: any=[];
@@ -90,7 +91,7 @@ export class LpssummaryComponent implements OnInit {
     mode: any= 'indeterminate';
     isEditable:boolean=false;
     submittedButton: boolean = true;
-    saveButton: boolean = true;
+    saveButton: boolean = false;
 
     //air termination
     airBasicName: string[] = [
@@ -398,7 +399,7 @@ export class LpssummaryComponent implements OnInit {
       'properBondingRailRem',
       'physicalDamageStudRem',
       'continutyExistaEarthRem',
-    ];       
+    ];
   validationErrorTab: boolean = false;
   validationErrorMsgTab: string="";
   tabError: boolean=false;
@@ -409,14 +410,13 @@ export class LpssummaryComponent implements OnInit {
     private matStepper: LpsMatstepperComponent
     ) { 
       this.email = this.router.snapshot.paramMap.get('email') || '{}'
-      if(this.email == 'gk@capeindia.net' || this.email == 'vinoth@capeindia.net' || this.email == 'awstesting@rushforsafety.com'){
+      if(this.email == 'gk@capeindia.net' || this.email == 'vinoth@capeindia.net' || this.email == 'awstesting@rushforsafety.com'|| this.email == 'sd@capeindia.net' || this.email == 'aishwarya@capeindia.net' || this.email == 'sivaraju@capeindia.net' || this.email == 'elangovan.photonx@gmail.com'
+      || this.email == 'thirumoorthy@capeindia.net' || this.email == 'elangovan.m@capeindia.net' || this.email == 'arunkumar.k@capeindia.net'
+      || this.email == 'hasan@capeindia.net'){
         this.submittedButton = false;
       }
   }
-  ngOnDestroy(): void {
-    this.service.allFieldsDisable = false; 
-    this.service.disableSubmitSummary=false;
-  }
+
 
     ngOnInit(): void {
       this.summaryForm = this.formBuilder.group({
@@ -973,7 +973,7 @@ export class LpssummaryComponent implements OnInit {
           this.lpsSummary.inspectedYear=this.jsonData.summaryLps.inspectedYear;
           this.lpsSummary.summaryDate=this.jsonData.summaryLps.summaryDate;
           this.lpsSummary.summaryLpsId=this.jsonData.summaryLps.summaryLpsId;
-  
+          this.flag1 = true;
         }, 3000);
       }
       }
@@ -1228,14 +1228,14 @@ export class LpssummaryComponent implements OnInit {
     }
     createGroupDeclaration1(item:any):FormGroup{
       return this.formBuilder.group({
-        summaryLpsDeclarationId: new FormControl({disabled: false,value: item.summaryLpsDeclarationId}),
-        name: new FormControl({disabled: false,value: item.name}),
+        summaryLpsDeclarationId: new FormControl({disabled: false,value: item.summaryLpsDeclarationId}, Validators.required),
+        name: new FormControl({disabled: false,value: item.name}, Validators.required),
         signature: new FormControl({disabled: false,value: item.signature}),
-        company: new FormControl({disabled: false,value: item.company}),
-        position: new FormControl({disabled: false,value: item.position}),
-        address: new FormControl({disabled: false,value: item.address}),
-        date: new FormControl({disabled: false,value: item.date}),
-        declarationRole: new FormControl({disabled: false,value: item.declarationRole}),
+        company: new FormControl({disabled: false,value: item.company}, Validators.required),
+        position: new FormControl({disabled: false,value: item.position}, Validators.required),
+        address: new FormControl({disabled: false,value: item.address}, Validators.required),
+        date: new FormControl({disabled: false,value: item.date}, Validators.required),
+        declarationRole: new FormControl({disabled: false,value: item.declarationRole}, Validators.required),
         });
     } 
     
@@ -1770,6 +1770,7 @@ export class LpssummaryComponent implements OnInit {
     }
 
     retrieveObservationLpsSummaryOnload(){
+      debugger
       if (this.basicLpsId != undefined) {
       this.summaryService.retrieveObservationSummaryLps(this.basicLpsId).subscribe(
         data=>{
@@ -2334,9 +2335,8 @@ export class LpssummaryComponent implements OnInit {
       this.matStepper.navigateStep(index);
     }
 
-  onSubmit(flag:any,content5:any,content:any){
+  onSubmit(flag1:any,content:any,contents:any){
     this.submitted = true;
-    this.summaryForm.value.summaryLpsBuildings;
     if (this.summaryForm.invalid && (this.summaryForm.value.summaryLpsBuildings[0].buildingNumber != undefined || this.summaryForm.value.summaryLpsBuildings[0].buildingNumber != '')) 
     {
       this.validationError = true;
@@ -2362,20 +2362,45 @@ export class LpssummaryComponent implements OnInit {
       }, 3000);
       return 
     }
-    this.lpsSummary.userName = this.router.snapshot.paramMap.get('email') || '{}';
-    this.lpsSummary.basicLpsId = this.basicLpsId;
-
-    const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
-      width: '420px',
-      maxHeight: '90vh',
-      disableClose: true,
-    });
-    dialogRef.componentInstance.summaryModal = true;
-    dialogRef.componentInstance.confirmBox.subscribe(
-      (data)=>{
-      if(data) {
-      this.modalService.open(content5, { size: 'md', centered: true, backdrop: 'static'});
+    else if(!this.summaryForm.dirty && !this.summaryForm.touched && this.saveButton){  
       
+        this.validationError = true;
+        this.validationErrorMsg = 'Please change any details for Update the Summary';
+        setTimeout(() => {
+          this.validationError = false;
+        }, 3000);
+        return 
+      
+    }
+    else if (this.summaryForm.dirty && this.summaryForm.touched && this.saveButton) {
+      let save = true;
+      this.modalService.open(content, { centered: true, backdrop: 'static' });
+      this.submitAndSave(flag1,save);
+      return;
+    }
+    else if(!this.saveButton){
+      const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+            width: '420px',
+            maxHeight: '90vh',
+            disableClose: true,
+          });
+          dialogRef.componentInstance.summaryModal = true;
+          dialogRef.componentInstance.confirmBox.subscribe(
+            (data)=>{
+              if(data) {
+                let submit = false;
+                this.modalService.open(contents, { size: 'md', centered: true, backdrop: 'static'});
+                this.submitAndSave(flag1,submit);
+              }
+        })     
+    }
+  }
+
+  submitAndSave(flag1:any,typeOfButton:any){
+      this.summaryForm.value.summaryLpsBuildings;
+    
+    this.lpsSummary.userName = this.router.snapshot.paramMap.get('email') || '{}';
+    this.lpsSummary.basicLpsId = this.basicLpsId;  
       let a:any=[];
       a=this.summaryForm.controls.summaryLpsBuildings as FormArray;
       for(let i of a.controls){
@@ -2500,21 +2525,28 @@ export class LpssummaryComponent implements OnInit {
       this.lpsSummary.summaryLpsDeclaration= this.summaryForm.value.Declaration1Arr;
       this.lpsSummary.summaryLpsDeclaration = this.lpsSummary.summaryLpsDeclaration.concat(this.summaryForm.value.Declaration2Arr);
 
-      if (flag) {
-      this.summaryService.updateSummaryLps(this.lpsSummary,this.submittedButton).subscribe(
+      if (flag1) {
+      this.summaryService.updateSummaryLps(this.lpsSummary,typeOfButton).subscribe(
         (data)=> {
           this.popup=true;
           // this.finalSpinner=false;
           this.success = true;
-          this.summaryForm.markAsPristine();
+          // this.summaryForm.markAsPristine();
           this.successMsg = data;
           this.service.allFieldsDisable = true;
-          this.service.disableSubmitSummary=true;
           if(this.submittedButton){
             this.proceedNext.emit(false);
-            this.finalSpinner=false;
+            // this.retrieveFromAirTermination();
+            // setTimeout(() => {
+            //   this.finalSpinner=false;
+            //   this.retrieveObservationLpsSummaryOnload();
+            // }, 3000);
+            this.ngOnInit();
+            this.saveButton = false;
+            this.summaryForm.markAsPristine();
           }
           else{
+            // this.modalService.open(content, { centered: true, backdrop: 'static' });
             this.proceedNext.emit(true);
           }
         },
@@ -2525,23 +2557,28 @@ export class LpssummaryComponent implements OnInit {
           this.errorArr = [];
           this.errorArr = JSON.parse(error.error);
           this.errorMsg = this.errorArr.message;
-          this.proceedNext.emit(false);
-          this.service.disableSubmitSummary=false;
+          // this.proceedNext.emit(false);
         })}
 
       else{
-        this.summaryService.addSummaryLps(this.lpsSummary,this.submittedButton).subscribe(
+        this.summaryService.addSummaryLps(this.lpsSummary,typeOfButton).subscribe(
           (data)=> {
             this.popup=true;
             this.success = true;
             this.successMsg = data;
-            this.service.allFieldsDisable = true;
-            this.service.disableSubmitSummary=true;
             if(this.submittedButton){
               this.proceedNext.emit(false);
-              this.finalSpinner=false;
+            //   this.retrieveFromAirTermination();
+            // setTimeout(() => {
+            //   this.finalSpinner=false;
+            //   this.retrieveObservationLpsSummaryOnload();
+            // }, 3000);
+            this.ngOnInit();
+            this.saveButton = false;
+            this.summaryForm.markAsPristine();
             }
             else{
+              // this.modalService.open(content, { centered: true, backdrop: 'static' });
               this.proceedNext.emit(true);
             }
           },
@@ -2552,13 +2589,11 @@ export class LpssummaryComponent implements OnInit {
             this.errorArr = [];
             this.errorArr = JSON.parse(error.error);
             this.errorMsg = this.errorArr.message;
-            this.service.disableSubmitSummary=false;
+
           }
         )};
-      
-      }
-    });
-  }
+    }
+
   gotoNextTab() {
     if ((this.summaryForm.dirty && this.summaryForm.invalid) || this.service.isCompleted7 == false) {
       this.service.isCompleted8 = false;
@@ -2620,7 +2655,11 @@ export class LpssummaryComponent implements OnInit {
     }
   }
 
-  typeButton(button: any) {
-    this.saveButton=true;
+  typeButton(button:any) {
+    if(button == 'save'){
+      this.saveButton=true;
+    }else{
+      this.saveButton=false;
+    }
   }
   }
