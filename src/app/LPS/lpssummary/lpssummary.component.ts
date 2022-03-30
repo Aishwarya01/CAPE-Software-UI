@@ -92,6 +92,8 @@ export class LpssummaryComponent implements OnInit {
     isEditable:boolean=false;
     submittedButton: boolean = true;
     saveButton: boolean = false;
+    buttonType:  string="";
+    
 
     //air termination
     airBasicName: string[] = [
@@ -958,21 +960,27 @@ export class LpssummaryComponent implements OnInit {
     }
 
     retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,data: any){
-      this.jsonData=data;
+      if( data.summaryLpsBuildings!=undefined && data.summaryLpsBuildings!=null){
+        this.jsonData=data;
+      }
+      else{
+        this.jsonData=data.summaryLps;
+        this.retrieveFromAirTermination();
+      }
+      
       this.lpsSummary.basicLpsId = basicLpsId;
       this.basicLpsId = basicLpsId;
-      this.retrieveFromAirTermination();
-      if(this.jsonData.summaryLps!=null){
+      if(this.jsonData!=null){
         setTimeout(() => {
           this.populateFormData(this.jsonData);
-          this.lpsSummary.userName=this.jsonData.summaryLps.userName;
-          this.lpsSummary.createdBy=this.jsonData.summaryLps.createdBy;
-          this.lpsSummary.createdDate=this.jsonData.summaryLps.createdDate;
-          this.lpsSummary.updatedBy=this.jsonData.summaryLps.updatedBy;
-          this.lpsSummary.updatedDate=this.jsonData.summaryLps.updatedDate;
-          this.lpsSummary.inspectedYear=this.jsonData.summaryLps.inspectedYear;
-          this.lpsSummary.summaryDate=this.jsonData.summaryLps.summaryDate;
-          this.lpsSummary.summaryLpsId=this.jsonData.summaryLps.summaryLpsId;
+          this.lpsSummary.userName=this.jsonData.userName;
+          this.lpsSummary.createdBy=this.jsonData.createdBy;
+          this.lpsSummary.createdDate=this.jsonData.createdDate;
+          this.lpsSummary.updatedBy=this.jsonData.updatedBy;
+          this.lpsSummary.updatedDate=this.jsonData.updatedDate;
+          this.lpsSummary.inspectedYear=this.jsonData.inspectedYear;
+          this.lpsSummary.summaryDate=this.jsonData.summaryDate;
+          this.lpsSummary.summaryLpsId=this.jsonData.summaryLpsId;
           this.flag1 = true;
         }, 3000);
       }
@@ -981,13 +989,19 @@ export class LpssummaryComponent implements OnInit {
        this.summaryLpsBuildingsArr=this.summaryForm.get('summaryLpsBuildings') as FormArray;
        this.Declaration1FormArr=this.summaryForm.get('Declaration1Arr') as FormArray;
        this.Declaration2FormArr=this.summaryForm.get('Declaration2Arr') as FormArray;
-
-       for(let item of data.summaryLps.summaryLpsBuildings){
+       this.arr=[];
+       this.arr1=[];
+       this.arr2=[];
+       
+       for(let item of data.summaryLpsBuildings){
         this.arr.push(this.createGroup(item));
        }
-       this.arr1.push(this.createGroupDeclaration1(data.summaryLps.summaryLpsDeclaration[0]));
-       this.arr2.push(this.createGroupDeclaration1(data.summaryLps.summaryLpsDeclaration[1]));
+      
+       this.arr1.push(this.createGroupDeclaration1( data.summaryLpsDeclaration[0]));
+       this.arr2.push(this.createGroupDeclaration1( data.summaryLpsDeclaration[1]));
 
+       this.summaryForm.controls.recommendYears.setValue(data.inspectedYear);
+       this.summaryForm.controls.declarationDate.setValue(data.summaryDate);
        this.summaryForm.setControl('summaryLpsBuildings', this.formBuilder.array(this.arr || []));
        this.summaryForm.setControl('Declaration1Arr', this.formBuilder.array(this.arr1 || []));
        this.summaryForm.setControl('Declaration2Arr', this.formBuilder.array(this.arr2 || []));
@@ -1785,6 +1799,7 @@ export class LpssummaryComponent implements OnInit {
             //air termination
         if(this.airTerminationData.airTermination!=null){
           //basic
+          this.airTerminationArr=[];
             this.airTerminationArr=this.summaryArr.controls[w].controls.airTermination as FormArray;
             let index =0;
             //let value=this.airTerminationData.airTermination[0].lpsAirDiscription[0];
@@ -1801,6 +1816,7 @@ export class LpssummaryComponent implements OnInit {
                 }
             }
             //vertical
+            this.airVerticalArr
             this.airVerticalArr=this.summaryArr.controls[w].controls.airVertical as FormArray;
             let index1 =0;
             for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination){
@@ -2362,7 +2378,7 @@ export class LpssummaryComponent implements OnInit {
       }, 3000);
       return 
     }
-    else if(!this.summaryForm.dirty && !this.summaryForm.touched && this.saveButton){  
+    else if(!this.summaryForm.dirty && this.saveButton){  
       
         this.validationError = true;
         this.validationErrorMsg = 'Please change any details for Update the Summary';
@@ -2401,126 +2417,126 @@ export class LpssummaryComponent implements OnInit {
     
     this.lpsSummary.userName = this.router.snapshot.paramMap.get('email') || '{}';
     this.lpsSummary.basicLpsId = this.basicLpsId;  
-      let a:any=[];
-      a=this.summaryForm.controls.summaryLpsBuildings as FormArray;
-      for(let i of a.controls){
-        let summaryLpsObservationArr=i.controls.summaryLpsObservation as FormArray;
-        for(let j of i.controls.airTermination.controls){
-        summaryLpsObservationArr.push(j);
-        }
-        for(let j of i.controls.airVertical.controls){
-          summaryLpsObservationArr.push(j);
-        }
+      // let a:any=[];
+      // a=this.summaryForm.controls.summaryLpsBuildings as FormArray;
+      // // for(let i of a.controls){
+      //   let summaryLpsObservationArr=i.controls.summaryLpsObservation as FormArray;
+      //   for(let j of i.controls.airTermination.controls){
+      //   summaryLpsObservationArr.push(j);
+      //   }
+      //   for(let j of i.controls.airVertical.controls){
+      //     summaryLpsObservationArr.push(j);
+      //   }
 
-        for(let j of i.controls.airVerticalList.controls){
-          summaryLpsObservationArr.push(j);
-        }
+      //   for(let j of i.controls.airVerticalList.controls){
+      //     summaryLpsObservationArr.push(j);
+      //   }
         
-        for(let j of i.controls.airMesh.controls){
-          summaryLpsObservationArr.push(j);
-        }
-        for(let j of i.controls.airHolder.controls){
-          // if(j.controls.observationComponentDetails.value=='airHolderDescription0'){
-          //   for(let list1 of i.controls.airHolderList.controls){
-          //     j.controls.summaryLpsInnerObservation.push(list1);
-          //   }
-          // }
-          summaryLpsObservationArr.push(j);
-        }
+      //   for(let j of i.controls.airMesh.controls){
+      //     summaryLpsObservationArr.push(j);
+      //   }
+      //   for(let j of i.controls.airHolder.controls){
+      //     // if(j.controls.observationComponentDetails.value=='airHolderDescription0'){
+      //     //   for(let list1 of i.controls.airHolderList.controls){
+      //     //     j.controls.summaryLpsInnerObservation.push(list1);
+      //     //   }
+      //     // }
+      //     summaryLpsObservationArr.push(j);
+      //   }
 
-        for(let j of i.controls.airHolderList.controls){       
-          summaryLpsObservationArr.push(j);
-        }
+      //   for(let j of i.controls.airHolderList.controls){       
+      //     summaryLpsObservationArr.push(j);
+      //   }
 
-        for(let j of i.controls.airClamps.controls){
+      //   for(let j of i.controls.airClamps.controls){
         
-          summaryLpsObservationArr.push(j);
-        }
-        for(let j of i.controls.airExpansion.controls){
-          summaryLpsObservationArr.push(j);
-        }
-        for(let j of i.controls.airConnectors.controls){
-          summaryLpsObservationArr.push(j);
-        }
+      //     summaryLpsObservationArr.push(j);
+      //   }
+      //   for(let j of i.controls.airExpansion.controls){
+      //     summaryLpsObservationArr.push(j);
+      //   }
+      //   for(let j of i.controls.airConnectors.controls){
+      //     summaryLpsObservationArr.push(j);
+      //   }
 
-        for(let j of i.controls.downConductorReport.controls){
-          summaryLpsObservationArr.push(j);
-        }for(let j of i.controls.downConductor.controls){
-          summaryLpsObservationArr.push(j);
-        }for(let j of i.controls.bridgingDesc.controls){
-          summaryLpsObservationArr.push(j);
-        }for(let j of i.controls.downHolders.controls){
-          summaryLpsObservationArr.push(j);
-        }for(let j of i.controls.downConnectors.controls){
-          summaryLpsObservationArr.push(j);
-        }for(let j of i.controls.testingJoint.controls){
-          summaryLpsObservationArr.push(j);
-        }for(let j of i.controls.lightingCounter.controls){
-          summaryLpsObservationArr.push(j);
-        }for(let j of i.controls.downConductorTesting.controls){
-          summaryLpsObservationArr.push(j);
-        }
+      //   for(let j of i.controls.downConductorReport.controls){
+      //     summaryLpsObservationArr.push(j);
+      //   }for(let j of i.controls.downConductor.controls){
+      //     summaryLpsObservationArr.push(j);
+      //   }for(let j of i.controls.bridgingDesc.controls){
+      //     summaryLpsObservationArr.push(j);
+      //   }for(let j of i.controls.downHolders.controls){
+      //     summaryLpsObservationArr.push(j);
+      //   }for(let j of i.controls.downConnectors.controls){
+      //     summaryLpsObservationArr.push(j);
+      //   }for(let j of i.controls.testingJoint.controls){
+      //     summaryLpsObservationArr.push(j);
+      //   }for(let j of i.controls.lightingCounter.controls){
+      //     summaryLpsObservationArr.push(j);
+      //   }for(let j of i.controls.downConductorTesting.controls){
+      //     summaryLpsObservationArr.push(j);
+      //   }
 
-        for(let j of i.controls.earthingReport.controls){
-          summaryLpsObservationArr.push(j);
-        }
-        for(let j of i.controls.earthingDescription.controls){
-          // if(j.controls.observationComponentDetails.value=='earthingDescription0'){
-          //   for(let list1 of i.controls.earthingDescriptionList.controls){
-          //     j.controls.summaryLpsInnerObservation.push(list1);
-          //   }
-          // }
-          summaryLpsObservationArr.push(j);
-        }
-        for(let j of i.controls.earthingDescriptionList.controls){
-          summaryLpsObservationArr.push(j);
-        }
-        for(let j of i.controls.earthingClamps.controls){
-          summaryLpsObservationArr.push(j);
-        }for(let j of i.controls.earthingElectrodeChamber.controls){
-          summaryLpsObservationArr.push(j);
-        }for(let j of i.controls.earthingSystem.controls){
-          summaryLpsObservationArr.push(j);
-        }for(let j of i.controls.earthElectrodeTesting.controls){
-          summaryLpsObservationArr.push(j);
-        }
+      //   for(let j of i.controls.earthingReport.controls){
+      //     summaryLpsObservationArr.push(j);
+      //   }
+      //   for(let j of i.controls.earthingDescription.controls){
+      //     // if(j.controls.observationComponentDetails.value=='earthingDescription0'){
+      //     //   for(let list1 of i.controls.earthingDescriptionList.controls){
+      //     //     j.controls.summaryLpsInnerObservation.push(list1);
+      //     //   }
+      //     // }
+      //     summaryLpsObservationArr.push(j);
+      //   }
+      //   for(let j of i.controls.earthingDescriptionList.controls){
+      //     summaryLpsObservationArr.push(j);
+      //   }
+      //   for(let j of i.controls.earthingClamps.controls){
+      //     summaryLpsObservationArr.push(j);
+      //   }for(let j of i.controls.earthingElectrodeChamber.controls){
+      //     summaryLpsObservationArr.push(j);
+      //   }for(let j of i.controls.earthingSystem.controls){
+      //     summaryLpsObservationArr.push(j);
+      //   }for(let j of i.controls.earthElectrodeTesting.controls){
+      //     summaryLpsObservationArr.push(j);
+      //   }
 
-        for(let j of i.controls.spdReport.controls){
-          // if(j.controls.observationComponentDetails.value=='spdReport0'){
-          //   for(let list1 of i.controls.spdReportList.controls){
-          //     j.controls.summaryLpsInnerObservation.push(list1);
-          //   }
-          // }
-          summaryLpsObservationArr.push(j);
-        }
+      //   for(let j of i.controls.spdReport.controls){
+      //     // if(j.controls.observationComponentDetails.value=='spdReport0'){
+      //     //   for(let list1 of i.controls.spdReportList.controls){
+      //     //     j.controls.summaryLpsInnerObservation.push(list1);
+      //     //   }
+      //     // }
+      //     summaryLpsObservationArr.push(j);
+      //   }
 
-        for(let j of i.controls.spdReportList.controls){
-          summaryLpsObservationArr.push(j);
-        }
+      //   for(let j of i.controls.spdReportList.controls){
+      //     summaryLpsObservationArr.push(j);
+      //   }
 
-        for(let j of i.controls.separationDistance.controls){
-          // if(j.controls.observationComponentDetails.value=='seperationDistanceDescription0'){
-          //   for(let list1 of i.controls.separateDistance.controls){
-          //     j.controls.summaryLpsInnerObservation.push(list1);
-          //   }
-          //   for(let list2 of i.controls.separationDistanceDown.controls){
-          //     j.controls.summaryLpsInnerObservation.push(list2);
-          //   }
-          // }
-          summaryLpsObservationArr.push(j);
-        }
+      //   for(let j of i.controls.separationDistance.controls){
+      //     // if(j.controls.observationComponentDetails.value=='seperationDistanceDescription0'){
+      //     //   for(let list1 of i.controls.separateDistance.controls){
+      //     //     j.controls.summaryLpsInnerObservation.push(list1);
+      //     //   }
+      //     //   for(let list2 of i.controls.separationDistanceDown.controls){
+      //     //     j.controls.summaryLpsInnerObservation.push(list2);
+      //     //   }
+      //     // }
+      //     summaryLpsObservationArr.push(j);
+      //   }
 
-        for(let j of i.controls.separateDistance.controls){
-          summaryLpsObservationArr.push(j);
-        }
+      //   for(let j of i.controls.separateDistance.controls){
+      //     summaryLpsObservationArr.push(j);
+      //   }
 
-        for(let j of i.controls.separationDistanceDown.controls){
-          summaryLpsObservationArr.push(j);
-        }
-        for(let j of i.controls.earthStudDesc.controls){
-          summaryLpsObservationArr.push(j);
-        }
-      }
+      //   for(let j of i.controls.separationDistanceDown.controls){
+      //     summaryLpsObservationArr.push(j);
+      //   }
+      //   for(let j of i.controls.earthStudDesc.controls){
+      //     summaryLpsObservationArr.push(j);
+      //   }
+      // }
       this.lpsSummary.summaryLpsBuildings= this.summaryForm.value.summaryLpsBuildings;
       this.lpsSummary.summaryLpsDeclaration= this.summaryForm.value.Declaration1Arr;
       this.lpsSummary.summaryLpsDeclaration = this.lpsSummary.summaryLpsDeclaration.concat(this.summaryForm.value.Declaration2Arr);
@@ -2534,14 +2550,18 @@ export class LpssummaryComponent implements OnInit {
           // this.summaryForm.markAsPristine();
           this.successMsg = data;
           this.service.allFieldsDisable = true;
-          if(this.submittedButton){
-            this.proceedNext.emit(false);
-            // this.retrieveFromAirTermination();
-            // setTimeout(() => {
-            //   this.finalSpinner=false;
-            //   this.retrieveObservationLpsSummaryOnload();
-            // }, 3000);
-            this.ngOnInit();
+          if(this.saveButton){
+            //this.proceedNext.emit(false);
+          //  this.retrieveFromAirTermination();
+            setTimeout(() => {
+              this.retriveSummaryWhileUpdateSave();
+              this.finalSpinner=false;
+              // this.retrieveObservationLpsSummaryOnload();
+              // setTimeout(() => {
+              //   this.retrieveObservationLpsSummary(this.basicLpsId);
+              // }, 1000);
+            }, 3000);
+            //this.ngOnInit();
             this.saveButton = false;
             this.summaryForm.markAsPristine();
           }
@@ -2566,14 +2586,17 @@ export class LpssummaryComponent implements OnInit {
             this.popup=true;
             this.success = true;
             this.successMsg = data;
-            if(this.submittedButton){
-              this.proceedNext.emit(false);
-            //   this.retrieveFromAirTermination();
-            // setTimeout(() => {
-            //   this.finalSpinner=false;
-            //   this.retrieveObservationLpsSummaryOnload();
-            // }, 3000);
-            this.ngOnInit();
+            if(this.saveButton){
+            //  this.proceedNext.emit(false);
+              this.retrieveFromAirTermination();
+            setTimeout(() => {
+              this.finalSpinner=false;
+              this.retrieveObservationLpsSummaryOnload();
+              setTimeout(() => {
+                this.retrieveObservationLpsSummary(this.basicLpsId);
+              }, 1000);
+            }, 3000);
+           // this.ngOnInit();
             this.saveButton = false;
             this.summaryForm.markAsPristine();
             }
@@ -2592,6 +2615,13 @@ export class LpssummaryComponent implements OnInit {
 
           }
         )};
+    }
+
+    retriveSummaryWhileUpdateSave(){
+      this.summaryService.retrieveWhileSaveUpdate(this.email,this.basicLpsId).subscribe(
+        data=>{
+          this.retrieveDetailsfromSavedReports('',this.basicLpsId,JSON.parse(data)[0]);
+        });
     }
 
   gotoNextTab() {
@@ -2656,6 +2686,7 @@ export class LpssummaryComponent implements OnInit {
   }
 
   typeButton(button:any) {
+    this.buttonType=button;
     if(button == 'save'){
       this.saveButton=true;
     }else{

@@ -189,9 +189,9 @@ export class LpsMatstepperComponent implements OnInit {
     this.service.isCompleted8 = next;
     this.saved.ngOnInit();
     this.final.ngOnInit();
-    if(next && !this.lpsSummary.saveButton){
-    this.selectedIndex=2;
-    }else{
+    if (next && !(this.lpsSummary.buttonType == 'save')) {
+      this.selectedIndex = 2;
+    } else {
       // this.lpsSummary.ngOnInit();
     }
    // this.Completed8 = this.lpsSummary.success;

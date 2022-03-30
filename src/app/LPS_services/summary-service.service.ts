@@ -22,5 +22,8 @@ export class SummaryServiceService {
   public retrieveObservationSummaryLps(basicLpsId:any): Observable<any> { 
     return this.http.get<any>(this.apiUrl + '/retrieveObservationsInSummary' + '/' + basicLpsId,{ responseType: 'text' as 'json' })
   }
+  public retrieveWhileSaveUpdate(email:any,basicLpsId:any): Observable<any> { 
+    return this.http.get<any>(this.apiUrl + '/retrieveSummaryLps'+ '/' + email + '/' + basicLpsId,{ responseType: 'text' as 'json' })
+  }
 
 }
