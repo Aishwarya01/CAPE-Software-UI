@@ -97,6 +97,7 @@ import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 //import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 import { ConfirmationBoxComponent } from './confirmation-box/confirmation-box.component';
 import { LpssummaryComponent } from './LPS/lpssummary/lpssummary.component';
+import { UpdateLicenceComponent } from './update-licence/update-licence.component';
 
 @NgModule({
   declarations: [
@@ -160,7 +161,7 @@ import { LpssummaryComponent } from './LPS/lpssummary/lpssummary.component';
     LpsEarthStudComponent,
     LpsSavedReportComponent,
     LpsWelcomePageComponent, 
-    LpsFinalReportComponent, LpssummaryComponent, 
+    LpsFinalReportComponent, LpssummaryComponent, UpdateLicenceComponent, 
 
   ],
   imports: [

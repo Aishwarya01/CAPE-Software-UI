@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AddlicenseComponent } from '../addlicense/addlicense.component';
 import { AssignViewerComponent } from '../assign-viewer/assign-viewer.component';
 import { Company } from '../model/company';
@@ -19,6 +19,7 @@ import { InspectorregisterService } from '../services/inspectorregister.service'
 import { InspectionVerificationService } from '../services/inspection-verification.service';
 import { environment } from 'src/environments/environment';
 import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
+import { UpdateLicenceComponent } from '../update-licence/update-licence.component';
 
 @Component({
   selector: 'app-licenselist',
@@ -97,6 +98,8 @@ export class LicenselistComponent implements OnInit {
   //confirmBox: boolean = false;
   urlEmail:any='';
   superAdminArr: any = [];
+
+  onSave = new EventEmitter();
   constructor(private formBuilder: FormBuilder,
               private dialog: MatDialog,
               private siteService: SiteService,
@@ -106,6 +109,7 @@ export class LicenselistComponent implements OnInit {
                private inspectionService: InspectionVerificationService,
               private componentFactoryResolver: ComponentFactoryResolver,
               private modalService: NgbModal,
+              private route: Router
               
               ) {
                 this.email = this.router.snapshot.paramMap.get('email') || '{}';
@@ -368,6 +372,25 @@ export class LicenselistComponent implements OnInit {
     })
     dialogRef.afterClosed().subscribe((result) => {
     });
-  }
+  } 
 
+  createPayment() {
+
+    const dialogRef = this.dialog.open(UpdateLicenceComponent, {
+      width: '720px',
+      disableClose: true,
+    }
+    );
+    dialogRef.componentInstance.email = this.email;
+    dialogRef.componentInstance.updateLicense.subscribe(data=>{
+      if(data) {
+        this.navigateToSite();
+      }
+    })
+    dialogRef.afterClosed().subscribe((result) => {
+    });
+
+     
+     
+  }
 }

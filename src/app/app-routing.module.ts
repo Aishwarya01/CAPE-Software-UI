@@ -29,6 +29,7 @@ import { LpsEarthingComponent } from './LPS/lps-earthing/lps-earthing.component'
 import { LpsSpdComponent } from './LPS/lps-spd/lps-spd.component';
 import { LpsMatstepperComponent } from './LPS/lps-matstepper/lps-matstepper.component';
 import { LpsWelcomePageComponent } from './LPS/lps-welcome-page/lps-welcome-page.component';
+import { UpdateLicenceComponent } from './update-licence/update-licence.component';
 
 const routes: Routes = [
   {path: '', redirectTo: "/SignIn", pathMatch: 'full' },
@@ -63,6 +64,7 @@ const routes: Routes = [
   
   {path: 'LpsEarthingComponent',component:LpsEarthingComponent},
   {path: 'LpsSpdComponent',component:LpsSpdComponent},
+  {path: 'updateLicence',component:UpdateLicenceComponent},
 ];
 
 @NgModule({
