@@ -67,6 +67,7 @@ export class airBasicDescription {
       combustablePartRe!: String;
       terminationMeshConductorOb!: String;
       terminationMeshConductorRe!: String;
+      file!: String;
       bondingEquipotentialOb!: String;
       bondingEquipotentialRe!: String;
 }

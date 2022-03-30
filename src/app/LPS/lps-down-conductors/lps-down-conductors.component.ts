@@ -6,6 +6,7 @@ import { GlobalsService } from 'src/app/globals.service';
 import { downConductorReport } from 'src/app/LPS_model/downConductorReport';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
 import { LpsDownconductorService } from 'src/app/LPS_services/lps-downconductor.service';
+import { LpsFileUploadService } from 'src/app/LPS_services/lps-file-upload.service';
 import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
 
 @Component({
@@ -28,7 +29,9 @@ export class LpsDownConductorsComponent implements OnInit {
   submitted = false;
   downConductorReport = new downConductorReport();
   disable: boolean = false;
-
+  file!: any;
+  uploadDisable: boolean = true;
+  uploadDisable1: boolean = true;
   basicLpsId: number = 0;
   ClientName: String = '';
   projectName: String = '';
@@ -82,6 +85,7 @@ export class LpsDownConductorsComponent implements OnInit {
   // success1: boolean = false;
   // successMsg1: string="";
   successMsg: string = "";
+  mode: any = 'indeterminate';
   Error: boolean = false;
   errorArr: any = [];
   errorMsg: string = "";
@@ -139,12 +143,31 @@ export class LpsDownConductorsComponent implements OnInit {
   validationErrorMsgTab: string="";
   tabError: boolean=false;
   tabErrorMsg: string="";
+  componentName: string = "downConductor";
+  componentName1: string = "downConductor-1";
+  JSONdata: any = [];
+  finalSpinner: boolean = true;
+  popup: boolean = false; 
+  filesuccess: boolean = false;
+  filesuccessMsg: string = "";
+  fileName1: string = "";
+  fileName: string = "";
+  uploadFlag:boolean = true;
+  uploadFlag1:boolean = true;
+  fileId: number = 0;
+  fileId1: number = 0;
+  finalSpinnerDelete: boolean = true;
+  popupDelete: boolean = false;
+  fileDeleteSuccess: boolean = false;
+  fileDeletesuccessMsg: any;
+  
 
   constructor(
     private formBuilder: FormBuilder, lpsDownconductorService: LpsDownconductorService,
     private modalService: NgbModal, private router: ActivatedRoute,
     public service: GlobalsService,
     private matstepper: LpsMatstepperComponent,
+    private fileUploadServiceService: LpsFileUploadService,
     private airterminationServices:AirterminationService) {
     this.lpsDownconductorService = lpsDownconductorService;
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
@@ -555,6 +578,7 @@ export class LpsDownConductorsComponent implements OnInit {
       }
       this.flag=true;
       }
+     this.retriveFIleName()
     }
 
     retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
@@ -1235,6 +1259,19 @@ export class LpsDownConductorsComponent implements OnInit {
       }
     }
   }
+  onChange1(event: any) {
+    this.file = event.target.files;
+    if (this.file != null) {
+      this.uploadDisable1 = false;
+    }
+  }
+
+  onChange(event: any) {
+    this.file = event.target.files;
+    if (this.file != null) {
+      this.uploadDisable = false;
+    }
+  }
 
     validationChangeBasicDown(event: any,q: any,formControl: any) {
 
@@ -1719,6 +1756,169 @@ export class LpsDownConductorsComponent implements OnInit {
     }
   
   }
+  onUpload1(contentSpinner: any) {
+    if (this.file != undefined) {
+      this.modalService.open(contentSpinner, {
+        centered: true,
+        size: 'md',
+        backdrop: 'static'
+      });
+      const formData = new FormData();
+      for (let f of this.file) {
+        formData.append('file', f, f.name);
+      }
+        if (this.uploadFlag1) {
+          this.fileUploadServiceService.uploadFile(formData,this.basicLpsId,this.componentName1).subscribe(
+            (data) => {
+              this.uploadDisable1 = true;
+              this.finalSpinner = false;
+              this.popup = true;
+              this.filesuccess = true;
+              this.filesuccessMsg = "File Upload Successfully";
+              // this.airTerminationForm.controls.uploadAir.setValue('');
+              this.retriveFIleName();
+            },
+            (error) => {
+              this.finalSpinner = false;
+              this.popup = true;
+              this.filesuccess = false;
+              this.filesuccessMsg = "";
+            },
+          )
+        }
+        else {
+          this.fileUploadServiceService.updateFile(formData,this.fileId1).subscribe(
+            (data) => {
+              this.uploadDisable1 = true;
+              this.finalSpinner = false;
+              this.popup = true;
+              this.filesuccess = true;
+              this.filesuccessMsg = "File Updated Successfully";
+              // this.airTerminationForm.controls.uploadAir.setValue('');
+              this.retriveFIleName();
+            },
+            (error) => {
+              this.finalSpinner = false;
+              this.popup = true;
+              this.filesuccess = false;
+              this.filesuccessMsg = "";
+            },
+          )
+        }
+
+    }
+  }
+
+  onUpload(contentSpinner: any) {
+    if (this.file != undefined) {
+      this.modalService.open(contentSpinner, {
+        centered: true,
+        size: 'md',
+        backdrop: 'static'
+      });
+      const formData = new FormData();
+      for (let f of this.file) {
+        formData.append('file', f, f.name);
+      }
+        if (this.uploadFlag) {
+          this.fileUploadServiceService.uploadFile(formData,this.basicLpsId,this.componentName).subscribe(
+            (data) => {
+              this.uploadDisable = true;
+              this.finalSpinner = false;
+              this.popup = true;
+              this.filesuccess = true;
+              this.filesuccessMsg = "File Upload Successfully";
+              // this.airTerminationForm.controls.uploadAir.setValue('');
+              this.retriveFIleName();
+            },
+            (error) => {
+              this.finalSpinner = false;
+              this.popup = true;
+              this.filesuccess = false;
+              this.filesuccessMsg = "";
+            },
+          )
+        }
+        else {
+          this.fileUploadServiceService.updateFile(formData,this.fileId).subscribe(
+            (data) => {
+              this.uploadDisable = true;
+              this.finalSpinner = false;
+              this.popup = true;
+              this.filesuccess = true;
+              this.filesuccessMsg = "File Updated Successfully";
+              // this.airTerminationForm.controls.uploadAir.setValue('');
+              this.retriveFIleName();
+            },
+            (error) => {
+              this.finalSpinner = false;
+              this.popup = true;
+              this.filesuccess = false;
+              this.filesuccessMsg = "";
+            },
+          )
+        }
+
+    }
+  }
+
+
+  onDownload() {
+    this.fileUploadServiceService.downloadFile(this.basicLpsId,this.componentName);
+  }
+  onDownload1() {
+    this.fileUploadServiceService.downloadFile(this.basicLpsId,this.componentName1);
+  }
+
+  deleteFile1(contentSpinnerDelete: any) {
+    this.modalService.open(contentSpinnerDelete, {
+      centered: true,
+      size: 'md',
+      backdrop: 'static'
+    });
+
+    setTimeout(() => {
+      this.fileUploadServiceService.deleteFile(this.fileId1).subscribe(
+        (data: any) => {
+          this.finalSpinnerDelete = false;
+          this.popupDelete = true;
+          this.fileDeleteSuccess = true;
+          this.fileDeletesuccessMsg = data;
+          this.uploadFlag1=true;
+          this.fileName1 = "";
+          this.uploadDisable1 = true;
+          this.retriveFIleName();
+        },
+        (error) => {
+        },
+      )
+    }, 1000);
+  }
+
+  deleteFile(contentSpinnerDelete: any) {
+    this.modalService.open(contentSpinnerDelete, {
+      centered: true,
+      size: 'md',
+      backdrop: 'static'
+    });
+
+    setTimeout(() => {
+      this.fileUploadServiceService.deleteFile(this.fileId).subscribe(
+        (data: any) => {
+          this.finalSpinnerDelete = false;
+          this.popupDelete = true;
+          this.fileDeleteSuccess = true;
+          this.fileDeletesuccessMsg = data;
+          this.uploadFlag=true;
+          this.fileName = "";
+          this.uploadDisable = true;
+          this.retriveFIleName();
+        },
+        (error) => {
+        },
+      )
+    }, 1000);
+  }
 
   gotoNextTab() {
     if ((this.downConductorForm.dirty && this.downConductorForm.invalid) || this.service.isCompleted2 == false) {
@@ -1779,6 +1979,56 @@ export class LpsDownConductorsComponent implements OnInit {
       this.downConductorForm.markAsPristine();
    return true;
     }
+  }
+  retriveFIleName() {
+    this.fileUploadServiceService.retriveFile(this.basicLpsId).subscribe(
+      data => {
+        if (data != "" && data != undefined && data != null) {    
+          this.JSONdata = JSON.parse(data);
+           for(let i of this.JSONdata){
+           
+            if(i.componentName =='downConductor'){
+              this.uploadFlag = false;
+              this.fileName = i.fileName;
+              this.fileId = i.fileId;
+          // this.downConductorDescription.controls['uploadAir'].setValue('');
+          // this.downConductorDescription.controls['uploadAir'].clearValidators();
+          // this.downConductorDescription.controls['uploadAir'].updateValueAndValidity();
+            }
+            if(i.componentName=='downConductor-1'){
+              this.uploadFlag1 = false;
+              this.fileName1 = i.fileName;
+              this.fileId1 = i.fileId;
+                // this.downConductorDescription.controls['uploadAir'].setValue('');
+          // this.downConductorDescription.controls['uploadAir'].clearValidators();
+          // this.downConductorDescription.controls['uploadAir'].updateValueAndValidity();
+            }
+          }
+        
+        } else {
+          // this.uploadFlag = true;
+          // this.downConductorDescription.controls['uploadAir'].setValidators([Validators.required]);
+          // this.downConductorDescription.controls['uploadAir'].updateValueAndValidity();
+
+           // this.uploadFlag1 = true;
+          // this.downConductorDescription.controls['uploadAir'].setValidators([Validators.required]);
+          // this.downConductorDescription.controls['uploadAir'].updateValueAndValidity();
+
+          
+        }
+
+      },
+      error => {
+        // this.uploadFlag = true;
+        this.fileName = '';
+        this.fileName1 = '';
+        // this.downConductorDescription.controls['uploadAir'].setValidators([Validators.required]);
+        // this.downConductorDescription.controls['uploadAir'].updateValueAndValidity();
+      }
+    )
+  }
+  closeModalDialogFile() {
+    this.modalService.dismissAll();
   }
 
 }

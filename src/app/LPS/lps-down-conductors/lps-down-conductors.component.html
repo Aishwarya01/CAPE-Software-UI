@@ -349,6 +349,9 @@
                                 </tbody>
                             </table>
                         </div>
+
+
+                       
                             
                         <div style="margin-top: 10px;" *ngIf="q.get('downConductorAvailabilityOb')?.value == ''"><b>Note:</b> &nbsp; Select applicable if you intend to fill details for Down conductors (exposed / Natural)</div>
                         <h2 *ngIf="q.get('downConductorAvailabilityOb')?.value === 'Applicable'"><u>Down Conductors:</u></h2>
@@ -360,7 +363,7 @@
                                     <th>Description</th>
                                     <th>Observation</th>
                                     <th>Remarks(Optional)</th>
-                                </thead>
+                                </thead> 
                                 <tbody [formGroupName]="j">                                        
                                         <tr *ngIf="q.get('downConductorAvailabilityOb')?.value == 'Applicable'">
                                             <td style="width: 1rem; text-align: center;">7(a)</td>
@@ -398,6 +401,27 @@
                                                 </div>
                                             </td>
                                         </tr>
+
+                                        <tr *ngIf="q.get('downConductorAvailabilityOb')?.value == 'Applicable'">
+                                        
+                                            <div style="margin-left: 3rem;">
+                                                <label class="form-label">Attach The File Here:</label>
+                                                <div class="row input-group mb-2">
+                                                    <div class="col-md-6">
+                                                        <input style="height: 3rem;" type="file" class="form-control" (change)="onChange($event)" [attr.disabled]="isEditable ? '' : null"
+                                                         accept=".jpeg,.png,.jpg,">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <button type="button" [disabled]="uploadDisable" class="btn btn-success" (click)="onUpload(contentSpinner)">Upload</button>
+                                                        <a (click)="onDownload()" *ngIf="fileName!= ''" href='javascript:onDownload()' title="Download" style="margin-left: 30px;text-decoration: underline;" 
+                                                        [ngClass]="{'disableForm':isEditable}">{{fileName}}</a>
+                                                        <mat-icon *ngIf="fileName!= ''" class="mousechange" class="dlt" type="button" title="Delete" (click)="deleteFile(contentSpinnerDelete)"
+                                                        style="position: absolute;margin-left: 40px; margin-top: 5px;">remove_circle_outline</mat-icon>
+                                                    </div>
+                                                </div>    
+                                            </div>
+                                        </tr>
+
                                         <tr *ngIf="q.get('downConductorAvailabilityOb')?.value == 'Applicable'">
                                             <td style="text-align: center;">7(b)</td>
                                             <td>Material of conductor</td>
@@ -954,6 +978,25 @@
                                 </tbody>
                             </table>
                         </div>
+
+                        <br>
+                        <div style="margin-left: 3rem;">
+                            <label class="form-label">Attach The File Here:</label>
+                            <div class="row input-group mb-2">
+                                <div class="col-md-6">
+                                    <input style="height: 3rem;" type="file" class="form-control" (change)="onChange1($event)" [attr.disabled]="isEditable ? '' : null"
+                                     accept=".jpeg,.png,.jpg,">
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="button" [disabled]="uploadDisable1" class="btn btn-success" (click)="onUpload1(contentSpinner)">Upload</button>
+                                    <a (click)="onDownload1()" *ngIf="fileName1!= ''" href='javascript:onDownload1()' title="Download" style="margin-left: 30px;text-decoration: underline;" 
+                                    [ngClass]="{'disableForm':isEditable}">{{fileName1}}</a>
+                                    <mat-icon *ngIf="fileName1!= ''" class="mousechange" class="dlt" type="button" title="Delete" (click)="deleteFile1(contentSpinnerDelete)"
+                                    style="position: absolute;margin-left: 40px; margin-top: 5px;">remove_circle_outline</mat-icon>
+                                </div>
+                            </div>    
+                        </div>
+                    <br>
                         
                     </mat-expansion-panel>
 
@@ -3051,4 +3094,55 @@
     </button>
   </div>
   
+    </ng-template>
+
+    <ng-template #contentSpinner let-modal>
+        <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinner" color="primary"
+        [mode]="mode"
+        value="50"
+       diameter="50">>
+        </mat-progress-spinner>
+        <div class="modal-body" *ngIf="popup">
+            <div class="centre-text m-btm30">
+                <div *ngIf="filesuccess" style="text-align: center;">
+                    <span class="successshow">{{filesuccessMsg}}</span>
+                </div>
+                <div *ngIf="Error" style="text-align: center;">
+                    <span class="errorshow">{{errorMsg}}</span>
+                </div>
+            </div>
+        </div>
+        <br>
+    
+        <button type="button" *ngIf="popup" style="text-align: center;margin-left:180px;width:20%" class="close"
+            class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
+             >
+            <span (click)="closeModalDialogFile()">Ok</span>
+        </button>
+    </ng-template>
+    
+
+    <ng-template #contentSpinnerDelete let-modal>
+        <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinnerDelete" color="primary"
+        [mode]="mode"
+        value="50"
+       diameter="50">>
+        </mat-progress-spinner>
+        <div class="modal-body" *ngIf="popupDelete">
+            <div class="centre-text m-btm30">
+                <div *ngIf="fileDeleteSuccess" style="text-align: center;">
+                    <span class="successshow">{{fileDeletesuccessMsg}}</span>
+                </div>
+                <div *ngIf="Error" style="text-align: center;">
+                    <span class="errorshow">{{errorMsg}}</span>
+                </div>
+            </div>
+        </div>
+        <br>
+    
+        <button type="button" *ngIf="popupDelete" style="text-align: center;margin-left:180px;width:20%" class="close"
+            class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
+             >
+            <span (click)="closeModalDialogFile()">Ok</span>
+        </button>
     </ng-template>

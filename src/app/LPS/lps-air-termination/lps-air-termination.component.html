@@ -768,7 +768,7 @@
                                                         <td style="width: 1rem; text-align: center;">2.</td>
                                                         <td style="width: 24rem;">Electrical and electronic equipment is
                                                             placed on walls outside structures</td>
-                                                        <td style="width: 43rem;">
+                                                        <td class="col-md-6">
                                                             <div class="input-group">
                                                                 <div class="input-group-prepend">
                                                                     <span class="input-group-text">
@@ -795,7 +795,7 @@
 
                                                             </div>
                                                         </td>
-                                                        <td>
+                                                        <td class="col-md-6">
                                                             <div class="input-group">
                                                                 <div class="input-group-prepend">
                                                                     <span class="input-group-text">
@@ -923,13 +923,98 @@
                                                             </div>
                                                         </td>
                                                     </tr>
+                    <!-- File upload -->
+                        <br>
+                            <div style="margin-left: 3rem;">
+                                <label class="form-label">Attach The File Here:</label>
+                                <div class="row input-group mb-2">
+                                    <div class="col-md-6">
+                                        <input style="height: 3rem;" type="file" class="form-control"    (change)="onChange($event)" [attr.disabled]="isEditable ? '' : null"
+                                         accept=".txt,.jpeg,.png,.jpg,.pdf">
+                                    </div>
+                                    <!-- <div class="col-md-6">
+                                        <button type="button" [disabled]="uploadDisable" class="btn btn-success" (click)="onUpload(contentSpinner)">Upload</button>
+                                        <a (click)="onDownload()" *ngIf="fileName != ''" href='javascript:onDownload()' title="Download" style="margin-left: 30px;text-decoration: underline;" 
+                                        [ngClass]="{'disableForm':isEditable}">{{fileName}}</a>
+                                        <mat-icon *ngIf="fileName != ''" class="mousechange" class="dlt" type="button" (click)="deleteFile(contentSpinnerDelete)" title="Delete" 
+                                        style="position: absolute;margin-left: 40px; margin-top: 5px;">remove_circle_outline</mat-icon>
+                                    </div>
+                                    <div *ngIf="submitted && a.get('airterminationFile')?.errors"
+                                    class="invalid-feedback">
+                                    <div
+                                        *ngIf="a.get('airterminationFile')?.errors?.required">
+                                        Field is required</div>
+                                </div> -->
+                                </div>    
+                            </div>
+                        <br>
+                        
+
+                            
+                                <!-- <div class="row">
+                                <div class="col-md-6">
+                                    <table>
+                                        <thead>
+                                            <th>choose File</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <input type="file" nv-file-select="" class="file" data-msg-placeholder="Select File for upload..." uploader="uploader" style="width:18rem"/> 					
+                                                        </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-6">
+                                    <table>
+                                        <thead>
+                                            <th >Name</th>
+                                            <th ng-show="uploader.isHTML5">Size</th>
+                                            <th ng-show="uploader.isHTML5">Progress</th>
+                                            <th>Status</th>
+                                            <th style="text-align: justify;">Actions</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><strong></strong></td>
+                                                <td ng-show="uploader.isHTML5" nowrap></td>
+                                                <td ng-show="uploader.isHTML5">
+                                                  <div class="progress" style="margin-bottom: 0;">
+                                                    <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                                                  </div>
+                                                </td>
+                                                <td class="text-center">
+                                                  <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                                                  <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                                                  <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                                                </td>
+                                                <td nowrap>
+                                                  <button type="button" class="btn btn-success btn-xs"  ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                                                    <span class="glyphicon glyphicon-upload"></span> Upload
+                                                  </button>
+                                                  <button type="button" class="btn btn-warning btn-xs" ng-disabled="!item.isUploading">
+                                                    <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                                                  </button>
+                                                  <button type="button" class="btn btn-danger btn-xs">
+                                                    <span class="glyphicon glyphicon-trash"></span> Delete
+                                                  </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                </div>
+                            -->
 
                                                     <tr>
-                                                        <td style="width: 1rem; text-align: center;">5.</td>
-                                                        <td style="width: 24rem;">Equipotenial bonding of terrace
+                                                        <td style="width: 5rem; text-align: center;">5.</td>
+                                                        <td style="width: 20rem;">Equipotenial bonding of terrace
                                                             equipments (i.e exposed and extraneous conductive parts) are
                                                             carried out</td>
-                                                        <td style="width: 43rem;">
+                                                        <td style="width: 45rem;">
                                                             <div class="input-group">
                                                                 <div class="input-group-prepend">
                                                                     <span class="input-group-text">
@@ -956,7 +1041,7 @@
 
                                                             </div>
                                                         </td>
-                                                        <td>
+                                                        <td style="width: 46rem;">
                                                             <div class="input-group">
                                                                 <div class="input-group-prepend">
                                                                     <span class="input-group-text">
@@ -1105,6 +1190,23 @@
                                             </tr>
 
                                             <br>
+                                            <div style="margin-left: 3rem;">
+                                                <label class="form-label">Attach The File Here:</label>
+                                                <div class="row input-group mb-2">
+                                                    <div class="col-md-6">
+                                                        <input style="height: 3rem;" type="file" class="form-control" (change)="onChange1($event)" [attr.disabled]="isEditable ? '' : null"
+                                                         accept=".txt,.jpeg,.png,.jpg,.pdf">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <button type="button" [disabled]="uploadDisable1" class="btn btn-success" (click)="onUpload1(contentSpinner)">Upload</button>
+                                                        <a (click)="onDownload1()" *ngIf="fileName1!= ''" href='javascript:onDownload1()' title="Download" style="margin-left: 30px;text-decoration: underline;" 
+                                                        [ngClass]="{'disableForm':isEditable}">{{fileName1}}</a>
+                                                        <mat-icon *ngIf="fileName1!= ''" class="mousechange" class="dlt" type="button" title="Delete" (click)="deleteFile1(contentSpinnerDelete)"
+                                                        style="position: absolute;margin-left: 40px; margin-top: 5px;">remove_circle_outline</mat-icon>
+                                                    </div>
+                                                </div>    
+                                            </div>
+                                        <br>
                                             <div formArrayName="verticalAirTerminationList"
                                                 *ngFor="let z of getAirTUnitControls(a); let w = index">
                                                 <div [formGroupName]="w">
@@ -3838,6 +3940,24 @@
                                                     </div>
                                                 </td>
                                             </tr>
+                                            <br>
+                                            <div style="margin-left: 3rem;">
+                                                <label class="form-label">Attach The File Here:</label>
+                                                <div class="row input-group mb-2">
+                                                    <div class="col-md-6">
+                                                        <input style="height: 3rem;" type="file" class="form-control"  (change)="onChange2($event)" [attr.disabled]="isEditable ? '' : null"
+                                                         accept=".txt,.jpeg,.png,.jpg,.pdf">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <button type="button" [disabled]="uploadDisable2" class="btn btn-success" (click)="onUpload2(contentSpinner)">Upload</button>
+                                                        <a (click)="onDownload2()" *ngIf="fileName2 != ''" href='javascript:onDownload2()' title="Download" style="margin-left: 30px;text-decoration: underline;" 
+                                                        [ngClass]="{'disableForm':isEditable}">{{fileName2}}</a>
+                                                        <mat-icon *ngIf="fileName2 != ''" class="mousechange" class="dlt" type="button" title="Delete" (click)="deleteFile2(contentSpinnerDelete)"
+                                                        style="position: absolute;margin-left: 40px; margin-top: 5px;">remove_circle_outline</mat-icon>
+                                                    </div>
+                                                </div>    
+                                            </div>
+                                        <br>
 
                                         </div>
                                     </tbody>
@@ -4441,4 +4561,54 @@
             <span aria-hidden="true">Cancel</span>
         </button>
     </div>
+</ng-template>
+
+<ng-template #contentSpinner let-modal>
+    <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinner" color="primary"
+    [mode]="mode"
+    value="50"
+   diameter="50">>
+    </mat-progress-spinner>
+    <div class="modal-body" *ngIf="popup">
+        <div class="centre-text m-btm30">
+            <div *ngIf="filesuccess" style="text-align: center;">
+                <span class="successshow">{{filesuccessMsg}}</span>
+            </div>
+            <div *ngIf="Error" style="text-align: center;">
+                <span class="errorshow">{{errorMsg}}</span>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <button type="button" *ngIf="popup" style="text-align: center;margin-left:180px;width:20%" class="close"
+        class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
+         >
+        <span (click)="closeModalDialogFile()">Ok</span>
+    </button>
+</ng-template>
+
+<ng-template #contentSpinnerDelete let-modal>
+    <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinnerDelete" color="primary"
+    [mode]="mode"
+    value="50"
+   diameter="50">>
+    </mat-progress-spinner>
+    <div class="modal-body" *ngIf="popupDelete">
+        <div class="centre-text m-btm30">
+            <div *ngIf="fileDeleteSuccess" style="text-align: center;">
+                <span class="successshow">{{fileDeletesuccessMsg}}</span>
+            </div>
+            <div *ngIf="Error" style="text-align: center;">
+                <span class="errorshow">{{errorMsg}}</span>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <button type="button" *ngIf="popupDelete" style="text-align: center;margin-left:180px;width:20%" class="close"
+        class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
+         >
+        <span (click)="closeModalDialogFile()">Ok</span>
+    </button>
 </ng-template>
