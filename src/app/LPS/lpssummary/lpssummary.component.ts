@@ -998,24 +998,26 @@ export class LpssummaryComponent implements OnInit {
       
       this.lpsSummary.basicLpsId = basicLpsId;
       this.basicLpsId = basicLpsId;
-      if(this.jsonData!=null){
-         setTimeout(() => {
+      if (this.jsonData != null) {
+        setTimeout(() => {
           this.populateFormData(this.jsonData);
-          this.lpsSummary.userName=this.jsonData.userName;
-          this.lpsSummary.createdBy=this.jsonData.createdBy;
-          this.lpsSummary.createdDate=this.jsonData.createdDate;
-          this.lpsSummary.updatedBy=this.jsonData.updatedBy;
-          this.lpsSummary.updatedDate=this.jsonData.updatedDate;
-          this.lpsSummary.inspectedYear=this.jsonData.inspectedYear;
-          this.lpsSummary.summaryDate=this.jsonData.summaryDate;
-          this.lpsSummary.summaryLpsId=this.jsonData.summaryLpsId;
+          this.lpsSummary.userName = this.jsonData.userName;
+          this.lpsSummary.createdBy = this.jsonData.createdBy;
+          this.lpsSummary.createdDate = this.jsonData.createdDate;
+          this.lpsSummary.updatedBy = this.jsonData.updatedBy;
+          this.lpsSummary.updatedDate = this.jsonData.updatedDate;
+          this.lpsSummary.inspectedYear = this.jsonData.inspectedYear;
+          this.lpsSummary.summaryDate = this.jsonData.summaryDate;
+          this.lpsSummary.summaryLpsId = this.jsonData.summaryLpsId;
           this.flag1 = true;
-          setTimeout(() => {
-          this.retrieveFromAirTermination();
-         }, 3000);
-    }, 3000);
+
+        }, 3000);
+
       }
-      }
+      setTimeout(() => {
+        this.retrieveFromAirTermination();
+      }, 3000);
+    }
       populateFormData(data:any){
        this.summaryLpsBuildingsArr=this.summaryForm.get('summaryLpsBuildings') as FormArray;
        this.Declaration1FormArr=this.summaryForm.get('Declaration1Arr') as FormArray;
