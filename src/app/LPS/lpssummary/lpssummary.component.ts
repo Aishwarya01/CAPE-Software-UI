@@ -431,12 +431,8 @@ export class LpssummaryComponent implements OnInit {
         declarationDate: new FormControl('',Validators.required),
         recommendYears: new FormControl('',Validators.required),
       });
-        this.spinner = true;
-        this.spinnerValue = "Please wait, the details are loading!";
-      this.retrieveFromAirTermination();
-      setTimeout(() => {
-        this.retrieveObservationLpsSummaryOnload();
-      }, 3000);
+        
+      this.retriveSummaryWhileUpdateSave();
         
     }
     summaryLPSArr(){
