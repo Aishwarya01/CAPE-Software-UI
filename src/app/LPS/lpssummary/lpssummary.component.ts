@@ -972,6 +972,10 @@ export class LpssummaryComponent implements OnInit {
   
               }
             }
+            this.jsonData=[]
+            this.summaryLpsBuildingsArr=[]
+            this.numberOfBuildingCount = []
+            this.airTerminationDesc = []
            
           },
           (error) => {
@@ -1012,8 +1016,6 @@ export class LpssummaryComponent implements OnInit {
           this.flag1 = true;
           setTimeout(() => {
           this.retrieveFromAirTermination();
-            this.spinner = false;
-            this.spinnerValue = "";
          }, 3000);
     }, 3000);
       }

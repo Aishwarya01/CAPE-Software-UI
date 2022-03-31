@@ -182,6 +182,7 @@ export class LpsMatstepperComponent implements OnInit {
     this.service.isLinear=false;
     this.service.isCompleted7 = next;
     this.lpsSummary.ngOnInit();
+    
     // this.final.ngOnInit();
   }
   public doSomething8(next: any): void {
@@ -251,7 +252,10 @@ export class LpsMatstepperComponent implements OnInit {
             this.lpsSummary.spinnerValue = "Please wait, the details are loading!";
             setTimeout(() => {
               this.lpsSummary.retrieveDetailsfromSavedReports(userName, basicLpsId, this.dataJSON);
-
+              setTimeout(() => {
+                this.lpsSummary.spinner = false;
+                this.lpsSummary.spinnerValue = "";
+              }, 10000);
             }, 5000);
             
            // this.lpsSummary.ngOnInit();
