@@ -934,11 +934,11 @@
       <div style="text-align: center;"> 
 
         <button style="width: auto;margin-left: 50px;"class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn next"
-          mat-button type="submit" (click)="typeButton('save')" >
+          mat-button type="submit" (click)="typeButton('save')" [ngClass]="{'disableForm':isEditable}">
         <i class="bi bi-journal-arrow-up icon"></i>Save</button>
 
         <button  style="width: auto;margin-left: 50px;" type="submit" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn next"
-          mat-button [disabled]="submittedButton" (click)="typeButton('submit')">
+          mat-button [disabled]="submittedButton" (click)="typeButton('submit')" [ngClass]="{'disableForm':isEditable}">
         <i class="bi bi-journal-arrow-up icon"></i>Submit</button>
     </div>
       </div>
@@ -963,37 +963,15 @@
             aria-label="Close" (click)="closeModalDialog()" style="width: 18%;margin: 0 auto;">
             <span aria-hidden="true" >Ok</span>
           </button>
-
     </ng-template> 
 
-    <!-- <ng-template #contents let-modal>
-        <div class="modal-body">
-         <div class="centre-text m-btm30">
-          <div style="text-align: center;">
-            <span class="successshow">Are you sure you want to procced? </span>
-            <br>
-            <span style="font-size: 12px;">Once saved, details can't be modified!</span>
-
-           </div>
-          </div>
-         </div>
-        <br>
-        <div class="row">
-           <button type="button" class="col-md-6" style="text-align:center; width: auto;" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
-              aria-label="Close" (click)="closeModalDialog()">
-              <i class="bi bi-arrow-right-circle"></i>&nbsp;
-                <span aria-hidden="true" (click)="submitButtonPopup(content)">Ok</span>
-          </button> 
-
-          <button type="button" class="col-md-6" style="width: auto;" class="btn btn-danger btn-rounded btn-md font-weight-medium auth-form-btn"
-            aria-label="Close" (click)="closeModalDialog()">
-            <i class="bi bi-x icon"></i>
-              <span aria-hidden="true">Cancel</span>
-          </button>
+      <mat-progress-spinner style="margin: 0 auto;" *ngIf="spinner" color="primary" [mode]="mode" value="50" diameter="50">
+      </mat-progress-spinner>
+      <br>
+      <div *ngIf="spinner" style="text-align: center;">
+        {{spinnerValue}}
       </div>
-      
-    </ng-template> -->
-   
+
     <ng-template #contents let-modal>
       <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinner"
        color="primary"
