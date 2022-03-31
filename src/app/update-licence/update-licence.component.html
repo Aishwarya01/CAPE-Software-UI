@@ -1,4 +1,4 @@
-<div class="container body" >
+<div class="container body">
     <div class="main_container">
 
         <nav class="navbar navbar-light bg-light" style="background-color: #ffffff!important;">
@@ -12,42 +12,65 @@
         <form [formGroup]="paymentForm">
 
             <div class="form-group">
-                <label for="email">Name</label>
+                <label for="email">Inspector Name</label>
                 <input type="text" class="form-control" formControlName="customerName" name="customerName"
-                    placeholder="Enter Customer Name" required="required">
+                    placeholder="Enter Customer Name" required="required"
+                    [ngClass]="{ 'is-invalid': submitted && f.customerName.errors }" />
+                <div *ngIf="submitted && f.customerName.errors" class="invalid-feedback">
+                    <div *ngIf="f.customerName.errors.required">Inspector Name is required</div>
+                </div>
             </div>
 
             <div class="form-group">
-                <label for="email">Email address</label>
+                <label for="email">Inspector Email</label>
                 <input type="email" class="form-control" formControlName="email" name="email" placeholder="Enter Email"
-                    required="required">
+                    required="required" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                    <div *ngIf="f.email.errors.required">Inspector Email is required</div>
+                </div>
             </div>
 
             <div class="form-group">
                 <label for="phoneNo">Phone No</label>
-                <input type="tel"
-                ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
-               (keypress)="keyPressNumbers($event)" (countryChange)="countryChange($event)" class="form-control" formControlName="phoneNo" name="phoneNo" placeholder="Phone No">
+                <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
+                    [ngClass]="{ 'is-invalid': submitted && f.phoneNo.errors }" (keypress)="keyPressNumbers($event)"
+                    (countryChange)="countryChange($event)" class="form-control" formControlName="phoneNo"
+                    name="phoneNo" placeholder="Phone No">
+                <div *ngIf="submitted && f.phoneNo.errors" class="invalid-feedback">
+                    <div *ngIf="f.phoneNo.errors.required">Phone No is required</div>
+                </div>
+
             </div>
 
             <div class="form-group">
                 <label for="noofLicense">Number of License</label>
-                <input   type="text"
-                        class="form-control"  (keypress)="keyPressNumbers($event)" (change)="updateLicenceAmount()" formControlName="noofLicense" name="noofLicense" placeholder="Enter Number of License"
-                    required="required">
-                    <label >Note : 1 License = 500 INR</label>
+                <input type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.noofLicense.errors }"
+                    (keypress)="keyPressNumbers($event)" (change)="updateLicenceAmount()" formControlName="noofLicense"
+                    name="noofLicense" placeholder="Enter Number of License" required="required">
+                <div *ngIf="submitted && f.noofLicense.errors" class="invalid-feedback">
+                    <div *ngIf="f.noofLicense.errors.required">Number of License is required</div>
+                </div>
+                <label>Note : 1 License = 500 INR</label>
             </div>
-            
+
             <div class="form-group">
                 <label for="amount">Amount</label>
-                <input type="text" class="form-control" formControlName="amount" name="amount" placeholder="Please fill NoOfLicense"
-                    required="required" readonly>
+                <input type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.amount.errors }"
+                    formControlName="amount" name="amount" placeholder="Please fill NoOfLicense" required="required"
+                    readonly>
+                <div *ngIf="submitted && f.amount.errors" class="invalid-feedback">
+                    <div *ngIf="f.amount.errors.required">Amount is required</div>
+                </div>
             </div>
 
             <button type="button" class="btn btn-primary" (click)="onSubmit()" id="rzp-button1"
                 style="margin-left: 185px; margin-top: 21px;">Proceed</button>
 
-            <button type="button" style="margin-top: 17px;margin-left: 95px;" class="btn btn-danger" id="closeModal"  (click)="onCancel()">Cancel</button>
+            <button type="button" style="margin-top: 17px;margin-left: 95px;" class="btn btn-danger" id="closeModal"
+                (click)="onCancel()">Cancel</button>
+
+                <div *ngIf="sucessMsgflag" class="alert alert-success" style="margin: 55px auto 0px auto;width: 65%;">{{sucessMsg}}</div>
+                <div *ngIf="failedMsgflag" class="alert alert-danger" style="margin: 55px auto 0px auto;width: 65%;">{{failedMsg}}</div>
 
         </form>
     </div>

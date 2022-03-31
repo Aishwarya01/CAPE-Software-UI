@@ -1,8 +1,9 @@
 import { Component, EventEmitter, HostListener, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalsService } from '../globals.service';
+import { Airtermination } from '../LPS_model/airtermination';
 import { LvInspectionDetailsComponent } from '../lv-inspection-details/lv-inspection-details.component';
 import { UpdateLicenceService } from '../services/update-licence.service';
 
@@ -21,6 +22,11 @@ export class UpdateLicenceComponent implements OnInit {
   updateLicense = new EventEmitter();
   modalReference: any;
   countryCode: any;
+  submitted:boolean=false;
+  sucessMsgflag:boolean=false
+  sucessMsg:String='';
+  failedMsgflag:boolean=false
+  failedMsg:String='';
 
   options: any = {
     "key": "",
@@ -31,11 +37,12 @@ export class UpdateLicenceComponent implements OnInit {
     "order_id": "",
     "prefill": {
       "name": "",
-      "email": ""
+      "email": "",
+      "contact":""
     },
     "handler": function (response: any) {
       debugger
-      console.log(response);
+
       var event = new CustomEvent("payment.success",
         {
           detail: response,
@@ -44,7 +51,7 @@ export class UpdateLicenceComponent implements OnInit {
         }
       );
       window.dispatchEvent(event);
-      console.log(window + "kkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+      
     }
     ,
     "notes": {
@@ -65,11 +72,11 @@ export class UpdateLicenceComponent implements OnInit {
   ngOnInit(): void {
     this.countryCode="91"
     this.paymentForm = this.formBuilder.group({
-      customerName: new FormControl(''),
-      email: new FormControl(''),
-      phoneNo: new FormControl(''),
-      noofLicense: new FormControl(''),
-      amount: new FormControl('')
+      customerName: new FormControl('',Validators.required),
+      email: new FormControl('',Validators.required),
+      phoneNo: new FormControl('',Validators.required),
+      noofLicense: new FormControl('',Validators.required),
+      amount: new FormControl('',Validators.required),
     });
   }
 
@@ -77,9 +84,11 @@ export class UpdateLicenceComponent implements OnInit {
     this.paymentRequired = false
   }
 
-
   onSubmit() {
-    this.paymentForm.controls.phoneNo.setValue(this.countryCode+"-"+this.paymentForm.controls.phoneNo.value);
+
+    this.submitted=true;
+
+    this.paymentForm.controls.phoneNo.setValue( "+"+this.countryCode+"-"+this.paymentForm.controls.phoneNo.value);
     this.paymentForm.controls.phoneNo.updateValueAndValidity();
     this.paymentService.createPayment(this.paymentForm.value).subscribe(
       data => {
@@ -90,34 +99,40 @@ export class UpdateLicenceComponent implements OnInit {
         this.options.amount = payment.razorPay.applicationFee; //paise
         this.options.name = payment.razorPay.merchantName;
         this.options.description = payment.razorPay.purchaseDescription;
-        this.options.image = payment.razorPay.imageURL;
+       // this.options.image = payment.razorPay.imageURL;
         this.options.prefill.name = payment.razorPay.customerName;
         this.options.prefill.email = payment.razorPay.customerEmail;
+        this.options.prefill.contact = this.paymentForm.controls.phoneNo.value;
         this.options.notes.address = payment.razorPay.notes;
         this.options.theme.color = payment.razorPay.theme;
 
         var rzp1 = new Razorpay(this.options);
-        let a = rzp1.open();
-        console.log(a);
         rzp1.on('payment.failed', function (response: any) {
-
+        
+          var event = new CustomEvent("payment.failed",
+          {
+            detail: response,
+            bubbles: true,
+            cancelable: true
+          }
+        );
+        window.dispatchEvent(event);
           // alert(response.error.code);
-
+         // this.failedMsgflag=true;
           alert(response.error.description);
-
           alert(response.error.source);
-
           alert(response.error.step);
-
           alert(response.error.reason);
-
           alert(response.error.metadata.order_id);
-
           alert(response.error.metadata.payment_id);
 
         })
 
+        rzp1.open();
+        rzp1.preventDefault();
+        
 
+       
 
       },
       error => {
@@ -128,8 +143,45 @@ export class UpdateLicenceComponent implements OnInit {
   @HostListener('window:payment.success', ['$event'])
   onPaymentSuccess(event: any): void {
     debugger
+    this.sucessMsgflag=true;
+    this.sucessMsg='Your payment sucessfully Done';
+
+    setTimeout(() => {
+      this.sucessMsgflag = false;
+      this.sucessMsg = '';
+      setTimeout(() => {
+        this.onCancel();
+      }, 3000);
+    }, 3000);
+
     console.log(event);
-    alert(event.type);
+   // alert(event.type);
+    // this.orderService.updateOrder(event.detail).subscribe(
+    // data => {
+    // 	this.paymentId = data.message;
+    // }
+    // ,
+    // err => {
+    // 	this.error = err.error.message;
+    // }
+    // );
+  }
+  @HostListener('window:payment.failed', ['$event'])
+  onPaymentFailesd(event: any): void {
+    debugger
+    this.sucessMsgflag=true;
+    this.sucessMsg='Your payment sucessfully failed';
+
+    setTimeout(() => {
+      this.sucessMsgflag = false;
+      this.sucessMsg = '';
+      setTimeout(() => {
+        this.onCancel();
+      }, 3000);
+    }, 3000);
+
+    console.log(event);
+   // alert(event.type);
     // this.orderService.updateOrder(event.detail).subscribe(
     // data => {
     // 	this.paymentId = data.message;
@@ -166,4 +218,7 @@ export class UpdateLicenceComponent implements OnInit {
     this.paymentForm.controls.amount.updateValueAndValidity();
   }
 
+  get f() {
+    return this.paymentForm.controls;
+  }
 }
