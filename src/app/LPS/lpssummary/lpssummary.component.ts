@@ -965,13 +965,15 @@ export class LpssummaryComponent implements OnInit {
       }
       else{
         this.jsonData=data.summaryLps;
-        
+       // if(data.summaryLpsBuildings == undefined || data.summaryLpsBuildings == null){
+          this.retrieveFromAirTermination();
+       //  }
       }
       
       this.lpsSummary.basicLpsId = basicLpsId;
       this.basicLpsId = basicLpsId;
       if(this.jsonData!=null){
-        // setTimeout(() => {
+         setTimeout(() => {
           this.populateFormData(this.jsonData);
           this.lpsSummary.userName=this.jsonData.userName;
           this.lpsSummary.createdBy=this.jsonData.createdBy;
@@ -982,7 +984,7 @@ export class LpssummaryComponent implements OnInit {
           this.lpsSummary.summaryDate=this.jsonData.summaryDate;
           this.lpsSummary.summaryLpsId=this.jsonData.summaryLpsId;
           this.flag1 = true;
-        // }, 3000);
+         }, 3000);
       }
       }
       populateFormData(data:any){
@@ -996,9 +998,7 @@ export class LpssummaryComponent implements OnInit {
        for(let item of data.summaryLpsBuildings){
         this.arr.push(this.createGroup(item));
        }
-       if(data.summaryLpsBuildings == undefined || data.summaryLpsBuildings == null){
-        this.retrieveFromAirTermination();
-       }
+      
       
        this.arr1.push(this.createGroupDeclaration1( data.summaryLpsDeclaration[0]));
        this.arr2.push(this.createGroupDeclaration1( data.summaryLpsDeclaration[1]));
