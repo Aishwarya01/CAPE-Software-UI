@@ -946,15 +946,22 @@ export class LpssummaryComponent implements OnInit {
             let numberOfBuildingCountlength = this.numberOfBuildingCount.length;
             let airterminationlength = this.airTerminationDesc.length;
             if (this.airTerminationDesc != '' && this.airTerminationDesc != undefined && this.airTerminationDesc.length != 0) {
-              for (let i = 0; numberOfBuildingCountlength > airterminationlength; i++) {
-                this.addSummaryLPS();
-                airterminationlength = airterminationlength+1;
+              if(numberOfBuildingCountlength == 0 ){
+                for (let i = 0; i < airterminationlength; i++) {
+                  this.addSummaryLPS();
+                }
               }
-            }
+              else{
+                for (let i = 0; numberOfBuildingCountlength > airterminationlength; i++) {
+                  this.addSummaryLPS();
+                  airterminationlength = airterminationlength+1;
+                }
+              } 
+           }
             this.summaryLpsBuildingsArr=[]
             this.summaryLpsBuildingsArr = this.summaryForm.get('summaryLpsBuildings') as FormArray
            
-            if(this.airTerminationDesc.length < numberOfBuildingCountlength){
+            if(this.airTerminationDesc.length < numberOfBuildingCountlength || numberOfBuildingCountlength == 0 ){
 
               for (let j = 0;  j < this.airTerminationDesc.length; j++) {
         
