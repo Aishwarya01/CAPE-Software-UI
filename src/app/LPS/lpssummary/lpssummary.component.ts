@@ -959,7 +959,7 @@ export class LpssummaryComponent implements OnInit {
               for (let j = 0;  j < this.airTerminationDesc.length; j++) {
         
                 let summaryDataAlreadythere = 'No';
-                for (let i = 0; summaryDataAlreadythere == "Not-avilable" && i < this.numberOfBuildingCount.length; i++) {
+                for (let i = 0; summaryDataAlreadythere == "No"&& i < this.numberOfBuildingCount.length; i++) {
                   if (this.jsonData.summaryLpsBuildings[i].buildingCount != this.airTerminationDesc[j].buildingName) {
                     summaryDataAlreadythere = "yes";
                   }
