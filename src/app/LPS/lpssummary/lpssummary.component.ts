@@ -415,7 +415,7 @@ export class LpssummaryComponent implements OnInit {
     private matStepper: LpsMatstepperComponent
     ) { 
       this.email = this.router.snapshot.paramMap.get('email') || '{}'
-      if(this.email == 'gk@capeindia.net' || this.email == 'vinoth@capeindia.net' || this.email == 'awstesting@rushforsafety.com'|| this.email == 'sd@capeindia.net' || this.email == 'aishwarya@capeindia.net' || this.email == 'sivaraju@capeindia.net' || this.email == 'elangovan.photonx@gmail.com'
+      if(this.email == 'gk@capeindia.net' || this.email == 'vinoth@capeindia.net' || this.email == 'awstesting@rushforsafety.com'|| this.email == 'sd@capeindia.net' || this.email == 'aishwarya@capeindia.net' || this.email == 'sivaraju@capeindia.net'
       || this.email == 'thirumoorthy@capeindia.net'|| this.email == 'elangovan.m@capeindia.net' || this.email == 'arunkumar.k@capeindia.net'
       || this.email == 'hasan@capeindia.net'){
         this.submittedButton = false;
@@ -1822,7 +1822,7 @@ export class LpssummaryComponent implements OnInit {
     }
 
     retrieveObservationLpsSummaryOnload(){
-      debugger
+    
       if (this.basicLpsId != undefined) {
       this.summaryService.retrieveObservationSummaryLps(this.basicLpsId).subscribe(
         data=>{
