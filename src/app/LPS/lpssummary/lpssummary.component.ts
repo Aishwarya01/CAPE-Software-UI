@@ -78,6 +78,7 @@ export class LpssummaryComponent implements OnInit {
     arr: any=[];
     arr1: any=[];
     arr2: any=[];
+    numberOfBuildingCount: any=[];
     validationError: boolean = false;
     validationErrorMsg: String = '';
     finalSpinner: boolean = true;
@@ -415,7 +416,7 @@ export class LpssummaryComponent implements OnInit {
     ) { 
       this.email = this.router.snapshot.paramMap.get('email') || '{}'
       if(this.email == 'gk@capeindia.net' || this.email == 'vinoth@capeindia.net' || this.email == 'awstesting@rushforsafety.com'|| this.email == 'sd@capeindia.net' || this.email == 'aishwarya@capeindia.net' || this.email == 'sivaraju@capeindia.net' || this.email == 'elangovan.photonx@gmail.com'
-      || this.email == 'thirumoorthy@capeindia.net' || this.email == 'elangovan.m@capeindia.net' || this.email == 'arunkumar.k@capeindia.net'
+      || this.email == 'thirumoorthy@capeindia.net'|| this.email == 'elangovan.m@capeindia.net' || this.email == 'arunkumar.k@capeindia.net'
       || this.email == 'hasan@capeindia.net'){
         this.submittedButton = false;
       }
@@ -430,8 +431,13 @@ export class LpssummaryComponent implements OnInit {
         declarationDate: new FormControl('',Validators.required),
         recommendYears: new FormControl('',Validators.required),
       });
+        this.spinner = true;
+        this.spinnerValue = "Please wait, the details are loading!";
       this.retrieveFromAirTermination();
+      setTimeout(() => {
         this.retrieveObservationLpsSummaryOnload();
+      }, 3000);
+        
     }
     summaryLPSArr(){
       return this.formBuilder.group({
@@ -924,28 +930,49 @@ export class LpssummaryComponent implements OnInit {
       if(this.basicLpsId != 0 && this.basicLpsId != undefined) {
         this.airterminationServices.retriveAirTerminationDetails(this.email,this.basicLpsId).subscribe(
           (data) => {
-            this.airTerminationValues = JSON.parse(data);
-            if(this.airTerminationValues[0].lpsAirDescription !=undefined && this.airTerminationValues[0].lpsAirDescription !=null){
-            this.summaryForm = this.formBuilder.group({
-              summaryLpsBuildings: this.formBuilder.array([]),
-              Declaration1Arr: this.formBuilder.array([this.Declaration1Form()]),
-              Declaration2Arr: this.formBuilder.array([this.Declaration2Form()]),
-              declarationDate: new FormControl('',Validators.required),
-              recommendYears: new FormControl('',Validators.required),
-            });
+            this.airTerminationValues = JSON.parse(data);      
             this.airTerminationDesc = this.airTerminationValues[0].lpsAirDescription;
-            if(this.airTerminationDesc != '' && this.airTerminationDesc != undefined && this.airTerminationDesc.length != 0) {
-              for(let i=0; i<this.airTerminationDesc.length; i++) {
+            
+            if (this.numberOfBuildingCount.length == 0 && this.airTerminationValues[0].lpsAirDescription != undefined && this.airTerminationValues[0].lpsAirDescription != null) {
+              this.summaryForm = this.formBuilder.group({
+                summaryLpsBuildings: this.formBuilder.array([]),
+                Declaration1Arr: this.formBuilder.array([this.Declaration1Form()]),
+                Declaration2Arr: this.formBuilder.array([this.Declaration2Form()]),
+                declarationDate: new FormControl('', Validators.required),
+                recommendYears: new FormControl('', Validators.required),
+              }); 
+            }
+            let numberOfBuildingCountlength = this.numberOfBuildingCount.length;
+            let airterminationlength = this.airTerminationDesc.length;
+            if (this.airTerminationDesc != '' && this.airTerminationDesc != undefined && this.airTerminationDesc.length != 0) {
+              for (let i = 0; numberOfBuildingCountlength > airterminationlength; i++) {
                 this.addSummaryLPS();
+                airterminationlength = airterminationlength+1;
               }
             }
+            this.summaryLpsBuildingsArr=[]
             this.summaryLpsBuildingsArr = this.summaryForm.get('summaryLpsBuildings') as FormArray
-            for(let j=0; j<this.summaryLpsBuildingsArr.controls.length; j++) {
-              this.summaryLpsBuildingsArr.controls[j].controls.buildingName.setValue(this.airTerminationDesc[j].buildingName);
-              this.summaryLpsBuildingsArr.controls[j].controls.buildingNumber.setValue(this.airTerminationDesc[j].buildingNumber);
-              this.summaryLpsBuildingsArr.controls[j].controls.buildingCount.setValue(this.airTerminationDesc[j].buildingCount);
+           
+            if(this.airTerminationDesc.length < numberOfBuildingCountlength){
+
+              for (let j = 0;  j < this.airTerminationDesc.length; j++) {
+        
+                let summaryDataAlreadythere = 'No';
+                for (let i = 0; summaryDataAlreadythere == "Not-avilable" && i < this.numberOfBuildingCount.length; i++) {
+                  if (this.jsonData.summaryLpsBuildings[i].buildingCount != this.airTerminationDesc[j].buildingName) {
+                    summaryDataAlreadythere = "yes";
+                  }
+                }
+                if (summaryDataAlreadythere != "yes") {
+                  this.summaryLpsBuildingsArr.controls[numberOfBuildingCountlength-1].controls.buildingName.setValue(this.airTerminationDesc[j].buildingName);
+                  this.summaryLpsBuildingsArr.controls[numberOfBuildingCountlength-1].controls.buildingNumber.setValue(this.airTerminationDesc[j].buildingNumber);
+                  this.summaryLpsBuildingsArr.controls[numberOfBuildingCountlength-1].controls.buildingCount.setValue(this.airTerminationDesc[j].buildingCount);
+                  numberOfBuildingCountlength=numberOfBuildingCountlength+1;
+                }
+  
+              }
             }
-           }
+           
           },
           (error) => {
   
@@ -966,7 +993,6 @@ export class LpssummaryComponent implements OnInit {
       else{
         this.jsonData=data.summaryLps;
        // if(data.summaryLpsBuildings == undefined || data.summaryLpsBuildings == null){
-          this.retrieveFromAirTermination();
        //  }
       }
       
@@ -984,8 +1010,12 @@ export class LpssummaryComponent implements OnInit {
           this.lpsSummary.summaryDate=this.jsonData.summaryDate;
           this.lpsSummary.summaryLpsId=this.jsonData.summaryLpsId;
           this.flag1 = true;
-         
+          setTimeout(() => {
+          this.retrieveFromAirTermination();
+            this.spinner = false;
+            this.spinnerValue = "";
          }, 3000);
+    }, 3000);
       }
       }
       populateFormData(data:any){
@@ -997,6 +1027,7 @@ export class LpssummaryComponent implements OnInit {
        this.arr2=[];
        
        for(let item of data.summaryLpsBuildings){
+        this.numberOfBuildingCount.push(item.buildingCount);
         this.arr.push(this.createGroup(item));
        }
       
@@ -1009,8 +1040,7 @@ export class LpssummaryComponent implements OnInit {
        this.summaryForm.setControl('summaryLpsBuildings', this.formBuilder.array(this.arr || []));
        this.summaryForm.setControl('Declaration1Arr', this.formBuilder.array(this.arr1 || []));
        this.summaryForm.setControl('Declaration2Arr', this.formBuilder.array(this.arr2 || []));
-       this.spinner = false;
-       this.spinnerValue = "";
+      
       }
       createGroup(item: any): FormGroup {
         let airTermination: any=[];
@@ -2321,6 +2351,11 @@ export class LpssummaryComponent implements OnInit {
       )
       }
       this.flag = true;
+     
+      setTimeout(() => {
+        this.spinner = false;
+        this.spinnerValue = "";
+      }, 3000);
     }
 
     OkModalDialog(content5: any){
