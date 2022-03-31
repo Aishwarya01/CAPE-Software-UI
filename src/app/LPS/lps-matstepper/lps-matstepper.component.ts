@@ -247,8 +247,11 @@ export class LpsMatstepperComponent implements OnInit {
           if (this.dataJSON.airTermination != null) {
             this.airTermination.retrieveDetailsfromSavedReports(userName, basicLpsId, this.dataJSON);
             this.downConductors.retrieveDetailsfromSavedReports(userName, basicLpsId, this.dataJSON);
-               setTimeout(() => {
-                this.lpsSummary.retrieveDetailsfromSavedReports(userName, basicLpsId, this.dataJSON);
+            this.lpsSummary.spinner = true;
+            this.lpsSummary.spinnerValue = "Please wait, the details are loading!";
+            setTimeout(() => {
+              this.lpsSummary.retrieveDetailsfromSavedReports(userName, basicLpsId, this.dataJSON);
+
             }, 5000);
             
            // this.lpsSummary.ngOnInit();
@@ -414,7 +417,9 @@ export class LpsMatstepperComponent implements OnInit {
 
     setTimeout(() => {
       this.saved.spinner=false;
+      setTimeout(() => {
       this.saved.disablepage=true;
+         }, 1000);
     }, 3000);
   }
 

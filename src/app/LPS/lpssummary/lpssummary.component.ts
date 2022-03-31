@@ -984,6 +984,7 @@ export class LpssummaryComponent implements OnInit {
           this.lpsSummary.summaryDate=this.jsonData.summaryDate;
           this.lpsSummary.summaryLpsId=this.jsonData.summaryLpsId;
           this.flag1 = true;
+         
          }, 3000);
       }
       }
@@ -1008,6 +1009,8 @@ export class LpssummaryComponent implements OnInit {
        this.summaryForm.setControl('summaryLpsBuildings', this.formBuilder.array(this.arr || []));
        this.summaryForm.setControl('Declaration1Arr', this.formBuilder.array(this.arr1 || []));
        this.summaryForm.setControl('Declaration2Arr', this.formBuilder.array(this.arr2 || []));
+       this.spinner = false;
+       this.spinnerValue = "";
       }
       createGroup(item: any): FormGroup {
         let airTermination: any=[];
@@ -2342,9 +2345,8 @@ export class LpssummaryComponent implements OnInit {
        // this.service.isLinear=false;
         this.modalService.dismissAll((this.successMsg = ""));
         this.proceedNext.emit(true);
-        setTimeout(() => {
-          this.spinner=false;
-        }, 3000);
+        this.spinner = true;
+        this.spinnerValue = "Please wait, the details are loading!";
       }
     }
 
@@ -2561,8 +2563,8 @@ export class LpssummaryComponent implements OnInit {
           if(this.saveButton){
               this.retriveSummaryWhileUpdateSave();
               this.finalSpinner=false;
-              this.spinner  = true;
-              this.spinnerValue = "Please wait, the details are loading!";
+             // this.spinner  = true;
+             // this.spinnerValue = "Please wait, the details are loading!";
             this.saveButton = false;
             this.summaryForm.markAsPristine();
           }
@@ -2589,8 +2591,7 @@ export class LpssummaryComponent implements OnInit {
             if(this.saveButton){
                 this.retriveSummaryWhileUpdateSave();
                 this.finalSpinner=false;
-                this.spinner = true;
-                this.spinnerValue = "Please wait, the details are loading!";
+               
             this.saveButton = false;
             this.summaryForm.markAsPristine();
             }
@@ -2679,12 +2680,12 @@ export class LpssummaryComponent implements OnInit {
     }
   }
 
-  typeButton(button:any) {
-    this.buttonType=button;
-    if(button == 'save'){
-      this.saveButton=true;
-    }else{
-      this.saveButton=false;
+  typeButton(button: any) {
+    this.buttonType = button;
+    if (button == 'save') {
+      this.saveButton = true;
+    } else {
+      this.saveButton = false;
     }
   }
   }
