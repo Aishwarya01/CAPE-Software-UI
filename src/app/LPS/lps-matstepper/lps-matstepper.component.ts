@@ -129,7 +129,7 @@ export class LpsMatstepperComponent implements OnInit {
 
       if(next) {
         this.downConductors.ngOnInit();
-        this.lpsSummary.ngOnInit();
+        this.lpsSummary.retriveSummaryWhileUpdateSave();
       }
       else {
         this.downConductors.updateMethod();
@@ -158,30 +158,30 @@ export class LpsMatstepperComponent implements OnInit {
   public doSomething3(next: any): void {
     this.service.isLinear=false;
     this.service.isCompleted3 = next;
-    this.lpsSummary.ngOnInit();
+    this.lpsSummary.retriveSummaryWhileUpdateSave();
   }
 
   public doSomething4(next: any): void {
     this.service.isLinear=false;
     this.service.isCompleted4 = next;
-    this.lpsSummary.ngOnInit();
+    this.lpsSummary.retriveSummaryWhileUpdateSave();
     this.refresh();
   }
 
   public doSomething5(next: any): void {
     this.service.isLinear=false;
     this.service.isCompleted5 = next;
-    this.lpsSummary.ngOnInit();
+    this.lpsSummary.retriveSummaryWhileUpdateSave();
   }
   public doSomething6(next: any): void {
     this.service.isLinear=false;
     this.service.isCompleted6 = next;
-    this.lpsSummary.ngOnInit();
+    this.lpsSummary.retriveSummaryWhileUpdateSave();
   }
   public doSomething7(next: any): void {
     this.service.isLinear=false;
     this.service.isCompleted7 = next;
-    this.lpsSummary.ngOnInit();
+    this.lpsSummary.retriveSummaryWhileUpdateSave();
     
     // this.final.ngOnInit();
   }
@@ -248,22 +248,23 @@ export class LpsMatstepperComponent implements OnInit {
           if (this.dataJSON.airTermination != null) {
             this.airTermination.retrieveDetailsfromSavedReports(userName, basicLpsId, this.dataJSON);
             this.downConductors.retrieveDetailsfromSavedReports(userName, basicLpsId, this.dataJSON);
-            this.lpsSummary.spinner = true;
-            this.lpsSummary.spinnerValue = "Please wait, the details are loading!";
-            setTimeout(() => {
-              this.lpsSummary.retrieveDetailsfromSavedReports(userName, basicLpsId, this.dataJSON);
-              setTimeout(() => {
-                this.lpsSummary.spinner = false;
-                this.lpsSummary.spinnerValue = "";
-              }, 10000);
-            }, 5000);
             
-           // this.lpsSummary.ngOnInit();
-            
+          
+           this.lpsSummary.spinner = true;
+           this.lpsSummary.spinnerValue = "Please wait, the details are loading!";
             if(this.dataJSON.summaryLps==null){
               setTimeout(() => {
-                this.lpsSummary.retrieveObservationLpsSummary(basicLpsId);
+                this.lpsSummary.retriveSummaryWhileUpdateSave();
               }, 1000);
+            }
+            else{
+              setTimeout(() => {
+                this.lpsSummary.retrieveDetailsfromSavedReports(userName, basicLpsId, this.dataJSON);
+                setTimeout(() => {
+                  this.lpsSummary.spinner = false;
+                  this.lpsSummary.spinnerValue = "";
+                }, 10000);
+              }, 5000);
             }
            // this.service.isCompleted2 = true;
           }

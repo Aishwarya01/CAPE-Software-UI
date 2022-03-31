@@ -966,16 +966,17 @@ export class LpssummaryComponent implements OnInit {
               for (let j = 0;  j < this.airTerminationDesc.length; j++) {
         
                 let summaryDataAlreadythere = 'No';
-                for (let i = 0; summaryDataAlreadythere == "No"&& i < this.numberOfBuildingCount.length; i++) {
-                  if (this.jsonData.summaryLpsBuildings[i].buildingCount != this.airTerminationDesc[j].buildingName) {
+                for (let i = 0; summaryDataAlreadythere == "No"&& this.numberOfBuildingCount.length !=0 && i < this.airTerminationDesc.length; i++) {
+                  if (this.jsonData.summaryLpsBuildings[i].buildingCount != this.airTerminationDesc[j].buildingCount) {
                     summaryDataAlreadythere = "yes";
                   }
                 }
                 if (summaryDataAlreadythere != "yes") {
-                  this.summaryLpsBuildingsArr.controls[numberOfBuildingCountlength-1].controls.buildingName.setValue(this.airTerminationDesc[j].buildingName);
-                  this.summaryLpsBuildingsArr.controls[numberOfBuildingCountlength-1].controls.buildingNumber.setValue(this.airTerminationDesc[j].buildingNumber);
-                  this.summaryLpsBuildingsArr.controls[numberOfBuildingCountlength-1].controls.buildingCount.setValue(this.airTerminationDesc[j].buildingCount);
-                  numberOfBuildingCountlength=numberOfBuildingCountlength+1;
+                    this.summaryLpsBuildingsArr.controls[numberOfBuildingCountlength].controls.buildingName.setValue(this.airTerminationDesc[j].buildingName);
+                    this.summaryLpsBuildingsArr.controls[numberOfBuildingCountlength].controls.buildingNumber.setValue(this.airTerminationDesc[j].buildingNumber);
+                    this.summaryLpsBuildingsArr.controls[numberOfBuildingCountlength].controls.buildingCount.setValue(this.airTerminationDesc[j].buildingCount);
+                    numberOfBuildingCountlength=numberOfBuildingCountlength+1;
+                  
                 }
   
               }
@@ -1303,6 +1304,7 @@ export class LpssummaryComponent implements OnInit {
      if (this.basicLpsId != undefined) {
       this.summaryService.retrieveObservationSummaryLps(basicLpsId).subscribe(
       data=>{
+        this.retrieveFromAirTermination();
         this.airTerminationData=JSON.parse(data);
         this.downConductorData=JSON.parse(data);
         this.earthingData=JSON.parse(data);
@@ -2362,10 +2364,6 @@ export class LpssummaryComponent implements OnInit {
       }
       this.flag = true;
      
-      setTimeout(() => {
-        this.spinner = false;
-        this.spinnerValue = "";
-      }, 3000);
     }
 
     OkModalDialog(content5: any){
@@ -2658,9 +2656,25 @@ export class LpssummaryComponent implements OnInit {
     }
 
     retriveSummaryWhileUpdateSave(){
-      this.summaryService.retrieveWhileSaveUpdate(this.email,this.basicLpsId).subscribe(
-        data=>{
-          this.retrieveDetailsfromSavedReports('',this.basicLpsId,JSON.parse(data)[0]);
+      
+      this.summaryService.retrieveWhileSaveUpdate(this.email, this.basicLpsId).subscribe(
+        data => {
+          this.spinner = true;
+          this.spinnerValue = "Please wait, the details are loading!";
+          let summary = JSON.parse(data)[0];
+          if (summary != undefined) {
+            this.retrieveDetailsfromSavedReports('', this.basicLpsId, JSON.parse(data)[0]);
+          }
+          else {
+            this.retrieveFromAirTermination();
+            setTimeout(() => {
+              this.retrieveObservationLpsSummaryOnload();
+            }, 3000);
+          }
+          setTimeout(() => {
+            this.spinner = false;
+            this.spinnerValue = "";
+          }, 3000);
         });
     }
 
