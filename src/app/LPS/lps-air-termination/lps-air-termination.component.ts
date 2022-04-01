@@ -10,6 +10,7 @@ import { Airtermination } from 'src/app/LPS_model/airtermination';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
 import { LpsDownconductorService } from 'src/app/LPS_services/lps-downconductor.service';
 import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
+import { LpsFileUploadService } from 'src/app/LPS_services/lps-file-upload.service';
 
 @Component({
   selector: 'app-lps-air-termination',
@@ -124,6 +125,8 @@ export class LpsAirTerminationComponent implements OnInit {
   spinnerValue: String = '';
   mode: any= 'indeterminate';
 
+  // successMsg1: Strin:g="";
+
   constructor(
     private formBuilder: FormBuilder,private dialog: MatDialog,
     private airterminationServices: AirterminationService,
@@ -131,6 +134,7 @@ export class LpsAirTerminationComponent implements OnInit {
     private modalService: NgbModal,private router: ActivatedRoute,
     private matstepper: LpsMatstepperComponent,
     public service: GlobalsService,
+    private fileUploadServiceService: LpsFileUploadService
 
   ) { 
     this.airterminationService=airterminationServices;

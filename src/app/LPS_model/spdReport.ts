@@ -15,11 +15,11 @@ export class spd {
     flag!: String;
     mainsIncomingOb!: String;
     mainsIncomingRem!: String;
-    totalMainsIncomingOb!: String;
+    totalMainsIncomingOb!: number;
     totalMainsIncomingRem!: String;
     noPannelSupplittingOb!: String;
     noPannelSupplittingRem!: String;
-    totalNoOutDoorRequipmentOb!: String;
+    totalNoOutDoorRequipmentOb!: number;
     totalNoOutDoorRequipmentRem!: String;  
 
     spdDescription!: spdDescription[];

@@ -126,7 +126,7 @@ export class LpsMatstepperComponent implements OnInit {
   public doSomething2(next: any): void {
     this.service.isLinear = false;
     this.service.isCompleted2 = next;
-    if (this.airTermination.isAirterminationUpdated) {
+    if (this.airTermination.isAirterminationUpdated && this.airTermination.airTerminationForm.dirty) {
       //this.summary = false;
       this.earthing.isAirterminationUpdated = true;
       this.spd.isAirterminationUpdated = true;
@@ -157,7 +157,7 @@ export class LpsMatstepperComponent implements OnInit {
   public doSomething3(next: any): void {
     this.service.isLinear=false;
     this.service.isCompleted3 = next;
-    if(next){
+    if(next && this.downConductors.downConductorForm.dirty){
       this.lpsSummary.flag1=false;
       this.lpsSummary.ngOnInit();
     }
@@ -166,7 +166,7 @@ export class LpsMatstepperComponent implements OnInit {
   public doSomething4(next: any): void {
     this.service.isLinear=false;
     this.service.isCompleted4 = next;
-    if(next){
+    if(next && this.earthing.earthingForm.dirty){
       this.lpsSummary.flag1=false;
       this.lpsSummary.ngOnInit();
     }
@@ -176,7 +176,7 @@ export class LpsMatstepperComponent implements OnInit {
   public doSomething5(next: any): void {
     this.service.isLinear=false;
     this.service.isCompleted5 = next;
-    if(next){
+    if(next && this.spd.spdForm.dirty){
       this.lpsSummary.flag1=false;
       this.lpsSummary.ngOnInit();
     }
@@ -184,7 +184,7 @@ export class LpsMatstepperComponent implements OnInit {
   public doSomething6(next: any): void {
     this.service.isLinear=false;
     this.service.isCompleted6 = next;
-    if(next){
+    if(next && this.seperationDistance.separeteDistanceForm.dirty){
       this.lpsSummary.flag1=false;
       this.lpsSummary.ngOnInit();
     }
@@ -192,7 +192,7 @@ export class LpsMatstepperComponent implements OnInit {
   public doSomething7(next: any): void {
     this.service.isLinear=false;
     this.service.isCompleted7 = next;
-    if(next){
+    if(next && this.earthStud.EarthStudForm.dirty){
       this.lpsSummary.flag1=false;
       this.lpsSummary.ngOnInit();
     }
@@ -206,8 +206,9 @@ export class LpsMatstepperComponent implements OnInit {
     this.final.ngOnInit();
     if (next && !(this.lpsSummary.buttonType == 'save')) {
       this.selectedIndex = 2;
-    } else {
-      // this.lpsSummary.ngOnInit();
+    } 
+    else if(this.lpsSummary.buttonType == 'save') {
+      this.selectedIndex = 1;
     }
    // this.Completed8 = this.lpsSummary.success;
   }
