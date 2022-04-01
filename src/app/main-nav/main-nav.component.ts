@@ -133,6 +133,8 @@ export class MainNavComponent implements OnInit, OnDestroy {
   isShowing = false;
   showSubSubMenu: boolean = false;
   showSubmenuRep: boolean = false;
+  showSubmenuOngoing: boolean = false;
+  showSubmenuCompleted: boolean = false;
   showingh = false;
   autosize: boolean = true;
   screenWidth: number | undefined;
@@ -180,6 +182,15 @@ export class MainNavComponent implements OnInit, OnDestroy {
   itemValue5: String = 'REP';
   SubitemValue1: String = 'Ongoing TIC';
   SubitemValue2: String = 'Completed TIC';
+
+  SubitemValueOngoing1 = 'LV Systems';
+  SubitemValueOngoing2 = 'EMC Assessment';
+  SubitemValueOngoing3 = 'LPS Systems';
+
+  SubitemValueCompleted1 = 'LV Systems';
+  SubitemValueCompleted2 = 'EMC Assessment';
+  SubitemValueCompleted3 = 'LPS Systems';
+
   // stackblitz
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
@@ -697,11 +708,14 @@ triggerNavigateTo(siteName:any){
  highlightSub(type:any){
   //this.viewContainerRef.clear();
   this.welcome= false;
-  this.selectedRowIndexSub = type;
-  this.selectedRowIndexType="";
-  this.ongoingSite=true;
-  this.completedSite=false;
-  this.value= false;
+  if(type== 'LV Systems') {
+    this.selectedRowIndexSub = type;
+    this.selectedRowIndexType="";
+    this.ongoingSite=true;
+    this.completedSite=false;
+    this.value= false;
+  }
+  
  }
 
  editSite(siteId: any,userName: any,site: any) {
@@ -858,12 +872,15 @@ emailPDF(siteId: any,userName: any, siteName: any){
 
  highlightSub2(type:any){
   this.viewContainerRef.clear();
-  this.welcome= false;
-  this.selectedRowIndexSub = type;
-  this.selectedRowIndexType="";
-  this.ongoingSite=false;
-  this.completedSite=true;
-  this.value=false;
+  if(type == 'LV Systems') {
+    this.welcome= false;
+    this.selectedRowIndexSub = type;
+    this.selectedRowIndexType="";
+    this.ongoingSite=false;
+    this.completedSite=true;
+    this.value=false;
+  }
+  
  }
  highlightType(type:any){
   this.selectedRowIndexType = type;
