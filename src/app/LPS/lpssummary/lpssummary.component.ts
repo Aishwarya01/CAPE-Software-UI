@@ -2396,6 +2396,9 @@ export class LpssummaryComponent implements OnInit {
        // this.service.isLinear=false;
         this.modalService.dismissAll((this.successMsg = ""));
         this.proceedNext.emit(true);
+        // if(this.buttonType != 'save'){
+        //   this.navigateToStep1(2);
+        // }
         this.spinner = true;
         this.spinnerValue = "Please wait, the details are loading!";
         setTimeout(() => {
@@ -2408,6 +2411,10 @@ export class LpssummaryComponent implements OnInit {
     navigateToStep(index: any) {
       this.matStepper.navigateStep(index);
     }
+
+    // navigateToStep1(index: any) {
+    //   this.matStepper.navigateStep1(index);
+    // }
 
   onSubmit(flag1:any,content:any,contents:any){
     this.submitted = true;
