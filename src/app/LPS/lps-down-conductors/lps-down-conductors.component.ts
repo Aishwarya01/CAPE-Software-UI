@@ -529,7 +529,7 @@ export class LpsDownConductorsComponent implements OnInit {
     this.downConductorForm.reset();
   }
 
-  retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
+  retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,data: any){
       //this.service.lvClick=1;
       this.step3List = data.downConductorReport;
       this.downConductorReport.basicLpsId = basicLpsId;      
