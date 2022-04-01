@@ -7,6 +7,7 @@
 <div *ngIf="validationErrorTab" style="text-align: center;">
     <span class="alert alert-danger">{{validationErrorMsgTab}}</span>
 </div>
+
 <div class="card">
     <div class="card-body">
         <form [formGroup]="airTerminationForm" (ngSubmit)="onSubmit(flag)" (keyup)="onKeyForm($event)"
@@ -24,7 +25,7 @@
                                                 <i class="bi bi-align-start"></i>
                                             </span>
                                         </div>
-                                        <input type="number" class="form-control" placeholder="Enter Building Number"
+                                        <input type="number" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Enter Building Number"
                                             formControlName="buildingNumber"
                                             [ngClass]="{ 'is-invalid': submitted && q.get('buildingNumber')?.errors }"
                                             required [readonly]="isEditable" />
@@ -131,7 +132,7 @@
                                                 <i class="bi bi-align-start"></i>
                                             </span>
                                         </div>
-                                        <input type="number" class="form-control" formControlName="buildingLength"
+                                        <input type="number" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="buildingLength"
                                             [ngClass]="{ 'is-invalid': submitted && q.get('buildingLength')?.errors }"
                                             required [readonly]="isEditable" />
                                         <div *ngIf="submitted && q.get('buildingLength')?.errors"
@@ -150,7 +151,7 @@
                                                 <i class="bi bi-border-width"></i>
                                             </span>
                                         </div>
-                                        <input type="number" class="form-control" formControlName="buildingWidth"
+                                        <input type="number" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="buildingWidth"
                                             [ngClass]="{ 'is-invalid': submitted && q.get('buildingWidth')?.errors }"
                                             [readonly]="isEditable" required />
                                         <div *ngIf="submitted && q.get('buildingWidth')?.errors"
@@ -169,7 +170,7 @@
                                                 <i class="bi bi-distribute-horizontal"></i>
                                             </span>
                                         </div>
-                                        <input type="number" class="form-control" formControlName="buildingHeight"
+                                        <input type="number" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="buildingHeight"
                                             [ngClass]="{ 'is-invalid': submitted && q.get('buildingHeight')?.errors }"
                                             [readonly]="isEditable" required />
                                         <div *ngIf="submitted && q.get('buildingHeight')?.errors"
@@ -188,7 +189,7 @@
                                                 <i class="bi bi-distribute-horizontal"></i>
                                             </span>
                                         </div>
-                                        <input type="number" class="form-control"
+                                        <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
                                             placeholder="Height of tallest protrution"
                                             formControlName="protrusionHeight"
                                             [ngClass]="{ 'is-invalid': submitted && q.get('protrusionHeight')?.errors }"
@@ -303,7 +304,7 @@
                                                                     </span>
                                                                 </div>
                                                                 <textarea type="text" class="form-control"
-                                                                    placeholder="Please enter Observation here"
+                                                                    placeholder="Please enter Name of consultant/PMC/Contractor here"
                                                                     [readonly]="isEditable"
                                                                     formControlName="consultantNameObserv"
                                                                     [ngClass]="{ 'is-invalid': submitted && a.get('consultantNameObserv')?.errors }"
@@ -343,7 +344,7 @@
                                                                     </span>
                                                                 </div>
                                                                 <textarea type="text" class="form-control"
-                                                                    placeholder="Please enter Observation here"
+                                                                    placeholder="Please enter Architect/ Designer Name here"
                                                                     [readonly]="isEditable"
                                                                     formControlName="architectNameObserv"
                                                                     [ngClass]="{ 'is-invalid': submitted && a.get('architectNameObserv')?.errors }"
@@ -423,7 +424,7 @@
                                                                     </span>
                                                                 </div>
                                                                 <textarea type="text" class="form-control"
-                                                                    placeholder="Please enter Observation here"
+                                                                    placeholder="Please enter Approved by here"
                                                                     [readonly]="isEditable"
                                                                     formControlName="approvedByObserv"
                                                                     [ngClass]="{ 'is-invalid': submitted && a.get('approvedByObserv')?.errors }"
@@ -503,7 +504,7 @@
                                                                     </span>
                                                                 </div>
                                                                 <textarea type="text" class="form-control"
-                                                                    placeholder="Please enter Observation here"
+                                                                    placeholder="Please enter Drawing number here"
                                                                     [readonly]="isEditable"
                                                                     formControlName="drawingObserv"
                                                                     [ngClass]="{ 'is-invalid': submitted && a.get('drawingObserv')?.errors }"
@@ -543,7 +544,7 @@
                                                                     </span>
                                                                 </div>
                                                                 <textarea type="text" class="form-control"
-                                                                    placeholder="Please enter Observation here"
+                                                                    placeholder="Please enter Revision number here"
                                                                     [readonly]="isEditable"
                                                                     formControlName="revisionNoObserv"
                                                                     [ngClass]="{ 'is-invalid': submitted && a.get('revisionNoObserv')?.errors }"
@@ -689,7 +690,7 @@
                                                                     </span>
                                                                 </div>
                                                                 <textarea type="text" class="form-control"
-                                                                    placeholder="Please enter Observation here"
+                                                                    placeholder="Please enter Name of company who done the installation here"
                                                                     [readonly]="isEditable"
                                                                     formControlName="companyNameObserv"
                                                                     [ngClass]="{ 'is-invalid': submitted && a.get('companyNameObserv')?.errors }"
@@ -1066,7 +1067,7 @@
                                                         <select class="form-control"
                                                             formControlName="physicalInspectionOb"
                                                             [attr.disabled]="isEditable ? '' : null"
-                                                            placeholder="Please enter Observation here"
+                                                            placeholder="Please enter Physical inspection here"
                                                             (change)="validationChangeVat($event,q,'physicalInspectionRe')"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionOb')?.errors}"
                                                             style="height: 3rem;">
@@ -1104,8 +1105,7 @@
                                                 </td>
                                             </tr>
 
-                                            <br>
-                                            <div formArrayName="verticalAirTerminationList"
+                                            <div style="margin-top: 1rem;margin-bottom: 1rem;" class="search-bar1" formArrayName="verticalAirTerminationList"
                                                 *ngFor="let z of getAirTUnitControls(a); let w = index">
                                                 <div [formGroupName]="w">
                                                     <h2><u>Vertical List - {{w+1}}</u></h2>
@@ -1176,7 +1176,7 @@
                                                                     </span>
                                                                 </div>
                                                                 <textarea type="text" class="form-control"
-                                                                    placeholder="Please enter Observation here"
+                                                                    placeholder="Please enter Size/cross section area of air terminal here"
                                                                     [readonly]="isEditable"
                                                                     formControlName="sizeOfTerminalOb"
                                                                     [ngClass]="{ 'is-invalid': submitted && z.get('sizeOfTerminalOb')?.errors}"></textarea>
@@ -1215,11 +1215,11 @@
                                                                         <i class="bi bi-text-paragraph"></i>
                                                                     </span>
                                                                 </div>
-                                                                <input type="number" minlength="1"
-                                                                    (keypress)="keyPressNumbers($event)"
+                                                                <input type="number" (keypress)="keyPressNumbers($event)" minlength="1"
                                                                     class="form-control"
                                                                     (change)="findAngleDistance(q,$event,w)"
-                                                                    placeholder="Please enter Observation here"
+                                                                    placeholder="Please enter Height of vertical air terminal in
+                                                                    meters(number) here"
                                                                     [readonly]="isEditable"
                                                                     formControlName="heightOfTerminalOb"
                                                                     [ngClass]="{ 'is-invalid': submitted && z.get('heightOfTerminalOb')?.errors}"
@@ -1472,17 +1472,15 @@
                                                 <br>
                                             </div>
 
-                                            <br>
+
                                             <tr>
                                                 <td><b>Note :</b> Physical inspection of interconnection of VAT to roof
                                                     conductor & metal bodies to roof conductors (check for connections
                                                     (tight/loose), its conditions (healthy/corroded)and its
                                                     position/location w.r.t. design</td>
                                             </tr>
-
                                             <br>
-
-                                            <tr>
+                                            <tr style="margin-top: 1rem;">
                                                 <td style="width: 1rem; text-align: center;">6(j)</td>
                                                 <td style="width: 24rem;">Total number of air terminals</td>
                                                 <td style="width: 43rem;">
@@ -1492,8 +1490,8 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <input type="number" class="form-control"
-                                                            placeholder="Please enter Observation here"
+                                                        <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
+                                                            placeholder="Please enter Total number of air terminals here"
                                                             formControlName="totalNumberOb" [readonly]="isEditable"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('totalNumberOb')?.errors}"
                                                             style="height: 3rem;">
@@ -1529,8 +1527,8 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <input type="number" class="form-control"
-                                                            placeholder="Please enter Observation here"
+                                                        <input type="number" class="form-control" (keypress)="keyPressNumbers($event)"
+                                                            placeholder="Please enter Number of air terminals inspected here"
                                                             [readonly]="isEditable" formControlName="inspNoOb"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('inspNoOb')?.errors}"
                                                             style="height: 3rem;">
@@ -1566,8 +1564,8 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <input type="number" class="form-control"
-                                                            placeholder="Please enter Observation here"
+                                                        <input type="number" class="form-control" (keypress)="keyPressNumbers($event)"
+                                                            placeholder="Please enter Number of inspections passed here"
                                                             [readonly]="isEditable" formControlName="inspPassedNoOb"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('inspPassedNoOb')?.errors}"
                                                             style="height: 3rem;">
@@ -1603,8 +1601,8 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <input type="number" class="form-control"
-                                                            placeholder="Please enter Observation here"
+                                                        <input type="number" class="form-control" (keypress)="keyPressNumbers($event)"
+                                                            placeholder="Please enter Number of inspections failed here"
                                                             [readonly]="isEditable" formControlName="inspFaileddNoOb"
                                                             (keyup)="validationChangeVatFailed($event,q,'inspFaileddNoRe')"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('inspFaileddNoOb')?.errors}"
@@ -1816,7 +1814,7 @@
                                                         <textarea [readonly]="isEditable"
                                                             formControlName="sizeOfConductorOb" type="text"
                                                             class="form-control"
-                                                            placeholder="Please enter Observation here"
+                                                            placeholder="Please enter Size/cross section area of conductor here"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('sizeOfConductorOb')?.errors}"></textarea>
                                                         <div *ngIf="submitted && a.get('sizeOfConductorOb')?.errors"
                                                             class="invalid-feedback">
@@ -1853,7 +1851,7 @@
                                                         </div>
                                                         <textarea [readonly]="isEditable" formControlName="meshSizeOb"
                                                             type="text" class="form-control"
-                                                            placeholder="Please enter Observation here"
+                                                            placeholder="Please enter Mesh Size here"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('meshSizeOb')?.errors}"></textarea>
                                                         <div *ngIf="submitted && a.get('meshSizeOb')?.errors"
                                                             class="invalid-feedback">
@@ -1901,8 +1899,8 @@
                                                         </div>
                                                         <input [readonly]="isEditable"
                                                             formControlName="maximumDistanceXOb" type="number"
-                                                            class="form-control"
-                                                            placeholder="Please enter Observation here"
+                                                            class="form-control" (keypress)="keyPressNumbers($event)"
+                                                            placeholder="Please enter Maximum distance between mesh conductors in meters  here"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('maximumDistanceXOb')?.errors}"
                                                             style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('maximumDistanceXOb')?.errors"
@@ -1952,8 +1950,8 @@
                                                         </div>
                                                         <input [readonly]="isEditable"
                                                             formControlName="minimumDistanceXOb" type="number"
-                                                            class="form-control"
-                                                            placeholder="Please enter Observation here"
+                                                            class="form-control" (keypress)="keyPressNumbers($event)"
+                                                            placeholder="Please enter Minimum distance between mesh conductors in meters here"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('minimumDistanceXOb')?.errors}"
                                                             style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('minimumDistanceXOb')?.errors"
@@ -2004,8 +2002,8 @@
                                                         </div>
                                                         <input [readonly]="isEditable"
                                                             formControlName="maximumDistanceYOb" type="number"
-                                                            class="form-control"
-                                                            placeholder="Please enter Observation here"
+                                                            class="form-control" (keypress)="keyPressNumbers($event)"
+                                                            placeholder="Please enter Maximum distance between mesh conductors in meters here"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('maximumDistanceYOb')?.errors}"
                                                             style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('maximumDistanceYOb')?.errors"
@@ -2056,8 +2054,8 @@
                                                         </div>
                                                         <input [readonly]="isEditable"
                                                             formControlName="minimumDistanceYOb" type="number"
-                                                            class="form-control"
-                                                            placeholder="Please enter Observation here"
+                                                            class="form-control" (keypress)="keyPressNumbers($event)"
+                                                            placeholder="Please enter Minimum distance between mesh conductors in meters here"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('minimumDistanceYOb')?.errors}"
                                                             style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('minimumDistanceYOb')?.errors"
@@ -2096,10 +2094,10 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <input [readonly]="isEditable"
+                                                        <input [readonly]="isEditable" (keypress)="keyPressNumbers($event)"
                                                             formControlName="heightOfConductorFlatSurfaceOb"
                                                             type="number" class="form-control"
-                                                            placeholder="Please enter Observation here"
+                                                            placeholder="Please enter Height of mesh conductors in mm here"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('heightOfConductorFlatSurfaceOb')?.errors}"
                                                             style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('heightOfConductorFlatSurfaceOb')?.errors"
@@ -2347,9 +2345,8 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <br>
-                                            <div formArrayName="airHolderList"
-                                                *ngFor="let h of getAirHolderControls(a); let x = index">
+
+                                            <div style="margin-top: 1rem;margin-bottom: 1rem;" class="search-bar1" formArrayName="airHolderList" *ngFor="let h of getAirHolderControls(a); let x = index">
                                                 <div [formGroupName]="x">
                                                     <h2><u>Holder List - {{x+1}}</u></h2>
                                                     <tr>
@@ -2464,10 +2461,10 @@
                                                                         <i class="bi bi-text-paragraph"></i>
                                                                     </span>
                                                                 </div>
-                                                                <input [readonly]="isEditable"
+                                                                <input [readonly]="isEditable" (keypress)="keyPressNumbers($event)"
                                                                     formControlName="totalHolderNoOb" type="number"
                                                                     class="form-control"
-                                                                    placeholder="Please enter Observation here"
+                                                                    placeholder="Please enter Total number of holders here"
                                                                     [ngClass]="{ 'is-invalid': submitted && h.get('totalHolderNoOb')?.errors}"
                                                                     style="height: 3rem;">
                                                                 <div *ngIf="submitted && h.get('totalHolderNoOb')?.errors"
@@ -2503,10 +2500,10 @@
                                                                         <i class="bi bi-text-paragraph"></i>
                                                                     </span>
                                                                 </div>
-                                                                <input [readonly]="isEditable"
+                                                                <input [readonly]="isEditable" (keypress)="keyPressNumbers($event)"
                                                                     formControlName="holderInspNoOb" type="number"
                                                                     class="form-control"
-                                                                    placeholder="Please enter Observation here"
+                                                                    placeholder="Please enter Number of holders inspected here"
                                                                     [ngClass]="{ 'is-invalid': submitted && h.get('holderInspNoOb')?.errors}"
                                                                     style="height: 3rem;">
                                                                 <div *ngIf="submitted && h.get('holderInspNoOb')?.errors"
@@ -2542,10 +2539,10 @@
                                                                         <i class="bi bi-text-paragraph"></i>
                                                                     </span>
                                                                 </div>
-                                                                <input [readonly]="isEditable"
+                                                                <input [readonly]="isEditable" (keypress)="keyPressNumbers($event)"
                                                                     formControlName="holderInspPassedNoOb" type="number"
                                                                     class="form-control"
-                                                                    placeholder="Please enter Observation here"
+                                                                    placeholder="Please enter Number of inspections passed here"
                                                                     [ngClass]="{ 'is-invalid': submitted && h.get('holderInspPassedNoOb')?.errors}"
                                                                     style="height: 3rem;">
                                                                 <div *ngIf="submitted && h.get('holderInspPassedNoOb')?.errors"
@@ -2581,10 +2578,10 @@
                                                                         <i class="bi bi-text-paragraph"></i>
                                                                     </span>
                                                                 </div>
-                                                                <input [readonly]="isEditable"
+                                                                <input [readonly]="isEditable" (keypress)="keyPressNumbers($event)"
                                                                     formControlName="holderInspFailedNoOb" type="number"
                                                                     class="form-control"
-                                                                    placeholder="Please enter Observation here"
+                                                                    placeholder="Please enter Number of inspections failed here"
                                                                     (keyup)="validationChangeHolderList($event,h,'holderInspFailedNoRe')"
                                                                     [ngClass]="{ 'is-invalid': submitted && h.get('holderInspFailedNoOb')?.errors}"
                                                                     style="height: 3rem;">
@@ -2636,7 +2633,6 @@
                                                 </div>
                                                 <br>
                                             </div>
-                                            <br>
                                             <tr>
                                                 <td style="width: 1rem;text-align: center;">8(j)</td>
                                                 <td style="width: 24rem;">Material of parapet holder</td>
@@ -2698,9 +2694,9 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <input type="number" [readonly]="isEditable"
+                                                        <input type="number" [readonly]="isEditable" (keypress)="keyPressNumbers($event)"
                                                             formControlName="totalParpetHolderNoOb" class="form-control"
-                                                            placeholder="Please enter Observation here"
+                                                            placeholder="Please enter Total number of holders here"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('totalParpetHolderNoOb')?.errors}"
                                                             style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('totalParpetHolderNoOb')?.errors"
@@ -2735,9 +2731,9 @@
                                                             </span>
                                                         </div>
                                                         <input type="number" class="form-control"
-                                                            [readonly]="isEditable"
+                                                            [readonly]="isEditable" (keypress)="keyPressNumbers($event)"
                                                             formControlName="parpetInspectionNoOb"
-                                                            placeholder="Please enter Observation here"
+                                                            placeholder="Please enter Number of holders inspected here"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('parpetInspectionNoOb')?.errors}"
                                                             style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('parpetInspectionNoOb')?.errors"
@@ -2773,10 +2769,10 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <input [readonly]="isEditable"
+                                                        <input [readonly]="isEditable" (keypress)="keyPressNumbers($event)"
                                                             formControlName="parpetInspectionPassedNoOb" type="number"
                                                             class="form-control"
-                                                            placeholder="Please enter Observation here"
+                                                            placeholder="Please enter Number of inspections passed here"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('parpetInspectionPassedNoOb')?.errors}"
                                                             style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('parpetInspectionPassedNoOb')?.errors"
@@ -2812,10 +2808,10 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <input [readonly]="isEditable"
+                                                        <input [readonly]="isEditable" (keypress)="keyPressNumbers($event)"
                                                             formControlName="parpetInspectionFailedNoOb" type="number"
                                                             class="form-control"
-                                                            placeholder="Please enter Observation here"
+                                                            placeholder="Please enter Number of inspections failed here"
                                                             (keyup)="validationChangeHolderKey($event,q,'parpetInspectionFailedNoRe')"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('parpetInspectionFailedNoOb')?.errors}"
                                                             style="height: 3rem;">
@@ -3221,8 +3217,8 @@
                                                             </span>
                                                         </div>
                                                         <input [readonly]="isEditable" formControlName="totalClampsNoOb"
-                                                            type="number" class="form-control"
-                                                            placeholder="Please enter Observation here"
+                                                            type="number" class="form-control" (keypress)="keyPressNumbers($event)"
+                                                            placeholder="Please enter Total number of clamps here"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('totalClampsNoOb')?.errors}"
                                                             style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('totalClampsNoOb')?.errors"
@@ -3258,8 +3254,8 @@
                                                             </span>
                                                         </div>
                                                         <input [readonly]="isEditable" formControlName="inspectionNoOb"
-                                                            type="number" class="form-control"
-                                                            placeholder="Please enter Observation here"
+                                                            type="number" class="form-control" (keypress)="keyPressNumbers($event)"
+                                                            placeholder="Please enter Number of clamps inspected here"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('inspectionNoOb')?.errors}"
                                                             style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('inspectionNoOb')?.errors"
@@ -3293,10 +3289,10 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <input [readonly]="isEditable"
+                                                        <input [readonly]="isEditable" (keypress)="keyPressNumbers($event)"
                                                             formControlName="inspectionPassedOb" type="number"
                                                             class="form-control"
-                                                            placeholder="Please enter Observation here"
+                                                            placeholder="Please enter Number of inspections passed here"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('inspectionPassedOb')?.errors}"
                                                             style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('inspectionPassedOb')?.errors"
@@ -3331,10 +3327,10 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <input [readonly]="isEditable"
+                                                        <input [readonly]="isEditable" (keypress)="keyPressNumbers($event)"
                                                             formControlName="inspectionFailedReOb" type="number"
                                                             class="form-control"
-                                                            placeholder="Please enter Observation here"
+                                                            placeholder="Please enter Number of inspections failed here"
                                                             (keyup)="validationChangeClampsKey($event,q,'inspectionFailedReRe')"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedReOb')?.errors}"
                                                             style="height: 3rem;">
@@ -3646,10 +3642,10 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <input [readonly]="isEditable"
+                                                        <input [readonly]="isEditable" (keypress)="keyPressNumbers($event)"
                                                             formControlName="intervalBwExpansionOb" type="number"
                                                             class="form-control"
-                                                            placeholder="Please enter Observation here"
+                                                            placeholder="Please enter expansion piece in meters here"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('intervalBwExpansionOb')?.errors}"
                                                             style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('intervalBwExpansionOb')?.errors"
@@ -3685,10 +3681,10 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <input [readonly]="isEditable"
+                                                        <input [readonly]="isEditable" (keypress)="keyPressNumbers($event)"
                                                             formControlName="totalNoExpansionOb" type="number"
                                                             class="form-control"
-                                                            placeholder="Please enter Observation here"
+                                                            placeholder="Please enter Total number of arrangements here"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('totalNoExpansionOb')?.errors}"
                                                             style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('totalNoExpansionOb')?.errors"
@@ -3724,8 +3720,8 @@
                                                             </span>
                                                         </div>
                                                         <input [readonly]="isEditable" formControlName="inspectionNoOb"
-                                                            type="number" class="form-control"
-                                                            placeholder="Please enter Observation here"
+                                                            type="number" class="form-control" (keypress)="keyPressNumbers($event)"
+                                                            placeholder="Please enter expansion arrangements inspected here"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('inspectionNoOb')?.errors}"
                                                             style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('inspectionNoOb')?.errors"
@@ -3761,10 +3757,10 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <input [readonly]="isEditable"
+                                                        <input [readonly]="isEditable" (keypress)="keyPressNumbers($event)"
                                                             formControlName="inspectionPassedNoOb" type="number"
                                                             class="form-control"
-                                                            placeholder="Please enter Observation here"
+                                                            placeholder="Please enter Number of inspections passed here"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('inspectionPassedNoOb')?.errors}"
                                                             style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('inspectionPassedNoOb')?.errors"
@@ -3803,8 +3799,8 @@
                                                         </div>
                                                         <input [readonly]="isEditable"
                                                             formControlName="inspectionFailedNoOb" type="number"
-                                                            class="form-control"
-                                                            placeholder="Please enter Observation here"
+                                                            class="form-control" (keypress)="keyPressNumbers($event)"
+                                                            placeholder="Please enter Number of inspections failed here"
                                                             (keyup)="validationChangeExpansionKey($event,q,'inspectionFailedNoRe')"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedNoOb')?.errors}"
                                                             style="height: 3rem;">
@@ -4207,10 +4203,10 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <input [readonly]="isEditable"
+                                                        <input [readonly]="isEditable" (keypress)="keyPressNumbers($event)"
                                                             formControlName="totalNoConnectorOb" type="number"
                                                             class="form-control"
-                                                            placeholder="Please enter Observation here"
+                                                            placeholder="Please enter Total number of connectors here"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('totalNoConnectorOb')?.errors}"
                                                             style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('totalNoConnectorOb')?.errors"
@@ -4245,8 +4241,8 @@
                                                             </span>
                                                         </div>
                                                         <input [readonly]="isEditable" formControlName="inspectionNoOb"
-                                                            type="number" class="form-control"
-                                                            placeholder="Please enter Observation here"
+                                                            type="number" class="form-control" (keypress)="keyPressNumbers($event)"
+                                                            placeholder="Please enter Number of connectors inspected here"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('inspectionNoOb')?.errors}"
                                                             style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('inspectionNoOb')?.errors"
@@ -4281,10 +4277,10 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <input [readonly]="isEditable"
+                                                        <input [readonly]="isEditable" (keypress)="keyPressNumbers($event)"
                                                             formControlName="inspectionPassedNoOb" type="number"
                                                             class="form-control"
-                                                            placeholder="Please enter Observation here"
+                                                            placeholder="Please enter Number of inspections passed here"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('inspectionPassedNoOb')?.errors}"
                                                             style="height: 3rem;">
                                                         <div *ngIf="submitted && a.get('inspectionPassedNoOb')?.errors"
@@ -4320,10 +4316,10 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <input [readonly]="isEditable"
+                                                        <input [readonly]="isEditable" (keypress)="keyPressNumbers($event)"
                                                             formControlName="inspectionFailedOb" type="number"
                                                             class="form-control"
-                                                            placeholder="Please enter Observation here"
+                                                            placeholder="Please enter Number of inspections failed here"
                                                             (keyup)="validationChangeConnectorsKey($event,q,'inspectionFailedRe')"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedOb')?.errors}"
                                                             style="height: 3rem;">
@@ -4399,6 +4395,12 @@
 
 <ng-template #content let-modal>
     <div class="modal-body">
+        <mat-progress-spinner style="margin: 0 auto;" *ngIf="spinner" color="primary" [mode]="mode" value="50" diameter="50">
+        </mat-progress-spinner>
+        <br>
+        <div *ngIf="spinner" style="text-align: center;">
+            {{spinnerValue}}
+        </div>
         <div class="centre-text m-btm30">
             <div *ngIf="success" style="text-align: center;">
                 <span class="successshow">{{successMsg}}</span>
@@ -4428,13 +4430,13 @@
     </div>
     <br>
     <div class="row">
-        <button type="button" class="col-md-6" style="text-align:center; width: auto;"
+        <button type="button" class="col-md-6" style="width: 5rem;position: relative;margin-left: 30%;"
             class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
             (click)="closeModalDialog()" matStepperNext>
             <i class="bi bi-arrow-right-circle"></i>&nbsp;
             <span aria-hidden="true">Ok</span>
         </button>
-        <button type="button" class="col-md-6" style="width: auto;"
+        <button type="button" class="col-md-6" style="text-align: center;width: auto;position: relative;margin-right: 30%;"
             class="btn btn-danger btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
             (click)="closeModalDialog()">
             <i class="bi bi-x icon"></i>

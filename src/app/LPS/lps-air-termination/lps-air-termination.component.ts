@@ -10,6 +10,7 @@ import { Airtermination } from 'src/app/LPS_model/airtermination';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
 import { LpsDownconductorService } from 'src/app/LPS_services/lps-downconductor.service';
 import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
+import { LpsFileUploadService } from 'src/app/LPS_services/lps-file-upload.service';
 
 @Component({
   selector: 'app-lps-air-termination',
@@ -120,6 +121,11 @@ export class LpsAirTerminationComponent implements OnInit {
   tabError: boolean=false;
   tabErrorMsg: string="";
   AIRTERMINATION_CONSTANTS=new AirterminationConstants();
+  spinner: boolean=false;
+  spinnerValue: String = '';
+  mode: any= 'indeterminate';
+
+  // successMsg1: Strin:g="";
 
   constructor(
     private formBuilder: FormBuilder,private dialog: MatDialog,
@@ -128,6 +134,7 @@ export class LpsAirTerminationComponent implements OnInit {
     private modalService: NgbModal,private router: ActivatedRoute,
     private matstepper: LpsMatstepperComponent,
     public service: GlobalsService,
+    private fileUploadServiceService: LpsFileUploadService
 
   ) { 
     this.airterminationService=airterminationServices;
@@ -1575,9 +1582,15 @@ export class LpsAirTerminationComponent implements OnInit {
         this.Error = false;
         this.modalService.dismissAll((this.errorMsg = ''));
       } else {
+        // this.spinner = true;
+        // this.spinnerValue = "Please wait, the details are loading!";
+        setTimeout(() => { 
+          //  this.spinner = false;
+          // this.spinnerValue = ""; 
+         }, 3000); 
         this.success = false;
         this.modalService.dismissAll((this.successMsg = ''));
-      }
+     }
     }
   
     onSubmit(flag: any){
