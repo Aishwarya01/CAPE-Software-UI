@@ -21,8 +21,8 @@ export class LpsSavedReportComponent implements OnInit {
                                        'contractorName', 
                                        'dealerContractorName' , 
                                        'address', 
-                                       'createdDate', 
-                                       'createdBy',
+                                       'updatedDate', 
+                                       'updatedBy',
                                        'continue'];
   savedReportLps_dataSource!: MatTableDataSource<BasicDetails[]>;
   @ViewChild('savedReportLpsPaginator', { static: false }) savedReportLpsPaginator!: MatPaginator;
@@ -130,10 +130,10 @@ completedFilterData: any=[];
       
   }
 
-  continue(basicLpsId: any,clientName: any) {
+  continue(basicLpsId: any) {
     this.spinner=true;
     this.disablepage=false;
     this.spinnerValue = "Please wait, the details are loading!";
-    this.lpsParent.continue(basicLpsId,clientName);
+    this.lpsParent.continue(basicLpsId);
   } 
 }
