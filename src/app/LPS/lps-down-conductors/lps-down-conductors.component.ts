@@ -6,7 +6,7 @@ import { GlobalsService } from 'src/app/globals.service';
 import { downConductorReport } from 'src/app/LPS_model/downConductorReport';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
 import { LpsDownconductorService } from 'src/app/LPS_services/lps-downconductor.service';
-import { LpsFileUploadService } from 'src/app/LPS_services/lps-file-upload.service';
+//import { LpsFileUploadService } from 'src/app/LPS_services/lps-file-upload.service';
 import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
 
 @Component({
@@ -167,7 +167,7 @@ export class LpsDownConductorsComponent implements OnInit {
     private modalService: NgbModal, private router: ActivatedRoute,
     public service: GlobalsService,
     private matstepper: LpsMatstepperComponent,
-    private fileUploadServiceService: LpsFileUploadService,
+    //private fileUploadServiceService: LpsFileUploadService,
     private airterminationServices:AirterminationService) {
     this.lpsDownconductorService = lpsDownconductorService;
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
