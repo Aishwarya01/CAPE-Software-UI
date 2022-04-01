@@ -125,8 +125,9 @@ export class LpsMatstepperComponent implements OnInit {
   }
   public doSomething2(next: any): void {
     this.service.isLinear = false;
-    this.service.isCompleted2 = next; 
-    if (this.airTermination.isAirterminationUpdated) { 
+    this.service.isCompleted2 = next;
+    if (this.airTermination.isAirterminationUpdated) {
+      //this.summary = false;
       this.earthing.isAirterminationUpdated = true;
       this.spd.isAirterminationUpdated = true;
       this.seperationDistance.isAirterminationUpdated = true;
@@ -136,45 +137,65 @@ export class LpsMatstepperComponent implements OnInit {
       this.spd.ngOnInit();
       this.seperationDistance.ngOnInit();
       this.earthStud.ngOnInit();
-      this.lpsSummary.retriveSummaryWhileUpdateSave();
+      
+      //this.summary = true;
+     // setTimeout(() => {
+      this.lpsSummary.flag1=false;
+        this.lpsSummary.ngOnInit();
+     // }, 1000);
       this.initializeLpsId();
       this.airTermination.isAirterminationUpdated = false;
       setTimeout(() => {
-        this.getAirterminationData(this.basic.basicDetails.basicLpsId); 
+        this.getAirterminationData(this.basic.basicDetails.basicLpsId);
       }, 3000);
     }
     else {
       this.downConductors.updateMethod();
-    } 
+    }
   }
 
   public doSomething3(next: any): void {
     this.service.isLinear=false;
     this.service.isCompleted3 = next;
-    this.lpsSummary.retriveSummaryWhileUpdateSave();
+    if(next){
+      this.lpsSummary.flag1=false;
+      this.lpsSummary.ngOnInit();
+    }
   }
 
   public doSomething4(next: any): void {
     this.service.isLinear=false;
     this.service.isCompleted4 = next;
-    this.lpsSummary.retriveSummaryWhileUpdateSave();
+    if(next){
+      this.lpsSummary.flag1=false;
+      this.lpsSummary.ngOnInit();
+    }
     this.refresh();
   }
 
   public doSomething5(next: any): void {
     this.service.isLinear=false;
     this.service.isCompleted5 = next;
-    this.lpsSummary.retriveSummaryWhileUpdateSave();
+    if(next){
+      this.lpsSummary.flag1=false;
+      this.lpsSummary.ngOnInit();
+    }
   }
   public doSomething6(next: any): void {
     this.service.isLinear=false;
     this.service.isCompleted6 = next;
-    this.lpsSummary.retriveSummaryWhileUpdateSave();
+    if(next){
+      this.lpsSummary.flag1=false;
+      this.lpsSummary.ngOnInit();
+    }
   }
   public doSomething7(next: any): void {
     this.service.isLinear=false;
     this.service.isCompleted7 = next;
-    this.lpsSummary.retriveSummaryWhileUpdateSave();
+    if(next){
+      this.lpsSummary.flag1=false;
+      this.lpsSummary.ngOnInit();
+    }
     
     // this.final.ngOnInit();
   }
@@ -279,11 +300,11 @@ export class LpsMatstepperComponent implements OnInit {
               this.earthStud.createearthStudForm(this.dataJSON.airTermination);
             }
              //summary
-            this.lpsSummary.spinner = true;
-            this.lpsSummary.spinnerValue = "Please wait, the details are loading!";
+            // this.lpsSummary.spinner = true;
+            // this.lpsSummary.spinnerValue = "Please wait, the details are loading!";
             if (this.dataJSON.summaryLps == null) {
               setTimeout(() => {
-                this.lpsSummary.retriveSummaryWhileUpdateSave();
+                this.lpsSummary.ngOnInit();
               }, 1000);
             }
             else {

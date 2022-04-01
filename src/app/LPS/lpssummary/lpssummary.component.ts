@@ -431,7 +431,7 @@ export class LpssummaryComponent implements OnInit {
         declarationDate: new FormControl('',Validators.required),
         recommendYears: new FormControl('',Validators.required),
       });
-        
+      this.numberOfBuildingCount=[]
      // this.spinner = true;
      // this.spinnerValue = "Please wait, the details are loading!";
       this.retrieveFromAirTermination();
@@ -484,6 +484,7 @@ export class LpssummaryComponent implements OnInit {
        earthStudDesc: this.formBuilder.array([]),
        flag: new FormControl('A'),
       });
+     
     }
 
     private Declaration1Form(): FormGroup {
@@ -931,6 +932,7 @@ export class LpssummaryComponent implements OnInit {
       if(this.basicLpsId != 0 && this.basicLpsId != undefined) {
         this.airterminationServices.retriveAirTerminationDetails(this.email,this.basicLpsId).subscribe(
           (data) => {
+            this.airTerminationValues=[]
             this.airTerminationValues = JSON.parse(data);      
             this.airTerminationDesc = this.airTerminationValues[0].lpsAirDescription;
             
@@ -941,6 +943,7 @@ export class LpssummaryComponent implements OnInit {
                 Declaration2Arr: this.formBuilder.array([this.Declaration2Form()]),
                 declarationDate: new FormControl('', Validators.required),
                 recommendYears: new FormControl('', Validators.required),
+                flag: new FormControl('A'),
               }); 
             }
             let numberOfBuildingCountlength = this.numberOfBuildingCount.length;
@@ -981,10 +984,6 @@ export class LpssummaryComponent implements OnInit {
   
               }
             }
-            this.jsonData=[]
-            this.summaryLpsBuildingsArr=[]
-            this.numberOfBuildingCount = []
-            this.airTerminationDesc = []
            
           },
           (error) => {
@@ -1000,6 +999,7 @@ export class LpssummaryComponent implements OnInit {
     }
 
     retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,data: any){
+      this.jsonData=[]
       if( data.summaryLpsBuildings!=undefined && data.summaryLpsBuildings!=null){
         this.jsonData=data;
       }
@@ -1022,6 +1022,7 @@ export class LpssummaryComponent implements OnInit {
           this.lpsSummary.inspectedYear=this.jsonData.inspectedYear;
           this.lpsSummary.summaryDate=this.jsonData.summaryDate;
           this.lpsSummary.summaryLpsId=this.jsonData.summaryLpsId;
+          this.lpsSummary.flag=this.jsonData.flag;
           this.flag1 = true;
           setTimeout(() => {
           this.retrieveFromAirTermination();
@@ -1030,13 +1031,19 @@ export class LpssummaryComponent implements OnInit {
       }
       }
       populateFormData(data:any){
+        this.arr=[];
+       this.arr1=[];
+       this.arr2=[];
+       this.summaryLpsBuildingsArr=[]
+       this.airTerminationDesc = []
+       this.numberOfBuildingCount.length=0
+       this.numberOfBuildingCount=[]
+       
        this.summaryLpsBuildingsArr=this.summaryForm.get('summaryLpsBuildings') as FormArray;
        this.Declaration1FormArr=this.summaryForm.get('Declaration1Arr') as FormArray;
        this.Declaration2FormArr=this.summaryForm.get('Declaration2Arr') as FormArray;
-       this.arr=[];
-       this.arr1=[];
-       this.arr2=[];
        
+
        for(let item of data.summaryLpsBuildings){
         this.numberOfBuildingCount.push(item.buildingCount);
         this.arr.push(this.createGroup(item));
@@ -1048,6 +1055,7 @@ export class LpssummaryComponent implements OnInit {
 
        this.summaryForm.controls.recommendYears.setValue(data.inspectedYear);
        this.summaryForm.controls.declarationDate.setValue(data.summaryDate);
+      //  this.summaryForm.controls.declarationDate.setValue(data.summaryDate);
        this.summaryForm.setControl('summaryLpsBuildings', this.formBuilder.array(this.arr || []));
        this.summaryForm.setControl('Declaration1Arr', this.formBuilder.array(this.arr1 || []));
        this.summaryForm.setControl('Declaration2Arr', this.formBuilder.array(this.arr2 || []));
@@ -2390,6 +2398,10 @@ export class LpssummaryComponent implements OnInit {
         this.proceedNext.emit(true);
         this.spinner = true;
         this.spinnerValue = "Please wait, the details are loading!";
+        setTimeout(() => {
+          this.spinner = false;
+        this.spinnerValue = "";
+        }, 5000);
       }
     }
 
@@ -2659,8 +2671,8 @@ export class LpssummaryComponent implements OnInit {
       
       this.summaryService.retrieveWhileSaveUpdate(this.email, this.basicLpsId).subscribe(
         data => {
-          this.spinner = true;
-          this.spinnerValue = "Please wait, the details are loading!";
+         // this.spinner = true;
+         // this.spinnerValue = "Please wait, the details are loading!";
           let summary = JSON.parse(data)[0];
           if (summary != undefined) {
             this.retrieveDetailsfromSavedReports('', this.basicLpsId, JSON.parse(data)[0]);

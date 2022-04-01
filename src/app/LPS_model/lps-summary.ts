@@ -8,6 +8,7 @@ export class LpsSummary {
     updatedDate!: Date;
     summaryDate!: Date;
     inspectedYear!: Date;
+    flag!: String;
     summaryLpsBuildings!: SummaryLpsBuildings[];
     summaryLpsDeclaration!: SummaryLpsDeclaration[];     
 }
