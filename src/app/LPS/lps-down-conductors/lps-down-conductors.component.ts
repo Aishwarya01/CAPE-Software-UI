@@ -6,6 +6,7 @@ import { GlobalsService } from 'src/app/globals.service';
 import { downConductorReport } from 'src/app/LPS_model/downConductorReport';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
 import { LpsDownconductorService } from 'src/app/LPS_services/lps-downconductor.service';
+import { LpsFileUploadService } from 'src/app/LPS_services/lps-file-upload.service';
 import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
 
 @Component({
@@ -28,7 +29,9 @@ export class LpsDownConductorsComponent implements OnInit {
   submitted = false;
   downConductorReport = new downConductorReport();
   disable: boolean = false;
-
+  file!: any;
+  uploadDisable: boolean = true;
+  uploadDisable1: boolean = true;
   basicLpsId: number = 0;
   ClientName: String = '';
   projectName: String = '';
@@ -82,6 +85,7 @@ export class LpsDownConductorsComponent implements OnInit {
   // success1: boolean = false;
   // successMsg1: string="";
   successMsg: string = "";
+  mode: any = 'indeterminate';
   Error: boolean = false;
   errorArr: any = [];
   errorMsg: string = "";
@@ -139,12 +143,31 @@ export class LpsDownConductorsComponent implements OnInit {
   validationErrorMsgTab: string="";
   tabError: boolean=false;
   tabErrorMsg: string="";
+  componentName: string = "downConductor";
+  componentName1: string = "downConductor-1";
+  JSONdata: any = [];
+  finalSpinner: boolean = true;
+  popup: boolean = false; 
+  filesuccess: boolean = false;
+  filesuccessMsg: string = "";
+  fileName1: string = "";
+  fileName: string = "";
+  uploadFlag:boolean = true;
+  uploadFlag1:boolean = true;
+  fileId: number = 0;
+  fileId1: number = 0;
+  finalSpinnerDelete: boolean = true;
+  popupDelete: boolean = false;
+  fileDeleteSuccess: boolean = false;
+  fileDeletesuccessMsg: any;
+  
 
   constructor(
     private formBuilder: FormBuilder, lpsDownconductorService: LpsDownconductorService,
     private modalService: NgbModal, private router: ActivatedRoute,
     public service: GlobalsService,
     private matstepper: LpsMatstepperComponent,
+    private fileUploadServiceService: LpsFileUploadService,
     private airterminationServices:AirterminationService) {
     this.lpsDownconductorService = lpsDownconductorService;
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
@@ -555,6 +578,7 @@ export class LpsDownConductorsComponent implements OnInit {
       }
       this.flag=true;
       }
+    //  this.retriveFIleName()
     }
 
     retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
@@ -1235,6 +1259,19 @@ export class LpsDownConductorsComponent implements OnInit {
       }
     }
   }
+  onChange1(event: any) {
+    this.file = event.target.files;
+    if (this.file != null) {
+      this.uploadDisable1 = false;
+    }
+  }
+
+  onChange(event: any) {
+    this.file = event.target.files;
+    if (this.file != null) {
+      this.uploadDisable = false;
+    }
+  }
 
     validationChangeBasicDown(event: any,q: any,formControl: any) {
 
@@ -1779,6 +1816,10 @@ export class LpsDownConductorsComponent implements OnInit {
       this.downConductorForm.markAsPristine();
    return true;
     }
+  }
+
+  closeModalDialogFile() {
+    this.modalService.dismissAll();
   }
 
 }

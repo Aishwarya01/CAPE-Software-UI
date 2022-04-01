@@ -71,7 +71,7 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                                <select class="form-control"  (change)="onKey($event,q,j)" formControlName="earthingTypeInOb" [attr.disabled]="isEditable ? '' : null" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && q.get('earthingTypeInOb')?.errors}" style="height: 3rem;">
+                                                <select class="form-control"  (change)="onKey($event,q,j)" formControlName="earthingTypeInOb" [attr.disabled]="isEditable ? '' : null" placeholder="Please enter Type of Earthing here" [ngClass]="{ 'is-invalid': submitted && q.get('earthingTypeInOb')?.errors}" style="height: 3rem;">
                                                     <option  value="" selected>Select Option</option>
                                                     <option value="Type A" >Type A</option>
                                                     <option value="Type-B (ring)" >Type-B (ring)</option>
@@ -108,7 +108,7 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                                <select class="form-control"  style="height: 3rem;" (change)="dropDown($event,q)" [attr.disabled]="isEditable ? '' : null" formControlName="bimetallicIssueInOb" placeholder="Please enter Observation here"
+                                                <select class="form-control"  style="height: 3rem;" (change)="dropDown($event,q)" [attr.disabled]="isEditable ? '' : null" formControlName="bimetallicIssueInOb" placeholder="Please enter Check for bimetallic issue here"
                                                 [ngClass]="{ 'is-invalid': submitted && q.get('bimetallicIssueInOb')?.errors}">
                                                     <option  value="" selected>Select Option</option>
                                                     <option value="Yes" >Yes</option>
@@ -215,7 +215,7 @@
                                                     </span>
                                                 </div>
                                                 <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
-                                                    [readonly]="isEditable" formControlName="soilResistivityInOb" placeholder="The value must be a number"
+                                                    [readonly]="isEditable" formControlName="soilResistivityInOb" placeholder="Please enter Soil resistivity in ohm-meter here"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('soilResistivityInOb')?.errors}" style="height: 3rem;">
                                                 <div *ngIf="submitted && a.get('soilResistivityInOb')?.errors"
                                                     class="invalid-feedback">
@@ -231,7 +231,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="number" class="form-control"
+                                                <textarea type="text" class="form-control"
                                                     [readonly]="isEditable" formControlName="soilResistivityInRem" placeholder="Please enter Remarks here"
                                                     ></textarea>
                                             </div>
@@ -247,7 +247,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                    <select class="form-control"  formControlName="earthElectrodeLesthanDownConductorInOb" [attr.disabled]="isEditable ? '' : null" (change)="typeAEarthingValidationChangeB($event,a)" placeholder="Please enter Observation here"
+                                                    <select class="form-control"  formControlName="earthElectrodeLesthanDownConductorInOb" [attr.disabled]="isEditable ? '' : null" (change)="typeAEarthingValidationChangeB($event,a)" placeholder="Please enter number of down conductors here"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('earthElectrodeLesthanDownConductorInOb')?.errors}" style="height: 3rem;">
                                                         <option  value="" selected>Select Option</option>
                                                         <option value="Ok" >Ok</option>
@@ -287,7 +287,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                    <select class="form-control"  formControlName="connectedEarthTerminalInOb" [attr.disabled]="isEditable ? '' : null" (change)="typeAEarthingValidationChangeC($event,a)" placeholder="Please enter Observation here"
+                                                    <select class="form-control"  formControlName="connectedEarthTerminalInOb" [attr.disabled]="isEditable ? '' : null" (change)="typeAEarthingValidationChangeC($event,a)" placeholder="Please enter earth termination system here"
                                                      [ngClass]="{ 'is-invalid': submitted && a.get('connectedEarthTerminalInOb')?.errors}" style="height: 3rem;">
                                                         <option  value="" selected>Select Option</option>
                                                         <option value="Ok" >Ok</option>
@@ -326,7 +326,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                    <select class="form-control" [attr.disabled]="isEditable ? '' : null" formControlName="testJointEarthElectrodeInOb" placeholder="Please enter Observation here"
+                                                    <select class="form-control" [attr.disabled]="isEditable ? '' : null" formControlName="testJointEarthElectrodeInOb" placeholder="Please enter Route of earthing conductor from test joint to earth electrode here"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('testJointEarthElectrodeInOb')?.errors}" style="height: 3rem;">
                                                         <option  value="" selected>Select Option</option>
                                                         <option value="Under soil" >Under soil</option>
@@ -363,7 +363,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                    <select class="form-control" [attr.disabled]="isEditable ? '' : null" formControlName="grountLevelComponentFilledInOb" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && a.get('grountLevelComponentFilledInOb')?.errors}" style="height: 3rem;">
+                                                    <select class="form-control" [attr.disabled]="isEditable ? '' : null" formControlName="grountLevelComponentFilledInOb" placeholder="Please enter earth enhancement materials details here" [ngClass]="{ 'is-invalid': submitted && a.get('grountLevelComponentFilledInOb')?.errors}" style="height: 3rem;">
                                                         <option  value="" selected>Select Option</option>
                                                         <option value="Yes" >Yes</option>
                                                         <option value="No" >No</option>
@@ -388,7 +388,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <div class="search-bar1" formArrayName="earthingDescriptionList" *ngFor="let h of earthingDescriptionListControls(a); let x = index">
+                                    <div style="margin-top: 1rem;margin-bottom: 1rem;" class="search-bar1" formArrayName="earthingDescriptionList" *ngFor="let h of earthingDescriptionListControls(a); let x = index">
                                         <div [formGroupName]="x" style="margin-bottom: 10px;">
                                             <tr>
                                                 <td style="width: 1rem;text-align: center;">4.{{x+1}}(f)</td>
@@ -400,7 +400,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <select class="form-control" formControlName="earthingConductorMaterialInOb"  placeholder="Please enter Observation here"
+                                                        <select class="form-control" formControlName="earthingConductorMaterialInOb"  placeholder="Please enter Material of earthing conductor here"
                                                             [ngClass]="{ 'is-invalid': submitted && h.get('earthingConductorMaterialInOb')?.errors}" style="height: 3rem;" [attr.disabled]="isEditable ? '' : null">
                                                             <option value="" selected>Select Option</option>
                                                             <option value="Copper">Copper</option>
@@ -439,7 +439,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <select class="form-control" formControlName="earthElectrodeMaterialInOb" [attr.disabled]="isEditable ? '' : null" placeholder="Please enter Observation here" style="height: 3rem;"
+                                                        <select class="form-control" formControlName="earthElectrodeMaterialInOb" [attr.disabled]="isEditable ? '' : null" placeholder="Please enter Material of earth electrode here" style="height: 3rem;"
                                                             [ngClass]="{ 'is-invalid': submitted && h.get('earthElectrodeMaterialInOb')?.errors}">
                                                             <option value="" selected>Select Option</option>
                                                             <option value="Copper">Copper</option>
@@ -479,7 +479,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <select class="form-control" formControlName="earthElectrodeTypeInOb" [attr.disabled]="isEditable ? '' : null" placeholder="Please enter Observation here"
+                                                        <select class="form-control" formControlName="earthElectrodeTypeInOb" [attr.disabled]="isEditable ? '' : null" placeholder="Please enter Type of earth electrode here"
                                                             [ngClass]="{ 'is-invalid': submitted && h.get('earthElectrodeTypeInOb')?.errors}"
                                                             style="height: 3rem;">
                                                             <option value="" selected>Select Option</option>
@@ -547,7 +547,7 @@
                                                         </div>
                                                         <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
                                                             [readonly]="isEditable" formControlName="earthElectrodeLengthingOb"
-                                                            placeholder="The value must be a number"
+                                                            placeholder="Please Length/Depth of earth electrode in meters here"
                                                             [ngClass]="{ 'is-invalid': submitted && h.get('earthElectrodeLengthingOb')?.errors}"
                                                             style="height: 3rem;">
                                                         <div *ngIf="submitted && h.get('earthElectrodeLengthingOb')?.errors" class="invalid-feedback">
@@ -594,7 +594,7 @@
                                                     </span>
                                                 </div>
                                                 <input type="number" (change)="checkEarthelectMaxiDistWallInOb($event,a,'earthelectMaxiDistWallInRem')" (keypress)="keyPressNumbers($event)" class="form-control"
-                                                    [readonly]="isEditable" formControlName="earthelectMaxiDistWallInOb" placeholder="The value must be a number"
+                                                    [readonly]="isEditable" formControlName="earthelectMaxiDistWallInOb" placeholder="Please enter Maximum distance between earth electrode and wall in meters here"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('earthelectMaxiDistWallInOb')?.errors}" style="height: 3rem;">
                                                 <div *ngIf="submitted && a.get('earthelectMaxiDistWallInOb')?.errors"
                                                     class="invalid-feedback">
@@ -628,7 +628,7 @@
                                                 </div>
                                                 <input type="number" (change)="checkEarthelectMaxiDistWallInOb($event,a,'earthelectManimumDistanceWallInRem')" (keypress)="keyPressNumbers($event)" class="form-control"
                                                     [readonly]="isEditable" formControlName="earthelectManimumDistanceWallInOb"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('earthelectManimumDistanceWallInOb')?.errors}" placeholder="The value must be a number" style="height: 3rem;">
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('earthelectManimumDistanceWallInOb')?.errors}" placeholder="Please enter Minimum distance between earth electrode and wall in meters here" style="height: 3rem;">
                                                 <div *ngIf="submitted && a.get('earthelectManimumDistanceWallInOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div
@@ -664,7 +664,7 @@
                                                     </span>
                                                 </div>
                                                 <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
-                                                    [readonly]="isEditable" formControlName="earthelectMaxiDistOb" placeholder="The value must be a number" style="height: 3rem;"
+                                                    [readonly]="isEditable" formControlName="earthelectMaxiDistOb" placeholder="Please enter Maximum distance between earth electrodes in meters here" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('earthelectMaxiDistOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('earthelectMaxiDistOb')?.errors"
                                                     class="invalid-feedback">
@@ -697,7 +697,7 @@
                                                     </span>
                                                 </div>
                                                 <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
-                                                    [readonly]="isEditable" formControlName="earthelectManiDistOb" placeholder="The value must be a number" style="height: 3rem;"
+                                                    [readonly]="isEditable" formControlName="earthelectManiDistOb" placeholder="Please enter Minimum distance between earth electrodes in meters here" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('earthelectManiDistOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('earthelectManiDistOb')?.errors"
                                                     class="invalid-feedback">
@@ -730,7 +730,7 @@
                                                     </span>
                                                 </div>
                                                 <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
-                                                    [readonly]="isEditable" formControlName="totalNumberOfElectrodeOb" placeholder="The value must be a number" style="height: 3rem;"
+                                                    [readonly]="isEditable" formControlName="totalNumberOfElectrodeOb" placeholder="Please enter Total number of earthing electrodes here" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('totalNumberOfElectrodeOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('totalNumberOfElectrodeOb')?.errors"
                                                     class="invalid-feedback">
@@ -763,7 +763,7 @@
                                                     </span>
                                                 </div>
                                                 <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
-                                                    [readonly]="isEditable" formControlName="inspectedNoOb" placeholder="The value must be a number" style="height: 3rem;"
+                                                    [readonly]="isEditable" formControlName="inspectedNoOb" placeholder="Please enter Number of earthing electrode inspected here" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('inspectedNoOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('inspectedNoOb')?.errors"
                                                     class="invalid-feedback">
@@ -795,7 +795,7 @@
                                                     </span>
                                                 </div>
                                                 <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
-                                                    [readonly]="isEditable" formControlName="inspectedPassedNoOb" placeholder="The value must be a number" style="height: 3rem;"
+                                                    [readonly]="isEditable" formControlName="inspectedPassedNoOb" placeholder="Please enter Number of inspection passed here" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('inspectedPassedNoOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('inspectedPassedNoOb')?.errors"
                                                     class="invalid-feedback">
@@ -828,7 +828,7 @@
                                                     </span>
                                                 </div>
                                                 <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
-                                                    [readonly]="isEditable" formControlName="inspectedFailedNoOb" (change)="typeAEarthingValidationChangeR($event,a)" placeholder="The value must be a number" style="height: 3rem;"
+                                                    [readonly]="isEditable" formControlName="inspectedFailedNoOb" (change)="typeAEarthingValidationChangeR($event,a)" placeholder="Please enter Number of inspection failed here" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('inspectedFailedNoOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('inspectedFailedNoOb')?.errors"
                                                     class="invalid-feedback">
@@ -935,7 +935,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                        <select class="form-control" formControlName="physicalInspectionInOb" [attr.disabled]="isEditable ? '' : null" (change)="clampsValidationChange($event,a,'psysicalInspectionInRem')" placeholder="Please enter Observation here"
+                                                        <select class="form-control" formControlName="physicalInspectionInOb" [attr.disabled]="isEditable ? '' : null" (change)="clampsValidationChange($event,a,'psysicalInspectionInRem')" placeholder="Please enter Physical inspection here"
                                                          [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionInOb')?.errors}" style="height: 3rem;">
                                                             <option  value="" selected>Select Option</option>
                                                             <option value="Physically good" >Physically good</option>
@@ -975,7 +975,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                        <select class="form-control"  formControlName="clampsFirmlyOb" [attr.disabled]="isEditable ? '' : null" placeholder="Please enter Observation here"
+                                                        <select class="form-control"  formControlName="clampsFirmlyOb" [attr.disabled]="isEditable ? '' : null" placeholder="Please enter Clamp is firmly fixed/mounted on to earth electrode here"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('clampsFirmlyOb')?.errors}" style="height: 3rem;">
                                                             <option  value="" selected>Select Option</option>
                                                             <option value="YES" >Yes</option>
@@ -1008,7 +1008,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                        <select class="form-control"  formControlName="interConnectOfEarthClampInOb" (change)="clampsValidationChange($event,a,'interConnectOfEarthClampInRem')" placeholder="Please enter Observation here" 
+                                                        <select class="form-control"  formControlName="interConnectOfEarthClampInOb" (change)="clampsValidationChange($event,a,'interConnectOfEarthClampInRem')" placeholder="Please enter Interconnection of earthing conductor with clamp here" 
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('interConnectOfEarthClampInOb')?.errors}" [attr.disabled]="isEditable ? '' : null" style="height: 3rem;">
                                                             <option  value="" selected>Select Option</option>
                                                             <option value="Physically good" >Physically good</option>
@@ -1048,7 +1048,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                        <select class="form-control"  formControlName="typeOfClampsInOb" placeholder="Please enter Observation here" [attr.disabled]="isEditable ? '' : null"
+                                                        <select class="form-control"  formControlName="typeOfClampsInOb" placeholder="Please enter Type of clamp here" [attr.disabled]="isEditable ? '' : null"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('typeOfClampsInOb')?.errors}" style="height: 3rem;">
                                                             <option  value="" selected>Select Option</option>
                                                             <option value="Universal" >Universal</option>
@@ -1084,7 +1084,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                        <select class="form-control"  formControlName="materialOfClampsInOb" placeholder="Please enter Observation here" 
+                                                        <select class="form-control"  formControlName="materialOfClampsInOb" placeholder="Please enter Material of clamp here" 
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('materialOfClampsInOb')?.errors}" [attr.disabled]="isEditable ? '' : null" style="height: 3rem;">
                                                             <option  value="" selected>Select Option</option>
                                                             <option value="Copper" >Copper</option>
@@ -1127,7 +1127,7 @@
                                                         </span>
                                                     </div>
                                                     <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
-                                                        [readonly]="isEditable" formControlName="totalNoClampsInOb" placeholder="The value must be a number" style="height: 3rem;"
+                                                        [readonly]="isEditable" formControlName="totalNoClampsInOb" placeholder="Please enter Total number of clamps here" style="height: 3rem;"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('totalNoClampsInOb')?.errors}">
                                                     <div *ngIf="submitted && a.get('totalNoClampsInOb')?.errors"
                                                         class="invalid-feedback">
@@ -1160,7 +1160,7 @@
                                                         </span>
                                                     </div>
                                                     <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
-                                                        [readonly]="isEditable" formControlName="inspectedClampsInOb" placeholder="The value must be a number" style="height: 3rem;"
+                                                        [readonly]="isEditable" formControlName="inspectedClampsInOb" placeholder="Please enter Number of clamps inspected here" style="height: 3rem;"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('inspectedClampsInOb')?.errors}">
                                                     <div *ngIf="submitted && a.get('inspectedClampsInOb')?.errors"
                                                         class="invalid-feedback">
@@ -1193,7 +1193,7 @@
                                                         </span>
                                                     </div>
                                                     <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
-                                                        [readonly]="isEditable" formControlName="inspectionPassedInOb" placeholder="The value must be a number" style="height: 3rem;"
+                                                        [readonly]="isEditable" formControlName="inspectionPassedInOb" placeholder="Please Number of inspections passed here" style="height: 3rem;"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('inspectionPassedInOb')?.errors}">
                                                     <div *ngIf="submitted && a.get('inspectionPassedInOb')?.errors"
                                                         class="invalid-feedback">
@@ -1226,7 +1226,7 @@
                                                         </span>
                                                     </div>
                                                     <input type="number" (keypress)="keyPressNumbers($event)" class="form-control" (change)="clampsValidationChange($event,a,'inspectionFailedInRem')"
-                                                        [readonly]="isEditable" formControlName="inspectionFailedInOb" placeholder="The value must be a number" style="height: 3rem;"
+                                                        [readonly]="isEditable" formControlName="inspectionFailedInOb" placeholder="Please enter Number of inspections failed here" style="height: 3rem;"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedInOb')?.errors}">
                                                     <div *ngIf="submitted && a.get('inspectionFailedInOb')?.errors"
                                                         class="invalid-feedback">
@@ -1533,7 +1533,7 @@
                                                     </span>
                                                 </div>
                                                 <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
-                                                    [readonly]="isEditable" formControlName="totalChamberNoOb" placeholder="The value must be a number" style="height: 3rem;"
+                                                    [readonly]="isEditable" formControlName="totalChamberNoOb" placeholder="PLease enter Total number of chambers here" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('totalChamberNoOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('totalChamberNoOb')?.errors"
                                                     class="invalid-feedback">
@@ -1565,7 +1565,7 @@
                                                     </span>
                                                 </div>
                                                 <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
-                                                    [readonly]="isEditable" formControlName="inspectedChamberInOb" placeholder="The value must be a number" style="height: 3rem;"
+                                                    [readonly]="isEditable" formControlName="inspectedChamberInOb" placeholder="Please Number of chambers inspected here" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('inspectedChamberInOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('inspectedChamberInOb')?.errors" class="invalid-feedback">
                                                     <div *ngIf="a.get('inspectedChamberInOb')?.errors?.required">Number of chambers inspected observation is required</div>
@@ -1595,7 +1595,7 @@
                                                     </span>
                                                 </div>
                                                 <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
-                                                    [readonly]="isEditable" formControlName="inspectionPassedInOb" placeholder="The value must be a number" style="height: 3rem;"
+                                                    [readonly]="isEditable" formControlName="inspectionPassedInOb" placeholder="PLease enter Number of inspections passed here" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('inspectionPassedInOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('inspectionPassedInOb')?.errors"
                                                     class="invalid-feedback">
@@ -1628,7 +1628,7 @@
                                                     </span>
                                                 </div>
                                                 <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"  (change)="clampsValidationChange($event,a,'inspectionFailedInRem')"
-                                                    [readonly]="isEditable" formControlName="inspectionFailedInOb" placeholder="The value must be a number" style="height: 3rem;"
+                                                    [readonly]="isEditable" formControlName="inspectionFailedInOb" placeholder="Please Number of inspections failed here" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedInOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('inspectionFailedInOb')?.errors"
                                                     class="invalid-feedback">
@@ -2160,8 +2160,8 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" class="form-control" [readonly]="isEditable" formControlName="maximumDistanceEartElectrodeWalOb" 
-                                                placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && a.get('maximumDistanceEartElectrodeWalOb')?.errors}">
+                                                <input type="number" class="form-control" [readonly]="isEditable" formControlName="maximumDistanceEartElectrodeWalOb" (keypress)="keyPressNumbers($event)"
+                                                placeholder="Please enter Maximum distance between earth electrode and wall in meters here" [ngClass]="{ 'is-invalid': submitted && a.get('maximumDistanceEartElectrodeWalOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('maximumDistanceEartElectrodeWalOb')?.errors" class="invalid-feedback">
                                                     <div *ngIf="a.get('maximumDistanceEartElectrodeWalOb')?.errors?.required">Maximum distance between earth electrode and wall observation is required</div>
                                                 </div>
@@ -2191,9 +2191,9 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" class="form-control"
+                                                <input type="number" class="form-control" (keypress)="keyPressNumbers($event)"
                                                     [readonly]="isEditable" formControlName="manimumDistanceEartElectrodeWalOb"
-                                                    placeholder="Please enter Observation here"
+                                                    placeholder="Please enter Minimum distance between earth electrode and wall in meters here"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('manimumDistanceEartElectrodeWalOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('manimumDistanceEartElectrodeWalOb')?.errors"
                                                     class="invalid-feedback">
@@ -2465,12 +2465,12 @@
      </div>
     <br>
     <div class="row">
-       <button type="button" class="col-md-6" style="text-align:center; width: auto;" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+       <button type="button" class="col-md-6" style="width: 5rem;position: relative;margin-left: 30%;" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
        aria-label="Close" (click)="closeModalDialog()" matStepperNext>
        <i class="bi bi-arrow-right-circle"></i>&nbsp;
         <span aria-hidden="true">Ok</span>
     </button>
-    <button type="button" class="col-md-6" style="width: auto;" class="btn btn-danger btn-rounded btn-md font-weight-medium auth-form-btn"
+    <button type="button" class="col-md-6" style="text-align: center;width: auto;position: relative;margin-right: 30%;" class="btn btn-danger btn-rounded btn-md font-weight-medium auth-form-btn"
        aria-label="Close" (click)="closeModalDialog()">
        <i class="bi bi-x icon"></i>
         <span aria-hidden="true">Cancel</span>
