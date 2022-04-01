@@ -120,6 +120,9 @@ export class LpsAirTerminationComponent implements OnInit {
   tabError: boolean=false;
   tabErrorMsg: string="";
   AIRTERMINATION_CONSTANTS=new AirterminationConstants();
+  spinner: boolean=false;
+  spinnerValue: String = '';
+  mode: any= 'indeterminate';
 
   constructor(
     private formBuilder: FormBuilder,private dialog: MatDialog,
@@ -1575,9 +1578,15 @@ export class LpsAirTerminationComponent implements OnInit {
         this.Error = false;
         this.modalService.dismissAll((this.errorMsg = ''));
       } else {
+        // this.spinner = true;
+        // this.spinnerValue = "Please wait, the details are loading!";
+        setTimeout(() => { 
+          //  this.spinner = false;
+          // this.spinnerValue = ""; 
+         }, 3000); 
         this.success = false;
         this.modalService.dismissAll((this.successMsg = ''));
-      }
+     }
     }
   
     onSubmit(flag: any){

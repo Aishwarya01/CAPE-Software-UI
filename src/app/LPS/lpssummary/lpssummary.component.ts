@@ -2674,7 +2674,7 @@ export class LpssummaryComponent implements OnInit {
           setTimeout(() => {
             this.spinner = false;
             this.spinnerValue = "";
-          }, 3000);
+          }, 5000);
         });
     }
 
