@@ -54,6 +54,9 @@ export class EmcFinalReportComponent implements OnInit {
   clientService: any;
   emcData: any=[];
   completedFilterData: any=[];
+  superAdminArr: any = [];
+  filteredData: any = [];
+  superAdminFlag: boolean = false;
 
   constructor(private router: ActivatedRoute,
               private emcSavedReportService: EmcSavedReportService,
@@ -68,9 +71,12 @@ export class EmcFinalReportComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.superAdminArr = [];
     this.currentUser=sessionStorage.getItem('authenticatedUser');
     this.currentUser1 = [];
     this.currentUser1=JSON.parse(this.currentUser);
+    this.superAdminArr.push('gk@capeindia.net');
+    this.superAdminArr.push('awstesting@rushforsafety.com');
     this.retrieveEmcDetails();
   }
 
@@ -81,21 +87,50 @@ export class EmcFinalReportComponent implements OnInit {
   }
 
   retrieveEmcDetails() {
-    this.emcSavedReportService.retrieveListOfClientDetails(this.email).subscribe(
-      data => {
-        // this.myfunction(data);
-        this.emcData=JSON.parse(data);
-        for(let i of this.emcData){
-          if(i.allStepsCompleted=="AllStepCompleted"){
-            this.completedFilterData.push(i);
+    this.filteredData = [];
+    this.completedFilterData=[];
+    for(let i of this.superAdminArr) {
+      if(this.email == i) {
+        this.superAdminFlag = true;
+      }
+    }
+    
+    if(this.superAdminFlag) {
+      this.emcSavedReportService.retrieveAllCLientDetails().subscribe(
+        data => {
+          // this.myfunction(data);
+          this.emcData=JSON.parse(data);
+          for(let i of this.emcData){
+            if(i.allStepsCompleted=="AllStepCompleted"){
+              this.filteredData.push(i);
+            }
           }
-        }
-        this.finalReport_dataSource = new MatTableDataSource(this.completedFilterData);
-        this.completedFilterData = [];
-        this.emcData = [];
-        this.finalReport_dataSource.paginator = this.finalReportPaginator;
-        this.finalReport_dataSource.sort = this.finalReportSort;
-      });
+          this.finalReport_dataSource = new MatTableDataSource(this.filteredData);
+          this.filteredData = [];
+          this.emcData = [];
+          this.finalReport_dataSource.paginator = this.finalReportPaginator;
+          this.finalReport_dataSource.sort = this.finalReportSort;
+        });
+        this.superAdminFlag = false;
+    }
+    else {
+      this.emcSavedReportService.retrieveListOfClientDetails(this.email).subscribe(
+        data => {
+          // this.myfunction(data);
+          this.emcData=JSON.parse(data);
+          for(let i of this.emcData){
+            if(i.allStepsCompleted=="AllStepCompleted"){
+              this.completedFilterData.push(i);
+            }
+          }
+          this.finalReport_dataSource = new MatTableDataSource(this.completedFilterData);
+          this.completedFilterData = [];
+          this.emcData = [];
+          this.finalReport_dataSource.paginator = this.finalReportPaginator;
+          this.finalReport_dataSource.sort = this.finalReportSort;
+        });
+    }
+    
 }
 
 closeModalDialog() {

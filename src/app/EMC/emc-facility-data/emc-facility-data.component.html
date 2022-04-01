@@ -573,6 +573,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Static treatment type and description:</label>
+
                                         <input type="text" class="form-control" formControlName="fcDescription" [readonly]="isEditableEmc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('fcDescription')?.errors }"
                                             placeholder="Enter Static treatment type and description ">
@@ -774,6 +775,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Utilization of void:</label>
+
                                         <select class="form-control" formControlName="ccUtilisation"  [attr.disabled]="isEditableEmc ? '' : null" 
                                             [ngClass]="{ 'is-invalid': submitted && a.get('ccUtilisation')?.errors }">
                                             <option [ngValue]="null">Select Option</option>
