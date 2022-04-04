@@ -19,12 +19,12 @@ export class AirterminationService {
   apiUrl = environment.apiUrl_LPS;
   constructor(private http: HttpClient) { }
 
-  public saveAirtermination(airtermination:Airtermination,formData:any): Observable<any> {
-    return this.http.post<Airtermination>(this.apiUrl + '/addAirTerminationLps', airtermination,formData)
+  public saveAirtermination(airtermination:Airtermination): Observable<any> {
+    return this.http.post<Airtermination>(this.apiUrl + '/addAirTerminationLps', airtermination,{ responseType: 'text' as 'json' })
   }
 
-  public updateAirtermination(airTermination: Airtermination,formData:any): Observable<any> {
-    return this.http.put<any>(this.apiUrl + '/updateAirTerminationLps', airTermination,formData);
+  public updateAirtermination(airTermination: Airtermination): Observable<any> {
+    return this.http.put<any>(this.apiUrl + '/updateAirTerminationLps', airTermination,{ responseType: 'text' as 'json' });
   }
 
   public retriveAirTerminationDetails(userName: String,basicLpsId: any): Observable<any>{

@@ -932,19 +932,20 @@
                                         <input style="height: 3rem;" type="file" class="form-control"    (change)="onChange($event)" [attr.disabled]="isEditable ? '' : null"
                                          accept=".txt,.jpeg,.png,.jpg,.pdf">
                                     </div>
-                                    <!-- <div class="col-md-6">
-                                        <button type="button" [disabled]="uploadDisable" class="btn btn-success" (click)="onUpload(contentSpinner)">Upload</button>
-                                        <a (click)="onDownload()" *ngIf="fileName != ''" href='javascript:onDownload()' title="Download" style="margin-left: 30px;text-decoration: underline;" 
-                                        [ngClass]="{'disableForm':isEditable}">{{fileName}}</a>
-                                        <mat-icon *ngIf="fileName != ''" class="mousechange" class="dlt" type="button" (click)="deleteFile(contentSpinnerDelete)" title="Delete" 
-                                        style="position: absolute;margin-left: 40px; margin-top: 5px;">remove_circle_outline</mat-icon>
+                                    <div class="col-md-6">
+                                        <button type="button" [disabled]="uploadDisable" class="btn btn-success" (click)="onUpload(contentSpinner,overAllControl().length-1,a.get('fileId')?.value)">Upload</button>
+                                        <a (click)="onDownload(overAllControl().length-1)" *ngIf="a.get('fileName')?.value != ''" href='javascript:onDownload()' title="Download" style="margin-left: 30px;text-decoration: underline;" 
+                                        [ngClass]="{'disableForm':isEditable}">{{a.get('fileName')?.value}}</a>
+                    
+                                        <!-- <mat-icon *ngIf="a.get('fileName')?.value != ''" class="mousechange" class="dlt" type="button" (click)="deleteFile(contentSpinnerDelete,overAllControl().length-1,a.get('fileId')?.value)" title="Delete" 
+                                        style="position: absolute;margin-left: 40px; margin-top: 5px;">remove_circle_outline</mat-icon> -->
                                     </div>
                                     <div *ngIf="submitted && a.get('airterminationFile')?.errors"
                                     class="invalid-feedback">
                                     <div
                                         *ngIf="a.get('airterminationFile')?.errors?.required">
                                         Field is required</div>
-                                </div> -->
+                                </div>
                                 </div>    
                             </div>
                         <br>
@@ -1194,18 +1195,19 @@
                                                 <label class="form-label">Attach The File Here:</label>
                                                 <div class="row input-group mb-2">
                                                     <div class="col-md-6">
-                                                        <input style="height: 3rem;" type="file" class="form-control" (change)="onChange1($event)" [attr.disabled]="isEditable ? '' : null"
+                                                        <input style="height: 3rem;" type="file" class="form-control" (change)="onChange1($event,overAllControl().length-1)" [attr.disabled]="isEditable ? '' : null"
                                                          accept=".txt,.jpeg,.png,.jpg,.pdf">
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <button type="button" [disabled]="uploadDisable1" class="btn btn-success" (click)="onUpload1(contentSpinner)">Upload</button>
-                                                        <a (click)="onDownload1()" *ngIf="fileName1!= ''" href='javascript:onDownload1()' title="Download" style="margin-left: 30px;text-decoration: underline;" 
-                                                        [ngClass]="{'disableForm':isEditable}">{{fileName1}}</a>
-                                                        <mat-icon *ngIf="fileName1!= ''" class="mousechange" class="dlt" type="button" title="Delete" (click)="deleteFile1(contentSpinnerDelete)"
-                                                        style="position: absolute;margin-left: 40px; margin-top: 5px;">remove_circle_outline</mat-icon>
-                                                    </div>
+                                                        <button type="button" [disabled]="uploadDisable1" class="btn btn-success" (click)="onUpload1(contentSpinner,overAllControl().length-1,a.get('fileIdVAir')?.value)">Upload</button>
+                                                        <a (click)="onDownload1(overAllControl().length-1)" *ngIf="a.get('fileNameVAir')?.value!=''"   href='javascript:onDownload1(overAllControl().length-1)' title="Download" style="margin-left: 30px;text-decoration: underline;" 
+                                                        [ngClass]="{'disableForm':isEditable}" >{{a.get('fileNameVAir')?.value}}</a>
+                                                        <!-- <mat-icon *ngIf="a.get('fileNameVAir')?.value!=''"    class="mousechange" class="dlt" type="button" title="Delete" (click)="deleteFile1(contentSpinnerDelete,overAllControl().length-1)"
+                                                        style="position: absolute;margin-left: 40px; margin-top: 5px;">remove_circle_outline</mat-icon>-->
+                                                    </div> 
                                                 </div>    
                                             </div>
+           
                                         <br>
                                             <div formArrayName="verticalAirTerminationList"
                                                 *ngFor="let z of getAirTUnitControls(a); let w = index">
@@ -3949,11 +3951,11 @@
                                                          accept=".txt,.jpeg,.png,.jpg,.pdf">
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <button type="button" [disabled]="uploadDisable2" class="btn btn-success" (click)="onUpload2(contentSpinner)">Upload</button>
-                                                        <a (click)="onDownload2()" *ngIf="fileName2 != ''" href='javascript:onDownload2()' title="Download" style="margin-left: 30px;text-decoration: underline;" 
-                                                        [ngClass]="{'disableForm':isEditable}">{{fileName2}}</a>
-                                                        <mat-icon *ngIf="fileName2 != ''" class="mousechange" class="dlt" type="button" title="Delete" (click)="deleteFile2(contentSpinnerDelete)"
-                                                        style="position: absolute;margin-left: 40px; margin-top: 5px;">remove_circle_outline</mat-icon>
+                                                        <button type="button" [disabled]="uploadDisable2" class="btn btn-success" (click)="onUpload2(contentSpinner,overAllControl().length-1,a.get('fileId_EP')?.value)">Upload</button>
+                                                        <a (click)="onDownload2(overAllControl().length-1)"    *ngIf="a.get('fileName_EP')?.value != ''" href='javascript:onDownload2()' title="Download" style="margin-left: 30px;text-decoration: underline;" 
+                                                        [ngClass]="{'disableForm':isEditable}">{{a.get('fileName_EP')?.value}}</a>
+                                                        <!-- <mat-icon *ngIf="a.get('fileName_EP')?.value != ''" class="mousechange" class="dlt" type="button" title="Delete" (click)="deleteFile2(contentSpinnerDelete,overAllControl().length-1)"
+                                                        style="position: absolute;margin-left: 40px; margin-top: 5px;">remove_circle_outline</mat-icon> -->
                                                     </div>
                                                 </div>    
                                             </div>

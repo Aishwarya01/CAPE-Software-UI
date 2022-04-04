@@ -55,11 +55,11 @@ export class LpsAirTerminationComponent implements OnInit {
   uploadDisable2: boolean = true;
   file!: any;
   mode: any = 'indeterminate';
-  uploadFlag: boolean;
+  uploadFlag=[];
   uploadFlag1: boolean;
   uploadFlag2: boolean;
   fileId: number = 0;
-  fileId1: number = 0;
+  fileId1: any=[];
   fileId2: number = 0;
   JSONdata: any = [];
   // successMsg1: Strin:g="";
@@ -140,9 +140,6 @@ export class LpsAirTerminationComponent implements OnInit {
   popupDelete: boolean = false;
   fileDeleteSuccess: boolean = false;
   fileDeletesuccessMsg: any;
-  fileName: string = "";
-  fileName1: string = "";
-  fileName2: string = "";
   componentName: string = "airUpload";
   componentName1: string = "airUpload-1";
   componentName2: string = "airUpload-2";
@@ -158,7 +155,7 @@ export class LpsAirTerminationComponent implements OnInit {
 
   ) { 
     this.airterminationService=airterminationServices;
-    this.uploadFlag = true;
+    //this.uploadFlag = true;
     this.uploadFlag1 = true;
     this.uploadFlag2 = true;
   }
@@ -213,6 +210,9 @@ export class LpsAirTerminationComponent implements OnInit {
       physicalInspectionRe: new FormControl(''),
       totalNumberOb: new FormControl('', Validators.required),
       totalNumberRe: new FormControl(''),
+      fileNameVAir: new FormControl(''),
+      fileTypeVAir: new FormControl(''),
+      fileIdVAir: new FormControl(''),
       inspNoOb: new FormControl('', Validators.required),
       inspNoRe: new FormControl(''),
       inspPassedNoOb: new FormControl('', Validators.required),
@@ -376,6 +376,9 @@ export class LpsAirTerminationComponent implements OnInit {
       inspectionPassedNoRe: new FormControl(''),
       inspectionFailedNoOb: new FormControl('', Validators.required),
       inspectionFailedNoRe: new FormControl(''),
+      fileName_EP: new FormControl(''),
+      fileType_EP: new FormControl(''),
+      fileId_EP: new FormControl(''),
       uploadAir2: new FormControl('', Validators.required),
       flag: new FormControl('A'),
     })
@@ -437,6 +440,9 @@ export class LpsAirTerminationComponent implements OnInit {
       combustablePartRe: new FormControl(''),
       terminationMeshConductorOb:  new FormControl('', Validators.required),
       terminationMeshConductorRe: new FormControl(''),
+      fileName: new FormControl(''),
+      fileType: new FormControl(''),
+      fileId: new FormControl(''),
       bondingEquipotentialOb:  new FormControl('', Validators.required),
       airterminationFile:  new FormControl(''),
       bondingEquipotentialRe: new FormControl(''),
@@ -451,6 +457,7 @@ export class LpsAirTerminationComponent implements OnInit {
     }
 
     removeItem(a:any,index: any) { 
+      console.log(index)
       this.airTerminationForm.markAsTouched();
         if(a.value.lpsAirDescId !=0 && a.value.lpsAirDescId !=undefined && a.value.lpsAirDescId != ''){
           a.value.flag="R";
@@ -582,7 +589,7 @@ export class LpsAirTerminationComponent implements OnInit {
       this.deletedAirTerminationListArr = [];
       this.deletedHoldersListArr = [];
       this.airRetrieve();
-    //  this.retriveFIleName();
+      this.retriveFIleName();
       this.flag=true;
     }
 
@@ -751,6 +758,14 @@ export class LpsAirTerminationComponent implements OnInit {
         combustablePartRe: new FormControl({disabled: false, value: item.combustablePartRe}),
         terminationMeshConductorOb:  new FormControl({disabled: false, value: item.terminationMeshConductorOb}, Validators.required),
         terminationMeshConductorRe: new FormControl({disabled: false, value: item.terminationMeshConductorRe}),
+        fileName: new FormControl({disabled: false, value: item.fileName}),
+        fileType: new FormControl({disabled: false, value: item.fileType}),
+        fileId: new FormControl({disabled: false, value: item.fileId}),
+        
+
+
+        
+
         bondingEquipotentialOb:  new FormControl({disabled: false, value: item.bondingEquipotentialOb}, Validators.required),
         bondingEquipotentialRe: new FormControl({disabled: false, value: item.bondingEquipotentialRe}),
         airterminationFile: new FormControl(''),
@@ -761,7 +776,10 @@ export class LpsAirTerminationComponent implements OnInit {
     createGroup(item: any,lpsAirDescId: any): FormGroup {
       return this.formBuilder.group({
       lpsVerticalAirTerminationId: new FormControl({disabled: false, value: item.lpsVerticalAirTerminationId}),
-      lpsAirDescId: new FormControl({disabled: false, value: lpsAirDescId}),
+      lpsAirDescId: new FormControl({disabled: false, value:item.lpsAirDescId}),
+      fileNameVAir: new FormControl({disabled: false, value:item.fileNameVAir}),
+      fileTypeVAir: new FormControl({disabled: false, value:item.fileTypeVAir}),
+      fileIdVAir: new FormControl({disabled: false, value:item.fileIdVAir}),
       physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
       physicalInspectionRe: new FormControl({disabled: false, value: item.physicalInspectionRe}),
       totalNumberOb: new FormControl({disabled: false, value: item.totalNumberOb}, Validators.required),
@@ -937,6 +955,9 @@ export class LpsAirTerminationComponent implements OnInit {
         inspectionPassedNoRe: new FormControl({disabled: false, value: item.inspectionPassedNoRe}),
         inspectionFailedNoOb: new FormControl({disabled: false, value: item.inspectionFailedNoOb}, Validators.required),
         inspectionFailedNoRe: new FormControl({disabled: false, value: item.inspectionFailedNoRe}),
+        fileName_EP: new FormControl({disabled: false, value: item.fileName_EP}),
+        fileType_EP: new FormControl({disabled: false, value: item.fileType_EP}),
+        fileId_EP: new FormControl({disabled: false, value: item.fileId_EP}),
         flag: new FormControl({disabled: false, value: item.flag}),
       });
     }
@@ -1622,11 +1643,6 @@ export class LpsAirTerminationComponent implements OnInit {
         if(this.airTerminationForm.invalid){
           return
         }
-
-        const formData = new FormData();
-        for (let f of this.file) 
-          formData.append('file', f, f.name);
-       
         this.airtermination.userName=this.router.snapshot.paramMap.get('email') || '{}';
         this.airtermination.lpsAirDescription = this.airTerminationForm.value.lpsAirDescription
         console.log(this.airtermination);
@@ -1725,7 +1741,7 @@ export class LpsAirTerminationComponent implements OnInit {
                   }
                 }
 
-              this.airterminationService.updateAirtermination(this.airtermination,formData).subscribe(
+              this.airterminationService.updateAirtermination(this.airtermination).subscribe(
                 (data) => {
                   this.success1 = false;
                   this.downConductorServices.retrieveDownConductor(this.airtermination.userName,this.airtermination.basicLpsId,).subscribe(
@@ -1770,7 +1786,7 @@ export class LpsAirTerminationComponent implements OnInit {
                 }
             }
             else {
-                this.airterminationService.saveAirtermination(this.airtermination,formData).subscribe(
+                this.airterminationService.saveAirtermination(this.airtermination).subscribe(
                   (data) => {
                     this.success = true;
                     this.isAirterminationUpdated=true
@@ -2005,22 +2021,13 @@ export class LpsAirTerminationComponent implements OnInit {
   // File Upload All Functions for LPS
   onChange(event: any) {
     this.file = event.target.files;
-    console.log(this.file);
-    this.lpsAirDescription = this.airTerminationForm.get('lpsAirDescription') as FormArray;
- 
-
-  const formData = new FormData();
-  for (let f of this.file) {
-    formData.append('file', f, f.name);
-       // this.lpsAirDescription.controls[0].controls.airBasicDescription.controls[0].controls.airterminationFile.setValue(formData);
-  
     if (this.file != null) {
       this.uploadDisable = false;
-    }
+    
   }
 }
 
-  onChange1(event: any) {
+  onChange1(event: any,index:any) {
     this.file = event.target.files;
     if (this.file != null) {
       this.uploadDisable1 = false;
@@ -2034,7 +2041,7 @@ export class LpsAirTerminationComponent implements OnInit {
     }
   }
 
-  onUpload(contentSpinner: any) {
+  onUpload(contentSpinner: any,q:any,fileId:any) {
     if (this.file != undefined) {
       this.modalService.open(contentSpinner, {
         centered: true,
@@ -2045,8 +2052,8 @@ export class LpsAirTerminationComponent implements OnInit {
       for (let f of this.file) {
         formData.append('file', f, f.name);
       }
-        if (this.uploadFlag) {
-          this.fileUploadServiceService.uploadFile(formData,this.basicLpsId,this.componentName).subscribe(
+        if (!fileId) {
+          this.fileUploadServiceService.uploadFile(formData,this.basicLpsId,this.componentName,q).subscribe(
             (data) => {
               this.uploadDisable = true;
               this.finalSpinner = false;
@@ -2064,7 +2071,7 @@ export class LpsAirTerminationComponent implements OnInit {
           )
         }
         else {
-          this.fileUploadServiceService.updateFile(formData,this.fileId).subscribe(
+          this.fileUploadServiceService.updateFile(formData,this.componentName,fileId).subscribe(
             (data) => {
               this.uploadDisable = true;
               this.finalSpinner = false;
@@ -2084,7 +2091,7 @@ export class LpsAirTerminationComponent implements OnInit {
     }
   }
 
-  onUpload1(contentSpinner: any) {
+  onUpload1(contentSpinner: any,q:any,fileId:any) {
     if (this.file != undefined) {
       this.modalService.open(contentSpinner, {
         centered: true,
@@ -2095,15 +2102,14 @@ export class LpsAirTerminationComponent implements OnInit {
       for (let f of this.file) {
         formData.append('file', f, f.name);
       }
-        if (this.uploadFlag1) {
-          this.fileUploadServiceService.uploadFile(formData,this.basicLpsId,this.componentName1).subscribe(
+        if (!fileId) {
+          this.fileUploadServiceService.uploadFile(formData,this.basicLpsId,this.componentName1,q).subscribe(
             (data) => {
               this.uploadDisable1 = true;
               this.finalSpinner = false;
               this.popup = true;
               this.filesuccess = true;
               this.filesuccessMsg = "File Upload Successfully";
-              // this.airTerminationForm.controls.uploadAir.setValue('');
               this.retriveFIleName();
             },
             (error) => {
@@ -2115,14 +2121,13 @@ export class LpsAirTerminationComponent implements OnInit {
           )
         }
         else {
-          this.fileUploadServiceService.updateFile(formData,this.fileId1).subscribe(
+          this.fileUploadServiceService.updateFile(formData,this.componentName1,fileId).subscribe(
             (data) => {
               this.uploadDisable1 = true;
               this.finalSpinner = false;
               this.popup = true;
               this.filesuccess = true;
               this.filesuccessMsg = "File Updated Successfully";
-              // this.airTerminationForm.controls.uploadAir.setValue('');
               this.retriveFIleName();
             },
             (error) => {
@@ -2137,7 +2142,7 @@ export class LpsAirTerminationComponent implements OnInit {
     }
   }
 
-  onUpload2(contentSpinner: any) {
+  onUpload2(contentSpinner: any,index:any,fileId:any) {
     if (this.file != undefined) {
       this.modalService.open(contentSpinner, {
         centered: true,
@@ -2148,8 +2153,8 @@ export class LpsAirTerminationComponent implements OnInit {
       for (let f of this.file) {
         formData.append('file', f, f.name);
       }
-        if (this.uploadFlag2) {
-          this.fileUploadServiceService.uploadFile(formData, this.basicLpsId,this.componentName2).subscribe(
+        if (!fileId) {
+          this.fileUploadServiceService.uploadFile(formData, this.basicLpsId,this.componentName2,index).subscribe(
             (data) => {
               this.uploadDisable2 = true;
               this.finalSpinner = false;
@@ -2167,7 +2172,7 @@ export class LpsAirTerminationComponent implements OnInit {
           )
         }
         else {
-          this.fileUploadServiceService.updateFile(formData, this.fileId2).subscribe(
+          this.fileUploadServiceService.updateFile(formData,this.componentName2,fileId).subscribe(
             (data) => {
               this.uploadDisable2 = true;
               this.finalSpinner = false;
@@ -2188,17 +2193,17 @@ export class LpsAirTerminationComponent implements OnInit {
     }
   }
 
-  onDownload() {
-    this.fileUploadServiceService.downloadFile(this.basicLpsId,this.componentName);
+  onDownload(index:any) {
+    this.fileUploadServiceService.downloadFile(this.basicLpsId,this.componentName,index);
   }
-  onDownload1() {
-    this.fileUploadServiceService.downloadFile(this.basicLpsId,this.componentName1);
+  onDownload1(index:any) {
+    this.fileUploadServiceService.downloadFile(this.basicLpsId,this.componentName1,index);
   }
-  onDownload2() {
-    this.fileUploadServiceService.downloadFile(this.basicLpsId,this.componentName2);
+  onDownload2(index:any) {
+    this.fileUploadServiceService.downloadFile(this.basicLpsId,this.componentName2,index);
   }
 
-  deleteFile(contentSpinnerDelete: any) {
+  deleteFile(contentSpinnerDelete: any,index:any,fileId:any) {
     this.modalService.open(contentSpinnerDelete, {
       centered: true,
       size: 'md',
@@ -2206,14 +2211,16 @@ export class LpsAirTerminationComponent implements OnInit {
     });
 
     setTimeout(() => {
-      this.fileUploadServiceService.deleteFile(this.fileId).subscribe(
+      this.fileUploadServiceService.deleteFile(this.basicLpsId,fileId).subscribe(
         (data: any) => {
           this.finalSpinnerDelete = false;
           this.popupDelete = true;
-          this.uploadFlag=true;
           this.fileDeleteSuccess = true;
           this.fileDeletesuccessMsg = data;
-          this.fileName = "";
+             this.lpsAirDescription = this.airTerminationForm.get('lpsAirDescription') as FormArray;
+          this.lpsAirDescription.controls[index].controls.airBasicDescription.controls[0].controls.fileName.setValue("");
+          this.lpsAirDescription.controls[index].controls.airBasicDescription.controls[0].controls.fileType.setValue("");
+          this.lpsAirDescription.controls[index].controls.airBasicDescription.controls[0].controls.fileId.setValue("");
           this.uploadDisable = true;
           this.retriveFIleName();
         },
@@ -2222,15 +2229,14 @@ export class LpsAirTerminationComponent implements OnInit {
       )
     }, 1000);
   }
-  deleteFile1(contentSpinnerDelete: any) {
+  deleteFile1(contentSpinnerDelete: any,fileId:any) {
     this.modalService.open(contentSpinnerDelete, {
       centered: true,
       size: 'md',
       backdrop: 'static'
     });
-
     setTimeout(() => {
-      this.fileUploadServiceService.deleteFile(this.fileId1).subscribe(
+      this.fileUploadServiceService.deleteFile(this.basicLpsId,fileId).subscribe(
         (data: any) => {
           this.finalSpinnerDelete = false;
           this.popupDelete = true;
@@ -2246,7 +2252,8 @@ export class LpsAirTerminationComponent implements OnInit {
       )
     }, 1000);
   }
-  deleteFile2(contentSpinnerDelete: any) {
+  deleteFile2(contentSpinnerDelete: any,fileId:any) { 
+     console.log(fileId)
     this.modalService.open(contentSpinnerDelete, {
       centered: true,
       size: 'md',
@@ -2254,7 +2261,7 @@ export class LpsAirTerminationComponent implements OnInit {
     });
 
     setTimeout(() => {
-      this.fileUploadServiceService.deleteFile(this.fileId2).subscribe(
+      this.fileUploadServiceService.deleteFile(this.basicLpsId,fileId).subscribe(
         (data: any) => {
           this.finalSpinnerDelete = false;
           this.popupDelete = true;
@@ -2272,49 +2279,34 @@ export class LpsAirTerminationComponent implements OnInit {
   }
 
   retriveFIleName() {
-    debugger
     this.fileUploadServiceService.retriveFile(this.basicLpsId).subscribe(
       data => {
         if (data != "" && data != undefined && data != null) {    
           this.JSONdata = JSON.parse(data);
-          console.log(this.JSONdata.length);
           this.lpsAirDescription = this.airTerminationForm.get('lpsAirDescription') as FormArray;
-           for(let i of this.JSONdata){
+           for(let i of this.JSONdata){    
             if(i.componentName=='airUpload'){
-              console.log(i);
-              this.uploadFlag = false;
-              this.fileName = i.fileName;
-              this.fileId = i.fileId;
-             console.log( this.airTerminationForm.controls.lpsAirDescription)
-               this.lpsAirDescription.controls[0].controls.airBasicDescription.controls[0].controls.airterminationFile.setValue('');
-               this.lpsAirDescription.controls[0].controls.airBasicDescription.controls[0].controls.airterminationFile.clearValidators();
-               this.lpsAirDescription.controls[0].controls.airBasicDescription.controls[0].controls.airterminationFile.updateValueAndValidity();
+                this.lpsAirDescription.controls[i.index].controls.airBasicDescription.controls[0].controls.fileName.setValue(i.fileName);
+                this.lpsAirDescription.controls[i.index].controls.airBasicDescription.controls[0].controls.fileType.setValue(i.fileType);
+                this.lpsAirDescription.controls[i.index].controls.airBasicDescription.controls[0].controls.fileId.setValue(i.fileId);
             }
-            else{
-               this.uploadFlag = true;
-               this.lpsAirDescription.controls[0].controls.airBasicDescription.controls[0].controls.airterminationFile.setValidators(Validators.required);
-               this.lpsAirDescription.controls[0].controls.airBasicDescription.controls[0].controls.airterminationFile.updateValueAndValidity();
-            }
-            if(i.componentName =='airUpload-1'){
-              this.uploadFlag1 = false;
-              this.fileName1 = i.fileName;
-              this.fileId1 = i.fileId;
-            // this.airTerminationForm.controls['file1'].setValue('');
-            // this.airTerminationForm.controls['file1'].clearValidators();
-            // this.airTerminationForm.controls['file1'].updateValueAndValidity();
-            }
-            if(i.componentName=='airUpload-2'){
-              this.uploadFlag2 = false;
-              this.fileName2 = i.fileName;
-              this.fileId2 = i.fileId;
-            //  this.airTerminationForm.controls['file2'].setValue('');
-            //  this.airTerminationForm.controls['file2'].clearValidators();
-            //  this.airTerminationForm.controls['file2'].updateValueAndValidity();
-            }
+          if(i.componentName=='airUpload-2'){
+              this.lpsAirDescription.controls[i.index].controls.airExpansion.controls[0].controls.fileName_EP.setValue(i.fileName);
+              this.lpsAirDescription.controls[i.index].controls.airExpansion.controls[0].controls.fileType_EP.setValue(i.fileType);
+              this.lpsAirDescription.controls[i.index].controls.airExpansion.controls[0].controls.fileId_EP.setValue(i.fileId);
           }
+
+          if(i.componentName =='airUpload-1'){
+              this.lpsAirDescription.controls[i.index].controls.lpsVerticalAirTermination.controls[0].controls.fileNameVAir.setValue(i.fileName);
+              this.lpsAirDescription.controls[i.index].controls.lpsVerticalAirTermination.controls[0].controls.fileTypeVAir.setValue(i.fileType);
+              this.lpsAirDescription.controls[i.index].controls.lpsVerticalAirTermination.controls[0].controls.fileIdVAir.setValue(i.fileId);
+
+          }
+          }
+          
         
         } else {
-          this.uploadFlag = true;
+       //   this.uploadFlag = true;
           this.lpsAirDescription.controls[0].controls.airBasicDescription.controls[0].controls.airterminationFile.setValidators(Validators.required);
           this.lpsAirDescription.controls[0].controls.airBasicDescription.controls[0].controls.airterminationFile.updateValueAndValidity();
 
@@ -2330,7 +2322,7 @@ export class LpsAirTerminationComponent implements OnInit {
       },
       error => {
         // this.uploadFlag = true;
-        this.fileName = '';
+       // this.fileName = '';
         this.fileName1 = '';
         this.fileName2 = '';
         // this.airTerminationForm.controls['uploadAir'].setValidators([Validators.required]);

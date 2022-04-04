@@ -18,8 +18,8 @@ export class LpsFileUploadService {
    
   constructor(private http: HttpClient) { }
 
-  public uploadFile(formData: FormData,lpsId: number,componentName:any): Observable<HttpEvent<any>> {
-    return this.http.post<any>(this.apiUrl_LPS + '/upload'+ '/'+lpsId+'/'+componentName,formData, {
+  public uploadFile(formData: FormData,lpsId: number,componentName:any,index:number): Observable<HttpEvent<any>> {
+    return this.http.post<any>(this.apiUrl_LPS + '/upload'+ '/'+lpsId+'/'+componentName+'/'+index,formData, {
       headers: new HttpHeaders(
         {
           'Content-Type': 'multipart/form-data'
@@ -28,8 +28,8 @@ export class LpsFileUploadService {
     })
   }
 
-  public updateFile(formData: FormData,fileId: number,): Observable<HttpEvent<any>> {
-    return this.http.put<any>(this.apiUrl_LPS + '/updateFile'+ '/'+fileId,formData, {
+  public updateFile(formData: FormData,componentName:any,fileId:number): Observable<HttpEvent<any>> {
+    return this.http.put<any>(this.apiUrl_LPS + '/updateFile'+ '/'+componentName+'/'+fileId,formData,{
       headers: new HttpHeaders(
         {
           'Content-Type': 'multipart/form-data'
@@ -43,15 +43,15 @@ export class LpsFileUploadService {
   }
 
 
-  public downloadFile(lpsId:any,componentName:any) {
-    return this.http.get(this.apiUrl_LPS + '/downloadFile'+'/'+lpsId+'/'+componentName, { responseType:'blob'}).subscribe(
+  public downloadFile(lpsId:any,componentName:any,index:number) {
+    return this.http.get(this.apiUrl_LPS + '/downloadFile'+'/'+lpsId+'/'+componentName+'/'+index, { responseType:'blob'}).subscribe(
       data =>{
         const fileName = data.type;
         FileSaver.saveAs(data,fileName);
       }, 
       ()=>{})
     }
-    public deleteFile(fileId:any): Observable<any> {
+    public deleteFile(lpsId:any,fileId:number): Observable<any> {
       return this.http.delete(this.apiUrl_LPS + '/removeFile'+'/'+fileId, { responseType: 'text' as 'json'})
     }
   
