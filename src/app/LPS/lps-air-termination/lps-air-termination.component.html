@@ -940,10 +940,10 @@
                                         <!-- <mat-icon *ngIf="a.get('fileName')?.value != ''" class="mousechange" class="dlt" type="button" (click)="deleteFile(contentSpinnerDelete,overAllControl().length-1,a.get('fileId')?.value)" title="Delete" 
                                         style="position: absolute;margin-left: 40px; margin-top: 5px;">remove_circle_outline</mat-icon> -->
                                     </div>
-                                    <div *ngIf="submitted && a.get('airterminationFile')?.errors"
+                                    <div *ngIf="submitted && a.get('fileName')?.errors"
                                     class="invalid-feedback">
                                     <div
-                                        *ngIf="a.get('airterminationFile')?.errors?.required">
+                                        *ngIf="a.get('fileName')?.errors?.required">
                                         Field is required</div>
                                 </div>
                                 </div>    
@@ -1205,6 +1205,12 @@
                                                         <!-- <mat-icon *ngIf="a.get('fileNameVAir')?.value!=''"    class="mousechange" class="dlt" type="button" title="Delete" (click)="deleteFile1(contentSpinnerDelete,overAllControl().length-1)"
                                                         style="position: absolute;margin-left: 40px; margin-top: 5px;">remove_circle_outline</mat-icon>-->
                                                     </div> 
+                                                    <div *ngIf="submitted && a.get('fileNameVAir')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div
+                                                        *ngIf="a.get('fileNameVAir')?.errors?.required">
+                                                        Field is required</div>
+                                                </div>
                                                 </div>    
                                             </div>
            
@@ -3957,6 +3963,12 @@
                                                         <!-- <mat-icon *ngIf="a.get('fileName_EP')?.value != ''" class="mousechange" class="dlt" type="button" title="Delete" (click)="deleteFile2(contentSpinnerDelete,overAllControl().length-1)"
                                                         style="position: absolute;margin-left: 40px; margin-top: 5px;">remove_circle_outline</mat-icon> -->
                                                     </div>
+                                                    <div *ngIf="submitted && a.get('fileName_EP')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div
+                                                        *ngIf="a.get('fileName_EP')?.errors?.required">
+                                                        Field is required</div>
+                                                </div>
                                                 </div>    
                                             </div>
                                         <br>

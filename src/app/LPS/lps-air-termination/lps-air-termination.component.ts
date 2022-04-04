@@ -210,7 +210,7 @@ export class LpsAirTerminationComponent implements OnInit {
       physicalInspectionRe: new FormControl(''),
       totalNumberOb: new FormControl('', Validators.required),
       totalNumberRe: new FormControl(''),
-      fileNameVAir: new FormControl(''),
+      fileNameVAir: new FormControl('',Validators.required),
       fileTypeVAir: new FormControl(''),
       fileIdVAir: new FormControl(''),
       inspNoOb: new FormControl('', Validators.required),
@@ -376,7 +376,7 @@ export class LpsAirTerminationComponent implements OnInit {
       inspectionPassedNoRe: new FormControl(''),
       inspectionFailedNoOb: new FormControl('', Validators.required),
       inspectionFailedNoRe: new FormControl(''),
-      fileName_EP: new FormControl(''),
+      fileName_EP: new FormControl('',Validators.required),
       fileType_EP: new FormControl(''),
       fileId_EP: new FormControl(''),
       uploadAir2: new FormControl('', Validators.required),
@@ -440,7 +440,7 @@ export class LpsAirTerminationComponent implements OnInit {
       combustablePartRe: new FormControl(''),
       terminationMeshConductorOb:  new FormControl('', Validators.required),
       terminationMeshConductorRe: new FormControl(''),
-      fileName: new FormControl(''),
+      fileName: new FormControl('',Validators.required),
       fileType: new FormControl(''),
       fileId: new FormControl(''),
       bondingEquipotentialOb:  new FormControl('', Validators.required),
@@ -2042,6 +2042,8 @@ export class LpsAirTerminationComponent implements OnInit {
   }
 
   onUpload(contentSpinner: any,q:any,fileId:any) {
+    this.airTerminationForm.markAsDirty();
+    this.airTerminationForm.markAsTouched();
     if (this.file != undefined) {
       this.modalService.open(contentSpinner, {
         centered: true,
@@ -2092,6 +2094,8 @@ export class LpsAirTerminationComponent implements OnInit {
   }
 
   onUpload1(contentSpinner: any,q:any,fileId:any) {
+    this.airTerminationForm.markAsDirty();
+    this.airTerminationForm.markAsTouched();
     if (this.file != undefined) {
       this.modalService.open(contentSpinner, {
         centered: true,
@@ -2143,6 +2147,8 @@ export class LpsAirTerminationComponent implements OnInit {
   }
 
   onUpload2(contentSpinner: any,index:any,fileId:any) {
+    this.airTerminationForm.markAsDirty();
+    this.airTerminationForm.markAsTouched();
     if (this.file != undefined) {
       this.modalService.open(contentSpinner, {
         centered: true,
