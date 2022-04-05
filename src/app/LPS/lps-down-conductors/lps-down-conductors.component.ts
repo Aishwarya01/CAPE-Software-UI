@@ -2007,6 +2007,7 @@ export class LpsDownConductorsComponent implements OnInit {
       data => {
         if (data != "" && data != undefined && data != null) {    
           this.JSONdata = JSON.parse(data);
+           this.downConductorDescription = this.downConductorForm.get('downConductorDescription') as FormArray;
            for(let i of this.JSONdata){ 
             if(i.componentName =='downConductor'){
               this.downConductorDescription.controls[i.index].controls.downConductor.controls[0].controls.fileName.setValue(i.fileName);
