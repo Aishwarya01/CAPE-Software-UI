@@ -68,7 +68,7 @@ export class EmcSavedReportComponent implements OnInit {
     this.currentUser1=JSON.parse(this.currentUser);
     this.superAdminArr.push('gk@capeindia.net');
     this.superAdminArr.push('awstesting@rushforsafety.com');
-    this.superAdminArr.push('elangovan.photonx@gmail.com');
+    this.superAdminArr.push('vinoth@capeindia.net');
     this.retrieveEmcDetails();
     
    }
