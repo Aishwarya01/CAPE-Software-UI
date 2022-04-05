@@ -22,6 +22,7 @@ export class Site {
   updatedBy: String;
   assignedTo: String;
   sitePersons: SitePersons[];
+  status: String;
 }
 
 export class SitePersons {
