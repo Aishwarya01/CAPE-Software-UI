@@ -73,6 +73,8 @@ completedFilterData: any=[];
     this.currentUser1 = [];
     this.currentUser1=JSON.parse(this.currentUser);
     this.superAdminArr.push('gk@capeindia.net');
+    this.superAdminArr.push('arunkumark5797@gmail.com');
+
     this.retrieveLpsDetails();
    
   }
@@ -138,15 +140,11 @@ completedFilterData: any=[];
     this.lpsParent.continue(basicLpsId);
   } 
 
-  deleteBasicLps(basicLpsId: any) {
- 
-    this.upDateBasic = {'basicLpsId': basicLpsId,'status': 'InActive'};
-    
-    this.lpsService.updateLpsBasicDetails(this.upDateBasic).subscribe(
+  deleteBasicLps(basicLpsId: any) {    
+    this.lpsService.updateLpsBasicDetailsStatus(basicLpsId).subscribe(
       data => {
-        this.spinner=true;
-        this.ngOnInit();
       }
     )
+    this.ngOnInit();
   } 
 }
