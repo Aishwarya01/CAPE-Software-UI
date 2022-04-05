@@ -133,7 +133,7 @@ export class EmcSavedReportComponent implements OnInit {
      this.emcParent.continue(emcId,clientName,true);
    } 
 
-   deleteBasicLps(emcId:any){
+   deleteBasicEmc(emcId:any){
     this.emcSavedReportService.updateLpsBasicDetailsStatus(emcId).subscribe(
       data => {
       }
