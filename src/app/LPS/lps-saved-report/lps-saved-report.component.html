@@ -65,10 +65,21 @@
 
 
         <ng-container matColumnDef="continue">
-            <th mat-header-cell *matHeaderCellDef> Action </th>        
-            <td mat-cell *matCellDef="let element"> 
-                <button class="btn btn-info" (click)="continue(element.basicLpsId)"
-                >continue</button>
+            <th style="width: auto; text-align: justify; padding: auto;"  mat-header-cell *matHeaderCellDef> Action </th>        
+            <td style="width: auto; text-align: justify; padding: auto;"  mat-cell *matCellDef="let element"> 
+
+                <!-- <button class="btn btn-outline-info info" title="Delete The Record" (click)="continue(element.basicLpsId)"
+                  style="border-color: #cdcecf;box-shadow: unset;" >
+                  <mat-icon>edit</mat-icon>
+                </button> -->
+                <mat-icon class="material-icons-outlined-info info" (click)="continue(element.basicLpsId)" style="color: #17a2b8;">edit</mat-icon>
+                <mat-icon class="material-icons-outlined-danger delete" (click)="deleteBasicLps(element.basicLpsId)" *ngIf="enableDelete" style="margin-left: 1rem;">delete</mat-icon>
+
+                <!-- <button class="btn btn-outline-danger delete" title="Delete The Record" class="mousechange"
+                  style="border-color: #cdcecf;box-shadow: unset;">
+                  <mat-icon>delete</mat-icon>
+                </button> -->
+
             </td>
         </ng-container>
 

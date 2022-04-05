@@ -70,6 +70,8 @@ export class SavedreportsComponent implements OnInit {
     this.currentUser1=JSON.parse(this.currentUser);
     this.superAdminArr = [];
     this.superAdminArr.push('gk@capeindia.net');
+    this.superAdminArr.push('vinoth@capeindia.net');
+    this.superAdminArr.push('awstesting@rushforsafety.com');
     this.retrieveSiteDetails();
    setTimeout(() => this.input.focus(), 500);
     this.siteName=this.service.filterSiteName;
