@@ -73,7 +73,6 @@ export class SavedreportsComponent implements OnInit {
     this.superAdminArr.push('gk@capeindia.net');
     this.superAdminArr.push('vinoth@capeindia.net');
     this.superAdminArr.push('awstesting@rushforsafety.com');
-    this.superAdminArr.push('elangovan.photonx@gmail.com');
     
     this.retrieveSiteDetails();
    setTimeout(() => this.input.focus(), 500);
