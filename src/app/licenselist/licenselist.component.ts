@@ -100,6 +100,8 @@ export class LicenselistComponent implements OnInit {
   superAdminArr: any = [];
 
   onSave = new EventEmitter();
+  capeIndiaMail: boolean = false;
+
   constructor(private formBuilder: FormBuilder,
               private dialog: MatDialog,
               private siteService: SiteService,
@@ -113,6 +115,10 @@ export class LicenselistComponent implements OnInit {
               
               ) {
                 this.email = this.router.snapshot.paramMap.get('email') || '{}';
+                
+                if(this.email.split('@')[1] == 'thirumoorthy@capeindia.net'){
+                     this.capeIndiaMail=true;
+                }
                }
 
   ngOnInit(): void {

@@ -24,16 +24,16 @@
                                 <button class="btn btn-primary" [disabled]="service.noofLicense<=0" (click)=decreaseLicense() style="margin-top: 28px;">Use</button>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                          <div class="form-group">
-                              <button class="btn btn-primary" (click)=createPayment() style="margin-top: 28px;">pay</button>
-                          </div>
-                      </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
+                        <div class="col-md-6"  *ngIf="!capeIndiaMail && service.noofLicense == 0">
+                            <div class="form-group" >
                                 <button class="btn btn-primary" [disabled]="service.noofLicense!=0" (click)=purchaseLicense() style="margin-top: 28px;">Get Complimentary Licenses</button>
                             </div>
                         </div>
+                        <div class="col-md-3" *ngIf="capeIndiaMail && service.noofLicense == 0">
+                          <div class="form-group">
+                              <button class="btn btn-primary"  style="margin-top: 28px;"  (click)=createPayment() >pay</button>
+                          </div>
+                      </div>
                       </div>
                 </mat-expansion-panel>    
     
