@@ -412,12 +412,18 @@
                                                          accept=".jpeg,.png,.jpg,">
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <button type="button" [disabled]="uploadDisable" class="btn btn-success" (click)="onUpload(contentSpinner)">Upload</button>
-                                                        <a (click)="onDownload()" *ngIf="fileName!= ''" href='javascript:onDownload()' title="Download" style="margin-left: 30px;text-decoration: underline;" 
-                                                        [ngClass]="{'disableForm':isEditable}">{{fileName}}</a>
-                                                        <mat-icon *ngIf="fileName!= ''" class="mousechange" class="dlt" type="button" title="Delete" (click)="deleteFile(contentSpinnerDelete)"
-                                                        style="position: absolute;margin-left: 40px; margin-top: 5px;">remove_circle_outline</mat-icon>
+                                                        <button type="button" [disabled]="uploadDisable" class="btn btn-success" (click)="onUpload(contentSpinner,a.get('index')?.value,a.get('fileId')?.value)">Upload</button>
+                                                        <a (click)="onDownload(a.get('index')?.value)" *ngIf="a.get('fileName')?.value!= ''" href='javascript:onDownload()' title="Download" style="margin-left: 30px;text-decoration: underline;" 
+                                                        [ngClass]="{'disableForm':isEditable}">{{a.get('fileName')?.value}}</a>
+                                                        <!-- <mat-icon *ngIf="fileName!= ''" class="mousechange" class="dlt" type="button" title="Delete" (click)="deleteFile(contentSpinnerDelete)"
+                                                        style="position: absolute;margin-left: 40px; margin-top: 5px;">remove_circle_outline</mat-icon> -->
                                                     </div>
+                                                    <div *ngIf="submitted && a.get('fileName')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div
+                                                        *ngIf="a.get('fileName')?.errors?.required">
+                                                        Field is required</div>
+                                                </div>
                                                 </div>    
                                             </div>
                                         </tr>
@@ -988,12 +994,18 @@
                                      accept=".jpeg,.png,.jpg,">
                                 </div>
                                 <div class="col-md-6">
-                                    <button type="button" [disabled]="uploadDisable1" class="btn btn-success" (click)="onUpload1(contentSpinner)">Upload</button>
-                                    <a (click)="onDownload1()" *ngIf="fileName1!= ''" href='javascript:onDownload1()' title="Download" style="margin-left: 30px;text-decoration: underline;" 
-                                    [ngClass]="{'disableForm':isEditable}">{{fileName1}}</a>
-                                    <mat-icon *ngIf="fileName1!= ''" class="mousechange" class="dlt" type="button" title="Delete" (click)="deleteFile1(contentSpinnerDelete)"
-                                    style="position: absolute;margin-left: 40px; margin-top: 5px;">remove_circle_outline</mat-icon>
+                                    <button type="button" [disabled]="uploadDisable1" class="btn btn-success"  (click)="onUpload1(contentSpinner,q.get('index')?.value,q.get('fileId1')?.value)">Upload</button>
+                                    <a (click)="onDownload1(q.get('index')?.value)"*ngIf="q.get('fileName1')?.value!= ''" href='javascript:onDownload1()' title="Download" style="margin-left: 30px;text-decoration: underline;" 
+                                    [ngClass]="{'disableForm':isEditable}">{{q.get('fileName1')?.value}}</a>
+                                    <!-- <mat-icon *ngIf="fileName1!= ''" class="mousechange" class="dlt" type="button" title="Delete" (click)="deleteFile1(contentSpinnerDelete)"
+                                    style="position: absolute;margin-left: 40px; margin-top: 5px;">remove_circle_outline</mat-icon> -->
                                 </div>
+                                <div *ngIf="submitted && q.get('fileName1')?.errors"
+                                class="invalid-feedback">
+                                <div
+                                    *ngIf="q.get('fileName1')?.errors?.required">
+                                    Field is required</div>
+                            </div>
                             </div>    
                         </div>
                     <br>
