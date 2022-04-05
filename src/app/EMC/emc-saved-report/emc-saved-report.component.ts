@@ -38,6 +38,7 @@ export class EmcSavedReportComponent implements OnInit {
    currentUser: any = [];
    currentUser1: any = [];
    userData: any=[];
+   enableDelete: boolean = false;
    //viewerFilterData:any=[];
    selectedIndex: number=0;
    savedReportSpinner: boolean = false;
@@ -67,6 +68,7 @@ export class EmcSavedReportComponent implements OnInit {
     this.currentUser1=JSON.parse(this.currentUser);
     this.superAdminArr.push('gk@capeindia.net');
     this.superAdminArr.push('awstesting@rushforsafety.com');
+    this.superAdminArr.push('elangovan.photonx@gmail.com');
     this.retrieveEmcDetails();
     
    }
@@ -83,6 +85,7 @@ export class EmcSavedReportComponent implements OnInit {
     for(let i of this.superAdminArr) {
       if(this.email == i) {
         this.superAdminFlag = true;
+        this.enableDelete = true;
       }
     }
 
@@ -91,7 +94,7 @@ export class EmcSavedReportComponent implements OnInit {
         data => {
           this.emcData=JSON.parse(data);
           for(let i of this.emcData){
-            if(i.allStepsCompleted != "AllStepCompleted"){
+            if(i.allStepsCompleted != "AllStepCompleted" && i.status != 'InActive'){
               this.filteredData.push(i);
             }
           }
@@ -107,7 +110,7 @@ export class EmcSavedReportComponent implements OnInit {
         data => {
           this.emcData=JSON.parse(data);
           for(let i of this.emcData){
-            if(i.allStepsCompleted != "AllStepCompleted"){
+            if(i.allStepsCompleted != "AllStepCompleted" && i.status != 'InActive'){
               this.completedFilterData.push(i);
             }
           }
@@ -118,8 +121,6 @@ export class EmcSavedReportComponent implements OnInit {
           this.savedReportEmc_dataSource.sort = this.savedReportEmcSort;
         });
     }
-       
-         
    }
  
    continue(emcId: any,clientName: any) {
@@ -131,5 +132,13 @@ export class EmcSavedReportComponent implements OnInit {
    // this.service.disableSubmitSummary=false;
      this.emcParent.continue(emcId,clientName,true);
    } 
+
+   deleteBasicLps(emcId:any){
+    this.emcSavedReportService.updateLpsBasicDetailsStatus(emcId).subscribe(
+      data => {
+      }
+    )
+    this.ngOnInit();
+   }
  }
  

@@ -20,6 +20,10 @@ export class EmcSavedReportService {
     return this.http.get<EmcClientDetails>(this.apiUrl_EMC + '/retrieveAllClients', { responseType: 'text' as 'json' })
   }
 
+  public updateLpsBasicDetailsStatus(emcId: any): Observable<any> {
+    return this.http.put<any>(this.apiUrl_EMC + '/updateStatus' + '/' + emcId, {  })
+  }
+
   public retrieveFinalEmcReport(userName: String,emcId: any): Observable<any> {
     return this.http.get<any>(this.apiUrl_EMC + '/retrieveEmcReport' + '/' +userName+ '/' +emcId, { responseType: 'text' as 'json' })
   } 

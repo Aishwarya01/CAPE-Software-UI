@@ -73,7 +73,13 @@
       <ng-container matColumnDef="continue">
         <th mat-header-cell *matHeaderCellDef> Action </th>
         <td mat-cell *matCellDef="let element">
-          <button class="btn btn-info" (click)="continue(element.emcId,element.clientName)">continue</button>
+
+          <mat-icon class="material-icons-outlined-info info" (click)="continue(element.emcId,element.clientName)" title="Continue Edit"
+          style="color: #17a2b8;cursor: pointer;">edit</mat-icon>
+
+          <mat-icon class="material-icons-outlined-danger delete" (click)="deleteBasicLps(element.emcId)" *ngIf="enableDelete" title="Delete The Record"
+          style="margin-left: 1rem;cursor: pointer;">delete</mat-icon>
+
         </td>
       </ng-container>
 
