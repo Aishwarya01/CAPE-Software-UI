@@ -246,6 +246,8 @@ export class LpsDownConductorsComponent implements OnInit {
                 this.downConductorDescription.controls[r].controls.buildingNumber.setValue(this.airTerminationValues[0].lpsAirDescription[r].buildingNumber);
                 this.downConductorDescription.controls[r].controls.buildingName.setValue(this.airTerminationValues[0].lpsAirDescription[r].buildingName);
                 this.downConductorDescription.controls[r].controls.buildingCount.setValue(this.airTerminationValues[0].lpsAirDescription[r].buildingCount);
+                this.downConductorDescription.controls[r].controls.index.setValue(r);
+                this.downConductorDescription.controls[r].controls.downConductor.controls[0].controls.index.setValue(r);
               }
           } 
         }
