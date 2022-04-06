@@ -15,7 +15,7 @@ const FileSaver = require('file-saver');
 })
 export class InspectionVerificationService {
 
-  apiUrl = environment.apiUrl;
+  apiUrl = environment.apiUrl_v2;
   apiUrl2= environment.apiUrl_v2;
   constructor(private http: HttpClient) { }
 

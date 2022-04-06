@@ -74,6 +74,13 @@ import { TruncateModule } from 'ng2-truncate';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { GenerateOtpContactnumberComponent } from './generate-otp-contactnumber/generate-otp-contactnumber.component';
 import { ChangeContactnumberComponent } from './change-contactnumber/change-contactnumber.component';
+import { EmcFacilityDataComponent } from './EMC/emc-facility-data/emc-facility-data.component';
+import { PowerAndEarthingDataComponent } from './EMC/emc-power-and-earthing-data/power-and-earthing-data.component';
+import { EmcElectromagneticCompatibilityDataComponent } from './EMC/emc-electromagnetic-compatibility-data/emc-electromagnetic-compatibility-data.component';
+import { EmcMatstepperComponent } from './EMC/emc-matstepper/emc-matstepper.component';
+import { EmcSavedReportComponent } from './EMC/emc-saved-report/emc-saved-report.component';
+import { EmcFinalReportComponent } from './EMC/emc-final-report/emc-final-report.component';
+import { EmcClientDetailsComponent } from './EMC/emc-client-details/emc-client-details.component';
 import { LpsEarthingComponent } from './LPS/lps-earthing/lps-earthing.component';
 import { LpsSpdComponent } from './LPS/lps-spd/lps-spd.component';
 import { LpsSeperationDistanceComponent } from './LPS/lps-seperation-distance/lps-seperation-distance.component';
@@ -89,8 +96,6 @@ import { LpsFinalReportComponent } from './LPS/lps-final-report/lps-final-report
 import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 //import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 import { ConfirmationBoxComponent } from './confirmation-box/confirmation-box.component';
-import { SignaturePadModule } from 'angular2-signaturepad';
-import { SignatureComponent } from './signature/signature.component';
 
 @NgModule({
   declarations: [
@@ -136,6 +141,14 @@ import { SignatureComponent } from './signature/signature.component';
     DateAgoPipe,
     GenerateOtpContactnumberComponent,
     ChangeContactnumberComponent,
+    EmcFacilityDataComponent,
+    PowerAndEarthingDataComponent,
+    EmcElectromagneticCompatibilityDataComponent,
+    EmcMatstepperComponent,
+    EmcSavedReportComponent,
+    EmcFinalReportComponent,
+    EmcClientDetailsComponent,
+
     LpsSpdComponent,
     LpsSeperationDistanceComponent,
     LpsMatstepperComponent,
@@ -146,7 +159,7 @@ import { SignatureComponent } from './signature/signature.component';
     LpsEarthStudComponent,
     LpsSavedReportComponent,
     LpsWelcomePageComponent, 
-    LpsFinalReportComponent, SignatureComponent, 
+    LpsFinalReportComponent,
   ],
   imports: [
     TruncateModule,
@@ -173,7 +186,6 @@ import { SignatureComponent } from './signature/signature.component';
     NgxBootstrapIconsModule.pick(allIcons),
     NgMultiSelectDropDownModule.forRoot(),
     ScrollToModule.forRoot(),
-    SignaturePadModule,
     NgOtpInputModule,
     MatBadgeModule,
     MatProgressSpinnerModule,

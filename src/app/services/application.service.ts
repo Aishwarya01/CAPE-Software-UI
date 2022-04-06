@@ -9,7 +9,7 @@ import { ApplicationType } from '../model/applicationtype';
 })
 export class ApplicationTypeService {
 
-  apiUrl = environment.apiUrl;
+  apiUrl = environment.apiUrl_v2;
   apiUrlV2 = environment.apiUrl_v2;
 
   constructor(private http: HttpClient) {

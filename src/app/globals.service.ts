@@ -65,6 +65,19 @@ export class GlobalsService {
  isCompleted3: boolean = true;
  goBacktoprevious: boolean=false;
  editable: boolean = true;
+
+ 
+
+ disableSubmitElectromagnetic:boolean=false;
+ editableEmc: boolean = true;
+ isCompletedEmc: boolean = true;
+ isCompletedEmc1: boolean = true;
+ isCompletedEmc2: boolean = true;
+ isCompletedEmc3: boolean = true;
+ isLinearEmc: boolean=false; 
+
+
+
 jointType: any;
 noOfjoint: any; 
 msgForStep1:boolean=false;
@@ -72,16 +85,6 @@ msgForStep1Flag:boolean=false;
 lvClick: number=0;  
 windowTabClick: number=0; 
 logoutClick:number=0;
-//siganture
-signatureImg1:string="";
-signatureImg2:string="";
-signatureImg3:string="";
-signatureImg4:string="";
-signatureImg5:string="";
-signatureImg6:string="";
-
-sigInput:number=0;
-
 //remember me
 autoLoginToken:number=0;
 

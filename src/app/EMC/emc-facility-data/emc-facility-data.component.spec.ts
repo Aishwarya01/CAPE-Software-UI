@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SignatureComponent } from './signature.component';
+import { EmcFacilityDataComponent } from './emc-facility-data.component';
 
-describe('SignatureComponent', () => {
-  let component: SignatureComponent;
-  let fixture: ComponentFixture<SignatureComponent>;
+describe('EmcFacilityDataComponent', () => {
+  let component: EmcFacilityDataComponent;
+  let fixture: ComponentFixture<EmcFacilityDataComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SignatureComponent ]
+      declarations: [ EmcFacilityDataComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SignatureComponent);
+    fixture = TestBed.createComponent(EmcFacilityDataComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
