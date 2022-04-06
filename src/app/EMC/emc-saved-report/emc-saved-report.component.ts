@@ -134,11 +134,18 @@ export class EmcSavedReportComponent implements OnInit {
    } 
 
    deleteBasicEmc(emcId:any){
-    this.emcSavedReportService.updateLpsBasicDetailsStatus(emcId).subscribe(
+    this.emcClientDetails.emcId = emcId;
+    this.emcClientDetails.userName = this.email;
+    this.savedReportBody = false;
+    this.savedReportSpinner = true;
+    this.spinnerValue = "Please wait, the details are loading!";
+    this.emcSavedReportService.updateLpsBasicDetailsStatus(this.emcClientDetails).subscribe(
       data => {
+        this.ngOnInit();
+        this.savedReportBody = true;
+        this.savedReportSpinner = false;
       }
     )
-    this.ngOnInit();
    }
  }
  
