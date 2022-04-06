@@ -43,8 +43,8 @@ export class LpsFileUploadService {
   }
 
 
-  public downloadFile(lpsId:any,componentName:any,index:number) {
-    return this.http.get(this.apiUrl_LPS + '/downloadFile'+'/'+lpsId+'/'+componentName+'/'+index, { responseType:'blob'}).subscribe(
+  public downloadFile(lpsId:any,componentName:any,fileName:any) {
+    return this.http.get(this.apiUrl_LPS + '/downloadFile'+'/'+lpsId+'/'+componentName+'/'+fileName, { responseType:'blob'}).subscribe(
       data =>{
         const fileName = data.type;
         FileSaver.saveAs(data,fileName);

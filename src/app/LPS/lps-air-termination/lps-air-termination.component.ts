@@ -454,7 +454,7 @@ export class LpsAirTerminationComponent implements OnInit {
   }
 
   removeItem(a: any, index: any) {
-    console.log(index)
+ 
     this.airTerminationForm.markAsTouched();
     if (a.value.lpsAirDescId != 0 && a.value.lpsAirDescId != undefined && a.value.lpsAirDescId != '') {
       a.value.flag = "R";
@@ -2196,14 +2196,14 @@ export class LpsAirTerminationComponent implements OnInit {
     }
   }
 
-  onDownload(index: any) {
-    this.fileUploadServiceService.downloadFile(this.basicLpsId, this.componentName, index);
+  onDownload(fileName: any) {
+    this.fileUploadServiceService.downloadFile(this.basicLpsId, this.componentName, fileName);
   }
-  onDownload1(index: any) {
-    this.fileUploadServiceService.downloadFile(this.basicLpsId, this.componentName1, index);
+  onDownload1(fileName: any) {
+    this.fileUploadServiceService.downloadFile(this.basicLpsId, this.componentName1, fileName);
   }
-  onDownload2(index: any) {
-    this.fileUploadServiceService.downloadFile(this.basicLpsId, this.componentName2, index);
+  onDownload2(fileName: any) {
+    this.fileUploadServiceService.downloadFile(this.basicLpsId, this.componentName2, fileName);
   }
 
   deleteFile(contentSpinnerDelete: any, index: any, fileId: any) {

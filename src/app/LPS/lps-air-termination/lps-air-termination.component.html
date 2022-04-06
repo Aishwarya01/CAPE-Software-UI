@@ -934,7 +934,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <button type="button" [disabled]="uploadDisable" class="btn btn-success" (click)="onUpload(contentSpinner,overAllControl().length-1,a.get('fileId')?.value)">Upload</button>
-                                        <a (click)="onDownload(overAllControl().length-1)" *ngIf="a.get('fileName')?.value != ''" href='javascript:onDownload()' title="Download" style="margin-left: 30px;text-decoration: underline;" 
+                                        <a (click)="onDownload(a.get('fileName')?.value)" *ngIf="a.get('fileName')?.value != ''" href='javascript:onDownload()' title="Download" style="margin-left: 30px;text-decoration: underline;" 
                                         [ngClass]="{'disableForm':isEditable}">{{a.get('fileName')?.value}}</a>
                     
                                         <!-- <mat-icon *ngIf="a.get('fileName')?.value != ''" class="mousechange" class="dlt" type="button" (click)="deleteFile(contentSpinnerDelete,overAllControl().length-1,a.get('fileId')?.value)" title="Delete" 
@@ -1200,7 +1200,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <button type="button" [disabled]="uploadDisable1" class="btn btn-success" (click)="onUpload1(contentSpinner,overAllControl().length-1,a.get('fileIdVAir')?.value)">Upload</button>
-                                                        <a (click)="onDownload1(overAllControl().length-1)" *ngIf="a.get('fileNameVAir')?.value!=''"   href='javascript:onDownload1(overAllControl().length-1)' title="Download" style="margin-left: 30px;text-decoration: underline;" 
+                                                        <a (click)="onDownload1(a.get('fileNameVAir')?.value)" *ngIf="a.get('fileNameVAir')?.value!=''"   href='javascript:onDownload1(overAllControl().length-1)' title="Download" style="margin-left: 30px;text-decoration: underline;" 
                                                         [ngClass]="{'disableForm':isEditable}" >{{a.get('fileNameVAir')?.value}}</a>
                                                         <!-- <mat-icon *ngIf="a.get('fileNameVAir')?.value!=''"    class="mousechange" class="dlt" type="button" title="Delete" (click)="deleteFile1(contentSpinnerDelete,overAllControl().length-1)"
                                                         style="position: absolute;margin-left: 40px; margin-top: 5px;">remove_circle_outline</mat-icon>-->
@@ -3958,7 +3958,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <button type="button" [disabled]="uploadDisable2" class="btn btn-success" (click)="onUpload2(contentSpinner,overAllControl().length-1,a.get('fileId_EP')?.value)">Upload</button>
-                                                        <a (click)="onDownload2(overAllControl().length-1)"    *ngIf="a.get('fileName_EP')?.value != ''" href='javascript:onDownload2()' title="Download" style="margin-left: 30px;text-decoration: underline;" 
+                                                        <a (click)="onDownload2(a.get('fileName_EP')?.value )"    *ngIf="a.get('fileName_EP')?.value != ''" href='javascript:onDownload2()' title="Download" style="margin-left: 30px;text-decoration: underline;" 
                                                         [ngClass]="{'disableForm':isEditable}">{{a.get('fileName_EP')?.value}}</a>
                                                         <!-- <mat-icon *ngIf="a.get('fileName_EP')?.value != ''" class="mousechange" class="dlt" type="button" title="Delete" (click)="deleteFile2(contentSpinnerDelete,overAllControl().length-1)"
                                                         style="position: absolute;margin-left: 40px; margin-top: 5px;">remove_circle_outline</mat-icon> -->

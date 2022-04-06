@@ -1890,11 +1890,11 @@ export class LpsDownConductorsComponent implements OnInit {
   }
 
 
-  onDownload(index:any) {
-    this.fileUploadServiceService.downloadFile(this.basicLpsId,this.componentName,index);
+  onDownload(fileName:any) {
+    this.fileUploadServiceService.downloadFile(this.basicLpsId,this.componentName,fileName);
   }
-  onDownload1(index:any) {
-   this.fileUploadServiceService.downloadFile(this.basicLpsId,this.componentName1,index);
+  onDownload1(fileName:any) {
+   this.fileUploadServiceService.downloadFile(this.basicLpsId,this.componentName1,fileName);
   }
 
   deleteFile1(contentSpinnerDelete: any) {
