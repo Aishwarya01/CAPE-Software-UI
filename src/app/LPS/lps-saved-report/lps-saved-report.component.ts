@@ -141,11 +141,18 @@ completedFilterData: any=[];
     this.lpsParent.continue(basicLpsId);
   } 
 
-  deleteBasicLps(basicLpsId: any) {    
-    this.lpsService.updateLpsBasicDetailsStatus(basicLpsId).subscribe(
+  deleteBasicLps(basicLpsId: any) {  
+    this.basicDetails.basicLpsId = basicLpsId;
+    this.basicDetails.userName = this.email;  
+    this.spinner=true;
+    this.disablepage=false;
+    this.spinnerValue = "Please wait, the details are loading!";
+    this.lpsService.updateLpsBasicDetailsStatus(this.basicDetails).subscribe(
       data => {
+        this.ngOnInit();
+        this.spinner=false;
+        this.disablepage=true;
       }
     )
-    this.ngOnInit();
   } 
 }
