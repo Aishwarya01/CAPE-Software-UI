@@ -1642,7 +1642,6 @@ export class LpsAirTerminationComponent implements OnInit {
     }
     this.airtermination.userName = this.router.snapshot.paramMap.get('email') || '{}';
     this.airtermination.lpsAirDescription = this.airTerminationForm.value.lpsAirDescription
-    console.log(this.airtermination);
     if (!this.validationError) {
       if (flag) {
         if (this.airTerminationForm.dirty && this.airTerminationForm.touched) {
