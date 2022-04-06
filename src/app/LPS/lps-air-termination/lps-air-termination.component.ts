@@ -219,7 +219,6 @@ export class LpsAirTerminationComponent implements OnInit {
       inspPassedNoRe: new FormControl(''),
       inspFaileddNoOb: new FormControl('', Validators.required),
       inspFaileddNoRe: new FormControl(''),
-      uploadAir1: new FormControl('', Validators.required),
       flag: new FormControl('A'),
       verticalAirTerminationList: this.formBuilder.array([this.createAirIteration()]),
     })
@@ -379,7 +378,6 @@ export class LpsAirTerminationComponent implements OnInit {
       fileName_EP: new FormControl('', Validators.required),
       fileType_EP: new FormControl(''),
       fileId_EP: new FormControl(''),
-      uploadAir2: new FormControl('', Validators.required),
       flag: new FormControl('A'),
     })
   }
@@ -446,7 +444,6 @@ export class LpsAirTerminationComponent implements OnInit {
       bondingEquipotentialOb: new FormControl('', Validators.required),
       airterminationFile: new FormControl(''),
       bondingEquipotentialRe: new FormControl(''),
-      uploadAir: new FormControl('', Validators.required),
       flag: new FormControl('A'),
     });
   }

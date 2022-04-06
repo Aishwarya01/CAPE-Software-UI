@@ -661,6 +661,7 @@ export class LpsDownConductorsComponent implements OnInit {
         fileName1: new FormControl({disabled: false, value: item.fileName1}),
         fileType1: new FormControl({disabled: false, value: item.fileType1}),
         fileId1: new FormControl({disabled: false, value: item.fileId1}),
+        index: new FormControl({disabled: false, value: item.index}),
   
         downConductor: this.formBuilder.array(this.retrieveDownArrForm(item)),
         bridgingDescription: this.formBuilder.array(this.retrieveBridgeArrForm(item)),
@@ -699,6 +700,7 @@ export class LpsDownConductorsComponent implements OnInit {
         fileName: new FormControl({disabled: false, value: item.fileName}),
         fileType: new FormControl({disabled: false, value: item.fileType}),
         fileId: new FormControl({disabled: false, value: item.fileId}),
+        index: new FormControl({disabled: false, value: item.index}),
         conductSizeOb: new FormControl({disabled: false, value: item.conductSizeOb}),
         conductSizeRem: new FormControl({disabled: false, value: item.conductSizeRem}),
         downConductExposedOb: new FormControl({disabled: false, value: item.downConductExposedOb}, Validators.required),
@@ -745,6 +747,7 @@ export class LpsDownConductorsComponent implements OnInit {
         fileName: new FormControl({disabled: false, value: item.fileName}),
         fileType: new FormControl({disabled: false, value: item.fileType}),
         fileId: new FormControl({disabled: false, value: item.fileId}),
+        index: new FormControl({disabled: false, value: item.index}),
         conductMaterialRem: new FormControl({disabled: false, value: item.conductMaterialRem}),
         conductSizeOb: new FormControl({disabled: false, value: item.conductSizeOb}),
         conductSizeRem: new FormControl({disabled: false, value: item.conductSizeRem}),
