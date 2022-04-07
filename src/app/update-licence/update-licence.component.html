@@ -14,7 +14,7 @@
             <div class="form-group">
                 <label for="email">Inspector Name</label>
                 <input type="text" class="form-control" formControlName="customerName" name="customerName"
-                    placeholder="Enter Customer Name" required="required"
+                    placeholder="Enter Name" required="required"
                     [ngClass]="{ 'is-invalid': submitted && f.customerName.errors }" />
                 <div *ngIf="submitted && f.customerName.errors" class="invalid-feedback">
                     <div *ngIf="f.customerName.errors.required">Inspector Name is required</div>
