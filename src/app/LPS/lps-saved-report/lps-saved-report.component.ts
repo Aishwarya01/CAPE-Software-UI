@@ -58,6 +58,8 @@ completedFilterData: any=[];
   superAdminArr: any = [];
   superAdminFlag: boolean = false;
   upDateBasic: any=[]
+  deleteSuccess: boolean = false;
+  deleteSuccessMsg: String = '';
   constructor(private router: ActivatedRoute,
               public service: GlobalsService,
               public lpsService: LPSBasicDetailsService,
@@ -142,6 +144,7 @@ completedFilterData: any=[];
   } 
 
   deleteBasicLps(basicLpsId: any) {  
+    
     this.basicDetails.basicLpsId = basicLpsId;
     this.basicDetails.userName = this.email;  
     this.spinner=true;
@@ -149,9 +152,15 @@ completedFilterData: any=[];
     this.spinnerValue = "Please wait, the details are loading!";
     this.lpsService.updateLpsBasicDetailsStatus(this.basicDetails).subscribe(
       data => {
+        this.deleteSuccess = true;
+        this.deleteSuccessMsg = data;
         this.ngOnInit();
         this.spinner=false;
         this.disablepage=true;
+        setTimeout(() => {
+          this.deleteSuccess = false;
+          this.deleteSuccessMsg = '';
+          }, 2000);
       }
     )
   } 
