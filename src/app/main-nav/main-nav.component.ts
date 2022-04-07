@@ -286,6 +286,8 @@ export class MainNavComponent implements OnInit, OnDestroy {
     this.currentUser1=JSON.parse(this.currentUser);
     this.superAdminArr = [];
     this.superAdminArr.push('gk@capeindia.net');
+    this.superAdminArr.push('awstesting@rushforsafety.com');
+    this.superAdminArr.push('vinoth@capeindia.net');
     if(this.currentUser1.role == 'Inspector') {
       this.showTIC = true;
       this.showREP = false;
@@ -551,7 +553,7 @@ triggerNavigateTo(siteName:any){
               if(i.allStepsCompleted=="AllStepCompleted"){
                 this.completedFilterData.push(i);
               }
-              else{
+              else if(i.allStepsCompleted !="AllStepCompleted" && i.status != 'InActive'){
                this.ongoingFilterData.push(i);
               }
           }
@@ -590,7 +592,7 @@ triggerNavigateTo(siteName:any){
                  if(i.allStepsCompleted=="AllStepCompleted"){
                    this.completedFilterData.push(i);
                  }
-                 else{
+                 else if(i.allStepsCompleted !="AllStepCompleted" && i.status != 'InActive'){
                   this.ongoingFilterData.push(i);
                  }
                }

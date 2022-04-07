@@ -35,6 +35,9 @@
         value="siteName" placeholder="Ex. ium" #input="matInput" [(ngModel)]="siteName">
       </mat-form-field>
 
+      <span *ngIf="deleteSuccess" class="successshow" style="margin-left: 120px;">{{deleteSuccessMsg}}</span>
+
+
       <!-- <mat-form-field appearance="standard" style=" font-size: 14px;width: 30%;">
         <mat-label>Filter Sites</mat-label>
         <input matInput placeholder="Ex. ium" #input [(ngModel)]="siteName">

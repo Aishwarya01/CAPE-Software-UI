@@ -52,6 +52,8 @@ export class SavedreportsComponent implements OnInit {
   savedReportBody: boolean = true;
   spinnerValue: String = '';
   enableDelete: boolean = false;
+  deleteSuccess: boolean = false;
+  deleteSuccessMsg: String = '';
 
   constructor(private router: ActivatedRoute,
               private clientService: ClientService,
@@ -199,9 +201,15 @@ export class SavedreportsComponent implements OnInit {
     this.spinnerValue = "Please wait, the details are loading!";
     this.siteService.updateSiteStatus(this.site).subscribe(
       data => {
+        this.deleteSuccess = true;
+        this.deleteSuccessMsg = data;
         this.ngOnInit();
         this.savedReportBody = true;
         this.savedReportSpinner = false;
+        setTimeout(() => {
+          this.deleteSuccess = false;
+          this.deleteSuccessMsg = '';
+          }, 2000);
       }
     )
   }
