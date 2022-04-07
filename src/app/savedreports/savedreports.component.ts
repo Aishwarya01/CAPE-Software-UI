@@ -192,13 +192,19 @@ export class SavedreportsComponent implements OnInit {
   }
 
   deleteSite1(siteId: any) {
-    this.siteService.updateSiteStatus(siteId).subscribe(
+    this.site.siteId = siteId;
+    this.site.userName = this.email;
+    this.savedReportBody = false;
+    this.savedReportSpinner = true;
+    this.spinnerValue = "Please wait, the details are loading!";
+    this.siteService.updateSiteStatus(this.site).subscribe(
       data => {
+        this.ngOnInit();
+        this.savedReportBody = true;
+        this.savedReportSpinner = false;
       }
     )
-    this.ngOnInit();
   }
-
   savedContinue()
   {
     if(this.verification.noDetails==true){
