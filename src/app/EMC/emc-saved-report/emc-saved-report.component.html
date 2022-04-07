@@ -8,6 +8,8 @@
       <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Client Name" #input>
     </mat-form-field>
 
+    <span *ngIf="deleteSuccess" class="successshow" style="margin-left: 120px;">{{deleteSuccessMsg}}</span>
+
     <mat-progress-spinner style="margin: 0 auto;" *ngIf="savedReportSpinner"
     color="primary"
     [mode]="mode"

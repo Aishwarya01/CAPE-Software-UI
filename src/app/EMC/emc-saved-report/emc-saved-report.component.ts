@@ -52,6 +52,8 @@ export class EmcSavedReportComponent implements OnInit {
   superAdminArr: any = [];
   superAdminFlag: boolean = false;
   filteredData: any = [];
+  deleteSuccess: boolean = false;
+  deleteSuccessMsg: String = '';
  
    constructor(private router: ActivatedRoute,
                public service: GlobalsService,
@@ -141,9 +143,15 @@ export class EmcSavedReportComponent implements OnInit {
     this.spinnerValue = "Please wait, the details are loading!";
     this.emcSavedReportService.updateLpsBasicDetailsStatus(this.emcClientDetails).subscribe(
       data => {
+        this.deleteSuccess = true;
+        this.deleteSuccessMsg = data;
         this.ngOnInit();
         this.savedReportBody = true;
         this.savedReportSpinner = false;
+        setTimeout(() => {
+          this.deleteSuccess = false;
+          this.deleteSuccessMsg = '';
+          }, 2000);
       }
     )
    }
