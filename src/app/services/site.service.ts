@@ -21,6 +21,10 @@ export class SiteService {
     return this.http.put<any>(this.apiUrl + '/updateSite', site, { responseType: 'text' as 'json' })
   }
 
+  public updateSiteStatus(site: Site): Observable<any> {
+    return this.http.put<any>(this.apiUrl + '/updateSiteStatus', site, { responseType: 'text' as 'json' })
+  }
+
   public deleteSite(siteId: number ): Observable<any> {
     return this.http.delete<any>(this.apiUrl + '/deleteSite' +  '/' + siteId, { responseType: 'text' as 'json' })
   }
