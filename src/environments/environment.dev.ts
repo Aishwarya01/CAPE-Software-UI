@@ -23,13 +23,9 @@ export class LpsSummaryConst1 {
       this.email();
   }
   email(){
-      this.adminEmail[0] = 'hasan@capeindia.net';
-      this.adminEmail[1] = 'sd@capeindia.net';
-      this.adminEmail[2] = 'aishwarya@capeindia.net';
-      this.adminEmail[3] = 'sivaraju@capeindia.net';
-      this.adminEmail[4] = 'thirumoorthy@capeindia.net';
-      this.adminEmail[5] = 'elangovan.m@capeindia.net';
-      this.adminEmail[6] = 'arunkumar.k@capeindia.net';
+    this.adminEmail[0] = 'awstesting@rushforsafety.com';
+    this.adminEmail[1] = 'gk@capeindia.net';
+    this.adminEmail[2] = 'vinoth@capeindia.net';
   }       
 };
 
