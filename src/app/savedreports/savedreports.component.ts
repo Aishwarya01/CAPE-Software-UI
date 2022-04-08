@@ -51,6 +51,9 @@ export class SavedreportsComponent implements OnInit {
   savedReportSpinner: boolean = false;
   savedReportBody: boolean = true;
   spinnerValue: String = '';
+  enableDelete: boolean = false;
+  deleteSuccess: boolean = false;
+  deleteSuccessMsg: String = '';
 
   constructor(private router: ActivatedRoute,
               private clientService: ClientService,
@@ -70,6 +73,8 @@ export class SavedreportsComponent implements OnInit {
     this.currentUser1=JSON.parse(this.currentUser);
     this.superAdminArr = [];
     this.superAdminArr.push('gk@capeindia.net');
+    this.superAdminArr.push('vinoth@capeindia.net');
+    this.superAdminArr.push('awstesting@rushforsafety.com');
     this.retrieveSiteDetails();
    setTimeout(() => this.input.focus(), 500);
     this.siteName=this.service.filterSiteName;
@@ -120,6 +125,7 @@ export class SavedreportsComponent implements OnInit {
     for(let i of this.superAdminArr) {
       if(this.email == i) {
         this.superAdminFlag = true;
+        this.enableDelete = true;
       }
     }
     if(this.superAdminFlag) {
@@ -127,7 +133,7 @@ export class SavedreportsComponent implements OnInit {
         data => {
           this.allData = JSON.parse(data);
           for(let i of this.allData) {
-            if(i.allStepsCompleted != "AllStepCompleted") {
+            if(i.allStepsCompleted != "AllStepCompleted" && i.status != 'InActive') {
               this.filteredData.push(i);
             }
           }
@@ -143,7 +149,7 @@ export class SavedreportsComponent implements OnInit {
           data => {
             this.allData = JSON.parse(data);
             for(let i of this.allData) {
-              if(i.allStepsCompleted != "AllStepCompleted") {
+              if(i.allStepsCompleted != "AllStepCompleted" && i.status != 'InActive') {
                 this.filteredData.push(i);
               }
             }
@@ -159,7 +165,7 @@ export class SavedreportsComponent implements OnInit {
             data => {
               this.userData=JSON.parse(data);
              for(let i of this.userData){
-               if((i.assignedTo==this.email) && (i.allStepsCompleted != "AllStepCompleted")){
+               if((i.assignedTo==this.email) && (i.allStepsCompleted != "AllStepCompleted" && i.status != 'InActive')){
                  this.viewerFilterData.push(i);
                }
              }
@@ -184,6 +190,27 @@ export class SavedreportsComponent implements OnInit {
     this.verification.changeTabSavedReport(0,siteId,userName,clientName,departmentName,site,true);
     this.service.allFieldsDisable = false;
     this.service.disableSubmitSummary=false;
+  }
+
+  deleteSite1(siteId: any) {
+    this.site.siteId = siteId;
+    this.site.userName = this.email;
+    this.savedReportBody = false;
+    this.savedReportSpinner = true;
+    this.spinnerValue = "Please wait, the details are loading!";
+    this.siteService.updateSiteStatus(this.site).subscribe(
+      data => {
+        this.deleteSuccess = true;
+        this.deleteSuccessMsg = data;
+        this.ngOnInit();
+        this.savedReportBody = true;
+        this.savedReportSpinner = false;
+        setTimeout(() => {
+          this.deleteSuccess = false;
+          this.deleteSuccessMsg = '';
+          }, 2000);
+      }
+    )
   }
   savedContinue()
   {

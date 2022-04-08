@@ -118,6 +118,8 @@ export class LicenselistComponent implements OnInit {
     })
     this.superAdminArr = [];
     this.superAdminArr.push('gk@capeindia.net');
+    this.superAdminArr.push('vinoth@capeindia.net');
+    this.superAdminArr.push('awstesting@rushforsafety.com');
     this.retrieveSiteDetails();
   }
  
@@ -154,7 +156,7 @@ export class LicenselistComponent implements OnInit {
           if(i.allStepsCompleted=="AllStepCompleted"){
             this.completedFilterData.push(i);
           }
-          else{
+          else if(i.allStepsCompleted !="AllStepCompleted" && i.status != 'InActive'){
             this.ongoingFilterData.push(i);
           }
         }
@@ -177,7 +179,7 @@ export class LicenselistComponent implements OnInit {
             if(i.allStepsCompleted=="AllStepCompleted"){
               this.completedFilterData.push(i);
             }
-            else{
+            else if(i.allStepsCompleted !="AllStepCompleted" && i.status != 'InActive'){
               this.ongoingFilterData.push(i);
             }
         }
