@@ -6,11 +6,14 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { flag, save } from 'ngx-bootstrap-icons';
 import { ConfirmationBoxComponent } from 'src/app/confirmation-box/confirmation-box.component';
 import { GlobalsService } from 'src/app/globals.service';
-import { LpsSummaryConst } from 'src/app/LPS_constants/lps-summary-const';
+// import { LpsSummaryConst } from 'src/app/LPS_constants/lps-summary-const';
 import { LpsSummary } from 'src/app/LPS_model/lps-summary';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
 import { SummaryServiceService } from 'src/app/LPS_services/summary-service.service';
+import { LpsSummaryConst1 } from 'src/environments/environment.dev';
+import { LpsSummaryConsts } from 'src/environments/environment.prod';
 import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
+
 @Component({
   selector: 'app-lpssummary',
   templateUrl: './lpssummary.component.html',
@@ -96,8 +99,9 @@ export class LpssummaryComponent implements OnInit {
     submittedButton: boolean = true;
     saveButton: boolean = false;
     buttonType:  string="";
-    lpsSummaryConst = new LpsSummaryConst();
-
+    //For super admin purpose
+    lpsSummaryConst = new LpsSummaryConst1();
+    lpsSummaryConstProd = new LpsSummaryConsts();
     //air termination
     airBasicName: string[] = [
       'consultantNameRemarks',
@@ -415,11 +419,16 @@ export class LpssummaryComponent implements OnInit {
     private matStepper: LpsMatstepperComponent
     ) { 
       this.email = this.router.snapshot.paramMap.get('email') || '{}'
-      // if(this.email == 'gk@capeindia.net' || this.email == 'vinoth@capeindia.net' || this.email == 'awstesting@rushforsafety.com'|| this.email == 'sd@capeindia.net' || this.email == 'aishwarya@capeindia.net' || this.email == 'sivaraju@capeindia.net'
-      // || this.email == 'thirumoorthy@capeindia.net'|| this.email == 'elangovan.m@capeindia.net' || this.email == 'arunkumar.k@capeindia.net'
-      // || this.email == 'hasan@capeindia.net')
+
       for( let i=0; i<this.lpsSummaryConst.adminEmail.length; i++){
         if(this.lpsSummaryConst.adminEmail[i] == this.email)
+        {
+          this.submittedButton = false;
+        }
+      }
+
+      for( let i=0; i<this.lpsSummaryConstProd.adminEmail.length; i++){
+        if(this.lpsSummaryConstProd.adminEmail[i] == this.email)
         {
           this.submittedButton = false;
         }

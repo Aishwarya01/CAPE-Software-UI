@@ -22,5 +22,5 @@ export class BasicDetails {
     createdBy!: String;
 	updatedDate!: Date;
     updatedBy!: String;
- 
+    status: String;
 }

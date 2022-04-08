@@ -49,6 +49,7 @@ export class LpsSavedReportComponent implements OnInit {
   disablepage: boolean=true;
   spinner: boolean=false;
   spinnerValue: String = '';
+  enableDelete: boolean = false;
  
  @ViewChild('input') input!: MatInput;
  lpsData: any=[];
@@ -56,7 +57,9 @@ completedFilterData: any=[];
   filteredData: any = [];
   superAdminArr: any = [];
   superAdminFlag: boolean = false;
-
+  upDateBasic: any=[]
+  deleteSuccess: boolean = false;
+  deleteSuccessMsg: String = '';
   constructor(private router: ActivatedRoute,
               public service: GlobalsService,
               public lpsService: LPSBasicDetailsService,
@@ -72,7 +75,9 @@ completedFilterData: any=[];
     this.currentUser1 = [];
     this.currentUser1=JSON.parse(this.currentUser);
     this.superAdminArr.push('gk@capeindia.net');
+    this.superAdminArr.push('vinoth@capeindia.net');
     this.superAdminArr.push('awstesting@rushforsafety.com');
+
     this.retrieveLpsDetails();
    
   }
@@ -90,6 +95,7 @@ completedFilterData: any=[];
     for(let i of this.superAdminArr) {
       if(this.email == i) {
         this.superAdminFlag = true;
+        this.enableDelete = true;
       }
     }
 
@@ -98,7 +104,7 @@ completedFilterData: any=[];
         data => {
           this.lpsData=JSON.parse(data);
           for(let i of this.lpsData){
-            if(i.allStepsCompleted != "AllStepCompleted"){
+            if(i.allStepsCompleted != "AllStepCompleted" && i.status != 'InActive'){
               this.filteredData.push(i);
             }
           }
@@ -116,7 +122,7 @@ completedFilterData: any=[];
         data => {
           this.lpsData=JSON.parse(data);
           for(let i of this.lpsData){
-            if(i.allStepsCompleted != "AllStepCompleted"){
+            if(i.allStepsCompleted != "AllStepCompleted" && i.status != 'InActive'){
               this.completedFilterData.push(i);
             }
           }
@@ -135,5 +141,27 @@ completedFilterData: any=[];
     this.disablepage=false;
     this.spinnerValue = "Please wait, the details are loading!";
     this.lpsParent.continue(basicLpsId);
+  } 
+
+  deleteBasicLps(basicLpsId: any) {  
+    
+    this.basicDetails.basicLpsId = basicLpsId;
+    this.basicDetails.userName = this.email;  
+    this.spinner=true;
+    this.disablepage=false;
+    this.spinnerValue = "Please wait, the details are loading!";
+    this.lpsService.updateLpsBasicDetailsStatus(this.basicDetails).subscribe(
+      data => {
+        this.deleteSuccess = true;
+        this.deleteSuccessMsg = data;
+        this.ngOnInit();
+        this.spinner=false;
+        this.disablepage=true;
+        setTimeout(() => {
+          this.deleteSuccess = false;
+          this.deleteSuccessMsg = '';
+          }, 2000);
+      }
+    )
   } 
 }

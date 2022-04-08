@@ -16,6 +16,23 @@ export const environment = {
 
 };
 
+// For super admin purpose
+export class LpsSummaryConst1 {
+  adminEmail: any=[];  
+  constructor() {
+      this.email();
+  }
+  email(){
+      this.adminEmail[0] = 'hasan@capeindia.net';
+      this.adminEmail[1] = 'sd@capeindia.net';
+      this.adminEmail[2] = 'aishwarya@capeindia.net';
+      this.adminEmail[3] = 'sivaraju@capeindia.net';
+      this.adminEmail[4] = 'thirumoorthy@capeindia.net';
+      this.adminEmail[5] = 'elangovan.m@capeindia.net';
+      this.adminEmail[6] = 'arunkumar.k@capeindia.net';
+  }       
+};
+
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
