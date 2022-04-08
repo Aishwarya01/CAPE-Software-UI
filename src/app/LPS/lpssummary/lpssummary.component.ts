@@ -10,7 +10,6 @@ import { GlobalsService } from 'src/app/globals.service';
 import { LpsSummary } from 'src/app/LPS_model/lps-summary';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
 import { SummaryServiceService } from 'src/app/LPS_services/summary-service.service';
-import { LpsSummaryConstLocal } from 'src/environments/environment';
 import { LpsSummaryConst1 } from 'src/environments/environment.dev';
 import { LpsSummaryConsts } from 'src/environments/environment.prod';
 import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
@@ -103,7 +102,6 @@ export class LpssummaryComponent implements OnInit {
     //For super admin purpose
     lpsSummaryConst = new LpsSummaryConst1();
     lpsSummaryConstProd = new LpsSummaryConsts();
-    lpsSummaryLocal = new LpsSummaryConstLocal();
     //air termination
     airBasicName: string[] = [
       'consultantNameRemarks',
@@ -431,12 +429,6 @@ export class LpssummaryComponent implements OnInit {
 
       for( let i=0; i<this.lpsSummaryConstProd.adminEmail.length; i++){
         if(this.lpsSummaryConstProd.adminEmail[i] == this.email)
-        {
-          this.submittedButton = false;
-        }
-      }
-      for( let i=0; i<this.lpsSummaryLocal.adminEmail.length; i++){
-        if(this.lpsSummaryLocal.adminEmail[i] == this.email)
         {
           this.submittedButton = false;
         }
