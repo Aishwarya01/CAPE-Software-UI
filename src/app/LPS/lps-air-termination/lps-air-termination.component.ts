@@ -54,18 +54,18 @@ export class LpsAirTerminationComponent implements OnInit {
   uploadDisable1: boolean = true;
   uploadDisable2: boolean = true;
 
-  download: boolean = true;
-  download1: boolean = true;
-  download2: boolean = true;
+  download: any = [];
+  download1: any = [];
+  download2: any = [];
 
   file!: any;
   mode: any = 'indeterminate';
   uploadFlag = [];
   uploadFlag1: boolean;
   uploadFlag2: boolean;
-  fileId: number = 0;
-  fileId1: any = [];
-  fileId2: number = 0;
+  // fileId: number = 0;
+  // fileId1: any = [];
+  // fileId2: number = 0;
   JSONdata: any = [];
   // successMsg1: Strin:g="";
 
@@ -461,9 +461,12 @@ export class LpsAirTerminationComponent implements OnInit {
     });
   }
 
-  addItem() {
+  addItem(index:any) {
     this.lpsAirDescription = this.airTerminationForm.get('lpsAirDescription') as FormArray;
     this.lpsAirDescription.push(this.allLPSAirterminationArr());
+    this.download[index+1] = true;
+    this.download1[index+1] = true;
+    this.download2[index+1] = true;
   }
 
   removeItem(a: any, index: any) {
@@ -2306,25 +2309,26 @@ export class LpsAirTerminationComponent implements OnInit {
         if (data != "" && data != undefined && data != null) {
           this.JSONdata = JSON.parse(data);
           this.lpsAirDescription = this.airTerminationForm.get('lpsAirDescription') as FormArray;
+          let a = 0;
           for (let i of this.JSONdata) {
             if (i.componentName == 'airUpload') {
               this.lpsAirDescription.controls[i.index].controls.airBasicDescription.controls[0].controls.fileName.setValue(i.fileName);
               this.lpsAirDescription.controls[i.index].controls.airBasicDescription.controls[0].controls.fileType.setValue(i.fileType);
               this.lpsAirDescription.controls[i.index].controls.airBasicDescription.controls[0].controls.fileId.setValue(i.fileId);
-              this.download = false;
+              this.download[a] = false;
             }
             if (i.componentName == 'airUpload-2') {
               this.lpsAirDescription.controls[i.index].controls.airExpansion.controls[0].controls.fileName_EP.setValue(i.fileName);
               this.lpsAirDescription.controls[i.index].controls.airExpansion.controls[0].controls.fileType_EP.setValue(i.fileType);
               this.lpsAirDescription.controls[i.index].controls.airExpansion.controls[0].controls.fileId_EP.setValue(i.fileId);
-              this.download2 = false;
+              this.download2[a] = false;
             }
 
             if (i.componentName == 'airUpload-1') {
               this.lpsAirDescription.controls[i.index].controls.lpsVerticalAirTermination.controls[0].controls.fileNameVAir.setValue(i.fileName);
               this.lpsAirDescription.controls[i.index].controls.lpsVerticalAirTermination.controls[0].controls.fileTypeVAir.setValue(i.fileType);
               this.lpsAirDescription.controls[i.index].controls.lpsVerticalAirTermination.controls[0].controls.fileIdVAir.setValue(i.fileId);
-              this.download1 = false;
+              this.download1[a] = false;
             }
           }
         }

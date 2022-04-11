@@ -964,7 +964,7 @@
                                                                 <!-- <button type="button" class="btn btn-warning btn-xs mr-4">
                                                                     <i class="fa fa-ban" style="color: white;"></i> Cancel
                                                                 </button> -->
-                                                                <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="!download" (click)="onDownload(a.get('fileName')?.value)" 
+                                                                <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="a.get('fileId')?.value != ''" (click)="onDownload(a.get('fileName')?.value)" 
                                                                 href='javascript:void(0)' [ngClass]="{'disableForm':isEditable}" title="Download">
                                                                     <i class="fa fa-download" style="color: white;"></i> Download
                                                                 </button>
@@ -1003,7 +1003,6 @@
                                 </div>    
                             </div>
                         <br>  -->
-                        
 
                                                     <tr>
                                                         <td style="width: 5rem; text-align: center;">5.</td>
@@ -1222,7 +1221,7 @@
                                                             <!-- <button type="button" class="btn btn-warning btn-xs mr-4">
                                                                 <i class="fa fa-ban" style="color: white;"></i> Cancel
                                                             </button> -->
-                                                            <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="!download1" (click)="onDownload1(a.get('fileNameVAir')?.value)" href='javascript:void(0)' title="Download" [ngClass]="{'disableForm':isEditable}">
+                                                            <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="a.get('fileIdVAir')?.value != ''" (click)="onDownload1(a.get('fileNameVAir')?.value)" href='javascript:void(0)' title="Download" [ngClass]="{'disableForm':isEditable}">
                                                                 <i class="fa fa-download" style="color: white;"></i> Download
                                                             </button>
                                                             <!-- <button type="button" class="btn btn-danger btn-xs mr-4">
@@ -4034,7 +4033,7 @@
                                                             <!-- <button type="button" class="btn btn-warning btn-xs mr-4">
                                                                 <i class="fa fa-ban" style="color: white;"></i> Cancel
                                                             </button> -->
-                                                            <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="!download2" (click)="onDownload2(a.get('fileName_EP')?.value )" href='javascript:void(0)' title="Download" [ngClass]="{'disableForm':isEditable}">
+                                                            <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="a.get('fileId_EP')?.value != ''" (click)="onDownload2(a.get('fileName_EP')?.value )" href='javascript:void(0)' title="Download" [ngClass]="{'disableForm':isEditable}">
                                                                 <i class="fa fa-download" style="color: white;"></i> Download
                                                             </button>
                                                             <!-- <button type="button" class="btn btn-danger btn-xs mr-4">
@@ -4602,7 +4601,7 @@
 
                     <div class="col-md-12 text-right">
                         <button class="btn btn-info mousechange" *ngIf="overAllControl().length == j+1"
-                            (click)="addItem()" [ngClass]="{'disableForm':isEditable}" title="Add Another Building"
+                            (click)="addItem(j)" [ngClass]="{'disableForm':isEditable}" title="Add Another Building"
                             style="padding: 5px 0px 0px 0px;width: 3%;height: 35px;position: relative;margin-right: 10px;margin-top: 10px;">
                             <mat-icon aria-hidden="false" aria-label="Example home icon" mat-list-icon>add_box
                             </mat-icon>

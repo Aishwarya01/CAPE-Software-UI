@@ -545,7 +545,7 @@
                                                                 <!-- <button type="button" class="btn btn-warning btn-xs mr-4">
                                                                     <i class="fa fa-ban" style="color: white;"></i> Cancel
                                                                 </button> -->
-                                                                <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="!download" (click)="onDownload(a.get('fileName')?.value)" 
+                                                                <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="a.get('fileId')?.value" (click)="onDownload(a.get('fileName')?.value)" 
                                                                 href='javascript:void(0)' [ngClass]="{'disableForm':isEditable}" title="Download">
                                                                     <i class="fa fa-download" style="color: white;"></i> Download
                                                                 </button>
@@ -1316,7 +1316,7 @@
                                             <!-- <button type="button" class="btn btn-warning btn-xs mr-4">
                                                 <i class="fa fa-ban" style="color: white;"></i> Cancel
                                             </button> -->
-                                            <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="!download1" (click)="onDownload1(q.get('fileName1')?.value)"
+                                            <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="q.get('fileId1')?.value" (click)="onDownload1(q.get('fileName1')?.value)"
                                             href='javascript:void(0)' [ngClass]="{'disableForm':isEditable}" title="Download">
                                                 <i class="fa fa-download" style="color: white;"></i> Download
                                             </button>

@@ -103,8 +103,8 @@ export class LpsDownConductorsComponent implements OnInit {
   arr6: any = [];
   arr7: any = [];
 
-  download: boolean = true;
-  download1: boolean = true;
+  download: any = [];
+  download1: any = [];
 
   downPushArr: any = [];
   bridgingPushArr: any = [];
@@ -2028,18 +2028,19 @@ export class LpsDownConductorsComponent implements OnInit {
         if (data != "" && data != undefined && data != null) {    
           this.JSONdata = JSON.parse(data);
            this.downConductorDescription = this.downConductorForm.get('downConductorDescription') as FormArray;
+           let a = 0;
            for(let i of this.JSONdata){ 
             if(i.componentName =='downConductor'){
               this.downConductorDescription.controls[i.index].controls.downConductor.controls[0].controls.fileName.setValue(i.fileName);
               this.downConductorDescription.controls[i.index].controls.downConductor.controls[0].controls.fileType.setValue(i.fileType);
               this.downConductorDescription.controls[i.index].controls.downConductor.controls[0].controls.fileId.setValue(i.fileId);
-              this.download = false;
+              this.download[a] = false;
             }
             if(i.componentName=='downConductor-1'){
               this.downConductorDescription.controls[i.index].controls.fileName1.setValue(i.fileName);
               this.downConductorDescription.controls[i.index].controls.fileType1.setValue(i.fileType);
               this.downConductorDescription.controls[i.index].controls.fileId1.setValue(i.fileId);
-              this.download1 = false;
+              this.download1[a] = false;
             }
           }
         } 
