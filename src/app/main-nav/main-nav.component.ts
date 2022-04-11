@@ -39,6 +39,8 @@ import { LpsMatstepperComponent } from '../LPS/lps-matstepper/lps-matstepper.com
 import { LpsWelcomePageComponent } from '../LPS/lps-welcome-page/lps-welcome-page.component';
 import { wind } from 'ngx-bootstrap-icons';
 import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
+import { SuperAdminDev } from 'src/environments/environment.dev';
+import { SuperAdminProd } from 'src/environments/environment.prod';
 
 export interface PeriodicElement {
   siteCd: string;
@@ -241,6 +243,8 @@ export class MainNavComponent implements OnInit, OnDestroy {
   NewInspectorReply:boolean=false;
   newZeroNotification:boolean=false;
   disable: boolean=false;
+  superAdminDev = new SuperAdminDev();
+  superAdminProd = new SuperAdminProd();
 
   constructor(private breakpointObserver: BreakpointObserver, changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
@@ -284,10 +288,10 @@ export class MainNavComponent implements OnInit, OnDestroy {
     this.currentUser=sessionStorage.getItem('authenticatedUser');
     this.currentUser1 = [];
     this.currentUser1=JSON.parse(this.currentUser);
-    this.superAdminArr = [];
-    this.superAdminArr.push('gk@capeindia.net');
-    this.superAdminArr.push('awstesting@rushforsafety.com');
-    this.superAdminArr.push('vinoth@capeindia.net');
+    // this.superAdminArr = [];
+    // this.superAdminArr.push('gk@capeindia.net');
+    // this.superAdminArr.push('awstesting@rushforsafety.com');
+    // this.superAdminArr.push('vinoth@capeindia.net');
     if(this.currentUser1.role == 'Inspector') {
       this.showTIC = true;
       this.showREP = false;
@@ -539,7 +543,13 @@ triggerNavigateTo(siteName:any){
     this.completedFilterData = [];
     this.ongoingFilterData = [];
 
-    for(let i of this.superAdminArr) {
+    for(let i of this.superAdminDev.adminEmail) {
+      if(this.email == i) {
+        this.superAdminFlag = true;
+      }
+    }
+
+    for(let i of this.superAdminProd.adminEmail) {
       if(this.email == i) {
         this.superAdminFlag = true;
       }

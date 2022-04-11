@@ -9,6 +9,9 @@ import { GlobalsService } from 'src/app/globals.service';
 import { EmcSavedReportService } from 'src/app/EMC_Services/emc-saved-report.service';
 import { EmcMatstepperComponent } from '../emc-matstepper/emc-matstepper.component';
 import { EmcClientDetails } from 'src/app/EMC_Model/emc-client-details';
+import { environment } from 'src/environments/environment';
+import { SuperAdminDev } from 'src/environments/environment.dev';
+import { SuperAdminProd } from 'src/environments/environment.prod';
 
 
 @Component({
@@ -54,6 +57,8 @@ export class EmcSavedReportComponent implements OnInit {
   filteredData: any = [];
   deleteSuccess: boolean = false;
   deleteSuccessMsg: String = '';
+  superAdminDev = new SuperAdminDev();
+  superAdminProd = new SuperAdminProd();
  
    constructor(private router: ActivatedRoute,
                public service: GlobalsService,
@@ -64,13 +69,13 @@ export class EmcSavedReportComponent implements OnInit {
    }
  
    ngOnInit(): void {
-    this.superAdminArr = [];
+    //this.superAdminArr = [];
     this.currentUser=sessionStorage.getItem('authenticatedUser');
     this.currentUser1 = [];
     this.currentUser1=JSON.parse(this.currentUser);
-    this.superAdminArr.push('gk@capeindia.net');
-    this.superAdminArr.push('awstesting@rushforsafety.com');
-    this.superAdminArr.push('vinoth@capeindia.net');
+    // this.superAdminArr.push('gk@capeindia.net');
+    // this.superAdminArr.push('awstesting@rushforsafety.com');
+    // this.superAdminArr.push('vinoth@capeindia.net');
     this.retrieveEmcDetails();
     
    }
@@ -84,7 +89,14 @@ export class EmcSavedReportComponent implements OnInit {
    retrieveEmcDetails() {
     this.filteredData = [];
     this.completedFilterData=[];
-    for(let i of this.superAdminArr) {
+    for(let i of this.superAdminDev.adminEmail) {
+      if(this.email == i) {
+        this.superAdminFlag = true;
+        this.enableDelete = true;
+      }
+    }
+
+    for(let i of this.superAdminProd.adminEmail) {
       if(this.email == i) {
         this.superAdminFlag = true;
         this.enableDelete = true;

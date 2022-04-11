@@ -10,8 +10,8 @@ import { GlobalsService } from 'src/app/globals.service';
 import { LpsSummary } from 'src/app/LPS_model/lps-summary';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
 import { SummaryServiceService } from 'src/app/LPS_services/summary-service.service';
-import { LpsSummaryConst1 } from 'src/environments/environment.dev';
-import { LpsSummaryConsts } from 'src/environments/environment.prod';
+import { SuperAdminDev } from 'src/environments/environment.dev';
+import { SuperAdminProd } from 'src/environments/environment.prod';
 import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
 
 @Component({
@@ -100,8 +100,8 @@ export class LpssummaryComponent implements OnInit {
     saveButton: boolean = false;
     buttonType:  string="";
     //For super admin purpose
-    lpsSummaryConst = new LpsSummaryConst1();
-    lpsSummaryConstProd = new LpsSummaryConsts();
+    lpsSummaryConst = new SuperAdminDev();
+    lpsSummaryConstProd = new SuperAdminProd();
     //air termination
     airBasicName: string[] = [
       'consultantNameRemarks',

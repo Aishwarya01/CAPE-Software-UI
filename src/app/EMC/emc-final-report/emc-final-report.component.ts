@@ -10,6 +10,9 @@ import { EmcMatstepperComponent } from '../emc-matstepper/emc-matstepper.compone
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EmcSavedReportService } from 'src/app/EMC_Services/emc-saved-report.service';
 import { GlobalsService } from 'src/app/globals.service';
+import { environment } from 'src/environments/environment';
+import { SuperAdminDev } from 'src/environments/environment.dev';
+import { SuperAdminProd } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-emc-final-report',
@@ -57,6 +60,8 @@ export class EmcFinalReportComponent implements OnInit {
   superAdminArr: any = [];
   filteredData: any = [];
   superAdminFlag: boolean = false;
+  superAdminDev = new SuperAdminDev();
+  superAdminProd = new SuperAdminProd();
 
   constructor(private router: ActivatedRoute,
               private emcSavedReportService: EmcSavedReportService,
@@ -71,12 +76,12 @@ export class EmcFinalReportComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.superAdminArr = [];
+    //this.superAdminArr = [];
     this.currentUser=sessionStorage.getItem('authenticatedUser');
     this.currentUser1 = [];
     this.currentUser1=JSON.parse(this.currentUser);
-    this.superAdminArr.push('gk@capeindia.net');
-    this.superAdminArr.push('awstesting@rushforsafety.com');
+    // this.superAdminArr.push('gk@capeindia.net');
+    // this.superAdminArr.push('awstesting@rushforsafety.com');
     this.retrieveEmcDetails();
   }
 
@@ -89,7 +94,13 @@ export class EmcFinalReportComponent implements OnInit {
   retrieveEmcDetails() {
     this.filteredData = [];
     this.completedFilterData=[];
-    for(let i of this.superAdminArr) {
+    for(let i of this.superAdminDev.adminEmail) {
+      if(this.email == i) {
+        this.superAdminFlag = true;
+      }
+    }
+
+    for(let i of this.superAdminProd.adminEmail) {
       if(this.email == i) {
         this.superAdminFlag = true;
       }

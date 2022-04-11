@@ -17,7 +17,7 @@ export const environment = {
 };
 
 // For super admin purpose
-export class LpsSummaryConst1 {
+export class SuperAdminDev {
   adminEmail: any=[];  
   constructor() {
       this.email();

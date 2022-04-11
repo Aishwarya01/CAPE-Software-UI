@@ -7,6 +7,9 @@ import { ActivatedRoute } from '@angular/router';
 import { GlobalsService } from 'src/app/globals.service';
 import { BasicDetails } from 'src/app/LPS_model/basic-details';
 import { LPSBasicDetailsService } from 'src/app/LPS_services/lpsbasic-details.service';
+import { environment } from 'src/environments/environment';
+import { SuperAdminDev } from 'src/environments/environment.dev';
+import { SuperAdminProd } from 'src/environments/environment.prod';
 import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
 
 @Component({
@@ -60,6 +63,9 @@ completedFilterData: any=[];
   upDateBasic: any=[]
   deleteSuccess: boolean = false;
   deleteSuccessMsg: String = '';
+  superAdminDev = new SuperAdminDev();
+  superAdminProd = new SuperAdminProd();
+
   constructor(private router: ActivatedRoute,
               public service: GlobalsService,
               public lpsService: LPSBasicDetailsService,
@@ -70,13 +76,13 @@ completedFilterData: any=[];
   }
 
   ngOnInit(): void {
-    this.superAdminArr = [];
+    //this.superAdminArr = [];
     this.currentUser=sessionStorage.getItem('authenticatedUser');
     this.currentUser1 = [];
     this.currentUser1=JSON.parse(this.currentUser);
-    this.superAdminArr.push('gk@capeindia.net');
-    this.superAdminArr.push('vinoth@capeindia.net');
-    this.superAdminArr.push('awstesting@rushforsafety.com');
+    // this.superAdminArr.push('gk@capeindia.net');
+    // this.superAdminArr.push('vinoth@capeindia.net');
+    // this.superAdminArr.push('awstesting@rushforsafety.com');
 
     this.retrieveLpsDetails();
    
@@ -92,7 +98,14 @@ completedFilterData: any=[];
 
     this.filteredData = [];
     this.completedFilterData=[];
-    for(let i of this.superAdminArr) {
+    for(let i of this.superAdminDev.adminEmail) {
+      if(this.email == i) {
+        this.superAdminFlag = true;
+        this.enableDelete = true;
+      }
+    }
+
+    for(let i of this.superAdminProd.adminEmail) {
       if(this.email == i) {
         this.superAdminFlag = true;
         this.enableDelete = true;
