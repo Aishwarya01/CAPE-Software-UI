@@ -53,6 +53,11 @@ export class LpsAirTerminationComponent implements OnInit {
   uploadDisable: boolean = true;
   uploadDisable1: boolean = true;
   uploadDisable2: boolean = true;
+
+  download: boolean = true;
+  download1: boolean = true;
+  download2: boolean = true;
+
   file!: any;
   mode: any = 'indeterminate';
   uploadFlag = [];
@@ -143,6 +148,7 @@ export class LpsAirTerminationComponent implements OnInit {
   componentName: string = "airUpload";
   componentName1: string = "airUpload-1";
   componentName2: string = "airUpload-2";
+  uploadObj: any;
 
   constructor(
     private formBuilder: FormBuilder, private dialog: MatDialog,
@@ -210,9 +216,12 @@ export class LpsAirTerminationComponent implements OnInit {
       physicalInspectionRe: new FormControl(''),
       totalNumberOb: new FormControl('', Validators.required),
       totalNumberRe: new FormControl(''),
+      // For file upload
       fileNameVAir: new FormControl('', Validators.required),
       fileTypeVAir: new FormControl(''),
       fileIdVAir: new FormControl(''),
+      fileSize: new FormControl(''),
+
       inspNoOb: new FormControl('', Validators.required),
       inspNoRe: new FormControl(''),
       inspPassedNoOb: new FormControl('', Validators.required),
@@ -375,9 +384,11 @@ export class LpsAirTerminationComponent implements OnInit {
       inspectionPassedNoRe: new FormControl(''),
       inspectionFailedNoOb: new FormControl('', Validators.required),
       inspectionFailedNoRe: new FormControl(''),
+      // For file upload
       fileName_EP: new FormControl('', Validators.required),
       fileType_EP: new FormControl(''),
       fileId_EP: new FormControl(''),
+      fileSize: new FormControl(''),
       flag: new FormControl('A'),
     })
   }
@@ -438,7 +449,9 @@ export class LpsAirTerminationComponent implements OnInit {
       combustablePartRe: new FormControl(''),
       terminationMeshConductorOb: new FormControl('', Validators.required),
       terminationMeshConductorRe: new FormControl(''),
+      // For file upload
       fileName: new FormControl('', Validators.required),
+      fileSize: new FormControl(''),
       fileType: new FormControl(''),
       fileId: new FormControl(''),
       bondingEquipotentialOb: new FormControl('', Validators.required),
@@ -756,13 +769,9 @@ export class LpsAirTerminationComponent implements OnInit {
       terminationMeshConductorOb: new FormControl({ disabled: false, value: item.terminationMeshConductorOb }, Validators.required),
       terminationMeshConductorRe: new FormControl({ disabled: false, value: item.terminationMeshConductorRe }),
       fileName: new FormControl({ disabled: false, value: item.fileName }),
+      fileSize: new FormControl({ disabled: false, value: item.fileSize }),
       fileType: new FormControl({ disabled: false, value: item.fileType }),
       fileId: new FormControl({ disabled: false, value: item.fileId }),
-
-
-
-
-
       bondingEquipotentialOb: new FormControl({ disabled: false, value: item.bondingEquipotentialOb }, Validators.required),
       bondingEquipotentialRe: new FormControl({ disabled: false, value: item.bondingEquipotentialRe }),
       airterminationFile: new FormControl(''),
@@ -774,9 +783,12 @@ export class LpsAirTerminationComponent implements OnInit {
     return this.formBuilder.group({
       lpsVerticalAirTerminationId: new FormControl({ disabled: false, value: item.lpsVerticalAirTerminationId }),
       lpsAirDescId: new FormControl({ disabled: false, value: item.lpsAirDescId }),
+      // For file upload
       fileNameVAir: new FormControl({ disabled: false, value: item.fileNameVAir }),
+      fileSize: new FormControl({ disabled: false, value: item.fileSize }),
       fileTypeVAir: new FormControl({ disabled: false, value: item.fileTypeVAir }),
       fileIdVAir: new FormControl({ disabled: false, value: item.fileIdVAir }),
+
       physicalInspectionOb: new FormControl({ disabled: false, value: item.physicalInspectionOb }, Validators.required),
       physicalInspectionRe: new FormControl({ disabled: false, value: item.physicalInspectionRe }),
       totalNumberOb: new FormControl({ disabled: false, value: item.totalNumberOb }, Validators.required),
@@ -952,9 +964,11 @@ export class LpsAirTerminationComponent implements OnInit {
       inspectionPassedNoRe: new FormControl({ disabled: false, value: item.inspectionPassedNoRe }),
       inspectionFailedNoOb: new FormControl({ disabled: false, value: item.inspectionFailedNoOb }, Validators.required),
       inspectionFailedNoRe: new FormControl({ disabled: false, value: item.inspectionFailedNoRe }),
+      // For file upload
       fileName_EP: new FormControl({ disabled: false, value: item.fileName_EP }),
       fileType_EP: new FormControl({ disabled: false, value: item.fileType_EP }),
       fileId_EP: new FormControl({ disabled: false, value: item.fileId_EP }),
+      fileSize: new FormControl({ disabled: false, value: item.fileSize }),
       flag: new FormControl({ disabled: false, value: item.flag }),
     });
   }
@@ -2016,26 +2030,31 @@ export class LpsAirTerminationComponent implements OnInit {
   }
 
   // File Upload All Functions for LPS
-  onChange(event: any) {
+  onChange(event: any,form:any) {
     this.file = event.target.files;
     if (this.file != null) {
       this.uploadDisable = false;
-
     }
+    form.controls.fileSize.setValue(Math.round(this.file[0].size / 1024) + " KB");
+    form.controls.fileName.setValue(this.file[0].name);
   }
 
-  onChange1(event: any, index: any) {
+  onChange1(event: any, form: any) {
     this.file = event.target.files;
     if (this.file != null) {
       this.uploadDisable1 = false;
     }
+    form.controls.fileSize.setValue(Math.round(this.file[0].size / 1024) + " KB");
+    form.controls.fileNameVAir.setValue(this.file[0].name);
   }
 
-  onChange2(event: any) {
+  onChange2(event: any, form:any) {
     this.file = event.target.files;
     if (this.file != null) {
       this.uploadDisable2 = false;
     }
+    form.controls.fileSize.setValue(Math.round(this.file[0].size / 1024) + " KB");
+    form.controls.fileName_EP.setValue(this.file[0].name);
   }
 
   onUpload(contentSpinner: any, q: any, fileId: any) {
@@ -2292,21 +2311,23 @@ export class LpsAirTerminationComponent implements OnInit {
               this.lpsAirDescription.controls[i.index].controls.airBasicDescription.controls[0].controls.fileName.setValue(i.fileName);
               this.lpsAirDescription.controls[i.index].controls.airBasicDescription.controls[0].controls.fileType.setValue(i.fileType);
               this.lpsAirDescription.controls[i.index].controls.airBasicDescription.controls[0].controls.fileId.setValue(i.fileId);
+              this.download = false;
             }
             if (i.componentName == 'airUpload-2') {
               this.lpsAirDescription.controls[i.index].controls.airExpansion.controls[0].controls.fileName_EP.setValue(i.fileName);
               this.lpsAirDescription.controls[i.index].controls.airExpansion.controls[0].controls.fileType_EP.setValue(i.fileType);
               this.lpsAirDescription.controls[i.index].controls.airExpansion.controls[0].controls.fileId_EP.setValue(i.fileId);
+              this.download2 = false;
             }
 
             if (i.componentName == 'airUpload-1') {
               this.lpsAirDescription.controls[i.index].controls.lpsVerticalAirTermination.controls[0].controls.fileNameVAir.setValue(i.fileName);
               this.lpsAirDescription.controls[i.index].controls.lpsVerticalAirTermination.controls[0].controls.fileTypeVAir.setValue(i.fileType);
               this.lpsAirDescription.controls[i.index].controls.lpsVerticalAirTermination.controls[0].controls.fileIdVAir.setValue(i.fileId);
+              this.download1 = false;
             }
           }
         }
-
       },
       error => {
       }
