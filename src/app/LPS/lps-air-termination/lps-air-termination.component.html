@@ -1218,8 +1218,7 @@
                                                                 <input type="number" (keypress)="keyPressNumbers($event)" minlength="1"
                                                                     class="form-control"
                                                                     (change)="findAngleDistance(q,$event,w)"
-                                                                    placeholder="Please enter Height of vertical air terminal in
-                                                                    meters(number) here"
+                                                                    placeholder="Please enter Height of vertical air terminal in meters(number) here"
                                                                     [readonly]="isEditable"
                                                                     formControlName="heightOfTerminalOb"
                                                                     [ngClass]="{ 'is-invalid': submitted && z.get('heightOfTerminalOb')?.errors}"

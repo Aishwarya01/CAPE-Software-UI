@@ -132,12 +132,11 @@ export class LpsMatstepperComponent implements OnInit {
       this.spd.isAirterminationUpdated = true;
       this.seperationDistance.isAirterminationUpdated = true;
       this.earthStud.isAirterminationUpdated = true;
-      this.downConductors.ngOnInit();
+      this.downConductors.updateMethod();
       this.earthing.ngOnInit();
       this.spd.ngOnInit();
       this.seperationDistance.ngOnInit();
       this.earthStud.ngOnInit();
-      
       //this.summary = true;
      // setTimeout(() => {
       this.lpsSummary.flag1=false;
