@@ -972,10 +972,12 @@
             </div>
         </div>
         <br>
+        <div *ngIf="popup" style="text-align: center;">
           <button type="button" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
             aria-label="Close" (click)="closeModalDialog()" style="width: 18%;margin: 0 auto;">
             <span aria-hidden="true" >Ok</span>
           </button>
+        </div>
     </ng-template> 
 
     <ng-template #contents let-modal>
@@ -990,7 +992,7 @@
         Submission in Progress!
        </div>
 
-     <div class="modal-body" *ngIf="popup1" style="margin-top: 1rem;">
+     <div class="modal-body" *ngIf="popup1">
          <div class="centre-text m-btm30">
              <div *ngIf="success" style="text-align: center;">
                  <span class="alert alert-success">{{successMsg}}</span>
@@ -1001,9 +1003,10 @@
          </div>
       </div>
       <br>
-      <button type="button" class="col-md-6" class="close" style="width: 18%;margin: 0 auto;"
-      class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
-      aria-label="Close" (click)="closeModalDialog()">
-      <span aria-hidden="true">Ok</span>
-    </button>
+      <div *ngIf="popup1" style="text-align: center;">
+          <button type="button" class="col-md-6" class="close" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+          aria-label="Close" (click)="closeModalDialog()" style="width: 18%;margin: 0 auto;">
+          <span aria-hidden="true">Ok</span>
+        </button>
+      </div>
     </ng-template>
