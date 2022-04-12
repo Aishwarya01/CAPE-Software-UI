@@ -95,6 +95,12 @@ export class LpsEarthingComponent implements OnInit {
   validationErrorMsgTab: string="";
   tabError: boolean=false;
   tabErrorMsg: string="";
+  // For Spinner
+  spinner: boolean=false;
+  spinnerValue: String = '';
+  mode: any = 'indeterminate';
+  nextButton: boolean = true;
+  popup: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,private dialog: MatDialog,
@@ -719,6 +725,9 @@ export class LpsEarthingComponent implements OnInit {
     
     if(this.earthingForm.invalid && (this.earthingForm.value.earthing[0].buildingNumber != undefined || this.earthingForm.value.earthing[0].buildingNumber != ''))
     {return}
+    this.spinner = true;
+    this.popup=false;
+
     this.earthingReport.earthingLpsDescription=this.earthingForm.value.earthing;
     this.earthingReport.userName = this.router.snapshot.paramMap.get('email') || '{}';
     this.earthingReport.basicLpsId = this.basicLpsId;
@@ -760,6 +769,10 @@ export class LpsEarthingComponent implements OnInit {
         if(this.earthingForm.dirty && this.earthingForm.touched){ 
         this.lpsEarthingService.updateEarthingLps(this.earthingReport).subscribe(
           (data) => {
+            setTimeout(() =>{
+              this.popup=true;
+              this.spinner=false;
+            }, 3000)
             this.success = true;
             this.successMsg = data;
             this.earthingForm.markAsPristine();
@@ -778,10 +791,14 @@ export class LpsEarthingComponent implements OnInit {
         )
       }
       else{
+        this.popup=true;
+        this.spinner=false;
         if(this.isEditable){
           this.success = true;
           this.proceedNext.emit(true);
         }else{
+          this.popup=true;
+          this.spinner=false;
           this.success = true;
           this.proceedNext.emit(true);
         }
@@ -790,6 +807,10 @@ export class LpsEarthingComponent implements OnInit {
       else {
         this.lpsEarthingService.saveEarthingDetails(this.earthingReport).subscribe(
           (data) => {
+            setTimeout(() =>{
+              this.popup=true;
+              this.spinner=false;
+            }, 3000)
             this.success = true;
             this.successMsg = data;
             this.disable = true;
@@ -801,6 +822,8 @@ export class LpsEarthingComponent implements OnInit {
             this.service.windowTabClick=0;
           },
           (error) => {
+            this.popup=true;
+            this.spinner=false;
             this.Error = true;
             this.errorArr = [];
             this.errorArr = JSON.parse(error.error);

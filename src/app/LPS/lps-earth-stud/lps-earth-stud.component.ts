@@ -60,6 +60,13 @@ export class LpsEarthStudComponent implements OnInit {
   tabError: boolean=false;
   tabErrorMsg: string="";
 
+  // For Spinner
+  spinner: boolean=false;
+  spinnerValue: String = '';
+  mode: any = 'indeterminate';
+  nextButton: boolean = true;
+  popup: boolean = false;
+
   constructor(
     private formBuilder: FormBuilder,
     private earthStudService: EarthStudService,
@@ -246,7 +253,9 @@ export class LpsEarthStudComponent implements OnInit {
     this.submitted=true;
     if(this.EarthStudForm.invalid && (this.EarthStudForm.value.earthStud[0].buildingNumber != undefined || this.EarthStudForm.value.earthStud[0].buildingNumber != ''))
     {return}
-
+    this.spinner = true;
+    this.popup=false;
+    
   //  this.earthStudReport=this.EarthStudForm.value
     this.earthStudReport.userName = this.router.snapshot.paramMap.get('email') || '{}';;
     this.earthStudReport.basicLpsId = this.basicLpsId; 
@@ -260,6 +269,10 @@ export class LpsEarthStudComponent implements OnInit {
         if(this.EarthStudForm.dirty && this.EarthStudForm.touched){ 
         this.earthStudService.updateEarthStud(this.earthStudReport).subscribe(
           (data) => {
+            setTimeout(() =>{
+              this.popup=true;
+              this.spinner=false;
+            }, 3000)
             this.success = true;
             this.successMsg = data;
             this.EarthStudForm.markAsPristine();
@@ -270,6 +283,8 @@ export class LpsEarthStudComponent implements OnInit {
             this.proceedNext.emit(true);
           }, 
           (error) => {
+            this.popup=true;
+            this.spinner=false;
             this.Error = true;
             this.errorArr = [];
             this.errorArr = JSON.parse(error.error);
@@ -279,10 +294,14 @@ export class LpsEarthStudComponent implements OnInit {
         )
       }
       else{
+        this.popup=true;
+        this.spinner=false;
         if(this.isEditable){
           this.success = true;
           this.proceedNext.emit(true);
         }else{
+          this.popup=true;
+          this.spinner=false;
           this.proceedNext.emit(true);
         }
       }
@@ -290,7 +309,10 @@ export class LpsEarthStudComponent implements OnInit {
       else {
         this.earthStudService.saveEarthStud(this.earthStudReport).subscribe(
           (data) => {
-            
+            setTimeout(() =>{
+              this.popup=true;
+              this.spinner=false;
+            }, 3000)
             this.success = true;
             this.successMsg = data;
             this.disable = true;
@@ -308,6 +330,8 @@ export class LpsEarthStudComponent implements OnInit {
             this.service.windowTabClick=0;
           },
           (error) => {
+            this.popup=true;
+            this.spinner=false;
             this.Error = true;
             this.errorArr = [];
             this.errorArr = JSON.parse(error.error);
