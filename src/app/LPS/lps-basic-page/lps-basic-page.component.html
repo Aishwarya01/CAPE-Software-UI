@@ -322,17 +322,17 @@
         </div>
     </div>
     <br>
-    <div  *ngIf="popup">
+    <div *ngIf="popup" style="text-align: center;">
         <button type="button" *ngIf="!Error"  class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
         aria-label="Close"  (click)="closeModalDialog()" style="margin-left: 195px;width: 16%;" matStepperNext>
          <span aria-hidden="true">Ok</span>
-     </button>
+        </button>
+    
+        <button type="button" *ngIf="Error" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+        aria-label="Close"  (click)="closeModalDialog()" style="margin-left: 195px;width: 16%;" >
+        <span aria-hidden="true">Ok</span>
+        </button>
     </div>
-     
-  <button type="button" *ngIf="Error" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
-  aria-label="Close"  (click)="closeModalDialog()" style="margin-left: 195px;width: 16%;" >
-   <span aria-hidden="true">Ok</span>
-</button>
 </ng-template> 
 <ng-template #contents let-modal>
     <div class="modal-body">

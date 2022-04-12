@@ -2612,7 +2612,7 @@ export class LpssummaryComponent implements OnInit {
    
       this.spinner = true;
       this.finalSpinner = true;
-      this.popup=false;
+      this.popup = false;
       this.popup1 = false
       
       this.lpsSummary.summaryLpsBuildings= this.summaryForm.value.summaryLpsBuildings;
@@ -2628,7 +2628,6 @@ export class LpssummaryComponent implements OnInit {
             this.spinner=false;
             this.finalSpinner=false;
           }, 3000)
-          this.popup=true;
           this.success = true;
           // this.summaryForm.markAsPristine();
           this.successMsg = data;
@@ -2642,6 +2641,8 @@ export class LpssummaryComponent implements OnInit {
           else{
             this.popup=true;
             this.spinner=false;
+            this.finalSpinner=false;
+            this.popup1=true;
             this.proceedNext.emit(true);
           }
         },
