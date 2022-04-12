@@ -12,7 +12,7 @@ export const environment = {
 };
 
 // For super admin purpose
-export class LpsSummaryConsts {
+export class SuperAdminProd {
   adminEmail: any=[];  
   constructor() {
       this.email();

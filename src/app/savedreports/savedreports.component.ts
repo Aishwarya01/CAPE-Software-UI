@@ -12,7 +12,9 @@ import { VerificationlvComponent } from '../verificationlv/verificationlv.compon
 import { GlobalsService } from '../globals.service';
 import { MatInput } from '@angular/material/input';
 import { filter } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
+// import { environment } from 'src/environments/environment';
+import { SuperAdminDev } from 'src/environments/environment.dev';
+import { SuperAdminProd } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-savedreports',
@@ -52,6 +54,10 @@ export class SavedreportsComponent implements OnInit {
   savedReportBody: boolean = true;
   spinnerValue: String = '';
   enableDelete: boolean = false;
+  deleteSuccess: boolean = false;
+  deleteSuccessMsg: String = '';
+  superAdminDev = new SuperAdminDev();
+  superAdminProd = new SuperAdminProd();
 
   constructor(private router: ActivatedRoute,
               private clientService: ClientService,
@@ -69,10 +75,10 @@ export class SavedreportsComponent implements OnInit {
     this.currentUser=sessionStorage.getItem('authenticatedUser');
     this.currentUser1 = [];
     this.currentUser1=JSON.parse(this.currentUser);
-    this.superAdminArr = [];
-    this.superAdminArr.push('gk@capeindia.net');
-    this.superAdminArr.push('vinoth@capeindia.net');
-    this.superAdminArr.push('awstesting@rushforsafety.com');
+    // this.superAdminArr = [];
+    // this.superAdminArr.push('gk@capeindia.net');
+    // this.superAdminArr.push('vinoth@capeindia.net');
+    // this.superAdminArr.push('awstesting@rushforsafety.com');
     this.retrieveSiteDetails();
    setTimeout(() => this.input.focus(), 500);
     this.siteName=this.service.filterSiteName;
@@ -120,12 +126,21 @@ export class SavedreportsComponent implements OnInit {
 
   retrieveSiteDetails() {
     this.filteredData = [];
-    for(let i of this.superAdminArr) {
+    //dev environment
+    for(let i of this.superAdminDev.adminEmail) {
       if(this.email == i) {
         this.superAdminFlag = true;
         this.enableDelete = true;
       }
     }
+    //Production environment
+    for(let i of this.superAdminProd.adminEmail) {
+      if(this.email == i) {
+        this.superAdminFlag = true;
+        this.enableDelete = true;
+      }
+    }
+
     if(this.superAdminFlag) {
       this.siteService.retrieveAllSite(this.email).subscribe(
         data => {
@@ -198,9 +213,15 @@ export class SavedreportsComponent implements OnInit {
     this.spinnerValue = "Please wait, the details are loading!";
     this.siteService.updateSiteStatus(this.site).subscribe(
       data => {
+        this.deleteSuccess = true;
+        this.deleteSuccessMsg = data;
         this.ngOnInit();
         this.savedReportBody = true;
         this.savedReportSpinner = false;
+        setTimeout(() => {
+          this.deleteSuccess = false;
+          this.deleteSuccessMsg = '';
+          }, 2000);
       }
     )
   }
