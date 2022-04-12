@@ -121,9 +121,14 @@ export class LpsAirTerminationComponent implements OnInit {
   tabError: boolean=false;
   tabErrorMsg: string="";
   AIRTERMINATION_CONSTANTS=new AirterminationConstants();
+
+  // For Spinner
   spinner: boolean=false;
   spinnerValue: String = '';
-  mode: any= 'indeterminate';
+  mode: any = 'indeterminate';
+  nextButton: boolean = true;
+  popup: boolean = false;
+
 
   // successMsg1: Strin:g="";
 
@@ -1582,12 +1587,6 @@ export class LpsAirTerminationComponent implements OnInit {
         this.Error = false;
         this.modalService.dismissAll((this.errorMsg = ''));
       } else {
-        // this.spinner = true;
-        // this.spinnerValue = "Please wait, the details are loading!";
-        setTimeout(() => { 
-          //  this.spinner = false;
-          // this.spinnerValue = ""; 
-         }, 3000); 
         this.success = false;
         this.modalService.dismissAll((this.successMsg = ''));
      }
@@ -1598,6 +1597,8 @@ export class LpsAirTerminationComponent implements OnInit {
         if(this.airTerminationForm.invalid){
           return
         }
+        this.spinner = true;
+        this.popup=false;
         this.airtermination.userName=this.router.snapshot.paramMap.get('email') || '{}';
         this.airtermination.lpsAirDescription = this.airTerminationForm.value.lpsAirDescription
         
@@ -1698,6 +1699,10 @@ export class LpsAirTerminationComponent implements OnInit {
 
               this.airterminationService.updateAirtermination(this.airtermination).subscribe(
                 (data) => {
+                  setTimeout(() =>{
+                    this.popup=true;
+                    this.spinner=false;
+                  }, 3000)
                   this.success1 = false;
                   this.downConductorServices.retrieveDownConductor(this.airtermination.userName,this.airtermination.basicLpsId,).subscribe(
                     (data) => {
@@ -1720,6 +1725,8 @@ export class LpsAirTerminationComponent implements OnInit {
                   // }, 4000);
                 },
                 (error) => {
+                  this.popup=true;
+                  this.spinner=false;
                   this.success1 = false;
                   this.Error = true;
                   this.errorArr = [];
@@ -1728,13 +1735,16 @@ export class LpsAirTerminationComponent implements OnInit {
                   //this.proceedNext.emit(false);
                 });}
                 else{
+                  this.popup=true;
+                  this.spinner=false;
                   if(this.isEditable){
                     this.success = true;
                     //this.proceedNext.emit(true);
                   }
                   // Dirty checking here
                   else{
-                    
+                    this.popup=true;
+                    this.spinner=false;
                     this.success = true;
                     //this.proceedNext.emit(true);
                   }
@@ -1743,6 +1753,10 @@ export class LpsAirTerminationComponent implements OnInit {
             else {
                 this.airterminationService.saveAirtermination(this.airtermination).subscribe(
                   (data) => {
+                    setTimeout(() =>{
+                      this.popup=true;
+                      this.spinner=false;
+                    }, 3000)
                     this.success = true;
                     this.isAirterminationUpdated=true
                     this.proceedNext.emit(true);
@@ -1758,6 +1772,8 @@ export class LpsAirTerminationComponent implements OnInit {
                     this.service.windowTabClick=0;
                   },
                   (error) => {
+                    this.popup=true;
+                    this.spinner=false;
                     this.Error = true;
                     this.errorArr = [];
                     this.errorArr = JSON.parse(error.error);

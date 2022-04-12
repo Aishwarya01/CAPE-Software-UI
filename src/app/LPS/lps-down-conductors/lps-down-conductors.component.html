@@ -331,7 +331,7 @@
                                 <tbody>
                                     <tr>
                                         <td class="col-md-6">
-                                            <select class="form-control"  (change)="onChangeDownCon($event,q)" formControlName="downConductorAvailabilityOb" [attr.disabled]="isEditable ? '' : null"
+                                            <select class="form-control"  (change)="onChangeDownCon($event,downConductorControls(q))" formControlName="downConductorAvailabilityOb" [attr.disabled]="isEditable ? '' : null"
                                             [ngClass]="{ 'is-invalid': submitted && q.get('downConductorAvailabilityOb')?.errors }" style="height: 3rem;" >
                                                 <option value="" selected>Select Option</option>
                                                 <option value="Applicable">Applicable </option>
@@ -353,8 +353,8 @@
 
                        
                             
-                        <div style="margin-top: 10px;" *ngIf="q.get('downConductorAvailabilityOb')?.value == ''"><b>Note:</b> &nbsp; Select applicable if you intend to fill details for Down conductors (exposed / Natural)</div>
-                        <h2 *ngIf="q.get('downConductorAvailabilityOb')?.value === 'Applicable'"><u>Down Conductors:</u></h2>
+                        <div style="margin-top: 10px;" *ngIf="q.get('downConductorAvailabilityOb')?.value != 'Applicable'"><b>Note:</b> &nbsp; Select applicable if you intend to fill details for Down conductors (exposed / Natural)</div>
+                        <!-- <h2 *ngIf="q.get('downConductorAvailabilityOb')?.value === 'Applicable'"><u>Down Conductors:</u></h2> -->
                         <br>
                         <div class="table-responsive" style="overflow-x: unset;" *ngIf="q.get('downConductorAvailabilityOb')?.value != ''">
                             <table class="table TableBorder" formArrayName="downConductor" *ngFor="let a of downConductorControls(q); let j = index">
@@ -3012,7 +3012,15 @@
 
 </div>
 <ng-template #content let-modal>
-    <div class="modal-body">
+    <!-- Spinner -->
+    <mat-progress-spinner style="margin: 0 auto;" *ngIf="spinner" color="primary" [mode]="mode" value="50" diameter="50">
+    </mat-progress-spinner>
+    <br>
+    <div *ngIf="spinner" style="text-align: center;">
+        Please wait, the details are loading!
+    </div>
+
+    <div class="modal-body" *ngIf="popup">
         <div class="centre-text m-btm30">
             <div *ngIf="success" style="text-align: center;">
                 <span class="successshow">{{successMsg}}</span>

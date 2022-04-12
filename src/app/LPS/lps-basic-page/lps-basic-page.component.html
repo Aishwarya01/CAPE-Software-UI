@@ -304,7 +304,14 @@
 </div>
 </div>
 <ng-template #content let-modal>
-    <div class="modal-body">
+    <!-- Spinner -->
+    <mat-progress-spinner style="margin: 0 auto;" *ngIf="spinner" color="primary" [mode]="mode" value="50" diameter="50">
+    </mat-progress-spinner>
+    <br>
+    <div *ngIf="spinner" style="text-align: center;">
+        Please wait, the details are loading!
+    </div>
+    <div class="modal-body" *ngIf="popup">
         <div class="centre-text m-btm30">
             <div *ngIf="success" style="text-align: center;">
                 <span class="successshow">{{successMsg}}</span>
@@ -315,10 +322,13 @@
         </div>
     </div>
     <br>
-     <button type="button" *ngIf="!Error" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
-     aria-label="Close"  (click)="closeModalDialog()" style="margin-left: 195px;width: 16%;" matStepperNext>
-      <span aria-hidden="true">Ok</span>
-  </button>
+    <div  *ngIf="popup">
+        <button type="button" *ngIf="!Error"  class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+        aria-label="Close"  (click)="closeModalDialog()" style="margin-left: 195px;width: 16%;" matStepperNext>
+         <span aria-hidden="true">Ok</span>
+     </button>
+    </div>
+     
   <button type="button" *ngIf="Error" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
   aria-label="Close"  (click)="closeModalDialog()" style="margin-left: 195px;width: 16%;" >
    <span aria-hidden="true">Ok</span>
@@ -348,5 +358,4 @@
     </button>
   </div>
   
-    </ng-template>
- 
+</ng-template>

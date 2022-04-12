@@ -1218,8 +1218,7 @@
                                                                 <input type="number" (keypress)="keyPressNumbers($event)" minlength="1"
                                                                     class="form-control"
                                                                     (change)="findAngleDistance(q,$event,w)"
-                                                                    placeholder="Please enter Height of vertical air terminal in
-                                                                    meters(number) here"
+                                                                    placeholder="Please enter Height of vertical air terminal in meters(number) here"
                                                                     [readonly]="isEditable"
                                                                     formControlName="heightOfTerminalOb"
                                                                     [ngClass]="{ 'is-invalid': submitted && z.get('heightOfTerminalOb')?.errors}"
@@ -4395,13 +4394,14 @@
 
 <ng-template #content let-modal>
     <div class="modal-body">
+        <!-- Spinner -->
         <mat-progress-spinner style="margin: 0 auto;" *ngIf="spinner" color="primary" [mode]="mode" value="50" diameter="50">
         </mat-progress-spinner>
         <br>
         <div *ngIf="spinner" style="text-align: center;">
-            {{spinnerValue}}
+            Please wait, the details are loading!
         </div>
-        <div class="centre-text m-btm30">
+        <div class="centre-text m-btm30" *ngIf="popup">
             <div *ngIf="success" style="text-align: center;">
                 <span class="successshow">{{successMsg}}</span>
             </div>
