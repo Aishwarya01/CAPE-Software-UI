@@ -2435,7 +2435,14 @@
 </div>
 <!--  -->
 <ng-template #content let-modal>
-    <div class="modal-body">
+    <!-- Spinner -->
+    <mat-progress-spinner style="margin: 0 auto;" *ngIf="spinner" color="primary" [mode]="mode" value="50" diameter="50">
+    </mat-progress-spinner>
+    <br>
+    <div *ngIf="spinner" style="text-align: center;">
+        Please wait, the details are loading!
+    </div>
+    <div class="modal-body" *ngIf="popup">
         <div class="centre-text m-btm30">
             <div *ngIf="success" style="text-align: center;">
                 <span class="successshow">{{successMsg}}</span>

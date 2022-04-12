@@ -56,6 +56,13 @@ export class LpsSeperationDistanceComponent implements OnInit {
   validationErrorMsgTab: string="";
   tabError: boolean=false;
   tabErrorMsg: string="";
+
+  // For Spinner
+  spinner: boolean=false;
+  spinnerValue: String = '';
+  mode: any = 'indeterminate';
+  nextButton: boolean = true;
+  popup: boolean = false;
   
   constructor(private formBuilder: FormBuilder,
             private separatedistanceService: SeparatedistanceService,
@@ -359,7 +366,8 @@ export class LpsSeperationDistanceComponent implements OnInit {
     if (this.separeteDistanceForm.invalid && (this.separeteDistanceForm.value.seperationDistanceDescription[0].buildingNumber != undefined || this.separeteDistanceForm.value.seperationDistanceDescription[0].buildingNumber != '')) {
       return;
     }
-
+    this.spinner = true;
+    this.popup=false;
     this.seperationDistanceReport.seperationDistanceDescription = this.separeteDistanceForm.value.seperationDistanceDescription;
     this.seperationDistanceReport.userName = this.router.snapshot.paramMap.get('email') || '{}';
     this.seperationDistanceReport.basicLpsId = this.basicLpsId;
@@ -392,6 +400,10 @@ export class LpsSeperationDistanceComponent implements OnInit {
         if(this.separeteDistanceForm.dirty && this.separeteDistanceForm.touched){ 
         this.separatedistanceService.updateSeparateDistance(this.seperationDistanceReport).subscribe(
           (data) => {
+            setTimeout(() =>{
+              this.popup=true;
+              this.spinner=false;
+            }, 3000)
             this.success = true;
             this.successMsg = data;
             this.separeteDistanceForm.markAsPristine();
@@ -401,6 +413,8 @@ export class LpsSeperationDistanceComponent implements OnInit {
             this.proceedNext.emit(true);
           },
           (error) => {
+            this.popup=true;
+            this.spinner=false;
             this.Error = true;
             this.errorArr = [];
             this.errorArr = JSON.parse(error.error);
@@ -410,10 +424,14 @@ export class LpsSeperationDistanceComponent implements OnInit {
         )
       }
       else{
+        this.popup=true;
+        this.spinner=false;
         if(this.isEditable){
           this.success = true;
           this.proceedNext.emit(true);
         }else{
+          this.popup=true;
+          this.spinner=false;
           this.success = true;
           this.proceedNext.emit(true);
         }
@@ -422,6 +440,10 @@ export class LpsSeperationDistanceComponent implements OnInit {
       else {
         this.separatedistanceService.saveSeparateDistance(this.seperationDistanceReport).subscribe(
           (data) => {
+            setTimeout(() =>{
+              this.popup=true;
+              this.spinner=false;
+            }, 3000)
             this.success = true;
             this.successMsg = data;
             this.disable = true;
@@ -438,6 +460,8 @@ export class LpsSeperationDistanceComponent implements OnInit {
             // }, 3000);
           },
           (error) => {
+            this.popup=true;
+            this.spinner=false;
             this.Error = true;
             this.errorArr = [];
             this.errorArr = JSON.parse(error.error);

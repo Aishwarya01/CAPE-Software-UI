@@ -195,20 +195,12 @@ export class LpsMatstepperComponent implements OnInit {
       this.lpsSummary.flag1=false;
       this.lpsSummary.ngOnInit();
     }
-    
-    // this.final.ngOnInit();
   }
   public doSomething8(next: any): void {
     this.service.isLinear=false;
     this.service.isCompleted8 = next;
     this.saved.ngOnInit();
     this.final.ngOnInit();
-    if (next && !(this.lpsSummary.buttonType == 'save')) {
-      this.selectedIndex = 2;
-    } 
-    else if(this.lpsSummary.buttonType == 'save') {
-      this.selectedIndex = 1;
-    }
   }
   public changeTabLpsSavedReport(index: number, basicLpsId: any, userName: any) {
    // this.selectedIndex = 1;
@@ -451,18 +443,10 @@ export class LpsMatstepperComponent implements OnInit {
   }
 
   navigateStep(index: any) {
-    this.stepper.selectedIndex = index;
+    this.selectedIndex = index;
   }
 
-  // navigateStep1(index: any) {
-  //   this.stepper.selectedIndex = 2;
-  // }
-
   initializeLpsId(){
-
-    // this.downConductors.availabilityOfPreviousReport = this.basic.basicDetails.availabilityOfPreviousReport;
-    // this.earthing.availabilityOfPreviousReport = this.basic.basicDetails.availabilityOfPreviousReport;
- 
     this.downConductors.availabilityOfPreviousReport = this.basic.availableReportNo;
     this.earthing.availabilityOfPreviousReport = this.basic.availableReportNo;
     

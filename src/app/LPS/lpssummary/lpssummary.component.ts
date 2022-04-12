@@ -84,17 +84,12 @@ export class LpssummaryComponent implements OnInit {
     numberOfBuildingCount: any=[];
     validationError: boolean = false;
     validationErrorMsg: String = '';
-    finalSpinner: boolean = true;
-    spinner: boolean=false;
-    spinnerValue: String = '';
-    popup: boolean = false;
     errorArr: any=[];
     successMsg: string="";
     errorMsg: string="";
     success: boolean=false;
     Error: boolean=false;
     @Output() proceedNext = new EventEmitter<any>();
-    mode: any= 'indeterminate';
     isEditable:boolean=false;
     submittedButton: boolean = true;
     saveButton: boolean = false;
@@ -413,6 +408,15 @@ export class LpssummaryComponent implements OnInit {
   validationErrorMsgTab: string="";
   tabError: boolean=false;
   tabErrorMsg: string="";
+  // For Spinner
+  spinner: boolean=false;
+  finalSpinner: boolean=false;
+  spinnerValue: String = '';
+  mode: any = 'indeterminate';
+  nextButton: boolean = true;
+  popup: boolean = false;
+  popup1: boolean = false;
+
   constructor(private summaryService:SummaryServiceService,private formBuilder: FormBuilder,
     private airterminationServices: AirterminationService, private router: ActivatedRoute,
     private dialog: MatDialog,private modalService: NgbModal,public service: GlobalsService,
@@ -444,8 +448,6 @@ export class LpssummaryComponent implements OnInit {
         recommendYears: new FormControl('',Validators.required),
       });
       this.numberOfBuildingCount=[]
-     // this.spinner = true;
-     // this.spinnerValue = "Please wait, the details are loading!";
       this.retrieveFromAirTermination();
       setTimeout(() => {
         this.retrieveObservationLpsSummaryOnload();
@@ -2392,41 +2394,29 @@ export class LpssummaryComponent implements OnInit {
        }
     }
     closeModalDialog() {
-      this.finalSpinner=true;
-      this.popup=false;
      
       if (this.errorMsg != "") {
         this.Error = false;
-        //this.service.isCompleted5= false;
-        //this.service.isLinear=true;
         this.modalService.dismissAll((this.errorMsg = ""));
         this.proceedNext.emit(false);
       } 
       else {
         this.success = false;
-        //this.service.isCompleted5= true;
-       // this.service.isLinear=false;
         this.modalService.dismissAll((this.successMsg = ""));
-        this.proceedNext.emit(true);
-        // if(this.buttonType != 'save'){
-        //   this.navigateToStep1(2);
-        // }
-        this.spinner = true;
-        this.spinnerValue = "Please wait, the details are loading!";
-        setTimeout(() => {
-          this.spinner = false;
-        this.spinnerValue = "";
-        }, 5000);
+        this.proceedNext.emit(false);
+        
+        if(this.buttonType == 'save'){
+          this.navigateToStep(1);
+        }
+        else if(this.buttonType != 'save'){
+          this.navigateToStep(2);
+        }
       }
     }
 
     navigateToStep(index: any) {
       this.matStepper.navigateStep(index);
     }
-
-    // navigateToStep1(index: any) {
-    //   this.matStepper.navigateStep1(index);
-    // }
 
   onSubmit(flag1:any,content:any,contents:any){
     this.submitted = true;
@@ -2620,6 +2610,10 @@ export class LpssummaryComponent implements OnInit {
       }
     }
    
+      this.spinner = true;
+      this.finalSpinner = true;
+      this.popup=false;
+      this.popup1 = false
       
       this.lpsSummary.summaryLpsBuildings= this.summaryForm.value.summaryLpsBuildings;
       this.lpsSummary.summaryLpsDeclaration= this.summaryForm.value.Declaration1Arr;
@@ -2628,8 +2622,13 @@ export class LpssummaryComponent implements OnInit {
       if (flag1) {
       this.summaryService.updateSummaryLps(this.lpsSummary,typeOfButton).subscribe(
         (data)=> {
+          setTimeout(() =>{
+            this.popup=true;
+            this.popup1=true;
+            this.spinner=false;
+            this.finalSpinner=false;
+          }, 3000)
           this.popup=true;
-          // this.finalSpinner=false;
           this.success = true;
           // this.summaryForm.markAsPristine();
           this.successMsg = data;
@@ -2637,18 +2636,20 @@ export class LpssummaryComponent implements OnInit {
           if(this.saveButton){
               this.retriveSummaryWhileUpdateSave();
               this.finalSpinner=false;
-             // this.spinner  = true;
-             // this.spinnerValue = "Please wait, the details are loading!";
             this.saveButton = false;
             this.summaryForm.markAsPristine();
           }
           else{
-            // this.modalService.open(content, { centered: true, backdrop: 'static' });
+            this.popup=true;
+            this.spinner=false;
             this.proceedNext.emit(true);
           }
         },
         (error)=> {
           this.popup=true;
+          this.spinner=false;
+          this.finalSpinner=false;
+          this.popup1=true;
           this.finalSpinner=false;
           this.Error = true;
           this.errorArr = [];
@@ -2659,7 +2660,12 @@ export class LpssummaryComponent implements OnInit {
       else{
         this.summaryService.addSummaryLps(this.lpsSummary,typeOfButton).subscribe(
           (data)=> {
-            this.popup=true;
+            setTimeout(() =>{
+              this.popup=true;
+              this.popup1=true;
+              this.spinner=false;
+              this.finalSpinner=false;
+            }, 3000)
             this.success = true;
             this.successMsg = data;
             if(this.saveButton){
@@ -2670,13 +2676,18 @@ export class LpssummaryComponent implements OnInit {
             this.summaryForm.markAsPristine();
             }
             else{
-              // this.modalService.open(content, { centered: true, backdrop: 'static' });
+              this.popup=true;
+              this.popup1=true;
+              this.spinner=false;
+              this.finalSpinner=false;
               this.proceedNext.emit(true);
             }
           },
           (error)=> {
             this.popup=true;
-            // this.finalSpinner=false;
+            this.spinner=false;
+            this.finalSpinner=false;
+            this.popup1=true;
             this.Error = true;
             this.errorArr = [];
             this.errorArr = JSON.parse(error.error);
@@ -2690,8 +2701,6 @@ export class LpssummaryComponent implements OnInit {
       
       this.summaryService.retrieveWhileSaveUpdate(this.email, this.basicLpsId).subscribe(
         data => {
-         // this.spinner = true;
-         // this.spinnerValue = "Please wait, the details are loading!";
           let summary = JSON.parse(data)[0];
           if (summary != undefined) {
             this.retrieveDetailsfromSavedReports('', this.basicLpsId, JSON.parse(data)[0]);
@@ -2702,10 +2711,6 @@ export class LpssummaryComponent implements OnInit {
               this.retrieveObservationLpsSummaryOnload();
             }, 3000);
           }
-          setTimeout(() => {
-            this.spinner = false;
-            this.spinnerValue = "";
-          }, 5000);
         });
     }
 

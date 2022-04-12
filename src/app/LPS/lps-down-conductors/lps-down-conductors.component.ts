@@ -85,7 +85,6 @@ export class LpsDownConductorsComponent implements OnInit {
   // success1: boolean = false;
   // successMsg1: string="";
   successMsg: string = "";
-  mode: any = 'indeterminate';
   Error: boolean = false;
   errorArr: any = [];
   errorMsg: string = "";
@@ -147,7 +146,6 @@ export class LpsDownConductorsComponent implements OnInit {
   componentName1: string = "downConductor-1";
   JSONdata: any = [];
   finalSpinner: boolean = true;
-  popup: boolean = false; 
   filesuccess: boolean = false;
   filesuccessMsg: string = "";
   fileName1: string = "";
@@ -160,7 +158,13 @@ export class LpsDownConductorsComponent implements OnInit {
   popupDelete: boolean = false;
   fileDeleteSuccess: boolean = false;
   fileDeletesuccessMsg: any;
-  
+  // For Spinner
+  spinner: boolean=false;
+  spinnerValue: String = '';
+  mode: any = 'indeterminate';
+  nextButton: boolean = true;
+  popup: boolean = false;
+
 
   constructor(
     private formBuilder: FormBuilder, lpsDownconductorService: LpsDownconductorService,
@@ -570,6 +574,8 @@ export class LpsDownConductorsComponent implements OnInit {
       this.downConductorReport.createdDate = this.step3List.createdDate;  
       this.downConductorReport.createdBy = this.step3List.createdBy;
       this.downConductorReport.userName = this.step3List.userName;
+      this.downConductorReport.updatedBy = this.step3List.updatedBy;
+      this.downConductorReport.updatedDate = this.step3List.updatedDate;
       setTimeout(() => {
         this.populateData(this.step3List.downConductorDescription);
       }, 1000);
@@ -598,6 +604,8 @@ export class LpsDownConductorsComponent implements OnInit {
       this.downConductorReport.createdBy = this.step3List1[0].createdBy;
       this.downConductorReport.createdDate = this.step3List1[0].createdDate;
       this.downConductorReport.userName = this.step3List1[0].userName;
+      this.downConductorReport.updatedBy = this.step3List1[0].updatedBy;
+      this.downConductorReport.updatedDate = this.step3List1[0].updatedDate;
       setTimeout(() => {
         this.populateData(this.step3List1[0].downConductorDescription);
       }, 1000);
@@ -685,8 +693,8 @@ export class LpsDownConductorsComponent implements OnInit {
 
     createGroup(item: any,downConduDescId: any): FormGroup {
       return this.formBuilder.group({
-        // downConductorId: new FormControl({disabled: false, value: item.downConductorId}),
-        downConduDescId: new FormControl({disabled: false, value: downConduDescId}),
+        downConductorId: new FormControl({disabled: false, value: item.downConductorId}),
+        // downConduDescId: new FormControl({disabled: false, value: downConduDescId}),
         physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
         physicalInspectionRem: new FormControl({disabled: false, value: item.physicalInspectionRem}),
         conductMaterialOb: new FormControl({disabled: false, value: item.conductMaterialOb}, Validators.required),
@@ -729,8 +737,8 @@ export class LpsDownConductorsComponent implements OnInit {
 
     createGroupNotApplicable(item: any,downConduDescId: any): FormGroup {
       return this.formBuilder.group({
-        // downConductorId: new FormControl({disabled: false, value: item.downConductorId}),
-        downConduDescId: new FormControl({disabled: false, value: downConduDescId}),
+        downConductorId: new FormControl({disabled: false, value: item.downConductorId}),
+        // downConduDescId: new FormControl({disabled: false, value: downConduDescId}),
         physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}),
         physicalInspectionRem: new FormControl({disabled: false, value: item.physicalInspectionRem}),
         conductMaterialOb: new FormControl({disabled: false, value: item.conductMaterialOb}),
@@ -1718,7 +1726,8 @@ export class LpsDownConductorsComponent implements OnInit {
     if (this.downConductorForm.invalid && (this.downConductorForm.value.downConductorDescription[0].buildingNumber != undefined || this.downConductorForm.value.downConductorDescription[0].buildingNumber != '')) {
       return;
     }
-    
+    this.spinner = true;
+    this.popup=false;
     this.downConductorReport.userName = this.router.snapshot.paramMap.get('email') || '{}';
     this.downConductorReport.basicLpsId = this.basicLpsId;
     this.downConductorReport.downConductorDescription = this.downConductorForm.value.downConductorDescription;
@@ -1793,7 +1802,10 @@ export class LpsDownConductorsComponent implements OnInit {
 
         this.lpsDownconductorService.updateDownConductor(this.downConductorReport).subscribe(
           (data) => {
-            
+            setTimeout(() =>{
+              this.popup=true;
+              this.spinner=false;
+            }, 3000)
             this.success = true;
             this.successMsg = data;
             this.downConductorForm.markAsPristine();
@@ -1804,6 +1816,8 @@ export class LpsDownConductorsComponent implements OnInit {
             this.proceedNext.emit(true);
           },
           (error) => {
+            this.popup=true;
+            this.spinner=false;
             this.Error = true;
             this.errorArr = [];
             this.errorArr = JSON.parse(error.error);
@@ -1813,19 +1827,27 @@ export class LpsDownConductorsComponent implements OnInit {
         )
       }
       else{
+        this.popup=true;
+        this.spinner=false;
         if(this.isEditable){
           this.success = true;
           this.proceedNext.emit(true);
         }
       else{
-          this.success = true;
-          this.proceedNext.emit(true);
+        this.popup=true;
+        this.spinner=false;
+        this.success = true;
+        this.proceedNext.emit(true);
         }
       }
       }
       else {
         this.lpsDownconductorService.saveDownConductors(this.downConductorReport).subscribe(
           (data) => {
+            setTimeout(() =>{
+              this.popup=true;
+              this.spinner=false;
+            }, 3000)
             this.success = true;
             this.successMsg = data;
             this.disable = true;
@@ -1836,6 +1858,8 @@ export class LpsDownConductorsComponent implements OnInit {
             this.service.windowTabClick=0;
           },
           (error) => {
+            this.popup=true;
+            this.spinner=false;
             this.Error = true;
             this.errorArr = [];
             this.errorArr = JSON.parse(error.error);
