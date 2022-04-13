@@ -153,9 +153,7 @@ export class LpsAirTerminationComponent implements OnInit {
   // For Spinner
   spinner: boolean=false;
   spinnerValue: String = '';
-  mode: any = 'indeterminate';
   nextButton: boolean = true;
-  popup: boolean = false;
 
 
   // successMsg1: Strin:g="";
@@ -1854,13 +1852,6 @@ export class LpsAirTerminationComponent implements OnInit {
             }
           }
         }
-      }
-      else {
-        this.airterminationService.saveAirtermination(this.airtermination).subscribe(
-          );
-      }
-    }
-  }
 
   gotoNextTab() {
     if ((this.airTerminationForm.dirty && this.airTerminationForm.invalid) || this.service.isCompleted == false) {

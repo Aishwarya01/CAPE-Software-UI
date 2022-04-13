@@ -164,9 +164,7 @@ export class LpsDownConductorsComponent implements OnInit {
   // For Spinner
   spinner: boolean=false;
   spinnerValue: String = '';
-  mode: any = 'indeterminate';
   nextButton: boolean = true;
-  popup: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder, lpsDownconductorService: LpsDownconductorService,

@@ -942,6 +942,9 @@
                                                             <td>
                                                                 <input style="height: 3rem;" type="file" class="form-control" (change)="onChange($event,a)" [attr.disabled]="isEditable ? '' : null"
                                                                 accept=".txt,.jpeg,.png,.jpg,.pdf">
+                                                                <div *ngIf="submitted && a.get('fileName')?.errors" class="invalid-feedback">
+                                                                    <div *ngIf="a.get('fileName')?.errors?.required">Field is required</div>
+                                                                </div>
                                                             </td>
                                                             <td style="text-align: center;">{{a.get('fileName')?.value}}</td>
                                                             <td ng-show="uploader.isHTML5" nowrap style="text-align: center;">{{a.get('fileSize')?.value}}</td>
@@ -972,9 +975,7 @@
                                                                 <!-- <button type="button" class="btn btn-danger btn-xs mr-4">
                                                                     <i class="fa fa-trash-o" style="color: white;"></i> Delete
                                                                 </button> -->
-                                                                <div *ngIf="submitted && a.get('fileName')?.errors" class="invalid-feedback">
-                                                                    <div *ngIf="a.get('fileName')?.errors?.required">Field is required</div>
-                                                                </div>
+                                                                
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -1200,6 +1201,9 @@
                                                         <td>
                                                             <input style="height: 3rem;" type="file" class="form-control" (change)="onChange1($event,a)" [attr.disabled]="isEditable ? '' : null"
                                                             accept=".txt,.jpeg,.png,.jpg,.pdf">
+                                                            <div *ngIf="submitted && a.get('fileNameVAir')?.errors"class="invalid-feedback">
+                                                                <div *ngIf="a.get('fileNameVAir')?.errors?.required">Field is required</div>
+                                                            </div>
                                                         </td>
                                                         <td style="text-align: center;">{{a.get('fileNameVAir')?.value}}</td>
                                                         <td ng-show="uploader.isHTML5" nowrap style="text-align: center;">{{a.get('fileSize')?.value}}</td>
@@ -1228,9 +1232,7 @@
                                                             <!-- <button type="button" class="btn btn-danger btn-xs mr-4">
                                                                 <i class="fa fa-trash-o" style="color: white;"></i> Delete
                                                             </button> -->
-                                                            <div *ngIf="submitted && a.get('fileNameVAir')?.errors"class="invalid-feedback">
-                                                                <div *ngIf="a.get('fileNameVAir')?.errors?.required">Field is required</div>
-                                                            </div>
+                                                            
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -4007,6 +4009,9 @@
                                                         <td>
                                                             <input style="height: 3rem;" type="file" class="form-control" (change)="onChange2($event,a)" [attr.disabled]="isEditable ? '' : null"
                                                             accept=".txt,.jpeg,.png,.jpg,.pdf">
+                                                            <div *ngIf="submitted && a.get('fileName_EP')?.errors" class="invalid-feedback">
+                                                                <div *ngIf="a.get('fileName_EP')?.errors?.required">Field is required</div>
+                                                            </div>
                                                         </td>
                                                         <td style="text-align: center;">{{a.get('fileName_EP')?.value}}</td>
                                                         <td ng-show="uploader.isHTML5" nowrap style="text-align: center;">{{a.get('fileSize')?.value}}</td>
@@ -4035,9 +4040,7 @@
                                                             <!-- <button type="button" class="btn btn-danger btn-xs mr-4">
                                                                 <i class="fa fa-trash-o" style="color: white;"></i> Delete
                                                             </button> -->
-                                                            <div *ngIf="submitted && a.get('fileName_EP')?.errors" class="invalid-feedback">
-                                                                <div *ngIf="a.get('fileName_EP')?.errors?.required">Field is required</div>
-                                                            </div>
+                                                            
                                                         </td>
                                                     </tr>
                                                 </tbody>
