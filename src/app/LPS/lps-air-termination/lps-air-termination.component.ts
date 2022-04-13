@@ -150,6 +150,16 @@ export class LpsAirTerminationComponent implements OnInit {
   componentName2: string = "airUpload-2";
   uploadObj: any;
 
+  // For Spinner
+  spinner: boolean=false;
+  spinnerValue: String = '';
+  mode: any = 'indeterminate';
+  nextButton: boolean = true;
+  popup: boolean = false;
+
+
+  // successMsg1: Strin:g="";
+
   constructor(
     private formBuilder: FormBuilder, private dialog: MatDialog,
     private airterminationServices: AirterminationService,
@@ -1652,178 +1662,202 @@ export class LpsAirTerminationComponent implements OnInit {
     }
   }
 
-  onSubmit(flag: any) {
-    this.submitted = true;
-    if (this.airTerminationForm.invalid) {
-      return
-    }
-    this.airtermination.userName = this.router.snapshot.paramMap.get('email') || '{}';
-    this.airtermination.lpsAirDescription = this.airTerminationForm.value.lpsAirDescription
-    if (!this.validationError) {
-      if (flag) {
-        if (this.airTerminationForm.dirty && this.airTerminationForm.touched) {
-          //Main Lps Description
-          if (this.deletedLpsDescArr.length != 0) {
-            for (let i of this.deletedLpsDescArr) {
-              this.airtermination.lpsAirDescription.push(i);
-            }
-          }
-
-          //Basic Desc
-          for (let i of this.deletedAirBasicArr) {
-            for (let j of this.airtermination.lpsAirDescription) {
-              if (i.lpsAirDescId == j.lpsAirDescId) {
-                j.airBasicDescription.push(i);
-              }
-            }
-          }
-
-          //Air termination
-          for (let i of this.deletedAirTerminationArr) {
-            for (let j of this.airtermination.lpsAirDescription) {
-              if (i.lpsAirDescId == j.lpsAirDescId) {
-                j.lpsVerticalAirTermination.push(i);
-              }
-            }
-          }
-
-          //Mesh Desc
-          for (let i of this.deletedAirMeshArr) {
-            for (let j of this.airtermination.lpsAirDescription) {
-              if (i.lpsAirDescId == j.lpsAirDescId) {
-                j.airMeshDescription.push(i);
-              }
-            }
-          }
-
-          //Clamps
-          for (let i of this.deletedAirClampsArr) {
-            for (let j of this.airtermination.lpsAirDescription) {
-              if (i.lpsAirDescId == j.lpsAirDescId) {
-                j.airClamps.push(i);
-              }
-            }
-          }
-
-          //Holders
-          for (let i of this.deletedHoldersArr) {
-            for (let j of this.airtermination.lpsAirDescription) {
-              if (i.lpsAirDescId == j.lpsAirDescId) {
-                j.airHolderDescription.push(i);
-              }
-            }
-          }
-
-          //Expansion
-          for (let i of this.deletedExpansionArr) {
-            for (let j of this.airtermination.lpsAirDescription) {
-              if (i.lpsAirDescId == j.lpsAirDescId) {
-                j.airExpansion.push(i);
-              }
-            }
-          }
-
-          //Connectors
-          for (let i of this.deletedAirConnectorsArr) {
-            for (let j of this.airtermination.lpsAirDescription) {
-              if (i.lpsAirDescId == j.lpsAirDescId) {
-                j.airConnectors.push(i);
-              }
-            }
-          }
-
-          //AirTermination List
-          for (let i of this.deletedAirTerminationListArr) {
-            for (let j of this.airtermination.lpsAirDescription) {
-              for (let k of j.lpsVerticalAirTermination) {
-                if (i.lpsAirDescId == k.lpsAirDescId) {
-                  k.verticalAirTerminationList.push(i);
+    onSubmit(flag: any){
+        this.submitted=true;
+        if(this.airTerminationForm.invalid){
+          return
+        }
+        this.spinner = true;
+        this.popup=false;
+        this.airtermination.userName=this.router.snapshot.paramMap.get('email') || '{}';
+        this.airtermination.lpsAirDescription = this.airTerminationForm.value.lpsAirDescription
+        
+          if (!this.validationError) {
+            if(flag) {
+              if(this.airTerminationForm.dirty && this.airTerminationForm.touched){ 
+                //Main Lps Description
+                if(this.deletedLpsDescArr.length != 0) {
+                  for(let i of this.deletedLpsDescArr) {
+                    this.airtermination.lpsAirDescription.push(i);
+                  }
                 }
-              }
-            }
-          }
-
-          //Holders List
-          for (let i of this.deletedHoldersListArr) {
-            for (let j of this.airtermination.lpsAirDescription) {
-              for (let k of j.airHolderDescription) {
-                if (i.lpsAirDescId == k.lpsAirDescId) {
-                  k.airHolderList.push(i);
+                
+                //Basic Desc
+                for(let i of this.deletedAirBasicArr) {
+                  for(let j of this.airtermination.lpsAirDescription) {
+                    if(i.lpsAirDescId == j.lpsAirDescId) {
+                      j.airBasicDescription.push(i);
+                    }
+                  }
                 }
-              }
-            }
-          }
+                
+                //Air termination
+                for(let i of this.deletedAirTerminationArr) {
+                  for(let j of this.airtermination.lpsAirDescription) {
+                    if(i.lpsAirDescId == j.lpsAirDescId) {
+                      j.lpsVerticalAirTermination.push(i);
+                    }
+                  }
+                }
+
+                //Mesh Desc
+                for(let i of this.deletedAirMeshArr) {
+                  for(let j of this.airtermination.lpsAirDescription) {
+                    if(i.lpsAirDescId == j.lpsAirDescId) {
+                      j.airMeshDescription.push(i);
+                    }
+                  }
+                }
+
+                //Clamps
+                for(let i of this.deletedAirClampsArr) {
+                  for(let j of this.airtermination.lpsAirDescription) {
+                    if(i.lpsAirDescId == j.lpsAirDescId) {
+                      j.airClamps.push(i);
+                    }
+                  }
+                }
+
+                //Holders
+                for(let i of this.deletedHoldersArr) {
+                  for(let j of this.airtermination.lpsAirDescription) {
+                    if(i.lpsAirDescId == j.lpsAirDescId) {
+                      j.airHolderDescription.push(i);
+                    }
+                  }
+                }
+
+                //Expansion
+                for(let i of this.deletedExpansionArr) {
+                  for(let j of this.airtermination.lpsAirDescription) {
+                    if(i.lpsAirDescId == j.lpsAirDescId) {
+                      j.airExpansion.push(i);
+                    }
+                  }
+                }
+
+                //Connectors
+                for(let i of this.deletedAirConnectorsArr) {
+                  for(let j of this.airtermination.lpsAirDescription) {
+                    if(i.lpsAirDescId == j.lpsAirDescId) {
+                      j.airConnectors.push(i);
+                    }
+                  }
+                }
+
+                //AirTermination List
+                for(let i of this.deletedAirTerminationListArr) {
+                  for(let j of this.airtermination.lpsAirDescription) {
+                    for(let k of j.lpsVerticalAirTermination) {
+                        if(i.lpsAirDescId == k.lpsAirDescId) {
+                          k.verticalAirTerminationList.push(i);
+                        }
+                    }
+                  }
+                }
+
+                //Holders List
+                for(let i of this.deletedHoldersListArr) {
+                  for(let j of this.airtermination.lpsAirDescription) {
+                    for(let k of j.airHolderDescription) {
+                        if(i.lpsAirDescId == k.lpsAirDescId) {
+                          k.airHolderList.push(i);
+                        }
+                    }
+                  }
+                }
 
           this.airterminationService.updateAirtermination(this.airtermination).subscribe(
             (data) => {
-              this.success1 = false;
-              this.downConductorServices.retrieveDownConductor(this.airtermination.userName, this.airtermination.basicLpsId,).subscribe(
-                (data) => {
-                  this.proceedNext.emit(false);
+                  setTimeout(() =>{
+                    this.popup=true;
+                    this.spinner=false;
+                  }, 3000)
+                  this.success1 = false;
+                  this.downConductorServices.retrieveDownConductor(this.airtermination.userName,this.airtermination.basicLpsId,).subscribe(
+                    (data) => {
+                      this.proceedNext.emit(false);
+                    },
+                    (error) => {
+                      this.proceedNext.emit(true);
+                    }
+                  )
+                  this.success = true;
+                  this.successMsg = data;
+                  this.airTerminationForm.markAsPristine();
+                  this.service.lvClick=0;
+                  this.service.logoutClick=0;
+                  this.service.windowTabClick=0;
+                  this.retriveAirTermination();
+                  this.isAirterminationUpdated=true
+                  // setTimeout(() => {
+                  //   this.proceedNext.emit(true);
+                  // }, 4000);
                 },
                 (error) => {
-                  this.proceedNext.emit(true);
+                  this.popup=true;
+                  this.spinner=false;
+                  this.success1 = false;
+                  this.Error = true;
+                  this.errorArr = [];
+                  this.errorArr = JSON.parse(error.error);
+                  this.errorMsg = this.errorArr.message;
+                  //this.proceedNext.emit(false);
+                });}
+                else{
+                  this.popup=true;
+                  this.spinner=false;
+                  if(this.isEditable){
+                    this.success = true;
+                    //this.proceedNext.emit(true);
+                  }
+                  // Dirty checking here
+                  else{
+                    this.popup=true;
+                    this.spinner=false;
+                    this.success = true;
+                    //this.proceedNext.emit(true);
+                  }
                 }
-              )
-              this.success = true;
-              this.successMsg = data;
-              this.airTerminationForm.markAsPristine();
-              this.service.lvClick = 0;
-              this.service.logoutClick = 0;
-              this.service.windowTabClick = 0;
-              this.retriveAirTermination();
-              this.isAirterminationUpdated = true
-              // setTimeout(() => {
-              //   this.proceedNext.emit(true);
-              // }, 4000);
-            },
-            (error) => {
-              this.success1 = false;
-              this.Error = true;
-              this.errorArr = [];
-              this.errorArr = JSON.parse(error.error);
-              this.errorMsg = this.errorArr.message;
-              //this.proceedNext.emit(false);
-            });
-        }
-        else {
-          if (this.isEditable) {
-            this.success = true;
-            //this.proceedNext.emit(true);
-          }
-          // Dirty checking here
-          else {
-
-            this.success = true;
-            //this.proceedNext.emit(true);
+            }
+            else {
+                this.airterminationService.saveAirtermination(this.airtermination).subscribe(
+                  (data) => {
+                    setTimeout(() =>{
+                      this.popup=true;
+                      this.spinner=false;
+                    }, 3000)
+                    this.success = true;
+                    this.isAirterminationUpdated=true
+                    this.proceedNext.emit(true);
+                    this.successMsg = data;
+                    this.disable = true;
+                    this.proceedFlag = false;
+                    this.retriveAirTermination();
+                    // setTimeout(() => {
+                    //   this.proceedNext.emit(true);
+                    // }, 4000);
+                    this.service.lvClick=0;
+                    this.service.logoutClick=0;
+                    this.service.windowTabClick=0;
+                  },
+                  (error) => {
+                    this.popup=true;
+                    this.spinner=false;
+                    this.Error = true;
+                    this.errorArr = [];
+                    this.errorArr = JSON.parse(error.error);
+                    this.errorMsg = this.errorArr.message;
+                    this.proceedFlag = true;
+                    //this.proceedNext.emit(false);
+                  });
+            }
           }
         }
       }
       else {
         this.airterminationService.saveAirtermination(this.airtermination).subscribe(
-          (data) => {
-            this.success = true;
-            this.isAirterminationUpdated = true
-            this.proceedNext.emit(true);
-            this.successMsg = data;
-            this.disable = true;
-            this.proceedFlag = false;
-            this.retriveAirTermination();
-            // setTimeout(() => {
-            //   this.proceedNext.emit(true);
-            // }, 4000);
-            this.service.lvClick = 0;
-            this.service.logoutClick = 0;
-            this.service.windowTabClick = 0;
-          },
-          (error) => {
-            this.Error = true;
-            this.errorArr = [];
-            this.errorArr = JSON.parse(error.error);
-            this.errorMsg = this.errorArr.message;
-            this.proceedFlag = true;
-            //this.proceedNext.emit(false);
-          });
+          );
       }
     }
   }

@@ -9,6 +9,9 @@ import { GlobalsService } from 'src/app/globals.service';
 import { BasicDetails } from 'src/app/LPS_model/basic-details';
 import { FinalPdfServiceService } from 'src/app/LPS_services/final-pdf-service.service';
 import { LPSBasicDetailsService } from 'src/app/LPS_services/lpsbasic-details.service';
+import { environment } from 'src/environments/environment';
+import { SuperAdminDev } from 'src/environments/environment.dev';
+import { SuperAdminProd } from 'src/environments/environment.prod';
 import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
 import { LpsWelcomePageComponent } from '../lps-welcome-page/lps-welcome-page.component';
 
@@ -67,6 +70,8 @@ export class LpsFinalReportComponent implements OnInit {
   superAdminArr: any = [];
   filteredData: any = [];
   superAdminFlag: boolean = false;
+  superAdminDev = new SuperAdminDev();
+  superAdminProd = new SuperAdminProd();
 
   constructor(private router: ActivatedRoute,
               private lpsService: LPSBasicDetailsService,
@@ -79,12 +84,12 @@ export class LpsFinalReportComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.superAdminArr = [];
+    //this.superAdminArr = [];
     this.currentUser=sessionStorage.getItem('authenticatedUser');
     this.currentUser1 = [];
     this.currentUser1=JSON.parse(this.currentUser);
-    this.superAdminArr.push('gk@capeindia.net');
-    this.superAdminArr.push('awstesting@rushforsafety.com');
+    // this.superAdminArr.push('gk@capeindia.net');
+    // this.superAdminArr.push('awstesting@rushforsafety.com');
     this.retrieveLpsDetails();
   }
  
@@ -98,7 +103,13 @@ export class LpsFinalReportComponent implements OnInit {
   retrieveLpsDetails() {
     this.filteredData = [];
     this.completedFilterData=[];
-    for(let i of this.superAdminArr) {
+    for(let i of this.superAdminDev.adminEmail) {
+      if(this.email == i) {
+        this.superAdminFlag = true;
+      }
+    }
+
+    for(let i of this.superAdminProd.adminEmail) {
       if(this.email == i) {
         this.superAdminFlag = true;
       }

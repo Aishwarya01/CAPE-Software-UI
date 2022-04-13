@@ -161,6 +161,12 @@ export class LpsDownConductorsComponent implements OnInit {
   popupDelete: boolean = false;
   fileDeleteSuccess: boolean = false;
   fileDeletesuccessMsg: any;
+  // For Spinner
+  spinner: boolean=false;
+  spinnerValue: String = '';
+  mode: any = 'indeterminate';
+  nextButton: boolean = true;
+  popup: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder, lpsDownconductorService: LpsDownconductorService,
@@ -1645,7 +1651,8 @@ export class LpsDownConductorsComponent implements OnInit {
     if (this.downConductorForm.invalid && (this.downConductorForm.value.downConductorDescription[0].buildingNumber != undefined || this.downConductorForm.value.downConductorDescription[0].buildingNumber != '')) {
       return;
     }
-    
+    this.spinner = true;
+    this.popup=false;
     this.downConductorReport.userName = this.router.snapshot.paramMap.get('email') || '{}';
     this.downConductorReport.basicLpsId = this.basicLpsId;
     this.downConductorReport.downConductorDescription = this.downConductorForm.value.downConductorDescription;
@@ -1719,7 +1726,10 @@ export class LpsDownConductorsComponent implements OnInit {
 
         this.lpsDownconductorService.updateDownConductor(this.downConductorReport).subscribe(
           (data) => {
-            
+            setTimeout(() =>{
+              this.popup=true;
+              this.spinner=false;
+            }, 3000)
             this.success = true;
             this.successMsg = data;
             this.downConductorForm.markAsPristine();
@@ -1730,6 +1740,8 @@ export class LpsDownConductorsComponent implements OnInit {
             this.proceedNext.emit(true);
           },
           (error) => {
+            this.popup=true;
+            this.spinner=false;
             this.Error = true;
             this.errorArr = [];
             this.errorArr = JSON.parse(error.error);
@@ -1739,11 +1751,15 @@ export class LpsDownConductorsComponent implements OnInit {
         )
       }
       else{
+        this.popup=true;
+        this.spinner=false;
         if(this.isEditable){
           this.success = true;
           this.proceedNext.emit(true);
         }
       else{
+          this.popup=true;
+          this.spinner=false;
           this.success = true;
           this.proceedNext.emit(true);
         }
@@ -1752,6 +1768,10 @@ export class LpsDownConductorsComponent implements OnInit {
       else {
         this.lpsDownconductorService.saveDownConductors(this.downConductorReport).subscribe(
           (data) => {
+            setTimeout(() =>{
+              this.popup=true;
+              this.spinner=false;
+            }, 3000)
             this.success = true;
             this.successMsg = data;
             this.disable = true;
@@ -1762,6 +1782,8 @@ export class LpsDownConductorsComponent implements OnInit {
             this.service.windowTabClick=0;
           },
           (error) => {
+            this.popup=true;
+            this.spinner=false;
             this.Error = true;
             this.errorArr = [];
             this.errorArr = JSON.parse(error.error);
@@ -2054,6 +2076,5 @@ export class LpsDownConductorsComponent implements OnInit {
   closeModalDialogFile() {
     this.modalService.dismissAll();
   }
-
 }
-
+    

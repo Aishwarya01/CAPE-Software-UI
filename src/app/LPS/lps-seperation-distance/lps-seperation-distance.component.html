@@ -70,7 +70,7 @@
                                                                 </div>
                                                                 <textarea [readonly]="isEditable"
                                                                     formControlName="calculatedSeperationDistanceOb" type="text"
-                                                                    class="form-control" placeholder="Please enter Observation here"></textarea>
+                                                                    class="form-control" placeholder="Please enter LPS and other metallic parts of building details here"></textarea>
                                                             </div>
                                                         </td>
                                                         <td style="width: 43rem;">
@@ -112,7 +112,7 @@
                                                                         <i class="bi bi-text-paragraph"></i>
                                                                     </span>
                                                                 </div>
-                                                                <textarea type="text" [readonly]="isEditable" formControlName="seperationDistanceDesc" class="form-control" placeholder="Please enter Observation here"
+                                                                <textarea type="text" [readonly]="isEditable" formControlName="seperationDistanceDesc" class="form-control" placeholder="Please enter Measured Seperation distance between air termination and electrical apparatus here"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.get('seperationDistanceDesc')?.errors }"></textarea>
                                                                 <div *ngIf="submitted && f.get('seperationDistanceDesc')?.errors" class="invalid-feedback">
                                                                     <div *ngIf="f.get('seperationDistanceDesc')?.errors?.required">Measured Seperation distance between air termination and electrical Description is required</div>
@@ -127,7 +127,7 @@
                                                                         <i class="bi bi-text-paragraph"></i>
                                                                     </span>
                                                                 </div>
-                                                                <input type="number" (keypress)="keyPressNumbers($event)" [readonly]="isEditable" formControlName="seperationDistanceOb" class="form-control" placeholder="Please enter Observation here"
+                                                                <input type="number" (keypress)="keyPressNumbers($event)" [readonly]="isEditable" formControlName="seperationDistanceOb" class="form-control" placeholder="The value must be a number"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.get('seperationDistanceOb')?.errors }" style="height: 3rem;">                                                               
                                                                  <div *ngIf="submitted && f.get('seperationDistanceOb')?.errors" class="invalid-feedback">
                                                                     <div *ngIf="f.get('seperationDistanceOb')?.errors?.required">
@@ -188,7 +188,7 @@
                                                                 </div>
                                                                 <textarea type="text" class="form-control" [readonly]="isEditable"
                                                                     formControlName="seperationDistanceDesc"
-                                                                    placeholder="Please enter Observation here"
+                                                                    placeholder="Please enter Measured Seperation distance between and electrical apparatus here"
                                                                     [ngClass]="{'is-invalid': submitted && f.get('seperationDistanceDesc')?.errors}"></textarea>
                                                                 <div *ngIf="submitted && f.get('seperationDistanceDesc')?.errors"
                                                                     class="invalid-feedback">
@@ -207,7 +207,7 @@
                                                                         <i class="bi bi-text-paragraph"></i>
                                                                     </span>
                                                                 </div>
-                                                                <input type="number" (keypress)="keyPressNumbers($event)" class="form-control" [readonly]="isEditable" formControlName="seperationDistanceOb" placeholder="Please enter Observation here"
+                                                                <input type="number" (keypress)="keyPressNumbers($event)" class="form-control" [readonly]="isEditable" formControlName="seperationDistanceOb" placeholder="The value must be a number"
                                                                     [ngClass]="{'is-invalid': submitted && f.get('seperationDistanceOb')?.errors}" style="height: 3rem;">
                                                                 <div *ngIf="submitted && f.get('seperationDistanceOb')?.errors"
                                                                     class="invalid-feedback">
@@ -278,7 +278,14 @@
 </div>
 
 <ng-template #content let-modal>
-    <div class="modal-body">
+    <!-- Spinner -->
+    <mat-progress-spinner style="margin: 0 auto;" *ngIf="spinner" color="primary" [mode]="mode" value="50" diameter="50">
+    </mat-progress-spinner>
+    <br>
+    <div *ngIf="spinner" style="text-align: center;">
+        Please wait, the details are loading!
+    </div>
+    <div class="modal-body" *ngIf="popup">
         <div class="centre-text m-btm30">
             <div *ngIf="success" style="text-align: center;">
                 <span class="successshow">{{successMsg}}</span>
@@ -289,13 +296,13 @@
         </div>
     </div>
     <br>
+    <div *ngIf="popup" style="text-align: center;">
     <button type="button" class="close"
         class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
         (click)="closeModalDialog()" matStepperNext>
-
         <span aria-hidden="true">Ok</span>
-
     </button>
+    </div>
 </ng-template>
 <ng-template #contents let-modal>
     <div class="modal-body">
@@ -309,13 +316,13 @@
     </div>
     <br>
     <div class="row">
-        <button type="button" class="col-md-6" style="text-align:center; width: auto;"
+        <button type="button" class="col-md-6" style="width: 5rem;position: relative;margin-left: 30%;"
             class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
             (click)="closeModalDialog()" matStepperNext>
             <i class="bi bi-arrow-right-circle"></i>&nbsp;
             <span aria-hidden="true">Ok</span>
         </button>
-        <button type="button" class="col-md-6" style="width: auto;"
+        <button type="button" class="col-md-6" style="text-align: center;width: auto;position: relative;margin-right: 30%;"
             class="btn btn-danger btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
             (click)="closeModalDialog()">
             <i class="bi bi-x icon"></i>

@@ -9,6 +9,9 @@ import { GlobalsService } from 'src/app/globals.service';
 import { EmcSavedReportService } from 'src/app/EMC_Services/emc-saved-report.service';
 import { EmcMatstepperComponent } from '../emc-matstepper/emc-matstepper.component';
 import { EmcClientDetails } from 'src/app/EMC_Model/emc-client-details';
+import { environment } from 'src/environments/environment';
+import { SuperAdminDev } from 'src/environments/environment.dev';
+import { SuperAdminProd } from 'src/environments/environment.prod';
 
 
 @Component({
@@ -38,6 +41,7 @@ export class EmcSavedReportComponent implements OnInit {
    currentUser: any = [];
    currentUser1: any = [];
    userData: any=[];
+   enableDelete: boolean = false;
    //viewerFilterData:any=[];
    selectedIndex: number=0;
    savedReportSpinner: boolean = false;
@@ -48,6 +52,13 @@ export class EmcSavedReportComponent implements OnInit {
   @ViewChild('input') input!: MatInput;
   emcData: any=[];
  completedFilterData: any=[];
+  superAdminArr: any = [];
+  superAdminFlag: boolean = false;
+  filteredData: any = [];
+  deleteSuccess: boolean = false;
+  deleteSuccessMsg: String = '';
+  superAdminDev = new SuperAdminDev();
+  superAdminProd = new SuperAdminProd();
  
    constructor(private router: ActivatedRoute,
                public service: GlobalsService,
@@ -58,10 +69,14 @@ export class EmcSavedReportComponent implements OnInit {
    }
  
    ngOnInit(): void {
-     this.currentUser=sessionStorage.getItem('authenticatedUser');
-     this.currentUser1 = [];
-     this.currentUser1=JSON.parse(this.currentUser);
-      this.retrieveEmcDetails();
+    //this.superAdminArr = [];
+    this.currentUser=sessionStorage.getItem('authenticatedUser');
+    this.currentUser1 = [];
+    this.currentUser1=JSON.parse(this.currentUser);
+    // this.superAdminArr.push('gk@capeindia.net');
+    // this.superAdminArr.push('awstesting@rushforsafety.com');
+    // this.superAdminArr.push('vinoth@capeindia.net');
+    this.retrieveEmcDetails();
     
    }
  
@@ -72,22 +87,54 @@ export class EmcSavedReportComponent implements OnInit {
    }
  
    retrieveEmcDetails() {
-    
-       this.emcSavedReportService.retrieveListOfClientDetails(this.email).subscribe(
-         data => {
-           this.emcData=JSON.parse(data);
-           for(let i of this.emcData){
-             if(i.allStepsCompleted != "AllStepCompleted"){
-               this.completedFilterData.push(i);
-             }
-           }
-           this.savedReportEmc_dataSource = new MatTableDataSource(this.completedFilterData);
-           this.completedFilterData = [];
-           this.emcData = [];
-           this.savedReportEmc_dataSource.paginator = this.savedReportEmcPaginator;
-           this.savedReportEmc_dataSource.sort = this.savedReportEmcSort;
-         });
-         
+    this.filteredData = [];
+    this.completedFilterData=[];
+    for(let i of this.superAdminDev.adminEmail) {
+      if(this.email == i) {
+        this.superAdminFlag = true;
+        this.enableDelete = true;
+      }
+    }
+
+    for(let i of this.superAdminProd.adminEmail) {
+      if(this.email == i) {
+        this.superAdminFlag = true;
+        this.enableDelete = true;
+      }
+    }
+
+    if(this.superAdminFlag) {
+      this.emcSavedReportService.retrieveAllCLientDetails().subscribe(
+        data => {
+          this.emcData=JSON.parse(data);
+          for(let i of this.emcData){
+            if(i.allStepsCompleted != "AllStepCompleted" && i.status != 'InActive'){
+              this.filteredData.push(i);
+            }
+          }
+          this.savedReportEmc_dataSource = new MatTableDataSource(this.filteredData);
+          this.filteredData = [];
+          this.emcData = [];
+          this.savedReportEmc_dataSource.paginator = this.savedReportEmcPaginator;
+          this.savedReportEmc_dataSource.sort = this.savedReportEmcSort;
+        });
+    }
+    else {
+      this.emcSavedReportService.retrieveListOfClientDetails(this.email).subscribe(
+        data => {
+          this.emcData=JSON.parse(data);
+          for(let i of this.emcData){
+            if(i.allStepsCompleted != "AllStepCompleted" && i.status != 'InActive'){
+              this.completedFilterData.push(i);
+            }
+          }
+          this.savedReportEmc_dataSource = new MatTableDataSource(this.completedFilterData);
+          this.completedFilterData = [];
+          this.emcData = [];
+          this.savedReportEmc_dataSource.paginator = this.savedReportEmcPaginator;
+          this.savedReportEmc_dataSource.sort = this.savedReportEmcSort;
+        });
+    }
    }
  
    continue(emcId: any,clientName: any) {
@@ -99,5 +146,26 @@ export class EmcSavedReportComponent implements OnInit {
    // this.service.disableSubmitSummary=false;
      this.emcParent.continue(emcId,clientName,true);
    } 
+
+   deleteBasicEmc(emcId:any){
+    this.emcClientDetails.emcId = emcId;
+    this.emcClientDetails.userName = this.email;
+    this.savedReportBody = false;
+    this.savedReportSpinner = true;
+    this.spinnerValue = "Please wait, the details are loading!";
+    this.emcSavedReportService.updateLpsBasicDetailsStatus(this.emcClientDetails).subscribe(
+      data => {
+        this.deleteSuccess = true;
+        this.deleteSuccessMsg = data;
+        this.ngOnInit();
+        this.savedReportBody = true;
+        this.savedReportSpinner = false;
+        setTimeout(() => {
+          this.deleteSuccess = false;
+          this.deleteSuccessMsg = '';
+          }, 2000);
+      }
+    )
+   }
  }
  

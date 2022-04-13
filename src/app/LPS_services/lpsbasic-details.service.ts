@@ -21,6 +21,10 @@ export class LPSBasicDetailsService {
     return this.http.put<any>(this.apiUrl + '/updateBasicLps', basicDetails, { responseType: 'text' as 'json' })
   }
 
+  public updateLpsBasicDetailsStatus(basicDetails: BasicDetails): Observable<any> {
+    return this.http.put<any>(this.apiUrl + '/updateBasicLpsStatus', basicDetails, { responseType: 'text' as 'json' })
+  }
+
   public retrieveListOfBasicLps(userName: any): Observable<any> { 
     return this.http.get<BasicDetails>(this.apiUrl + '/retrieveListOfBasicLps' + '/' + userName , { responseType: 'text' as 'json' })
   }
