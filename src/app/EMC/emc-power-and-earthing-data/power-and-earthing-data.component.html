@@ -328,7 +328,7 @@
                                       <button type="button" [disabled]="uploadDisable" class="btn btn-success" (click)="onUpload(contentSpinner)">
                                             Upload
                                       </button>
-                                      <a (click)="onDownload()" *ngIf="fileName != ''" href='javascript:onDownload()' title="Download" style="margin-left: 30px;text-decoration: underline;" [ngClass]="{'disableForm':isEditableEmc}">
+                                      <a (click)="onDownload()" *ngIf="fileName != ''" href='javascript:void(0)' title="Download" style="margin-left: 30px;text-decoration: underline;" [ngClass]="{'disableForm':isEditableEmc}">
                                         {{fileName}}</a>
                                       <mat-icon *ngIf="fileName != ''" class="mousechange" class="dlt" type="button" title="Delete" style="position: absolute;margin-left: 40px; margin-top: 5px;"(click)="deleteFile(contentSpinnerDelete)" [ngClass]="{'disableForm':isEditableEmc}"
                                        >remove_circle_outline</mat-icon>

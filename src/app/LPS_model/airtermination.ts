@@ -67,8 +67,12 @@ export class airBasicDescription {
       combustablePartRe!: String;
       terminationMeshConductorOb!: String;
       terminationMeshConductorRe!: String;
+      file!: String;
       bondingEquipotentialOb!: String;
       bondingEquipotentialRe!: String;
+      fileName!:String;
+      fileType!:String;
+      fileId!:Number;
 }
 
 export class airClamps {
@@ -138,6 +142,9 @@ export class LpsVerticalAirTermination {
     inspPassedNoRe!: string;
     inspFaileddNoOb!: string;
     inspFaileddNoRe!: string;
+    fileNameVAir!: string;
+    fileTypeVAir!:string;
+    fileIdVAir!:Number;
     verticalAirTerminationList!: VerticalAirTerminationList[];
 
 }
@@ -195,6 +202,9 @@ export class AirExpansion {
     inspectionPassedNoRe!: string;
     inspectionFailedNoOb!: string;
     inspectionFailedNoRe!: string
+    fileName_EP!: string;
+    fileType_EP!: string;
+    fileId_EP!:Number;
 }
 export class AirHolderDescription {
     holderDescriptionId!: Number;
