@@ -93,6 +93,9 @@ import { SignaturePadModule } from 'angular2-signaturepad';
 import { SignatureComponent } from './signature/signature.component';
 
 import { DiagramAllModule, SymbolPaletteAllModule, OverviewAllModule } from '@syncfusion/ej2-angular-diagrams';
+import { DiagramListComponent } from './diagram-list/diagram-list.component';
+import { DiagramHomeComponent } from './diagram-home/diagram-home.component';
+import { DiagramWelcomePageComponent } from './diagram-welcome-page/diagram-welcome-page.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -147,7 +150,7 @@ import { DiagramAllModule, SymbolPaletteAllModule, OverviewAllModule } from '@sy
     LpsEarthStudComponent,
     LpsSavedReportComponent,
     LpsWelcomePageComponent, 
-    LpsFinalReportComponent, SignatureComponent, 
+    LpsFinalReportComponent, SignatureComponent, DiagramListComponent, DiagramHomeComponent, DiagramWelcomePageComponent, 
   ],
   imports: [
     TruncateModule,
