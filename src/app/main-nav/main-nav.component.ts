@@ -142,7 +142,8 @@ export class MainNavComponent implements OnInit, OnDestroy {
     // node.height = 200;
     // node.width = 100;
     //node.style.border = "#28a745";
-    node.style.strokeColor = "black";
+    node.style.fill = "transparent";
+    node.style.strokeColor = "white";
     return node;
   }
 
@@ -165,7 +166,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
     //Saves the string in to local storage
     localStorage.setItem('fileName', saveData);
     var myblob = new Blob([saveData], {
-      type: 'text/plain'
+      type: 'image/png'
     });
     console.log(myblob);
   }
@@ -253,35 +254,78 @@ export class MainNavComponent implements OnInit, OnDestroy {
   //   }
   // ]
 
-
+ 
 
 
   //SymbolPalette Properties
   public expandMode: any = 'Multiple';
 
+  public a:any= [
+    { offset: { x: 0, y: 0.5 }, visibility: PortVisibility.Connect | PortVisibility.Hover, constraints: PortConstraints.Draw },
+    { offset: { x: 0.5, y: 0 }, visibility: PortVisibility.Connect | PortVisibility.Hover, constraints: PortConstraints.Draw },
+    { offset: { x: 1, y: 0.5 }, visibility: PortVisibility.Connect | PortVisibility.Hover, constraints: PortConstraints.Draw },
+    { offset: { x: 0.5, y: 1 }, visibility: PortVisibility.Connect | PortVisibility.Hover, constraints: PortConstraints.Draw }
+  ];
+
+  //public b:any=[{ strokeWidth: 1, strokeColor: '#757575' }];
+ 
   public palettes: PaletteModel[] = [
     {
-      id: 'flow', expanded: true, title: 'Flow Shapes', symbols: [
+      id: 'flow', expanded: true, title: 'Flow Shapes',symbols: [
         {
-          id: 'Terminator', addInfo: { tooltip: 'Terminator' }, width: 50, height: 60, shape: { type: 'Flow', shape: 'Terminator' }, style: { strokeWidth: 1, strokeColor: '#757575' }, ports: [
-            { offset: { x: 0, y: 0.5 }, visibility: PortVisibility.Connect | PortVisibility.Hover, constraints: PortConstraints.Draw },
-            { offset: { x: 0.5, y: 0 }, visibility: PortVisibility.Connect | PortVisibility.Hover, constraints: PortConstraints.Draw },
-            { offset: { x: 1, y: 0.5 }, visibility: PortVisibility.Connect | PortVisibility.Hover, constraints: PortConstraints.Draw },
-            { offset: { x: 0.5, y: 1 }, visibility: PortVisibility.Connect | PortVisibility.Hover, constraints: PortConstraints.Draw }
-          ]
+          id: 'AC current source', addInfo: { tooltip: 'Generator' }, width: 50, height: 60,
+          shape: { type: 'Image', source: '../../assets/img/ac.png' }, 
+          style:{ strokeWidth: 1, strokeColor: '#757575' }, ports: [this.a]
         },
         {
-          id: 'Process', addInfo: { tooltip: 'Process' }, width: 50, height: 60, shape: { type: 'Image', source: '../../assets/img/Cape-logo.png' }, style: { strokeWidth: 1, strokeColor: '#757575' }, ports: [
-            { offset: { x: 0, y: 0.5 }, visibility: PortVisibility.Connect | PortVisibility.Hover, constraints: PortConstraints.Draw },
-            { offset: { x: 0.5, y: 0 }, visibility: PortVisibility.Connect | PortVisibility.Hover, constraints: PortConstraints.Draw },
-            { offset: { x: 1, y: 0.5 }, visibility: PortVisibility.Connect | PortVisibility.Hover, constraints: PortConstraints.Draw },
-            { offset: { x: 0.5, y: 1 }, visibility: PortVisibility.Connect | PortVisibility.Hover, constraints: PortConstraints.Draw }
-          ]
+          id: 'Transformer', addInfo: { tooltip: 'Transformer' }, width: 50, height: 60, 
+          shape: { type: 'Image', source: '../../assets/img/Generator.png' }, 
+          style: { strokeWidth: 1, strokeColor: '#757575' }, ports: [this.a]
         },
-
+        {
+          id: 'Switch', addInfo: { tooltip: 'Switch' }, width: 50, height: 60, 
+          shape: { type: 'Image', source: '../../assets/img/switch.png' }, 
+          style: { strokeWidth: 1, strokeColor: '#757575' }, ports: [this.a]
+        },
+        {
+          id: 'Fuse', addInfo: { tooltip: 'Fuse' }, width: 50, height: 60, 
+          shape: { type: 'Image', source: '../../assets/img/fuse.png' }, 
+          style: { strokeWidth: 1, strokeColor: '#757575' },ports: [this.a]
+        },
+        {
+          id: 'Low Voltage', addInfo: { tooltip: 'Low Voltage' }, width: 50, height: 60, 
+          shape: { type: 'Image', source: '../../assets/img/low_voltage.png' }, 
+          style: { strokeWidth: 1, strokeColor: '#757575' }, ports: [this.a]
+        },
+        {
+          id: 'Medium Voltage', addInfo: { tooltip: 'Medium Voltage' }, width: 50, height: 60, 
+          shape: { type: 'Image', source: '../../assets/img/medium-voltage.png' }, 
+          style: { strokeWidth: 1, strokeColor: '#757575' }, ports: [this.a]
+        },
+        {
+          id: 'Motor', addInfo: { tooltip: 'Motor' }, width: 50, height: 60, 
+          shape: { type: 'Image', source: '../../assets/img/motor.png' }, 
+          style: { strokeWidth: 1, strokeColor: '#757575' }, ports: [this.a]
+        },
+        {
+          id: 'Current Transformer', addInfo: { tooltip: 'Current Transformer' }, width: 50, height: 60, 
+          shape: { type: 'Image', source: '../../assets/img/CT.png' }, 
+          style: { strokeWidth: 1, strokeColor: '#757575' }, ports: [this.a]
+        },
+        {
+          id: 'Potential Transformer', addInfo: { tooltip: 'Potential Transformer' }, width: 50, height: 60, 
+          shape: { type: 'Image', source: '../../assets/img/PT.png' }, 
+          style: { strokeWidth: 1, strokeColor: '#757575' }, ports: [this.a]
+        },
+        {
+          id: 'Circuit Breaker', addInfo: { tooltip: 'Circuit Breaker' }, width: 50, height: 60, 
+          shape: { type: 'Image', source: '../../assets/img/circuit_breaker.png' }, 
+          style: { strokeWidth: 1, strokeColor: '#757575' }, ports: [this.a]
+        },
       ]
     },
   ];
+
   //shape: { type: 'Image', source: 'https://www.syncfusion.com/content/images/nuget/sync_logo_icon.png' } 
 
   public symbolPreview: SymbolPreviewModel = { height: 50, width: 50 };
