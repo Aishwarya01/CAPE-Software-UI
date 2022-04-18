@@ -1,6 +1,10 @@
 <ng-template #ref ></ng-template>
 <app-diagram-home *ngIf="diagramHome" #diagram></app-diagram-home>
 <div class="card" *ngIf="!destroyList">
+    <div class="card-header">
+        <mat-icon class="mousechange" (click) = "createNewFile()" style="float:right; margin-right: 15px;">
+          add_box</mat-icon>
+    </div>
     <div class="card-body" >
             <mat-accordion>   
                 <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">

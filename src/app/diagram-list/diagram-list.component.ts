@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
+import { NewFileComponent } from '../new-file/new-file.component';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
 
 @Component({
@@ -35,7 +37,7 @@ export class DiagramListComponent implements OnInit {
   allData: any = [];
   constructor(private router: ActivatedRoute,
               private inspectionService: InspectionVerificationService,
-
+              private dialog: MatDialog,
 
     ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
@@ -63,5 +65,23 @@ export class DiagramListComponent implements OnInit {
         setTimeout(()=>{
           this.diagram.loadDiagram(userName,fileName);
         }, 1000);
+  }
+
+  createNewFile() {
+    const dialogRef = this.dialog.open(NewFileComponent, {
+      width: '500px',
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+
+    dialogRef.componentInstance.onSuccess.subscribe(data=>{
+      if(data) {
+        this.destroyList = true;
+        this.diagramHome=true;
+      }
+      else{
+        
+      }
+    })
   }
 }

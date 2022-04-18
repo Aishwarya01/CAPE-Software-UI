@@ -96,6 +96,7 @@ import { DiagramAllModule, SymbolPaletteAllModule, OverviewAllModule } from '@sy
 import { DiagramListComponent } from './diagram-list/diagram-list.component';
 import { DiagramHomeComponent } from './diagram-home/diagram-home.component';
 import { DiagramWelcomePageComponent } from './diagram-welcome-page/diagram-welcome-page.component';
+import { NewFileComponent } from './new-file/new-file.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -150,7 +151,7 @@ import { DiagramWelcomePageComponent } from './diagram-welcome-page/diagram-welc
     LpsEarthStudComponent,
     LpsSavedReportComponent,
     LpsWelcomePageComponent, 
-    LpsFinalReportComponent, SignatureComponent, DiagramListComponent, DiagramHomeComponent, DiagramWelcomePageComponent, 
+    LpsFinalReportComponent, SignatureComponent, DiagramListComponent, DiagramHomeComponent, DiagramWelcomePageComponent, NewFileComponent, 
   ],
   imports: [
     TruncateModule,

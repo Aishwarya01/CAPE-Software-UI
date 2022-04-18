@@ -1,0 +1,34 @@
+<div class="card">
+    <div class="card-header">
+        <form [formGroup]="newFileNameForm">
+            <div class="row">
+                <div class="col-md-4">
+                    <label>File Name :</label> 
+                </div>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" formControlName="fileName">
+                    <div *ngIf="submitted && newFileNameForm.controls.fileName.errors" class="invalid-feedback">
+                        <div *ngIf="newFileNameForm.controls.fileName.errors.required">
+                         File Name is required
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div  style="text-align: center">
+                <button type="button" (click) = "submit()" class="btn btn-primary"  style="font-size: 14px;">
+                  Continue</button
+                >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button
+                  type="button" (click) = "cancel()"
+                  aria-label="Close"
+                  
+                  class="btn btn-danger" style="font-size: 14px;"
+                >
+                  <i class="bi bi-x icon"></i>
+                  <span aria-hidden="true">Cancel</span>
+                </button>
+              </div>
+        </form>
+    </div>
+</div>
