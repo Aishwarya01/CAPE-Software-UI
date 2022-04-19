@@ -35,6 +35,7 @@ export class DiagramListComponent implements OnInit {
   diagram: any; 
   email: String = '';
   allData: any = [];
+  fileName: any;
   constructor(private router: ActivatedRoute,
               private inspectionService: InspectionVerificationService,
               private dialog: MatDialog,
@@ -73,15 +74,24 @@ export class DiagramListComponent implements OnInit {
       maxHeight: '90vh',
       disableClose: true,
     });
-
+    dialogRef.componentInstance.email = this.email;
     dialogRef.componentInstance.onSuccess.subscribe(data=>{
       if(data) {
         this.destroyList = true;
         this.diagramHome=true;
+          dialogRef.componentInstance.fileNameEmit.subscribe(res=>{
+            setTimeout(()=>{
+              this.appendFileName(res);
+            }, 2000);
+          })   
       }
       else{
         
       }
-    })
+    })    
+  }
+
+  appendFileName(res: any) {
+    this.diagram.loadFileName(res);  
   }
 }

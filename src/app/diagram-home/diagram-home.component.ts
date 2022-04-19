@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConnectorModel, DiagramComponent, NodeModel, PaletteModel, PortConstraints, PortVisibility, SymbolInfo, SymbolPreviewModel } from '@syncfusion/ej2-angular-diagrams';
 import { DiagramModel } from '../model/diagram-component';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
@@ -13,7 +14,6 @@ export class DiagramHomeComponent implements OnInit {
   @ViewChild("diagram")
   public diagram!: DiagramComponent;
   diagramComponent = new DiagramModel();
-  
   public nodes: NodeModel[] = [
     {
       id: 'nodeIp1', offsetX: 100, offsetY: 50, width: 80, height: 20, annotations: [
@@ -66,13 +66,22 @@ export class DiagramHomeComponent implements OnInit {
   ];
   diagramData: any;
   flag: boolean = false;
+  popup: boolean = false;
+  finalSpinner: boolean = false;
+  success: boolean = false;
+  successMsg: String = '';
+  Error: boolean = false;
+  errorArr: any = [];
+  errorMsg: String = '';
+  mode: any= 'indeterminate';
+
 
   public getNodeDefaults(node: any): NodeModel {
     // node.height = 200;
     // node.width = 100;
     //node.style.border = "#28a745";
     node.style.fill = "transparent";
-    node.style.strokeColor = "white";    
+    node.style.strokeColor = "black";    
     return node;
   }
 
@@ -186,7 +195,58 @@ export class DiagramHomeComponent implements OnInit {
   //   }
   // ]
 
-
+  public getConnectors(): ConnectorModel[] {
+    let connectorSymbols: ConnectorModel[] = [{
+            id: 'Link1',
+            type: 'Orthogonal',
+            sourcePoint: {
+                x: 0,
+                y: 0
+            },
+            targetPoint: {
+                x: 40,
+                y: 40
+            },
+            targetDecorator: {
+                shape: 'Arrow'
+            }
+        },
+        {
+            id: 'Link21',
+            type: 'Straight',
+            sourcePoint: {
+                x: 0,
+                y: 0
+            },
+            targetPoint: {
+                x: 40,
+                y: 40
+            },
+            targetDecorator: {
+                shape: 'Arrow'
+            }
+        },
+        {
+            id: 'link33',
+            type: 'Bezier',
+            sourcePoint: {
+                x: 0,
+                y: 0
+            },
+            targetPoint: {
+                x: 40,
+                y: 40
+            },
+            style: {
+                strokeWidth: 2
+            },
+            targetDecorator: {
+                shape: 'None'
+            }
+        }
+    ];
+    return connectorSymbols;
+};
 
 
   //SymbolPalette Properties
@@ -202,6 +262,26 @@ export class DiagramHomeComponent implements OnInit {
   //public b:any=[{ strokeWidth: 1, strokeColor: '#757575' }];
  
   public palettes: PaletteModel[] = [
+    {
+      id: 'basic', expanded: true, title: 'Basic Shapes', symbols: [
+        {
+          id: 'nodeIp6', offsetX: 100, offsetY: 350, width: 80, height: 20, annotations: [
+            {
+              content: 'Input 4',
+              style: { fontSize: 11 }
+            }
+          ],
+        },
+        {
+          id: 'node5', offsetX: 250, offsetY: 200, width: 100, height: 200, annotations: [
+            {
+              content: '4X1',
+              style: { fontSize: 11 }
+            }
+          ],
+        },
+      ]
+    },
     {
       id: 'flow', expanded: true, title: 'Flow Shapes',symbols: [
         {
@@ -256,6 +336,14 @@ export class DiagramHomeComponent implements OnInit {
         },
       ]
     },
+    {
+      id: 'connectors',
+      expanded: true,
+      symbols: this.getConnectors(),
+      title: 'Connectors',
+      iconCss: 'e-ddb-icons e-connector'
+  }
+    
   ];
 
   //shape: { type: 'Image', source: 'https://www.syncfusion.com/content/images/nuget/sync_logo_icon.png' } 
@@ -273,7 +361,8 @@ export class DiagramHomeComponent implements OnInit {
   };
   email: String = '';
   constructor(private inspectionService: InspectionVerificationService,
-              private router: ActivatedRoute
+              private router: ActivatedRoute,
+              private modalService: NgbModal
     ) {
       this.email = this.router.snapshot.paramMap.get('email') || '{}';
      }
@@ -286,25 +375,67 @@ export class DiagramHomeComponent implements OnInit {
     this.diagram.loadDiagram(data.file)
   }
 
-  submit(flag: any) {
+  loadFileName(fileName: any) {
+    this.diagramComponent.fileName = fileName;
+  }
+
+  closeModalDialog() {
+    this.finalSpinner=true;
+      this.popup=false;
+      if(this.errorMsg != ""){
+        this.Error = false;
+        this.modalService.dismissAll(this.errorMsg = "");
+      }
+      else {
+        this.success=false;
+        this.modalService.dismissAll(this.successMsg=""); 
+      }
+  }
+ 
+  submit(flag: any,content1: any) {
     //var data = this.diagram.saveDiagram();
     var saveData: string = this.diagram.saveDiagram();
   
     this.diagramComponent.file = saveData;
     this.diagramComponent.userName =this.email;
-    this.diagramComponent.fileName ='New file6';
+    this.modalService.open(content1, { centered: true,size: 'md',backdrop: 'static'});
+
 
     if(!flag) {
       this.inspectionService.addDiagram(this.diagramComponent).subscribe(
         data => {
+          this.popup=true;
+          this.finalSpinner=false;
+          this.success = true;
+          this.successMsg = data;
           this.loadDiagram(this.diagramComponent.userName,this.diagramComponent.fileName)
+        },
+        error => {
+          this.popup=true;
+          this.finalSpinner=false;
+          this.Error = true;
+          this.errorArr = [];
+          this.errorArr = JSON.parse(error.error);
+          this.errorMsg = this.errorArr.message;
         }
       )
     }
     else {
       this.inspectionService.updateDiagram(this.diagramComponent).subscribe(
         data => {
+          this.popup=true;
+          this.finalSpinner=false;
+          this.success = true;
+          this.successMsg = data;
           this.loadDiagram(this.diagramComponent.userName,this.diagramComponent.fileName)
+        },
+        error => {
+          this.popup=true;
+          this.finalSpinner=false;
+          this.Error = true;
+          this.errorArr = [];
+          this.errorArr = JSON.parse(error.error);
+          this.errorMsg = this.errorArr.message;
         }
       )
     }

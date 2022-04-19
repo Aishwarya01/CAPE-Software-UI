@@ -83,6 +83,10 @@ export class InspectionVerificationService {
     return this.http.get<any>(this.apiUrl5 + '/retrieveDiagram'+'/'+userName+'/'+fileName, { responseType: 'text' as 'json' })
   }
 
+  public retriveFileName(userName: any, fileName: any): Observable<any> {
+    return this.http.get<any>(this.apiUrl5 + '/retrievefileName'+'/'+userName+'/'+fileName, { responseType: 'text' as 'json' })
+  }
+
   public retriveAllDiagram(userName: any): Observable<any> {
     return this.http.get<any>(this.apiUrl5 + '/retrieveDiagramList'+'/'+userName, { responseType: 'text' as 'json' })
   }
