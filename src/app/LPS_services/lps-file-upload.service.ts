@@ -28,9 +28,9 @@ export class LpsFileUploadService {
     })
   }
 
-  public updateFile(formData: FormData,componentName:any,fileId:number): Observable<HttpEvent<any>> {
-    return this.http.put<any>(this.apiUrl_LPS + '/updateFile'+ '/'+componentName+'/'+fileId,formData,{
-      headers: new HttpHeaders(
+  public updateFile(formData: FormData,componentName:any,fileId:number,index:number): Observable<HttpEvent<any>> {
+    return this.http.put<any>(this.apiUrl_LPS + '/updateFile'+ '/'+componentName+'/'+fileId+'/'+index,formData,{
+      headers: new HttpHeaders( 
         {
           'Content-Type': 'multipart/form-data'
         }

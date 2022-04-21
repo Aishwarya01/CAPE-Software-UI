@@ -1296,7 +1296,7 @@ export class LpsAirTerminationComponent implements OnInit {
     else if (changedValue == 'Applicable') {
       if (expansionArray.length == 0) {
         expansionArray.push(this.createExpansioArrForm());
-        this.addIndex();
+       // this.addIndex();
       }
     }
     this.airTerminationForm.markAsDirty();
@@ -2187,6 +2187,8 @@ export class LpsAirTerminationComponent implements OnInit {
       for (let f of this.file) {
         formData.append('file', f, f.name);
       }
+      form.controls.fileIndex.setValue(q);
+      form.controls.fileIndex.updateValueAndValidity();
       if (!fileId) {
         this.fileUploadServiceService.uploadFile(formData, this.basicLpsId, this.componentName, q).subscribe(
           (data) => {
@@ -2206,7 +2208,7 @@ export class LpsAirTerminationComponent implements OnInit {
         )
       }
       else {
-        this.fileUploadServiceService.updateFile(formData, this.componentName, fileId).subscribe(
+        this.fileUploadServiceService.updateFile(formData, this.componentName, fileId, q).subscribe(
           (data) => {
             this.uploadDisable = true;
             this.finalSpinner = false;
@@ -2226,9 +2228,11 @@ export class LpsAirTerminationComponent implements OnInit {
     }
   }
 
-  onUpload1(contentSpinner: any, q: any, fileId: any) {
+  onUpload1(contentSpinner: any, q: any, fileId: any,form:any) {
     this.airTerminationForm.markAsDirty();
     this.airTerminationForm.markAsTouched();
+    form.controls.fileIndexVAir.setValue(q);
+    form.controls.fileIndexVAir.updateValueAndValidity();
     if (this.file != undefined) {
       this.modalService.open(contentSpinner, {
         centered: true,
@@ -2258,7 +2262,7 @@ export class LpsAirTerminationComponent implements OnInit {
         )
       }
       else {
-        this.fileUploadServiceService.updateFile(formData, this.componentName1, fileId).subscribe(
+        this.fileUploadServiceService.updateFile(formData, this.componentName1, fileId,q).subscribe(
           (data) => {
             this.uploadDisable1 = true;
             this.finalSpinner = false;
@@ -2279,9 +2283,11 @@ export class LpsAirTerminationComponent implements OnInit {
     }
   }
 
-  onUpload2(contentSpinner: any, index: any, fileId: any) {
+  onUpload2(contentSpinner: any, index: any, fileId: any,form:any) {
     this.airTerminationForm.markAsDirty();
     this.airTerminationForm.markAsTouched();
+    form.controls.fileIndex_EP.setValue(index);
+      form.controls.fileIndex_EP.updateValueAndValidity();
     if (this.file != undefined) {
       this.modalService.open(contentSpinner, {
         centered: true,
@@ -2309,9 +2315,9 @@ export class LpsAirTerminationComponent implements OnInit {
             this.filesuccessMsg = "";
           },
         )
-      }
+      } 
       else {
-        this.fileUploadServiceService.updateFile(formData, this.componentName2, fileId).subscribe(
+        this.fileUploadServiceService.updateFile(formData, this.componentName2, fileId,index).subscribe(
           (data) => {
             this.uploadDisable2 = true;
             this.finalSpinner = false;
@@ -2363,11 +2369,12 @@ export class LpsAirTerminationComponent implements OnInit {
           this.download1=[];
           this.download2=[];
           for (let i of this.JSONdata) {
-            if(!(this.lpsAirDescription.length <= parseInt(i.index))){
+            if(!(this.lpsAirDescription.length < parseInt(i.index))){
               if (i.componentName == 'airUpload' && i.fileId != "") {
                 this.lpsAirDescription.controls[i.index].controls.airBasicDescription.controls[0].controls.fileName.setValue(i.fileName);
                 this.lpsAirDescription.controls[i.index].controls.airBasicDescription.controls[0].controls.fileType.setValue(i.fileType);
                 this.lpsAirDescription.controls[i.index].controls.airBasicDescription.controls[0].controls.fileId.setValue(i.fileId);
+                this.lpsAirDescription.controls[i.index].controls.airBasicDescription.controls[0].controls.fileIndex.setValue(i.index);
                 this.download[i.index] = false;
               }
               
@@ -2375,6 +2382,7 @@ export class LpsAirTerminationComponent implements OnInit {
                 this.lpsAirDescription.controls[i.index].controls.lpsVerticalAirTermination.controls[0].controls.fileNameVAir.setValue(i.fileName);
                 this.lpsAirDescription.controls[i.index].controls.lpsVerticalAirTermination.controls[0].controls.fileTypeVAir.setValue(i.fileType);
                 this.lpsAirDescription.controls[i.index].controls.lpsVerticalAirTermination.controls[0].controls.fileIdVAir.setValue(i.fileId);
+                this.lpsAirDescription.controls[i.index].controls.lpsVerticalAirTermination.controls[0].controls.fileIndexVAir.setValue(i.index);
                 this.download1[i.index] = false;
               }
   
@@ -2382,6 +2390,7 @@ export class LpsAirTerminationComponent implements OnInit {
                 this.lpsAirDescription.controls[i.index].controls.airExpansion.controls[0].controls.fileName_EP.setValue(i.fileName);
                 this.lpsAirDescription.controls[i.index].controls.airExpansion.controls[0].controls.fileType_EP.setValue(i.fileType);
                 this.lpsAirDescription.controls[i.index].controls.airExpansion.controls[0].controls.fileId_EP.setValue(i.fileId);
+                this.lpsAirDescription.controls[i.index].controls.airExpansion.controls[0].controls.fileIndex_EP.setValue(i.index);
                 this.download2[i.index] = false;
               }
             }

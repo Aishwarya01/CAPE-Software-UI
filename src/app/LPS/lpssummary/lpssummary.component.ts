@@ -2031,12 +2031,12 @@ export class LpssummaryComponent implements OnInit {
       }
         } 
         //down conductors
-        if(this.downConductorData.downConductorReport!=null){
+        if(this.downConductorData.downConductorReport!=null && this.downConductorData.downConductorReport[0].downConductorDescription.length !=0){
           this.downConductorsBasicArr=this.summaryArr.controls[w].controls.downConductorReport as FormArray;
           let index =0; 
           // for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w]){
               for(let j = 0; j < this.downBasicName.length; j++){
-                if(this.downConductorData.downConductorReport[0].downConductorDescription[w][this.downBasicName[j]]!="" 
+                if(this.downConductorData.downConductorReport[0].downConductorDescription.length !=0 && this.downConductorData.downConductorReport[0].downConductorDescription[w][this.downBasicName[j]]!="" 
                    && this.downConductorData.downConductorReport[0].downConductorDescription[w][this.downBasicName[j]] != null){
                   this.downConductorsBasicArr.push(this.createDownConductorsBasic());
                   this.downConductorsBasicArr.controls[0].controls.heading.setValue('DC_Basic Details Observation');
@@ -2157,7 +2157,7 @@ export class LpssummaryComponent implements OnInit {
     }
         }
         //earthing
-        if(this.earthingData.earthingReport!=null){
+        if(this.earthingData.earthingReport!=null && this.earthingData.earthingReport[0].earthingLpsDescription.length !=0){
           this.earthingReportArr=this.summaryArr.controls[w].controls.earthingReport as FormArray;
           let index =0; 
         // for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w]){
@@ -2276,7 +2276,7 @@ export class LpssummaryComponent implements OnInit {
       }
         }
       //spd
-      if(this.spdReportData.spdReport!=null){
+      if(this.spdReportData.spdReport!=null && this.spdReportData.spdReport[0].spd.length !=0){
         //spd report
           this.spdReportArr=this.summaryArr.controls[w].controls.spdReport as FormArray;
           let index =0;
@@ -2318,7 +2318,7 @@ export class LpssummaryComponent implements OnInit {
     }
       }
       //separationDistance
-      if(this.separationDistanceData.seperationDistanceReport!=null){
+      if(this.separationDistanceData.seperationDistanceReport!=null && this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription.length !=0){
         //separationDistance report
           this.separationDistanceArr=this.summaryArr.controls[w].controls.separationDistance as FormArray;
           let index =0;
@@ -2364,7 +2364,7 @@ export class LpssummaryComponent implements OnInit {
       }
       }
       //equipotential bonding
-      if(this.equiBondingData.earthStudReport!=null){
+      if(this.equiBondingData.earthStudReport!=null && this.equiBondingData.earthStudReport[0].earthStudDescription.length !=0){
           this.equiBondingArr=this.summaryArr.controls[w].controls.earthStudDesc as FormArray;
           let index =0;
           //for(let i of this.equiBondingData.earthStudReport[0].earthStudDescription){

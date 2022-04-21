@@ -572,8 +572,7 @@ export class LpsDownConductorsComponent implements OnInit {
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,data: any){
       //this.service.lvClick=1;
-      this.step3List = data.downConductorReport;
-      this.downConductorReport.basicLpsId = basicLpsId;      
+            
       this.basicLpsId = basicLpsId;
       this.retrieveFromAirTermination();
       this.deletedBridgingDesc = [];
@@ -583,18 +582,23 @@ export class LpsDownConductorsComponent implements OnInit {
       this.deletedHolders = [];
       this.deletedLightningCounter = [];
       this.deletedTestingJoint = [];
+      this.step3List = data.downConductorReport;
+
       if(this.step3List != null) {
-        this.downConductorReport.downConductorReportId = this.step3List.downConductorReportId;
+      this.downConductorReport.basicLpsId = basicLpsId;
+      this.downConductorReport.downConductorReportId = this.step3List.downConductorReportId;
       this.downConductorReport.createdDate = this.step3List.createdDate;  
       this.downConductorReport.createdBy = this.step3List.createdBy;
       this.downConductorReport.userName = this.step3List.userName;
       this.downConductorReport.updatedBy = this.step3List.updatedBy;
       this.downConductorReport.updatedDate = this.step3List.updatedDate;
       setTimeout(() => {
-        this.populateData(this.step3List.downConductorDescription);
+        if( this.step3List.downConductorDescription.length !=0){
+          this.populateData(this.step3List.downConductorDescription);
+        }
       }, 1000);
       if(this.step3List != null) {
-        this.updateMethod();
+      //  this.updateMethod();
       }
       this.flag=true;
       }
@@ -621,7 +625,9 @@ export class LpsDownConductorsComponent implements OnInit {
       this.downConductorReport.updatedBy = this.step3List1[0].updatedBy;
       this.downConductorReport.updatedDate = this.step3List1[0].updatedDate;
       setTimeout(() => {
-        this.populateData(this.step3List1[0].downConductorDescription);
+        if(this.step3List1[0].downConductorDescription.length !=0){
+          this.populateData(this.step3List1[0].downConductorDescription);
+        }
       }, 1000);
       this.flag=true;
       }
@@ -2041,7 +2047,7 @@ export class LpsDownConductorsComponent implements OnInit {
           )
         }
         else {
-          this.fileUploadServiceService.updateFile(formData,this.componentName1,fileId).subscribe(
+          this.fileUploadServiceService.updateFile(formData,this.componentName1,fileId,index).subscribe(
             (data) => {
               this.uploadDisable1 = true;
               this.finalSpinner = false;
@@ -2096,7 +2102,7 @@ export class LpsDownConductorsComponent implements OnInit {
           )
         }
         else {
-          this.fileUploadServiceService.updateFile(formData,this.componentName,fileId).subscribe(
+          this.fileUploadServiceService.updateFile(formData,this.componentName,fileId,index).subscribe(
             (data) => {
               this.uploadDisable = true;
               this.finalSpinner = false;
