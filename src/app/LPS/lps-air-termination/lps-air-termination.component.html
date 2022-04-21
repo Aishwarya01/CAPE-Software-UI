@@ -12,8 +12,8 @@
     <div class="card-body">
         <form [formGroup]="airTerminationForm" (ngSubmit)="onSubmit(flag)" (keyup)="onKeyForm($event)"
             (change)="onChangeForm($event)">
-            <div formArrayName="lpsAirDescription" *ngFor="let q of overAllControl(); let j = index">
-                <div class="form-group" [formGroupName]="j">
+            <div formArrayName="lpsAirDescription" *ngFor="let q of overAllControl(); let f = index">
+                <div class="form-group" [formGroupName]="f">
                     <div class="search-bar">
                         <div class="form-group">
                             <div class="row">
@@ -210,7 +210,7 @@
                                                 <i class="bi bi-shield-fill-x"></i>
                                             </span>
                                         </div>
-                                        <select class="form-control" (change)="protectionLevels(q,$event,j)"
+                                        <select class="form-control" (change)="protectionLevels(q,$event,f)"
                                             formControlName="protectionLevel"
                                             [ngClass]="{ 'is-invalid': submitted && q.get('protectionLevel')?.errors }"
                                             required [attr.disabled]="isEditable ? '' : null">
@@ -949,22 +949,15 @@
                                                             <td style="text-align: center;">{{a.get('fileName')?.value}}</td>
                                                             <td ng-show="uploader.isHTML5" nowrap style="text-align: center;">{{a.get('fileSize')?.value}}</td>
 
-                                                            <!-- <td ng-show="uploader.isHTML5">
-                                                                <div class="progress" style="margin-bottom: 0;">
-                                                                    <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
-                                                                </div>
-                                                            </td> -->
-                                                            <!-- <td class="text-center">
-                                                                <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
-                                                                <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
-                                                                <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
-                                                            </td> -->
 
                                                             <td nowrap style="text-align: center;">
                                                                 <button type="button" class="btn btn-secondary btn-xs mr-4" [disabled]="uploadDisable"
-                                                                (click)="onUpload(contentSpinner,overAllControl().length-1,a.get('fileId')?.value)" title="Upload">
+                                                                (click)="onUpload(contentSpinner,f,a.get('fileId')?.value,a)" title="Upload">
                                                                     <i class="fa fa-upload" style="color: white;"></i> Upload
                                                                 </button>
+                                                                <div *ngIf="submitted && a.get('fileId')?.errors" class="invalid-feedback">
+                                                                    <div *ngIf="a.get('fileId')?.errors?.required">File upload is required</div>
+                                                                </div>
                                                                 <!-- <button type="button" class="btn btn-warning btn-xs mr-4">
                                                                     <i class="fa fa-ban" style="color: white;"></i> Cancel
                                                                 </button> -->
@@ -1187,7 +1180,7 @@
                                             </tr>
                                           
                                             <!-- File Upload -->
-                                            <table class="table TableBorder" style="margin-top: 1rem;">
+                                            <table class="table TableBorder" style="margin-top: 1rem;" *ngIf="q.get('verticalAirTerminationAvailabilityOb')?.value === 'Applicable'">
                                                 <thead>
                                                     <tr>
                                                         <th width="25%">Attach The File Here</th>
@@ -1220,12 +1213,13 @@
                                                         </td> -->
 
                                                         <td nowrap style="text-align: center;">
-                                                            <button type="button" class="btn btn-secondary btn-xs mr-4" [disabled]="uploadDisable1" (click)="onUpload1(contentSpinner,overAllControl().length-1,a.get('fileIdVAir')?.value)">
+                                                            <button type="button" class="btn btn-secondary btn-xs mr-4" [disabled]="uploadDisable1" 
+                                                            (click)="onUpload1(contentSpinner,f,a.get('fileIdVAir')?.value)">
                                                                 <i class="fa fa-upload" style="color: white;"></i> Upload
                                                             </button>
-                                                            <!-- <button type="button" class="btn btn-warning btn-xs mr-4">
-                                                                <i class="fa fa-ban" style="color: white;"></i> Cancel
-                                                            </button> -->
+                                                            <div *ngIf="submitted && a.get('fileIdVAir')?.errors"class="invalid-feedback">
+                                                                <div *ngIf="a.get('fileIdVAir')?.errors?.required">File upload is required</div>
+                                                            </div>
                                                             <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="a.get('fileIdVAir')?.value != ''" (click)="onDownload1(a.get('fileNameVAir')?.value)" href='javascript:void(0)' title="Download" [ngClass]="{'disableForm':isEditable}">
                                                                 <i class="fa fa-download" style="color: white;"></i> Download
                                                             </button>
@@ -1265,7 +1259,7 @@
                                             </div>
            
                                         <br> -->
-                                            <div formArrayName="verticalAirTerminationList"
+                                            <div formArrayName="verticalAirTerminationList" class="search-bar1" style="margin-top: 1rem;margin-bottom: 1rem;"
                                                 *ngFor="let z of getAirTUnitControls(a); let w = index">
                                                 <div [formGroupName]="w">
                                                     <h2><u>Vertical List - {{w+1}}</u></h2>
@@ -3995,7 +3989,7 @@
                                             </tr>
 
                                             <!-- File Upload -->
-                                            <table class="table TableBorder" style="margin-top: 1rem;">
+                                            <table class="table TableBorder" style="margin-top: 1rem;" *ngIf="q.get('airExpansionAvailabilityOb')?.value == 'Applicable'">
                                                 <thead>
                                                     <tr>
                                                         <th width="25%">Attach The File Here</th>
@@ -4020,27 +4014,27 @@
                                                             <div class="progress" style="margin-bottom: 0;">
                                                                 <div class="progress-bar" role="progressbar" ng-style="{ 'width': fileId.progress + '%' }"></div>
                                                             </div>
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <span ng-show="fileId.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
-                                                            <span ng-show="fileId.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
-                                                            <span ng-show="fileId.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                                                        </td> -->
+
+                                                        <!-- <td class="text-center">
+                                                            <span ng-show="fileId.isSuccess"><i class="bi bi-check-circle-fill"></i></span>
+                                                            <span ng-show="fileId.isError"><i class="bi bi-x-circle-fill"></i></span>
                                                         </td> -->
 
                                                         <td nowrap style="text-align: center;">
-                                                            <button type="button" class="btn btn-secondary btn-xs mr-4" [disabled]="uploadDisable2" (click)="onUpload2(contentSpinner,overAllControl().length-1,a.get('fileId_EP')?.value)">
+                                                            <button type="button" class="btn btn-secondary btn-xs mr-4" [disabled]="uploadDisable2" 
+                                                            (click)="onUpload2(contentSpinner,f,a.get('fileId_EP')?.value)">
                                                                 <i class="fa fa-upload" style="color: white;"></i> Upload
                                                             </button>
-                                                            <!-- <button type="button" class="btn btn-warning btn-xs mr-4">
-                                                                <i class="fa fa-ban" style="color: white;"></i> Cancel
-                                                            </button> -->
+                                                            <div *ngIf="submitted && a.get('fileId_EP')?.errors"class="invalid-feedback">
+                                                                <div *ngIf="a.get('fileId_EP')?.errors?.required">File upload is required</div>
+                                                            </div>
                                                             <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="a.get('fileId_EP')?.value != ''" (click)="onDownload2(a.get('fileName_EP')?.value )" href='javascript:void(0)' title="Download" [ngClass]="{'disableForm':isEditable}">
                                                                 <i class="fa fa-download" style="color: white;"></i> Download
                                                             </button>
                                                             <!-- <button type="button" class="btn btn-danger btn-xs mr-4">
                                                                 <i class="fa fa-trash-o" style="color: white;"></i> Delete
                                                             </button> -->
-                                                            
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -4599,14 +4593,14 @@
                     </mat-accordion>
 
                     <div class="col-md-12 text-right">
-                        <button class="btn btn-info mousechange" *ngIf="overAllControl().length == j+1"
+                        <button class="btn btn-info mousechange" *ngIf="overAllControl().length == f+1"
                             (click)="addItem(j)" [ngClass]="{'disableForm':isEditable}" title="Add Another Building"
                             style="padding: 5px 0px 0px 0px;width: 3%;height: 35px;position: relative;margin-right: 10px;margin-top: 10px;">
                             <mat-icon aria-hidden="false" aria-label="Example home icon" mat-list-icon>add_box
                             </mat-icon>
                         </button>
                         <button class="btn btn-danger" *ngIf="overAllControl().length > 1"
-                            [ngClass]="{'disableForm':isEditable}" (click)="removeItem(q,j)"
+                            [ngClass]="{'disableForm':isEditable}" (click)="removeItem(q,f)"
                             title="Delete Above Building"
                             style="padding: 5px 0px 0px 0px;width: 3%;height: 35px;position: relative;margin-top: 10px;">
                             <mat-icon aria-hidden="false" aria-label="Example home icon" mat-list-icon>

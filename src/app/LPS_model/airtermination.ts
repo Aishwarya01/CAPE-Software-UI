@@ -73,6 +73,7 @@ export class airBasicDescription {
       fileName!:String;
       fileType!:String;
       fileId!:Number;
+      fileIndex!:Number;
 }
 
 export class airClamps {
@@ -145,6 +146,7 @@ export class LpsVerticalAirTermination {
     fileNameVAir!: string;
     fileTypeVAir!:string;
     fileIdVAir!:Number;
+    fileIndexVAir!:Number;
     verticalAirTerminationList!: VerticalAirTerminationList[];
 
 }
@@ -205,6 +207,7 @@ export class AirExpansion {
     fileName_EP!: string;
     fileType_EP!: string;
     fileId_EP!:Number;
+    fileIndex_EP!:Number;
 }
 export class AirHolderDescription {
     holderDescriptionId!: Number;

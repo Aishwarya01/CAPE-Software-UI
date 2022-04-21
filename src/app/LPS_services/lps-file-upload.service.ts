@@ -51,7 +51,7 @@ export class LpsFileUploadService {
       }, 
       ()=>{})
     }
-    public deleteFile(lpsId:any,fileId:number): Observable<any> {
+    public deleteFile(fileId:number): Observable<any> {
       return this.http.delete(this.apiUrl_LPS + '/removeFile'+'/'+fileId, { responseType: 'text' as 'json'})
     }
   
