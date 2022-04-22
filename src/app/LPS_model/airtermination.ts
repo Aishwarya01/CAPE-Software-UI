@@ -206,7 +206,7 @@ export class AirExpansion {
     inspectionFailedNoRe!: string
     fileName_EP!: string;
     fileType_EP!: string;
-    fileId_EP!:Number;
+    fileIdEP!:Number;
     fileIndex_EP!:Number;
 }
 export class AirHolderDescription {

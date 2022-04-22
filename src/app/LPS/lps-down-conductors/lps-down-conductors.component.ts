@@ -602,7 +602,7 @@ export class LpsDownConductorsComponent implements OnInit {
       }
       this.flag=true;
       }
-    //  this.retriveFIleName()
+      this.retriveFIleName()
     }
 
     retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
@@ -631,6 +631,7 @@ export class LpsDownConductorsComponent implements OnInit {
       }, 1000);
       this.flag=true;
       }
+      this.retriveFIleName()
     }
 
     populateData(value: any) {

@@ -4023,13 +4023,13 @@
 
                                                         <td nowrap style="text-align: center;">
                                                             <button type="button" class="btn btn-secondary btn-xs mr-4" [disabled]="uploadDisable2" 
-                                                            (click)="onUpload2(contentSpinner,f,a.get('fileId_EP')?.value,a)">
+                                                            (click)="onUpload2(contentSpinner,f,a.get('fileIdEP')?.value,a)">
                                                                 <i class="fa fa-upload" style="color: white;"></i> Upload
                                                             </button>
-                                                            <div *ngIf="submitted && a.get('fileId_EP')?.errors"class="invalid-feedback">
-                                                                <div *ngIf="a.get('fileId_EP')?.errors?.required">File upload is required</div>
+                                                            <div *ngIf="submitted && a.get('fileIdEP')?.errors"class="invalid-feedback">
+                                                                <div *ngIf="a.get('fileIdEP')?.errors?.required">File upload is required</div>
                                                             </div>
-                                                            <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="a.get('fileId_EP')?.value != ''" (click)="onDownload2(a.get('fileName_EP')?.value )" href='javascript:void(0)' title="Download" [ngClass]="{'disableForm':isEditable}">
+                                                            <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="a.get('fileIdEP')?.value != ''" (click)="onDownload2(a.get('fileName_EP')?.value )" href='javascript:void(0)' title="Download" [ngClass]="{'disableForm':isEditable}">
                                                                 <i class="fa fa-download" style="color: white;"></i> Download
                                                             </button>
                                                             <!-- <button type="button" class="btn btn-danger btn-xs mr-4">
@@ -4048,7 +4048,7 @@
                                                          accept=".txt,.jpeg,.png,.jpg,.pdf">
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <button type="button" class="btn btn-success" [disabled]="uploadDisable2"  (click)="onUpload2(contentSpinner,overAllControl().length-1,a.get('fileId_EP')?.value)">Upload</button>
+                                                        <button type="button" class="btn btn-success" [disabled]="uploadDisable2"  (click)="onUpload2(contentSpinner,overAllControl().length-1,a.get('fileIdEP')?.value)">Upload</button>
 
                                                         <a (click)="onDownload2(a.get('fileName_EP')?.value )" *ngIf="a.get('fileName_EP')?.value != ''" href='javascript:void(0)' title="Download" style="margin-left: 30px;text-decoration: underline;" 
                                                         [ngClass]="{'disableForm':isEditable}">{{a.get('fileName_EP')?.value}}</a> -->
@@ -4695,10 +4695,10 @@
     </div>
     <br>
 
-    <button type="button" *ngIf="popup" style="text-align: center;margin-left:180px;width:20%" class="close"
+    <button type="button" style="text-align: center;margin-left:180px;width:20%" class="close"
         class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
-         >
-        <span (click)="closeModalDialogFile()">Ok</span>
+        (click)="closeModalDialogFile()">
+        <span >Ok</span>
     </button>
 </ng-template>
 
@@ -4722,7 +4722,7 @@
 
     <button type="button" *ngIf="popupDelete" style="text-align: center;margin-left:180px;width:20%" class="close"
         class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
-         >
-        <span (click)="closeModalDialogFile()">Ok</span>
+        (click)="closeModalDialogFile()" >
+        <span >Ok</span>
     </button>
 </ng-template>

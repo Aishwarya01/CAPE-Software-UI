@@ -332,6 +332,9 @@ export class LpsMatstepperComponent implements OnInit {
   }
 
   interceptTabChange(tab: MatTab, tabHeader: MatTabHeader) {
+    if (this.airTermination.airTerminationForm.dirty && this.airTermination.airTerminationForm.touched) {
+      this.airTermination.updateFileIdIndex();
+    }
     if((this.service.lvClick==1) && (this.service.allStepsCompleted==true))
        {
         const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
