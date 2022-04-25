@@ -88,10 +88,6 @@ table tr td {
   font-size: 14px;
 }
 
-textarea{
-  font-size: 12px;
-}
-
 .disableForm{
   pointer-events: none;
 }
@@ -120,5 +116,11 @@ textarea{
 
 textarea::placeholder {
   position: relative;
-  top: 9px;
+  /* top: 9px; */
+}
+
+textarea{
+  font-size: 12px;
+  height: 4rem;
+  padding: 16px 10px 10px;
 }

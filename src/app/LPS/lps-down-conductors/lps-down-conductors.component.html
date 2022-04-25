@@ -70,7 +70,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <select class="form-control" formControlName="biMetallicIssueOb" [attr.disabled]="isEditable ? '' : null"
+                                                        <select class="form-control" formControlName="biMetallicIssueOb" [attr.disabled]="isEditable ? '' : null" style="height: 3rem;"
                                                         (change)="validationChangeBasicDown($event,q,'biMetallicIssueRem')" [ngClass]="{ 'is-invalid': submitted && q.get('biMetallicIssueOb')?.errors}">
                                                             <option  value="" selected>Select Option</option>
                                                             <option value="Yes" >Yes</option>
@@ -89,7 +89,7 @@
                                                             </span>
                                                         </div>
                                                         <textarea type="text" class="form-control" placeholder="Please enter Remarks here" [readonly]="isEditable" formControlName="biMetallicIssueRem" 
-                                                        [ngClass]="{ 'is-invalid': submitted && q.get('biMetallicIssueRem')?.errors }" ></textarea>
+                                                        [ngClass]="{ 'is-invalid': submitted && q.get('biMetallicIssueRem')?.errors }"></textarea>
                                                         <div *ngIf="submitted && q.get('biMetallicIssueRem')?.errors" class="invalid-feedback">
                                                             <div *ngIf="q.get('biMetallicIssueRem')?.errors?.required">Remarks is required</div>
                                                         </div>
@@ -107,7 +107,7 @@
                                                             </span>
                                                         </div>
                                                         <select class="form-control" formControlName="warningNoticeGroundLevelOb" [ngClass]="{ 'is-invalid': submitted && q.get('warningNoticeGroundLevelOb')?.errors}"
-                                                        [attr.disabled]="isEditable ? '' : null">
+                                                        [attr.disabled]="isEditable ? '' : null" style="height: 3rem;">
                                                             <option  value="" selected>Select Option</option>
                                                             <option value="Yes" >Yes</option>
                                                             <option value="No" >No</option>
@@ -125,7 +125,8 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <textarea type="text" class="form-control" placeholder="Please enter Remarks here" [readonly]="isEditable" formControlName="warningNoticeGroundLevelRem"></textarea>
+                                                        <textarea type="text" class="form-control" placeholder="Please enter Remarks here" [readonly]="isEditable" formControlName="warningNoticeGroundLevelRem"
+                                                        ></textarea>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -140,7 +141,7 @@
                                                             </span>
                                                         </div>
                                                         <select class="form-control" formControlName="insulationPresenceOb" [ngClass]="{ 'is-invalid': submitted && q.get('insulationPresenceOb')?.errors}"
-                                                        [attr.disabled]="isEditable ? '' : null">
+                                                        [attr.disabled]="isEditable ? '' : null" style="height: 3rem;">
                                                             <option  value="" selected>Select Option</option>
                                                             <option value="Yes" >Yes</option>
                                                             <option value="No" >No</option>
@@ -158,7 +159,8 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <textarea type="text" class="form-control" placeholder="Please enter Remarks here" [readonly]="isEditable" formControlName="insulationPresenceRem"></textarea>
+                                                        <textarea type="text" class="form-control" placeholder="Please enter Remarks here" [readonly]="isEditable" formControlName="insulationPresenceRem"
+                                                        ></textarea>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -172,7 +174,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <select class="form-control" formControlName="noPowerDownConductorOb" [attr.disabled]="isEditable ? '' : null"
+                                                        <select class="form-control" formControlName="noPowerDownConductorOb" [attr.disabled]="isEditable ? '' : null" style="height: 3rem;"
                                                         (change)="validationChangeBasicDown($event,q,'noPowerDownConductorRem')" [ngClass]="{ 'is-invalid': submitted && q.get('noPowerDownConductorOb')?.errors}">
                                                             <option  value="" selected>Select Option</option>
                                                             <option value="Yes" >Yes</option>
@@ -191,7 +193,7 @@
                                                             </span>
                                                         </div>
                                                         <textarea type="text" class="form-control" placeholder="Please enter Remarks here" [readonly]="isEditable" formControlName="noPowerDownConductorRem"
-                                                        [ngClass]="{ 'is-invalid': submitted && q.get('noPowerDownConductorRem')?.errors }" ></textarea>
+                                                        [ngClass]="{ 'is-invalid': submitted && q.get('noPowerDownConductorRem')?.errors }"></textarea>
                                                         <div *ngIf="submitted && q.get('noPowerDownConductorRem')?.errors" class="invalid-feedback">
                                                             <div *ngIf="q.get('noPowerDownConductorRem')?.errors?.required">Remarks is required</div>
                                                         </div>
@@ -209,7 +211,7 @@
                                                             </span>
                                                         </div>
                                                         <select class="form-control" formControlName="connectMadeBrazingOb" [ngClass]="{ 'is-invalid': submitted && q.get('connectMadeBrazingOb')?.errors}"
-                                                        [attr.disabled]="isEditable ? '' : null">
+                                                        [attr.disabled]="isEditable ? '' : null" style="height: 3rem;">
                                                             <option  value="" selected>Select Option</option>
                                                             <option value="Brazing" >Brazing</option>
                                                             <option value="Welding" >Welding</option>
@@ -230,7 +232,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <textarea type="text" class="form-control"  
+                                                        <textarea type="text" class="form-control"
                                                         placeholder="Please enter Remarks here" [readonly]="isEditable" formControlName="connectMadeBrazingRem"></textarea>
                                                     </div>
                                                 </td>
@@ -245,7 +247,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <select class="form-control" formControlName="chemicalSprinklerOb" [attr.disabled]="isEditable ? '' : null"
+                                                        <select class="form-control" formControlName="chemicalSprinklerOb" [attr.disabled]="isEditable ? '' : null" style="height: 3rem;"
                                                         (change)="validationChangeBasicDown($event,q,'chemicalSprinklerRem')" [ngClass]="{ 'is-invalid': submitted && q.get('chemicalSprinklerOb')?.errors}">
                                                             <option  value="" selected>Select Option</option>
                                                             <option value="Yes" >Yes</option>
@@ -282,7 +284,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <select class="form-control" formControlName="cobustMaterialWallOB" [attr.disabled]="isEditable ? '' : null"
+                                                        <select class="form-control" formControlName="cobustMaterialWallOB" [attr.disabled]="isEditable ? '' : null" style="height: 3rem;"
                                                         (change)="validationChangeBasicDown($event,q,'cobustMaterialWallRem')" [ngClass]="{ 'is-invalid': submitted && q.get('cobustMaterialWallOB')?.errors}">
                                                             <option  value="" selected>Select Option</option>
                                                             <option value="Distance >1m" >Distance >1m</option>
