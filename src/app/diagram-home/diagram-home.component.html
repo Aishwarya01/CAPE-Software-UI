@@ -66,7 +66,8 @@
         </div>
     </div>
 
-    <button class="btn btn-primary" (click)="submit(flag,content1)">Save Diagram</button>
+    <button *ngIf="!flag" class="btn btn-primary" (click)="submit(flag,content1)">Add Diagram</button>
+    <button *ngIf="flag" class="btn btn-primary" (click)="submit(flag,content1)">Update Diagram</button>
 
 </div>
 
