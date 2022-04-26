@@ -288,7 +288,7 @@
                                                         (change)="validationChangeBasicDown($event,q,'cobustMaterialWallRem')" [ngClass]="{ 'is-invalid': submitted && q.get('cobustMaterialWallOB')?.errors}">
                                                             <option  value="" selected>Select Option</option>
                                                             <option value="Distance >1m" >Distance >1m</option>
-                                                            <option value="Distance < 1m" >Distance < 1m</option>
+                                                            <option value="Distance <1m" >Distance < 1m</option>
                                                             <option value="Not applicable < 1m" >Not applicable < 1m</option>
                                                         </select>
                                                         <div *ngIf="submitted && q.get('cobustMaterialWallOB')?.errors"  class="invalid-feedback">

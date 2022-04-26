@@ -1404,14 +1404,14 @@ export class LpsDownConductorsComponent implements OnInit {
 
     validationChangeBasicDown(event: any,q: any,formControl: any) {
 
-      if(event.target.value == 'Distance<1m') {
+      if(event.target.value == 'Distance <1m') {
         q.controls[formControl].setValidators([Validators.required]);
         q.controls[formControl].updateValueAndValidity();
       }
-      else if(event.target.value == 'Yes') {
-        q.controls[formControl].setValidators([Validators.required]);
-        q.controls[formControl].updateValueAndValidity();
-      }
+      // else if(event.target.value == 'Yes') {
+      //   q.controls[formControl].setValidators([Validators.required]);
+      //   q.controls[formControl].updateValueAndValidity();
+      // }
       else {
         q.controls[formControl].clearValidators();
         q.controls[formControl].updateValueAndValidity();

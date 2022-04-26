@@ -1750,10 +1750,8 @@ export class LpsAirTerminationComponent implements OnInit {
     if (!this.validationError) {
       if (flag) {
         if (this.airTerminationForm.dirty && this.airTerminationForm.touched) {
-            let flag=false;
-
-          this.updateFileIdIndex(flag);
-
+            let flag=true;
+            this.updateFileIdIndex(flag);
           //Main Lps Description
           if (this.deletedLpsDescArr.length != 0) {
             for (let i of this.deletedLpsDescArr) {
@@ -1867,7 +1865,7 @@ export class LpsAirTerminationComponent implements OnInit {
               this.service.lvClick = 0;
               this.service.logoutClick = 0;
               this.service.windowTabClick = 0;
-             // this.deleteFileInDb();
+              this.deleteFileInDb();
               this.retriveAirTermination();
               this.isAirterminationUpdated = true
               // setTimeout(() => {
@@ -2403,6 +2401,7 @@ export class LpsAirTerminationComponent implements OnInit {
   updateFileIdIndex(flag: any) {
   //  this.deleteFileInDb();
     let airterminationFileIdUpdate = this.airTerminationForm.value.lpsAirDescription
+    airterminationFileIdUpdate = airterminationFileIdUpdate.concat(this.deletedLpsDataForFileIdupdate);
     let index = 0;
     for (let i of airterminationFileIdUpdate) {
       for (let j of i.airBasicDescription) {
