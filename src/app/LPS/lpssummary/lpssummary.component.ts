@@ -12,7 +12,6 @@ import { AirterminationService } from 'src/app/LPS_services/airtermination.servi
 import { SummaryServiceService } from 'src/app/LPS_services/summary-service.service';
 import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminProd } from 'src/environments/environment.prod';
-import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
 
 @Component({
   selector: 'app-lpssummary',
@@ -90,6 +89,8 @@ export class LpssummaryComponent implements OnInit {
     success: boolean=false;
     Error: boolean=false;
     @Output() proceedNext = new EventEmitter<any>();
+    @Output() navigateStepSummary: EventEmitter<any> = new EventEmitter();
+
     isEditable:boolean=false;
     submittedButton: boolean = true;
     saveButton: boolean = false;
@@ -420,7 +421,6 @@ export class LpssummaryComponent implements OnInit {
   constructor(private summaryService:SummaryServiceService,private formBuilder: FormBuilder,
     private airterminationServices: AirterminationService, private router: ActivatedRoute,
     private dialog: MatDialog,private modalService: NgbModal,public service: GlobalsService,
-    private matStepper: LpsMatstepperComponent
     ) { 
       this.email = this.router.snapshot.paramMap.get('email') || '{}'
 
@@ -2415,7 +2415,8 @@ export class LpssummaryComponent implements OnInit {
     }
 
     navigateToStep(index: any) {
-      this.matStepper.navigateStep(index);
+      this.navigateStepSummary.emit(index);
+      //this.matStepper.navigateStep(index);
     }
 
   onSubmit(flag1:any,content:any,contents:any){

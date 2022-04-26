@@ -204,9 +204,13 @@ export class LpsMatstepperComponent implements OnInit {
   }
 
   public onCallSavedMethod(e: any) {
-    console.log(e);
     this.continue(e);
   }
+
+  public onCallFinalMethod(e: any) {
+    this.preview(e);
+  }
+
   public changeTabLpsSavedReport(index: number, basicLpsId: any, userName: any) {
    // this.selectedIndex = 1;
     this.basicDetails = false;
@@ -453,6 +457,10 @@ export class LpsMatstepperComponent implements OnInit {
 
   navigateStep(index: any) {
     this.selectedIndex = index;
+  }
+
+  navigateStepMethod(e: any) {
+    this.navigateStep(e);
   }
 
   initializeLpsId(){
