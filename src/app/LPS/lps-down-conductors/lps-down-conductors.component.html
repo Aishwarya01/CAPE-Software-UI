@@ -3235,11 +3235,13 @@
             </div>
         </div>
         <br>
-    
-        <button type="button" *ngIf="popup" style="text-align: center;margin-left:180px;width:20%" class="close"
+        <div *ngIf="filesuccess" style="text-align: center;">
+            Note: Please click Next Button, Then only the file changes will reflect!
+        </div>
+        <button type="button" (click)="closeModalDialogFile()" *ngIf="popup" style="text-align: center;margin-left:180px;width:20%" class="close"
             class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
              >
-            <span (click)="closeModalDialogFile()">Ok</span>
+            <span >Ok</span>
         </button>
 </ng-template>
     
@@ -3261,10 +3263,10 @@
         </div>
         <br>
     
-        <button type="button" *ngIf="popupDelete" style="text-align: center;margin-left:180px;width:20%" class="close"
+        <button type="button" *ngIf="popupDelete" (click)="closeModalDialogFile()" style="text-align: center;margin-left:180px;width:20%" class="close"
             class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
              >
-            <span (click)="closeModalDialogFile()">Ok</span>
+            <span>Ok</span>
         </button>
 </ng-template>
 
