@@ -9,7 +9,6 @@ import { GlobalsService } from 'src/app/globals.service';
 import { earthingReport } from 'src/app/LPS_model/earthingReport';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
 import { LpsEarthing } from 'src/app/LPS_services/lps-earthing';
-import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
 
 @Component({
   selector: 'app-lps-earthing',

@@ -202,6 +202,11 @@ export class LpsMatstepperComponent implements OnInit {
     this.saved.ngOnInit();
     this.final.ngOnInit();
   }
+
+  public onCallSavedMethod(e: any) {
+    console.log(e);
+    this.continue(e);
+  }
   public changeTabLpsSavedReport(index: number, basicLpsId: any, userName: any) {
    // this.selectedIndex = 1;
     this.basicDetails = false;

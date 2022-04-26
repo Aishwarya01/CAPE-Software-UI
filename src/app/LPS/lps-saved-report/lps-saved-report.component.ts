@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef, EventEmitter, Output } from '@angular/core';
 import { MatInput } from '@angular/material/input';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -10,7 +10,6 @@ import { LPSBasicDetailsService } from 'src/app/LPS_services/lpsbasic-details.se
 import { environment } from 'src/environments/environment';
 import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminProd } from 'src/environments/environment.prod';
-import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
 
 @Component({
   selector: 'app-lps-saved-report',
@@ -32,7 +31,7 @@ export class LpsSavedReportComponent implements OnInit {
   @ViewChild('savedReportLpsSort', {static: false}) savedReportLpsSort!: MatSort;
 
   // @Output("changeTab") changeTab: EventEmitter<any> = new EventEmitter();
-
+  @Output() callSavedMethod: EventEmitter<any> = new EventEmitter();
   email: String ="";
   basicDetails = new BasicDetails();
   clientName: String="";
@@ -69,7 +68,7 @@ completedFilterData: any=[];
   constructor(private router: ActivatedRoute,
               public service: GlobalsService,
               public lpsService: LPSBasicDetailsService,
-              public lpsParent: LpsMatstepperComponent,
+              
   ) { 
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
 
@@ -153,7 +152,8 @@ completedFilterData: any=[];
     this.spinner=true;
     this.disablepage=false;
     this.spinnerValue = "Please wait, the details are loading!";
-    this.lpsParent.continue(basicLpsId);
+    this.callSavedMethod.emit(basicLpsId);
+    //this.lpsParent.continue(basicLpsId);
   } 
 
   deleteBasicLps(basicLpsId: any) {  

@@ -7,7 +7,6 @@ import { downConductorReport } from 'src/app/LPS_model/downConductorReport';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
 import { LpsDownconductorService } from 'src/app/LPS_services/lps-downconductor.service';
 import { LpsFileUploadService } from 'src/app/LPS_services/lps-file-upload.service';
-import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
 
 @Component({
   selector: 'app-lps-down-conductors',
@@ -170,7 +169,6 @@ export class LpsDownConductorsComponent implements OnInit {
     private formBuilder: FormBuilder, lpsDownconductorService: LpsDownconductorService,
     private modalService: NgbModal, private router: ActivatedRoute,
     public service: GlobalsService,
-    private matstepper: LpsMatstepperComponent,
     private fileUploadServiceService: LpsFileUploadService,
     private airterminationServices:AirterminationService) {
     this.lpsDownconductorService = lpsDownconductorService;

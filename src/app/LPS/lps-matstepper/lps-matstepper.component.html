@@ -77,7 +77,7 @@
     </mat-tab>
 
     <mat-tab label="Saved Reports">
-      <app-lps-saved-report></app-lps-saved-report>
+      <app-lps-saved-report (callSavedMethod) = "onCallSavedMethod($event)"></app-lps-saved-report>
     </mat-tab>
     <mat-tab label="Final Reports">
       <app-lps-final-report ></app-lps-final-report>

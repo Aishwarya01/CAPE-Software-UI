@@ -6,7 +6,6 @@ import { GlobalsService } from 'src/app/globals.service';
 import { earthStudReport } from 'src/app/LPS_model/earthStudReport';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
 import { EarthStudService } from 'src/app/LPS_services/earth-stud.service';
-import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
 import { LpsWelcomePageComponent } from '../lps-welcome-page/lps-welcome-page.component';
 
 @Component({
@@ -72,7 +71,6 @@ export class LpsEarthStudComponent implements OnInit {
     private earthStudService: EarthStudService,
     private modalService: NgbModal, 
     private router: ActivatedRoute,
-    private lpsMatstepper: LpsMatstepperComponent,
     private welcome: LpsWelcomePageComponent,
     public service: GlobalsService,
     public airterminationServices: AirterminationService
