@@ -961,14 +961,14 @@
                                                                 <!-- <button type="button" class="btn btn-warning btn-xs mr-4">
                                                                     <i class="fa fa-ban" style="color: white;"></i> Cancel
                                                                 </button> -->
-                                                                <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="a.get('fileId')?.value != ''" (click)="onDownload(a.get('fileName')?.value)" 
+                                                                <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="a.get('fileId')?.value != '' && a.get('fileId')?.value != null" (click)="onDownload(a.get('fileName')?.value)" 
                                                                 href='javascript:void(0)' [ngClass]="{'disableForm':isEditable}" title="Download">
                                                                     <i class="fa fa-download" style="color: white;"></i> Download
                                                                 </button>
                                                                 <!-- <button type="button" class="btn btn-danger btn-xs mr-4">
                                                                     <i class="fa fa-trash-o" style="color: white;"></i> Delete
                                                                 </button> -->
-                                                                
+                                                                 
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -1220,14 +1220,16 @@
                                                             <div *ngIf="submitted && a.get('fileIdVAir')?.errors"class="invalid-feedback">
                                                                 <div *ngIf="a.get('fileIdVAir')?.errors?.required">File upload is required</div>
                                                             </div>
-                                                            <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="a.get('fileIdVAir')?.value != ''" (click)="onDownload1(a.get('fileNameVAir')?.value)" href='javascript:void(0)' title="Download" [ngClass]="{'disableForm':isEditable}">
+                                                            <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="a.get('fileIdVAir')?.value != '' && a.get('fileIdVAir')?.value != null" (click)="onDownload1(a.get('fileNameVAir')?.value)" href='javascript:void(0)' title="Download" [ngClass]="{'disableForm':isEditable}">
                                                                 <i class="fa fa-download" style="color: white;"></i> Download
                                                             </button>
+                                                            
                                                             <!-- <button type="button" class="btn btn-danger btn-xs mr-4">
                                                                 <i class="fa fa-trash-o" style="color: white;"></i> Delete
                                                             </button> -->
                                                             
                                                         </td>
+                    
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -4029,7 +4031,7 @@
                                                             <div *ngIf="submitted && a.get('fileIdEP')?.errors"class="invalid-feedback">
                                                                 <div *ngIf="a.get('fileIdEP')?.errors?.required">File upload is required</div>
                                                             </div>
-                                                            <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="a.get('fileIdEP')?.value != ''" (click)="onDownload2(a.get('fileName_EP')?.value )" href='javascript:void(0)' title="Download" [ngClass]="{'disableForm':isEditable}">
+                                                            <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="a.get('fileIdEP')?.value != '' && a.get('fileIdEP')?.value != null" (click)="onDownload2(a.get('fileName_EP')?.value )" href='javascript:void(0)' title="Download" [ngClass]="{'disableForm':isEditable}">
                                                                 <i class="fa fa-download" style="color: white;"></i> Download
                                                             </button>
                                                             <!-- <button type="button" class="btn btn-danger btn-xs mr-4">
@@ -4694,7 +4696,9 @@
         </div>
     </div>
     <br>
-
+    <div *ngIf="filesuccess" style="text-align: center;">
+        Note: Please click next button then only this file changes will reflect!
+      </div>
     <button type="button" style="text-align: center;margin-left:180px;width:20%" class="close"
         class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
         (click)="closeModalDialogFile()">
