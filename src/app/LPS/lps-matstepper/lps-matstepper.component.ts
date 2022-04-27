@@ -121,6 +121,7 @@ export class LpsMatstepperComponent implements OnInit {
     }
 
     this.saved.ngOnInit();
+    this.activateSummarySpinner();
     this.refresh();
   }
   public doSomething2(next: any): void {
@@ -151,6 +152,7 @@ export class LpsMatstepperComponent implements OnInit {
     else {
       this.downConductors.updateMethod();
     }
+    this.activateSummarySpinner();
   }
 
   public doSomething3(next: any): void {
@@ -160,6 +162,7 @@ export class LpsMatstepperComponent implements OnInit {
       this.lpsSummary.flag1=false;
       this.lpsSummary.ngOnInit();
     }
+    this.activateSummarySpinner();
   }
 
   public doSomething4(next: any): void {
@@ -170,6 +173,7 @@ export class LpsMatstepperComponent implements OnInit {
       this.lpsSummary.ngOnInit();
     }
     this.refresh();
+    this.activateSummarySpinner();
   }
 
   public doSomething5(next: any): void {
@@ -179,6 +183,7 @@ export class LpsMatstepperComponent implements OnInit {
       this.lpsSummary.flag1=false;
       this.lpsSummary.ngOnInit();
     }
+    this.activateSummarySpinner();
   }
   public doSomething6(next: any): void {
     this.service.isLinear=false;
@@ -187,6 +192,7 @@ export class LpsMatstepperComponent implements OnInit {
       this.lpsSummary.flag1=false;
       this.lpsSummary.ngOnInit();
     }
+    this.activateSummarySpinner();
   }
   public doSomething7(next: any): void {
     this.service.isLinear=false;
@@ -195,6 +201,7 @@ export class LpsMatstepperComponent implements OnInit {
       this.lpsSummary.flag1=false;
       this.lpsSummary.ngOnInit();
     }
+    this.activateSummarySpinner();
   }
   public doSomething8(next: any): void {
     this.service.isLinear=false;
@@ -305,15 +312,15 @@ export class LpsMatstepperComponent implements OnInit {
             if (this.dataJSON.summaryLps == null) {
               setTimeout(() => {
                 this.lpsSummary.ngOnInit();
+                setTimeout(() => {
+                this.activateSummarySpinner();
               }, 1000);
+           }, 1000);
             }
             else {
               setTimeout(() => {
                 this.lpsSummary.retrieveDetailsfromSavedReports(userName, basicLpsId, this.dataJSON);
-                setTimeout(() => {
-                  this.lpsSummary.spinner = false;
-                  this.lpsSummary.spinnerValue = "";
-                }, 7000);
+                this.activateSummarySpinner();
               }, 5000);
             }
           }  
@@ -323,7 +330,7 @@ export class LpsMatstepperComponent implements OnInit {
         }
       )
     }, 3000);
-
+   
   }
 
   // Final Report 
@@ -545,4 +552,14 @@ export class LpsMatstepperComponent implements OnInit {
       stepper.previous();
     }
   }
+
+  activateSummarySpinner(){
+    this.lpsSummary.spinner = true;
+    this.lpsSummary.spinnerValue = "Please wait, the details are loading!";
+    setTimeout(() => {
+      this.lpsSummary.spinner = false;
+      this.lpsSummary.spinnerValue = "";
+    }, 5000);
+  }
+  
 }
