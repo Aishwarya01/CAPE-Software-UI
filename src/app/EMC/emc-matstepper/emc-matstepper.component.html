@@ -38,9 +38,9 @@
     </mat-tab>
 
     <mat-tab label="Saved Reports">
-        <app-emc-saved-report></app-emc-saved-report>
+        <app-emc-saved-report (savedReportEvent)="savedReportFunction($event)"></app-emc-saved-report>
     </mat-tab>
     <mat-tab label="Final Reports">
-        <app-emc-final-report></app-emc-final-report>
+        <app-emc-final-report (finalReportEvent)="finalReportFunction($event)"></app-emc-final-report>
     </mat-tab>
 </mat-tab-group>

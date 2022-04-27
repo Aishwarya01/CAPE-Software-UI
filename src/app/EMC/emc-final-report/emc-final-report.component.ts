@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild,ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild,ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { EmcClientDetails } from 'src/app/EMC_Model/emc-client-details';
 import { MatPaginator } from '@angular/material/paginator';
@@ -6,7 +6,6 @@ import { MatSort } from '@angular/material/sort';
 import { MatInput } from '@angular/material/input';
 import { ActivatedRoute } from '@angular/router';
 import { EmcClientDetailsService } from 'src/app/EMC_Services/emc-client-details.service';
-import { EmcMatstepperComponent } from '../emc-matstepper/emc-matstepper.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EmcSavedReportService } from 'src/app/EMC_Services/emc-saved-report.service';
 import { GlobalsService } from 'src/app/globals.service';
@@ -25,6 +24,7 @@ export class EmcFinalReportComponent implements OnInit {
   @ViewChild('finalReportSort', {static: true}) finalReportSort!: MatSort;
 
   email: String ="";
+  @Output() finalReportEvent: EventEmitter<any> = new EventEmitter<{emcId: any, clientName: any, flag: boolean}>();
   emcClientDetails = new EmcClientDetails();
   clientName: String="";
   clientList:any  = [];
@@ -63,8 +63,6 @@ export class EmcFinalReportComponent implements OnInit {
               private ChangeDetectorRef: ChangeDetectorRef,
               // private finalpdf: FinalPdfServiceService,
               public service: GlobalsService,
-              public emcParent: EmcMatstepperComponent,
-              private emcmatstepper:EmcMatstepperComponent,
               public emcClientDetailsService: EmcClientDetailsService,
               private modalService: NgbModal) { 
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
@@ -153,7 +151,8 @@ continue(emcId: any,clientName: any) {
   this.finalReportSpinner = true;
   this.spinnerValue = "Please wait, the details are loading!";
   this.service.allStepsCompletedEmc = true;
-   this.emcParent.preview(emcId,clientName,false);
+  this.finalReportEvent.emit({emcId,clientName,flag: false});
+   //this.emcParent.preview(emcId,clientName,false);
  } 
 
 userName=this.router.snapshot.paramMap.get('email') || '{}';
