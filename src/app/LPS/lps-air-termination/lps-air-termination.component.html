@@ -4644,9 +4644,14 @@
     </div>
     <br>
     <div *ngIf="popup" style="text-align: center;">
-    <button type="button" class="close" 
+    <button type="button" class="close" *ngIf="success"
         class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
         (click)="closeModalDialog()" matStepperNext>
+        <span aria-hidden="true">Ok</span>
+    </button>
+    <button type="button" class="close" *ngIf="Error"
+        class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
+        (click)="closeModalDialog()">
         <span aria-hidden="true">Ok</span>
     </button>
     </div>
@@ -4694,7 +4699,6 @@
             </div>
         </div>
     </div>
-    <br>
     <div *ngIf="filesuccess" style="text-align: center;">
         Note: Please click Next Button, Then only the file changes will reflect!
     </div>

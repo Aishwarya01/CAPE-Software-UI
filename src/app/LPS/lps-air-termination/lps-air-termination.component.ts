@@ -511,8 +511,9 @@ export class LpsAirTerminationComponent implements OnInit {
     this.deletedFileArr.push(this.lpsAirDescription.value[index]);
 
     this.deleteFileFlag = true;
-    this.airTerminationForm.markAsTouched();
     if (a.value.lpsAirDescId != 0 && a.value.lpsAirDescId != undefined && a.value.lpsAirDescId != '') {
+      this.airTerminationForm.markAsTouched();
+      this.airTerminationForm.markAsDirty();
       a.value.flag = "R";
       this.deletedLpsDescArr.push(a.value);
       this.deletedLpsDataForFileIdupdate.push(a.value);
@@ -531,7 +532,6 @@ export class LpsAirTerminationComponent implements OnInit {
     }
     let flag=true;
     this.updateFileIdIndex(flag);
-    this.airTerminationForm.markAsDirty();
   }
 
   addItemAir(a: any, protectionLevel: any) {

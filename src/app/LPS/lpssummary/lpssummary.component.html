@@ -973,7 +973,11 @@
         </div>
         <br>
         <div *ngIf="popup" style="text-align: center;">
-          <button type="button" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+          <button type="button" *ngIf="success" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+            aria-label="Close" (click)="closeModalDialog()" style="width: 18%;margin: 0 auto;">
+            <span aria-hidden="true" >Ok</span>
+          </button>
+          <button type="button" *ngIf="Error" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
             aria-label="Close" (click)="closeModalDialog()" style="width: 18%;margin: 0 auto;">
             <span aria-hidden="true" >Ok</span>
           </button>
