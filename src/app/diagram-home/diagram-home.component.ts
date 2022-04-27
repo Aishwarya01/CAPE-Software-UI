@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ConnectorModel, DiagramComponent, NodeModel, PaletteModel, PortConstraints, PortVisibility, SymbolInfo, SymbolPreviewModel } from '@syncfusion/ej2-angular-diagrams';
+import { ConnectorModel, DiagramComponent, NodeModel, PaletteModel, PortConstraints, PortVisibility, SymbolInfo, 
+  SymbolPreviewModel } from '@syncfusion/ej2-angular-diagrams'; 
+  import {SymbolPalette} from  '@syncfusion/ej2-diagrams'
 import { DiagramModel } from '../model/diagram-component';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
 
@@ -13,6 +15,13 @@ import { InspectionVerificationService } from '../services/inspection-verificati
 export class DiagramHomeComponent implements OnInit {
   @ViewChild("diagram")
   public diagram!: DiagramComponent;
+  
+  // @ViewChild("symbolpalette")
+  // public palette: SymbolPalette | any;
+
+  @ViewChild('palette')
+  public palette: SymbolPalette | any;
+
   diagramComponent = new DiagramModel();
   public nodes: NodeModel[] = [
     {
@@ -194,64 +203,52 @@ export class DiagramHomeComponent implements OnInit {
   //       visibility: PortVisibility.Visible
   //   }
   // ]
-
-  public getConnectors(): ConnectorModel[] {
-    let connectorSymbols: ConnectorModel[] = [{
-            id: 'Link1',
-            type: 'Orthogonal',
-            sourcePoint: {
-                x: 0,
-                y: 0
-            },
-            targetPoint: {
-                x: 40,
-                y: 40
-            },
-            targetDecorator: {
-                shape: 'Arrow'
-            }
-        },
-        {
-            id: 'Link21',
-            type: 'Straight',
-            sourcePoint: {
-                x: 0,
-                y: 0
-            },
-            targetPoint: {
-                x: 40,
-                y: 40
-            },
-            targetDecorator: {
-                shape: 'Arrow'
-            }
-        },
-        {
-            id: 'link33',
-            type: 'Bezier',
-            sourcePoint: {
-                x: 0,
-                y: 0
-            },
-            targetPoint: {
-                x: 40,
-                y: 40
-            },
-            style: {
-                strokeWidth: 2
-            },
-            targetDecorator: {
-                shape: 'None'
-            }
-        }
+    public connectorSymbols: ConnectorModel[] = [
+      {
+        id: 'Orthogonal1',
+        type: 'Orthogonal',
+        sourcePoint: { x: 0, y: 0 },
+        targetPoint: { x: 40, y: 40 },
+        targetDecorator: { shape: 'Arrow'},
+        style: { strokeWidth: 2}
+    },
+    {
+        id: 'Orthogonal2',
+        type: 'Orthogonal',
+        sourcePoint: { x: 0, y: 0 },
+        targetPoint: { x: 40, y: 40 },
+        style: { strokeWidth: 2},
+        targetDecorator: { shape: 'None' }
+    },
+    {
+        id: 'Straight1',
+        type: 'Straight',
+        sourcePoint: { x: 0, y: 0 },
+        targetPoint: { x: 40, y: 40 },
+        targetDecorator: { shape: 'Arrow'},
+        style: { strokeWidth: 2}
+    },
+    {
+        id: 'Straight2',
+        type: 'Straight',
+        sourcePoint: { x: 0, y: 0 },
+        targetPoint: { x: 40, y: 40 },
+        style: { strokeWidth: 2},
+        targetDecorator: { shape: 'None' }
+    },
+    {
+        id: 'Bezier',
+        type: 'Bezier',
+        sourcePoint: { x: 0, y: 0 },
+        targetPoint: { x: 40, y: 40 },
+        style: { strokeWidth: 2},
+        targetDecorator: { shape: 'None' }
+    }
     ];
-    return connectorSymbols;
-};
-
 
   //SymbolPalette Properties
   public expandMode: any = 'Multiple';
-
+   
   public a:any= [
     { offset: { x: 0, y: 0.5 }, visibility: PortVisibility.Connect | PortVisibility.Hover, constraints: PortConstraints.Draw },
     { offset: { x: 0.5, y: 0 }, visibility: PortVisibility.Connect | PortVisibility.Hover, constraints: PortConstraints.Draw },
@@ -261,104 +258,193 @@ export class DiagramHomeComponent implements OnInit {
 
   //public b:any=[{ strokeWidth: 1, strokeColor: '#757575' }];
  
+  // public palettes: PaletteModel[] = [
+  //   {
+  //     id: 'flow', expanded: true, title: 'Flow Shapes',symbols: [
+  //       {
+  //         id: 'AC current source', addInfo: { tooltip: 'Generator' }, width: 50, height: 60,
+  //         shape: { type: 'Image', source: '../../assets/img/ac.png' }, 
+  //         style:{ strokeWidth: 1, strokeColor: '#757575' }, ports: [this.a]
+  //       },
+  //       {
+  //         id: 'Transformer', addInfo: { tooltip: 'Transformer' }, width: 50, height: 60, 
+  //         shape: { type: 'Image', source: '../../assets/img/Generator.png' }, 
+  //         style: { strokeWidth: 1, strokeColor: '#757575' }, ports: [this.a]
+  //       },
+  //       {
+  //         id: 'Switch', addInfo: { tooltip: 'Switch' }, width: 50, height: 60, 
+  //         shape: { type: 'Image', source: '../../assets/img/switch.png' }, 
+  //         style: { strokeWidth: 1, strokeColor: '#757575' }, ports: [this.a]
+  //       },
+  //       {
+  //         id: 'Fuse', addInfo: { tooltip: 'Fuse' }, width: 50, height: 60, 
+  //         shape: { type: 'Image', source: '../../assets/img/fuse.png' }, 
+  //         style: { strokeWidth: 1, strokeColor: '#757575' },ports: [this.a]
+  //       },
+  //       {
+  //         id: 'Low Voltage', addInfo: { tooltip: 'Low Voltage' }, width: 50, height: 60, 
+  //         shape: { type: 'Image', source: '../../assets/img/low_voltage.png' }, 
+  //         style: { strokeWidth: 1, strokeColor: '#757575' }, ports: [this.a]
+  //       },
+  //       {
+  //         id: 'Medium Voltage', addInfo: { tooltip: 'Medium Voltage' }, width: 50, height: 60, 
+  //         shape: { type: 'Image', source: '../../assets/img/medium-voltage.png' }, 
+  //         style: { strokeWidth: 1, strokeColor: '#757575' }, ports: [this.a]
+  //       },
+  //       {
+  //         id: 'Motor', addInfo: { tooltip: 'Motor' }, width: 50, height: 60, 
+  //         shape: { type: 'Image', source: '../../assets/img/motor.png' }, 
+  //         style: { strokeWidth: 1, strokeColor: '#757575' }, ports: [this.a]
+  //       },
+  //       {
+  //         id: 'Current Transformer', addInfo: { tooltip: 'Current Transformer' }, width: 50, height: 60, 
+  //         shape: { type: 'Image', source: '../../assets/img/CT.png' }, 
+  //         style: { strokeWidth: 1, strokeColor: '#757575' }, ports: [this.a]
+  //       },
+  //       {
+  //         id: 'Potential Transformer', addInfo: { tooltip: 'Potential Transformer' }, width: 50, height: 60, 
+  //         shape: { type: 'Image', source: '../../assets/img/PT.png' }, 
+  //         style: { strokeWidth: 1, strokeColor: '#757575' }, ports: [this.a]
+  //       },
+  //       {
+  //         id: 'Circuit Breaker', addInfo: { tooltip: 'Circuit Breaker' }, width: 50, height: 60, 
+  //         shape: { type: 'Image', source: '../../assets/img/circuit_breaker.png' }, 
+  //         style: { strokeWidth: 1, strokeColor: '#757575' }, ports: [this.a]
+  //       },
+  //     ]
+  //   },
+  // ];
+//   private flowshapes: NodeModel[] = [
+//     {
+//       id: 'AC current source', addInfo: { tooltip: 'Generator' },ports: [this.a],shape: { type: 'Image' }
+//     },
+//     {
+//       id: 'Generator', addInfo: { tooltip: 'Generator' },ports: [this.a],shape: { type: 'Image' }
+//     },
+//     {
+//       id: 'Switch', addInfo: { tooltip: 'Switch' },ports: [this.a],shape: { type: 'Image' }
+//     },
+//     {
+//       id: 'Fuse', addInfo: { tooltip: 'Fuse' }, ports: [this.a],shape: { type: 'Image' }
+//     },
+//     {
+//       id: 'Low Voltage', addInfo: { tooltip: 'Low Voltage' }, ports: [this.a],shape: { type: 'Image' }
+//     },
+//     {
+//       id: 'Medium Voltage', addInfo: { tooltip: 'Medium Voltage' }, ports: [this.a],shape: { type: 'Image' }
+//     },
+//     {
+//       id: 'Motor', addInfo: { tooltip: 'Motor' },ports: [this.a],shape: { type: 'Image' }
+//     },
+//     {
+//       id: 'Current Transformer', addInfo: { tooltip: 'Current Transformer' }, ports: [this.a],shape: { type: 'Image' }
+//     },
+//     {
+//       id: 'Potential Transformer', addInfo: { tooltip: 'Potential Transformer' }, ports: [this.a],shape: { type: 'Image' }
+//     },
+//     {
+//       id: 'Circuit Breaker', addInfo: { tooltip: 'Circuit Breaker' }, ports: [this.a],shape: { type: 'Image' }
+//     },
+//     {
+//       id: 'Delta', addInfo: { tooltip: 'Delta' }, ports: [this.a],shape: { type: 'Image' }
+//     },
+//     // {
+//     //   id: 'Double Throw Switch', addInfo: { tooltip: 'Double Throw Switch' }, ports: [this.a],shape: { type: 'Image' }
+//     // },
+//     {
+//       id: 'Ground', addInfo: { tooltip: 'Ground' }, ports: [this.a],shape: { type: 'Image' }
+//     },
+//     {
+//       id: 'Diode', addInfo: { tooltip: 'Diode' }, ports: [this.a],shape: { type: 'Image' }
+//     }, {
+//       id: 'Inductor', addInfo: { tooltip: 'Inductor' }, ports: [this.a],shape: { type: 'Image' }
+//     }, {
+//       id: 'Resistor', addInfo: { tooltip: 'Resistor' }, ports: [this.a],shape: { type: 'Image' }
+//     }, {
+//       id: 'Capacitor', addInfo: { tooltip: 'Capacitor' }, ports: [this.a],shape: { type: 'Image' }
+//     }, {
+//       id: 'DC', addInfo: { tooltip: 'DC' }, ports: [this.a],shape: { type: 'Image' }
+//     },
+
+//     {
+//       id: 'Electric Lamp', addInfo: { tooltip: 'Electric Lamp' }, ports: [this.a],shape: { type: 'Image' }
+//     },
+//     {
+//       id: 'Wattmeter', addInfo: { tooltip: 'Wattmeter' }, ports: [this.a],shape: { type: 'Image' }
+//     },
+//     {
+//       id: 'Wire', addInfo: { tooltip: 'Wire' }, ports: [this.a],shape: { type: 'Image' }
+//     }, {
+//       id: 'Ammeter', addInfo: { tooltip: 'Ammeter' }, ports: [this.a],shape: { type: 'Image' }
+//     }, {
+//       id: 'Voltmeter', addInfo: { tooltip: 'Voltmeter' }, ports: [this.a],shape: { type: 'Image' }
+//     }, {
+//       id: 'cell', addInfo: { tooltip: 'cell' }, ports: [this.a],shape: { type: 'Image' }
+//     }, {
+//       id: 'Battery', addInfo: { tooltip: 'Battery' }, ports: [this.a],shape: { type: 'Image' }
+//     },
+// ];
   public palettes: PaletteModel[] = [
     {
-      id: 'basic', expanded: true, title: 'Basic Shapes', symbols: [
-        {
-          id: 'nodeIp6', offsetX: 100, offsetY: 350, width: 80, height: 20, annotations: [
-            {
-              content: 'Input 4',
-              style: { fontSize: 11 }
-            }
-          ],
-        },
-        {
-          id: 'node5', offsetX: 250, offsetY: 200, width: 100, height: 200, annotations: [
-            {
-              content: '4X1',
-              style: { fontSize: 11 }
-            }
-          ],
-        },
-      ]
+        id: 'flow',
+        expanded: true,
+       // symbols: this.flowshapes,
+        iconCss: 'shapes',
+        title: 'Flow Shapes'
     },
     {
-      id: 'flow', expanded: true, title: 'Flow Shapes',symbols: [
-        {
-          id: 'AC current source', addInfo: { tooltip: 'Generator' }, width: 50, height: 60,
-          shape: { type: 'Image', source: '../../assets/img/ac.png' }, 
-          style:{ strokeWidth: 1, strokeColor: '#757575' }, ports: [this.a]
-        },
-        {
-          id: 'Transformer', addInfo: { tooltip: 'Transformer' }, width: 50, height: 60, 
-          shape: { type: 'Image', source: '../../assets/img/Generator.png' }, 
-          style: { strokeWidth: 1, strokeColor: '#757575' }, ports: [this.a]
-        },
-        {
-          id: 'Switch', addInfo: { tooltip: 'Switch' }, width: 50, height: 60, 
-          shape: { type: 'Image', source: '../../assets/img/switch.png' }, 
-          style: { strokeWidth: 1, strokeColor: '#757575' }, ports: [this.a]
-        },
-        {
-          id: 'Fuse', addInfo: { tooltip: 'Fuse' }, width: 50, height: 60, 
-          shape: { type: 'Image', source: '../../assets/img/fuse.png' }, 
-          style: { strokeWidth: 1, strokeColor: '#757575' },ports: [this.a]
-        },
-        {
-          id: 'Low Voltage', addInfo: { tooltip: 'Low Voltage' }, width: 50, height: 60, 
-          shape: { type: 'Image', source: '../../assets/img/low_voltage.png' }, 
-          style: { strokeWidth: 1, strokeColor: '#757575' }, ports: [this.a]
-        },
-        {
-          id: 'Medium Voltage', addInfo: { tooltip: 'Medium Voltage' }, width: 50, height: 60, 
-          shape: { type: 'Image', source: '../../assets/img/medium-voltage.png' }, 
-          style: { strokeWidth: 1, strokeColor: '#757575' }, ports: [this.a]
-        },
-        {
-          id: 'Motor', addInfo: { tooltip: 'Motor' }, width: 50, height: 60, 
-          shape: { type: 'Image', source: '../../assets/img/motor.png' }, 
-          style: { strokeWidth: 1, strokeColor: '#757575' }, ports: [this.a]
-        },
-        {
-          id: 'Current Transformer', addInfo: { tooltip: 'Current Transformer' }, width: 50, height: 60, 
-          shape: { type: 'Image', source: '../../assets/img/CT.png' }, 
-          style: { strokeWidth: 1, strokeColor: '#757575' }, ports: [this.a]
-        },
-        {
-          id: 'Potential Transformer', addInfo: { tooltip: 'Potential Transformer' }, width: 50, height: 60, 
-          shape: { type: 'Image', source: '../../assets/img/PT.png' }, 
-          style: { strokeWidth: 1, strokeColor: '#757575' }, ports: [this.a]
-        },
-        {
-          id: 'Circuit Breaker', addInfo: { tooltip: 'Circuit Breaker' }, width: 50, height: 60, 
-          shape: { type: 'Image', source: '../../assets/img/circuit_breaker.png' }, 
-          style: { strokeWidth: 1, strokeColor: '#757575' }, ports: [this.a]
-        },
-      ]
-    },
-    {
-      id: 'connectors',
+      id: 'connector',
       expanded: true,
-      symbols: this.getConnectors(),
-      title: 'Connectors',
-      iconCss: 'e-ddb-icons e-connector'
+      symbols: this.connectorSymbols,
+      title: 'Connector Symbols',
+      iconCss: 'e-ddb-icons e-basic'
   }
-    
-  ];
+];
 
+public getSymbolInfo(symbol: NodeModel): SymbolInfo {
+    return { fit: true };
+}
+
+// public getSymbolDefaults(symbol: NodeModel | any): void { 
+//     if (symbol.shape.type === 'Image') {
+//         symbol.shape = { type: 'Image', source: '../../assets/img/' + symbol.id + '.png' }
+//         symbol.width = 50;
+//         symbol.height = 60;
+//     }
+//     symbol.style = { strokeWidth: 1, strokeColor: '#757575' }
+// }
+
+ public AddSymbols() {
+  let shapes: any;
+  this.inspectionService.fetchAllDiagramSymbols().subscribe(
+    data => {
+      shapes = JSON.parse(data);
+      console.log('a'); 
+  for (let i = 0; i < shapes.length; i++) {
+    let symbolItems: any = {
+    id: shapes[i].imageName,
+    shape: { type: 'Image', source: shapes[i].imageSource } , width: 50, height: 50 }
+    this.palette.addPaletteItem('flow', symbolItems);
+    }
+    },
+    error => {
+      console.log(error);
+    }
+  )
+}
   //shape: { type: 'Image', source: 'https://www.syncfusion.com/content/images/nuget/sync_logo_icon.png' } 
 
   public symbolPreview: SymbolPreviewModel = { height: 50, width: 50 };
 
   public symbolMargin: any = { left: 10, right: 10, top: 10, bottom: 10 };
 
-  public getSymbolInfo(symbol: NodeModel): SymbolInfo {
-    return { fit: true };
-  };
+  // public getSymbolInfo(symbol: NodeModel): SymbolInfo {
+  //   return { fit: true };
+  // };
 
-  public getSymbolDefaults(symbol: any): void {
-    symbol.style.strokeColor = '#757575';
-  };
+  // public getSymbolDefaults(symbol: any): void {
+  //   symbol.style.strokeColor = '#757575';
+  // };
   email: String = '';
   constructor(private inspectionService: InspectionVerificationService,
               private router: ActivatedRoute,
@@ -368,6 +454,7 @@ export class DiagramHomeComponent implements OnInit {
      }
 
   ngOnInit(): void {
+    this.AddSymbols();
   }
 
   retrieveFromSavedReport(data: any) {

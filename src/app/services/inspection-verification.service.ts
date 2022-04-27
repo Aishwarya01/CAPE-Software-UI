@@ -90,4 +90,7 @@ export class InspectionVerificationService {
   public retriveAllDiagram(userName: any): Observable<any> {
     return this.http.get<any>(this.apiUrl5 + '/retrieveDiagramList'+'/'+userName, { responseType: 'text' as 'json' })
   }
+  public fetchAllDiagramSymbols(): Observable<any> {
+    return this.http.get<any>(this.apiUrl5 + '/symbolList', { responseType: 'text' as 'json' })
+  }
 }
