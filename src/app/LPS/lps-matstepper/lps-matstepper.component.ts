@@ -69,6 +69,7 @@ export class LpsMatstepperComponent implements OnInit {
   seperationValue: boolean = true;
   equipotentialBond: boolean = true;
   summary: boolean = true;
+  summarySpinner: boolean = false;
 
   @ViewChild(LpsBasicPageComponent)
   basic!: LpsBasicPageComponent;
@@ -555,10 +556,12 @@ export class LpsMatstepperComponent implements OnInit {
 
   activateSummarySpinner(){
     this.lpsSummary.spinner = true;
+    this.summarySpinner = true;
     this.lpsSummary.spinnerValue = "Please wait, the details are loading!";
     setTimeout(() => {
       this.lpsSummary.spinner = false;
       this.lpsSummary.spinnerValue = "";
+      this.summarySpinner = false;
     }, 5000);
   }
   

@@ -70,7 +70,7 @@
             <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
             Summary</ng-template>
           <app-lpssummary *ngIf="summary" (navigateStepSummary) = "navigateStepMethod($event)" (proceedNext)="doSomething8($event)"></app-lpssummary>
-          <button class="previousSummary" mat-button (click)="goBack8(stepper)">&laquo; Back</button> 
+          <button *ngIf="!summarySpinner" class="previousSummary" mat-button (click)="goBack8(stepper)">&laquo; Back</button> 
         </mat-step>
 
       </mat-horizontal-stepper>

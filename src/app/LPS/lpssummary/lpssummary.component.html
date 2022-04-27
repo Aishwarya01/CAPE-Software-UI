@@ -13,7 +13,7 @@
 <div *ngIf="spinner" style="text-align: center;">
   {{spinnerValue}}
 </div>
-  <div class="card">
+  <div class="card" *ngIf="!spinner">
     <div class="card-body">
   <form [formGroup]="summaryForm" (ngSubmit)="onSubmit(flag1,content,contents)">
     <div formArrayName="summaryLpsBuildings" *ngFor="let q of summaryLpsBuildingsControl(); let j = index">
