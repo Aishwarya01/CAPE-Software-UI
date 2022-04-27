@@ -10,6 +10,7 @@ import { GlobalsService } from 'src/app/globals.service';
 import { LpsSummary } from 'src/app/LPS_model/lps-summary';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
 import { SummaryServiceService } from 'src/app/LPS_services/summary-service.service';
+import { SuperAdminLocal } from 'src/environments/environment';
 import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminProd } from 'src/environments/environment.prod';
 
@@ -96,6 +97,7 @@ export class LpssummaryComponent implements OnInit {
     saveButton: boolean = false;
     buttonType:  string="";
     //For super admin purpose
+    lpsSummaryConstLocal = new SuperAdminLocal();
     lpsSummaryConst = new SuperAdminDev();
     lpsSummaryConstProd = new SuperAdminProd();
     //air termination
@@ -433,6 +435,13 @@ export class LpssummaryComponent implements OnInit {
 
       for( let i=0; i<this.lpsSummaryConstProd.adminEmail.length; i++){
         if(this.lpsSummaryConstProd.adminEmail[i] == this.email)
+        {
+          this.submittedButton = false;
+        }
+      }
+
+      for( let i=0; i<this.lpsSummaryConstLocal.adminEmail.length; i++){
+        if(this.lpsSummaryConstLocal.adminEmail[i] == this.email)
         {
           this.submittedButton = false;
         }
