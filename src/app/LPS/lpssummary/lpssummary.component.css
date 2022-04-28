@@ -1,9 +1,13 @@
+
 .disableForm{
-    pointer-events: none;
+  pointer-events: none;
+  background-color: lightgrey;
+  color: black;
+  cursor: not-allowed !important;
   }
-  .disableSubmit{
-    pointer-events: none;
-    background-color: lightgrey;
-    color: black;
-    cursor: not-allowed !important;
-  }
+
+.save-Button {
+  width: auto;
+  margin-left: 50px;
+  /* background-color: #17a2b8; */
+}
