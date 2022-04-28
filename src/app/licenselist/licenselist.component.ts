@@ -10,7 +10,6 @@ import { AssignViewerComponent } from '../assign-viewer/assign-viewer.component'
 import { Company } from '../model/company';
 import { Site } from '../model/site';
 import { SiteService } from '../services/site.service';
-import { VerificationlvComponent } from '../verificationlv/verificationlv.component';
 import { ComponentFactoryResolver } from '@angular/core';
 import { GlobalsService } from '../globals.service';
 import { FinalreportsComponent } from '../finalreports/finalreports.component';
