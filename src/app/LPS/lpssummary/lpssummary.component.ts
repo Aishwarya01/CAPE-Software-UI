@@ -413,6 +413,7 @@ export class LpssummaryComponent implements OnInit {
   tabErrorMsg: string="";
   // For Spinner
   spinner: boolean=false;
+  spinner1: boolean=false;
   finalSpinner: boolean=false;
   spinnerValue: String = '';
   mode: any = 'indeterminate';
@@ -2762,9 +2763,9 @@ export class LpssummaryComponent implements OnInit {
      this.validationErrorTab = true;
      this.validationErrorMsgTab= 'Please check all the fields in SummaryForm';
      setTimeout(() => {
-       this.validationErrorTab = false;
+      this.validationErrorTab = false;
      }, 3000);
-     return false;
+    return false;
     }
     else if(this.summaryForm.dirty && this.summaryForm.touched){
       this.service.isCompleted8= false;
@@ -2777,12 +2778,12 @@ export class LpssummaryComponent implements OnInit {
       }, 3000);
       return false;
     } 
-    else{
+    else {
       this.service.isCompleted8= true;
       this.service.isLinear=false;
       this.service.editable=true;
       this.summaryForm.markAsPristine();
-   return true;
+      return true;      
     }
   }
 

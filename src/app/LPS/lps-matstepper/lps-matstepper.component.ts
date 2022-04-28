@@ -308,7 +308,7 @@ export class LpsMatstepperComponent implements OnInit {
               this.earthStud.createearthStudForm(this.dataJSON.airTermination);
             }
              //summary
-            // this.lpsSummary.spinner = true;
+            // this.lpsSummary.spinner1 = true;
             // this.lpsSummary.spinnerValue = "Please wait, the details are loading!";
             if (this.dataJSON.summaryLps == null) {
               setTimeout(() => {
@@ -416,7 +416,7 @@ export class LpsMatstepperComponent implements OnInit {
               this.saved.retrieveLpsDetails();
               this.saved.disablepage=true;
               // setTimeout(() => {
-              //   this.saved.spinner=true;
+              //   this.saved.spinner1=true;
               // }, 3000);
             }
           }    
@@ -549,17 +549,21 @@ export class LpsMatstepperComponent implements OnInit {
     }
   }
   goBack8(stepper: MatStepper) {
-    if(this.lpsSummary.reloadFromBack()){
+    if(this.isEditable && !this.lpsSummary.reloadFromBack()){
+      this.lpsSummary.validationErrorTab=false;
+      stepper.previous();
+    }
+    else if(this.lpsSummary.reloadFromBack()){
       stepper.previous();
     }
   }
 
   activateSummarySpinner(){
-    this.lpsSummary.spinner = true;
+    this.lpsSummary.spinner1 = true;
     this.summarySpinner = true;
     this.lpsSummary.spinnerValue = "Please wait, the details are loading!";
     setTimeout(() => {
-      this.lpsSummary.spinner = false;
+      this.lpsSummary.spinner1 = false;
       this.lpsSummary.spinnerValue = "";
       this.summarySpinner = false;
     }, 5000);

@@ -7,13 +7,13 @@
 <div *ngIf="validationErrorTab" style="text-align: center;">
   <span class="alert alert-danger">{{validationErrorMsgTab}}</span>
 </div>
-<mat-progress-spinner style="margin: 0 auto;" *ngIf="spinner" color="primary" [mode]="mode" value="50" diameter="50">
+<mat-progress-spinner style="margin: 0 auto;" *ngIf="spinner1" color="primary" [mode]="mode" value="50" diameter="50">
 </mat-progress-spinner>
 <br>
-<div *ngIf="spinner" style="text-align: center;">
+<div *ngIf="spinner1" style="text-align: center;">
   {{spinnerValue}}
 </div>
-  <div class="card" *ngIf="!spinner">
+  <div class="card" *ngIf="!spinner1">
     <div class="card-body">
   <form [formGroup]="summaryForm" (ngSubmit)="onSubmit(flag1,content,contents)">
     <div formArrayName="summaryLpsBuildings" *ngFor="let q of summaryLpsBuildingsControl(); let j = index">
