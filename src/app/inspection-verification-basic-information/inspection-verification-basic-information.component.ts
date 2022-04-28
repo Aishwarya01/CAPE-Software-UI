@@ -19,6 +19,7 @@ import { DatePipe } from '@angular/common';
 import { InspectorregisterService } from '../services/inspectorregister.service';
 import { ignoreElements } from 'rxjs/operators';
 import { MainNavComponent } from '../main-nav/main-nav.component'; 
+import { VerificationlvComponent } from '../verificationlv/verificationlv.component';
 import { ReturnTypeTransform } from '@angular/compiler-cli/src/ngtsc/transform';
 import { MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
@@ -212,7 +213,7 @@ ShowNext: boolean = true;
     private UpateBasicService: InspectionVerificationService,
     public service: GlobalsService,
     private modalService: NgbModal,private dialog: MatDialog,
-    private basic: MainNavComponent,
+    private basic: MainNavComponent,private verification: VerificationlvComponent,
     private registerService: InspectorregisterService,
     private ChangeDetectorRef: ChangeDetectorRef,public datepipe: DatePipe) {
      
