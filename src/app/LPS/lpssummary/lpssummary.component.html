@@ -940,8 +940,8 @@
       <div style="text-align: center;"> 
 
         <button class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn next save-Button"
-          mat-button type="submit" (click)="typeButton('save')" [ngClass]="{'disableForm':isEditable}">
-        <i class="bi bi-journal-arrow-up icon"></i>Save</button>
+          mat-button type="submit" (click)="typeButton('save')" [ngClass]="{'disableForm':isEditable}" [ngStyle]="{'background-color': isEditable ? 'lightgrey' : ''}">
+        <i class="bi bi-journal-arrow-up icon"></i>Save</button>                                                  
 
         <button style="width: auto;margin-left: 50px;" type="submit" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn next"
           mat-button [disabled]="submittedButton" (click)="typeButton('submit')" [ngClass]="{'disableForm':isEditable}">
