@@ -88,6 +88,17 @@ logoutClick:number=0;
 //remember me
 autoLoginToken:number=0;
 
+//siganture
+signatureImg1:string="";
+signatureImg2:string="";
+signatureImg3:string="";
+signatureImg4:string="";
+signatureImg5:string="";
+signatureImg6:string="";
+
+sigInput:number=0;
+
+
  constructor(private _scrollToService: ScrollToService
   ) {}
   

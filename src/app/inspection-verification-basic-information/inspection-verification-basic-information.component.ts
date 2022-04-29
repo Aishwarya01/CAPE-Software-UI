@@ -23,6 +23,8 @@ import { VerificationlvComponent } from '../verificationlv/verificationlv.compon
 import { ReturnTypeTransform } from '@angular/compiler-cli/src/ngtsc/transform';
 import { MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
+import { SignatureComponent } from '../signature/signature.component';
+//import { SyncSigComponent } from '../sync-sig/sync-sig.component';
 
 @Component({
   selector: 'app-inspection-verification-basic-information',
@@ -203,6 +205,8 @@ ShowNext: boolean = true;
   finalSpinner: boolean = true;
   popup: boolean = false;
 
+  
+
   constructor(
     private _formBuilder: FormBuilder,
     private router: ActivatedRoute,
@@ -233,7 +237,12 @@ ShowNext: boolean = true;
     this.service.lvClick=0;
     this.service.logoutClick=0;
     this.service.windowTabClick=0;
-  }
+    this.service.signatureImg1="";
+    this.service.signatureImg2="";
+    this.service.signatureImg3="";
+    this.service.signatureImg4="";
+    this.service.sigInput=0;
+    }
 
   ngOnInit(): void {
     if(this.service.msgForStep1Flag){
@@ -319,8 +328,98 @@ ShowNext: boolean = true;
   }
 
 /*e-siganture starts in progress*/ 
+//  SignatureDesigner1(){
+//   const dialogRef =this.dialog.open(SyncSigComponent, {
+//       maxHeight: '90vh',
+//       disableClose: true,
+//     });
+//     dialogRef.componentInstance.sigImg1 = true;
+//     dialogRef.componentInstance.sigImg2 = false;
+//     dialogRef.componentInstance.sigImg3 = false;
+//     dialogRef.componentInstance.sigImg4 = false;
+//     dialogRef.componentInstance.sigImg5 = false;
+//     dialogRef.componentInstance.sigImg6 = false;
+//   }
+//   focusSigDesigner1(a: any){
+//    if(a.controls.declarationSignature.value!=""){
+//      return a.controls.declarationSignature.markAsDirty();
+//     }
+//   }
+  /*e-siganture ends*/
+
+ /*e-siganture starts in progress*/ 
+SignatureDesigner1(){
+  const dialogRef =this.dialog.open(SignatureComponent, {
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+    dialogRef.componentInstance.sigImg1 = true;
+    dialogRef.componentInstance.sigImg2 = false;
+    dialogRef.componentInstance.sigImg3 = false;
+    dialogRef.componentInstance.sigImg4 = false;
+    dialogRef.componentInstance.sigImg5 = false;
+    dialogRef.componentInstance.sigImg6 = false;
+  }
+  focusSigDesigner1(a: any){
+   if(a.controls.declarationSignature.value!=""){
+     return a.controls.declarationSignature.markAsDirty();
+    }
+  }
+  
+  SignatureDesigner2(){
+    const dialogRef =this.dialog.open(SignatureComponent, {
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+    dialogRef.componentInstance.sigImg1 = false;
+    dialogRef.componentInstance.sigImg2 = true;
+    dialogRef.componentInstance.sigImg3 = false;
+    dialogRef.componentInstance.sigImg4 = false;
+    dialogRef.componentInstance.sigImg5 = false;
+    dialogRef.componentInstance.sigImg6 = false;
+  }
+  focusSigDesigner2(a: any){
+    if(a.controls.declarationSignature.value!=""){
+      return a.controls.declarationSignature.markAsDirty();
+     }
+  }
+  SignatureContractor(){
+    const dialogRef =this.dialog.open(SignatureComponent, {
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+    dialogRef.componentInstance.sigImg1 = false;
+    dialogRef.componentInstance.sigImg2 = false;
+    dialogRef.componentInstance.sigImg3 = true;
+    dialogRef.componentInstance.sigImg4 = false;
+    dialogRef.componentInstance.sigImg5 = false;
+    dialogRef.componentInstance.sigImg6 = false;
+  }
+  focusSigContractor(a: any){
+    if(a.controls.declarationSignature.value!=""){
+      return a.controls.declarationSignature.markAsDirty();
+     }
+  }
+  SignatureInspector(){
+    const dialogRef =this.dialog.open(SignatureComponent, {
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+    dialogRef.componentInstance.sigImg1 = false;
+    dialogRef.componentInstance.sigImg2 = false;
+    dialogRef.componentInstance.sigImg3 = false;
+    dialogRef.componentInstance.sigImg4 = true;
+    dialogRef.componentInstance.sigImg5 = false;
+    dialogRef.componentInstance.sigImg6 = false;
+  }
+  focusSigInspector(a: any){
+    if(a.controls.declarationSignature.value!=""){
+      return a.controls.declarationSignature.markAsDirty();
+     }
+  }
 
   /*e-siganture ends*/
+
   focusPersonFunction(){
     if(this.declarationPersonName==''){
       this.showPersonNameMsg=true;
@@ -1103,7 +1202,8 @@ showHideAccordion(index: number) {
 // Signature part
   private createDesigner1AcknowledgeForm(): FormGroup {
       return new FormGroup({
-        declarationSignature: new FormControl(''),
+        declarationSignature: new FormControl('',[Validators.required]),
+       // declarationSignature: new FormControl(''),
         declarationDate: new FormControl('',[Validators.required]),
         declarationName: new FormControl('',[Validators.required])
       })
@@ -1117,14 +1217,16 @@ showHideAccordion(index: number) {
     }
   private createContractorAcknowledgeForm(): FormGroup {
       return new FormGroup({
-        declarationSignature: new FormControl(''),
+        declarationSignature: new FormControl('',[Validators.required]),
+        //declarationSignature: new FormControl(''),
         declarationDate: new FormControl('',[Validators.required]),
         declarationName: new FormControl('',[Validators.required])
       })
     }
   private createInspectorAcknowledgeForm(inspectorValue:any): FormGroup {
       return new FormGroup({
-        declarationSignature: new FormControl(''),
+        declarationSignature: new FormControl('',[Validators.required]),
+       // declarationSignature: new FormControl(''),
         declarationDate: new FormControl('',[Validators.required]),
         declarationName: new FormControl(inspectorValue.name,[Validators.required])
       })
@@ -1701,6 +1803,11 @@ onPopState(event:any) {
       }
 
      if(this.step1Form.touched || this.step1Form.untouched){
+      if(this.service.sigInput==1){
+        this.modalService.open(content1, { centered: true,backdrop: 'static'});
+        //this.modalReference.close();
+       }
+       else{
       
       this.modalService.open(content2, {
          centered: true, 
@@ -1708,6 +1815,13 @@ onPopState(event:any) {
          backdrop: 'static'
         });
        // this.modalReference.close();
+      }
+      // this.modalService.open(content2, {
+      //    centered: true, 
+      //    size: 'md',
+      //    backdrop: 'static'
+      //   });
+      //  // this.modalReference.close();
      
      }
      if(this.step1Form.dirty && this.step1Form.touched){ //update

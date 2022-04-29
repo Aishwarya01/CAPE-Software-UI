@@ -1,0 +1,12 @@
+<div class="col-lg-12 control-section">
+    <div id="signature-control">
+        <div class='e-sign-heading'>
+            <span id="signdescription">Sign below</span>
+            <span class='e-btn-options'>
+                <button ejs-button #signsave id="signsave" cssClass="e-primary e-sign-save" [disabled]="true" (click)="saveBtnClick()">SAVE</button>
+                <button ejs-button #signclear id="signclear" cssClass="e-primary e-sign-clear" [disabled]="true" (click)="clearBtnClick()">CLEAR</button>    
+            </span>
+        </div>
+        <canvas ejs-signature #signature id="signature" style="height: 90%; width: 100%;" (change)="change()"></canvas>
+    </div>
+</div>
