@@ -39,6 +39,8 @@ import { LpsMatstepperComponent } from '../LPS/lps-matstepper/lps-matstepper.com
 import { LpsWelcomePageComponent } from '../LPS/lps-welcome-page/lps-welcome-page.component';
 import { wind } from 'ngx-bootstrap-icons';
 import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
+import {Subject, from } from 'rxjs';
+import {Message} from '../globals.service'
 
 export interface PeriodicElement {
   siteCd: string;
@@ -86,7 +88,8 @@ export class MainNavComponent implements OnInit, OnDestroy {
   superAdminFlag: boolean = false;
   allData: any = [];
   selectedIndex: any;
- 
+  isShow: boolean = false;
+
 
   @ViewChild('ongoingSiteSort') set matSortOn(ms: MatSort) {
     this.ongoingSiteSort = ms;
@@ -230,6 +233,8 @@ export class MainNavComponent implements OnInit, OnDestroy {
   NewInspectorReply:boolean=false;
   newZeroNotification:boolean=false;
   disable: boolean=false;
+  messages: Message[] = [];
+  valueBot: string="";
 
   constructor(private breakpointObserver: BreakpointObserver, changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
@@ -292,8 +297,27 @@ export class MainNavComponent implements OnInit, OnDestroy {
     if(this.showREP) {
       this.retrieveSiteDetails();
     }
+    this.service.conversation.subscribe((val) => {
+      this.messages = this.messages.concat(val);
+    });
   }
-  
+  toggleStatus() {
+    this.isShow = !this.isShow;
+  }
+  toggleStatusClose(){
+    this.isShow = !this.isShow;
+  }
+  sendMessage() {
+   // this.valueBot = '';
+    this.service.getBotAnswer(this.valueBot);
+    this.valueBot = '';
+  }
+  // chatBot(contentBot:any){ 
+  //   this.modalService.open(contentBot, {
+  //     centered: true, 
+  //     size: 'md',
+  //    });
+  // }
   setCompletedDataSourceAttributes() {
     if(this.completedLicense_dataSource !== undefined){
      this.completedLicense_dataSource.paginator = this.completedLicensePaginator;

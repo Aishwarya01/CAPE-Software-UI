@@ -439,8 +439,62 @@
            </div>
 </div>
     </div>
- </mat-sidenav-content>
 
+    <!-- <div id="body">  -->
+      <div id="chat-circle" class="btn btn-raised" (click)="toggleStatus()">
+        <div id="chat-overlay"></div>
+          <mat-icon style="margin: 0px -9px;font-size: 30px;"> chat</mat-icon>
+      </div>
+        <div class="chat-box" *ngIf="isShow" style="height: 70%;">
+          <div class="chat-box-header">
+            ChatBot
+            <span class="chat-box-toggle" (click)="toggleStatusClose()"><i class="material-icons">close</i></span>
+          </div>
+          <div class="chat-box-body" style="top: 0%;overflow-y: scroll;">
+            <!-- <div class="chat-box-overlay"></div>
+            <div class="chat-logs"></div> -->
+            <ng-container *ngFor="let message of messages">
+              <div class="message"
+              [ngClass]="{ 'from': message.author === 'bot',
+              'to': message.author === 'user' }">
+              {{ message.content }}
+              </div>
+              </ng-container>
+              <!-- <label *ngIf="messages.length == 0; else" for="nameField"></label> -->
+              <input [(ngModel)]="valueBot" (keyup.enter)="sendMessage()" type="text" placeholder="Type Your message" 
+              style="width: 20%;
+              position: fixed;
+              top: 89%;
+              right: 4.5%;">
+              <i class="material-icons" (click)="sendMessage()" style="position: fixed;
+              top: 89%;
+              right: 2.5%;">send</i>
+              <!-- <ng-template #dialogInfo>
+              <span [className]="'float-right'">Total messages: {{messages.length}}</span>
+              </ng-template> -->
+          </div>
+          
+        </div>
+      <!-- </div> -->
+ </mat-sidenav-content>
+ 
+   
+ 
 </mat-sidenav-container>
 </div>
 
+<!-- <ng-template #contentBot let-modal>
+<ng-container *ngFor="let message of messages">
+  <div class="message"
+  [ngClass]="{ 'from': message.author === 'bot',
+  'to': message.author === 'user' }">
+  {{ message.content }}
+  </div>
+  </ng-container>
+  <label *ngIf="messages.length == 0; else dialogInfo" for="nameField">Your message</label>
+  <input [(ngModel)]="valueBot" (keyup.enter)="sendMessage()" type="text">
+  <button (click)="sendMessage()">Send</button>
+  <ng-template #dialogInfo>
+  <span [className]="'float-right'">Total messages: {{messages.length}}</span>
+  </ng-template>
+</ng-template> -->

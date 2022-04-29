@@ -1,12 +1,13 @@
 import {Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ScrollToService, ScrollToConfigOptions } from '@nicky-lenaers/ngx-scroll-to';
+import { Subject } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
+export class Message {
+  constructor(public author: string, public content: string) {}
+}
 
-})
-
+@Injectable()
 export class GlobalsService {
    
   private data = {};  
@@ -61,7 +62,7 @@ export class GlobalsService {
  isCompleted: boolean = true;
  isCompleted2: boolean = true;
  isCompleted4: boolean = true;
- isCompleted5: boolean = true;
+ isCompleted5: boolean = true; 
  isCompleted3: boolean = true;
  goBacktoprevious: boolean=false;
  editable: boolean = true;
@@ -98,6 +99,30 @@ autoLoginToken:number=0;
         offset: 200
       };
       this._scrollToService.scrollTo(config);
+    }
+
+    conversation = new Subject<Message[]>();
+  
+    messageMap : any = {
+      "Hi": "Hello",
+      "Who are you": "My name is Agular Bot",
+      "What is Angular": "Angular is the best framework ever",
+      "default": "I can't understand. Can you please repeat"
+    }
+  
+    getBotAnswer(msg: string) {
+      const userMessage = new Message('user', msg);  
+      this.conversation.next([userMessage]);
+      const botMessage = new Message('bot', this.getBotMessage(msg));
+      
+      setTimeout(()=>{
+        this.conversation.next([botMessage]);
+      }, 1500);
+    }
+  
+    getBotMessage(question: string){
+      let answer = this.messageMap[question];
+      return answer || this.messageMap['default'];
     }
   }
 
