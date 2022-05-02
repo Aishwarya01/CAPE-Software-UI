@@ -13,7 +13,7 @@
                 [getConnectorDefaults]='getConnectorDefaults' [getNodeDefaults]='getNodeDefaults' (created)="diagramCreate($event)">
                 </ejs-diagram> -->
 
-                <ejs-diagram #diagram id="diagram" width="100%" height="580px"   [getNodeDefaults] ='getNodeDefaults' [getConnectorDefaults] ='getConnectorDefaults' >
+                <ejs-diagram #diagram id="diagram" width="100%" height="580px"  (click) ="clickFunction($event,content2,content3,content4,content5,content6)"  [getNodeDefaults] ='getNodeDefaults' [getConnectorDefaults] ='getConnectorDefaults' >
                   <!-- <e-connectors>
                     <e-connector id='connectorIp1' type='Orthogonal'  sourceID='nodeIp1' targetID='node1'>
                     </e-connector>
@@ -69,6 +69,463 @@
     <button *ngIf="flag" class="btn btn-primary" (click)="submit(flag,content1)">Update Diagram</button>
 
 </div>
+
+<ng-template #content2 let-modal>
+  <div class="modal-header" style="text-align: center; display: block">
+    <h2 class="modal-title" style="display: contents">PAT</h2>
+  </div>
+
+  <div class="modal-body">
+   <div class="card">
+     <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          <label>Reference Name</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Portable Appliance Name</label>
+          <select  class="form-control">
+            <option value="Refrigrator">Refrigrator</option>
+            <option value="Washing machine">Washing machine</option>
+            <option value="Micro oven">Micro oven</option>
+            <option value="Toaster">Toaster</option>
+            <option value="Air conditioner">Air conditioner</option>
+            <option value="Geycer">Geycer</option>
+            <option value="irons,Kettles">irons,Kettles</option>
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label>Manfacturer Name</label>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <label>Rating(A)</label>
+          <input type="number" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Voltage(V)</label>
+          <input type="number" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Insulation Class</label>
+          <select  class="form-control">
+            <option value="Class-1">Class-1</option>
+            <option value="Class-2">Class-2</option>
+          </select>        
+        </div>
+      </div>
+      <br>
+      <h3 style="text-align: center">Outgoing Cable Size(sq.mm.)</h3>
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <label>Phase</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Neutral</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Protective Conductor</label>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  <br>
+     <button type="button" *ngIf="popup" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+     aria-label="Close"  (click)="closeModalDialog()">
+      <span aria-hidden="true">Ok</span>
+  </button>
+  </ng-template>
+
+<ng-template #content3 let-modal>
+  <div class="modal-header" style="text-align: center; display: block">
+    <h2 class="modal-title" style="display: contents">Cables</h2>
+  </div>
+
+  <div class="modal-body">
+    <div class="card">
+      <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          <label>Reference Name</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Manfacturer Name</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Type of Conductor</label>
+          <select  class="form-control">
+            <option value="Cable">Cable</option>
+            <option value="Bus Duct">Bus Duct</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <label>Voltage(V)</label>
+          <input type="number" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Cable/Bus Duct Type</label>
+          <input type="number" class="form-control">
+        </div>
+        
+        <div class="col-md-4">
+          <label>Cable/Bus Duct Size</label>
+          <input type="number" class="form-control">
+        </div>
+
+      </div>
+      <br>
+      <h3 style="text-align: center">Cable/Bus Duct(sq.mm./mm)</h3>
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <label>Phase</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Neutral</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Protective Conductor</label>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+
+      <br>
+      <h3 style="text-align: center">Cable/Bus Duct(m)</h3>
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <label>Phase</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Neutral</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Protective Conductor</label>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+
+      </div>
+    </div>
+    </div>
+  <br>
+      <button type="button" *ngIf="popup" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+      aria-label="Close"  (click)="closeModalDialog()">
+      <span aria-hidden="true">Ok</span>
+  </button>
+  </ng-template>
+
+<ng-template #content4 let-modal>
+  <div class="modal-header" style="text-align: center; display: block">
+    <h2 class="modal-title" style="display: contents">Fan</h2>
+  </div>
+
+  <div class="modal-body">
+    <div class="card">
+      <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          <label>Reference Name</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Manfacturer Name</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Power Capacity(W)</label>
+          <input type="number" class="form-control">
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-4">
+          <label>Current Rating(A)</label>
+          <input type="number" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Voltage(V)</label>
+          <input type="number" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Model/Type</label>
+          <input type="text" class="form-control">
+        </div>
+      
+      </div>
+      <br>
+      <h3 style="text-align: center">Incoming Cable Size(sq.mm.)</h3>
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <label>Phase</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Neutral</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Protective Conductor</label>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+
+      <br>
+      <h3 style="text-align: center">Incoming Cable Length(m)</h3>
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <label>Phase</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Neutral</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Protective Conductor</label>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+
+      </div>
+    </div>
+    </div>
+  <br>
+      <button type="button" *ngIf="popup" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+      aria-label="Close"  (click)="closeModalDialog()">
+      <span aria-hidden="true">Ok</span>
+  </button>
+  </ng-template>
+
+<ng-template #content5 let-modal>
+  <div class="modal-header" style="text-align: center; display: block">
+    <h2 class="modal-title" style="display: contents">Light</h2>
+  </div>
+
+  <div class="modal-body">
+    <div class="card">
+      <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          <label>Reference Name</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Manfacturer Name</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Power Capacity(W)</label>
+          <input type="number" class="form-control">
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-4">
+          <label>Current Rating(A)</label>
+          <input type="number" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Voltage(V)</label>
+          <input type="number" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Model/Type</label>
+          <input type="text" class="form-control">
+        </div>
+      
+      </div>
+      <br>
+      <h3 style="text-align: center">Incoming Cable Size(sq.mm.)</h3>
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <label>Phase</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Neutral</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Protective Conductor</label>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+
+      <br>
+      <h3 style="text-align: center">Incoming Cable Length(m)</h3>
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <label>Phase</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Neutral</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Protective Conductor</label>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+
+      </div>
+    </div>
+    </div>
+  <br>
+      <button type="button" *ngIf="popup" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+      aria-label="Close"  (click)="closeModalDialog()">
+      <span aria-hidden="true">Ok</span>
+  </button>
+  </ng-template>
+
+<ng-template #content6 let-modal>
+  <div class="modal-header" style="text-align: center; display: block">
+    <h2 class="modal-title" style="display: contents">LT Motor</h2>
+  </div>
+
+  <div class="modal-body">
+    <div class="card">
+      <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          <label>Reference Name</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Manfacturer Name</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Winding Connection</label>
+          <select  class="form-control">
+            <option value="Star">Star</option>
+            <option value="Delta">Delta</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-4">
+          <label>Power Capacity(KW)</label>
+          <input type="number" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Current Rating(A)</label>
+          <input type="number" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Voltage(V)</label>
+          <input type="number" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>No of Phase(V)</label>
+          <select  class="form-control">
+            <option value="1phase">1phase</option>
+            <option value="3phase">3phase</option>
+          </select>            
+        </div>
+
+        <div class="col-md-4">
+          <label>Model/Type</label>
+          <input type="text" class="form-control">
+        </div>
+      
+      </div>
+      <br>
+      <h3 style="text-align: center">Incoming Cable Size(sq.mm.)</h3>
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <label>Phase</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Neutral</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Protective Conductor</label>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+
+      <br>
+      <h3 style="text-align: center">Incoming Cable Length(m)</h3>
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <label>Phase</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Neutral</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Protective Conductor</label>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+
+      </div>
+    </div>
+    </div>
+  <br>
+      <button type="button" *ngIf="popup" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+      aria-label="Close"  (click)="closeModalDialog()">
+      <span aria-hidden="true">Ok</span>
+  </button>
+  </ng-template>
 
 <ng-template #content1 let-modal>
   <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinner"

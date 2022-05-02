@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ConnectorModel, DiagramComponent, NodeModel, PaletteModel, PortConstraints, PortVisibility, SymbolInfo, 
+import { ConnectorModel, Node, Connector, DiagramComponent, NodeModel, PaletteModel, PortConstraints, PortVisibility, SymbolInfo, 
   SymbolPreviewModel } from '@syncfusion/ej2-angular-diagrams'; 
   import {SymbolPalette} from  '@syncfusion/ej2-diagrams'
 import { DiagramModel } from '../model/diagram-component';
@@ -124,6 +124,33 @@ export class DiagramHomeComponent implements OnInit {
 
       }
     )
+  }
+
+  clickFunction(e: any,content2: any,content3: any,content4: any,content5: any,content6: any) {
+    if(e.element instanceof Node){
+      if(e.element.properties.id.includes('Inductor')) {
+        this.modalService.open(content2, { centered: true,size: 'xl'});
+      }
+      else if(e.element.properties.id.includes('Diode')) {
+        this.modalService.open(content3, { centered: true,size: 'xl'});
+      }
+      else if(e.element.properties.id.includes('Resistor')) {
+        this.modalService.open(content4, { centered: true,size: 'xl'});
+      }
+      else if(e.element.properties.id.includes('Circuit Breaker')) {
+        this.modalService.open(content5, { centered: true,size: 'xl'});
+      }
+      else if(e.element.properties.id.includes('Ground')) {
+        this.modalService.open(content6, { centered: true,size: 'xl'});
+      }
+      // let person = prompt("Please enter color of the node:", "Red");
+      // e.element.style.fill = person;
+      console.log(e.element)
+    } else if(e.element instanceof Connector){
+      let person = prompt("Please enter type of the connector:", "Straight");
+      e.element.type = person;
+      console.log(e.element)
+    }
   }
   // public portIp1: PointPortModel[] = [
   //   {
