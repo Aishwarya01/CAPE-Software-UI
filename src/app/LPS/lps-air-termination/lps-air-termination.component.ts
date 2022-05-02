@@ -150,7 +150,7 @@ export class LpsAirTerminationComponent implements OnInit {
   componentName2: string = "airUpload-2";
   uploadObj: any;
   listOfAllFileId: any = [];
-
+  summaryPopup: boolean = false;
   // For Spinner
   spinner: boolean = false;
   spinnerValue: String = '';
@@ -1666,7 +1666,7 @@ export class LpsAirTerminationComponent implements OnInit {
     );
   }
 
-  gotoNextModal(content: any, contents: any) {
+  gotoNextModal(contents: any,content1:any) {
 
     if (this.airTerminationForm.invalid) {
       this.validationError = true;
@@ -1685,14 +1685,23 @@ export class LpsAirTerminationComponent implements OnInit {
       }, 3000);
       return;
     }
-    //  Update and Success msg will be showing
+
+    // Update and Success msg will be showing
     if (this.airTerminationForm.dirty && this.airTerminationForm.touched) {
-      this.modalService.open(content, { centered: true, backdrop: 'static' });
+      this.modalService.open(content1, { centered: true, backdrop: 'static' });  
+      this.summaryPopup=true;
     }
+    
     //  For Dirty popup
     else {
       this.modalService.open(contents, { centered: true, backdrop: 'static' });
     }
+  }
+
+  summaryEvent(content:any){
+    this.modalService.open(content, { centered: true, backdrop: 'static' });
+    this.onSubmit(this.flag);
+    this.summaryPopup=false;
   }
 
   closeModalDialog() {

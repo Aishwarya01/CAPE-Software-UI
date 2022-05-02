@@ -19,7 +19,7 @@ export class LpsEarthStudComponent implements OnInit {
   submitted=false;
   earthStudReport = new earthStudReport;
   disable: boolean=false;
-
+  summaryPopup: boolean = false;
   basicLpsId: number = 0;
   ClientName: String='';
   projectName: String='';
@@ -396,7 +396,7 @@ export class LpsEarthStudComponent implements OnInit {
     }
   }
 
-  gotoNextModal(content: any,contents:any) {
+  gotoNextModal(content1: any,contents:any) {
      if (this.EarthStudForm.invalid) {
        this.validationError = true;
       
@@ -425,13 +425,20 @@ export class LpsEarthStudComponent implements OnInit {
     }
       //  Update and Success msg will be showing
      else if(this.EarthStudForm.dirty && this.EarthStudForm.touched){
-        this.modalService.open(content, { centered: true,backdrop: 'static' });
+        this.modalService.open(content1, { centered: true,backdrop: 'static' });
+        this.summaryPopup=true;
      }
     //  For Dirty popup
      else{
       this.modalService.open(contents, { centered: true,backdrop: 'static' });
       // this.modalReference.close();
      }
+  }
+
+  summaryEvent(content:any){
+    this.modalService.open(content, { centered: true, backdrop: 'static' });
+    this.onSubmit(this.flag);
+    this.summaryPopup=false;
   }
 
   retriveStud(){

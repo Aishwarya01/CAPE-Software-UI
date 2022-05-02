@@ -160,6 +160,7 @@ export class LpsDownConductorsComponent implements OnInit {
   popupDelete: boolean = false;
   fileDeleteSuccess: boolean = false;
   fileDeletesuccessMsg: any;
+  summaryPopup: boolean = false;
   // For Spinner
   spinner: boolean=false;
   spinnerValue: String = '';
@@ -1688,7 +1689,7 @@ export class LpsDownConductorsComponent implements OnInit {
       }
     }
 
-    gotoNextModal(content: any,contents:any) {
+    gotoNextModal(content1: any,contents:any) {
       if (this.downConductorForm.invalid) {
         this.validationError = true;
 
@@ -1718,12 +1719,19 @@ export class LpsDownConductorsComponent implements OnInit {
       }
         //  Update and Success msg will be showing
       else if(this.downConductorForm.dirty && this.downConductorForm.touched){
-          this.modalService.open(content, { centered: true,backdrop: 'static' });
+        this.modalService.open(content1, { centered: true, backdrop: 'static' });  
+        this.summaryPopup=true;
       }
       //  For Dirty popup
       else{
         this.modalService.open(contents, { centered: true,backdrop: 'static' });
       }
+    }
+    
+    summaryEvent(content:any){
+      this.modalService.open(content, { centered: true, backdrop: 'static' });
+      this.onSubmit(this.flag);
+      this.summaryPopup=false;
     }
 
     retriveDownConductor(){

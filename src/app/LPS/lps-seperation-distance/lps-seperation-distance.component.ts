@@ -23,7 +23,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
   separateDistanceDownConductors!: FormArray;
   submitted!: boolean;
   email: any;
-  
+  summaryPopup: boolean = false;
   validationError: boolean = false;
   validationErrorMsg: String = '';
   successMsg: string="";
@@ -72,7 +72,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
     {
   }
 
-  gotoNextModal(content: any,contents:any) {
+  gotoNextModal(content1: any,contents:any) {
     
     if (this.separeteDistanceForm.invalid) {
       this.validationError = true;
@@ -100,12 +100,19 @@ export class LpsSeperationDistanceComponent implements OnInit {
       return;
     }
     else if(this.separeteDistanceForm.dirty && this.separeteDistanceForm.touched){
-      this.modalService.open(content, { centered: true,backdrop: 'static' });
+      this.modalService.open(content1, { centered: true,backdrop: 'static' });
+      this.summaryPopup=true;
    }
   //  For Dirty popup
    else{
     this.modalService.open(contents, { centered: true,backdrop: 'static' });
    }
+  }
+
+  summaryEvent(content:any){
+    this.modalService.open(content, { centered: true, backdrop: 'static' });
+    this.onSubmit(this.flag);
+    this.summaryPopup=false;
   }
 
   ngOnInit(): void {

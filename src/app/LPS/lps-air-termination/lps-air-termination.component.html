@@ -10,7 +10,7 @@
 
 <div class="card">
     <div class="card-body">
-        <form [formGroup]="airTerminationForm" (ngSubmit)="onSubmit(flag)" (keyup)="onKeyForm($event)"
+        <form [formGroup]="airTerminationForm" (keyup)="onKeyForm($event)"
             (change)="onChangeForm($event)">
             <div formArrayName="lpsAirDescription" *ngFor="let q of overAllControl(); let f = index">
                 <div class="form-group" [formGroupName]="f">
@@ -4616,12 +4616,39 @@
             </div>
             <div style="text-align: center;margin-bottom: 20px;">
                 <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
-                <button class="next" (click)="gotoNextModal(content,contents)" mat-button>Next &raquo;</button>
+                <button class="next" (click)="gotoNextModal(contents,content1)" mat-button>Next &raquo;</button>
             </div>
         </form>
 
     </div>
 </div>
+
+<!-- This will be modified later -->
+<ng-template #content1 let-modal>
+    <div *ngIf="summaryPopup">
+        <div class="modal-body">
+            <div class="centre-text m-btm30">
+                <div style="text-align: center;">
+                    <span style="font-size: 12px;">Note: Since you are updating the remarks section, your summary recommendation will be reset..! </span>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <button type="button" class="col-md-6" style="width: 5rem;position: relative;margin-left: 30%;"
+                class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close" (click)="summaryEvent(content)">
+                <i class="bi bi-arrow-right-circle"></i>&nbsp;
+                <span aria-hidden="true" (ngSubmit)="onSubmit(flag)" *ngIf="summaryPopup">Ok</span>
+            </button>
+            <button type="button" class="col-md-6" style="text-align: center;width: auto;position: relative;margin-right: 30%;"
+                class="btn btn-danger btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close" (click)="closeModalDialog()">
+                <i class="bi bi-x icon"></i>
+                <span aria-hidden="true">Cancel</span>
+            </button>
+        </div>
+    </div>
+</ng-template>
+
 
 <ng-template #content let-modal>
     <div class="modal-body">
