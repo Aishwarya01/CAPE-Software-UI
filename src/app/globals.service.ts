@@ -83,6 +83,8 @@ export class GlobalsService {
  isCompleted6: boolean = true;
  isCompleted7: boolean = true;
  isCompleted8: boolean = true; 
+ enableDownload: boolean = false;
+ pdfError: String="";
 //remember me
 autoLoginToken:number=0;
 

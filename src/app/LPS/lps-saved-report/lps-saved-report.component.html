@@ -7,6 +7,7 @@
       </mat-form-field>
 
       <span *ngIf="deleteSuccess" class="successshow" style="margin-left: 120px;">{{deleteSuccessMsg}}</span>
+      <span *ngIf="service.pdfError" class="errorshow" style="margin-left: 120px;">{{service.pdfError}}</span>
 
       <mat-progress-spinner style="margin: 0 auto;" *ngIf="spinner" color="primary" [mode]="mode" value="50" diameter="50">
       </mat-progress-spinner>
@@ -72,9 +73,11 @@
 
                 <mat-icon class="material-icons-outlined-info info" (click)="continue(element.basicLpsId)" title="Edit this Record"
                 style="color: #17a2b8;cursor: pointer;">edit</mat-icon>
+                <mat-icon class="material-icons-outlined-success success" (click)="downloadPdf(element.basicLpsId,element.userName)" 
+                title="Download" style="margin-left: 1rem;cursor: pointer;">download</mat-icon>
                 <mat-icon class="material-icons-outlined-danger delete" (click)="deleteBasicLps(element.basicLpsId)" *ngIf="enableDelete" title="Delete The Record"
                 style="margin-left: 1rem;cursor: pointer;">delete</mat-icon>
-
+                
             </td>
         </ng-container>
 
@@ -94,3 +97,4 @@
     </div>
     <span *ngIf="noDetailsRec" class="errorshow" style="margin: 0 auto;">{{noDetailsRecMsg}}</span>
   </div>
+  
