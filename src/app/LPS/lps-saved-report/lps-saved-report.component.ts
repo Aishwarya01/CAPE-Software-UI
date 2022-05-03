@@ -11,7 +11,6 @@ import { environment } from 'src/environments/environment';
 import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminProd } from 'src/environments/environment.prod';
 import { SuperAdminLocal } from 'src/environments/environment';
-import { FinalPdfServiceService } from 'src/app/LPS_services/final-pdf-service.service';
 
 @Component({
   selector: 'app-lps-saved-report',
@@ -72,7 +71,6 @@ completedFilterData: any=[];
   constructor(private router: ActivatedRoute,
               public service: GlobalsService,
               public lpsService: LPSBasicDetailsService,
-              private summaryPdf: FinalPdfServiceService
               
   ) { 
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
@@ -167,10 +165,6 @@ completedFilterData: any=[];
     this.callSavedMethod.emit(basicLpsId);
     //this.lpsParent.continue(basicLpsId);
   } 
-
-  downloadPdf(basicLpsId: any,userName:any): any {
-    this.summaryPdf.downloadSummaryPDF(basicLpsId,userName,this.lpsSummary);
-  }
 
   deleteBasicLps(basicLpsId: any) {  
     

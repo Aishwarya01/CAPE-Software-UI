@@ -9,6 +9,7 @@ import { GlobalsService } from 'src/app/globals.service';
 // import { LpsSummaryConst } from 'src/app/LPS_constants/lps-summary-const';
 import { LpsSummary } from 'src/app/LPS_model/lps-summary';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
+import { FinalPdfServiceService } from 'src/app/LPS_services/final-pdf-service.service';
 import { SummaryServiceService } from 'src/app/LPS_services/summary-service.service';
 import { SuperAdminLocal } from 'src/environments/environment';
 import { SuperAdminDev } from 'src/environments/environment.dev';
@@ -26,6 +27,7 @@ export class LpssummaryComponent implements OnInit {
     submitted=false;
     summaryArr: any=[];
     lpsSummary=new LpsSummary();
+    lpsSummaryPDF: String="LpsSummary";
     email: String = '';
     flag: boolean=true;
     flag1: boolean = false;
@@ -424,6 +426,7 @@ export class LpssummaryComponent implements OnInit {
   constructor(private summaryService:SummaryServiceService,private formBuilder: FormBuilder,
     private airterminationServices: AirterminationService, private router: ActivatedRoute,
     private dialog: MatDialog,private modalService: NgbModal,public service: GlobalsService,
+    private summaryPdf: FinalPdfServiceService
     ) { 
       this.email = this.router.snapshot.paramMap.get('email') || '{}'
 
@@ -2404,7 +2407,7 @@ export class LpssummaryComponent implements OnInit {
        }
     }
     closeModalDialog() {
-     
+      this.downloadPdf();
       if (this.errorMsg != "") {
         this.Error = false;
         this.modalService.dismissAll((this.errorMsg = ""));
@@ -2414,7 +2417,6 @@ export class LpssummaryComponent implements OnInit {
         this.success = false;
         this.modalService.dismissAll((this.successMsg = ""));
         this.proceedNext.emit(false);
-        
         if(this.buttonType == 'save'){
           this.navigateToStep(1);
         }
@@ -2795,4 +2797,9 @@ export class LpssummaryComponent implements OnInit {
       this.saveButton = false;
     }
   }
+
+  downloadPdf() {
+    this.summaryPdf.downloadSummaryPDF(this.basicLpsId,this.email,this.lpsSummaryPDF);
+  }
+
   }

@@ -28,12 +28,12 @@ export class FinalPdfServiceService {
        )
     }
 
-    public downloadSummaryPDF(basicLpsId: any,userName: any,lpsSummary: any) {
+    public downloadSummaryPDF(basicLpsId: any,userName: any,projectName: any) {
     
-      return   this.http.get(this.apiUrl + '/printLpsSummary'+'/'+userName+ '/' +basicLpsId+ '/' +lpsSummary, { responseType: 'blob' }).subscribe(
+      return   this.http.get(this.apiUrl + '/printLpsSummary'+'/'+userName+ '/' +basicLpsId+ '/' +projectName, { responseType: 'blob' }).subscribe(
            data =>{
              if(data != null && data.size != 0){
-              const fileName = lpsSummary+'.pdf';
+              const fileName = projectName+'.pdf';
               FileSaver.saveAs(data, fileName);
               // this.service.enableDownload=true;
              }
