@@ -22,7 +22,7 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { BnNgIdleService } from 'bn-ng-idle';
-import { environment } from 'src/environments/environment';
+import { environment, SuperAdminLocal } from 'src/environments/environment';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { SiteService } from '../services/site.service';
@@ -243,6 +243,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   NewInspectorReply:boolean=false;
   newZeroNotification:boolean=false;
   disable: boolean=false;
+  superAdminLocal = new SuperAdminLocal();
   superAdminDev = new SuperAdminDev();
   superAdminProd = new SuperAdminProd();
 
@@ -550,6 +551,12 @@ triggerNavigateTo(siteName:any){
     }
 
     for(let i of this.superAdminProd.adminEmail) {
+      if(this.email == i) {
+        this.superAdminFlag = true;
+      }
+    }
+
+    for(let i of this.superAdminLocal.adminEmail) {
       if(this.email == i) {
         this.superAdminFlag = true;
       }

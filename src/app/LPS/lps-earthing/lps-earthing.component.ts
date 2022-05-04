@@ -9,7 +9,6 @@ import { GlobalsService } from 'src/app/globals.service';
 import { earthingReport } from 'src/app/LPS_model/earthingReport';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
 import { LpsEarthing } from 'src/app/LPS_services/lps-earthing';
-import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
 
 @Component({
   selector: 'app-lps-earthing',
@@ -23,7 +22,7 @@ export class LpsEarthingComponent implements OnInit {
   submitted=false;
   lpsEarthingService;
   disable: boolean=false;
-
+  summaryPopup: boolean = false;
   basicLpsId: number = 0;
   ClientName: String='';
   projectName: String='';
@@ -1088,7 +1087,7 @@ export class LpsEarthingComponent implements OnInit {
       }
     }
   
-    gotoNextModal(content: any,contents:any) {
+    gotoNextModal(content1: any,contents:any) {
      
        if (this.earthingForm.invalid) {
          this.validationError = true;
@@ -1118,12 +1117,19 @@ export class LpsEarthingComponent implements OnInit {
       }
       //  Update and Success msg will be showing
       else if(this.earthingForm.dirty && this.earthingForm.touched){
-        this.modalService.open(content, { centered: true,backdrop: 'static' });
+        this.modalService.open(content1, { centered: true,backdrop: 'static' });
+        this.summaryPopup=true;
      }
     //  For Dirty popup
      else{
       this.modalService.open(contents, { centered: true,backdrop: 'static' });
      }
+    }
+
+    summaryEvent(content:any){
+      this.modalService.open(content, { centered: true, backdrop: 'static' });
+      this.onSubmit(this.flag);
+      this.summaryPopup=false;
     }
 
 

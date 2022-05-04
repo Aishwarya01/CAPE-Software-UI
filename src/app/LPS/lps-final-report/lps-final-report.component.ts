@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild,ChangeDetectorRef,ComponentRef } from '@angular/core';
+import { Component, OnInit, ViewChild,ChangeDetectorRef,ComponentRef, Output, EventEmitter } from '@angular/core';
 import { MatInput } from '@angular/material/input';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -12,7 +12,6 @@ import { LPSBasicDetailsService } from 'src/app/LPS_services/lpsbasic-details.se
 import { environment } from 'src/environments/environment';
 import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminProd } from 'src/environments/environment.prod';
-import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
 import { LpsWelcomePageComponent } from '../lps-welcome-page/lps-welcome-page.component';
 
 @Component({
@@ -36,6 +35,7 @@ export class LpsFinalReportComponent implements OnInit {
   @ViewChild('finalReportPaginator', { static: false }) finalReportPaginator!: MatPaginator;
   @ViewChild('finalReportSort', {static: false}) finalReportSort!: MatSort;
 
+  @Output() callFinalMethod: EventEmitter<any> = new EventEmitter();
   email: String ="";
   basicDetails = new BasicDetails();
   clientName: String="";
@@ -78,7 +78,6 @@ export class LpsFinalReportComponent implements OnInit {
               private ChangeDetectorRef: ChangeDetectorRef,
               private welcome: LpsWelcomePageComponent,
               private finalpdf: FinalPdfServiceService,public service: GlobalsService,
-              private matstepper:LpsMatstepperComponent,
               private modalService: NgbModal) { 
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
@@ -179,7 +178,8 @@ export class LpsFinalReportComponent implements OnInit {
     this.finalReportSpinner = true;
     this.spinnerValue = "Please wait, the details are loading!";
     this.service.allFieldsDisable = true;
-    this.matstepper.preview(basicLpsId);
+    this.callFinalMethod.emit(basicLpsId);
+    //this.matstepper.preview(basicLpsId);
    }
 
   emailPDF(basicLpsId:any,userName:any, projectName: any){

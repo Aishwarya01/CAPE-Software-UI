@@ -69,6 +69,7 @@ export class LpsMatstepperComponent implements OnInit {
   seperationValue: boolean = true;
   equipotentialBond: boolean = true;
   summary: boolean = true;
+  summarySpinner: boolean = false;
 
   @ViewChild(LpsBasicPageComponent)
   basic!: LpsBasicPageComponent;
@@ -121,6 +122,7 @@ export class LpsMatstepperComponent implements OnInit {
     }
 
     this.saved.ngOnInit();
+    this.activateSummarySpinner();
     this.refresh();
   }
   public doSomething2(next: any): void {
@@ -151,6 +153,7 @@ export class LpsMatstepperComponent implements OnInit {
     else {
       this.downConductors.updateMethod();
     }
+    this.activateSummarySpinner();
   }
 
   public doSomething3(next: any): void {
@@ -160,6 +163,7 @@ export class LpsMatstepperComponent implements OnInit {
       this.lpsSummary.flag1=false;
       this.lpsSummary.ngOnInit();
     }
+    this.activateSummarySpinner();
   }
 
   public doSomething4(next: any): void {
@@ -170,6 +174,7 @@ export class LpsMatstepperComponent implements OnInit {
       this.lpsSummary.ngOnInit();
     }
     this.refresh();
+    this.activateSummarySpinner();
   }
 
   public doSomething5(next: any): void {
@@ -179,6 +184,7 @@ export class LpsMatstepperComponent implements OnInit {
       this.lpsSummary.flag1=false;
       this.lpsSummary.ngOnInit();
     }
+    this.activateSummarySpinner();
   }
   public doSomething6(next: any): void {
     this.service.isLinear=false;
@@ -187,6 +193,7 @@ export class LpsMatstepperComponent implements OnInit {
       this.lpsSummary.flag1=false;
       this.lpsSummary.ngOnInit();
     }
+    this.activateSummarySpinner();
   }
   public doSomething7(next: any): void {
     this.service.isLinear=false;
@@ -195,6 +202,7 @@ export class LpsMatstepperComponent implements OnInit {
       this.lpsSummary.flag1=false;
       this.lpsSummary.ngOnInit();
     }
+    this.activateSummarySpinner();
   }
   public doSomething8(next: any): void {
     this.service.isLinear=false;
@@ -202,6 +210,15 @@ export class LpsMatstepperComponent implements OnInit {
     this.saved.ngOnInit();
     this.final.ngOnInit();
   }
+
+  public onCallSavedMethod(e: any) {
+    this.continue(e);
+  }
+
+  public onCallFinalMethod(e: any) {
+    this.preview(e);
+  }
+
   public changeTabLpsSavedReport(index: number, basicLpsId: any, userName: any) {
    // this.selectedIndex = 1;
     this.basicDetails = false;
@@ -291,20 +308,20 @@ export class LpsMatstepperComponent implements OnInit {
               this.earthStud.createearthStudForm(this.dataJSON.airTermination);
             }
              //summary
-            // this.lpsSummary.spinner = true;
+            // this.lpsSummary.spinner1 = true;
             // this.lpsSummary.spinnerValue = "Please wait, the details are loading!";
             if (this.dataJSON.summaryLps == null) {
               setTimeout(() => {
                 this.lpsSummary.ngOnInit();
+                setTimeout(() => {
+                this.activateSummarySpinner();
               }, 1000);
+           }, 1000);
             }
             else {
               setTimeout(() => {
                 this.lpsSummary.retrieveDetailsfromSavedReports(userName, basicLpsId, this.dataJSON);
-                setTimeout(() => {
-                  this.lpsSummary.spinner = false;
-                  this.lpsSummary.spinnerValue = "";
-                }, 7000);
+                this.activateSummarySpinner();
               }, 5000);
             }
           }  
@@ -314,7 +331,7 @@ export class LpsMatstepperComponent implements OnInit {
         }
       )
     }, 3000);
-
+   
   }
 
   // Final Report 
@@ -332,6 +349,10 @@ export class LpsMatstepperComponent implements OnInit {
   }
 
   interceptTabChange(tab: MatTab, tabHeader: MatTabHeader) {
+    if (this.airTermination.airTerminationForm.dirty && this.airTermination.airTerminationForm.touched) {
+      let flag=false;
+      this.airTermination.updateFileIdIndex(flag);
+    }
     if((this.service.lvClick==1) && (this.service.allStepsCompleted==true))
        {
         const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
@@ -395,7 +416,7 @@ export class LpsMatstepperComponent implements OnInit {
               this.saved.retrieveLpsDetails();
               this.saved.disablepage=true;
               // setTimeout(() => {
-              //   this.saved.spinner=true;
+              //   this.saved.spinner1=true;
               // }, 3000);
             }
           }    
@@ -444,6 +465,10 @@ export class LpsMatstepperComponent implements OnInit {
 
   navigateStep(index: any) {
     this.selectedIndex = index;
+  }
+
+  navigateStepMethod(e: any) {
+    this.navigateStep(e);
   }
 
   initializeLpsId(){
@@ -524,8 +549,24 @@ export class LpsMatstepperComponent implements OnInit {
     }
   }
   goBack8(stepper: MatStepper) {
-    if(this.lpsSummary.reloadFromBack()){
+    if(this.isEditable && !this.lpsSummary.reloadFromBack()){
+      this.lpsSummary.validationErrorTab=false;
+      stepper.previous();
+    }
+    else if(this.lpsSummary.reloadFromBack()){
       stepper.previous();
     }
   }
+
+  activateSummarySpinner(){
+    this.lpsSummary.spinner1 = true;
+    this.summarySpinner = true;
+    this.lpsSummary.spinnerValue = "Please wait, the details are loading!";
+    setTimeout(() => {
+      this.lpsSummary.spinner1 = false;
+      this.lpsSummary.spinnerValue = "";
+      this.summarySpinner = false;
+    }, 5000);
+  }
+  
 }

@@ -9,10 +9,11 @@ import { GlobalsService } from 'src/app/globals.service';
 // import { LpsSummaryConst } from 'src/app/LPS_constants/lps-summary-const';
 import { LpsSummary } from 'src/app/LPS_model/lps-summary';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
+import { FinalPdfServiceService } from 'src/app/LPS_services/final-pdf-service.service';
 import { SummaryServiceService } from 'src/app/LPS_services/summary-service.service';
+import { SuperAdminLocal } from 'src/environments/environment';
 import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminProd } from 'src/environments/environment.prod';
-import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
 
 @Component({
   selector: 'app-lpssummary',
@@ -26,6 +27,7 @@ export class LpssummaryComponent implements OnInit {
     submitted=false;
     summaryArr: any=[];
     lpsSummary=new LpsSummary();
+    lpsSummaryPDF: String="LpsSummary";
     email: String = '';
     flag: boolean=true;
     flag1: boolean = false;
@@ -90,11 +92,14 @@ export class LpssummaryComponent implements OnInit {
     success: boolean=false;
     Error: boolean=false;
     @Output() proceedNext = new EventEmitter<any>();
+    @Output() navigateStepSummary: EventEmitter<any> = new EventEmitter();
+
     isEditable:boolean=false;
     submittedButton: boolean = true;
     saveButton: boolean = false;
     buttonType:  string="";
     //For super admin purpose
+    lpsSummaryConstLocal = new SuperAdminLocal();
     lpsSummaryConst = new SuperAdminDev();
     lpsSummaryConstProd = new SuperAdminProd();
     //air termination
@@ -410,6 +415,7 @@ export class LpssummaryComponent implements OnInit {
   tabErrorMsg: string="";
   // For Spinner
   spinner: boolean=false;
+  spinner1: boolean=false;
   finalSpinner: boolean=false;
   spinnerValue: String = '';
   mode: any = 'indeterminate';
@@ -420,7 +426,7 @@ export class LpssummaryComponent implements OnInit {
   constructor(private summaryService:SummaryServiceService,private formBuilder: FormBuilder,
     private airterminationServices: AirterminationService, private router: ActivatedRoute,
     private dialog: MatDialog,private modalService: NgbModal,public service: GlobalsService,
-    private matStepper: LpsMatstepperComponent
+    private summaryPdf: FinalPdfServiceService
     ) { 
       this.email = this.router.snapshot.paramMap.get('email') || '{}'
 
@@ -433,6 +439,13 @@ export class LpssummaryComponent implements OnInit {
 
       for( let i=0; i<this.lpsSummaryConstProd.adminEmail.length; i++){
         if(this.lpsSummaryConstProd.adminEmail[i] == this.email)
+        {
+          this.submittedButton = false;
+        }
+      }
+
+      for( let i=0; i<this.lpsSummaryConstLocal.adminEmail.length; i++){
+        if(this.lpsSummaryConstLocal.adminEmail[i] == this.email)
         {
           this.submittedButton = false;
         }
@@ -2031,12 +2044,12 @@ export class LpssummaryComponent implements OnInit {
       }
         } 
         //down conductors
-        if(this.downConductorData.downConductorReport!=null){
+        if(this.downConductorData.downConductorReport!=null && this.downConductorData.downConductorReport[0].downConductorDescription.length !=0){
           this.downConductorsBasicArr=this.summaryArr.controls[w].controls.downConductorReport as FormArray;
           let index =0; 
           // for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w]){
               for(let j = 0; j < this.downBasicName.length; j++){
-                if(this.downConductorData.downConductorReport[0].downConductorDescription[w][this.downBasicName[j]]!="" 
+                if(this.downConductorData.downConductorReport[0].downConductorDescription.length !=0 && this.downConductorData.downConductorReport[0].downConductorDescription[w][this.downBasicName[j]]!="" 
                    && this.downConductorData.downConductorReport[0].downConductorDescription[w][this.downBasicName[j]] != null){
                   this.downConductorsBasicArr.push(this.createDownConductorsBasic());
                   this.downConductorsBasicArr.controls[0].controls.heading.setValue('DC_Basic Details Observation');
@@ -2157,7 +2170,7 @@ export class LpssummaryComponent implements OnInit {
     }
         }
         //earthing
-        if(this.earthingData.earthingReport!=null){
+        if(this.earthingData.earthingReport!=null && this.earthingData.earthingReport[0].earthingLpsDescription.length !=0){
           this.earthingReportArr=this.summaryArr.controls[w].controls.earthingReport as FormArray;
           let index =0; 
         // for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w]){
@@ -2276,7 +2289,7 @@ export class LpssummaryComponent implements OnInit {
       }
         }
       //spd
-      if(this.spdReportData.spdReport!=null){
+      if(this.spdReportData.spdReport!=null && this.spdReportData.spdReport[0].spd.length !=0){
         //spd report
           this.spdReportArr=this.summaryArr.controls[w].controls.spdReport as FormArray;
           let index =0;
@@ -2318,7 +2331,7 @@ export class LpssummaryComponent implements OnInit {
     }
       }
       //separationDistance
-      if(this.separationDistanceData.seperationDistanceReport!=null){
+      if(this.separationDistanceData.seperationDistanceReport!=null && this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription.length !=0){
         //separationDistance report
           this.separationDistanceArr=this.summaryArr.controls[w].controls.separationDistance as FormArray;
           let index =0;
@@ -2364,7 +2377,7 @@ export class LpssummaryComponent implements OnInit {
       }
       }
       //equipotential bonding
-      if(this.equiBondingData.earthStudReport!=null){
+      if(this.equiBondingData.earthStudReport!=null && this.equiBondingData.earthStudReport[0].earthStudDescription.length !=0){
           this.equiBondingArr=this.summaryArr.controls[w].controls.earthStudDesc as FormArray;
           let index =0;
           //for(let i of this.equiBondingData.earthStudReport[0].earthStudDescription){
@@ -2394,7 +2407,7 @@ export class LpssummaryComponent implements OnInit {
        }
     }
     closeModalDialog() {
-     
+      this.downloadPdf();
       if (this.errorMsg != "") {
         this.Error = false;
         this.modalService.dismissAll((this.errorMsg = ""));
@@ -2404,7 +2417,6 @@ export class LpssummaryComponent implements OnInit {
         this.success = false;
         this.modalService.dismissAll((this.successMsg = ""));
         this.proceedNext.emit(false);
-        
         if(this.buttonType == 'save'){
           this.navigateToStep(1);
         }
@@ -2415,7 +2427,8 @@ export class LpssummaryComponent implements OnInit {
     }
 
     navigateToStep(index: any) {
-      this.matStepper.navigateStep(index);
+      this.navigateStepSummary.emit(index);
+      //this.matStepper.navigateStep(index);
     }
 
   onSubmit(flag1:any,content:any,contents:any){
@@ -2752,9 +2765,9 @@ export class LpssummaryComponent implements OnInit {
      this.validationErrorTab = true;
      this.validationErrorMsgTab= 'Please check all the fields in SummaryForm';
      setTimeout(() => {
-       this.validationErrorTab = false;
+      this.validationErrorTab = false;
      }, 3000);
-     return false;
+    return false;
     }
     else if(this.summaryForm.dirty && this.summaryForm.touched){
       this.service.isCompleted8= false;
@@ -2767,12 +2780,12 @@ export class LpssummaryComponent implements OnInit {
       }, 3000);
       return false;
     } 
-    else{
+    else {
       this.service.isCompleted8= true;
       this.service.isLinear=false;
       this.service.editable=true;
       this.summaryForm.markAsPristine();
-   return true;
+      return true;      
     }
   }
 
@@ -2784,4 +2797,9 @@ export class LpssummaryComponent implements OnInit {
       this.saveButton = false;
     }
   }
+
+  downloadPdf() {
+    this.summaryPdf.downloadSummaryPDF(this.basicLpsId,this.email,this.lpsSummaryPDF);
+  }
+
   }
