@@ -105,7 +105,7 @@ export class LpsBasicPageComponent implements OnInit {
       name: new FormControl({disabled: false, value: item.name}, Validators.required),
       company: new FormControl({disabled: false, value: item.company}, Validators.required),
       designation: new FormControl({disabled: false, value: item.designation}, Validators.required),
-      contactNumber: new FormControl({disabled: false, value: item.contactNumber}, [Validators.required ,Validators.maxLength(15),Validators.minLength(10)]),
+      contactNumber: new FormControl({disabled: false, value: item.contactNumber}, [Validators.required,Validators.maxLength(15),Validators.minLength(10)]),
       mailId: new FormControl({disabled: false, value: item.mailId},
          [Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       availabilityOfPreviousReport: new FormControl({disabled: false, value: item.availabilityOfPreviousReport}, Validators.required),
@@ -366,12 +366,12 @@ export class LpsBasicPageComponent implements OnInit {
           contactNum = this.LPSBasicForm.value.lpsBasic[0].contactNumber;
         }
         else{
-          contactNum = "+" + this.countryCode + "-" + this.LPSBasicForm.value.lpsBasic[0].contactNumber;
+          contactNum =this.countryCode + "-" + this.LPSBasicForm.value.lpsBasic[0].contactNumber;
         }
       }
     }
     else {
-      contactNum = "+" + this.countryCode + "-" + this.LPSBasicForm.value.lpsBasic[0].contactNumber;
+      contactNum ="+" + this.countryCode + "-" + this.LPSBasicForm.value.lpsBasic[0].contactNumber;
     }
     this.basicDetails.clientName = this.LPSBasicForm.value.lpsBasic[0].clientName;
     this.basicDetails.projectName = this.LPSBasicForm.value.lpsBasic[0].projectName;

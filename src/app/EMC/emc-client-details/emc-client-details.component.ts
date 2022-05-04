@@ -43,7 +43,6 @@ export class EmcClientDetailsComponent implements OnInit {
   Error: boolean = false;
   errorMsg: string = "";
   finalSpinner: boolean = true;
-  popup: boolean = false;
   step1List: any;
   flag: boolean = false;
   isEditableEmc!:boolean
@@ -55,7 +54,12 @@ export class EmcClientDetailsComponent implements OnInit {
   data: any = [];
   errorArr: any = [];
   setReadOnly: boolean = false;
-
+  // For Spinner
+  spinner: boolean=false;
+  spinnerValue: String = '';
+  mode: any = 'indeterminate';
+  nextButton: boolean = true;
+  popup: boolean = false;
 
   constructor(
     public dialog: MatDialog,
@@ -139,8 +143,8 @@ export class EmcClientDetailsComponent implements OnInit {
       clientName: new FormControl(this.emcClientDetails.clientName, Validators.required),
       contactNumber: new FormControl(this.emcClientDetails.contactNumber, Validators.required),
       contactPerson: new FormControl(this.emcClientDetails.contactPerson, Validators.required),
-      landMark: new FormControl(this.emcClientDetails.landMark, Validators.required),
-      clientLocation: new FormControl(this.emcClientDetails.clientLocation, Validators.required),
+      landMark: new FormControl(this.emcClientDetails.landMark),
+      clientLocation: new FormControl(this.emcClientDetails.clientLocation),
       clientAddress: new FormControl(this.emcClientDetails.clientAddress, Validators.required),
       email: new FormControl(this.emcClientDetails.email, Validators.required),
       country: new FormControl(this.emcClientDetails.country, Validators.required),
@@ -238,8 +242,6 @@ export class EmcClientDetailsComponent implements OnInit {
 
 
   closeModalDialog() {
-    this.finalSpinner = true;
-    this.popup = false;
     if (this.errorMsg != "") {
       this.Error = false;
       this.service.isCompleted= false;
@@ -359,7 +361,8 @@ export class EmcClientDetailsComponent implements OnInit {
     if (this.EmcClientDetailsForm.invalid) {
       return;
     }
-
+    this.spinner = true;
+    this.popup=false;
 
     if (!flag) {
 
@@ -394,42 +397,40 @@ export class EmcClientDetailsComponent implements OnInit {
     if (flag) {
       if (this.EmcClientDetailsForm.dirty) {
         this.emcClientDetailsService
-          .upDateClientDetailsData(this.emcClientDetails)
-          .subscribe(
+          .upDateClientDetailsData(this.emcClientDetails).subscribe(
             (data: any) => {
-              this.finalSpinner = false;
-              this.popup = true;
+              setTimeout(() =>{
+                this.popup=true;
+                this.spinner=false;
+              }, 3000);
               this.success = true;
               this.successMsg = data;
               this.service.isCompleted= true;
               this.service.isLinear=false;
               this.retriveClientDetails();
               this.proceedNext.emit(true);
-              
-
             },
             (error: any) => {
-              this.finalSpinner = false;
+              this.spinner=false;
               this.popup = true;
               this.Error = true;
               this.errorArr = [];
               this.errorArr = JSON.parse(error.error);
               this.errorMsg = this.errorArr.message;
               this.proceedNext.emit(false);
-
             });
       }
     }
 
     else {
       this.emcClientDetailsService.addClientDetailsData(this.emcClientDetails).subscribe(
-
         data => {
+          setTimeout(() =>{
+            this.popup=true;
+            this.spinner=false;
+          }, 3000)
           let emcClientDetailsDataItr = JSON.parse(data);
           this.emcClientDetails.emcId = emcClientDetailsDataItr.emcId;
-
-          this.finalSpinner = false;
-          this.popup = true;
           this.success = true;
           this.successMsg = "Client Details Successfully Saved";
           //this.disable = true;
@@ -439,7 +440,7 @@ export class EmcClientDetailsComponent implements OnInit {
           this.proceedNext.emit(true);
         },
         error => {
-          this.finalSpinner = false;
+          this.spinner=false;
           this.popup = true;
           this.Error = true;
           this.errorArr = [];

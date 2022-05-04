@@ -169,8 +169,14 @@
 </div>
 
 <ng-template #content let-modal>
-    <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinner" color="primary">
+    <!-- Spinner -->
+    <mat-progress-spinner style="margin: 0 auto;" *ngIf="spinner" color="primary" [mode]="mode" value="50" diameter="50">
     </mat-progress-spinner>
+    <br>
+    <div *ngIf="spinner" style="text-align: center;">
+        Please wait, the details are loading!
+    </div>
+
     <div class="modal-body" *ngIf="popup">
         <div class="centre-text m-btm30">
             <div *ngIf="success" style="text-align: center;">
@@ -182,12 +188,13 @@
         </div>
     </div>
     <br>
-
-    <button type="button" *ngIf="popup" style="text-align: center;margin-left:180px;width:20%" class="close"
+    <div *ngIf="popup">
+        <button type="button" style="text-align: center;margin-left:180px;width:20%" class="close"
         class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
         (click)="closeModalDialog()" matStepperNext>
         <span aria-hidden="true">Ok</span>
     </button>
+    </div>
 </ng-template>
 
 <ng-template #content2 let-modal>

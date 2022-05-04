@@ -16,8 +16,8 @@ export class FileUploadServiceService {
    
   constructor(private http: HttpClient) { }
 
-  public uploadFile(formData: FormData,emcId: number): Observable<HttpEvent<any>> {
-    return this.http.post<any>(this.apiUrl_EMC + '/upload'+ '/'+emcId,formData, {
+  public uploadFile(formData: FormData,emcId: number,fileSize:any): Observable<HttpEvent<any>> {
+    return this.http.post<any>(this.apiUrl_EMC + '/upload'+ '/'+emcId + '/'+fileSize,formData, {
       headers: new HttpHeaders(
         {
           'Content-Type': 'multipart/form-data'
@@ -26,8 +26,8 @@ export class FileUploadServiceService {
     })
   }
 
-  public updateFile(formData: FormData,fileId: number): Observable<HttpEvent<any>> {
-    return this.http.put<any>(this.apiUrl_EMC + '/updateFile'+ '/'+fileId,formData, {
+  public updateFile(formData: FormData,fileId: number, fileSize:any): Observable<HttpEvent<any>> {
+    return this.http.put<any>(this.apiUrl_EMC + '/updateFile'+ '/'+fileId + '/'+fileSize,formData, {
       headers: new HttpHeaders(
         {
           'Content-Type': 'multipart/form-data'

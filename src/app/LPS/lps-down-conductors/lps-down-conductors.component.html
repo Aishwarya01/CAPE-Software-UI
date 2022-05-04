@@ -9,7 +9,7 @@
 </div>
 <div class="card">
     <div class="card-body">
-        <form [formGroup]="downConductorForm"  (ngSubmit)="onSubmit(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
+        <form [formGroup]="downConductorForm" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
             <div formArrayName="downConductorDescription" *ngFor="let q of overAllDownControl(); let j = index">
                 <div class="form-group" [formGroupName]="j">
                     <div class="search-bar">
@@ -70,7 +70,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <select class="form-control" formControlName="biMetallicIssueOb" [attr.disabled]="isEditable ? '' : null"
+                                                        <select class="form-control" formControlName="biMetallicIssueOb" [attr.disabled]="isEditable ? '' : null" style="height: 3rem;"
                                                         (change)="validationChangeBasicDown($event,q,'biMetallicIssueRem')" [ngClass]="{ 'is-invalid': submitted && q.get('biMetallicIssueOb')?.errors}">
                                                             <option  value="" selected>Select Option</option>
                                                             <option value="Yes" >Yes</option>
@@ -89,7 +89,7 @@
                                                             </span>
                                                         </div>
                                                         <textarea type="text" class="form-control" placeholder="Please enter Remarks here" [readonly]="isEditable" formControlName="biMetallicIssueRem" 
-                                                        [ngClass]="{ 'is-invalid': submitted && q.get('biMetallicIssueRem')?.errors }" ></textarea>
+                                                        [ngClass]="{ 'is-invalid': submitted && q.get('biMetallicIssueRem')?.errors }"></textarea>
                                                         <div *ngIf="submitted && q.get('biMetallicIssueRem')?.errors" class="invalid-feedback">
                                                             <div *ngIf="q.get('biMetallicIssueRem')?.errors?.required">Remarks is required</div>
                                                         </div>
@@ -107,7 +107,7 @@
                                                             </span>
                                                         </div>
                                                         <select class="form-control" formControlName="warningNoticeGroundLevelOb" [ngClass]="{ 'is-invalid': submitted && q.get('warningNoticeGroundLevelOb')?.errors}"
-                                                        [attr.disabled]="isEditable ? '' : null">
+                                                        [attr.disabled]="isEditable ? '' : null" style="height: 3rem;">
                                                             <option  value="" selected>Select Option</option>
                                                             <option value="Yes" >Yes</option>
                                                             <option value="No" >No</option>
@@ -125,7 +125,8 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <textarea type="text" class="form-control" placeholder="Please enter Remarks here" [readonly]="isEditable" formControlName="warningNoticeGroundLevelRem"></textarea>
+                                                        <textarea type="text" class="form-control" placeholder="Please enter Remarks here" [readonly]="isEditable" formControlName="warningNoticeGroundLevelRem"
+                                                        ></textarea>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -140,7 +141,7 @@
                                                             </span>
                                                         </div>
                                                         <select class="form-control" formControlName="insulationPresenceOb" [ngClass]="{ 'is-invalid': submitted && q.get('insulationPresenceOb')?.errors}"
-                                                        [attr.disabled]="isEditable ? '' : null">
+                                                        [attr.disabled]="isEditable ? '' : null" style="height: 3rem;">
                                                             <option  value="" selected>Select Option</option>
                                                             <option value="Yes" >Yes</option>
                                                             <option value="No" >No</option>
@@ -158,7 +159,8 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <textarea type="text" class="form-control" placeholder="Please enter Remarks here" [readonly]="isEditable" formControlName="insulationPresenceRem"></textarea>
+                                                        <textarea type="text" class="form-control" placeholder="Please enter Remarks here" [readonly]="isEditable" formControlName="insulationPresenceRem"
+                                                        ></textarea>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -172,7 +174,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <select class="form-control" formControlName="noPowerDownConductorOb" [attr.disabled]="isEditable ? '' : null"
+                                                        <select class="form-control" formControlName="noPowerDownConductorOb" [attr.disabled]="isEditable ? '' : null" style="height: 3rem;"
                                                         (change)="validationChangeBasicDown($event,q,'noPowerDownConductorRem')" [ngClass]="{ 'is-invalid': submitted && q.get('noPowerDownConductorOb')?.errors}">
                                                             <option  value="" selected>Select Option</option>
                                                             <option value="Yes" >Yes</option>
@@ -191,7 +193,7 @@
                                                             </span>
                                                         </div>
                                                         <textarea type="text" class="form-control" placeholder="Please enter Remarks here" [readonly]="isEditable" formControlName="noPowerDownConductorRem"
-                                                        [ngClass]="{ 'is-invalid': submitted && q.get('noPowerDownConductorRem')?.errors }" ></textarea>
+                                                        [ngClass]="{ 'is-invalid': submitted && q.get('noPowerDownConductorRem')?.errors }"></textarea>
                                                         <div *ngIf="submitted && q.get('noPowerDownConductorRem')?.errors" class="invalid-feedback">
                                                             <div *ngIf="q.get('noPowerDownConductorRem')?.errors?.required">Remarks is required</div>
                                                         </div>
@@ -209,7 +211,7 @@
                                                             </span>
                                                         </div>
                                                         <select class="form-control" formControlName="connectMadeBrazingOb" [ngClass]="{ 'is-invalid': submitted && q.get('connectMadeBrazingOb')?.errors}"
-                                                        [attr.disabled]="isEditable ? '' : null">
+                                                        [attr.disabled]="isEditable ? '' : null" style="height: 3rem;">
                                                             <option  value="" selected>Select Option</option>
                                                             <option value="Brazing" >Brazing</option>
                                                             <option value="Welding" >Welding</option>
@@ -230,7 +232,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <textarea type="text" class="form-control"  
+                                                        <textarea type="text" class="form-control"
                                                         placeholder="Please enter Remarks here" [readonly]="isEditable" formControlName="connectMadeBrazingRem"></textarea>
                                                     </div>
                                                 </td>
@@ -245,7 +247,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <select class="form-control" formControlName="chemicalSprinklerOb" [attr.disabled]="isEditable ? '' : null"
+                                                        <select class="form-control" formControlName="chemicalSprinklerOb" [attr.disabled]="isEditable ? '' : null" style="height: 3rem;"
                                                         (change)="validationChangeBasicDown($event,q,'chemicalSprinklerRem')" [ngClass]="{ 'is-invalid': submitted && q.get('chemicalSprinklerOb')?.errors}">
                                                             <option  value="" selected>Select Option</option>
                                                             <option value="Yes" >Yes</option>
@@ -282,11 +284,11 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <select class="form-control" formControlName="cobustMaterialWallOB" [attr.disabled]="isEditable ? '' : null"
+                                                        <select class="form-control" formControlName="cobustMaterialWallOB" [attr.disabled]="isEditable ? '' : null" style="height: 3rem;"
                                                         (change)="validationChangeBasicDown($event,q,'cobustMaterialWallRem')" [ngClass]="{ 'is-invalid': submitted && q.get('cobustMaterialWallOB')?.errors}">
                                                             <option  value="" selected>Select Option</option>
                                                             <option value="Distance >1m" >Distance >1m</option>
-                                                            <option value="Distance < 1m" >Distance < 1m</option>
+                                                            <option value="Distance <1m" >Distance < 1m</option>
                                                             <option value="Not applicable < 1m" >Not applicable < 1m</option>
                                                         </select>
                                                         <div *ngIf="submitted && q.get('cobustMaterialWallOB')?.errors"  class="invalid-feedback">
@@ -400,6 +402,71 @@
                                                         </div>
                                                 </div>
                                             </td>
+                                        </tr>
+
+                                         <!-- File Upload -->
+                                         <tr>
+                                            <Td colspan="4">
+                                            <div *ngIf="q.get('downConductorAvailabilityOb')?.value == 'Applicable'">
+                                                <table class="table TableBorder" style="margin-top: 1rem;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th width="25%">Attach The File Here</th>
+                                                            <th width="27%">Name</th>
+                                                            <th width="6%" ng-show="uploader.isHTML5">Size</th>
+                                                            <!-- <th ng-show="uploader.isHTML5">Progress</th> -->
+                                                            <!-- <th>Status</th> -->
+                                                            <th width="25%">Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="item in uploader.queue">
+                                                            <td>
+                                                                <input style="height: 3rem;" type="file" class="form-control" (change)="onChange($event,a)" [attr.disabled]="isEditable ? '' : null"
+                                                                accept=".txt,.jpeg,.png,.jpg,.pdf">
+                                                                <div *ngIf="submitted && a.get('fileName')?.errors"class="invalid-feedback">
+                                                                    <div *ngIf="a.get('fileName')?.errors?.required">Field is required</div>
+                                                                </div>
+                                                            </td>
+                                                            <td style="text-align: center;">{{a.get('fileName')?.value}}</td>
+                                                            <td ng-show="uploader.isHTML5" nowrap style="text-align: center;">{{a.get('fileSize')?.value}}</td>
+        
+                                                            <!-- <td ng-show="uploader.isHTML5">
+                                                                <div class="progress" style="margin-bottom: 0;">
+                                                                    <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                                                                </div>
+                                                            </td> -->
+                                                            <!-- <td class="text-center">
+                                                                <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                                                                <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                                                                <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                                                            </td> -->
+        
+                                                            <td nowrap style="text-align: center;">
+                                                                <button type="button" class="btn btn-secondary btn-xs mr-4" [disabled]="uploadDisable"
+                                                                (click)="onUpload(contentSpinner,a.get('index')?.value,a.get('fileId')?.value)" title="Upload">
+                                                                    <i class="fa fa-upload" style="color: white;"></i> Upload
+                                                                </button>
+                                                                <div *ngIf="submitted && a.get('fileId')?.errors"class="invalid-feedback">
+                                                                    <div *ngIf="a.get('fileId')?.errors?.required">File upload is required</div>
+                                                                </div>
+                                                                <!-- <button type="button" class="btn btn-warning btn-xs mr-4">
+                                                                    <i class="fa fa-ban" style="color: white;"></i> Cancel
+                                                                </button> -->
+                                                                <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="a.get('fileId')?.value" (click)="onDownload(a.get('fileName')?.value)" 
+                                                                href='javascript:void(0)' [ngClass]="{'disableForm':isEditable}" title="Download">
+                                                                    <i class="fa fa-download" style="color: white;"></i> Download
+                                                                </button>
+                                                                <!-- <button type="button" class="btn btn-danger btn-xs mr-4">
+                                                                    <i class="fa fa-trash-o" style="color: white;"></i> Delete
+                                                                </button> -->
+                                                                
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                </div>
+                                            </Td>
                                         </tr>
                                         
                                         <tr *ngIf="q.get('downConductorAvailabilityOb')?.value == 'Applicable'">
@@ -958,6 +1025,90 @@
                                 </tbody>
                             </table>
                         </div>
+
+                        <!-- File Upload -->
+                        <table class="table TableBorder" style="margin-top: 1rem;">
+                            <thead>
+                                <tr>
+                                    <th width="25%">Attach The File Here</th>
+                                    <th width="27%">Name</th>
+                                    <th width="6%" ng-show="uploader.isHTML5">Size</th>
+                                    <!-- <th ng-show="uploader.isHTML5">Progress</th> -->
+                                    <!-- <th>Status</th> -->
+                                    <th width="25%">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in uploader.queue">
+                                    <td>
+                                        <input style="height: 3rem;" type="file" class="form-control" (change)="onChange1($event,q)" [attr.disabled]="isEditable ? '' : null"
+                                        accept=".txt,.jpeg,.png,.jpg,.pdf">
+                                        <div *ngIf="submitted && q.get('fileName1')?.errors" class="invalid-feedback">
+                                            <div *ngIf="q.get('fileName1')?.errors?.required">Field is required</div>
+                                        </div>
+                                    </td>
+                                    <td style="text-align: center;">{{q.get('fileName1')?.value}}</td>
+                                    <td ng-show="uploader.isHTML5" nowrap style="text-align: center;">{{q.get('fileSize')?.value}}</td>
+
+                                    <!-- <td ng-show="uploader.isHTML5">
+                                        <div class="progress" style="margin-bottom: 0;">
+                                            <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                                        </div>
+                                    </td> -->
+                                    <!-- <td class="text-center">
+                                        <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                                        <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                                        <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                                    </td> -->
+
+                                    <td nowrap style="text-align: center;">
+                                        <button type="button" class="btn btn-secondary btn-xs mr-4" [disabled]="uploadDisable1"
+                                        (click)="onUpload1(contentSpinner,q.get('index')?.value,q.get('fileId1')?.value)" title="Upload">
+                                            <i class="fa fa-upload" style="color: white;"></i> Upload
+                                        </button>
+                                        <div *ngIf="submitted && q.get('fileId1')?.errors" class="invalid-feedback">
+                                            <div *ngIf="q.get('fileId1')?.errors?.required">File upload is required</div>
+                                        </div>
+                                        <!-- <button type="button" class="btn btn-warning btn-xs mr-4">
+                                            <i class="fa fa-ban" style="color: white;"></i> Cancel
+                                        </button> -->
+                                        <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="q.get('fileId1')?.value" (click)="onDownload1(q.get('fileName1')?.value)"
+                                        href='javascript:void(0)' [ngClass]="{'disableForm':isEditable}" title="Download">
+                                            <i class="fa fa-download" style="color: white;"></i> Download
+                                        </button>
+                                        <!-- <button type="button" class="btn btn-danger btn-xs mr-4">
+                                            <i class="fa fa-trash-o" style="color: white;"></i> Delete
+                                        </button> -->
+                                        
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- <br>
+                        <div style="margin-left: 3rem;">
+                            <label class="form-label">Attach The File Here:</label>
+                            <div class="row input-group mb-2">
+                                <div class="col-md-6">
+                                    <input style="height: 3rem;" type="file" class="form-control"
+                                        (change)="onChange1($event)" [attr.disabled]="isEditable ? '' : null"
+                                        accept=".jpeg,.png,.jpg,">
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="button"  class="btn btn-success" [disabled]="uploadDisable1"
+                                        (click)="onUpload1(contentSpinner,q.get('index')?.value,q.get('fileId1')?.value)">Upload</button>
+                                    <a (click)="onDownload1(q.get('fileName1')?.value)"
+                                        *ngIf="q.get('fileName1')?.value!= ''" href='javascript:void(0)'
+                                        title="Download" style="margin-left: 30px;text-decoration: underline;"
+                                        [ngClass]="{'disableForm':isEditable}">{{q.get('fileName1')?.value}}</a> -->
+                                    <!-- <mat-icon *ngIf="fileName1!= ''" class="mousechange" class="dlt" type="button" title="Delete" (click)="deleteFile1(contentSpinnerDelete)"
+                                style="position: absolute;margin-left: 40px; margin-top: 5px;">remove_circle_outline</mat-icon> -->
+                                <!-- </div>
+                                <div *ngIf="submitted && q.get('fileName1')?.errors" class="invalid-feedback">
+                                    <div *ngIf="q.get('fileName1')?.errors?.required">Field is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <br> -->
                         
                     </mat-expansion-panel>
 
@@ -2028,8 +2179,8 @@
                                             </div>
                                         </td>
                                         <td class="col-md-6">
-                                            <textarea [readonly]="isEditable || q.get('lightningCounterAvailabilityRem')?.value ==='As per latest standard IS/IEC 62305,installation of single lightning counter for whole building is mandatory'" formControlName="lightningCounterAvailabilityRem" type="text"
-                                            placeholder="Please enter Remarks here" class="form-control" [readonly]="isEditable"></textarea>
+                                            <textarea [readonly]="isEditable || q.get('lightningCounterAvailabilityOb')?.value ==='Not applicable'" formControlName="lightningCounterAvailabilityRem" type="text"
+                                            placeholder="Please enter Remarks here" class="form-control"></textarea>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -2439,9 +2590,9 @@
                                             </div>
                                         </td>
                                         <td class="col-md-6">
-                                            <textarea [readonly]="isEditable || q.get('testingJointAvailabilityRem')?.value === 'As per latest standard IS/IEC62305, installation of test joint at each down conductor is mandatory for the purpose of testing of down conductors and earth electrode as well'" 
+                                            <textarea [readonly]="isEditable || q.get('testingJointAvailabilityOb')?.value === 'Not available'" 
                                             formControlName="testingJointAvailabilityRem" type="text"
-                                            placeholder="Please enter Remarks here" class="form-control" [readonly]="isEditable"></textarea>
+                                            placeholder="Please enter Remarks here" class="form-control"></textarea>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -2516,8 +2667,8 @@
                                                         <select class="form-control" class="form-control" formControlName="accessibilityOfTestJointOb" placeholder="Please enter Accessibility of test joint here" [attr.disabled]="isEditable ? '' : null"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('accessibilityOfTestJointOb')?.errors}" style="height: 3rem;">
                                                             <option  value="" selected>Select Option</option>
-                                                            <option value="Accesible" >Accesible</option>
-                                                            <option value="Not accesible" >Not accesible</option>
+                                                            <option value="Accesible" >Accessible</option>
+                                                            <option value="Not accesible" >Not accessible</option>
                                                         </select>
                                                     <div *ngIf="submitted && a.get('accessibilityOfTestJointOb')?.errors"
                                                         class="invalid-feedback">
@@ -3005,12 +3156,39 @@
             </div>
             <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
                 <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
-                <button class="next"  (click)="gotoNextModal(content,contents)"  mat-button >Next &raquo;</button>
+                <button class="next"  (click)="gotoNextModal(content1,contents)"  mat-button >Next &raquo;</button>
            </div>
         </form>
     </div>
 
 </div>
+
+<!-- This will be modified later -->
+<ng-template #content1 let-modal>
+    <div *ngIf="summaryPopup">
+        <div class="modal-body">
+            <div class="centre-text m-btm30">
+                <div style="text-align: center;">
+                    <span style="font-size: 15px;"><b>Note:</b> Since you are updating the remarks section, your content in summary recommendation will be reset..! </span>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <button type="button" class="col-md-6" style="width: 5rem;position: relative;margin-left: 30%;"
+                class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close" (click)="summaryEvent(content)">
+                <i class="bi bi-arrow-right-circle"></i>&nbsp;
+                <span aria-hidden="true" (ngSubmit)="onSubmit(flag)" *ngIf="summaryPopup">Ok</span>
+            </button>
+            <button type="button" class="col-md-6" style="text-align: center;width: auto;position: relative;margin-right: 30%;"
+                class="btn btn-danger btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close" (click)="closeModalDialog()">
+                <i class="bi bi-x icon"></i>
+                <span aria-hidden="true">Cancel</span>
+            </button>
+        </div>
+    </div>
+</ng-template>
+
 <ng-template #content let-modal>
     <!-- Spinner -->
     <mat-progress-spinner style="margin: 0 auto;" *ngIf="spinner" color="primary" [mode]="mode" value="50" diameter="50">
@@ -3033,8 +3211,12 @@
     </div>
     <br>
     <div *ngIf="popup" style="text-align: center;">
-        <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+        <button type="button" *ngIf="success" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
         aria-label="Close"  (click)="closeModalDialog()" matStepperNext>
+        <span aria-hidden="true">Ok</span>
+        </button>
+        <button type="button" *ngIf="Error" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+        aria-label="Close"  (click)="closeModalDialog()">
         <span aria-hidden="true">Ok</span>
         </button>
     </div>
@@ -3045,7 +3227,7 @@
       <div style="text-align: center;">
         <span class="successshow">Are you sure you want to procced? </span>
         <br>
-        <span style="font-size: 12px;">Note: Please verify all the details! </span>
+        <span style="font-size: 12px;"><b>Note:</b> Please verify all the details! </span>
        </div>
       </div>
      </div>
@@ -3065,7 +3247,7 @@
   
     </ng-template>
 
-    <ng-template #contentSpinner let-modal>
+<ng-template #contentSpinner let-modal>
         <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinner" color="primary"
         [mode]="mode"
         value="50"
@@ -3081,17 +3263,17 @@
                 </div>
             </div>
         </div>
-        <br>
-    
-        <button type="button" *ngIf="popup" style="text-align: center;margin-left:180px;width:20%" class="close"
+        <div *ngIf="filesuccess" style="text-align: center;">
+            <b>Note:</b> Please click Next Button, Then only the file changes will reflect!
+        </div>
+        <button type="button" (click)="closeModalDialogFile()" *ngIf="popup" style="text-align: center;margin-left:180px;width:20%;margin-top: 20px;" class="close"
             class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
              >
-            <span (click)="closeModalDialogFile()">Ok</span>
+            <span >Ok</span>
         </button>
-    </ng-template>
+</ng-template>
     
-
-    <ng-template #contentSpinnerDelete let-modal>
+<ng-template #contentSpinnerDelete let-modal>
         <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinnerDelete" color="primary"
         [mode]="mode"
         value="50"
@@ -3109,9 +3291,10 @@
         </div>
         <br>
     
-        <button type="button" *ngIf="popupDelete" style="text-align: center;margin-left:180px;width:20%" class="close"
+        <button type="button" *ngIf="popupDelete" (click)="closeModalDialogFile()" style="text-align: center;margin-left:180px;width:20%" class="close"
             class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
              >
-            <span (click)="closeModalDialogFile()">Ok</span>
+            <span>Ok</span>
         </button>
-    </ng-template>
+</ng-template>
+

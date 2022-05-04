@@ -6,8 +6,7 @@ import { GlobalsService } from 'src/app/globals.service';
 import { downConductorReport } from 'src/app/LPS_model/downConductorReport';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
 import { LpsDownconductorService } from 'src/app/LPS_services/lps-downconductor.service';
-//import { LpsFileUploadService } from 'src/app/LPS_services/lps-file-upload.service';
-import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
+import { LpsFileUploadService } from 'src/app/LPS_services/lps-file-upload.service';
 
 @Component({
   selector: 'app-lps-down-conductors',
@@ -58,6 +57,7 @@ export class LpsDownConductorsComponent implements OnInit {
   //     'inspectionPassedNoOb',
   //     'inspectionFailedNoOb',
   //     'averageBendsOb',
+  //     'fileName'
   //     // 'naturalDownCondutTypeOb',
   //     // 'naturalDownCondDimensionOb',
   // ]
@@ -85,6 +85,7 @@ export class LpsDownConductorsComponent implements OnInit {
   // success1: boolean = false;
   // successMsg1: string="";
   successMsg: string = "";
+  mode: any = 'indeterminate';
   Error: boolean = false;
   errorArr: any = [];
   errorMsg: string = "";
@@ -101,6 +102,8 @@ export class LpsDownConductorsComponent implements OnInit {
   arr6: any = [];
   arr7: any = [];
 
+  download: any = [];
+  download1: any = [];
 
   downPushArr: any = [];
   bridgingPushArr: any = [];
@@ -146,10 +149,9 @@ export class LpsDownConductorsComponent implements OnInit {
   componentName1: string = "downConductor-1";
   JSONdata: any = [];
   finalSpinner: boolean = true;
+  popup: boolean = false; 
   filesuccess: boolean = false;
   filesuccessMsg: string = "";
-  fileName1: string = "";
-  fileName: string = "";
   uploadFlag:boolean = true;
   uploadFlag1:boolean = true;
   fileId: number = 0;
@@ -158,20 +160,17 @@ export class LpsDownConductorsComponent implements OnInit {
   popupDelete: boolean = false;
   fileDeleteSuccess: boolean = false;
   fileDeletesuccessMsg: any;
+  summaryPopup: boolean = false;
   // For Spinner
   spinner: boolean=false;
   spinnerValue: String = '';
-  mode: any = 'indeterminate';
   nextButton: boolean = true;
-  popup: boolean = false;
-
 
   constructor(
     private formBuilder: FormBuilder, lpsDownconductorService: LpsDownconductorService,
     private modalService: NgbModal, private router: ActivatedRoute,
     public service: GlobalsService,
-    private matstepper: LpsMatstepperComponent,
-    //private fileUploadServiceService: LpsFileUploadService,
+    private fileUploadServiceService: LpsFileUploadService,
     private airterminationServices:AirterminationService) {
     this.lpsDownconductorService = lpsDownconductorService;
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
@@ -202,6 +201,8 @@ export class LpsDownConductorsComponent implements OnInit {
           }
           this.downConductorDescription = this.downConductorForm.get('downConductorDescription') as FormArray
           for(let j=0; j<this.downConductorDescription.controls.length; j++) {
+            this.downConductorDescription.controls[j].controls.index.setValue(j);
+            this.downConductorDescription.controls[j].controls.downConductor.controls[0].controls.index.setValue(j);
             this.downConductorDescription.controls[j].controls.buildingName.setValue(this.airTerminationDesc[j].buildingName);
             this.downConductorDescription.controls[j].controls.buildingNumber.setValue(this.airTerminationDesc[j].buildingNumber);
             this.downConductorDescription.controls[j].controls.buildingCount.setValue(this.airTerminationDesc[j].buildingCount);
@@ -248,6 +249,8 @@ export class LpsDownConductorsComponent implements OnInit {
                 this.downConductorDescription.controls[r].controls.buildingNumber.setValue(this.airTerminationValues[0].lpsAirDescription[r].buildingNumber);
                 this.downConductorDescription.controls[r].controls.buildingName.setValue(this.airTerminationValues[0].lpsAirDescription[r].buildingName);
                 this.downConductorDescription.controls[r].controls.buildingCount.setValue(this.airTerminationValues[0].lpsAirDescription[r].buildingCount);
+                this.downConductorDescription.controls[r].controls.index.setValue(r);
+                this.downConductorDescription.controls[r].controls.downConductor.controls[0].controls.index.setValue(r);
               }
           } 
         }
@@ -292,6 +295,11 @@ export class LpsDownConductorsComponent implements OnInit {
       downConductorAvailabilityRem: new FormControl(''),
       downConductorTestingAvailabilityOb: new FormControl(''),
       downConductorTestingAvailabilityRem: new FormControl(''),
+      fileName1: new FormControl('',Validators.required),
+      fileType1: new FormControl(''),
+      fileId1: new FormControl('',Validators.required),
+      fileSize: new FormControl(''),
+      index: new FormControl(''),
 
       downConductor: this.formBuilder.array([this.createDownArrForm()]),
       bridgingDescription: this.formBuilder.array([this.createBridgeArrForm()]),
@@ -309,6 +317,11 @@ export class LpsDownConductorsComponent implements OnInit {
       flag: new FormControl('A'),
       physicalInspectionOb: new FormControl('', Validators.required),
       physicalInspectionRem: new FormControl(''),
+      index: new FormControl(''),
+      fileName: new FormControl(''),
+      fileType: new FormControl(''),
+      fileId: new FormControl(''),
+      fileSize: new FormControl(''),
       conductMaterialOb: new FormControl('', Validators.required),
       conductMaterialRem: new FormControl(''),
       conductSizeOb: new FormControl(''),
@@ -558,8 +571,7 @@ export class LpsDownConductorsComponent implements OnInit {
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,data: any){
       //this.service.lvClick=1;
-      this.step3List = data.downConductorReport;
-      this.downConductorReport.basicLpsId = basicLpsId;      
+            
       this.basicLpsId = basicLpsId;
       this.retrieveFromAirTermination();
       this.deletedBridgingDesc = [];
@@ -569,22 +581,27 @@ export class LpsDownConductorsComponent implements OnInit {
       this.deletedHolders = [];
       this.deletedLightningCounter = [];
       this.deletedTestingJoint = [];
+      this.step3List = data.downConductorReport;
+
       if(this.step3List != null) {
-        this.downConductorReport.downConductorReportId = this.step3List.downConductorReportId;
+      this.downConductorReport.basicLpsId = basicLpsId;
+      this.downConductorReport.downConductorReportId = this.step3List.downConductorReportId;
       this.downConductorReport.createdDate = this.step3List.createdDate;  
       this.downConductorReport.createdBy = this.step3List.createdBy;
       this.downConductorReport.userName = this.step3List.userName;
       this.downConductorReport.updatedBy = this.step3List.updatedBy;
       this.downConductorReport.updatedDate = this.step3List.updatedDate;
       setTimeout(() => {
-        this.populateData(this.step3List.downConductorDescription);
+        if( this.step3List.downConductorDescription.length !=0){
+          this.populateData(this.step3List.downConductorDescription);
+        }
       }, 1000);
       if(this.step3List != null) {
-        this.updateMethod();
+      //  this.updateMethod();
       }
       this.flag=true;
       }
-    //  this.retriveFIleName()
+      this.retriveFIleName()
     }
 
     retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
@@ -607,10 +624,13 @@ export class LpsDownConductorsComponent implements OnInit {
       this.downConductorReport.updatedBy = this.step3List1[0].updatedBy;
       this.downConductorReport.updatedDate = this.step3List1[0].updatedDate;
       setTimeout(() => {
-        this.populateData(this.step3List1[0].downConductorDescription);
+        if(this.step3List1[0].downConductorDescription.length !=0){
+          this.populateData(this.step3List1[0].downConductorDescription);
+        }
       }, 1000);
       this.flag=true;
       }
+      this.retriveFIleName()
     }
 
     populateData(value: any) {
@@ -656,6 +676,11 @@ export class LpsDownConductorsComponent implements OnInit {
         downConductorAvailabilityRem: new FormControl({disabled: false, value: item.downConductorAvailabilityRem}),
         downConductorTestingAvailabilityOb: new FormControl({disabled: false, value: item.downConductorTestingAvailabilityOb}),
         downConductorTestingAvailabilityRem: new FormControl({disabled: false, value: item.downConductorTestingAvailabilityRem}),
+        fileName1: new FormControl({disabled: false, value: item.fileName1}),
+        fileType1: new FormControl({disabled: false, value: item.fileType1}),
+        fileId1: new FormControl({disabled: false, value: item.fileId1}),
+        fileSize: new FormControl({disabled: false, value: item.fileSize}),
+        index: new FormControl({disabled: false, value: item.index}),
   
         downConductor: this.formBuilder.array(this.retrieveDownArrForm(item)),
         bridgingDescription: this.formBuilder.array(this.retrieveBridgeArrForm(item)),
@@ -687,7 +712,6 @@ export class LpsDownConductorsComponent implements OnInit {
           }
         } 
       }
-      
       return retrieveDownArrFormDataArr;
     }
 
@@ -699,6 +723,11 @@ export class LpsDownConductorsComponent implements OnInit {
         physicalInspectionRem: new FormControl({disabled: false, value: item.physicalInspectionRem}),
         conductMaterialOb: new FormControl({disabled: false, value: item.conductMaterialOb}, Validators.required),
         conductMaterialRem: new FormControl({disabled: false, value: item.conductMaterialRem}),
+        fileName: new FormControl({disabled: false, value: item.fileName}),
+        fileType: new FormControl({disabled: false, value: item.fileType}),
+        fileId: new FormControl({disabled: false, value: item.fileId}),
+        fileSize: new FormControl({disabled: false, value: item.fileSize}),
+        index: new FormControl({disabled: false, value: item.index}),
         conductSizeOb: new FormControl({disabled: false, value: item.conductSizeOb}),
         conductSizeRem: new FormControl({disabled: false, value: item.conductSizeRem}),
         downConductExposedOb: new FormControl({disabled: false, value: item.downConductExposedOb}, Validators.required),
@@ -742,6 +771,11 @@ export class LpsDownConductorsComponent implements OnInit {
         physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}),
         physicalInspectionRem: new FormControl({disabled: false, value: item.physicalInspectionRem}),
         conductMaterialOb: new FormControl({disabled: false, value: item.conductMaterialOb}),
+        fileName: new FormControl({disabled: false, value: item.fileName}),
+        fileType: new FormControl({disabled: false, value: item.fileType}),
+        fileId: new FormControl({disabled: false, value: item.fileId}),
+        fileSize: new FormControl({disabled: false, value: item.fileSize}),
+        index: new FormControl({disabled: false, value: item.index}),
         conductMaterialRem: new FormControl({disabled: false, value: item.conductMaterialRem}),
         conductSizeOb: new FormControl({disabled: false, value: item.conductSizeOb}),
         conductSizeRem: new FormControl({disabled: false, value: item.conductSizeRem}),
@@ -1070,6 +1104,10 @@ export class LpsDownConductorsComponent implements OnInit {
            a[0].controls.inspectionFailedNoOb.updateValueAndValidity();
            a[0].controls.averageBendsOb.clearValidators();
            a[0].controls.averageBendsOb.updateValueAndValidity();
+           a[0].controls.fileName.clearValidators();
+           a[0].controls.fileName.updateValueAndValidity();
+           a[0].controls.fileId.clearValidators();
+           a[0].controls.fileId.updateValueAndValidity();
             // If the value is No
            a[0].controls.naturalDownCondutTypeOb.setValidators();
            a[0].controls.naturalDownCondutTypeOb.updateValueAndValidity();
@@ -1150,6 +1188,10 @@ export class LpsDownConductorsComponent implements OnInit {
            a[0].controls.inspectionFailedNoOb.updateValueAndValidity();
            a[0].controls.averageBendsOb.setValidators(Validators.required);
            a[0].controls.averageBendsOb.updateValueAndValidity();
+           a[0].controls.fileName.setValidators(Validators.required);
+           a[0].controls.fileName.updateValueAndValidity();
+           a[0].controls.fileId.setValidators(Validators.required);
+           a[0].controls.fileId.updateValueAndValidity();
 
         }
     }
@@ -1357,30 +1399,18 @@ export class LpsDownConductorsComponent implements OnInit {
       }
     }
   }
-  onChange1(event: any) {
-    this.file = event.target.files;
-    if (this.file != null) {
-      this.uploadDisable1 = false;
-    }
-  }
 
-  onChange(event: any) {
-    this.file = event.target.files;
-    if (this.file != null) {
-      this.uploadDisable = false;
-    }
-  }
 
     validationChangeBasicDown(event: any,q: any,formControl: any) {
 
-      if(event.target.value == 'Distance<1m') {
+      if(event.target.value == 'Distance <1m') {
         q.controls[formControl].setValidators([Validators.required]);
         q.controls[formControl].updateValueAndValidity();
       }
-      else if(event.target.value == 'Yes') {
-        q.controls[formControl].setValidators([Validators.required]);
-        q.controls[formControl].updateValueAndValidity();
-      }
+      // else if(event.target.value == 'Yes') {
+      //   q.controls[formControl].setValidators([Validators.required]);
+      //   q.controls[formControl].updateValueAndValidity();
+      // }
       else {
         q.controls[formControl].clearValidators();
         q.controls[formControl].updateValueAndValidity();
@@ -1659,7 +1689,7 @@ export class LpsDownConductorsComponent implements OnInit {
       }
     }
 
-    gotoNextModal(content: any,contents:any) {
+    gotoNextModal(content1: any,contents:any) {
       if (this.downConductorForm.invalid) {
         this.validationError = true;
 
@@ -1689,12 +1719,19 @@ export class LpsDownConductorsComponent implements OnInit {
       }
         //  Update and Success msg will be showing
       else if(this.downConductorForm.dirty && this.downConductorForm.touched){
-          this.modalService.open(content, { centered: true,backdrop: 'static' });
+        this.modalService.open(content1, { centered: true, backdrop: 'static' });  
+        this.summaryPopup=true;
       }
       //  For Dirty popup
       else{
         this.modalService.open(contents, { centered: true,backdrop: 'static' });
       }
+    }
+    
+    summaryEvent(content:any){
+      this.modalService.open(content, { centered: true, backdrop: 'static' });
+      this.onSubmit(this.flag);
+      this.summaryPopup=false;
     }
 
     retriveDownConductor(){
@@ -1731,7 +1768,6 @@ export class LpsDownConductorsComponent implements OnInit {
     this.downConductorReport.userName = this.router.snapshot.paramMap.get('email') || '{}';
     this.downConductorReport.basicLpsId = this.basicLpsId;
     this.downConductorReport.downConductorDescription = this.downConductorForm.value.downConductorDescription;
-    
     
     if (!this.validationError) {
       if(flag) {
@@ -1834,10 +1870,10 @@ export class LpsDownConductorsComponent implements OnInit {
           this.proceedNext.emit(true);
         }
       else{
-        this.popup=true;
-        this.spinner=false;
-        this.success = true;
-        this.proceedNext.emit(true);
+          this.popup=true;
+          this.spinner=false;
+          this.success = true;
+          this.proceedNext.emit(true);
         }
       }
       }
@@ -1869,6 +1905,57 @@ export class LpsDownConductorsComponent implements OnInit {
       } 
     }
   
+  }
+
+
+  deleteFile1(contentSpinnerDelete: any) {
+    this.modalService.open(contentSpinnerDelete, {
+      centered: true,
+      size: 'md',
+      backdrop: 'static'
+    });
+
+    setTimeout(() => {
+      // this.fileUploadServiceService.deleteFile(this.fileId1).subscribe(
+      //   (data: any) => {
+      //     this.finalSpinnerDelete = false;
+      //     this.popupDelete = true;
+      //     this.fileDeleteSuccess = true;
+      //     this.fileDeletesuccessMsg = data;
+      //     this.uploadFlag1=true;
+      //     this.fileName1 = "";
+      //     this.uploadDisable1 = true;
+      //     this.retriveFIleName();
+      //   },
+      //   (error) => {
+      //   },
+      // )
+    }, 1000);
+  }
+
+  deleteFile(contentSpinnerDelete: any) {
+    this.modalService.open(contentSpinnerDelete, {
+      centered: true,
+      size: 'md',
+      backdrop: 'static'
+    });
+
+    setTimeout(() => {
+      // this.fileUploadServiceService.deleteFile(this.fileId).subscribe(
+      //   (data: any) => {
+      //     this.finalSpinnerDelete = false;
+      //     this.popupDelete = true;
+      //     this.fileDeleteSuccess = true;
+      //     this.fileDeletesuccessMsg = data;
+      //     this.uploadFlag=true;
+      //     this.fileName = "";
+      //     this.uploadDisable = true;
+      //     this.retriveFIleName();
+      //   },
+      //   (error) => {
+      //   },
+      // )
+    }, 1000);
   }
 
   gotoNextTab() {
@@ -1931,10 +2018,175 @@ export class LpsDownConductorsComponent implements OnInit {
    return true;
     }
   }
+  
+
+  // File upload purpose
+  onUpload1(contentSpinner: any,index:any,fileId:any) {
+    this.downConductorForm.markAsDirty();
+    this.downConductorForm.markAsTouched();
+    if (this.file != undefined) {
+      this.modalService.open(contentSpinner, {
+        centered: true,
+        size: 'md',
+        backdrop: 'static'
+      });
+      const formData = new FormData();
+      for (let f of this.file) {
+        formData.append('file', f, f.name);
+      }
+        if (!fileId) {
+          this.fileUploadServiceService.uploadFile(formData,this.basicLpsId,this.componentName1,index).subscribe(
+            (data) => {
+              this.uploadDisable1 = true;
+              this.finalSpinner = false;
+              this.popup = true;
+              this.filesuccess = true;
+              this.filesuccessMsg = "File Upload Successfully";
+              // this.airTerminationForm.controls.uploadAir.setValue('');
+              this.retriveFIleName();
+            },
+            (error) => {
+              this.finalSpinner = false;
+              this.popup = true;
+              this.filesuccess = false;
+              this.filesuccessMsg = "";
+            },
+          )
+        }
+        else {
+          this.fileUploadServiceService.updateFile(formData,this.componentName1,fileId,index).subscribe(
+            (data) => {
+              this.uploadDisable1 = true;
+              this.finalSpinner = false;
+              this.popup = true;
+              this.filesuccess = true;
+              this.filesuccessMsg = "File Updated Successfully";
+              // this.airTerminationForm.controls.uploadAir.setValue('');
+              this.retriveFIleName();
+            },
+            (error) => {
+              this.finalSpinner = false;
+              this.popup = true;
+              this.filesuccess = false;
+              this.filesuccessMsg = "";
+            },
+          )
+        }
+
+    }
+  }
+
+  onUpload(contentSpinner: any,index:any,fileId:any) {
+    this.downConductorForm.markAsDirty();
+    this.downConductorForm.markAsTouched();
+    if (this.file != undefined) {
+      this.modalService.open(contentSpinner, {
+        centered: true,
+        size: 'md',
+        backdrop: 'static'
+      });
+      const formData = new FormData();
+      for (let f of this.file) {
+        formData.append('file', f, f.name);
+      }
+        if (!fileId) {
+          this.fileUploadServiceService.uploadFile(formData,this.basicLpsId,this.componentName,index).subscribe(
+            (data) => {
+              this.uploadDisable = true;
+              this.finalSpinner = false;
+              this.popup = true;
+              this.filesuccess = true;
+              this.filesuccessMsg = "File Upload Successfully";
+              // this.airTerminationForm.controls.uploadAir.setValue('');
+              this.retriveFIleName();
+            },
+            (error) => {
+              this.finalSpinner = false;
+              this.popup = true;
+              this.filesuccess = false;
+              this.filesuccessMsg = "";
+            },
+          )
+        }
+        else {
+          this.fileUploadServiceService.updateFile(formData,this.componentName,fileId,index).subscribe(
+            (data) => {
+              this.uploadDisable = true;
+              this.finalSpinner = false;
+              this.popup = true;
+              this.filesuccess = true;
+              this.filesuccessMsg = "File Updated Successfully";
+              // this.airTerminationForm.controls.uploadAir.setValue('');
+              this.retriveFIleName();
+            },
+            (error) => {
+              this.finalSpinner = false;
+              this.popup = true;
+              this.filesuccess = false;
+              this.filesuccessMsg = "";
+            },
+          )
+        }
+
+    }
+  }
+
+  onChange1(event: any,form:any) {
+    this.file = event.target.files;
+    if (this.file != null) {
+      this.uploadDisable1 = false;
+    }
+    form.controls.fileSize.setValue(Math.round(this.file[0].size / 1024) + " KB");
+    form.controls.fileName1.setValue(this.file[0].name);
+  }
+
+  onChange(event: any,form:any) {
+    this.file = event.target.files;
+    if (this.file != null) {
+      this.uploadDisable = false;
+    }
+    form.controls.fileSize.setValue(Math.round(this.file[0].size / 1024) + " KB");
+    form.controls.fileName.setValue(this.file[0].name);
+  }
+
+  onDownload(fileName:any) {
+    this.fileUploadServiceService.downloadFile(this.basicLpsId,this.componentName,fileName);
+  }
+  onDownload1(fileName:any) {
+   this.fileUploadServiceService.downloadFile(this.basicLpsId,this.componentName1,fileName);
+  }
+
+  retriveFIleName() {
+    this.fileUploadServiceService.retriveFile(this.basicLpsId).subscribe(
+      data => {
+        if (data != "" && data != undefined && data != null) {    
+          this.JSONdata = JSON.parse(data);
+           this.downConductorDescription = this.downConductorForm.get('downConductorDescription') as FormArray;
+           let a = 0;
+           for(let i of this.JSONdata){ 
+            if(i.componentName =='downConductor'){
+              this.downConductorDescription.controls[i.index].controls.downConductor.controls[0].controls.fileName.setValue(i.fileName);
+              this.downConductorDescription.controls[i.index].controls.downConductor.controls[0].controls.fileType.setValue(i.fileType);
+              this.downConductorDescription.controls[i.index].controls.downConductor.controls[0].controls.fileId.setValue(i.fileId);
+              this.download[a] = false;
+            }
+            if(i.componentName=='downConductor-1'){
+              this.downConductorDescription.controls[i.index].controls.fileName1.setValue(i.fileName);
+              this.downConductorDescription.controls[i.index].controls.fileType1.setValue(i.fileType);
+              this.downConductorDescription.controls[i.index].controls.fileId1.setValue(i.fileId);
+              this.download1[a] = false;
+            }
+          }
+        } 
+      },
+      error => {
+       
+      }
+    )
+  }
 
   closeModalDialogFile() {
     this.modalService.dismissAll();
   }
-
 }
-
+    
