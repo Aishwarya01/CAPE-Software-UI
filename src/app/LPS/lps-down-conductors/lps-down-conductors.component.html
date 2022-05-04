@@ -2179,8 +2179,8 @@
                                             </div>
                                         </td>
                                         <td class="col-md-6">
-                                            <textarea [readonly]="isEditable || q.get('lightningCounterAvailabilityRem')?.value ==='As per latest standard IS/IEC 62305,installation of single lightning counter for whole building is mandatory'" formControlName="lightningCounterAvailabilityRem" type="text"
-                                            placeholder="Please enter Remarks here" class="form-control" [readonly]="isEditable"></textarea>
+                                            <textarea [readonly]="isEditable || q.get('lightningCounterAvailabilityOb')?.value ==='Not applicable'" formControlName="lightningCounterAvailabilityRem" type="text"
+                                            placeholder="Please enter Remarks here" class="form-control"></textarea>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -2590,9 +2590,9 @@
                                             </div>
                                         </td>
                                         <td class="col-md-6">
-                                            <textarea [readonly]="isEditable || q.get('testingJointAvailabilityRem')?.value === 'As per latest standard IS/IEC62305, installation of test joint at each down conductor is mandatory for the purpose of testing of down conductors and earth electrode as well'" 
+                                            <textarea [readonly]="isEditable || q.get('testingJointAvailabilityOb')?.value === 'Not available'" 
                                             formControlName="testingJointAvailabilityRem" type="text"
-                                            placeholder="Please enter Remarks here" class="form-control" [readonly]="isEditable"></textarea>
+                                            placeholder="Please enter Remarks here" class="form-control"></textarea>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -3169,7 +3169,7 @@
         <div class="modal-body">
             <div class="centre-text m-btm30">
                 <div style="text-align: center;">
-                    <span style="font-size: 15px;">Note: Since you are updating the remarks section, your content in summary recommendation will be reset..! </span>
+                    <span style="font-size: 15px;"><b>Note:</b> Since you are updating the remarks section, your content in summary recommendation will be reset..! </span>
                 </div>
             </div>
         </div>
@@ -3227,7 +3227,7 @@
       <div style="text-align: center;">
         <span class="successshow">Are you sure you want to procced? </span>
         <br>
-        <span style="font-size: 12px;">Note: Please verify all the details! </span>
+        <span style="font-size: 12px;"><b>Note:</b> Please verify all the details! </span>
        </div>
       </div>
      </div>
@@ -3264,7 +3264,7 @@
             </div>
         </div>
         <div *ngIf="filesuccess" style="text-align: center;">
-            Note: Please click Next Button, Then only the file changes will reflect!
+            <b>Note:</b> Please click Next Button, Then only the file changes will reflect!
         </div>
         <button type="button" (click)="closeModalDialogFile()" *ngIf="popup" style="text-align: center;margin-left:180px;width:20%;margin-top: 20px;" class="close"
             class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
