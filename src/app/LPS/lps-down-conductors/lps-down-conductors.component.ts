@@ -7,7 +7,6 @@ import { downConductorReport } from 'src/app/LPS_model/downConductorReport';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
 import { LpsDownconductorService } from 'src/app/LPS_services/lps-downconductor.service';
 import { LpsFileUploadService } from 'src/app/LPS_services/lps-file-upload.service';
-import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
 
 @Component({
   selector: 'app-lps-down-conductors',
@@ -42,46 +41,46 @@ export class LpsDownConductorsComponent implements OnInit {
   buildingHeight: String = '';
   levelOfProtection: String = '';
   soilResistivity: String = '';
-  downConductorNames: any[] = [
-      'physicalInspectionOb',
-      'conductMaterialOb',
-      'downConductExposedOb',
-      'downConductLocationdOb',
-      'downConductGutterOb',
-      'installedShaftDownConductorOb',
-      'ensureDownCnoductOb',
-      'installationDownConductOb',
-      'maximumDownConductOb',
-      'manimumDownConductOb',
-      'totalNoDownConductOb',
-      'inspectedNoOb',
-      'inspectionPassedNoOb',
-      'inspectionFailedNoOb',
-      'averageBendsOb',
-      'fileName'
-      // 'naturalDownCondutTypeOb',
-      // 'naturalDownCondDimensionOb',
-  ]
-  downConductorNamesRem: any[] = [
-      'physicalInspectionRem',
-      'conductMaterialRem',
-      'conductSizeRem',
-      'downConductExposedRem',
-      'downConductLocationdRem',
-      'downConductGutterRem',
-      'installedShaftDownConductorRem',
-      'ensureDownCnoductRem',
-      'installationDownConductRem',
-      'maximumDownConductRem',
-      'manimumDownConductRem',
-      'totalNoDownConductRem',
-      'inspectedNoRem',
-      'inspectionPassedNoRem',
-      'inspectionFailedNoRem',
-      'averageBendsRem',
-      'naturalDownCondutTypeRem',
-      'naturalDownCondDimensionRem',
-  ] 
+  // downConductorNames: any[] = [
+  //     'physicalInspectionOb',
+  //     'conductMaterialOb',
+  //     'downConductExposedOb',
+  //     'downConductLocationdOb',
+  //     'downConductGutterOb',
+  //     'installedShaftDownConductorOb',
+  //     'ensureDownCnoductOb',
+  //     'installationDownConductOb',
+  //     'maximumDownConductOb',
+  //     'manimumDownConductOb',
+  //     'totalNoDownConductOb',
+  //     'inspectedNoOb',
+  //     'inspectionPassedNoOb',
+  //     'inspectionFailedNoOb',
+  //     'averageBendsOb',
+  //     'fileName'
+  //     // 'naturalDownCondutTypeOb',
+  //     // 'naturalDownCondDimensionOb',
+  // ]
+  // downConductorNamesRem: any[] = [
+  //     'physicalInspectionRem',
+  //     'conductMaterialRem',
+  //     'conductSizeRem',
+  //     'downConductExposedRem',
+  //     'downConductLocationdRem',
+  //     'downConductGutterRem',
+  //     'installedShaftDownConductorRem',
+  //     'ensureDownCnoductRem',
+  //     'installationDownConductRem',
+  //     'maximumDownConductRem',
+  //     'manimumDownConductRem',
+  //     'totalNoDownConductRem',
+  //     'inspectedNoRem',
+  //     'inspectionPassedNoRem',
+  //     'inspectionFailedNoRem',
+  //     'averageBendsRem',
+  //     'naturalDownCondutTypeRem',
+  //     'naturalDownCondDimensionRem',
+  // ] 
   success: boolean = false;
   // success1: boolean = false;
   // successMsg1: string="";
@@ -161,6 +160,7 @@ export class LpsDownConductorsComponent implements OnInit {
   popupDelete: boolean = false;
   fileDeleteSuccess: boolean = false;
   fileDeletesuccessMsg: any;
+  summaryPopup: boolean = false;
   // For Spinner
   spinner: boolean=false;
   spinnerValue: String = '';
@@ -170,7 +170,6 @@ export class LpsDownConductorsComponent implements OnInit {
     private formBuilder: FormBuilder, lpsDownconductorService: LpsDownconductorService,
     private modalService: NgbModal, private router: ActivatedRoute,
     public service: GlobalsService,
-    private matstepper: LpsMatstepperComponent,
     private fileUploadServiceService: LpsFileUploadService,
     private airterminationServices:AirterminationService) {
     this.lpsDownconductorService = lpsDownconductorService;
@@ -298,7 +297,7 @@ export class LpsDownConductorsComponent implements OnInit {
       downConductorTestingAvailabilityRem: new FormControl(''),
       fileName1: new FormControl('',Validators.required),
       fileType1: new FormControl(''),
-      fileId1: new FormControl(''),
+      fileId1: new FormControl('',Validators.required),
       fileSize: new FormControl(''),
       index: new FormControl(''),
 
@@ -314,12 +313,12 @@ export class LpsDownConductorsComponent implements OnInit {
 
   private createDownArrForm(): FormGroup {
     return new FormGroup({
-      downConductorId: new FormControl(''),
+      // downConductorId: new FormControl(''),
       flag: new FormControl('A'),
       physicalInspectionOb: new FormControl('', Validators.required),
       physicalInspectionRem: new FormControl(''),
       index: new FormControl(''),
-      fileName: new FormControl('',Validators.required),
+      fileName: new FormControl(''),
       fileType: new FormControl(''),
       fileId: new FormControl(''),
       fileSize: new FormControl(''),
@@ -572,8 +571,7 @@ export class LpsDownConductorsComponent implements OnInit {
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,data: any){
       //this.service.lvClick=1;
-      this.step3List = data.downConductorReport;
-      this.downConductorReport.basicLpsId = basicLpsId;      
+            
       this.basicLpsId = basicLpsId;
       this.retrieveFromAirTermination();
       this.deletedBridgingDesc = [];
@@ -583,20 +581,27 @@ export class LpsDownConductorsComponent implements OnInit {
       this.deletedHolders = [];
       this.deletedLightningCounter = [];
       this.deletedTestingJoint = [];
+      this.step3List = data.downConductorReport;
+
       if(this.step3List != null) {
-        this.downConductorReport.downConductorReportId = this.step3List.downConductorReportId;
+      this.downConductorReport.basicLpsId = basicLpsId;
+      this.downConductorReport.downConductorReportId = this.step3List.downConductorReportId;
       this.downConductorReport.createdDate = this.step3List.createdDate;  
       this.downConductorReport.createdBy = this.step3List.createdBy;
       this.downConductorReport.userName = this.step3List.userName;
+      this.downConductorReport.updatedBy = this.step3List.updatedBy;
+      this.downConductorReport.updatedDate = this.step3List.updatedDate;
       setTimeout(() => {
-        this.populateData(this.step3List.downConductorDescription);
+        if( this.step3List.downConductorDescription.length !=0){
+          this.populateData(this.step3List.downConductorDescription);
+        }
       }, 1000);
       if(this.step3List != null) {
-        this.updateMethod();
+      //  this.updateMethod();
       }
       this.flag=true;
       }
-     this.retriveFIleName()
+      this.retriveFIleName()
     }
 
     retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
@@ -616,11 +621,16 @@ export class LpsDownConductorsComponent implements OnInit {
       this.downConductorReport.createdBy = this.step3List1[0].createdBy;
       this.downConductorReport.createdDate = this.step3List1[0].createdDate;
       this.downConductorReport.userName = this.step3List1[0].userName;
+      this.downConductorReport.updatedBy = this.step3List1[0].updatedBy;
+      this.downConductorReport.updatedDate = this.step3List1[0].updatedDate;
       setTimeout(() => {
-        this.populateData(this.step3List1[0].downConductorDescription);
+        if(this.step3List1[0].downConductorDescription.length !=0){
+          this.populateData(this.step3List1[0].downConductorDescription);
+        }
       }, 1000);
       this.flag=true;
       }
+      this.retriveFIleName()
     }
 
     populateData(value: any) {
@@ -685,23 +695,30 @@ export class LpsDownConductorsComponent implements OnInit {
     retrieveDownArrForm(item:any){
       let retrieveDownArrFormDataArr:any=[];
       if(item.downConductorAvailabilityOb == 'Applicable') {
+        let a = 0;
         for (let value of item.downConductor) {
-          retrieveDownArrFormDataArr.push(this.createGroup(value,item.downConduDescId));   
+          if(a == 0){
+            a = a+1;
+            retrieveDownArrFormDataArr.push(this.createGroup(value,item.downConduDescId));
+          }  
         } 
       }
       else {
+        let a = 0;
         for (let value of item.downConductor) {
-          retrieveDownArrFormDataArr.push(this.createGroupNotApplicable(value,item.downConduDescId));   
+          if(a == 0){
+            a = a+1;
+            retrieveDownArrFormDataArr.push(this.createGroupNotApplicable(value,item.downConduDescId));
+          }
         } 
       }
-      
       return retrieveDownArrFormDataArr;
     }
 
     createGroup(item: any,downConduDescId: any): FormGroup {
       return this.formBuilder.group({
         downConductorId: new FormControl({disabled: false, value: item.downConductorId}),
-        downConduDescId: new FormControl({disabled: false, value: downConduDescId}),
+        // downConduDescId: new FormControl({disabled: false, value: downConduDescId}),
         physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
         physicalInspectionRem: new FormControl({disabled: false, value: item.physicalInspectionRem}),
         conductMaterialOb: new FormControl({disabled: false, value: item.conductMaterialOb}, Validators.required),
@@ -750,7 +767,7 @@ export class LpsDownConductorsComponent implements OnInit {
     createGroupNotApplicable(item: any,downConduDescId: any): FormGroup {
       return this.formBuilder.group({
         downConductorId: new FormControl({disabled: false, value: item.downConductorId}),
-        downConduDescId: new FormControl({disabled: false, value: downConduDescId}),
+        // downConduDescId: new FormControl({disabled: false, value: downConduDescId}),
         physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}),
         physicalInspectionRem: new FormControl({disabled: false, value: item.physicalInspectionRem}),
         conductMaterialOb: new FormControl({disabled: false, value: item.conductMaterialOb}),
@@ -1055,38 +1072,128 @@ export class LpsDownConductorsComponent implements OnInit {
       else{
         changedValue = event;
       }
-      let downConductorArray: any = [];
-      downConductorArray =  a.controls.downConductor as FormArray;
+        if(changedValue== 'Not applicable in case of natural down conductors'){
 
-      if(changedValue == 'Applicable') {
-        for(let i=0;i<this.downConductorNames.length;i++) {
-          downConductorArray.controls[0].controls[this.downConductorNames[i]].setValidators([Validators.required]);
-          downConductorArray.controls[0].controls[this.downConductorNames[i]].updateValueAndValidity();
-        }
-        downConductorArray.controls[0].controls.naturalDownCondutTypeOb.setValue('');
-        downConductorArray.controls[0].controls.naturalDownCondutTypeRem.setValue('');
+           a[0].controls.physicalInspectionOb.clearValidators();
+           a[0].controls.physicalInspectionOb.updateValueAndValidity();
+           a[0].controls.conductMaterialOb.clearValidators();
+           a[0].controls.conductMaterialOb.updateValueAndValidity();
+           a[0].controls.downConductExposedOb.clearValidators();
+           a[0].controls.downConductExposedOb.updateValueAndValidity();
+           a[0].controls.downConductLocationdOb.clearValidators();
+           a[0].controls.downConductLocationdOb.updateValueAndValidity();
+           a[0].controls.downConductGutterOb.clearValidators();
+           a[0].controls.downConductGutterOb.updateValueAndValidity();
+           a[0].controls.installedShaftDownConductorOb.clearValidators();
+           a[0].controls.installedShaftDownConductorOb.updateValueAndValidity();
+           a[0].controls.ensureDownCnoductOb.clearValidators();
+           a[0].controls.ensureDownCnoductOb.updateValueAndValidity();
+           a[0].controls.installationDownConductOb.clearValidators();
+           a[0].controls.installationDownConductOb.updateValueAndValidity();
+           a[0].controls.maximumDownConductOb.clearValidators();
+           a[0].controls.maximumDownConductOb.updateValueAndValidity();
+           a[0].controls.manimumDownConductOb.clearValidators();
+           a[0].controls.manimumDownConductOb.updateValueAndValidity();
+           a[0].controls.totalNoDownConductOb.clearValidators();
+           a[0].controls.totalNoDownConductOb.updateValueAndValidity();
+           a[0].controls.inspectedNoOb.clearValidators();
+           a[0].controls.inspectedNoOb.updateValueAndValidity();
+           a[0].controls.inspectionPassedNoOb.clearValidators();
+           a[0].controls.inspectionPassedNoOb.updateValueAndValidity();
+           a[0].controls.inspectionFailedNoOb.clearValidators();
+           a[0].controls.inspectionFailedNoOb.updateValueAndValidity();
+           a[0].controls.averageBendsOb.clearValidators();
+           a[0].controls.averageBendsOb.updateValueAndValidity();
+           a[0].controls.fileName.clearValidators();
+           a[0].controls.fileName.updateValueAndValidity();
+           a[0].controls.fileId.clearValidators();
+           a[0].controls.fileId.updateValueAndValidity();
+            // If the value is No
+           a[0].controls.naturalDownCondutTypeOb.setValidators();
+           a[0].controls.naturalDownCondutTypeOb.updateValueAndValidity();
+           a[0].controls.naturalDownCondDimensionOb.setValidators(Validators.required);
+           a[0].controls.naturalDownCondDimensionOb.updateValueAndValidity();
+  
+           a[0].controls.physicalInspectionOb.setValue(null);
+           a[0].controls.physicalInspectionRem.setValue(null);
+           a[0].controls.conductMaterialOb.setValue(null);
+           a[0].controls.conductMaterialRem.setValue(null);
+           a[0].controls.downConductExposedOb.setValue(null);
+           a[0].controls.downConductExposedRem.setValue(null);
+           a[0].controls.downConductLocationdOb.setValue(null);
+           a[0].controls.downConductLocationdRem.setValue(null);
+           a[0].controls.downConductGutterOb.setValue(null);
+           a[0].controls.downConductGutterRem.setValue(null);
+           a[0].controls.installedShaftDownConductorOb.setValue(null);
+           a[0].controls.installedShaftDownConductorRem.setValue(null);
+           a[0].controls.ensureDownCnoductOb.setValue(null);
+           a[0].controls.ensureDownCnoductRem.setValue(null);
+           a[0].controls.installationDownConductOb.setValue(null);
+           a[0].controls.installationDownConductRem.setValue(null);
+           a[0].controls.maximumDownConductOb.setValue(null);
+           a[0].controls.maximumDownConductRem.setValue(null);
+           a[0].controls.manimumDownConductRem.setValue(null);
+           a[0].controls.manimumDownConductOb.setValue(null);
+           a[0].controls.totalNoDownConductOb.setValue(null);
+           a[0].controls.totalNoDownConductRem.setValue(null);
+           a[0].controls.inspectedNoOb.setValue(null);
+           a[0].controls.inspectedNoRem.setValue(null);
+           a[0].controls.inspectionPassedNoOb.setValue(null);
+           a[0].controls.inspectionPassedNoRem.setValue(null);
+           a[0].controls.inspectionFailedNoOb.setValue(null);
+           a[0].controls.inspectionFailedNoRem.setValue(null);
+           a[0].controls.averageBendsOb.setValue(null);
+           a[0].controls.averageBendsRem.setValue(null);
+           a[0].controls.naturalDownCondutTypeOb.setValue(null);
+           a[0].controls.naturalDownCondutTypeRem.setValue(null);
+           a[0].controls.naturalDownCondDimensionOb.setValue(null);
+           a[0].controls.naturalDownCondDimensionRem.setValue(null);
+           a[0].controls.conductSizeRem.setValue(null);
 
-        downConductorArray.controls[0].controls.naturalDownCondDimensionOb.clearValidators();
-        downConductorArray.controls[0].controls.naturalDownCondDimensionOb.updateValueAndValidity();
-        downConductorArray.controls[0].controls.naturalDownCondDimensionOb.setValue('');
-        downConductorArray.controls[0].controls.naturalDownCondDimensionRem.setValue('');
-      }
-      else if(changedValue == 'Not applicable in case of natural down conductors') {
-        downConductorArray.controls[0].controls.naturalDownCondDimensionOb.setValidators([Validators.required]);
-        downConductorArray.controls[0].controls.naturalDownCondDimensionOb.updateValueAndValidity('');
+        }
+        else {
 
-        for(let i=0;i<this.downConductorNames.length;i++) {
-          downConductorArray.controls[0].controls[this.downConductorNames[i]].clearValidators();
-          downConductorArray.controls[0].controls[this.downConductorNames[i]].updateValueAndValidity();
-          downConductorArray.controls[0].controls[this.downConductorNames[i]].setValue('');
+           a[0].controls.naturalDownCondutTypeOb.clearValidators();
+           a[0].controls.naturalDownCondutTypeOb.updateValueAndValidity();
+           a[0].controls.naturalDownCondDimensionOb.clearValidators();
+           a[0].controls.naturalDownCondDimensionOb.updateValueAndValidity();
+
+           a[0].controls.physicalInspectionOb.setValidators(Validators.required);
+           a[0].controls.physicalInspectionOb.updateValueAndValidity();
+           a[0].controls.conductMaterialOb.setValidators(Validators.required);
+           a[0].controls.conductMaterialOb.updateValueAndValidity();
+           a[0].controls.downConductExposedOb.setValidators(Validators.required);
+           a[0].controls.downConductExposedOb.updateValueAndValidity();
+           a[0].controls.downConductLocationdOb.setValidators(Validators.required);
+           a[0].controls.downConductLocationdOb.updateValueAndValidity();
+           a[0].controls.downConductGutterOb.setValidators(Validators.required);
+           a[0].controls.downConductGutterOb.updateValueAndValidity();
+           a[0].controls.installedShaftDownConductorOb.setValidators(Validators.required);
+           a[0].controls.installedShaftDownConductorOb.updateValueAndValidity();
+           a[0].controls.ensureDownCnoductOb.setValidators(Validators.required);
+           a[0].controls.ensureDownCnoductOb.updateValueAndValidity();
+           a[0].controls.installationDownConductOb.setValidators(Validators.required);
+           a[0].controls.installationDownConductOb.updateValueAndValidity();
+           a[0].controls.maximumDownConductOb.setValidators(Validators.required);
+           a[0].controls.maximumDownConductOb.updateValueAndValidity();
+           a[0].controls.manimumDownConductOb.setValidators(Validators.required);
+           a[0].controls.manimumDownConductOb.updateValueAndValidity();
+           a[0].controls.totalNoDownConductOb.setValidators(Validators.required);
+           a[0].controls.totalNoDownConductOb.updateValueAndValidity();
+           a[0].controls.inspectedNoOb.setValidators(Validators.required);
+           a[0].controls.inspectedNoOb.updateValueAndValidity();
+           a[0].controls.inspectionPassedNoOb.setValidators(Validators.required);
+           a[0].controls.inspectionPassedNoOb.updateValueAndValidity();
+           a[0].controls.inspectionFailedNoOb.setValidators(Validators.required);
+           a[0].controls.inspectionFailedNoOb.updateValueAndValidity();
+           a[0].controls.averageBendsOb.setValidators(Validators.required);
+           a[0].controls.averageBendsOb.updateValueAndValidity();
+           a[0].controls.fileName.setValidators(Validators.required);
+           a[0].controls.fileName.updateValueAndValidity();
+           a[0].controls.fileId.setValidators(Validators.required);
+           a[0].controls.fileId.updateValueAndValidity();
+
         }
-        for(let j=0;j<this.downConductorNamesRem.length;j++) {
-          downConductorArray.controls[0].controls[this.downConductorNamesRem[j]].setValue('');
-        }
-        downConductorArray.controls[0].controls.conductSizeOb.setValue('');
-        downConductorArray.controls[0].controls.conductSizeRem.setValue('');
-      }
-      this.downConductorForm.markAsDirty();
     }
 
     onChangeCables(event: any,a:any) {
@@ -1296,14 +1403,14 @@ export class LpsDownConductorsComponent implements OnInit {
 
     validationChangeBasicDown(event: any,q: any,formControl: any) {
 
-      if(event.target.value == 'Distance<1m') {
+      if(event.target.value == 'Distance <1m') {
         q.controls[formControl].setValidators([Validators.required]);
         q.controls[formControl].updateValueAndValidity();
       }
-      else if(event.target.value == 'Yes') {
-        q.controls[formControl].setValidators([Validators.required]);
-        q.controls[formControl].updateValueAndValidity();
-      }
+      // else if(event.target.value == 'Yes') {
+      //   q.controls[formControl].setValidators([Validators.required]);
+      //   q.controls[formControl].updateValueAndValidity();
+      // }
       else {
         q.controls[formControl].clearValidators();
         q.controls[formControl].updateValueAndValidity();
@@ -1513,7 +1620,7 @@ export class LpsDownConductorsComponent implements OnInit {
     }
 
     populateValueForTestRemarks(e: any,a: any) {
-      if(e.target.value == 'Not touched') {
+      if(e.target.value == 'Touched') {
         a.controls.touchingConductorsRem.setValue('To avoid bimetallic corrosion 2 disssimilar metals should not touch each other');
       }
       else {
@@ -1582,7 +1689,7 @@ export class LpsDownConductorsComponent implements OnInit {
       }
     }
 
-    gotoNextModal(content: any,contents:any) {
+    gotoNextModal(content1: any,contents:any) {
       if (this.downConductorForm.invalid) {
         this.validationError = true;
 
@@ -1612,12 +1719,19 @@ export class LpsDownConductorsComponent implements OnInit {
       }
         //  Update and Success msg will be showing
       else if(this.downConductorForm.dirty && this.downConductorForm.touched){
-          this.modalService.open(content, { centered: true,backdrop: 'static' });
+        this.modalService.open(content1, { centered: true, backdrop: 'static' });  
+        this.summaryPopup=true;
       }
       //  For Dirty popup
       else{
         this.modalService.open(contents, { centered: true,backdrop: 'static' });
       }
+    }
+    
+    summaryEvent(content:any){
+      this.modalService.open(content, { centered: true, backdrop: 'static' });
+      this.onSubmit(this.flag);
+      this.summaryPopup=false;
     }
 
     retriveDownConductor(){
@@ -1940,7 +2054,7 @@ export class LpsDownConductorsComponent implements OnInit {
           )
         }
         else {
-          this.fileUploadServiceService.updateFile(formData,this.componentName1,fileId).subscribe(
+          this.fileUploadServiceService.updateFile(formData,this.componentName1,fileId,index).subscribe(
             (data) => {
               this.uploadDisable1 = true;
               this.finalSpinner = false;
@@ -1995,7 +2109,7 @@ export class LpsDownConductorsComponent implements OnInit {
           )
         }
         else {
-          this.fileUploadServiceService.updateFile(formData,this.componentName,fileId).subscribe(
+          this.fileUploadServiceService.updateFile(formData,this.componentName,fileId,index).subscribe(
             (data) => {
               this.uploadDisable = true;
               this.finalSpinner = false;

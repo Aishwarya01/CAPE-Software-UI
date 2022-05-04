@@ -48,7 +48,7 @@ export class LpsSpdComponent implements OnInit {
   spd: any=[];
   isEditable!:boolean
   isAirterminationUpdated:boolean=false;
-
+  summaryPopup: boolean = false;
   spdDescriptionDelArr: any=[];
   validationErrorTab: boolean = false;
   validationErrorMsgTab: string="";
@@ -491,7 +491,7 @@ export class LpsSpdComponent implements OnInit {
     }
   }
 
-  gotoNextModal(content: any, contents: any) {
+  gotoNextModal(content1: any, contents: any) {
     if (this.spdForm.invalid) {
       this.validationError = true;
 
@@ -518,12 +518,19 @@ export class LpsSpdComponent implements OnInit {
       return;
     }
     else if (this.spdForm.dirty && this.spdForm.touched) {
-      this.modalService.open(content, { centered: true, backdrop: 'static' });
+      this.modalService.open(content1, { centered: true, backdrop: 'static' });
+      this.summaryPopup=true;
     }
     //  For Dirty popup
     else {
       this.modalService.open(contents, { centered: true, backdrop: 'static' });
     }
+  }
+
+  summaryEvent(content:any){
+    this.modalService.open(content, { centered: true, backdrop: 'static' });
+    this.onSubmit(this.flag);
+    this.summaryPopup=false;
   }
   
   retriveSPD() {

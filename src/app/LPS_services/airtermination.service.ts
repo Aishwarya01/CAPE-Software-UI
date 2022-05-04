@@ -30,5 +30,13 @@ export class AirterminationService {
   public retriveAirTerminationDetails(userName: String,basicLpsId: any): Observable<any>{
     return this.http.get<any>(this.apiUrl + '/retrieveAirTerminationLps' + '/' +userName+ '/' +basicLpsId, { responseType: 'text' as 'json' })
   }
+
+  // public updateFileIdAirTerminationDetails(basicLpsId: any,index: any): Observable<any>{
+  //   return this.http.put<any>('http://localhost:5001/api/lps/v2' + '/updateFileId' + '/' +basicLpsId+ '/' +index, { responseType: 'text' as 'json' })
+  // }
+  
+  // public updateIndex(basicLpsId: any,list: any): Observable<any>{
+  //   return this.http.put<any>('http://localhost:5001/api/lps/v2' + '/updateAllFileId' + '/' +basicLpsId,list, { responseType: 'text' as 'json' })
+  // }
   
 }

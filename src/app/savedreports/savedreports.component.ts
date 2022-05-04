@@ -15,6 +15,7 @@ import { filter } from 'rxjs/operators';
 // import { environment } from 'src/environments/environment';
 import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminProd } from 'src/environments/environment.prod';
+import { SuperAdminLocal } from 'src/environments/environment';
 
 @Component({
   selector: 'app-savedreports',
@@ -56,6 +57,7 @@ export class SavedreportsComponent implements OnInit {
   enableDelete: boolean = false;
   deleteSuccess: boolean = false;
   deleteSuccessMsg: String = '';
+  superAdminLocal = new SuperAdminLocal();
   superAdminDev = new SuperAdminDev();
   superAdminProd = new SuperAdminProd();
 
@@ -135,6 +137,13 @@ export class SavedreportsComponent implements OnInit {
     }
     //Production environment
     for(let i of this.superAdminProd.adminEmail) {
+      if(this.email == i) {
+        this.superAdminFlag = true;
+        this.enableDelete = true;
+      }
+    }
+
+    for(let i of this.superAdminLocal.adminEmail) {
       if(this.email == i) {
         this.superAdminFlag = true;
         this.enableDelete = true;

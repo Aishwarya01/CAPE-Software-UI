@@ -13,8 +13,8 @@ const FileSaver = require('file-saver');
   providedIn: 'root'
 })
 export class LpsFileUploadService {
-  //  apiUrl_LPS = environment.apiUrl_LPS;
-  apiUrl_LPS:any =  'http://localhost:5001/api/lps/v2';
+   apiUrl_LPS = environment.apiUrl_LPS;
+ // apiUrl_LPS:any =  'http://localhost:5001/api/lps/v2';
    
   constructor(private http: HttpClient) { }
 
@@ -28,9 +28,9 @@ export class LpsFileUploadService {
     })
   }
 
-  public updateFile(formData: FormData,componentName:any,fileId:number): Observable<HttpEvent<any>> {
-    return this.http.put<any>(this.apiUrl_LPS + '/updateFile'+ '/'+componentName+'/'+fileId,formData,{
-      headers: new HttpHeaders(
+  public updateFile(formData: FormData,componentName:any,fileId:number,index:number): Observable<HttpEvent<any>> {
+    return this.http.put<any>(this.apiUrl_LPS + '/updateFile'+ '/'+componentName+'/'+fileId+'/'+index,formData,{
+      headers: new HttpHeaders( 
         {
           'Content-Type': 'multipart/form-data'
         }
@@ -51,8 +51,12 @@ export class LpsFileUploadService {
       }, 
       ()=>{})
     }
-    public deleteFile(lpsId:any,fileId:number): Observable<any> {
+    public deleteFile(fileId:number): Observable<any> {
       return this.http.delete(this.apiUrl_LPS + '/removeFile'+'/'+fileId, { responseType: 'text' as 'json'})
     }
+
+  public updateIndex(basicLpsId: any, list: any): Observable<any> {
+    return this.http.put<any>(this.apiUrl_LPS + '/updateAllFileId' + '/' + basicLpsId, list, { responseType: 'text' as 'json' })
+  }
   
 }
