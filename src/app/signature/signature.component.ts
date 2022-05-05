@@ -40,6 +40,7 @@ export class SignatureComponent implements OnInit {
     }
     SaveSignature(){
     const base64=this.signaturePad.toDataURL('image/png', 0.5); 
+    
     if(this.sigImg1==true){
       this.service.signatureImg1=base64;
     }
@@ -61,10 +62,31 @@ export class SignatureComponent implements OnInit {
 
     this.dialogRef.close();
     this.service.sigInput=1;
-    const blob= this.base64toBlob(base64);
-    console.log(blob);
+    
+    const byteString = btoa(base64.split(',')[1]);
+    this.service.bytestring1=byteString;
+    console.log(byteString.length);
+
+   // const byteString= this.base64toBlob(base64);
+  //  console.log(byteString);
+
+    //const bytesString = String.fromCharCode(byteArray);
+    //console.log('Bytes to string: ', bytesString);
+
+   
+   // const jsonString = JSON.stringify(byteString);
+    //console.log(jsonString);
     }
     base64toBlob(base64:any){
+    //   const binary_string = atob(base64.split(',')[1]);
+    //  // var binary_string = atob(base64);
+    //   var len = binary_string.length;
+    //   var bytes = new Uint8Array(len);
+    //   for (var i = 0; i < len; i++) {
+    //       bytes[i] = binary_string.charCodeAt(i);
+    //   }
+    //   return bytes.buffer;
+
       const byteString = atob(base64.split(',')[1]);
       const mimeString= base64.split(',')[0].split(':')[1].split(':')[0];
       const byteNumbers = new Array(byteString.length);
