@@ -205,8 +205,10 @@ ShowNext: boolean = true;
   finalSpinner: boolean = true;
   popup: boolean = false;
   signBase64: any;
-
-  
+  signarr: any;
+  signarr1: any;
+  signarr2: any;
+  signarr3: any;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -518,8 +520,10 @@ SignatureDesigner1(){
        this.step1List.state=this.step1List.reportDetails.state;
        this.setReadOnly = true;
 
-      // this.step1List.reportDetails.signatorDetails[0].declarationSignature = atob(this.step1List.reportDetails.signatorDetails[0].declarationSignature);
-      // console.log(this.signBase64);
+      // this.signBase64 = atob(this.step1List.reportDetails.signatorDetails[0].declarationSignature);
+      // i.declarationSignature=atob(signBase64.split(',')[1]);
+       // console.log(this.signBase64);
+     // let signBase64 = this.step1List.reportDetails.signatorDetails[0].declarationSignature;
 
        this.populateData(this.step1List.reportDetails.signatorDetails);
        this.populateDataComments();
@@ -528,38 +532,50 @@ SignatureDesigner1(){
       for( let i of this.step1List.reportDetails.signatorDetails) {
        // this.signBase64 = atob(this.step1List.reportDetails.signatorDetails[0].declarationSignature);
         if(i.signatorRole == "designer1"){
-          const base64=i.declarationSignature;
-          atob(base64.split(',')[1]);
+          this.signarr=[i];
+          this.signarr[0].declarationSignature=atob(i.declarationSignature);
+
+          this.step1Form.patchValue({
+          designer1AcknowledgeArr: this.signarr
+         // i.declarationSignature=atob(signBase64.split(',')[1]);
          // let signBase64=i.declarationSignature;
         // let signBase64=atob(this.step1List.reportDetails.signatorDetails[0].declarationSignature);
          // i.declarationSignature.setValue(signBase64);
-         console.log(i);
-          this.step1Form.patchValue({
-            signBase64:i.declarationSignature,
-            designer1AcknowledgeArr: [i]
           })
           this.designer1changeCountry(i.country);
         this.state1 = i.state;
         }
           else if(i.signatorRole == "designer2"){
+            this.signarr1=[i];
+            this.signarr1[0].declarationSignature=atob(i.declarationSignature);
+
           this.step1Form.patchValue({
-            designer2AcknowledgeArr: [i]
+            designer2AcknowledgeArr: this.signarr1
+            //designer2AcknowledgeArr: [i]
           })
           this.showDesigner2 = true;
           this.state2 = i.state;
           this.designer2changeCountry(i.country);
          }
        else if(i.signatorRole == "contractor"){
-        this.step1Form.patchValue({
-          contractorAcknowledgeArr: [i]
-         })
+        this.signarr2=[i];
+        this.signarr2[0].declarationSignature=atob(i.declarationSignature);
+
+      this.step1Form.patchValue({
+        contractorAcknowledgeArr: this.signarr2
+        //contractorAcknowledgeArr: [i]
+      })
         this.state3 = i.state;
         this.contractorchangeCountry(i.country);
        }
        else if(i.signatorRole == "inspector"){
-          this.step1Form.patchValue({
-            inspectorAcknowledgeArr: [i]
-          })
+        this.signarr3=[i];
+        this.signarr3[0].declarationSignature=atob(i.declarationSignature);
+
+      this.step1Form.patchValue({
+        inspectorAcknowledgeArr: this.signarr3
+        //inspectorAcknowledgeArr: [i]
+      })
           this.state4 = i.state;
           this.inspectorchangeCountry(i.country);
         }
@@ -677,31 +693,47 @@ retrieveAllDetailsforBasic(userName: any,siteId: any,site:any,data: any){
 
     for( let i of this.step1List.signatorDetails) {
       if(i.signatorRole == "designer1"){
-        this.step1Form.patchValue({
-          designer1AcknowledgeArr: [i]
-        })
+        this.signarr=[i];
+        this.signarr[0].declarationSignature=atob(i.declarationSignature);
+
+      this.step1Form.patchValue({
+        designer1AcknowledgeArr: this.signarr
+        //designer2AcknowledgeArr: [i]
+      })
         this.designer1changeCountry(i.country);
       this.state1 = i.state;
       }
         else if(i.signatorRole == "designer2"){
+          this.signarr=[i];
+          this.signarr[0].declarationSignature=atob(i.declarationSignature);
+  
         this.step1Form.patchValue({
-          designer2AcknowledgeArr: [i]
+          designer2AcknowledgeArr: this.signarr
+          //designer2AcknowledgeArr: [i]
         })
         this.showDesigner2 = true;
         this.state2 = i.state;
         this.designer2changeCountry(i.country);
        }
      else if(i.signatorRole == "contractor"){
-      this.step1Form.patchValue({
-        contractorAcknowledgeArr: [i]
-       })
+      this.signarr=[i];
+      this.signarr[0].declarationSignature=atob(i.declarationSignature);
+
+    this.step1Form.patchValue({
+      contractorAcknowledgeArr: this.signarr
+      //contractorAcknowledgeArr: [i]
+    })
       this.state3 = i.state;
       this.contractorchangeCountry(i.country);
      }
      else if(i.signatorRole == "inspector"){
-        this.step1Form.patchValue({
-          inspectorAcknowledgeArr: [i]
-        })
+        this.signarr=[i];
+        this.signarr[0].declarationSignature=atob(i.declarationSignature);
+
+      this.step1Form.patchValue({
+        inspectorAcknowledgeArr: this.signarr
+        //inspectorAcknowledgeArr: [i]
+      })
         this.state4 = i.state;
         this.inspectorchangeCountry(i.country);
       }
@@ -1876,16 +1908,16 @@ onPopState(event:any) {
       this.step1Form.value.designer2Arr[0].signatorRole= this.designer2Role;
       if((this.step1Form.value.designer2AcknowledgeArr[0].declarationName != "") && (this.step1Form.value.designer2AcknowledgeArr[0].declarationDate != ""))
       {
-      this.step1Form.value.designer2Arr[0].declarationSignature= this.step1Form.value.designer2AcknowledgeArr[0].declarationSignature;
+      this.step1Form.value.designer2Arr[0].declarationSignature= this.service.bytestring2;
       this.step1Form.value.designer2Arr[0].declarationName= this.step1Form.value.designer2AcknowledgeArr[0].declarationName;
       this.step1Form.value.designer2Arr[0].declarationDate= this.step1Form.value.designer2AcknowledgeArr[0].declarationDate;
       }
       this.step1Form.value.contractorArr[0].signatorRole= this.contractorRole;
-      this.step1Form.value.contractorArr[0].declarationSignature= this.step1Form.value.contractorAcknowledgeArr[0].declarationSignature;
+      this.step1Form.value.contractorArr[0].declarationSignature= this.service.bytestring3;
       this.step1Form.value.contractorArr[0].declarationName= this.step1Form.value.contractorAcknowledgeArr[0].declarationName;
       this.step1Form.value.contractorArr[0].declarationDate= this.step1Form.value.contractorAcknowledgeArr[0].declarationDate;
       this.step1Form.value.inspectorArr[0].signatorRole= this.inspectorRole;
-      this.step1Form.value.inspectorArr[0].declarationSignature= this.step1Form.value.inspectorAcknowledgeArr[0].declarationSignature;
+      this.step1Form.value.inspectorArr[0].declarationSignature= this.service.bytestring4;
       this.step1Form.value.inspectorArr[0].declarationName= this.step1Form.value.inspectorAcknowledgeArr[0].declarationName;
       this.step1Form.value.inspectorArr[0].declarationDate= this.step1Form.value.inspectorAcknowledgeArr[0].declarationDate;
       this.reportDetails.userName = this.email;

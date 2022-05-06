@@ -63,11 +63,26 @@ export class SignatureComponent implements OnInit {
     this.dialogRef.close();
     this.service.sigInput=1;
     
-    const byteString = btoa(base64.split(',')[1]);
-    this.service.bytestring1=byteString;
-    console.log(byteString.length);
+    if(this.sigImg1==true){
+      const byteString = btoa(base64);
+      this.service.bytestring1=byteString;
+    }
+    else if(this.sigImg2==true){
+      const byteString = btoa(base64);
+      this.service.bytestring2=byteString;    
+    }
+    else if(this.sigImg3==true){
+      const byteString = btoa(base64);
+      this.service.bytestring3=byteString;
+    }
+    else if(this.sigImg4==true){
+      const byteString = btoa(base64);
+      this.service.bytestring4=byteString;
+    }
 
-   // const byteString= this.base64toBlob(base64);
+   
+
+   // const byteString= this.base64toBlob(base64); .split(',')[1]
   //  console.log(byteString);
 
     //const bytesString = String.fromCharCode(byteArray);

@@ -96,6 +96,9 @@ signatureImg4:string="";
 signatureImg5:string="";
 signatureImg6:string="";
 bytestring1:string="";
+bytestring2:string="";
+bytestring3:string="";
+bytestring4:string="";
 sigInput:number=0;
 
 
