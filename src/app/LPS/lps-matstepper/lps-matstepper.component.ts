@@ -270,7 +270,7 @@ export class LpsMatstepperComponent implements OnInit {
             this.airTermination.retrieveDetailsfromSavedReports(userName, basicLpsId, this.dataJSON);
 
             //downConductor
-            this.downConductors.retrieveDetailsfromSavedReports(userName, basicLpsId, this.dataJSON);
+            this.downConductors.updateMethod();
 
             //earthing
             if (this.dataJSON.earthingReport != null) {
