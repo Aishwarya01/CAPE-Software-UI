@@ -1667,7 +1667,7 @@ export class LpsAirTerminationComponent implements OnInit {
   }
 
   gotoNextModal(contents: any,content1:any) {
-
+    this.submitted = true;
     if (this.airTerminationForm.invalid) {
       this.validationError = true;
       this.validationErrorMsg = 'Please check all the fields';
@@ -1745,7 +1745,7 @@ export class LpsAirTerminationComponent implements OnInit {
   
 
   onSubmit(flag: any) {
-    this.submitted = true;
+    // this.submitted = true;
     if (this.airTerminationForm.invalid) {
       return
     }

@@ -248,7 +248,7 @@ export class LpsEarthStudComponent implements OnInit {
     }
 
   onSubmit(flag: any){
-    this.submitted=true;
+    // this.submitted=true;
     if(this.EarthStudForm.invalid && (this.EarthStudForm.value.earthStud[0].buildingNumber != undefined || this.EarthStudForm.value.earthStud[0].buildingNumber != ''))
     {return}
     this.spinner = true;
@@ -397,6 +397,7 @@ export class LpsEarthStudComponent implements OnInit {
   }
 
   gotoNextModal(content1: any,contents:any) {
+    this.submitted=true;
      if (this.EarthStudForm.invalid) {
        this.validationError = true;
       

@@ -720,7 +720,7 @@ export class LpsEarthingComponent implements OnInit {
   }
  
   onSubmit(flag: any) {
-    this.submitted=true;
+    // this.submitted=true;
     
     if(this.earthingForm.invalid && (this.earthingForm.value.earthing[0].buildingNumber != undefined || this.earthingForm.value.earthing[0].buildingNumber != ''))
     {return}
@@ -1088,7 +1088,7 @@ export class LpsEarthingComponent implements OnInit {
     }
   
     gotoNextModal(content1: any,contents:any) {
-     
+      this.submitted=true;
        if (this.earthingForm.invalid) {
          this.validationError = true;
         
@@ -1128,8 +1128,8 @@ export class LpsEarthingComponent implements OnInit {
 
     summaryEvent(content:any){
       this.modalService.open(content, { centered: true, backdrop: 'static' });
-      this.onSubmit(this.flag);
       this.summaryPopup=false;
+      this.onSubmit(this.flag);
     }
 
 

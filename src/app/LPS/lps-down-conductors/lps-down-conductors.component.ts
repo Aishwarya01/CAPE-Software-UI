@@ -1690,6 +1690,7 @@ export class LpsDownConductorsComponent implements OnInit {
     }
 
     gotoNextModal(content1: any,contents:any) {
+      this.submitted = true;
       if (this.downConductorForm.invalid) {
         this.validationError = true;
 
@@ -1759,7 +1760,7 @@ export class LpsDownConductorsComponent implements OnInit {
     // }
 
   onSubmit(flag: any) {
-    this.submitted = true;
+    // this.submitted = true;
     if (this.downConductorForm.invalid && (this.downConductorForm.value.downConductorDescription[0].buildingNumber != undefined || this.downConductorForm.value.downConductorDescription[0].buildingNumber != '')) {
       return;
     }

@@ -655,7 +655,7 @@
             <button type="button" class="col-md-6" style="width: 5rem;position: relative;margin-left: 30%;"
                 class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close" (click)="summaryEvent(content)">
                 <i class="bi bi-arrow-right-circle"></i>&nbsp;
-                <span aria-hidden="true" (ngSubmit)="onSubmit(flag)" *ngIf="summaryPopup">Ok</span>
+                <span aria-hidden="true" *ngIf="summaryPopup">Ok</span>
             </button>
             <button type="button" class="col-md-6" style="text-align: center;width: auto;position: relative;margin-right: 30%;"
                 class="btn btn-danger btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close" (click)="closeModalDialog()">

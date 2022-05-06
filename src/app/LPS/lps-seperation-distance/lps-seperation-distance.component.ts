@@ -73,7 +73,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
   }
 
   gotoNextModal(content1: any,contents:any) {
-    
+    this.submitted = true;
     if (this.separeteDistanceForm.invalid) {
       this.validationError = true;
       this.validationErrorMsg = 'Please check all the fields';
@@ -369,7 +369,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
 
 
   onSubmit(flag: any) {
-    this.submitted = true;
+    // this.submitted = true;
     if (this.separeteDistanceForm.invalid && (this.separeteDistanceForm.value.seperationDistanceDescription[0].buildingNumber != undefined || this.separeteDistanceForm.value.seperationDistanceDescription[0].buildingNumber != '')) {
       return;
     }
