@@ -496,7 +496,7 @@ SignatureDesigner1(){
     // }
        this.service.siteCount = siteId;
        this.savedUserName = userName;
-       this.deletedArr = [];
+       //this.deletedArr = [];
        this.siteDetails1 = true;
        this.siteDetails = false;
        this.clearSiteValidator();
@@ -666,7 +666,7 @@ retrieveAllDetailsforBasic(userName: any,siteId: any,site:any,data: any){
   //  }
     this.service.siteCount = siteId;
      this.savedUserName = userName;
-     this.deletedArr = [];
+    // this.deletedArr = [];
      this.siteDetails1 = true;
      this.siteDetails = false;
      this.clearSiteValidator();
@@ -704,11 +704,11 @@ retrieveAllDetailsforBasic(userName: any,siteId: any,site:any,data: any){
       this.state1 = i.state;
       }
         else if(i.signatorRole == "designer2"){
-          this.signarr=[i];
-          this.signarr[0].declarationSignature=atob(i.declarationSignature);
+          this.signarr1=[i];
+          this.signarr1[0].declarationSignature=atob(i.declarationSignature);
   
         this.step1Form.patchValue({
-          designer2AcknowledgeArr: this.signarr
+          designer2AcknowledgeArr: this.signarr1
           //designer2AcknowledgeArr: [i]
         })
         this.showDesigner2 = true;
@@ -716,22 +716,22 @@ retrieveAllDetailsforBasic(userName: any,siteId: any,site:any,data: any){
         this.designer2changeCountry(i.country);
        }
      else if(i.signatorRole == "contractor"){
-      this.signarr=[i];
-      this.signarr[0].declarationSignature=atob(i.declarationSignature);
+      this.signarr2=[i];
+      this.signarr2[0].declarationSignature=atob(i.declarationSignature);
 
     this.step1Form.patchValue({
-      contractorAcknowledgeArr: this.signarr
+      contractorAcknowledgeArr: this.signarr2
       //contractorAcknowledgeArr: [i]
     })
       this.state3 = i.state;
       this.contractorchangeCountry(i.country);
      }
      else if(i.signatorRole == "inspector"){
-        this.signarr=[i];
-        this.signarr[0].declarationSignature=atob(i.declarationSignature);
+        this.signarr3=[i];
+        this.signarr3[0].declarationSignature=atob(i.declarationSignature);
 
       this.step1Form.patchValue({
-        inspectorAcknowledgeArr: this.signarr
+        inspectorAcknowledgeArr: this.signarr3
         //inspectorAcknowledgeArr: [i]
       })
         this.state4 = i.state;
