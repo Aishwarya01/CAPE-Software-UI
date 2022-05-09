@@ -43,6 +43,7 @@ import { LicenselistComponent } from '../licenselist/licenselist.component';
 import { ObservationService } from '../services/observation.service';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
+import { SignatureComponent } from '../signature/signature.component';
 
 @Component({
   selector: 'app-summary',
@@ -238,6 +239,8 @@ export class SummaryComponent implements OnInit,OnDestroy {
 
   yesObserveTesting: boolean= false;
   noObserveTesting: boolean= true;
+  signarr: any;
+  signarr1: any;
   constructor(
     private _formBuilder: FormBuilder,
     private modalService: NgbModal,
@@ -326,6 +329,40 @@ export class SummaryComponent implements OnInit,OnDestroy {
     }
 
 /*e-siganture starts in progress*/ 
+SignatureDeclaration1(){
+  const dialogRef = this.dialog.open(SignatureComponent, {
+    maxHeight: '90vh',
+    disableClose: true,
+  });
+  dialogRef.componentInstance.sigImg1 = false;
+  dialogRef.componentInstance.sigImg2 = false;
+  dialogRef.componentInstance.sigImg3 = false;
+  dialogRef.componentInstance.sigImg4 = false;
+  dialogRef.componentInstance.sigImg5 = true;
+  dialogRef.componentInstance.sigImg6 = false;
+}
+focusSigDeclaration1(a: any){
+  if(a.controls.signature.value!=""){
+    return a.controls.signature.markAsDirty();
+   }
+}
+SignatureDeclaration2(){
+  const dialogRef= this.dialog.open(SignatureComponent, {
+    maxHeight: '90vh',
+    disableClose: true,
+  });
+  dialogRef.componentInstance.sigImg1 = false;
+  dialogRef.componentInstance.sigImg2 = false;
+  dialogRef.componentInstance.sigImg3 = false;
+  dialogRef.componentInstance.sigImg4 = false;
+  dialogRef.componentInstance.sigImg5 = false;
+  dialogRef.componentInstance.sigImg6 = true;
+}
+focusSigDeclaration2(a: any){
+  if(a.controls.signature.value!=""){
+    return a.controls.signature.markAsDirty();
+   }
+} 
 
 /*e-siganture ends*/
 
@@ -673,13 +710,19 @@ export class SummaryComponent implements OnInit,OnDestroy {
        //this.onChange(this.limitationsValue);
        for(let i of this.summaryList.summary.summaryDeclaration) {
          if(i.declarationRole == "Inspector") {
+          this.signarr=[i];
+          this.signarr[0].signature=atob(i.signature);
           this.addsummary.patchValue({
-            Declaration1Arr: [i]
+            Declaration1Arr: this.signarr
+            //Declaration1Arr: [i]
           })
          }
          else{
+          this.signarr1=[i];
+          this.signarr1[0].signature=atob(i.signature);
           this.addsummary.patchValue({
-            Declaration2Arr: [i]
+            Declaration2Arr: this.signarr1
+           // Declaration2Arr: [i]
           })
          }
        }
@@ -701,6 +744,8 @@ export class SummaryComponent implements OnInit,OnDestroy {
         //inspectionTestingDetailed: this.summaryList.summary.inspectionTestingDetailed,
         generalConditionInstallation: this.summaryList.summary.generalConditionInstallation,
         overallAssessmentInstallation: this.summaryList.summary.overallAssessmentInstallation,
+
+       
     })
     // this.flag=true;
      }
@@ -1207,7 +1252,8 @@ showHideAccordion(index: number) {
     return new FormGroup({
       declarationId: new FormControl(''),
       name: new FormControl('', Validators.required),
-      signature: new FormControl(''),
+      signature: new FormControl(this.service.bytestring5, Validators.required),
+      //signature: new FormControl(''),
       company: new FormControl('', Validators.required),
       position: new FormControl('', Validators.required),
       address: new FormControl('', Validators.required),
@@ -1220,7 +1266,8 @@ showHideAccordion(index: number) {
     return new FormGroup({
       declarationId: new FormControl(''),
       name: new FormControl('', Validators.required),
-      signature: new FormControl(''),
+      signature: new FormControl(this.service.bytestring6, Validators.required),
+      //signature: new FormControl(''),
       company: new FormControl('', Validators.required),
       position: new FormControl('', Validators.required),
       address: new FormControl('', Validators.required),

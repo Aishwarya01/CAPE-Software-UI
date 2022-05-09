@@ -24,6 +24,9 @@ import { ReturnTypeTransform } from '@angular/compiler-cli/src/ngtsc/transform';
 import { MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
 
+import { SignatureComponent } from '../signature/signature.component';
+
+
 @Component({
   selector: 'app-inspection-verification-basic-information',
   templateUrl: './inspection-verification-basic-information.component.html',
@@ -202,6 +205,10 @@ ShowNext: boolean = true;
   deletedArr: any = [];
   finalSpinner: boolean = true;
   popup: boolean = false;
+  signarr: any;
+  signarr1: any;
+  signarr3: any;
+  signarr2: any;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -233,7 +240,18 @@ ShowNext: boolean = true;
     this.service.lvClick=0;
     this.service.logoutClick=0;
     this.service.windowTabClick=0;
-  }
+    this.service.signatureImg1="";
+    this.service.signatureImg2="";
+    this.service.signatureImg3="";
+    this.service.signatureImg4="";
+    this.service.sigInput=0;
+    this.service.bytestring1 = "";
+    this.service.bytestring2 = "";
+    this.service.bytestring3 = "";
+    this.service.bytestring4 = "";
+    this.service.bytestring5 = "";
+    this.service.bytestring6 = "";
+    }
 
   ngOnInit(): void {
     if(this.service.msgForStep1Flag){
@@ -319,6 +337,75 @@ ShowNext: boolean = true;
   }
 
 /*e-siganture starts in progress*/ 
+SignatureDesigner1(){
+  const dialogRef =this.dialog.open(SignatureComponent, {
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+    dialogRef.componentInstance.sigImg1 = true;
+    dialogRef.componentInstance.sigImg2 = false;
+    dialogRef.componentInstance.sigImg3 = false;
+    dialogRef.componentInstance.sigImg4 = false;
+    dialogRef.componentInstance.sigImg5 = false;
+    dialogRef.componentInstance.sigImg6 = false;
+  }
+  focusSigDesigner1(a: any){
+   if(a.controls.declarationSignature.value!=""){
+     return a.controls.declarationSignature.markAsDirty();
+    }
+  }
+  
+  SignatureDesigner2(){
+    const dialogRef =this.dialog.open(SignatureComponent, {
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+    dialogRef.componentInstance.sigImg1 = false;
+    dialogRef.componentInstance.sigImg2 = true;
+    dialogRef.componentInstance.sigImg3 = false;
+    dialogRef.componentInstance.sigImg4 = false;
+    dialogRef.componentInstance.sigImg5 = false;
+    dialogRef.componentInstance.sigImg6 = false;
+  }
+  focusSigDesigner2(a: any){
+    if(a.controls.declarationSignature.value!=""){
+      return a.controls.declarationSignature.markAsDirty();
+     }
+  }
+  SignatureContractor(){
+    const dialogRef =this.dialog.open(SignatureComponent, {
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+    dialogRef.componentInstance.sigImg1 = false;
+    dialogRef.componentInstance.sigImg2 = false;
+    dialogRef.componentInstance.sigImg3 = true;
+    dialogRef.componentInstance.sigImg4 = false;
+    dialogRef.componentInstance.sigImg5 = false;
+    dialogRef.componentInstance.sigImg6 = false;
+  }
+  focusSigContractor(a: any){
+    if(a.controls.declarationSignature.value!=""){
+      return a.controls.declarationSignature.markAsDirty();
+     }
+  }
+  SignatureInspector(){
+    const dialogRef =this.dialog.open(SignatureComponent, {
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+    dialogRef.componentInstance.sigImg1 = false;
+    dialogRef.componentInstance.sigImg2 = false;
+    dialogRef.componentInstance.sigImg3 = false;
+    dialogRef.componentInstance.sigImg4 = true;
+    dialogRef.componentInstance.sigImg5 = false;
+    dialogRef.componentInstance.sigImg6 = false;
+  }
+  focusSigInspector(a: any){
+    if(a.controls.declarationSignature.value!=""){
+      return a.controls.declarationSignature.markAsDirty();
+     }
+  }
 
   /*e-siganture ends*/
   focusPersonFunction(){
@@ -1740,22 +1827,46 @@ onPopState(event:any) {
         return;
       }
       this.step1Form.value.designer1Arr[0].signatorRole= this.designer1Role;
-      this.step1Form.value.designer1Arr[0].declarationSignature= this.step1Form.value.designer1AcknowledgeArr[0].declarationSignature;
+      if (this.service.bytestring1 != '' && this.service.bytestring1 != undefined) {
+        this.step1Form.value.designer1Arr[0].declarationSignature = this.service.bytestring1;
+        } else {
+        this.service.bytestring1 = btoa(this.signarr[0].declarationSignature)
+        this.step1Form.value.designer1Arr[0].declarationSignature = this.service.bytestring1;
+        }
+     // this.step1Form.value.designer1Arr[0].declarationSignature= this.service.bytestring1;
       this.step1Form.value.designer1Arr[0].declarationName= this.step1Form.value.designer1AcknowledgeArr[0].declarationName;
       this.step1Form.value.designer1Arr[0].declarationDate= this.step1Form.value.designer1AcknowledgeArr[0].declarationDate;
       this.step1Form.value.designer2Arr[0].signatorRole= this.designer2Role;
       if((this.step1Form.value.designer2AcknowledgeArr[0].declarationName != "") && (this.step1Form.value.designer2AcknowledgeArr[0].declarationDate != ""))
       {
-      this.step1Form.value.designer2Arr[0].declarationSignature= this.step1Form.value.designer2AcknowledgeArr[0].declarationSignature;
+        if (this.service.bytestring2 != '' && this.service.bytestring2 != undefined) {
+          this.step1Form.value.designer2Arr[0].declarationSignature = this.service.bytestring2;
+        } else {
+          this.service.bytestring2 = btoa(this.signarr1[0].declarationSignature)
+          this.step1Form.value.designer2Arr[0].declarationSignature = this.service.bytestring2;
+        }
+     // this.step1Form.value.designer2Arr[0].declarationSignature= this.service.bytestring2;
       this.step1Form.value.designer2Arr[0].declarationName= this.step1Form.value.designer2AcknowledgeArr[0].declarationName;
       this.step1Form.value.designer2Arr[0].declarationDate= this.step1Form.value.designer2AcknowledgeArr[0].declarationDate;
       }
       this.step1Form.value.contractorArr[0].signatorRole= this.contractorRole;
-      this.step1Form.value.contractorArr[0].declarationSignature= this.step1Form.value.contractorAcknowledgeArr[0].declarationSignature;
+      if (this.service.bytestring3 != '' && this.service.bytestring3 != undefined) {
+        this.step1Form.value.contractorArr[0].declarationSignature = this.service.bytestring3;
+        } else {
+        this.service.bytestring3 = btoa(this.signarr2[0].declarationSignature)
+        this.step1Form.value.contractorArr[0].declarationSignature = this.service.bytestring3;
+        }
+    //  this.step1Form.value.contractorArr[0].declarationSignature= this.service.bytestring3;
       this.step1Form.value.contractorArr[0].declarationName= this.step1Form.value.contractorAcknowledgeArr[0].declarationName;
       this.step1Form.value.contractorArr[0].declarationDate= this.step1Form.value.contractorAcknowledgeArr[0].declarationDate;
       this.step1Form.value.inspectorArr[0].signatorRole= this.inspectorRole;
-      this.step1Form.value.inspectorArr[0].declarationSignature= this.step1Form.value.inspectorAcknowledgeArr[0].declarationSignature;
+      if (this.service.bytestring4 != '' && this.service.bytestring4 != undefined) {
+        this.step1Form.value.inspectorArr[0].declarationSignature = this.service.bytestring4;
+        } else {
+        this.service.bytestring4 = btoa(this.signarr3[0].declarationSignature)
+        this.step1Form.value.inspectorArr[0].declarationSignature = this.service.bytestring4;
+        }
+      //this.step1Form.value.inspectorArr[0].declarationSignature= this.service.bytestring4;
       this.step1Form.value.inspectorArr[0].declarationName= this.step1Form.value.inspectorAcknowledgeArr[0].declarationName;
       this.step1Form.value.inspectorArr[0].declarationDate= this.step1Form.value.inspectorAcknowledgeArr[0].declarationDate;
       this.reportDetails.userName = this.email;

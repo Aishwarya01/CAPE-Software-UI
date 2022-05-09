@@ -88,6 +88,21 @@ export class GlobalsService {
 //remember me
 autoLoginToken:number=0;
 
+//siganture
+signatureImg1:string="";
+signatureImg2:string="";
+signatureImg3:string="";
+signatureImg4:string="";
+signatureImg5:string="";
+signatureImg6:string="";
+bytestring1:string="";
+bytestring2:string="";
+bytestring3:string="";
+bytestring4:string="";
+bytestring5:string="";
+bytestring6:string="";
+sigInput:number=0;
+
 
  constructor(private _scrollToService: ScrollToService
   ) {}

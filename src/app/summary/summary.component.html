@@ -847,8 +847,17 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>Signature:</label>
-                        <input type="text" class="form-control" formControlName="signature" readonly
-                        [ngClass]="{ 'is-invalid': submitted && a.get('signature')?.errors }">
+                        <div (mouseover)="focusSigDeclaration1(a)" class="signatureBtn">
+                          <input type="image" formControlName="signature" class="form-control" 
+                          src={{service.signatureImg5}} [(ngModel)] ="service.signatureImg5" [readonly]="true"
+                          style="pointer-events:none;"
+                          [ngClass]="{ 'is-invalid': submitted && a.get('signature')?.errors }">
+                           <button type="button" (click)="SignatureDeclaration1()" title="Click here"
+                           >Sign
+                           </button>
+                       </div>
+                        <!-- <input type="text" class="form-control" formControlName="signature" readonly
+                        [ngClass]="{ 'is-invalid': submitted && a.get('signature')?.errors }"> -->
                         <div *ngIf="submitted && a.get('signature')?.errors" class="invalid-feedback">
                           <div *ngIf="a.get('signature')?.errors?.required">Signature is required</div>
                       </div>
@@ -921,8 +930,17 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label>Signature:</label>
-                          <input type="text" class="form-control" formControlName="signature" readonly
-                          [ngClass]="{ 'is-invalid': submitted && a.get('signature')?.errors }">
+                          <div (mouseover)="focusSigDeclaration2(a)" class="signatureBtn">
+                            <input type="image" formControlName="signature" class="form-control" 
+                            src={{service.signatureImg6}} [(ngModel)] ="service.signatureImg6" [readonly]="true"
+                            style="pointer-events:none;"
+                            [ngClass]="{ 'is-invalid': submitted && a.get('signature')?.errors }">
+                             <button type="button" (click)="SignatureDeclaration2()" title="Click here"
+                             >Sign
+                             </button>
+                         </div>
+                          <!-- <input type="text" class="form-control" formControlName="signature" readonly
+                          [ngClass]="{ 'is-invalid': submitted && a.get('signature')?.errors }"> -->
                         <div *ngIf="submitted && a.get('signature')?.errors" class="invalid-feedback">
                           <div *ngIf="a.get('signature')?.errors?.required">Signature is required</div>
                       </div>
