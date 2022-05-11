@@ -53,7 +53,23 @@
     white-space: pre-line;
     }
     
-    .signatureBtn button:hover{    
+    .signatureBtn button {
+      overflow: visible;
+      position: relative;
+      border: 0;
+      padding: 0;
+      cursor: pointer;
+      height: 38px;
+      width: 50px;
+      color: currentColor;
+      background: #82d7f7;
+      border-radius: 0 3px 3px 0;     
+      top: -38px;
+      float: right;
+      left:-63px;
+      }  
+      
+      .signatureBtn button:hover{    
       background: #82d7f7;
       }  
       
