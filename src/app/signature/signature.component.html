@@ -1,0 +1,38 @@
+<div class="modal-body">
+    <div class="signature-container" style="border: 1px solid black;">
+      <signature-pad [options]="signaturePadOptions"></signature-pad>
+    </div>
+   </div>
+  <div class="row">
+        <div class="col-sm-12" style="text-align: center;">
+         <button type="button" class="col-md-4" style="text-align:center; width: auto;" class="btn btn-primary btn-rounded btn-sm font-weight-medium auth-form-btn"
+         aria-label="Close" (click)="clearSignature()">
+          <span aria-hidden="true">Clear signature pad</span>
+      </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <button type="button" class="col-md-4" style="width: auto;" (click)="SaveSignature();" *ngIf="sigImg1"
+      class="btn btn-success btn-rounded btn-sm font-weight-medium auth-form-btn">Save</button>
+
+      <button type="button" class="col-md-4" style="width: auto;" (click)="SaveSignature();" *ngIf="sigImg2"
+      class="btn btn-success btn-rounded btn-sm font-weight-medium auth-form-btn">Save</button>
+
+      <button type="button" class="col-md-4" style="width: auto;" (click)="SaveSignature();" *ngIf="sigImg3"
+      class="btn btn-success btn-rounded btn-sm font-weight-medium auth-form-btn">Save</button>
+
+      <button type="button" class="col-md-4" style="width: auto;" (click)="SaveSignature();" *ngIf="sigImg4"
+      class="btn btn-success btn-rounded btn-sm font-weight-medium auth-form-btn">Save</button>
+
+      <button type="button" class="col-md-4" style="width: auto;" (click)="SaveSignature();" *ngIf="sigImg5"
+      class="btn btn-success btn-rounded btn-sm font-weight-medium auth-form-btn">Save</button>
+
+      <button type="button" class="col-md-4" style="width: auto;" (click)="SaveSignature();" *ngIf="sigImg6"
+      class="btn btn-success btn-rounded btn-sm font-weight-medium auth-form-btn">Save</button>
+
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <button type="button" class="col-md-4" style="width: auto;" class="btn btn-danger btn-rounded btn-sm font-weight-medium auth-form-btn"
+         aria-label="Close" (click)="closeSignature()">
+         <i class="bi bi-x icon"></i>
+          <span aria-hidden="true">Close</span>
+      </button>
+    </div>
+  </div>
+  
