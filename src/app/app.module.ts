@@ -98,13 +98,8 @@ import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 import { ConfirmationBoxComponent } from './confirmation-box/confirmation-box.component';
 import { LpssummaryComponent } from './LPS/lpssummary/lpssummary.component';
 
-import { SignaturePadModule } from 'angular2-signaturepad';
-import { SignatureComponent } from './signature/signature.component';
-
 @NgModule({
   declarations: [
-    SignaturePadModule,
-    SignatureComponent,
     AppComponent,
     LoginComponent,
     RegisterComponent,
