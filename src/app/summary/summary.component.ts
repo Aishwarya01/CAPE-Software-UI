@@ -1252,7 +1252,7 @@ showHideAccordion(index: number) {
     return new FormGroup({
       declarationId: new FormControl(''),
       name: new FormControl('', Validators.required),
-      signature: new FormControl(this.service.bytestring5, Validators.required),
+      signature: new FormControl('', Validators.required),
       company: new FormControl('', Validators.required),
       position: new FormControl('', Validators.required),
       address: new FormControl('', Validators.required),
@@ -1265,7 +1265,7 @@ showHideAccordion(index: number) {
     return new FormGroup({
       declarationId: new FormControl(''),
       name: new FormControl('', Validators.required),
-      signature: new FormControl(this.service.bytestring6, Validators.required),
+      signature: new FormControl('', Validators.required),
       company: new FormControl('', Validators.required),
       position: new FormControl('', Validators.required),
       address: new FormControl('', Validators.required),
@@ -1807,8 +1807,10 @@ showHideAccordion(index: number) {
         }
       
           //this.verification.callFinalSavedMethod();
+          this.addsummary.value.Declaration1Arr[0].signature=this.service.bytestring5;
+          this.addsummary.value.Declaration2Arr[0].signature=this.service.bytestring6;
           this.summary.summaryObservation = this.addsummary.value.summaryObervation;
-          this.summary.summaryDeclaration = this.addsummary.value.Declaration1Arr;
+          this.summary.summaryDeclaration = this.addsummary.value.Declaration1Arr; 
           this.summary.limitationsInspection='The following observations are made';
           this.summary.summaryDeclaration = this.summary.summaryDeclaration.concat(
             this.addsummary.value.Declaration2Arr
