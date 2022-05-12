@@ -1875,7 +1875,7 @@ onPopState(event:any) {
      }
      if(this.step1Form.dirty && this.step1Form.touched){ //update
       this.modalService.open(content1, { centered: true,backdrop: 'static'});
-      this.modalReference.close();
+     // this.modalReference.close();
      }
     }
    
