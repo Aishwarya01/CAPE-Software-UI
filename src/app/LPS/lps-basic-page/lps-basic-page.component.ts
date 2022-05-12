@@ -137,7 +137,7 @@ export class LpsBasicPageComponent implements OnInit {
      else{
       this.step1List = data.basicLps;
      }
-      this.success = true;
+      // this.success = true;
       this.basicLpsIdRetrive = this.step1List.basicLpsId;
       this.basicDetails.basicLpsId = this.step1List.basicLpsId;
       this.basicDetails.updatedBy = this.step1List.updatedBy;
@@ -267,7 +267,7 @@ export class LpsBasicPageComponent implements OnInit {
             this.popup=true;
             this.spinner=false;
           }, 3000)
-          this.success1 = false;
+          // this.success1 = false;
           this.success = true;
           this.successMsg = data;
           this.isBasicFormUpdated=true;
@@ -285,7 +285,7 @@ export class LpsBasicPageComponent implements OnInit {
         error => {
           this.popup=true;
           this.spinner=false;
-          this.success1 = false;
+          // this.success1 = false;
           this.Error = true;
           this.errorArr = [];
           this.errorArr = JSON.parse(error.error);
@@ -298,7 +298,7 @@ export class LpsBasicPageComponent implements OnInit {
         this.spinner=false;
         // Preview fields
         if(this.isEditable){
-          this.success = true;
+          // this.success = true;
           this.proceedNext.emit(true);
         }
 
@@ -306,7 +306,7 @@ export class LpsBasicPageComponent implements OnInit {
           this.popup=true;
           this.spinner=false;
           // Dirty checking here
-          this.success = true;
+          // this.success = true;
           this.proceedNext.emit(true);
         }
       }
