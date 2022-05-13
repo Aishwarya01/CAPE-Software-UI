@@ -2363,31 +2363,31 @@ export class LpsAirTerminationComponent implements OnInit {
           this.download1=[];
           this.download2=[];
           for (let i of this.JSONdata) {
-          //  if(this.lpsAirDescription.length > parseInt(i.index)){
-              if (this.lpsAirDescription.controls[a].controls.airBasicDescription.controls[0] !=undefined && i.componentName == 'airUpload' && i.fileId != "") {
-                this.lpsAirDescription.controls[a].controls.airBasicDescription.controls[0].controls.fileName.setValue(i.fileName);
-                this.lpsAirDescription.controls[a].controls.airBasicDescription.controls[0].controls.fileType.setValue(i.fileType);
-                this.lpsAirDescription.controls[a].controls.airBasicDescription.controls[0].controls.fileId.setValue(i.fileId);
+           if(this.lpsAirDescription.length > parseInt(i.index)){
+              if (this.lpsAirDescription.controls[i.index].controls.airBasicDescription.controls[0] !=undefined && i.componentName == 'airUpload' && i.fileId != "") {
+                this.lpsAirDescription.controls[i.index].controls.airBasicDescription.controls[0].controls.fileName.setValue(i.fileName);
+                this.lpsAirDescription.controls[i.index].controls.airBasicDescription.controls[0].controls.fileType.setValue(i.fileType);
+                this.lpsAirDescription.controls[i.index].controls.airBasicDescription.controls[0].controls.fileId.setValue(i.fileId);
                // this.lpsAirDescription.controls[a].controls.airBasicDescription.controls[0].controls.fileIndex.setValue(a);
-                this.download[a] = false;
+                this.download[i.index] = false;
               }
               
-              if (this.lpsAirDescription.controls[a].controls.lpsVerticalAirTermination.controls[0] !=undefined && i.componentName == 'airUpload-1' && i.fileId != "") {
-                this.lpsAirDescription.controls[a].controls.lpsVerticalAirTermination.controls[0].controls.fileNameVAir.setValue(i.fileName);
-                this.lpsAirDescription.controls[a].controls.lpsVerticalAirTermination.controls[0].controls.fileTypeVAir.setValue(i.fileType);
-                this.lpsAirDescription.controls[a].controls.lpsVerticalAirTermination.controls[0].controls.fileIdVAir.setValue(i.fileId);
+              if (this.lpsAirDescription.controls[i.index].controls.lpsVerticalAirTermination.controls[0] !=undefined && i.componentName == 'airUpload-1' && i.fileId != "") {
+                this.lpsAirDescription.controls[i.index].controls.lpsVerticalAirTermination.controls[0].controls.fileNameVAir.setValue(i.fileName);
+                this.lpsAirDescription.controls[i.index].controls.lpsVerticalAirTermination.controls[0].controls.fileTypeVAir.setValue(i.fileType);
+                this.lpsAirDescription.controls[i.index].controls.lpsVerticalAirTermination.controls[0].controls.fileIdVAir.setValue(i.fileId);
                /// this.lpsAirDescription.controls[a].controls.lpsVerticalAirTermination.controls[0].controls.fileIndexVAir.setValue(i.index);
-                this.download1[a] = false;
+                this.download1[i.index] = false;
               }
   
-              if ( this.lpsAirDescription.controls[a].controls.airExpansion.controls[0] !=undefined && i.componentName == 'airUpload-2' && i.fileId != "") {
-                this.lpsAirDescription.controls[a].controls.airExpansion.controls[0].controls.fileName_EP.setValue(i.fileName);
-                this.lpsAirDescription.controls[a].controls.airExpansion.controls[0].controls.fileType_EP.setValue(i.fileType);
-                this.lpsAirDescription.controls[a].controls.airExpansion.controls[0].controls.fileIdEP.setValue(i.fileId);
+              if (this.lpsAirDescription.controls[i.index].controls.airExpansion.controls[0] !=undefined && i.componentName == 'airUpload-2' && i.fileId != "") {
+                this.lpsAirDescription.controls[i.index].controls.airExpansion.controls[0].controls.fileName_EP.setValue(i.fileName);
+                this.lpsAirDescription.controls[i.index].controls.airExpansion.controls[0].controls.fileType_EP.setValue(i.fileType);
+                this.lpsAirDescription.controls[i.index].controls.airExpansion.controls[0].controls.fileIdEP.setValue(i.fileId);
               //  this.lpsAirDescription.controls[a].controls.airExpansion.controls[0].controls.fileIndex_EP.setValue(i.index);
-                this.download2[a] = false;
+                this.download2[i.index] = false;
               }
-           // }
+           }
            a=a+1;
           }
         }
