@@ -477,8 +477,8 @@ export class LpsAirTerminationComponent implements OnInit {
   }
 
   addIndex(){
-    if(this.index !=0){
-      for (let i = 1; i <=this.index+1; i++) {
+
+      for (let i = 0; i < this.lpsAirDescription.controls.length; i++) {
         if(this.lpsAirDescription.controls[i].controls.airBasicDescription.controls.length!=0){
           this.lpsAirDescription.controls[i].controls.airBasicDescription.controls[0].controls.fileIndex.setValue(i);
 
@@ -490,8 +490,7 @@ export class LpsAirTerminationComponent implements OnInit {
           if(this.lpsAirDescription.controls[i].controls.lpsVerticalAirTermination.controls.length!= 0)
           this.lpsAirDescription.controls[i].controls.lpsVerticalAirTermination.controls[0].controls.fileIndexVAir.setValue(i);
           // console.log(this.lpsAirDescription.controls[i].controls.lpsVerticalAirTermination.controls[0].controls.fileIndexVAir.value);
-      }
-    }
+      } 
   }
 
   addItem(index: any) {
@@ -530,8 +529,7 @@ export class LpsAirTerminationComponent implements OnInit {
       //   this.spinner = false;
       // },2000);
     }
-    let flag=true;
-    this.updateFileIdIndex(flag);
+    this.addIndex();
   }
 
   addItemAir(a: any, protectionLevel: any) {
@@ -1184,7 +1182,7 @@ export class LpsAirTerminationComponent implements OnInit {
     else if (changedValue == 'Applicable') {
       if (vatArray.length == 0) {
         vatArray.push(this.createVatArrForm());
-        this.addIndex();
+         this.addIndex();
       }
     }
 
@@ -1716,31 +1714,28 @@ export class LpsAirTerminationComponent implements OnInit {
 
   deleteFileInDb() {
     
-      for(let i=0;i<=this.deletedLpsDataForFileIdupdate.length-1;i++){
+      for(let i=0;i<=this.deletedLpsDescArr.length-1;i++){
 
-      if(this.deletedLpsDataForFileIdupdate[i].airBasicDescription.length !=0){
-        if (this.deletedLpsDataForFileIdupdate[i].airBasicDescription[0].fileId !='' && this.deletedLpsDataForFileIdupdate[i].airBasicDescription[0].fileId != undefined) {
-          this.deleteFile(this.deletedLpsDataForFileIdupdate[i].airBasicDescription[0].fileId);
-          console.log(this.deletedLpsDataForFileIdupdate[i].airBasicDescription[0].fileId)
-        }
+      if(this.deletedLpsDescArr[i].airBasicDescription.length !=0){
+        if (this.deletedLpsDescArr[i].airBasicDescription[0].fileId !='' && this.deletedLpsDescArr[i].airBasicDescription[0].fileId != undefined) {
+          this.deleteFile(this.deletedLpsDescArr[i].airBasicDescription[0].fileId);
+         }
       }
       
-      if (this.deletedLpsDataForFileIdupdate[i].lpsVerticalAirTermination.length !=0) {
-        if (this.deletedLpsDataForFileIdupdate[0].lpsVerticalAirTermination[0].fileIdVAir !='' && this.deletedLpsDataForFileIdupdate[i].lpsVerticalAirTermination[0].fileIdVAir != undefined) {
-          this.deleteFile(this.deletedLpsDataForFileIdupdate[i].lpsVerticalAirTermination[0].fileIdVAir);
-          console.log(this.deletedLpsDataForFileIdupdate[i].lpsVerticalAirTermination[0].fileIdVAir)
-        }
+      if (this.deletedLpsDescArr[i].lpsVerticalAirTermination.length !=0) {
+        if (this.deletedLpsDescArr[0].lpsVerticalAirTermination[0].fileIdVAir !='' && this.deletedLpsDescArr[i].lpsVerticalAirTermination[0].fileIdVAir != undefined) {
+          this.deleteFile(this.deletedLpsDescArr[i].lpsVerticalAirTermination[0].fileIdVAir);
+         }
       
       }
 
-      if (this.deletedLpsDataForFileIdupdate[i].airExpansion.length !=0) {
-        if (this.deletedLpsDataForFileIdupdate[i].airExpansion[0].fileIdEP !='' && this.deletedLpsDataForFileIdupdate[i].airExpansion[0].fileIdEP !=undefined) {
-          this.deleteFile(this.deletedLpsDataForFileIdupdate[i].airExpansion[0].fileIdEP);
-          console.log(this.deletedLpsDataForFileIdupdate[i].airExpansion[0].fileIdEP)
-        }
+      if (this.deletedLpsDescArr[i].airExpansion.length !=0) {
+        if (this.deletedLpsDescArr[i].airExpansion[0].fileIdEP !='' && this.deletedLpsDescArr[i].airExpansion[0].fileIdEP !=undefined) {
+          this.deleteFile(this.deletedLpsDescArr[i].airExpansion[0].fileIdEP);
+         }
       }
     }
-    this.deletedLpsDataForFileIdupdate = [];
+    this.deletedLpsDescArr = [];
     }
   
 
@@ -2337,14 +2332,14 @@ export class LpsAirTerminationComponent implements OnInit {
     }
   }
 
-  onDownload(fileName: any) {
-    this.fileUploadServiceService.downloadFile(this.basicLpsId, this.componentName, fileName);
+  onDownload(fileName: any,fileId:any) {
+    this.fileUploadServiceService.downloadFile(fileId, this.componentName, fileName);
   }
-  onDownload1(fileName: any) {
-    this.fileUploadServiceService.downloadFile(this.basicLpsId, this.componentName1, fileName);
+  onDownload1(fileName: any,fileId:any) {
+    this.fileUploadServiceService.downloadFile(fileId, this.componentName1, fileName);
   }
-  onDownload2(fileName: any) {
-    this.fileUploadServiceService.downloadFile(this.basicLpsId, this.componentName2, fileName);
+  onDownload2(fileName: any,fileId:any) {
+    this.fileUploadServiceService.downloadFile(fileId, this.componentName2, fileName);
   }
 
   deleteFile(fileId: any) {
@@ -2368,31 +2363,32 @@ export class LpsAirTerminationComponent implements OnInit {
           this.download1=[];
           this.download2=[];
           for (let i of this.JSONdata) {
-            if(this.lpsAirDescription.length > parseInt(i.index)){
-              if (this.lpsAirDescription.controls[i.index].controls.airBasicDescription.controls[0] !=undefined && i.componentName == 'airUpload' && i.fileId != "") {
-                this.lpsAirDescription.controls[i.index].controls.airBasicDescription.controls[0].controls.fileName.setValue(i.fileName);
-                this.lpsAirDescription.controls[i.index].controls.airBasicDescription.controls[0].controls.fileType.setValue(i.fileType);
-                this.lpsAirDescription.controls[i.index].controls.airBasicDescription.controls[0].controls.fileId.setValue(i.fileId);
-                this.lpsAirDescription.controls[i.index].controls.airBasicDescription.controls[0].controls.fileIndex.setValue(i.index);
-                this.download[i.index] = false;
+          //  if(this.lpsAirDescription.length > parseInt(i.index)){
+              if (this.lpsAirDescription.controls[a].controls.airBasicDescription.controls[0] !=undefined && i.componentName == 'airUpload' && i.fileId != "") {
+                this.lpsAirDescription.controls[a].controls.airBasicDescription.controls[0].controls.fileName.setValue(i.fileName);
+                this.lpsAirDescription.controls[a].controls.airBasicDescription.controls[0].controls.fileType.setValue(i.fileType);
+                this.lpsAirDescription.controls[a].controls.airBasicDescription.controls[0].controls.fileId.setValue(i.fileId);
+               // this.lpsAirDescription.controls[a].controls.airBasicDescription.controls[0].controls.fileIndex.setValue(a);
+                this.download[a] = false;
               }
               
-              if (this.lpsAirDescription.controls[i.index].controls.lpsVerticalAirTermination.controls[0] !=undefined && i.componentName == 'airUpload-1' && i.fileId != "") {
-                this.lpsAirDescription.controls[i.index].controls.lpsVerticalAirTermination.controls[0].controls.fileNameVAir.setValue(i.fileName);
-                this.lpsAirDescription.controls[i.index].controls.lpsVerticalAirTermination.controls[0].controls.fileTypeVAir.setValue(i.fileType);
-                this.lpsAirDescription.controls[i.index].controls.lpsVerticalAirTermination.controls[0].controls.fileIdVAir.setValue(i.fileId);
-                this.lpsAirDescription.controls[i.index].controls.lpsVerticalAirTermination.controls[0].controls.fileIndexVAir.setValue(i.index);
-                this.download1[i.index] = false;
+              if (this.lpsAirDescription.controls[a].controls.lpsVerticalAirTermination.controls[0] !=undefined && i.componentName == 'airUpload-1' && i.fileId != "") {
+                this.lpsAirDescription.controls[a].controls.lpsVerticalAirTermination.controls[0].controls.fileNameVAir.setValue(i.fileName);
+                this.lpsAirDescription.controls[a].controls.lpsVerticalAirTermination.controls[0].controls.fileTypeVAir.setValue(i.fileType);
+                this.lpsAirDescription.controls[a].controls.lpsVerticalAirTermination.controls[0].controls.fileIdVAir.setValue(i.fileId);
+               /// this.lpsAirDescription.controls[a].controls.lpsVerticalAirTermination.controls[0].controls.fileIndexVAir.setValue(i.index);
+                this.download1[a] = false;
               }
   
-              if ( this.lpsAirDescription.controls[i.index].controls.airExpansion.controls[0] !=undefined && i.componentName == 'airUpload-2' && i.fileId != "") {
-                this.lpsAirDescription.controls[i.index].controls.airExpansion.controls[0].controls.fileName_EP.setValue(i.fileName);
-                this.lpsAirDescription.controls[i.index].controls.airExpansion.controls[0].controls.fileType_EP.setValue(i.fileType);
-                this.lpsAirDescription.controls[i.index].controls.airExpansion.controls[0].controls.fileIdEP.setValue(i.fileId);
-                this.lpsAirDescription.controls[i.index].controls.airExpansion.controls[0].controls.fileIndex_EP.setValue(i.index);
-                this.download2[i.index] = false;
+              if ( this.lpsAirDescription.controls[a].controls.airExpansion.controls[0] !=undefined && i.componentName == 'airUpload-2' && i.fileId != "") {
+                this.lpsAirDescription.controls[a].controls.airExpansion.controls[0].controls.fileName_EP.setValue(i.fileName);
+                this.lpsAirDescription.controls[a].controls.airExpansion.controls[0].controls.fileType_EP.setValue(i.fileType);
+                this.lpsAirDescription.controls[a].controls.airExpansion.controls[0].controls.fileIdEP.setValue(i.fileId);
+              //  this.lpsAirDescription.controls[a].controls.airExpansion.controls[0].controls.fileIndex_EP.setValue(i.index);
+                this.download2[a] = false;
               }
-            }
+           // }
+           a=a+1;
           }
         }
       },
@@ -2408,7 +2404,7 @@ export class LpsAirTerminationComponent implements OnInit {
   updateFileIdIndex(flag: any) {
   //  this.deleteFileInDb();
     let airterminationFileIdUpdate = this.airTerminationForm.value.lpsAirDescription
-    airterminationFileIdUpdate = airterminationFileIdUpdate.concat(this.deletedLpsDataForFileIdupdate);
+   // airterminationFileIdUpdate = airterminationFileIdUpdate.concat(this.deletedLpsDataForFileIdupdate);
     let index = 0;
     for (let i of airterminationFileIdUpdate) {
       for (let j of i.airBasicDescription) {
@@ -2434,7 +2430,7 @@ export class LpsAirTerminationComponent implements OnInit {
       }
       index = index + 1;
     }
-    this.fileUploadServiceService.updateIndex(this.basicLpsId, this.listOfAllFileId).subscribe();
+    //this.fileUploadServiceService.updateIndex(this.basicLpsId, this.listOfAllFileId).subscribe();
     this.listOfAllFileId = [];
   }
 
