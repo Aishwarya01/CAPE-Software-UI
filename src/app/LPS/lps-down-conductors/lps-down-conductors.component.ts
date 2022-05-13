@@ -165,6 +165,8 @@ export class LpsDownConductorsComponent implements OnInit {
   spinner: boolean=false;
   spinnerValue: String = '';
   nextButton: boolean = true;
+  fileErrorMsg ='';
+  fileError =false;
 
   constructor(
     private formBuilder: FormBuilder, lpsDownconductorService: LpsDownconductorService,
@@ -2022,7 +2024,18 @@ export class LpsDownConductorsComponent implements OnInit {
   
 
   // File upload purpose
-  onUpload1(contentSpinner: any,index:any,fileId:any) {
+  onUpload1(contentSpinner: any,buildingCount:any,fromarray:any,index:any){
+    if (buildingCount == '') {
+      this.fileErrorMsg = 'Air Termination Form is Required, Please fill';
+      this.fileError = true;
+      setTimeout(() => {
+        this.fileErrorMsg = '';
+        this.fileError = false;
+      }, 3000);
+      return;
+    }
+    fromarray.controls.index.setValue(index);
+    fromarray.controls.index.updateValueAndValidity();
     this.downConductorForm.markAsDirty();
     this.downConductorForm.markAsTouched();
     if (this.file != undefined) {
@@ -2035,7 +2048,8 @@ export class LpsDownConductorsComponent implements OnInit {
       for (let f of this.file) {
         formData.append('file', f, f.name);
       }
-        if (!fileId) {
+      if (fromarray.controls.fileId1.value =='' || fromarray.controls.fileId1.value==undefined ||
+      fromarray.controls.fileId1.value ==null){
           this.fileUploadServiceService.uploadFile(formData,this.basicLpsId,this.componentName1,index).subscribe(
             (data) => {
               this.uploadDisable1 = true;
@@ -2055,7 +2069,7 @@ export class LpsDownConductorsComponent implements OnInit {
           )
         }
         else {
-          this.fileUploadServiceService.updateFile(formData,this.componentName1,fileId,index).subscribe(
+          this.fileUploadServiceService.updateFile(formData,this.componentName1,fromarray.controls.fileId1.value,index).subscribe(
             (data) => {
               this.uploadDisable1 = true;
               this.finalSpinner = false;
@@ -2077,9 +2091,20 @@ export class LpsDownConductorsComponent implements OnInit {
     }
   }
 
-  onUpload(contentSpinner: any,index:any,fileId:any) {
+  onUpload(contentSpinner: any,buildingCount:any,fromarray:any,index:any){
+    if (buildingCount == '') {
+      this.fileErrorMsg = 'Air Termination Form is Required, Please fill';
+      this.fileError = true;
+      setTimeout(() => {
+        this.fileErrorMsg = '';
+        this.fileError = false;
+      }, 3000);
+      return;
+    }
     this.downConductorForm.markAsDirty();
     this.downConductorForm.markAsTouched();
+    fromarray.controls.index.setValue(index);
+    fromarray.controls.index.updateValueAndValidity();
     if (this.file != undefined) {
       this.modalService.open(contentSpinner, {
         centered: true,
@@ -2090,7 +2115,8 @@ export class LpsDownConductorsComponent implements OnInit {
       for (let f of this.file) {
         formData.append('file', f, f.name);
       }
-        if (!fileId) {
+      if (fromarray.controls.fileId.value =='' || fromarray.controls.fileId.value==undefined ||
+      fromarray.controls.fileId.value ==null){
           this.fileUploadServiceService.uploadFile(formData,this.basicLpsId,this.componentName,index).subscribe(
             (data) => {
               this.uploadDisable = true;
@@ -2105,12 +2131,12 @@ export class LpsDownConductorsComponent implements OnInit {
               this.finalSpinner = false;
               this.popup = true;
               this.filesuccess = false;
-              this.filesuccessMsg = "";
+              this.filesuccessMsg = "File Upload failed";
             },
           )
         }
         else {
-          this.fileUploadServiceService.updateFile(formData,this.componentName,fileId,index).subscribe(
+          this.fileUploadServiceService.updateFile(formData,this.componentName,fromarray.controls.fileId.value,index).subscribe(
             (data) => {
               this.uploadDisable = true;
               this.finalSpinner = false;
@@ -2150,11 +2176,11 @@ export class LpsDownConductorsComponent implements OnInit {
     form.controls.fileName.setValue(this.file[0].name);
   }
 
-  onDownload(fileName:any) {
-    this.fileUploadServiceService.downloadFile(this.basicLpsId,this.componentName,fileName);
+  onDownload(fileName:any,fileId:any) {
+    this.fileUploadServiceService.downloadFile(fileId,this.componentName,fileName);
   }
-  onDownload1(fileName:any) {
-   this.fileUploadServiceService.downloadFile(this.basicLpsId,this.componentName1,fileName);
+  onDownload1(fileName:any,fileId:any) {
+   this.fileUploadServiceService.downloadFile(fileId,this.componentName1,fileName);
   }
 
   retriveFIleName() {
@@ -2165,18 +2191,19 @@ export class LpsDownConductorsComponent implements OnInit {
            this.downConductorDescription = this.downConductorForm.get('downConductorDescription') as FormArray;
            let a = 0;
            for(let i of this.JSONdata){ 
-            if(i.componentName =='downConductor'){
+            if( i.componentName =='downConductor'){
               this.downConductorDescription.controls[i.index].controls.downConductor.controls[0].controls.fileName.setValue(i.fileName);
               this.downConductorDescription.controls[i.index].controls.downConductor.controls[0].controls.fileType.setValue(i.fileType);
               this.downConductorDescription.controls[i.index].controls.downConductor.controls[0].controls.fileId.setValue(i.fileId);
-              this.download[a] = false;
+              this.download[i.index] = false;
             }
             if(i.componentName=='downConductor-1'){
               this.downConductorDescription.controls[i.index].controls.fileName1.setValue(i.fileName);
               this.downConductorDescription.controls[i.index].controls.fileType1.setValue(i.fileType);
               this.downConductorDescription.controls[i.index].controls.fileId1.setValue(i.fileId);
-              this.download1[a] = false;
+              this.download1[i.index] = false;
             }
+            a=a+1;
           }
         } 
       },

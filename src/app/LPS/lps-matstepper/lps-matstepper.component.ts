@@ -345,8 +345,8 @@ export class LpsMatstepperComponent implements OnInit {
   }
 
   interceptTabChange(tab: MatTab, tabHeader: MatTabHeader) {
-    if (this.airTermination.airTerminationForm.dirty && this.airTermination.airTerminationForm.touched) {
-      let flag=false;
+    if ((this.airTermination.airTerminationForm.dirty && this.airTermination.airTerminationForm.touched) || 
+    (this.downConductors.downConductorForm.dirty && this.downConductors.downConductorForm.touched)) {
       this.fileUploadService.removeUnusedFiles(this.airTermination.basicLpsId).subscribe();
     }
     if((this.service.lvClick==1) && (this.service.allStepsCompleted==true))

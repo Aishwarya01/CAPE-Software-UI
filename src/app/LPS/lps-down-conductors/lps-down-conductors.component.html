@@ -444,16 +444,19 @@
         
                                                             <td nowrap style="text-align: center;">
                                                                 <button type="button" class="btn btn-secondary btn-xs mr-4" [disabled]="uploadDisable"
-                                                                (click)="onUpload(contentSpinner,a.get('index')?.value,a.get('fileId')?.value)" title="Upload">
+                                                                (click)="onUpload(contentSpinner,q.get('buildingCount')?.value,a,j)" title="Upload">
                                                                     <i class="fa fa-upload" style="color: white;"></i> Upload
                                                                 </button>
                                                                 <div *ngIf="submitted && a.get('fileId')?.errors"class="invalid-feedback">
                                                                     <div *ngIf="a.get('fileId')?.errors?.required">File upload is required</div>
                                                                 </div>
+                                                                <div *ngIf="fileError" style="text-align: center;">
+                                                                    <span class="errorshow">{{fileErrorMsg}}</span>
+                                                                </div>
                                                                 <!-- <button type="button" class="btn btn-warning btn-xs mr-4">
                                                                     <i class="fa fa-ban" style="color: white;"></i> Cancel
                                                                 </button> -->
-                                                                <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="a.get('fileId')?.value" (click)="onDownload(a.get('fileName')?.value)" 
+                                                                <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="a.get('fileId')?.value" (click)="onDownload(a.get('fileName')?.value,a.get('fileId')?.value)" 
                                                                 href='javascript:void(0)' [ngClass]="{'disableForm':isEditable}" title="Download">
                                                                     <i class="fa fa-download" style="color: white;"></i> Download
                                                                 </button>
@@ -1063,16 +1066,19 @@
 
                                     <td nowrap style="text-align: center;">
                                         <button type="button" class="btn btn-secondary btn-xs mr-4" [disabled]="uploadDisable1"
-                                        (click)="onUpload1(contentSpinner,q.get('index')?.value,q.get('fileId1')?.value)" title="Upload">
+                                        (click)="onUpload1(contentSpinner,q.get('buildingCount')?.value,q,j)" title="Upload">
                                             <i class="fa fa-upload" style="color: white;"></i> Upload
                                         </button>
                                         <div *ngIf="submitted && q.get('fileId1')?.errors" class="invalid-feedback">
                                             <div *ngIf="q.get('fileId1')?.errors?.required">File upload is required</div>
                                         </div>
+                                        <div *ngIf="fileError" style="text-align: center;">
+                                            <span class="errorshow">{{fileErrorMsg}}</span>
+                                        </div>
                                         <!-- <button type="button" class="btn btn-warning btn-xs mr-4">
                                             <i class="fa fa-ban" style="color: white;"></i> Cancel
                                         </button> -->
-                                        <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="q.get('fileId1')?.value" (click)="onDownload1(q.get('fileName1')?.value)"
+                                        <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="q.get('fileId1')?.value" (click)="onDownload1(q.get('fileName1')?.value,q.get('fileId1')?.value)"
                                         href='javascript:void(0)' [ngClass]="{'disableForm':isEditable}" title="Download">
                                             <i class="fa fa-download" style="color: white;"></i> Download
                                         </button>
