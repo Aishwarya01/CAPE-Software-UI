@@ -189,9 +189,14 @@
     </div>
     <br>
     <div *ngIf="popup">
-        <button type="button" style="text-align: center;margin-left:180px;width:20%" class="close"
+        <button type="button" *ngIf="success" style="text-align: center;margin-left:180px;width:20%" class="close"
         class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
         (click)="closeModalDialog()" matStepperNext>
+        <span aria-hidden="true">Ok</span>
+    </button>
+    <button type="button" *ngIf="Error" style="text-align: center;margin-left:180px;width:20%" class="close"
+        class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
+        (click)="closeModalDialog()">
         <span aria-hidden="true">Ok</span>
     </button>
     </div>
