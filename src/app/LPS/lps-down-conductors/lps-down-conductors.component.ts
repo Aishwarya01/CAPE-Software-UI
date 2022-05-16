@@ -2047,6 +2047,8 @@ export class LpsDownConductorsComponent implements OnInit {
       const formData = new FormData();
       for (let f of this.file) {
         formData.append('file', f, f.name);
+        fromarray.controls.fileName1.setValue(f.name);
+        fromarray.controls.fileName1.updateValueAndValidity();
       }
       if (fromarray.controls.fileId1.value =='' || fromarray.controls.fileId1.value==undefined ||
       fromarray.controls.fileId1.value ==null){
@@ -2114,6 +2116,8 @@ export class LpsDownConductorsComponent implements OnInit {
       const formData = new FormData();
       for (let f of this.file) {
         formData.append('file', f, f.name);
+        fromarray.controls.fileName.setValue(f.name);
+        fromarray.controls.fileName.updateValueAndValidity();
       }
       if (fromarray.controls.fileId.value =='' || fromarray.controls.fileId.value==undefined ||
       fromarray.controls.fileId.value ==null){
@@ -2191,13 +2195,16 @@ export class LpsDownConductorsComponent implements OnInit {
            this.downConductorDescription = this.downConductorForm.get('downConductorDescription') as FormArray;
            let a = 0;
            for(let i of this.JSONdata){ 
-            if( i.componentName =='downConductor'){
+            if( i.componentName =='downConductor'
+             && this.downConductorDescription.controls[i.index].controls.downConductor.controls[0].controls.fileName.value == i.fileName
+             &&(this.downConductorDescription.controls[i.index].controls.downConductor.controls[0].controls.fileId.value == '' || this.downConductorDescription.controls[i.index].controls.downConductor.controls[0].controls.fileId.value == i.fileId) ){
               this.downConductorDescription.controls[i.index].controls.downConductor.controls[0].controls.fileName.setValue(i.fileName);
               this.downConductorDescription.controls[i.index].controls.downConductor.controls[0].controls.fileType.setValue(i.fileType);
               this.downConductorDescription.controls[i.index].controls.downConductor.controls[0].controls.fileId.setValue(i.fileId);
               this.download[i.index] = false;
             }
-            if(i.componentName=='downConductor-1'){
+            if(i.componentName=='downConductor-1' && this.downConductorDescription.controls[i.index].controls.fileName1.value == i.fileName &&
+           (this.downConductorDescription.controls[i.index].controls.fileId1.value == '' || this.downConductorDescription.controls[i.index].controls.fileId1.value == i.fileId) ){
               this.downConductorDescription.controls[i.index].controls.fileName1.setValue(i.fileName);
               this.downConductorDescription.controls[i.index].controls.fileType1.setValue(i.fileType);
               this.downConductorDescription.controls[i.index].controls.fileId1.setValue(i.fileId);

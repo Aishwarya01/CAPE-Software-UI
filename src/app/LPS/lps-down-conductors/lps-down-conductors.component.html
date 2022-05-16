@@ -359,14 +359,14 @@
                         <!-- <h2 *ngIf="q.get('downConductorAvailabilityOb')?.value === 'Applicable'"><u>Down Conductors:</u></h2> -->
                         <br>
                         <div class="table-responsive" style="overflow-x: unset;" *ngIf="q.get('downConductorAvailabilityOb')?.value != ''">
-                            <table class="table TableBorder" formArrayName="downConductor" *ngFor="let a of downConductorControls(q); let j = index">
+                            <table class="table TableBorder" formArrayName="downConductor" *ngFor="let a of downConductorControls(q); let l = index">
                                 <thead>
                                     <th>Sl.No</th>
                                     <th>Description</th>
                                     <th>Observation</th>
                                     <th>Remarks(Optional)</th>
                                 </thead> 
-                                <tbody [formGroupName]="j">                                        
+                                <tbody [formGroupName]="l">                                        
                                         <tr *ngIf="q.get('downConductorAvailabilityOb')?.value == 'Applicable'">
                                             <td style="width: 1rem; text-align: center;">7(a)</td>
                                             <td style="width: 30rem;">Physical inspection (damage/break/bend/corroded/routing as per design)</td>
