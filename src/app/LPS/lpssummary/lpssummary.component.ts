@@ -1128,6 +1128,9 @@ SignatureDesigner1(){
       
        this.arr1.push(this.createGroupDeclaration1( data.summaryLpsDeclaration[0]));
        this.arr2.push(this.createGroupDeclaration1( data.summaryLpsDeclaration[1]));
+       
+       this.service.signatureImg7=atob(data.summaryLpsDeclaration[0].signature);
+       this.service.signatureImg8=atob(data.summaryLpsDeclaration[1].signature);
 
        this.summaryForm.controls.recommendYears.setValue(data.inspectedYear);
        this.summaryForm.controls.declarationDate.setValue(data.summaryDate);
