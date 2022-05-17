@@ -56,6 +56,7 @@ export class SiteaddComponent implements OnInit {
   @Input()
   data: any = [];
   errorArr: any=[];
+  pinCodeErrorMsg: String = '';
   constructor(public dialog: MatDialog,
               public clientService: ClientService,
               public departmentService: DepartmentService,
@@ -145,6 +146,22 @@ export class SiteaddComponent implements OnInit {
               this.stateList = JSON.parse(data)
             }
           )};
+      }
+
+      if(changedValue == 'INDIA') {
+        this.a['pincode'].setValidators([Validators.required,Validators.pattern('^[1-9][0-9]{5}$')]);
+        this.a['pincode'].updateValueAndValidity();
+        this.pinCodeErrorMsg = 'Please enter 6 digit pincode';
+      }
+      else if(changedValue == 'NEPAL') {
+        this.a['pincode'].setValidators([Validators.required,Validators.pattern('^[1-9][0-9]{4}$')]);
+        this.a['pincode'].updateValueAndValidity();
+        this.pinCodeErrorMsg = 'Please enter 5 digit pincode';
+      }
+      else {
+        this.a['pincode'].setValidators([Validators.required]);
+        this.a['pincode'].updateValueAndValidity();
+        //this.pinCodeErrorMsg = 'Please enter pincode';
       }
   }
 

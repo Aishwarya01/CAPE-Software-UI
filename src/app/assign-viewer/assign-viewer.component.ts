@@ -36,6 +36,7 @@ export class AssignViewerComponent implements OnInit {
     country: new FormControl(''),
     state: new FormControl(''),
     pinCode: new FormControl(''),
+    pinCodeErrorMsg: new FormControl(''),
     userType: new FormControl(''),
     terms: new FormControl('')
   });
@@ -85,6 +86,7 @@ export class AssignViewerComponent implements OnInit {
   inspectorData: any = [];
   demoArr: any = [];
   existSite: boolean = false;
+  arr: any = [];
 
   constructor(private dialog: MatDialog,
               private formBuilder: FormBuilder, private modalService: NgbModal,
@@ -140,6 +142,7 @@ export class AssignViewerComponent implements OnInit {
     country: new FormControl('', Validators.required),
     state: new FormControl('', Validators.required),
     pinCode: new FormControl('', Validators.required),
+    pinCodeErrorMsg: new FormControl(''),
     userType: new FormControl('', Validators.required),
     terms: new FormControl(''),
     })
@@ -301,6 +304,25 @@ createGroup(item: any): FormGroup{
   this.selectCountry(item.country);
   this.state = this.registerData.state;
   // item.contactNumber = this.mobileArr[0]+this.mobileArr[1];
+  this.arr = []
+    if(item.country == 'INDIA') {
+      this.arr=[];
+      this.arr.push(Validators.required,Validators.pattern('^[1-9][0-9]{5}$'));
+      setTimeout(()=>{
+        this.f.viewerArr.controls[0].controls['pinCodeErrorMsg'].setValue('Please enter 6 digit pincode');
+      }, 500);
+    }
+    else if(item.country == 'NEPAL') {
+      this.arr=[];
+      this.arr.push(Validators.required,Validators.pattern('^[1-9][0-9]{4}$'));
+      setTimeout(()=>{
+        this.f.viewerArr.controls[0].controls['pinCodeErrorMsg'].setValue('Please enter 5 digit pincode');
+      }, 500);
+    }
+    else {
+      this.arr=[];
+      this.arr.push(Validators.required);
+    }
   return this.formBuilder.group({
     name: new FormControl({value: item.name}),
     companyName: new FormControl({value: item.companyName}),
@@ -313,7 +335,8 @@ createGroup(item: any): FormGroup{
     district: new FormControl({value: item.district},Validators.required),
     country: new FormControl({value: item.country},Validators.required),
     state: new FormControl({value: item.state},Validators.required),
-    pinCode: new FormControl({value: item.pinCode},Validators.required),
+    pinCode: new FormControl({value: item.pinCode},this.arr),
+    pinCodeErrorMsg: new FormControl(''),
     userType: new FormControl({value: 'Viewer'}),
     terms: new FormControl(''),
     
@@ -335,6 +358,7 @@ createNewGroup(item: any): FormGroup{
     country: new FormControl('',Validators.required),
     state: new FormControl('',Validators.required),
     pinCode: new FormControl('',Validators.required),
+    pinCodeErrorMsg: new FormControl(''),
     userType: new FormControl({value: 'Viewer'}),
     terms: new FormControl(''),
   });
@@ -434,7 +458,7 @@ createNewGroup(item: any): FormGroup{
   onSelectAll(items: any) {
     console.log(items);
   }
-  get f() {
+  get f() : any{
     return this.viewerRegisterForm.controls;
   }
 
@@ -463,6 +487,23 @@ createNewGroup(item: any): FormGroup{
       //     }
       //   );
       // }
+      if(changedValue == 'INDIA') {
+        this.f.viewerArr.controls[0].controls['pinCode'].setValidators([Validators.required,Validators.pattern('^[1-9][0-9]{5}$')]);
+        this.f.viewerArr.controls[0].controls['pinCode'].updateValueAndValidity();
+        this.f.viewerArr.controls[0].controls['pinCodeErrorMsg'].setValue('Please enter 6 digit pincode');
+      }
+      else if(changedValue == 'NEPAL') {
+        this.f.viewerArr.controls[0].controls['pinCode'].setValidators([Validators.required,Validators.pattern('^[1-9][0-9]{4}$')]);
+        this.f.viewerArr.controls[0].controls['pinCode'].updateValueAndValidity();
+        this.f.viewerArr.controls[0].controls['pinCodeErrorMsg'].setValue('Please enter 5 digit pincode');
+      }
+      else {
+        this.f.viewerArr.controls[0].controls['pinCode'].setValidators([Validators.required]);
+        this.f.viewerArr.controls[0].controls['pinCode'].updateValueAndValidity();
+        this.f.viewerArr.controls[0].controls['pinCodeErrorMsg'].setValue('');
+  
+        //this.pinCodeErrorMsg = 'Please enter pincode';
+      }
        
   }
 
