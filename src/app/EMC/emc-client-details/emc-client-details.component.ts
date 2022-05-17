@@ -150,9 +150,9 @@ export class EmcClientDetailsComponent implements OnInit {
       country: new FormControl(this.emcClientDetails.country, Validators.required),
       state: new FormControl(this.emcClientDetails.state, Validators.required),
       userName: new FormControl(this.emcClientDetails.userName, Validators.required),
-      createdDate: new FormControl(this.emcClientDetails.createdDate,Validators.required),
-      createdBy: new FormControl(this.emcClientDetails.createdBy,Validators.required),
-      status: new FormControl(this.emcClientDetails.status,Validators.required)   
+      createdDate: new FormControl(this.emcClientDetails.createdDate),
+      createdBy: new FormControl(this.emcClientDetails.createdBy),
+      status: new FormControl(this.emcClientDetails.status)   
     })
   }
 
