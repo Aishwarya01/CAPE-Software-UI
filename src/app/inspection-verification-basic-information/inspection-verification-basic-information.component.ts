@@ -1188,6 +1188,7 @@ showHideAccordion(index: number) {
       country: new FormControl({disabled: false,value: item.country},[Validators.required]),
       state: new FormControl({disabled: false ,value: item.state},[Validators.required]),
       pinCode: new FormControl({disabled: false, value:item.pinCode},[Validators.required]),
+      pinCodeErrorMsg: new FormControl(''),
       signatorRole: new FormControl({disabled: false ,value: item.signatorRole}),
       declarationSignature: new FormControl({disabled: false, value: item.declarationSignature}),
       declarationDate: new FormControl({disabled: false ,value: item.declarationDate}),
@@ -1212,6 +1213,7 @@ showHideAccordion(index: number) {
       country: new FormControl('',[Validators.required]),
       state: new FormControl('',[Validators.required]), 
       pinCode: new FormControl('',[Validators.required]),
+      pinCodeErrorMsg: new FormControl(''),
       signatorRole: new FormControl(''),
       declarationSignature: new FormControl(''),
       declarationDate: new FormControl(''),
@@ -1234,6 +1236,7 @@ showHideAccordion(index: number) {
       country: new FormControl(''),
       state: new FormControl(''),
       pinCode: new FormControl(''),
+      pinCodeErrorMsg: new FormControl(''),
       signatorRole: new FormControl(''),
       declarationSignature: new FormControl(''),
       declarationDate: new FormControl(''),
@@ -1265,6 +1268,24 @@ showHideAccordion(index: number) {
           }
         )};
     }
+
+    if(changedValue == 'INDIA') {
+      this.f.designer1Arr.controls[0].controls['pinCode'].setValidators([Validators.required,Validators.pattern('^[1-9][0-9]{5}$')]);
+      this.f.designer1Arr.controls[0].controls['pinCode'].updateValueAndValidity();
+      this.f.designer1Arr.controls[0].controls['pinCodeErrorMsg'].setValue('Please enter 6 digit pincode');
+    }
+    else if(changedValue == 'NEPAL') {
+      this.f.designer1Arr.controls[0].controls['pinCode'].setValidators([Validators.required,Validators.pattern('^[1-9][0-9]{4}$')]);
+      this.f.designer1Arr.controls[0].controls['pinCode'].updateValueAndValidity();
+      this.f.designer1Arr.controls[0].controls['pinCodeErrorMsg'].setValue('Please enter 5 digit pincode');
+    }
+    else {
+      this.f.designer1Arr.controls[0].controls['pinCode'].setValidators([Validators.required]);
+      this.f.designer1Arr.controls[0].controls['pinCode'].updateValueAndValidity();
+      this.f.designer1Arr.controls[0].controls['pinCodeErrorMsg'].setValue('');
+
+      //this.pinCodeErrorMsg = 'Please enter pincode';
+    }  
   }
   designer2changeCountry(e: any) {
   let changedValue;
@@ -1283,6 +1304,24 @@ showHideAccordion(index: number) {
           }
         )};
     }
+
+    if(changedValue == 'INDIA') {
+      this.f.designer2Arr.controls[0].controls['pinCode'].setValidators([Validators.required,Validators.pattern('^[1-9][0-9]{5}$')]);
+      this.f.designer2Arr.controls[0].controls['pinCode'].updateValueAndValidity();
+      this.f.designer2Arr.controls[0].controls['pinCodeErrorMsg'].setValue('Please enter 6 digit pincode');
+    }
+    else if(changedValue == 'NEPAL') {
+      this.f.designer2Arr.controls[0].controls['pinCode'].setValidators([Validators.required,Validators.pattern('^[1-9][0-9]{4}$')]);
+      this.f.designer2Arr.controls[0].controls['pinCode'].updateValueAndValidity();
+      this.f.designer2Arr.controls[0].controls['pinCodeErrorMsg'].setValue('Please enter 5 digit pincode');
+    }
+    else {
+      this.f.designer2Arr.controls[0].controls['pinCode'].setValidators([Validators.required]);
+      this.f.designer2Arr.controls[0].controls['pinCode'].updateValueAndValidity();
+      this.f.designer2Arr.controls[0].controls['pinCodeErrorMsg'].setValue('');
+
+      //this.pinCodeErrorMsg = 'Please enter pincode';
+    }  
   }
 
 // Contractor details forms
@@ -1301,6 +1340,7 @@ showHideAccordion(index: number) {
     country: new FormControl('',[Validators.required]),
     state: new FormControl('',[Validators.required]),
     pinCode: new FormControl('',[Validators.required]),
+    pinCodeErrorMsg: new FormControl(''),
     signatorRole: new FormControl(''),
     declarationSignature: new FormControl(''),
     declarationDate: new FormControl(''),
@@ -1329,6 +1369,24 @@ showHideAccordion(index: number) {
             }
           )};
       }
+
+      if(changedValue == 'INDIA') {
+        this.f.contractorArr.controls[0].controls['pinCode'].setValidators([Validators.required,Validators.pattern('^[1-9][0-9]{5}$')]);
+        this.f.contractorArr.controls[0].controls['pinCode'].updateValueAndValidity();
+        this.f.contractorArr.controls[0].controls['pinCodeErrorMsg'].setValue('Please enter 6 digit pincode');
+      }
+      else if(changedValue == 'NEPAL') {
+        this.f.contractorArr.controls[0].controls['pinCode'].setValidators([Validators.required,Validators.pattern('^[1-9][0-9]{4}$')]);
+        this.f.contractorArr.controls[0].controls['pinCode'].updateValueAndValidity();
+        this.f.contractorArr.controls[0].controls['pinCodeErrorMsg'].setValue('Please enter 5 digit pincode');
+      }
+      else {
+        this.f.contractorArr.controls[0].controls['pinCode'].setValidators([Validators.required]);
+        this.f.contractorArr.controls[0].controls['pinCode'].updateValueAndValidity();
+        this.f.contractorArr.controls[0].controls['pinCodeErrorMsg'].setValue('');
+  
+        //this.pinCodeErrorMsg = 'Please enter pincode';
+      }
   }
 
 // Inspector details forms
@@ -1349,6 +1407,7 @@ showHideAccordion(index: number) {
       country: new FormControl(value.country,[Validators.required]),
       state: new FormControl(value.state,[Validators.required]),
       pinCode: new FormControl(value.pinCode,[Validators.required]),
+      pinCodeErrorMsg: new FormControl(''),
       signatorRole: new FormControl(''),
       declarationSignature: new FormControl(''),
       declarationDate: new FormControl(''),
@@ -1396,6 +1455,24 @@ showHideAccordion(index: number) {
               this.stateList4 = JSON.parse(data)
             }
           )};
+      }
+
+      if(changedValue == 'INDIA') {
+        this.f.inspectorArr.controls[0].controls['pinCode'].setValidators([Validators.required,Validators.pattern('^[1-9][0-9]{5}$')]);
+        this.f.inspectorArr.controls[0].controls['pinCode'].updateValueAndValidity();
+        this.f.inspectorArr.controls[0].controls['pinCodeErrorMsg'].setValue('Please enter 6 digit pincode');
+      }
+      else if(changedValue == 'NEPAL') {
+        this.f.inspectorArr.controls[0].controls['pinCode'].setValidators([Validators.required,Validators.pattern('^[1-9][0-9]{4}$')]);
+        this.f.inspectorArr.controls[0].controls['pinCode'].updateValueAndValidity();
+        this.f.inspectorArr.controls[0].controls['pinCodeErrorMsg'].setValue('Please enter 5 digit pincode');
+      }
+      else {
+        this.f.inspectorArr.controls[0].controls['pinCode'].setValidators([Validators.required]);
+        this.f.inspectorArr.controls[0].controls['pinCode'].updateValueAndValidity();
+        this.f.inspectorArr.controls[0].controls['pinCodeErrorMsg'].setValue('');
+  
+        //this.pinCodeErrorMsg = 'Please enter pincode';
       }
   }
 
