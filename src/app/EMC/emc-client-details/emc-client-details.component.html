@@ -32,7 +32,7 @@
                             <label>Contact Number:</label>
                             <input type="tel" class="form-control" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
                                 [readonly]="setReadOnly" (keypress)="keyPressNumbers($event)"
-                                (countryChange)="countryChange($event,a)" placeholder="Enter Contact Number" 
+                                (countryChange)="countryChange($event)" placeholder="Enter Contact Number" 
                                 formControlName="contactNumber" class="form-control"
                                 [ngClass]="{ 'is-invalid': submitted && a.get('contactNumber')?.errors }">
                             <div *ngIf="submitted && a.get('contactNumber')?.errors" class="invalid-feedback">
