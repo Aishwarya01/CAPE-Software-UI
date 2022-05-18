@@ -103,6 +103,7 @@ import { SignatureComponent } from './signature/signature.component'
 @NgModule({
   declarations: [
     AppComponent,
+    SignatureComponent,
     LoginComponent,
     RegisterComponent,
     HomeComponent,

@@ -961,7 +961,7 @@
                                                                 <!-- <button type="button" class="btn btn-warning btn-xs mr-4">
                                                                     <i class="fa fa-ban" style="color: white;"></i> Cancel
                                                                 </button> -->
-                                                                <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="a.get('fileId')?.value != '' && a.get('fileId')?.value != null" (click)="onDownload(a.get('fileName')?.value)" 
+                                                                <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="a.get('fileId')?.value != '' && a.get('fileId')?.value != null" (click)="onDownload(a.get('fileName')?.value,a.get('fileId')?.value)" 
                                                                 href='javascript:void(0)' [ngClass]="{'disableForm':isEditable}" title="Download">
                                                                     <i class="fa fa-download" style="color: white;"></i> Download
                                                                 </button>
@@ -1219,7 +1219,7 @@
                                                             <div *ngIf="submitted && a.get('fileIdVAir')?.errors"class="invalid-feedback">
                                                                 <div *ngIf="a.get('fileIdVAir')?.errors?.required">File upload is required</div>
                                                             </div>
-                                                            <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="a.get('fileIdVAir')?.value != '' && a.get('fileIdVAir')?.value != null" (click)="onDownload1(a.get('fileNameVAir')?.value)" href='javascript:void(0)' title="Download" [ngClass]="{'disableForm':isEditable}">
+                                                            <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="a.get('fileIdVAir')?.value != '' && a.get('fileIdVAir')?.value != null" (click)="onDownload1(a.get('fileNameVAir')?.value,a.get('fileIdVAir')?.value)" href='javascript:void(0)' title="Download" [ngClass]="{'disableForm':isEditable}">
                                                                 <i class="fa fa-download" style="color: white;"></i> Download
                                                             </button>
                                                             
@@ -4030,7 +4030,7 @@
                                                             <div *ngIf="submitted && a.get('fileIdEP')?.errors"class="invalid-feedback">
                                                                 <div *ngIf="a.get('fileIdEP')?.errors?.required">File upload is required</div>
                                                             </div>
-                                                            <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="a.get('fileIdEP')?.value != '' && a.get('fileIdEP')?.value != null" (click)="onDownload2(a.get('fileName_EP')?.value )" href='javascript:void(0)' title="Download" [ngClass]="{'disableForm':isEditable}">
+                                                            <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="a.get('fileIdEP')?.value != '' && a.get('fileIdEP')?.value != null" (click)="onDownload2(a.get('fileName_EP')?.value,a.get('fileIdEP')?.value)" href='javascript:void(0)' title="Download" [ngClass]="{'disableForm':isEditable}">
                                                                 <i class="fa fa-download" style="color: white;"></i> Download
                                                             </button>
                                                             <!-- <button type="button" class="btn btn-danger btn-xs mr-4">
@@ -4638,7 +4638,7 @@
             <button type="button" class="col-md-6" style="width: 5rem;position: relative;margin-left: 30%;"
                 class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close" (click)="summaryEvent(content)">
                 <i class="bi bi-arrow-right-circle"></i>&nbsp;
-                <span aria-hidden="true" (ngSubmit)="onSubmit(flag)" *ngIf="summaryPopup">Ok</span>
+                <span aria-hidden="true" *ngIf="summaryPopup">Ok</span>
             </button>
             <button type="button" class="col-md-6" style="text-align: center;width: auto;position: relative;margin-right: 30%;"
                 class="btn btn-danger btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close" (click)="closeModalDialog()">

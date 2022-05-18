@@ -43,8 +43,8 @@ export class LpsFileUploadService {
   }
 
 
-  public downloadFile(lpsId:any,componentName:any,fileName:any) {
-    return this.http.get(this.apiUrl_LPS + '/downloadFile'+'/'+lpsId+'/'+componentName+'/'+fileName, { responseType:'blob'}).subscribe(
+  public downloadFile(fileId:any,componentName:any,fileName:any) {
+    return this.http.get(this.apiUrl_LPS + '/downloadFile'+'/'+fileId+'/'+componentName+'/'+fileName, { responseType:'blob'}).subscribe(
       data =>{
         const fileName = data.type;
         FileSaver.saveAs(data,fileName);
@@ -57,6 +57,10 @@ export class LpsFileUploadService {
 
   public updateIndex(basicLpsId: any, list: any): Observable<any> {
     return this.http.put<any>(this.apiUrl_LPS + '/updateAllFileId' + '/' + basicLpsId, list, { responseType: 'text' as 'json' })
+  }
+
+  public removeUnusedFiles(basicLpsId: any): Observable<any> {
+    return this.http.delete<any>(this.apiUrl_LPS + '/removeFile' + '/' + basicLpsId, { responseType: 'text' as 'json' })
   }
   
 }

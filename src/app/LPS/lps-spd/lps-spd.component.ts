@@ -343,7 +343,7 @@ export class LpsSpdComponent implements OnInit {
 
   onSubmit(flag: any) {
 
-    this.submitted = true;
+    // this.submitted = true;
     if (this.spdForm.invalid && (this.spdForm.value.spd[0].buildingNumber != undefined || this.spdForm.value.spd[0].buildingNumber != '')) 
     { return }
     this.spinner = true;
@@ -492,6 +492,7 @@ export class LpsSpdComponent implements OnInit {
   }
 
   gotoNextModal(content1: any, contents: any) {
+    this.submitted = true;
     if (this.spdForm.invalid) {
       this.validationError = true;
 

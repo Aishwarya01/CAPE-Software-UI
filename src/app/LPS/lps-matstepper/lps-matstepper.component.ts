@@ -1,11 +1,6 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild, ChangeDetectorRef, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FormArray } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 
@@ -21,13 +16,13 @@ import { LPSBasicDetailsService } from 'src/app/LPS_services/lpsbasic-details.se
 import { LpsSavedReportComponent } from '../lps-saved-report/lps-saved-report.component';
 import { LpsFinalReportComponent } from '../lps-final-report/lps-final-report.component';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
-import { SeparatedistanceService } from 'src/app/LPS_services/separatedistance.service';
 import { MatTabGroup, MatTabHeader, MatTab } from '@angular/material/tabs';
 import { GlobalsService } from 'src/app/globals.service';
 import { ConfirmationBoxComponent } from 'src/app/confirmation-box/confirmation-box.component';
 import { tree } from 'ngx-bootstrap-icons';
 import { LpssummaryComponent } from '../lpssummary/lpssummary.component';
 import { MatStepper } from '@angular/material/stepper';
+import { LpsFileUploadService } from 'src/app/LPS_services/lps-file-upload.service';
 
 @Component({
   selector: 'app-lps-matstepper',
@@ -101,6 +96,7 @@ export class LpsMatstepperComponent implements OnInit {
     private router: ActivatedRoute, public service: GlobalsService,
     private ChangeDetectorRef: ChangeDetectorRef,
     private airterminationServices: AirterminationService,
+    private fileUploadService:LpsFileUploadService
  
     ) { 
     }
@@ -270,7 +266,7 @@ export class LpsMatstepperComponent implements OnInit {
             this.airTermination.retrieveDetailsfromSavedReports(userName, basicLpsId, this.dataJSON);
 
             //downConductor
-            this.downConductors.retrieveDetailsfromSavedReports(userName, basicLpsId, this.dataJSON);
+            this.downConductors.updateMethod();
 
             //earthing
             if (this.dataJSON.earthingReport != null) {
@@ -349,9 +345,9 @@ export class LpsMatstepperComponent implements OnInit {
   }
 
   interceptTabChange(tab: MatTab, tabHeader: MatTabHeader) {
-    if (this.airTermination.airTerminationForm.dirty && this.airTermination.airTerminationForm.touched) {
-      let flag=false;
-      this.airTermination.updateFileIdIndex(flag);
+    if ((this.airTermination.airTerminationForm.dirty && this.airTermination.airTerminationForm.touched) || 
+    (this.downConductors.downConductorForm.dirty && this.downConductors.downConductorForm.touched)) {
+      this.fileUploadService.removeUnusedFiles(this.airTermination.basicLpsId).subscribe();
     }
     if((this.service.lvClick==1) && (this.service.allStepsCompleted==true))
        {

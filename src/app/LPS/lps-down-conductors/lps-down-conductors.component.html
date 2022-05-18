@@ -359,14 +359,14 @@
                         <!-- <h2 *ngIf="q.get('downConductorAvailabilityOb')?.value === 'Applicable'"><u>Down Conductors:</u></h2> -->
                         <br>
                         <div class="table-responsive" style="overflow-x: unset;" *ngIf="q.get('downConductorAvailabilityOb')?.value != ''">
-                            <table class="table TableBorder" formArrayName="downConductor" *ngFor="let a of downConductorControls(q); let j = index">
+                            <table class="table TableBorder" formArrayName="downConductor" *ngFor="let a of downConductorControls(q); let l = index">
                                 <thead>
                                     <th>Sl.No</th>
                                     <th>Description</th>
                                     <th>Observation</th>
                                     <th>Remarks(Optional)</th>
                                 </thead> 
-                                <tbody [formGroupName]="j">                                        
+                                <tbody [formGroupName]="l">                                        
                                         <tr *ngIf="q.get('downConductorAvailabilityOb')?.value == 'Applicable'">
                                             <td style="width: 1rem; text-align: center;">7(a)</td>
                                             <td style="width: 30rem;">Physical inspection (damage/break/bend/corroded/routing as per design)</td>
@@ -444,16 +444,19 @@
         
                                                             <td nowrap style="text-align: center;">
                                                                 <button type="button" class="btn btn-secondary btn-xs mr-4" [disabled]="uploadDisable"
-                                                                (click)="onUpload(contentSpinner,a.get('index')?.value,a.get('fileId')?.value)" title="Upload">
+                                                                (click)="onUpload(contentSpinner,q.get('buildingCount')?.value,a,j)" title="Upload">
                                                                     <i class="fa fa-upload" style="color: white;"></i> Upload
                                                                 </button>
                                                                 <div *ngIf="submitted && a.get('fileId')?.errors"class="invalid-feedback">
                                                                     <div *ngIf="a.get('fileId')?.errors?.required">File upload is required</div>
                                                                 </div>
+                                                                <div *ngIf="fileError" style="text-align: center;">
+                                                                    <span class="errorshow">{{fileErrorMsg}}</span>
+                                                                </div>
                                                                 <!-- <button type="button" class="btn btn-warning btn-xs mr-4">
                                                                     <i class="fa fa-ban" style="color: white;"></i> Cancel
                                                                 </button> -->
-                                                                <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="a.get('fileId')?.value" (click)="onDownload(a.get('fileName')?.value)" 
+                                                                <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="a.get('fileId')?.value" (click)="onDownload(a.get('fileName')?.value,a.get('fileId')?.value)" 
                                                                 href='javascript:void(0)' [ngClass]="{'disableForm':isEditable}" title="Download">
                                                                     <i class="fa fa-download" style="color: white;"></i> Download
                                                                 </button>
@@ -1063,16 +1066,19 @@
 
                                     <td nowrap style="text-align: center;">
                                         <button type="button" class="btn btn-secondary btn-xs mr-4" [disabled]="uploadDisable1"
-                                        (click)="onUpload1(contentSpinner,q.get('index')?.value,q.get('fileId1')?.value)" title="Upload">
+                                        (click)="onUpload1(contentSpinner,q.get('buildingCount')?.value,q,j)" title="Upload">
                                             <i class="fa fa-upload" style="color: white;"></i> Upload
                                         </button>
                                         <div *ngIf="submitted && q.get('fileId1')?.errors" class="invalid-feedback">
                                             <div *ngIf="q.get('fileId1')?.errors?.required">File upload is required</div>
                                         </div>
+                                        <div *ngIf="fileError" style="text-align: center;">
+                                            <span class="errorshow">{{fileErrorMsg}}</span>
+                                        </div>
                                         <!-- <button type="button" class="btn btn-warning btn-xs mr-4">
                                             <i class="fa fa-ban" style="color: white;"></i> Cancel
                                         </button> -->
-                                        <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="q.get('fileId1')?.value" (click)="onDownload1(q.get('fileName1')?.value)"
+                                        <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="q.get('fileId1')?.value" (click)="onDownload1(q.get('fileName1')?.value,q.get('fileId1')?.value)"
                                         href='javascript:void(0)' [ngClass]="{'disableForm':isEditable}" title="Download">
                                             <i class="fa fa-download" style="color: white;"></i> Download
                                         </button>
@@ -3178,7 +3184,7 @@
             <button type="button" class="col-md-6" style="width: 5rem;position: relative;margin-left: 30%;"
                 class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close" (click)="summaryEvent(content)">
                 <i class="bi bi-arrow-right-circle"></i>&nbsp;
-                <span aria-hidden="true" (ngSubmit)="onSubmit(flag)" *ngIf="summaryPopup">Ok</span>
+                <span aria-hidden="true" *ngIf="summaryPopup">Ok</span>
             </button>
             <button type="button" class="col-md-6" style="text-align: center;width: auto;position: relative;margin-right: 30%;"
                 class="btn btn-danger btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close" (click)="closeModalDialog()">

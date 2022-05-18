@@ -11,9 +11,11 @@ import { LpsSummary } from 'src/app/LPS_model/lps-summary';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
 import { FinalPdfServiceService } from 'src/app/LPS_services/final-pdf-service.service';
 import { SummaryServiceService } from 'src/app/LPS_services/summary-service.service';
-import { SuperAdminLocal } from 'src/environments/environment';
+
 import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminProd } from 'src/environments/environment.prod';
+import { SignatureComponent } from 'src/app/signature/signature.component';
+import { MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-lpssummary',
@@ -99,7 +101,7 @@ export class LpssummaryComponent implements OnInit {
     saveButton: boolean = false;
     buttonType:  string="";
     //For super admin purpose
-    lpsSummaryConstLocal = new SuperAdminLocal();
+    //lpsSummaryConstLocal = new SuperAdminLocal();
     lpsSummaryConst = new SuperAdminDev();
     lpsSummaryConstProd = new SuperAdminProd();
     //air termination
@@ -444,12 +446,16 @@ export class LpssummaryComponent implements OnInit {
         }
       }
 
-      for( let i=0; i<this.lpsSummaryConstLocal.adminEmail.length; i++){
-        if(this.lpsSummaryConstLocal.adminEmail[i] == this.email)
-        {
-          this.submittedButton = false;
-        }
-      }
+      // for( let i=0; i<this.lpsSummaryConstLocal.adminEmail.length; i++){
+      //   if(this.lpsSummaryConstLocal.adminEmail[i] == this.email)
+      //   {
+      //     this.submittedButton = false;
+      //   }
+      // }
+  }
+  ngOnDestroy(): void {
+    this.service.signatureImg7="";
+    this.service.signatureImg8="";
   }
 
     ngOnInit(): void {
@@ -467,6 +473,49 @@ export class LpssummaryComponent implements OnInit {
       }, 3000);
         
     }
+
+    /*e-siganture starts in progress*/ 
+SignatureDesigner1(){
+  const dialogRef =this.dialog.open(SignatureComponent, {
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+    dialogRef.componentInstance.sigImg1 = false;
+    dialogRef.componentInstance.sigImg2 = false;
+    dialogRef.componentInstance.sigImg3 = false;
+    dialogRef.componentInstance.sigImg4 = false;
+    dialogRef.componentInstance.sigImg5 = false;
+    dialogRef.componentInstance.sigImg6 = false;
+    dialogRef.componentInstance.sigImg7 = true;
+    dialogRef.componentInstance.sigImg8 = false;
+  }
+  focusSigDesigner1(a: any){
+   if(a.controls.signature.value!=""){
+     return a.controls.signature.markAsDirty();
+    }
+  }
+  
+  SignatureDesigner2(){
+    const dialogRef =this.dialog.open(SignatureComponent, {
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+    dialogRef.componentInstance.sigImg1 = false;
+    dialogRef.componentInstance.sigImg2 = false;
+    dialogRef.componentInstance.sigImg3 = false;
+    dialogRef.componentInstance.sigImg4 = false;
+    dialogRef.componentInstance.sigImg5 = false;
+    dialogRef.componentInstance.sigImg6 = false;
+    dialogRef.componentInstance.sigImg7 = false;
+    dialogRef.componentInstance.sigImg8 = true;
+  }
+  focusSigDesigner2(a: any){
+    if(a.controls.signature.value!=""){
+      return a.controls.signature.markAsDirty();
+     }
+  }
+/*e-siganture ends*/
+
     summaryLPSArr(){
       return this.formBuilder.group({
         buildingNumber: new FormControl(''),
@@ -518,7 +567,7 @@ export class LpssummaryComponent implements OnInit {
       return new FormGroup({
         summaryLpsDeclarationId: new FormControl(''),
         name: new FormControl('', Validators.required),
-        signature: new FormControl(''),
+        signature: new FormControl('', Validators.required),
         company: new FormControl('', Validators.required),
         position: new FormControl('', Validators.required),
         address: new FormControl('', Validators.required),
@@ -531,7 +580,7 @@ export class LpssummaryComponent implements OnInit {
       return new FormGroup({
         summaryLpsDeclarationId: new FormControl(''),
         name: new FormControl('', Validators.required),
-        signature: new FormControl(''),
+        signature: new FormControl('', Validators.required),
         company: new FormControl('', Validators.required),
         position: new FormControl('', Validators.required),
         address: new FormControl('', Validators.required),
@@ -1079,6 +1128,9 @@ export class LpssummaryComponent implements OnInit {
       
        this.arr1.push(this.createGroupDeclaration1( data.summaryLpsDeclaration[0]));
        this.arr2.push(this.createGroupDeclaration1( data.summaryLpsDeclaration[1]));
+       
+       this.service.signatureImg7=atob(data.summaryLpsDeclaration[0].signature);
+       this.service.signatureImg8=atob(data.summaryLpsDeclaration[1].signature);
 
        this.summaryForm.controls.recommendYears.setValue(data.inspectedYear);
        this.summaryForm.controls.declarationDate.setValue(data.summaryDate);
@@ -2627,7 +2679,8 @@ export class LpssummaryComponent implements OnInit {
       this.finalSpinner = true;
       this.popup = false;
       this.popup1 = false
-      
+      this.summaryForm.value.Declaration1Arr[0].signature=this.service.bytestring7;
+      this.summaryForm.value.Declaration2Arr[0].signature=this.service.bytestring8;
       this.lpsSummary.summaryLpsBuildings= this.summaryForm.value.summaryLpsBuildings;
       this.lpsSummary.summaryLpsDeclaration= this.summaryForm.value.Declaration1Arr;
       this.lpsSummary.summaryLpsDeclaration = this.lpsSummary.summaryLpsDeclaration.concat(this.summaryForm.value.Declaration2Arr);

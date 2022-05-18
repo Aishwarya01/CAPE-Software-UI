@@ -95,9 +95,9 @@ textarea{
   padding: 21px 10px 10px;
 }
 
-.disableForm{
+/* .disableForm{
   pointer-events: none;
-}
+} */
 .ButtonSave {
   color: black;
   line-height: 32px !important;
