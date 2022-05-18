@@ -501,6 +501,9 @@
                         <div *ngIf="a.get('pinCode')?.errors?.required">
                           Pincode is required
                         </div>
+                        <div *ngIf="a.get('pinCode')?.errors?.pattern">
+                          {{a.get('pinCodeErrorMsg')?.value}}
+                        </div>
                       </div>
                     </div>
                   </div>

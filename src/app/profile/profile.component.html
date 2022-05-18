@@ -295,6 +295,7 @@
                                         [ngClass]="{ 'is-invalid': submitted && a.get('pinCode')?.errors}" [(ngModel)]="register.pinCode"/>
                                         <div *ngIf="submitted && a.get('pinCode')?.errors" class="invalid-feedback">
                                             <div *ngIf="a.get('pinCode')?.errors?.required">Pincode is required</div>
+                                            <div *ngIf="a.get('pinCode')?.errors?.pattern">{{pincodeErrorMsg}}</div>
                                         </div>
                                     </div>
                                 </div>
