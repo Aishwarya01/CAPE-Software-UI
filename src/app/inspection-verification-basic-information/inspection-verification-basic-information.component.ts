@@ -638,29 +638,29 @@ SignatureDesigner1(){
       }
     }
    
-    createGroup(item: any): FormGroup {
-      return this._formBuilder.group({
-        signatorId: new FormControl({disabled: false ,value: item.signatorId}),
-        personName: new FormControl({disabled: false ,value: item.personName}),
-        personMailID: new FormControl({disabled: false, value: item.personMailID},[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
-        personContactNo: new FormControl({disabled : false, value: item.personContactNo}),
-        managerName: new FormControl({disabled: false ,value: item.managerName},[Validators.required]),
-        managerContactNo: new FormControl({disabled: false,value: item.managerContactNo}),
-        managerMailID: new FormControl({disabled: false ,value: item.managerMailID},[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
-        companyName: new FormControl({disabled: false, value:item.companyName},[Validators.required]),
-        addressLine1: new FormControl({disabled: false ,value: item.addressLine1},[Validators.required]),
-        addressLine2: new FormControl({disabled: false, value: item.addressLine2}),
-        landMark: new FormControl({disabled: false ,value: item.landMark}),
-        country: new FormControl({disabled: false,value: item.country},[Validators.required]),
-        state: new FormControl({disabled: false ,value: item.state},[Validators.required]),
-        pinCode: new FormControl({disabled: false, value:item.pinCode},[Validators.required]),
-        signatorRole: new FormControl({disabled: false ,value: item.signatorRole}),
-        declarationSignature: new FormControl({disabled: false, value: item.declarationSignature}),
-        declarationDate: new FormControl({disabled: false ,value: item.declarationDate}),
-        declarationName: new FormControl({disabled: false,value: item.declarationName}),
-        signatorStatus: new FormControl(item.signatorStatus)
-      });
-    }
+    // createGroup(item: any): FormGroup {
+    //   return this._formBuilder.group({
+    //     signatorId: new FormControl({disabled: false ,value: item.signatorId}),
+    //     personName: new FormControl({disabled: false ,value: item.personName}),
+    //     personMailID: new FormControl({disabled: false, value: item.personMailID},[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+    //     personContactNo: new FormControl({disabled : false, value: item.personContactNo}),
+    //     managerName: new FormControl({disabled: false ,value: item.managerName},[Validators.required]),
+    //     managerContactNo: new FormControl({disabled: false,value: item.managerContactNo}),
+    //     managerMailID: new FormControl({disabled: false ,value: item.managerMailID},[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+    //     companyName: new FormControl({disabled: false, value:item.companyName},[Validators.required]),
+    //     addressLine1: new FormControl({disabled: false ,value: item.addressLine1},[Validators.required]),
+    //     addressLine2: new FormControl({disabled: false, value: item.addressLine2}),
+    //     landMark: new FormControl({disabled: false ,value: item.landMark}),
+    //     country: new FormControl({disabled: false,value: item.country},[Validators.required]),
+    //     state: new FormControl({disabled: false ,value: item.state},[Validators.required]),
+    //     pinCode: new FormControl({disabled: false, value:item.pinCode},[Validators.required]),
+    //     signatorRole: new FormControl({disabled: false ,value: item.signatorRole}),
+    //     declarationSignature: new FormControl({disabled: false, value: item.declarationSignature}),
+    //     declarationDate: new FormControl({disabled: false ,value: item.declarationDate}),
+    //     declarationName: new FormControl({disabled: false,value: item.declarationName}),
+    //     signatorStatus: new FormControl(item.signatorStatus)
+    //   });
+    // }
    
 // retrieve basic report
 retrieveAllDetailsforBasic(userName: any,siteId: any,site:any,data: any){
@@ -1376,30 +1376,30 @@ showHideAccordion(index: number) {
   //   }
   // }
  
-  // createGroup(item: any): FormGroup {
-  //   return this._formBuilder.group({
-  //     signatorId: new FormControl({disabled: false ,value: item.signatorId}),
-  //     personName: new FormControl({disabled: false ,value: item.personName}),
-  //     personMailID: new FormControl({disabled: false, value: item.personMailID},[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
-  //     personContactNo: new FormControl({disabled : false, value: item.personContactNo}),
-  //     managerName: new FormControl({disabled: false ,value: item.managerName},[Validators.required]),
-  //     managerContactNo: new FormControl({disabled: false,value: item.managerContactNo}),
-  //     managerMailID: new FormControl({disabled: false ,value: item.managerMailID},[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
-  //     companyName: new FormControl({disabled: false, value:item.companyName},[Validators.required]),
-  //     addressLine1: new FormControl({disabled: false ,value: item.addressLine1},[Validators.required]),
-  //     addressLine2: new FormControl({disabled: false, value: item.addressLine2}),
-  //     landMark: new FormControl({disabled: false ,value: item.landMark}),
-  //     country: new FormControl({disabled: false,value: item.country},[Validators.required]),
-  //     state: new FormControl({disabled: false ,value: item.state},[Validators.required]),
-  //     pinCode: new FormControl({disabled: false, value:item.pinCode},[Validators.required]),
-  //     pinCodeErrorMsg: new FormControl(''),
-  //     signatorRole: new FormControl({disabled: false ,value: item.signatorRole}),
-  //     declarationSignature: new FormControl({disabled: false, value: item.declarationSignature}),
-  //     declarationDate: new FormControl({disabled: false ,value: item.declarationDate}),
-  //     declarationName: new FormControl({disabled: false,value: item.declarationName}),
-  //     signatorStatus: new FormControl(item.signatorStatus)
-  //   });
-  // }
+  createGroup(item: any): FormGroup {
+    return this._formBuilder.group({
+      signatorId: new FormControl({disabled: false ,value: item.signatorId}),
+      personName: new FormControl({disabled: false ,value: item.personName}),
+      personMailID: new FormControl({disabled: false, value: item.personMailID},[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+      personContactNo: new FormControl({disabled : false, value: item.personContactNo}),
+      managerName: new FormControl({disabled: false ,value: item.managerName},[Validators.required]),
+      managerContactNo: new FormControl({disabled: false,value: item.managerContactNo}),
+      managerMailID: new FormControl({disabled: false ,value: item.managerMailID},[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+      companyName: new FormControl({disabled: false, value:item.companyName},[Validators.required]),
+      addressLine1: new FormControl({disabled: false ,value: item.addressLine1},[Validators.required]),
+      addressLine2: new FormControl({disabled: false, value: item.addressLine2}),
+      landMark: new FormControl({disabled: false ,value: item.landMark}),
+      country: new FormControl({disabled: false,value: item.country},[Validators.required]),
+      state: new FormControl({disabled: false ,value: item.state},[Validators.required]),
+      pinCode: new FormControl({disabled: false, value:item.pinCode},[Validators.required]),
+      pinCodeErrorMsg: new FormControl(''),
+      signatorRole: new FormControl({disabled: false ,value: item.signatorRole}),
+      declarationSignature: new FormControl({disabled: false, value: item.declarationSignature}),
+      declarationDate: new FormControl({disabled: false ,value: item.declarationDate}),
+      declarationName: new FormControl({disabled: false,value: item.declarationName}),
+      signatorStatus: new FormControl(item.signatorStatus)
+    });
+  }
 
 // Deisgner details forms
   private createDesigner1Form(): FormGroup {
