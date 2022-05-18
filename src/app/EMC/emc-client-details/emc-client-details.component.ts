@@ -150,6 +150,9 @@ export class EmcClientDetailsComponent implements OnInit {
       country: new FormControl(this.emcClientDetails.country, Validators.required),
       state: new FormControl(this.emcClientDetails.state, Validators.required),
       userName: new FormControl(this.emcClientDetails.userName, Validators.required),
+      createdDate: new FormControl(this.emcClientDetails.createdDate),
+      createdBy: new FormControl(this.emcClientDetails.createdBy),
+      status: new FormControl(this.emcClientDetails.status)   
     })
   }
 
@@ -175,6 +178,7 @@ export class EmcClientDetailsComponent implements OnInit {
     this.emcClientDetails.createdBy = this.step1List.createdBy;
     this.emcClientDetails.updatedDate = this.step1List.updatedDate;
     this.emcClientDetails.updatedBy = this.step1List.updatedBy;
+    this.emcClientDetails.status = this.step1List.status;
 
     this.retriveClientDetailsData();
   }
@@ -431,6 +435,9 @@ export class EmcClientDetailsComponent implements OnInit {
           }, 3000)
           let emcClientDetailsDataItr = JSON.parse(data);
           this.emcClientDetails.emcId = emcClientDetailsDataItr.emcId;
+          this.emcClientDetails.createdDate = emcClientDetailsDataItr.createdDate;
+          this.emcClientDetails.createdBy = emcClientDetailsDataItr.createdBy;
+          this.emcClientDetails.status = emcClientDetailsDataItr.status;
           this.success = true;
           this.successMsg = "Client Details Successfully Saved";
           //this.disable = true;
