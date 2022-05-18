@@ -9,7 +9,6 @@ import { SignaturePad } from 'angular2-signaturepad';
   styleUrls: ['./signature.component.css']
 })
 export class SignatureComponent implements OnInit {
-
   @ViewChild(SignaturePad) signaturePad!: SignaturePad;
 
   signaturePadOptions: Object = { 
@@ -27,6 +26,7 @@ export class SignatureComponent implements OnInit {
   sigImg6:boolean=false;
   sigImg7:boolean=false;
   sigImg8:boolean=false;
+
 
   constructor(private dialog: MatDialog, public service: GlobalsService,
     public dialogRef: MatDialogRef<SignatureComponent>) { }
@@ -61,12 +61,14 @@ export class SignatureComponent implements OnInit {
     else if(this.sigImg6==true){
       this.service.signatureImg6=base64;
     }
+
     else if(this.sigImg7==true){
       this.service.signatureImg7=base64;
     }
     else if(this.sigImg8==true){
       this.service.signatureImg8=base64;
     }
+
     this.dialogRef.close();
     this.service.sigInput=1;
     
@@ -82,7 +84,7 @@ export class SignatureComponent implements OnInit {
       const byteString = btoa(base64);
       this.service.bytestring3=byteString;
     }
-    else if(this.sigImg4==true){ 
+    else if(this.sigImg4==true){
       const byteString = btoa(base64);
       this.service.bytestring4=byteString;
     }
@@ -94,6 +96,7 @@ export class SignatureComponent implements OnInit {
       const byteString = btoa(base64);
       this.service.bytestring6=byteString;
     }
+
     else if(this.sigImg7==true){
       const byteString = btoa(base64);
       this.service.bytestring7=byteString;
@@ -102,6 +105,7 @@ export class SignatureComponent implements OnInit {
       const byteString = btoa(base64);
       this.service.bytestring8=byteString;
     }
+
 
    // const byteString= this.base64toBlob(base64); .split(',')[1]
   //  console.log(byteString);

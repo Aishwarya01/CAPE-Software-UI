@@ -94,14 +94,17 @@ autoLoginToken:number=0;
   signatureImg4: String="";
   signatureImg5: String="";
   signatureImg6: String="";
+
   signatureImg7: String="";
   signatureImg8: String="";
+
   bytestring1: String="";
   bytestring2: String="";
   bytestring3: String="";
   bytestring4: String="";
   bytestring5: String="";
   bytestring6: String="";
+
   bytestring7: String="";
   bytestring8: String="";
  constructor(private _scrollToService: ScrollToService
