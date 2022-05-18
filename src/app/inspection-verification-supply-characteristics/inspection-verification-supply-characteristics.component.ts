@@ -579,14 +579,20 @@ export class InspectionVerificationSupplyCharacteristicsComponent
       }
       if(this.step2List.supplyCharacteristics.bondingNoOfJoints!=0){
         this.JointLocationTable=true;
+        this.supplycharesteristicForm.controls['bondingJointsType'].setValidators(Validators.required);
+        this.supplycharesteristicForm.controls['bondingJointsType'].updateValueAndValidity();
       }
       else{
         this.JointLocationTable=false;
+        this.supplycharesteristicForm.controls['bondingJointsType'].clearValidators();
+        this.supplycharesteristicForm.controls[
+          'bondingJointsType'
+        ].updateValueAndValidity();
       }
       if(this.step2List.supplyCharacteristics.earthingNoOfJoints!=0){
         this.keyJOintLocationTable=true;
-        this.supplycharesteristicForm.controls['bondingJointsType'].setValidators(Validators.required);
-        this.supplycharesteristicForm.controls['bondingJointsType'].updateValueAndValidity();
+        this.supplycharesteristicForm.controls['earthingJointsType'].setValidators(Validators.required);
+        this.supplycharesteristicForm.controls['earthingJointsType'].updateValueAndValidity();
       }
       else{
         this.keyJOintLocationTable=false;
@@ -763,8 +769,8 @@ export class InspectionVerificationSupplyCharacteristicsComponent
         }
         if(this.step2List.earthingNoOfJoints!=0){
           this.keyJOintLocationTable=true;
-          this.supplycharesteristicForm.controls['bondingJointsType'].setValidators(Validators.required);
-        this.supplycharesteristicForm.controls['bondingJointsType'].updateValueAndValidity();
+          this.supplycharesteristicForm.controls['earthingJointsType'].setValidators(Validators.required);
+        this.supplycharesteristicForm.controls['earthingJointsType'].updateValueAndValidity();
         }
         else{
           this.keyJOintLocationTable=false;
@@ -2419,6 +2425,7 @@ showHideAccordion(index: number) {
           ) as FormArray;
           this.location2Arr.removeAt(this.location2Arr.length - 1);
         }
+        this.supplycharesteristicForm.controls['bondingJointsType'].setValue('');
         this.supplycharesteristicForm.controls['bondingJointsType'].clearValidators();
             this.supplycharesteristicForm.controls[
               'bondingJointsType'
@@ -2550,8 +2557,8 @@ showHideAccordion(index: number) {
     ) as FormArray;
     if(this.value!=0){
       this.keyJOintLocationTable=true;
-      this.supplycharesteristicForm.controls['bondingJointsType'].setValidators(Validators.required);
-      this.supplycharesteristicForm.controls['bondingJointsType'].updateValueAndValidity();
+      this.supplycharesteristicForm.controls['earthingJointsType'].setValidators(Validators.required);
+      this.supplycharesteristicForm.controls['earthingJointsType'].updateValueAndValidity();
       if (this.location3Arr.length == 0) {
       
         if (this.value != '') {
@@ -2615,6 +2622,7 @@ showHideAccordion(index: number) {
           ) as FormArray;
           this.location3Arr.removeAt(this.location3Arr.length - 1);
         }
+      this.supplycharesteristicForm.controls['earthingJointsType'].setValue('');
       this.supplycharesteristicForm.controls['earthingJointsType'].clearValidators();
       this.supplycharesteristicForm.controls[
         'earthingJointsType'
