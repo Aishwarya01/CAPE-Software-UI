@@ -102,7 +102,8 @@ import { SignatureComponent } from './signature/signature.component';
 import { RiskParentComponentComponent } from './risk-parent-component/risk-parent-component.component';
 import { RiskCustomerDetailsComponent } from './risk-customer-details/risk-customer-details.component';
 import { RiskSavedReportsComponent } from './risk-saved-reports/risk-saved-reports.component';
-import { RiskFinalReportsComponent } from './risk-final-reports/risk-final-reports.component'
+import { RiskFinalReportsComponent } from './risk-final-reports/risk-final-reports.component';
+import { RiskAssessmentDetailsComponent } from './risk-assessment-details/risk-assessment-details.component'
 
 @NgModule({
   declarations: [
@@ -168,7 +169,7 @@ import { RiskFinalReportsComponent } from './risk-final-reports/risk-final-repor
     LpsEarthStudComponent,
     LpsSavedReportComponent,
     LpsWelcomePageComponent, 
-    LpsFinalReportComponent, LpssummaryComponent, RiskParentComponentComponent, RiskCustomerDetailsComponent, RiskSavedReportsComponent, RiskFinalReportsComponent, 
+    LpsFinalReportComponent, LpssummaryComponent, RiskParentComponentComponent, RiskCustomerDetailsComponent, RiskSavedReportsComponent, RiskFinalReportsComponent, RiskAssessmentDetailsComponent, 
 
   ],
   imports: [

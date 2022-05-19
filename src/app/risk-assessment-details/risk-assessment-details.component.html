@@ -1,0 +1,534 @@
+<div class="card">
+    <div class="card-body">
+    <form [formGroup]="step2Form" (ngSubmit)="submit()" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
+    
+    <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h3>Structure's Characteristics</h3>
+            </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="row" >
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Location* :</label>
+                        <select class="form-control" formControlName="location" (change)="showLocation($event)" 
+                        [ngClass]="{ 'is-invalid': submitted && f.location.errors }">
+                            <option value="" selected>Select Option</option>
+                            <option *ngFor="let value of locationList">{{value}}</option>
+                        </select>
+                        <div *ngIf="submitted && f.location.errors" class="invalid-feedback">
+                            <div *ngIf="f.location?.errors?.required">Installation type is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Other Location* :</label>
+                        <input type="text" class="form-control"  formControlName="otherLocation" placeholder="Enter Other Locations" 
+                        [ngClass]="{ 'is-invalid': submitted && f.otherLocation.errors }">
+                        <div *ngIf="submitted && f.otherLocation.errors" class="invalid-feedback">
+                            <div *ngIf="f.otherLocation?.errors?.required">Designation is required</div>
+                        </div>
+                    </div>            
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Ground flash density :</label>
+                        <input type="number" class="form-control" readonly formControlName="groundFlashDensity" placeholder="Enter Designation" 
+                       [ngClass]="{ 'is-invalid': submitted && f.groundFlashDensity.errors }">
+                        <div *ngIf="submitted && f.groundFlashDensity.errors" class="invalid-feedback">
+                            <div *ngIf="f.groundFlashDensity?.errors?.required">Designation is required</div>
+                        </div>
+                    </div>            
+                </div>
+            </div>
+
+            <div class="row" >
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Types of Building* :</label>
+                        <select class="form-control" formControlName="typeOfBuilding"  
+                        [ngClass]="{ 'is-invalid': submitted && f.typeOfBuilding.errors }">
+                            <option value="" selected>Select Option</option>
+                            <option value="Brick">Brick</option>
+                            <option value="RCC with Brick">RCC with Brick</option>
+                            <option value="PEB with sheet">PEB with sheet</option>
+                            <option value="System designed by CAPE RCC building">System designed by CAPE RCC building</option>
+                            <option value="System designed by CAPE PEB building">System designed by CAPE PEB building</option>
+                        </select>
+                        <div *ngIf="submitted && f.typeOfBuilding.errors" class="invalid-feedback">
+                            <div *ngIf="f.typeOfBuilding?.errors?.required">Installation type is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Structure Screening Effectiveness :</label>
+                        <input type="text" class="form-control" readonly formControlName="designation" placeholder="Enter Designation" 
+                         [ngClass]="{ 'is-invalid': submitted && f.designation.errors }">
+                        <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
+                            <div *ngIf="f.designation?.errors?.required">Designation is required</div>
+                        </div>
+                    </div>            
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Internal Screening Effectiveness :</label>
+                        <input type="text" class="form-control" readonly formControlName="designation" placeholder="Enter Designation" 
+                        [(ngModel)]="reportDetails.designation" [ngClass]="{ 'is-invalid': submitted && f.designation.errors }">
+                        <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
+                            <div *ngIf="f.designation?.errors?.required">Designation is required</div>
+                        </div>
+                    </div>            
+                </div>
+            </div>
+
+            <div class="row" >
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Length :</label>
+                        <input type="number" class="form-control"  formControlName="designation" placeholder="Enter Designation" 
+                         [ngClass]="{ 'is-invalid': submitted && f.designation.errors }">
+                        <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
+                            <div *ngIf="f.designation?.errors?.required">Designation is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Width :</label>
+                        <input type="number" class="form-control"  formControlName="designation" placeholder="Enter Designation" 
+                         [ngClass]="{ 'is-invalid': submitted && f.designation.errors }">
+                        <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
+                            <div *ngIf="f.designation?.errors?.required">Designation is required</div>
+                        </div>
+                    </div>           
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Height :</label>
+                        <input type="number" class="form-control"  formControlName="designation" placeholder="Enter Designation" 
+                         [ngClass]="{ 'is-invalid': submitted && f.designation.errors }">
+                        <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
+                            <div *ngIf="f.designation?.errors?.required">Designation is required</div>
+                        </div>
+                    </div>            
+                </div>
+            </div>
+
+            <div class="row" >
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Height of Highest Roof Protrusion :</label>
+                        <input type="text" class="form-control" formControlName="designation" placeholder="Enter Designation" 
+                         [ngClass]="{ 'is-invalid': submitted && f.designation.errors }">
+                        <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
+                            <div *ngIf="f.designation?.errors?.required">Designation is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Collection Area of Structure :</label>
+                        <input type="text" class="form-control" readonly formControlName="designation" placeholder="Enter Designation" 
+                         [ngClass]="{ 'is-invalid': submitted && f.designation.errors }">
+                        <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
+                            <div *ngIf="f.designation?.errors?.required">Designation is required</div>
+                        </div>
+                    </div>            
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Collection Area of Structure With Protrusion :</label>
+                        <input type="text" class="form-control" readonly formControlName="designation" placeholder="Enter Designation" 
+                         [ngClass]="{ 'is-invalid': submitted && f.designation.errors }">
+                        <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
+                            <div *ngIf="f.designation?.errors?.required">Designation is required</div>
+                        </div>
+                    </div>            
+                </div>
+            </div>
+
+            <div class="row" >
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Collection Area Near The Structure :</label>
+                        <input type="text" class="form-control" readonly formControlName="designation" placeholder="Enter Designation" 
+                         [ngClass]="{ 'is-invalid': submitted && f.designation.errors }">
+                        <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
+                            <div *ngIf="f.designation?.errors?.required">Designation is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" >
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Height of Nearby Structure :</label>
+                        <select class="form-control" formControlName="location" (change)="showLocation($event)" 
+                        [ngClass]="{ 'is-invalid': submitted && f.location.errors }">
+                            <option value="" selected>Select Option</option>
+                            <option value="Lower than surrounding buildings">Lower than surrounding buildings</option>
+                            <option value="Similar in height">Similar in height</option>
+                            <option value="Tall/Isolated structure">Tall/Isolated structure</option>
+                        </select>
+                        <div *ngIf="submitted && f.location.errors" class="invalid-feedback">
+                            <div *ngIf="f.location?.errors?.required">Installation type is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Electrical / Telephone Service Line :</label>
+                        <select class="form-control" formControlName="location" (change)="showLocation($event)" 
+                        [ngClass]="{ 'is-invalid': submitted && f.location.errors }">
+                            <option value="" selected>Select Option</option>
+                            <option value="LV power, telecommunication or data line">LV power, telecommunication or data line</option>
+                            <option value="HV power (with HV/LV transformer)">HV power (with HV/LV transformer)</option>
+                        </select>
+                        <div *ngIf="submitted && f.location.errors" class="invalid-feedback">
+                            <div *ngIf="f.location?.errors?.required">Installation type is required</div>
+                        </div>
+                    </div>            
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Environment :</label>
+                        <select class="form-control" formControlName="location" (change)="showLocation($event)" 
+                        [ngClass]="{ 'is-invalid': submitted && f.location.errors }">
+                            <option value="" selected>Select Option</option>
+                            <option value="Rural">Rural</option>
+                            <option value="Suburban">Suburban</option>
+                            <option value="Urban">Urban</option>
+                            <option value="Urban with tall buildings">Urban with tall buildings</option>
+                            <option value="Exposed hilltop">Exposed hilltop</option>
+                        </select>
+                        <div *ngIf="submitted && f.location.errors" class="invalid-feedback">
+                            <div *ngIf="f.location?.errors?.required">Installation type is required</div>
+                        </div>
+                    </div>            
+                </div>
+            </div>
+
+            <div class="row" >
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>No of dangerous event on structure :</label>
+                        <input type="text" class="form-control" readonly formControlName="designation" placeholder="Enter Designation" 
+                         [ngClass]="{ 'is-invalid': submitted && f.designation.errors }">
+                        <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
+                            <div *ngIf="f.designation?.errors?.required">Designation is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>No of dangerous event near the structure :</label>
+                        <input type="text" class="form-control" readonly formControlName="designation" placeholder="Enter Designation" 
+                         [ngClass]="{ 'is-invalid': submitted && f.designation.errors }">
+                        <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
+                            <div *ngIf="f.designation?.errors?.required">Designation is required</div>
+                        </div>
+                    </div>            
+                </div>
+            </div>
+
+            <div class="row" >
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Protection required for part of building :</label>
+                        <select class="form-control" formControlName="location" (change)="showLocation($event)" 
+                        [ngClass]="{ 'is-invalid': submitted && f.location.errors }">
+                            <option value="" selected>Select Option</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                        <div *ngIf="submitted && f.location.errors" class="invalid-feedback">
+                            <div *ngIf="f.location?.errors?.required">Installation type is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Length :</label>
+                        <input type="text" class="form-control"  formControlName="designation" placeholder="Enter Designation" 
+                         [ngClass]="{ 'is-invalid': submitted && f.designation.errors }">
+                        <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
+                            <div *ngIf="f.designation?.errors?.required">Designation is required</div>
+                        </div>
+                    </div>            
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Width :</label>
+                        <input type="text" class="form-control"  formControlName="designation" placeholder="Enter Designation" 
+                         [ngClass]="{ 'is-invalid': submitted && f.designation.errors }">
+                        <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
+                            <div *ngIf="f.designation?.errors?.required">Designation is required</div>
+                        </div>
+                    </div>            
+                </div>
+            </div>
+
+            <div class="row" >
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Height :</label>
+                        <input type="text" class="form-control"  formControlName="designation" placeholder="Enter Designation" 
+                         [ngClass]="{ 'is-invalid': submitted && f.designation.errors }">
+                        <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
+                            <div *ngIf="f.designation?.errors?.required">Designation is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Collection Area :</label>
+                        <input type="text" class="form-control" readonly formControlName="designation" placeholder="Enter Designation" 
+                        [(ngModel)]="reportDetails.designation" [ngClass]="{ 'is-invalid': submitted && f.designation.errors }">
+                        <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
+                            <div *ngIf="f.designation?.errors?.required">Designation is required</div>
+                        </div>
+                    </div>            
+                </div>
+            </div>
+
+            <div class="row" >
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Adjacent Building :</label>
+                        <select class="form-control" formControlName="location" (change)="showLocation($event)" 
+                        [ngClass]="{ 'is-invalid': submitted && f.location.errors }">
+                            <option value="" selected>Select Option</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">Yes</option>
+                        </select>
+                        <div *ngIf="submitted && f.location.errors" class="invalid-feedback">
+                            <div *ngIf="f.location?.errors?.required">Installation type is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Length :</label>
+                        <input type="text" class="form-control" formControlName="designation" placeholder="Enter Designation" 
+                         [ngClass]="{ 'is-invalid': submitted && f.designation.errors }">
+                        <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
+                            <div *ngIf="f.designation?.errors?.required">Designation is required</div>
+                        </div>
+                    </div>            
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Width :</label>
+                        <input type="text" class="form-control"  formControlName="designation" placeholder="Enter Designation" 
+                         [ngClass]="{ 'is-invalid': submitted && f.designation.errors }">
+                        <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
+                            <div *ngIf="f.designation?.errors?.required">Designation is required</div>
+                        </div>
+                    </div>            
+                </div>
+            </div>
+
+            <div class="row" >
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Height :</label>
+                        <input type="text" class="form-control"  formControlName="designation" placeholder="Enter Designation" 
+                         [ngClass]="{ 'is-invalid': submitted && f.designation.errors }">
+                        <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
+                            <div *ngIf="f.designation?.errors?.required">Designation is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Collection Area Of Adjacent Structure :</label>
+                        <input type="text" class="form-control" readonly formControlName="designation" placeholder="Enter Designation" 
+                         [ngClass]="{ 'is-invalid': submitted && f.designation.errors }">
+                        <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
+                            <div *ngIf="f.designation?.errors?.required">Designation is required</div>
+                        </div>
+                    </div>            
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>No of Dangerous Event On The Adjacent Structure :</label>
+                        <input type="text" class="form-control" readonly formControlName="designation" placeholder="Enter Designation" 
+                         [ngClass]="{ 'is-invalid': submitted && f.designation.errors }">
+                        <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
+                            <div *ngIf="f.designation?.errors?.required">Designation is required</div>
+                        </div>
+                    </div>            
+                </div>
+            </div>
+
+            <div class="row" >
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Number Of People In The Building :</label>
+                        <input type="text" class="form-control"  formControlName="designation" placeholder="Enter Designation" 
+                         [ngClass]="{ 'is-invalid': submitted && f.designation.errors }">
+                        <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
+                            <div *ngIf="f.designation?.errors?.required">Designation is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Number of People In The Zone :</label>
+                        <input type="text" class="form-control"  formControlName="designation" placeholder="Enter Designation" 
+                         [ngClass]="{ 'is-invalid': submitted && f.designation.errors }">
+                        <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
+                            <div *ngIf="f.designation?.errors?.required">Designation is required</div>
+                        </div>
+                    </div>            
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Number of Hours/Day People Are Present In The Building :</label>
+                        <input type="text" class="form-control"  formControlName="designation" placeholder="Enter Designation" 
+                         [ngClass]="{ 'is-invalid': submitted && f.designation.errors }">
+                        <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
+                            <div *ngIf="f.designation?.errors?.required">Designation is required</div>
+                        </div>
+                    </div>            
+                </div>
+            </div>
+
+            <div class="row" >
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Number of hours/year people are present in the building :</label>
+                        <input type="text" class="form-control" readonly formControlName="designation" placeholder="Enter Designation" 
+                         [ngClass]="{ 'is-invalid': submitted && f.designation.errors }">
+                        <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
+                            <div *ngIf="f.designation?.errors?.required">Designation is required</div>
+                        </div>
+                    </div>            
+                </div>
+            </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h3>Structure's Attributes</h3>
+            </mat-panel-title>
+
+            </mat-expansion-panel-header>
+
+
+        </mat-expansion-panel>
+
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h3>Lines </h3>
+            </mat-panel-title>
+
+            </mat-expansion-panel-header>
+
+
+
+        </mat-expansion-panel>
+
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" class="LiabilityTT">
+            <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h3>Loss of Human Life (L1)</h3>
+            </mat-panel-title>
+            </mat-expansion-panel-header>
+            
+
+        </mat-expansion-panel>
+
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h3>Loss Of Service To Public (L2)</h3>
+            </mat-panel-title>
+            </mat-expansion-panel-header>
+            
+
+        </mat-expansion-panel>
+
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h3>Loss Of Cultural Heritage (L3)</h3>
+            </mat-panel-title>
+            </mat-expansion-panel-header>
+            
+
+        </mat-expansion-panel>
+
+
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h3>Economic Loss (L4)</h3>
+            </mat-panel-title>
+            </mat-expansion-panel-header>
+            
+
+        </mat-expansion-panel>
+
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h3>Protection</h3>
+            </mat-panel-title>
+            </mat-expansion-panel-header>
+            
+
+        </mat-expansion-panel>
+
+    </mat-accordion>
+    
+    <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
+        <span class="alert alert-danger">{{validationErrorMsg}}</span>
+    </div>
+    <div *ngIf="commentSuccess" style="text-align: center;margin-top: 30px;">
+        <span class="successshow">Your comment has been sent to Inspector</span>
+    </div>
+    <div *ngIf="commentApprove" style="text-align: center;margin-top: 30px;">
+        <span class="alert alert-success">Your response to comments has been approved</span>
+    </div>
+    <div *ngIf="commentReject" style="text-align: center;margin-top: 30px;">
+        <span class="alert alert-danger">Your response to comments has been rejected</span>
+    </div>
+    <br>
+    <div class="row" style="margin-top: 20px;">
+        <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
+        <button class="next" (click)="gotoNextModal(content1,content2)"
+        mat-button>Next &raquo;</button>
+    </div>
+
+    </form>
+
+    </div>
+</div>
+     
