@@ -98,7 +98,11 @@ import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 import { ConfirmationBoxComponent } from './confirmation-box/confirmation-box.component';
 import { LpssummaryComponent } from './LPS/lpssummary/lpssummary.component';
 import { SignaturePadModule } from 'angular2-signaturepad';
-import { SignatureComponent } from './signature/signature.component'
+import { SignatureComponent } from './signature/signature.component';
+import { RiskParentComponentComponent } from './risk-parent-component/risk-parent-component.component';
+import { RiskCustomerDetailsComponent } from './risk-customer-details/risk-customer-details.component';
+import { RiskSavedReportsComponent } from './risk-saved-reports/risk-saved-reports.component';
+import { RiskFinalReportsComponent } from './risk-final-reports/risk-final-reports.component'
 
 @NgModule({
   declarations: [
@@ -164,7 +168,7 @@ import { SignatureComponent } from './signature/signature.component'
     LpsEarthStudComponent,
     LpsSavedReportComponent,
     LpsWelcomePageComponent, 
-    LpsFinalReportComponent, LpssummaryComponent, 
+    LpsFinalReportComponent, LpssummaryComponent, RiskParentComponentComponent, RiskCustomerDetailsComponent, RiskSavedReportsComponent, RiskFinalReportsComponent, 
 
   ],
   imports: [

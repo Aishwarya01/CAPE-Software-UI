@@ -1,0 +1,33 @@
+<mat-tab-group  style="background-color:white;" #tabs>
+    <mat-tab label="Risk Assessment"> 
+  
+      <mat-horizontal-stepper  #stepper>
+        <mat-step>
+          <ng-template matStepLabel>
+               <div class="stepper-header-overlay"></div>
+               Customer Details
+              </ng-template>
+          <app-risk-customer-details></app-risk-customer-details>
+        </mat-step>
+  
+        <mat-step>
+          <ng-template matStepLabel>
+            <!-- <span (click)="triggerClickTab();">Supply Characteristics</span>-->
+            <div class="stepper-header-overlay"></div>
+            Risk Assessment Details
+            </ng-template> 
+          <!-- <app-inspection-verification-supply-characteristics></app-inspection-verification-supply-characteristics> -->
+          <!-- <button class="previousSupply" mat-button (click)="goBack2(stepper)">&laquo; Back</button>  -->
+        </mat-step>
+
+       
+      </mat-horizontal-stepper>
+    </mat-tab>
+    <mat-tab label="Saved Reports">
+      <app-risk-saved-reports></app-risk-saved-reports>
+    </mat-tab>
+  
+    <mat-tab label="Final Reports">
+      <app-risk-final-reports></app-risk-final-reports>
+    </mat-tab>
+  </mat-tab-group>

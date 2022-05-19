@@ -1,7 +1,12 @@
 <html>
+<ng-template #reference></ng-template>
 
 <body>
-    <button style="float: right;" type="submit"
+    <div *ngIf="destroy">
+        <app-risk-parent-component *ngIf="showRiskHome"></app-risk-parent-component>
+    </div>
+    <div *ngIf="!destroy" style="padding: 20px; background: white;">
+        <button style="float: right;" type="submit"
         class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn"
         (click)="onNavigateToQuestionaire()">Skip</button>
     <button style="float: right;" class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn" 
@@ -88,6 +93,7 @@
     <button style="float: right;" type="submit"
         class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn"
         (click)="onNavigateToQuestionaire()">Continue</button>
+    </div>
 </body>
 
 </html>
