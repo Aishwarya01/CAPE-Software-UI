@@ -99,11 +99,11 @@ import { ConfirmationBoxComponent } from './confirmation-box/confirmation-box.co
 import { LpssummaryComponent } from './LPS/lpssummary/lpssummary.component';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import { SignatureComponent } from './signature/signature.component';
-import { RiskParentComponentComponent } from './risk-parent-component/risk-parent-component.component';
-import { RiskCustomerDetailsComponent } from './risk-customer-details/risk-customer-details.component';
-import { RiskSavedReportsComponent } from './risk-saved-reports/risk-saved-reports.component';
-import { RiskFinalReportsComponent } from './risk-final-reports/risk-final-reports.component';
-import { RiskAssessmentDetailsComponent } from './risk-assessment-details/risk-assessment-details.component'
+import { RiskParentComponentComponent } from './Risk Assessment/Risk Assessment/risk-parent-component/risk-parent-component.component';
+import { RiskCustomerDetailsComponent } from './Risk Assessment/Risk Assessment/risk-customer-details/risk-customer-details.component';
+import { RiskSavedReportsComponent } from './Risk Assessment/Risk Assessment/risk-saved-reports/risk-saved-reports.component';
+import { RiskFinalReportsComponent } from './Risk Assessment/Risk Assessment/risk-final-reports/risk-final-reports.component';
+import { RiskAssessmentDetailsComponent } from './Risk Assessment/Risk Assessment/risk-assessment-details/risk-assessment-details.component'
 
 @NgModule({
   declarations: [

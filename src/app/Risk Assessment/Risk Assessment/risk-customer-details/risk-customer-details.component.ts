@@ -2,9 +2,9 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { GlobalsService } from '../globals.service';
-import { CustomerDetails } from '../Risk Assessment/Risk Assesment Model/customer-details';
-import { CustomerDetailsServiceService } from '../Risk Assessment/Risk Assessment Services/customer-details-service.service';
+import { GlobalsService } from 'src/app/globals.service';
+import { CustomerDetails } from '../../Risk Assesment Model/customer-details';
+import { CustomerDetailsServiceService } from '../../Risk Assessment Services/customer-details-service.service';
 
 @Component({
   selector: 'app-risk-customer-details',
