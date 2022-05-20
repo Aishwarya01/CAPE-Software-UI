@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class RiskParentComponentComponent implements OnInit {
 
   constructor() { }
+    private customerDetailsService :CustomerDetailsServiceService,
 
   ngOnInit(): void {
   }
