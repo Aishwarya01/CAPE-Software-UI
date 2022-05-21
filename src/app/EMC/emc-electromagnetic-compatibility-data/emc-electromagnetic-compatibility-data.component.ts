@@ -119,8 +119,6 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
   }
 
   closeModalDialog() {
-    this.finalSpinner=true;
-    this.popup=false;
     if (this.errorMsg != "") {
       this.Error = false;
       this.service.isCompleted4= false;
@@ -425,6 +423,8 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
     if (this.EMCElectroMagneticFormm.invalid) {
       return
     }
+    this.finalSpinner = true;
+    this.popup=false;
     this.emcElectromagneticCompatibility.userName = this.email;
 
     this.emcElectromagneticCompatibility.emcId = this.emcId;
@@ -453,8 +453,10 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
             .updateElectromagneticCompatability(this.emcElectromagneticCompatibility)
             .subscribe(
               (data: any) => {
-                this.finalSpinner = false;
-                this.popup = true;
+                setTimeout(() =>{
+                  this.popup=true;
+                  this.finalSpinner=false;
+                }, 3000);
                 this.success = true;
                 this.successMsg = data;
                 this.retriveElectroMagneticCompatibilityDetails();
@@ -478,8 +480,10 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
         this.emcElectroMagneticCompabilityService.addElectromagneticCompatability(this.emcElectromagneticCompatibility).subscribe(
 
           data => {
-            this.finalSpinner = false;
-            this.popup = true;
+            setTimeout(() =>{
+              this.popup=true;
+              this.finalSpinner=false;
+            }, 3000);
             this.success = true;
             this.successMsg = data;
             this.service.disableSubmitElectromagnetic=true;

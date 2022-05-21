@@ -48,12 +48,18 @@ export class LpsSpdComponent implements OnInit {
   spd: any=[];
   isEditable!:boolean
   isAirterminationUpdated:boolean=false;
-
+  summaryPopup: boolean = false;
   spdDescriptionDelArr: any=[];
   validationErrorTab: boolean = false;
   validationErrorMsgTab: string="";
   tabError: boolean=false;
   tabErrorMsg: string="";
+  // For Spinner
+  spinner: boolean=false;
+  spinnerValue: String = '';
+  mode: any = 'indeterminate';
+  nextButton: boolean = true;
+  popup: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder, 
@@ -337,10 +343,11 @@ export class LpsSpdComponent implements OnInit {
 
   onSubmit(flag: any) {
 
-    this.submitted = true;
+    // this.submitted = true;
     if (this.spdForm.invalid && (this.spdForm.value.spd[0].buildingNumber != undefined || this.spdForm.value.spd[0].buildingNumber != '')) 
     { return }
-
+    this.spinner = true;
+    this.popup=false;
     // this.spdReport.spd[0]=[]
     //this.spdReport=this.spdForm.value
     this.spdReport.userName = this.router.snapshot.paramMap.get('email') || '{}';
@@ -364,6 +371,10 @@ export class LpsSpdComponent implements OnInit {
         if (this.spdForm.dirty && this.spdForm.touched) {
           this.lpsSpd_Service.updateSpdDetails(this.spdReport).subscribe(
             (data) => {
+              setTimeout(() =>{
+                this.popup=true;
+                this.spinner=false;
+              }, 3000)
               this.success = true;
               this.successMsg = data;
               this.spdForm.markAsPristine();
@@ -373,6 +384,8 @@ export class LpsSpdComponent implements OnInit {
               this.service.windowTabClick = 0;
             },
             (error) => {
+              this.popup=true;
+              this.spinner=false;
               this.Error = true;
               this.errorArr = [];
               this.errorArr = JSON.parse(error.error);
@@ -382,10 +395,14 @@ export class LpsSpdComponent implements OnInit {
           )
         }
         else {
+            this.popup=true;
+            this.spinner=false;
           if (this.isEditable) {
             this.success = true;
             this.proceedNext.emit(true);
           } else {
+            this.popup=true;
+            this.spinner=false;
             this.success = true;
             this.proceedNext.emit(true);
           }
@@ -394,6 +411,10 @@ export class LpsSpdComponent implements OnInit {
       else {
         this.lpsSpd_Service.saveSPDDetails(this.spdReport).subscribe(
           (data) => {
+            setTimeout(() =>{
+              this.popup=true;
+              this.spinner=false;
+            }, 3000)
             this.success = true;
             this.successMsg = data;
             this.disable = true;
@@ -407,6 +428,8 @@ export class LpsSpdComponent implements OnInit {
             this.service.windowTabClick = 0;
           },
           (error) => {
+            this.popup=true;
+            this.spinner=false;
             this.Error = true;
             this.errorArr = [];
             this.errorArr = JSON.parse(error.error);
@@ -468,7 +491,8 @@ export class LpsSpdComponent implements OnInit {
     }
   }
 
-  gotoNextModal(content: any, contents: any) {
+  gotoNextModal(content1: any, contents: any) {
+    this.submitted = true;
     if (this.spdForm.invalid) {
       this.validationError = true;
 
@@ -495,12 +519,19 @@ export class LpsSpdComponent implements OnInit {
       return;
     }
     else if (this.spdForm.dirty && this.spdForm.touched) {
-      this.modalService.open(content, { centered: true, backdrop: 'static' });
+      this.modalService.open(content1, { centered: true, backdrop: 'static' });
+      this.summaryPopup=true;
     }
     //  For Dirty popup
     else {
       this.modalService.open(contents, { centered: true, backdrop: 'static' });
     }
+  }
+
+  summaryEvent(content:any){
+    this.modalService.open(content, { centered: true, backdrop: 'static' });
+    this.onSubmit(this.flag);
+    this.summaryPopup=false;
   }
   
   retriveSPD() {

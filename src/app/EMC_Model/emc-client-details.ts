@@ -18,5 +18,5 @@ export class EmcClientDetails {
     createdBy!: String;
     updatedBy!: String;
     updatedDate!: Date;
-
+    status!: String;
 }

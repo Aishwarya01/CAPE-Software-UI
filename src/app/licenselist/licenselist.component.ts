@@ -10,7 +10,6 @@ import { AssignViewerComponent } from '../assign-viewer/assign-viewer.component'
 import { Company } from '../model/company';
 import { Site } from '../model/site';
 import { SiteService } from '../services/site.service';
-import { VerificationlvComponent } from '../verificationlv/verificationlv.component';
 import { ComponentFactoryResolver } from '@angular/core';
 import { GlobalsService } from '../globals.service';
 import { FinalreportsComponent } from '../finalreports/finalreports.component';
@@ -19,7 +18,11 @@ import { InspectorregisterService } from '../services/inspectorregister.service'
 import { InspectionVerificationService } from '../services/inspection-verification.service';
 import { environment } from 'src/environments/environment';
 import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
+
 import { UpdateLicenceComponent } from '../update-licence/update-licence.component';
+import { SuperAdminDev } from 'src/environments/environment.dev';
+import { SuperAdminProd } from 'src/environments/environment.prod';
+
 
 @Component({
   selector: 'app-licenselist',
@@ -99,8 +102,13 @@ export class LicenselistComponent implements OnInit {
   urlEmail:any='';
   superAdminArr: any = [];
 
+
   onSave = new EventEmitter();
   capeIndiaMail: boolean = false;
+
+  superAdminDev = new SuperAdminDev();
+  superAdminProd = new SuperAdminProd();
+
 
   constructor(private formBuilder: FormBuilder,
               private dialog: MatDialog,
@@ -126,8 +134,10 @@ export class LicenselistComponent implements OnInit {
     this.licenseForm = this.formBuilder.group({
       noOfAvailableLicense: [this.service.noofLicense],
     })
-    this.superAdminArr = [];
-    this.superAdminArr.push('gk@capeindia.net');
+    // this.superAdminArr = [];
+    // this.superAdminArr.push('gk@capeindia.net');
+    // this.superAdminArr.push('vinoth@capeindia.net');
+    // this.superAdminArr.push('awstesting@rushforsafety.com');
     this.retrieveSiteDetails();
   }
  
@@ -150,7 +160,13 @@ export class LicenselistComponent implements OnInit {
   this.completedFilterData=[];
     
 
-  for(let i of this.superAdminArr) {
+  for(let i of this.superAdminDev.adminEmail) {
+    if(this.email == i) {
+      this.superAdminFlag = true;
+    }
+  }
+
+  for(let i of this.superAdminProd.adminEmail) {
     if(this.email == i) {
       this.superAdminFlag = true;
     }
@@ -164,7 +180,7 @@ export class LicenselistComponent implements OnInit {
           if(i.allStepsCompleted=="AllStepCompleted"){
             this.completedFilterData.push(i);
           }
-          else{
+          else if(i.allStepsCompleted !="AllStepCompleted" && i.status != 'InActive'){
             this.ongoingFilterData.push(i);
           }
         }
@@ -187,7 +203,7 @@ export class LicenselistComponent implements OnInit {
             if(i.allStepsCompleted=="AllStepCompleted"){
               this.completedFilterData.push(i);
             }
-            else{
+            else if(i.allStepsCompleted !="AllStepCompleted" && i.status != 'InActive'){
               this.ongoingFilterData.push(i);
             }
         }

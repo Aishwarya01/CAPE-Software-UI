@@ -1,11 +1,6 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild, ChangeDetectorRef, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FormArray } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 
@@ -21,13 +16,13 @@ import { LPSBasicDetailsService } from 'src/app/LPS_services/lpsbasic-details.se
 import { LpsSavedReportComponent } from '../lps-saved-report/lps-saved-report.component';
 import { LpsFinalReportComponent } from '../lps-final-report/lps-final-report.component';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
-import { SeparatedistanceService } from 'src/app/LPS_services/separatedistance.service';
 import { MatTabGroup, MatTabHeader, MatTab } from '@angular/material/tabs';
 import { GlobalsService } from 'src/app/globals.service';
 import { ConfirmationBoxComponent } from 'src/app/confirmation-box/confirmation-box.component';
 import { tree } from 'ngx-bootstrap-icons';
 import { LpssummaryComponent } from '../lpssummary/lpssummary.component';
 import { MatStepper } from '@angular/material/stepper';
+import { LpsFileUploadService } from 'src/app/LPS_services/lps-file-upload.service';
 
 @Component({
   selector: 'app-lps-matstepper',
@@ -69,6 +64,7 @@ export class LpsMatstepperComponent implements OnInit {
   seperationValue: boolean = true;
   equipotentialBond: boolean = true;
   summary: boolean = true;
+  summarySpinner: boolean = false;
 
   @ViewChild(LpsBasicPageComponent)
   basic!: LpsBasicPageComponent;
@@ -100,6 +96,7 @@ export class LpsMatstepperComponent implements OnInit {
     private router: ActivatedRoute, public service: GlobalsService,
     private ChangeDetectorRef: ChangeDetectorRef,
     private airterminationServices: AirterminationService,
+    private fileUploadService:LpsFileUploadService
  
     ) { 
     }
@@ -121,82 +118,104 @@ export class LpsMatstepperComponent implements OnInit {
     }
 
     this.saved.ngOnInit();
+    this.activateSummarySpinner();
     this.refresh();
   }
-  public doSomething2(next: any): void {  
-    this.service.isLinear=false;
+  public doSomething2(next: any): void {
+    this.service.isLinear = false;
     this.service.isCompleted2 = next;
-
-      if(next) {
-        this.downConductors.ngOnInit();
+    if (this.airTermination.isAirterminationUpdated) {
+      //this.summary = false;
+      this.earthing.isAirterminationUpdated = true;
+      this.spd.isAirterminationUpdated = true;
+      this.seperationDistance.isAirterminationUpdated = true;
+      this.earthStud.isAirterminationUpdated = true;
+      this.downConductors.updateMethod();
+      this.earthing.ngOnInit();
+      this.spd.ngOnInit();
+      this.seperationDistance.ngOnInit();
+      this.earthStud.ngOnInit();
+      //this.summary = true;
+     // setTimeout(() => {
+      this.lpsSummary.flag1=false;
         this.lpsSummary.ngOnInit();
-      }
-      else {
-        this.downConductors.updateMethod();
-      }
-          
-      if (this.airTermination.isAirterminationUpdated) {
-        this.earthing.isAirterminationUpdated = true;
-        this.spd.isAirterminationUpdated = true;
-        this.seperationDistance.isAirterminationUpdated = true;
-        this.earthStud.isAirterminationUpdated = true;
-        this.earthing.ngOnInit();
-        this.spd.ngOnInit();
-        this.seperationDistance.ngOnInit();
-        this.earthStud.ngOnInit();
-        this.initializeLpsId();
-        this.airTermination.isAirterminationUpdated=false;
-      }
-      
+     // }, 1000);
+      this.initializeLpsId();
+      this.airTermination.isAirterminationUpdated = false;
       setTimeout(() => {
         this.getAirterminationData(this.basic.basicDetails.basicLpsId);
       }, 3000);
-    
-      this.refresh();
+    }
+    else {
+      this.downConductors.updateMethod();
+    }
+    this.activateSummarySpinner();
   }
 
   public doSomething3(next: any): void {
     this.service.isLinear=false;
     this.service.isCompleted3 = next;
-    this.lpsSummary.ngOnInit();
+    if(next){
+      this.lpsSummary.flag1=false;
+      this.lpsSummary.ngOnInit();
+    }
+    this.activateSummarySpinner();
   }
 
   public doSomething4(next: any): void {
     this.service.isLinear=false;
     this.service.isCompleted4 = next;
-    this.lpsSummary.ngOnInit();
+    if(next){
+      this.lpsSummary.flag1=false;
+      this.lpsSummary.ngOnInit();
+    }
     this.refresh();
+    this.activateSummarySpinner();
   }
 
   public doSomething5(next: any): void {
     this.service.isLinear=false;
     this.service.isCompleted5 = next;
-    this.lpsSummary.ngOnInit();
+    if(next){
+      this.lpsSummary.flag1=false;
+      this.lpsSummary.ngOnInit();
+    }
+    this.activateSummarySpinner();
   }
   public doSomething6(next: any): void {
     this.service.isLinear=false;
     this.service.isCompleted6 = next;
-    this.lpsSummary.ngOnInit();
+    if(next){
+      this.lpsSummary.flag1=false;
+      this.lpsSummary.ngOnInit();
+    }
+    this.activateSummarySpinner();
   }
   public doSomething7(next: any): void {
     this.service.isLinear=false;
     this.service.isCompleted7 = next;
-    this.lpsSummary.ngOnInit();
-    // this.final.ngOnInit();
+    if(next){
+      this.lpsSummary.flag1=false;
+      this.lpsSummary.ngOnInit();
+    }
+    this.activateSummarySpinner();
   }
   public doSomething8(next: any): void {
     this.service.isLinear=false;
     this.service.isCompleted8 = next;
     this.saved.ngOnInit();
     this.final.ngOnInit();
-    //this.service.isLinear=false;
-    //this.service.isCompleted5 = next;
-    if(next){
-    this.selectedIndex=2;
-    }
-   // this.Completed8 = this.lpsSummary.success;
   }
-  public changeTabLpsSavedReport(index: number, basicLpsId: any, userName: any, clientName: any) {
+
+  public onCallSavedMethod(e: any) {
+    this.continue(e);
+  }
+
+  public onCallFinalMethod(e: any) {
+    this.preview(e);
+  }
+
+  public changeTabLpsSavedReport(index: number, basicLpsId: any, userName: any) {
    // this.selectedIndex = 1;
     this.basicDetails = false;
     this.airTermValue = false;
@@ -223,43 +242,33 @@ export class LpsMatstepperComponent implements OnInit {
           this.final.finalReportSpinner = false;
           this.final.finalReportBody = true;
           this.dataJSON = JSON.parse(data);
-          // if(flag){
-          //   this.service.allStepsCompleted=true;
-          // }
-          if(this.dataJSON.basicLps != null 
-               && this.dataJSON.airTermination != null 
-                 && this.dataJSON.downConductorDesc != null 
-                   && this.dataJSON.earthingReport != null && this.dataJSON.spdReport != null
-                   && this.dataJSON.seperationDistanceReport != null && this.dataJSON.earthStudReport != null
-                     && this.dataJSON.summaryLps != null) {
-                      this.service.allFieldsDisable = true;
-                      this.service.disableSubmitSummary=true;
-                     }
+          
+          if (this.dataJSON.basicLps != null
+            && this.dataJSON.airTermination != null
+            && this.dataJSON.downConductorDesc != null
+            && this.dataJSON.earthingReport != null && this.dataJSON.spdReport != null
+            && this.dataJSON.seperationDistanceReport != null && this.dataJSON.earthStudReport != null
+            && this.dataJSON.summaryLps != null) {
+            this.service.allFieldsDisable = true;
+            this.service.disableSubmitSummary = true;
+          }
+          //basic
           if (this.dataJSON.basicLps != null) {
             this.selectedIndex = index;
             this.basic.retrieveDetailsfromSavedReports(basicLpsId, this.dataJSON);
-            this.airTermination.appendBasicLpsId(basicLpsId);
-         //   setTimeout(() => {
-              this.initializeLpsId();
-             // this.service.isCompleted = true;
-           // }, 500);
+            this.airTermination.appendBasicLpsId(basicLpsId);  
+            this.initializeLpsId();
+             
           }
+
+          //airTermination
           if (this.dataJSON.airTermination != null) {
-            this.airTermination.retrieveDetailsfromSavedReports(userName, basicLpsId, clientName, this.dataJSON);
-            this.downConductors.retrieveDetailsfromSavedReports(userName, basicLpsId, clientName, this.dataJSON);
-            this.lpsSummary.retrieveDetailsfromSavedReports(userName, basicLpsId, clientName, this.dataJSON);
-            
-            if(this.dataJSON.summaryLps==null){
-              setTimeout(() => {
-                this.lpsSummary.retrieveObservationLpsSummary(basicLpsId);
-              }, 1000);
-            }
-           // this.service.isCompleted2 = true;
-          }
-          if (this.dataJSON.downConductorDesc != null) {
-            this.Completed3 = true;
-          }
-          if (this.dataJSON.airTermination != null) {
+            this.airTermination.retrieveDetailsfromSavedReports(userName, basicLpsId, this.dataJSON);
+
+            //downConductor
+            this.downConductors.updateMethod();
+
+            //earthing
             if (this.dataJSON.earthingReport != null) {
               this.earthing.retrieveDetailsfromSavedReports(basicLpsId, this.dataJSON);
               this.Completed4 = true;
@@ -267,28 +276,26 @@ export class LpsMatstepperComponent implements OnInit {
             else {
               this.earthing.createEarthingForm(this.dataJSON.airTermination);
             }
-          }
-          if(this.dataJSON.airTermination != null){
-            if (this.dataJSON.spdReport != null)  {
+
+            //spdReport
+            if (this.dataJSON.spdReport != null) {
               this.spd.retrieveDetailsfromSavedReports(this.dataJSON);
               this.Completed5 = true;
             }
-            else{
+            else {
               this.spd.createSpdForm(this.dataJSON.airTermination);
             }
-          }
-          
-          if (this.dataJSON.airTermination != null) {
-              if (this.dataJSON.seperationDistanceReport != null) {
-                this.seperationDistance.retrieveDetailsfromSavedReports(this.dataJSON);
-                this.Completed6 = true;
-              }
-              else {
-                this.seperationDistance.createSeperationForm(this.dataJSON.airTermination);
-              }
-          }
 
-          if (this.dataJSON.airTermination != null) {
+            //seperationDistance
+            if (this.dataJSON.seperationDistanceReport != null) {
+              this.seperationDistance.retrieveDetailsfromSavedReports(this.dataJSON);
+              this.Completed6 = true;
+            }
+            else {
+              this.seperationDistance.createSeperationForm(this.dataJSON.airTermination);
+            }
+
+            //Equipotential Bonding
             if (this.dataJSON.earthStudReport != null) {
               this.earthStud.retrieveDetailsfromSavedReports(this.dataJSON);
               this.Completed7 = true;
@@ -296,14 +303,31 @@ export class LpsMatstepperComponent implements OnInit {
             else {
               this.earthStud.createearthStudForm(this.dataJSON.airTermination);
             }
-          }
-        },
+             //summary
+            // this.lpsSummary.spinner1 = true;
+            // this.lpsSummary.spinnerValue = "Please wait, the details are loading!";
+            if (this.dataJSON.summaryLps == null) {
+              setTimeout(() => {
+                this.lpsSummary.ngOnInit();
+                setTimeout(() => {
+                this.activateSummarySpinner();
+              }, 1000);
+           }, 1000);
+            }
+            else {
+              setTimeout(() => {
+                this.lpsSummary.retrieveDetailsfromSavedReports(userName, basicLpsId, this.dataJSON);
+                this.activateSummarySpinner();
+              }, 5000);
+            }
+          }  
+       },
         (error) => {
 
         }
       )
     }, 3000);
-
+   
   }
 
   // Final Report 
@@ -311,7 +335,7 @@ export class LpsMatstepperComponent implements OnInit {
     this.ngOnInit();
     let userName=this.router.snapshot.paramMap.get('email') || '{}';
    // this.doSomething1(false);
-    this.changeTabLpsSavedReport(index,this.earthStud.basicLpsId,userName,this.earthStud.ClientName);
+    this.changeTabLpsSavedReport(index,this.earthStud.basicLpsId,userName);
     this.selectedIndex = index;
     
   }
@@ -321,6 +345,10 @@ export class LpsMatstepperComponent implements OnInit {
   }
 
   interceptTabChange(tab: MatTab, tabHeader: MatTabHeader) {
+    if ((this.airTermination.airTerminationForm.dirty && this.airTermination.airTerminationForm.touched) || 
+    (this.downConductors.downConductorForm.dirty && this.downConductors.downConductorForm.touched)) {
+      this.fileUploadService.removeUnusedFiles(this.airTermination.basicLpsId).subscribe();
+    }
     if((this.service.lvClick==1) && (this.service.allStepsCompleted==true))
        {
         const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
@@ -378,7 +406,15 @@ export class LpsMatstepperComponent implements OnInit {
               // this.changeTab1(0);
           }
           else if((tabs==="Saved Reports")){
-            this.selectedIndex=1; 
+            this.selectedIndex=1;
+            if(this.basic.basicDetails.basicLpsId != undefined){
+              // this.changeTabLpsSavedReport(1,this.basic.basicDetails.basicLpsId,this.router.snapshot.paramMap.get('email') || '{}');
+              this.saved.retrieveLpsDetails();
+              this.saved.disablepage=true;
+              // setTimeout(() => {
+              //   this.saved.spinner1=true;
+              // }, 3000);
+            }
           }    
           else{
             this.selectedIndex=2; 
@@ -386,24 +422,26 @@ export class LpsMatstepperComponent implements OnInit {
         }
   }
 
-  preview(basicLpsId: any,ClientName:any): void {
+  preview(basicLpsId: any): void {
     this.ngOnInit();
     this.isEditable=true;
-    this.changeTabLpsSavedReport(0,basicLpsId,this.router.snapshot.paramMap.get('email') || '{}',ClientName);
+    this.changeTabLpsSavedReport(0,basicLpsId,this.router.snapshot.paramMap.get('email') || '{}');
   //  this.doSomething1(false);
   }
 
-  continue(basicLpsId: any,ClientName:any): void {
+  continue(basicLpsId: any): void {
     this.refresh();
     this.ngOnInit();
     this.isEditable=false;
    // this.doSomething1(false);
-    this.changeTabLpsSavedReport(0,basicLpsId,this.router.snapshot.paramMap.get('email') || '{}',ClientName);
+    this.changeTabLpsSavedReport(0,basicLpsId,this.router.snapshot.paramMap.get('email') || '{}');
 
     setTimeout(() => {
       this.saved.spinner=false;
+      setTimeout(() => {
       this.saved.disablepage=true;
-    }, 4000);
+         }, 1000);
+    }, 3000);
   }
 
   getAirterminationData(basicLpsId: any) {
@@ -422,14 +460,14 @@ export class LpsMatstepperComponent implements OnInit {
   }
 
   navigateStep(index: any) {
-    this.stepper.selectedIndex = index;
+    this.selectedIndex = index;
+  }
+
+  navigateStepMethod(e: any) {
+    this.navigateStep(e);
   }
 
   initializeLpsId(){
-
-    // this.downConductors.availabilityOfPreviousReport = this.basic.basicDetails.availabilityOfPreviousReport;
-    // this.earthing.availabilityOfPreviousReport = this.basic.basicDetails.availabilityOfPreviousReport;
- 
     this.downConductors.availabilityOfPreviousReport = this.basic.availableReportNo;
     this.earthing.availabilityOfPreviousReport = this.basic.availableReportNo;
     
@@ -507,8 +545,24 @@ export class LpsMatstepperComponent implements OnInit {
     }
   }
   goBack8(stepper: MatStepper) {
-    if(this.lpsSummary.reloadFromBack()){
+    if(this.isEditable && !this.lpsSummary.reloadFromBack()){
+      this.lpsSummary.validationErrorTab=false;
+      stepper.previous();
+    }
+    else if(this.lpsSummary.reloadFromBack()){
       stepper.previous();
     }
   }
+
+  activateSummarySpinner(){
+    this.lpsSummary.spinner1 = true;
+    this.summarySpinner = true;
+    this.lpsSummary.spinnerValue = "Please wait, the details are loading!";
+    setTimeout(() => {
+      this.lpsSummary.spinner1 = false;
+      this.lpsSummary.spinnerValue = "";
+      this.summarySpinner = false;
+    }, 5000);
+  }
+  
 }

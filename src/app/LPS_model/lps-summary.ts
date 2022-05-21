@@ -4,8 +4,11 @@ export class LpsSummary {
     userName!: String;
     createdBy!: String;
     createdDate!: Date;
+    updatedBy!: String;
+    updatedDate!: Date;
     summaryDate!: Date;
     inspectedYear!: Date;
+    flag!: String;
     summaryLpsBuildings!: SummaryLpsBuildings[];
     summaryLpsDeclaration!: SummaryLpsDeclaration[];     
 }

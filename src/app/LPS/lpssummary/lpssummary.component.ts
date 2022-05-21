@@ -3,13 +3,19 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Valida
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { flag } from 'ngx-bootstrap-icons';
+import { flag, save } from 'ngx-bootstrap-icons';
 import { ConfirmationBoxComponent } from 'src/app/confirmation-box/confirmation-box.component';
 import { GlobalsService } from 'src/app/globals.service';
+// import { LpsSummaryConst } from 'src/app/LPS_constants/lps-summary-const';
 import { LpsSummary } from 'src/app/LPS_model/lps-summary';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
+import { FinalPdfServiceService } from 'src/app/LPS_services/final-pdf-service.service';
 import { SummaryServiceService } from 'src/app/LPS_services/summary-service.service';
-import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
+
+import { SuperAdminDev } from 'src/environments/environment.dev';
+import { SuperAdminProd } from 'src/environments/environment.prod';
+import { SignatureComponent } from 'src/app/signature/signature.component';
+import { MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-lpssummary',
@@ -23,8 +29,10 @@ export class LpssummaryComponent implements OnInit {
     submitted=false;
     summaryArr: any=[];
     lpsSummary=new LpsSummary();
+    lpsSummaryPDF: String="LpsSummary";
     email: String = '';
     flag: boolean=true;
+    flag1: boolean = false;
     basicLpsId!: number;
     airTerminationValues: any=[];
     airTerminationDesc: any=[];
@@ -77,19 +85,25 @@ export class LpssummaryComponent implements OnInit {
     arr: any=[];
     arr1: any=[];
     arr2: any=[];
+    numberOfBuildingCount: any=[];
     validationError: boolean = false;
     validationErrorMsg: String = '';
-    finalSpinner: boolean = true;
-    popup: boolean = false;
     errorArr: any=[];
     successMsg: string="";
     errorMsg: string="";
     success: boolean=false;
     Error: boolean=false;
     @Output() proceedNext = new EventEmitter<any>();
-    mode: any= 'indeterminate';
-    isEditable:boolean=false;
+    @Output() navigateStepSummary: EventEmitter<any> = new EventEmitter();
 
+    isEditable:boolean=false;
+    submittedButton: boolean = true;
+    saveButton: boolean = false;
+    buttonType:  string="";
+    //For super admin purpose
+    //lpsSummaryConstLocal = new SuperAdminLocal();
+    lpsSummaryConst = new SuperAdminDev();
+    lpsSummaryConstProd = new SuperAdminProd();
     //air termination
     airBasicName: string[] = [
       'consultantNameRemarks',
@@ -396,21 +410,52 @@ export class LpssummaryComponent implements OnInit {
       'properBondingRailRem',
       'physicalDamageStudRem',
       'continutyExistaEarthRem',
-    ];       
+    ];
   validationErrorTab: boolean = false;
   validationErrorMsgTab: string="";
   tabError: boolean=false;
   tabErrorMsg: string="";
+  // For Spinner
+  spinner: boolean=false;
+  spinner1: boolean=false;
+  finalSpinner: boolean=false;
+  spinnerValue: String = '';
+  mode: any = 'indeterminate';
+  nextButton: boolean = true;
+  popup: boolean = false;
+  popup1: boolean = false;
+
   constructor(private summaryService:SummaryServiceService,private formBuilder: FormBuilder,
     private airterminationServices: AirterminationService, private router: ActivatedRoute,
     private dialog: MatDialog,private modalService: NgbModal,public service: GlobalsService,
-    private matStepper: LpsMatstepperComponent
+    private summaryPdf: FinalPdfServiceService
     ) { 
       this.email = this.router.snapshot.paramMap.get('email') || '{}'
+
+      for( let i=0; i<this.lpsSummaryConst.adminEmail.length; i++){
+        if(this.lpsSummaryConst.adminEmail[i] == this.email)
+        {
+          this.submittedButton = false;
+        }
+      }
+
+      for( let i=0; i<this.lpsSummaryConstProd.adminEmail.length; i++){
+        if(this.lpsSummaryConstProd.adminEmail[i] == this.email)
+        {
+          this.submittedButton = false;
+        }
+      }
+
+      // for( let i=0; i<this.lpsSummaryConstLocal.adminEmail.length; i++){
+      //   if(this.lpsSummaryConstLocal.adminEmail[i] == this.email)
+      //   {
+      //     this.submittedButton = false;
+      //   }
+      // }
   }
   ngOnDestroy(): void {
-    this.service.allFieldsDisable = false; 
-    this.service.disableSubmitSummary=false;
+    this.service.signatureImg7="";
+    this.service.signatureImg8="";
   }
 
     ngOnInit(): void {
@@ -421,11 +466,56 @@ export class LpssummaryComponent implements OnInit {
         declarationDate: new FormControl('',Validators.required),
         recommendYears: new FormControl('',Validators.required),
       });
+      this.numberOfBuildingCount=[]
       this.retrieveFromAirTermination();
       setTimeout(() => {
         this.retrieveObservationLpsSummaryOnload();
-      }, 1000);
+      }, 3000);
+        
     }
+
+    /*e-siganture starts in progress*/ 
+SignatureDesigner1(){
+  const dialogRef =this.dialog.open(SignatureComponent, {
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+    dialogRef.componentInstance.sigImg1 = false;
+    dialogRef.componentInstance.sigImg2 = false;
+    dialogRef.componentInstance.sigImg3 = false;
+    dialogRef.componentInstance.sigImg4 = false;
+    dialogRef.componentInstance.sigImg5 = false;
+    dialogRef.componentInstance.sigImg6 = false;
+    dialogRef.componentInstance.sigImg7 = true;
+    dialogRef.componentInstance.sigImg8 = false;
+  }
+  focusSigDesigner1(a: any){
+   if(a.controls.signature.value!=""){
+     return a.controls.signature.markAsDirty();
+    }
+  }
+  
+  SignatureDesigner2(){
+    const dialogRef =this.dialog.open(SignatureComponent, {
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+    dialogRef.componentInstance.sigImg1 = false;
+    dialogRef.componentInstance.sigImg2 = false;
+    dialogRef.componentInstance.sigImg3 = false;
+    dialogRef.componentInstance.sigImg4 = false;
+    dialogRef.componentInstance.sigImg5 = false;
+    dialogRef.componentInstance.sigImg6 = false;
+    dialogRef.componentInstance.sigImg7 = false;
+    dialogRef.componentInstance.sigImg8 = true;
+  }
+  focusSigDesigner2(a: any){
+    if(a.controls.signature.value!=""){
+      return a.controls.signature.markAsDirty();
+     }
+  }
+/*e-siganture ends*/
+
     summaryLPSArr(){
       return this.formBuilder.group({
         buildingNumber: new FormControl(''),
@@ -470,13 +560,14 @@ export class LpssummaryComponent implements OnInit {
        earthStudDesc: this.formBuilder.array([]),
        flag: new FormControl('A'),
       });
+     
     }
 
     private Declaration1Form(): FormGroup {
       return new FormGroup({
-        declarationId: new FormControl(''),
+        summaryLpsDeclarationId: new FormControl(''),
         name: new FormControl('', Validators.required),
-        signature: new FormControl(''),
+        signature: new FormControl('', Validators.required),
         company: new FormControl('', Validators.required),
         position: new FormControl('', Validators.required),
         address: new FormControl('', Validators.required),
@@ -487,9 +578,9 @@ export class LpssummaryComponent implements OnInit {
   
     private Declaration2Form(): FormGroup {
       return new FormGroup({
-        declarationId: new FormControl(''),
+        summaryLpsDeclarationId: new FormControl(''),
         name: new FormControl('', Validators.required),
-        signature: new FormControl(''),
+        signature: new FormControl('', Validators.required),
         company: new FormControl('', Validators.required),
         position: new FormControl('', Validators.required),
         address: new FormControl('', Validators.required),
@@ -917,28 +1008,59 @@ export class LpssummaryComponent implements OnInit {
       if(this.basicLpsId != 0 && this.basicLpsId != undefined) {
         this.airterminationServices.retriveAirTerminationDetails(this.email,this.basicLpsId).subscribe(
           (data) => {
-            this.airTerminationValues = JSON.parse(data);
-            if(this.airTerminationValues[0].lpsAirDescription !=undefined && this.airTerminationValues[0].lpsAirDescription !=null){
-            this.summaryForm = this.formBuilder.group({
-              summaryLpsBuildings: this.formBuilder.array([]),
-              Declaration1Arr: this.formBuilder.array([this.Declaration1Form()]),
-              Declaration2Arr: this.formBuilder.array([this.Declaration2Form()]),
-              declarationDate: new FormControl('',Validators.required),
-              recommendYears: new FormControl('',Validators.required),
-            });
+            this.airTerminationValues=[]
+            this.airTerminationValues = JSON.parse(data);      
             this.airTerminationDesc = this.airTerminationValues[0].lpsAirDescription;
-            if(this.airTerminationDesc != '' && this.airTerminationDesc != undefined && this.airTerminationDesc.length != 0) {
-              for(let i=0; i<this.airTerminationDesc.length; i++) {
-                this.addSummaryLPS();
+            
+            if (this.numberOfBuildingCount.length == 0 && this.airTerminationValues[0].lpsAirDescription != undefined && this.airTerminationValues[0].lpsAirDescription != null) {
+              this.summaryForm = this.formBuilder.group({
+                summaryLpsBuildings: this.formBuilder.array([]),
+                Declaration1Arr: this.formBuilder.array([this.Declaration1Form()]),
+                Declaration2Arr: this.formBuilder.array([this.Declaration2Form()]),
+                declarationDate: new FormControl('', Validators.required),
+                recommendYears: new FormControl('', Validators.required),
+                flag: new FormControl('A'),
+              }); 
+            }
+            let numberOfBuildingCountlength = this.numberOfBuildingCount.length;
+            let airterminationlength = this.airTerminationDesc.length;
+            if (this.airTerminationDesc != '' && this.airTerminationDesc != undefined && this.airTerminationDesc.length != 0) {
+              if(numberOfBuildingCountlength == 0 ){
+                for (let i = 0; i < airterminationlength; i++) {
+                  this.addSummaryLPS();
+                }
+              }
+              else{
+                for (let i = 0; numberOfBuildingCountlength > airterminationlength; i++) {
+                  this.addSummaryLPS();
+                  airterminationlength = airterminationlength+1;
+                }
+              } 
+           }
+            this.summaryLpsBuildingsArr=[]
+            this.summaryLpsBuildingsArr = this.summaryForm.get('summaryLpsBuildings') as FormArray
+           
+            if(this.airTerminationDesc.length < numberOfBuildingCountlength || numberOfBuildingCountlength == 0 ){
+
+              for (let j = 0;  j < this.airTerminationDesc.length; j++) {
+        
+                let summaryDataAlreadythere = 'No';
+                for (let i = 0; summaryDataAlreadythere == "No"&& this.numberOfBuildingCount.length !=0 && i < this.airTerminationDesc.length; i++) {
+                  if (this.jsonData.summaryLpsBuildings[i].buildingCount != this.airTerminationDesc[j].buildingCount) {
+                    summaryDataAlreadythere = "yes";
+                  }
+                }
+                if (summaryDataAlreadythere != "yes") {
+                    this.summaryLpsBuildingsArr.controls[numberOfBuildingCountlength].controls.buildingName.setValue(this.airTerminationDesc[j].buildingName);
+                    this.summaryLpsBuildingsArr.controls[numberOfBuildingCountlength].controls.buildingNumber.setValue(this.airTerminationDesc[j].buildingNumber);
+                    this.summaryLpsBuildingsArr.controls[numberOfBuildingCountlength].controls.buildingCount.setValue(this.airTerminationDesc[j].buildingCount);
+                    numberOfBuildingCountlength=numberOfBuildingCountlength+1;
+                  
+                }
+  
               }
             }
-            this.summaryLpsBuildingsArr = this.summaryForm.get('summaryLpsBuildings') as FormArray
-            for(let j=0; j<this.summaryLpsBuildingsArr.controls.length; j++) {
-              this.summaryLpsBuildingsArr.controls[j].controls.buildingName.setValue(this.airTerminationDesc[j].buildingName);
-              this.summaryLpsBuildingsArr.controls[j].controls.buildingNumber.setValue(this.airTerminationDesc[j].buildingNumber);
-              this.summaryLpsBuildingsArr.controls[j].controls.buildingCount.setValue(this.airTerminationDesc[j].buildingCount);
-            }
-           }
+           
           },
           (error) => {
   
@@ -952,38 +1074,71 @@ export class LpssummaryComponent implements OnInit {
       this.summaryLpsBuildingsArr.push(this.summaryLPSArr());    
     }
 
-    retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
-      this.jsonData=data;
+    retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,data: any){
+      this.jsonData=[]
+      if( data.summaryLpsBuildings!=undefined && data.summaryLpsBuildings!=null){
+        this.jsonData=data;
+      }
+      else{
+        this.jsonData=data.summaryLps;
+       // if(data.summaryLpsBuildings == undefined || data.summaryLpsBuildings == null){
+       //  }
+      }
+      
       this.lpsSummary.basicLpsId = basicLpsId;
       this.basicLpsId = basicLpsId;
-      this.retrieveFromAirTermination();
-      if(this.jsonData.summaryLps!=null){
-        setTimeout(() => {
+      if(this.jsonData!=null){
+         setTimeout(() => {
           this.populateFormData(this.jsonData);
-          this.lpsSummary.userName=this.jsonData.summaryLps.userName;
-          this.lpsSummary.createdBy=this.jsonData.summaryLps.createdBy;
-          this.lpsSummary.createdDate=this.jsonData.summaryLps.createdDate;
-          this.lpsSummary.inspectedYear=this.jsonData.summaryLps.inspectedYear;
-          this.lpsSummary.summaryDate=this.jsonData.summaryLps.summaryDate;
-          this.lpsSummary.summaryLpsId=this.jsonData.summaryLps.summaryLpsId;
-  
-        }, 3000);
+          this.lpsSummary.userName=this.jsonData.userName;
+          this.lpsSummary.createdBy=this.jsonData.createdBy;
+          this.lpsSummary.createdDate=this.jsonData.createdDate;
+          this.lpsSummary.updatedBy=this.jsonData.updatedBy;
+          this.lpsSummary.updatedDate=this.jsonData.updatedDate;
+          this.lpsSummary.inspectedYear=this.jsonData.inspectedYear;
+          this.lpsSummary.summaryDate=this.jsonData.summaryDate;
+          this.lpsSummary.summaryLpsId=this.jsonData.summaryLpsId;
+          this.lpsSummary.flag=this.jsonData.flag;
+          this.flag1 = true;
+          setTimeout(() => {
+          this.retrieveFromAirTermination();
+         }, 3000);
+    }, 3000);
       }
       }
       populateFormData(data:any){
+        this.arr=[];
+       this.arr1=[];
+       this.arr2=[];
+       this.summaryLpsBuildingsArr=[]
+       this.airTerminationDesc = []
+       this.numberOfBuildingCount.length=0
+       this.numberOfBuildingCount=[]
+       
        this.summaryLpsBuildingsArr=this.summaryForm.get('summaryLpsBuildings') as FormArray;
        this.Declaration1FormArr=this.summaryForm.get('Declaration1Arr') as FormArray;
        this.Declaration2FormArr=this.summaryForm.get('Declaration2Arr') as FormArray;
+       
 
-       for(let item of data.summaryLps.summaryLpsBuildings){
+       for(let item of data.summaryLpsBuildings){
+        this.numberOfBuildingCount.push(item.buildingCount);
         this.arr.push(this.createGroup(item));
        }
-       this.arr1.push(this.createGroupDeclaration1(data.summaryLps.summaryLpsDeclaration[0]));
-       this.arr2.push(this.createGroupDeclaration1(data.summaryLps.summaryLpsDeclaration[1]));
+      
+      
+       this.arr1.push(this.createGroupDeclaration1( data.summaryLpsDeclaration[0]));
+       this.arr2.push(this.createGroupDeclaration1( data.summaryLpsDeclaration[1]));
+       
+       this.service.signatureImg7=atob(data.summaryLpsDeclaration[0].signature);
+       this.service.signatureImg8=atob(data.summaryLpsDeclaration[1].signature);
 
+       this.summaryForm.controls.recommendYears.setValue(data.inspectedYear);
+       this.summaryForm.controls.declarationDate.setValue(data.summaryDate);
+      //  this.summaryForm.controls.declarationDate.setValue(data.summaryDate);
        this.summaryForm.setControl('summaryLpsBuildings', this.formBuilder.array(this.arr || []));
        this.summaryForm.setControl('Declaration1Arr', this.formBuilder.array(this.arr1 || []));
        this.summaryForm.setControl('Declaration2Arr', this.formBuilder.array(this.arr2 || []));
+      
       }
       createGroup(item: any): FormGroup {
         let airTermination: any=[];
@@ -1155,6 +1310,7 @@ export class LpssummaryComponent implements OnInit {
           }
         }
         return this.formBuilder.group({
+        summaryLpsBuildingsId: new FormControl({disabled: false,value: item.summaryLpsBuildingsId}),
         buildingNumber: new FormControl({disabled: false,value: item.buildingNumber}),
         buildingName: new FormControl({disabled: false,value: item.buildingName}),
         buildingCount: new FormControl({disabled: false,value: item.buildingCount}),
@@ -1209,6 +1365,7 @@ export class LpssummaryComponent implements OnInit {
 
     populateForm(value:any){
       return this.formBuilder.group({
+      summaryLpsObservationId: new FormControl({disabled: false,value: value.summaryLpsObservationId}),
       heading: new FormControl({disabled: false,value: value.heading}),
       serialNo: new FormControl({disabled: false,value: value.serialNo}),
       observation: new FormControl({disabled: false,value: value.observation}),
@@ -1219,14 +1376,14 @@ export class LpssummaryComponent implements OnInit {
     }
     createGroupDeclaration1(item:any):FormGroup{
       return this.formBuilder.group({
-        declarationId: new FormControl({disabled: false,value: item.declarationId}),
-        name: new FormControl({disabled: false,value: item.name}),
+        summaryLpsDeclarationId: new FormControl({disabled: false,value: item.summaryLpsDeclarationId}, Validators.required),
+        name: new FormControl({disabled: false,value: item.name}, Validators.required),
         signature: new FormControl({disabled: false,value: item.signature}),
-        company: new FormControl({disabled: false,value: item.company}),
-        position: new FormControl({disabled: false,value: item.position}),
-        address: new FormControl({disabled: false,value: item.address}),
-        date: new FormControl({disabled: false,value: item.date}),
-        declarationRole: new FormControl({disabled: false,value: item.declarationRole}),
+        company: new FormControl({disabled: false,value: item.company}, Validators.required),
+        position: new FormControl({disabled: false,value: item.position}, Validators.required),
+        address: new FormControl({disabled: false,value: item.address}, Validators.required),
+        date: new FormControl({disabled: false,value: item.date}, Validators.required),
+        declarationRole: new FormControl({disabled: false,value: item.declarationRole}, Validators.required),
         });
     } 
     
@@ -1234,6 +1391,7 @@ export class LpssummaryComponent implements OnInit {
      if (this.basicLpsId != undefined) {
       this.summaryService.retrieveObservationSummaryLps(basicLpsId).subscribe(
       data=>{
+        this.retrieveFromAirTermination();
         this.airTerminationData=JSON.parse(data);
         this.downConductorData=JSON.parse(data);
         this.earthingData=JSON.parse(data);
@@ -1761,6 +1919,7 @@ export class LpssummaryComponent implements OnInit {
     }
 
     retrieveObservationLpsSummaryOnload(){
+    
       if (this.basicLpsId != undefined) {
       this.summaryService.retrieveObservationSummaryLps(this.basicLpsId).subscribe(
         data=>{
@@ -1775,6 +1934,7 @@ export class LpssummaryComponent implements OnInit {
             //air termination
         if(this.airTerminationData.airTermination!=null){
           //basic
+          this.airTerminationArr=[];
             this.airTerminationArr=this.summaryArr.controls[w].controls.airTermination as FormArray;
             let index =0;
             //let value=this.airTerminationData.airTermination[0].lpsAirDiscription[0];
@@ -1791,6 +1951,7 @@ export class LpssummaryComponent implements OnInit {
                 }
             }
             //vertical
+            this.airVerticalArr
             this.airVerticalArr=this.summaryArr.controls[w].controls.airVertical as FormArray;
             let index1 =0;
             for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination){
@@ -1935,12 +2096,12 @@ export class LpssummaryComponent implements OnInit {
       }
         } 
         //down conductors
-        if(this.downConductorData.downConductorReport!=null){
+        if(this.downConductorData.downConductorReport!=null && this.downConductorData.downConductorReport[0].downConductorDescription.length !=0){
           this.downConductorsBasicArr=this.summaryArr.controls[w].controls.downConductorReport as FormArray;
           let index =0; 
           // for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w]){
               for(let j = 0; j < this.downBasicName.length; j++){
-                if(this.downConductorData.downConductorReport[0].downConductorDescription[w][this.downBasicName[j]]!="" 
+                if(this.downConductorData.downConductorReport[0].downConductorDescription.length !=0 && this.downConductorData.downConductorReport[0].downConductorDescription[w][this.downBasicName[j]]!="" 
                    && this.downConductorData.downConductorReport[0].downConductorDescription[w][this.downBasicName[j]] != null){
                   this.downConductorsBasicArr.push(this.createDownConductorsBasic());
                   this.downConductorsBasicArr.controls[0].controls.heading.setValue('DC_Basic Details Observation');
@@ -2061,7 +2222,7 @@ export class LpssummaryComponent implements OnInit {
     }
         }
         //earthing
-        if(this.earthingData.earthingReport!=null){
+        if(this.earthingData.earthingReport!=null && this.earthingData.earthingReport[0].earthingLpsDescription.length !=0){
           this.earthingReportArr=this.summaryArr.controls[w].controls.earthingReport as FormArray;
           let index =0; 
         // for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w]){
@@ -2180,7 +2341,7 @@ export class LpssummaryComponent implements OnInit {
       }
         }
       //spd
-      if(this.spdReportData.spdReport!=null){
+      if(this.spdReportData.spdReport!=null && this.spdReportData.spdReport[0].spd.length !=0){
         //spd report
           this.spdReportArr=this.summaryArr.controls[w].controls.spdReport as FormArray;
           let index =0;
@@ -2222,7 +2383,7 @@ export class LpssummaryComponent implements OnInit {
     }
       }
       //separationDistance
-      if(this.separationDistanceData.seperationDistanceReport!=null){
+      if(this.separationDistanceData.seperationDistanceReport!=null && this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription.length !=0){
         //separationDistance report
           this.separationDistanceArr=this.summaryArr.controls[w].controls.separationDistance as FormArray;
           let index =0;
@@ -2268,7 +2429,7 @@ export class LpssummaryComponent implements OnInit {
       }
       }
       //equipotential bonding
-      if(this.equiBondingData.earthStudReport!=null){
+      if(this.equiBondingData.earthStudReport!=null && this.equiBondingData.earthStudReport[0].earthStudDescription.length !=0){
           this.equiBondingArr=this.summaryArr.controls[w].controls.earthStudDesc as FormArray;
           let index =0;
           //for(let i of this.equiBondingData.earthStudReport[0].earthStudDescription){
@@ -2288,6 +2449,8 @@ export class LpssummaryComponent implements OnInit {
           } 
       )
       }
+      this.flag = true;
+     
     }
 
     OkModalDialog(content5: any){
@@ -2296,37 +2459,32 @@ export class LpssummaryComponent implements OnInit {
        }
     }
     closeModalDialog() {
-      this.finalSpinner=true;
-      this.popup=false;
+      this.downloadPdf();
       if (this.errorMsg != "") {
         this.Error = false;
-        //this.service.isCompleted5= false;
-        //this.service.isLinear=true;
         this.modalService.dismissAll((this.errorMsg = ""));
         this.proceedNext.emit(false);
       } 
       else {
         this.success = false;
-        //this.service.isCompleted5= true;
-       // this.service.isLinear=false;
         this.modalService.dismissAll((this.successMsg = ""));
-        this.proceedNext.emit(true);
+        this.proceedNext.emit(false);
+        if(this.buttonType == 'save'){
+          this.navigateToStep(1);
+        }
+        else if(this.buttonType != 'save'){
+          this.navigateToStep(2);
+        }
       }
-  
-      // if(this.finalFlag) {
-      //   this.final.changeTab1(2);
-      //   this.finalFlag = false;
-  
-      // }
     }
 
     navigateToStep(index: any) {
-      this.matStepper.navigateStep(index);
+      this.navigateStepSummary.emit(index);
+      //this.matStepper.navigateStep(index);
     }
 
-  onSubmit(flag:any,content5:any){
+  onSubmit(flag1:any,content:any,contents:any){
     this.submitted = true;
-    this.summaryForm.value.summaryLpsBuildings;
     if (this.summaryForm.invalid && (this.summaryForm.value.summaryLpsBuildings[0].buildingNumber != undefined || this.summaryForm.value.summaryLpsBuildings[0].buildingNumber != '')) 
     {
       this.validationError = true;
@@ -2352,171 +2510,277 @@ export class LpssummaryComponent implements OnInit {
       }, 3000);
       return 
     }
+    else if(!this.summaryForm.dirty && this.saveButton){  
+      
+        this.validationError = true;
+        this.validationErrorMsg = 'Please change any details for Update the Summary';
+        setTimeout(() => {
+          this.validationError = false;
+        }, 3000);
+        return 
+      
+    }
+    else if (this.summaryForm.dirty && this.summaryForm.touched && this.saveButton) {
+      let save = true;
+      this.modalService.open(content, { centered: true, backdrop: 'static' });
+      this.submitAndSave(flag1,save);
+      return;
+    }
+    else if(!this.saveButton){
+      const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+            width: '420px',
+            maxHeight: '90vh',
+            disableClose: true,
+          });
+          dialogRef.componentInstance.summaryModal = true;
+          dialogRef.componentInstance.confirmBox.subscribe(
+            (data)=>{
+              if(data) {
+                let submit = false;
+                this.modalService.open(contents, { size: 'md', centered: true, backdrop: 'static'});
+                this.submitAndSave(flag1,submit);
+              }
+        })     
+    }
+  }
+
+  submitAndSave(flag1:any,typeOfButton:any){
+      this.summaryForm.value.summaryLpsBuildings;
+    
     this.lpsSummary.userName = this.router.snapshot.paramMap.get('email') || '{}';
-    this.lpsSummary.basicLpsId = this.basicLpsId;
-
-    const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
-      width: '420px',
-      maxHeight: '90vh',
-      disableClose: true,
-    });
-    dialogRef.componentInstance.summaryModal = true;
-    dialogRef.componentInstance.confirmBox.subscribe(
-      (data)=>{
-      if(data) {
-      this.modalService.open(content5, { size: 'md', centered: true, backdrop: 'static'});
-      let a:any=[];
-      a=this.summaryForm.controls.summaryLpsBuildings as FormArray;
-      for(let i of a.controls){
-        let summaryLpsObservationArr=i.controls.summaryLpsObservation as FormArray;
-        for(let j of i.controls.airTermination.controls){
-        summaryLpsObservationArr.push(j);
-        }
-        for(let j of i.controls.airVertical.controls){
-          //if(j.controls.observationComponentDetails.value=='lpsVerticalAirTermination0'){
-            // for(let list1 of i.controls.airVerticalList.controls){
-            //   j.controls.summaryLpsInnerObservation.push(list1);
-            // }
-          //}
-          summaryLpsObservationArr.push(j);
-        }
-
-        for(let j of i.controls.airVerticalList.controls){
-          summaryLpsObservationArr.push(j);
-        }
-        
-        for(let j of i.controls.airMesh.controls){
-          summaryLpsObservationArr.push(j);
-        }
-        for(let j of i.controls.airHolder.controls){
-          // if(j.controls.observationComponentDetails.value=='airHolderDescription0'){
-          //   for(let list1 of i.controls.airHolderList.controls){
-          //     j.controls.summaryLpsInnerObservation.push(list1);
-          //   }
-          // }
-          summaryLpsObservationArr.push(j);
-        }
-
-        for(let j of i.controls.airHolderList.controls){       
-          summaryLpsObservationArr.push(j);
-        }
-
-        for(let j of i.controls.airClamps.controls){
-        
-          summaryLpsObservationArr.push(j);
-        }
-        for(let j of i.controls.airExpansion.controls){
-          summaryLpsObservationArr.push(j);
-        }
-        for(let j of i.controls.airConnectors.controls){
-          summaryLpsObservationArr.push(j);
-        }
-
-        for(let j of i.controls.downConductorReport.controls){
-          summaryLpsObservationArr.push(j);
-        }for(let j of i.controls.downConductor.controls){
-          summaryLpsObservationArr.push(j);
-        }for(let j of i.controls.bridgingDesc.controls){
-          summaryLpsObservationArr.push(j);
-        }for(let j of i.controls.downHolders.controls){
-          summaryLpsObservationArr.push(j);
-        }for(let j of i.controls.downConnectors.controls){
-          summaryLpsObservationArr.push(j);
-        }for(let j of i.controls.testingJoint.controls){
-          summaryLpsObservationArr.push(j);
-        }for(let j of i.controls.lightingCounter.controls){
-          summaryLpsObservationArr.push(j);
-        }for(let j of i.controls.downConductorTesting.controls){
-          summaryLpsObservationArr.push(j);
-        }
-
-        for(let j of i.controls.earthingReport.controls){
-          summaryLpsObservationArr.push(j);
-        }
-        for(let j of i.controls.earthingDescription.controls){
-          // if(j.controls.observationComponentDetails.value=='earthingDescription0'){
-          //   for(let list1 of i.controls.earthingDescriptionList.controls){
-          //     j.controls.summaryLpsInnerObservation.push(list1);
-          //   }
-          // }
-          summaryLpsObservationArr.push(j);
-        }
-        for(let j of i.controls.earthingDescriptionList.controls){
-          summaryLpsObservationArr.push(j);
-        }
-        for(let j of i.controls.earthingClamps.controls){
-          summaryLpsObservationArr.push(j);
-        }for(let j of i.controls.earthingElectrodeChamber.controls){
-          summaryLpsObservationArr.push(j);
-        }for(let j of i.controls.earthingSystem.controls){
-          summaryLpsObservationArr.push(j);
-        }for(let j of i.controls.earthElectrodeTesting.controls){
-          summaryLpsObservationArr.push(j);
-        }
-
-        for(let j of i.controls.spdReport.controls){
-          // if(j.controls.observationComponentDetails.value=='spdReport0'){
-          //   for(let list1 of i.controls.spdReportList.controls){
-          //     j.controls.summaryLpsInnerObservation.push(list1);
-          //   }
-          // }
-          summaryLpsObservationArr.push(j);
-        }
-
-        for(let j of i.controls.spdReportList.controls){
-          summaryLpsObservationArr.push(j);
-        }
-
-        for(let j of i.controls.separationDistance.controls){
-          // if(j.controls.observationComponentDetails.value=='seperationDistanceDescription0'){
-          //   for(let list1 of i.controls.separateDistance.controls){
-          //     j.controls.summaryLpsInnerObservation.push(list1);
-          //   }
-          //   for(let list2 of i.controls.separationDistanceDown.controls){
-          //     j.controls.summaryLpsInnerObservation.push(list2);
-          //   }
-          // }
-          summaryLpsObservationArr.push(j);
-        }
-
-        for(let j of i.controls.separateDistance.controls){
-          summaryLpsObservationArr.push(j);
-        }
-
-        for(let j of i.controls.separationDistanceDown.controls){
-          summaryLpsObservationArr.push(j);
-        }
-        for(let j of i.controls.earthStudDesc.controls){
-          summaryLpsObservationArr.push(j);
-        }
+    this.lpsSummary.basicLpsId = this.basicLpsId;  
+    let a:any=[];
+    a=this.summaryForm.controls.summaryLpsBuildings as FormArray;
+    for(let i of a.controls){
+      let summaryLpsObservationArr=i.controls.summaryLpsObservation as FormArray;
+      for(let j of i.controls.airTermination.controls){
+      summaryLpsObservationArr.push(j);
       }
+      for(let j of i.controls.airVertical.controls){
+        //if(j.controls.observationComponentDetails.value=='lpsVerticalAirTermination0'){
+          // for(let list1 of i.controls.airVerticalList.controls){
+          //   j.controls.summaryLpsInnerObservation.push(list1);
+          // }
+        //}
+        summaryLpsObservationArr.push(j);
+      }
+
+      for(let j of i.controls.airVerticalList.controls){
+        summaryLpsObservationArr.push(j);
+      }
+      
+      for(let j of i.controls.airMesh.controls){
+        summaryLpsObservationArr.push(j);
+      }
+      for(let j of i.controls.airHolder.controls){
+        // if(j.controls.observationComponentDetails.value=='airHolderDescription0'){
+        //   for(let list1 of i.controls.airHolderList.controls){
+        //     j.controls.summaryLpsInnerObservation.push(list1);
+        //   }
+        // }
+        summaryLpsObservationArr.push(j);
+      }
+
+      for(let j of i.controls.airHolderList.controls){       
+        summaryLpsObservationArr.push(j);
+      }
+
+      for(let j of i.controls.airClamps.controls){
+      
+        summaryLpsObservationArr.push(j);
+      }
+      for(let j of i.controls.airExpansion.controls){
+        summaryLpsObservationArr.push(j);
+      }
+      for(let j of i.controls.airConnectors.controls){
+        summaryLpsObservationArr.push(j);
+      }
+
+      for(let j of i.controls.downConductorReport.controls){
+        summaryLpsObservationArr.push(j);
+      }for(let j of i.controls.downConductor.controls){
+        summaryLpsObservationArr.push(j);
+      }for(let j of i.controls.bridgingDesc.controls){
+        summaryLpsObservationArr.push(j);
+      }for(let j of i.controls.downHolders.controls){
+        summaryLpsObservationArr.push(j);
+      }for(let j of i.controls.downConnectors.controls){
+        summaryLpsObservationArr.push(j);
+      }for(let j of i.controls.testingJoint.controls){
+        summaryLpsObservationArr.push(j);
+      }for(let j of i.controls.lightingCounter.controls){
+        summaryLpsObservationArr.push(j);
+      }for(let j of i.controls.downConductorTesting.controls){
+        summaryLpsObservationArr.push(j);
+      }
+
+      for(let j of i.controls.earthingReport.controls){
+        summaryLpsObservationArr.push(j);
+      }
+      for(let j of i.controls.earthingDescription.controls){
+        // if(j.controls.observationComponentDetails.value=='earthingDescription0'){
+        //   for(let list1 of i.controls.earthingDescriptionList.controls){
+        //     j.controls.summaryLpsInnerObservation.push(list1);
+        //   }
+        // }
+        summaryLpsObservationArr.push(j);
+      }
+      for(let j of i.controls.earthingDescriptionList.controls){
+        summaryLpsObservationArr.push(j);
+      }
+      for(let j of i.controls.earthingClamps.controls){
+        summaryLpsObservationArr.push(j);
+      }for(let j of i.controls.earthingElectrodeChamber.controls){
+        summaryLpsObservationArr.push(j);
+      }for(let j of i.controls.earthingSystem.controls){
+        summaryLpsObservationArr.push(j);
+      }for(let j of i.controls.earthElectrodeTesting.controls){
+        summaryLpsObservationArr.push(j);
+      }
+
+      for(let j of i.controls.spdReport.controls){
+        // if(j.controls.observationComponentDetails.value=='spdReport0'){
+        //   for(let list1 of i.controls.spdReportList.controls){
+        //     j.controls.summaryLpsInnerObservation.push(list1);
+        //   }
+        // }
+        summaryLpsObservationArr.push(j);
+      }
+
+      for(let j of i.controls.spdReportList.controls){
+        summaryLpsObservationArr.push(j);
+      }
+
+      for(let j of i.controls.separationDistance.controls){
+        // if(j.controls.observationComponentDetails.value=='seperationDistanceDescription0'){
+        //   for(let list1 of i.controls.separateDistance.controls){
+        //     j.controls.summaryLpsInnerObservation.push(list1);
+        //   }
+        //   for(let list2 of i.controls.separationDistanceDown.controls){
+        //     j.controls.summaryLpsInnerObservation.push(list2);
+        //   }
+        // }
+        summaryLpsObservationArr.push(j);
+      }
+
+      for(let j of i.controls.separateDistance.controls){
+        summaryLpsObservationArr.push(j);
+      }
+
+      for(let j of i.controls.separationDistanceDown.controls){
+        summaryLpsObservationArr.push(j);
+      }
+      for(let j of i.controls.earthStudDesc.controls){
+        summaryLpsObservationArr.push(j);
+      }
+    }
+   
+      this.spinner = true;
+      this.finalSpinner = true;
+      this.popup = false;
+      this.popup1 = false
+      this.summaryForm.value.Declaration1Arr[0].signature=this.service.bytestring7;
+      this.summaryForm.value.Declaration2Arr[0].signature=this.service.bytestring8;
       this.lpsSummary.summaryLpsBuildings= this.summaryForm.value.summaryLpsBuildings;
       this.lpsSummary.summaryLpsDeclaration= this.summaryForm.value.Declaration1Arr;
       this.lpsSummary.summaryLpsDeclaration = this.lpsSummary.summaryLpsDeclaration.concat(this.summaryForm.value.Declaration2Arr);
-      
-      this.summaryService.addSummaryLps(this.lpsSummary).subscribe(
+
+      if (flag1) {
+      this.summaryService.updateSummaryLps(this.lpsSummary,typeOfButton).subscribe(
         (data)=> {
-          this.popup=true;
-          this.finalSpinner=false;
+          setTimeout(() =>{
+            this.popup=true;
+            this.popup1=true;
+            this.spinner=false;
+            this.finalSpinner=false;
+          }, 3000)
           this.success = true;
+          // this.summaryForm.markAsPristine();
           this.successMsg = data;
           this.service.allFieldsDisable = true;
-          this.service.disableSubmitSummary=true;
+          if(this.saveButton){
+              this.retriveSummaryWhileUpdateSave();
+              this.finalSpinner=false;
+            this.saveButton = false;
+            this.summaryForm.markAsPristine();
+          }
+          else{
+            this.popup=true;
+            this.spinner=false;
+            this.finalSpinner=false;
+            this.popup1=true;
+            this.proceedNext.emit(true);
+          }
         },
         (error)=> {
           this.popup=true;
+          this.spinner=false;
+          this.finalSpinner=false;
+          this.popup1=true;
           this.finalSpinner=false;
           this.Error = true;
           this.errorArr = [];
           this.errorArr = JSON.parse(error.error);
           this.errorMsg = this.errorArr.message;
-          this.proceedNext.emit(false);
-          this.service.disableSubmitSummary=false;
-        }
-      )
-      }
-    });
-  }
+        })}
+
+      else{
+        this.summaryService.addSummaryLps(this.lpsSummary,typeOfButton).subscribe(
+          (data)=> {
+            setTimeout(() =>{
+              this.popup=true;
+              this.popup1=true;
+              this.spinner=false;
+              this.finalSpinner=false;
+            }, 3000)
+            this.success = true;
+            this.successMsg = data;
+            if(this.saveButton){
+                this.retriveSummaryWhileUpdateSave();
+                this.finalSpinner=false;
+               
+            this.saveButton = false;
+            this.summaryForm.markAsPristine();
+            }
+            else{
+              this.popup=true;
+              this.popup1=true;
+              this.spinner=false;
+              this.finalSpinner=false;
+              this.proceedNext.emit(true);
+            }
+          },
+          (error)=> {
+            this.popup=true;
+            this.spinner=false;
+            this.finalSpinner=false;
+            this.popup1=true;
+            this.Error = true;
+            this.errorArr = [];
+            this.errorArr = JSON.parse(error.error);
+            this.errorMsg = this.errorArr.message;
+
+          }
+        )};
+    }
+
+    retriveSummaryWhileUpdateSave(){
+      
+      this.summaryService.retrieveWhileSaveUpdate(this.email, this.basicLpsId).subscribe(
+        data => {
+          let summary = JSON.parse(data)[0];
+          if (summary != undefined) {
+            this.retrieveDetailsfromSavedReports('', this.basicLpsId, JSON.parse(data)[0]);
+          }
+          else {
+            this.retrieveFromAirTermination();
+            setTimeout(() => {
+              this.retrieveObservationLpsSummaryOnload();
+            }, 3000);
+          }
+        });
+    }
+
   gotoNextTab() {
     if ((this.summaryForm.dirty && this.summaryForm.invalid) || this.service.isCompleted7 == false) {
       this.service.isCompleted8 = false;
@@ -2554,9 +2818,9 @@ export class LpssummaryComponent implements OnInit {
      this.validationErrorTab = true;
      this.validationErrorMsgTab= 'Please check all the fields in SummaryForm';
      setTimeout(() => {
-       this.validationErrorTab = false;
+      this.validationErrorTab = false;
      }, 3000);
-     return false;
+    return false;
     }
     else if(this.summaryForm.dirty && this.summaryForm.touched){
       this.service.isCompleted8= false;
@@ -2569,12 +2833,26 @@ export class LpssummaryComponent implements OnInit {
       }, 3000);
       return false;
     } 
-    else{
+    else {
       this.service.isCompleted8= true;
       this.service.isLinear=false;
       this.service.editable=true;
       this.summaryForm.markAsPristine();
-   return true;
+      return true;      
     }
   }
+
+  typeButton(button: any) {
+    this.buttonType = button;
+    if (button == 'save') {
+      this.saveButton = true;
+    } else {
+      this.saveButton = false;
+    }
+  }
+
+  downloadPdf() {
+    this.summaryPdf.downloadSummaryPDF(this.basicLpsId,this.email,this.lpsSummaryPDF);
+  }
+
   }

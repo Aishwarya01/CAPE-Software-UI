@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild,ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild,ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { EmcClientDetails } from 'src/app/EMC_Model/emc-client-details';
 import { MatPaginator } from '@angular/material/paginator';
@@ -6,10 +6,12 @@ import { MatSort } from '@angular/material/sort';
 import { MatInput } from '@angular/material/input';
 import { ActivatedRoute } from '@angular/router';
 import { EmcClientDetailsService } from 'src/app/EMC_Services/emc-client-details.service';
-import { EmcMatstepperComponent } from '../emc-matstepper/emc-matstepper.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EmcSavedReportService } from 'src/app/EMC_Services/emc-saved-report.service';
 import { GlobalsService } from 'src/app/globals.service';
+import { environment } from 'src/environments/environment';
+import { SuperAdminDev } from 'src/environments/environment.dev';
+import { SuperAdminProd } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-emc-final-report',
@@ -25,6 +27,7 @@ export class EmcFinalReportComponent implements OnInit {
   @ViewChild('finalReportSort', {static: true}) finalReportSort!: MatSort;
 
   email: String ="";
+  @Output() finalReportEvent: EventEmitter<any> = new EventEmitter<{emcId: any, clientName: any, flag: boolean}>();
   emcClientDetails = new EmcClientDetails();
   clientName: String="";
   clientList:any  = [];
@@ -54,23 +57,29 @@ export class EmcFinalReportComponent implements OnInit {
   clientService: any;
   emcData: any=[];
   completedFilterData: any=[];
+  superAdminArr: any = [];
+  filteredData: any = [];
+  superAdminFlag: boolean = false;
+  superAdminDev = new SuperAdminDev();
+  superAdminProd = new SuperAdminProd();
 
   constructor(private router: ActivatedRoute,
               private emcSavedReportService: EmcSavedReportService,
               private ChangeDetectorRef: ChangeDetectorRef,
               // private finalpdf: FinalPdfServiceService,
               public service: GlobalsService,
-              public emcParent: EmcMatstepperComponent,
-              private emcmatstepper:EmcMatstepperComponent,
               public emcClientDetailsService: EmcClientDetailsService,
               private modalService: NgbModal) { 
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
 
   ngOnInit(): void {
+    //this.superAdminArr = [];
     this.currentUser=sessionStorage.getItem('authenticatedUser');
     this.currentUser1 = [];
     this.currentUser1=JSON.parse(this.currentUser);
+    // this.superAdminArr.push('gk@capeindia.net');
+    // this.superAdminArr.push('awstesting@rushforsafety.com');
     this.retrieveEmcDetails();
   }
 
@@ -81,21 +90,56 @@ export class EmcFinalReportComponent implements OnInit {
   }
 
   retrieveEmcDetails() {
-    this.emcSavedReportService.retrieveListOfClientDetails(this.email).subscribe(
-      data => {
-        // this.myfunction(data);
-        this.emcData=JSON.parse(data);
-        for(let i of this.emcData){
-          if(i.allStepsCompleted=="AllStepCompleted"){
-            this.completedFilterData.push(i);
+    this.filteredData = [];
+    this.completedFilterData=[];
+    for(let i of this.superAdminDev.adminEmail) {
+      if(this.email == i) {
+        this.superAdminFlag = true;
+      }
+    }
+
+    for(let i of this.superAdminProd.adminEmail) {
+      if(this.email == i) {
+        this.superAdminFlag = true;
+      }
+    }
+    
+    if(this.superAdminFlag) {
+      this.emcSavedReportService.retrieveAllCLientDetails().subscribe(
+        data => {
+          // this.myfunction(data);
+          this.emcData=JSON.parse(data);
+          for(let i of this.emcData){
+            if(i.allStepsCompleted=="AllStepCompleted"){
+              this.filteredData.push(i);
+            }
           }
-        }
-        this.finalReport_dataSource = new MatTableDataSource(this.completedFilterData);
-        this.completedFilterData = [];
-        this.emcData = [];
-        this.finalReport_dataSource.paginator = this.finalReportPaginator;
-        this.finalReport_dataSource.sort = this.finalReportSort;
-      });
+          this.finalReport_dataSource = new MatTableDataSource(this.filteredData);
+          this.filteredData = [];
+          this.emcData = [];
+          this.finalReport_dataSource.paginator = this.finalReportPaginator;
+          this.finalReport_dataSource.sort = this.finalReportSort;
+        });
+        this.superAdminFlag = false;
+    }
+    else {
+      this.emcSavedReportService.retrieveListOfClientDetails(this.email).subscribe(
+        data => {
+          // this.myfunction(data);
+          this.emcData=JSON.parse(data);
+          for(let i of this.emcData){
+            if(i.allStepsCompleted=="AllStepCompleted"){
+              this.completedFilterData.push(i);
+            }
+          }
+          this.finalReport_dataSource = new MatTableDataSource(this.completedFilterData);
+          this.completedFilterData = [];
+          this.emcData = [];
+          this.finalReport_dataSource.paginator = this.finalReportPaginator;
+          this.finalReport_dataSource.sort = this.finalReportSort;
+        });
+    }
+    
 }
 
 closeModalDialog() {
@@ -118,7 +162,8 @@ continue(emcId: any,clientName: any) {
   this.finalReportSpinner = true;
   this.spinnerValue = "Please wait, the details are loading!";
   this.service.allStepsCompletedEmc = true;
-   this.emcParent.preview(emcId,clientName,false);
+  this.finalReportEvent.emit({emcId,clientName,flag: false});
+   //this.emcParent.preview(emcId,clientName,false);
  } 
 
 userName=this.router.snapshot.paramMap.get('email') || '{}';

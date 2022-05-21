@@ -97,11 +97,16 @@ import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 //import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 import { ConfirmationBoxComponent } from './confirmation-box/confirmation-box.component';
 import { LpssummaryComponent } from './LPS/lpssummary/lpssummary.component';
+
 import { UpdateLicenceComponent } from './update-licence/update-licence.component';
+import { SignaturePadModule } from 'angular2-signaturepad';
+import { SignatureComponent } from './signature/signature.component'
+
 
 @NgModule({
   declarations: [
     AppComponent,
+    SignatureComponent,
     LoginComponent,
     RegisterComponent,
     HomeComponent,
@@ -150,7 +155,8 @@ import { UpdateLicenceComponent } from './update-licence/update-licence.componen
     EmcSavedReportComponent,
     EmcFinalReportComponent,
     EmcClientDetailsComponent,
-
+    SignatureComponent,
+    
     LpsSpdComponent,
     LpsSeperationDistanceComponent,
     LpsMatstepperComponent,
@@ -165,6 +171,7 @@ import { UpdateLicenceComponent } from './update-licence/update-licence.componen
 
   ],
   imports: [
+    SignaturePadModule,
     TruncateModule,
     NgbTooltipModule,
     NgbModule,

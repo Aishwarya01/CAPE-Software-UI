@@ -9,7 +9,6 @@ import { GlobalsService } from 'src/app/globals.service';
 import { earthingReport } from 'src/app/LPS_model/earthingReport';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
 import { LpsEarthing } from 'src/app/LPS_services/lps-earthing';
-import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
 
 @Component({
   selector: 'app-lps-earthing',
@@ -23,7 +22,7 @@ export class LpsEarthingComponent implements OnInit {
   submitted=false;
   lpsEarthingService;
   disable: boolean=false;
-
+  summaryPopup: boolean = false;
   basicLpsId: number = 0;
   ClientName: String='';
   projectName: String='';
@@ -95,6 +94,12 @@ export class LpsEarthingComponent implements OnInit {
   validationErrorMsgTab: string="";
   tabError: boolean=false;
   tabErrorMsg: string="";
+  // For Spinner
+  spinner: boolean=false;
+  spinnerValue: String = '';
+  mode: any = 'indeterminate';
+  nextButton: boolean = true;
+  popup: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,private dialog: MatDialog,
@@ -437,9 +442,9 @@ export class LpsEarthingComponent implements OnInit {
       earthingClampsAvailabilityOb: new FormControl({disabled: false, value: item.earthingClampsAvailabilityOb}),
       earthingClampsAvailabilityRem: new FormControl({disabled: false, value: item.earthingClampsAvailabilityRem}),
       earthingElectrodeChamberAvailabilityOb: new FormControl({disabled: false, value: item.earthingElectrodeChamberAvailabilityOb}),
-      earthingElectrodeTestingAvailabilityRem:  new FormControl({disabled: false, value: item.earthingElectrodeTestingAvailabilityRem}),
+      earthingElectrodeChamberAvailabilityRem: new FormControl({disabled: false, value: item.earthingElectrodeChamberAvailabilityRem}),
       earthingElectrodeTestingAvailabilityOb:  new FormControl({disabled: false, value: item.earthingElectrodeTestingAvailabilityOb}),
-
+      earthingElectrodeTestingAvailabilityRem:  new FormControl({disabled: false, value: item.earthingElectrodeTestingAvailabilityRem}),
       earthingDescription: this.formBuilder.array(this.populateEarthingDescription(item)),
       earthingClamps: this.formBuilder.array(this.populateEarthingClamps(item)),
       earthingElectrodeChamber: this.formBuilder.array(this.populateEarthingElectrodeChamber(item)),
@@ -715,10 +720,13 @@ export class LpsEarthingComponent implements OnInit {
   }
  
   onSubmit(flag: any) {
-    this.submitted=true;
+    // this.submitted=true;
     
     if(this.earthingForm.invalid && (this.earthingForm.value.earthing[0].buildingNumber != undefined || this.earthingForm.value.earthing[0].buildingNumber != ''))
     {return}
+    this.spinner = true;
+    this.popup=false;
+
     this.earthingReport.earthingLpsDescription=this.earthingForm.value.earthing;
     this.earthingReport.userName = this.router.snapshot.paramMap.get('email') || '{}';
     this.earthingReport.basicLpsId = this.basicLpsId;
@@ -760,6 +768,10 @@ export class LpsEarthingComponent implements OnInit {
         if(this.earthingForm.dirty && this.earthingForm.touched){ 
         this.lpsEarthingService.updateEarthingLps(this.earthingReport).subscribe(
           (data) => {
+            setTimeout(() =>{
+              this.popup=true;
+              this.spinner=false;
+            }, 3000)
             this.success = true;
             this.successMsg = data;
             this.earthingForm.markAsPristine();
@@ -778,10 +790,14 @@ export class LpsEarthingComponent implements OnInit {
         )
       }
       else{
+        this.popup=true;
+        this.spinner=false;
         if(this.isEditable){
           this.success = true;
           this.proceedNext.emit(true);
         }else{
+          this.popup=true;
+          this.spinner=false;
           this.success = true;
           this.proceedNext.emit(true);
         }
@@ -790,6 +806,10 @@ export class LpsEarthingComponent implements OnInit {
       else {
         this.lpsEarthingService.saveEarthingDetails(this.earthingReport).subscribe(
           (data) => {
+            setTimeout(() =>{
+              this.popup=true;
+              this.spinner=false;
+            }, 3000)
             this.success = true;
             this.successMsg = data;
             this.disable = true;
@@ -801,6 +821,8 @@ export class LpsEarthingComponent implements OnInit {
             this.service.windowTabClick=0;
           },
           (error) => {
+            this.popup=true;
+            this.spinner=false;
             this.Error = true;
             this.errorArr = [];
             this.errorArr = JSON.parse(error.error);
@@ -1065,8 +1087,8 @@ export class LpsEarthingComponent implements OnInit {
       }
     }
   
-    gotoNextModal(content: any,contents:any) {
-     
+    gotoNextModal(content1: any,contents:any) {
+      this.submitted=true;
        if (this.earthingForm.invalid) {
          this.validationError = true;
         
@@ -1095,12 +1117,19 @@ export class LpsEarthingComponent implements OnInit {
       }
       //  Update and Success msg will be showing
       else if(this.earthingForm.dirty && this.earthingForm.touched){
-        this.modalService.open(content, { centered: true,backdrop: 'static' });
+        this.modalService.open(content1, { centered: true,backdrop: 'static' });
+        this.summaryPopup=true;
      }
     //  For Dirty popup
      else{
       this.modalService.open(contents, { centered: true,backdrop: 'static' });
      }
+    }
+
+    summaryEvent(content:any){
+      this.modalService.open(content, { centered: true, backdrop: 'static' });
+      this.summaryPopup=false;
+      this.onSubmit(this.flag);
     }
 
 

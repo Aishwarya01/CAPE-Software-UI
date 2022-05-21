@@ -23,7 +23,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
   separateDistanceDownConductors!: FormArray;
   submitted!: boolean;
   email: any;
-  
+  summaryPopup: boolean = false;
   validationError: boolean = false;
   validationErrorMsg: String = '';
   successMsg: string="";
@@ -56,6 +56,13 @@ export class LpsSeperationDistanceComponent implements OnInit {
   validationErrorMsgTab: string="";
   tabError: boolean=false;
   tabErrorMsg: string="";
+
+  // For Spinner
+  spinner: boolean=false;
+  spinnerValue: String = '';
+  mode: any = 'indeterminate';
+  nextButton: boolean = true;
+  popup: boolean = false;
   
   constructor(private formBuilder: FormBuilder,
             private separatedistanceService: SeparatedistanceService,
@@ -65,8 +72,8 @@ export class LpsSeperationDistanceComponent implements OnInit {
     {
   }
 
-  gotoNextModal(content: any,contents:any) {
-    
+  gotoNextModal(content1: any,contents:any) {
+    this.submitted = true;
     if (this.separeteDistanceForm.invalid) {
       this.validationError = true;
       this.validationErrorMsg = 'Please check all the fields';
@@ -93,12 +100,19 @@ export class LpsSeperationDistanceComponent implements OnInit {
       return;
     }
     else if(this.separeteDistanceForm.dirty && this.separeteDistanceForm.touched){
-      this.modalService.open(content, { centered: true,backdrop: 'static' });
+      this.modalService.open(content1, { centered: true,backdrop: 'static' });
+      this.summaryPopup=true;
    }
   //  For Dirty popup
    else{
     this.modalService.open(contents, { centered: true,backdrop: 'static' });
    }
+  }
+
+  summaryEvent(content:any){
+    this.modalService.open(content, { centered: true, backdrop: 'static' });
+    this.onSubmit(this.flag);
+    this.summaryPopup=false;
   }
 
   ngOnInit(): void {
@@ -355,11 +369,12 @@ export class LpsSeperationDistanceComponent implements OnInit {
 
 
   onSubmit(flag: any) {
-    this.submitted = true;
+    // this.submitted = true;
     if (this.separeteDistanceForm.invalid && (this.separeteDistanceForm.value.seperationDistanceDescription[0].buildingNumber != undefined || this.separeteDistanceForm.value.seperationDistanceDescription[0].buildingNumber != '')) {
       return;
     }
-
+    this.spinner = true;
+    this.popup=false;
     this.seperationDistanceReport.seperationDistanceDescription = this.separeteDistanceForm.value.seperationDistanceDescription;
     this.seperationDistanceReport.userName = this.router.snapshot.paramMap.get('email') || '{}';
     this.seperationDistanceReport.basicLpsId = this.basicLpsId;
@@ -392,6 +407,10 @@ export class LpsSeperationDistanceComponent implements OnInit {
         if(this.separeteDistanceForm.dirty && this.separeteDistanceForm.touched){ 
         this.separatedistanceService.updateSeparateDistance(this.seperationDistanceReport).subscribe(
           (data) => {
+            setTimeout(() =>{
+              this.popup=true;
+              this.spinner=false;
+            }, 3000)
             this.success = true;
             this.successMsg = data;
             this.separeteDistanceForm.markAsPristine();
@@ -401,6 +420,8 @@ export class LpsSeperationDistanceComponent implements OnInit {
             this.proceedNext.emit(true);
           },
           (error) => {
+            this.popup=true;
+            this.spinner=false;
             this.Error = true;
             this.errorArr = [];
             this.errorArr = JSON.parse(error.error);
@@ -410,10 +431,14 @@ export class LpsSeperationDistanceComponent implements OnInit {
         )
       }
       else{
+        this.popup=true;
+        this.spinner=false;
         if(this.isEditable){
           this.success = true;
           this.proceedNext.emit(true);
         }else{
+          this.popup=true;
+          this.spinner=false;
           this.success = true;
           this.proceedNext.emit(true);
         }
@@ -422,6 +447,10 @@ export class LpsSeperationDistanceComponent implements OnInit {
       else {
         this.separatedistanceService.saveSeparateDistance(this.seperationDistanceReport).subscribe(
           (data) => {
+            setTimeout(() =>{
+              this.popup=true;
+              this.spinner=false;
+            }, 3000)
             this.success = true;
             this.successMsg = data;
             this.disable = true;
@@ -438,6 +467,8 @@ export class LpsSeperationDistanceComponent implements OnInit {
             // }, 3000);
           },
           (error) => {
+            this.popup=true;
+            this.spinner=false;
             this.Error = true;
             this.errorArr = [];
             this.errorArr = JSON.parse(error.error);

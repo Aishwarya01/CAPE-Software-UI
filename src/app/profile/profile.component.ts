@@ -3,6 +3,7 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Valida
 import { ActivatedRoute,Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { arrow90DegDown } from 'ngx-bootstrap-icons';
 import { ChangeContact } from '../model/change-contact';
 import { Register } from '../model/register';
 import { User } from '../model/user';
@@ -99,7 +100,8 @@ export class ProfileComponent implements OnInit {
   otpSubmitted = false;
   sessionKey!: any;
   contactNo!: any;
-
+  arr :any = [];
+  pincodeErrorMsg: String='';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -249,6 +251,21 @@ export class ProfileComponent implements OnInit {
   }
 
   createProfile(): FormGroup {
+    this.arr = []
+    if(this.register.country == 'INDIA') {
+      this.arr=[];
+      this.arr.push(Validators.required,Validators.pattern('^[1-9][0-9]{5}$'));
+      this.pincodeErrorMsg = 'Please enter 6 digit pincode';
+    }
+    else if(this.register.country == 'NEPAL') {
+      this.arr=[];
+      this.arr.push(Validators.required,Validators.pattern('^[1-9][0-9]{4}$'));
+      this.pincodeErrorMsg = 'Please enter 5 digit pincode';
+    }
+    else {
+      this.arr=[];
+      this.arr.push(Validators.required);
+    }
     return new FormGroup({
     name: new FormControl(this.register.name, Validators.required),
     email: new FormControl(this.register.username),
@@ -262,7 +279,7 @@ export class ProfileComponent implements OnInit {
     district: new FormControl(this.register.district),
     address: new FormControl(this.register.address, Validators.required),
     applicationType: new FormControl(this.selectedItems),
-    pinCode: new FormControl(this.register.pinCode, Validators.required),
+    pinCode: new FormControl(this.register.pinCode, this.arr),
     })
   }
 

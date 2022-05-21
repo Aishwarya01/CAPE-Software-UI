@@ -42,6 +42,13 @@ export class LpsBasicPageComponent implements OnInit {
   tabError: boolean=false;
   tabErrorMsg: string="";
   availableReportNo: string="";
+  // For Spinner
+  spinner: boolean=false;
+  spinnerValue: String = '';
+  mode: any = 'indeterminate';
+  nextButton: boolean = true;
+  popup: boolean = false;
+
   constructor(private formBuilder: FormBuilder, 
     private lPSBasicDetailsService: LPSBasicDetailsService,
     private modalService: NgbModal,
@@ -98,7 +105,7 @@ export class LpsBasicPageComponent implements OnInit {
       name: new FormControl({disabled: false, value: item.name}, Validators.required),
       company: new FormControl({disabled: false, value: item.company}, Validators.required),
       designation: new FormControl({disabled: false, value: item.designation}, Validators.required),
-      contactNumber: new FormControl({disabled: false, value: item.contactNumber}, [Validators.required ,Validators.maxLength(15),Validators.minLength(10)]),
+      contactNumber: new FormControl({disabled: false, value: item.contactNumber}, [Validators.required,Validators.maxLength(15),Validators.minLength(10)]),
       mailId: new FormControl({disabled: false, value: item.mailId},
          [Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       availabilityOfPreviousReport: new FormControl({disabled: false, value: item.availabilityOfPreviousReport}, Validators.required),
@@ -130,7 +137,7 @@ export class LpsBasicPageComponent implements OnInit {
      else{
       this.step1List = data.basicLps;
      }
-      this.success = true;
+      // this.success = true;
       this.basicLpsIdRetrive = this.step1List.basicLpsId;
       this.basicDetails.basicLpsId = this.step1List.basicLpsId;
       this.basicDetails.updatedBy = this.step1List.updatedBy;
@@ -209,22 +216,20 @@ export class LpsBasicPageComponent implements OnInit {
         return true;
       }
   }
+
   closeModalDialog() {
-    
-    if (this.errorMsg != '') {
-      this.Error = false;
-      this.modalService.dismissAll((this.errorMsg = ''));
-    } else {
-      this.success = false;
-      this.modalService.dismissAll((this.successMsg = ''));
-    }
+      if (this.errorMsg != '') {
+        this.Error = false;
+        this.modalService.dismissAll((this.errorMsg = ''));
+      } else {
+        this.success = false;
+        this.modalService.dismissAll((this.successMsg = ''));
+      }
   }
 
   gotoNextModal(content: any,contents: any) {
-    
      if (this.LPSBasicForm.invalid) {
        this.validationError = true;
-      
        this.validationErrorMsg = 'Please check all the fields';
        setTimeout(() => {
         this.validationError = false;
@@ -234,21 +239,23 @@ export class LpsBasicPageComponent implements OnInit {
      
     //  Update and Success msg will be showing
      if(this.LPSBasicForm.dirty && this.LPSBasicForm.touched){
-        this.modalService.open(content, { centered: true,backdrop: 'static' });
+      this.modalService.open(content, { centered: true,backdrop: 'static' });
      }
     //  For Dirty popup
      else{
       this.modalService.open(contents, { centered: true,backdrop: 'static' });
      }
-     
+      
   }
  
   onSubmit(flag: any) {
     this.submitted=true;
+    
      if (this.LPSBasicForm.invalid) {
        return;
      }
-     
+      this.spinner = true;
+      this.popup=false;
     if (!this.validationError) {
     if(flag) {
         
@@ -256,7 +263,11 @@ export class LpsBasicPageComponent implements OnInit {
       this.lPSBasicDetailsService.updateLpsBasicDetails(this.getBasicDetailsObject()).subscribe(
         data => {
           // update success msg
-          this.success1 = false;
+          setTimeout(() =>{
+            this.popup=true;
+            this.spinner=false;
+          }, 3000)
+          // this.success1 = false;
           this.success = true;
           this.successMsg = data;
           this.isBasicFormUpdated=true;
@@ -272,7 +283,9 @@ export class LpsBasicPageComponent implements OnInit {
         },
           // update failed msg
         error => {
-          this.success1 = false;
+          this.popup=true;
+          this.spinner=false;
+          // this.success1 = false;
           this.Error = true;
           this.errorArr = [];
           this.errorArr = JSON.parse(error.error);
@@ -281,16 +294,19 @@ export class LpsBasicPageComponent implements OnInit {
         }
       )}
       else{
-        
+        this.popup=true;
+        this.spinner=false;
         // Preview fields
         if(this.isEditable){
-          this.success = true;
+          // this.success = true;
           this.proceedNext.emit(true);
         }
 
         else{
+          this.popup=true;
+          this.spinner=false;
           // Dirty checking here
-          this.success = true;
+          // this.success = true;
           this.proceedNext.emit(true);
         }
       }
@@ -300,6 +316,10 @@ export class LpsBasicPageComponent implements OnInit {
       this.lPSBasicDetailsService.saveLPSBasicDetails(this.getBasicDetailsObject()).subscribe(
     
         data => {
+          setTimeout(() =>{
+            this.popup=true;
+            this.spinner=false;
+          }, 3000)
           let basicDetailsItr=JSON.parse(data);              
           this.proceedFlag = false;
           this.basicDetails.basicLpsId=basicDetailsItr.basicLpsId;
@@ -316,6 +336,8 @@ export class LpsBasicPageComponent implements OnInit {
           
         },
         error => {
+          this.popup=true;
+          this.spinner=false;
           this.Error = true;
           this.errorArr = [];
           this.proceedFlag = true;
@@ -344,12 +366,12 @@ export class LpsBasicPageComponent implements OnInit {
           contactNum = this.LPSBasicForm.value.lpsBasic[0].contactNumber;
         }
         else{
-          contactNum = "+" + this.countryCode + "-" + this.LPSBasicForm.value.lpsBasic[0].contactNumber;
+          contactNum =this.countryCode + "-" + this.LPSBasicForm.value.lpsBasic[0].contactNumber;
         }
       }
     }
     else {
-      contactNum = "+" + this.countryCode + "-" + this.LPSBasicForm.value.lpsBasic[0].contactNumber;
+      contactNum ="+" + this.countryCode + "-" + this.LPSBasicForm.value.lpsBasic[0].contactNumber;
     }
     this.basicDetails.clientName = this.LPSBasicForm.value.lpsBasic[0].clientName;
     this.basicDetails.projectName = this.LPSBasicForm.value.lpsBasic[0].projectName;

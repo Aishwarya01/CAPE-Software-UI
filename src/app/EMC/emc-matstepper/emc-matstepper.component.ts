@@ -217,6 +217,14 @@ export class EmcMatstepperComponent implements OnInit {
     this.ChangeDetectorRef.detectChanges();
   }
 
+  public savedReportFunction(e: any) {
+    this.continue(e.emcId,e.clientName,e.flag);
+  }
+
+  public finalReportFunction(e: any) {
+    this.preview(e.emcId,e.clientName,e.flag);
+  }
+
   // Final Report 
   preview(emcId: any, ClientName: any,flag:any): void {
     this.refresh();
