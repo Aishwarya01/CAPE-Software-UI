@@ -234,7 +234,11 @@ export class MainNavComponent implements OnInit, OnDestroy {
   newZeroNotification:boolean=false;
   disable: boolean=false;
   messages: Message[] = [];
+  msgBot: any=[];
   valueBot: string="";
+  togglecount:number = 0;
+  status =false;
+  greet: string="";
 
   constructor(private breakpointObserver: BreakpointObserver, changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
@@ -301,23 +305,51 @@ export class MainNavComponent implements OnInit, OnDestroy {
       this.messages = this.messages.concat(val);
     });
   }
+  //chatbot code starts
+  clickBotMsg(e:any){
+    let changedValue;
+   // this.messages.splice(2,3);
+  if(e.target != undefined) {
+    changedValue = e.target.value;
+  }
+  else{
+    changedValue = e;
+  }
+  var trimMsg= e.target.innerHTML.trim();
+  if(trimMsg=="LV Systems" || trimMsg=="EMC Assessment" || trimMsg=="LPS Systems"){
+    this.service.getBotAnswer(trimMsg);
+  }
+  else{
+    return;
+  }
+  }
   toggleStatus() {
+    var myDate = new Date();
+    var hrs = myDate.getHours();
+  
+    if (hrs < 12)
+        this.greet = 'Good Morning!';
+    else if (hrs >= 12 && hrs <= 17)
+        this.greet = 'Good Afternoon!';
+    else if (hrs >= 17 && hrs <= 24)
+        this.greet = 'Good Evening!';
+
     this.isShow = !this.isShow;
+    if(this.togglecount == 0)
+    {
+      this.service.getBotAnswerDefault(this.valueBot);
+      this.togglecount=1;
+    }
   }
   toggleStatusClose(){
     this.isShow = !this.isShow;
   }
   sendMessage() {
-   // this.valueBot = '';
     this.service.getBotAnswer(this.valueBot);
     this.valueBot = '';
   }
-  // chatBot(contentBot:any){ 
-  //   this.modalService.open(contentBot, {
-  //     centered: true, 
-  //     size: 'md',
-  //    });
-  // }
+  // chatbot code ends
+
   setCompletedDataSourceAttributes() {
     if(this.completedLicense_dataSource !== undefined){
      this.completedLicense_dataSource.paginator = this.completedLicensePaginator;

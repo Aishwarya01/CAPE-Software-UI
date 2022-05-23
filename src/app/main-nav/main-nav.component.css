@@ -123,21 +123,50 @@
 }
 .message {
   border-radius: 50px;
-  margin: 0 15px 20px;
+  /* margin: 0 15px 20px; */
+  margin: 15px 15px 20px;
   padding: 10px 20px;
   position: relative;
   font-size: 14px;
+}
+/* .resizable {
+  resize: both;
+  overflow: scroll;
+  border: 1px solid black;
+} */
+
+.message.from:nth-child(4){
+  padding: 10px;
+  margin: 0px 230px 0px 23px !important;
+  background-color: skyblue;
+  cursor: pointer;
+}
+.message.from:nth-child(5){
+  padding: 10px;
+  margin: -40px 60px 0px 135px !important;
+  background-color: skyblue;
+  cursor: pointer;
+}
+.message.from:nth-child(6){
+  padding: 10px;
+  margin: 15px 203px 0px 25px !important;
+  background-color: skyblue;
+  cursor: pointer;
 }
 .message.to {
   background-color: #2095FE;
   color: #fff;
   margin-left: 100px;
   text-align: right;
+  border-bottom-right-radius: 5px;
 }
 .message.from {
-  background-color: #E5E4E9;
+  background: rgb(255, 255, 255) none repeat;
+  /* background-color: #E5E4E9; */
   color: #363636;
   margin-right: 100px;
+  border-bottom-left-radius: 5px;
+  margin-top: -5px;
 }
 .message.to + .message.to,
 .message.from + .message.from {
@@ -243,9 +272,11 @@ button {
   position: fixed;
   bottom: 50px;
   right: 50px;
-  background: #5A5EB9;
-  width: 80px;
-  height: 80px;  
+  /* background: #5A5EB9; */
+  background: yellow;
+  /* background: lightyellow; */
+  width: 70px;
+  height: 70px;  
   border-radius: 50%;
   color: white;
   padding: 28px;
@@ -293,20 +324,21 @@ button {
 }
 .chat-box-header {
   background: #5A5EB9;
-  height:70px;
+  height:50px;
   border-top-left-radius:5px;
   border-top-right-radius:5px; 
   color:white;
   text-align:center;
   font-size:20px;
-  padding-top:17px;
+  padding-top:14px;
 }
 .chat-box-body {
   position: relative;  
-  height: 397px;  
+  height: 410px;  
   /* height:auto; */
   border:1px solid #ccc;  
   overflow: hidden;
+  background: rgb(234, 238, 243) none repeat;
 }
 .chat-box-body:after {
   content: "";
@@ -438,4 +470,57 @@ button {
 .cm-msg-button {
     clear: both;
     margin-bottom: 70px;
+}
+.greeting{
+  margin-left: 15px;
+  margin-top: 10px;
+}
+.tooltipBot {
+  display: inline-block;
+  opacity: 1 !important;
+  width: 100%;
+  color: black;
+  font-weight: 500;
+  position: absolute;
+  left: -60px;
+  top: -34px;
+}
+
+.tooltipBot .tooltiptextBot {
+  visibility: hidden;
+  width: 70px;
+  background-color: black;
+  color: aqua;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  /* top: -5px; */
+  left: 85%;
+  font-size: 14px;
+  top: 5%;
+}
+.tooltipBot .tooltiptextBot::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+.tooltipBot .tooltiptextBot {
+  visibility: visible;
+}
+.botUserInput{
+  width: 20%;
+  position: fixed;
+  top: 86%;
+  right: 4.5%;
+  height: 52px;
+  border: none;
+  background: transparent;
 }

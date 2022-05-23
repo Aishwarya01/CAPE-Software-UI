@@ -1358,6 +1358,10 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+.resizable input:focus{
+  outline: 0;
+  box-shadow: unset !important;
+}
 .tooltip {
   /* position: relative; */
   display: inline-block;
