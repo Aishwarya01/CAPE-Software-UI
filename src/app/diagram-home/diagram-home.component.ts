@@ -90,7 +90,7 @@ export class DiagramHomeComponent implements OnInit {
     // node.width = 100;
     //node.style.border = "#28a745";
     node.style.fill = "transparent";
-    node.style.strokeColor = "black";    
+    node.style.strokeColor = "white";    
     return node;
   }
 
@@ -126,7 +126,11 @@ export class DiagramHomeComponent implements OnInit {
     )
   }
 
-  clickFunction(e: any,content2: any,content3: any,content4: any,content5: any,content6: any) {
+  getAccessibility(e: any) {
+    console.log(e);
+  }
+
+  clickFunction(e: any,content2: any,content3: any,content4: any,content5: any,content6: any,content7: any,content8: any,content9: any,content10: any) {
     if(e.element instanceof Node){
       if(e.element.properties.id.includes('Inductor')) {
         this.modalService.open(content2, { centered: true,size: 'xl'});
@@ -142,6 +146,18 @@ export class DiagramHomeComponent implements OnInit {
       }
       else if(e.element.properties.id.includes('Ground')) {
         this.modalService.open(content6, { centered: true,size: 'xl'});
+      }
+      else if(e.element.properties.id.includes('MCCB')) {
+        this.modalService.open(content7, { centered: true,size: 'xl'});
+      }
+      else if(e.element.properties.id.includes('DC')) {
+        this.modalService.open(content8, { centered: true,size: 'xl'});
+      }
+      else if(e.element.properties.id.includes('Wire')) {
+        this.modalService.open(content9, { centered: true,size: 'xl'});
+      }
+      else if(e.element.properties.id.includes('Battery')) {
+        this.modalService.open(content10, { centered: true,size: 'xl'});
       }
       // let person = prompt("Please enter color of the node:", "Red");
       // e.element.style.fill = person;

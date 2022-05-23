@@ -13,7 +13,7 @@
                 [getConnectorDefaults]='getConnectorDefaults' [getNodeDefaults]='getNodeDefaults' (created)="diagramCreate($event)">
                 </ejs-diagram> -->
 
-                <ejs-diagram #diagram id="diagram" width="100%" height="580px"  (click) ="clickFunction($event,content2,content3,content4,content5,content6)"  [getNodeDefaults] ='getNodeDefaults' [getConnectorDefaults] ='getConnectorDefaults' >
+                <ejs-diagram #diagram id="diagram" width="100%" height="580px" (drop)="getAccessibility($event)" (click) ="clickFunction($event,content2,content3,content4,content5,content6,content7,content8,content9,content10)"  [getNodeDefaults] ='getNodeDefaults' [getConnectorDefaults] ='getConnectorDefaults' >
                   <!-- <e-connectors>
                     <e-connector id='connectorIp1' type='Orthogonal'  sourceID='nodeIp1' targetID='node1'>
                     </e-connector>
@@ -87,6 +87,7 @@
         <div class="col-md-4">
           <label>Portable Appliance Name</label>
           <select  class="form-control">
+            <option value="">Select Option</option>
             <option value="Refrigrator">Refrigrator</option>
             <option value="Washing machine">Washing machine</option>
             <option value="Micro oven">Micro oven</option>
@@ -117,6 +118,7 @@
         <div class="col-md-4">
           <label>Insulation Class</label>
           <select  class="form-control">
+            <option value="">Select Option</option>
             <option value="Class-1">Class-1</option>
             <option value="Class-2">Class-2</option>
           </select>        
@@ -171,6 +173,7 @@
         <div class="col-md-4">
           <label>Type of Conductor</label>
           <select  class="form-control">
+            <option value="">Select Option</option>
             <option value="Cable">Cable</option>
             <option value="Bus Duct">Bus Duct</option>
           </select>
@@ -443,6 +446,7 @@
         <div class="col-md-4">
           <label>Winding Connection</label>
           <select  class="form-control">
+            <option value="">Select Option</option>
             <option value="Star">Star</option>
             <option value="Delta">Delta</option>
           </select>
@@ -470,6 +474,7 @@
         <div class="col-md-4">
           <label>No of Phase(V)</label>
           <select  class="form-control">
+            <option value="">Select Option</option>
             <option value="1phase">1phase</option>
             <option value="3phase">3phase</option>
           </select>            
@@ -520,6 +525,419 @@
       </div>
     </div>
     </div>
+  <br>
+      <button type="button" *ngIf="popup" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+      aria-label="Close"  (click)="closeModalDialog()">
+      <span aria-hidden="true">Ok</span>
+  </button>
+  </ng-template>
+
+<ng-template #content7 let-modal>
+  <div class="modal-header" style="text-align: center; display: block">
+    <h2 class="modal-title" style="display: contents">MCCB or ACB</h2>
+  </div>
+
+  <div class="modal-body">
+    <div class="card">
+      <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          <label>Reference Name</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>OCPD Manfacturer Name</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Rating(A)</label>
+          <input type="number" class="form-control">
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-4">
+          <label>Voltage(V)</label>
+          <input type="number" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>No of Poles</label>
+          <select  class="form-control">
+            <option value="">Select Option</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>            
+        </div>
+
+        <div class="col-md-4">
+          <label>Relay Manufacturers name (applicable only if ACB with micrologic or relay)</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Model/Type</label>
+          <input type="text" class="form-control">
+        </div>
+      
+      </div>
+      <br>
+      <h3 style="text-align: center">Current Setting</h3>
+      <br>
+      <div class="row">
+        <div class="col-md-3">
+          <label>Overcurrent instantaneous/High stage/ I>>(A)</label>
+          <input type="number" class="form-control">
+        </div>
+        <div class="col-md-3">
+          <label>Set time(mS)</label>
+          <input type="number" class="form-control">
+        </div>
+        <div class="col-md-3">
+          <label>Earth fault instantaneous/High stage/Ig(A)</label>
+          <input type="number" class="form-control">
+        </div>
+        <div class="col-md-3">
+          <label>Set time(mS)</label>
+          <input type="number" class="form-control">
+        </div>
+      </div>
+
+      <br>
+      <h3 style="text-align: center">Outgoing Cable Size(sq.mm.)</h3>
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <label>Phase</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Neutral</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Protective Conductor</label>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+
+      </div>
+    </div>
+    </div>
+  <br>
+      <button type="button" *ngIf="popup" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+      aria-label="Close"  (click)="closeModalDialog()">
+      <span aria-hidden="true">Ok</span>
+  </button>
+  </ng-template>
+
+<ng-template #content8 let-modal>
+  <div class="modal-header" style="text-align: center; display: block">
+    <h2 class="modal-title" style="display: contents">MCB with RCD or RCBO</h2>
+  </div>
+
+  <div class="modal-body">
+    <div class="card">
+      <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          <label>Reference Name</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>OCPD Manfacturer Name</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Rating(A)</label>
+          <input type="number" class="form-control">
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-4">
+          <label>Voltage(V)</label>
+          <input type="number" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>No of Poles</label>
+          <select  class="form-control">
+            <option value="">Select Option</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>            
+        </div>
+
+        <div class="col-md-4">
+          <label>Current Curve of MCB</label>
+          <select  class="form-control">
+            <option value="">Select Option</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+            <option value="K">K</option>
+            <option value="Z">Z</option>
+          </select>            
+        </div>
+
+        <div class="col-md-4">
+          <label>Rated residual operating current I∆n (mA)</label>
+          <select  class="form-control">
+            <option value="">Select Option</option>
+            <option value="30">30</option>
+            <option value="100">100</option>
+            <option value="300">300</option>
+            <option value="500">500</option>
+          </select>            
+        </div>
+      </div>
+  
+      <br>
+      <h3 style="text-align: center">Outgoing Cable Size(sq.mm.)</h3>
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <label>Phase</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Neutral</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Protective Conductor</label>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+
+      </div>
+    </div>
+    </div>
+  <br>
+      <button type="button" *ngIf="popup" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+      aria-label="Close"  (click)="closeModalDialog()">
+      <span aria-hidden="true">Ok</span>
+  </button>
+  </ng-template>
+
+<ng-template #content9 let-modal>
+  <div class="modal-header" style="text-align: center; display: block">
+    <h2 class="modal-title" style="display: contents">MCB with RCD or RCBO</h2>
+  </div>
+
+  <div class="modal-body">
+    <div class="card">
+      <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          <label>Reference Name</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>OCPD Manfacturer Name</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Rating(A)</label>
+          <input type="number" class="form-control">
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-4">
+          <label>Voltage(V)</label>
+          <input type="number" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>No of Poles</label>
+          <select  class="form-control">
+            <option value="">Select Option</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>            
+        </div>
+
+        <div class="col-md-4">
+          <label>Current Curve</label>
+          <select  class="form-control">
+            <option value="">Select Option</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+            <option value="K">K</option>
+            <option value="Z">Z</option>
+          </select>            
+        </div>
+      </div>
+  
+      <br>
+      <h3 style="text-align: center">Outgoing Cable Size(sq.mm.)</h3>
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <label>Phase</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Neutral</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Protective Conductor</label>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+
+      </div>
+    </div>
+    </div>
+  <br>
+      <button type="button" *ngIf="popup" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+      aria-label="Close"  (click)="closeModalDialog()">
+      <span aria-hidden="true">Ok</span>
+  </button>
+  </ng-template>
+
+<ng-template #content10 let-modal style="max-height: calc(100vh-212px); overflow-y: auto">
+  <div class="modal-header" style="text-align: center; display: block">
+    <h2 class="modal-title" style="display: contents">Supply Characteristics HV</h2>
+    <h3 class="modal-title" style="display: contents">(Route cause analysis of an existing installation up to 1000 V AC and 1500 V DC)</h3>
+
+  </div>
+
+  <div class="modal-body" >
+    <mat-horizontal-stepper  #stepper>
+      <mat-step>
+        <ng-template matStepLabel>
+             <div class="stepper-header-overlay"></div>
+             Basic Information
+        </ng-template>
+        <div class="card">
+          <div class="card-body">
+            <h2>
+              1. Supply Characteristics
+            </h2>
+            <div class="row">
+              <div class="col-md-4">
+                <label>Total number of incoming supply from state electricity board</label>
+                <input type="text" class="form-control">
+              </div>
+            </div>
+
+            <br>
+            <h3 style="text-align: center">Supply Characteristics of incoming supply 1</h3>
+            <br>
+            <div class="row">
+              <div class="col-md-4">
+                <label>Reference Name</label>
+                <input type="text" class="form-control">
+              </div>
+      
+              <div class="col-md-4">
+                <label>Voltage Rating(V)</label>
+                <input type="number" class="form-control">
+              </div>
+            </div>
+
+            <br>
+            <h3 style="text-align: center">Conductor/Cable Size(sq.mm.)</h3>
+            <br>
+            <div class="row">
+              <div class="col-md-4">
+                <label>Phase</label>
+                <input type="number" class="form-control">
+              </div>
+              <div class="col-md-4">
+                <label>Neutral</label>
+                <input type="number" class="form-control">
+              </div>
+              <div class="col-md-4">
+                <label>Protective Conductor</label>
+                <input type="number" class="form-control">
+              </div>
+            </div>
+
+            <br>
+            <h3>2. Main receiving HV switch board</h3>
+            <select  class="form-control">
+              <option value="">Select Option</option>
+              <option value="Applicable">Applicable</option>
+              <option value="Not Applicable">Not Applicable</option>
+            </select>     
+            <br>
+
+            <div class="row">
+              <div class="col-md-4">
+                <label>Reference name</label>
+                <input type="text" class="form-control">
+              </div>
+
+              <div class="col-md-4">
+                <label>Total number of incoming supply</label>
+                <input type="number" class="form-control">
+              </div>
+
+              <div class="col-md-4">
+                <label>Total number of buscouplers</label>
+                <input type="number" class="form-control">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <label>Total number of outgoing circuit in use</label>
+                <input type="number" class="form-control">
+              </div>
+
+              <div class="col-md-4">
+                <label>Total number of spare outgoing circuit</label>
+                <input type="number" class="form-control">
+              </div>
+            </div>
+
+
+
+          </div>
+        </div>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>
+             <div class="stepper-header-overlay"></div>
+             Basic Information 1
+        </ng-template>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>
+             <div class="stepper-header-overlay"></div>
+             Basic Information 2
+        </ng-template>
+      </mat-step>
+
+
+    </mat-horizontal-stepper>
+  </div>
   <br>
       <button type="button" *ngIf="popup" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
       aria-label="Close"  (click)="closeModalDialog()">
