@@ -15,6 +15,9 @@ export class ChatbotFAQs {
         "4": "LPS Systems",
         "5": "Click on the left side panel- TIC, select LV Systems to know more about it.",
         "6": "Click on the left side panel- TIC, select EMC Assessment to know more about it.",
-        "7": "Click on the left side panel- TIC, select LPS Systems to know more about it."
+        "7": "Click on the left side panel- TIC, select LPS Systems to know more about it.",
+      }
+      messageMapSignInLogin : any = {
+        "0": "Curious to know about SOLVE? You can either login or resgister as a new user."
       }
 } 

@@ -87,6 +87,47 @@
                 <h1 style="font-weight: 600;">INTERACTIVE - INTELLIGENT - MODERN</h1>
                 </div>
             <!-- </div> -->
+             <!-- chat bot starts -->
+    <div id="chat-circle" class="btn btn-raised" (click)="toggleStatus()">
+        <div id="chat-overlay"></div>
+        <div class="tooltipBot glow">
+       <span><img src="assets/img/bot-icon1.png" style="width: 55px;position: relative;left: 61px;
+        top: 42px;"></span> 
+          <span class="tooltiptextBot">
+            Ask me!
+          </span>
+        </div>
+      </div>
+        <div class="chat-box resizable" *ngIf="isShow" style="height: 70%;">
+          <div class="chat-box-header">
+            <span><img src="assets/img/Original-green-logo.png" style="width: 8%;
+            position: relative;left: -15px;top: -2px;"></span>
+            <b>SOLVE</b> - Your Questions
+            <span class="chat-box-toggle" (click)="toggleStatusClose()"><i class="material-icons">close</i></span>
+          </div>
+          <div class="chat-box-body" style="top: 0%;overflow-y: scroll;">
+            <div class="greeting">
+              <h3>{{greet}}</h3>
+          </div>
+            <ng-container *ngFor="let message of messages">
+              <div class="message"
+              [ngClass]="{ 'from': message.author === 'bot',
+              'to': message.author === 'user'}">
+              {{ message.content }}
+             </div>
+            </ng-container>
+              <!-- <label *ngIf="messages.length == 0; else" for="nameField"></label> -->
+              <input [(ngModel)]="valueBot" (keyup.enter)="sendMessage()" type="text" placeholder="Type your message" 
+              class="botUserInput">
+              <i class="material-icons" (click)="sendMessage()" style="position: fixed;top: 88.5%;right: 2.5%;">send</i>
+              <!-- <ng-template #dialogInfo>
+              <span [className]="'float-right'">Total messages: {{messages.length}}</span>
+              </ng-template> -->
+          </div>
+          
+        </div>
+<!-- chat bot ends -->
+
         </div>
     </div>
 </div>

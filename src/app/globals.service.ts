@@ -177,6 +177,7 @@ export class GlobalsService {
       setTimeout(()=>{
         this.conversation.next([botMessage4]);
       }, 200);
+     
     } 
   
     getBotMessageDefault(question: string){
@@ -187,22 +188,34 @@ export class GlobalsService {
     }
     getBotMessageDefault2(question: string){
       return this.Chatbot_FAQs.messageMapDefault['2'];
-  }
-  getBotMessageDefault3(question: string) {
-    return this.Chatbot_FAQs.messageMapDefault['3'];
-  }
-  getBotMessageDefault4(question: string) {
-    return this.Chatbot_FAQs.messageMapDefault['4'];
-  }
-  getBotMessageDefault5(question: string) {
-    return this.Chatbot_FAQs.messageMapDefault['5'];
-  }
-  getBotMessageDefault6(question: string) {
-    return this.Chatbot_FAQs.messageMapDefault['6'];
-  }
-  getBotMessageDefault7(question: string) {
-    return this.Chatbot_FAQs.messageMapDefault['7'];
-  }
+    }
+    getBotMessageDefault3(question: string) {
+      return this.Chatbot_FAQs.messageMapDefault['3'];
+    }
+    getBotMessageDefault4(question: string) {
+      return this.Chatbot_FAQs.messageMapDefault['4'];
+    }
+    getBotMessageDefault5(question: string) {
+      return this.Chatbot_FAQs.messageMapDefault['5'];
+    }
+    getBotMessageDefault6(question: string) {
+      return this.Chatbot_FAQs.messageMapDefault['6'];
+    }
+    getBotMessageDefault7(question: string) {
+      return this.Chatbot_FAQs.messageMapDefault['7'];
+    }
+
+
+    getBotAnswerDefaultSignLogin(msg: string) {
+      const botMessage8 = new Message('bot', this.getBotMessageDefaultSigninLogin(msg));
+      setTimeout(()=>{
+        this.conversation.next([botMessage8]);
+      }, 100);
+    } 
+
+    getBotMessageDefaultSigninLogin(question: string) {
+      return this.Chatbot_FAQs.messageMapSignInLogin['0'];
+    }
   }
 
  
