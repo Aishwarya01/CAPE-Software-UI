@@ -1,8 +1,8 @@
 <div class="card">
     <div class="card-body">
     <form [formGroup]="step2Form" (ngSubmit)="onSubmit()" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">  
-    <div class="row" formArrayName="structureCharacters" *ngFor="let f of overAllControls(); let i = index">
-        <div [formGroupName]="i">
+    <ng-container class="row" formArrayName="structureCharacters" *ngFor="let f of overAllControls(); let i = index">
+        <ng-container [formGroupName]="i">
             <mat-accordion>
                 <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                     <mat-expansion-panel-header>
@@ -57,11 +57,11 @@
                                         <select class="form-control" formControlName="typeOfBuilding" (change)="buildingValue($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && f.get('typeOfBuilding')?.errors }">
                                             <option value="" selected>Select Option</option>
-                                            <option value="Brick">Brick</option>
-                                            <option value="RCC with Brick">RCC with Brick</option>
-                                            <option value="PEB with sheet">PEB with sheet</option>
-                                            <option value="System designed by CAPE RCC building">System designed by CAPE RCC building</option>
-                                            <option value="System designed by CAPE PEB building">System designed by CAPE PEB building</option>
+                                            <option value="1">Brick</option>
+                                            <option value="0.5">RCC with Brick</option>
+                                            <option value="0.2">PEB with sheet</option>
+                                            <option value="0.20">System designed by CAPE RCC building</option>
+                                            <option value="0.001">System designed by CAPE PEB building</option>
                                         </select>
                                         <div *ngIf="submitted && f.get('typeOfBuilding')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('typeOfBuilding')?.errors?.required">Types of Building is required</div>
@@ -94,11 +94,11 @@
 
                             <hr>
 
-                            <div class="row" >
+                            <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Length :</label>
-                                        <input type="number" class="form-control"  formControlName="protrusionLenght" placeholder="Enter Designation" 
+                                        <input type="number" class="form-control" (focusout)="collectionAreaLength($event,f)" formControlName="protrusionLenght" placeholder="Enter Designation" 
                                         [ngClass]="{ 'is-invalid': submitted && f.get('protrusionLenght')?.errors }">
                                         <div *ngIf="submitted && f.get('protrusionLenght')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('protrusionLenght')?.errors?.required">Length is required</div>
@@ -109,8 +109,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Width :</label>
-                                        <input type="number" class="form-control"  formControlName="protrusionWidth" placeholder="Enter Designation" 
-                                        [ngClass]="{ 'is-invalid': submitted && f.get('protrusionWidth')?.errors }">
+                                        <input type="number" class="form-control" formControlName="protrusionWidth" placeholder="Enter Designation" 
+                                        [ngClass]="{ 'is-invalid': submitted && f.get('protrusionWidth')?.errors }" (focusout)="collectionAreaWidth($event,f)">
                                         <div *ngIf="submitted && f.get('protrusionWidth')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('protrusionWidth')?.errors?.required">Width is required</div>
                                         </div>
@@ -120,8 +120,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Height :</label>
-                                        <input type="number" class="form-control"  formControlName="protrusionHeight" placeholder="Enter Designation" 
-                                        [ngClass]="{ 'is-invalid': submitted && f.get('protrusionHeight')?.errors }">
+                                        <input type="number" class="form-control" formControlName="protrusionHeight" placeholder="Enter Designation" 
+                                        [ngClass]="{ 'is-invalid': submitted && f.get('protrusionHeight')?.errors }" (focusout)="collectionAreaHeight($event,f)">
                                         <div *ngIf="submitted && f.get('protrusionHeight')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('protrusionHeight')?.errors?.required">Height is required</div>
                                         </div>
@@ -133,8 +133,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Height of Highest Roof Protrusion :</label>
-                                        <input type="text" class="form-control" formControlName="heighestRoofProtrusion" placeholder="Enter Designation" 
-                                        [ngClass]="{ 'is-invalid': submitted && f.get('heighestRoofProtrusion')?.errors }">
+                                        <input type="number" class="form-control" formControlName="heighestRoofProtrusion" placeholder="Enter Designation" 
+                                        [ngClass]="{ 'is-invalid': submitted && f.get('heighestRoofProtrusion')?.errors }" (focusout)="collectionAreaProtrusion($event,f)">
                                         <div *ngIf="submitted && f.get('heighestRoofProtrusion')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('heighestRoofProtrusion')?.errors?.required">Height of Highest Roof Protrusion is required</div>
                                         </div>
@@ -144,7 +144,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Collection Area of Structure :</label>
-                                        <input type="text" class="form-control" readonly formControlName="collectionAreaOfStructure" placeholder="Enter Designation" 
+                                        <input type="number" class="form-control" readonly formControlName="collectionAreaOfStructure" placeholder="Enter Designation" 
                                         [ngClass]="{ 'is-invalid': submitted && f.get('collectionAreaOfStructure')?.errors }">
                                         <div *ngIf="submitted && f.get('collectionAreaOfStructure')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('collectionAreaOfStructure')?.errors?.required">Collection Area of Structure is required</div>
@@ -155,7 +155,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Collection Area of Structure With Protrusion :</label>
-                                        <input type="text" class="form-control" readonly formControlName="collAreaOfStrucWithProtrusion" placeholder="Enter Designation" 
+                                        <input type="number" class="form-control" readonly formControlName="collAreaOfStrucWithProtrusion" placeholder="Enter Designation" 
                                         [ngClass]="{ 'is-invalid': submitted && f.get('collAreaOfStrucWithProtrusion')?.errors }">
                                         <div *ngIf="submitted && f.get('collAreaOfStrucWithProtrusion')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('collAreaOfStrucWithProtrusion')?.errors?.required">Collection Area of Structure With Protrusion is required</div>
@@ -168,11 +168,11 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Collection Area Near The Structure :</label>
-                                        <input type="text" class="form-control" readonly formControlName="collAreaOfNearStructure" placeholder="Enter Designation" 
+                                        <input type="number" class="form-control" readonly formControlName="collAreaOfNearStructure" placeholder="Enter Designation" 
                                         [ngClass]="{ 'is-invalid': submitted && f.get('collAreaOfNearStructure')?.errors }">
                                         <div *ngIf="submitted && f.get('collAreaOfNearStructure')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('collAreaOfNearStructure')?.errors?.required">Collection Area Near The Structure is required</div>
-                                        </div>v>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -234,7 +234,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>No of dangerous event on structure :</label>
-                                        <input type="text" class="form-control" readonly formControlName="noOfDangerousEventOnStructure" placeholder="Enter Designation" 
+                                        <input type="number" class="form-control" readonly formControlName="noOfDangerousEventOnStructure" placeholder="Enter Designation" 
                                         [ngClass]="{ 'is-invalid': submitted && f.get('noOfDangerousEventOnStructure')?.errors }">
                                         <div *ngIf="submitted && f.get('noOfDangerousEventOnStructure')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('noOfDangerousEventOnStructure')?.errors?.required">No of dangerous event on structure is required</div>
@@ -245,7 +245,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>No of dangerous event near the structure :</label>
-                                        <input type="text" class="form-control" readonly formControlName="noOfDangerousEventNearStructure" placeholder="Enter Designation" 
+                                        <input type="number" class="form-control" readonly formControlName="noOfDangerousEventNearStructure" placeholder="Enter Designation" 
                                         [ngClass]="{ 'is-invalid': submitted && f.get('noOfDangerousEventNearStructure')?.errors }">
                                         <div *ngIf="submitted && f.get('noOfDangerousEventNearStructure')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('noOfDangerousEventNearStructure')?.errors?.required">No of dangerous event near the structure is required</div>
@@ -275,7 +275,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Length :</label>
-                                        <input type="text" class="form-control"  formControlName="protectionLenght" placeholder="Enter Designation" 
+                                        <input type="number" class="form-control"  formControlName="protectionLenght" placeholder="Enter Designation" 
                                         [ngClass]="{ 'is-invalid': submitted && f.get('protectionLenght')?.errors }">
                                         <div *ngIf="submitted && f.get('protectionLenght')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('protectionLenght')?.errors?.required">Length is required</div>
@@ -286,7 +286,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Width :</label>
-                                        <input type="text" class="form-control"  formControlName="protectionWidth" placeholder="Enter Designation" 
+                                        <input type="number" class="form-control"  formControlName="protectionWidth" placeholder="Enter Designation" 
                                         [ngClass]="{ 'is-invalid': submitted && f.get('protectionWidth')?.errors }">
                                         <div *ngIf="submitted && f.get('protectionWidth')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('protectionWidth')?.errors?.required">Width is required</div>
@@ -299,7 +299,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Height :</label>
-                                        <input type="text" class="form-control"  formControlName="protectionHeight" placeholder="Enter Designation" 
+                                        <input type="number" class="form-control"  formControlName="protectionHeight" placeholder="Enter Designation" 
                                         [ngClass]="{ 'is-invalid': submitted && f.get('protectionHeight')?.errors }">
                                         <div *ngIf="submitted && f.get('protectionHeight')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('protectionHeight')?.errors?.required">Height is required</div>
@@ -1091,8 +1091,8 @@
                     </ng-container>
                 </mat-expansion-panel>
             </mat-accordion>
-        </div>
-    </div>
+        </ng-container>
+    </ng-container>
     <br>
     <div class="row" style="margin-top: 20px;">
         <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->

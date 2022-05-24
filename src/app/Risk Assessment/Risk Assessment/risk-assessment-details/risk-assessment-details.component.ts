@@ -43,13 +43,13 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // Fetching location list 
     this.locationList = [];
     this.riskAssessmentService.fetchLocation().subscribe(
       data=> {
-        
         this.locationList = JSON.parse(data);
-      }
-    )
+      })
+
     this.step2Form = this.formBuilder.group({
       structureCharacters: this.formBuilder.array([this.structureCharactersForm()])
     });
@@ -179,32 +179,89 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   }
 
   buildingValue(event: any, form: any){
-    if(event.target.value == 'Brick'){
+    if(event.target.value == '1'){
       // form.controls.typeOfBuilding.setValue(this.brick);
       form.controls.structureScreeningEffectiveness.setValue('Poor');
       form.controls.internalScreeningEffectiveness.setValue('Poor');
     }
-    else if(event.target.value == 'RCC with Brick'){
+    else if(event.target.value == '0.5'){
       // form.controls.typeOfBuilding.setValue(this.rccwithBrick);
       form.controls.structureScreeningEffectiveness.setValue('Average');
       form.controls.internalScreeningEffectiveness.setValue('Average');
     }
-    else if(event.target.value == 'PEB with sheet'){
+    else if(event.target.value == '0.2'){
       // form.controls.typeOfBuilding.setValue(this.pebwithsheet);
       form.controls.structureScreeningEffectiveness.setValue('Good');
       form.controls.internalScreeningEffectiveness.setValue('Good');
     }
-    else if(event.target.value == 'System designed by CAPE RCC building'){
+    else if(event.target.value == '0.20'){
       // form.controls.typeOfBuilding.setValue(this.rccbuilding);
       form.controls.structureScreeningEffectiveness.setValue('Good');
       form.controls.internalScreeningEffectiveness.setValue('Good');
     }
-    else if(event.target.value == 'System designed by CAPE PEB building'){
+    else if(event.target.value == '0.001'){
       // form.controls.typeOfBuilding.setValue(this.pebbuilding);
       form.controls.structureScreeningEffectiveness.setValue('Very Good');
       form.controls.internalScreeningEffectiveness.setValue('Very Good');
     }
   }
+  // Math for Collection Area of Structure
+  collectionAreaLength(event:any, form:any){
+    let selectedValue=event.target.value;
+    if(form.controls.protrusionWidth.value!='' && form.controls.protrusionHeight.value!=''){
+      form.controls.collectionAreaOfStructure.setValue(form.controls.protrusionLenght.value*form.controls.protrusionWidth.value+6*form.controls.protrusionLenght.value*
+        (form.controls.protrusionLenght.value+form.controls.protrusionWidth.value)+9*3.14*(form.controls.protrusionHeight.value*form.controls.protrusionHeight.value));
+    }
+    else{
+      form.controls.collectionAreaOfStructure.setValue('');
+    }
+
+    if(form.controls.protrusionWidth.value!='' && form.controls.protrusionLenght.value!=''){
+      form.controls.collAreaOfNearStructure.setValue(2*500*(form.controls.protrusionLenght.value+form.controls.protrusionWidth.value)+3.14*(250000));
+    }
+    else{
+      form.controls.collAreaOfNearStructure.setValue('');
+    }
+  }
+  collectionAreaWidth(event:any, form:any){
+    let selectedValue=event.target.value;
+    if(form.controls.protrusionLenght.value!='' && form.controls.protrusionHeight.value!=''){
+      form.controls.collectionAreaOfStructure.setValue(form.controls.protrusionLenght.value*form.controls.protrusionWidth.value+6*form.controls.protrusionLenght.value*
+        (form.controls.protrusionLenght.value+form.controls.protrusionWidth.value)+9*3.14*(form.controls.protrusionHeight.value*form.controls.protrusionHeight.value));
+    }
+    else{
+      form.controls.collectionAreaOfStructure.setValue('');
+    }
+    if(form.controls.protrusionWidth.value!='' && form.controls.protrusionLenght.value!=''){
+      form.controls.collAreaOfNearStructure.setValue(2*500*(form.controls.protrusionLenght.value+form.controls.protrusionWidth.value)+3.14*(250000));
+    }
+    else{
+      form.controls.collAreaOfNearStructure.setValue('');
+    }
+  }
+  collectionAreaHeight(event:any, form:any){
+    let selectedValue=event.target.value;
+    if(form.controls.protrusionWidth.value!='' && form.controls.protrusionLenght.value!=''){
+      form.controls.collectionAreaOfStructure.setValue(form.controls.protrusionLenght.value*form.controls.protrusionWidth.value+6*form.controls.protrusionLenght.value*
+        (form.controls.protrusionLenght.value+form.controls.protrusionWidth.value)+9*3.14*(form.controls.protrusionHeight.value*form.controls.protrusionHeight.value));
+    }
+    else{
+      form.controls.collectionAreaOfStructure.setValue('');
+    }
+  }
+
+  // Math for Collection area of structure with protrusion
+  collectionAreaProtrusion(event:any, form:any){
+    let selectedValue=event.target.value;
+    if(form.controls.heighestRoofProtrusion.value!=''){
+      form.controls.collAreaOfStrucWithProtrusion.setValue(9*3.14*(form.controls.heighestRoofProtrusion.value*form.controls.heighestRoofProtrusion.value));
+    }
+    else{
+      form.controls.collAreaOfStrucWithProtrusion.setValue('');
+    }
+  }
+  // Math for Collection area near the structure
+
 
   onKeyForm(e: any) {
 
@@ -249,22 +306,22 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     if (this.step2Form.invalid) {
       return;
     }
-    this.riskAssessmentDetails = this.step2Form.value;
-    if(this.riskAssessmentDetails.structureCharacteristics[0].typeOfBuilding == 'Brick'){
-      this.riskAssessmentDetails.structureCharacteristics[0].typeOfBuilding=this.brick;
-    }
-    else if(this.riskAssessmentDetails.structureCharacteristics[0].typeOfBuilding == 'RCC with Brick'){
-      this.riskAssessmentDetails.structureCharacteristics[0].typeOfBuilding=this.rccwithBrick;
-    }
-    else if(this.riskAssessmentDetails.structureCharacteristics[0].typeOfBuilding == 'PEB with sheet'){
-      this.riskAssessmentDetails.structureCharacteristics[0].typeOfBuilding=this.pebwithsheet;
-    }
-    else if(this.riskAssessmentDetails.structureCharacteristics[0].typeOfBuilding == 'System designed by CAPE RCC building'){
-      this.riskAssessmentDetails.structureCharacteristics[0].typeOfBuilding=this.rccbuilding;
-    }
-    else if(this.riskAssessmentDetails.structureCharacteristics[0].typeOfBuilding == 'System designed by CAPE PEB building'){
-      this.riskAssessmentDetails.structureCharacteristics[0].typeOfBuilding=this.pebbuilding;
-    }
+    // this.riskAssessmentDetails = this.step2Form.value;
+    // if(this.riskAssessmentDetails.structureCharacteristics[0].typeOfBuilding == 'Brick'){
+    //   this.riskAssessmentDetails.structureCharacteristics[0].typeOfBuilding=this.brick;
+    // }
+    // else if(this.riskAssessmentDetails.structureCharacteristics[0].typeOfBuilding == 'RCC with Brick'){
+    //   this.riskAssessmentDetails.structureCharacteristics[0].typeOfBuilding=this.rccwithBrick;
+    // }
+    // else if(this.riskAssessmentDetails.structureCharacteristics[0].typeOfBuilding == 'PEB with sheet'){
+    //   this.riskAssessmentDetails.structureCharacteristics[0].typeOfBuilding=this.pebwithsheet;
+    // }
+    // else if(this.riskAssessmentDetails.structureCharacteristics[0].typeOfBuilding == 'System designed by CAPE RCC building'){
+    //   this.riskAssessmentDetails.structureCharacteristics[0].typeOfBuilding=this.rccbuilding;
+    // }
+    // else if(this.riskAssessmentDetails.structureCharacteristics[0].typeOfBuilding == 'System designed by CAPE PEB building'){
+    //   this.riskAssessmentDetails.structureCharacteristics[0].typeOfBuilding=this.pebbuilding;
+    // }
   }
 
 }
