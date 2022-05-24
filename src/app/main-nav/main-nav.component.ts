@@ -347,7 +347,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   
     if (hrs < 12)
         this.greet = 'Good Morning!';
-    else if (hrs >= 12 && hrs <= 17)
+    else if (hrs >= 12 && hrs < 17)
         this.greet = 'Good Afternoon!';
     else if (hrs >= 17 && hrs <= 24)
         this.greet = 'Good Evening!';

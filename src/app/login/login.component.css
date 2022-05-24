@@ -112,7 +112,8 @@
     background: rgb(255, 255, 255) none repeat;
     /* background-color: #E5E4E9; */
     color: #363636;
-    margin-right: 100px;
+    width: 80%;
+    /* margin-right: 100px; */
     border-bottom-left-radius: 5px;
     margin-top: -5px;
   }

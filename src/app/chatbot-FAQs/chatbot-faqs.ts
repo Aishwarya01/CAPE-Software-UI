@@ -18,6 +18,6 @@ export class ChatbotFAQs {
         "7": "Click on the left side panel- TIC, select LPS Systems to know more about it.",
       }
       messageMapSignInLogin : any = {
-        "0": "Curious to know about SOLVE? You can either login or resgister as a new user."
+        "0": "Curious to know more about SOLVE? Please register yourself as an Inspector/Viewer or login with your existing credentials."
       }
 } 
