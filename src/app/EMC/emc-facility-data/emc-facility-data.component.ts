@@ -22,6 +22,7 @@ export class EmcFacilityDataComponent implements OnInit {
   windowCovering: String[] = ['Drapes', 'Curtains', 'Shades', 'Blinds'];
 
   EMCFacilityForm!: FormGroup;
+  panelOpenState = false;
 
   emcFacilityData = new EmcFacilityData;
   @Output() proceedNext = new EventEmitter<any>();
@@ -42,9 +43,14 @@ export class EmcFacilityDataComponent implements OnInit {
   email: String;
   step1List: any;
   arr2: any;
-  finalSpinner: boolean = true;
-  popup: boolean = false;
   modalReference: any;
+  isEditableEmc!:boolean
+  // For Spinner
+  spinner: boolean=false;
+  spinnerValue: String = '';
+  mode: any = 'indeterminate';
+  nextButton: boolean = true;
+  popup: boolean = false;
 
   arr1: any = [];
   emcId!: number;
@@ -311,95 +317,122 @@ export class EmcFacilityDataComponent implements OnInit {
     return this.EMCFacilityForm.controls;
   }
 
-  onKeyForm(event: KeyboardEvent) {
-    if (!this.EMCFacilityForm.invalid) {
-      if (this.EMCFacilityForm.dirty) {
-        this.validationError = false;
-        //  this.service.lvClick=1;
-        //  this.service.logoutClick=1;
-        //  this.service.windowTabClick=1;
+  onChangeForm(event:any){
+    if(!this.EMCFacilityForm.invalid){
+      if(this.EMCFacilityForm.dirty){
+        this.validationError=false;
+        this.service.lvClick=1;
+        this.service.logoutClick=1;
+         this.service.windowTabClick=1;
       }
-      else {
-        this.validationError = false;
-        //  this.service.lvClick=0;
-        //  this.service.logoutClick=0;
-        //  this.service.windowTabClick=0;
+      else{
+        this.validationError=false;
+        this.service.lvClick=0;
+        this.service.logoutClick=0;
+        this.service.windowTabClick=0;
       }
-    }
-    else {
-      //  this.service.lvClick=1;
-      //  this.service.logoutClick=1;
-      //  this.service.windowTabClick=1;
-    }
+     }
+     else {
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
+     }
   }
-
-
-  onChangeForm(event: any) {
-    if (!this.EMCFacilityForm.invalid) {
-      if (this.EMCFacilityForm.dirty) {
-        this.validationError = false;
-        // this.service.lvClick=1;
-        // this.service.logoutClick=1;
-        //  this.service.windowTabClick=1;
-      }
-      else {
-        this.validationError = false;
-        // this.service.lvClick=0;
-        // this.service.logoutClick=0;
-        // this.service.windowTabClick=0;
-      }
+  onKeyForm(event: KeyboardEvent) { 
+   if(!this.EMCFacilityForm.invalid){ 
+    if(this.EMCFacilityForm.dirty){
+      this.validationError=false;
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
     }
-    else {
-      // this.service.lvClick=1;
-      // this.service.logoutClick=1;
-      // this.service.windowTabClick=1;
+    else{
+      this.validationError=false;
+      this.service.lvClick=0;
+      this.service.logoutClick=0;
+      this.service.windowTabClick=0;
     }
-  }
-  closeModalDialog() {
-    this.finalSpinner = true;
-    this.popup = false;
-    if (this.errorMsg != "") {
-      this.Error = false;
-      this.service.isCompleted2 = false;
-      this.service.isLinear = true;
-      this.modalService.dismissAll(this.errorMsg = "");
+   }
+   else {
+    this.service.lvClick=1;
+    this.service.logoutClick=1;
+    this.service.windowTabClick=1;
+   }
+  } 
+  reloadFromBack(){
+    if(this.EMCFacilityForm.invalid){
+     this.service.isCompleted2= false;
+     this.service.isLinear=true;
+     this.service.editable=false;
+     this.validationErrorTab = true;
+     this.validationErrorMsgTab= 'Please check all the fields in supply characteristics';
+     setTimeout(() => {
+       this.validationErrorTab = false;
+     }, 3000);
+     return false;
     }
-    else {
-      this.success = false;
-      this.service.isCompleted2 = true;
-      this.service.isLinear = false;
-      this.modalService.dismissAll(this.successMsg = "");
-    }
-  }
-
-  gotoNextTab() {
-    if (this.EMCFacilityForm.dirty && this.EMCFacilityForm.invalid) {
-      this.service.isCompleted2 = false;
-      this.service.isLinear = true;
-      this.service.editable = false;
-      //this.validationError=false;
-      this.validationErrorTab = true;
-      this.validationErrorMsgTab = 'Please check all the fields in facility details';
-      setTimeout(() => {
-        this.validationErrorTab = false;
-      }, 3000);
-      return;
-    }
-    else if (this.EMCFacilityForm.dirty && this.EMCFacilityForm.touched) {
-      this.service.isCompleted2 = false;
-      this.service.isLinear = true;
-      this.service.editable = false;
+    else if(this.EMCFacilityForm.dirty && this.EMCFacilityForm.touched){
+      this.service.isCompleted2= false;
+      this.service.isLinear=true;
+      this.service.editable=false;
       this.tabError = true;
       this.tabErrorMsg = 'Kindly click on next button to update the changes!';
       setTimeout(() => {
         this.tabError = false;
       }, 3000);
+      return false;
+    } 
+    else{
+      this.service.isCompleted2= true;
+      this.service.isLinear=false;
+      this.service.editable=true;
+      this.EMCFacilityForm.markAsPristine();
+   return true;
+    }
+  }
+  closeModalDialog() {
+    if (this.errorMsg != "") {
+      this.Error = false;
+      this.success = false;
+      this.service.isCompleted2= false;
+      this.service.isLinear=true;
+      this.modalService.dismissAll((this.errorMsg = ""));
+    } 
+    else {
+      this.success = false;
+      this.Error = false;
+      this.service.isCompleted2= true;
+      this.service.isLinear=false;
+      this.modalService.dismissAll((this.successMsg = ""));
+    }
+  }
+ 
+  gotoNextTab() {
+    if ((this.EMCFacilityForm.dirty && this.EMCFacilityForm.invalid) || this.service.isCompleted==false){
+      this.service.isCompleted2= false;
+      this.service.isLinear=true;
+      this.service.editable=false;
+      this.validationErrorTab = true;
+      this.validationErrorMsgTab= 'Please check all the fields in supply characteristics';
+      setTimeout(() => {
+        this.validationErrorTab = false;
+      }, 3000);
       return;
     }
-    else {
-      this.service.isCompleted2 = true;
-      this.service.isLinear = false;
-      this.service.editable = true;
+    else if(this.EMCFacilityForm.dirty && this.EMCFacilityForm.touched){
+      this.service.isCompleted2= false;
+      this.service.isLinear=true;
+      this.service.editable=false;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
+   }
+    else{
+      this.service.isCompleted2= true;
+      this.service.isLinear=false;
+      this.service.editable=true;
     }
   }
 
@@ -431,7 +464,8 @@ export class EmcFacilityDataComponent implements OnInit {
     if (this.EMCFacilityForm.invalid) {
       return;
     }
-
+    this.spinner = true;
+    this.popup=false;
     this.emcFacilityData.userName = this.router.snapshot.paramMap.get('email') || '{}';
     this.emcFacilityData.emcId = this.emcId;
 
@@ -443,8 +477,10 @@ export class EmcFacilityDataComponent implements OnInit {
           .upDateFacilityData(this.emcFacilityData)
           .subscribe(
             (data: any) => {
-              this.finalSpinner = false;
-              this.popup = true;
+              setTimeout(() =>{
+                this.popup=true;
+                this.spinner=false;
+              }, 3000);
               this.success = true;
               this.successMsg = data;
               this.service.isCompleted2= true;
@@ -453,8 +489,8 @@ export class EmcFacilityDataComponent implements OnInit {
               this.proceedNext.emit(true);
        },
             (error: any) => {
-              this.finalSpinner = false;
-              this.popup = true;
+              this.popup=true;
+              this.spinner=false;
               this.Error = true;
               this.errorArr = [];
               this.errorArr = JSON.parse(error.error);
@@ -468,10 +504,12 @@ export class EmcFacilityDataComponent implements OnInit {
       this.emcFacilityDataService.addFacilityData(this.emcFacilityData).subscribe(
 
         data => {
+          setTimeout(() =>{
+            this.popup=true;
+            this.spinner=false;
+          }, 3000);
           // let emcFacilityDataItr = JSON.parse(data);
           // this.emcFacilityData.emcId = emcFacilityDataItr.emcId;
-          this.finalSpinner = false;
-          this.popup = true;
           this.success = true;
           this.successMsg = data;
           this.service.isCompleted2= true;
@@ -481,8 +519,8 @@ export class EmcFacilityDataComponent implements OnInit {
           this.proceedNext.emit(true);
         },
         error => {
-          this.finalSpinner = false;
-          this.popup = true;
+          this.popup=true;
+          this.spinner=false;
           this.Error = true;
           this.errorArr = [];
           this.errorArr = JSON.parse(error.error);

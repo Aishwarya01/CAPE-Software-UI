@@ -16,6 +16,19 @@ export const environment = {
 
 };
 
+// For super admin purpose
+export class SuperAdminDev {
+  adminEmail: any=[];  
+  constructor() {
+      this.email();
+  }
+  email(){
+    this.adminEmail[0] = 'awstesting@rushforsafety.com';
+    this.adminEmail[1] = 'gk@capeindia.net';
+    this.adminEmail[2] = 'vinoth@capeindia.net';
+  }       
+};
+
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

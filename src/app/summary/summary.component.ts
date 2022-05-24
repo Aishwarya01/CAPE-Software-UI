@@ -43,6 +43,7 @@ import { LicenselistComponent } from '../licenselist/licenselist.component';
 import { ObservationService } from '../services/observation.service';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
+import { SignatureComponent } from '../signature/signature.component';
 
 @Component({
   selector: 'app-summary',
@@ -238,6 +239,8 @@ export class SummaryComponent implements OnInit,OnDestroy {
 
   yesObserveTesting: boolean= false;
   noObserveTesting: boolean= true;
+  signarr: any;
+  signarr1: any;
   constructor(
     private _formBuilder: FormBuilder,
     private modalService: NgbModal,
@@ -264,6 +267,8 @@ export class SummaryComponent implements OnInit,OnDestroy {
     this.service.lvClick=0;
     this.service.logoutClick=0;
     this.service.windowTabClick=0;
+    this.service.signatureImg5="";
+    this.service.signatureImg6="";
   }
 
   ngOnInit(): void {
@@ -326,7 +331,41 @@ export class SummaryComponent implements OnInit,OnDestroy {
     }
 
 /*e-siganture starts in progress*/ 
-
+SignatureDesigner1(){
+  const dialogRef =this.dialog.open(SignatureComponent, {
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+    dialogRef.componentInstance.sigImg1 = false;
+    dialogRef.componentInstance.sigImg2 = false;
+    dialogRef.componentInstance.sigImg3 = false;
+    dialogRef.componentInstance.sigImg4 = false;
+    dialogRef.componentInstance.sigImg5 = true;
+    dialogRef.componentInstance.sigImg6 = false;
+  }
+  focusSigDesigner1(a: any){
+   if(a.controls.signature.value!=""){
+     return a.controls.signature.markAsDirty();
+    }
+  }
+  
+  SignatureDesigner2(){
+    const dialogRef =this.dialog.open(SignatureComponent, {
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+    dialogRef.componentInstance.sigImg1 = false;
+    dialogRef.componentInstance.sigImg2 = false;
+    dialogRef.componentInstance.sigImg3 = false;
+    dialogRef.componentInstance.sigImg4 = false;
+    dialogRef.componentInstance.sigImg5 = false;
+    dialogRef.componentInstance.sigImg6 = true;
+  }
+  focusSigDesigner2(a: any){
+    if(a.controls.signature.value!=""){
+      return a.controls.signature.markAsDirty();
+     }
+  }
 /*e-siganture ends*/
 
   retreiveFromObservation(){
@@ -651,7 +690,6 @@ export class SummaryComponent implements OnInit,OnDestroy {
     }
   }
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
-
        this.summaryList = JSON.parse(data);
        this.summary.siteId = siteId;
        this.summary.summaryId = this.summaryList.summary.summaryId;
@@ -674,13 +712,19 @@ export class SummaryComponent implements OnInit,OnDestroy {
        //this.onChange(this.limitationsValue);
        for(let i of this.summaryList.summary.summaryDeclaration) {
          if(i.declarationRole == "Inspector") {
+          this.signarr=[i];
+          this.signarr[0].signature=atob(i.signature);
           this.addsummary.patchValue({
-            Declaration1Arr: [i]
+            Declaration1Arr: this.signarr
+            //Declaration1Arr: [i]
           })
          }
          else{
+          this.signarr1=[i];
+          this.signarr1[0].signature=atob(i.signature);
           this.addsummary.patchValue({
-            Declaration2Arr: [i]
+            Declaration2Arr: this.signarr1
+           // Declaration2Arr: [i]
           })
          }
        }
@@ -1208,7 +1252,7 @@ showHideAccordion(index: number) {
     return new FormGroup({
       declarationId: new FormControl(''),
       name: new FormControl('', Validators.required),
-      signature: new FormControl(''),
+      signature: new FormControl('', Validators.required),
       company: new FormControl('', Validators.required),
       position: new FormControl('', Validators.required),
       address: new FormControl('', Validators.required),
@@ -1221,7 +1265,7 @@ showHideAccordion(index: number) {
     return new FormGroup({
       declarationId: new FormControl(''),
       name: new FormControl('', Validators.required),
-      signature: new FormControl(''),
+      signature: new FormControl('', Validators.required),
       company: new FormControl('', Validators.required),
       position: new FormControl('', Validators.required),
       address: new FormControl('', Validators.required),
@@ -1763,8 +1807,10 @@ showHideAccordion(index: number) {
         }
       
           //this.verification.callFinalSavedMethod();
+          this.addsummary.value.Declaration1Arr[0].signature=this.service.bytestring5;
+          this.addsummary.value.Declaration2Arr[0].signature=this.service.bytestring6;
           this.summary.summaryObservation = this.addsummary.value.summaryObervation;
-          this.summary.summaryDeclaration = this.addsummary.value.Declaration1Arr;
+          this.summary.summaryDeclaration = this.addsummary.value.Declaration1Arr; 
           this.summary.limitationsInspection='The following observations are made';
           this.summary.summaryDeclaration = this.summary.summaryDeclaration.concat(
             this.addsummary.value.Declaration2Arr
@@ -1810,8 +1856,8 @@ showHideAccordion(index: number) {
                 this.service.disableSubmitSummary=true;
                 this.finalFlag = true;
                 this.service.windowTabClick=0;
-            this.service.logoutClick=0; 
-            this.service.lvClick=0; 
+                this.service.logoutClick=0; 
+                this.service.lvClick=0; 
               },
               (error) => {
                 this.popup=true;

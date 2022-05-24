@@ -7,24 +7,21 @@
   </div>
 <div class="card">
     <div class="card-body">
-
+        <form [formGroup]="EMCFacilityForm" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)"
+        (ngSubmit)="saveFacilityData(flag)">
         <mat-accordion>
-            <form [formGroup]="EMCFacilityForm" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)"
-                (ngSubmit)="saveFacilityData(flag)">
-
-                <mat-expansion-panel class="body">
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             <h3>Building Location / Setting</h3>
                         </mat-panel-title>
-
                     </mat-expansion-panel-header>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Type</label>
+                                <label>Type:</label>
                                 <select class="form-control" formControlName="blType"
-                                    [(ngModel)]="emcFacilityData.blType"
+                                    [(ngModel)]="emcFacilityData.blType"   [attr.disabled]="isEditableEmc ? '' : null" 
                                     [ngClass]="{'is-invalid':submitted && f.blType?.errors}">
                                     <option [ngValue]="null">Select Option</option>
                                     <option *ngFor="let value of buildingType">{{value}}</option>
@@ -37,9 +34,9 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Describe others</label>
-                                <textarea class="textarea-size" class="form-control"
-                                    [(ngModel)]="emcFacilityData.blOtherDescription"
+                                <label>Describe others:</label>
+                                <textarea class="textarea-size" class="form-control" cols="60" rows="1"
+                                    [(ngModel)]="emcFacilityData.blOtherDescription" [readonly]="isEditableEmc"
                                     [ngClass]="{'is-invalid':submitted && f.blOtherDescription?.errors}"
                                     formControlName="blOtherDescription" placeholder="Describe others"></textarea>
                                 <div *ngIf="submitted &&f.blOtherDescription?.errors" class="invalid-feedback">
@@ -51,7 +48,7 @@
                     </div>
 
                 </mat-expansion-panel>
-                <mat-expansion-panel class="body">
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             <h3>Building Construction</h3>
@@ -61,9 +58,9 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Type </label>
-                                <select class="form-control" formControlName="bcType"
-                                    [(ngModel)]="emcFacilityData.bcType"
+                                <label>Type: </label>
+                                <select class="form-control" formControlName="bcType" [attr.disabled]="isEditableEmc ? '' : null" 
+                                    [(ngModel)]="emcFacilityData.bcType" 
                                     [ngClass]="{'is-invalid':submitted && f.bcType?.errors}">
                                     <option [ngValue]="null">Select Option</option>
                                     <option *ngFor="let value of buildingConstruction">{{value}}</option>
@@ -76,9 +73,9 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>No. of floors </label>
+                                <label>No. of floors: </label>
                                 <input type="number" class="form-control" formControlName="bcNoOfFloors"
-                                    [(ngModel)]="emcFacilityData.bcNoOfFloors"
+                                    [(ngModel)]="emcFacilityData.bcNoOfFloors" [readonly]="isEditableEmc"
                                     [ngClass]="{'is-invalid':submitted && f.bcNoOfFloors?.errors}"
                                     placeholder="Enter No. of floors">
                                 <div *ngIf="submitted &&f.bcNoOfFloors?.errors" class="invalid-feedback">
@@ -89,9 +86,9 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Computer room floor location </label>
+                                <label>Computer room floor location: </label>
                                 <input type="text" class="form-control" formControlName="bcRoomFloorLocation"
-                                    [(ngModel)]="emcFacilityData.bcRoomFloorLocation"
+                                    [(ngModel)]="emcFacilityData.bcRoomFloorLocation" [readonly]="isEditableEmc"
                                     placeholder="Enter Computer room floor location"
                                     [ngClass]="{'is-invalid':submitted && f.bcRoomFloorLocation?.errors}">
                                 <div *ngIf="submitted &&f.bcRoomFloorLocation?.errors" class="invalid-feedback">
@@ -103,9 +100,9 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Building primary use </label>
+                                <label>Building primary use: </label>
                                 <input type="text" class="form-control" formControlName="bcBuildingPrimaryUse"
-                                    [(ngModel)]="emcFacilityData.bcBuildingPrimaryUse"
+                                    [(ngModel)]="emcFacilityData.bcBuildingPrimaryUse" [readonly]="isEditableEmc"
                                     placeholder="Enter Building primary use"
                                     [ngClass]="{'is-invalid':submitted && f.bcBuildingPrimaryUse?.errors}">
                                 <div *ngIf="submitted &&f.bcBuildingPrimaryUse?.errors" class="invalid-feedback">
@@ -117,9 +114,9 @@
                         </div>
                         <div class="col-md-4">
                             <div>
-                                <label>Other uses / processes</label>
+                                <label>Other uses / processes:</label>
                                 <input type="text" class="form-control" formControlName="bcOtherUses"
-                                    [(ngModel)]="emcFacilityData.bcOtherUses"
+                                    [(ngModel)]="emcFacilityData.bcOtherUses" [readonly]="isEditableEmc"
                                     [ngClass]="{'is-invalid':submitted && f.bcOtherUses?.errors}"
                                     placeholder="Enter Other uses / processes">
                                 <div *ngIf="submitted &&f.bcOtherUses?.errors" class="invalid-feedback">
@@ -130,7 +127,7 @@
                         </div>
                     </div>
                 </mat-expansion-panel>
-                <mat-expansion-panel class="body">
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             <h3>Room Location</h3>
@@ -140,9 +137,9 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Interior room</label>
+                                <label>Interior room:</label>
                                 <input type="text" class="form-control" formControlName="rlInteriorRoom"
-                                    [ngClass]="{'is-invalid':submitted && f.rlInteriorRoom?.errors}"
+                                    [ngClass]="{'is-invalid':submitted && f.rlInteriorRoom?.errors}" [readonly]="isEditableEmc"
                                     [(ngModel)]="emcFacilityData.rlInteriorRoom" placeholder="Enter Interior room">
                                 <div *ngIf="submitted &&f.rlInteriorRoom?.errors" class="invalid-feedback">
                                     <div *ngIf="f.rlInteriorRoom?.errors?.required">Interior Room Is Required</div>
@@ -151,9 +148,9 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Exterior room </label>
+                                <label>Exterior room: </label>
                                 <input type="text" class="form-control" formControlName="rlExteriorRoom"
-                                    [ngClass]="{'is-invalid':submitted && f.rlExteriorRoom?.errors}"
+                                    [ngClass]="{'is-invalid':submitted && f.rlExteriorRoom?.errors}" [readonly]="isEditableEmc"
                                     [(ngModel)]="emcFacilityData.rlExteriorRoom" placeholder="Enter Exterior room">
                                 <div *ngIf="submitted &&f.rlExteriorRoom?.errors" class="invalid-feedback">
                                     <div *ngIf="f.rlExteriorRoom?.errors?.required">Exterior Room Is Required</div>
@@ -162,9 +159,9 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Solid exterior walls</label>
+                                <label>Solid exterior walls:</label>
                                 <input type="text" class="form-control" formControlName="rlSolidExterior"
-                                    [(ngModel)]="emcFacilityData.rlSolidExterior"
+                                    [(ngModel)]="emcFacilityData.rlSolidExterior" [readonly]="isEditableEmc"
                                     [ngClass]="{'is-invalid':submitted && f.rlSolidExterior?.errors}"
                                     placeholder="Enter Solid exterior walls">
                                 <div *ngIf="submitted &&f.rlSolidExterior?.errors" class="invalid-feedback">
@@ -176,9 +173,9 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Windowed exterior walls </label>
+                                <label>Windowed exterior walls: </label>
                                 <input type="text" class="form-control" formControlName="rlWindowedExterior"
-                                    [(ngModel)]="emcFacilityData.rlWindowedExterior"
+                                    [(ngModel)]="emcFacilityData.rlWindowedExterior" [readonly]="isEditableEmc"
                                     [ngClass]="{'is-invalid':submitted && f.rlWindowedExterior?.errors}"
                                     placeholder="Enter Windowed exterior walls">
                                 <div *ngIf="submitted &&f.rlWindowedExterior?.errors" class="invalid-feedback">
@@ -189,9 +186,9 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Windows face (north, south, east, or west)</label>
+                                <label>Windows face (north, south, east, or west):</label>
                                 <input type="text" class="form-control" formControlName="rlWindsFace"
-                                    [(ngModel)]="emcFacilityData.rlWindsFace"
+                                    [(ngModel)]="emcFacilityData.rlWindsFace" [readonly]="isEditableEmc"
                                     [ngClass]="{'is-invalid':submitted && f.rlWindsFace?.errors}"
                                     placeholder="Enter Windows face (north, south, east, or west)">
                                 <div *ngIf="submitted &&f.rlWindsFace?.errors" class="invalid-feedback">
@@ -202,7 +199,7 @@
                     </div>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel class="body">
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             <h3>Room Use</h3>
@@ -210,12 +207,12 @@
 
                     </mat-expansion-panel-header>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label>Dedicated room for system</label>
+                                <label>Dedicated room for system:</label>
                                 <!-- <input type="text" class="form-control" placeholder="Enter Dedicated room for system"> -->
                                 <select class="form-control" formControlName="ruDedicated"
-                                    [(ngModel)]="emcFacilityData.ruDedicated"
+                                    [(ngModel)]="emcFacilityData.ruDedicated" [attr.disabled]="isEditableEmc ? '' : null" 
                                     [ngClass]="{'is-invalid':submitted && f.ruDedicated?.errors}">
                                     <option [ngValue]="null">Select Option</option>
                                     <option *ngFor="let value of dedicatedRoomForSafety">{{value}}</option>
@@ -232,11 +229,11 @@
                                 <input type="text" class="form-control" placeholder="Enter Non dedicated room">
                             </div>
                         </div> -->
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div>
-                                <label>Describe other equipment in room</label>
-                                <textarea class="textarea-size" class="form-control" style="font-size: medium;"
-                                    [(ngModel)]="emcFacilityData.ruOtherDesc" formControlName="ruOtherDesc"
+                                <label>Describe other equipment in room:</label>
+                                <textarea class="textarea-size" class="form-control" style="font-size: medium;" cols="60" rows="1"
+                                    [(ngModel)]="emcFacilityData.ruOtherDesc" formControlName="ruOtherDesc" [readonly]="isEditableEmc"
                                     [ngClass]="{'is-invalid':submitted && f.ruOtherDesc?.errors}"
                                     placeholder="Enter Describe other equipment in room"></textarea>
                                 <div *ngIf="submitted &&f.ruOtherDesc?.errors" class="invalid-feedback">
@@ -247,19 +244,19 @@
                         </div>
                     </div>
                 </mat-expansion-panel>
-                <mat-expansion-panel class="body">
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
-                            <h3>Room Dimentions</h3>
+                            <h3>Room Dimensions</h3>
                         </mat-panel-title>
 
                     </mat-expansion-panel-header>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Height (true floor to true ceiling)</label>
+                                <label>Height (true floor to true ceiling):</label>
                                 <input type="text" class="form-control" formControlName="rmHeightTrueFloor"
-                                    [(ngModel)]="emcFacilityData.rmHeightTrueFloor"
+                                    [(ngModel)]="emcFacilityData.rmHeightTrueFloor" [readonly]="isEditableEmc"
                                     [ngClass]="{'is-invalid':submitted && f.rmHeightTrueFloor?.errors}"
                                     placeholder="Enter Height (true floor to true ceiling)">
                                 <div *ngIf="submitted &&f.rmHeightTrueFloor?.errors" class="invalid-feedback">
@@ -270,9 +267,9 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Height (false floor to drop ceiling)</label>
+                                <label>Height (false floor to drop ceiling):</label>
                                 <input type="number" class="form-control" formControlName="rmHeightFalseFloor"
-                                    [(ngModel)]="emcFacilityData.rmHeightFalseFloor"
+                                    [(ngModel)]="emcFacilityData.rmHeightFalseFloor" [readonly]="isEditableEmc"
                                     [ngClass]="{'is-invalid':submitted && f.rmHeightFalseFloor?.errors}"
                                     placeholder="Enter Height (false floor to drop ceiling)">
                                 <div *ngIf="submitted &&f.rmHeightFalseFloor?.errors" class="invalid-feedback">
@@ -283,9 +280,9 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Width</label>
+                                <label>Width:</label>
                                 <input type="number" class="form-control" formControlName="rmWidth"
-                                    [ngClass]="{'is-invalid':submitted && f.rmWidth?.errors}"
+                                    [ngClass]="{'is-invalid':submitted && f.rmWidth?.errors}" [readonly]="isEditableEmc"
                                     [(ngModel)]="emcFacilityData.rmWidth" placeholder="Enter Width">
                                 <div *ngIf="submitted &&f.rmWidth?.errors" class="invalid-feedback">
                                     <div *ngIf="f.rmWidth?.errors?.required">Width Is Required</div>
@@ -294,9 +291,9 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Length</label>
+                                <label>Length:</label>
                                 <input type="number" class="form-control" formControlName="rmLength"
-                                    [ngClass]="{'is-invalid':submitted && f.rmLength?.errors}"
+                                    [ngClass]="{'is-invalid':submitted && f.rmLength?.errors}" [readonly]="isEditableEmc"
                                     [(ngModel)]="emcFacilityData.rmLength" placeholder="Enter Length">
                                 <div *ngIf="submitted &&f.rmLength?.errors" class="invalid-feedback">
                                     <div *ngIf="f.rmLength?.errors?.required">Length Is Required</div>
@@ -305,9 +302,9 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Maximum allowable floor loading (Kg/m2)</label>
+                                <label>Maximum allowable floor loading (Kg/m2):</label>
                                 <input type="number" class="form-control" formControlName="rmMaxFloor"
-                                    [(ngModel)]="emcFacilityData.rmMaxFloor"
+                                    [(ngModel)]="emcFacilityData.rmMaxFloor" [readonly]="isEditableEmc"
                                     [ngClass]="{'is-invalid':submitted && f.rmMaxFloor?.errors}"
                                     placeholder="Enter Maximum allowable floor loading (Kg/m2)">
                                 <div *ngIf="submitted &&f.rmMaxFloor?.errors" class="invalid-feedback">
@@ -318,7 +315,7 @@
                         </div>
                     </div>
                 </mat-expansion-panel>
-                <mat-expansion-panel class="body">
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             <h3>Floor Type</h3>
@@ -328,9 +325,9 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Raised floor</label>
+                                <label>Raised floor:</label>
                                 <input type="text" class="form-control" formControlName="ftRaisedFloor"
-                                    [ngClass]="{'is-invalid':submitted && f.ftRaisedFloor?.errors}"
+                                    [ngClass]="{'is-invalid':submitted && f.ftRaisedFloor?.errors}" [readonly]="isEditableEmc"
                                     [(ngModel)]="emcFacilityData.ftRaisedFloor" placeholder="Enter Raised floor">
                                 <div *ngIf="submitted &&f.ftRaisedFloor?.errors" class="invalid-feedback">
                                     <div *ngIf="f.ftRaisedFloor?.errors?.required">Raised Floor Is Required</div>
@@ -339,9 +336,9 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Used as air supply plenum</label>
+                                <label>Used as air supply plenum:</label>
                                 <input type="text" class="form-control" formControlName="ftAirSupply"
-                                    [(ngModel)]="emcFacilityData.ftAirSupply"
+                                    [(ngModel)]="emcFacilityData.ftAirSupply" [readonly]="isEditableEmc"
                                     [ngClass]="{'is-invalid':submitted && f.ftAirSupply?.errors}"
                                     placeholder="Enter Used as air supply plenum">
                                 <div *ngIf="submitted &&f.ftAirSupply?.errors" class="invalid-feedback">
@@ -352,9 +349,9 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Height</label>
+                                <label>Height:</label>
                                 <input type="number" class="form-control" formControlName="ftHeight"
-                                    [ngClass]="{'is-invalid':submitted && f.ftHeight?.errors}"
+                                    [ngClass]="{'is-invalid':submitted && f.ftHeight?.errors}" [readonly]="isEditableEmc"
                                     [(ngModel)]="emcFacilityData.ftHeight" placeholder="Enter Height">
                                 <div *ngIf="submitted &&f.ftHeight?.errors" class="invalid-feedback">
                                     <div *ngIf="f.ftHeight?.errors?.required">Height Is Required</div>
@@ -363,9 +360,9 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Air flow obstructions</label>
+                                <label>Air flow obstructions:</label>
                                 <input type="text" class="form-control" formControlName="ftAirFlowObservation"
-                                    [ngClass]="{'is-invalid':submitted && f.ftAirFlowObservation?.errors}"
+                                    [ngClass]="{'is-invalid':submitted && f.ftAirFlowObservation?.errors}" [readonly]="isEditableEmc"
                                     [(ngModel)]="emcFacilityData.ftAirFlowObservation"
                                     placeholder="Enter Air flow obstructions">
                                 <div *ngIf="submitted &&f.ftAirFlowObservation?.errors" class="invalid-feedback">
@@ -374,12 +371,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4    ">
+                        <div class="col-md-4">
                             <div>
-                                <label>Description</label>
-                                <textarea class="textarea-size" class="form-control" style="font-size: medium;"
+                                <label>Description:</label>
+                                <textarea class="textarea-size" class="form-control" style="font-size: medium;" cols="60" rows="1"
                                     [(ngModel)]="emcFacilityData.ftDescription" formControlName="ftDescription"
-                                    [ngClass]="{'is-invalid':submitted && f.ftDescription?.errors}"
+                                    [ngClass]="{'is-invalid':submitted && f.ftDescription?.errors}" [readonly]="isEditableEmc"
                                     placeholder="Enter Description"></textarea>
                                 <div *ngIf="submitted &&f.ftDescription?.errors" class="invalid-feedback">
                                     <div *ngIf="f.ftDescription?.errors?.required">Description Is Required</div>
@@ -388,9 +385,9 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Air grill dampers</label>
+                                <label>Air grill dampers:</label>
                                 <input type="text" class="form-control" formControlName="ftAirGrillDampers"
-                                    [(ngModel)]="emcFacilityData.ftAirGrillDampers"
+                                    [(ngModel)]="emcFacilityData.ftAirGrillDampers" [readonly]="isEditableEmc"
                                     [ngClass]="{'is-invalid':submitted && f.ftAirGrillDampers?.errors}"
                                     placeholder="Enter Air grill dampers">
                                 <div *ngIf="submitted &&f.ftAirGrillDampers?.errors" class="invalid-feedback">
@@ -401,9 +398,9 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Cable hole edge guards</label>
+                                <label>Cable hole edge guards:</label>
                                 <input type="text" class="form-control" formControlName="ftCableHole"
-                                    [(ngModel)]="emcFacilityData.ftCableHole"
+                                    [(ngModel)]="emcFacilityData.ftCableHole" [readonly]="isEditableEmc"
                                     [ngClass]="{'is-invalid':submitted && f.ftCableHole?.errors}"
                                     placeholder="Enter Cable hole edge guards">
                                 <div *ngIf="submitted &&f.ftCableHole?.errors" class="invalid-feedback">
@@ -414,9 +411,9 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Pedestals</label>
+                                <label>Pedestals:</label>
                                 <input type="text" class="form-control" formControlName="ftPedestals"
-                                    [ngClass]="{'is-invalid':submitted && f.ftPedestals?.errors}"
+                                    [ngClass]="{'is-invalid':submitted && f.ftPedestals?.errors}" [readonly]="isEditableEmc"
                                     [(ngModel)]="emcFacilityData.ftPedestals" placeholder="Enter Pedestals">
                                 <div *ngIf="submitted &&f.ftPedestals?.errors" class="invalid-feedback">
                                     <div *ngIf="f.ftPedestals?.errors?.required">Pedestals Is Required</div>
@@ -425,9 +422,9 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Grids</label>
+                                <label>Grids:</label>
                                 <input type="text" class="form-control" formControlName="ftGrids"
-                                    [ngClass]="{'is-invalid':submitted && f.ftGrids?.errors}"
+                                    [ngClass]="{'is-invalid':submitted && f.ftGrids?.errors}" [readonly]="isEditableEmc"
                                     [(ngModel)]="emcFacilityData.ftGrids" placeholder="Enter Grids">
                                 <div *ngIf="submitted &&f.ftGrids?.errors" class="invalid-feedback">
                                     <div *ngIf="f.ftGrids?.errors?.required">Grids Is Required</div>
@@ -436,9 +433,9 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Bolted</label>
+                                <label>Bolted:</label>
                                 <input type="text" class="form-control" formControlName="ftBolted"
-                                    [ngClass]="{'is-invalid':submitted && f.ftBolted?.errors}"
+                                    [ngClass]="{'is-invalid':submitted && f.ftBolted?.errors}" [readonly]="isEditableEmc"
                                     [(ngModel)]="emcFacilityData.ftBolted" placeholder="Enter Bolted">
                                 <div *ngIf="submitted &&f.ftBolted?.errors" class="invalid-feedback">
                                     <div *ngIf="f.ftBolted?.errors?.required">Bolted Is Required</div>
@@ -447,9 +444,9 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Welded</label>
+                                <label>Welded:</label>
                                 <input type="text" class="form-control" formControlName="ftWelded"
-                                    [ngClass]="{'is-invalid':submitted && f.ftWelded?.errors}"
+                                    [ngClass]="{'is-invalid':submitted && f.ftWelded?.errors}" [readonly]="isEditableEmc"
                                     [(ngModel)]="emcFacilityData.ftWelded" placeholder="Enter welded">
                                 <div *ngIf="submitted &&f.ftWelded?.errors" class="invalid-feedback">
                                     <div *ngIf="f.ftWelded?.errors?.required">welded Is Required</div>
@@ -458,9 +455,9 @@
                         </div>
                         <div class="col-md-4">
                             <div>
-                                <label>Description of earthing</label>
-                                <textarea class="textarea-size" class="form-control" style="font-size: medium;"
-                                    [(ngModel)]="emcFacilityData.ftEarthingDesc" formControlName="ftEarthingDesc"
+                                <label>Description of earthing:</label>
+                                <textarea class="textarea-size" class="form-control" style="font-size: medium;" cols="60" rows="1"
+                                    [(ngModel)]="emcFacilityData.ftEarthingDesc" formControlName="ftEarthingDesc" [readonly]="isEditableEmc"
                                     [ngClass]="{'is-invalid':submitted && f.ftEarthingDesc?.errors}"
                                     placeholder="Enter Description of earthing"></textarea>
                                 <div *ngIf="submitted &&f.ftEarthingDesc?.errors" class="invalid-feedback">
@@ -478,9 +475,9 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>True floor: material </label>
+                                <label>True floor: material: </label>
                                 <select class="form-control" formControlName="ftTrueFloorMaterial"
-                                    [(ngModel)]="emcFacilityData.ftTrueFloorMaterial"
+                                    [(ngModel)]="emcFacilityData.ftTrueFloorMaterial"  [attr.disabled]="isEditableEmc ? '' : null" 
                                     [ngClass]="{'is-invalid':submitted && f.ftTrueFloorMaterial?.errors}">
                                     <option [ngValue]="null">Select Option</option>
                                     <option *ngFor="let value of floorMaterisl">{{value}}</option>
@@ -500,10 +497,10 @@
                         </div> -->
                         <div class="col-md-4">
                             <div>
-                                <label>Describe</label>
-                                <textarea class="textarea-size" class="form-control" style="font-size: medium;"
+                                <label>Describe:</label>
+                                <textarea class="textarea-size" class="form-control" style="font-size: medium;" cols="60" rows="1"
                                     [(ngModel)]="emcFacilityData.ftDescribe" formControlName="ftDescribe"
-                                    [ngClass]="{'is-invalid':submitted && f.ftDescribe?.errors}"
+                                    [ngClass]="{'is-invalid':submitted && f.ftDescribe?.errors}" [readonly]="isEditableEmc"
                                     placeholder="Enter Describe"></textarea>
                                 <div *ngIf="submitted &&f.ftDescribe?.errors" class="invalid-feedback">
                                     <div *ngIf="f.ftDescribe?.errors?.required">Describe Is Required</div>
@@ -512,9 +509,9 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Cleanliness</label>
+                                <label>Cleanliness:</label>
                                 <input type="text" class="form-control" formControlName="ftCleanliness"
-                                    [ngClass]="{'is-invalid':submitted && f.ftDescribe?.errors}"
+                                    [ngClass]="{'is-invalid':submitted && f.ftDescribe?.errors}" [readonly]="isEditableEmc"
                                     [(ngModel)]="emcFacilityData.ftCleanliness" placeholder="Enter Cleanliness">
                                 <div *ngIf="submitted &&f.ftCleanliness?.errors" class="invalid-feedback">
                                     <div *ngIf="f.ftCleanliness?.errors?.required">Cleanliness Is Required</div>
@@ -523,9 +520,9 @@
                         </div>
                         <div class="col-md-4">
                             <div>
-                                <label>Other descriptions</label>
-                                <textarea class="textarea-size" class="form-control" style="font-size: medium;"
-                                    [(ngModel)]="emcFacilityData.ftOtherDescription"
+                                <label>Other descriptions:</label>
+                                <textarea class="textarea-size" class="form-control" style="font-size: medium;" cols="60" rows="1"
+                                    [(ngModel)]="emcFacilityData.ftOtherDescription" [readonly]="isEditableEmc"
                                     formControlName="ftOtherDescription"
                                     [ngClass]="{'is-invalid':submitted && f.ftOtherDescription?.errors}"
                                     placeholder="Enter Other descriptions"></textarea>
@@ -541,7 +538,7 @@
                 <div formArrayName="floorCoveringArr" *ngFor="let a of getfloorCoveringarrControl(); let i = index">
                     <div class="form-group" [formGroupName]="i">
 
-                        <mat-expansion-panel class="body">
+                        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
                                     <h3>Floor Covering</h3>
@@ -551,8 +548,8 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Type</label>
-                                        <input type="text" class="form-control" formControlName="fcType"
+                                        <label>Type:</label>
+                                        <input type="text" class="form-control" formControlName="fcType" [readonly]="isEditableEmc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('fcType')?.errors }"
                                             placeholder="Enter Type">
                                         <div *ngIf="submitted && a.get('fcType')?.errors" class="invalid-feedback">
@@ -562,8 +559,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Manufacturer</label>
-                                        <input type="text" class="form-control" formControlName="fcManufactor"
+                                        <label>Manufacturer:</label>
+                                        <input type="text" class="form-control" formControlName="fcManufactor" [readonly]="isEditableEmc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('fcManufactor')?.errors }"
                                             placeholder="Enter Manufacturer">
                                         <div *ngIf="submitted && a.get('fcManufactor')?.errors"
@@ -575,10 +572,11 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Static tratment type and description</label>
-                                        <input type="text" class="form-control" formControlName="fcDescription"
+                                        <label>Static treatment type and description:</label>
+
+                                        <input type="text" class="form-control" formControlName="fcDescription" [readonly]="isEditableEmc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('fcDescription')?.errors }"
-                                            placeholder="Enter Static tratment type and description ">
+                                            placeholder="Enter Static treatment type and description ">
                                         <div *ngIf="submitted && a.get('fcDescription')?.errors"
                                             class="invalid-feedback">
                                             <div *ngIf="a.get('fcDescription')?.errors?.required">Field Is Required
@@ -588,8 +586,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Woven</label>
-                                        <input type="text" class="form-control" formControlName="fcWoven"
+                                        <label>Woven:</label>
+                                        <input type="text" class="form-control" formControlName="fcWoven" [readonly]="isEditableEmc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('fcWoven')?.errors }"
                                             placeholder="Enter Woven">
                                         <div *ngIf="submitted && a.get('fcWoven')?.errors" class="invalid-feedback">
@@ -599,8 +597,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Chemical</label>
-                                        <input type="text" class="form-control" formControlName="fcChemical"
+                                        <label>Chemical:</label>
+                                        <input type="text" class="form-control" formControlName="fcChemical" [readonly]="isEditableEmc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('fcChemical')?.errors }"
                                             placeholder="Enter Chemical">
                                         <div *ngIf="submitted && a.get('fcChemical')?.errors" class="invalid-feedback">
@@ -611,8 +609,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>None</label>
-                                        <input type="text" class="form-control" formControlName="fcNone"
+                                        <label>None:</label>
+                                        <input type="text" class="form-control" formControlName="fcNone" [readonly]="isEditableEmc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('fcNone')?.errors }"
                                             placeholder="Enter None">
                                         <div *ngIf="submitted && a.get('fcNone')?.errors" class="invalid-feedback">
@@ -622,9 +620,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div>
-                                        <label>Others - Describe</label>
-                                        <textarea class="textarea-size" class="form-control" style="font-size: medium;"
-                                            formControlName="fcOtherDecription"
+                                        <label>Others - Describe:</label>
+                                        <textarea class="textarea-size" class="form-control" style="font-size: medium;" cols="60" rows="1"
+                                            formControlName="fcOtherDecription" [readonly]="isEditableEmc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('fcOtherDecription')?.errors }"
                                             placeholder="Enter Others - Describe"></textarea>
                                         <div *ngIf="submitted && a.get('fcOtherDecription')?.errors"
@@ -637,7 +635,7 @@
                             </div>
                         </mat-expansion-panel>
 
-                        <mat-expansion-panel class="body">
+                        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
                                     <h3>Walls</h3>
@@ -646,8 +644,8 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Type of construction</label>
-                                        <input type="text" class="form-control" formControlName="wallType"
+                                        <label>Type of construction:</label>
+                                        <input type="text" class="form-control" formControlName="wallType" [readonly]="isEditableEmc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('wallType')?.errors }"
                                             placeholder="Enter Type of construction">
                                         <div *ngIf="submitted && a.get('wallType')?.errors" class="invalid-feedback">
@@ -658,8 +656,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Material</label>
-                                        <input type="text" class="form-control" formControlName="wallMaterial"
+                                        <label>Material:</label>
+                                        <input type="text" class="form-control" formControlName="wallMaterial" [readonly]="isEditableEmc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('wallMaterial')?.errors }"
                                             placeholder="Enter Material">
                                         <div *ngIf="submitted && a.get('wallMaterial')?.errors"
@@ -671,8 +669,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Covering type</label>
-                                        <input type="text" class="form-control" formControlName="wallCoveringType"
+                                        <label>Covering type:</label>
+                                        <input type="text" class="form-control" formControlName="wallCoveringType" [readonly]="isEditableEmc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('wallCoveringType')?.errors }"
                                             placeholder="Enter Covering type">
                                         <div *ngIf="submitted && a.get('wallCoveringType')?.errors"
@@ -684,8 +682,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Humidity and dust control</label>
-                                        <input type="text" class="form-control" formControlName="wallHumidity"
+                                        <label>Humidity and dust control:</label>
+                                        <input type="text" class="form-control" formControlName="wallHumidity" [readonly]="isEditableEmc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('wallHumidity')?.errors }"
                                             placeholder="Enter Humidity and dust control">
                                         <div *ngIf="submitted && a.get('wallHumidity')?.errors"
@@ -697,8 +695,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>True floor to true sealing</label>
-                                        <input type="text" class="form-control" formControlName="wallSealing"
+                                        <label>True floor to true sealing:</label>
+                                        <input type="text" class="form-control" formControlName="wallSealing" [readonly]="isEditableEmc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('wallSealing')?.errors }"
                                             placeholder="Enter True floor to true sealing">
                                         <div *ngIf="submitted && a.get('wallSealing')?.errors" class="invalid-feedback">
@@ -709,8 +707,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Additional description</label>
-                                        <input type="text" class="form-control" formControlName="wallDesc"
+                                        <label>Additional description:</label>
+                                        <input type="text" class="form-control" formControlName="wallDesc" [readonly]="isEditableEmc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('wallDesc')?.errors }"
                                             placeholder="Enter Additional description">
                                         <div *ngIf="submitted && a.get('wallDesc')?.errors" class="invalid-feedback">
@@ -721,7 +719,7 @@
                                 </div>
                             </div>
                         </mat-expansion-panel>
-                        <mat-expansion-panel class="body">
+                        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
                                     <h3>Ceiling Construction</h3>
@@ -731,9 +729,9 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div>
-                                        <label>Description of False (drop) ceiling</label>
+                                        <label>Description of False (drop) ceiling:</label>
                                         <textarea class="textarea-size" class="form-control" style="font-size: medium;"
-                                            formControlName="ccFalseDesc"
+                                            formControlName="ccFalseDesc" cols="60" rows="1" [readonly]="isEditableEmc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('ccFalseDesc')?.errors }"
                                             placeholder="Enter Description of False (drop) ceiling"></textarea>
                                         <div *ngIf="submitted && a.get('ccFalseDesc')?.errors" class="invalid-feedback">
@@ -743,8 +741,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Humidity and dust control</label>
-                                        <input type="text" class="form-control" formControlName="ccFalseHumidity"
+                                        <label>Humidity and dust control:</label>
+                                        <input type="text" class="form-control" formControlName="ccFalseHumidity" [readonly]="isEditableEmc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('ccFalseHumidity')?.errors }"
                                             placeholder="Enter Humidity and dust control">
                                         <div *ngIf="submitted && a.get('ccFalseHumidity')?.errors"
@@ -756,9 +754,9 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Height and use of void space</label>
+                                        <label>Height and use of void space:</label>
                                         <input type="text" class="form-control" formControlName="ccFalseHeight"
-                                            placeholder="Enter Height and use of void space"
+                                            placeholder="Enter Height and use of void space" [readonly]="isEditableEmc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('ccFalseHeight')?.errors }">
                                         <div *ngIf="submitted && a.get('ccFalseHeight')?.errors"
                                             class="invalid-feedback">
@@ -776,8 +774,9 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Utilisation of void</label>
-                                        <select class="form-control" formControlName="ccUtilisation"
+                                        <label>Utilization of void:</label>
+
+                                        <select class="form-control" formControlName="ccUtilisation"  [attr.disabled]="isEditableEmc ? '' : null" 
                                             [ngClass]="{ 'is-invalid': submitted && a.get('ccUtilisation')?.errors }">
                                             <option [ngValue]="null">Select Option</option>
                                             <option *ngFor="let value of utilisation">{{value}}</option>
@@ -792,9 +791,9 @@
 
                                 <div class="col-md-4">
                                     <div>
-                                        <label>Description of true ceiling</label>
+                                        <label>Description of true ceiling:</label>
                                         <textarea class="textarea-size" class="form-control" style="font-size: medium;"
-                                            formControlName="ccTrueDesc"
+                                            formControlName="ccTrueDesc" cols="60" rows="1" [readonly]="isEditableEmc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('ccTrueDesc')?.errors }"
                                             placeholder="Enter Description of true ceiling"></textarea>
                                         <div *ngIf="submitted && a.get('ccTrueDesc')?.errors" class="invalid-feedback">
@@ -805,8 +804,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Humidity and dust control</label>
-                                        <input type="text" class="form-control" formControlName="ccTrueHumidity"
+                                        <label>Humidity and dust control:</label>
+                                        <input type="text" class="form-control" formControlName="ccTrueHumidity" [readonly]="isEditableEmc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('ccTrueHumidity')?.errors }"
                                             placeholder="Enter Humidity and dust control">
                                         <div *ngIf="submitted && a.get('ccTrueHumidity')?.errors"
@@ -818,11 +817,11 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div>
-                                        <label>Description of surface tratment and condition/clealiness</label>
+                                        <label>Description of surface treatment and condition/clealiness:</label>
                                         <textarea class="textarea-size" class="form-control" style="font-size: medium;"
-                                            formControlName="ccSurfaceDesc"
+                                            formControlName="ccSurfaceDesc" cols="60" rows="1" [readonly]="isEditableEmc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('ccSurfaceDesc')?.errors }"
-                                            placeholder="Enter Description of surface tratment and condition/clealiness"></textarea>
+                                            placeholder="Enter Description of surface treatment and condition/clealiness"></textarea>
                                         <div *ngIf="submitted && a.get('ccSurfaceDesc')?.errors"
                                             class="invalid-feedback">
                                             <div *ngIf="a.get('ccSurfaceDesc')?.errors?.required">Field Is Required
@@ -832,7 +831,7 @@
                                 </div>
                             </div>
                         </mat-expansion-panel>
-                        <mat-expansion-panel class="body">
+                        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
                                     <h3>Windows</h3>
@@ -842,8 +841,8 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>External</label>
-                                        <select class="form-control" formControlName="windowsExternal"
+                                        <label>External:</label>
+                                        <select class="form-control" formControlName="windowsExternal" [attr.disabled]="isEditableEmc ? '' : null" 
                                             [ngClass]="{ 'is-invalid': submitted && a.get('windowsExternal')?.errors }">
                                             <option [ngValue]="null">Select Option</option>
                                             <option *ngFor="let value of external">{{value}}</option>
@@ -858,9 +857,9 @@
 
                                 <div class="col-md-4">
                                     <div>
-                                        <label>Description of construction</label>
+                                        <label>Description of construction:</label>
                                         <textarea class="textarea-size" class="form-control" style="font-size: medium;"
-                                            formControlName="windowsDescription"
+                                            formControlName="windowsDescription" cols="60" rows="1" [readonly]="isEditableEmc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('windowsDescription')?.errors }"
                                             placeholder="(can the windows be opened?)...!"></textarea>
                                         <div *ngIf="submitted && a.get('windowsDescription')?.errors"
@@ -873,8 +872,8 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Window covering</label>
-                                        <select class="form-control" formControlName="windowsCovering"
+                                        <label>Window covering:</label>
+                                        <select class="form-control" formControlName="windowsCovering"  [attr.disabled]="isEditableEmc ? '' : null" 
                                             [ngClass]="{ 'is-invalid': submitted && a.get('windowsCovering')?.errors }">
                                             <option [ngValue]="null">Select Option</option>
                                             <option *ngFor="let value of windowCovering">{{value}}</option>
@@ -889,9 +888,9 @@
 
                                 <div class="col-md-4">
                                     <div>
-                                        <label>Describe others</label>
+                                        <label>Describe others:</label>
                                         <textarea class="textarea-size" class="form-control" style="font-size: medium;"
-                                            formControlName="windowsOtherDesc"
+                                            formControlName="windowsOtherDesc" cols="60" rows="1" [readonly]="isEditableEmc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('windowsOtherDesc')?.errors }"
                                             placeholder="Enter Describe others"></textarea>
                                         <div *ngIf="submitted && a.get('windowsOtherDesc')?.errors"
@@ -904,9 +903,9 @@
 
                                 <div class="col-md-4">
                                     <div>
-                                        <label>Description of Internal windows </label>
+                                        <label>Description of Internal windows: </label>
                                         <textarea class="textarea-size" class="form-control" style="font-size: medium;"
-                                            formControlName="windowsInternalDesc"
+                                            formControlName="windowsInternalDesc" cols="60" rows="1" [readonly]="isEditableEmc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('windowsInternalDesc')?.errors }"
                                             placeholder="Enter Description of Internal windows "></textarea>
                                         <div *ngIf="submitted && a.get('windowsInternalDesc')?.errors"
@@ -919,7 +918,7 @@
                             </div>
                         </mat-expansion-panel>
 
-                        <mat-expansion-panel class="body">
+                        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
                                     <h3>Doors</h3>
@@ -929,8 +928,8 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Material</label>
-                                        <input type="text" class="form-control" formControlName="doorsMaterial"
+                                        <label>Material:</label>
+                                        <input type="text" class="form-control" formControlName="doorsMaterial" [readonly]="isEditableEmc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('doorsMaterial')?.errors }"
                                             placeholder="Enter Material">
                                         <div *ngIf="submitted && a.get('doorsMaterial')?.errors"
@@ -942,8 +941,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Number</label>
-                                        <input type="number" class="form-control" formControlName="doorsNumber"
+                                        <label>Number:</label>
+                                        <input type="number" class="form-control" formControlName="doorsNumber" [readonly]="isEditableEmc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('doorsNumber')?.errors }"
                                             placeholder="Enter Number">
                                         <div *ngIf="submitted && a.get('doorsNumber')?.errors" class="invalid-feedback">
@@ -953,8 +952,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Width</label>
-                                        <input type="text" class="form-control" formControlName="doorsWidth"
+                                        <label>Width:</label>
+                                        <input type="text" class="form-control" formControlName="doorsWidth" [readonly]="isEditableEmc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('doorsWidth')?.errors }"
                                             placeholder="Enter Width">
                                         <div *ngIf="submitted && a.get('doorsWidth')?.errors" class="invalid-feedback">
@@ -964,8 +963,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Height</label>
-                                        <input type="text" class="form-control" formControlName="doorsHeight"
+                                        <label>Height:</label>
+                                        <input type="text" class="form-control" formControlName="doorsHeight" [readonly]="isEditableEmc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('doorsHeight')?.errors }"
                                             placeholder="Enter Height">
                                         <div *ngIf="submitted && a.get('doorsHeight')?.errors" class="invalid-feedback">
@@ -975,8 +974,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Closure mechanism</label>
-                                        <input type="text" class="form-control" formControlName="doorsCloserMechanish"
+                                        <label>Closure mechanism:</label>
+                                        <input type="text" class="form-control" formControlName="doorsCloserMechanish" [readonly]="isEditableEmc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('doorsCloserMechanish')?.errors }"
                                             placeholder="Enter Closure mechanism">
                                         <div *ngIf="submitted && a.get('doorsCloserMechanish')?.errors"
@@ -988,8 +987,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Quality of air sealing</label>
-                                        <input type="text" class="form-control" formControlName="doorsQualitySealing"
+                                        <label>Quality of air sealing:</label>
+                                        <input type="text" class="form-control" formControlName="doorsQualitySealing" [readonly]="isEditableEmc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('doorsQualitySealing')?.errors }"
                                             placeholder="Enter Quality of air sealing">
                                         <div *ngIf="submitted && a.get('doorsQualitySealing')?.errors"
@@ -1001,9 +1000,9 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div>
-                                        <label>Description of service area provided</label>
+                                        <label>Description of service area provided:</label>
                                         <textarea class="textarea-size" class="form-control" style="font-size: medium;"
-                                            formControlName="doorsDesc"
+                                            formControlName="doorsDesc" cols="60" rows="1" [readonly]="isEditableEmc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('doorsDesc')?.errors }"
                                             placeholder="Enter Description of service area provided"></textarea>
                                         <div *ngIf="submitted && a.get('doorsDesc')?.errors" class="invalid-feedback">
@@ -1031,7 +1030,8 @@
                                 </p>
                             </div>
                         </div> -->
-                                <div>
+                        <br>
+                                <div class="col-sm-12">
                                     <label for="" style="font-weight: normal;">Note: Attach room layout as close to
                                         scale as
                                         possible (or attach site plan drawing, if current). Show all major equipment:
@@ -1054,20 +1054,25 @@
                 </div> -->
 
                 <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
-                    <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
+                    <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
                     <button class="next" (click)="gotoNextModal(content1, content2)" mat-button>Next &raquo;</button>
                 </div>
-
-            </form>
         </mat-accordion>
+    </form>
     </div>
 
 </div>
 
 
 <ng-template #content1 let-modal>
-    <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinner" color="primary">
+    <!-- Spinner -->
+    <mat-progress-spinner style="margin: 0 auto;" *ngIf="spinner" color="primary" [mode]="mode" value="50" diameter="50">
     </mat-progress-spinner>
+    <br>
+    <div *ngIf="spinner" style="text-align: center;">
+        Please wait, the details are loading!
+    </div>
+
     <div class="modal-body" *ngIf="popup">
         <div class="centre-text m-btm30">
             <div *ngIf="success" style="text-align: center;">
@@ -1079,12 +1084,13 @@
         </div>
     </div>
     <br>
-
-    <button type="button" *ngIf="popup" style="text-align: center;margin-left:180px;width:20%" class="close"
-        class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
-        (click)="closeModalDialog()" matStepperNext>
-        <span aria-hidden="true">Ok</span>
-    </button>
+    <div *ngIf="popup">
+        <button type="button" style="text-align: center;margin-left:180px;width:20%" class="close"
+            class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
+            (click)="closeModalDialog()" matStepperNext>
+            <span aria-hidden="true">Ok</span>
+        </button>
+    </div>
 </ng-template>
 
 <ng-template #content2 let-modal>

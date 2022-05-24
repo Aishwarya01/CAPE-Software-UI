@@ -1,14 +1,17 @@
-import { Component, OnInit, ViewChild,ChangeDetectorRef,ComponentRef } from '@angular/core';
+import { Component, OnInit, ViewChild,ChangeDetectorRef,ComponentRef, Output, EventEmitter } from '@angular/core';
 import { MatInput } from '@angular/material/input';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { GlobalsService } from 'src/app/globals.service';
 import { BasicDetails } from 'src/app/LPS_model/basic-details';
 import { FinalPdfServiceService } from 'src/app/LPS_services/final-pdf-service.service';
 import { LPSBasicDetailsService } from 'src/app/LPS_services/lpsbasic-details.service';
-import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
+import { environment } from 'src/environments/environment';
+import { SuperAdminDev } from 'src/environments/environment.dev';
+import { SuperAdminProd } from 'src/environments/environment.prod';
 import { LpsWelcomePageComponent } from '../lps-welcome-page/lps-welcome-page.component';
 
 @Component({
@@ -18,12 +21,21 @@ import { LpsWelcomePageComponent } from '../lps-welcome-page/lps-welcome-page.co
 })
 export class LpsFinalReportComponent implements OnInit {
 
-  finalReportsColumns: string[] = [ 'clientName', 'projectName', 'consultantName', 'contractorName', 'dealerContractorName' , 'address', 'createdDate', 'createdBy', 'action'];
+  finalReportsColumns: string[] = [ 'clientName', 
+                                    'projectName', 
+                                    'consultantName', 
+                                    'contractorName', 
+                                    'dealerContractorName', 
+                                    'address', 
+                                    'updatedDate', 
+                                    'updatedBy', 
+                                    'action'];
   finalReport_dataSource!: MatTableDataSource<BasicDetails[]>;
 
-  @ViewChild('finalReportPaginator', { static: true }) finalReportPaginator!: MatPaginator;
-  @ViewChild('finalReportSort', {static: true}) finalReportSort!: MatSort;
+  @ViewChild('finalReportPaginator', { static: false }) finalReportPaginator!: MatPaginator;
+  @ViewChild('finalReportSort', {static: false}) finalReportSort!: MatSort;
 
+  @Output() callFinalMethod: EventEmitter<any> = new EventEmitter();
   email: String ="";
   basicDetails = new BasicDetails();
   clientName: String="";
@@ -46,26 +58,37 @@ export class LpsFinalReportComponent implements OnInit {
   errorMsg: string="";
   errorArr: any=[];
   disable: boolean=false;
+  finalReportSpinner: boolean = false;
+  finalReportBody: boolean = true;
+  spinnerValue: String = '';
+  mode: any= 'indeterminate';
 
   @ViewChild('input') input!: MatInput;
   clientService: any;
   lpsData: any=[];
   completedFilterData: any=[];
+  superAdminArr: any = [];
+  filteredData: any = [];
+  superAdminFlag: boolean = false;
+  superAdminDev = new SuperAdminDev();
+  superAdminProd = new SuperAdminProd();
 
   constructor(private router: ActivatedRoute,
               private lpsService: LPSBasicDetailsService,
               private ChangeDetectorRef: ChangeDetectorRef,
               private welcome: LpsWelcomePageComponent,
-              private finalpdf: FinalPdfServiceService,
-              private matstepper:LpsMatstepperComponent,
+              private finalpdf: FinalPdfServiceService,public service: GlobalsService,
               private modalService: NgbModal) { 
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
 
   ngOnInit(): void {
+    //this.superAdminArr = [];
     this.currentUser=sessionStorage.getItem('authenticatedUser');
     this.currentUser1 = [];
     this.currentUser1=JSON.parse(this.currentUser);
+    // this.superAdminArr.push('gk@capeindia.net');
+    // this.superAdminArr.push('awstesting@rushforsafety.com');
     this.retrieveLpsDetails();
   }
  
@@ -77,7 +100,39 @@ export class LpsFinalReportComponent implements OnInit {
   }
   
   retrieveLpsDetails() {
+    this.filteredData = [];
+    this.completedFilterData=[];
+    for(let i of this.superAdminDev.adminEmail) {
+      if(this.email == i) {
+        this.superAdminFlag = true;
+      }
+    }
+
+    for(let i of this.superAdminProd.adminEmail) {
+      if(this.email == i) {
+        this.superAdminFlag = true;
+      }
+    }
       
+    if(this.superAdminFlag) {
+      this.lpsService.retrieveAllBasicLps().subscribe(
+        data => {
+          // this.myfunction(data);
+          this.lpsData=JSON.parse(data);
+          for(let i of this.lpsData){
+            if(i.allStepsCompleted=="AllStepCompleted"){
+              this.filteredData.push(i);
+            }
+          }
+          this.finalReport_dataSource = new MatTableDataSource(this.filteredData);
+          this.filteredData = [];
+          this.lpsData = [];
+          this.finalReport_dataSource.paginator = this.finalReportPaginator;
+          this.finalReport_dataSource.sort = this.finalReportSort;
+        });
+      this.superAdminFlag = false;
+    }
+    else {
       this.lpsService.retrieveListOfBasicLps(this.email).subscribe(
         data => {
           // this.myfunction(data);
@@ -93,6 +148,8 @@ export class LpsFinalReportComponent implements OnInit {
           this.finalReport_dataSource.paginator = this.finalReportPaginator;
           this.finalReport_dataSource.sort = this.finalReportSort;
         });
+    }
+      
   }
 
   closeModalDialog() {
@@ -116,9 +173,13 @@ export class LpsFinalReportComponent implements OnInit {
      this.finalpdf.downloadPDF(basicLpsId,this.userName, projectName)
    }
 
-  priviewPdf(basicLpsId:any,clientName:any){
-     
-     this.matstepper.preview(basicLpsId,clientName);
+   continue(basicLpsId:any){
+    this.finalReportBody = false;
+    this.finalReportSpinner = true;
+    this.spinnerValue = "Please wait, the details are loading!";
+    this.service.allFieldsDisable = true;
+    this.callFinalMethod.emit(basicLpsId);
+    //this.matstepper.preview(basicLpsId);
    }
 
   emailPDF(basicLpsId:any,userName:any, projectName: any){

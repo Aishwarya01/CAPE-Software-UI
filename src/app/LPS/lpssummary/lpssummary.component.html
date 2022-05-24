@@ -1,0 +1,1041 @@
+<div *ngIf="service.msgForStep1" style="text-align: center;margin-top: 30px;">
+  <span class="successshow">Please fill steps to proceed further!</span>
+</div>
+<div *ngIf="tabError" style="text-align: center;">
+  <span class="alert alert-danger">{{tabErrorMsg}}</span>
+</div>
+<div *ngIf="validationErrorTab" style="text-align: center;">
+  <span class="alert alert-danger">{{validationErrorMsgTab}}</span>
+</div>
+<mat-progress-spinner style="margin: 0 auto;" *ngIf="spinner1" color="primary" [mode]="mode" value="50" diameter="50">
+</mat-progress-spinner>
+<br>
+<div *ngIf="spinner1" style="text-align: center;">
+  {{spinnerValue}}
+</div>
+  <div class="card" *ngIf="!spinner1">
+    <div class="card-body">
+  <form [formGroup]="summaryForm" (ngSubmit)="onSubmit(flag1,content,contents)">
+    <div formArrayName="summaryLpsBuildings" *ngFor="let q of summaryLpsBuildingsControl(); let j = index">
+      <div class="form-group" [formGroupName]="j">
+    <div class="search-bar">
+      <div class="form-group">
+          <div class="row">
+              <div class="col-md-6">
+                  <label for="buildingNumber">Building Number</label>
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">
+                              <i class="bi bi-align-start"></i>
+                          </span>
+                      </div>
+                      <input type="number" class="form-control" placeholder="Enter Building Number" readonly
+                      formControlName="buildingNumber"
+                      />
+                  </div>
+              </div>
+
+              <div class="col-md-6">
+                  <label for="buildingName">Building Name</label>
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">
+                              <i class="bi bi-align-start"></i>
+                          </span>
+                      </div>
+                      <input type="text" class="form-control" placeholder="Enter Building Name" formControlName="buildingName"
+                      readonly/>
+                  </div>
+              </div>
+              <!-- *ngIf="overAllControl().length > 1" <mat-icon class="mousechange" class="dlt" type="button" title="Delete" style="position: relative; top: 30px; left: 27%;">remove_circle_outline</mat-icon> -->
+          </div>
+      </div>
+  </div>
+          <mat-accordion *ngIf="airTerminationControl(q).length != 0 || airVerticalControl(q).length != 0 ||
+          airVerticalListControl(q).length != 0 || airMeshControl(q).length != 0 || airHolderControl(q).length != 0 ||
+            airHolderListControl(q).length != 0 || airClampsControl(q).length != 0 || airExpansionControl(q).length != 0 || 
+              airConnectorsControl(q).length != 0 || downConductorBasicControl(q).length != 0 || downConductorControl(q).length != 0 ||
+                bridgingDescControl(q).length != 0 || downHoldersControl(q).length != 0 ||
+                  downConnectorsControl(q).length != 0 || testingJointsControl(q).length != 0 ||
+                    lightningCountersControl(q).length != 0 || downConductorTestingControl(q).length != 0 || (earthingReportControl(q).length != 0) || (earthingDescriptionControl(q).length != 0) ||
+                    (earthingDescriptionListControl(q).length != 0) || (earthingClampsControl(q).length != 0) || (earthingElectrodeChamberControl(q).length != 0) || (earthingSystemControl(q).length != 0) ||
+                        (earthElectrodeTestingControl(q).length != 0) || (spdReportControl(q).length != 0) || 
+                          (spdReportListControl(q).length != 0) || (separationDistanceControl(q).length != 0) || (separateDistanceControl(q).length != 0) &&
+                            (separationDistanceDownControl(q).length != 0) || earthStudDescControl(q).length != 0">
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <h3>Summary and Recommendations </h3>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+                <div class="row">
+                <div class="col-sm-12 ReferringTT">
+                  <div class="form-group">
+                    <label>The following observations are made :</label>
+                    <!-- <label>No observations are made :</label> -->
+                  </div>
+                </div>
+           </div>
+                <div class="tableObserve" *ngIf="airTerminationControl(q).length != 0 || airVerticalControl(q).length != 0 ||
+                airVerticalListControl(q).length != 0 || airMeshControl(q).length != 0 ||
+                 airHolderControl(q).length != 0 || airHolderListControl(q).length != 0 ||
+                  airClampsControl(q).length != 0 || airExpansionControl(q).length != 0 || 
+                    airConnectorsControl(q).length != 0">
+                <div class="form-group">
+                <!-- Observation starts here -->
+                <label>
+                  <h3 style="cursor: pointer;" (click)= "navigateToStep(1)"><b><u>Air termination :</u></b></h3>
+                </label>
+                <br>
+                <!-- <label><h3 style="cursor: pointer;"><b><u>Basic details Observations :</u></b></h3></label>                     -->
+                    <div class="table-responsive" id="style-1" style="border: 1px solid black">
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th></th>
+                              <th>Sl.No</th>
+                              <th>Observations</th>
+                              <th>Recommendation</th>
+                            </tr>
+                          </thead>
+                          <tbody formArrayName="airTermination" *ngFor="let a of airTerminationControl(q); let i= index">
+                              <tr [formGroupName]="i">
+                              <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                              <td>{{a.get("serialNo")?.value}}</td>
+                              <td>
+                                <textarea type="text" class="form-control"  cols="30" rows="1" formControlName="observation"
+                                placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                              </td>
+                              <td> 
+                                <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                                placeholder="Ex. Recommendations..."></textarea> 
+                              </td>
+                              </tr>
+                          </tbody>
+
+                          <tbody formArrayName="airVertical" *ngFor="let a of airVerticalControl(q); let i= index">
+                            <tr [formGroupName]="i">
+                            <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                            <td>{{a.get("serialNo")?.value}}</td>
+                            <td>
+                              <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                              placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                            </td>
+                            <td> 
+                              <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                              placeholder="Ex. Recommendations..."></textarea> 
+                            </td>
+                            </tr>
+                        </tbody>
+                        
+                        <tbody formArrayName="airVerticalList" *ngFor="let a of airVerticalListControl(q); let i= index">
+                          <tr [formGroupName]="i">
+                          <td nowrap="nowrap" style="padding-left: 60px;">{{a.get("heading")?.value}}</td>
+                          <td>{{a.get("serialNo")?.value}}</td>
+                          <td>
+                            <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                            placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                          </td>
+                          <td> 
+                            <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                            placeholder="Ex. Recommendations..."></textarea> 
+                          </td>
+                          </tr>
+                      </tbody>
+                
+                        <tbody formArrayName="airMesh" *ngFor="let a of airMeshControl(q); let i= index">
+                          <tr [formGroupName]="i">
+                          <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                          <td>{{a.get("serialNo")?.value}}</td>
+                          <td>
+                            <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                            placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                          </td>
+                          <td> 
+                            <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                            placeholder="Ex. Recommendations..."></textarea> 
+                          </td>
+                          </tr>
+                      </tbody>
+
+                      <tbody formArrayName="airHolder" *ngFor="let a of airHolderControl(q); let i= index">
+                        <tr [formGroupName]="i">
+                        <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                        <td>{{a.get("serialNo")?.value}}</td>
+                        <td>
+                          <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                          placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                        </td>
+                        <td> 
+                          <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                          placeholder="Ex. Recommendations..."></textarea> 
+                        </td>
+                        </tr>
+                    </tbody>
+
+                    <tbody formArrayName="airHolderList" *ngFor="let a of airHolderListControl(q); let i= index">
+                      <tr [formGroupName]="i">
+                      <td nowrap="nowrap" style="padding-left: 60px;">{{a.get("heading")?.value}}</td>
+                      <td>{{a.get("serialNo")?.value}}</td>
+                      <td>
+                        <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                        placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                      </td>
+                      <td> 
+                        <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                        placeholder="Ex. Recommendations..."></textarea> 
+                      </td>
+                      </tr>
+                  </tbody>
+
+                        <tbody formArrayName="airClamps" *ngFor="let a of airClampsControl(q); let i= index">
+                          <tr [formGroupName]="i">
+                          <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                          <td>{{a.get("serialNo")?.value}}</td>
+                          <td>
+                            <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                            placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                          </td>
+                          <td> 
+                            <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                            placeholder="Ex. Recommendations..."></textarea> 
+                          </td>
+                          </tr>
+                      </tbody>
+                      <tbody formArrayName="airExpansion" *ngFor="let a of airExpansionControl(q); let i= index">
+                        <tr [formGroupName]="i">
+                        <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                        <td>{{a.get("serialNo")?.value}}</td>
+                        <td>
+                          <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                          placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                        </td>
+                        <td> 
+                          <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                          placeholder="Ex. Recommendations..."></textarea> 
+                        </td>
+                        </tr>
+                    </tbody>
+                      <tbody formArrayName="airConnectors" *ngFor="let a of airConnectorsControl(q); let i= index">
+                        <tr [formGroupName]="i">
+                        <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                        <td>{{a.get("serialNo")?.value}}</td>
+                        <td>
+                          <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                          placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                        </td>
+                        <td> 
+                          <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                          placeholder="Ex. Recommendations..."></textarea> 
+                        </td>
+                        </tr>
+                    </tbody>
+                        </table>
+                      </div>
+                      <!-- <div class="row" 
+                      *ngIf="(airTerminationControl(q).length == 0) && (airVerticalControl(q).length == 0) &&
+                                (airVerticalListControl(q).length == 0) && (airMeshControl(q).length == 0) &&
+                                 (airHolderControl(q).length == 0) && (airHolderListControl(q).length == 0) &&
+                                  (airClampsControl(q).length == 0) && (airExpansionControl(q).length == 0) && 
+                                    (airConnectorsControl(q).length == 0)">
+                        <div class="col-sm-12">
+                          <h3 style="color: #eea80a;">Currently, you have not provided Observations for Air termination!</h3>
+                        </div>
+                      </div> -->
+                 <br>
+                  </div>
+                </div>
+
+                <div class="tableObserve" *ngIf="downConductorBasicControl(q).length != 0 || downConductorControl(q).length != 0 ||
+                bridgingDescControl(q).length != 0 || downHoldersControl(q).length != 0 ||
+                downConnectorsControl(q).length != 0 || testingJointsControl(q).length != 0 ||
+                lightningCountersControl(q).length != 0 || downConductorTestingControl(q).length != 0 ">
+                  <div class="form-group">
+                  <!-- Observation starts here -->
+                  <label>
+                    <h3 style="cursor: pointer;" (click)= "navigateToStep(2)"><b><u>Down Conductors :</u></b></h3>
+                  </label>
+                  <br>
+                  <!-- <label><h3 style="cursor: pointer;"><b><u>Basic details Observations :</u></b></h3></label>                     -->
+                      <div class="table-responsive" id="style-1" style="border: 1px solid black"
+                      >
+                          <table class="table">
+                            <thead>
+                              <tr>
+                                <th></th>
+                                <th>Sl.No</th>
+                                <th>Observations</th>
+                                <th>Recommendation</th>
+                              </tr>
+                            </thead>
+                            <tbody formArrayName="downConductorReport" *ngFor="let a of downConductorBasicControl(q); let i= index">
+                                <tr [formGroupName]="i">
+                                <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                                <td>{{a.get("serialNo")?.value}}</td>
+                                <td>
+                                  <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                                  placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                                </td>
+                                <td> 
+                                  <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                                  placeholder="Ex. Recommendations..."></textarea> 
+                                </td>
+                                </tr>
+                            </tbody>
+  
+                            <tbody formArrayName="downConductor" *ngFor="let a of downConductorControl(q); let i= index">
+                              <tr [formGroupName]="i">
+                              <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                              <td>{{a.get("serialNo")?.value}}</td>
+                              <td>
+                                <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                                placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                              </td>
+                              <td> 
+                                <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                                placeholder="Ex. Recommendations..."></textarea> 
+                              </td>
+                              </tr>
+                          </tbody>
+                          
+                          <tbody formArrayName="bridgingDesc" *ngFor="let a of bridgingDescControl(q); let i= index">
+                            <tr [formGroupName]="i">
+                            <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                            <td>{{a.get("serialNo")?.value}}</td>
+                            <td>
+                              <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                              placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                            </td>
+                            <td> 
+                              <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                              placeholder="Ex. Recommendations..."></textarea> 
+                            </td>
+                            </tr>
+                        </tbody>
+                  
+                          <tbody formArrayName="downHolders" *ngFor="let a of downHoldersControl(q); let i= index">
+                            <tr [formGroupName]="i">
+                            <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                            <td>{{a.get("serialNo")?.value}}</td>
+                            <td>
+                              <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                              placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                            </td>
+                            <td> 
+                              <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                              placeholder="Ex. Recommendations..."></textarea> 
+                            </td>
+                            </tr>
+                        </tbody>
+  
+                        <tbody formArrayName="downConnectors" *ngFor="let a of downConnectorsControl(q); let i= index">
+                          <tr [formGroupName]="i">
+                          <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                          <td>{{a.get("serialNo")?.value}}</td>
+                          <td>
+                            <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                            placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                          </td>
+                          <td> 
+                            <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                            placeholder="Ex. Recommendations..."></textarea> 
+                          </td>
+                          </tr>
+                      </tbody>
+  
+                      <tbody formArrayName="testingJoint" *ngFor="let a of testingJointsControl(q); let i= index">
+                        <tr [formGroupName]="i">
+                        <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                        <td>{{a.get("serialNo")?.value}}</td>
+                        <td>
+                          <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                          placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                        </td>
+                        <td> 
+                          <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                          placeholder="Ex. Recommendations..."></textarea> 
+                        </td>
+                        </tr>
+                    </tbody>
+  
+                          <tbody formArrayName="lightingCounter" *ngFor="let a of lightningCountersControl(q); let i= index">
+                            <tr [formGroupName]="i">
+                            <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                            <td>{{a.get("serialNo")?.value}}</td>
+                            <td>
+                              <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                              placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                            </td>
+                            <td> 
+                              <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                              placeholder="Ex. Recommendations..."></textarea> 
+                            </td>
+                            </tr>
+                        </tbody>
+                        <tbody formArrayName="downConductorTesting" *ngFor="let a of downConductorTestingControl(q); let i= index">
+                          <tr [formGroupName]="i">
+                          <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                          <td>{{a.get("serialNo")?.value}}</td>
+                          <td>
+                            <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                            placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                          </td>
+                          <td> 
+                            <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                            placeholder="Ex. Recommendations..."></textarea> 
+                          </td>
+                          </tr>
+                      </tbody>
+                    
+                          </table>
+                        </div>
+                        <!-- <div class="row" *ngIf="downConductorBasicControl(q).length == 0 && downConductorControl(q).length == 0 &&
+                        bridgingDescControl(q).length == 0 && downHoldersControl(q).length == 0 &&
+                        downConnectorsControl(q).length == 0 && testingJointsControl(q).length == 0 &&
+                        lightningCountersControl(q).length == 0 && downConductorTestingControl(q).length == 0 ">
+                          <div class="col-sm-12">
+                            <h3 style="color: #eea80a;">Currently, you have not provided Observations for Down Conductor!</h3>
+                          </div>
+                        </div> -->
+                   
+                   <br>
+                    </div>
+                  </div>
+
+                  <div class="tableObserve" *ngIf="(earthingReportControl(q).length != 0) || (earthingDescriptionControl(q).length != 0) ||
+                  (earthingDescriptionListControl(q).length != 0) || (earthingClampsControl(q).length != 0) ||
+                   (earthingElectrodeChamberControl(q).length != 0) || (earthingSystemControl(q).length != 0) ||
+                    (earthElectrodeTestingControl(q).length != 0) ">
+                    <div class="form-group">
+                    <!-- Observation starts here -->
+                    <label>
+                      <h3 style="cursor: pointer;" (click)= "navigateToStep(3)"><b><u>Earthing :</u></b></h3>
+                    </label>
+                    <br>
+                    <!-- <label><h3 style="cursor: pointer;"><b><u>Basic details Observations :</u></b></h3></label>                     -->
+                        <div class="table-responsive" id="style-1" style="border: 1px solid black" 
+                        >
+                            <table class="table">
+                              <thead>
+                                <tr>
+                                  <th></th>
+                                  <th>Sl.No</th>
+                                  <th>Observations</th>
+                                  <th>Recommendation</th> 
+                                </tr>
+                              </thead>
+                              <tbody formArrayName="earthingReport" *ngFor="let a of earthingReportControl(q); let i= index">
+                                  <tr [formGroupName]="i">
+                                  <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                                  <td>{{a.get("serialNo")?.value}}</td>
+                                  <td>
+                                    <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                                    placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                                  </td>
+                                  <td> 
+                                    <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                                    placeholder="Ex. Recommendations..."></textarea> 
+                                  </td>
+                                  </tr>
+                              </tbody>
+    
+                              <tbody formArrayName="earthingDescription" *ngFor="let a of earthingDescriptionControl(q); let i= index">
+                                <tr [formGroupName]="i">
+                                <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                                <td>{{a.get("serialNo")?.value}}</td>
+                                <td>
+                                  <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                                  placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                                </td>
+                                <td> 
+                                  <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                                  placeholder="Ex. Recommendations..."></textarea> 
+                                </td>
+                                </tr>
+                            </tbody>
+                            
+                            <tbody formArrayName="earthingDescriptionList" *ngFor="let a of earthingDescriptionListControl(q); let i= index">
+                              <tr [formGroupName]="i">
+                              <td nowrap="nowrap" style="padding-left: 60px;">{{a.get("heading")?.value}}</td>
+                              <td>{{a.get("serialNo")?.value}}</td>
+                              <td>
+                                <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                                placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                              </td>
+                              <td> 
+                                <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                                placeholder="Ex. Recommendations..."></textarea> 
+                              </td>
+                              </tr>
+                          </tbody>
+
+                            <tbody formArrayName="earthingClamps" *ngFor="let a of earthingClampsControl(q); let i= index">
+                              <tr [formGroupName]="i">
+                              <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                              <td>{{a.get("serialNo")?.value}}</td>
+                              <td>
+                                <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                                placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                              </td>
+                              <td> 
+                                <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                                placeholder="Ex. Recommendations..."></textarea> 
+                              </td>
+                              </tr>
+                          </tbody>
+                    
+                            <tbody formArrayName="earthingElectrodeChamber" *ngFor="let a of earthingElectrodeChamberControl(q); let i= index">
+                              <tr [formGroupName]="i">
+                              <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                              <td>{{a.get("serialNo")?.value}}</td>
+                              <td>
+                                <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                                placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                              </td>
+                              <td> 
+                                <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                                placeholder="Ex. Recommendations..."></textarea> 
+                              </td>
+                              </tr>
+                          </tbody>
+    
+                          <tbody formArrayName="earthingSystem" *ngFor="let a of earthingSystemControl(q); let i= index">
+                            <tr [formGroupName]="i">
+                            <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                            <td>{{a.get("serialNo")?.value}}</td>
+                            <td>
+                              <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                              placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                            </td>
+                            <td> 
+                              <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                              placeholder="Ex. Recommendations..."></textarea> 
+                            </td>
+                            </tr>
+                        </tbody>
+    
+                        <tbody formArrayName="earthElectrodeTesting" *ngFor="let a of earthElectrodeTestingControl(q); let i= index">
+                          <tr [formGroupName]="i">
+                          <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                          <td>{{a.get("serialNo")?.value}}</td>
+                          <td>
+                            <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                            placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                          </td>
+                          <td> 
+                            <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                            placeholder="Ex. Recommendations..."></textarea> 
+                          </td>
+                          </tr>
+                      </tbody>
+                            </table>
+                          </div>
+                          <!-- <div class="row" *ngIf="(earthingReportControl(q).length == 0) && (earthingDescriptionControl(q).length == 0) &&
+                          (earthingDescriptionListControl(q).length == 0) && (earthingClampsControl(q).length == 0) &&
+                           (earthingElectrodeChamberControl(q).length == 0) && (earthingSystemControl(q).length == 0) &&
+                            (earthElectrodeTestingControl(q).length == 0) ">
+                            <div class="col-sm-12">
+                              <h3 style="color: #eea80a;">Currently, you have not provided Observations for Earthing!</h3>
+                            </div>
+                          </div>
+                      -->
+                     <br>
+                      </div>
+                    </div>
+
+                    <div class="tableObserve" *ngIf="(spdReportControl(q).length != 0) || (spdReportListControl(q).length != 0)">
+                      <div class="form-group">
+                      <!-- Observation starts here -->
+                      <label>
+                        <h3 style="cursor: pointer;" (click)= "navigateToStep(4)"><b><u>SPD :</u></b></h3>
+                      </label>
+                      <br>
+                      <!-- <label><h3 style="cursor: pointer;"><b><u>Basic details Observations :</u></b></h3></label>-->
+                          <div class="table-responsive" id="style-1" style="border: 1px solid black" 
+                          >
+                              <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th></th>
+                                    <th>Sl.No</th>
+                                    <th>Observations</th>
+                                    <th>Recommendation</th> 
+                                  </tr>
+                                </thead>
+                                <tbody formArrayName="spdReport" *ngFor="let a of spdReportControl(q); let i= index">
+                                    <tr [formGroupName]="i">
+                                    <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                                    <td>{{a.get("serialNo")?.value}}</td>
+                                    <td>
+                                      <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                                      placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                                    </td>
+                                    <td> 
+                                      <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                                      placeholder="Ex. Recommendations..."></textarea> 
+                                    </td>
+                                    </tr>
+                                </tbody>
+      
+                                <tbody formArrayName="spdReportList" *ngFor="let a of spdReportListControl(q); let i= index">
+                                  <tr [formGroupName]="i">
+                                  <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                                  <td>{{a.get("serialNo")?.value}}</td>
+                                  <td>
+                                    <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                                    placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                                  </td>
+                                  <td> 
+                                    <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                                    placeholder="Ex. Recommendations..."></textarea> 
+                                  </td>
+                                  </tr>
+                              </tbody>
+                              </table>
+                            </div>
+                            <!-- <div class="row" *ngIf="(spdReportControl(q).length == 0) && (spdReportListControl(q).length == 0)">
+                              <div class="col-sm-12">
+                                <h3 style="color: #eea80a;">Currently, you have not provided Observations for SPD!</h3>
+                              </div>
+                            </div>
+                        -->
+                       <br>
+                        </div>
+                      </div>
+
+                      <div class="tableObserve" *ngIf="(separationDistanceControl(q).length != 0) || (separateDistanceControl(q).length != 0) &&
+                      (separationDistanceDownControl(q).length != 0)">
+                        <div class="form-group">
+                        <!-- Observation starts here -->
+                        <label>
+                          <h3 style="cursor: pointer;" (click)= "navigateToStep(5)"><b><u>Separation distance :</u></b></h3>
+                        </label>
+                        <br>
+                        <!-- <label><h3 style="cursor: pointer;"><b><u>Basic details Observations :</u></b></h3></label>                     -->
+                            <div class="table-responsive" id="style-1" style="border: 1px solid black"
+                            >
+                                <table class="table">
+                                  <thead>
+                                    <tr>
+                                      <th></th>
+                                      <th>Sl.No</th>
+                                      <th>Observations</th>
+                                      <th>Recommendation</th> 
+                                    </tr>
+                                  </thead>
+                                  <tbody formArrayName="separationDistance" *ngFor="let a of separationDistanceControl(q); let i= index">
+                                      <tr [formGroupName]="i">
+                                      <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                                      <td>{{a.get("serialNo")?.value}}</td>
+                                      <td>
+                                        <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                                        placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                                      </td>
+                                      <td> 
+                                        <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                                        placeholder="Ex. Recommendations..."></textarea> 
+                                      </td>
+                                      </tr>
+                                  </tbody>
+                                  <tbody formArrayName="separateDistance" *ngFor="let a of separateDistanceControl(q); let i= index">
+                                    <tr [formGroupName]="i">
+                                    <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                                    <td>{{a.get("serialNo")?.value}}</td>
+                                    <td>
+                                      <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                                      placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                                    </td>
+                                    <td> 
+                                      <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                                      placeholder="Ex. Recommendations..."></textarea> 
+                                    </td>
+                                    </tr>
+                                </tbody>
+                                <tbody formArrayName="separationDistanceDown" *ngFor="let a of separationDistanceDownControl(q); let i= index">
+                                  <tr [formGroupName]="i">
+                                  <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                                  <td>{{a.get("serialNo")?.value}}</td>
+                                  <td>
+                                    <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                                    placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                                  </td>
+                                  <td> 
+                                    <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                                    placeholder="Ex. Recommendations..."></textarea> 
+                                  </td>
+                                  </tr>
+                              </tbody>
+                                </table>
+                              </div>
+                              <!-- <div class="row" *ngIf="(separationDistanceControl(q).length == 0) && (separateDistanceControl(q).length == 0) &&
+                              (separationDistanceDownControl(q).length == 0)">
+                                <div class="col-sm-12">
+                                  <h3 style="color: #eea80a;">Currently, you have not provided Observations for Separation distance!</h3>
+                                </div>
+                              </div> -->
+                         
+                         <br>
+                          </div>
+                        </div>
+
+                        <div class="tableObserve" *ngIf="earthStudDescControl(q).length != 0">
+                          <div class="form-group">
+                          <!-- Observation starts here -->
+                          <label>
+                            <h3 style="cursor: pointer;" (click)= "navigateToStep(6)"><b><u>Equipotential bonding :</u></b></h3>
+                          </label>
+                          <br>
+                          <!-- <label><h3 style="cursor: pointer;"><b><u>Basic details Observations :</u></b></h3></label>                     -->
+                              <div class="table-responsive" id="style-1" style="border: 1px solid black"
+                              >
+                                  <table class="table">
+                                    <thead>
+                                      <tr>
+                                        <th></th>
+                                        <th>Sl.No</th>
+                                        <th>Observations</th>
+                                        <th>Recommendation</th> 
+                                      </tr>
+                                    </thead>
+                                    <tbody formArrayName="earthStudDesc" *ngFor="let a of earthStudDescControl(q); let i= index">
+                                        <tr [formGroupName]="i">
+                                        <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
+                                        <td>{{a.get("serialNo")?.value}}</td>
+                                        <td>
+                                          <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
+                                          placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                                        </td>
+                                        <td> 
+                                          <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                                          placeholder="Ex. Recommendations..."></textarea> 
+                                        </td>
+                                        </tr>
+                                    </tbody>
+                                  
+                                  </table>
+                                </div>
+                                <!-- <div class="row" *ngIf="earthStudDescControl(q).length == 0">
+                                  <div class="col-sm-12">
+                                    <h3 style="color: #eea80a;">Currently, you have not provided Observations for Equipotential bonding!</h3>
+                                  </div>
+                                </div>
+                            -->
+                           <br>
+                            </div>
+                          </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+  </div>
+
+  <mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <h3>Recommendation</h3>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-sm-12">
+                    <div>Subject to necessary remedial action being taken, I/We recommended that the LPS is further inspected and tested by :
+                      <div style="display: inline-grid;">
+                      <input type="date" class="form-control" placeholder="Enter Date" [readonly]="isEditable"
+                      formControlName="declarationDate" [(ngModel)]="lpsSummary.summaryDate"
+                      [ngClass]="[submitted && f.declarationDate?.errors ? 'is-invalid' : '' ]">
+                      <div *ngIf="submitted && f.declarationDate?.errors" class="invalid-feedback">
+                        <div *ngIf="f.declarationDate?.errors?.required">Field Is Required</div>
+                    </div>  
+                    </div> 
+                  </div>
+              </div>
+            </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <label>We also recommend that, ligthning protection system to be periodical inspected for every</label>
+                  <input type="number" min="0" [readonly]="isEditable"
+                  [ngClass]="[submitted && f.recommendYears?.errors ? 'is-invalid' : '' ]"
+                  style="
+                  width: 75px;
+                  background: transparent;
+                  border: none;
+                  border-bottom: 1px solid #000000;"
+                [(ngModel)]="lpsSummary.inspectedYear" formControlName="recommendYears" placeholder="Enter year">years.
+                <div *ngIf="submitted && f.recommendYears.errors" class="invalid-feedback">
+                  <div *ngIf="f.recommendYears?.errors?.required">Field Is Required</div>
+              </div>
+                </div>
+          </div>
+          </div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <h3>Declaration</h3>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+        <div formArrayName="Declaration1Arr" *ngFor="let a of getDeclaration1Controls(); let i = index">
+          <div class="form-group" [formGroupName]="i">
+            <label>I/we being the person responsible for the inspection  of the lightning protection system 
+              (as indicated by my/our signatures below), particulars of which are described in this report, having 
+              exercised reasonable skill and care when carrying out the inspection, hereby declare that information in 
+              this report including the observations provides an accurate assessment of condition of lightning protection 
+              system taking into account :
+            </label>
+            <h2>Inspected and tested by:</h2>
+            <div class="form-group">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Name:</label>
+                  <input type="text" class="form-control" formControlName="name" [readonly]="isEditable"
+                  [ngClass]="[submitted && a.get('name')?.errors ? 'is-invalid' : '' ]">
+                  <div *ngIf="submitted && a.get('name')?.errors" class="invalid-feedback">
+                    <div *ngIf="a.get('name')?.errors?.required">Person name is required</div>
+                </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Signature:</label>
+                  <div (mouseover)="focusSigDesigner1(a)" class="signatureBtn">
+                    <input type="image" formControlName="signature"
+                    class="form-control" 
+                    src={{service.signatureImg7}} [(ngModel)] ="service.signatureImg7"
+                     [ngClass]="{ 'is-invalid': submitted && a.get('signature')?.errors }"
+                     [readonly]="true" 
+                     style="width: 90%;pointer-events:none;">
+                    <button type="button" (click)="SignatureDesigner1()" title="Click here"
+                    >Sign
+                    </button>
+                </div>
+                  <!-- <input type="text" class="form-control" formControlName="signature" readonly
+                  [ngClass]="{ 'is-invalid': submitted && a.get('signature')?.errors }"> -->
+                  <div *ngIf="submitted && a.get('signature')?.errors" class="invalid-feedback">
+                    <div *ngIf="a.get('signature')?.errors?.required">Signature is required</div>
+                </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Company:</label>
+                  <input type="text" class="form-control" formControlName="company" [readonly]="isEditable"
+                  [ngClass]="[submitted && a.get('company')?.errors ? 'is-invalid' : '' ]">
+                  <div *ngIf="submitted && a.get('company')?.errors" class="invalid-feedback">
+                    <div *ngIf="a.get('company')?.errors?.required">Company name is required</div>
+                </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Position:</label>
+                  <input type="text" class="form-control" formControlName="position" [readonly]="isEditable"
+                  [ngClass]="[submitted && a.get('position')?.errors ? 'is-invalid' : '' ]">
+                  <div *ngIf="submitted && a.get('position')?.errors" class="invalid-feedback">
+                    <div *ngIf="a.get('position')?.errors?.required">Position is required</div>
+                </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Address:</label>
+                  <input type="text" class="form-control" formControlName="address" [readonly]="isEditable"
+                  [ngClass]="[submitted && a.get('address')?.errors ? 'is-invalid' : '' ]">
+                  <div *ngIf="submitted && a.get('address')?.errors" class="invalid-feedback">
+                    <div *ngIf="a.get('address')?.errors?.required"><Address></Address> is required</div>
+                </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Date:</label>
+                  <input type="date" class="form-control" formControlName="date" [readonly]="isEditable"
+                  [ngClass]="[submitted && a.get('date')?.errors ? 'is-invalid' : '' ]">
+                  <div *ngIf="submitted && a.get('date')?.errors" class="invalid-feedback">
+                    <div *ngIf="a.get('date')?.errors?.required">Date is required</div>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+          <div formArrayName="Declaration2Arr" *ngFor="let a of getDeclaration2Controls(); let i = index">
+            <div class="form-group" [formGroupName]="i">
+              <h2>Authorized by:</h2>
+              <div class="form-group">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Name:</label>
+                    <input type="text" class="form-control" formControlName="name" [readonly]="isEditable"
+                    [ngClass]="[submitted && a.get('name')?.errors ? 'is-invalid' : '' ]">
+                    <div *ngIf="submitted && a.get('name')?.errors" class="invalid-feedback">
+                      <div *ngIf="a.get('name')?.errors?.required">Person name is required</div>
+                  </div>
+                  </div>
+                </div>
+  
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Signature:</label>
+                    <div (mouseover)="focusSigDesigner2(a)" class="signatureBtn">
+                      <input type="image" formControlName="signature"
+                      class="form-control" 
+                      src={{service.signatureImg8}} [(ngModel)] ="service.signatureImg8"
+                       [ngClass]="{ 'is-invalid': submitted && a.get('signature')?.errors }"
+                       [readonly]="true" 
+                       style="width: 90%;pointer-events:none;">
+                      <button type="button" (click)="SignatureDesigner2()" title="Click here"
+                      >Sign
+                      </button>
+                  </div>
+                    <!-- <input type="text" class="form-control" formControlName="signature" readonly
+                    [ngClass]="{ 'is-invalid': submitted && a.get('signature')?.errors }"> -->
+                  <div *ngIf="submitted && a.get('signature')?.errors" class="invalid-feedback">
+                    <div *ngIf="a.get('signature')?.errors?.required">Signature is required</div>
+                </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Company:</label>
+                    <input type="text" class="form-control" formControlName="company" [readonly]="isEditable"
+                    [ngClass]="[submitted && a.get('company')?.errors ? 'is-invalid' : '' ]">
+                    <div *ngIf="submitted && a.get('company')?.errors" class="invalid-feedback">
+                      <div *ngIf="a.get('company')?.errors?.required">Company name is required</div>
+                  </div>
+                  </div>
+                </div>
+  
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Position:</label>
+                    <input type="text" class="form-control" formControlName="position" [readonly]="isEditable"
+                    [ngClass]="[submitted && a.get('position')?.errors ? 'is-invalid' : '' ]">
+                    <div *ngIf="submitted && a.get('position')?.errors" class="invalid-feedback">
+                      <div *ngIf="a.get('position')?.errors?.required">Position is required</div>
+                  </div>
+                  </div>
+                </div>
+  
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Address:</label>
+                    <input type="text" class="form-control" formControlName="address" [readonly]="isEditable"
+                    [ngClass]="[submitted && a.get('address')?.errors ? 'is-invalid' : '' ]">
+                    <div *ngIf="submitted && a.get('address')?.errors" class="invalid-feedback">
+                      <div *ngIf="a.get('address')?.errors?.required">Address is required</div>
+                  </div>
+                  </div> 
+                </div>
+  
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Date:</label>
+                    <input type="date" class="form-control" formControlName="date" [readonly]="isEditable"
+                      [ngClass]="[submitted && a.get('date')?.errors ? 'is-invalid' : '' ]">
+                    <div *ngIf="submitted && a.get('date')?.errors" class="invalid-feedback">
+                      <div *ngIf="a.get('date')?.errors?.required">Date is required</div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>
+      
+    </mat-expansion-panel>
+    </mat-accordion>
+    <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
+      <span class="alert alert-danger">{{validationErrorMsg}}</span>
+    </div>
+    <!-- <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
+      <span class="alert alert-danger">{{validationErrorMsg1}}</span>
+    </div> -->
+    <div class="row" style="margin-top: 20px;">
+      <div class="col-sm-12">
+      <div style="text-align: center;"> 
+
+        <button class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn next save-Button"
+          mat-button type="submit" (click)="typeButton('save')" [ngClass]="{'disableForm':isEditable}" [ngStyle]="{'background-color': isEditable ? 'lightgrey' : ''}">
+        <i class="bi bi-journal-arrow-up icon"></i>Save</button>                                                  
+
+        <button style="width: auto;margin-left: 50px;" type="submit" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn next"
+          mat-button [disabled]="submittedButton" (click)="typeButton('submit')" [ngClass]="{'disableForm':isEditable}">
+        <i class="bi bi-journal-arrow-up icon"></i>Submit</button>
+    </div>
+      </div>
+    </div>
+  </form>
+      </div>
+      </div>
+
+      <ng-template #content let-modal>
+        <!-- Spinner -->
+        <mat-progress-spinner style="margin: 0 auto;" *ngIf="spinner" color="primary" [mode]="mode" value="50" diameter="50">
+        </mat-progress-spinner>
+        <br>
+        <div *ngIf="spinner" style="text-align: center;">
+            Please wait, the details are loading!
+        </div>
+        <div class="modal-body" *ngIf="popup">
+            <div class="centre-text m-btm30">
+                <div *ngIf="success" style="text-align: center;">
+                    <span class="successshow">{{successMsg}}</span>
+                </div>
+                <div *ngIf="Error" style="text-align: center;">
+                    <span class="errorshow">{{errorMsg}}</span>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center;">
+          <p *ngIf="popup" style="font-size: 15px;"><b>Note:</b> After clicking ok button summary pdf will be downloaded for your reference..!</p>
+        </div>
+        
+        <div *ngIf="popup" style="text-align: center;">
+          <button type="button" *ngIf="success" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+            aria-label="Close" (click)="closeModalDialog()" style="width: 18%;margin: 0 auto;">
+            <span aria-hidden="true">Ok</span>
+          </button>
+          <button type="button" *ngIf="Error" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+            aria-label="Close" (click)="closeModalDialog()" style="width: 18%;margin: 0 auto;">
+            <span aria-hidden="true" >Ok</span>
+          </button>
+        </div>
+    </ng-template> 
+
+    <ng-template #contents let-modal>
+      <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinner"
+       color="primary"
+       [mode]="mode"
+       value="50"
+       diameter="50">
+       </mat-progress-spinner>
+       <br>
+       <div *ngIf="finalSpinner" style="text-align: center;">
+        Submission in Progress!
+       </div>
+
+     <div class="modal-body" *ngIf="popup1">
+         <div class="centre-text m-btm30">
+             <div *ngIf="success" style="text-align: center;">
+                 <span class="alert alert-success">{{successMsg}}</span>
+             </div>
+             <div *ngIf="Error" style="text-align: center;">
+                 <span class="alert alert-danger">{{errorMsg}}</span>
+             </div>
+         </div>
+      </div>
+      <br>
+      <div *ngIf="popup1" style="text-align: center;">
+          <button type="button" class="col-md-6" class="close" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+          aria-label="Close" (click)="closeModalDialog()" style="width: 18%;margin: 0 auto;">
+          <span aria-hidden="true">Ok</span>
+        </button>
+      </div>
+    </ng-template>

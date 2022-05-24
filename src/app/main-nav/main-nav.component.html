@@ -11,7 +11,7 @@
         <a href="#"><img src="assets/img/Original-green.png"></a>
       </div>
       <div class="appName">
-      <span>SOLVE: Interactive-Intelligent-Modern</span>
+      <span>SOLVE: Intelligent-Interactive-Modern</span>
     </div>
       <span class="spacer"></span>
       <!-- <button mat-button [matMenuTriggerFor]="notify" *ngIf="oldNotification">
@@ -194,9 +194,48 @@
           <mat-icon class="menu-button" style="margin-left: 24px;" [ngClass]="{'rotated' : showSubmenuRep}" *ngIf="isExpanded || isShowing">expand_more</mat-icon>
         </mat-list-item>
         <div class="submenu" [ngClass]="{'expanded' : showSubmenuRep}" *ngIf="isShowing || isExpanded">
-          <a><mat-list-item class="leftAlignSub" [ngClass]="{'highlightSub': selectedRowIndexSub == SubitemValue1}" (click)="highlightSub('Ongoing TIC')">Ongoing TIC</mat-list-item></a>   
-          <a><mat-list-item class="leftAlignSub" [ngClass]="{'highlightSub2': selectedRowIndexSub == SubitemValue2}" (click)="highlightSub2('Completed TIC')">Completed TIC</mat-list-item></a> 
+          <a>
+            <mat-list-item class="leftAlignSub" (click)="showSubmenuOngoing = !showSubmenuOngoing" [ngClass]="{'highlightSub': selectedRowIndexSub == SubitemValue1}" >Ongoing TIC
+              <mat-icon class="menu-button" style="margin-left: 50px;" [ngClass]="{'rotated' : showSubmenuOngoing}" *ngIf="isExpanded || isShowing">expand_more</mat-icon>
+            </mat-list-item>
+          </a>
+          <div class="submenu" style="margin-left: -35px;" [ngClass]="{'expanded' : showSubmenuOngoing}" *ngIf="showSubmenuOngoing">
+            <a>
+              <mat-list-item class="leftAlignSub"  [ngClass]="{'highlightSub': selectedRowIndexSub == SubitemValueOngoing1}" (click)="highlightSub('LV Systems')" >LV Systems
+              </mat-list-item>
+            </a>   
+            <a>
+              <mat-list-item class="leftAlignSub"  [ngClass]="{'highlightSub2': selectedRowIndexSub == SubitemValueOngoing2}" (click)="highlightSub('EMC Assessment')">EMC Assessment
+              </mat-list-item>
+            </a> 
+            <a>
+              <mat-list-item class="leftAlignSub"  [ngClass]="{'highlightSub2': selectedRowIndexSub == SubitemValueOngoing3}" (click)="highlightSub('LPS Systems')">LPS Systems
+              </mat-list-item>
+            </a> 
+          </div>   
+
+          <a>
+            <mat-list-item class="leftAlignSub" (click)="showSubmenuCompleted = !showSubmenuCompleted" [ngClass]="{'highlightSub2': selectedRowIndexSub == SubitemValue2}" >Completed TIC
+              <mat-icon class="menu-button" style="margin-left: 32px;" [ngClass]="{'rotated' : showSubmenuCompleted}" *ngIf="isExpanded || isShowing">expand_more</mat-icon>
+            </mat-list-item>
+          </a> 
+          <div class="submenu" style="margin-left: -35px;" [ngClass]="{'expanded' : showSubmenuCompleted}" *ngIf="showSubmenuCompleted">
+            <a>
+              <mat-list-item class="leftAlignSub"  [ngClass]="{'highlightSub': selectedRowIndexSub == SubitemValueCompleted1}" (click)="highlightSub2('LV Systems')">LV Systems
+              </mat-list-item>
+            </a>   
+            <a>
+              <mat-list-item class="leftAlignSub"  [ngClass]="{'highlightSub2': selectedRowIndexSub == SubitemValueCompleted2}" (click)="highlightSub2('EMC Assessment')">EMC Assessment
+              </mat-list-item>
+            </a> 
+            <a>
+              <mat-list-item class="leftAlignSub"  [ngClass]="{'highlightSub2': selectedRowIndexSub == SubitemValueCompleted3}" (click)="highlightSub2('LPS Systems')">LPS Systems
+              </mat-list-item>
+            </a> 
+          </div>   
         </div>
+
+        
 
       <!-- <mat-list-item *ngFor="let type of mainApplications"
       [ngClass]="{'highlight': selectedRowIndex == type}"
@@ -233,9 +272,10 @@
 
   <mat-sidenav-content fullscreen fxFlexFill id="destination" class="pagePadding" [ngStyle]="{'padding': currentUser1.role == 'Viewer' ? '20px' : 'unset'}">
     <div class="col-sm-12 welcome-text" style="text-align: center;" *ngIf="welcome">
-    <h1 style="font-size: 35px;">Welcome to SOLVE Applications</h1>
-    <p>Note: Kindly go through the sub-menus on the left side panel.</p>
-  </div>
+      <h1 style="font-size: 35px;">Welcome to SOLVE Applications</h1>
+      <p>Note: Kindly go through the sub-menus on the left side panel.</p>
+    </div>
+
     <ng-template #ref></ng-template>
     <app-verificationlv *ngIf="value" #verify></app-verificationlv>
     <!-- (proceedNext)="onGoingEditSite($event)" -->

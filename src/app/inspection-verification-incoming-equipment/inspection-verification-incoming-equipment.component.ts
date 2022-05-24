@@ -28,7 +28,6 @@ import { SiteService } from '../services/site.service';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
 import { CommentsSection } from '../model/comments-section';
 import { MainNavComponent } from '../main-nav/main-nav.component';
-import { VerificationlvComponent } from '../verificationlv/verificationlv.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ObservationService } from '../services/observation.service';
 import { flatten } from '@angular/compiler';
@@ -198,7 +197,6 @@ export class InspectionVerificationIncomingEquipmentComponent
     private siteService: SiteService,
     private UpateInspectionService: InspectionVerificationService,
     private basic: MainNavComponent,
-    private verification: VerificationlvComponent,
     private testingService: TestingService
   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
