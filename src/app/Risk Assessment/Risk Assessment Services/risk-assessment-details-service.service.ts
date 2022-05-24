@@ -16,15 +16,15 @@ export class RiskAssessmentDetailsServiceService {
     return this.http.get<any>(this.apiUrl+'/fetchGroundLocations', { responseType: 'text' as 'json' })
   }
 
-  public addCustomerDetails(riskAssessmentDetails:RiskAssessmentDetails): Observable<any> {
+  public addRiskAssessmentDetails(riskAssessmentDetails:RiskAssessmentDetails): Observable<any> {
     return this.http.post<RiskAssessmentDetails>(this.apiUrl + '/saveRiskAssessmentDetails', riskAssessmentDetails, { responseType: 'text' as 'json' })
   }
 
-  public updateCustomerDetails(riskAssessmentDetails: RiskAssessmentDetails): Observable<any> {
+  public updateRiskAssessmentDetails(riskAssessmentDetails: RiskAssessmentDetails): Observable<any> {
     return this.http.put<any>(this.apiUrl + '/retrieveRiskAssessmentDetails', riskAssessmentDetails, { responseType: 'text' as 'json' })
   }
 
-  public retriveCustomerDetails(userName: String): Observable<any>{
+  public retriveRiskAssessmentDetails(userName: String): Observable<any>{
     return this.http.get<any>(this.apiUrl + '/updateRiskAssessmentDetails' + '/' +userName, { responseType: 'text' as 'json' })
   }
 }
