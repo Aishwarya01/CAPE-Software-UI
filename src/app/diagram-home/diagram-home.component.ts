@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConnectorModel, Node, Connector, DiagramComponent, NodeModel, PaletteModel, PortConstraints, PortVisibility, SymbolInfo, 
   SymbolPreviewModel } from '@syncfusion/ej2-angular-diagrams'; 
-  import {SymbolPalette} from  '@syncfusion/ej2-diagrams'
+import {SymbolPalette} from  '@syncfusion/ej2-diagrams'
 import { DiagramModel } from '../model/diagram-component';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
+import { MCB } from '../SLD/SLD Models/mcb';
 
 @Component({
   selector: 'app-diagram-home',
@@ -83,7 +85,11 @@ export class DiagramHomeComponent implements OnInit {
   errorArr: any = [];
   errorMsg: String = '';
   mode: any= 'indeterminate';
-
+  mcbForm!: FormGroup;
+  mcb = new MCB();
+  mcbGeneralTestingArray: any = [];
+  mcbSafetyTestingArray: any = [];
+  submitted: boolean = false;
 
   public getNodeDefaults(node: any): NodeModel {
     // node.height = 200;
@@ -153,8 +159,10 @@ export class DiagramHomeComponent implements OnInit {
       else if(e.element.properties.id.includes('DC')) {
         this.modalService.open(content8, { centered: true,size: 'xl'});
       }
-      else if(e.element.properties.id.includes('Wire')) {
+      else if(e.element.properties.id.includes('MCB')) {
         this.modalService.open(content9, { centered: true,size: 'xl'});
+        this.mcb.nodeId = e.element.properties.id;
+        this.mcb.fileName = this.diagramComponent.fileName;
       }
       else if(e.element.properties.id.includes('Battery')) {
         this.modalService.open(content10, { centered: true,size: 'xl'});
@@ -491,13 +499,179 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
   email: String = '';
   constructor(private inspectionService: InspectionVerificationService,
               private router: ActivatedRoute,
-              private modalService: NgbModal
+              private modalService: NgbModal,
+              private formBuilder: FormBuilder
     ) {
       this.email = this.router.snapshot.paramMap.get('email') || '{}';
      }
 
   ngOnInit(): void {
     this.AddSymbols();
+    this.mcbForm = this.formBuilder.group({
+      referenceName: [''],
+      manufacturerName: [''],
+      rating: ['', Validators.required],
+      voltage: [''],
+      noOfPoles: ['', Validators.required],
+      currentCurve: ['', Validators.required],
+      outgoingSizePhase: ['', Validators.required],
+      outgoingSizeNeutral: ['', Validators.required],
+      outgoingSizeProtective: ['', Validators.required],
+      generalTestingMCB: this.formBuilder.array([this.createGeneralTestingMCB()]),
+      safetyTestingMCB: this.formBuilder.array([this.createSafetyTestingMCB()]),
+    });
+  }
+
+  private createGeneralTestingMCB(): FormGroup {
+    return new FormGroup({
+      rN: new FormControl(''),
+      rNVoltage: new FormControl(''),
+      rNResistance: new FormControl(''),
+
+      yN: new FormControl(''),
+      yNVoltage: new FormControl(''),
+      yNResistance: new FormControl(''),
+
+      bN: new FormControl(''),
+      bNVoltage: new FormControl(''),
+      bNResistance: new FormControl(''),
+
+      rE: new FormControl(''),
+      rEVoltage: new FormControl(''),
+      rEResistance: new FormControl(''),
+
+      yE: new FormControl(''),
+      yEVoltage: new FormControl(''),
+      yEResistance: new FormControl(''),
+
+      bE: new FormControl(''),
+      bEVoltage: new FormControl(''),
+      bEResistance: new FormControl(''),
+
+      rY: new FormControl(''),
+      rYVoltage: new FormControl(''),
+      rYResistance: new FormControl(''),
+
+      yB: new FormControl(''),
+      yBVoltage: new FormControl(''),
+      yBResistance: new FormControl(''),
+
+      bR: new FormControl(''),
+      bRVoltage: new FormControl(''),
+      bRResistance: new FormControl(''),
+
+      nE: new FormControl(''),
+      nEVoltage: new FormControl(''),
+      nEResistance: new FormControl(''),
+
+      iRCurrent: new FormControl(''),
+      iYCurrent: new FormControl(''),
+      iBCurrent: new FormControl(''),
+      iNCurrent: new FormControl(''),
+      iPECurrent: new FormControl(''),
+
+      powerFactor: new FormControl(''),
+      frequency: new FormControl(''),
+    });
+  }
+
+  private createSafetyTestingMCB(): FormGroup {
+    return new FormGroup({
+      rN: new FormControl(''),
+      rNImpedence: new FormControl(''),
+      rNCurrent: new FormControl(''),
+      rNTime: new FormControl(''),
+      rNRemarks: new FormControl(''),
+
+      yN: new FormControl(''),
+      yNImpedence: new FormControl(''),
+      yNCurrent: new FormControl(''),
+      yNTime: new FormControl(''),
+      yNRemarks: new FormControl(''),
+
+
+      bN: new FormControl(''),
+      bNImpedence: new FormControl(''),
+      bNCurrent: new FormControl(''),
+      bNTime: new FormControl(''),
+      bNRemarks: new FormControl(''),
+
+
+      rE: new FormControl(''),
+      rEImpedence: new FormControl(''),
+      rECurrent: new FormControl(''),
+      rETime: new FormControl(''),
+      rERemarks: new FormControl(''),
+
+
+      yE: new FormControl(''),
+      yEImpedence: new FormControl(''),
+      yECurrent: new FormControl(''),
+      yETime: new FormControl(''),
+      yERemarks: new FormControl(''),
+
+
+      bE: new FormControl(''),
+      bEImpedence: new FormControl(''),
+      bECurrent: new FormControl(''),
+      bETime: new FormControl(''),
+      bERemarks: new FormControl(''),
+
+
+      rY: new FormControl(''),
+      rYImpedence: new FormControl(''),
+      rYCurrent: new FormControl(''),
+      rYTime: new FormControl(''),
+      rYRemarks: new FormControl(''),
+
+
+      yB: new FormControl(''),
+      yBImpedence: new FormControl(''),
+      yBCurrent: new FormControl(''),
+      yBTime: new FormControl(''),
+      yBRemarks: new FormControl(''),
+
+
+      bR: new FormControl(''),
+      bRImpedence: new FormControl(''),
+      bRCurrent: new FormControl(''),
+      bRTime: new FormControl(''),
+      bRRemarks: new FormControl(''),
+
+
+      shockVoltage: new FormControl(''),
+      floorResistance: new FormControl(''),
+      wallResistance: new FormControl(''),
+    });
+  }
+
+  getGeneralTestingMCBControls() : AbstractControl[] {
+    return (<FormArray>this.mcbForm.get('generalTestingMCB')).controls;
+  }
+
+  getSafetyTestingMCBControls() : AbstractControl[] {
+    return (<FormArray>this.mcbForm.get('safetyTestingMCB')).controls;
+  }
+
+  addMCBTesting() {
+    let generalTestingMCBArr: any = [];
+    let safetyTestingMCBArr: any = [];
+
+    generalTestingMCBArr = this.mcbForm.get('generalTestingMCB') as FormArray;
+    safetyTestingMCBArr = this.mcbForm.get('safetyTestingMCB') as FormArray;
+
+    generalTestingMCBArr.push(this.createGeneralTestingMCB());
+    safetyTestingMCBArr.push(this.createSafetyTestingMCB());
+
+  }
+
+  removeMCBtesting(a: any, i: any) {
+    (this.mcbForm.get('generalTestingMCB') as FormArray).removeAt(i);
+    (this.mcbForm.get('safetyTestingMCB') as FormArray).removeAt(i)
+  }
+
+  get f(){
+    return this.mcbForm.controls;
   }
 
   retrieveFromSavedReport(data: any) {
@@ -520,6 +694,54 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
         this.success=false;
         this.modalService.dismissAll(this.successMsg=""); 
       }
+  }
+
+  saveMCB() {
+    this.submitted = true;
+    if(this.mcbForm.invalid) {
+      return;
+    }
+
+    this.mcbGeneralTestingArray = this.mcbForm.get('generalTestingMCB') as FormArray;
+    this.mcbSafetyTestingArray = this.mcbForm.get('safetyTestingMCB') as FormArray;
+
+    for(let i of this.mcbGeneralTestingArray.controls) {
+      let arr1: any = [];
+      let arr2: any = [];
+      let arr3: any = [];
+      let arr4: any = [];
+      let arr5: any = [];
+      let arr6: any = [];
+      let arr7: any = [];
+      let arr8: any = [];
+      let arr9: any = [];
+      let arr10: any = [];
+
+      arr1.push(i.controls.rNVOltage.value, i.controls.rNResistance.value);
+      arr2.push(i.controls.yNVOltage.value, i.controls.yNResistance.value);
+      arr3.push(i.controls.bNVOltage.value, i.controls.bNResistance.value);
+      arr4.push(i.controls.rEVOltage.value, i.controls.rEResistance.value);
+      arr5.push(i.controls.yEVOltage.value, i.controls.yEResistance.value);
+      arr6.push(i.controls.bEVOltage.value, i.controls.bEResistance.value);
+      arr7.push(i.controls.rYVOltage.value, i.controls.rYResistance.value);
+      arr8.push(i.controls.yBVOltage.value, i.controls.yBResistance.value);
+      arr9.push(i.controls.bRVOltage.value, i.controls.bRResistance.value);
+      arr10.push(i.controls.nEVOltage.value, i.controls.nEResistance.value);
+
+
+      if(i.controls.rNVOltage.value != '' && i.controls.rNVOltage.value != null && i.controls.rNVOltage.value != undefined) {
+
+      }
+    }
+
+    this.inspectionService.addMCB(this.mcb).subscribe(
+      data => {
+
+      },
+      error => {
+        
+      }
+    )
   }
  
   submit(flag: any,content1: any) {

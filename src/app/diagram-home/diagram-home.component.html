@@ -735,87 +735,679 @@
 
 <ng-template #content9 let-modal>
   <div class="modal-header" style="text-align: center; display: block">
-    <h2 class="modal-title" style="display: contents">MCB with RCD or RCBO</h2>
+    <h2 class="modal-title" style="display: contents">MCB</h2>
   </div>
 
   <div class="modal-body">
     <div class="card">
       <div class="card-body">
-      <div class="row">
-        <div class="col-md-4">
-          <label>Reference Name</label>
-          <input type="text" class="form-control">
+        <form [formGroup]="mcbForm">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Reference Name</label>
+              <input type="text" class="form-control" formControlName="referenceName" [(ngModel)]="mcb.referenceName"
+              [ngClass]="{ 'is-invalid': submitted && f.referenceName?.errors }">
+              <div *ngIf="submitted && f.referenceName?.errors" class="invalid-feedback">
+                <div *ngIf="f.referenceName?.errors?.required">Reference name is required</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>OCPD Manfacturer Name</label>
+              <input type="text" class="form-control" formControlName="manufacturerName" [(ngModel)]="mcb.manufacturerName"
+              [ngClass]="{ 'is-invalid': submitted && f.manufacturerName?.errors }">
+              <div *ngIf="submitted && f.manufacturerName?.errors" class="invalid-feedback">
+                <div *ngIf="f.manufacturerName?.errors?.required">Manufacturer Name is required</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Rating(A)</label>
+              <input type="number" class="form-control" formControlName="rating" [(ngModel)]="mcb.rating"
+              [ngClass]="{ 'is-invalid': submitted && f.rating?.errors }">
+              <div *ngIf="submitted && f.rating?.errors" class="invalid-feedback">
+                <div *ngIf="f.rating?.errors?.required">Rating is required</div>
+              </div>
+            </div>
+          </div>
+
         </div>
 
-        <div class="col-md-4">
-          <label>OCPD Manfacturer Name</label>
-          <input type="text" class="form-control">
+        <div class="row">
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Voltage(V)</label>
+              <input type="number" class="form-control" formControlName="voltage" [(ngModel)]="mcb.voltage"
+              [ngClass]="{ 'is-invalid': submitted && f.voltage?.errors }">
+              <div *ngIf="submitted && f.voltage?.errors" class="invalid-feedback">
+                <div *ngIf="f.voltage?.errors?.required">Voltage is required</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>No of Poles</label>
+              <select  class="form-control" formControlName="noOfPoles" [(ngModel)]="mcb.noOfPoles"
+              [ngClass]="{ 'is-invalid': submitted && f.noOfPoles?.errors }">
+                <option value="">Select Option</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+              </select>        
+              <div *ngIf="submitted && f.noOfPoles?.errors" class="invalid-feedback">
+                <div *ngIf="f.noOfPoles?.errors?.required">No of poles is required</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Current Curve</label>
+              <select  class="form-control" formControlName="currentCurve" [(ngModel)]="mcb.currentCurve"
+              [ngClass]="{ 'is-invalid': submitted && f.currentCurve?.errors }">
+                <option value="">Select Option</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="K">K</option>
+                <option value="Z">Z</option>
+              </select>            
+              <div *ngIf="submitted && f.currentCurve?.errors" class="invalid-feedback">
+                <div *ngIf="f.currentCurve?.errors?.required">Current Curve is required</div>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <div class="col-md-4">
-          <label>Rating(A)</label>
-          <input type="number" class="form-control">
-        </div>
-
-      </div>
-
-      <div class="row">
-
-        <div class="col-md-4">
-          <label>Voltage(V)</label>
-          <input type="number" class="form-control">
-        </div>
-
-        <div class="col-md-4">
-          <label>No of Poles</label>
-          <select  class="form-control">
-            <option value="">Select Option</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-          </select>            
-        </div>
-
-        <div class="col-md-4">
-          <label>Current Curve</label>
-          <select  class="form-control">
-            <option value="">Select Option</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-            <option value="D">D</option>
-            <option value="K">K</option>
-            <option value="Z">Z</option>
-          </select>            
-        </div>
-      </div>
   
-      <br>
-      <h3 style="text-align: center">Outgoing Cable Size(sq.mm.)</h3>
-      <br>
-      <div class="row">
-        <div class="col-md-4">
-          <label>Phase</label>
-          <input type="text" class="form-control">
+        <br>
+        <h3 style="text-align: center">Outgoing Cable Size(sq.mm.)</h3>
+        <br>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Phase</label>
+              <input type="number" class="form-control" formControlName="outgoingSizePhase" [(ngModel)]="mcb.outgoingSizePhase"
+              [ngClass]="{ 'is-invalid': submitted && f.outgoingSizePhase?.errors }">
+              <div *ngIf="submitted && f.outgoingSizePhase?.errors" class="invalid-feedback">
+                <div *ngIf="f.outgoingSizePhase?.errors?.required">Phase is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Neutral</label>
+              <input type="number" class="form-control" formControlName="outgoingSizeNeutral" [(ngModel)]="mcb.outgoingSizeNeutral"
+              [ngClass]="{ 'is-invalid': submitted && f.outgoingSizeNeutral?.errors }">
+              <div *ngIf="submitted && f.outgoingSizeNeutral?.errors" class="invalid-feedback">
+                <div *ngIf="f.outgoingSizeNeutral?.errors?.required">Neutral is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Protective Conductor</label>
+              <input type="number" class="form-control" formControlName="outgoingSizeProtective" [(ngModel)]="mcb.outgoingSizeProtective"
+              [ngClass]="{ 'is-invalid': submitted && f.outgoingSizeProtective?.errors }">
+              <div *ngIf="submitted && f.outgoingSizeProtective?.errors" class="invalid-feedback">
+                <div *ngIf="f.outgoingSizeProtective?.errors?.required"> Protective Conductor is required</div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-md-4">
-          <label>Neutral</label>
-          <input type="text" class="form-control">
-        </div>
-        <div class="col-md-4">
-          <label>Protective Conductor</label>
-          <input type="text" class="form-control">
-        </div>
-      </div>
+        
+        <br>
+        <h2><b><u>Testing</u></b></h2>
 
+        <mat-icon class="mousechange" (click)="addMCBTesting()" 
+            style="float:right; padding-right: 37px; padding-top: 10px;">add_box</mat-icon>
+
+        <br>
+        <ng-container formArrayName="generalTestingMCB" *ngFor="let a of getGeneralTestingMCBControls(); let i = index">
+          <ng-container [formGroupName]="i">
+            <h2>Incomer -{{i+1}} (General Testing)</h2>
+            <div class="table-responsive">
+              <table class="table" style="width: 70%; border: 1px solid black">
+                <thead>
+                  <tr>
+                    <th>
+                      Reference
+                    </th>
+    
+                    <th>
+                      Voltage(V)
+                    </th>
+    
+                    <th>
+                      Insulation Resistance(MΩ)
+                    </th>
+                  </tr>
+                </thead>    
+                
+                <tbody>
+                  <tr>
+                    <td>
+                      R-N
+                    </td>
+    
+                    <td>
+                      <input type="number" formControlName="rNVoltage">
+                    </td>
+    
+                    <td>
+                      <input type="number" formControlName="rNResistance">
+                    </td>
+                  </tr>
+    
+                  <tr>
+                    <td>
+                      Y-N
+                    </td>
+    
+                    <td>
+                      <input type="number" formControlName="yNVoltage">
+                    </td>
+    
+                    <td>
+                      <input type="number" formControlName="yNResistance">
+                    </td>
+                  </tr>
+    
+                  <tr>
+                    <td>
+                      B-N
+                    </td>
+    
+                    <td>
+                      <input type="number"  formControlName="rNVoltage">
+                    </td>
+    
+                    <td>
+                      <input type="number"  formControlName="rNResistance">
+                    </td>
+                  </tr>
+    
+                  <tr>
+                    <td>
+                      R-E
+                    </td>
+    
+                    <td>
+                      <input type="number"  formControlName="rEVoltage">
+                    </td>
+    
+                    <td>
+                      <input type="number"  formControlName="rEResistance">
+                    </td>
+                  </tr>
+    
+                  <tr>
+                    <td>
+                      Y-E
+                    </td>
+    
+                    <td>
+                      <input type="number"  formControlName="yEVoltage">
+                    </td>
+    
+                    <td>
+                      <input type="number" formControlName="yEResistance" >
+                    </td>
+                  </tr>
+    
+                  <tr>
+                    <td>
+                      B-E
+                    </td>
+    
+                    <td>
+                      <input type="number" formControlName="bEVoltage" >
+                    </td>
+    
+                    <td>
+                      <input type="number" formControlName="bEResistance" >
+                    </td>
+                  </tr>
+    
+                  <tr>
+                    <td>
+                      R-Y
+                    </td>
+    
+                    <td>
+                      <input type="number" formControlName="rYVoltage" >
+                    </td>
+    
+                    <td>
+                      <input type="number" formControlName="rYResistance" >
+                    </td>
+                  </tr>
+    
+                  <tr>
+                    <td>
+                      Y-B
+                    </td>
+    
+                    <td>
+                      <input type="number" formControlName="yBVoltage" >
+                    </td>
+    
+                    <td>
+                      <input type="number" formControlName="yBResistance" >
+                    </td>
+                  </tr>
+    
+                  <tr>
+                    <td>
+                      B-R
+                    </td>
+    
+                    <td>
+                      <input type="number" formControlName="bRVoltage" >
+                    </td>
+    
+                    <td>
+                      <input type="number" formControlName="bRResistance" >
+                    </td>
+                  </tr>
+    
+                  <tr>
+                    <td>
+                      N-E
+                    </td>
+    
+                    <td>
+                      <input type="number" formControlName="nEVoltage" >
+                    </td>
+    
+                    <td>
+                      <input type="number" formControlName="nEResistance" >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+           
+            <br>
+
+            <div class="table-responsive">
+              <table class="table" style="width: 35%; border: 1px solid black">
+                <thead>
+                  <tr>
+                    <th>
+                      Reference
+                    </th>
+  
+                    <th>
+                      Load Current(A)
+                    </th>
+                  </tr>
+                </thead>
+  
+                <tbody>
+                  <tr>
+                    <td>
+                      IR
+                    </td>
+  
+                    <td>
+                      <input type="number" formControlName="iRCurrent" >
+                    </td>
+                  </tr>
+  
+                  <tr>
+                    <td>
+                      IY
+                    </td>
+  
+                    <td>
+                      <input type="number" formControlName="iYCurrent" >
+                    </td>
+                  </tr>
+  
+                  <tr>
+                    <td>
+                      IB
+                    </td>
+  
+                    <td>
+                      <input type="number" formControlName="iBCurrent" >
+                    </td>
+                  </tr>
+  
+                  <tr>
+                    <td>
+                      IN
+                    </td>
+  
+                    <td>
+                      <input type="number" formControlName="iNCurrent" >
+                    </td>
+                  </tr>
+  
+                  <tr>
+                    <td>
+                      IPE
+                    </td>
+  
+                    <td>
+                      <input type="number" formControlName="iPECurrent" >
+                    </td>
+                  </tr>
+  
+                </tbody>
+              </table>
+            </div>
+
+            <br>
+            
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Power Factor</label>
+                  <input type="number" class="form-control" formCOntrolName="powerFactor">
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Frequency(Hz)</label>
+                  <input type="number" class="form-control" formCOntrolName="frequency">
+                </div>
+              </div>
+            </div>
+            
+            <mat-icon class="mousechange" *ngIf="getGeneralTestingMCBControls().length>1" class="dlt" type="button" title="Delete"  (click)="removeMCBtesting(a,i)" style="float: right">remove_circle_outline</mat-icon>
+            <br>
+          </ng-container>
+        </ng-container>
+
+        <br>
+        <ng-container formArrayName="safetyTestingMCB" *ngFor="let a of getSafetyTestingMCBControls(); let i = index">
+          <ng-container [formGroupName]="i">
+            <h2>Incomer -{{i+1}} (Testing related to safety)</h2>
+
+            <div class="table-responsive">
+              <table class="table" style="width: 100%; border: 1px solid black">
+                <thead>
+                  <tr>
+                    <th>
+                      Reference
+                    </th>
+
+                    <th>
+                      Fault Loop Impedence(mΩ)
+                    </th>
+
+                    <th>
+                      Prospective fault current (kA)
+                    </th>
+
+                    <th>
+                      Disconnection time (mS)
+                    </th>
+
+                    <th>
+                      Remarks
+                    </th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td>
+                      R-N
+                    </td>
+
+                    <td>
+                      <input type="number" formControlName="rNImpedence">
+                    </td>
+
+                    <td>
+                      <input type="number" formControlName="rNCurrent">
+                    </td>
+
+                    <td>
+                      <input type="number" formControlName="rNTime">
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="rNRemarks">
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      Y-N
+                    </td>
+
+                    <td>
+                      <input type="number" formControlName="yNImpedence">
+                    </td>
+
+                    <td>
+                      <input type="number" formControlName="yNCurrent">
+                    </td>
+
+                    <td>
+                      <input type="number" formControlName="yNTime">
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="yNRemarks">
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      B-N
+                    </td>
+
+                    <td>
+                      <input type="number" formControlName="bNImpedence">
+                    </td>
+
+                    <td>
+                      <input type="number" formControlName="bNCurrent">
+                    </td>
+
+                    <td>
+                      <input type="number" formControlName="bNTime">
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="bNRemarks">
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      R-E
+                    </td>
+
+                    <td>
+                      <input type="number" formControlName="rEImpedence">
+                    </td>
+
+                    <td>
+                      <input type="number" formControlName="rECurrent">
+                    </td>
+
+                    <td>
+                      <input type="number" formControlName="rETime">
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="rERemarks">
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      Y-E
+                    </td>
+
+                    <td>
+                      <input type="number" formControlName="yEImpedence">
+                    </td>
+
+                    <td>
+                      <input type="number" formControlName="yECurrent">
+                    </td>
+
+                    <td>
+                      <input type="number" formControlName="yETime">
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="yERemarks">
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      B-E
+                    </td>
+
+                    <td>
+                      <input type="number" formControlName="bEImpedence">
+                    </td>
+
+                    <td>
+                      <input type="number" formControlName="bECurrent">
+                    </td>
+
+                    <td>
+                      <input type="number" formControlName="bETime">
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="bERemarks">
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      R-Y
+                    </td>
+
+                    <td>
+                      <input type="number" formControlName="rYImpedence">
+                    </td>
+
+                    <td>
+                      <input type="number" formControlName="rYCurrent">
+                    </td>
+
+                    <td>
+                      <input type="number" formControlName="rYTime">
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="rYRemarks">
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      Y-B
+                    </td>
+
+                    <td>
+                      <input type="number" formControlName="yBImpedence">
+                    </td>
+
+                    <td>
+                      <input type="number" formControlName="yBCurrent">
+                    </td>
+
+                    <td>
+                      <input type="number" formControlName="yBTime">
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="yBRemarks">
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      B-R
+                    </td>
+
+                    <td>
+                      <input type="number" formControlName="bRImpedence">
+                    </td>
+
+                    <td>
+                      <input type="number" formControlName="bRCurrent">
+                    </td>
+
+                    <td>
+                      <input type="number" formControlName="bRTime">
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="bRRemarks">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <br>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Touch/Shock Voltage (V)</label>
+                  <input type="number" class="form-control" formCOntrolName="shockVoltage">
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Floor Resistance (MΩ)</label>
+                  <input type="number" class="form-control" formCOntrolName="floorResistance">
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Wall Resistance (MΩ)</label>
+                  <input type="number" class="form-control" formCOntrolName="wallResistance">
+                </div>
+              </div>
+            </div>
+
+            <mat-icon class="mousechange" *ngIf="getGeneralTestingMCBControls().length>1" class="dlt" type="button" title="Delete"  (click)="removeMCBtesting(a,i)" style="float: right">remove_circle_outline</mat-icon>
+
+          </ng-container>
+        </ng-container>
+        </form>
       </div>
     </div>
     </div>
   <br>
-      <button type="button" *ngIf="popup" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
-      aria-label="Close"  (click)="closeModalDialog()">
-      <span aria-hidden="true">Ok</span>
-  </button>
+
+  <div style="display: inline">    
+    <button type="button"  style="float: left; margin-left: 400px"
+      class="btn btn-info" (click)="saveMCB()">
+      <i class="bi bi-person-plus-fill icon"></i> Save
+    </button>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <button type="button"  class="btn btn-danger" aria-label="Close"  (click)="closeModalDialog()"
+      style="float: right; margin-right: 400px" >
+      <span aria-hidden="true">Cancel</span>
+    </button>
+  </div>
   </ng-template>
 
 <ng-template #content10 let-modal style="max-height: calc(100vh-212px); overflow-y: auto">

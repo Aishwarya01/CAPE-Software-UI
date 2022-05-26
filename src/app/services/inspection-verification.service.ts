@@ -93,4 +93,8 @@ export class InspectionVerificationService {
   public fetchAllDiagramSymbols(): Observable<any> {
     return this.http.get<any>(this.apiUrl5 + '/symbolList', { responseType: 'text' as 'json' })
   }
+
+  public addMCB(MCB: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl5 + '/saveMCB', MCB, { responseType: 'text' as 'json' })
+  }
 }
