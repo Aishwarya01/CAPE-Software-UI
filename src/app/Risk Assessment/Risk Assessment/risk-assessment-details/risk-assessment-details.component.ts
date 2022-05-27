@@ -25,16 +25,16 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   successMsg: string='';
   Error: boolean=false;
   success: boolean=false;
-  buildingType: any=[];
   // FormArray Name List
   structureAttributes!: FormArray;
   losses!: FormArray;
   structureCharacters!: FormArray;
-  brick: String='1';
-  rccwithBrick: String='0.5';
-  pebwithsheet: String='0.2';
-  rccbuilding: String='0.2';
-  pebbuilding: String='0.001';
+  heightnear:any=[];
+  // brick: String='1';
+  // rccwithBrick: String='0.5';
+  // pebwithsheet: String='0.2';
+  // rccbuilding: String='0.2';
+  // pebbuilding: String='0.001';
 
   constructor(private router: ActivatedRoute,
               private formBuilder: FormBuilder,
@@ -144,6 +144,15 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     ecoLossOfFailureOfInternalSystemL1: new FormControl('',[Validators.required]),
     classOfLPS: new FormControl('',[Validators.required]),
     classOfSPD: new FormControl('',[Validators.required]),
+    protectionPEB:new FormControl(''),
+    protectionPMS:new FormControl(''),
+    protectionPM:new FormControl(''),
+    protectionPA:new FormControl(''),
+    protectionPC:new FormControl(''),
+    protectionPU:new FormControl(''),
+    protectionPV:new FormControl(''),
+    protectionPW:new FormControl(''),
+    protectionPZ:new FormControl(''),
     })
   }
 
@@ -205,6 +214,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       form.controls.internalScreeningEffectiveness.setValue('Very Good');
     }
   }
+
   // Math for Collection Area of Structure
   collectionAreaLength(event:any, form:any){
     let selectedValue=event.target.value;
@@ -260,8 +270,173 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       form.controls.collAreaOfStrucWithProtrusion.setValue('');
     }
   }
-  // Math for Collection area near the structure
 
+  // Math for No of dangerous event on structure
+  heightNearStruct(event:any, form:any){
+    if(form.controls.heightNearByStructure!='' && form.controls.collectionAreaOfStructure!='' && form.controls.groundFlashDensity!=''){
+      var noOfDangerousEventOnStructure = form.controls.groundFlashDensity.value*form.controls.collectionAreaOfStructure.value*form.controls.heightNearByStructure.value*0.000001;
+      form.controls.noOfDangerousEventOnStructure.setValue(noOfDangerousEventOnStructure.toFixed(7));
+    }
+    else{
+      form.controls.noOfDangerousEventOnStructure.setValue('');
+    }
+  }
+  // Math for No of dangerous event near the structure
+  noOfDangerus(event:any, form:any){
+    if(form.controls.groundFlashDensity!='' && form.controls.collAreaOfNearStructure!=''){
+      var noOfDangerousEventNearStructure = form.controls.groundFlashDensity.value*form.controls.collAreaOfNearStructure.value*0.000001
+      form.controls.noOfDangerousEventNearStructure.setValue(noOfDangerousEventNearStructure.toFixed(7));
+    }
+    else{
+      form.controls.noOfDangerousEventNearStructure.setValue('');
+    }
+    if(form.controls.groundFlashDensity!='' && form.controls.collAreaOfAdjacentStruc!='' && form.controls.telephoneServiceLine!='' && form.controls.heightNearByStructure!=''){
+      form.controls.noOfDangEventOnAdjacentStruc.setValue(form.controls.groundFlashDensity.value*form.controls.collAreaOfAdjacentStruc.value+6*form.controls.heightNearByStructure.value*form.controls.telephoneServiceLine.value*0.000001);
+    }
+    else{
+      form.controls.noOfDangEventOnAdjacentStruc.setValue('');
+    }
+  }
+
+  // Drop Down Changes for Protection required for part of building
+  protectionRqbuilding(event:any, form:any){
+    if(event.target.value == 'No'){
+      form.controls.protectionLenght.setValue('0.00');
+      form.controls.protectionWidth.setValue('0.00');
+      form.controls.protectionHeight.setValue('0.00');
+      form.controls.protectionCollectionArea.setValue('0.00');
+    }
+    else{
+      form.controls.protectionLenght.setValue('');
+      form.controls.protectionWidth.setValue('');
+      form.controls.protectionHeight.setValue('');
+      form.controls.protectionCollectionArea.setValue('');
+    }
+  }
+  // Math for Collection Area
+  collectionArea(event:any, form:any){
+    if(form.controls.protectionLenght!='' && form.controls.protectionWidth!='' && form.controls.protectionHeight!=''){
+      form.controls.protectionCollectionArea.setValue(form.controls.protectionLenght.value*form.controls.protectionWidth.value+6*form.controls.protectionHeight.value*(form.controls.protectionLenght.value+form.controls.protectionWidth.value)+9*3.14*(form.controls.protectionHeight.value*form.controls.protectionHeight.value));
+    }
+    else{
+      form.controls.protectionCollectionArea.setValue('');
+    }
+  }
+
+  // Drop Down for Adjacent Building
+  adjacentBuilding(event:any,form:any){
+    if(event.target.value == 'No'){
+      form.controls.adjacentLength.setValue('0.00');
+      form.controls.adjacentWidth.setValue('0.00');
+      form.controls.adjacentHeight.setValue('0.00');
+    }
+    else{
+      form.controls.adjacentLength.setValue('');
+      form.controls.adjacentWidth.setValue('');
+      form.controls.adjacentHeight.setValue('');
+    }
+  }
+  // Math for Collection Area Of Adjacent Structure
+  collectionOfAdjacent(event:any,form:any){
+    if(form.controls.adjacentLength!='' && form.controls.adjacentWidth!='' && form.controls.adjacentHeight!=''){
+      var a = form.controls.adjacentLength.value*form.controls.adjacentWidth.value+6*form.controls.adjacentHeight.value*(form.controls.adjacentLength.value+form.controls.adjacentWidth.value)+9*3.14*(form.controls.adjacentHeight.value*form.controls.adjacentHeight.value)
+      form.controls.collAreaOfAdjacentStruc.setValue(a.toFixed(2));
+    }
+    else{
+      form.controls.collAreaOfAdjacentStruc.setValue('');
+    }
+  }
+  // Math for Number of hours/year people are present in the building
+  houseYearBuilding(event:any,form:any){
+    if(form.controls.dayPeoplePresentBuilding!=''){
+      var a = 365*form.controls.dayPeoplePresentBuilding.value;
+      form.controls.yearPeoplePresentBuilding.setValue(a);
+    }
+    else{
+      form.controls.yearPeoplePresentBuilding.setValue('');
+    }
+  }
+
+  // Math for Length of Power line
+  lengthPowerline(event:any, form:any){
+    // Collection area of the lines && Collection Area Near The Lines
+    let arr = form.controls.structureAttributes.controls[0].controls.lengthOfPowerLines.value;
+    if(form.controls.structureAttributes.controls[0].controls.lengthOfPowerLines!=''){
+      var a = 40*arr;
+      var b = 4000*arr;
+      form.controls.structureAttributes.controls[0].controls.collAreaOfPowerLines.setValue(a);
+      form.controls.structureAttributes.controls[0].controls.collAreaOfNearLines.setValue(b); 
+    }
+    else{
+      form.controls.structureAttributes.controls[0].controls.collAreaOfPowerLines.setValue('');
+      form.controls.structureAttributes.controls[0].controls.collAreaOfNearLines.setValue('');
+    }
+    // No. fo dangerous event near the lines
+    if(form.controls.groundFlashDensity!='' && form.controls.structureAttributes.controls[0].controls.collAreaOfNearLines!='' && form.controls.structureAttributes.controls[0].controls.typeOfPowerLines!='' && form.controls.environment!='' && form.controls.telephoneServiceLine!=''){
+      var c = form.controls.groundFlashDensity.value*form.controls.structureAttributes.controls[0].controls.collAreaOfNearLines.value*form.controls.structureAttributes.controls[0].controls.typeOfPowerLines.value*form.controls.environment.value*form.controls.telephoneServiceLine.value*0.000001;
+      form.controls.structureAttributes.controls[0].controls.eventNearThePowerLines.setValue(c);
+    }
+    else{
+      form.controls.structureAttributes.controls[0].controls.eventNearThePowerLines.setValue('');
+    }
+    // No. fo dangerous event on the lines
+    if(form.controls.groundFlashDensity!='' && form.controls.structureAttributes.controls[0].controls.collAreaOfPowerLines!='' && form.controls.structureAttributes.controls[0].controls.typeOfPowerLines!='' && form.controls.environment!='' && form.controls.telephoneServiceLine!=''){
+      var d = form.controls.groundFlashDensity.value*form.controls.structureAttributes.controls[0].controls.collAreaOfPowerLines.value*form.controls.structureAttributes.controls[0].controls.typeOfPowerLines.value*form.controls.environment.value*form.controls.telephoneServiceLine.value*0.000001;
+      form.controls.structureAttributes.controls[0].controls.eventOnThePowerLines.setValue(d);
+    }
+    else{
+      form.controls.structureAttributes.controls[0].controls.eventOnThePowerLines.setValue('');
+    }
+  }
+  // Math for Length Of Telecom Lines 
+  lengthOfTelecomLines(event:any, form:any){
+    // Collection Area Of The Telecom Lines && Collection Area Near The Telecom Lines
+    let arr = form.controls.structureAttributes.controls[0].controls.lengthOfTelecomLines.value;
+    if(form.controls.structureAttributes.controls[0].controls.lengthOfTelecomLines!=''){
+      var a = 40*arr;
+      var b = 4000*arr;
+      form.controls.structureAttributes.controls[0].controls.collAreaOfTelecomLines.setValue(a);
+      form.controls.structureAttributes.controls[0].controls.collNearOfTelecomLines.setValue(b); 
+    }
+    else{
+      form.controls.structureAttributes.controls[0].controls.collAreaOfTelecomLines.setValue('');
+      form.controls.structureAttributes.controls[0].controls.collNearOfTelecomLines.setValue('');
+    }
+    // No of Dangerous Event Near The Telecom Lines
+    if(form.controls.groundFlashDensity!='' && form.controls.structureAttributes.controls[0].controls.collNearOfTelecomLines!='' && form.controls.structureAttributes.controls[0].controls.typeOfTelecomLines!='' && form.controls.environment!='' && form.controls.telephoneServiceLine!=''){
+      var c = form.controls.groundFlashDensity.value*form.controls.structureAttributes.controls[0].controls.collNearOfTelecomLines.value*form.controls.structureAttributes.controls[0].controls.typeOfTelecomLines.value*form.controls.environment.value*form.controls.telephoneServiceLine.value*0.000001;
+      form.controls.structureAttributes.controls[0].controls.eventNearTheTelecomeLines.setValue(c);
+    }
+    else{
+      form.controls.structureAttributes.controls[0].controls.eventNearTheTelecomeLines.setValue('');
+    }
+    // No of Dangerous Event On The Telecom Lines
+    if(form.controls.groundFlashDensity!='' && form.controls.structureAttributes.controls[0].controls.collAreaOfTelecomLines!='' && form.controls.structureAttributes.controls[0].controls.typeOfTelecomLines!='' && form.controls.environment!='' && form.controls.telephoneServiceLine!=''){
+      var d = form.controls.groundFlashDensity.value*form.controls.structureAttributes.controls[0].controls.collAreaOfTelecomLines.value*form.controls.structureAttributes.controls[0].controls.typeOfTelecomLines.value*form.controls.environment.value*form.controls.telephoneServiceLine.value*0.000001;
+      form.controls.structureAttributes.controls[0].controls.eventOnTheTelecomLines.setValue(d);
+    }
+    else{
+      form.controls.structureAttributes.controls[0].controls.eventOnTheTelecomLines.setValue('');
+    }
+  }
+  
+  shielding(event:any, form:any){
+    let a:any = [];
+    a = (form.controls.structureAttributes.controls[0].controls.shieldingGroundingIsolation.value).split(',');
+    console.log(a);
+    
+    // PROTECTION CALCULATION COMES HERE...
+    // protectionPEB:new FormControl(''),
+    // protectionPMS:new FormControl(''),
+    // protectionPM:new FormControl(''),
+    // protectionPA:new FormControl(''),
+    // protectionPC:new FormControl(''),
+    // protectionPU:new FormControl(''),
+    // protectionPV:new FormControl(''),
+    // protectionPW:new FormControl(''),
+    // protectionPZ:new FormControl(''),
+
+  }
 
   onKeyForm(e: any) {
 
