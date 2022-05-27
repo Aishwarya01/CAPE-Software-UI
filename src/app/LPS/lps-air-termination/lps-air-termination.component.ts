@@ -832,7 +832,7 @@ export class LpsAirTerminationComponent implements OnInit {
   createGroup(item: any, lpsAirDescId: any): FormGroup {
     return this.formBuilder.group({
       lpsVerticalAirTerminationId: new FormControl({ disabled: false, value: item.lpsVerticalAirTerminationId }),
-      lpsAirDescId: new FormControl({ disabled: false, value: item.lpsAirDescId }),
+      lpsAirDescId: new FormControl({ disabled: false, value: lpsAirDescId }),
       // For file upload
       fileNameVAir: new FormControl({ disabled: false, value: item.fileNameVAir }),
       fileSize: new FormControl({ disabled: false, value: item.fileSize }),
