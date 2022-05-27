@@ -402,8 +402,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Number Of People In The Building :</label>
-                                        <input type="text" class="form-control"  formControlName="noOfPeopleInBuilding" placeholder="Enter Designation" 
-                                        [ngClass]="{ 'is-invalid': submitted && f.get('noOfPeopleInBuilding')?.errors }">
+                                        <input type="text" class="form-control" formControlName="noOfPeopleInBuilding" placeholder="Enter Designation" 
+                                        [ngClass]="{ 'is-invalid': submitted && f.get('noOfPeopleInBuilding')?.errors }" (ngModelChange)="lossHumanLifeL1($event,f);lossServiceToPublicL2($event,f)">
                                         <div *ngIf="submitted && f.get('noOfPeopleInBuilding')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('noOfPeopleInBuilding')?.errors?.required">Number Of People In The Building is required</div>
                                         </div>
@@ -413,8 +413,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Number of People In The Zone :</label>
-                                        <input type="text" class="form-control"  formControlName="noOfPeopleInZone" placeholder="Enter Designation" 
-                                        [ngClass]="{ 'is-invalid': submitted && f.get('noOfPeopleInZone')?.errors }">
+                                        <input type="text" class="form-control" formControlName="noOfPeopleInZone" placeholder="Enter Designation" 
+                                        [ngClass]="{ 'is-invalid': submitted && f.get('noOfPeopleInZone')?.errors }" (ngModelChange)="lossHumanLifeL1($event,f);lossServiceToPublicL2($event,f);">
                                         <div *ngIf="submitted && f.get('noOfPeopleInZone')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('noOfPeopleInZone')?.errors?.required">Number of People In The Zone is required</div>
                                         </div>
@@ -438,7 +438,7 @@
                                     <div class="form-group">
                                         <label>Number of hours/year people are present in the building :</label>
                                         <input type="text" class="form-control" readonly formControlName="yearPeoplePresentBuilding" placeholder="Enter Designation" 
-                                        [ngClass]="{ 'is-invalid': submitted && f.get('yearPeoplePresentBuilding')?.errors }">
+                                        [ngClass]="{ 'is-invalid': submitted && f.get('yearPeoplePresentBuilding')?.errors }" (change)="lossHumanLifeL1($event,f)">
                                         <div *ngIf="submitted && f.get('yearPeoplePresentBuilding')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('yearPeoplePresentBuilding')?.errors?.required">Number of hours/year people are present in the building is required</div>
                                         </div>
@@ -461,7 +461,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Type of Floor Surface :</label>
-                                        <select class="form-control" formControlName="stTypeOfFloorSurface"  
+                                        <select class="form-control" formControlName="stTypeOfFloorSurface" (change)="lossHumanLifeL1($event,f);economicLossL4($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && a.get('stTypeOfFloorSurface')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="0.01">Agricultural,concrete</option>
@@ -496,8 +496,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Risk of Fire :</label>
-                                        <input type="text" class="form-control"  formControlName="stRiskOfFire" placeholder="Enter Designation" 
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('stRiskOfFire')?.errors }">
+                                        <input type="text" class="form-control" formControlName="stRiskOfFire" placeholder="Enter Designation" 
+                                        [ngClass]="{ 'is-invalid': submitted && a.get('stRiskOfFire')?.errors }" (change)="lossHumanLifeL1($event,f);lossServiceToPublicL2($event,f);economicLossL4($event,f)">
                                         <div *ngIf="submitted && a.get('stRiskOfFire')?.errors" class="invalid-feedback">
                                             <div *ngIf="a.get('stRiskOfFire')?.errors?.required">Designation is required</div>
                                         </div>
@@ -509,7 +509,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Fire Protection Measures :</label>
-                                        <select class="form-control" formControlName="stFireProtectionMeasure"  
+                                        <select class="form-control" formControlName="stFireProtectionMeasure" (change)="lossHumanLifeL1($event,f);lossServiceToPublicL2($event,f);economicLossL4($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && a.get('stFireProtectionMeasure')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="1">No provision</option>
@@ -572,7 +572,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Type of Power Lines :</label>
-                                        <select class="form-control" formControlName="typeOfPowerLines" 
+                                        <select class="form-control" formControlName="typeOfPowerLines" (change)="lengthPowerline($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && a.get('typeOfPowerLines')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="1">Overhead</option>
@@ -791,7 +791,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Hazard Classification :</label>
-                                        <select class="form-control" formControlName="hazardClassification"  
+                                        <select class="form-control" formControlName="hazardClassification" (change)="lossHumanLifeL1($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && b.get('hazardClassification')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="1">Concrete houses</option>
@@ -887,12 +887,12 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Loss Due To Physical Damage :</label>
-                                        <select class="form-control" formControlName="SerToPubPhysicalDamage"  
+                                        <select class="form-control" formControlName="SerToPubPhysicalDamage" (change)="lossHumanLifeL1($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && b.get('SerToPubPhysicalDamage')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="0.1">Gas,water,power supply</option>
                                             <option value="0.01">TV, telecommunication lines</option>
-                                            <option value="No Service">No Service</option>
+                                            <option value="0">No Service</option>
                                         </select>
                                         <div *ngIf="submitted && b.get('SerToPubPhysicalDamage')?.errors" class="invalid-feedback">
                                             <div *ngIf="b.get('SerToPubPhysicalDamage')?.errors?.required">Installation type is required</div>
@@ -903,12 +903,12 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Loss Due To Failure Of Internal System :</label>
-                                        <select class="form-control" formControlName="serToPubfailureOfInternalSystem"  
+                                        <select class="form-control" formControlName="serToPubfailureOfInternalSystem" (change)="lossHumanLifeL1($event,f);lossServiceToPublicL2($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && b.get('serToPubfailureOfInternalSystem')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="0.01">Gas,water,power supply</option>
                                             <option value="0.001">TV, telecommunication lines</option>
-                                            <option value="No Service">No Service</option>
+                                            <option value="0">No Service</option>
                                         </select>
                                         <div *ngIf="submitted && b.get('serToPubfailureOfInternalSystem')?.errors" class="invalid-feedback">
                                             <div *ngIf="b.get('serToPubfailureOfInternalSystem')?.errors?.required">Installation type is required</div>
@@ -947,11 +947,11 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Loss Due To Physical Damage :</label>
-                                        <select class="form-control" formControlName="culHerOfPhysicalDamage" 
+                                        <select class="form-control" formControlName="culHerOfPhysicalDamage" (change)="lossServiceToPublicL2($event,f);economicLossL4($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && b.get('culHerOfPhysicalDamage')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="0.1">Museums,galleries</option>
-                                            <option value="No Cultural Heritage">No Cultural Heritage</option>
+                                            <option value="0">No Cultural Heritage</option>
                                         </select>
                                         <div *ngIf="submitted && b.get('culHerOfPhysicalDamage')?.errors" class="invalid-feedback">
                                             <div *ngIf="b.get('culHerOfPhysicalDamage')?.errors?.required">Installation type is required</div>
@@ -997,7 +997,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Loss Due To Failure Of Internal System :</label>
-                                        <select class="form-control" formControlName="ecoLossOfFailureOfInternalSystem" 
+                                        <select class="form-control" formControlName="ecoLossOfFailureOfInternalSystem" (change)="economicLossL4($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && b.get('ecoLossOfFailureOfInternalSystem')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="0.1">Risk of explosion</option>
@@ -1070,7 +1070,7 @@
                                         </div>
                                     </div>
                                 </div>
-                
+                <!-- Doubt in Drop Down -->
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Class of SPD :</label>

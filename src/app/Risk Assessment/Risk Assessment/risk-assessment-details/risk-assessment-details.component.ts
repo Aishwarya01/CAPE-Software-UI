@@ -419,6 +419,97 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       form.controls.structureAttributes.controls[0].controls.eventOnTheTelecomLines.setValue('');
     }
   }
+
+  // Math for LOSS OF HUMAN LIFE (L1)
+  lossHumanLifeL1(event:any, form:any){
+    // Loss due to injury to living beings by electric shock
+    if(form.controls.structureAttributes.controls[0].controls.stTypeOfFloorSurface!='' && form.controls.noOfPeopleInZone!='' && form.controls.noOfPeopleInBuilding!='' && form.controls.yearPeoplePresentBuilding!=''){
+      var a =form.controls.structureAttributes.controls[0].controls.stTypeOfFloorSurface.value*0.01*form.controls.noOfPeopleInZone.value/form.controls.noOfPeopleInBuilding.value*form.controls.yearPeoplePresentBuilding.value/8760;
+      form.controls.losses.controls[0].controls.humanLossOfInjuryOfElectricShock.setValue(a);
+    }
+    else{
+      form.controls.losses.controls[0].controls.humanLossOfInjuryOfElectricShock.setValue('');
+    }
+    // Loss due to physical damage 
+    if(form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure!='' && form.controls.structureAttributes.controls[0].controls.stRiskOfFire!='' && form.controls.losses.controls[0].controls.hazardClassification!='' && form.controls.losses.controls[0].controls.serToPubfailureOfInternalSystem!='' && form.controls.noOfPeopleInZone!='' && form.controls.noOfPeopleInBuilding!='' && form.controls.yearPeoplePresentBuilding!=''){
+      var b = form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure.value*form.controls.structureAttributes.controls[0].controls.stRiskOfFire.value*form.controls.losses.controls[0].controls.hazardClassification.value*form.controls.losses.controls[0].controls.serToPubfailureOfInternalSystem.value*form.controls.noOfPeopleInZone.value/form.controls.noOfPeopleInBuilding.value*form.controls.yearPeoplePresentBuilding.value/8760;
+
+      form.controls.losses.controls[0].controls.humanLossOfPhysicalDamageL1.setValue(b);
+    }
+    else{
+      form.controls.losses.controls[0].controls.humanLossOfPhysicalDamageL1.setValue('');
+    }
+    // Loss due to failure of internal systems 
+    if(form.controls.losses.controls[0].controls.serToPubfailureOfInternalSystem!='' && form.controls.noOfPeopleInZone!='' && form.controls.noOfPeopleInBuilding!='' && form.controls.yearPeoplePresentBuilding!=''){
+      var c = form.controls.losses.controls[0].controls.serToPubfailureOfInternalSystem.value*form.controls.noOfPeopleInZone.value/form.controls.noOfPeopleInBuilding.value*form.controls.yearPeoplePresentBuilding.value/8760;
+      
+      form.controls.losses.controls[0].controls.humanLossOffailureOfInternalSystemL1.setValue(c);
+    }
+    else{
+      form.controls.losses.controls[0].controls.humanLossOffailureOfInternalSystemL1.setValue('');
+    }
+  }
+
+  // Math for LOSS OF SERVICE TO PUBLIC (L2)
+  lossServiceToPublicL2(event:any, form:any){
+    // Loss due to physical damage 
+    if(form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure!='' && form.controls.structureAttributes.controls[0].controls.stRiskOfFire!='' && form.controls.losses.controls[0].controls.culHerOfPhysicalDamage!='' && form.controls.noOfPeopleInZone!='' && form.controls.noOfPeopleInBuilding!=''){
+      
+      var a = form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure.value*form.controls.structureAttributes.controls[0].controls.stRiskOfFire.value*form.controls.losses.controls[0].controls.culHerOfPhysicalDamage.value*form.controls.noOfPeopleInZone.value/form.controls.noOfPeopleInBuilding.value;
+
+      form.controls.losses.controls[0].controls.SerToPubPhysicalDamageL1.setValue(a);
+    }
+    else{
+      form.controls.losses.controls[0].controls.SerToPubPhysicalDamageL1.setValue('');
+    }
+    // Loss due to failure of internal systems 
+    if(form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystem!='' && form.controls.noOfPeopleInZone!='' && form.controls.noOfPeopleInBuilding!=''){
+      var b = form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystem.value*form.controls.noOfPeopleInZone.value/form.controls.noOfPeopleInBuilding.value;
+
+      form.controls.losses.controls[0].controls.serToPubfailureOfInternalSystemL1.setValue(b);
+    }
+    else{
+      form.controls.losses.controls[0].controls.serToPubfailureOfInternalSystemL1.setValue('');
+    }
+
+    // Math for LOSS OF CULTURAL HERITAGE (L3)
+    if(form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure!='' && form.controls.structureAttributes.controls[0].controls.stRiskOfFire!='' && form.controls.losses.controls[0].controls.culHerOfPhysicalDamage!=''){
+      var a = form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure.value*form.controls.structureAttributes.controls[0].controls.stRiskOfFire.value*form.controls.losses.controls[0].controls.culHerOfPhysicalDamage.value*1/1;
+
+      form.controls.losses.controls[0].controls.culHerOfPhysicalDamageL1.setValue(a);
+    }
+    else{
+      form.controls.losses.controls[0].controls.culHerOfPhysicalDamageL1.setValue('');
+    }
+  }
+
+  // Math for ECONOMIC LOSS (L4)
+  economicLossL4(event:any, form:any){
+    // Loss due to injury to living beings by electric shock
+    if(form.controls.structureAttributes.controls[0].controls.stTypeOfFloorSurface!=''){
+      var a = form.controls.structureAttributes.controls[0].controls.stTypeOfFloorSurface.value*0.01*1/1;
+      form.controls.losses.controls[0].controls.ecoLossOfInjuryOfElectricShock.setValue(a);
+    }
+    else{
+      form.controls.losses.controls[0].controls.ecoLossOfInjuryOfElectricShock.setValue("");
+    }
+    // Loss due to physical damage 
+    if(form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure!='' && form.controls.structureAttributes.controls[0].controls.stRiskOfFire!='' && form.controls.losses.controls[0].controls.culHerOfPhysicalDamage!=''){
+      var b = form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure.value*form.controls.structureAttributes.controls[0].controls.stRiskOfFire.value*form.controls.losses.controls[0].controls.culHerOfPhysicalDamage.value*(1+1+1+1)/1;
+      form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageL1.setValue(b);
+    }
+    else{
+      form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageL1.setValue("");
+    }
+    // Loss due to failure of internal systems 
+    if(form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystem!=''){
+      var c = form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystem.value*1/1;
+      form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemL1.setValue(c);
+    } 
+    else{
+      form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemL1.setValue("");
+    }
+  }
   
   shielding(event:any, form:any){
     let a:any = [];
