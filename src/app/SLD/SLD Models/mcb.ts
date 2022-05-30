@@ -2,7 +2,8 @@ export class MCB {
     nodeId!: String;
     fileName!: String;
     referenceName!: String;
-    manufacturerName!: String;;
+    manufacturerName!: String;
+    userName!: String;
     rating!: number;
     voltage!: number;
     noOfPoles!: number;

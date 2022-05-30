@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConnectorModel, Node, Connector, DiagramComponent, NodeModel, PaletteModel, PortConstraints, PortVisibility, SymbolInfo, 
   SymbolPreviewModel } from '@syncfusion/ej2-angular-diagrams'; 
 import {SymbolPalette} from  '@syncfusion/ej2-diagrams'
+import { createFalse } from 'typescript';
 import { DiagramModel } from '../model/diagram-component';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
 import { MCB } from '../SLD/SLD Models/mcb';
@@ -90,6 +91,8 @@ export class DiagramHomeComponent implements OnInit {
   mcbGeneralTestingArray: any = [];
   mcbSafetyTestingArray: any = [];
   submitted: boolean = false;
+  mcbFlag: boolean = false;
+  mcbData: any;
 
   public getNodeDefaults(node: any): NodeModel {
     // node.height = 200;
@@ -160,6 +163,14 @@ export class DiagramHomeComponent implements OnInit {
         this.modalService.open(content8, { centered: true,size: 'xl'});
       }
       else if(e.element.properties.id.includes('MCB')) {
+        this.inspectionService.retriveMCB(this.diagramComponent.fileName,e.element.properties.id).subscribe(
+          data => {
+            this.mcbData = JSON.parse(data);
+            if(this.mcbData.length != 0) {
+              this.retrieveMcbNode(this.mcbData);
+            }
+          }
+        )
         this.modalService.open(content9, { centered: true,size: 'xl'});
         this.mcb.nodeId = e.element.properties.id;
         this.mcb.fileName = this.diagramComponent.fileName;
@@ -306,6 +317,8 @@ export class DiagramHomeComponent implements OnInit {
     { offset: { x: 1, y: 0.5 }, visibility: PortVisibility.Connect | PortVisibility.Hover, constraints: PortConstraints.Draw },
     { offset: { x: 0.5, y: 1 }, visibility: PortVisibility.Connect | PortVisibility.Hover, constraints: PortConstraints.Draw }
   ];
+
+  
 
   //public b:any=[{ strokeWidth: 1, strokeColor: '#757575' }];
  
@@ -525,123 +538,123 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
   private createGeneralTestingMCB(): FormGroup {
     return new FormGroup({
       rN: new FormControl(''),
-      rNVoltage: new FormControl(''),
-      rNResistance: new FormControl(''),
+      rNVoltage: new FormControl('', Validators.required),
+      rNResistance: new FormControl('', Validators.required),
 
       yN: new FormControl(''),
-      yNVoltage: new FormControl(''),
-      yNResistance: new FormControl(''),
+      yNVoltage: new FormControl('', Validators.required),
+      yNResistance: new FormControl('', Validators.required),
 
       bN: new FormControl(''),
-      bNVoltage: new FormControl(''),
-      bNResistance: new FormControl(''),
+      bNVoltage: new FormControl('', Validators.required),
+      bNResistance: new FormControl('', Validators.required),
 
       rE: new FormControl(''),
-      rEVoltage: new FormControl(''),
-      rEResistance: new FormControl(''),
+      rEVoltage: new FormControl('', Validators.required),
+      rEResistance: new FormControl('', Validators.required),
 
       yE: new FormControl(''),
-      yEVoltage: new FormControl(''),
-      yEResistance: new FormControl(''),
+      yEVoltage: new FormControl('', Validators.required),
+      yEResistance: new FormControl('', Validators.required),
 
       bE: new FormControl(''),
-      bEVoltage: new FormControl(''),
-      bEResistance: new FormControl(''),
+      bEVoltage: new FormControl('', Validators.required),
+      bEResistance: new FormControl('', Validators.required),
 
       rY: new FormControl(''),
-      rYVoltage: new FormControl(''),
-      rYResistance: new FormControl(''),
+      rYVoltage: new FormControl('', Validators.required),
+      rYResistance: new FormControl('', Validators.required),
 
       yB: new FormControl(''),
-      yBVoltage: new FormControl(''),
-      yBResistance: new FormControl(''),
+      yBVoltage: new FormControl('', Validators.required),
+      yBResistance: new FormControl('', Validators.required),
 
       bR: new FormControl(''),
-      bRVoltage: new FormControl(''),
-      bRResistance: new FormControl(''),
+      bRVoltage: new FormControl('', Validators.required),
+      bRResistance: new FormControl('', Validators.required),
 
       nE: new FormControl(''),
-      nEVoltage: new FormControl(''),
-      nEResistance: new FormControl(''),
+      nEVoltage: new FormControl('', Validators.required),
+      nEResistance: new FormControl('', Validators.required),
 
-      iRCurrent: new FormControl(''),
-      iYCurrent: new FormControl(''),
-      iBCurrent: new FormControl(''),
-      iNCurrent: new FormControl(''),
-      iPECurrent: new FormControl(''),
+      iRCurrent: new FormControl('', Validators.required),
+      iYCurrent: new FormControl('', Validators.required),
+      iBCurrent: new FormControl('', Validators.required),
+      iNCurrent: new FormControl('', Validators.required),
+      iPECurrent: new FormControl('', Validators.required),
 
-      powerFactor: new FormControl(''),
-      frequency: new FormControl(''),
+      powerFactor: new FormControl('', Validators.required),
+      frequency: new FormControl('', Validators.required),
     });
   }
 
   private createSafetyTestingMCB(): FormGroup {
     return new FormGroup({
       rN: new FormControl(''),
-      rNImpedence: new FormControl(''),
-      rNCurrent: new FormControl(''),
-      rNTime: new FormControl(''),
-      rNRemarks: new FormControl(''),
+      rNImpedence: new FormControl('', Validators.required),
+      rNCurrent: new FormControl('', Validators.required),
+      rNTime: new FormControl('', Validators.required),
+      rNRemarks: new FormControl('', Validators.required),
 
       yN: new FormControl(''),
-      yNImpedence: new FormControl(''),
-      yNCurrent: new FormControl(''),
-      yNTime: new FormControl(''),
-      yNRemarks: new FormControl(''),
+      yNImpedence: new FormControl('', Validators.required),
+      yNCurrent: new FormControl('', Validators.required),
+      yNTime: new FormControl('', Validators.required),
+      yNRemarks: new FormControl('', Validators.required),
 
 
       bN: new FormControl(''),
-      bNImpedence: new FormControl(''),
-      bNCurrent: new FormControl(''),
-      bNTime: new FormControl(''),
-      bNRemarks: new FormControl(''),
+      bNImpedence: new FormControl('', Validators.required),
+      bNCurrent: new FormControl('', Validators.required),
+      bNTime: new FormControl('', Validators.required),
+      bNRemarks: new FormControl('', Validators.required),
 
 
       rE: new FormControl(''),
-      rEImpedence: new FormControl(''),
-      rECurrent: new FormControl(''),
-      rETime: new FormControl(''),
-      rERemarks: new FormControl(''),
+      rEImpedence: new FormControl('', Validators.required),
+      rECurrent: new FormControl('', Validators.required),
+      rETime: new FormControl('', Validators.required),
+      rERemarks: new FormControl('', Validators.required),
 
 
       yE: new FormControl(''),
-      yEImpedence: new FormControl(''),
-      yECurrent: new FormControl(''),
-      yETime: new FormControl(''),
-      yERemarks: new FormControl(''),
+      yEImpedence: new FormControl('', Validators.required),
+      yECurrent: new FormControl('', Validators.required),
+      yETime: new FormControl('', Validators.required),
+      yERemarks: new FormControl('', Validators.required),
 
 
       bE: new FormControl(''),
-      bEImpedence: new FormControl(''),
-      bECurrent: new FormControl(''),
-      bETime: new FormControl(''),
-      bERemarks: new FormControl(''),
+      bEImpedence: new FormControl('', Validators.required),
+      bECurrent: new FormControl('', Validators.required),
+      bETime: new FormControl('', Validators.required),
+      bERemarks: new FormControl('', Validators.required),
 
 
       rY: new FormControl(''),
-      rYImpedence: new FormControl(''),
-      rYCurrent: new FormControl(''),
-      rYTime: new FormControl(''),
-      rYRemarks: new FormControl(''),
+      rYImpedence: new FormControl('', Validators.required),
+      rYCurrent: new FormControl('', Validators.required),
+      rYTime: new FormControl('', Validators.required),
+      rYRemarks: new FormControl('', Validators.required),
 
 
       yB: new FormControl(''),
-      yBImpedence: new FormControl(''),
-      yBCurrent: new FormControl(''),
-      yBTime: new FormControl(''),
-      yBRemarks: new FormControl(''),
+      yBImpedence: new FormControl('', Validators.required),
+      yBCurrent: new FormControl('', Validators.required),
+      yBTime: new FormControl('', Validators.required),
+      yBRemarks: new FormControl('', Validators.required),
 
 
       bR: new FormControl(''),
-      bRImpedence: new FormControl(''),
-      bRCurrent: new FormControl(''),
-      bRTime: new FormControl(''),
-      bRRemarks: new FormControl(''),
+      bRImpedence: new FormControl('', Validators.required),
+      bRCurrent: new FormControl('', Validators.required),
+      bRTime: new FormControl('', Validators.required),
+      bRRemarks: new FormControl('', Validators.required),
 
 
-      shockVoltage: new FormControl(''),
-      floorResistance: new FormControl(''),
-      wallResistance: new FormControl(''),
+      shockVoltage: new FormControl('', Validators.required),
+      floorResistance: new FormControl('', Validators.required),
+      wallResistance: new FormControl('', Validators.required),
     });
   }
 
@@ -662,7 +675,6 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
 
     generalTestingMCBArr.push(this.createGeneralTestingMCB());
     safetyTestingMCBArr.push(this.createSafetyTestingMCB());
-
   }
 
   removeMCBtesting(a: any, i: any) {
@@ -672,6 +684,205 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
 
   get f(){
     return this.mcbForm.controls;
+  }
+
+  retrieveMcbNode(data: any) {
+    this.mcbFlag = true;
+    for(let i of data) {
+      this.mcb.referenceName = i.referenceName;
+      this.mcb.manufacturerName = i.manufacturerName;
+      this.mcb.rating = i.rating;
+      this.mcb.voltage = i.voltage;
+      this.mcb.noOfPoles = i.noOfPoles;
+      this.mcb.currentCurve = i.currentCurve;
+      this.mcb.outgoingSizePhase = i.outgoingSizePhase;
+      this.mcb.outgoingSizeNeutral = i.outgoingSizeNeutral;
+      this.mcb.outgoingSizeProtective =i.outgoingSizeProtective;
+      this.mcb.createdBy = i.createdBy;
+      this.mcb.createdDate = i.createdDate;
+      this.mcb.updatedBy = i.updatedBy;
+      this.mcb.updatedDate = i.updatedDate;
+      this.mcb.nodeId = i.nodeId;
+      this.mcb.fileName = i.fileName;
+      this.mcb.userName = i.userName;
+
+      this.populateMcbForm(i);
+    }
+  }
+
+  populateMcbForm(i: any) {
+    let generalTestingMCBArr : any = []
+    let safetyTestingMCBArr : any = []
+
+    for(let j of i.generalTestingMCB) {
+      generalTestingMCBArr.push(this.populateGeneralTestingMCBForm(j));
+    }
+
+    for(let k of i.safetyTestingMCB) {
+      safetyTestingMCBArr.push(this.populateSafetyTestingMCBForm(k));
+    }
+
+    this.mcbForm.setControl('generalTestingMCB', this.formBuilder.array(generalTestingMCBArr || []));
+    this.mcbForm.setControl('safetyTestingMCB', this.formBuilder.array(safetyTestingMCBArr || []));
+  }
+
+  populateGeneralTestingMCBForm(j: any): FormGroup {
+    let rN = [];
+    let yN = [];	
+    let bN = [];
+    let rE = [];
+    let yE = [];	
+    let bE = [];
+    let rY = [];
+    let yB = [];	
+    let bR = [];
+    let nE = [];
+    
+    rN = j.rN.split(",");
+    yN = j.yN.split(",");
+    bN = j.bN.split(",");
+    rE = j.rE.split(",");
+    yE = j.yE.split(",");
+    bE = j.bE.split(",");
+    rY = j.rY.split(",");
+    yB = j.yB.split(",");
+    bR = j.bR.split(",");
+    nE = j.nE.split(",");
+
+    return new FormGroup({
+      generalTestingMCBId: new FormControl(j.generalTestingMCBId),
+      rN: new FormControl(''),
+      rNVoltage: new FormControl(rN[0], Validators.required),
+      rNResistance: new FormControl(rN[1], Validators.required),
+
+      yN: new FormControl(''),
+      yNVoltage: new FormControl(yN[0], Validators.required),
+      yNResistance: new FormControl(yN[1], Validators.required),
+
+      bN: new FormControl(''),
+      bNVoltage: new FormControl(bN[0], Validators.required),
+      bNResistance: new FormControl(bN[1], Validators.required),
+
+      rE: new FormControl(''),
+      rEVoltage: new FormControl(rE[0], Validators.required),
+      rEResistance: new FormControl(rE[1], Validators.required),
+
+      yE: new FormControl(''),
+      yEVoltage: new FormControl(yE[0], Validators.required),
+      yEResistance: new FormControl(yE[1], Validators.required),
+
+      bE: new FormControl(''),
+      bEVoltage: new FormControl(bE[0], Validators.required),
+      bEResistance: new FormControl(bE[1], Validators.required),
+
+      rY: new FormControl(''),
+      rYVoltage: new FormControl(rY[0], Validators.required),
+      rYResistance: new FormControl(rY[1], Validators.required),
+
+      yB: new FormControl(''),
+      yBVoltage: new FormControl(yB[0], Validators.required),
+      yBResistance: new FormControl(yB[1], Validators.required),
+
+      bR: new FormControl(''),
+      bRVoltage: new FormControl(bR[0], Validators.required),
+      bRResistance: new FormControl(bR[1], Validators.required),
+
+      nE: new FormControl(''),
+      nEVoltage: new FormControl(nE[0], Validators.required),
+      nEResistance: new FormControl(nE[1], Validators.required),
+
+      iRCurrent: new FormControl(j.iRCurrent, Validators.required),
+      iYCurrent: new FormControl(j.iYCurrent, Validators.required),
+      iBCurrent: new FormControl(j.iBCurrent, Validators.required),
+      iNCurrent: new FormControl(j.iNCurrent, Validators.required),
+      iPECurrent: new FormControl(j.iPECurrent, Validators.required),
+
+      powerFactor: new FormControl(j.powerFactor, Validators.required),
+      frequency: new FormControl(j.frequency, Validators.required),
+    });
+  }
+
+  populateSafetyTestingMCBForm(k: any): FormGroup {
+    let rN = [];
+    let yN = [];	
+    let bN = [];
+    let rE = [];
+    let yE = [];	
+    let bE = [];
+    let rY = [];
+    let yB = [];	
+    let bR = [];
+    
+    rN = k.rN.split(",");
+    yN = k.yN.split(",");
+    bN = k.bN.split(",");
+    rE = k.rE.split(",");
+    yE = k.yE.split(",");
+    bE = k.bE.split(",");
+    rY = k.rY.split(",");
+    yB = k.yB.split(",");
+    bR = k.bR.split(",");
+
+    return new FormGroup({
+      safetyTestingMCBId: new FormControl(k.safetyTestingMCBId),
+      rN: new FormControl(''),
+      rNImpedence: new FormControl(rN[0], Validators.required),
+      rNCurrent: new FormControl(rN[1], Validators.required),
+      rNTime: new FormControl(rN[2], Validators.required),
+      rNRemarks: new FormControl(rN[3], Validators.required),
+
+      yN: new FormControl(''),
+      yNImpedence: new FormControl(yN[0], Validators.required),
+      yNCurrent: new FormControl(yN[1], Validators.required),
+      yNTime: new FormControl(yN[2], Validators.required),
+      yNRemarks: new FormControl(yN[3], Validators.required),
+
+      bN: new FormControl(''),
+      bNImpedence: new FormControl(bN[0], Validators.required),
+      bNCurrent: new FormControl(bN[1], Validators.required),
+      bNTime: new FormControl(bN[2], Validators.required),
+      bNRemarks: new FormControl(bN[3], Validators.required),
+
+      rE: new FormControl(''),
+      rEImpedence: new FormControl(rE[0], Validators.required),
+      rECurrent: new FormControl(rE[1], Validators.required),
+      rETime: new FormControl(rE[2], Validators.required),
+      rERemarks: new FormControl(rE[3], Validators.required),
+
+      yE: new FormControl(''),
+      yEImpedence: new FormControl(yE[0], Validators.required),
+      yECurrent: new FormControl(yE[1], Validators.required),
+      yETime: new FormControl(yE[2], Validators.required),
+      yERemarks: new FormControl(yE[3], Validators.required),
+
+      bE: new FormControl(''),
+      bEImpedence: new FormControl(bE[0], Validators.required),
+      bECurrent: new FormControl(bE[1], Validators.required),
+      bETime: new FormControl(bE[2], Validators.required),
+      bERemarks: new FormControl(bE[3], Validators.required),
+
+      rY: new FormControl(''),
+      rYImpedence: new FormControl(rY[0], Validators.required),
+      rYCurrent: new FormControl(rY[1], Validators.required),
+      rYTime: new FormControl(rY[2], Validators.required),
+      rYRemarks: new FormControl(rY[3], Validators.required),
+
+      yB: new FormControl(''),
+      yBImpedence: new FormControl(yB[0], Validators.required),
+      yBCurrent: new FormControl(yB[1], Validators.required),
+      yBTime: new FormControl(yB[2], Validators.required),
+      yBRemarks: new FormControl(yB[3], Validators.required),
+
+      bR: new FormControl(''),
+      bRImpedence: new FormControl(bR[0], Validators.required),
+      bRCurrent: new FormControl(bR[1], Validators.required),
+      bRTime: new FormControl(bR[2], Validators.required),
+      bRRemarks: new FormControl(bR[3], Validators.required),
+
+      shockVoltage: new FormControl(k.shockVoltage, Validators.required),
+      floorResistance: new FormControl(k.floorResistance, Validators.required),
+      wallResistance: new FormControl(k.wallResistance, Validators.required),
+    });
   }
 
   retrieveFromSavedReport(data: any) {
@@ -717,22 +928,315 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
       let arr9: any = [];
       let arr10: any = [];
 
-      arr1.push(i.controls.rNVOltage.value, i.controls.rNResistance.value);
-      arr2.push(i.controls.yNVOltage.value, i.controls.yNResistance.value);
-      arr3.push(i.controls.bNVOltage.value, i.controls.bNResistance.value);
-      arr4.push(i.controls.rEVOltage.value, i.controls.rEResistance.value);
-      arr5.push(i.controls.yEVOltage.value, i.controls.yEResistance.value);
-      arr6.push(i.controls.bEVOltage.value, i.controls.bEResistance.value);
-      arr7.push(i.controls.rYVOltage.value, i.controls.rYResistance.value);
-      arr8.push(i.controls.yBVOltage.value, i.controls.yBResistance.value);
-      arr9.push(i.controls.bRVOltage.value, i.controls.bRResistance.value);
-      arr10.push(i.controls.nEVOltage.value, i.controls.nEResistance.value);
+      arr1.push(i.controls.rNVoltage.value, i.controls.rNResistance.value);
+      arr2.push(i.controls.yNVoltage.value, i.controls.yNResistance.value);
+      arr3.push(i.controls.bNVoltage.value, i.controls.bNResistance.value);
+      arr4.push(i.controls.rEVoltage.value, i.controls.rEResistance.value);
+      arr5.push(i.controls.yEVoltage.value, i.controls.yEResistance.value);
+      arr6.push(i.controls.bEVoltage.value, i.controls.bEResistance.value);
+      arr7.push(i.controls.rYVoltage.value, i.controls.rYResistance.value);
+      arr8.push(i.controls.yBVoltage.value, i.controls.yBResistance.value);
+      arr9.push(i.controls.bRVoltage.value, i.controls.bRResistance.value);
+      arr10.push(i.controls.nEVoltage.value, i.controls.nEResistance.value);
+
+      let rN: String = '';
+      let yN: String = '';
+      let bN: String = '';
+      let rE: String = '';
+      let yE: String = '';
+      let bE: String = '';
+      let rY: String = '';
+      let yB: String = '';
+      let bR: String = '';
+      let nE: String = '';
 
 
-      if(i.controls.rNVOltage.value != '' && i.controls.rNVOltage.value != null && i.controls.rNVOltage.value != undefined) {
-
+      if(i.controls.iRCurrent.value == '' || i.controls.iRCurrent.value == null || i.controls.iRCurrent.value == undefined) {
+        i.controls.iRCurrent.setValue('NA');
       }
+
+      if(i.controls.iYCurrent.value == '' || i.controls.iYCurrent.value == null || i.controls.iYCurrent.value == undefined) {
+        i.controls.iYCurrent.setValue('NA');
+      }
+
+      if(i.controls.iBCurrent.value == '' || i.controls.iBCurrent.value == null || i.controls.iBCurrent.value == undefined) {
+        i.controls.iBCurrent.setValue('NA');
+      }
+
+      if(i.controls.iNCurrent.value == '' || i.controls.iNCurrent.value == null || i.controls.iNCurrent.value == undefined) {
+        i.controls.iNCurrent.setValue('NA');
+      }
+
+      if(i.controls.iPECurrent.value == '' || i.controls.iPECurrent.value == null || i.controls.iPECurrent.value == undefined) {
+        i.controls.iPECurrent.setValue('NA');
+      }
+
+
+      for(let a of arr1) {
+        if(a != '' && a != null && a != undefined) {
+          rN += a + ',';
+        }
+        else {
+          rN += 'NA,';
+        }
+      }
+      rN = rN.replace(/,\s*$/, '');
+      i.controls.rN.setValue(rN);
+
+
+
+      for(let b of arr2) {
+        if(b != '' && b != null && b != undefined) {
+          yN += b + ',';
+        }
+        else {
+          yN += 'NA,';
+        }
+      }
+      yN = yN.replace(/,\s*$/, '');
+      i.controls.yN.setValue(yN);
+
+
+      for(let c of arr3) {
+        if(c != '' && c != null && c != undefined) {
+          bN += c + ',';
+        }
+        else {
+          bN += 'NA,';
+        }
+      }
+      bN = bN.replace(/,\s*$/, '');
+      i.controls.bN.setValue(bN);
+
+
+      for(let d of arr4) {
+        if(d != '' && d != null && d != undefined) {
+          rE += d + ',';
+        }
+        else {
+          rE += 'NA,';
+        }
+      }
+      rE = rE.replace(/,\s*$/, '');
+      i.controls.rE.setValue(rE);
+
+
+
+      for(let e of arr5) {
+        if(e != '' && e != null && e != undefined) {
+          yE += e + ',';
+        }
+        else {
+          yE += 'NA,';
+        }
+      }
+      yE = yE.replace(/,\s*$/, '');
+      i.controls.yE.setValue(yE);
+
+
+      for(let f of arr6) {
+        if(f != '' && f != null && f != undefined) {
+          bE += f + ',';
+        }
+        else {
+          bE += 'NA,';
+        }
+      }
+      bE = bE.replace(/,\s*$/, '');
+      i.controls.bE.setValue(bE);
+
+
+      for(let g of arr7) {
+        if(g != '' && g != null && g != undefined) {
+          rY += g + ',';
+        }
+        else {
+          rY += 'NA,';
+        }
+      }
+      rY = rY.replace(/,\s*$/, '');
+      i.controls.rY.setValue(rY);
+
+
+      for(let h of arr8) {
+        if(h != '' && h != null && h != undefined) {
+          yB += h + ',';
+        }
+        else {
+          yB += 'NA,';
+        }
+      }
+      yB = yB.replace(/,\s*$/, '');
+      i.controls.yB.setValue(yB);
+
+
+      for(let i of arr9) {
+        if(i != '' && i != null && i != undefined) {
+          bR += i + ',';
+        }
+        else {
+          bR += 'NA,';
+        }
+      }
+      bR = bR.replace(/,\s*$/, '');
+      i.controls.bR.setValue(bR);
+
+
+      for(let j of arr10) {
+        if(j != '' && j != null && j != undefined) {
+          nE += j + ',';
+        }
+        else {
+          nE += 'NA,';
+        }
+      }
+      nE = nE.replace(/,\s*$/, '');
+      i.controls.nE.setValue(nE);   
     }
+
+    for(let i of this.mcbSafetyTestingArray.controls) {
+      let arr1: any = [];
+      let arr2: any = [];
+      let arr3: any = [];
+      let arr4: any = [];
+      let arr5: any = [];
+      let arr6: any = [];
+      let arr7: any = [];
+      let arr8: any = [];
+      let arr9: any = [];
+
+      arr1.push(i.controls.rNImpedence.value, i.controls.rNCurrent.value, i.controls.rNTime.value, i.controls.rNRemarks.value);
+      arr2.push(i.controls.yNImpedence.value, i.controls.yNCurrent.value, i.controls.yNTime.value, i.controls.yNRemarks.value);
+      arr3.push(i.controls.bNImpedence.value, i.controls.bNCurrent.value, i.controls.bNTime.value, i.controls.bNRemarks.value);
+      arr4.push(i.controls.rEImpedence.value, i.controls.rECurrent.value, i.controls.rETime.value, i.controls.rERemarks.value);
+      arr5.push(i.controls.yEImpedence.value, i.controls.yECurrent.value, i.controls.yETime.value, i.controls.yERemarks.value);
+      arr6.push(i.controls.bEImpedence.value, i.controls.bECurrent.value, i.controls.bETime.value, i.controls.bERemarks.value);
+      arr7.push(i.controls.rYImpedence.value, i.controls.rYCurrent.value, i.controls.rYTime.value, i.controls.rYRemarks.value);
+      arr8.push(i.controls.yBImpedence.value, i.controls.yBCurrent.value, i.controls.yBTime.value, i.controls.yBRemarks.value);
+      arr9.push(i.controls.bRImpedence.value, i.controls.bRCurrent.value, i.controls.bRTime.value, i.controls.bRRemarks.value);
+
+      let rN: String = '';
+      let yN: String = '';
+      let bN: String = '';
+      let rE: String = '';
+      let yE: String = '';
+      let bE: String = '';
+      let rY: String = '';
+      let yB: String = '';
+      let bR: String = '';
+
+      for(let a of arr1) {
+        if(a != '' && a != null && a != undefined) {
+          rN += a + ',';
+        }
+        else {
+          rN += 'NA,';
+        }
+      }
+      rN = rN.replace(/,\s*$/, '');
+      i.controls.rN.setValue(rN);
+
+
+
+      for(let b of arr2) {
+        if(b != '' && b != null && b != undefined) {
+          yN += b + ',';
+        }
+        else {
+          yN += 'NA,';
+        }
+      }
+      yN = yN.replace(/,\s*$/, '');
+      i.controls.yN.setValue(yN);
+
+
+      for(let c of arr3) {
+        if(c != '' && c != null && c != undefined) {
+          bN += c + ',';
+        }
+        else {
+          bN += 'NA,';
+        }
+      }
+      bN = bN.replace(/,\s*$/, '');
+      i.controls.bN.setValue(bN);
+
+
+      for(let d of arr4) {
+        if(d != '' && d != null && d != undefined) {
+          rE += d + ',';
+        }
+        else {
+          rE += 'NA,';
+        }
+      }
+      rE = rE.replace(/,\s*$/, '');
+      i.controls.rE.setValue(rE);
+
+
+
+      for(let e of arr5) {
+        if(e != '' && e != null && e != undefined) {
+          yE += e + ',';
+        }
+        else {
+          yE += 'NA,';
+        }
+      }
+      yE = yE.replace(/,\s*$/, '');
+      i.controls.yE.setValue(yE);
+
+
+      for(let f of arr6) {
+        if(f != '' && f != null && f != undefined) {
+          bE += f + ',';
+        }
+        else {
+          bE += 'NA,';
+        }
+      }
+      bE = bE.replace(/,\s*$/, '');
+      i.controls.bE.setValue(bE);
+
+
+      for(let g of arr7) {
+        if(g != '' && g != null && g != undefined) {
+          rY += g + ',';
+        }
+        else {
+          rY += 'NA,';
+        }
+      }
+      rY = rY.replace(/,\s*$/, '');
+      i.controls.rY.setValue(rY);
+
+
+      for(let h of arr8) {
+        if(h != '' && h != null && h != undefined) {
+          yB += h + ',';
+        }
+        else {
+          yB += 'NA,';
+        }
+      }
+      yB = yB.replace(/,\s*$/, '');
+      i.controls.yB.setValue(yB);
+
+
+      for(let i of arr9) {
+        if(i != '' && i != null && i != undefined) {
+          bR += i + ',';
+        }
+        else {
+          bR += 'NA,';
+        }
+      }
+      bR = bR.replace(/,\s*$/, '');
+      i.controls.bR.setValue(bR); 
+    }
+
+    this.mcb.generalTestingMCB = this.mcbForm.value.generalTestingMCB;
+    this.mcb.safetyTestingMCB = this.mcbForm.value.safetyTestingMCB;
 
     this.inspectionService.addMCB(this.mcb).subscribe(
       data => {

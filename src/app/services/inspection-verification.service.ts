@@ -97,4 +97,8 @@ export class InspectionVerificationService {
   public addMCB(MCB: any): Observable<any> {
     return this.http.post<any>(this.apiUrl5 + '/saveMCB', MCB, { responseType: 'text' as 'json' })
   }
+
+  public retriveMCB(fileName: any,nodeId: any): Observable<any> {
+    return this.http.get<any>(this.apiUrl5 + '/retrieveMCB'+'/'+fileName+'/'+nodeId, { responseType: 'text' as 'json' })
+  }
 }
