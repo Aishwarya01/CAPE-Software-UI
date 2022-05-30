@@ -496,6 +496,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Risk of Fire :</label>
+                                        <a (click)="goToRiskPopup(popup1)" style="color: blue;cursor: pointer;text-decoration: underline;">Pick the Risk of Fire</a>
                                         <input type="text" class="form-control" formControlName="stRiskOfFire" placeholder="Enter Designation" 
                                         [ngClass]="{ 'is-invalid': submitted && a.get('stRiskOfFire')?.errors }" (change)="lossHumanLifeL1($event,f);lossServiceToPublicL2($event,f);economicLossL4($event,f)">
                                         <div *ngIf="submitted && a.get('stRiskOfFire')?.errors" class="invalid-feedback">
@@ -985,7 +986,7 @@
                                             <option value="" selected>Select Option</option>
                                             <option value="1">Risk of explosion</option>
                                             <option value="0.5">Hospitals,industrial,museum,agricultural</option>
-                                            <option value="0..2">Hotel,school,office,public entertainment,church,commercial</option>
+                                            <option value="0.2">Hotel,school,office,public entertainment,church,commercial</option>
                                             <option value="0.1">Others</option>
                                         </select>
                                         <div *ngIf="submitted && b.get('ecoLossOfPhysicalDamage')?.errors" class="invalid-feedback">
@@ -1092,6 +1093,58 @@
                     </ng-container>
                 </mat-expansion-panel>
             </mat-accordion>
+
+            <ng-template #popup1>
+                <div class="modal-body">
+                    <div class="centre-text m-btm30">
+                        <h3 for="Select the Risk of Fire">Select the Risk of Fire</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <select class="form-control" formControlName="explosion">
+                                        <option value="" selected>Select Option</option>
+                                        <option value="Explosion">Explosion</option>
+                                        <option value="Fire">Fire</option>
+                                        <option value="None">None</option>
+                                    </select>
+                                </div>            
+                            </div>
+                            <!-- *ngIf="f.get('explosion')?.value === 'Explosion'" -->
+                            <div class="col-md-6" *ngIf="f.get('explosion')?.value === 'Explosion'">
+                                <div class="form-group">
+                                    <select class="form-control" formControlName="explosion1"
+                                    (change)="fireRiskDropDown($event,f)">
+                                        <option value="" selected>Select Option</option>
+                                        <option value="Zones 0, 20 and solid explosive">Zones 0, 20 and solid explosive</option>
+                                        <option value="Zones 1, 21">Zones 1, 21</option>
+                                        <option value="Zones 2, 22">Zones 2, 22</option>
+                                    </select>
+                                </div>            
+                            </div>
+                            <div class="col-md-6" *ngIf="f.get('explosion')?.value === 'Fire'">
+                                <div class="form-group">
+                                    <select class="form-control" formControlName="fire" (change)="fireRiskDropDown($event,f)">
+                                        <option value="" selected>Select Option</option>
+                                        <option value="High">High</option>
+                                        <option value="Ordinary">Ordinary</option>
+                                        <option value="Low">Low</option>
+                                    </select>
+                                </div>            
+                            </div>
+                            <div class="col-md-6" *ngIf="f.get('explosion')?.value === 'None'">
+                                <div class="form-group">
+                                    <select class="form-control" formControlName="none" (change)="fireRiskDropDown($event,f)">
+                                        <option value="" selected>Select Option</option>
+                                        <option value="None">None</option>
+                                    </select>
+                                </div>            
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="col-md-6" style="text-align: center;width: auto;position: relative;float: right;" class="btn btn-danger btn-rounded btn-md font-weight-medium auth-form-btn"
+                    aria-label="Close" (click)="closeModalDialog()">Close</button>
+                </div>
+            </ng-template>
         </ng-container>
     </ng-container>
     <br>

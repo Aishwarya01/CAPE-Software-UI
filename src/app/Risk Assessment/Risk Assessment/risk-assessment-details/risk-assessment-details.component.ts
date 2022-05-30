@@ -30,6 +30,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   losses!: FormArray;
   structureCharacters!: FormArray;
   heightnear:any=[];
+  popup1: boolean=false;
   // brick: String='1';
   // rccwithBrick: String='0.5';
   // pebwithsheet: String='0.2';
@@ -90,6 +91,10 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       noOfPeopleInZone: new FormControl('',[Validators.required]),
       dayPeoplePresentBuilding: new FormControl('',[Validators.required]),
       yearPeoplePresentBuilding: new FormControl('',[Validators.required]),
+      explosion: new FormControl(''),
+      explosion1: new FormControl(''),
+      fire: new FormControl(''),
+      none: new FormControl(''),
 
       structureAttributes: this.formBuilder.array([this.createStructureAttributesForm()]),
       losses: this.formBuilder.array([this.createLossesForm()]),
@@ -144,6 +149,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     ecoLossOfFailureOfInternalSystemL1: new FormControl('',[Validators.required]),
     classOfLPS: new FormControl('',[Validators.required]),
     classOfSPD: new FormControl('',[Validators.required]),
+
     protectionPEB:new FormControl(''),
     protectionPMS:new FormControl(''),
     protectionPM:new FormControl(''),
@@ -542,6 +548,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       this.Error = false;
       this.modalService.dismissAll((this.errorMsg = ''));
     } else {
+      this.popup1 = false;
       this.success = false;
       this.modalService.dismissAll((this.successMsg = ''));
     }
@@ -566,6 +573,44 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       this.modalService.open(contents, { centered: true,backdrop: 'static' });
     }   
   }
+
+  goToRiskPopup(popup1:any){
+    if(this.step2Form.dirty && this.step2Form.touched){
+      this.modalService.open(popup1, { centered: true,backdrop: 'static' });
+    }
+    else{
+      this.modalService.open(popup1, { centered: true,backdrop: 'static' });
+    } 
+  }
+
+  fireRiskDropDown(event:any,form:any){
+    // Explosion
+    if(event.target.value == "Zones 0, 20 and solid explosive"){
+      form.controls.structureAttributes.controls[0].controls.stRiskOfFire.setValue('1');
+    } 
+    else if(event.target.value == "Zones 1, 21"){
+      form.controls.structureAttributes.controls[0].controls.stRiskOfFire.setValue('0.1');
+    }
+    else if(event.target.value == "Zones 2, 22"){
+      form.controls.structureAttributes.controls[0].controls.stRiskOfFire.setValue('0.001');
+    }
+    // Fire
+    else if(event.target.value == "High"){
+      form.controls.structureAttributes.controls[0].controls.stRiskOfFire.setValue('1');
+    } 
+    else if(event.target.value == "Ordinary"){
+      form.controls.structureAttributes.controls[0].controls.stRiskOfFire.setValue('0.1');
+    }
+    else if(event.target.value == "Low"){
+      form.controls.structureAttributes.controls[0].controls.stRiskOfFire.setValue('0.001');
+    }
+    // None
+    else if(event.target.value == "None"){
+      form.controls.structureAttributes.controls[0].controls.stRiskOfFire.setValue('0');
+    }
+    this.modalService.dismissAll();
+  }
+
 
   onSubmit() {
     this.submitted=true;
