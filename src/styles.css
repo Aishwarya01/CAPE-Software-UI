@@ -1337,6 +1337,11 @@ position: absolute;
 {
   border: 1px solid #dee2e6;
 }
+@media print {
+  body {
+      display: none;
+  }
+}
 
 /* #mat-tab-label-0-3 {
   position: fixed;
@@ -1523,3 +1528,18 @@ input::-webkit-inner-spin-button {
   height: 100% !important;
 }
 
+ .alertDanger {
+  margin-right: 70px;
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  padding: 13px;
+  border-radius: 4px;
+ }
+
+ /* Adding border for itrating fields */
+ .search-bar1 {
+  border: 2px solid #b1b1b1;
+  padding: 15px;
+  border-radius: 4px;
+}
