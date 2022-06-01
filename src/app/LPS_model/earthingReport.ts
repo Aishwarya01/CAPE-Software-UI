@@ -1,25 +1,47 @@
-export class EarthingLpsDescription{
-    earthingId!: number;
+export class earthingReport{
+    earthingReportId!: number;
     userName!: String;
     basicLpsId!: number;
+    createdBy!: String;
+    createdDate!: Date;
+    updatedBy!: String;
+    updatedDate!: Date;
+    earthingLpsDescription!:earthingLpsDescription[];
+}
+
+
+export class earthingLpsDescription {
+    earthingId!: number;
+    flag!: String;
     earthingTypeInOb!: String;
     earthingTypeInRem!: String;
     bimetallicIssueInOb!: String;
     bimetallicIssueInRem!: String;
     brazingConnectInOb!: String;
     brazingConnectInRem!: String;
-    createdBy!: String;
-    createdDate!: Date;
+    buildingNumber!: number;
+    buildingName!: String;
+    buildingCount!: number;
+    earthingDescriptionAvailabilityOb!: String; 
+    earthingDescriptionAvailabilityRem!: String; 
+    earthingClampsAvailabilityOb!: String; 
+    earthingClampsAvailabilityRem!: String; 
+    earthingElectrodeChamberAvailabilityOb!: String; 
+    earthingElectrodeChamberAvailabilityRem!: String; 
+    earthingSystemAvailabilityOb!: String; 
+    earthingSystemAvailabilityRem!: String; 
+    earthingElectrodeTestingAvailabilityOb!: String; 
+    earthingElectrodeTestingAvailabilityRem!: String;
     earthingDescription!: EarthingDescription[];
     earthingClamps!: EarthingClamps[];
     earthingElectrodeChamber!: EarthingElectrodeChamber[];
-    earthingSystem!: EarthingSystem[];
-}
+    earthingSystem!: EarthingSystem[];    
+    earthElectrodeTesting!: EarthElectrodeTesting[];    
 
+}
 export class EarthingDescription {
+    earthDescriptionId!:number
     flag!:boolean;
-    locationNumber!:number;
-    locationName!:String;
     soilResistivityInOb!: String;
     soilResistivityInRem!: String;
     earthPitDigOb!: String;
@@ -56,13 +78,28 @@ export class EarthingDescription {
     inspectedPassedNoRem!: String;
     inspectedFailedNoOb!: String;
     inspectedFailedNoRem!: String;
+    earthingDescriptionList!:earthingDescriptionList[];
 }
+
  
+export class earthingDescriptionList {
+   earthDescriptionListId!:number
+   flag!: String;
+   earthingConductorMaterialInOb!: String;
+   earthingConductorMaterialInRem!: String;
+   earthElectrodeMaterialInOb!: String;
+   earthElectrodeMaterialInRem!: String;
+   earthElectrodeTypeInOb!: String;
+   earthElectrodeTypeInRem!: String;
+   earthElectrodeSizeInOb!: String;
+   earthElectrodeSizeInRem!: String;
+   earthElectrodeLengthingOb!:number
+   earthElectrodeLengthingRem!: String;
+}
 
 export class EarthingClamps {
     flag!:boolean;
-    locationNumber!:number;
-    locationName!:String;
+    earthingClampsId!:number
     physicalInspectionInOb!: String;
     psysicalInspectionInRem!: String;
     clampsFirmlyOb!: String;
@@ -84,9 +121,9 @@ export class EarthingClamps {
 }
 
 export class EarthingElectrodeChamber {
-    flag!:boolean;
-    locationNumber!:number;
-    locationName!:String;
+    
+    earthingElectrodeChamberId!: number;
+    flag!: String;
     physicalInspeOb!: String;
     physicalInspeRem!: String;
     chamberTypeOb!: String;
@@ -95,53 +132,65 @@ export class EarthingElectrodeChamber {
     chamberSizeRem!: String;
     maximumWithStandLoadOb!: String;
     maximumWithStandLoadRem!: String;
+    chamberLocationOb!: String;//
+    chamberLocationRem!: String;
     maximumPlacedSoilOb!: String;
     maximumPlacedSoilRem!: String;
-    totalChamberNoOb!: String;
+    totalChamberNoOb!: number;
     totalChamberNoRem!: String;
-    inspectedChamberInOb!: String;
+    inspectedChamberInOb!: number;
     inspectedChamberInRem!: String;
-    inspectionPassedInOb!: String;
+    inspectionPassedInOb!: number;
     inspectionPassedInRem!: String;
-    inspectionFailedInOb!: String;
-    inspectionFailedInRem!: String;
+    inspectionFailedInOb!: number;
+    inspectionFailedInRem!: String;                 
 }
 
 
 export class EarthingSystem {
    
-    buriedElectrodeOb!: String;
-    buriedElectrodeRem!: String;
-    depthOfElectrodeOb!: String;
-    depthOfElectrodeRem!: String;
-    earthOb!: String;
-    earthRem!: String;
-    westOb!: String;
+    earthingSystemId!: number;
+    flag!: String;
+    eastOb!: number;
+    eastRem!: String;
+    westOb!: number;
     westRem!: String;
-    northOb!: String;
+    northOb!: number;
     northRem!: String;
-    southOb!: String;
+    southOb!: number;
     southRem!: String;
-    ringEarthWallDistanceOb!: String;
-    ringEarthWallDistanceRem!: String;
-    ringWallEarthEastOb!: String;
+    ringWallEarthEastOb!: number;
     ringWallEarthEastRem!: String;
-    ringWallEarthWestOb!: String;
+    ringWallEarthWestOb!: number;
     ringWallEarthWestRem!: String;
-    ringWallEarthNorthOb!: String;
+    ringWallEarthNorthOb!: number;
     ringWallEarthNorthRem!: String;
-    ringWallEarthSouthOb!: String;
+    ringWallEarthSouthOb!: number;
     ringWallEarthSouthRem!: String;
+    connectedEarthElectrodeOb!: String;
+    connectedEarthElectrodeRem!: String;
     jointsMadeBrazingOb!: String;
     jointsMadeBrazingRem!: String;
     materialOfEartElectrodeOb!: String;
     materialOfEartElectrodeRem!: String;
+    typeOfEarthElectrodeOb!: String;
+    typeOfEarthElectrodeRem!: String;
     sizeOfEarthElectrodeOb!: String;
     sizeOfEarthElectrodeRem!: String;
-  
-    maximumDistanceEartElectrodeWalOb!: String;
+    maximumDistanceEartElectrodeWalOb!: number;
     maximumDistanceEartElectrodeWalRem!: String;
-    manimumDistanceEartElectrodeWalOb!: String;
-    manimumDistanceEartElectrodeWalRem!: String;
+    manimumDistanceEartElectrodeWalOb!: number;
+    manimumDistanceEartElectrodeWalRem!: String;                   
 }
 
+export class EarthElectrodeTesting{
+    earthingElectrodeTestingId!: number;
+    serialNo!: number;
+    flag!: String;
+    earthingElectrodeType!: String;
+    earthingElectrodeMaterial!: String;
+    earthingElectrodeSize!: number;
+    earthingElectrodeDepth!: number;
+    earthingElectrodeResistance!: number;
+    earthingElectrodeRemarks!: String;                  
+}

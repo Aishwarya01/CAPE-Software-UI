@@ -9,7 +9,7 @@ import { Site } from '../model/site';
 })
 export class SiteService {
 
-  apiUrl = environment.apiUrl;
+  apiUrl = environment.apiUrl_v2;
   apiUrlV2 = environment.apiUrl_v2;
   constructor(private http: HttpClient) { }
 
@@ -19,6 +19,10 @@ export class SiteService {
 
   public updateSite(site: Site): Observable<any> {
     return this.http.put<any>(this.apiUrl + '/updateSite', site, { responseType: 'text' as 'json' })
+  }
+
+  public updateSiteStatus(site: Site): Observable<any> {
+    return this.http.put<any>(this.apiUrl + '/updateSiteStatus', site, { responseType: 'text' as 'json' })
   }
 
   public deleteSite(siteId: number ): Observable<any> {

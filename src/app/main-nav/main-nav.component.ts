@@ -22,7 +22,7 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { BnNgIdleService } from 'bn-ng-idle';
-import { environment } from 'src/environments/environment';
+
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { SiteService } from '../services/site.service';
@@ -61,6 +61,8 @@ import {
 import { DiagramModel } from '../model/diagram-component';
 import { DiagramListComponent } from '../diagram-list/diagram-list.component';
 import { DiagramWelcomePageComponent } from '../diagram-welcome-page/diagram-welcome-page.component';
+import { SuperAdminDev } from 'src/environments/environment.dev';
+import { SuperAdminProd } from 'src/environments/environment.prod';
 
 export interface PeriodicElement {
   siteCd: string;
@@ -155,6 +157,8 @@ export class MainNavComponent implements OnInit, OnDestroy {
   isShowing = false;
   showSubSubMenu: boolean = false;
   showSubmenuRep: boolean = false;
+  showSubmenuOngoing: boolean = false;
+  showSubmenuCompleted: boolean = false;
   showingh = false;
   autosize: boolean = true;
   screenWidth: number | undefined;
@@ -202,6 +206,15 @@ export class MainNavComponent implements OnInit, OnDestroy {
   itemValue5: String = 'REP';
   SubitemValue1: String = 'Ongoing TIC';
   SubitemValue2: String = 'Completed TIC';
+
+  SubitemValueOngoing1 = 'LV Systems';
+  SubitemValueOngoing2 = 'EMC Assessment';
+  SubitemValueOngoing3 = 'LPS Systems';
+
+  SubitemValueCompleted1 = 'LV Systems';
+  SubitemValueCompleted2 = 'EMC Assessment';
+  SubitemValueCompleted3 = 'LPS Systems';
+
   // stackblitz
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
@@ -246,12 +259,15 @@ export class MainNavComponent implements OnInit, OnDestroy {
   notificationData: any = [];
   activeNotificationData: any = [];
   newNotificationCount!: number;
-  newNotificationFlag: boolean = true;
-  oldNotification: boolean = false;
-  NewViewerComment: boolean = false;
-  NewInspectorReply: boolean = false;
-  newZeroNotification: boolean = false;
-  disable: boolean = false;
+  newNotificationFlag:boolean=true;
+  oldNotification:boolean=false;
+  NewViewerComment:boolean=false;
+  NewInspectorReply:boolean=false;
+  newZeroNotification:boolean=false;
+  disable: boolean=false;
+  //superAdminLocal = new SuperAdminLocal();
+  superAdminDev = new SuperAdminDev();
+  superAdminProd = new SuperAdminProd();
 
   constructor(private breakpointObserver: BreakpointObserver, changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
@@ -294,10 +310,12 @@ export class MainNavComponent implements OnInit, OnDestroy {
     // });
     this.currentUser = sessionStorage.getItem('authenticatedUser');
     this.currentUser1 = [];
-    this.currentUser1 = JSON.parse(this.currentUser);
-    this.superAdminArr = [];
-    this.superAdminArr.push('gk@capeindia.net');
-    if (this.currentUser1.role == 'Inspector') {
+    this.currentUser1=JSON.parse(this.currentUser);
+    // this.superAdminArr = [];
+    // this.superAdminArr.push('gk@capeindia.net');
+    // this.superAdminArr.push('awstesting@rushforsafety.com');
+    // this.superAdminArr.push('vinoth@capeindia.net');
+    if(this.currentUser1.role == 'Inspector') {
       this.showTIC = true;
       this.showREP = false;
     }
@@ -547,23 +565,35 @@ export class MainNavComponent implements OnInit, OnDestroy {
     this.completedFilterData = [];
     this.ongoingFilterData = [];
 
-    for (let i of this.superAdminArr) {
-      if (this.email == i) {
+    for(let i of this.superAdminDev.adminEmail) {
+      if(this.email == i) {
         this.superAdminFlag = true;
       }
     }
 
-    if (this.superAdminFlag) {
+    for(let i of this.superAdminProd.adminEmail) {
+      if(this.email == i) {
+        this.superAdminFlag = true;
+      }
+    }
+
+    // for(let i of this.superAdminLocal.adminEmail) {
+    //   if(this.email == i) {
+    //     this.superAdminFlag = true;
+    //   }
+    // }
+
+    if(this.superAdminFlag) {
       this.siteService.retrieveAllSite(this.email).subscribe(
         data => {
           this.allData = JSON.parse(data);
-          for (let i of this.allData) {
-            if (i.allStepsCompleted == "AllStepCompleted") {
-              this.completedFilterData.push(i);
-            }
-            else {
-              this.ongoingFilterData.push(i);
-            }
+          for(let i of this.allData){
+              if(i.allStepsCompleted=="AllStepCompleted"){
+                this.completedFilterData.push(i);
+              }
+              else if(i.allStepsCompleted !="AllStepCompleted" && i.status != 'InActive'){
+               this.ongoingFilterData.push(i);
+              }
           }
           this.ongoingSite_dataSource = new MatTableDataSource(this.ongoingFilterData);
           this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
@@ -594,25 +624,25 @@ export class MainNavComponent implements OnInit, OnDestroy {
           this.completedFilterData = [];
           this.siteService.retrieveListOfSite(this.currentUser1.assignedBy).subscribe(
             data => {
-              this.userData = JSON.parse(data);
-              for (let i of this.userData) {
-                if (i.assignedTo == this.email) {
-                  if (i.allStepsCompleted == "AllStepCompleted") {
-                    this.completedFilterData.push(i);
-                  }
-                  else {
-                    this.ongoingFilterData.push(i);
-                  }
-                }
-              }
-              this.ongoingSite_dataSource = new MatTableDataSource(this.ongoingFilterData);
-              //this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
-              //this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
-
-              this.completedLicense_dataSource = new MatTableDataSource(this.completedFilterData);
-              // this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
-              //this.completedLicense_dataSource.sort = this.completedLicenseSort;
-            });
+              this.userData=JSON.parse(data);
+             for(let i of this.userData){
+               if(i.assignedTo==this.email){
+                 if(i.allStepsCompleted=="AllStepCompleted"){
+                   this.completedFilterData.push(i);
+                 }
+                 else if(i.allStepsCompleted !="AllStepCompleted" && i.status != 'InActive'){
+                  this.ongoingFilterData.push(i);
+                 }
+               }
+             }
+          this.ongoingSite_dataSource = new MatTableDataSource(this.ongoingFilterData);
+          //this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
+          //this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
+    
+          this.completedLicense_dataSource = new MatTableDataSource(this.completedFilterData);
+         // this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
+          //this.completedLicense_dataSource.sort = this.completedLicenseSort;
+        });
         }
       }
     }
@@ -710,266 +740,273 @@ export class MainNavComponent implements OnInit, OnDestroy {
       }
     )
   }
-  highlight(type: any) {
+  
+  highlight(type:any){
     this.selectedRowIndex = type;
-    this.selectedRowIndexType = "";
-    this.selectedRowIndexSub = "";
-  }
-  highlightSub(type: any) {
-    //this.viewContainerRef.clear();
-    this.welcome = false;
+    this.selectedRowIndexType="";
+    this.selectedRowIndexSub ="";
+ }
+ highlightSub(type:any){
+  //this.viewContainerRef.clear();
+  this.welcome= false;
+  if(type== 'LV Systems') {
     this.selectedRowIndexSub = type;
-    this.selectedRowIndexType = "";
-    this.ongoingSite = true;
-    this.completedSite = false;
-    this.value = false;
+    this.selectedRowIndexType="";
+    this.ongoingSite=true;
+    this.completedSite=false;
+    this.value= false;
   }
+  
+ }
 
-  editSite(siteId: any, userName: any, site: any) {
-    this.service.allStepsCompleted = true;
-    this.service.disableSubmitSummary = false;
-    this.service.allFieldsDisable = false;
-    const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
-      width: '420px',
-      maxHeight: '90vh',
-      disableClose: true,
-    });
-    dialogRef.componentInstance.editModal = true;
+ editSite(siteId: any,userName: any,site: any) {
+  this.service.allStepsCompleted=true;
+  this.service.disableSubmitSummary=false;
+  this.service.allFieldsDisable = false;
+  const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+    width: '420px',
+    maxHeight: '90vh',
+    disableClose: true,
+  });
+  dialogRef.componentInstance.editModal = true;
     dialogRef.componentInstance.viewModal = false;
     dialogRef.componentInstance.triggerModal = false;
     dialogRef.componentInstance.linkModal = false;
     dialogRef.componentInstance.summaryModal = false;
 
-    dialogRef.componentInstance.confirmBox.subscribe(data => {
-      if (data) {
-        this.value = true;
-        this.welcome = false;
-        this.ongoingSite = false;
-        this.completedSite = false;
-        this.service.mainNavToSaved = 0;
-        setTimeout(() => {
-          this.verification.changeTab(0, siteId, userName, 'clientName', 'departmentName', site);
-        }, 1000);
-        this.service.disableFields = false;
-      }
-      else {
-        this.value = false;
-        this.welcome = false;
-        this.ongoingSite = true;
-        this.completedSite = false;
-      }
-    })
-    // if (confirm("Are you sure you want to edit site details?"))
-    // {
-    //   this.value= true;
-    //   this.welcome= false;  
-    //   this.ongoingSite=false;
-    //   this.completedSite=false;
-    //   this.service.mainNavToSaved=0;
-    //   setTimeout(()=>{
-    //     this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
-    //   }, 1000);
-    //   this.service.disableFields=false;
-    // } 
-    // else {
-    //   this.value= false;
-    //   this.welcome= false;  
-    //   this.ongoingSite=true;
-    //   this.completedSite=false;
-    // }
-  }
+  dialogRef.componentInstance.confirmBox.subscribe(data=>{
+    if(data) {
+      this.value= true;
+    this.welcome= false;  
+    this.ongoingSite=false;
+    this.completedSite=false;
+    this.service.mainNavToSaved=0;
+    setTimeout(()=>{
+      this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
+    }, 1000);
+    this.service.disableFields=false;
+    }
+    else{
+      this.value= false;
+    this.welcome= false;  
+    this.ongoingSite=true;
+    this.completedSite=false;
+    }
+  })
+  // if (confirm("Are you sure you want to edit site details?"))
+  // {
+  //   this.value= true;
+  //   this.welcome= false;  
+  //   this.ongoingSite=false;
+  //   this.completedSite=false;
+  //   this.service.mainNavToSaved=0;
+  //   setTimeout(()=>{
+  //     this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
+  //   }, 1000);
+  //   this.service.disableFields=false;
+  // } 
+  // else {
+  //   this.value= false;
+  //   this.welcome= false;  
+  //   this.ongoingSite=true;
+  //   this.completedSite=false;
+  // }
+ }
 
-  viewSite(siteId: any, userName: any, site: any) {
-    this.service.allStepsCompleted = false;
-    this.service.disableSubmitSummary = true;
-    this.service.disableFields = true;
-    this.service.allFieldsDisable = true;
+ viewSite(siteId: any,userName: any,site: any){
+  this.service.allStepsCompleted=false;
+  this.service.disableSubmitSummary=true;
+  this.service.disableFields=true;
+  this.service.allFieldsDisable = true;
 
-    const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
-      width: '420px',
-      maxHeight: '90vh',
-      disableClose: true,
-    });
-    dialogRef.componentInstance.editModal = true;
+  const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+    width: '420px',
+    maxHeight: '90vh',
+    disableClose: true,
+  });
+  dialogRef.componentInstance.editModal = true;
     dialogRef.componentInstance.viewModal = false;
     dialogRef.componentInstance.triggerModal = false;
     dialogRef.componentInstance.linkModal = false;
     dialogRef.componentInstance.summaryModal = false;
 
 
-    dialogRef.componentInstance.confirmBox.subscribe(data => {
-      if (data) {
-        this.value = true;
-        this.welcome = false;
-        this.ongoingSite = false;
-        this.completedSite = false;
-        this.service.mainNavToSaved = 0;
-        setTimeout(() => {
-          this.verification.changeTab(0, siteId, userName, 'clientName', 'departmentName', site);
-        }, 1000);
-        // this.service.disableFields=true;
-      }
-      else {
-        this.value = false;
-        this.welcome = false;
-        this.ongoingSite = false;
-        this.completedSite = true;
-      }
-    })
-    // if (confirm("Are you sure you want to view site details?"))
-    // {
-    //   this.value= true;
-    //   this.welcome= false;  
-    //   this.ongoingSite=false;
-    //   this.completedSite=false;
-    //   this.service.mainNavToSaved=0;
-    //   setTimeout(()=>{
-    //     this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
-    //   }, 1000);
-    //  // this.service.disableFields=true;
-    // } 
-    // else {
-    //   this.value= false;
-    //   this.welcome= false;   
-    //   this.ongoingSite=false;
-    //   this.completedSite=true;
-    // }
-    // this.welcome= false;
-    // this.ongoingSite=false;
-    // this.completedSite=false;
-    // this.viewContainerRef.clear();
-    // //this.viewContainerRef1.clear();
-    // const VerificationlvFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
-    // const lvInspectionRef = this.viewContainerRef.createComponent(VerificationlvFactory);
-    // //const lvInspectionRef1 = this.viewContainerRef1.createComponent(lvInspectionFactory);
-    // lvInspectionRef.changeDetectorRef.detectChanges();
-  }
+  dialogRef.componentInstance.confirmBox.subscribe(data=>{
+    if(data) {
+      this.value= true;
+      this.welcome= false;  
+      this.ongoingSite=false;
+      this.completedSite=false;
+      this.service.mainNavToSaved=0;
+      setTimeout(()=>{
+        this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
+      }, 1000);
+      // this.service.disableFields=true;
+    }
+    else{
+      this.value= false;
+      this.welcome= false;   
+      this.ongoingSite=false;
+      this.completedSite=true;
+    }
+  })
+  // if (confirm("Are you sure you want to view site details?"))
+  // {
+  //   this.value= true;
+  //   this.welcome= false;  
+  //   this.ongoingSite=false;
+  //   this.completedSite=false;
+  //   this.service.mainNavToSaved=0;
+  //   setTimeout(()=>{
+  //     this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
+  //   }, 1000);
+  //  // this.service.disableFields=true;
+  // } 
+  // else {
+  //   this.value= false;
+  //   this.welcome= false;   
+  //   this.ongoingSite=false;
+  //   this.completedSite=true;
+  // }
+  // this.welcome= false;
+  // this.ongoingSite=false;
+  // this.completedSite=false;
+  // this.viewContainerRef.clear();
+  // //this.viewContainerRef1.clear();
+  // const VerificationlvFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
+  // const lvInspectionRef = this.viewContainerRef.createComponent(VerificationlvFactory);
+  // //const lvInspectionRef1 = this.viewContainerRef1.createComponent(lvInspectionFactory);
+  // lvInspectionRef.changeDetectorRef.detectChanges();
+}
 
-  pdfModal(siteId: any, userName: any, siteName: any) {
-    this.disable = false;
-    this.inspectionService.printPDF(siteId, userName, siteName);
-  }
+pdfModal(siteId: any,userName: any, siteName: any){
+  this.disable=false;
+  this.inspectionService.printPDF(siteId,userName, siteName);
+}
 
-  downloadPdf(siteId: any, userName: any, siteName: any): any {
-    this.disable = false;
-    this.inspectionService.downloadPDF(siteId, userName, siteName);
-  }
+downloadPdf(siteId: any,userName: any, siteName: any): any {
+  this.disable=false;
+  this.inspectionService.downloadPDF(siteId,userName, siteName);
+}
 
-  emailPDF(siteId: any, userName: any, siteName: any) {
-    this.disable = false;
-    this.inspectionService.mailPDF(siteId, userName, siteName).subscribe(
-      data => {
-        this.success = true;
-        this.successMsg = data;
-        setTimeout(() => {
-          this.success = false;
-        }, 3000);
-      },
-      error => {
-        this.Error = true;
-        this.errorArr = [];
-        this.errorArr = JSON.parse(error.error);
-        this.errorMsg = this.errorArr.message;
-        setTimeout(() => {
-          this.Error = false;
-        }, 3000);
-      }
+emailPDF(siteId: any,userName: any, siteName: any){
+  this.disable=false;
+  this.inspectionService.mailPDF(siteId,userName, siteName).subscribe(
+  data => {
+  this.success = true;
+  this.successMsg = data;
+  setTimeout(()=>{
+    this.success=false;
+}, 3000);
+  },
+  error => {
+    this.Error = true;
+    this.errorArr = [];
+    this.errorArr = JSON.parse(error.error);
+    this.errorMsg = this.errorArr.message;
+    setTimeout(()=>{
+      this.Error = false;
+  }, 3000);
+  }
     );
-  }
+}
 
-  highlightSub2(type: any) {
-    this.viewContainerRef.clear();
-    this.welcome = false;
+ highlightSub2(type:any){
+  this.viewContainerRef.clear();
+  if(type == 'LV Systems') {
+    this.welcome= false;
     this.selectedRowIndexSub = type;
-    this.selectedRowIndexType = "";
-    this.ongoingSite = false;
-    this.completedSite = true;
-    this.value = false;
+    this.selectedRowIndexType="";
+    this.ongoingSite=false;
+    this.completedSite=true;
+    this.value=false;
   }
-  highlightType(type: any) {
-    this.selectedRowIndexType = type;
-    this.selectedRowIndexSub = "";
+  
+ }
+ highlightType(type:any){
+  this.selectedRowIndexType = type;
+  this.selectedRowIndexSub ="";
+ }
+ 
+ changePassword(email: String) {
+  if((this.service.lvClick==1) && (this.service.allStepsCompleted==true)){
+    const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+      width: '420px',
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+    dialogRef.componentInstance.editModal = false;
+    dialogRef.componentInstance.viewModal = false;
+    dialogRef.componentInstance.triggerModal = true;
+    dialogRef.componentInstance.linkModal = false;
+    dialogRef.componentInstance.summaryModal = false;
+
+
+    dialogRef.componentInstance.confirmBox.subscribe(data=>{
+      if(data) {
+        this.service.windowTabClick=0;
+        this.route.navigate(['changePassword', { email: email }])
+        this.service.logoutClick=0;  
+        this.service.lvClick=0;  
+      }
+      else{
+        return;
+      }
+    })
+  //   if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!")){
+  //     this.service.windowTabClick=0;
+  //     this.route.navigate(['changePassword', { email: email }])
+  //     this.service.logoutClick=0;  
+  //     this.service.lvClick=0; 
+  // }
+  // else{
+  //   return;
+  // }
+}
+  else if((this.service.lvClick==0) || (this.service.allStepsCompleted==false)){
+    this.route.navigate(['changePassword', { email: email }])
   }
+}
+ 
+profileUpdate(email: String) {
+  if((this.service.lvClick==1) && (this.service.allStepsCompleted==true)){
+    const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+      width: '420px',
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+    dialogRef.componentInstance.editModal = false;
+    dialogRef.componentInstance.viewModal = false;
+    dialogRef.componentInstance.triggerModal = true;
+    dialogRef.componentInstance.linkModal = false;
+    dialogRef.componentInstance.summaryModal = false;
 
-  changePassword(email: String) {
-    if ((this.service.lvClick == 1) && (this.service.allStepsCompleted == true)) {
-      const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
-        width: '420px',
-        maxHeight: '90vh',
-        disableClose: true,
-      });
-      dialogRef.componentInstance.editModal = false;
-      dialogRef.componentInstance.viewModal = false;
-      dialogRef.componentInstance.triggerModal = true;
-      dialogRef.componentInstance.linkModal = false;
-      dialogRef.componentInstance.summaryModal = false;
-
-
-      dialogRef.componentInstance.confirmBox.subscribe(data => {
-        if (data) {
-          this.service.windowTabClick = 0;
-          this.route.navigate(['changePassword', { email: email }])
-          this.service.logoutClick = 0;
-          this.service.lvClick = 0;
-        }
-        else {
-          return;
-        }
-      })
-      //   if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!")){
-      //     this.service.windowTabClick=0;
-      //     this.route.navigate(['changePassword', { email: email }])
-      //     this.service.logoutClick=0;  
-      //     this.service.lvClick=0; 
-      // }
-      // else{
-      //   return;
-      // }
-    }
-    else if ((this.service.lvClick == 0) || (this.service.allStepsCompleted == false)) {
-      this.route.navigate(['changePassword', { email: email }])
-    }
+    dialogRef.componentInstance.confirmBox.subscribe(data=>{
+      if(data) {
+        this.service.windowTabClick=0;
+        this.route.navigate(['profile', { email: email }])
+        this.service.logoutClick=0;
+        this.service.lvClick=0; 
+      }
+      else{
+        return;
+      }
+    })
+  //   if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!")){
+  //     this.service.windowTabClick=0;
+  //     this.route.navigate(['profile', { email: email }])
+  //     this.service.logoutClick=0;
+  //     this.service.lvClick=0; 
+  // }
+  // else{
+  //   return;
+  // }
+}
+  else if((this.service.lvClick==0) || (this.service.allStepsCompleted==false)){
+    this.route.navigate(['profile', { email: email }])
   }
-
-  profileUpdate(email: String) {
-    if ((this.service.lvClick == 1) && (this.service.allStepsCompleted == true)) {
-      const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
-        width: '420px',
-        maxHeight: '90vh',
-        disableClose: true,
-      });
-      dialogRef.componentInstance.editModal = false;
-      dialogRef.componentInstance.viewModal = false;
-      dialogRef.componentInstance.triggerModal = true;
-      dialogRef.componentInstance.linkModal = false;
-      dialogRef.componentInstance.summaryModal = false;
-
-      dialogRef.componentInstance.confirmBox.subscribe(data => {
-        if (data) {
-          this.service.windowTabClick = 0;
-          this.route.navigate(['profile', { email: email }])
-          this.service.logoutClick = 0;
-          this.service.lvClick = 0;
-        }
-        else {
-          return;
-        }
-      })
-      //   if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!")){
-      //     this.service.windowTabClick=0;
-      //     this.route.navigate(['profile', { email: email }])
-      //     this.service.logoutClick=0;
-      //     this.service.lvClick=0; 
-      // }
-      // else{
-      //   return;
-      // }
-    }
-    else if ((this.service.lvClick == 0) || (this.service.allStepsCompleted == false)) {
-      this.route.navigate(['profile', { email: email }])
-    }
-  }
-
+}
+ 
   openModal() {
     const modalRef = this.modalService.open(AddApplicationTypesComponent);
     modalRef.componentInstance.email = this.email;
@@ -979,7 +1016,6 @@ export class MainNavComponent implements OnInit, OnDestroy {
       }
     });
   }
-
 
   showLinkDescription(id: any) {
     this.welcome = false;

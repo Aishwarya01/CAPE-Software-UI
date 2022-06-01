@@ -1,0 +1,46 @@
+<mat-tab-group  [selectedIndex]="selectedIndex" style="background-color:white;" #tabs>
+    <mat-tab label="Electro Magnetic Compatibility">
+        <mat-horizontal-stepper  [linear]="service.isLinear" #stepper>
+         
+            <mat-step  [completed]="service.isCompleted" [editable]="service.editable">
+             <ng-template matStepLabel>
+                <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
+                Client Details</ng-template>
+                <app-emc-client-details (proceedNext)="doSomething($event)"></app-emc-client-details>
+            </mat-step>
+
+            <mat-step [completed]="service.isCompleted2" [editable]="service.editable">
+                <ng-template matStepLabel>
+                    <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
+                    Facility Data</ng-template>
+                <app-emc-facility-data (proceedNext)="doSomething1($event)"></app-emc-facility-data>
+                <button class="previousBtn" mat-button (click)="goBack2(stepper)">&laquo; Back</button> 
+            </mat-step>
+
+            <mat-step [completed]="service.isCompleted3" [editable]="service.editable">
+                <ng-template matStepLabel>
+                    <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
+                    Power And Earthing Data</ng-template>
+                <app-power-and-earthing-data (proceedNext)="doSomething2($event)"></app-power-and-earthing-data>
+                <button class="previousBtn" mat-button (click)="goBack3(stepper)">&laquo; Back</button> 
+            </mat-step>
+
+            <mat-step [completed]="service.isCompleted4" [editable]="service.editable">
+                <ng-template matStepLabel>
+                    <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
+                    Electro Magnetic Compatibility (EMC) Data</ng-template>
+                <app-emc-electromagnetic-compatibility-data (proceedNext)="doSomething3($event)">
+                </app-emc-electromagnetic-compatibility-data>
+                <button class="previous4" mat-button (click)="goBack4(stepper)">&laquo; Back</button> 
+            </mat-step>
+
+        </mat-horizontal-stepper>
+    </mat-tab>
+
+    <mat-tab label="Saved Reports">
+        <app-emc-saved-report (savedReportEvent)="savedReportFunction($event)"></app-emc-saved-report>
+    </mat-tab>
+    <mat-tab label="Final Reports">
+        <app-emc-final-report (finalReportEvent)="finalReportFunction($event)"></app-emc-final-report>
+    </mat-tab>
+</mat-tab-group>

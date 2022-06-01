@@ -4,6 +4,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { SuperAdminDev } from 'src/environments/environment.dev';
+import { SuperAdminProd } from 'src/environments/environment.prod';
 import { GlobalsService } from '../globals.service';
 import { Site } from '../model/site';
 import { ClientService } from '../services/client.service';
@@ -50,6 +52,8 @@ export class FinalreportsComponent implements OnInit {
   finalReportSpinner: boolean = false;
   finalReportBody: boolean = true;
   spinnerValue: String = '';
+  superAdminDev = new SuperAdminDev();
+  superAdminProd = new SuperAdminProd();
 
   constructor(private router: ActivatedRoute,
               private clientService: ClientService,
@@ -69,7 +73,7 @@ export class FinalreportsComponent implements OnInit {
     this.currentUser1 = [];
     this.currentUser1=JSON.parse(this.currentUser);
     // this.retrieveClientDetails();
-    this.superAdminArr.push('gk@capeindia.net');
+    //this.superAdminArr.push('gk@capeindia.net');
     this.retrieveSiteDetails();
   }
 
@@ -103,7 +107,14 @@ applyFilter(event: Event) {
     //this.ongoingFilterData=[];
     this.filteredData = [];
     this.completedFilterData=[];
-    for(let i of this.superAdminArr) {
+    //dev
+    for(let i of this.superAdminDev.adminEmail) {
+      if(this.email == i) {
+        this.superAdminFlag = true;
+      }
+    }
+    //Production
+    for(let i of this.superAdminProd.adminEmail) {
       if(this.email == i) {
         this.superAdminFlag = true;
       }

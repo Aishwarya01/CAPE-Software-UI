@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ViewChild, ViewContainerRef } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { EmcClientDetailsComponent } from '../EMC/emc-client-details/emc-client-details.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-emc-assessment-installation',
@@ -7,18 +11,37 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EmcAssessmentInstallationComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild('reference', { read: ViewContainerRef })
+  viewContainerRef!: ViewContainerRef;
+  destroy: boolean = false;
+  email: String = '';
+  showEmcHome: boolean = false;
 
+  constructor( private router: ActivatedRoute,
+    private dialog: MatDialog,
+    ) { 
+      {
+        this.email = this.router.snapshot.paramMap.get('email') || '{}'
+      }
+    }
   ngOnInit(): void {
-  }
-
-  onClose(){
-    alert("Are you sure want to proceed further");
-  }
-
-  onNavigateToQuestionaire(){
     
   }
 
-
+  onNavigateToQuestionaire() {
+    this.viewContainerRef.clear();
+    this.destroy = true;
+    // const dialogRef = this.dialog.open(EmcClientDetailsComponent, {
+    //   width: '1000px',
+    //   maxHeight: '90vh',
+    //   disableClose: true,
+      
+    // });
+  this.showEmcHome = true;
+    // });
+    // dialogRef.componentInstance.email = this.email;
+  }
+  displayIconsBasedOnEmail(){
+  }
+  
 }

@@ -54,6 +54,7 @@ export class GlobalsService {
 //completed-saved-final
  disableFields:boolean=false;
  allStepsCompleted:boolean=false;
+ allStepsCompletedEmc:boolean=false;
  allFieldsDisable:boolean=false; //after submiting all 5 steps
  disableSubmitSummary:boolean=false; //after submiting all 5 steps
 //verification component for stepper
@@ -65,26 +66,47 @@ export class GlobalsService {
  isCompleted3: boolean = true;
  goBacktoprevious: boolean=false;
  editable: boolean = true;
-jointType: any;
-noOfjoint: any; 
-msgForStep1:boolean=false;
-msgForStep1Flag:boolean=false;
-lvClick: number=0;  
-windowTabClick: number=0; 
-logoutClick:number=0;
-//siganture
-signatureImg1:string="";
-signatureImg2:string="";
-signatureImg3:string="";
-signatureImg4:string="";
-signatureImg5:string="";
-signatureImg6:string="";
-
-sigInput:number=0;
-
+ jointType: any;
+ noOfjoint: any; 
+ msgForStep1:boolean=false;
+ msgForStep1Flag:boolean=false;
+ lvClick: number=0;  
+ windowTabClick: number=0; 
+ logoutClick:number=0;
+ disableSubmitElectromagnetic:boolean=false;
+ editableEmc: boolean = true;
+ isCompletedEmc: boolean = true;
+ isCompletedEmc1: boolean = true;
+ isCompletedEmc2: boolean = true;
+ isCompletedEmc3: boolean = true;
+ isLinearEmc: boolean=false;
+ isCompleted6: boolean = true;
+ isCompleted7: boolean = true;
+ isCompleted8: boolean = true; 
+ enableDownload: boolean = false;
+ pdfError: String="";
 //remember me
 autoLoginToken:number=0;
+  sigInput: number=0;
+  signatureImg1: String="";
+  signatureImg2: String="";
+  signatureImg3: String="";
+  signatureImg4: String="";
+  signatureImg5: String="";
+  signatureImg6: String="";
 
+  signatureImg7: String="";
+  signatureImg8: String="";
+
+  bytestring1: String="";
+  bytestring2: String="";
+  bytestring3: String="";
+  bytestring4: String="";
+  bytestring5: String="";
+  bytestring6: String="";
+
+  bytestring7: String="";
+  bytestring8: String="";
  constructor(private _scrollToService: ScrollToService
   ) {}
   

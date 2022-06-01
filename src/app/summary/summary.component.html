@@ -847,15 +847,17 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>Signature:</label>
-                        <div (mouseover)="focusSigDeclaration1(a)" class="signatureBtn">
-                          <input type="image" formControlName="signature" class="form-control" 
-                          src={{service.signatureImg5}} [(ngModel)] ="service.signatureImg5" [readonly]="true"
-                          style="pointer-events:none;"
-                          [ngClass]="{ 'is-invalid': submitted && a.get('signature')?.errors }">
-                           <button type="button" (click)="SignatureDeclaration1()" title="Click here"
-                           >Sign
-                           </button>
-                       </div>
+                        <div (mouseover)="focusSigDesigner1(a)" class="signatureBtn">
+                          <input type="image" formControlName="signature"
+                          class="form-control" 
+                          src={{service.signatureImg5}} [(ngModel)] ="service.signatureImg5"
+                           [ngClass]="{ 'is-invalid': submitted && a.get('signature')?.errors }"
+                           [readonly]="true" 
+                           style="width: 90%;pointer-events:none;">
+                          <button type="button" (click)="SignatureDesigner1()" title="Click here"
+                          >Sign
+                          </button>
+                      </div>
                         <!-- <input type="text" class="form-control" formControlName="signature" readonly
                         [ngClass]="{ 'is-invalid': submitted && a.get('signature')?.errors }"> -->
                         <div *ngIf="submitted && a.get('signature')?.errors" class="invalid-feedback">
@@ -913,7 +915,7 @@
 
                 <div formArrayName="Declaration2Arr" *ngFor="let a of getDeclaration2Controls(); let i = index">
                   <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':service.allFieldsDisable}">
-                    <h2>Authorised by:</h2>
+                    <h2>Authorized by:</h2>
                     <div class="form-group">
                     <div class="row">
                       <div class="col-md-6">
@@ -930,15 +932,17 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label>Signature:</label>
-                          <div (mouseover)="focusSigDeclaration2(a)" class="signatureBtn">
-                            <input type="image" formControlName="signature" class="form-control" 
-                            src={{service.signatureImg6}} [(ngModel)] ="service.signatureImg6" [readonly]="true"
-                            style="pointer-events:none;"
-                            [ngClass]="{ 'is-invalid': submitted && a.get('signature')?.errors }">
-                             <button type="button" (click)="SignatureDeclaration2()" title="Click here"
-                             >Sign
-                             </button>
-                         </div>
+                          <div (mouseover)="focusSigDesigner2(a)" class="signatureBtn">
+                            <input type="image" formControlName="signature"
+                            class="form-control" 
+                            src={{service.signatureImg6}} [(ngModel)] ="service.signatureImg6"
+                             [ngClass]="{ 'is-invalid': submitted && a.get('signature')?.errors }"
+                             [readonly]="true" 
+                             style="width: 90%;pointer-events:none;">
+                            <button type="button" (click)="SignatureDesigner2()" title="Click here"
+                            >Sign
+                            </button>
+                        </div>
                           <!-- <input type="text" class="form-control" formControlName="signature" readonly
                           [ngClass]="{ 'is-invalid': submitted && a.get('signature')?.errors }"> -->
                         <div *ngIf="submitted && a.get('signature')?.errors" class="invalid-feedback">
@@ -1250,7 +1254,7 @@ style="margin-left: 10px;" >
     <div style="text-align: center;" *ngIf="ConfirmSuccess">
       <span class="successshow">Are you sure you want to procced? </span>
       <br>
-      <span style="font-size: 12px;"><b>Note:</b>Once saved, details can't be edited!</span>
+      <span style="font-size: 12px;"><b>Note:</b>Once submitted, details can't be edited!</span>
      </div>
      <div *ngIf="Error" style="text-align: center;">
       <span class="alert alert-danger">{{errorMsg}}</span>

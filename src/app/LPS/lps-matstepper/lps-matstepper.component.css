@@ -2,3 +2,129 @@
 .mat-form-field {
     margin-top: 16px;
   }
+  .previousSupply {
+    background-color: #f1f1f1;
+    color: black;
+    position: relative;
+    bottom: 76px;
+    left: 40%;
+  }
+  .previousSupply:hover {
+    background-color: #747a76;
+    color: white;
+    position: relative;
+    bottom: 76px;
+    left: 40%;
+  }
+
+  .stepper-header-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .previousAirtermination {
+    background-color: #f1f1f1;
+    color: black;
+    position: absolute;
+    bottom: 65px;
+    left: 40%;
+  }
+  .previousAirtermination:hover {
+    background-color: #747a76;
+    color: white;
+    /* position: relative;
+    bottom: 64px; */
+    left: 40%;
+  }
+
+  .previousSPD {
+    background-color: #f1f1f1;
+    color: black;
+    position: relative;
+    bottom: 78px;
+    left: 40%;
+  }
+  .previousSPD:hover {
+    background-color: #747a76;
+    color: white;
+    /* position: relative;
+    bottom: 72px; */
+    left: 40%;
+  }
+
+  .previousEarthing {
+    background-color: #f1f1f1;
+    color: black;
+    position: relative;
+    bottom: 78px;
+    left: 40%;
+  }
+  .previousEarthing:hover {
+    background-color: #747a76;
+    color: white;
+    /* position: relative;
+    bottom: 78px; */
+    left: 40%;
+  }
+
+  .previousDwonconductor {
+    background-color: #f1f1f1;
+    color: black;
+    position: relative;
+    bottom: 77px;
+    left: 40%;
+  }
+  .previousDwonconductor:hover {
+    background-color: #747a76;
+    color: white;
+    /* position: relative;
+    bottom: 78px; */
+    left: 40%;
+  }
+
+  .previousSepration {
+    background-color: #f1f1f1;
+    color: black;
+    position: relative;
+    bottom: 78px;
+    left: 40%;
+  }
+  .previousSepration:hover {
+    background-color: #747a76;
+    color: white;
+    /* position: relative;
+    bottom: 72px; */
+    left: 40%;
+  }
+
+  .previousEarthStud {
+    background-color: #f1f1f1;
+    color: black;
+    position: relative;
+    bottom: 78px;
+    left: 40%;
+  }
+  .previousEarthStud:hover {
+    background-color: #747a76;
+    color: white;
+    /* position: relative;
+    bottom: 72px; */
+    left: 40%;
+  }
+
+  .previousSummary {
+    background-color: #f1f1f1;
+    color: black;
+    position: relative;
+    bottom: 57px;
+    left: 36%;
+  }
+  .previousSummary:hover {
+    background-color: #747a76;
+    color: white;
+    /* position: relative;
+    bottom: 54px; */
+  }

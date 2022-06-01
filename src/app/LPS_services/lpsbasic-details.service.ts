@@ -20,10 +20,19 @@ export class LPSBasicDetailsService {
   public updateLpsBasicDetails(basicDetails: BasicDetails): Observable<any> {
     return this.http.put<any>(this.apiUrl + '/updateBasicLps', basicDetails, { responseType: 'text' as 'json' })
   }
+
+  public updateLpsBasicDetailsStatus(basicDetails: BasicDetails): Observable<any> {
+    return this.http.put<any>(this.apiUrl + '/updateBasicLpsStatus', basicDetails, { responseType: 'text' as 'json' })
+  }
+
   public retrieveListOfBasicLps(userName: any): Observable<any> { 
     return this.http.get<BasicDetails>(this.apiUrl + '/retrieveListOfBasicLps' + '/' + userName , { responseType: 'text' as 'json' })
   }
 
+  public retrieveAllBasicLps(): Observable<any> { 
+    return this.http.get<BasicDetails>(this.apiUrl + '/retrieveAllBasicLps' , { responseType: 'text' as 'json' })
+  }
+  
   public retrieveFinalLps(userName: String,basicLpsId: any): Observable<any> {
     return this.http.get<any>(this.apiUrl + '/retrieveLpsReport' + '/' +userName+ '/' +basicLpsId, { responseType: 'text' as 'json' })
   } 

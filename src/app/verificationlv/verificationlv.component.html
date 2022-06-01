@@ -168,7 +168,7 @@
         <app-inspection-verification-basic-information *ngIf="basicValue" (proceedNext)="NextStep1($event)"></app-inspection-verification-basic-information>
       </mat-step>
 
-<!-- step 2 -->
+<!-- step 2 --> 
       <mat-step [completed]="service.isCompleted2" [editable]="service.editable">
         <ng-template matStepLabel>
           <!-- <span (click)="triggerClickTab();">Supply Characteristics</span>-->

@@ -3,7 +3,8 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Valida
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalsService } from 'src/app/globals.service';
-import { Separatedistance } from 'src/app/LPS_model/separatedistance';
+import { SeperationDistanceReport } from 'src/app/LPS_model/SeperationDistanceReport';
+import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
 import { SeparatedistanceService } from 'src/app/LPS_services/separatedistance.service';
 
 
@@ -15,13 +16,14 @@ import { SeparatedistanceService } from 'src/app/LPS_services/separatedistance.s
 export class LpsSeperationDistanceComponent implements OnInit {
 
   i: any;
-  separatedistance = new Separatedistance();
+  seperationDistanceReport = new SeperationDistanceReport();
   separeteDistanceForm!: FormGroup;
-
-  separateDistanceDescriptionArr!: FormArray;
+  seperationDistanceDescription!: FormArray;
+  separateDistance!: FormArray;
+  separateDistanceDownConductors!: FormArray;
   submitted!: boolean;
   email: any;
-  
+  summaryPopup: boolean = false;
   validationError: boolean = false;
   validationErrorMsg: String = '';
   successMsg: string="";
@@ -47,19 +49,31 @@ export class LpsSeperationDistanceComponent implements OnInit {
   flag: boolean = false;
   arr: any  = [];
   separatedistancePushArr:any=[];
+  separateDistanceDownConductorsPushArr:any=[];
   isEditable!:boolean
-  constructor(
+  isAirterminationUpdated:boolean=false;
+  validationErrorTab: boolean = false;
+  validationErrorMsgTab: string="";
+  tabError: boolean=false;
+  tabErrorMsg: string="";
 
-    private formBuilder: FormBuilder,
-    private separatedistanceService: SeparatedistanceService,
-    private modalService: NgbModal, private router: ActivatedRoute,
-    public service: GlobalsService,
-
-  ) {
+  // For Spinner
+  spinner: boolean=false;
+  spinnerValue: String = '';
+  mode: any = 'indeterminate';
+  nextButton: boolean = true;
+  popup: boolean = false;
+  
+  constructor(private formBuilder: FormBuilder,
+            private separatedistanceService: SeparatedistanceService,
+            private modalService: NgbModal, private router: ActivatedRoute,
+            public service: GlobalsService,
+            public airterminationServices: AirterminationService)     
+    {
   }
 
-  gotoNextModal(content: any,contents:any) {
-    
+  gotoNextModal(content1: any,contents:any) {
+    this.submitted = true;
     if (this.separeteDistanceForm.invalid) {
       this.validationError = true;
       this.validationErrorMsg = 'Please check all the fields';
@@ -69,7 +83,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
       return;
     }
     
-    if (this.basicLpsId == 0) {
+    else if(this.basicLpsId == 0) {
       this.validationError = true;
       this.validationErrorMsg = 'Basics Form is Required, Please fill';
       setTimeout(() => {
@@ -77,8 +91,17 @@ export class LpsSeperationDistanceComponent implements OnInit {
       }, 3000);
       return;
     }
-    if(this.separeteDistanceForm.dirty && this.separeteDistanceForm.touched){
-      this.modalService.open(content, { centered: true,backdrop: 'static' });
+    else if(this.separeteDistanceForm.value.seperationDistanceDescription[0].buildingNumber == undefined || this.separeteDistanceForm.value.seperationDistanceDescription[0].buildingNumber == ''){
+      this.validationError = true;
+      this.validationErrorMsg = 'Air Termination Form is Required, Please fill';
+      setTimeout(() => {
+        this.validationError = false;
+      }, 3000);
+      return;
+    }
+    else if(this.separeteDistanceForm.dirty && this.separeteDistanceForm.touched){
+      this.modalService.open(content1, { centered: true,backdrop: 'static' });
+      this.summaryPopup=true;
    }
   //  For Dirty popup
    else{
@@ -86,10 +109,35 @@ export class LpsSeperationDistanceComponent implements OnInit {
    }
   }
 
+  summaryEvent(content:any){
+    this.modalService.open(content, { centered: true, backdrop: 'static' });
+    this.onSubmit(this.flag);
+    this.summaryPopup=false;
+  }
+
   ngOnInit(): void {
 
     this.separeteDistanceForm = this.formBuilder.group({
-      separateDistanceDescriptionArr: this.formBuilder.array([this.separateDistanceArrForm()])
+      seperationDistanceDescription: this.formBuilder.array([this.allSeparateDistance('', '', '')])
+    });
+    if (this.isAirterminationUpdated) {
+      this.retriveSeperationDistance();
+      this.isAirterminationUpdated=false;
+    }
+  }
+
+  allSeparateDistance(buildingNumber:any,buildingName:any,buildingCount:any): FormGroup {
+    return new FormGroup({
+      seperationDistanceId: new FormControl(''),
+      buildingNumber: new FormControl(buildingNumber),
+      buildingCount: new FormControl(buildingCount),
+      buildingName:new FormControl(buildingName),
+      calculatedSeperationDistanceOb:new FormControl(''),
+      calculatedSeperationDistanceRem:new FormControl(''),
+      flag:new FormControl('A'),
+
+      separateDistance: this.formBuilder.array([this.separateDistanceArrForm()]),
+      separateDistanceDownConductors: this.formBuilder.array([this.separateDistanceArr2Form()]),
     });
   }
 
@@ -97,16 +145,35 @@ export class LpsSeperationDistanceComponent implements OnInit {
     this.separeteDistanceForm.reset();
   }
 
-  retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
-      // this.service.lvClick=1;
+      // Only Accept numbers
+      keyPressNumbers(event:any) {
+        var charCode = (event.which) ? event.which : event.keyCode;
+            // Only Numbers 0-9
+        if ((charCode < 48 || charCode > 57)) {
+          event.preventDefault();
+          return false;
+          } else {
+              return true;
+        }
+      }
 
-      this.step6List = data.seperationDistanceDesc;
-      this.separatedistance.basicLpsId = basicLpsId;   
-      this.separatedistance.seperationDistanceId = this.step6List.seperationDistanceId  
-      this.separatedistance.createdBy = this.step6List.createdBy;
-      this.separatedistance.createdDate = this.step6List.createdDate;   
-      this.separatedistance.userName = this.step6List.userName;   
-      this.populateData();     
+  retrieveDetailsfromSavedReports(data: any){
+      // this.service.lvClick=1;
+      if(data.basicLpsId != undefined && data.basicLpsId != 0){
+        this.step6List = data;
+      } 
+      else{
+        this.step6List = data.seperationDistanceReport;
+        setTimeout(() => {
+          this.createSeperationForm(data.airTermination);
+        }, 300); 
+      }
+      this.populateData();  
+      this.seperationDistanceReport.basicLpsId = this.step6List.basicLpsId;   
+      this.seperationDistanceReport.seperationDistanceReportId = this.step6List.seperationDistanceReportId  
+      this.seperationDistanceReport.createdBy = this.step6List.createdBy;
+      this.seperationDistanceReport.createdDate = this.step6List.createdDate;   
+      this.seperationDistanceReport.userName = this.step6List.userName;   
       this.flag=true;
     }
 
@@ -115,62 +182,137 @@ export class LpsSeperationDistanceComponent implements OnInit {
       seperationDistanceDesc: new FormControl('',Validators.required),
       seperationDistanceOb: new FormControl('',Validators.required),
       seperationDistanceRem: new FormControl(''),
-      flag: new FormControl('true'),
+      flag: new FormControl('A'),
 
     })
   }
 
-  retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
-    // this.service.lvClick=1;
+  private separateDistanceArr2Form(): FormGroup {
+    return new FormGroup({
+      seperationDistanceDesc: new FormControl('',Validators.required),
+      seperationDistanceOb: new FormControl('',Validators.required),
+      seperationDistanceRem: new FormControl(''),
+      flag: new FormControl('A'),
 
-    this.step6List = JSON.parse(data);
-    this.separatedistance.basicLpsId = basicLpsId;   
-    this.separatedistance.seperationDistanceId = this.step6List[0].seperationDistanceId  
-    this.separatedistance.createdBy = this.step6List[0].createdBy;
-    this.separatedistance.createdDate = this.step6List[0].createdDate;   
-    this.separatedistance.userName = this.step6List[0].userName;   
-    this.populateData1();     
-    this.flag=true;
-  }
-
-  populateData1() {
-    for (let item of this.step6List[0].separateDistanceDescription) {     
-      if(item.flag) {this.arr.push(this.createGroup(item));}
-    }
-    this.separeteDistanceForm.setControl('separateDistanceDescriptionArr', this.formBuilder.array(this.arr || []))
-    this.arr = [];
-    this.separeteDistanceForm.markAsPristine();
+    })
   }
 
   populateData() {
-    for (let item of this.step6List.separateDistanceDescription) {     
-      if(item.flag) {this.arr.push(this.createGroup(item));}
+    
+     let a=[]
+    for (let item of this.step6List.seperationDistanceDescription) {     
+     a.push(this.createGroup(item));
     }
-    this.separeteDistanceForm.setControl('separateDistanceDescriptionArr', this.formBuilder.array(this.arr || []))
-    this.arr = [];
+    this.separeteDistanceForm.setControl('seperationDistanceDescription', this.formBuilder.array(a || []))
   }
 
   createGroup(item: any): FormGroup {
     return this.formBuilder.group({
 
-    seperationDistanceDescId: new FormControl({disabled: false, value: item.seperationDistanceDescId}),
-    seperationDistanceDesc: new FormControl({disabled: false, value: item.seperationDistanceDesc}, Validators.required),
-    seperationDistanceOb: new FormControl({disabled: false, value: item.seperationDistanceOb}, Validators.required),
-    seperationDistanceRem: new FormControl({disabled: false, value: item.seperationDistanceRem}),
-    flag: new FormControl({disabled: false, value: item.flag}),
-       
+    seperationDistanceId: new FormControl({disabled: false, value: item.seperationDistanceId}),
+    buildingNumber: new FormControl({disabled: false, value: item.buildingNumber}),
+    buildingCount: new FormControl({disabled: false, value: item.buildingCount}),
+    buildingName: new FormControl({disabled: false, value: item.buildingName}),
+    calculatedSeperationDistanceOb: new FormControl({disabled: false, value: item.calculatedSeperationDistanceOb}),
+    calculatedSeperationDistanceRem: new FormControl({disabled: false, value: item.calculatedSeperationDistanceRem}),
+    flag: new FormControl({disabled: false, value: item.flag}), 
+ 
+    separateDistance: this.formBuilder.array(this.populateSeparateDistanceData(item.separateDistance)),
+    separateDistanceDownConductors: this.formBuilder.array(this.populateSeparateDistanceDownConductorseData(item.separateDistanceDownConductors)),
     });
   }
 
-
-  getseparateDistanceDescriptionControls(): AbstractControl[] {
-    return (<FormArray>this.separeteDistanceForm.get('separateDistanceDescriptionArr')).controls
+  populateSeparateDistanceData(item:any) {
+    let separateDistance=[];
+    for (let value of item) {     
+      separateDistance.push(this.separateDistanceGroup(value));
+    }
+    return separateDistance;
   }
-  add() {
-    this.separateDistanceDescriptionArr = this.separeteDistanceForm.get('separateDistanceDescriptionArr') as FormArray;
-    this.separateDistanceDescriptionArr.push(this.separateDistanceArrForm());
-
+  separateDistanceGroup(item:any): FormGroup {
+    return this.formBuilder.group({
+      seperationDistanceDescId: new FormControl({disabled: false, value: item.seperationDistanceDescId}, Validators.required),
+      seperationDistanceDesc: new FormControl({disabled: false, value: item.seperationDistanceDesc}, Validators.required),
+      seperationDistanceOb: new FormControl({disabled: false, value: item.seperationDistanceOb}, Validators.required),
+      seperationDistanceRem: new FormControl({disabled: false, value: item.seperationDistanceRem}),
+      flag: new FormControl({disabled: false, value: item.flag}),
+      buildingCount: new FormControl('')
+  });
   }
+
+  populateSeparateDistanceDownConductorseData(item:any) {
+    let seperationDistanceDescriptionArr=[];
+    for (let value of item) {     
+      seperationDistanceDescriptionArr.push(this.SeparateDistanceDownConductorGroup(value));
+    }
+     return seperationDistanceDescriptionArr;
+  }
+  SeparateDistanceDownConductorGroup(item:any): FormGroup {
+    return this.formBuilder.group({
+      seperationDistanceDownConductorId: new FormControl({disabled: false, value: item.seperationDistanceDownConductorId}, Validators.required),
+      seperationDistanceDesc: new FormControl({disabled: false, value: item.seperationDistanceDesc}, Validators.required),
+      seperationDistanceOb: new FormControl({disabled: false, value: item.seperationDistanceOb}, Validators.required),
+      seperationDistanceRem: new FormControl({disabled: false, value: item.seperationDistanceRem}),
+      flag: new FormControl({disabled: false, value: item.flag}),
+      buildingCount: new FormControl('')
+
+  });
+  }
+
+  overAllSeperationControl(): AbstractControl[] {
+    return(<FormArray>this.separeteDistanceForm.get('seperationDistanceDescription')).controls;
+  }
+
+  getseparateDistanceDescriptionControls(form:any) {
+    return form.controls.separateDistance?.controls;
+  }
+
+  getSeparateDistanceDownConductorsControls(form:any) {
+    return form.controls.separateDistanceDownConductors?.controls;
+  }
+
+  get f() {
+    return this.separeteDistanceForm.controls;
+  }
+
+   //SeparateDistance
+  addSeparateDistance(form:any,a:any) {
+    this.separateDistance = form.get('separateDistance') as FormArray;
+    this.separateDistance.push(this.separateDistanceArrForm());
+  }
+
+   //separateDistanceDownConductors
+  addSeparateDistanceDownConductors(form:any,a:any) {
+    this.separateDistanceDownConductors = form.get('separateDistanceDownConductors') as FormArray;
+    this.separateDistanceDownConductors.push(this.separateDistanceArr2Form());
+  }
+  
+  //Removing SeparateDistance record
+  removeSeparateDistance(form: any, a: any, index: any) {
+    
+    if (a.value.seperationDistanceDescId != 0 && a.value.seperationDistanceDescId != undefined) {
+      a.controls.flag.setValue('R');
+      a.controls.buildingCount.setValue(form.controls.buildingCount.value);
+      this.separatedistancePushArr = this.separatedistancePushArr.concat(a.value);
+    }
+    (form.get('separateDistance') as FormArray).removeAt(index);
+    this.separeteDistanceForm.markAsTouched();
+    this.separeteDistanceForm.markAsDirty();
+  }
+
+  //Removing SeparateDistanceDownConductors records
+  removeSeparateDistanceDownConductors(form: any, a: any, index: any) {
+    
+    if (a.value.seperationDistanceDownConductorId != 0 && a.value.seperationDistanceDownConductorId != undefined) {
+      a.controls.flag.setValue('R');
+      a.controls.buildingCount.setValue(form.controls.buildingCount.value);
+      this.separateDistanceDownConductorsPushArr = this.separateDistanceDownConductorsPushArr.concat(a.value);
+    }
+    (form.get('separateDistanceDownConductors') as FormArray).removeAt(index);
+    this.separeteDistanceForm.markAsTouched();
+    this.separeteDistanceForm.markAsDirty();
+  }
+
   onChangeForm(event:any){
     if(!this.separeteDistanceForm.invalid){
       if(this.separeteDistanceForm.dirty){
@@ -223,25 +365,52 @@ export class LpsSeperationDistanceComponent implements OnInit {
       this.modalService.dismissAll((this.successMsg = ''));
     }
   }
-  onSubmit(flag: any) {
 
-    this.separatedistance.userName = this.router.snapshot.paramMap.get('email') || '{}';;
-    this.separatedistance.basicLpsId = this.basicLpsId;
-     
-    this.submitted = true;
-    if (this.separeteDistanceForm.invalid) {
+
+
+  onSubmit(flag: any) {
+    // this.submitted = true;
+    if (this.separeteDistanceForm.invalid && (this.separeteDistanceForm.value.seperationDistanceDescription[0].buildingNumber != undefined || this.separeteDistanceForm.value.seperationDistanceDescription[0].buildingNumber != '')) {
       return;
     }
+    this.spinner = true;
+    this.popup=false;
+    this.seperationDistanceReport.seperationDistanceDescription = this.separeteDistanceForm.value.seperationDistanceDescription;
+    this.seperationDistanceReport.userName = this.router.snapshot.paramMap.get('email') || '{}';
+    this.seperationDistanceReport.basicLpsId = this.basicLpsId;
 
-    this.separatedistance.separateDistanceDescription = this.separeteDistanceForm.value.separateDistanceDescriptionArr;
-    
-    this.separatedistance.separateDistanceDescription=this.separatedistance.separateDistanceDescription.concat(this.separatedistancePushArr);
-    this.separatedistancePushArr=[];
+    //Adding deleted Data
+    for (let index = 0; index < this.seperationDistanceReport.seperationDistanceDescription.length; index++) {
+
+      //deleted separateDistance Data
+      for (let i = 0; i < this.separatedistancePushArr.length; i++) {
+
+        if (this.seperationDistanceReport.seperationDistanceDescription[index].buildingCount == this.separatedistancePushArr[i].buildingCount) {
+          this.seperationDistanceReport.seperationDistanceDescription[index].separateDistance.push(this.separatedistancePushArr[i]);
+        }
+      }
+
+      //deleted separateDistanceDownConductors Data
+      for (let i = 0; i < this.separateDistanceDownConductorsPushArr.length; i++) {
+
+        if (this.seperationDistanceReport.seperationDistanceDescription[index].buildingCount == this.separateDistanceDownConductorsPushArr[i].buildingCount) {
+          this.seperationDistanceReport.seperationDistanceDescription[index].separateDistanceDownConductors.push(this.separateDistanceDownConductorsPushArr[i]);
+        }
+      }
+
+    }
+    this.separateDistanceDownConductorsPushArr = [];
+    this.separatedistancePushArr = [];
+
     if (!this.validationError) {
       if(flag) {
         if(this.separeteDistanceForm.dirty && this.separeteDistanceForm.touched){ 
-        this.separatedistanceService.updateSeparateDistance(this.separatedistance).subscribe(
+        this.separatedistanceService.updateSeparateDistance(this.seperationDistanceReport).subscribe(
           (data) => {
+            setTimeout(() =>{
+              this.popup=true;
+              this.spinner=false;
+            }, 3000)
             this.success = true;
             this.successMsg = data;
             this.separeteDistanceForm.markAsPristine();
@@ -251,6 +420,8 @@ export class LpsSeperationDistanceComponent implements OnInit {
             this.proceedNext.emit(true);
           },
           (error) => {
+            this.popup=true;
+            this.spinner=false;
             this.Error = true;
             this.errorArr = [];
             this.errorArr = JSON.parse(error.error);
@@ -260,22 +431,33 @@ export class LpsSeperationDistanceComponent implements OnInit {
         )
       }
       else{
+        this.popup=true;
+        this.spinner=false;
         if(this.isEditable){
           this.success = true;
           this.proceedNext.emit(true);
         }else{
+          this.popup=true;
+          this.spinner=false;
           this.success = true;
           this.proceedNext.emit(true);
         }
       }
       }
       else {
-        this.separatedistanceService.saveSeparateDistance(this.separatedistance).subscribe(
+        this.separatedistanceService.saveSeparateDistance(this.seperationDistanceReport).subscribe(
           (data) => {
+            setTimeout(() =>{
+              this.popup=true;
+              this.spinner=false;
+            }, 3000)
             this.success = true;
             this.successMsg = data;
             this.disable = true;
             this.retriveSeperationDistance();
+            setTimeout(() => {
+              this.getAirterminationData();
+             }, 300);
             this.proceedNext.emit(true);
             this.service.lvClick=0;
             this.service.logoutClick=0;
@@ -285,6 +467,8 @@ export class LpsSeperationDistanceComponent implements OnInit {
             // }, 3000);
           },
           (error) => {
+            this.popup=true;
+            this.spinner=false;
             this.Error = true;
             this.errorArr = [];
             this.errorArr = JSON.parse(error.error);
@@ -295,25 +479,128 @@ export class LpsSeperationDistanceComponent implements OnInit {
     }
   }
 
-  removeItem(a:any,index: any) {
-    if(a.value.seperationDistanceDescId !=0 && a.value.seperationDistanceDescId !=undefined){
-      a.value.flag=false;
-    (this.separeteDistanceForm.get('separateDistanceDescriptionArr') as FormArray).removeAt(index);
-    this.separatedistancePushArr= this.separatedistancePushArr.concat(a.value);
-   
-   }
-
-  else
-  {(this.separeteDistanceForm.get('separateDistanceDescriptionArr') as FormArray).removeAt(index);}
-  }
-
   retriveSeperationDistance(){
     this.separatedistanceService.retriveSeperationDistance(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
       data => {
-        this.retrieveDetailsfromSavedReports1(this.separatedistance.userName,this.basicLpsId,this.ClientName,data);
+        let seprationDistance=JSON.parse(data)[0];
+        if(seprationDistance !=undefined && seprationDistance.basicLpsId !=null){
+          this.retrieveDetailsfromSavedReports(seprationDistance);
+        }
       },
       error=>{
       }
     );  
   }
+
+  getAirterminationData(){
+    this.airterminationServices.retriveAirTerminationDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
+      data => {
+        let seprationDistance_air=JSON.parse(data)[0];
+        if(seprationDistance_air !=undefined && seprationDistance_air.basicLpsId !=null){
+        this.createSeperationForm(seprationDistance_air);
+        }
+      }       
+    ); 
+  }
+  //creating form array based on airtermination building
+  createSeperationForm(data: any) {
+    
+    this.seperationDistanceDescription = this.separeteDistanceForm.get('seperationDistanceDescription') as FormArray;
+
+    for (let i = 0; i < data.lpsAirDescription.length; i++) {
+      let buildingNumber = data.lpsAirDescription[i].buildingNumber;
+      let buildingName = data.lpsAirDescription[i].buildingName;
+      let buildingCount = data.lpsAirDescription[i].buildingCount;
+      let isBuildingRequired = false;
+
+      //existing form having given building number avilable or not  
+      let isFormAvailable = '';
+      for (let k = 0; !isBuildingRequired && k < this.seperationDistanceDescription.length; k++) {
+        //form having correct building number & name
+        if (this.seperationDistanceDescription.value[k].buildingNumber == buildingNumber &&
+          this.seperationDistanceDescription.value[k].buildingName == buildingName &&
+          this.seperationDistanceDescription.value[k].buildingCount == buildingCount) {
+          isBuildingRequired = true;
+          isFormAvailable = "available"
+        }
+        //if form empty 
+        else if (this.seperationDistanceDescription.value[k].buildingNumber == '' ||
+          this.seperationDistanceDescription.value[k].buildingNumber == undefined ||
+          this.seperationDistanceDescription.value[k].buildingNumber == null) {
+          if (this.seperationDistanceDescription.length == 1) {
+            (this.separeteDistanceForm.get('seperationDistanceDescription') as FormArray).removeAt(k);
+          }
+          this.seperationDistanceDescription.push(this.allSeparateDistance(buildingNumber, buildingName, buildingCount));
+          isBuildingRequired = true;
+          isFormAvailable = "available"
+        }
+      }
+      //not having form for given airtermination buildingnumber 
+      if (isFormAvailable != "available") {
+        this.seperationDistanceDescription.push(this.allSeparateDistance(buildingNumber, buildingName, buildingCount));
+      }
+    }
+  }
+
+  gotoNextTab() {
+    if ((this.separeteDistanceForm.dirty && this.separeteDistanceForm.invalid) || this.service.isCompleted5 == false) {
+      this.service.isCompleted6 = false;
+      this.service.isLinear = true;
+      this.service.editable = false;
+      this.validationErrorTab = true;
+      this.validationErrorMsgTab = 'Please check all the fields in SepareteDistanceForm';
+      setTimeout(() => {
+        this.validationErrorTab = false;
+      }, 3000);
+      return;
+    }
+    else if (this.separeteDistanceForm.dirty && this.separeteDistanceForm.touched) {
+      this.service.isCompleted6 = false;
+      this.service.isLinear = true;
+      this.service.editable = false;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
+    }
+    else {
+      this.service.isCompleted6 = true;
+      this.service.isLinear = false;
+      this.service.editable = true;
+    }
+  }
+
+  reloadFromBack(){
+    if(this.separeteDistanceForm.invalid){
+     this.service.isCompleted6= false;
+     this.service.isLinear=true;
+     this.service.editable=false;
+     this.validationErrorTab = true;
+     this.validationErrorMsgTab= 'Please check all the fields in SepareteDistanceForm';
+     setTimeout(() => {
+       this.validationErrorTab = false;
+     }, 3000);
+     return false;
+    }
+    else if(this.separeteDistanceForm.dirty && this.separeteDistanceForm.touched){
+      this.service.isCompleted6= false;
+      this.service.isLinear=true;
+      this.service.editable=false;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
+      return false;
+    } 
+    else{
+      this.service.isCompleted6= true;
+      this.service.isLinear=false;
+      this.service.editable=true;
+      this.separeteDistanceForm.markAsPristine();
+   return true;
+    }
+  }
+
 }

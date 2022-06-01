@@ -4,6 +4,14 @@ h3 {
     text-align: center;
 }
 
+.search-bar {
+  border: 2px solid #b1b1b1;
+  padding: 15px;
+  border-radius: 4px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
 /* textarea.form-control{height: 30px !important} */
 .previous {
     background-color: #f1f1f1;
@@ -47,14 +55,25 @@ table tr td {
   font-size: 14px;
 }
 
-textarea{
-  font-size: 12px;
-}
-
 label{
   font-size: 14px;
 }
 
 ::placeholder{
   font-size: 10px;
+}
+
+.disableForm{
+  pointer-events: none;
+}
+
+textarea::placeholder {
+  position: relative;
+  /* top: 9px; */
+}
+
+textarea{
+  font-size: 12px;
+  height: 4rem;
+  padding: 21px 10px 10px;
 }

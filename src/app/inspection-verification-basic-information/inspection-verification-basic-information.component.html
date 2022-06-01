@@ -443,22 +443,22 @@
                     <div class="row">
                       <div class="col-md-4">
                         <label>Signature:</label>
-                      <div (mouseover)="focusSigDesigner1(a)" class="signatureBtn">
-                        <input type="image" formControlName="declarationSignature"
-                        class="form-control" 
-                        src={{service.signatureImg1}} [(ngModel)] ="service.signatureImg1"
-                         [ngClass]="{ 'is-invalid': submitted && a.get('declarationSignature')?.errors }"
-                         [readonly]="true" 
-                         style="width: 90%;pointer-events:none;">
-                        <button type="button" (click)="SignatureDesigner1()" title="Click here"
-                        >Sign
-                        </button>
-                    </div>
-                        <div *ngIf="submitted && a.get('declarationSignature')?.errors" class="invalid-feedback">
-                            <div *ngIf="a.get('declarationSignature')?.errors?.required">Signature is required</div>
-                        </div>
+                        <div (mouseover)="focusSigDesigner1(a)" class="signatureBtn">
+                          <input type="image" formControlName="declarationSignature"
+                          class="form-control" 
+                          src={{service.signatureImg1}} [(ngModel)] ="service.signatureImg1"
+                           [ngClass]="{ 'is-invalid': submitted && a.get('declarationSignature')?.errors }"
+                           [readonly]="true" 
+                           style="width: 90%;pointer-events:none;">
+                          <button type="button" (click)="SignatureDesigner1()" title="Click here"
+                          >Sign
+                          </button>
                       </div>
-
+                          <div *ngIf="submitted && a.get('declarationSignature')?.errors" class="invalid-feedback">
+                              <div *ngIf="a.get('declarationSignature')?.errors?.required">Signature is required</div>
+                          </div>
+                        <!-- <input type="text" formControlName="declarationSignature" class="form-control" readonly> -->
+                     </div>
                       <div class="col-md-4">
                         <label>Date:</label>
 
@@ -547,6 +547,7 @@
                              >Sign
                              </button>
                          </div>
+                          <!-- <input type="text" formControlName="declarationSignature" class="form-control" readonly> -->
                           <!-- <input type="text" formControlName="declarationSignature" class="form-control" readonly
                           [ngClass]="{ 'is-invalid': submitted && a.get('declarationSignature')?.errors }"> -->
                           <div *ngIf="submitted && a.get('declarationSignature')?.errors" class="invalid-feedback">
@@ -822,12 +823,13 @@
                       <div class="row">
                           <div class="col-md-4">
                               <label>Pincode:</label>
-                              <input type="text"  formControlName="pinCode" class="form-control" (keypress)="keyPressNumbers($event)" minlength="6" maxlength="6" placeholder="Enter Pincode"
+                              <input type="text"  formControlName="pinCode" class="form-control" (keypress)="keyPressNumbers($event)"  placeholder="Enter Pincode"
                               [ngClass]="{ 'is-invalid': submitted && a.get('pinCode')?.errors }" [readonly]="service.allFieldsDisable">
                           <div *ngIf="submitted && a.get('pinCode')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('pinCode')?.errors?.required">Pincode is required</div>
-                            <div *ngIf="a.get('pinCode')?.errors?.maxlength">Enter Six Digit Numbers</div>
-                            <div *ngIf="a.get('pinCode')?.errors?.minlength">Enter Six Digit Numbers</div>
+                            <!-- <div *ngIf="a.get('pinCode')?.errors?.maxlength">Enter Six Digit Numbers</div>
+                            <div *ngIf="a.get('pinCode')?.errors?.minlength">Enter Six Digit Numbers</div> -->
+                            <div *ngIf="a.get('pinCode')?.errors?.pattern">{{a.get('pinCodeErrorMsg')?.value}}</div>
                         </div>
                           </div>
                       </div>
@@ -997,12 +999,13 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <label>Pincode:</label>
-                                <input type="text"  formControlName="pinCode" class="form-control" (keypress)="keyPressNumbers($event)" minlength="6" maxlength="6" placeholder="Enter Pincode"
+                                <input type="text"  formControlName="pinCode" class="form-control" (keypress)="keyPressNumbers($event)" placeholder="Enter Pincode"
                                 [ngClass]="{ 'is-invalid': submitted && a.get('pinCode')?.errors}" [readonly]="service.allFieldsDisable">
                           <div *ngIf="submitted && a.get('pinCode')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('pinCode')?.errors?.required">Pincode is required</div>
-                            <div *ngIf="a.get('pinCode')?.errors?.maxlength">Enter Six Digit Numbers</div>
-                            <div *ngIf="a.get('pinCode')?.errors?.minlength">Enter Six Digit Numbers</div>
+                            <!-- <div *ngIf="a.get('pinCode')?.errors?.maxlength">Enter Six Digit Numbers</div>
+                            <div *ngIf="a.get('pinCode')?.errors?.minlength">Enter Six Digit Numbers</div> -->
+                            <div *ngIf="a.get('pinCode')?.errors?.pattern">{{a.get('pinCodeErrorMsg')?.value}}</div>
                         </div>
                             </div>
                         </div>
@@ -1174,12 +1177,13 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <label>Pincode:</label>
-                                <input type="text"  formControlName="pinCode" class="form-control" (keypress)="keyPressNumbers($event)" minlength="6" maxLength="6" placeholder="Enter Pincode"
+                                <input type="text"  formControlName="pinCode" class="form-control" (keypress)="keyPressNumbers($event)" placeholder="Enter Pincode"
                                 [ngClass]="{ 'is-invalid': submitted && a.get('pinCode')?.errors }" [readonly]="service.allFieldsDisable">
                           <div *ngIf="submitted && a.get('pinCode')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('pinCode')?.errors?.required">Pincode is required</div>
-                            <div *ngIf="a.get('pinCode')?.errors?.maxlength">Enter Six Digit Numbers</div>
-                            <div *ngIf="a.get('pinCode')?.errors?.minlength">Enter Six Digit Numbers</div>
+                            <!-- <div *ngIf="a.get('pinCode')?.errors?.maxlength">Enter Six Digit Numbers</div>
+                            <div *ngIf="a.get('pinCode')?.errors?.minlength">Enter Six Digit Numbers</div> -->
+                            <div *ngIf="a.get('pinCode')?.errors?.pattern">{{a.get('pinCodeErrorMsg')?.value}}</div>
                         </div>
                             </div>
                         </div>
@@ -1346,12 +1350,13 @@
                       <div class="row">
                           <div class="col-md-4">
                               <label>Pincode:</label>
-                              <input type="text"  formControlName="pinCode" class="form-control" readonly (keypress)="keyPressNumbers($event)" minlength="6" maxLength="6" placeholder="Enter Pincode"
+                              <input type="text"  formControlName="pinCode" class="form-control" readonly (keypress)="keyPressNumbers($event)" placeholder="Enter Pincode"
                               [ngClass]="{ 'is-invalid': submitted && a.get('pinCode')?.errors }">
                           <div *ngIf="submitted && a.get('pinCode')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('pinCode')?.errors?.required">Pincode is required</div>
-                            <div *ngIf="a.get('pinCode')?.errors?.maxlength">Enter Six Digit Numbers</div>
-                            <div *ngIf="a.get('pinCode')?.errors?.minlength">Enter Six Digit Numbers</div>
+                            <!-- <div *ngIf="a.get('pinCode')?.errors?.maxlength">Enter Six Digit Numbers</div>
+                            <div *ngIf="a.get('pinCode')?.errors?.minlength">Enter Six Digit Numbers</div> -->
+                            <div *ngIf="a.get('pinCode')?.errors?.pattern">{{a.get('pinCodeErrorMsg')?.value}}</div>
                         </div>
                           </div>
                       </div>

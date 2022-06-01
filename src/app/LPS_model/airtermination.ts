@@ -2,31 +2,85 @@ export class Airtermination {
     basicLpsId!: number;
     lpsAirDescId!: number;
     userName!: string;
-    connectionMadeBraOb!: string;
-    connectionMadeBraRe!: string;
-    electricalEquipPlacedOb!: string;
-    electricalEquipPlacedRe!: string;
-    combustablePartOb!: string;
-    combustablePartRe!: string;
-    terminationMeshConductorOb!: string;
-    terminationMeshConductorRe!: string;
-    bondingEquipotentialOb!: string;
-    bondingEquipotentialRe!: string;
+    // connectionMadeBraOb!: string;
+    // connectionMadeBraRe!: string;
+    // electricalEquipPlacedOb!: string;
+    // electricalEquipPlacedRe!: string;
+    // combustablePartOb!: string;
+    // combustablePartRe!: string;
+    // terminationMeshConductorOb!: string;
+    // terminationMeshConductorRe!: string;
+    // bondingEquipotentialOb!: string;
+    // bondingEquipotentialRe!: string;
+    airTerminationId!: Number;
     createdBy!: String;
     createdDate!: Date;
-    airClamps!:AirClamps[];
+    lpsAirDescription!: lpsAirDescription[]
+}
+
+export class lpsAirDescription {
+    // lpsVerticalAirTerminationId!: Number;
+    lpsAirDescId!: number;
+    buildingCount!: number
+    buildingNumber!: number;
+    buildingName!: String;
+    buildingType!: String;
+    buildingLength!: number;
+    buildingHeight!: number;
+    buildingWidth!: number;
+    protectionLevel!: String;
+    flag!: String;
+    airClamps!:airClamps[];
     airConnectors!:AirConnectors[];
     lpsVerticalAirTermination!:LpsVerticalAirTermination[];
     airMeshDescription!:AirMeshDescription[];
     airExpansion!:AirExpansion[];
     airHolderDescription!:AirHolderDescription[];
-    
-
+    airBasicDescription!: airBasicDescription[];
 }
-export class AirClamps {
-    flag:boolean=true;
-    locationNumber!:number;
-    locationName!:String;
+
+export class airBasicDescription {
+      approvedDrawingObserv!: String;
+      approvedDrawingRemarks!: String;
+      architectNameObserv!: String;
+      architectNameRemarks!: String;
+      designDateObserv!: String;
+      designDateRemarks!: String;
+      approvedByObserv!: String;
+      approvedByRemarks!: String;
+      dateOfApprovalOb!: String;
+      dateOfApprovalRem!: String;
+      drawingObserv!: String;
+      drawingRemarks!: String;
+      revisionNoObserv!: String;
+      revisionNoRemarks!: String;
+      deviationObserv!: String;
+      deviationRemarks!: String;
+      installationQualityObserv!: String;
+      installationQualityRemarks!: String;
+
+      connectionMadeBraOb!: String;
+      connectionMadeBraRe!: String;
+      electricalEquipPlacedOb!: String;
+      electricalEquipPlacedRe!: String;
+      combustablePartOb!: String;
+      combustablePartRe!: String;
+      terminationMeshConductorOb!: String;
+      terminationMeshConductorRe!: String;
+      file!: String;
+      bondingEquipotentialOb!: String;
+      bondingEquipotentialRe!: String;
+      fileName!:String;
+      fileType!:String;
+      fileId!:Number;
+      fileIndex!:Number;
+}
+
+export class airClamps {
+    // flag:boolean=true;
+    clampsId!: Number;
+    // locationNumber!:number;
+    // locationName!:String;
     physicalInspectionOb!: string;
     physicalInspectionRe!: string;
     installationTerminationsystemOb!: string;
@@ -48,9 +102,9 @@ export class AirClamps {
 }
 
 export class AirConnectors {
-    flag:boolean=true;
-    locationNumber!:number;
-    locationName!:String;
+    // flag:boolean=true;
+    // locationNumber!:number;
+    // locationName!:String;
     physicalInspectionOb!: string;
     physicalInspectionRe!: string;
     checkConnectionConnectorsOb!: string;
@@ -74,9 +128,30 @@ export class AirConnectors {
 }
 
 export class LpsVerticalAirTermination {
-    flag:boolean=true;
-    locationNumber!:number;
-    locationName!:String;
+    // flag:boolean=true;
+    // locationNumber!:number;
+    // locationName!:String;
+    lpsVerticalAirTerminationId!: number;
+    lpsAirDescId!: number;
+    physicalInspectionOb!: string;
+    physicalInspectionRe!: string;
+    totalNumberOb!: string;
+    totalNumberRe!: string;
+    inspNoOb!: string;
+    inspNoRe!: string;
+    inspPassedNoOb!: string;
+    inspPassedNoRe!: string;
+    inspFaileddNoOb!: string;
+    inspFaileddNoRe!: string;
+    fileNameVAir!: string;
+    fileTypeVAir!:string;
+    fileIdVAir!:Number;
+    fileIndexVAir!:Number;
+    verticalAirTerminationList!: VerticalAirTerminationList[];
+
+}
+
+export class VerticalAirTerminationList {
     sizeOfTerminalOb!: string;
     sizeOfTerminalRe!: string;
     heightOfTerminalOb!: string;
@@ -85,27 +160,16 @@ export class LpsVerticalAirTermination {
     angleProtectionHeightRe!: string;
     materialOfTerminalOb!: string;
     materialOfTerminalRe!: string;
-    physicalInspectionOb!: string;
-    physicalInspectionRe!: string;
     supportFlatSurfaceOb!: string;
     supportFlatSurfaceRe!: string;
     heightFlatSurfaceOb!: string;
     heightFlatSurfaceRe!: string;
-    vatToRoofConductorOB!: string;
-    vatToRoofConductorRe!: string;
-    totalNumberOb!: string;
-    totalNumberRe!: string;
-    inspNoOb!: string;
-    inspNoRe!: string;
-    inspPassedNoOb!: string;
-    inspPassedNoRe!: string;
-    inspFaileddNoOb!: string;
-    inspFaileddNoRe!: string
 }
 export class AirMeshDescription {
-    flag:boolean=true;
-    locationNumber!:number;
-    locationName!:String;
+    // flag:boolean=true;
+    meshDescriptionId!: Number;
+    // locationNumber!:number;
+    // locationName!:String;
     physicalInspectionOb!: string;
     physicalInspectionRe!: string;
     materailOfConductorOb!: string;
@@ -122,9 +186,10 @@ export class AirMeshDescription {
     heightOfConductorFlatSurfaceRe!: string
 }
 export class AirExpansion {
-    flag:boolean=true;
-    locationNumber!:number;
-    locationName!:String;
+    // flag:boolean=true;
+    // locationNumber!:number;
+    // locationName!:String;
+    expansionId!: Number;
     physicalInspectionOb!: string;
     physicalInspectionRe!: string;
     strightConnectorPiecOb!: string;
@@ -139,42 +204,46 @@ export class AirExpansion {
     inspectionPassedNoRe!: string;
     inspectionFailedNoOb!: string;
     inspectionFailedNoRe!: string
+    fileName_EP!: string;
+    fileType_EP!: string;
+    fileIdEP!:Number;
+    fileIndex_EP!:Number;
 }
 export class AirHolderDescription {
-    flag:boolean=true;
-    locationNumber!:number;
-    locationName!:String;
+    holderDescriptionId!: Number;
+     lpsAirDescId!: number;
 	 physicalInspectionOb!: string;
 	 physicalInspectionRe!: string;
 	 conductorHolderFlatSurfaceOb!: string;
 	 conductorHolderFlatSurfaceRe!: string;
 	 conductorHolderOb!: string;
 	 conductorHolderRe!: string;
-	 materailOfHolderOb!: string;
-	 materailOfHolderRem!: string;
 	 materailOfParpetHolderOb!: string;
 	 materailOfParpetHolderRem!: string;
-	 holderTypeOb!: string;
-	 holderTypeRe!: string;
-//	 materialHolderOb!: string;
-//	 materialHolderRe!: string;
-	 totalHolderNoOb!: string;
-	 totalHolderNoRe!: string;
 	 totalParpetHolderNoOb!: string;
 	 totalParpetHolderNoRe!: string;
-	 holderInspNoOb!: string;
-	 holderInspNoRe!: string;
-	 holderInspPassedNoOb!: string;
-	 holderInspPassedNoRe!: string;
-	 holderInspFailedNoOb!: string;
-	 holderInspFailedNoRe!: string;
 	 parpetInspectionNoOb!: string;
 	 parpetInspectionNoRe!: string;
 	 parpetInspectionPassedNoOb!: string;
 	 parpetInspectionPassedNoRe!: string;
 	 parpetInspectionFailedNoOb!: string;
-	 parpetInspectionFailedNoRe!: string;
-	
+	 parpetInspectionFailedNoRe!: string;    
+     airHolderList!: AirHolderList[];
 
-    
+}
+
+export class AirHolderList {
+    holderTypeOb!: string;
+    holderTypeRe!: string;
+    materialHolderOb!: string;
+    materialHolderRe!: string;
+    totalHolderNoOb!: string;
+    totalHolderNoRe!: string;
+    holderInspNoOb!: string;
+    holderInspNoRe!: string;
+    holderInspPassedNoOb!: string;
+    holderInspPassedNoRe!: string;
+    holderInspFailedNoOb!: string;
+    holderInspFailedNoRe!: string;
+
 }

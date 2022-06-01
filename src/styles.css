@@ -1,4 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */ 
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 html, body { height: 100%; }
@@ -378,22 +378,22 @@ max-height:300px; overflow-y:auto; overflow-x:hidden;
 
 #style-1::-webkit-scrollbar-track
 {
-	-webkit-box-shadow: inset 0 0 6px rgb(0 0 0 / 8%);
-	border-radius: 10px;
-	background-color: #F5F5F5;
+-webkit-box-shadow: inset 0 0 6px rgb(0 0 0 / 8%);
+border-radius: 10px;
+background-color: #F5F5F5;
 }
 
 #style-1::-webkit-scrollbar
 {
-	width: 12px;
-	background-color: #F5F5F5;
+width: 12px;
+background-color: #F5F5F5;
 }
 
 #style-1::-webkit-scrollbar-thumb
 {
-	border-radius: 10px;
-	-webkit-box-shadow: inset 0 0 6px rgb(0 0 0 / 8%);
-	background-color: rgb(0 0 0 / 8%);
+border-radius: 10px;
+-webkit-box-shadow: inset 0 0 6px rgb(0 0 0 / 8%);
+background-color: rgb(0 0 0 / 8%);
 }
 
 .mat-badge-content {
@@ -1337,6 +1337,11 @@ position: absolute;
 {
   border: 1px solid #dee2e6;
 }
+@media print {
+  body {
+      display: none;
+  }
+}
 
 /* #mat-tab-label-0-3 {
   position: fixed;
@@ -1523,3 +1528,18 @@ input::-webkit-inner-spin-button {
   height: 100% !important;
 }
 
+ .alertDanger {
+  margin-right: 70px;
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  padding: 13px;
+  border-radius: 4px;
+ }
+
+ /* Adding border for itrating fields */
+ .search-bar1 {
+  border: 2px solid #b1b1b1;
+  padding: 15px;
+  border-radius: 4px;
+}
