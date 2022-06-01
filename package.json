@@ -27,6 +27,8 @@
     "@ng-bootstrap/ng-bootstrap": "^9.0.2",
     "@nicky-lenaers/ngx-scroll-to": "^9.0.0",
     "@o.krucheniuk/ngx-signature-pad": "0.0.7",
+    "@syncfusion/ej2-angular-base": "^19.4.52",
+    "@syncfusion/ej2-angular-diagrams": "^19.4.55",
     "@types/crypto-js": "^4.1.0",
     "@williamsrivas/ngx-signature-pad": "0.0.4",
     "angular-disable-browser-back-button": "^1.0.2",

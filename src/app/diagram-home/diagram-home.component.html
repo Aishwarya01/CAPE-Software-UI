@@ -1,0 +1,2506 @@
+<div class="control-section">
+    <div id="logicCircuit" style="width: 100%; height: 600px">
+        <div class="sb-mobile-palette-bar">
+            <div id="palette-icon" style="float: right;" role="button"  class="e-ddb-icons1 e-toggle-palette"></div>
+        </div>
+        <div id="palette-space"  class="sb-mobile-palette">
+            <ejs-symbolpalette #palette id="symbolpalette" [palettes]='palettes' width="100%" height="100%" [symbolHeight]=62
+                [symbolWidth]=60 [getSymbolInfo]='getSymbolInfo' [symbolPreview]='symbolPreview' [symbolMargin]='symbolMargin'>
+            </ejs-symbolpalette>
+        </div>
+        <div id="diagram-space" class="sb-mobile-diagram">
+                <!-- <ejs-diagram #diagram id="diagram" width="100%" height="100%" [snapSettings]='snapSettings' [nodes]='nodes' [connectors]='connectors'
+                [getConnectorDefaults]='getConnectorDefaults' [getNodeDefaults]='getNodeDefaults' (created)="diagramCreate($event)">
+                </ejs-diagram> -->
+
+                <ejs-diagram #diagram id="diagram" width="100%" height="580px" (drop)="getAccessibility($event)" (click) ="clickFunction($event,content2,content3,content4,content5,content6,content7,content8,content9,content10)"  [getNodeDefaults] ='getNodeDefaults' [getConnectorDefaults] ='getConnectorDefaults' >
+                  <!-- <e-connectors>
+                    <e-connector id='connectorIp1' type='Orthogonal'  sourceID='nodeIp1' targetID='node1'>
+                    </e-connector>
+            
+                    <e-connector id='connectorIp2' type='Orthogonal'  sourceID='nodeIp2' targetID='node1'>
+                    </e-connector>
+            
+                    <e-connector id='connectorIp3' type='Orthogonal'  sourceID='nodeIp3' targetID='node1'>
+                    </e-connector>
+            
+                    <e-connector id='connectorIp4' type='Orthogonal'  sourceID='nodeIp4' targetID='node1'>
+                    </e-connector>
+            
+                    <e-connector id='connector2' type='Straight' sourceID='node1' targetID='node2'>
+                    </e-connector>
+            
+                    <e-connector id='connector3' type='Straight' sourceID='node1' targetID='node2'>
+                    </e-connector>
+                  </e-connectors> -->
+
+                  <!-- <e-nodes>
+                    <e-node id='nodeIp1' [offsetX]=100 [offsetY]=50 [width]=80 [height]=20>
+                      <e-node-annotations>
+                        <e-node-annotation content="NodeIp1">
+                        </e-node-annotation>
+                      </e-node-annotations>
+                    </e-node>
+            
+                    <e-node id='nodeIp2' [offsetX]=100 [offsetY]=300 [width]=80 [height]=20>
+                      <e-node-annotations>
+                        <e-node-annotation content="NodeIp2">
+                        </e-node-annotation>
+                      </e-node-annotations>
+                    </e-node>
+                    <e-node id='node1' [offsetX]=250 [offsetY]=150 >
+                      <e-node-annotations>
+                        <e-node-annotation content="Node1">
+                        </e-node-annotation>
+                      </e-node-annotations>
+                    </e-node>
+                    <e-node id='node2' [offsetX]=450 [offsetY]=150>
+                      <e-node-annotations>
+                        <e-node-annotation content="Node2">
+                        </e-node-annotation>
+                      </e-node-annotations>
+                    </e-node>
+                  </e-nodes>  -->
+                </ejs-diagram>
+        </div>
+    </div>
+
+    <button *ngIf="!flag" class="btn btn-primary" (click)="submit(flag,content1)">Add Diagram</button>
+    <button *ngIf="flag" class="btn btn-primary" (click)="submit(flag,content1)">Update Diagram</button>
+
+</div>
+
+<ng-template #content2 let-modal>
+  <div class="modal-header" style="text-align: center; display: block">
+    <h2 class="modal-title" style="display: contents">PAT</h2>
+  </div>
+
+  <div class="modal-body">
+   <div class="card">
+     <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          <label>Reference Name</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Portable Appliance Name</label>
+          <select  class="form-control">
+            <option value="">Select Option</option>
+            <option value="Refrigrator">Refrigrator</option>
+            <option value="Washing machine">Washing machine</option>
+            <option value="Micro oven">Micro oven</option>
+            <option value="Toaster">Toaster</option>
+            <option value="Air conditioner">Air conditioner</option>
+            <option value="Geycer">Geycer</option>
+            <option value="irons,Kettles">irons,Kettles</option>
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label>Manfacturer Name</label>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <label>Rating(A)</label>
+          <input type="number" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Voltage(V)</label>
+          <input type="number" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Insulation Class</label>
+          <select  class="form-control">
+            <option value="">Select Option</option>
+            <option value="Class-1">Class-1</option>
+            <option value="Class-2">Class-2</option>
+          </select>        
+        </div>
+      </div>
+      <br>
+      <h3 style="text-align: center">Outgoing Cable Size(sq.mm.)</h3>
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <label>Phase</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Neutral</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Protective Conductor</label>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  <br>
+     <button type="button" *ngIf="popup" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+     aria-label="Close"  (click)="closeModalDialog()">
+      <span aria-hidden="true">Ok</span>
+  </button>
+  </ng-template>
+
+<ng-template #content3 let-modal>
+  <div class="modal-header" style="text-align: center; display: block">
+    <h2 class="modal-title" style="display: contents">Cables</h2>
+  </div>
+
+  <div class="modal-body">
+    <div class="card">
+      <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          <label>Reference Name</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Manfacturer Name</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Type of Conductor</label>
+          <select  class="form-control">
+            <option value="">Select Option</option>
+            <option value="Cable">Cable</option>
+            <option value="Bus Duct">Bus Duct</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <label>Voltage(V)</label>
+          <input type="number" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Cable/Bus Duct Type</label>
+          <input type="number" class="form-control">
+        </div>
+        
+        <div class="col-md-4">
+          <label>Cable/Bus Duct Size</label>
+          <input type="number" class="form-control">
+        </div>
+
+      </div>
+      <br>
+      <h3 style="text-align: center">Cable/Bus Duct(sq.mm./mm)</h3>
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <label>Phase</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Neutral</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Protective Conductor</label>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+
+      <br>
+      <h3 style="text-align: center">Cable/Bus Duct(m)</h3>
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <label>Phase</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Neutral</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Protective Conductor</label>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+
+      </div>
+    </div>
+    </div>
+  <br>
+      <button type="button" *ngIf="popup" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+      aria-label="Close"  (click)="closeModalDialog()">
+      <span aria-hidden="true">Ok</span>
+  </button>
+  </ng-template>
+
+<ng-template #content4 let-modal>
+  <div class="modal-header" style="text-align: center; display: block">
+    <h2 class="modal-title" style="display: contents">Fan</h2>
+  </div>
+
+  <div class="modal-body">
+    <div class="card">
+      <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          <label>Reference Name</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Manfacturer Name</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Power Capacity(W)</label>
+          <input type="number" class="form-control">
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-4">
+          <label>Current Rating(A)</label>
+          <input type="number" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Voltage(V)</label>
+          <input type="number" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Model/Type</label>
+          <input type="text" class="form-control">
+        </div>
+      
+      </div>
+      <br>
+      <h3 style="text-align: center">Incoming Cable Size(sq.mm.)</h3>
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <label>Phase</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Neutral</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Protective Conductor</label>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+
+      <br>
+      <h3 style="text-align: center">Incoming Cable Length(m)</h3>
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <label>Phase</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Neutral</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Protective Conductor</label>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+
+      </div>
+    </div>
+    </div>
+  <br>
+      <button type="button" *ngIf="popup" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+      aria-label="Close"  (click)="closeModalDialog()">
+      <span aria-hidden="true">Ok</span>
+  </button>
+  </ng-template>
+
+<ng-template #content5 let-modal>
+  <div class="modal-header" style="text-align: center; display: block">
+    <h2 class="modal-title" style="display: contents">Light</h2>
+  </div>
+
+  <div class="modal-body">
+    <div class="card">
+      <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          <label>Reference Name</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Manfacturer Name</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Power Capacity(W)</label>
+          <input type="number" class="form-control">
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-4">
+          <label>Current Rating(A)</label>
+          <input type="number" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Voltage(V)</label>
+          <input type="number" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Model/Type</label>
+          <input type="text" class="form-control">
+        </div>
+      
+      </div>
+      <br>
+      <h3 style="text-align: center">Incoming Cable Size(sq.mm.)</h3>
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <label>Phase</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Neutral</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Protective Conductor</label>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+
+      <br>
+      <h3 style="text-align: center">Incoming Cable Length(m)</h3>
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <label>Phase</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Neutral</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Protective Conductor</label>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+
+      </div>
+    </div>
+    </div>
+  <br>
+      <button type="button" *ngIf="popup" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+      aria-label="Close"  (click)="closeModalDialog()">
+      <span aria-hidden="true">Ok</span>
+  </button>
+  </ng-template>
+
+<ng-template #content6 let-modal>
+  <div class="modal-header" style="text-align: center; display: block">
+    <h2 class="modal-title" style="display: contents">LT Motor</h2>
+  </div>
+
+  <div class="modal-body">
+    <div class="card">
+      <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          <label>Reference Name</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Manfacturer Name</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Winding Connection</label>
+          <select  class="form-control">
+            <option value="">Select Option</option>
+            <option value="Star">Star</option>
+            <option value="Delta">Delta</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-4">
+          <label>Power Capacity(KW)</label>
+          <input type="number" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Current Rating(A)</label>
+          <input type="number" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Voltage(V)</label>
+          <input type="number" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>No of Phase(V)</label>
+          <select  class="form-control">
+            <option value="">Select Option</option>
+            <option value="1phase">1phase</option>
+            <option value="3phase">3phase</option>
+          </select>            
+        </div>
+
+        <div class="col-md-4">
+          <label>Model/Type</label>
+          <input type="text" class="form-control">
+        </div>
+      
+      </div>
+      <br>
+      <h3 style="text-align: center">Incoming Cable Size(sq.mm.)</h3>
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <label>Phase</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Neutral</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Protective Conductor</label>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+
+      <br>
+      <h3 style="text-align: center">Incoming Cable Length(m)</h3>
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <label>Phase</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Neutral</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Protective Conductor</label>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+
+      </div>
+    </div>
+    </div>
+  <br>
+      <button type="button" *ngIf="popup" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+      aria-label="Close"  (click)="closeModalDialog()">
+      <span aria-hidden="true">Ok</span>
+  </button>
+  </ng-template>
+
+<ng-template #content7 let-modal>
+  <div class="modal-header" style="text-align: center; display: block">
+    <h2 class="modal-title" style="display: contents">MCCB or ACB</h2>
+  </div>
+
+  <div class="modal-body">
+    <div class="card">
+      <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          <label>Reference Name</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>OCPD Manfacturer Name</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Rating(A)</label>
+          <input type="number" class="form-control">
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-4">
+          <label>Voltage(V)</label>
+          <input type="number" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>No of Poles</label>
+          <select  class="form-control">
+            <option value="">Select Option</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>            
+        </div>
+
+        <div class="col-md-4">
+          <label>Relay Manufacturers name (applicable only if ACB with micrologic or relay)</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="col-md-4">
+          <label>Model/Type</label>
+          <input type="text" class="form-control">
+        </div>
+      
+      </div>
+      <br>
+      <h3 style="text-align: center">Current Setting</h3>
+      <br>
+      <div class="row">
+        <div class="col-md-3">
+          <label>Overcurrent instantaneous/High stage/ I>>(A)</label>
+          <input type="number" class="form-control">
+        </div>
+        <div class="col-md-3">
+          <label>Set time(mS)</label>
+          <input type="number" class="form-control">
+        </div>
+        <div class="col-md-3">
+          <label>Earth fault instantaneous/High stage/Ig(A)</label>
+          <input type="number" class="form-control">
+        </div>
+        <div class="col-md-3">
+          <label>Set time(mS)</label>
+          <input type="number" class="form-control">
+        </div>
+      </div>
+
+      <br>
+      <h3 style="text-align: center">Outgoing Cable Size(sq.mm.)</h3>
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <label>Phase</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Neutral</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Protective Conductor</label>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+
+      </div>
+    </div>
+    </div>
+  <br>
+      <button type="button" *ngIf="popup" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+      aria-label="Close"  (click)="closeModalDialog()">
+      <span aria-hidden="true">Ok</span>
+  </button>
+  </ng-template>
+
+<ng-template #content8 let-modal>
+  <div class="modal-header" style="text-align: center; display: block">
+    <h2 class="modal-title" style="display: contents">MCB with RCD or RCBO</h2>
+  </div>
+
+  <div class="modal-body">
+    <div class="card">
+      <div class="card-body">
+      <form [formGroup]="mcbWithRcdForm">
+      <div class="row">
+        <div class="col-md-4">
+          <label>Reference Name</label>
+          <input type="text" class="form-control" formControlName="referenceName" [(ngModel)]="rcbo.referenceName"
+          [ngClass]="{ 'is-invalid': submittedRCBO && g.referenceName?.errors }">
+          <div *ngIf="submittedRCBO && g.referenceName?.errors" class="invalid-feedback">
+            <div *ngIf="g.referenceName?.errors?.required">Reference name is required</div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <label>OCPD Manfacturer Name</label>
+          <input type="text" class="form-control" formControlName="manufacturerName" [(ngModel)]="rcbo.manufacturerName"
+          [ngClass]="{ 'is-invalid': submittedRCBO && g.manufacturerName?.errors }">
+          <div *ngIf="submittedRCBO && g.manufacturerName?.errors" class="invalid-feedback">
+            <div *ngIf="g.manufacturerName?.errors?.required">Reference name is required</div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <label>Rating(A)</label>
+          <input type="number" class="form-control" formControlName="rating" [(ngModel)]="rcbo.rating"
+          [ngClass]="{ 'is-invalid': submittedRCBO && g.rating?.errors }">
+          <div *ngIf="submittedRCBO && g.rating?.errors" class="invalid-feedback">
+            <div *ngIf="g.rating?.errors?.required">Reference name is required</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-4">
+          <label>Voltage(V)</label>
+          <input type="number" class="form-control" formControlName="voltage" [(ngModel)]="rcbo.voltage"
+          [ngClass]="{ 'is-invalid': submittedRCBO && g.voltage?.errors }">
+          <div *ngIf="submittedRCBO && g.voltage?.errors" class="invalid-feedback">
+            <div *ngIf="g.voltage?.errors?.required">Reference name is required</div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <label>No of Poles</label>
+          <select  class="form-control" formControlName="noOfPoles" [(ngModel)]="rcbo.noOfPoles"
+          [ngClass]="{ 'is-invalid': submittedRCBO && g.noOfPoles?.errors }">
+            <option value="">Select Option</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>  
+          <div *ngIf="submittedRCBO && g.noOfPoles?.errors" class="invalid-feedback">
+            <div *ngIf="g.noOfPoles?.errors?.required">Reference name is required</div>
+          </div>          
+        </div>
+
+        <div class="col-md-4">
+          <label>Current Curve of MCB</label>
+          <select  class="form-control" formControlName="currentCurve" [(ngModel)]="rcbo.currentCurve"
+          [ngClass]="{ 'is-invalid': submittedRCBO && g.currentCurve?.errors }">
+            <option value="">Select Option</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+            <option value="K">K</option>
+            <option value="Z">Z</option>
+          </select>  
+          <div *ngIf="submittedRCBO && g.currentCurve?.errors" class="invalid-feedback">
+            <div *ngIf="g.currentCurve?.errors?.required">Reference name is required</div>
+          </div>          
+        </div>
+
+        <div class="col-md-4">
+          <label>Type of residual current device</label>
+          <select  class="form-control" formControlName="residualCurrentType" [(ngModel)]="rcbo.residualCurrentType"
+          [ngClass]="{ 'is-invalid': submittedRCBO && g.residualCurrentType?.errors }">
+            <option value="">Select Option</option>
+            <option value="Type A">Type A</option>
+            <option value="Type AC">Type AC</option>
+            <option value="Type F">Type F</option>
+            <option value="Type B">Type B</option>
+          </select>  
+          <div *ngIf="submittedRCBO && g.residualCurrentType?.errors" class="invalid-feedback">
+            <div *ngIf="g.residualCurrentType?.errors?.required">Reference name is required</div>
+          </div>          
+        </div>
+
+        <div class="col-md-4">
+          <label>Rated residual operating current I∆n (mA)</label>
+          <select  class="form-control" formControlName="residualCurrent" [(ngModel)]="rcbo.residualCurrent"
+          [ngClass]="{ 'is-invalid': submittedRCBO && g.residualCurrent?.errors }">
+            <option value="">Select Option</option>
+            <option value="30">30</option>
+            <option value="100">100</option>
+            <option value="300">300</option>
+            <option value="500">500</option>
+          </select>     
+          <div *ngIf="submittedRCBO && g.residualCurrent?.errors" class="invalid-feedback">
+            <div *ngIf="g.residualCurrent?.errors?.required">Reference name is required</div>
+          </div>       
+        </div>
+      </div>
+  
+      <br>
+      <h3 style="text-align: center">Outgoing Cable Size(sq.mm.)</h3>
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <label>Phase</label>
+          <input type="text" class="form-control" formControlName="outgoingSizePhase" [(ngModel)]="rcbo.outgoingSizePhase"
+          [ngClass]="{ 'is-invalid': submittedRCBO && g.outgoingSizePhase?.errors }">
+          <div *ngIf="submittedRCBO && g.outgoingSizePhase?.errors" class="invalid-feedback">
+            <div *ngIf="g.outgoingSizePhase?.errors?.required">Reference name is required</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <label>Neutral</label>
+          <input type="text" class="form-control" formControlName="outgoingSizeNeutral" [(ngModel)]="rcbo.outgoingSizeNeutral"
+          [ngClass]="{ 'is-invalid': submittedRCBO && g.outgoingSizeNeutral?.errors }">
+          <div *ngIf="submittedRCBO && g.outgoingSizeNeutral?.errors" class="invalid-feedback">
+            <div *ngIf="g.outgoingSizeNeutral?.errors?.required">Reference name is required</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <label>Protective Conductor</label>
+          <input type="text" class="form-control" formControlName="outgoingSizeProtective" [(ngModel)]="rcbo.outgoingSizeProtective"
+          [ngClass]="{ 'is-invalid': submittedRCBO && g.outgoingSizeProtective?.errors }">
+          <div *ngIf="submittedRCBO && g.outgoingSizeProtective?.errors" class="invalid-feedback">
+            <div *ngIf="g.outgoingSizeProtective?.errors?.required">Reference name is required</div>
+          </div>
+        </div>
+      </div>
+
+      <br>
+        <h2><b><u>Testing</u></b></h2>
+
+        <mat-icon class="mousechange" (click)="addRCBOTesting()" 
+            style="float:right; padding-right: 37px; padding-top: 10px;">add_box</mat-icon>
+
+        <br>
+        <ng-container formArrayName="generalTestingRCBO" *ngFor="let a of getGeneralTestingRCBOControls(); let i = index">
+          <ng-container [formGroupName]="i">
+            <h2>Incomer -{{i+1}} (General Testing)</h2>
+            <div class="table-responsive">
+              <table class="table" style="width: 70%; border: 1px solid black">
+                <thead>
+                  <tr>
+                    <th>
+                      Reference
+                    </th>
+    
+                    <th>
+                      Voltage(V)
+                    </th>
+    
+                    <th>
+                      Insulation Resistance(MΩ)
+                    </th>
+                  </tr>
+                </thead>    
+                
+                <tbody>
+                  <tr>
+                    <td>
+                      R-N
+                    </td>
+    
+                    <td>
+                      <input type="text" formControlName="rNVoltage" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('rNVoltage')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('rNVoltage')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('rNVoltage')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+    
+                    <td>
+                      <input type="text" formControlName="rNResistance" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('rNResistance')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('rNResistance')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('rNResistance')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+                  </tr>
+    
+                  <tr>
+                    <td>
+                      Y-N
+                    </td>
+    
+                    <td>
+                      <input type="text" formControlName="yNVoltage" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('yNVoltage')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('yNVoltage')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('yNVoltage')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+    
+                    <td>
+                      <input type="text" formControlName="yNResistance" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('yNResistance')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('yNResistance')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('yNResistance')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+                  </tr>
+    
+                  <tr>
+                    <td>
+                      B-N
+                    </td>
+    
+                    <td>
+                      <input type="text"  formControlName="bNVoltage" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('bNVoltage')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('bNVoltage')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('bNVoltage')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+    
+                    <td>
+                      <input type="text"  formControlName="bNResistance" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('bNResistance')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('bNResistance')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('bNResistance')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+                  </tr>
+    
+                  <tr>
+                    <td>
+                      R-E
+                    </td>
+    
+                    <td>
+                      <input type="text"  formControlName="rEVoltage" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('rEVoltage')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('rEVoltage')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('rEVoltage')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+    
+                    <td>
+                      <input type="text"  formControlName="rEResistance" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('rEResistance')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('rEResistance')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('rEResistance')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+                  </tr>
+    
+                  <tr>
+                    <td>
+                      Y-E
+                    </td>
+    
+                    <td>
+                      <input type="text"  formControlName="yEVoltage" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('yEVoltage')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('yEVoltage')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('yEVoltage')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+    
+                    <td>
+                      <input type="text" formControlName="yEResistance" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('yEResistance')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('yEResistance')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('yEResistance')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+                  </tr>
+    
+                  <tr>
+                    <td>
+                      B-E
+                    </td>
+    
+                    <td>
+                      <input type="text" formControlName="bEVoltage" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('bEVoltage')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('bEVoltage')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('bEVoltage')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+    
+                    <td>
+                      <input type="text" formControlName="bEResistance" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('bEResistance')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('bEResistance')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('bEResistance')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+                  </tr>
+    
+                  <tr>
+                    <td>
+                      R-Y
+                    </td>
+    
+                    <td>
+                      <input type="text" formControlName="rYVoltage" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('rYVoltage')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('rYVoltage')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('rYVoltage')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+    
+                    <td>
+                      <input type="text" formControlName="rYResistance" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('rYResistance')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('rYResistance')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('rYResistance')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+                  </tr>
+    
+                  <tr>
+                    <td>
+                      Y-B
+                    </td>
+    
+                    <td>
+                      <input type="text" formControlName="yBVoltage" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('yBVoltage')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('yBVoltage')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('yBVoltage')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+    
+                    <td>
+                      <input type="text" formControlName="yBResistance" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('yBResistance')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('yBResistance')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('yBResistance')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+                  </tr>
+    
+                  <tr>
+                    <td>
+                      B-R
+                    </td>
+    
+                    <td>
+                      <input type="text" formControlName="bRVoltage" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('bRVoltage')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('bRVoltage')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('bRVoltage')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+    
+                    <td>
+                      <input type="text" formControlName="bRResistance" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('bRResistance')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('bRResistance')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('bRResistance')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+                  </tr>
+    
+                  <tr>
+                    <td>
+                      N-E
+                    </td>
+    
+                    <td>
+                      <input type="text" formControlName="nEVoltage" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('nEVoltage')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('nEVoltage')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('nEVoltage')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+    
+                    <td>
+                      <input type="text" formControlName="nEResistance" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('nEResistance')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('nEResistance')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('nEResistance')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+           
+            <br>
+
+            <div class="table-responsive">
+              <table class="table" style="width: 35%; border: 1px solid black">
+                <thead>
+                  <tr>
+                    <th>
+                      Reference
+                    </th>
+  
+                    <th>
+                      Load Current(A)
+                    </th>
+                  </tr>
+                </thead>
+  
+                <tbody>
+                  <tr>
+                    <td>
+                      IR
+                    </td>
+  
+                    <td>
+                      <input type="text" formControlName="iRCurrent" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('iRCurrent')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('iRCurrent')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('iRCurrent')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+                  </tr>
+  
+                  <tr>
+                    <td>
+                      IY
+                    </td>
+  
+                    <td>
+                      <input type="text" formControlName="iYCurrent" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('iYCurrent')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('iYCurrent')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('iYCurrent')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+                  </tr>
+  
+                  <tr>
+                    <td>
+                      IB
+                    </td>
+  
+                    <td>
+                      <input type="text" formControlName="iBCurrent" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('iBCurrent')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('iBCurrent')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('iBCurrent')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+                  </tr>
+  
+                  <tr>
+                    <td>
+                      IN
+                    </td>
+  
+                    <td>
+                      <input type="text" formControlName="iNCurrent" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('iNCurrent')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('iNCurrent')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('iNCurrent')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+                  </tr>
+  
+                  <tr>
+                    <td>
+                      IPE
+                    </td>
+  
+                    <td>
+                      <input type="text" formControlName="iPECurrent" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('iPECurrent')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('iPECurrent')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('iPECurrent')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+                  </tr>
+  
+                </tbody>
+              </table>
+            </div>
+
+            <br>
+            
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Power Factor</label>
+                  <input type="number" class="form-control" formControlName="powerFactor" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('powerFactor')?.errors }">
+                  <div *ngIf="submittedRCBO && a.get('powerFactor')?.errors" class="invalid-feedback">
+                    <div *ngIf="a.get('powerFactor')?.errors?.required">Neutral is required</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Frequency(Hz)</label>
+                  <input type="number" class="form-control" formControlName="frequency" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('frequency')?.errors }">
+                  <div *ngIf="submittedRCBO && a.get('frequency')?.errors" class="invalid-feedback">
+                    <div *ngIf="a.get('frequency')?.errors?.required">Neutral is required</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <mat-icon class="mousechange" *ngIf="getGeneralTestingRCBOControls().length>1" class="dlt" type="button" title="Delete"  (click)="removeRCBOtesting(a,i)" style="float: right">remove_circle_outline</mat-icon>
+            <br>
+          </ng-container>
+        </ng-container>
+
+        <br>
+        <ng-container formArrayName="safetyTestingRCBO" *ngFor="let a of getSafetyTestingRCBOControls(); let i = index">
+          <ng-container [formGroupName]="i">
+            <h2>Incomer -{{i+1}} (Testing related to safety)</h2>
+
+            <div class="table-responsive">
+              <table class="table" style="width: 100%; border: 1px solid black">
+                <thead>
+                  <tr>
+                    <th>
+                      Reference
+                    </th>
+
+                    <th>
+                      Fault Loop Impedence(mΩ)
+                    </th>
+
+                    <th>
+                      Prospective fault current (kA)
+                    </th>
+
+                    <th>
+                      Disconnection time (mS)
+                    </th>
+
+                    <th>
+                      Remarks
+                    </th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td>
+                      R-N
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="rNImpedence" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('rNImpedence')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('rNImpedence')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('rNImpedence')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="rNCurrent" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('rNCurrent')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('rNCurrent')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('rNCurrent')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="rNTime" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('rNTime')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('rNTime')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('rNTime')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="rNRemarks">
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      Y-N
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="yNImpedence" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('yNImpedence')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('yNImpedence')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('yNImpedence')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="yNCurrent" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('yNCurrent')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('yNCurrent')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('yNCurrent')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="yNTime" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('yNTime')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('yNTime')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('yNTime')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="yNRemarks">
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      B-N
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="bNImpedence" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('bNImpedence')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('bNImpedence')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('bNImpedence')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="bNCurrent" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('bNCurrent')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('bNCurrent')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('bNCurrent')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="bNTime" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('bNTime')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('bNTime')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('bNTime')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="bNRemarks">
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      R-E
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="rEImpedence" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('rEImpedence')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('rEImpedence')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('rEImpedence')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="rECurrent" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('rECurrent')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('rECurrent')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('rECurrent')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="rETime" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('rETime')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('rETime')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('rETime')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="rERemarks">
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      Y-E
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="yEImpedence" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('yEImpedence')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('yEImpedence')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('yEImpedence')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="yECurrent" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('yECurrent')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('yECurrent')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('yECurrent')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="yETime" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('yETime')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('yETime')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('yETime')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="yERemarks">
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      B-E
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="bEImpedence" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('bEImpedence')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('bEImpedence')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('bEImpedence')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="bECurrent" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('bECurrent')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('bECurrent')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('bECurrent')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="bETime" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('bETime')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('bETime')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('bETime')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="bERemarks">
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      R-Y
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="rYImpedence" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('rYImpedence')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('rYImpedence')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('rYImpedence')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="rYCurrent" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('rYCurrent')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('rYCurrent')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('rYCurrent')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="rYTime" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('rYTime')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('rYTime')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('rYTime')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="rYRemarks">
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      Y-B
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="yBImpedence" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('yBImpedence')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('yBImpedence')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('yBImpedence')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="yBCurrent" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('yBCurrent')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('yBCurrent')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('yBCurrent')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="yBTime" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('yBTime')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('yBTime')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('yBTime')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="yBRemarks">
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      B-R
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="bRImpedence" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('bRImpedence')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('bRImpedence')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('bRImpedence')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="bRCurrent" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('bRCurrent')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('bRCurrent')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('bRCurrent')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="bRTime" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('bRTime')?.errors }">
+                      <div *ngIf="submittedRCBO && a.get('bRTime')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('bRTime')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="bRRemarks">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <br>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Touch/Shock Voltage (V)</label>
+                  <input type="number" class="form-control" formControlName="shockVoltage" 
+                  [ngClass]="{ 'is-invalid': submittedRCBO && a.get('shockVoltage')?.errors }">
+                  <div *ngIf="submittedRCBO && a.get('shockVoltage')?.errors" class="invalid-feedback">
+                    <div *ngIf="a.get('shockVoltage')?.errors?.required">Neutral is required</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Floor Resistance (MΩ)</label>
+                  <input type="number" class="form-control" formControlName="floorResistance" 
+                  [ngClass]="{ 'is-invalid': submittedRCBO && a.get('floorResistance')?.errors }">
+                  <div *ngIf="submittedRCBO && a.get('floorResistance')?.errors" class="invalid-feedback">
+                    <div *ngIf="a.get('floorResistance')?.errors?.required">Neutral is required</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Wall Resistance (MΩ)</label>
+                  <input type="number" class="form-control" formControlName="wallResistance" 
+                  [ngClass]="{ 'is-invalid': submittedRCBO && a.get('wallResistance')?.errors }">
+                  <div *ngIf="submittedRCBO && a.get('wallResistance')?.errors" class="invalid-feedback">
+                    <div *ngIf="a.get('wallResistance')?.errors?.required">Neutral is required</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <mat-icon class="mousechange" *ngIf="getGeneralTestingMCBControls().length>1" class="dlt" type="button" title="Delete"  (click)="removeMCBtesting(a,i)" style="float: right">remove_circle_outline</mat-icon>
+
+          </ng-container>
+        </ng-container>
+      </form>
+      </div>
+    </div>
+    </div>
+  <br>
+  <div style="display: inline">    
+    <button type="button"  style="float: left; margin-left: 400px"
+      class="btn btn-info" (click)="saveRCBO()">
+      <i class="bi bi-person-plus-fill icon"></i> Save
+    </button>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <button type="button"  class="btn btn-danger" aria-label="Close"  (click)="closeModalDialog()"
+      style="float: right; margin-right: 400px" >
+      <span aria-hidden="true">Cancel</span>
+    </button>
+  </div>
+  </ng-template>
+
+<ng-template #content9 let-modal>
+  <div class="modal-header" style="text-align: center; display: block">
+    <h2 class="modal-title" style="display: contents">MCB</h2>
+  </div>
+
+  <div class="modal-body">
+    <div class="card">
+      <div class="card-body">
+        <form [formGroup]="mcbForm">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Reference Name</label>
+              <input type="text" class="form-control" formControlName="referenceName" [(ngModel)]="mcb.referenceName"
+              [ngClass]="{ 'is-invalid': submitted && f.referenceName?.errors }">
+              <div *ngIf="submitted && f.referenceName?.errors" class="invalid-feedback">
+                <div *ngIf="f.referenceName?.errors?.required">Reference name is required</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>OCPD Manfacturer Name</label>
+              <input type="text" class="form-control" formControlName="manufacturerName" [(ngModel)]="mcb.manufacturerName"
+              [ngClass]="{ 'is-invalid': submitted && f.manufacturerName?.errors }">
+              <div *ngIf="submitted && f.manufacturerName?.errors" class="invalid-feedback">
+                <div *ngIf="f.manufacturerName?.errors?.required">Manufacturer Name is required</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Rating(A)</label>
+              <input type="number" class="form-control" formControlName="rating" [(ngModel)]="mcb.rating"
+              [ngClass]="{ 'is-invalid': submitted && f.rating?.errors }">
+              <div *ngIf="submitted && f.rating?.errors" class="invalid-feedback">
+                <div *ngIf="f.rating?.errors?.required">Rating is required</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row">
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Voltage(V)</label>
+              <input type="number" class="form-control" formControlName="voltage" [(ngModel)]="mcb.voltage"
+              [ngClass]="{ 'is-invalid': submitted && f.voltage?.errors }">
+              <div *ngIf="submitted && f.voltage?.errors" class="invalid-feedback">
+                <div *ngIf="f.voltage?.errors?.required">Voltage is required</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>No of Poles</label>
+              <select  class="form-control" formControlName="noOfPoles" [(ngModel)]="mcb.noOfPoles"
+              [ngClass]="{ 'is-invalid': submitted && f.noOfPoles?.errors }">
+                <option value="">Select Option</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+              </select>        
+              <div *ngIf="submitted && f.noOfPoles?.errors" class="invalid-feedback">
+                <div *ngIf="f.noOfPoles?.errors?.required">No of poles is required</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Current Curve</label>
+              <select  class="form-control" formControlName="currentCurve" [(ngModel)]="mcb.currentCurve"
+              [ngClass]="{ 'is-invalid': submitted && f.currentCurve?.errors }">
+                <option value="">Select Option</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="K">K</option>
+                <option value="Z">Z</option>
+              </select>            
+              <div *ngIf="submitted && f.currentCurve?.errors" class="invalid-feedback">
+                <div *ngIf="f.currentCurve?.errors?.required">Current Curve is required</div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <br>
+        <h3 style="text-align: center">Outgoing Cable Size(sq.mm.)</h3>
+        <br>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Phase</label>
+              <input type="number" class="form-control" formControlName="outgoingSizePhase" [(ngModel)]="mcb.outgoingSizePhase"
+              [ngClass]="{ 'is-invalid': submitted && f.outgoingSizePhase?.errors }">
+              <div *ngIf="submitted && f.outgoingSizePhase?.errors" class="invalid-feedback">
+                <div *ngIf="f.outgoingSizePhase?.errors?.required">Phase is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Neutral</label>
+              <input type="number" class="form-control" formControlName="outgoingSizeNeutral" [(ngModel)]="mcb.outgoingSizeNeutral"
+              [ngClass]="{ 'is-invalid': submitted && f.outgoingSizeNeutral?.errors }">
+              <div *ngIf="submitted && f.outgoingSizeNeutral?.errors" class="invalid-feedback">
+                <div *ngIf="f.outgoingSizeNeutral?.errors?.required">Neutral is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Protective Conductor</label>
+              <input type="number" class="form-control" formControlName="outgoingSizeProtective" [(ngModel)]="mcb.outgoingSizeProtective"
+              [ngClass]="{ 'is-invalid': submitted && f.outgoingSizeProtective?.errors }">
+              <div *ngIf="submitted && f.outgoingSizeProtective?.errors" class="invalid-feedback">
+                <div *ngIf="f.outgoingSizeProtective?.errors?.required"> Protective Conductor is required</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <br>
+        <h2><b><u>Testing</u></b></h2>
+
+        <mat-icon class="mousechange" (click)="addMCBTesting()" 
+            style="float:right; padding-right: 37px; padding-top: 10px;">add_box</mat-icon>
+
+        <br>
+        <ng-container formArrayName="generalTestingMCB" *ngFor="let a of getGeneralTestingMCBControls(); let i = index">
+          <ng-container [formGroupName]="i">
+            <h2>Incomer -{{i+1}} (General Testing)</h2>
+            <div class="table-responsive">
+              <table class="table" style="width: 70%; border: 1px solid black">
+                <thead>
+                  <tr>
+                    <th>
+                      Reference
+                    </th>
+    
+                    <th>
+                      Voltage(V)
+                    </th>
+    
+                    <th>
+                      Insulation Resistance(MΩ)
+                    </th>
+                  </tr>
+                </thead>    
+                
+                <tbody>
+                  <tr>
+                    <td>
+                      R-N
+                    </td>
+    
+                    <td>
+                      <input type="text" formControlName="rNVoltage" [ngClass]="{ 'is-invalid': submitted && a.get('rNVoltage')?.errors }">
+                      <div *ngIf="submitted && a.get('rNVoltage')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('rNVoltage')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+    
+                    <td>
+                      <input type="text" formControlName="rNResistance" [ngClass]="{ 'is-invalid': submitted && a.get('rNResistance')?.errors }">
+                      <div *ngIf="submitted && a.get('rNResistance')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('rNResistance')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+                  </tr>
+    
+                  <tr>
+                    <td>
+                      Y-N
+                    </td>
+    
+                    <td>
+                      <input type="text" formControlName="yNVoltage" [ngClass]="{ 'is-invalid': submitted && a.get('yNVoltage')?.errors }">
+                      <div *ngIf="submitted && a.get('yNVoltage')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('yNVoltage')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+    
+                    <td>
+                      <input type="text" formControlName="yNResistance" [ngClass]="{ 'is-invalid': submitted && a.get('yNResistance')?.errors }">
+                      <div *ngIf="submitted && a.get('yNResistance')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('yNResistance')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+                  </tr>
+    
+                  <tr>
+                    <td>
+                      B-N
+                    </td>
+    
+                    <td>
+                      <input type="text"  formControlName="rNVoltage" [ngClass]="{ 'is-invalid': submitted && a.get('rNVoltage')?.errors }">
+                      <div *ngIf="submitted && a.get('rNVoltage')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('rNVoltage')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+    
+                    <td>
+                      <input type="text"  formControlName="rNResistance" [ngClass]="{ 'is-invalid': submitted && a.get('rNResistance')?.errors }">
+                      <div *ngIf="submitted && a.get('rNResistance')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('rNResistance')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+                  </tr>
+    
+                  <tr>
+                    <td>
+                      R-E
+                    </td>
+    
+                    <td>
+                      <input type="text"  formControlName="rEVoltage" [ngClass]="{ 'is-invalid': submitted && a.get('rEVoltage')?.errors }">
+                      <div *ngIf="submitted && a.get('rEVoltage')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('rEVoltage')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+    
+                    <td>
+                      <input type="text"  formControlName="rEResistance" [ngClass]="{ 'is-invalid': submitted && a.get('rEResistance')?.errors }">
+                      <div *ngIf="submitted && a.get('rEResistance')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('rEResistance')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+                  </tr>
+    
+                  <tr>
+                    <td>
+                      Y-E
+                    </td>
+    
+                    <td>
+                      <input type="text"  formControlName="yEVoltage" [ngClass]="{ 'is-invalid': submitted && a.get('yEVoltage')?.errors }">
+                      <div *ngIf="submitted && a.get('yEVoltage')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('yEVoltage')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+    
+                    <td>
+                      <input type="text" formControlName="yEResistance" [ngClass]="{ 'is-invalid': submitted && a.get('yEResistance')?.errors }">
+                      <div *ngIf="submitted && a.get('yEResistance')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('yEResistance')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+                  </tr>
+    
+                  <tr>
+                    <td>
+                      B-E
+                    </td>
+    
+                    <td>
+                      <input type="text" formControlName="bEVoltage" [ngClass]="{ 'is-invalid': submitted && a.get('bEVoltage')?.errors }">
+                      <div *ngIf="submitted && a.get('bEVoltage')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('bEVoltage')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+    
+                    <td>
+                      <input type="text" formControlName="bEResistance" [ngClass]="{ 'is-invalid': submitted && a.get('bEResistance')?.errors }">
+                      <div *ngIf="submitted && a.get('bEResistance')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('bEResistance')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+                  </tr>
+    
+                  <tr>
+                    <td>
+                      R-Y
+                    </td>
+    
+                    <td>
+                      <input type="text" formControlName="rYVoltage" [ngClass]="{ 'is-invalid': submitted && a.get('rYVoltage')?.errors }">
+                      <div *ngIf="submitted && a.get('rYVoltage')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('rYVoltage')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+    
+                    <td>
+                      <input type="text" formControlName="rYResistance" [ngClass]="{ 'is-invalid': submitted && a.get('rYResistance')?.errors }">
+                      <div *ngIf="submitted && a.get('rYResistance')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('rYResistance')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+                  </tr>
+    
+                  <tr>
+                    <td>
+                      Y-B
+                    </td>
+    
+                    <td>
+                      <input type="text" formControlName="yBVoltage" [ngClass]="{ 'is-invalid': submitted && a.get('yBVoltage')?.errors }">
+                      <div *ngIf="submitted && a.get('yBVoltage')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('yBVoltage')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+    
+                    <td>
+                      <input type="text" formControlName="yBResistance" [ngClass]="{ 'is-invalid': submitted && a.get('yBResistance')?.errors }">
+                      <div *ngIf="submitted && a.get('yBResistance')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('yBResistance')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+                  </tr>
+    
+                  <tr>
+                    <td>
+                      B-R
+                    </td>
+    
+                    <td>
+                      <input type="text" formControlName="bRVoltage" [ngClass]="{ 'is-invalid': submitted && a.get('bRVoltage')?.errors }">
+                      <div *ngIf="submitted && a.get('bRVoltage')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('bRVoltage')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+    
+                    <td>
+                      <input type="text" formControlName="bRResistance" [ngClass]="{ 'is-invalid': submitted && a.get('bRResistance')?.errors }">
+                      <div *ngIf="submitted && a.get('bRResistance')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('bRResistance')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+                  </tr>
+    
+                  <tr>
+                    <td>
+                      N-E
+                    </td>
+    
+                    <td>
+                      <input type="text" formControlName="nEVoltage" [ngClass]="{ 'is-invalid': submitted && a.get('nEVoltage')?.errors }">
+                      <div *ngIf="submitted && a.get('nEVoltage')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('nEVoltage')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+    
+                    <td>
+                      <input type="text" formControlName="nEResistance" [ngClass]="{ 'is-invalid': submitted && a.get('nEResistance')?.errors }">
+                      <div *ngIf="submitted && a.get('nEResistance')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('nEResistance')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+           
+            <br>
+
+            <div class="table-responsive">
+              <table class="table" style="width: 35%; border: 1px solid black">
+                <thead>
+                  <tr>
+                    <th>
+                      Reference
+                    </th>
+  
+                    <th>
+                      Load Current(A)
+                    </th>
+                  </tr>
+                </thead>
+  
+                <tbody>
+                  <tr>
+                    <td>
+                      IR
+                    </td>
+  
+                    <td>
+                      <input type="text" formControlName="iRCurrent" [ngClass]="{ 'is-invalid': submitted && a.get('iRCurrent')?.errors }">
+                      <div *ngIf="submitted && a.get('iRCurrent')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('iRCurrent')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+                  </tr>
+  
+                  <tr>
+                    <td>
+                      IY
+                    </td>
+  
+                    <td>
+                      <input type="text" formControlName="iYCurrent" [ngClass]="{ 'is-invalid': submitted && a.get('iYCurrent')?.errors }">
+                      <div *ngIf="submitted && a.get('iYCurrent')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('iYCurrent')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+                  </tr>
+  
+                  <tr>
+                    <td>
+                      IB
+                    </td>
+  
+                    <td>
+                      <input type="text" formControlName="iBCurrent" [ngClass]="{ 'is-invalid': submitted && a.get('iBCurrent')?.errors }">
+                      <div *ngIf="submitted && a.get('iBCurrent')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('iBCurrent')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+                  </tr>
+  
+                  <tr>
+                    <td>
+                      IN
+                    </td>
+  
+                    <td>
+                      <input type="text" formControlName="iNCurrent" [ngClass]="{ 'is-invalid': submitted && a.get('iNCurrent')?.errors }">
+                      <div *ngIf="submitted && a.get('iNCurrent')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('iNCurrent')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+                  </tr>
+  
+                  <tr>
+                    <td>
+                      IPE
+                    </td>
+  
+                    <td>
+                      <input type="text" formControlName="iPECurrent" [ngClass]="{ 'is-invalid': submitted && a.get('iPECurrent')?.errors }">
+                      <div *ngIf="submitted && a.get('iPECurrent')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('iPECurrent')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+                  </tr>
+  
+                </tbody>
+              </table>
+            </div>
+
+            <br>
+            
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Power Factor</label>
+                  <input type="number" class="form-control" formControlName="powerFactor" [ngClass]="{ 'is-invalid': submitted && a.get('powerFactor')?.errors }">
+                  <div *ngIf="submitted && a.get('powerFactor')?.errors" class="invalid-feedback">
+                    <div *ngIf="a.get('powerFactor')?.errors?.required">Neutral is required</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Frequency(Hz)</label>
+                  <input type="number" class="form-control" formControlName="frequency" [ngClass]="{ 'is-invalid': submitted && a.get('frequency')?.errors }">
+                  <div *ngIf="submitted && a.get('frequency')?.errors" class="invalid-feedback">
+                    <div *ngIf="a.get('frequency')?.errors?.required">Neutral is required</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <mat-icon class="mousechange" *ngIf="getGeneralTestingMCBControls().length>1" class="dlt" type="button" title="Delete"  (click)="removeMCBtesting(a,i)" style="float: right">remove_circle_outline</mat-icon>
+            <br>
+          </ng-container>
+        </ng-container>
+
+        <br>
+        <ng-container formArrayName="safetyTestingMCB" *ngFor="let a of getSafetyTestingMCBControls(); let i = index">
+          <ng-container [formGroupName]="i">
+            <h2>Incomer -{{i+1}} (Testing related to safety)</h2>
+
+            <div class="table-responsive">
+              <table class="table" style="width: 100%; border: 1px solid black">
+                <thead>
+                  <tr>
+                    <th>
+                      Reference
+                    </th>
+
+                    <th>
+                      Fault Loop Impedence(mΩ)
+                    </th>
+
+                    <th>
+                      Prospective fault current (kA)
+                    </th>
+
+                    <th>
+                      Disconnection time (mS)
+                    </th>
+
+                    <th>
+                      Remarks
+                    </th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td>
+                      R-N
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="rNImpedence" [ngClass]="{ 'is-invalid': submitted && a.get('rNImpedence')?.errors }">
+                      <div *ngIf="submitted && a.get('rNImpedence')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('rNImpedence')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="rNCurrent" [ngClass]="{ 'is-invalid': submitted && a.get('rNCurrent')?.errors }">
+                      <div *ngIf="submitted && a.get('rNCurrent')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('rNCurrent')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="rNTime" [ngClass]="{ 'is-invalid': submitted && a.get('rNTime')?.errors }">
+                      <div *ngIf="submitted && a.get('rNTime')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('rNTime')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="rNRemarks">
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      Y-N
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="yNImpedence" [ngClass]="{ 'is-invalid': submitted && a.get('yNImpedence')?.errors }">
+                      <div *ngIf="submitted && a.get('yNImpedence')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('yNImpedence')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="yNCurrent" [ngClass]="{ 'is-invalid': submitted && a.get('yNCurrent')?.errors }">
+                      <div *ngIf="submitted && a.get('yNCurrent')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('yNCurrent')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="yNTime" [ngClass]="{ 'is-invalid': submitted && a.get('yNTime')?.errors }">
+                      <div *ngIf="submitted && a.get('yNTime')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('yNTime')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="yNRemarks">
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      B-N
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="bNImpedence" [ngClass]="{ 'is-invalid': submitted && a.get('bNImpedence')?.errors }">
+                      <div *ngIf="submitted && a.get('bNImpedence')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('bNImpedence')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="bNCurrent" [ngClass]="{ 'is-invalid': submitted && a.get('bNCurrent')?.errors }">
+                      <div *ngIf="submitted && a.get('bNCurrent')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('bNCurrent')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="bNTime" [ngClass]="{ 'is-invalid': submitted && a.get('bNTime')?.errors }">
+                      <div *ngIf="submitted && a.get('bNTime')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('bNTime')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="bNRemarks">
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      R-E
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="rEImpedence" [ngClass]="{ 'is-invalid': submitted && a.get('rEImpedence')?.errors }">
+                      <div *ngIf="submitted && a.get('rEImpedence')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('rEImpedence')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="rECurrent" [ngClass]="{ 'is-invalid': submitted && a.get('rECurrent')?.errors }">
+                      <div *ngIf="submitted && a.get('rECurrent')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('rECurrent')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="rETime" [ngClass]="{ 'is-invalid': submitted && a.get('rETime')?.errors }">
+                      <div *ngIf="submitted && a.get('rETime')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('rETime')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="rERemarks">
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      Y-E
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="yEImpedence" [ngClass]="{ 'is-invalid': submitted && a.get('yEImpedence')?.errors }">
+                      <div *ngIf="submitted && a.get('yEImpedence')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('yEImpedence')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="yECurrent" [ngClass]="{ 'is-invalid': submitted && a.get('yECurrent')?.errors }">
+                      <div *ngIf="submitted && a.get('yECurrent')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('yECurrent')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="yETime" [ngClass]="{ 'is-invalid': submitted && a.get('yETime')?.errors }">
+                      <div *ngIf="submitted && a.get('yETime')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('yETime')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="yERemarks">
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      B-E
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="bEImpedence" [ngClass]="{ 'is-invalid': submitted && a.get('bEImpedence')?.errors }">
+                      <div *ngIf="submitted && a.get('bEImpedence')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('bEImpedence')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="bECurrent" [ngClass]="{ 'is-invalid': submitted && a.get('bECurrent')?.errors }">
+                      <div *ngIf="submitted && a.get('bECurrent')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('bECurrent')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="bETime" [ngClass]="{ 'is-invalid': submitted && a.get('bETime')?.errors }">
+                      <div *ngIf="submitted && a.get('bETime')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('bETime')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="bERemarks">
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      R-Y
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="rYImpedence" [ngClass]="{ 'is-invalid': submitted && a.get('rYImpedence')?.errors }">
+                      <div *ngIf="submitted && a.get('rYImpedence')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('rYImpedence')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="rYCurrent" [ngClass]="{ 'is-invalid': submitted && a.get('rYCurrent')?.errors }">
+                      <div *ngIf="submitted && a.get('rYCurrent')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('rYCurrent')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="rYTime" [ngClass]="{ 'is-invalid': submitted && a.get('rYTime')?.errors }">
+                      <div *ngIf="submitted && a.get('rYTime')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('rYTime')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="rYRemarks">
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      Y-B
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="yBImpedence" [ngClass]="{ 'is-invalid': submitted && a.get('yBImpedence')?.errors }">
+                      <div *ngIf="submitted && a.get('yBImpedence')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('yBImpedence')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="yBCurrent" [ngClass]="{ 'is-invalid': submitted && a.get('yBCurrent')?.errors }">
+                      <div *ngIf="submitted && a.get('yBCurrent')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('yBCurrent')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="yBTime" [ngClass]="{ 'is-invalid': submitted && a.get('yBTime')?.errors }">
+                      <div *ngIf="submitted && a.get('yBTime')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('yBTime')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="yBRemarks">
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      B-R
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="bRImpedence" [ngClass]="{ 'is-invalid': submitted && a.get('bRImpedence')?.errors }">
+                      <div *ngIf="submitted && a.get('bRImpedence')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('bRImpedence')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="bRCurrent" [ngClass]="{ 'is-invalid': submitted && a.get('bRCurrent')?.errors }">
+                      <div *ngIf="submitted && a.get('bRCurrent')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('bRCurrent')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="bRTime" [ngClass]="{ 'is-invalid': submitted && a.get('bRTime')?.errors }">
+                      <div *ngIf="submitted && a.get('bRTime')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('bRTime')?.errors?.required">Neutral is required</div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="text" formControlName="bRRemarks">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <br>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Touch/Shock Voltage (V)</label>
+                  <input type="number" class="form-control" formControlName="shockVoltage" 
+                  [ngClass]="{ 'is-invalid': submitted && a.get('shockVoltage')?.errors }">
+                  <div *ngIf="submitted && a.get('shockVoltage')?.errors" class="invalid-feedback">
+                    <div *ngIf="a.get('shockVoltage')?.errors?.required">Neutral is required</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Floor Resistance (MΩ)</label>
+                  <input type="number" class="form-control" formControlName="floorResistance" 
+                  [ngClass]="{ 'is-invalid': submitted && a.get('floorResistance')?.errors }">
+                  <div *ngIf="submitted && a.get('floorResistance')?.errors" class="invalid-feedback">
+                    <div *ngIf="a.get('floorResistance')?.errors?.required">Neutral is required</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Wall Resistance (MΩ)</label>
+                  <input type="number" class="form-control" formControlName="wallResistance" 
+                  [ngClass]="{ 'is-invalid': submitted && a.get('wallResistance')?.errors }">
+                  <div *ngIf="submitted && a.get('wallResistance')?.errors" class="invalid-feedback">
+                    <div *ngIf="a.get('wallResistance')?.errors?.required">Neutral is required</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <mat-icon class="mousechange" *ngIf="getGeneralTestingMCBControls().length>1" class="dlt" type="button" title="Delete"  (click)="removeMCBtesting(a,i)" style="float: right">remove_circle_outline</mat-icon>
+
+          </ng-container>
+        </ng-container>
+        </form>
+      </div>
+    </div>
+    </div>
+  <br>
+
+  <div style="display: inline">    
+    <button type="button"  style="float: left; margin-left: 400px"
+      class="btn btn-info" (click)="saveMCB()">
+      <i class="bi bi-person-plus-fill icon"></i> Save
+    </button>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <button type="button"  class="btn btn-danger" aria-label="Close"  (click)="closeModalDialog()"
+      style="float: right; margin-right: 400px" >
+      <span aria-hidden="true">Cancel</span>
+    </button>
+  </div>
+  </ng-template>
+
+<ng-template #content10 let-modal style="max-height: calc(100vh-212px); overflow-y: auto">
+  <div class="modal-header" style="text-align: center; display: block">
+    <h2 class="modal-title" style="display: contents">Supply Characteristics HV</h2>
+    <h3 class="modal-title" style="display: contents">(Route cause analysis of an existing installation up to 1000 V AC and 1500 V DC)</h3>
+
+  </div>
+
+  <div class="modal-body" >
+    <mat-horizontal-stepper  #stepper>
+      <mat-step>
+        <ng-template matStepLabel>
+             <div class="stepper-header-overlay"></div>
+             Basic Information
+        </ng-template>
+        <div class="card">
+          <div class="card-body">
+            <h2>
+              1. Supply Characteristics
+            </h2>
+            <div class="row">
+              <div class="col-md-4">
+                <label>Total number of incoming supply from state electricity board</label>
+                <input type="text" class="form-control">
+              </div>
+            </div>
+
+            <br>
+            <h3 style="text-align: center">Supply Characteristics of incoming supply 1</h3>
+            <br>
+            <div class="row">
+              <div class="col-md-4">
+                <label>Reference Name</label>
+                <input type="text" class="form-control">
+              </div>
+      
+              <div class="col-md-4">
+                <label>Voltage Rating(V)</label>
+                <input type="number" class="form-control">
+              </div>
+            </div>
+
+            <br>
+            <h3 style="text-align: center">Conductor/Cable Size(sq.mm.)</h3>
+            <br>
+            <div class="row">
+              <div class="col-md-4">
+                <label>Phase</label>
+                <input type="number" class="form-control">
+              </div>
+              <div class="col-md-4">
+                <label>Neutral</label>
+                <input type="number" class="form-control">
+              </div>
+              <div class="col-md-4">
+                <label>Protective Conductor</label>
+                <input type="number" class="form-control">
+              </div>
+            </div>
+
+            <br>
+            <h3>2. Main receiving HV switch board</h3>
+            <select  class="form-control">
+              <option value="">Select Option</option>
+              <option value="Applicable">Applicable</option>
+              <option value="Not Applicable">Not Applicable</option>
+            </select>     
+            <br>
+
+            <div class="row">
+              <div class="col-md-4">
+                <label>Reference name</label>
+                <input type="text" class="form-control">
+              </div>
+
+              <div class="col-md-4">
+                <label>Total number of incoming supply</label>
+                <input type="number" class="form-control">
+              </div>
+
+              <div class="col-md-4">
+                <label>Total number of buscouplers</label>
+                <input type="number" class="form-control">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <label>Total number of outgoing circuit in use</label>
+                <input type="number" class="form-control">
+              </div>
+
+              <div class="col-md-4">
+                <label>Total number of spare outgoing circuit</label>
+                <input type="number" class="form-control">
+              </div>
+            </div>
+
+
+
+          </div>
+        </div>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>
+             <div class="stepper-header-overlay"></div>
+             Basic Information 1
+        </ng-template>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>
+             <div class="stepper-header-overlay"></div>
+             Basic Information 2
+        </ng-template>
+      </mat-step>
+
+
+    </mat-horizontal-stepper>
+  </div>
+  <br>
+      <button type="button" *ngIf="popup" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+      aria-label="Close"  (click)="closeModalDialog()">
+      <span aria-hidden="true">Ok</span>
+  </button>
+  </ng-template>
+
+<ng-template #content1 let-modal>
+  <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinner"
+    color="primary"
+    [mode]="mode"
+    value="50"
+    diameter="50">
+    </mat-progress-spinner>
+    <br>
+    <div *ngIf="finalSpinner" style="text-align: center;">
+      Diagram Save in Progress!
+    </div>
+  <div class="modal-body" *ngIf="popup">
+   <div class="centre-text m-btm30">
+    <div *ngIf="success" style="text-align: center;">
+      <span class="successshow">{{successMsg}}</span>
+     </div>
+     <div *ngIf="Error" style="text-align: center;">
+       <span class="errorshow">{{errorMsg}}</span>
+      </div>
+    </div>
+   </div>
+  <br>
+     <button type="button" *ngIf="popup" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+     aria-label="Close"  (click)="closeModalDialog()">
+      <span aria-hidden="true">Ok</span>
+  </button>
+  </ng-template>
