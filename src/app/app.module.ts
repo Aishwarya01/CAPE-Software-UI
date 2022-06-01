@@ -100,6 +100,11 @@ import { LpssummaryComponent } from './LPS/lpssummary/lpssummary.component';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import { SignatureComponent } from './signature/signature.component'
 
+import { DiagramAllModule, SymbolPaletteAllModule, OverviewAllModule } from '@syncfusion/ej2-angular-diagrams';
+import { DiagramListComponent } from './diagram-list/diagram-list.component';
+import { DiagramHomeComponent } from './diagram-home/diagram-home.component';
+import { DiagramWelcomePageComponent } from './diagram-welcome-page/diagram-welcome-page.component';
+import { NewFileComponent } from './new-file/new-file.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -164,8 +169,7 @@ import { SignatureComponent } from './signature/signature.component'
     LpsEarthStudComponent,
     LpsSavedReportComponent,
     LpsWelcomePageComponent, 
-    LpsFinalReportComponent, LpssummaryComponent, 
-
+    LpsFinalReportComponent, SignatureComponent, DiagramListComponent, DiagramHomeComponent, DiagramWelcomePageComponent, NewFileComponent, LpssummaryComponent,
   ],
   imports: [
     SignaturePadModule,
@@ -197,6 +201,9 @@ import { SignatureComponent } from './signature/signature.component'
     MatBadgeModule,
     MatProgressSpinnerModule,
     MatTooltipModule,
+    DiagramAllModule,
+    SymbolPaletteAllModule,
+    OverviewAllModule,
     BackButtonDisableModule.forRoot({
       preserveScrollPosition: true
     }),

@@ -1,4 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */ 
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 html, body { height: 100%; }
@@ -378,22 +378,22 @@ max-height:300px; overflow-y:auto; overflow-x:hidden;
 
 #style-1::-webkit-scrollbar-track
 {
-	-webkit-box-shadow: inset 0 0 6px rgb(0 0 0 / 8%);
-	border-radius: 10px;
-	background-color: #F5F5F5;
+-webkit-box-shadow: inset 0 0 6px rgb(0 0 0 / 8%);
+border-radius: 10px;
+background-color: #F5F5F5;
 }
 
 #style-1::-webkit-scrollbar
 {
-	width: 12px;
-	background-color: #F5F5F5;
+width: 12px;
+background-color: #F5F5F5;
 }
 
 #style-1::-webkit-scrollbar-thumb
 {
-	border-radius: 10px;
-	-webkit-box-shadow: inset 0 0 6px rgb(0 0 0 / 8%);
-	background-color: rgb(0 0 0 / 8%);
+border-radius: 10px;
+-webkit-box-shadow: inset 0 0 6px rgb(0 0 0 / 8%);
+background-color: rgb(0 0 0 / 8%);
 }
 
 .mat-badge-content {
@@ -1447,6 +1447,86 @@ input::-webkit-inner-spin-button {
      overflow-y: auto!important;
      height: 120px !important;
  }
+
+ .sb-mobile-palette {
+  width:240px;
+  height:100%;
+  float:right;
+}
+
+.sb-mobile-palette-bar {
+  display: none;
+}
+
+.sb-mobile-diagram {
+  width:calc(100% - 242px);
+  height: 100%;
+  float: left;
+}
+
+@media (max-width: 550px) {
+
+  .sb-mobile-palette {
+      z-index: 19;
+      position: absolute;
+      display: none;
+      transition: transform 300ms linear, visibility 0s linear 300ms;
+      width:39%;
+      height:100%;
+  }
+  
+  .sb-mobile-palette-bar {
+      display: block;
+      width: 100%;
+      background:#fafafa;
+      padding: 10px 10px;
+      border:0.5px solid #e0e0e0;
+      min-height: 40px;
+  }
+  
+  .sb-mobile-diagram {
+      width: 100%;
+      height: 100%;
+      float: left;
+      left: 0px;
+  }
+
+  #palette-icon {
+      font-size: 20px; 
+  }
+}
+  
+.sb-mobile-palette-open {
+  position: absolute;
+  display: block;
+}
+
+@font-face {
+  font-family: 'e-ddb-icons1';
+  src: url(data:application/x-font-ttf;charset=utf-8;base64,AAEAAAAKAIAAAwAgT1MvMj1tSfIAAAEoAAAAVmNtYXDnEOdVAAABiAAAADZnbHlmdC1P4gAAAcgAAAAwaGVhZBJhohMAAADQAAAANmhoZWEIVQQDAAAArAAAACRobXR4CAAAAAAAAYAAAAAIbG9jYQAYAAAAAAHAAAAABm1heHABDgAUAAABCAAAACBuYW1lm+wy9gAAAfgAAAK1cG9zdLnsYngAAASwAAAAMAABAAAEAAAAAFwEAAAAAAAD+AABAAAAAAAAAAAAAAAAAAAAAgABAAAAAQAAgNcenF8PPPUACwQAAAAAANelrs4AAAAA16WuzgAAAAAD+AN6AAAACAACAAAAAAAAAAEAAAACAAgAAgAAAAAAAgAAAAoACgAAAP8AAAAAAAAAAQQAAZAABQAAAokCzAAAAI8CiQLMAAAB6wAyAQgAAAIABQMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUGZFZABA5wDnAAQAAAAAXAQAAAAAAAABAAAAAAAABAAAAAQAAAAAAAACAAAAAwAAABQAAwABAAAAFAAEACIAAAAEAAQAAQAA5wD//wAA5wD//wAAAAEABAAAAAEAAAAAAAAAGAAAAAIAAAAAA/gDegACAAcAACUhCQEhATUhAQQC9P6G/YoBMQFF/YqGAjf+hgH0QwAAAAAAEgDeAAEAAAAAAAAAAQAAAAEAAAAAAAEAEwABAAEAAAAAAAIABwAUAAEAAAAAAAMAEwAbAAEAAAAAAAQAEwAuAAEAAAAAAAUACwBBAAEAAAAAAAYAEwBMAAEAAAAAAAoALABfAAEAAAAAAAsAEgCLAAMAAQQJAAAAAgCdAAMAAQQJAAEAJgCfAAMAAQQJAAIADgDFAAMAAQQJAAMAJgDTAAMAAQQJAAQAJgD5AAMAAQQJAAUAFgEfAAMAAQQJAAYAJgE1AAMAAQQJAAoAWAFbAAMAAQQJAAsAJAGzIERpYWdyYW1fU2hhcGVzX0ZPTlRSZWd1bGFyRGlhZ3JhbV9TaGFwZXNfRk9OVERpYWdyYW1fU2hhcGVzX0ZPTlRWZXJzaW9uIDEuMERpYWdyYW1fU2hhcGVzX0ZPTlRGb250IGdlbmVyYXRlZCB1c2luZyBTeW5jZnVzaW9uIE1ldHJvIFN0dWRpb3d3dy5zeW5jZnVzaW9uLmNvbQAgAEQAaQBhAGcAcgBhAG0AXwBTAGgAYQBwAGUAcwBfAEYATwBOAFQAUgBlAGcAdQBsAGEAcgBEAGkAYQBnAHIAYQBtAF8AUwBoAGEAcABlAHMAXwBGAE8ATgBUAEQAaQBhAGcAcgBhAG0AXwBTAGgAYQBwAGUAcwBfAEYATwBOAFQAVgBlAHIAcwBpAG8AbgAgADEALgAwAEQAaQBhAGcAcgBhAG0AXwBTAGgAYQBwAGUAcwBfAEYATwBOAFQARgBvAG4AdAAgAGcAZQBuAGUAcgBhAHQAZQBkACAAdQBzAGkAbgBnACAAUwB5AG4AYwBmAHUAcwBpAG8AbgAgAE0AZQB0AHIAbwAgAFMAdAB1AGQAaQBvAHcAdwB3AC4AcwB5AG4AYwBmAHUAcwBpAG8AbgAuAGMAbwBtAAAAAAIAAAAAAAAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgECAQMABlNoYXBlcwAA) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+.e-ddb-icons1 {
+  font-family: 'e-ddb-icons1';
+  speak: none;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.e-toggle-palette::before {
+  content: "\e700"
+}
+
+#symbolpalette_container {
+  height: 100% !important;
+}
 
  .alertDanger {
   margin-right: 70px;
