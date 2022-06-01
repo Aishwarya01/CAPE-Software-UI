@@ -1092,6 +1092,8 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
       this.rcbo.voltage = i.voltage;
       this.rcbo.noOfPoles = i.noOfPoles;
       this.rcbo.currentCurve = i.currentCurve;
+      this.rcbo.residualCurrentType = i.residualCurrentType;
+      this.rcbo.residualCurrent = i.residualCurrent;
       this.rcbo.outgoingSizePhase = i.outgoingSizePhase;
       this.rcbo.outgoingSizeNeutral = i.outgoingSizeNeutral;
       this.rcbo.outgoingSizeProtective =i.outgoingSizeProtective;
