@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { arrow90DegDown } from 'ngx-bootstrap-icons';
 import { RiskAssessmentDetails } from '../../Risk Assesment Model/risk-assessment-details';
 import { RiskAssessmentDetailsServiceService } from '../../Risk Assessment Services/risk-assessment-details-service.service';
+import { RiskglobalserviceService } from '../../riskglobalservice.service';
 
 @Component({
   selector: 'app-risk-assessment-details',
@@ -20,17 +21,32 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   validationError = false;
   validationErrorMsg = '';
   locationList: any= [];
+  step2List: any = [];
   showFlashDensity: boolean= true;
   errorMsg: string='';
   successMsg: string='';
+  proceedFlag: boolean = true;
   Error: boolean=false;
   success: boolean=false;
+  flag: boolean = false;
   // FormArray Name List
   structureAttributes!: FormArray;
   losses!: FormArray;
   structureCharacters!: FormArray;
   heightnear:any=[];
   popup1: boolean=false;
+  popup: boolean=false;
+  success1: boolean=false;
+  errorArr: any=[];
+  @Output() proceedNext = new EventEmitter<any>();
+  riskList: any=[];
+  isEditable: any;
+  disable: boolean=false;
+  popArray: any = [];
+  riskId: Number=0;
+  locationRtr: String = "";
+  getLocation: String='';
+
   // brick: String='1';
   // rccwithBrick: String='0.5';
   // pebwithsheet: String='0.2';
@@ -40,7 +56,8 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   constructor(private router: ActivatedRoute,
               private formBuilder: FormBuilder,
               private modalService: NgbModal,
-              private riskAssessmentService: RiskAssessmentDetailsServiceService
+              private riskAssessmentService: RiskAssessmentDetailsServiceService,
+              public riskGlobal: RiskglobalserviceService,
   ) { }
 
   ngOnInit(): void {
@@ -136,9 +153,9 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     humanLossOfInjuryOfElectricShock: new FormControl('',[Validators.required]),
     humanLossOfPhysicalDamageL1: new FormControl('',[Validators.required]),
     humanLossOffailureOfInternalSystemL1: new FormControl('',[Validators.required]),
-    SerToPubPhysicalDamage: new FormControl('',[Validators.required]),
+    serToPubPhysicalDamage: new FormControl('',[Validators.required]),
     serToPubfailureOfInternalSystem: new FormControl('',[Validators.required]),
-    SerToPubPhysicalDamageL1: new FormControl('',[Validators.required]),
+    serToPubPhysicalDamageL1: new FormControl('',[Validators.required]),
     serToPubfailureOfInternalSystemL1: new FormControl('',[Validators.required]),
     culHerOfPhysicalDamage: new FormControl('',[Validators.required]),
     culHerOfPhysicalDamageL1: new FormControl('',[Validators.required]),
@@ -150,15 +167,112 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     classOfLPS: new FormControl('',[Validators.required]),
     classOfSPD: new FormControl('',[Validators.required]),
 
-    protectionPEB:new FormControl(''),
-    protectionPMS:new FormControl(''),
-    protectionPM:new FormControl(''),
-    protectionPA:new FormControl(''),
-    protectionPC:new FormControl(''),
-    protectionPU:new FormControl(''),
-    protectionPV:new FormControl(''),
-    protectionPW:new FormControl(''),
-    protectionPZ:new FormControl(''),
+    // protectionPEB:new FormControl(''),
+    // protectionPMS:new FormControl(''),
+    // protectionPM:new FormControl(''),
+    // protectionPA:new FormControl(''),
+    // protectionPC:new FormControl(''),
+    // protectionPU:new FormControl(''),
+    // protectionPV:new FormControl(''),
+    // protectionPW:new FormControl(''),
+    // protectionPZ:new FormControl(''),
+    })
+  }
+
+  
+  structureCharactersFormRtr(item: any, form:any): FormGroup {
+    this.getLocation=item.location;
+    return this.formBuilder.group({
+      structureCharacteristicsId: new FormControl({ disabled: false, value: item.structureCharacteristicsId }),
+      location: new FormControl({ disabled: false, value: item.location }, Validators.required),
+      otherLocation: new FormControl({ disabled: false, value: item.otherLocation }),
+      groundFlashDensity: new FormControl({ disabled: false, value: item.groundFlashDensity }, Validators.required),
+      typeOfBuilding: new FormControl({ disabled: false, value: item.typeOfBuilding }, Validators.required),
+      structureScreeningEffectiveness: new FormControl({ disabled: false, value: item.structureScreeningEffectiveness }, Validators.required),
+      internalScreeningEffectiveness: new FormControl({ disabled: false, value: item.internalScreeningEffectiveness }, Validators.required),
+      protrusionLenght: new FormControl({ disabled: false, value: item.protrusionLenght }, Validators.required),
+      protrusionWidth: new FormControl({ disabled: false, value: item.protrusionWidth }, Validators.required),
+      protrusionHeight: new FormControl({ disabled: false, value: item.protrusionHeight }, Validators.required),
+      heighestRoofProtrusion: new FormControl({ disabled: false, value: item.heighestRoofProtrusion }, Validators.required),
+      collectionAreaOfStructure: new FormControl({ disabled: false, value: item.collectionAreaOfStructure }, Validators.required),
+      collAreaOfStrucWithProtrusion: new FormControl({ disabled: false, value: item.collAreaOfStrucWithProtrusion }, Validators.required),
+      collAreaOfNearStructure: new FormControl({ disabled: false, value: item.collAreaOfNearStructure }, Validators.required),
+      heightNearByStructure: new FormControl({ disabled: false, value: item.heightNearByStructure }, Validators.required),
+      telephoneServiceLine: new FormControl({ disabled: false, value: item.telephoneServiceLine }, Validators.required),
+      environment: new FormControl({ disabled: false, value: item.environment }, Validators.required),
+      noOfDangerousEventOnStructure: new FormControl({ disabled: false, value: item.noOfDangerousEventOnStructure }, Validators.required),
+      noOfDangerousEventNearStructure: new FormControl({ disabled: false, value: item.noOfDangerousEventNearStructure }, Validators.required),
+      protectionPartOFBuilding: new FormControl({ disabled: false, value: item.protectionPartOFBuilding }, Validators.required),
+      protectionLenght: new FormControl({ disabled: false, value: item.protectionLenght }, Validators.required),
+      protectionWidth: new FormControl({ disabled: false, value: item.protectionWidth }, Validators.required),
+      protectionHeight: new FormControl({ disabled: false, value: item.protectionHeight }, Validators.required),
+      protectionCollectionArea: new FormControl({ disabled: false, value: item.protectionCollectionArea }, Validators.required),
+      adjacentBuilding: new FormControl({ disabled: false, value: item.adjacentBuilding }, Validators.required),
+      adjacentLength: new FormControl({ disabled: false, value: item.adjacentLength }, Validators.required),
+      adjacentWidth: new FormControl({ disabled: false, value: item.adjacentWidth }, Validators.required),
+      adjacentHeight: new FormControl({ disabled: false, value: item.adjacentHeight }, Validators.required),
+      collAreaOfAdjacentStruc: new FormControl({ disabled: false, value: item.collAreaOfAdjacentStruc }, Validators.required),
+      noOfDangEventOnAdjacentStruc: new FormControl({ disabled: false, value: item.noOfDangEventOnAdjacentStruc }, Validators.required),
+      noOfPeopleInBuilding: new FormControl({ disabled: false, value: item.noOfPeopleInBuilding }, Validators.required),
+      noOfPeopleInZone: new FormControl({ disabled: false, value: item.noOfPeopleInZone }, Validators.required),
+      dayPeoplePresentBuilding: new FormControl({ disabled: false, value: item.dayPeoplePresentBuilding }, Validators.required),
+      yearPeoplePresentBuilding: new FormControl({ disabled: false, value: item.yearPeoplePresentBuilding }, Validators.required),
+
+      structureAttributes: this.formBuilder.array([this.createStructureAttributesFormRtr(item.structureAttributes[0])]),
+      losses: this.formBuilder.array([this.createLossesFormRtr(item.losses[0])]),
+    })
+  }
+
+  createStructureAttributesFormRtr(item: any): FormGroup {
+    return this.formBuilder.group({
+      structureAttributesId: new FormControl({ disabled: false, value: item.structureAttributesId }),
+      stTypeOfFloorSurface: new FormControl({ disabled: false, value: item.stTypeOfFloorSurface }, Validators.required),
+      stAdditionalProtection: new FormControl({ disabled: false, value: item.stAdditionalProtection }, Validators.required),
+      stRiskOfFire: new FormControl({ disabled: false, value: item.stRiskOfFire }, Validators.required),
+      stFireProtectionMeasure: new FormControl({ disabled: false, value: item.stFireProtectionMeasure }, Validators.required),
+      stTypeOfInternalWiring: new FormControl({ disabled: false, value: item.stTypeOfInternalWiring }, Validators.required),
+      totalNoOfLines: new FormControl({ disabled: false, value: item.totalNoOfLines }, Validators.required),
+      noOfPowerLines: new FormControl({ disabled: false, value: item.noOfPowerLines }, Validators.required),
+      typeOfPowerLines: new FormControl({ disabled: false, value: item.typeOfPowerLines }, Validators.required),
+      lengthOfPowerLines: new FormControl({ disabled: false, value: item.lengthOfPowerLines }, Validators.required),
+      shieldingGroundingIsolation: new FormControl({ disabled: false, value: item.shieldingGroundingIsolation }, Validators.required),
+      collAreaOfPowerLines: new FormControl({ disabled: false, value: item.collAreaOfPowerLines }, Validators.required),
+      collAreaOfNearLines: new FormControl({ disabled: false, value: item.collAreaOfNearLines }, Validators.required),
+      eventNearThePowerLines: new FormControl({ disabled: false, value: item.eventNearThePowerLines }, Validators.required),
+      eventOnThePowerLines: new FormControl({ disabled: false, value: item.eventOnThePowerLines }, Validators.required),
+      noOfTelecomLines: new FormControl({ disabled: false, value: item.noOfTelecomLines }, Validators.required),
+      typeOfTelecomLines: new FormControl({ disabled: false, value: item.typeOfTelecomLines }, Validators.required),
+      lengthOfTelecomLines: new FormControl({ disabled: false, value: item.lengthOfTelecomLines }, Validators.required),
+      shieldingGroundingIsolationL1: new FormControl({ disabled: false, value: item.shieldingGroundingIsolationL1 }, Validators.required),
+      collAreaOfTelecomLines: new FormControl({ disabled: false, value: item.collAreaOfTelecomLines }, Validators.required),
+      collNearOfTelecomLines: new FormControl({ disabled: false, value: item.collNearOfTelecomLines }, Validators.required),
+      eventNearTheTelecomeLines: new FormControl({ disabled: false, value: item.eventNearTheTelecomeLines }, Validators.required),
+      eventOnTheTelecomLines: new FormControl({ disabled: false, value: item.eventOnTheTelecomLines }, Validators.required),
+    })
+  }
+
+  createLossesFormRtr(item: any): FormGroup {
+    return this.formBuilder.group({
+      lossesId: new FormControl({ disabled: false, value: item.lossesId }, Validators.required),
+      hazardClassification: new FormControl({ disabled: false, value: item.hazardClassification }, Validators.required),
+      humanLossOfphysicalDamage: new FormControl({ disabled: false, value: item.humanLossOfphysicalDamage }, Validators.required),
+      humanLossOffailureOfInternalSystem: new FormControl({ disabled: false, value: item.humanLossOffailureOfInternalSystem }, Validators.required),
+      humanLossOfInjuryOfElectricShock: new FormControl({ disabled: false, value: item.humanLossOfInjuryOfElectricShock }, Validators.required),
+      humanLossOfPhysicalDamageL1: new FormControl({ disabled: false, value: item.humanLossOfPhysicalDamageL1 }, Validators.required),
+      humanLossOffailureOfInternalSystemL1: new FormControl({ disabled: false, value: item.humanLossOffailureOfInternalSystemL1 }, Validators.required),
+      serToPubPhysicalDamage: new FormControl({ disabled: false, value: item.serToPubPhysicalDamage }, Validators.required),
+      serToPubfailureOfInternalSystem: new FormControl({ disabled: false, value: item.serToPubfailureOfInternalSystem }, Validators.required),
+      serToPubPhysicalDamageL1: new FormControl({ disabled: false, value: item.serToPubPhysicalDamageL1 }, Validators.required),
+      serToPubfailureOfInternalSystemL1: new FormControl({ disabled: false, value: item.serToPubfailureOfInternalSystemL1 }, Validators.required),
+      culHerOfPhysicalDamage: new FormControl({ disabled: false, value: item.culHerOfPhysicalDamage }, Validators.required),
+      culHerOfPhysicalDamageL1: new FormControl({ disabled: false, value: item.culHerOfPhysicalDamageL1 }, Validators.required),
+      ecoLossOfPhysicalDamage: new FormControl({ disabled: false, value: item.ecoLossOfPhysicalDamage }, Validators.required),
+      ecoLossOfFailureOfInternalSystem: new FormControl({ disabled: false, value: item.ecoLossOfFailureOfInternalSystem }, Validators.required),
+      ecoLossOfInjuryOfElectricShock: new FormControl({ disabled: false, value: item.ecoLossOfInjuryOfElectricShock }, Validators.required),
+      ecoLossOfPhysicalDamageL1: new FormControl({ disabled: false, value: item.ecoLossOfPhysicalDamageL1 }, Validators.required),
+      ecoLossOfFailureOfInternalSystemL1: new FormControl({ disabled: false, value: item.ecoLossOfFailureOfInternalSystemL1 }, Validators.required),
+      classOfLPS: new FormControl({ disabled: false, value: item.classOfLPS }, Validators.required),
+      classOfSPD: new FormControl({ disabled: false, value: item.classOfSPD }, Validators.required),
     })
   }
 
@@ -181,6 +295,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 
   changeLocation(e: any, form:any) {
     let selectedValue = e.target.value;
+    this.getLocation='';
     for(let i of this.locationList) {
       if(i.gfdValue == selectedValue) {
         form.controls.groundFlashDensity.setValue(i.location);
@@ -335,11 +450,15 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       form.controls.adjacentLength.setValue('0.00');
       form.controls.adjacentWidth.setValue('0.00');
       form.controls.adjacentHeight.setValue('0.00');
+      form.controls.collAreaOfAdjacentStruc.clearValidators();
+      form.controls.collAreaOfAdjacentStruc.updateValueAndValidity();
     }
     else{
       form.controls.adjacentLength.setValue('');
       form.controls.adjacentWidth.setValue('');
       form.controls.adjacentHeight.setValue('');
+      form.controls.collAreaOfAdjacentStruc.setValidators(Validators.required);
+      form.controls.collAreaOfAdjacentStruc.updateValueAndValidity();
     }
   }
   // Math for Collection Area Of Adjacent Structure
@@ -463,10 +582,10 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       
       var a = form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure.value*form.controls.structureAttributes.controls[0].controls.stRiskOfFire.value*form.controls.losses.controls[0].controls.culHerOfPhysicalDamage.value*form.controls.noOfPeopleInZone.value/form.controls.noOfPeopleInBuilding.value;
 
-      form.controls.losses.controls[0].controls.SerToPubPhysicalDamageL1.setValue(a);
+      form.controls.losses.controls[0].controls.serToPubPhysicalDamageL1.setValue(a);
     }
     else{
-      form.controls.losses.controls[0].controls.SerToPubPhysicalDamageL1.setValue('');
+      form.controls.losses.controls[0].controls.serToPubPhysicalDamageL1.setValue('');
     }
     // Loss due to failure of internal systems 
     if(form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystem!='' && form.controls.noOfPeopleInZone!='' && form.controls.noOfPeopleInBuilding!=''){
@@ -554,7 +673,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     }
   }
 
-  gotoNextModal(contents: any) {
+  gotoNextModal(contents: any,content:any) {
     if (this.step2Form.invalid) {
       this.validationError = true;
       this.validationErrorMsg = 'Please check all the fields';
@@ -565,9 +684,9 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     }
     
     //  Update and Success msg will be showing
-    // if(this.step2Form.dirty && this.step2Form.touched){
-    //   this.modalService.open(content, { centered: true,backdrop: 'static' });
-    // }
+    if(this.step2Form.dirty && this.step2Form.touched){
+      this.modalService.open(content, { centered: true,backdrop: 'static' });
+    }
     //  For Dirty popup
     else{
       this.modalService.open(contents, { centered: true,backdrop: 'static' });
@@ -611,12 +730,46 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     this.modalService.dismissAll();
   }
 
+  retriveRiskDetails(){
+    this.proceedFlag = false;
+    this.riskAssessmentService.retriveRiskAssessmentDetails(this.router.snapshot.paramMap.get('email') || '{}',this.riskAssessmentDetails.riskId).subscribe(
+      data => {
+        if (JSON.parse(data)[0] != undefined && JSON.parse(data)[0].riskId != null) {
+          this.updateRiskDetails(this.riskAssessmentDetails.userName,this.riskId,data);
+        }
+      },
+      error => {
+      }
+    );  
+  }
 
-  onSubmit() {
+  updateRiskDetails(userName: any, riskId: any, data:any){
+    this.proceedFlag = false;
+    let list = JSON.parse(data);
+    this.step2List = list[0];
+      this.riskAssessmentDetails.riskId = riskId;
+      this.riskAssessmentDetails.createdBy = this.step2List.createdBy;
+      this.riskAssessmentDetails.createdDate = this.step2List.createdDate;
+      this.riskAssessmentDetails.userName = this.step2List.userName;
+      this.riskAssessmentDetails.userName = this.step2List.updatedDate;
+      this.riskAssessmentDetails.userName = this.step2List.updatedBy;
+      this.riskAssessmentRetrieve(this.step2List);
+      this.flag = true;
+  }
+
+  riskAssessmentRetrieve(item:any){
+    this.popArray.push(this.structureCharactersFormRtr(item,this.step2Form));
+    this.step2Form.setControl('structureCharacters', this.formBuilder.array(this.popArray || []));
+    this.popArray = [];
+  }
+
+  onSubmit(flag:any) {
     this.submitted=true;
-    if (this.step2Form.invalid) {
-      return;
-    }
+      if (this.step2Form.invalid) {
+        return;
+      }
+    //  this.spinner = true;
+     this.popup=false;
     // this.riskAssessmentDetails = this.step2Form.value;
     // if(this.riskAssessmentDetails.structureCharacteristics[0].typeOfBuilding == 'Brick'){
     //   this.riskAssessmentDetails.structureCharacteristics[0].typeOfBuilding=this.brick;
@@ -633,6 +786,81 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     // else if(this.riskAssessmentDetails.structureCharacteristics[0].typeOfBuilding == 'System designed by CAPE PEB building'){
     //   this.riskAssessmentDetails.structureCharacteristics[0].typeOfBuilding=this.pebbuilding;
     // }
+    
+    this.riskAssessmentDetails = this.step2Form.value.structureCharacters[0];
+    this.riskAssessmentDetails.riskId = this.riskGlobal.riskId;
+    this.riskAssessmentDetails.userName = this.router.snapshot.paramMap.get('email') || '{}';
+
+    if (!this.validationError) {
+      if(flag) {
+        if(this.step2Form.dirty && this.step2Form.touched){ 
+            this.riskAssessmentService.updateRiskAssessmentDetails(this.riskAssessmentDetails).subscribe(
+            data => {
+              // update success msg
+              this.popup=true;
+              this.success1 = false;
+              this.success=true;
+              this.successMsg=data;
+              this.step2Form.markAsPristine();
+              this.retriveRiskDetails();
+              this.proceedNext.emit(true);
+              
+            },
+              // update failed msg
+            error => {
+               this.popup=true;
+              //  this.spinner=false;
+              this.success1 = false;
+              this.Error = true;
+              this.errorArr = [];
+              this.errorArr = JSON.parse(error.error);
+              this.errorMsg = this.errorArr.message;
+              this.proceedNext.emit(false);
+            }
+          )}
+          else{
+             this.popup=true;
+            //  this.spinner=false;
+            // Preview fields
+            if(this.isEditable){
+               this.success = true;
+               this.proceedNext.emit(true);
+            }
+  
+            else{
+               this.popup=true;
+              //  this.spinner=false;
+              // Dirty checking here
+               this.success = true;
+               this.proceedNext.emit(true);
+            }
+          }
+      }
+      else {
+        this.riskAssessmentService.addRiskAssessmentDetails(this.riskAssessmentDetails).subscribe(
+          data => {
+            this.popup=true;
+            this.proceedFlag=false;
+            this.success=true;
+            // this.successMsg = "Risk Assessment Details Successfully Saved";
+            this.successMsg=data;
+            // this.updateRiskDetails(JSON.parse(data));
+            this.retriveRiskDetails();
+            this.disable = true;
+            this.step2Form.markAsPristine();
+          },
+          error => {
+             this.popup=true;
+            //  this.spinner=false;
+            this.Error = true;
+            this.errorArr = [];
+            this.proceedFlag = true;
+            this.errorArr = JSON.parse(error.error);
+            this.errorMsg = this.errorArr.message;
+            this.proceedNext.emit(false); 
+          })
+        }
+      }
   }
 
 }

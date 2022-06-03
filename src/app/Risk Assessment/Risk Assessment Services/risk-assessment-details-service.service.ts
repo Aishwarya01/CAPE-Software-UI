@@ -21,10 +21,10 @@ export class RiskAssessmentDetailsServiceService {
   }
 
   public updateRiskAssessmentDetails(riskAssessmentDetails: RiskAssessmentDetails): Observable<any> {
-    return this.http.put<any>(this.apiUrl + '/retrieveRiskAssessmentDetails', riskAssessmentDetails, { responseType: 'text' as 'json' })
+    return this.http.put<any>(this.apiUrl + '/updateRiskAssessmentDetails', riskAssessmentDetails, { responseType: 'text' as 'json' })
   }
 
-  public retriveRiskAssessmentDetails(userName: String): Observable<any>{
-    return this.http.get<any>(this.apiUrl + '/updateRiskAssessmentDetails' + '/' +userName, { responseType: 'text' as 'json' })
+  public retriveRiskAssessmentDetails(userName: String,riskId:any): Observable<any>{
+    return this.http.get<any>(this.apiUrl + '/retrieveRiskAssessmentDetails' + '/' +userName + '/' + riskId, { responseType: 'text' as 'json' })
   }
 }

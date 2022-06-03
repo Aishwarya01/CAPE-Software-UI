@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-body">
-    <form [formGroup]="step2Form" (ngSubmit)="onSubmit()" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">  
+    <form [formGroup]="step2Form" (ngSubmit)="onSubmit(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">  
     <ng-container class="row" formArrayName="structureCharacters" *ngFor="let f of overAllControls(); let i = index">
         <ng-container [formGroupName]="i">
             <mat-accordion>
@@ -17,7 +17,7 @@
                                     <select class="form-control" formControlName="location" (change)="changeLocation($event,f)"
                                     [ngClass]="{ 'is-invalid': submitted && f.get('location')?.errors }">
                                         <option value="" selected>Select Option</option>
-                                        <option *ngFor="let value of locationList">{{value.gfdValue}}</option>
+                                        <option *ngFor="let value of locationList" [selected]="value.gfdValue=== getLocation">{{value.gfdValue}}</option>
                                     </select>
                                     <div *ngIf="submitted && f.get('location')?.errors" class="invalid-feedback">
                                         <div *ngIf="f.get('location')?.errors?.required">Location is required</div>
@@ -888,15 +888,15 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Loss Due To Physical Damage :</label>
-                                        <select class="form-control" formControlName="SerToPubPhysicalDamage" (change)="lossHumanLifeL1($event,f)"
-                                        [ngClass]="{ 'is-invalid': submitted && b.get('SerToPubPhysicalDamage')?.errors }">
+                                        <select class="form-control" formControlName="serToPubPhysicalDamage" (change)="lossHumanLifeL1($event,f)"
+                                        [ngClass]="{ 'is-invalid': submitted && b.get('serToPubPhysicalDamage')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="0.1">Gas,water,power supply</option>
                                             <option value="0.01">TV, telecommunication lines</option>
                                             <option value="0">No Service</option>
                                         </select>
-                                        <div *ngIf="submitted && b.get('SerToPubPhysicalDamage')?.errors" class="invalid-feedback">
-                                            <div *ngIf="b.get('SerToPubPhysicalDamage')?.errors?.required">Installation type is required</div>
+                                        <div *ngIf="submitted && b.get('serToPubPhysicalDamage')?.errors" class="invalid-feedback">
+                                            <div *ngIf="b.get('serToPubPhysicalDamage')?.errors?.required">Installation type is required</div>
                                         </div>
                                     </div>
                                 </div>
@@ -920,10 +920,10 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Loss Due To Physical Damage :</label>
-                                        <input type="text"  class="form-control"  formControlName="SerToPubPhysicalDamageL1" placeholder="Enter Designation" 
-                                        [ngClass]="{ 'is-invalid': submitted && b.get('SerToPubPhysicalDamageL1')?.errors }">
-                                        <div *ngIf="submitted && b.get('SerToPubPhysicalDamageL1')?.errors" class="invalid-feedback">
-                                            <div *ngIf="b.get('SerToPubPhysicalDamageL1')?.errors?.required">Designation is required</div>
+                                        <input type="text"  class="form-control"  formControlName="serToPubPhysicalDamageL1" placeholder="Enter Designation" 
+                                        [ngClass]="{ 'is-invalid': submitted && b.get('serToPubPhysicalDamageL1')?.errors }">
+                                        <div *ngIf="submitted && b.get('serToPubPhysicalDamageL1')?.errors" class="invalid-feedback">
+                                            <div *ngIf="b.get('serToPubPhysicalDamageL1')?.errors?.required">Designation is required</div>
                                         </div>
                                     </div>            
                                 </div>
@@ -1148,16 +1148,48 @@
         </ng-container>
     </ng-container>
     <br>
-    <div class="row" style="margin-top: 20px;">
+    <div style="margin-top: 20px;text-align: center;">
         <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
-        <button class="next" (click)="gotoNextModal(contents)"
-        mat-button>Next &raquo;</button>
+        <button class="next" (click)="gotoNextModal(contents,content)"
+        mat-button>Submit &raquo;</button>
     </div>
 
     </form>
 
     </div>
 </div>
+
+<ng-template #content let-modal>
+    <!-- Spinner -->
+    <!-- <mat-progress-spinner style="margin: 0 auto;" *ngIf="spinner" color="primary" [mode]="mode" value="50" diameter="50">
+    </mat-progress-spinner>
+    <br>
+    <div *ngIf="spinner" style="text-align: center;">
+        Please wait, the details are loading!
+    </div> -->
+    <div class="modal-body" *ngIf="popup">
+        <div class="centre-text m-btm30">
+            <div *ngIf="success" style="text-align: center;">
+                <span class="successshow">{{successMsg}}</span>
+            </div>
+            <div *ngIf="Error" style="text-align: center;">
+                <span class="errorshow">{{errorMsg}}</span>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div *ngIf="popup" style="text-align: center;">
+        <button type="button" *ngIf="success" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+        aria-label="Close" (click)="closeModalDialog()" style="margin-left: 195px;width: 16%;" matStepperNext>
+         <span aria-hidden="true">Ok</span>
+        </button>
+    
+        <button type="button" *ngIf="Error" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+        aria-label="Close" (click)="closeModalDialog()" style="margin-left: 195px;width: 16%;" >
+        <span aria-hidden="true">Ok</span>
+        </button>
+    </div>
+  </ng-template> 
      
 <ng-template #contents let-modal>
     <div class="modal-body">

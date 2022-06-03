@@ -1,8 +1,13 @@
 export class RiskAssessmentDetails {
 
     structureCharacteristics!:StructureCharacteristics[];
-    structureAttributes!:StructureAttributes[];
-    losses!:Losses[];
+    
+    riskId!:Number;
+    userName!: String;
+    createdDate!: Date;
+    createdBy!: String;
+	updatedDate!: Date;
+    updatedBy!: String;
 }
 
 export class StructureCharacteristics {
@@ -45,6 +50,14 @@ export class StructureCharacteristics {
     userName!: String;
     updatedBy!: String;
     updatedDate!: String;
+
+    explosion!: String;
+    explosion1!: String;
+    fire!: String;
+    none!: String;
+
+    structureAttributes!:StructureAttributes[];
+    losses!:Losses[];
 }
 
 export class StructureAttributes {
@@ -81,9 +94,9 @@ export class Losses {
     humanLossOfInjuryOfElectricShock!: String;
     humanLossOfPhysicalDamageL1!: String;
     humanLossOffailureOfInternalSystemL1!: String;
-    SerToPubPhysicalDamage!: String;
+    serToPubPhysicalDamage!: String;
     serToPubfailureOfInternalSystem!: String;
-    SerToPubPhysicalDamageL1!: String;
+    serToPubPhysicalDamageL1!: String;
     serToPubfailureOfInternalSystemL1!: String;
     culHerOfPhysicalDamage!: String;
     culHerOfPhysicalDamageL1!: String;

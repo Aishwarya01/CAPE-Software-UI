@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalsService } from 'src/app/globals.service';
 import { CustomerDetails } from '../../Risk Assesment Model/customer-details';
 import { CustomerDetailsServiceService } from '../../Risk Assessment Services/customer-details-service.service';
+import { RiskglobalserviceService } from '../../riskglobalservice.service';
 
 @Component({
   selector: 'app-risk-customer-details',
@@ -46,6 +47,7 @@ export class RiskCustomerDetailsComponent implements OnInit {
     private modalService: NgbModal,
     private customerDetailsService :CustomerDetailsServiceService,
     public service: GlobalsService,
+    public riskGobal: RiskglobalserviceService
   ) {}
 
   ngOnInit(): void {
@@ -230,7 +232,7 @@ export class RiskCustomerDetailsComponent implements OnInit {
             this.success=true;
             this.successMsg=data;
             this.CustomerDetailsForm.markAsPristine();
-             this.proceedNext.emit(true);
+            this.proceedNext.emit(true);
             
           },
             // update failed msg
@@ -270,9 +272,11 @@ export class RiskCustomerDetailsComponent implements OnInit {
           this.proceedFlag=false;
           this.success=true;
           this.updateCustomerDetails(JSON.parse(data));
-          this.successMsg = "Basic Information sucessfully Saved";
+          this.successMsg = "Basic Information Successfully Saved";
           this.disable = true;
           this.CustomerDetailsForm.markAsPristine();
+          this.proceedNext.emit(true);
+          this.riskGobal.riskId=JSON.parse(data).riskId;
         },
         error => {
            this.popup=true;
