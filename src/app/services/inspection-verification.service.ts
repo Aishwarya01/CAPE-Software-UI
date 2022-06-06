@@ -17,6 +17,7 @@ export class InspectionVerificationService {
 
   apiUrl = environment.apiUrl_v2;
   apiUrl2= environment.apiUrl_v2;
+  apiUrl5 = environment.apiUrl_Diagram;
   constructor(private http: HttpClient) { }
 
   public updateBasic(reportDetails: Reportdetails): Observable<any> {
@@ -68,5 +69,56 @@ export class InspectionVerificationService {
 
   public notificationRetrieveComments(userName: any): Observable<any> {
     return this.http.get<any>(this.apiUrl2 + '/retrieveComments'+'/'+userName, { responseType: 'text' as 'json' })
+  }
+
+  public addDiagram(diagramComponent: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl5 + '/saveDiagram', diagramComponent, { responseType: 'text' as 'json' })
+  }
+
+  public updateDiagram(diagramComponent: any): Observable<any> {
+    return this.http.put<any>(this.apiUrl5 + '/updateDiagram', diagramComponent, { responseType: 'text' as 'json' })
+  }
+
+  public retriveDiagram(userName: any, fileName: any): Observable<any> {
+    return this.http.get<any>(this.apiUrl5 + '/retrieveDiagram'+'/'+userName+'/'+fileName, { responseType: 'text' as 'json' })
+  }
+
+  public retriveFileName(userName: any, fileName: any): Observable<any> {
+    return this.http.get<any>(this.apiUrl5 + '/retrievefileName'+'/'+userName+'/'+fileName, { responseType: 'text' as 'json' })
+  }
+
+  public retriveAllDiagram(userName: any): Observable<any> {
+    return this.http.get<any>(this.apiUrl5 + '/retrieveDiagramList'+'/'+userName, { responseType: 'text' as 'json' })
+  }
+  public fetchAllDiagramSymbols(): Observable<any> {
+    return this.http.get<any>(this.apiUrl5 + '/symbolList', { responseType: 'text' as 'json' })
+  }
+
+
+  //MCB
+  public addMCB(MCB: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl5 + '/saveMCB', MCB, { responseType: 'text' as 'json' })
+  }
+
+  public retriveMCB(fileName: any,nodeId: any): Observable<any> {
+    return this.http.get<any>(this.apiUrl5 + '/retrieveMCB'+'/'+fileName+'/'+nodeId, { responseType: 'text' as 'json' })
+  }
+
+  public updateMCB(MCB: any): Observable<any> {
+    return this.http.put<any>(this.apiUrl5 + '/updateMCB', MCB, { responseType: 'text' as 'json' })
+  }
+
+  //RCBO or MCB with RCD
+
+  public addRCBO(RCBO: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl5 + '/saveRCBO', RCBO, { responseType: 'text' as 'json' })
+  }
+
+  public retriveRCBO(fileName: any,nodeId: any): Observable<any> {
+    return this.http.get<any>(this.apiUrl5 + '/retrieveRCBO'+'/'+fileName+'/'+nodeId, { responseType: 'text' as 'json' })
+  }
+
+  public updateRCBO(RCBO: any): Observable<any> {
+    return this.http.put<any>(this.apiUrl5 + '/updateRCBO', RCBO, { responseType: 'text' as 'json' })
   }
 }

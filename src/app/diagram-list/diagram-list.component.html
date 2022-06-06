@@ -1,0 +1,88 @@
+<ng-template #ref ></ng-template>
+<app-diagram-home *ngIf="diagramHome" #diagram></app-diagram-home>
+<div class="card" *ngIf="!destroyList">
+    <div class="card-header">
+        <label style="float:right; margin-right: 100px; margin-top: 6px;">Create New SLD Diagram</label>
+        <button type="button" class="btn btn-info mousechange" (click) ="createNewFile()" title="Add New SLD Diagram" style="float:right; height: 38px; margin-right: -247px;">
+          <mat-icon>add_box</mat-icon>
+        </button>
+        
+    </div>
+    <div class="card-body" >
+            <mat-accordion>   
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        <h3>Saved SLD Diagrams</h3>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <table mat-table [dataSource]="savedDiagram_dataSource" class="mat-elevation-z8 table" matSort
+                #savedDiagramSort="matSort">
+
+                <!--- Note that these columns can be defined in any order.
+                            The actual rendered columns are set as a property on the row definition" -->
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="fileName">
+                  <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
+                    mat-sort-header> File Name </th>
+                  <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element"
+                    class="mousechange"> {{element.fileName}} </td>
+                </ng-container>
+    
+                <!-- Name Column -->
+                <ng-container matColumnDef="createdDate">
+                  <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
+                    mat-sort-header> Created Date </th>
+                  <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
+                    {{element.createdDate | date : 'shortDate'}} </td>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="createdBy">
+                  <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
+                    mat-sort-header> Created By </th>
+                  <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
+                    {{element.createdBy}} </td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="updatedDate">
+                  <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
+                    mat-sort-header> Updated Date </th>
+                  <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
+                    {{element.updatedDate | date : 'shortDate'}} </td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="updatedBy">
+                  <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
+                    mat-sort-header> Updated By </th>
+                  <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
+                    {{element.updatedBy}} </td>
+                </ng-container>
+
+                <!-- <ng-container matColumnDef="action">
+                    <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef> Action
+                    </th>
+                    <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
+                      <button class="btn btn-outline-danger delete" title="Edit Site" (click)="editSite(element.siteId,element.userName,element.site)">
+                        <mat-icon>edit</mat-icon>
+                      </button>
+                    </td>
+                  </ng-container> -->
+
+                <tr mat-header-row *matHeaderRowDef="savedDiagramColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: savedDiagramColumns;" title="Click here to edit Diagram" 
+                (click)="editDiagram(row.userName,row.fileName)" style="cursor: pointer;"
+                  [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (mouseover)="row.hovered = true"
+                  (mouseout)="row.hovered = false"></tr>
+
+              </table>
+              <mat-paginator #savedDiagramPaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                </mat-expansion-panel>
+            </mat-accordion>
+    </div>
+</div>
+

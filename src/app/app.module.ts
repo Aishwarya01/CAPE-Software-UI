@@ -105,6 +105,11 @@ import { RiskSavedReportsComponent } from './Risk Assessment/Risk Assessment/ris
 import { RiskFinalReportsComponent } from './Risk Assessment/Risk Assessment/risk-final-reports/risk-final-reports.component';
 import { RiskAssessmentDetailsComponent } from './Risk Assessment/Risk Assessment/risk-assessment-details/risk-assessment-details.component'
 
+import { DiagramAllModule, SymbolPaletteAllModule, OverviewAllModule } from '@syncfusion/ej2-angular-diagrams';
+import { DiagramListComponent } from './diagram-list/diagram-list.component';
+import { DiagramHomeComponent } from './diagram-home/diagram-home.component';
+import { DiagramWelcomePageComponent } from './diagram-welcome-page/diagram-welcome-page.component';
+import { NewFileComponent } from './new-file/new-file.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -169,8 +174,7 @@ import { RiskAssessmentDetailsComponent } from './Risk Assessment/Risk Assessmen
     LpsEarthStudComponent,
     LpsSavedReportComponent,
     LpsWelcomePageComponent, 
-    LpsFinalReportComponent, LpssummaryComponent, RiskParentComponentComponent, RiskCustomerDetailsComponent, RiskSavedReportsComponent, RiskFinalReportsComponent, RiskAssessmentDetailsComponent, 
-
+    LpsFinalReportComponent, SignatureComponent, DiagramListComponent, DiagramHomeComponent, DiagramWelcomePageComponent, NewFileComponent, LpssummaryComponent,RiskParentComponentComponent, RiskCustomerDetailsComponent, RiskSavedReportsComponent, RiskFinalReportsComponent, RiskAssessmentDetailsComponent, 
   ],
   imports: [
     SignaturePadModule,
@@ -202,6 +206,9 @@ import { RiskAssessmentDetailsComponent } from './Risk Assessment/Risk Assessmen
     MatBadgeModule,
     MatProgressSpinnerModule,
     MatTooltipModule,
+    DiagramAllModule,
+    SymbolPaletteAllModule,
+    OverviewAllModule,
     BackButtonDisableModule.forRoot({
       preserveScrollPosition: true
     }),

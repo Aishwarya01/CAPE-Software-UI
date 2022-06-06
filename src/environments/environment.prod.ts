@@ -4,6 +4,7 @@ export const environment = {
   apiUrl: 'https://prod.lv.safelv.net/api/v1',
   apiUrl_v2: 'https://prod.lv.safelv.net/api/v2',
   apiUrl_LPS: 'https://prod.lps.safelv.net/api/lps/v1',
+  apiUrl_Diagram: 'https://prod.sld.safelv.net/api/diagram/v1',
   apiUrl_EMC: 'https://prod.emc.safelv.net/api/emc/v1',
   sessionTimeOut: 3600,
   hoursOfGettingApproved: 2,
