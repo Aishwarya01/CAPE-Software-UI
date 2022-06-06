@@ -58,9 +58,9 @@ import {
   cloneObject, ShapeStyleModel,
   HeaderModel,
 } from '@syncfusion/ej2-angular-diagrams';
-import { DiagramModel } from '../model/diagram-component';
-import { DiagramListComponent } from '../diagram-list/diagram-list.component';
-import { DiagramWelcomePageComponent } from '../diagram-welcome-page/diagram-welcome-page.component';
+import { DiagramModel } from '../SLD/SLD Models/diagram-component';
+import { DiagramListComponent } from '../SLD/SLD components/diagram-list/diagram-list.component';
+import { DiagramWelcomePageComponent } from '../SLD/SLD components/diagram-welcome-page/diagram-welcome-page.component';
 import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminProd } from 'src/environments/environment.prod';
 

@@ -5,10 +5,16 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConnectorModel, Node, Connector, DiagramComponent, NodeModel, PaletteModel, PortConstraints, PortVisibility, SymbolInfo, 
   SymbolPreviewModel } from '@syncfusion/ej2-angular-diagrams'; 
 import {SymbolPalette} from  '@syncfusion/ej2-diagrams'
-import { DiagramModel } from '../model/diagram-component';
-import { InspectionVerificationService } from '../services/inspection-verification.service';
-import { MCB } from '../SLD/SLD Models/mcb';
-import { RCBO } from '../SLD/SLD Models/rcbo';
+import { DiagramModel } from '../../SLD Models/diagram-component';
+import { InspectionVerificationService } from '../../../services/inspection-verification.service';
+import { DiagramServicesService } from '../../../SLD/SLD Services/diagram-services.service';
+import { MCBServicesService } from '../../../SLD/SLD Services/mcb-services.service';
+import { RCBOServicesService } from '../../../SLD/SLD Services/rcbo-services.service';
+import { LightServicesService } from '../../../SLD/SLD Services/light-services.service';
+import { MCB } from '../../SLD Models/mcb';
+import { RCBO } from '../../SLD Models/rcbo';
+import { Light } from '../../SLD Models/light';
+
 
 
 @Component({
@@ -106,6 +112,15 @@ export class DiagramHomeComponent implements OnInit {
   rcboSafetyTestingArray: any = [];
   submittedRCBO: boolean = false;
 
+  //Light
+  lightForm!: FormGroup;
+  lightData: any;
+  light = new Light();
+  lightFlag: boolean = false;
+  lightGeneralTestingArray: any = [];
+  lightSafetyTestingArray: any = [];
+  submittedLight: boolean = false;
+
   public getNodeDefaults(node: any): NodeModel {
     // node.height = 200;
     // node.width = 100;
@@ -130,7 +145,7 @@ export class DiagramHomeComponent implements OnInit {
   }
   
   public loadDiagram(userName: any,fileName: any){
-    this.inspectionService.retriveDiagram(userName,fileName).subscribe(
+    this.diagramService.retriveDiagram(userName,fileName).subscribe(
       data => {
         console.log(data);
         this.diagramData = JSON.parse(data);
@@ -172,7 +187,7 @@ export class DiagramHomeComponent implements OnInit {
         this.modalService.open(content7, { centered: true,size: 'xl'});
       }
       else if(e.element.properties.id.includes('MCB_with_RCD')) {
-        this.inspectionService.retriveRCBO(this.diagramComponent.fileName,e.element.properties.id).subscribe(
+        this.rcboService.retriveRCBO(this.diagramComponent.fileName,e.element.properties.id).subscribe(
           data => {
             this.rcboData = JSON.parse(data);
             if(this.rcboData.length != 0) {
@@ -185,7 +200,7 @@ export class DiagramHomeComponent implements OnInit {
         this.rcbo.fileName = this.diagramComponent.fileName;
       }
       else if(e.element.properties.id.includes('MCB')) {
-        this.inspectionService.retriveMCB(this.diagramComponent.fileName,e.element.properties.id).subscribe(
+        this.mcbService.retriveMCB(this.diagramComponent.fileName,e.element.properties.id).subscribe(
           data => {
             this.mcbData = JSON.parse(data);
             if(this.mcbData.length != 0) {
@@ -502,7 +517,7 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
 
  public AddSymbols() {
   let shapes: any;
-  this.inspectionService.fetchAllDiagramSymbols().subscribe(
+  this.diagramService.fetchAllDiagramSymbols().subscribe(
     data => {
       shapes = JSON.parse(data);
       console.log('a'); 
@@ -533,6 +548,10 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
   // };
   email: String = '';
   constructor(private inspectionService: InspectionVerificationService,
+              private diagramService: DiagramServicesService,
+              private mcbService: MCBServicesService,
+              private rcboService: RCBOServicesService,
+              private lightService: LightServicesService,
               private router: ActivatedRoute,
               private modalService: NgbModal,
               private formBuilder: FormBuilder
@@ -570,6 +589,39 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
       outgoingSizeProtective: ['', Validators.required],
       generalTestingRCBO: this.formBuilder.array([this.createGeneralTestingRCBO()]),
       safetyTestingRCBO: this.formBuilder.array([this.createSafetyTestingRCBO()]),
+    });
+
+    this.mcbWithRcdForm = this.formBuilder.group({
+      referenceName: [''],
+      manufacturerName: [''],
+      rating: ['', Validators.required],
+      voltage: [''],
+      noOfPoles: ['', Validators.required],
+      currentCurve: ['', Validators.required],
+      residualCurrentType: ['', Validators.required],
+      residualCurrent: ['', Validators.required],
+      outgoingSizePhase: ['', Validators.required],
+      outgoingSizeNeutral: ['', Validators.required],
+      outgoingSizeProtective: ['', Validators.required],
+      generalTestingRCBO: this.formBuilder.array([this.createGeneralTestingRCBO()]),
+      safetyTestingRCBO: this.formBuilder.array([this.createSafetyTestingRCBO()]),
+    });
+
+    this.lightForm = this.formBuilder.group({
+      referenceName: [''],
+      manufacturerName: [''],
+      powerCapacity: ['', Validators.required],
+      rating: ['', Validators.required],
+      voltage: [''],
+      type: ['', Validators.required],
+      incomingSizePhase: ['', Validators.required],
+      incomingSizeNeutral: ['', Validators.required],
+      incomingSizeProtective: ['', Validators.required],
+      incomingLengthPhase: ['', Validators.required],
+      incomingLengthNeutral: ['', Validators.required],
+      incomingLengthProtective: ['', Validators.required],
+      generalTestingLight: this.formBuilder.array([this.createGeneralTestingLight()]),
+      safetyTestingLight: this.formBuilder.array([this.createSafetyTestingLight()]),
     });
   }
 
@@ -1300,6 +1352,196 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
     (this.mcbWithRcdForm.get('safetyTestingRCBO') as FormArray).removeAt(i)
   }
 
+  private createGeneralTestingLight(): FormGroup {
+    return new FormGroup({
+      phN: new FormControl(''),
+      phNVoltage: new FormControl('', Validators.required),
+      phNIResistance: new FormControl('', Validators.required),
+      phNCResistance: new FormControl('', Validators.required),
+
+      phE: new FormControl(''),
+      phEVoltage: new FormControl('', Validators.required),
+      phEIResistance: new FormControl('', Validators.required),
+      phECResistance: new FormControl('', Validators.required),
+
+      nE: new FormControl(''),
+      nEVoltage: new FormControl('', Validators.required),
+      nEIResistance: new FormControl('', Validators.required),
+      nECResistance: new FormControl('', Validators.required),
+
+      iRCurrent: new FormControl('', Validators.required),
+      iNCurrent: new FormControl('', Validators.required),
+      iPECurrent: new FormControl('', Validators.required),
+
+      powerFactor: new FormControl('', Validators.required),
+      frequency: new FormControl('', Validators.required),
+    });
+  }
+
+  private createSafetyTestingLight(): FormGroup {
+    return new FormGroup({
+      phN: new FormControl(''),
+      phNImpedence: new FormControl('', Validators.required),
+      phNCurrent: new FormControl('', Validators.required),
+      phNTime: new FormControl('', Validators.required),
+      phNRemarks: new FormControl('', Validators.required),
+
+      phE: new FormControl(''),
+      phEImpedence: new FormControl('', Validators.required),
+      phECurrent: new FormControl('', Validators.required),
+      phETime: new FormControl('', Validators.required),
+      phERemarks: new FormControl('', Validators.required),
+
+
+      nE: new FormControl(''),
+      nEImpedence: new FormControl('', Validators.required),
+      nECurrent: new FormControl('', Validators.required),
+      nETime: new FormControl('', Validators.required),
+      nERemarks: new FormControl('', Validators.required),
+
+      shockVoltage: new FormControl('', Validators.required),
+      floorResistance: new FormControl('', Validators.required),
+      wallResistance: new FormControl('', Validators.required),
+    });
+  }
+
+  getGeneralTestingLightControls() : AbstractControl[] {
+    return (<FormArray>this.lightForm.get('generalTestingLight')).controls;
+  }
+
+  getSafetyTestingLightControls() : AbstractControl[] {
+    return (<FormArray>this.lightForm.get('safetyTestingLight')).controls;
+  }
+
+  retrieveLightNode(data: any) {
+    this.lightFlag = true;
+    for(let i of data) {
+      this.light.referenceName = i.referenceName;
+      this.light.manufacturerName = i.manufacturerName;
+      this.light.powerCapacity = i.powerCapacity;
+      this.light.rating = i.rating;
+      this.light.voltage = i.voltage;
+      this.light.type = i.type;
+      this.light.incomingSizePhase = i.incomingSizePhase;
+      this.light.incomingSizeNeutral = i.incomingSizeNeutral;
+      this.light.incomingSizeProtective = i.incomingSizeProtective;
+      this.light.incomingLengthPhase = i.incomingLengthPhase;
+      this.light.incomingLengthNeutral = i.incomingLengthNeutral;
+      this.light.incomingLengthProtective =i.incomingLengthProtective;
+      this.light.createdBy = i.createdBy;
+      this.light.createdDate = i.createdDate;
+      this.light.updatedBy = i.updatedBy;
+      this.light.updatedDate = i.updatedDate;
+      this.light.nodeId = i.nodeId;
+      this.light.fileName = i.fileName;
+      this.light.userName = i.userName;
+
+      this.populateLightForm(i);
+    }
+  }
+
+  populateLightForm(i: any) {
+    let generalTestingLightArr : any = []
+    let safetyTestingLightArr : any = []
+
+    for(let j of i.generalTestingLight) {
+      generalTestingLightArr.push(this.populateGeneralTestingLightForm(j));
+    }
+
+    for(let k of i.safetyTestingLight) {
+      safetyTestingLightArr.push(this.populateSafetyTestingLightForm(k));
+    }
+
+    this.lightForm.setControl('generalTestingLight', this.formBuilder.array(generalTestingLightArr || []));
+    this.lightForm.setControl('safetyTestingLight', this.formBuilder.array(safetyTestingLightArr || []));
+  }
+
+  populateGeneralTestingLightForm(j: any): FormGroup {
+    let phN = [];
+    let phE = [];	
+    let nE = [];
+    
+    phN = j.phN.split(",");
+    phE = j.phE.split(",");
+    nE = j.nE.split(",");
+
+    return new FormGroup({
+      generalTestingLightId: new FormControl(j.generalTestingLightId),
+      phN: new FormControl(''),
+      phNVoltage: new FormControl(phN[0], Validators.required),
+      phNIResistance: new FormControl(phN[1], Validators.required),
+      phNCResistance: new FormControl(phN[2], Validators.required),
+
+      phE: new FormControl(''),
+      phEVoltage: new FormControl(phE[0], Validators.required),
+      phEIResistance: new FormControl(phE[1], Validators.required),
+      phECResistance: new FormControl(phE[2], Validators.required),
+
+      nE: new FormControl(''),
+      nEVoltage: new FormControl(nE[0], Validators.required),
+      nEIResistance: new FormControl(nE[1], Validators.required),
+      nECResistance: new FormControl(nE[2], Validators.required),
+
+      iRCurrent: new FormControl(j.iRCurrent, Validators.required),
+      iNCurrent: new FormControl(j.iNCurrent, Validators.required),
+      iPECurrent: new FormControl(j.iPECurrent, Validators.required),
+
+      powerFactor: new FormControl(j.powerFactor, Validators.required),
+      frequency: new FormControl(j.frequency, Validators.required),
+    });
+  }
+
+  populateSafetyTestingLightForm(k: any): FormGroup {
+    let phN = [];
+    let phE = [];	
+    let nE = [];
+    
+    phN = k.phN.split(",");
+    phE = k.phE.split(",");
+    nE = k.nE.split(",");
+    
+    return new FormGroup({
+      safetyTestingLightId: new FormControl(k.safetyTestingLightId),
+      phN: new FormControl(''),
+      phNImpedence: new FormControl(phN[0], Validators.required),
+      phNCurrent: new FormControl(phN[1], Validators.required),
+      phNTime: new FormControl(phN[2], Validators.required),
+      phNRemarks: new FormControl(phN[3], Validators.required),
+
+      phE: new FormControl(''),
+      phEImpedence: new FormControl(phE[0], Validators.required),
+      phECurrent: new FormControl(phE[1], Validators.required),
+      phETime: new FormControl(phE[2], Validators.required),
+      phERemarks: new FormControl(phE[3], Validators.required),
+
+      nE: new FormControl(''),
+      nEImpedence: new FormControl(nE[0], Validators.required),
+      nECurrent: new FormControl(nE[1], Validators.required),
+      nETime: new FormControl(nE[2], Validators.required),
+      nERemarks: new FormControl(nE[3], Validators.required),
+
+      shockVoltage: new FormControl(k.shockVoltage, Validators.required),
+      floorResistance: new FormControl(k.floorResistance, Validators.required),
+      wallResistance: new FormControl(k.wallResistance, Validators.required),
+    });
+  }
+
+  addLightTesting() {
+    let generalTestingLightArr: any = [];
+    let safetyTestingLightArr: any = [];
+
+    generalTestingLightArr = this.lightForm.get('generalTestingLight') as FormArray;
+    safetyTestingLightArr = this.lightForm.get('safetyTestingLight') as FormArray;
+
+    generalTestingLightArr.push(this.createGeneralTestingLight());
+    safetyTestingLightArr.push(this.createSafetyTestingLight());
+  }
+
+  removeLighttesting(a: any, i: any) {
+    (this.lightForm.get('generalTestingLight') as FormArray).removeAt(i);
+    (this.lightForm.get('safetyTestingLight') as FormArray).removeAt(i)
+  }
+
   //submit MCB
   saveMCB() {
     this.submitted = true;
@@ -1632,7 +1874,7 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
     this.mcb.generalTestingMCB = this.mcbForm.value.generalTestingMCB;
     this.mcb.safetyTestingMCB = this.mcbForm.value.safetyTestingMCB;
 
-    this.inspectionService.addMCB(this.mcb).subscribe(
+    this.mcbService.addMCB(this.mcb).subscribe(
       data => {
 
       },
@@ -1974,7 +2216,7 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
     this.rcbo.generalTestingRCBO = this.mcbWithRcdForm.value.generalTestingRCBO;
     this.rcbo.safetyTestingRCBO = this.mcbWithRcdForm.value.safetyTestingRCBO;
 
-    this.inspectionService.addRCBO(this.rcbo).subscribe(
+    this.rcboService.addRCBO(this.rcbo).subscribe(
       data => {
 
       },
@@ -1994,7 +2236,7 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
 
 
     if(!flag) {
-      this.inspectionService.addDiagram(this.diagramComponent).subscribe(
+      this.diagramService.addDiagram(this.diagramComponent).subscribe(
         data => {
           this.popup=true;
           this.finalSpinner=false;
@@ -2013,7 +2255,7 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
       )
     }
     else {
-      this.inspectionService.updateDiagram(this.diagramComponent).subscribe(
+      this.diagramService.updateDiagram(this.diagramComponent).subscribe(
         data => {
           this.popup=true;
           this.finalSpinner=false;

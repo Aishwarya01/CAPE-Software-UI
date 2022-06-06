@@ -101,9 +101,9 @@ import { SignaturePadModule } from 'angular2-signaturepad';
 import { SignatureComponent } from './signature/signature.component'
 
 import { DiagramAllModule, SymbolPaletteAllModule, OverviewAllModule } from '@syncfusion/ej2-angular-diagrams';
-import { DiagramListComponent } from './diagram-list/diagram-list.component';
-import { DiagramHomeComponent } from './diagram-home/diagram-home.component';
-import { DiagramWelcomePageComponent } from './diagram-welcome-page/diagram-welcome-page.component';
+import { DiagramListComponent } from './SLD/SLD components/diagram-list/diagram-list.component';
+import { DiagramHomeComponent } from './SLD/SLD components/diagram-home/diagram-home.component';
+import { DiagramWelcomePageComponent } from './SLD/SLD components/diagram-welcome-page/diagram-welcome-page.component';
 import { NewFileComponent } from './new-file/new-file.component';
 @NgModule({
   declarations: [
