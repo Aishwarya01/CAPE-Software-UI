@@ -9,12 +9,13 @@ import { DiagramModel } from '../../SLD Models/diagram-component';
 import { InspectionVerificationService } from '../../../services/inspection-verification.service';
 import { DiagramServicesService } from '../../../SLD/SLD Services/diagram-services.service';
 import { MCBServicesService } from '../../../SLD/SLD Services/mcb-services.service';
+import { MCCBServicesService } from '../../../SLD/SLD Services/mccb-services.service';
 import { RCBOServicesService } from '../../../SLD/SLD Services/rcbo-services.service';
 import { LightServicesService } from '../../../SLD/SLD Services/light-services.service';
 import { MCB } from '../../SLD Models/mcb';
 import { RCBO } from '../../SLD Models/rcbo';
 import { Light } from '../../SLD Models/light';
-
+import { MCCB } from '../../SLD Models/mccb';
 
 
 @Component({
@@ -93,24 +94,24 @@ export class DiagramHomeComponent implements OnInit {
   errorArr: any = [];
   errorMsg: String = '';
   mode: any= 'indeterminate';
-
-  //MCB
   mcbForm!: FormGroup;
+  mccbForm!: FormGroup;
+  mcbWithRcdForm!: FormGroup;
   mcb = new MCB();
+  mccb = new MCCB();
   mcbGeneralTestingArray: any = [];
   mcbSafetyTestingArray: any = [];
+
+  mccbGeneralTestingArray: any = [];
+  mccbSafetyTestingArray: any = [];
+
   submitted: boolean = false;
   mcbFlag: boolean = false;
   mcbData: any;
-
-  //RCBO
-  mcbWithRcdForm!: FormGroup;
-  rcboData: any;
-  rcbo = new RCBO();
-  rcboFlag: boolean = false;
-  rcboGeneralTestingArray: any = [];
-  rcboSafetyTestingArray: any = [];
-  submittedRCBO: boolean = false;
+  mccbFlag: boolean = false;
+  mccbData: any;
+  validationError: boolean= false;
+  validationErrorMsg: string="";
 
   //Light
   lightForm!: FormGroup;
@@ -166,7 +167,7 @@ export class DiagramHomeComponent implements OnInit {
     console.log(e);
   }
 
-  clickFunction(e: any,content2: any,content3: any,content4: any,content5: any,content6: any,content7: any,content8: any,content9: any,content10: any) {
+  clickFunction(e: any,content2: any,content3: any,content4: any,content5: any,content6: any,content7: any,content9: any,content10: any) {
     if(e.element instanceof Node){
       if(e.element.properties.id.includes('Inductor')) {
         this.modalService.open(content2, { centered: true,size: 'xl'});
@@ -184,21 +185,26 @@ export class DiagramHomeComponent implements OnInit {
         this.modalService.open(content6, { centered: true,size: 'xl'});
       }
       else if(e.element.properties.id.includes('MCCB')) {
+        this.mccbService.retriveMCCB(this.diagramComponent.fileName,e.element.properties.id).subscribe(
+          data => {
+            this.mccbData = JSON.parse(data);
+            if(this.mccbData.length != 0) {
+              this.retrieveMccbNode(this.mccbData);
+            }
+          }
+        )
         this.modalService.open(content7, { centered: true,size: 'xl'});
       }
       else if(e.element.properties.id.includes('MCB_with_RCD')) {
         this.rcboService.retriveRCBO(this.diagramComponent.fileName,e.element.properties.id).subscribe(
-          data => {
-            this.rcboData = JSON.parse(data);
-            if(this.rcboData.length != 0) {
-              this.retrieveRcboNode(this.rcboData);
-            }
-          }
         )
-        this.modalService.open(content8, { centered: true,size: 'xl'});
-        this.rcbo.nodeId = e.element.properties.id;
-        this.rcbo.fileName = this.diagramComponent.fileName;
+        this.modalService.open(content7, { centered: true,size: 'xl'});
+        this.mccb.nodeId = e.element.properties.id;
+        this.mccb.fileName = this.diagramComponent.fileName;
       }
+      // else if(e.element.properties.id.includes('DC')) {
+      //   this.modalService.open(content8, { centered: true,size: 'xl'});
+      // }
       else if(e.element.properties.id.includes('MCB')) {
         this.mcbService.retriveMCB(this.diagramComponent.fileName,e.element.properties.id).subscribe(
           data => {
@@ -549,7 +555,7 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
   email: String = '';
   constructor(private inspectionService: InspectionVerificationService,
               private diagramService: DiagramServicesService,
-              private mcbService: MCBServicesService,
+              private mcbService: MCBServicesService,private mccbService: MCCBServicesService,
               private rcboService: RCBOServicesService,
               private lightService: LightServicesService,
               private router: ActivatedRoute,
@@ -574,38 +580,40 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
       generalTestingMCB: this.formBuilder.array([this.createGeneralTestingMCB()]),
       safetyTestingMCB: this.formBuilder.array([this.createSafetyTestingMCB()]),
     });
-
-    this.mcbWithRcdForm = this.formBuilder.group({
+    this.mccbForm = this.formBuilder.group({
       referenceName: [''],
       manufacturerName: [''],
       rating: ['', Validators.required],
-      voltage: [''],
+      voltage: ['', Validators.required],
       noOfPoles: ['', Validators.required],
-      currentCurve: ['', Validators.required],
-      residualCurrentType: ['', Validators.required],
-      residualCurrent: ['', Validators.required],
+      relayManufacturer: ['', Validators.required],
+      model: [''],
+      overCurrent: ['', Validators.required],
+      setTimes: ['', Validators.required],
+      earthFault: ['', Validators.required],
+      setTime: ['', Validators.required],
       outgoingSizePhase: ['', Validators.required],
       outgoingSizeNeutral: ['', Validators.required],
       outgoingSizeProtective: ['', Validators.required],
-      generalTestingRCBO: this.formBuilder.array([this.createGeneralTestingRCBO()]),
-      safetyTestingRCBO: this.formBuilder.array([this.createSafetyTestingRCBO()]),
+      generalTestingMCCB: this.formBuilder.array([this.createGeneralTestingMCCB()]),
+      safetyTestingMCCB: this.formBuilder.array([this.createSafetyTestingMCCB()]),
     });
 
-    this.mcbWithRcdForm = this.formBuilder.group({
-      referenceName: [''],
-      manufacturerName: [''],
-      rating: ['', Validators.required],
-      voltage: [''],
-      noOfPoles: ['', Validators.required],
-      currentCurve: ['', Validators.required],
-      residualCurrentType: ['', Validators.required],
-      residualCurrent: ['', Validators.required],
-      outgoingSizePhase: ['', Validators.required],
-      outgoingSizeNeutral: ['', Validators.required],
-      outgoingSizeProtective: ['', Validators.required],
-      generalTestingRCBO: this.formBuilder.array([this.createGeneralTestingRCBO()]),
-      safetyTestingRCBO: this.formBuilder.array([this.createSafetyTestingRCBO()]),
-    });
+    // this.mcbWithRcdForm = this.formBuilder.group({
+    //   referenceName: [''],
+    //   manufacturerName: [''],
+    //   rating: ['', Validators.required],
+    //   voltage: [''], 
+    //   noOfPoles: ['', Validators.required],
+    //   currentCurve: ['', Validators.required],
+    //   residualCurrentType: ['', Validators.required],
+    //   residualCurrent: ['', Validators.required],
+    //   outgoingSizePhase: ['', Validators.required],
+    //   outgoingSizeNeutral: ['', Validators.required],
+    //   outgoingSizeProtective: ['', Validators.required],
+    // //  generalTestingRCBO: this.formBuilder.array([this.createGeneralTestingRCBO()]),
+    //  // safetyTestingRCBO: this.formBuilder.array([this.createSafetyTestingRCBO()]),
+    // });
 
     this.lightForm = this.formBuilder.group({
       referenceName: [''],
@@ -677,7 +685,6 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
       frequency: new FormControl('', Validators.required),
     });
   }
-
   private createSafetyTestingMCB(): FormGroup {
     return new FormGroup({
       rN: new FormControl(''),
@@ -747,15 +754,139 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
       wallResistance: new FormControl('', Validators.required),
     });
   }
+  private createGeneralTestingMCCB(): FormGroup {
+    return new FormGroup({
+      rN: new FormControl(''),
+      rNVoltage: new FormControl('', Validators.required),
+      rNResistance: new FormControl('', Validators.required),
 
+      yN: new FormControl(''),
+      yNVoltage: new FormControl('', Validators.required),
+      yNResistance: new FormControl('', Validators.required),
+
+      bN: new FormControl(''),
+      bNVoltage: new FormControl('', Validators.required),
+      bNResistance: new FormControl('', Validators.required),
+
+      rE: new FormControl(''),
+      rEVoltage: new FormControl('', Validators.required),
+      rEResistance: new FormControl('', Validators.required),
+
+      yE: new FormControl(''),
+      yEVoltage: new FormControl('', Validators.required),
+      yEResistance: new FormControl('', Validators.required),
+
+      bE: new FormControl(''),
+      bEVoltage: new FormControl('', Validators.required),
+      bEResistance: new FormControl('', Validators.required),
+
+      rY: new FormControl(''),
+      rYVoltage: new FormControl('', Validators.required),
+      rYResistance: new FormControl('', Validators.required),
+
+      yB: new FormControl(''),
+      yBVoltage: new FormControl('', Validators.required),
+      yBResistance: new FormControl('', Validators.required),
+
+      bR: new FormControl(''),
+      bRVoltage: new FormControl('', Validators.required),
+      bRResistance: new FormControl('', Validators.required),
+
+      nE: new FormControl(''),
+      nEVoltage: new FormControl('', Validators.required),
+      nEResistance: new FormControl('', Validators.required),
+
+      iRCurrent: new FormControl('', Validators.required),
+      iYCurrent: new FormControl('', Validators.required),
+      iBCurrent: new FormControl('', Validators.required),
+      iNCurrent: new FormControl('', Validators.required),
+      iPECurrent: new FormControl('', Validators.required),
+
+      powerFactor: new FormControl('', Validators.required),
+      frequency: new FormControl('', Validators.required),
+    });
+  }
+  private createSafetyTestingMCCB(): FormGroup {
+    return new FormGroup({
+      rN: new FormControl(''),
+      rNImpedence: new FormControl('', Validators.required),
+      rNCurrent: new FormControl('', Validators.required),
+      rNTime: new FormControl('', Validators.required),
+      rNRemarks: new FormControl('', Validators.required),
+
+      yN: new FormControl(''),
+      yNImpedence: new FormControl('', Validators.required),
+      yNCurrent: new FormControl('', Validators.required),
+      yNTime: new FormControl('', Validators.required),
+      yNRemarks: new FormControl('', Validators.required),
+
+
+      bN: new FormControl(''),
+      bNImpedence: new FormControl('', Validators.required),
+      bNCurrent: new FormControl('', Validators.required),
+      bNTime: new FormControl('', Validators.required),
+      bNRemarks: new FormControl('', Validators.required),
+
+
+      rE: new FormControl(''),
+      rEImpedence: new FormControl('', Validators.required),
+      rECurrent: new FormControl('', Validators.required),
+      rETime: new FormControl('', Validators.required),
+      rERemarks: new FormControl('', Validators.required),
+
+
+      yE: new FormControl(''),
+      yEImpedence: new FormControl('', Validators.required),
+      yECurrent: new FormControl('', Validators.required),
+      yETime: new FormControl('', Validators.required),
+      yERemarks: new FormControl('', Validators.required),
+
+
+      bE: new FormControl(''),
+      bEImpedence: new FormControl('', Validators.required),
+      bECurrent: new FormControl('', Validators.required),
+      bETime: new FormControl('', Validators.required),
+      bERemarks: new FormControl('', Validators.required),
+
+
+      rY: new FormControl(''),
+      rYImpedence: new FormControl('', Validators.required),
+      rYCurrent: new FormControl('', Validators.required),
+      rYTime: new FormControl('', Validators.required),
+      rYRemarks: new FormControl('', Validators.required),
+
+
+      yB: new FormControl(''),
+      yBImpedence: new FormControl('', Validators.required),
+      yBCurrent: new FormControl('', Validators.required),
+      yBTime: new FormControl('', Validators.required),
+      yBRemarks: new FormControl('', Validators.required),
+
+
+      bR: new FormControl(''),
+      bRImpedence: new FormControl('', Validators.required),
+      bRCurrent: new FormControl('', Validators.required),
+      bRTime: new FormControl('', Validators.required),
+      bRRemarks: new FormControl('', Validators.required),
+
+
+      shockVoltage: new FormControl('', Validators.required),
+      floorResistance: new FormControl('', Validators.required),
+      wallResistance: new FormControl('', Validators.required),
+    });
+  }
   getGeneralTestingMCBControls() : AbstractControl[] {
     return (<FormArray>this.mcbForm.get('generalTestingMCB')).controls;
   }
-
+  getGeneralTestingMCCBControls() : AbstractControl[] {
+    return (<FormArray>this.mccbForm.get('generalTestingMCCB')).controls;
+  }
   getSafetyTestingMCBControls() : AbstractControl[] {
     return (<FormArray>this.mcbForm.get('safetyTestingMCB')).controls;
   }
-
+  getSafetyTestingMCCBControls() : AbstractControl[] {
+    return (<FormArray>this.mccbForm.get('safetyTestingMCCB')).controls;
+  }
   addMCBTesting() {
     let generalTestingMCBArr: any = [];
     let safetyTestingMCBArr: any = [];
@@ -772,14 +903,28 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
     (this.mcbForm.get('safetyTestingMCB') as FormArray).removeAt(i)
   }
 
+  addMCCBTesting() {
+    let generalTestingMCCBArr: any = [];
+    let safetyTestingMCCBArr: any = [];
+
+    generalTestingMCCBArr = this.mccbForm.get('generalTestingMCCB') as FormArray;
+    safetyTestingMCCBArr = this.mccbForm.get('safetyTestingMCCB') as FormArray;
+
+    generalTestingMCCBArr.push(this.createGeneralTestingMCCB());
+    safetyTestingMCCBArr.push(this.createSafetyTestingMCCB());
+
+  }
+  removeMCCBtesting(a: any, i: any) {
+    (this.mccbForm.get('generalTestingMCCB') as FormArray).removeAt(i);
+    (this.mccbForm.get('safetyTestingMCCB') as FormArray).removeAt(i)
+  }
+  
   get f(){
     return this.mcbForm.controls;
   }
-
-  get g(){
-    return this.mcbWithRcdForm.controls;
+  get h(){
+    return this.mccbForm.controls;
   }
-
   retrieveMcbNode(data: any) {
     this.mcbFlag = true;
     for(let i of data) {
@@ -803,7 +948,34 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
       this.populateMcbForm(i);
     }
   }
+  retrieveMccbNode(data: any) {
+    this.mccbFlag = true;
+    for(let i of data) {
+      this.mccb.referenceName = i.referenceName;
+      this.mccb.manufacturerName = i.manufacturerName;
+      this.mccb.rating = i.rating;
+      this.mccb.voltage = i.voltage;
+      this.mccb.relayManufacturer= i.relayManufacturer;
+      this.mccb.noOfPoles = i.noOfPoles;
+      this.mccb.model = i.model;
+      this.mccb.overCurrent = i.overCurrent;
+      this.mccb.setTimes = i.setTimes;
+      this.mccb.earthFault = i.earthFault;
+      this.mccb.setTime = i.setTime;
+      this.mccb.outgoingSizePhase = i.outgoingSizePhase;
+      this.mccb.outgoingSizeNeutral = i.outgoingSizeNeutral;
+      this.mccb.outgoingSizeProtective =i.outgoingSizeProtective;
+      this.mccb.createdBy = i.createdBy;
+      this.mccb.createdDate = i.createdDate;
+      this.mccb.updatedBy = i.updatedBy;
+      this.mccb.updatedDate = i.updatedDate;
+      this.mccb.nodeId = i.nodeId;
+      this.mccb.fileName = i.fileName;
+     // this.mccb.userName = i.userName;
 
+      this.populateMccbForm(i);
+    }
+  }
   populateMcbForm(i: any) {
     let generalTestingMCBArr : any = []
     let safetyTestingMCBArr : any = []
@@ -820,6 +992,21 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
     this.mcbForm.setControl('safetyTestingMCB', this.formBuilder.array(safetyTestingMCBArr || []));
   }
 
+  populateMccbForm(i: any) {
+    let generalTestingMCCBArr : any = []
+    let safetyTestingMCCBArr : any = []
+
+    for(let q of i.generalTestingMCCB) {
+      generalTestingMCCBArr.push(this.populateGeneralTestingMCCBForm(q));
+    }
+
+    for(let w of i.safetyTestingMCCB) {
+      safetyTestingMCCBArr.push(this.populateSafetyTestingMCCBForm(w));
+    }
+
+    this.mccbForm.setControl('generalTestingMCCB', this.formBuilder.array(generalTestingMCCBArr || []));
+    this.mccbForm.setControl('safetyTestingMCCB', this.formBuilder.array(safetyTestingMCCBArr || []));
+  }
   populateGeneralTestingMCBForm(j: any): FormGroup {
     let rN = [];
     let yN = [];	
@@ -979,205 +1166,7 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
     });
   }
 
-  retrieveFromSavedReport(data: any) {
-    this.flag = true;
-    this.diagram.loadDiagram(data.file)
-  }
-
-  loadFileName(fileName: any) {
-    this.diagramComponent.fileName = fileName;
-  }
-
-  closeModalDialog() {
-    this.finalSpinner=true;
-      this.popup=false;
-      if(this.errorMsg != ""){
-        this.Error = false;
-        this.modalService.dismissAll(this.errorMsg = "");
-      }
-      else {
-        this.success=false;
-        this.modalService.dismissAll(this.successMsg=""); 
-      }
-  }
-
-
-  //RCBO or MCB with RCD
-
-  private createGeneralTestingRCBO(): FormGroup {
-    return new FormGroup({
-      rN: new FormControl(''),
-      rNVoltage: new FormControl('', Validators.required),
-      rNResistance: new FormControl('', Validators.required),
-
-      yN: new FormControl(''),
-      yNVoltage: new FormControl('', Validators.required),
-      yNResistance: new FormControl('', Validators.required),
-
-      bN: new FormControl(''),
-      bNVoltage: new FormControl('', Validators.required),
-      bNResistance: new FormControl('', Validators.required),
-
-      rE: new FormControl(''),
-      rEVoltage: new FormControl('', Validators.required),
-      rEResistance: new FormControl('', Validators.required),
-
-      yE: new FormControl(''),
-      yEVoltage: new FormControl('', Validators.required),
-      yEResistance: new FormControl('', Validators.required),
-
-      bE: new FormControl(''),
-      bEVoltage: new FormControl('', Validators.required),
-      bEResistance: new FormControl('', Validators.required),
-
-      rY: new FormControl(''),
-      rYVoltage: new FormControl('', Validators.required),
-      rYResistance: new FormControl('', Validators.required),
-
-      yB: new FormControl(''),
-      yBVoltage: new FormControl('', Validators.required),
-      yBResistance: new FormControl('', Validators.required),
-
-      bR: new FormControl(''),
-      bRVoltage: new FormControl('', Validators.required),
-      bRResistance: new FormControl('', Validators.required),
-
-      nE: new FormControl(''),
-      nEVoltage: new FormControl('', Validators.required),
-      nEResistance: new FormControl('', Validators.required),
-
-      iRCurrent: new FormControl('', Validators.required),
-      iYCurrent: new FormControl('', Validators.required),
-      iBCurrent: new FormControl('', Validators.required),
-      iNCurrent: new FormControl('', Validators.required),
-      iPECurrent: new FormControl('', Validators.required),
-
-      powerFactor: new FormControl('', Validators.required),
-      frequency: new FormControl('', Validators.required),
-    });
-  }
-
-  private createSafetyTestingRCBO(): FormGroup {
-    return new FormGroup({
-      rN: new FormControl(''),
-      rNImpedence: new FormControl('', Validators.required),
-      rNCurrent: new FormControl('', Validators.required),
-      rNTime: new FormControl('', Validators.required),
-      rNRemarks: new FormControl('', Validators.required),
-
-      yN: new FormControl(''),
-      yNImpedence: new FormControl('', Validators.required),
-      yNCurrent: new FormControl('', Validators.required),
-      yNTime: new FormControl('', Validators.required),
-      yNRemarks: new FormControl('', Validators.required),
-
-
-      bN: new FormControl(''),
-      bNImpedence: new FormControl('', Validators.required),
-      bNCurrent: new FormControl('', Validators.required),
-      bNTime: new FormControl('', Validators.required),
-      bNRemarks: new FormControl('', Validators.required),
-
-
-      rE: new FormControl(''),
-      rEImpedence: new FormControl('', Validators.required),
-      rECurrent: new FormControl('', Validators.required),
-      rETime: new FormControl('', Validators.required),
-      rERemarks: new FormControl('', Validators.required),
-
-
-      yE: new FormControl(''),
-      yEImpedence: new FormControl('', Validators.required),
-      yECurrent: new FormControl('', Validators.required),
-      yETime: new FormControl('', Validators.required),
-      yERemarks: new FormControl('', Validators.required),
-
-
-      bE: new FormControl(''),
-      bEImpedence: new FormControl('', Validators.required),
-      bECurrent: new FormControl('', Validators.required),
-      bETime: new FormControl('', Validators.required),
-      bERemarks: new FormControl('', Validators.required),
-
-
-      rY: new FormControl(''),
-      rYImpedence: new FormControl('', Validators.required),
-      rYCurrent: new FormControl('', Validators.required),
-      rYTime: new FormControl('', Validators.required),
-      rYRemarks: new FormControl('', Validators.required),
-
-
-      yB: new FormControl(''),
-      yBImpedence: new FormControl('', Validators.required),
-      yBCurrent: new FormControl('', Validators.required),
-      yBTime: new FormControl('', Validators.required),
-      yBRemarks: new FormControl('', Validators.required),
-
-
-      bR: new FormControl(''),
-      bRImpedence: new FormControl('', Validators.required),
-      bRCurrent: new FormControl('', Validators.required),
-      bRTime: new FormControl('', Validators.required),
-      bRRemarks: new FormControl('', Validators.required),
-
-
-      shockVoltage: new FormControl('', Validators.required),
-      floorResistance: new FormControl('', Validators.required),
-      wallResistance: new FormControl('', Validators.required),
-    });
-  }
-
-  getGeneralTestingRCBOControls() : AbstractControl[] {
-    return (<FormArray>this.mcbWithRcdForm.get('generalTestingRCBO')).controls;
-  }
-
-  getSafetyTestingRCBOControls() : AbstractControl[] {
-    return (<FormArray>this.mcbWithRcdForm.get('safetyTestingRCBO')).controls;
-  }
-
-  retrieveRcboNode(data: any) {
-    this.rcboFlag = true;
-    for(let i of data) {
-      this.rcbo.referenceName = i.referenceName;
-      this.rcbo.manufacturerName = i.manufacturerName;
-      this.rcbo.rating = i.rating;
-      this.rcbo.voltage = i.voltage;
-      this.rcbo.noOfPoles = i.noOfPoles;
-      this.rcbo.currentCurve = i.currentCurve;
-      this.rcbo.residualCurrentType = i.residualCurrentType;
-      this.rcbo.residualCurrent = i.residualCurrent;
-      this.rcbo.outgoingSizePhase = i.outgoingSizePhase;
-      this.rcbo.outgoingSizeNeutral = i.outgoingSizeNeutral;
-      this.rcbo.outgoingSizeProtective =i.outgoingSizeProtective;
-      this.rcbo.createdBy = i.createdBy;
-      this.rcbo.createdDate = i.createdDate;
-      this.rcbo.updatedBy = i.updatedBy;
-      this.rcbo.updatedDate = i.updatedDate;
-      this.rcbo.nodeId = i.nodeId;
-      this.rcbo.fileName = i.fileName;
-      this.rcbo.userName = i.userName;
-
-      this.populateRcboForm(i);
-    }
-  }
-
-  populateRcboForm(i: any) {
-    let generalTestingRCBOArr : any = []
-    let safetyTestingRCBOArr : any = []
-
-    for(let j of i.generalTestingRCBO) {
-      generalTestingRCBOArr.push(this.populateGeneralTestingRCBOForm(j));
-    }
-
-    for(let k of i.safetyTestingRCBO) {
-      safetyTestingRCBOArr.push(this.populateSafetyTestingRCBOForm(k));
-    }
-
-    this.mcbWithRcdForm.setControl('generalTestingRCBO', this.formBuilder.array(generalTestingRCBOArr || []));
-    this.mcbWithRcdForm.setControl('safetyTestingRCBO', this.formBuilder.array(safetyTestingRCBOArr || []));
-  }
-
-  populateGeneralTestingRCBOForm(j: any): FormGroup {
+  populateGeneralTestingMCCBForm(q: any): FormGroup {
     let rN = [];
     let yN = [];	
     let bN = [];
@@ -1189,19 +1178,19 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
     let bR = [];
     let nE = [];
     
-    rN = j.rN.split(",");
-    yN = j.yN.split(",");
-    bN = j.bN.split(",");
-    rE = j.rE.split(",");
-    yE = j.yE.split(",");
-    bE = j.bE.split(",");
-    rY = j.rY.split(",");
-    yB = j.yB.split(",");
-    bR = j.bR.split(",");
-    nE = j.nE.split(",");
+    rN = q.rN.split(",");
+    yN = q.yN.split(",");
+    bN = q.bN.split(",");
+    rE = q.rE.split(",");
+    yE = q.yE.split(",");
+    bE = q.bE.split(",");
+    rY = q.rY.split(",");
+    yB = q.yB.split(",");
+    bR = q.bR.split(",");
+    nE = q.nE.split(",");
 
     return new FormGroup({
-      generalTestingRCBOId: new FormControl(j.generalTestingRCBOId),
+      generalTestingMCCBId: new FormControl(q.generalTestingMCCBId),
       rN: new FormControl(''),
       rNVoltage: new FormControl(rN[0], Validators.required),
       rNResistance: new FormControl(rN[1], Validators.required),
@@ -1242,18 +1231,18 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
       nEVoltage: new FormControl(nE[0], Validators.required),
       nEResistance: new FormControl(nE[1], Validators.required),
 
-      iRCurrent: new FormControl(j.iRCurrent, Validators.required),
-      iYCurrent: new FormControl(j.iYCurrent, Validators.required),
-      iBCurrent: new FormControl(j.iBCurrent, Validators.required),
-      iNCurrent: new FormControl(j.iNCurrent, Validators.required),
-      iPECurrent: new FormControl(j.iPECurrent, Validators.required),
+      iRCurrent: new FormControl(q.iRCurrent, Validators.required),
+      iYCurrent: new FormControl(q.iYCurrent, Validators.required),
+      iBCurrent: new FormControl(q.iBCurrent, Validators.required),
+      iNCurrent: new FormControl(q.iNCurrent, Validators.required),
+      iPECurrent: new FormControl(q.iPECurrent, Validators.required),
 
-      powerFactor: new FormControl(j.powerFactor, Validators.required),
-      frequency: new FormControl(j.frequency, Validators.required),
+      powerFactor: new FormControl(q.powerFactor, Validators.required),
+      frequency: new FormControl(q.frequency, Validators.required),
     });
   }
 
-  populateSafetyTestingRCBOForm(k: any): FormGroup {
+  populateSafetyTestingMCCBForm(w: any): FormGroup {
     let rN = [];
     let yN = [];	
     let bN = [];
@@ -1264,18 +1253,18 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
     let yB = [];	
     let bR = [];
     
-    rN = k.rN.split(",");
-    yN = k.yN.split(",");
-    bN = k.bN.split(",");
-    rE = k.rE.split(",");
-    yE = k.yE.split(",");
-    bE = k.bE.split(",");
-    rY = k.rY.split(",");
-    yB = k.yB.split(",");
-    bR = k.bR.split(",");
+    rN = w.rN.split(",");
+    yN = w.yN.split(",");
+    bN = w.bN.split(",");
+    rE = w.rE.split(",");
+    yE = w.yE.split(",");
+    bE = w.bE.split(",");
+    rY = w.rY.split(",");
+    yB = w.yB.split(",");
+    bR = w.bR.split(",");
 
     return new FormGroup({
-      safetyTestingRCBOId: new FormControl(k.safetyTestingRCBOId),
+      safetyTestingMCCBId: new FormControl(w.safetyTestingMCCBId),
       rN: new FormControl(''),
       rNImpedence: new FormControl(rN[0], Validators.required),
       rNCurrent: new FormControl(rN[1], Validators.required),
@@ -1330,26 +1319,33 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
       bRTime: new FormControl(bR[2], Validators.required),
       bRRemarks: new FormControl(bR[3], Validators.required),
 
-      shockVoltage: new FormControl(k.shockVoltage, Validators.required),
-      floorResistance: new FormControl(k.floorResistance, Validators.required),
-      wallResistance: new FormControl(k.wallResistance, Validators.required),
+      shockVoltage: new FormControl(w.shockVoltage, Validators.required),
+      floorResistance: new FormControl(w.floorResistance, Validators.required),
+      wallResistance: new FormControl(w.wallResistance, Validators.required),
     });
   }
 
-  addRCBOTesting() {
-    let generalTestingRCBOArr: any = [];
-    let safetyTestingRCBOArr: any = [];
-
-    generalTestingRCBOArr = this.mcbWithRcdForm.get('generalTestingRCBO') as FormArray;
-    safetyTestingRCBOArr = this.mcbWithRcdForm.get('safetyTestingRCBO') as FormArray;
-
-    generalTestingRCBOArr.push(this.createGeneralTestingRCBO());
-    safetyTestingRCBOArr.push(this.createSafetyTestingRCBO());
+  
+  retrieveFromSavedReport(data: any) {
+    this.flag = true;
+    this.diagram.loadDiagram(data.file)
   }
 
-  removeRCBOtesting(a: any, i: any) {
-    (this.mcbWithRcdForm.get('generalTestingRCBO') as FormArray).removeAt(i);
-    (this.mcbWithRcdForm.get('safetyTestingRCBO') as FormArray).removeAt(i)
+  loadFileName(fileName: any) {
+    this.diagramComponent.fileName = fileName;
+  }
+
+  closeModalDialog() {
+    this.finalSpinner=true;
+      this.popup=false;
+      if(this.errorMsg != ""){
+        this.Error = false;
+        this.modalService.dismissAll(this.errorMsg = "");
+      }
+      else {
+        this.success=false;
+        this.modalService.dismissAll(this.successMsg=""); 
+      }
   }
 
   private createGeneralTestingLight(): FormGroup {
@@ -1883,18 +1879,18 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
       }
     )
   }
-
-  //submit MCB with RCD or RCBO
-  saveRCBO() {
-    this.submittedRCBO = true;
-    if(this.mcbWithRcdForm.invalid) {
-      return;
+  saveMCCB(flag:any,content1: any) {
+    this.submitted = true;
+    if(this.mccbForm.invalid) {
+      this.validationError=true;
+      this.validationErrorMsg="Please check all the fields";
+        return;
     }
 
-    this.rcboGeneralTestingArray = this.mcbWithRcdForm.get('generalTestingRCBO') as FormArray;
-    this.rcboSafetyTestingArray = this.mcbWithRcdForm.get('safetyTestingRCBO') as FormArray;
+    this.mccbGeneralTestingArray = this.mccbForm.get('generalTestingMCCB') as FormArray;
+    this.mccbSafetyTestingArray = this.mccbForm.get('safetyTestingMCCB') as FormArray;
 
-    for(let i of this.rcboGeneralTestingArray.controls) {
+    for(let i of this.mccbGeneralTestingArray.controls) {
       let arr1: any = [];
       let arr2: any = [];
       let arr3: any = [];
@@ -2072,7 +2068,7 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
       i.controls.nE.setValue(nE);   
     }
 
-    for(let i of this.rcboSafetyTestingArray.controls) {
+    for(let i of this.mccbSafetyTestingArray.controls) {
       let arr1: any = [];
       let arr2: any = [];
       let arr3: any = [];
@@ -2213,19 +2209,48 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
       i.controls.bR.setValue(bR); 
     }
 
-    this.rcbo.generalTestingRCBO = this.mcbWithRcdForm.value.generalTestingRCBO;
-    this.rcbo.safetyTestingRCBO = this.mcbWithRcdForm.value.safetyTestingRCBO;
+    this.mccb.generalTestingMCCB = this.mccbForm.value.generalTestingMCCB;
+    this.mccb.safetyTestingMCCB = this.mccbForm.value.safetyTestingMCCB;
+    this.modalService.open(content1, { centered: true,size: 'md',backdrop: 'static'});
 
-    this.rcboService.addRCBO(this.rcbo).subscribe(
+    if(!flag) {
+    this.mccbService.addMCCB(this.mccb).subscribe(
       data => {
-
+        this.popup=true;
+        this.finalSpinner=false;
+        this.success = true;
+        this.successMsg = data;
       },
       error => {
-        
+        this.popup=true;
+        this.finalSpinner=false;
+        this.Error = true;
+        this.errorArr = [];
+        this.errorArr = JSON.parse(error.error);
+        this.errorMsg = this.errorArr.message;
       }
     )
   }
- 
+  else{
+    this.mccbService.updateMCCB(this.diagramComponent).subscribe(
+      data => {
+        this.popup=true;
+        this.finalSpinner=false;
+        this.success = true;
+        this.successMsg = data;
+      },
+      error => {
+        this.popup=true;
+        this.finalSpinner=false;
+        this.Error = true;
+        this.errorArr = [];
+        this.errorArr = JSON.parse(error.error);
+        this.errorMsg = this.errorArr.message;
+      }
+    )
+  }
+  }
+
   submit(flag: any,content1: any) {
     //var data = this.diagram.saveDiagram();
     var saveData: string = this.diagram.saveDiagram();
