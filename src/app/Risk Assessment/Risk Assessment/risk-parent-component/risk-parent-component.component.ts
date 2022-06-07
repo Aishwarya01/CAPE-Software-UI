@@ -1,5 +1,5 @@
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { MatTab, MatTabGroup, MatTabHeader } from '@angular/material/tabs';
@@ -43,10 +43,8 @@ export class RiskParentComponentComponent implements OnInit {
 
   dataJSON: any = [];
   @ViewChild(RiskSavedReportsComponent)saved!: RiskSavedReportsComponent;
+  @ViewChild(RiskFinalReportsComponent)final!: RiskFinalReportsComponent;
   @ViewChild('tabs') tabs!: MatTabGroup;
-
-  // @ViewChild(RiskFinalReportsComponent)final!: RiskFinalReportsComponent;
-  // @ViewChild('tabs') tabs!: MatTabGroup;
 
   @ViewChild(MatTabGroup) tabGroup!: MatTabGroup;
   @ViewChild('stepper', { static: false }) stepper!: MatStepper;
@@ -55,13 +53,9 @@ export class RiskParentComponentComponent implements OnInit {
           private customerDetailsService: CustomerDetailsServiceService,
           public service: GlobalsService, private router: ActivatedRoute,
           private dialog: MatDialog,
-          private ChangeDetectorRef: ChangeDetectorRef
     ) { }
 
   ngOnInit(): void {
-    this.refresh();
-    this.tabs._handleClick = this.interceptTabChange.bind(this);
-    this.saved.ngOnInit();
   }
 
   public doSomething1(next: any): void {
@@ -82,6 +76,7 @@ export class RiskParentComponentComponent implements OnInit {
     this.service.isLinear=false;
     this.service.isCompleted8 = next;
     this.saved.ngOnInit();
+    this.final.ngOnInit();
   }
 
   triggerClickTab(){
@@ -121,19 +116,19 @@ export class RiskParentComponentComponent implements OnInit {
     }, 3000);
   }
 
-  // preview(riskId: any): void {
-  //   this.ngOnInit();
-  //   this.isEditable=true;
-  //   this.changeTabLpsSavedReport(0,riskId,this.router.snapshot.paramMap.get('email') || '{}');
-  // }
+  preview(riskId: any): void {
+    this.ngOnInit();
+    this.isEditable=true;
+    this.changeTabLpsSavedReport(0,riskId,this.router.snapshot.paramMap.get('email') || '{}');
+  }
 
   public onCallSavedMethod(e: any) {
     this.continue(e);
   }
 
-  // public onCallFinalMethod(e: any) {
-  //   this.preview(e);
-  // }
+  public onCallFinalMethod(e: any) {
+    this.preview(e);
+  }
 
   public changeTabLpsSavedReport(index: number, riskId: any, userName: any) {
      this.step1 = false;
@@ -146,6 +141,8 @@ export class RiskParentComponentComponent implements OnInit {
      setTimeout(() => {
        this.customerDetailsService.retrieveFinalRisk(userName, riskId).subscribe(
          (data) => {
+           this.final.finalReportSpinner = false;
+           this.final.finalReportBody = true;
            this.dataJSON = JSON.parse(data);
            
            if (this.dataJSON.customerDetails != null && this.dataJSON.riskStep2 != null) {
@@ -175,10 +172,6 @@ export class RiskParentComponentComponent implements OnInit {
        )
      }, 3000);
    }
-
-   refresh() { 
-    this.ChangeDetectorRef.detectChanges();
-  }
 
    interceptTabChange(tab: MatTab, tabHeader: MatTabHeader) {
     if((this.service.lvClick==1) && (this.service.allStepsCompleted==true))
