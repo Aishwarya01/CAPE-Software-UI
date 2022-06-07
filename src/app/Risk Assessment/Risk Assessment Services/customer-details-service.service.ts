@@ -21,11 +21,19 @@ export class CustomerDetailsServiceService {
     return this.http.put<any>(this.apiUrl + '/updateCustomerDetails', customerDetails, { responseType: 'text' as 'json' })
   }
 
-  public retriveCustomerDetails(userName: String): Observable<any>{
-    return this.http.get<any>(this.apiUrl + '/retrieveCustomerDetails' + '/' +userName, { responseType: 'text' as 'json' })
+  public retriveCustomerDetails(userName: String,riskId:any): Observable<any>{
+    return this.http.get<any>(this.apiUrl + '/retrieveCustomerDetails' + '/' +userName + '/' +riskId, { responseType: 'text' as 'json' })
+  }
+
+  public retriveAllCustomerDetails(userName:any): Observable<any>{
+    return this.http.get<any>(this.apiUrl + '/retrieveAllCustomers' + '/' + userName, { responseType: 'text' as 'json' })
   }
 
   public retriveCustomerDetails1(userName: String,riskId:any): Observable<any>{
-    return this.http.get<any>(this.apiUrl + '/retrieveCustomerDetails' + '/' +userName+ '/' +riskId, { responseType: 'text' as 'json' })
+    return this.http.get<any>(this.apiUrl + '/retrieveCustomerDetails' + '/' +userName + '/' +riskId, { responseType: 'text' as 'json' })
+  }
+
+  public retrieveFinalRisk(userName: String,riskId:any): Observable<any>{
+    return this.http.get<any>(this.apiUrl + '/retrieveRiskReport' + '/' +userName + '/' +riskId, { responseType: 'text' as 'json' })
   }
 }

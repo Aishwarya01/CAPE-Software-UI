@@ -40,6 +40,7 @@ export class RiskCustomerDetailsComponent implements OnInit {
   validationErrorMsgTab: string="";
   tabError: boolean=false;
   tabErrorMsg: string="";
+  isCustomerFormUpdated: boolean =false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -91,7 +92,7 @@ export class RiskCustomerDetailsComponent implements OnInit {
       data => {
         let customerdetails=JSON.parse(data)[0];
         if(customerdetails !=undefined && customerdetails.riskId !=null && customerdetails.riskId != undefined){
-        this.updateCustomerDetails(customerdetails);
+        this.updateCustomerDetails('',customerdetails);
         }
       },
       error=>{
@@ -99,7 +100,7 @@ export class RiskCustomerDetailsComponent implements OnInit {
     );  
   }
 
-  updateCustomerDetails(data:any){
+  updateCustomerDetails(riskId:any,data:any){
     this.proceedFlag = false;  
     
      if(data.customerData == undefined ){
@@ -229,6 +230,7 @@ export class RiskCustomerDetailsComponent implements OnInit {
             this.popup=true;
             this.success1 = false;
             this.retriveCustomerDetails();
+            this.isCustomerFormUpdated=true;
             this.success=true;
             this.successMsg=data;
             this.CustomerDetailsForm.markAsPristine();
@@ -271,8 +273,9 @@ export class RiskCustomerDetailsComponent implements OnInit {
           this.popup=true;
           this.proceedFlag=false;
           this.success=true;
-          this.updateCustomerDetails(JSON.parse(data));
+          this.updateCustomerDetails(JSON.parse(data),this.customerDetailsModel.riskId);
           this.successMsg = "Basic Information Successfully Saved";
+          this.isCustomerFormUpdated=true;
           this.disable = true;
           this.CustomerDetailsForm.markAsPristine();
           this.proceedNext.emit(true);
@@ -291,6 +294,7 @@ export class RiskCustomerDetailsComponent implements OnInit {
       }
     }
   }
+  
   gotoNextTab() {
     if (this.CustomerDetailsForm.dirty && this.CustomerDetailsForm.invalid) {
       this.service.isCompleted = false;

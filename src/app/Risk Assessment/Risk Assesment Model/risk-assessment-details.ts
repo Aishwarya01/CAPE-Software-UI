@@ -58,6 +58,9 @@ export class StructureCharacteristics {
 
     structureAttributes!:StructureAttributes[];
     losses!:Losses[];
+    protection!:Protection[];
+    riskProtection!:RiskProtection[];
+
 }
 
 export class StructureAttributes {
@@ -107,6 +110,59 @@ export class Losses {
     ecoLossOfFailureOfInternalSystemL1!: String;
     classOfLPS!: String;
     classOfSPD!: String;
-
     lossesId!: Number;
+}
+
+export class Protection {
+    // Loss of Human Life
+    protectionId!: Number;
+    protectionPEB!: Number;
+    protectionPMS!: Number;
+    protectionPM!: Number;
+    protectionPA!: Number;
+    protectionPC!: Number;
+    protectionPU!: Number;
+    protectionPV!: Number;
+    protectionPW!: Number;
+    protectionPZ!: Number;
+    // RISK OF LOSS OF HUMAN BEINGS (R1)	
+    riskProtectionRA1!: Number;
+    riskProtectionRB1!: Number;
+    riskProtectionRC1!: Number;
+    riskProtectionRM1!: Number;
+    riskProtectionRU1!: Number;
+    riskProtectionRV1!: Number;
+    riskProtectionRW1!: Number;
+    riskProtectionRZ1!: Number;
+    riskProtectionRD1!: Number;
+    riskProtectionRI1!: Number;
+    riskProtectionR1!: Number;
+    riskProtectionRB2!: Number;
+}
+
+export class RiskProtection {
+    riskProtectionId!: Number;
+    riskProtectionRC2!: Number;
+    riskProtectionRM2!: Number;
+    riskProtectionRV2!: Number;
+    riskProtectionRW2!: Number;
+    riskProtectionRZ2!: Number;
+    riskProtectionRD2!: Number;
+    riskProtectionRI2!: Number;
+    riskProtectionR2!: Number;
+    riskProtectionRB3!: Number;
+    riskProtectionRV3!: Number;
+    riskProtectionRD3!: Number;
+    riskProtectionR3!: Number;
+    riskProtectionRA4!: Number;
+    riskProtectionRB4!: Number;
+    riskProtectionRC4!: Number;
+    riskProtectionRM4!: Number;
+    riskProtectionRU4!: Number;
+    riskProtectionRV4!: Number;
+    riskProtectionRW4!: Number;
+    riskProtectionRZ4!: Number;
+    riskProtectionRD4!: Number;
+    riskProtectionRI4!: Number;
+    riskProtectionR4!: Number;
 }

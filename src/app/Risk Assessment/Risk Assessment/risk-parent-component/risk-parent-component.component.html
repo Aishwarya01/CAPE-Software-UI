@@ -1,33 +1,32 @@
 <mat-tab-group  style="background-color:white;" #tabs>
     <mat-tab label="Risk Assessment"> 
-  
-      <mat-horizontal-stepper  #stepper>
+      <mat-horizontal-stepper #stepper>
+    <!-- Step-1 Customer Details -->
         <mat-step>
           <ng-template matStepLabel>
-               <div class="stepper-header-overlay"></div>
+               <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
                Customer Details
               </ng-template>
-          <app-risk-customer-details></app-risk-customer-details>
+          <app-risk-customer-details *ngIf="customerFlag" (proceedNext)="doSomething1($event)"></app-risk-customer-details>
         </mat-step>
   
+    <!-- Step-1 Risk Assessment Details -->
         <mat-step>
           <ng-template matStepLabel>
-            <!-- <span (click)="triggerClickTab();">Supply Characteristics</span>-->
-            <div class="stepper-header-overlay"></div>
+            <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
             Risk Assessment Details
             </ng-template> 
-          <app-risk-assessment-details></app-risk-assessment-details>
-          <!-- <button class="previousSupply" mat-button (click)="goBack2(stepper)">&laquo; Back</button>  -->
+          <app-risk-assessment-details *ngIf="riskFlag" (navigateStepSummary) = "navigateStepMethod($event)" (proceedNext)="doSomething2($event)"></app-risk-assessment-details>
+          <button class="riskStep2" mat-button (click)="goBack(stepper)">&laquo; Back</button> 
         </mat-step>
-
        
       </mat-horizontal-stepper>
     </mat-tab>
     <mat-tab label="Saved Reports">
-      <app-risk-saved-reports></app-risk-saved-reports>
+      <app-risk-saved-reports (callSavedMethod) = "onCallSavedMethod($event)"></app-risk-saved-reports>
     </mat-tab>
   
-    <mat-tab label="Final Reports">
-      <app-risk-final-reports></app-risk-final-reports>
-    </mat-tab>
+    <!-- <mat-tab label="Final Reports">
+      <app-risk-final-reports (callFinalMethod) = "onCallFinalMethod($event)"></app-risk-final-reports>
+    </mat-tab> -->
   </mat-tab-group>
