@@ -105,6 +105,11 @@ import { DiagramListComponent } from './SLD/SLD components/diagram-list/diagram-
 import { DiagramHomeComponent } from './SLD/SLD components/diagram-home/diagram-home.component';
 import { DiagramWelcomePageComponent } from './SLD/SLD components/diagram-welcome-page/diagram-welcome-page.component';
 import { NewFileComponent } from './new-file/new-file.component';
+import { MCBComponent } from './SLD/SLD components/Node Components/mcb/mcb.component';
+import { MCCBComponent } from './SLD/SLD components/Node Components/mccb/mccb.component';
+import { RCBOComponent } from './SLD/SLD components/Node Components/rcbo/rcbo.component';
+import { LightComponent } from './SLD/SLD components/Node Components/light/light.component';
+import { LTMotorComponent } from './SLD/SLD components/Node Components/ltmotor/ltmotor.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -169,7 +174,7 @@ import { NewFileComponent } from './new-file/new-file.component';
     LpsEarthStudComponent,
     LpsSavedReportComponent,
     LpsWelcomePageComponent, 
-    LpsFinalReportComponent, SignatureComponent, DiagramListComponent, DiagramHomeComponent, DiagramWelcomePageComponent, NewFileComponent, LpssummaryComponent,
+    LpsFinalReportComponent, SignatureComponent, DiagramListComponent, DiagramHomeComponent, DiagramWelcomePageComponent, NewFileComponent, LpssummaryComponent, MCBComponent, MCCBComponent, RCBOComponent, LightComponent, LTMotorComponent,
   ],
   imports: [
     SignaturePadModule,

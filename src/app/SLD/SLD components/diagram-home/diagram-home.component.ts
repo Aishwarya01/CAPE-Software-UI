@@ -16,6 +16,9 @@ import { MCB } from '../../SLD Models/mcb';
 import { MCCB } from '../../SLD Models/mccb';
 import { RCBO } from '../../SLD Models/rcbo';
 import { Light } from '../../SLD Models/light';
+import { MCBComponent } from '../../SLD components/Node Components/mcb/mcb.component';
+import { MatDialog } from '@angular/material/dialog';
+import { MCCBComponent } from '../Node Components/mccb/mccb.component';
 
 
 
@@ -205,9 +208,34 @@ export class DiagramHomeComponent implements OnInit {
             }
           }
         )
-        this.modalService.open(content7, { centered: true,size: 'xl'});
-        this.mccb.nodeId = e.element.properties.id;
-        this.mccb.fileName = this.diagramComponent.fileName;
+        //this.modalService.open(content7, { centered: true,size: 'xl'});
+        const dialogRef = this.dialog.open(MCCBComponent, {
+          width: '420px',
+          maxHeight: '90vh',
+          disableClose: true,
+        });
+        // dialogRef.componentInstance.nodeId = e.element.properties.id;;
+        // dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
+        
+        // dialogRef.componentInstance.confirmBox.subscribe(data=>{
+        //   if(data) {
+        //     this.viewContainerRef.clear();
+        //     this.destroy = true;
+        //     this.value=true;
+        //     this.service.disableFields=false;
+        //     setTimeout(()=>{
+        //       this.verification.changeTab(0,siteId,userName,companyName,departmentName,site);
+        //     }, 1000);
+        //   }
+        //   else{
+        //     this.destroy = false;
+        //     this.value=false;
+        //   }
+        // })
+
+
+        // this.mccb.nodeId = e.element.properties.id;
+        // this.mccb.fileName = this.diagramComponent.fileName;
       }
       else if(e.element.properties.id.includes('MCB_with_RCD')) {
         this.rcboService.retriveRCBO(this.diagramComponent.fileName,e.element.properties.id).subscribe(
@@ -223,17 +251,27 @@ export class DiagramHomeComponent implements OnInit {
         this.rcbo.fileName = this.diagramComponent.fileName;
       }
       else if(e.element.properties.id.includes('MCB')) {
-        this.mcbService.retriveMCB(this.diagramComponent.fileName,e.element.properties.id).subscribe(
-          data => {
-            this.mcbData = JSON.parse(data);
-            if(this.mcbData.length != 0) {
-              this.retrieveMcbNode(this.mcbData);
-            }
-          }
-        )
-        this.modalService.open(content9, { centered: true,size: 'xl'});
-        this.mcb.nodeId = e.element.properties.id;
-        this.mcb.fileName = this.diagramComponent.fileName;
+        // this.mcbService.retriveMCB(this.diagramComponent.fileName,e.element.properties.id).subscribe(
+        //   data => {
+        //     this.mcbData = JSON.parse(data);
+        //     if(this.mcbData.length != 0) {
+        //       this.retrieveMcbNode(this.mcbData);
+        //     }
+        //   }
+        // )
+        //this.modalService.open(content9, { centered: true,size: 'xl'});
+
+        const dialogRef = this.dialog.open(MCBComponent, {
+          width: '1000px',
+          maxHeight: '90vh',
+          disableClose: true,
+        });
+        dialogRef.componentInstance.nodeId = e.element.properties.id;;
+        dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
+
+
+        // this.mcb.nodeId = e.element.properties.id;
+        // this.mcb.fileName = this.diagramComponent.fileName;
       }
       else if(e.element.properties.id.includes('Battery')) {
         this.modalService.open(content10, { centered: true,size: 'xl'});
@@ -572,6 +610,7 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
   email: String = '';
   constructor(private inspectionService: InspectionVerificationService,
               private diagramService: DiagramServicesService,
+              private dialog: MatDialog,
               private mcbService: MCBServicesService,
               private mccbService: MCCBServicesService,
               private rcboService: RCBOServicesService,
