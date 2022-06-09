@@ -34,6 +34,8 @@ export class RiskSavedReportsComponent implements OnInit {
   email: String ="";
   customerDetailsModel = new CustomerDetails;
   @ViewChild('input') input!: MatInput;
+  savedReportSpinner: boolean = false;
+  savedReportBody: boolean = true;
   customerData: any=[];
   completedFilterData: any=[];
   filteredData: any = [];

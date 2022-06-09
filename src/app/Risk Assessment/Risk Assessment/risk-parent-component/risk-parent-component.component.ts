@@ -1,9 +1,10 @@
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { MatTab, MatTabGroup, MatTabHeader } from '@angular/material/tabs';
 import { ActivatedRoute } from '@angular/router';
+import { flag } from 'ngx-bootstrap-icons';
 import { ConfirmationBoxComponent } from 'src/app/confirmation-box/confirmation-box.component';
 import { GlobalsService } from 'src/app/globals.service';
 import { CustomerDetailsServiceService } from '../../Risk Assessment Services/customer-details-service.service';
@@ -52,10 +53,12 @@ export class RiskParentComponentComponent implements OnInit {
   constructor(
           private customerDetailsService: CustomerDetailsServiceService,
           public service: GlobalsService, private router: ActivatedRoute,
-          private dialog: MatDialog,
+          private dialog: MatDialog,private ChangeDetectorRef: ChangeDetectorRef
     ) { }
 
   ngOnInit(): void {
+    this.refresh();
+    // this.tabs._handleClick = this.interceptTabChange.bind(this);
   }
 
   public doSomething1(next: any): void {
@@ -76,7 +79,7 @@ export class RiskParentComponentComponent implements OnInit {
     this.service.isLinear=false;
     this.service.isCompleted8 = next;
     this.saved.ngOnInit();
-    this.final.ngOnInit();
+    // this.final.ngOnInit();
   }
 
   triggerClickTab(){
@@ -103,11 +106,13 @@ export class RiskParentComponentComponent implements OnInit {
   }
 
   continue(riskId: any): void {
+    this.refresh();
     this.ngOnInit();
     this.isEditable=false;
+    this.riskStep2.updateButton=true;
+    this.riskStep2.saveButton=false;
    // this.doSomething1(false);
-    this.changeTabLpsSavedReport(0,riskId,this.router.snapshot.paramMap.get('email') || '{}');
-
+    this.changeTabLpsSavedReport(0,riskId,this.router.snapshot.paramMap.get('email') || '{}',flag);
     setTimeout(() => {
       this.saved.spinner=false;
       setTimeout(() => {
@@ -119,7 +124,7 @@ export class RiskParentComponentComponent implements OnInit {
   preview(riskId: any): void {
     this.ngOnInit();
     this.isEditable=true;
-    this.changeTabLpsSavedReport(0,riskId,this.router.snapshot.paramMap.get('email') || '{}');
+    this.changeTabLpsSavedReport(0,riskId,this.router.snapshot.paramMap.get('email') || '{}',flag);
   }
 
   public onCallSavedMethod(e: any) {
@@ -129,101 +134,97 @@ export class RiskParentComponentComponent implements OnInit {
   public onCallFinalMethod(e: any) {
     this.preview(e);
   }
+  
+  refresh() {  
+    this.ChangeDetectorRef.detectChanges();
+  }
 
-  public changeTabLpsSavedReport(index: number, riskId: any, userName: any) {
-     this.step1 = false;
-     this.step2 = false;
-     setTimeout(() => {
-       this.step1 = true;
-       this.step2 = true;
-     }, 50);
- 
+  public changeTabLpsSavedReport(index: number, riskId: any, userName: any,flag:any) {
+    this.step1 = false;
+    this.step2 = false;
+    setTimeout(() => {
+      this.step1 = true;
+      this.step2 = true;
+    }, 50);
      setTimeout(() => {
        this.customerDetailsService.retrieveFinalRisk(userName, riskId).subscribe(
-         (data) => {
-           this.final.finalReportSpinner = false;
-           this.final.finalReportBody = true;
-           this.dataJSON = JSON.parse(data);
-           
-           if (this.dataJSON.customerDetails != null && this.dataJSON.riskStep2 != null) {
-             this.service.allFieldsDisable = true;
-           }
-           // Customer Details
-           if (this.dataJSON.customerDetails != null) {
-             this.selectedIndex = index;
-             this.customerDetails.updateCustomerDetails(riskId, this.dataJSON);
-             this.riskStep2.appendRiskId(riskId);  
-             this.initializeRiskId(); 
-           }
-          // Risk Assessment Details
-             if (this.dataJSON.riskStep2 == null) {
-              setTimeout(() => {
-                this.riskStep2.ngOnInit();
-           }, 1000);
-           }
-           else {
-            setTimeout(() => {
-              this.riskStep2.updateRiskDetails(userName, riskId, this.dataJSON);
-            }, 5000);
+        (data) => {
+          // this.final.finalReportSpinner = false;
+          // this.final.finalReportBody = true;
+          this.dataJSON = JSON.parse(data);
+          //CustomerDetails
+          if (this.dataJSON.basicLps != null) {
+            this.selectedIndex = index;
+            this.customerDetails.retriveCustomerDetails();
+            this.riskStep2.appendRiskId(riskId);  
+            this.initializeRiskId();
           }
+          //Risk Assessment Details
+          if (this.dataJSON.airTermination != null) {
+            this.riskStep2.retriveRiskDetails();
+          }  
         },
-         (error) => {
-         }
+        (error) => {
+
+        }
        )
      }, 3000);
    }
 
-   interceptTabChange(tab: MatTab, tabHeader: MatTabHeader) {
-    if((this.service.lvClick==1) && (this.service.allStepsCompleted==true))
-       {
-        const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
-          width: '420px',
-          maxHeight: '90vh',
-          disableClose: true,
-        });
-        dialogRef.componentInstance.editModal = false;
-        dialogRef.componentInstance.viewModal = false;
-        dialogRef.componentInstance.triggerModal = true;
-        dialogRef.componentInstance.linkModal = false;
+  // interceptTabChange(tab: MatTab, tabHeader: MatTabHeader) {
+  //   if((this.service.lvClick==1) && (this.service.allStepsCompleted==true))
+  //      {
+  //       const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+  //         width: '420px',
+  //         maxHeight: '90vh',
+  //         disableClose: true,
+  //       });
+  //       dialogRef.componentInstance.editModal = false;
+  //       dialogRef.componentInstance.viewModal = false;
+  //       dialogRef.componentInstance.triggerModal = true;
+  //       dialogRef.componentInstance.linkModal = false;
     
-        dialogRef.componentInstance.confirmBox.subscribe(data=>{
-          if(data) {
+  //       dialogRef.componentInstance.confirmBox.subscribe(data=>{
+  //         if(data) {
            
-            if(tab.textLabel == "Saved Reports"){
-              this.selectedIndex=1; 
-            }
-            else if(tab.textLabel == "Final Reports"){
-              this.selectedIndex=2; 
-            }
-            this.service.windowTabClick=0;
-            this.service.logoutClick=0; 
-            this.service.lvClick=0; 
-          }
-          else{
-            return;
-          }
-        })
-        }
-        else if((this.service.lvClick==0) || (this.service.allStepsCompleted==false)){
-        this.service.windowTabClick=0;
-        this.service.logoutClick=0;
-        this.service.lvClick=0; 
-        const tabs = tab.textLabel;
-        if((tabs==="Lightning Protection System"))  {
-             this.selectedIndex=0; 
-          }
-          else if((tabs==="Saved Reports")){
-            this.selectedIndex=1;
-            if(this.customerDetails.customerDetailsModel.riskId != undefined){
-              this.saved.retrieveCustomerDetails();
-              this.saved.disablepage=true;
-            }
-          }    
-          else{
-            this.selectedIndex=2; 
-          }        
-        }
-  }
+  //           if(tab.textLabel == "Saved Reports"){
+  //             this.selectedIndex=1; 
+  //           }
+  //           // else if(tab.textLabel == "Final Reports"){
+  //           //   this.selectedIndex=2; 
+  //           // }
+  //           this.service.windowTabClick=0;
+  //           this.service.logoutClick=0; 
+  //           this.service.lvClick=0; 
+  //         }
+  //         else{
+  //           return;
+  //         }
+  //       })
+  //       }
+  //       else if((this.service.lvClick==0) || (this.service.allStepsCompleted==false)){
+  //       this.service.windowTabClick=0;
+  //       this.service.logoutClick=0;
+  //       this.service.lvClick=0; 
+  //       const tabs = tab.textLabel;
+  //       if((tabs==="Lightning Protection System"))  {
+  //            this.selectedIndex=0; 
+  //         }
+  //         else if((tabs==="Saved Reports")){
+  //           this.selectedIndex=1;
+  //           if(this.customerDetails.customerDetailsModel.riskId != undefined){
+  //             this.saved.retrieveCustomerDetails();
+  //             this.saved.disablepage=true;
+  //             // setTimeout(() => {
+  //             //   this.saved.spinner1=true;
+  //             // }, 3000);
+  //           }
+  //         }    
+  //         else{
+  //           this.selectedIndex=2; 
+  //         }        
+  //       }
+  // }
 
   initializeRiskId(){
     this.customerDetails.isEditable=this.isEditable;

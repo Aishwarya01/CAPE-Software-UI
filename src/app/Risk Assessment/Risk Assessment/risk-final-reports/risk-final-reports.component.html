@@ -1,1 +1,106 @@
-<p>risk-final-reports works!</p>
+<div class="card">
+
+    <div class="card-body">
+      <!-- Filter Tag -->
+      <mat-form-field appearance="standard" style=" font-size: 14px;width: 30%;">
+        <mat-label>Filter Client</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Client Name" #input>
+      </mat-form-field>
+
+      <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalReportSpinner"
+      color="primary"
+      [mode]="mode"
+      value="50"
+      diameter="50">
+      </mat-progress-spinner>
+      <br>
+      <div *ngIf="finalReportSpinner" style="text-align: center;">
+        {{spinnerValue}}
+      </div>
+      <table *ngIf="finalReportBody" mat-table [dataSource]="finalReport_dataSource" class="mat-elevation-z8 table" matSort
+        #finalReportSort="matSort">
+
+        <!-- Organisation Column -->
+        <ng-container matColumnDef="organisationName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Organisation Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.organisationName | slice:0:18}} </td>
+          </ng-container>
+  
+          <!-- Project Column -->
+          <ng-container matColumnDef="projectName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>  Project Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.projectName | slice:0:18}} </td>
+          </ng-container>
+  
+          <!-- Contact Person Column -->
+          <ng-container matColumnDef="contactPersonName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact Person Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.contactPersonName | slice:0:18}} </td>
+          </ng-container>
+  
+          <!-- Updated Date Column -->
+          <ng-container matColumnDef="updatedDate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Updated Date </th>
+              <td mat-cell *matCellDef="let element"> {{element.updatedDate | date : 'shortDate'}} </td>
+          </ng-container>
+  
+          <!-- Updated By Column -->
+          <ng-container matColumnDef="updatedBy">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Updated By </th>
+              <td mat-cell *matCellDef="let element"> {{element.updatedBy}} </td>
+          </ng-container>
+
+      <!-- Final Report Buttons -->
+      <ng-container matColumnDef="action">
+        <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef> Action
+        </th>
+        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
+            <!-- Preview -->
+          <button class="btn btn-outline-danger delete" title="View Client Details" 
+          (click)="continue(element.riskId)">
+            <mat-icon>visibility</mat-icon>
+          </button>
+            <!-- Download -->
+          <button class="btn btn-outline-danger delete" title="Download Final PDF" 
+          (click)="downloadPdf(element.riskId, element.projectName)" 
+          style="border-color: #cdcecf;box-shadow: unset;">
+            <mat-icon>download</mat-icon>
+          </button>
+            <!-- Email -->
+          <button class="btn btn-outline-danger delete" title="Trigger Email With Final PDF"
+          style="border-color: #cdcecf;box-shadow: unset;" (click)="emailPDF(element.riskId,element.userName, element.projectName)">
+            <mat-icon>email</mat-icon>
+          </button>
+            <!-- Print -->
+          <button class="btn btn-outline-danger delete" title="Print Final PDF" 
+          style="border-color: #cdcecf;box-shadow: unset;" (click)="printPDF(element.riskId,element.userName, element.projectName)">
+            <mat-icon>print</mat-icon>
+          </button>
+
+        </td>
+      </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="finalReportsColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: finalReportsColumns;"
+          [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (mouseover)="row.hovered = true"
+          (mouseout)="row.hovered = false" class="highlight-row"></tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No data matching the filter ""</td>
+        </tr>
+      </table>
+
+      <mat-paginator #finalReportPaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+      <div class="centre-text m-btm30">
+        <div *ngIf="success" style="text-align: center;">
+          <span class="successshow">{{successMsg}}</span>
+         </div>
+         <div *ngIf="Error" style="text-align: center;">
+           <span class="errorshow">{{errorMsg}}</span>
+         </div>
+      </div>
+    </div>
+  </div>
+

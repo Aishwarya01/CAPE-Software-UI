@@ -51,15 +51,11 @@ export class StructureCharacteristics {
     updatedBy!: String;
     updatedDate!: String;
 
-    explosion!: String;
-    explosion1!: String;
-    fire!: String;
-    none!: String;
-
     structureAttributes!:StructureAttributes[];
     losses!:Losses[];
     protection!:Protection[];
     riskProtection!:RiskProtection[];
+    calculatedRisk!:CalculatedRisk[];
 
 }
 
@@ -116,6 +112,7 @@ export class Losses {
 export class Protection {
     // Loss of Human Life
     protectionId!: Number;
+    
     protectionPEB!: Number;
     protectionPMS!: Number;
     protectionPM!: Number;
@@ -138,22 +135,20 @@ export class Protection {
     riskProtectionRI1!: Number;
     riskProtectionR1!: Number;
     riskProtectionRB2!: Number;
+    culturalRB!: Number;
+    culturalRV!: Number;
 }
 
 export class RiskProtection {
     riskProtectionId!: Number;
+
     riskProtectionRC2!: Number;
     riskProtectionRM2!: Number;
     riskProtectionRV2!: Number;
     riskProtectionRW2!: Number;
     riskProtectionRZ2!: Number;
-    riskProtectionRD2!: Number;
-    riskProtectionRI2!: Number;
-    riskProtectionR2!: Number;
     riskProtectionRB3!: Number;
     riskProtectionRV3!: Number;
-    riskProtectionRD3!: Number;
-    riskProtectionR3!: Number;
     riskProtectionRA4!: Number;
     riskProtectionRB4!: Number;
     riskProtectionRC4!: Number;
@@ -162,7 +157,37 @@ export class RiskProtection {
     riskProtectionRV4!: Number;
     riskProtectionRW4!: Number;
     riskProtectionRZ4!: Number;
-    riskProtectionRD4!: Number;
-    riskProtectionRI4!: Number;
+
+    econamicValueRA!: Number;
+    econamicValueRB!: Number;
+    econamicValueRC!: Number;
+    econamicValueRM!: Number;
+    econamicValueRU!: Number;
+    econamicValueRV!: Number;
+    econamicValueRW!: Number;
+    econamicValueRZ!: Number;
+}
+
+export class CalculatedRisk {
+    calculatedRiskId!: Number;
+
+    lossOfHumanLifeRT1!: String;
+    lossOfPublicSerivceRT2!: String;
+    lossOfCulturalHeritageRT3!: String;
+    economicLossRT4!: String;
+
+    riskProtectionR1!: Number;
+    riskProtectionR2!: Number;
+    riskProtectionR3!: Number;
     riskProtectionR4!: Number;
+
+    riskProtectionRD1!: Number;
+    riskProtectionRD2!: Number;
+    riskProtectionRD3!: Number;
+    riskProtectionRD4!: Number;
+
+    riskProtectionRI1!: Number;
+    riskProtectionRI2!: Number;
+    riskProtectionRI3!: Number;
+    riskProtectionRI4!: Number;
 }
