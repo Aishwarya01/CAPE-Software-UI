@@ -19,11 +19,11 @@ export class Light {
     createdBy!: String;
     updatedDate!: Date;
 
-    generalTestingRCBO!: GeneralTestingRCBO[];
-    safetyTestingRCBO!: SafetyTestingRCBO[];
+    generalTestingLight!: GeneralTestingLight[];
+    safetyTestingLight!: SafetyTestingLight[];
 }
 
-export class GeneralTestingRCBO {
+export class GeneralTestingLight {
     phN!: String;
     phE!: String;
     nE!: String;
@@ -35,7 +35,7 @@ export class GeneralTestingRCBO {
     frequency!: String;    
 }
 
-export class SafetyTestingRCBO {
+export class SafetyTestingLight {
     phN!: String;
     phE!: String;
     nE!: String;

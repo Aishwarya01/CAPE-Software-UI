@@ -1,4 +1,7 @@
 <div class="card">
+    <div class="card-header" style="text-align: center; display: block">
+      <h2 class="modal-title" style="display: contents">MCB</h2>
+    </div>
     <div class="card-body">
       <form [formGroup]="mcbForm">
       <div class="row">
@@ -826,16 +829,18 @@
       </ng-container>
       </form>
     </div>
+
+    <div style="display: inline">    
+      <button type="button"  style="float: left; margin-left: 400px"
+        class="btn btn-info" (click)="saveMCB()">
+        <i class="bi bi-person-plus-fill icon"></i> Save
+      </button>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="button"  class="btn btn-danger" aria-label="Close" 
+        style="float: right; margin-right: 400px" (click)="close()">
+        <span aria-hidden="true">Cancel</span>
+      </button>
+    </div>
   </div>
 
-  <div style="display: inline">    
-    <button type="button"  style="float: left; margin-left: 400px"
-      class="btn btn-info" (click)="saveMCB()">
-      <i class="bi bi-person-plus-fill icon"></i> Save
-    </button>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <button type="button"  class="btn btn-danger" aria-label="Close" 
-      style="float: right; margin-right: 400px" (click)="close()">
-      <span aria-hidden="true">Cancel</span>
-    </button>
-  </div>
+  

@@ -2,8 +2,7 @@ export class MCCB {
     nodeId!: String;
     fileName!: String;
     referenceName!: String;
-    manufacturerName!: String;generalTestingMCCB: any;
-    safetyTestingMCCB: any;
+    manufacturerName!: String;
     rating!: number;
     voltage!: number;
     relayManufacturer!: String;
@@ -21,11 +20,11 @@ export class MCCB {
     createdBy!: String;
     updatedDate!: Date;
 
-    generalTestingMCB!: GeneralTestingMCB[];
-    safetyTestingMCB!: SafetyTestingMCB[];
+    generalTestingMCCB!: GeneralTestingMCCB[];
+    safetyTestingMCCB!: SafetyTestingMCCB[];
 }
 
-export class GeneralTestingMCB {
+export class GeneralTestingMCCB {
     rN!: String;
     yN!: String;
     bN!: String;
@@ -40,7 +39,7 @@ export class GeneralTestingMCB {
     frequency!: String;    
 }
 
-export class SafetyTestingMCB {
+export class SafetyTestingMCCB {
     rN!: String;
     yN!: String;
     bN!: String;
