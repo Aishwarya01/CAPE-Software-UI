@@ -213,6 +213,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       riskProtectionRW1: new FormControl(''),
       riskProtectionRZ1: new FormControl(''),
       riskProtectionRB2: new FormControl(''),
+
       culturalRB: new FormControl(''),
       culturalRV: new FormControl(''),
 
@@ -268,7 +269,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 
       riskProtectionRI1: new FormControl(''),
       riskProtectionRI2: new FormControl(''),
-      riskProtectionRI3: new FormControl(''),
+      riskProtectionRI3: new FormControl('0'),
       riskProtectionRI4: new FormControl(''),
     })
   }
@@ -459,15 +460,12 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     return (<FormArray>this.step2Form.get('structureCharacters')).controls;
   }
   getStructureAttributesControls(form: any) {
-    // return (<FormArray> this.step2Form.get('structureAttributes')).controls
     return form.controls.structureAttributes?.controls;
   }
   getLossesControls(form:any) {
-    // return (<FormArray> this.step2Form.get('losses')).controls
     return form.controls.losses?.controls;
   }
   getCalRiskControls(form:any) {
-    // return (<FormArray> this.step2Form.get('losses')).controls
     return form.controls.calculatedRisk?.controls;
   }
 
@@ -562,7 +560,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 
   // Math for Collection Area of Structure
   collectionAreaLength(event:any, form:any){
-    let selectedValue=event.target.value;
+
     if(form.controls.protrusionWidth.value!='' && form.controls.protrusionHeight.value!=''){
       var a=form.controls.protrusionLenght.value*form.controls.protrusionWidth.value+6*form.controls.protrusionLenght.value*
       (form.controls.protrusionLenght.value+form.controls.protrusionWidth.value)+9*3.14*(form.controls.protrusionHeight.value*form.controls.protrusionHeight.value);
@@ -581,7 +579,6 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     }
   }
   collectionAreaWidth(event:any, form:any){
-    let selectedValue=event.target.value;
     if(form.controls.protrusionLenght.value!='' && form.controls.protrusionHeight.value!=''){
       var a=form.controls.protrusionLenght.value*form.controls.protrusionWidth.value+6*form.controls.protrusionLenght.value*
       (form.controls.protrusionLenght.value+form.controls.protrusionWidth.value)+9*3.14*(form.controls.protrusionHeight.value*form.controls.protrusionHeight.value);
@@ -599,7 +596,6 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     }
   }
   collectionAreaHeight(event:any, form:any){
-    let selectedValue=event.target.value;
     if(form.controls.protrusionWidth.value!='' && form.controls.protrusionLenght.value!=''){
       var a=form.controls.protrusionLenght.value*form.controls.protrusionWidth.value+6*form.controls.protrusionLenght.value*
       (form.controls.protrusionLenght.value+form.controls.protrusionWidth.value)+9*3.14*(form.controls.protrusionHeight.value*form.controls.protrusionHeight.value)
@@ -990,7 +986,11 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     }else{
       form.controls.protection.controls[0].controls.protectionPZ.setValue('');
     }
-  
+    // Sending values to below function
+        this.lossOfHumanCalc(event,form);
+        this.lossOfServiceCalc(event,form);
+        this.lossCulturalCalc(event,form);
+        this.lossEconomicCalc(event,form);
   }
 
   // PROTECTION CALCULATION 
@@ -1017,6 +1017,10 @@ export class RiskAssessmentDetailsComponent implements OnInit {
         else{
           form.controls.protection.controls[0].controls.protectionPM.setValue('');
         }
+        this.lossOfHumanCalc(event,form);
+        this.lossOfServiceCalc(event,form);
+        this.lossCulturalCalc(event,form);
+        this.lossEconomicCalc(event,form);
         console.log(form.controls.protection.controls[0].controls.protectionPM.value);
       }
 
@@ -1030,6 +1034,10 @@ export class RiskAssessmentDetailsComponent implements OnInit {
           form.controls.protection.controls[0].controls.protectionPA.setValue('');
         }
         console.log(form.controls.protection.controls[0].controls.protectionPA.value);
+        this.lossOfHumanCalc(event,form);
+        this.lossOfServiceCalc(event,form);
+        this.lossCulturalCalc(event,form);
+        this.lossEconomicCalc(event,form);
       }
 
   // Calcualted Risk Table calculation are given below 
@@ -1070,7 +1078,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 
       // RU1 = riskProtectionRU1, formular = (NL/P + NL/T + NDJ ) × PU × LU, LU = ecoLossOfInjuryOfElectricShock, PU = protectionPU, NDJ=noOfDangEventOnAdjacentStruc, NL/P = eventOnThePowerLines, NL/T = eventOnTheTelecomLines
       if(form.controls.structureAttributes.controls[0].controls.eventOnThePowerLines!='' && form.controls.structureAttributes.controls[0].controls.eventOnTheTelecomLines!='' && form.controls.noOfDangEventOnAdjacentStruc!='' && form.controls.protection.controls[0].controls.protectionPU!='' && form.controls.losses.controls[0].controls.ecoLossOfInjuryOfElectricShock!=''){
-        var e=(form.controls.structureAttributes.controls[0].controls.eventOnThePowerLines.value+form.controls.structureAttributes.controls[0].controls.eventOnTheTelecomLines.value+form.controls.noOfDangEventOnAdjacentStruc.value)*form.controls.protection.controls[0].controls.protectionPU.value*form.controls.losses.controls[0].controls.ecoLossOfInjuryOfElectricShock.value;
+        var e=form.controls.structureAttributes.controls[0].controls.eventOnThePowerLines.value+form.controls.structureAttributes.controls[0].controls.eventOnTheTelecomLines.value+form.controls.noOfDangEventOnAdjacentStruc.value*form.controls.protection.controls[0].controls.protectionPU.value*form.controls.losses.controls[0].controls.ecoLossOfInjuryOfElectricShock.value;
         form.controls.protection.controls[0].controls.riskProtectionRU1.setValue(e);
       }
       else{
@@ -1079,7 +1087,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 
       // RV1 = riskProtectionRV1, formula = (NL/P + NL/T + NDJ ) × PV × LV, LV = ecoLossOfPhysicalDamageL1
       if(form.controls.structureAttributes.controls[0].controls.eventOnThePowerLines!='' && form.controls.structureAttributes.controls[0].controls.eventOnTheTelecomLines!='' && form.controls.noOfDangEventOnAdjacentStruc!='' && form.controls.protection.controls[0].controls.protectionPV!='' && form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageL1!=''){
-        var f=(form.controls.structureAttributes.controls[0].controls.eventOnThePowerLines.value+form.controls.structureAttributes.controls[0].controls.eventOnTheTelecomLines.value+form.controls.noOfDangEventOnAdjacentStruc.value)*form.controls.protection.controls[0].controls.protectionPV.value*form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageL1.value;
+        var f=form.controls.structureAttributes.controls[0].controls.eventOnThePowerLines.value+form.controls.structureAttributes.controls[0].controls.eventOnTheTelecomLines.value+form.controls.noOfDangEventOnAdjacentStruc.value*form.controls.protection.controls[0].controls.protectionPV.value*form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageL1.value;
         form.controls.protection.controls[0].controls.riskProtectionRV1.setValue(f);
       }
       else{
@@ -1088,7 +1096,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 
       // RW1 = riskProtectionRW1, formula = (NL/P + NL/T + NDJ ) × PW × LW, LW = ecoLossOfFailureOfInternalSystemL1,
       if(form.controls.structureAttributes.controls[0].controls.eventOnThePowerLines!='' && form.controls.structureAttributes.controls[0].controls.eventOnTheTelecomLines!='' && form.controls.noOfDangEventOnAdjacentStruc!='' && form.controls.protection.controls[0].controls.protectionPW!='' && form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemL1!=''){
-        var g=(form.controls.structureAttributes.controls[0].controls.eventOnThePowerLines.value+form.controls.structureAttributes.controls[0].controls.eventOnTheTelecomLines.value+form.controls.noOfDangEventOnAdjacentStruc.value)*form.controls.protection.controls[0].controls.protectionPW.value*form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemL1.value;
+        var g=form.controls.structureAttributes.controls[0].controls.eventOnThePowerLines.value+form.controls.structureAttributes.controls[0].controls.eventOnTheTelecomLines.value+form.controls.noOfDangEventOnAdjacentStruc.value*form.controls.protection.controls[0].controls.protectionPW.value*form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemL1.value;
         form.controls.protection.controls[0].controls.riskProtectionRW1.setValue(g);
       }
       else{
@@ -1097,12 +1105,14 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 
       // RZ1 = riskProtectionRZ1, formula = (NI/P + NI/T) × PZ × LZ, NI/P = eventNearThePowerLines, NI/T = eventNearTheTelecomeLines, PZ = protectionPZ, LZ = ecoLossOfFailureOfInternalSystemL1
       if(form.controls.structureAttributes.controls[0].controls.eventNearThePowerLines!='' &&  form.controls.structureAttributes.controls[0].controls.eventNearTheTelecomeLines!='' && form.controls.protection.controls[0].controls.protectionPZ!='' && form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemL1!=''){
-        var h=(form.controls.structureAttributes.controls[0].controls.eventNearThePowerLines.value+form.controls.structureAttributes.controls[0].controls.eventNearTheTelecomeLines.value)*form.controls.protection.controls[0].controls.protectionPZ.value*form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemL1.value;
+        var h=form.controls.structureAttributes.controls[0].controls.eventNearThePowerLines.value+form.controls.structureAttributes.controls[0].controls.eventNearTheTelecomeLines.value*form.controls.protection.controls[0].controls.protectionPZ.value*form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemL1.value;
         form.controls.protection.controls[0].controls.riskProtectionRZ1.setValue(h);
       }
       else{
         form.controls.protection.controls[0].controls.riskProtectionRZ1.setValue('');
       }
+      this.lossHumanRD1(event,form);
+      this.lossHumanRI1(event,form);
     }
 
     // RD1 value goes to calculated risk table, formula = RA1 + RB1 + RC1 + RU1 + RV1 + RW1   
@@ -1116,6 +1126,8 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       else{
         form.controls.calculatedRisk.controls[0].controls.riskProtectionRD1.setValue('');
       }
+      this.lossHumanR1(event,form);
+      console.log(form.controls.calculatedRisk.controls[0].controls.riskProtectionRD1.value);
     }
 
     // RI1 value goes to calculated risk table, formula = RM1 + RZ1
@@ -1126,11 +1138,16 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       }else{
         form.controls.calculatedRisk.controls[0].controls.riskProtectionRI1.setValue('');
       }
+      this.lossHumanR1(event,form);
+      console.log(form.controls.calculatedRisk.controls[0].controls.riskProtectionRI1.value);
     }
 
     // R1 value goes to calculated risk table, formula = Rd1 + Ri1
     lossHumanR1(event:any,form:any){
       if(form.controls.calculatedRisk.controls[0].controls.riskProtectionRD1!='' && form.controls.calculatedRisk.controls[0].controls.riskProtectionRI1!=''){
+        // var a=form.controls.calculatedRisk.controls[0].controls.riskProtectionRD1.value;
+        // var b=form.controls.calculatedRisk.controls[0].controls.riskProtectionRI1.value;
+        // var c=a+b;
         var a=form.controls.calculatedRisk.controls[0].controls.riskProtectionRD1.value+form.controls.calculatedRisk.controls[0].controls.riskProtectionRI1.value;
         form.controls.calculatedRisk.controls[0].controls.riskProtectionR1.setValue(a);
       }else{
@@ -1151,73 +1168,215 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       // RC2 = riskProtectionRC2, formula = ND × PC × LC, LC = ecoLossOfFailureOfInternalSystemL1
       if(form.controls.noOfDangerousEventOnStructure!='' && form.controls.protection.controls[0].controls.protectionPC!='' && form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemL1!=''){
         var b=form.controls.noOfDangerousEventOnStructure.value*form.controls.protection.controls[0].controls.protectionPC.value*form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemL1.value;
-        form.controls.protection.controls[0].controls.riskProtectionRC2.setValue(b);
+        form.controls.riskProtection.controls[0].controls.riskProtectionRC2.setValue(b);
       }else{
-        form.controls.protection.controls[0].controls.riskProtectionRC2.setValue('');
+        form.controls.riskProtection.controls[0].controls.riskProtectionRC2.setValue('');
       }
 
       // RM2 = riskProtectionRM2, formula = NM × PM × LM. 
       if(form.controls.noOfDangerousEventNearStructure!='' && form.controls.protection.controls[0].controls.protectionPM!='' && form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemL1!=''){
         var c=form.controls.noOfDangerousEventNearStructure.value*form.controls.protection.controls[0].controls.protectionPM.value*form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemL1.value;
-        form.controls.protection.controls[0].controls.riskProtectionRM2.setValue(c);
+        form.controls.riskProtection.controls[0].controls.riskProtectionRM2.setValue(c);
       }else{
-        form.controls.protection.controls[0].controls.riskProtectionRM2.setValue('');
+        form.controls.riskProtection.controls[0].controls.riskProtectionRM2.setValue('');
       }
 
       // RV2 = riskProtectionRV2,formula = (NL/P + NL/T + NDJ ) × PV × LV, 
       if(form.controls.structureAttributes.controls[0].controls.eventOnThePowerLines!='' && form.controls.structureAttributes.controls[0].controls.eventOnTheTelecomLines!='' && form.controls.noOfDangEventOnAdjacentStruc!='' && form.controls.protection.controls[0].controls.protectionPV!='' && form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageL1!=''){
-        var d=(form.controls.structureAttributes.controls[0].controls.eventOnThePowerLines.value+form.controls.structureAttributes.controls[0].controls.eventOnTheTelecomLines.value+form.controls.noOfDangEventOnAdjacentStruc.value)*form.controls.protection.controls[0].controls.protectionPV.value*form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageL1.value;
-        form.controls.protection.controls[0].controls.riskProtectionRV2.setValue(d);
+        var d=form.controls.structureAttributes.controls[0].controls.eventOnThePowerLines.value+form.controls.structureAttributes.controls[0].controls.eventOnTheTelecomLines.value+form.controls.noOfDangEventOnAdjacentStruc.value*form.controls.protection.controls[0].controls.protectionPV.value*form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageL1.value;
+        form.controls.riskProtection.controls[0].controls.riskProtectionRV2.setValue(d);
       }else{
-        form.controls.protection.controls[0].controls.riskProtectionRV2.setValue('');
+        form.controls.riskProtection.controls[0].controls.riskProtectionRV2.setValue('');
       }
 
       // RW2 = riskProtectionRW2, formula = (NL/P + NL/T + NDJ ) × PW × LW,
       if(form.controls.structureAttributes.controls[0].controls.eventOnThePowerLines!='' && form.controls.structureAttributes.controls[0].controls.eventOnTheTelecomLines!='' && form.controls.noOfDangEventOnAdjacentStruc!='' && form.controls.protection.controls[0].controls.protectionPW!='' && form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemL1!=''){
-        var e=(form.controls.structureAttributes.controls[0].controls.eventOnThePowerLines.value+form.controls.structureAttributes.controls[0].controls.eventOnTheTelecomLines.value+form.controls.noOfDangEventOnAdjacentStruc.value)*form.controls.protection.controls[0].controls.protectionPW.value*form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemL1.value;
-        form.controls.protection.controls[0].controls.riskProtectionRW2.setValue(e);
+        var e=form.controls.structureAttributes.controls[0].controls.eventOnThePowerLines.value+form.controls.structureAttributes.controls[0].controls.eventOnTheTelecomLines.value+form.controls.noOfDangEventOnAdjacentStruc.value*form.controls.protection.controls[0].controls.protectionPW.value*form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemL1.value;
+        form.controls.riskProtection.controls[0].controls.riskProtectionRW2.setValue(e);
       }
       else{
-        form.controls.protection.controls[0].controls.riskProtectionRW2.setValue('');
+        form.controls.riskProtection.controls[0].controls.riskProtectionRW2.setValue('');
       }
 
       // RZ2 = riskProtectionRZ2, formula =	(NI/P + NI/T) × PZ × LZ
       if(form.controls.structureAttributes.controls[0].controls.eventNearThePowerLines!='' &&  form.controls.structureAttributes.controls[0].controls.eventNearTheTelecomeLines!='' && form.controls.protection.controls[0].controls.protectionPZ!='' && form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemL1!=''){
-        var f=(form.controls.structureAttributes.controls[0].controls.eventNearThePowerLines.value+form.controls.structureAttributes.controls[0].controls.eventNearTheTelecomeLines.value)*form.controls.protection.controls[0].controls.protectionPZ.value*form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemL1.value;
-        form.controls.protection.controls[0].controls.riskProtectionRZ2.setValue(f);
+        var f=form.controls.structureAttributes.controls[0].controls.eventNearThePowerLines.value+form.controls.structureAttributes.controls[0].controls.eventNearTheTelecomeLines.value*form.controls.protection.controls[0].controls.protectionPZ.value*form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemL1.value;
+        form.controls.riskProtection.controls[0].controls.riskProtectionRZ2.setValue(f);
       }
       else{
-        form.controls.protection.controls[0].controls.riskProtectionRZ2.setValue('');
+        form.controls.riskProtection.controls[0].controls.riskProtectionRZ2.setValue('');
       }
+      this.lossServiceRD2(event,form);
+      this.lossServiceRI2(event,form);
     }
 
     // RD2 value, formula =  RB2 + RC2 +  RV2 + RW2
     lossServiceRD2(event:any,form:any){
-      if(form.controls.protection.controls[0].controls.riskProtectionRB2!='' && form.controls.protection.controls[0].controls.riskProtectionRC2!='' && form.controls.protection.controls[0].controls.riskProtectionRV2!='' && form.controls.protection.controls[0].controls.riskProtectionRW2!=''){
-        var a=form.controls.protection.controls[0].controls.riskProtectionRB2.value+form.controls.protection.controls[0].controls.riskProtectionRC2.value+form.controls.protection.controls[0].controls.riskProtectionRV2.value+form.controls.protection.controls[0].controls.riskProtectionRW2.value;
+      if(form.controls.protection.controls[0].controls.riskProtectionRB2!='' && form.controls.riskProtection.controls[0].controls.riskProtectionRC2!='' && form.controls.riskProtection.controls[0].controls.riskProtectionRV2!='' && form.controls.riskProtection.controls[0].controls.riskProtectionRW2!=''){
+        var a=form.controls.protection.controls[0].controls.riskProtectionRB2.value+form.controls.riskProtection.controls[0].controls.riskProtectionRC2.value+form.controls.riskProtection.controls[0].controls.riskProtectionRV2.value+form.controls.riskProtection.controls[0].controls.riskProtectionRW2.value;
         form.controls.calculatedRisk.controls[0].controls.riskProtectionRD2.setValue(a);
       }else{
         form.controls.calculatedRisk.controls[0].controls.riskProtectionRD2.setValue('');
       }
+      this.lossServiceR2(event,form);
     }
 
     // RI2 value, formula = RM2 + RZ2
     lossServiceRI2(event:any,form:any){
-      if(form.controls.protection.controls[0].controls.riskProtectionRM2!='' && form.controls.protection.controls[0].controls.riskProtectionRZ2!=''){
-        var a=form.controls.protection.controls[0].controls.riskProtectionRM2.value+form.controls.protection.controls[0].controls.riskProtectionRZ2.value;
+      if(form.controls.riskProtection.controls[0].controls.riskProtectionRM2!='' && form.controls.riskProtection.controls[0].controls.riskProtectionRZ2!=''){
+        var a=form.controls.riskProtection.controls[0].controls.riskProtectionRM2.value+form.controls.riskProtection.controls[0].controls.riskProtectionRZ2.value;
         form.controls.calculatedRisk.controls[0].controls.riskProtectionRI2.setValue(a);
+      }else{
+        form.controls.calculatedRisk.controls[0].controls.riskProtectionRI2.setValue('');
+      }
+      this.lossServiceR2(event,form);
+    }
+
+    // R2 value, formula = RD2 + RI2
+    lossServiceR2(event:any,form:any){
+      if(form.controls.calculatedRisk.controls[0].controls.riskProtectionRD2!='' && form.controls.calculatedRisk.controls[0].controls.riskProtectionRI2!=''){
+        var a=form.controls.calculatedRisk.controls[0].controls.riskProtectionRD2.value+form.controls.calculatedRisk.controls[0].controls.riskProtectionRI2.value;
+        form.controls.calculatedRisk.controls[0].controls.riskProtectionR2.setValue(a);
       }else{
         form.controls.calculatedRisk.controls[0].controls.riskProtectionRI2.setValue('');
       }
     }
 
-    // R2 value, formula = RD2 + RI2
-    lossServiceR2(event:any,form:any){
-      if(form.controls.calculatedRisk.controls[0].controls.riskProtectionRD2!='' && form.controls.protection.controls[0].controls.riskProtectionRI2!=''){
-        var a=form.controls.calculatedRisk.controls[0].controls.riskProtectionRD2.value+form.controls.protection.controls[0].controls.riskProtectionRI2.value;
-        form.controls.calculatedRisk.controls[0].controls.riskProtectionR2.setValue(a);
+  // Loss of cultural heritage - Third Row
+    lossCulturalCalc(event:any,form:any){
+      // RB = culturalRB, formula = ND × PB × LB, ND = noOfDangerousEventOnStructure, PB = classOfLPS, LB = ecoLossOfPhysicalDamageL1
+      if(form.controls.noOfDangerousEventOnStructure!='' && form.controls.losses.controls[0].controls.classOfLPS!='' && form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageL1!=''){
+        var a=form.controls.noOfDangerousEventOnStructure.value*form.controls.losses.controls[0].controls.classOfLPS.value*form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageL1.value;
+        form.controls.protection.controls[0].controls.culturalRB.setValue(a);
       }else{
-        form.controls.calculatedRisk.controls[0].controls.riskProtectionRI2.setValue('');
+        form.controls.protection.controls[0].controls.culturalRB.setValue('');
+      }
+
+      // RV = culturalRV, formula = (NL/P + NL/T + NDJ ) × PV × LV, 
+      if(form.controls.structureAttributes.controls[0].controls.eventOnThePowerLines!='' && form.controls.structureAttributes.controls[0].controls.eventOnTheTelecomLines!='' && form.controls.noOfDangEventOnAdjacentStruc!='' && form.controls.protection.controls[0].controls.protectionPV!='' && form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageL1!=''){
+        var b=form.controls.structureAttributes.controls[0].controls.eventOnThePowerLines.value+form.controls.structureAttributes.controls[0].controls.eventOnTheTelecomLines.value+form.controls.noOfDangEventOnAdjacentStruc.value*form.controls.protection.controls[0].controls.protectionPV.value*form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageL1.value;
+        form.controls.protection.controls[0].controls.culturalRV.setValue(b);
+      }
+      else{
+        form.controls.protection.controls[0].controls.culturalRV.setValue('');
+      }
+      this.lossCulturalRD(event,form);
+    } 
+
+    // RD3 = riskProtectionRD3, formula =  RB3 + RV3, Here RB=Rb3 & RV=RV3
+    lossCulturalRD(event:any,form:any){
+      if(form.controls.protection.controls[0].controls.culturalRB!='' && form.controls.protection.controls[0].controls.culturalRV!=''){
+        var a=form.controls.protection.controls[0].controls.culturalRB.value+form.controls.protection.controls[0].controls.culturalRV.value;
+        form.controls.calculatedRisk.controls[0].controls.riskProtectionRD3.setValue(a);
+        form.controls.calculatedRisk.controls[0].controls.riskProtectionR3.setValue(a);
+      }else{
+        form.controls.calculatedRisk.controls[0].controls.riskProtectionRD3.setValue('');
+        form.controls.calculatedRisk.controls[0].controls.riskProtectionR3.setValue('');
+      }
+    }
+  
+  // Loss of economic value - Fourth row
+    lossEconomicCalc(event:any,form:any){
+      // RA = econamicValueRA, formula = ND × PA × LA, 
+      if(form.controls.noOfDangerousEventOnStructure!='' && form.controls.protection.controls[0].controls.protectionPA!='' && form.controls.losses.controls[0].controls.ecoLossOfInjuryOfElectricShock!=''){
+        var a=form.controls.noOfDangerousEventOnStructure.value*form.controls.protection.controls[0].controls.protectionPA.value*form.controls.losses.controls[0].controls.ecoLossOfInjuryOfElectricShock.value;
+        form.controls.riskProtection.controls[0].controls.econamicValueRA.setValue(a);
+      }else{
+        form.controls.riskProtection.controls[0].controls.econamicValueRA.setValue('');
+      }
+
+      // RB = econamicValueRB, ND × PB × LB, Pb = classOfLPS, LB = ecoLossOfPhysicalDamageL1
+      if(form.controls.noOfDangerousEventOnStructure!='' && form.controls.losses.controls[0].controls.classOfLPS!='' && form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageL1!=''){
+        var b=form.controls.noOfDangerousEventOnStructure.value*form.controls.protection.controls[0].controls.protectionPA.value*form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageL1.value;
+        form.controls.riskProtection.controls[0].controls.econamicValueRB.setValue(b);
+      }else{
+        form.controls.riskProtection.controls[0].controls.econamicValueRB.setValue('');
+      }
+
+      // RC = econamicValueRC, formula = ND × PC × LC, Pc = protectionPC, LC=LM=LW=LZ = ecoLossOfFailureOfInternalSystemL1
+      if(form.controls.noOfDangerousEventOnStructure!='' && form.controls.protection.controls[0].controls.protectionPC!='' && form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemL1!=''){
+        var c=form.controls.noOfDangerousEventOnStructure.value*form.controls.protection.controls[0].controls.protectionPA.value*form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemL1.value;
+        form.controls.riskProtection.controls[0].controls.econamicValueRC.setValue(c);
+      }else{
+        form.controls.riskProtection.controls[0].controls.econamicValueRC.setValue('');
+      }
+
+      // RM = econamicValueRM, formula = NM × PM × LM, Nm = noOfDangerousEventNearStructure, Pm =protectionPM , Lm = ecoLossOfFailureOfInternalSystemL1
+      if(form.controls.noOfDangerousEventNearStructure!='' && form.controls.protection.controls[0].controls.protectionPM!='' && form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemL1!=''){
+        var d=form.controls.noOfDangerousEventNearStructure.value*form.controls.protection.controls[0].controls.protectionPM.value*form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemL1.value;
+        form.controls.riskProtection.controls[0].controls.econamicValueRM.setValue(d);
+      }else{
+        form.controls.riskProtection.controls[0].controls.econamicValueRM.setValue('');
+      }
+
+      // RU = econamicValueRU, formular = (NL/P + NL/T + NDJ ) × PU × LU, LU = ecoLossOfInjuryOfElectricShock, PU = protectionPU, NDJ=noOfDangEventOnAdjacentStruc, NL/P = eventOnThePowerLines, NL/T = eventOnTheTelecomLines
+      if(form.controls.structureAttributes.controls[0].controls.eventOnThePowerLines!='' && form.controls.structureAttributes.controls[0].controls.eventOnTheTelecomLines!='' && form.controls.noOfDangEventOnAdjacentStruc!='' && form.controls.protection.controls[0].controls.protectionPU!='' && form.controls.losses.controls[0].controls.ecoLossOfInjuryOfElectricShock!=''){
+        var e=form.controls.structureAttributes.controls[0].controls.eventOnThePowerLines.value+form.controls.structureAttributes.controls[0].controls.eventOnTheTelecomLines.value+form.controls.noOfDangEventOnAdjacentStruc.value*form.controls.protection.controls[0].controls.protectionPU.value*form.controls.losses.controls[0].controls.ecoLossOfInjuryOfElectricShock.value;
+        form.controls.riskProtection.controls[0].controls.econamicValueRU.setValue(e);
+      }
+      else{
+        form.controls.riskProtection.controls[0].controls.econamicValueRU.setValue('');
+      }
+
+      // RV = econamicValueRV, formula = (NL/P + NL/T + NDJ ) × PV × LV, LV = ecoLossOfPhysicalDamageL1
+      if(form.controls.structureAttributes.controls[0].controls.eventOnThePowerLines!='' && form.controls.structureAttributes.controls[0].controls.eventOnTheTelecomLines!='' && form.controls.noOfDangEventOnAdjacentStruc!='' && form.controls.protection.controls[0].controls.protectionPV!='' && form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageL1!=''){
+        var f=form.controls.structureAttributes.controls[0].controls.eventOnThePowerLines.value+form.controls.structureAttributes.controls[0].controls.eventOnTheTelecomLines.value+form.controls.noOfDangEventOnAdjacentStruc.value*form.controls.protection.controls[0].controls.protectionPV.value*form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageL1.value;
+        form.controls.riskProtection.controls[0].controls.econamicValueRV.setValue(f);
+      }
+      else{
+        form.controls.riskProtection.controls[0].controls.econamicValueRV.setValue('');
+      }
+
+      // RW = econamicValueRW, formula = (NL/P + NL/T + NDJ ) × PW × LW, LW = ecoLossOfFailureOfInternalSystemL1,
+      if(form.controls.structureAttributes.controls[0].controls.eventOnThePowerLines!='' && form.controls.structureAttributes.controls[0].controls.eventOnTheTelecomLines!='' && form.controls.noOfDangEventOnAdjacentStruc!='' && form.controls.protection.controls[0].controls.protectionPW!='' && form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemL1!=''){
+        var g=form.controls.structureAttributes.controls[0].controls.eventOnThePowerLines.value+form.controls.structureAttributes.controls[0].controls.eventOnTheTelecomLines.value+form.controls.noOfDangEventOnAdjacentStruc.value*form.controls.protection.controls[0].controls.protectionPW.value*form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemL1.value;
+        form.controls.riskProtection.controls[0].controls.econamicValueRW.setValue(g);
+      }
+      else{
+        form.controls.riskProtection.controls[0].controls.econamicValueRW.setValue('');
+      }
+
+      // RZ = econamicValueRZ, formula = (NI/P + NI/T) × PZ × LZ, NI/P = eventNearThePowerLines, NI/T = eventNearTheTelecomeLines, PZ = protectionPZ, LZ = ecoLossOfFailureOfInternalSystemL1
+      if(form.controls.structureAttributes.controls[0].controls.eventNearThePowerLines!='' &&  form.controls.structureAttributes.controls[0].controls.eventNearTheTelecomeLines!='' && form.controls.protection.controls[0].controls.protectionPZ!='' && form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemL1!=''){
+        var h=form.controls.structureAttributes.controls[0].controls.eventNearThePowerLines.value+form.controls.structureAttributes.controls[0].controls.eventNearTheTelecomeLines.value*form.controls.protection.controls[0].controls.protectionPZ.value*form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemL1.value;
+        form.controls.riskProtection.controls[0].controls.econamicValueRZ.setValue(h);
+      }
+      else{
+        form.controls.riskProtection.controls[0].controls.econamicValueRZ.setValue('');
+      }
+      this.lossCulturalRD4(event,form);
+      this.lossCulturalRI4(event,form);
+      this.lossCulturalR4(event,form);
+    }
+
+    // RD4 = riskProtectionRD4, formula = RA4 + RB4 + RC4+ RU4 + RV4 + RW4  
+    lossCulturalRD4(event:any,form:any){
+      if(form.controls.riskProtection.controls[0].controls.econamicValueRA!='' && form.controls.riskProtection.controls[0].controls.econamicValueRB!='' && form.controls.riskProtection.controls[0].controls.econamicValueRC!='' && form.controls.riskProtection.controls[0].controls.econamicValueRU!='' && form.controls.riskProtection.controls[0].controls.econamicValueRV!='' && form.controls.riskProtection.controls[0].controls.econamicValueRW!=''){
+
+        var a=form.controls.riskProtection.controls[0].controls.econamicValueRA.value+form.controls.riskProtection.controls[0].controls.econamicValueRB.value+form.controls.riskProtection.controls[0].controls.econamicValueRC.value+form.controls.riskProtection.controls[0].controls.econamicValueRU.value+form.controls.riskProtection.controls[0].controls.econamicValueRV.value+form.controls.riskProtection.controls[0].controls.econamicValueRW.value;
+
+        form.controls.calculatedRisk.controls[0].controls.riskProtectionRD4.setValue(a);
+      }else{
+        form.controls.calculatedRisk.controls[0].controls.riskProtectionRD4.setValue('');
+      }
+    }
+
+    // RI4 = riskProtectionRI4, formula = RM4 + RZ4
+    lossCulturalRI4(event:any,form:any){
+      if(form.controls.riskProtection.controls[0].controls.econamicValueRM!='' && form.controls.riskProtection.controls[0].controls.econamicValueRZ!=''){
+        var a=form.controls.riskProtection.controls[0].controls.econamicValueRM.value+form.controls.riskProtection.controls[0].controls.econamicValueRZ.value;
+        form.controls.calculatedRisk.controls[0].controls.riskProtectionRI4.setValue(a);
+      }else{
+        form.controls.calculatedRisk.controls[0].controls.riskProtectionRI4.setValue('');
+      }
+    }
+    // R4 = riskProtectionR4, formula = Rd4 + Ri4
+    lossCulturalR4(event:any,form:any){
+      if(form.controls.calculatedRisk.controls[0].controls.riskProtectionRD4!='' && form.controls.calculatedRisk.controls[0].controls.riskProtectionRI4!=''){
+        var a=form.controls.calculatedRisk.controls[0].controls.riskProtectionRD4.value+form.controls.calculatedRisk.controls[0].controls.riskProtectionRI4.value;
+        form.controls.calculatedRisk.controls[0].controls.riskProtectionR4.setValue(a);
+      }else{
+        form.controls.calculatedRisk.controls[0].controls.riskProtectionR4.setValue('');
       }
     }
 
@@ -1379,29 +1538,13 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 
   // Submitting to DB
   onSubmit(flag:any) {
+    debugger
     this.submitted=true;
       if (this.step2Form.invalid) {
         return;
       }
     //  this.spinner = true;
      this.popup=false;
-    // this.riskAssessmentDetails = this.step2Form.value;
-    // if(this.riskAssessmentDetails.structureCharacteristics[0].typeOfBuilding == 'Brick'){
-    //   this.riskAssessmentDetails.structureCharacteristics[0].typeOfBuilding=this.brick;
-    // }
-    // else if(this.riskAssessmentDetails.structureCharacteristics[0].typeOfBuilding == 'RCC with Brick'){
-    //   this.riskAssessmentDetails.structureCharacteristics[0].typeOfBuilding=this.rccwithBrick;
-    // }
-    // else if(this.riskAssessmentDetails.structureCharacteristics[0].typeOfBuilding == 'PEB with sheet'){
-    //   this.riskAssessmentDetails.structureCharacteristics[0].typeOfBuilding=this.pebwithsheet;
-    // }
-    // else if(this.riskAssessmentDetails.structureCharacteristics[0].typeOfBuilding == 'System designed by CAPE RCC building'){
-    //   this.riskAssessmentDetails.structureCharacteristics[0].typeOfBuilding=this.rccbuilding;
-    // }
-    // else if(this.riskAssessmentDetails.structureCharacteristics[0].typeOfBuilding == 'System designed by CAPE PEB building'){
-    //   this.riskAssessmentDetails.structureCharacteristics[0].typeOfBuilding=this.pebbuilding;
-    // }
-    
     this.riskAssessmentDetails = this.step2Form.value.structureCharacters[0];
     this.riskAssessmentDetails.riskId = this.riskGlobal.riskId;
     this.riskAssessmentDetails.userName = this.router.snapshot.paramMap.get('email') || '{}';

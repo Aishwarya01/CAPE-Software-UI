@@ -229,10 +229,10 @@ export class RiskCustomerDetailsComponent implements OnInit {
             // update success msg
             this.popup=true;
             this.success1 = false;
-            this.retriveCustomerDetails();
             this.isCustomerFormUpdated=true;
             this.success=true;
             this.successMsg=data;
+            this.retriveCustomerDetails();
             this.CustomerDetailsForm.markAsPristine();
             this.proceedNext.emit(true);
             
@@ -271,10 +271,13 @@ export class RiskCustomerDetailsComponent implements OnInit {
       this.customerDetailsService.addCustomerDetails(this.customerDetailsModel).subscribe(
         data => {
           this.popup=true;
-          this.proceedFlag=false;
+          let customerRiskItr=JSON.parse(data);              
+          this.proceedFlag = false;
+          this.customerDetailsModel.riskId=customerRiskItr.riskId;
           this.success=true;
-          this.updateCustomerDetails(JSON.parse(data),this.customerDetailsModel.riskId);
-          this.successMsg = "Basic Information Successfully Saved";
+          // this.updateCustomerDetails(JSON.parse(data),this.customerDetailsModel.riskId);
+          this.successMsg = "Customer Details Successfully Saved";
+          this.retriveCustomerDetails();
           this.isCustomerFormUpdated=true;
           this.disable = true;
           this.CustomerDetailsForm.markAsPristine();
