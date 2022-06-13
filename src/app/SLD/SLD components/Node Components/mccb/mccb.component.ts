@@ -20,10 +20,17 @@ export class MCCBComponent implements OnInit {
   mccbSafetyTestingArray: any = [];
   validationError: boolean= false;
   validationErrorMsg: string="";
+  success: boolean = false;
+  successMsg: String = '';
+  error: boolean = false;
+  errorMsg: String = ''
+  errorData: any;
   @Input()
   fileName: any;
   @Input()
   nodeId: any;
+  @Input()
+  email: any;
 
   constructor(private formBuilder: FormBuilder,
               private mccbService: MCCBServicesService,
@@ -240,7 +247,7 @@ export class MCCBComponent implements OnInit {
       this.mccb.updatedDate = i.updatedDate;
       this.mccb.nodeId = i.nodeId;
       this.mccb.fileName = i.fileName;
-     // this.mccb.userName = i.userName;
+      this.mccb.mccbID = i.mccbID;
 
       this.populateMccbForm(i);
     }
@@ -421,6 +428,26 @@ export class MCCBComponent implements OnInit {
     });
   }
 
+  onChangeForm(event:any){
+    if(!this.mccbForm.invalid){
+      if(this.mccbForm.dirty){
+        this.validationError=false;
+      }
+      else{
+        this.validationError=false;
+      }
+     }
+  }
+  onKeyForm(event: KeyboardEvent) { 
+    if(!this.mccbForm.invalid){
+      if(this.mccbForm.dirty){
+        this.validationError=false;
+      }
+      else{
+        this.validationError=false;
+      }
+     }
+  } 
 
   saveMCCB(mccbFlag:any) {
     this.submittedMccb = true;
@@ -754,24 +781,47 @@ export class MCCBComponent implements OnInit {
 
     this.mccb.generalTestingMCCB = this.mccbForm.value.generalTestingMCCB;
     this.mccb.safetyTestingMCCB = this.mccbForm.value.safetyTestingMCCB;
+    this.mccb.userName = this.email;
 
     if(!mccbFlag) {
     this.mccbService.addMCCB(this.mccb).subscribe(
       data => {
-        
+        this.success = true;
+        this.successMsg = data;
+        setTimeout(()=>{
+          this.success = false;
+        this.successMsg = ""
+        }, 3000);
       },
       error => {
-        
+        this.error = true;
+        this.errorData = JSON.parse(error.error);
+        this.errorMsg = this.errorData.message;
+        setTimeout(()=>{
+          this.error = false;
+          this.errorMsg = ""
+        }, 3000);
       }
     )
   }
   else{
     this.mccbService.updateMCCB(this.mccb).subscribe(
       data => {
-        
+        this.success = true;
+        this.successMsg = data;
+        setTimeout(()=>{
+          this.success = false;
+        this.successMsg = ""
+        }, 3000);
       },
       error => {
-        
+        this.error = true;
+        this.errorData = JSON.parse(error.error);
+        this.errorMsg = this.errorData.message;
+        setTimeout(()=>{
+          this.error = false;
+          this.errorMsg = ""
+        }, 3000);
       }
     )
   }

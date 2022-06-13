@@ -1,4 +1,5 @@
 export class RCBO {
+    rcboId!: number;
     nodeId!: String;
     fileName!: String;
     referenceName!: String;

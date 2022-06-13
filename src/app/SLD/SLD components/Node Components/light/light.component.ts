@@ -20,10 +20,19 @@ export class LightComponent implements OnInit {
    lightSafetyTestingArray: any = [];
    submittedLight: boolean = false;
   submitted: boolean = false;
+  success: boolean = false;
+  successMsg: String = '';
+  error: boolean = false;
+  errorMsg: String = ''
+  errorData: any;
   @Input()
   fileName: any;
   @Input()
   nodeId: any;
+  @Input()
+  email: any;
+  validationError: boolean= false;
+  validationErrorMsg: string="";
 
   constructor(private formBuilder: FormBuilder,
               private lightService: LightServicesService,
@@ -127,7 +136,7 @@ export class LightComponent implements OnInit {
       this.light.referenceName = i.referenceName;
       this.light.manufacturerName = i.manufacturerName;
       this.light.powerCapacity = i.powerCapacity;
-      this.light.rating = i.rating;
+      this.light.currentRating = i.currentRating;
       this.light.voltage = i.voltage;
       this.light.type = i.type;
       this.light.incomingSizePhase = i.incomingSizePhase;
@@ -143,6 +152,8 @@ export class LightComponent implements OnInit {
       this.light.nodeId = i.nodeId;
       this.light.fileName = i.fileName;
       this.light.userName = i.userName;
+      this.light.lightId = i.lightId;
+
 
       this.populateLightForm(i);
     }
@@ -254,10 +265,33 @@ export class LightComponent implements OnInit {
     return this.lightForm.controls;
   }
 
+  onChangeForm(event:any){
+    if(!this.lightForm.invalid){
+      if(this.lightForm.dirty){
+        this.validationError=false;
+      }
+      else{
+        this.validationError=false;
+      }
+     }
+  }
+  onKeyForm(event: KeyboardEvent) { 
+    if(!this.lightForm.invalid){
+      if(this.lightForm.dirty){
+        this.validationError=false;
+      }
+      else{
+        this.validationError=false;
+      }
+     }
+  } 
+
   //submit MCB
-  saveLight() {
+  saveLight(lightFlag: any) {
     this.submitted = true;
     if(this.lightForm.invalid) {
+      this.validationError=true;
+      this.validationErrorMsg="Please check all the fields";
       return;
     }
 
@@ -268,47 +302,19 @@ export class LightComponent implements OnInit {
       let arr1: any = [];
       let arr2: any = [];
       let arr3: any = [];
-      let arr4: any = [];
-      let arr5: any = [];
-      let arr6: any = [];
-      let arr7: any = [];
-      let arr8: any = [];
-      let arr9: any = [];
-      let arr10: any = [];
 
-      arr1.push(i.controls.rNVoltage.value, i.controls.rNResistance.value);
-      arr2.push(i.controls.yNVoltage.value, i.controls.yNResistance.value);
-      arr3.push(i.controls.bNVoltage.value, i.controls.bNResistance.value);
-      arr4.push(i.controls.rEVoltage.value, i.controls.rEResistance.value);
-      arr5.push(i.controls.yEVoltage.value, i.controls.yEResistance.value);
-      arr6.push(i.controls.bEVoltage.value, i.controls.bEResistance.value);
-      arr7.push(i.controls.rYVoltage.value, i.controls.rYResistance.value);
-      arr8.push(i.controls.yBVoltage.value, i.controls.yBResistance.value);
-      arr9.push(i.controls.bRVoltage.value, i.controls.bRResistance.value);
-      arr10.push(i.controls.nEVoltage.value, i.controls.nEResistance.value);
-
-      let rN: String = '';
-      let yN: String = '';
-      let bN: String = '';
-      let rE: String = '';
-      let yE: String = '';
-      let bE: String = '';
-      let rY: String = '';
-      let yB: String = '';
-      let bR: String = '';
+      arr1.push(i.controls.phNVoltage.value, i.controls.phNIResistance.value, i.controls.phNCResistance.value);
+      arr2.push(i.controls.phEVoltage.value, i.controls.phEIResistance.value, i.controls.phECResistance.value);
+      arr3.push(i.controls.nEVoltage.value, i.controls.nEIResistance.value, i.controls.nECResistance.value);
+      
+      let phN: String = '';
+      let phE: String = '';
       let nE: String = '';
+      
 
 
       if(i.controls.iRCurrent.value == '' || i.controls.iRCurrent.value == null || i.controls.iRCurrent.value == undefined) {
         i.controls.iRCurrent.setValue('NA');
-      }
-
-      if(i.controls.iYCurrent.value == '' || i.controls.iYCurrent.value == null || i.controls.iYCurrent.value == undefined) {
-        i.controls.iYCurrent.setValue('NA');
-      }
-
-      if(i.controls.iBCurrent.value == '' || i.controls.iBCurrent.value == null || i.controls.iBCurrent.value == undefined) {
-        i.controls.iBCurrent.setValue('NA');
       }
 
       if(i.controls.iNCurrent.value == '' || i.controls.iNCurrent.value == null || i.controls.iNCurrent.value == undefined) {
@@ -322,278 +328,156 @@ export class LightComponent implements OnInit {
 
       for(let a of arr1) {
         if(a != '' && a != null && a != undefined) {
-          rN += a + ',';
+          phN += a + ',';
         }
         else {
-          rN += 'NA,';
+          phN += 'NA,';
         }
       }
-      rN = rN.replace(/,\s*$/, '');
-      i.controls.rN.setValue(rN);
-
+      phN = phN.replace(/,\s*$/, '');
+      i.controls.phN.setValue(phN);
 
 
       for(let b of arr2) {
         if(b != '' && b != null && b != undefined) {
-          yN += b + ',';
+          phE += b + ',';
         }
         else {
-          yN += 'NA,';
+          phE += 'NA,';
         }
       }
-      yN = yN.replace(/,\s*$/, '');
-      i.controls.yN.setValue(yN);
+      phE = phE.replace(/,\s*$/, '');
+      i.controls.phE.setValue(phE);
 
 
       for(let c of arr3) {
         if(c != '' && c != null && c != undefined) {
-          bN += c + ',';
-        }
-        else {
-          bN += 'NA,';
-        }
-      }
-      bN = bN.replace(/,\s*$/, '');
-      i.controls.bN.setValue(bN);
-
-
-      for(let d of arr4) {
-        if(d != '' && d != null && d != undefined) {
-          rE += d + ',';
-        }
-        else {
-          rE += 'NA,';
-        }
-      }
-      rE = rE.replace(/,\s*$/, '');
-      i.controls.rE.setValue(rE);
-
-
-
-      for(let e of arr5) {
-        if(e != '' && e != null && e != undefined) {
-          yE += e + ',';
-        }
-        else {
-          yE += 'NA,';
-        }
-      }
-      yE = yE.replace(/,\s*$/, '');
-      i.controls.yE.setValue(yE);
-
-
-      for(let f of arr6) {
-        if(f != '' && f != null && f != undefined) {
-          bE += f + ',';
-        }
-        else {
-          bE += 'NA,';
-        }
-      }
-      bE = bE.replace(/,\s*$/, '');
-      i.controls.bE.setValue(bE);
-
-
-      for(let g of arr7) {
-        if(g != '' && g != null && g != undefined) {
-          rY += g + ',';
-        }
-        else {
-          rY += 'NA,';
-        }
-      }
-      rY = rY.replace(/,\s*$/, '');
-      i.controls.rY.setValue(rY);
-
-
-      for(let h of arr8) {
-        if(h != '' && h != null && h != undefined) {
-          yB += h + ',';
-        }
-        else {
-          yB += 'NA,';
-        }
-      }
-      yB = yB.replace(/,\s*$/, '');
-      i.controls.yB.setValue(yB);
-
-
-      for(let i of arr9) {
-        if(i != '' && i != null && i != undefined) {
-          bR += i + ',';
-        }
-        else {
-          bR += 'NA,';
-        }
-      }
-      bR = bR.replace(/,\s*$/, '');
-      i.controls.bR.setValue(bR);
-
-
-      for(let j of arr10) {
-        if(j != '' && j != null && j != undefined) {
-          nE += j + ',';
+          nE += c + ',';
         }
         else {
           nE += 'NA,';
         }
       }
       nE = nE.replace(/,\s*$/, '');
-      i.controls.nE.setValue(nE);   
+      i.controls.nE.setValue(nE);
     }
 
     for(let i of this.lightSafetyTestingArray.controls) {
       let arr1: any = [];
       let arr2: any = [];
       let arr3: any = [];
-      let arr4: any = [];
-      let arr5: any = [];
-      let arr6: any = [];
-      let arr7: any = [];
-      let arr8: any = [];
-      let arr9: any = [];
-
-      arr1.push(i.controls.rNImpedence.value, i.controls.rNCurrent.value, i.controls.rNTime.value, i.controls.rNRemarks.value);
-      arr2.push(i.controls.yNImpedence.value, i.controls.yNCurrent.value, i.controls.yNTime.value, i.controls.yNRemarks.value);
-      arr3.push(i.controls.bNImpedence.value, i.controls.bNCurrent.value, i.controls.bNTime.value, i.controls.bNRemarks.value);
-      arr4.push(i.controls.rEImpedence.value, i.controls.rECurrent.value, i.controls.rETime.value, i.controls.rERemarks.value);
-      arr5.push(i.controls.yEImpedence.value, i.controls.yECurrent.value, i.controls.yETime.value, i.controls.yERemarks.value);
-      arr6.push(i.controls.bEImpedence.value, i.controls.bECurrent.value, i.controls.bETime.value, i.controls.bERemarks.value);
-      arr7.push(i.controls.rYImpedence.value, i.controls.rYCurrent.value, i.controls.rYTime.value, i.controls.rYRemarks.value);
-      arr8.push(i.controls.yBImpedence.value, i.controls.yBCurrent.value, i.controls.yBTime.value, i.controls.yBRemarks.value);
-      arr9.push(i.controls.bRImpedence.value, i.controls.bRCurrent.value, i.controls.bRTime.value, i.controls.bRRemarks.value);
-
-      let rN: String = '';
-      let yN: String = '';
-      let bN: String = '';
-      let rE: String = '';
-      let yE: String = '';
-      let bE: String = '';
-      let rY: String = '';
-      let yB: String = '';
-      let bR: String = '';
+      
+      arr1.push(i.controls.phNImpedence.value, i.controls.phNCurrent.value, i.controls.phNTime.value, i.controls.phNRemarks.value);
+      arr2.push(i.controls.phEImpedence.value, i.controls.phECurrent.value, i.controls.phETime.value, i.controls.phERemarks.value);
+      arr3.push(i.controls.nEImpedence.value, i.controls.nECurrent.value, i.controls.nETime.value, i.controls.nERemarks.value);
+      
+      let phN: String = '';
+      let phE: String = '';
+      let nE: String = '';
+      
 
       for(let a of arr1) {
         if(a != '' && a != null && a != undefined) {
-          rN += a + ',';
+          phN += a + ',';
         }
         else {
-          rN += 'NA,';
+          phN += 'NA,';
         }
       }
-      rN = rN.replace(/,\s*$/, '');
-      i.controls.rN.setValue(rN);
+      phN = phN.replace(/,\s*$/, '');
+      i.controls.phN.setValue(phN);
 
 
 
       for(let b of arr2) {
         if(b != '' && b != null && b != undefined) {
-          yN += b + ',';
+          phE += b + ',';
         }
         else {
-          yN += 'NA,';
+          phE += 'NA,';
         }
       }
-      yN = yN.replace(/,\s*$/, '');
-      i.controls.yN.setValue(yN);
+      phE = phE.replace(/,\s*$/, '');
+      i.controls.phE.setValue(phE);
 
 
       for(let c of arr3) {
         if(c != '' && c != null && c != undefined) {
-          bN += c + ',';
+          nE += c + ',';
         }
         else {
-          bN += 'NA,';
+          nE += 'NA,';
         }
       }
-      bN = bN.replace(/,\s*$/, '');
-      i.controls.bN.setValue(bN);
+      nE = nE.replace(/,\s*$/, '');
+      i.controls.nE.setValue(nE);
 
-
-      for(let d of arr4) {
-        if(d != '' && d != null && d != undefined) {
-          rE += d + ',';
-        }
-        else {
-          rE += 'NA,';
-        }
-      }
-      rE = rE.replace(/,\s*$/, '');
-      i.controls.rE.setValue(rE);
-
-
-
-      for(let e of arr5) {
-        if(e != '' && e != null && e != undefined) {
-          yE += e + ',';
-        }
-        else {
-          yE += 'NA,';
-        }
-      }
-      yE = yE.replace(/,\s*$/, '');
-      i.controls.yE.setValue(yE);
-
-
-      for(let f of arr6) {
-        if(f != '' && f != null && f != undefined) {
-          bE += f + ',';
-        }
-        else {
-          bE += 'NA,';
-        }
-      }
-      bE = bE.replace(/,\s*$/, '');
-      i.controls.bE.setValue(bE);
-
-
-      for(let g of arr7) {
-        if(g != '' && g != null && g != undefined) {
-          rY += g + ',';
-        }
-        else {
-          rY += 'NA,';
-        }
-      }
-      rY = rY.replace(/,\s*$/, '');
-      i.controls.rY.setValue(rY);
-
-
-      for(let h of arr8) {
-        if(h != '' && h != null && h != undefined) {
-          yB += h + ',';
-        }
-        else {
-          yB += 'NA,';
-        }
-      }
-      yB = yB.replace(/,\s*$/, '');
-      i.controls.yB.setValue(yB);
-
-
-      for(let i of arr9) {
-        if(i != '' && i != null && i != undefined) {
-          bR += i + ',';
-        }
-        else {
-          bR += 'NA,';
-        }
-      }
-      bR = bR.replace(/,\s*$/, '');
-      i.controls.bR.setValue(bR); 
     }
 
     this.light.generalTestingLight = this.lightForm.value.generalTestingLight;
     this.light.safetyTestingLight = this.lightForm.value.safetyTestingLight;
+    this.light.userName = this.email;
 
-    this.lightService.addLight(this.light).subscribe(
-      data => {
 
-      },
-      error => {
-        
-      }
-    )
+    if(this.lightFlag) {
+      this.lightService.updateLight(this.light).subscribe(
+        data => {
+          this.lightService.retriveLight(this.light.fileName,this.light.nodeId).subscribe(
+            data => {
+              this.lightData = JSON.parse(data);
+              if(this.lightData.length != 0) {
+                this.retrieveLightNode(this.lightData);
+              }
+            }
+          )
+          this.success = true;
+          this.successMsg = data;
+          setTimeout(()=>{
+            this.success = false;
+          this.successMsg = ""
+          }, 3000);
+        },
+        error => {
+          this.error = true;
+          this.errorData = JSON.parse(error.error);
+          this.errorMsg = this.errorData.message;
+          setTimeout(()=>{
+            this.error = false;
+            this.errorMsg = ""
+          }, 3000);
+        }
+      )
+    }
+    else {
+      this.lightService.addLight(this.light).subscribe(
+        data => {
+          this.lightService.retriveLight(this.light.fileName,this.light.nodeId).subscribe(
+            data => {
+              this.lightData = JSON.parse(data);
+              if(this.lightData.length != 0) {
+                this.retrieveLightNode(this.lightData);
+              }
+            }
+          )
+          this.success = true;
+          this.successMsg = data;
+          setTimeout(()=>{
+            this.success = false;
+          this.successMsg = ""
+          }, 3000);
+        },
+        error => {
+          this.error = true;
+          this.errorData = JSON.parse(error.error);
+          this.errorMsg = this.errorData.message;
+          setTimeout(()=>{
+            this.error = false;
+            this.errorMsg = ""
+          }, 3000);
+        }
+      )
+    }
+   
   }
 
   close() {

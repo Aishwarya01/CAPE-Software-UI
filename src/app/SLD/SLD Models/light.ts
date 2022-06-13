@@ -1,11 +1,12 @@
 export class Light {
+    lightId!: number;
     nodeId!: String;
     fileName!: String;
     referenceName!: String;
     manufacturerName!: String;
     userName!: String;
     powerCapacity!: String;
-    rating!: number;
+    currentRating!: number;
     voltage!: number;
     type!: number;
     incomingSizePhase!: number;

@@ -3,7 +3,7 @@
         <h2 class="modal-title" style="display: contents">MCB With RCD or RCBO</h2>
     </div>
     <div class="card-body">
-    <form [formGroup]="mcbWithRcdForm">
+    <form [formGroup]="mcbWithRcdForm" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
     <div class="row">
       <div class="col-md-4">
         <label>Reference Name</label>
@@ -19,7 +19,7 @@
         <input type="text" class="form-control" formControlName="manufacturerName" [(ngModel)]="rcbo.manufacturerName"
         [ngClass]="{ 'is-invalid': submittedRCBO && g.manufacturerName?.errors }">
         <div *ngIf="submittedRCBO && g.manufacturerName?.errors" class="invalid-feedback">
-          <div *ngIf="g.manufacturerName?.errors?.required">Reference name is required</div>
+          <div *ngIf="g.manufacturerName?.errors?.required">Manfacturer name is required</div>
         </div>
       </div>
 
@@ -28,7 +28,7 @@
         <input type="number" class="form-control" formControlName="rating" [(ngModel)]="rcbo.rating"
         [ngClass]="{ 'is-invalid': submittedRCBO && g.rating?.errors }">
         <div *ngIf="submittedRCBO && g.rating?.errors" class="invalid-feedback">
-          <div *ngIf="g.rating?.errors?.required">Reference name is required</div>
+          <div *ngIf="g.rating?.errors?.required">Rating is required</div>
         </div>
       </div>
 
@@ -41,7 +41,7 @@
         <input type="number" class="form-control" formControlName="voltage" [(ngModel)]="rcbo.voltage"
         [ngClass]="{ 'is-invalid': submittedRCBO && g.voltage?.errors }">
         <div *ngIf="submittedRCBO && g.voltage?.errors" class="invalid-feedback">
-          <div *ngIf="g.voltage?.errors?.required">Reference name is required</div>
+          <div *ngIf="g.voltage?.errors?.required">Voltage is required</div>
         </div>
       </div>
 
@@ -56,7 +56,7 @@
           <option value="4">4</option>
         </select>  
         <div *ngIf="submittedRCBO && g.noOfPoles?.errors" class="invalid-feedback">
-          <div *ngIf="g.noOfPoles?.errors?.required">Reference name is required</div>
+          <div *ngIf="g.noOfPoles?.errors?.required">No of Poles is required</div>
         </div>          
       </div>
 
@@ -72,7 +72,7 @@
           <option value="Z">Z</option>
         </select>  
         <div *ngIf="submittedRCBO && g.currentCurve?.errors" class="invalid-feedback">
-          <div *ngIf="g.currentCurve?.errors?.required">Reference name is required</div>
+          <div *ngIf="g.currentCurve?.errors?.required">Current Curve is required</div>
         </div>          
       </div>
 
@@ -87,7 +87,7 @@
           <option value="Type B">Type B</option>
         </select>  
         <div *ngIf="submittedRCBO && g.residualCurrentType?.errors" class="invalid-feedback">
-          <div *ngIf="g.residualCurrentType?.errors?.required">Reference name is required</div>
+          <div *ngIf="g.residualCurrentType?.errors?.required">Type of residual current is required</div>
         </div>          
       </div>
 
@@ -102,7 +102,7 @@
           <option value="500">500</option>
         </select>     
         <div *ngIf="submittedRCBO && g.residualCurrent?.errors" class="invalid-feedback">
-          <div *ngIf="g.residualCurrent?.errors?.required">Reference name is required</div>
+          <div *ngIf="g.residualCurrent?.errors?.required">Rated residual operating current is required</div>
         </div>       
       </div>
     </div>
@@ -116,7 +116,7 @@
         <input type="text" class="form-control" formControlName="outgoingSizePhase" [(ngModel)]="rcbo.outgoingSizePhase"
         [ngClass]="{ 'is-invalid': submittedRCBO && g.outgoingSizePhase?.errors }">
         <div *ngIf="submittedRCBO && g.outgoingSizePhase?.errors" class="invalid-feedback">
-          <div *ngIf="g.outgoingSizePhase?.errors?.required">Reference name is required</div>
+          <div *ngIf="g.outgoingSizePhase?.errors?.required">Phase is required</div>
         </div>
       </div>
       <div class="col-md-4">
@@ -124,7 +124,7 @@
         <input type="text" class="form-control" formControlName="outgoingSizeNeutral" [(ngModel)]="rcbo.outgoingSizeNeutral"
         [ngClass]="{ 'is-invalid': submittedRCBO && g.outgoingSizeNeutral?.errors }">
         <div *ngIf="submittedRCBO && g.outgoingSizeNeutral?.errors" class="invalid-feedback">
-          <div *ngIf="g.outgoingSizeNeutral?.errors?.required">Reference name is required</div>
+          <div *ngIf="g.outgoingSizeNeutral?.errors?.required">Neutral is required</div>
         </div>
       </div>
       <div class="col-md-4">
@@ -132,7 +132,7 @@
         <input type="text" class="form-control" formControlName="outgoingSizeProtective" [(ngModel)]="rcbo.outgoingSizeProtective"
         [ngClass]="{ 'is-invalid': submittedRCBO && g.outgoingSizeProtective?.errors }">
         <div *ngIf="submittedRCBO && g.outgoingSizeProtective?.errors" class="invalid-feedback">
-          <div *ngIf="g.outgoingSizeProtective?.errors?.required">Reference name is required</div>
+          <div *ngIf="g.outgoingSizeProtective?.errors?.required">Protective Conductor is required</div>
         </div>
       </div>
     </div>
@@ -174,14 +174,14 @@
                   <td>
                     <input type="text" formControlName="rNVoltage" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('rNVoltage')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('rNVoltage')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('rNVoltage')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('rNVoltage')?.errors?.required">rNVoltage is required</div>
                     </div>
                   </td>
   
                   <td>
                     <input type="text" formControlName="rNResistance" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('rNResistance')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('rNResistance')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('rNResistance')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('rNResistance')?.errors?.required">rNResistance is required</div>
                     </div>
                   </td>
                 </tr>
@@ -194,14 +194,14 @@
                   <td>
                     <input type="text" formControlName="yNVoltage" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('yNVoltage')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('yNVoltage')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('yNVoltage')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('yNVoltage')?.errors?.required">yNVoltage is required</div>
                     </div>
                   </td>
   
                   <td>
                     <input type="text" formControlName="yNResistance" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('yNResistance')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('yNResistance')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('yNResistance')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('yNResistance')?.errors?.required">yNResistance is required</div>
                     </div>
                   </td>
                 </tr>
@@ -214,14 +214,14 @@
                   <td>
                     <input type="text"  formControlName="bNVoltage" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('bNVoltage')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('bNVoltage')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('bNVoltage')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('bNVoltage')?.errors?.required">bNVoltage is required</div>
                     </div>
                   </td>
   
                   <td>
                     <input type="text"  formControlName="bNResistance" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('bNResistance')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('bNResistance')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('bNResistance')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('bNResistance')?.errors?.required">bNResistance is required</div>
                     </div>
                   </td>
                 </tr>
@@ -234,14 +234,14 @@
                   <td>
                     <input type="text"  formControlName="rEVoltage" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('rEVoltage')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('rEVoltage')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('rEVoltage')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('rEVoltage')?.errors?.required">rEVoltage is required</div>
                     </div>
                   </td>
   
                   <td>
                     <input type="text"  formControlName="rEResistance" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('rEResistance')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('rEResistance')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('rEResistance')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('rEResistance')?.errors?.required">rEResistance is required</div>
                     </div>
                   </td>
                 </tr>
@@ -254,14 +254,14 @@
                   <td>
                     <input type="text"  formControlName="yEVoltage" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('yEVoltage')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('yEVoltage')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('yEVoltage')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('yEVoltage')?.errors?.required">yEVoltage is required</div>
                     </div>
                   </td>
   
                   <td>
                     <input type="text" formControlName="yEResistance" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('yEResistance')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('yEResistance')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('yEResistance')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('yEResistance')?.errors?.required">yEResistance is required</div>
                     </div>
                   </td>
                 </tr>
@@ -274,14 +274,14 @@
                   <td>
                     <input type="text" formControlName="bEVoltage" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('bEVoltage')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('bEVoltage')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('bEVoltage')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('bEVoltage')?.errors?.required">bEVoltage is required</div>
                     </div>
                   </td>
   
                   <td>
                     <input type="text" formControlName="bEResistance" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('bEResistance')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('bEResistance')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('bEResistance')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('bEResistance')?.errors?.required">bEResistance is required</div>
                     </div>
                   </td>
                 </tr>
@@ -294,14 +294,14 @@
                   <td>
                     <input type="text" formControlName="rYVoltage" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('rYVoltage')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('rYVoltage')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('rYVoltage')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('rYVoltage')?.errors?.required">rYVoltage is required</div>
                     </div>
                   </td>
   
                   <td>
                     <input type="text" formControlName="rYResistance" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('rYResistance')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('rYResistance')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('rYResistance')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('rYResistance')?.errors?.required">rYResistance is required</div>
                     </div>
                   </td>
                 </tr>
@@ -314,14 +314,14 @@
                   <td>
                     <input type="text" formControlName="yBVoltage" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('yBVoltage')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('yBVoltage')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('yBVoltage')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('yBVoltage')?.errors?.required">yBVoltage is required</div>
                     </div>
                   </td>
   
                   <td>
                     <input type="text" formControlName="yBResistance" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('yBResistance')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('yBResistance')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('yBResistance')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('yBResistance')?.errors?.required">yBResistance is required</div>
                     </div>
                   </td>
                 </tr>
@@ -334,14 +334,14 @@
                   <td>
                     <input type="text" formControlName="bRVoltage" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('bRVoltage')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('bRVoltage')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('bRVoltage')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('bRVoltage')?.errors?.required">bRVoltage is required</div>
                     </div>
                   </td>
   
                   <td>
                     <input type="text" formControlName="bRResistance" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('bRResistance')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('bRResistance')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('bRResistance')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('bRResistance')?.errors?.required">bRResistance is required</div>
                     </div>
                   </td>
                 </tr>
@@ -354,14 +354,14 @@
                   <td>
                     <input type="text" formControlName="nEVoltage" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('nEVoltage')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('nEVoltage')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('nEVoltage')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('nEVoltage')?.errors?.required">nEVoltage is required</div>
                     </div>
                   </td>
   
                   <td>
                     <input type="text" formControlName="nEResistance" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('nEResistance')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('nEResistance')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('nEResistance')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('nEResistance')?.errors?.required">nEResistance is required</div>
                     </div>
                   </td>
                 </tr>
@@ -394,7 +394,7 @@
                   <td>
                     <input type="text" formControlName="iRCurrent" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('iRCurrent')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('iRCurrent')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('iRCurrent')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('iRCurrent')?.errors?.required">iRCurrent is required</div>
                     </div>
                   </td>
                 </tr>
@@ -407,7 +407,7 @@
                   <td>
                     <input type="text" formControlName="iYCurrent" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('iYCurrent')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('iYCurrent')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('iYCurrent')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('iYCurrent')?.errors?.required">iYCurrent is required</div>
                     </div>
                   </td>
                 </tr>
@@ -420,7 +420,7 @@
                   <td>
                     <input type="text" formControlName="iBCurrent" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('iBCurrent')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('iBCurrent')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('iBCurrent')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('iBCurrent')?.errors?.required">iBCurrent is required</div>
                     </div>
                   </td>
                 </tr>
@@ -433,7 +433,7 @@
                   <td>
                     <input type="text" formControlName="iNCurrent" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('iNCurrent')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('iNCurrent')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('iNCurrent')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('iNCurrent')?.errors?.required">iNCurrent is required</div>
                     </div>
                   </td>
                 </tr>
@@ -446,7 +446,7 @@
                   <td>
                     <input type="text" formControlName="iPECurrent" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('iPECurrent')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('iPECurrent')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('iPECurrent')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('iPECurrent')?.errors?.required">iPECurrent is required</div>
                     </div>
                   </td>
                 </tr>
@@ -463,7 +463,7 @@
                 <label>Power Factor</label>
                 <input type="number" class="form-control" formControlName="powerFactor" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('powerFactor')?.errors }">
                 <div *ngIf="submittedRCBO && a.get('powerFactor')?.errors" class="invalid-feedback">
-                  <div *ngIf="a.get('powerFactor')?.errors?.required">Neutral is required</div>
+                  <div *ngIf="a.get('powerFactor')?.errors?.required">Power Factor is required</div>
                 </div>
               </div>
             </div>
@@ -473,7 +473,7 @@
                 <label>Frequency(Hz)</label>
                 <input type="number" class="form-control" formControlName="frequency" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('frequency')?.errors }">
                 <div *ngIf="submittedRCBO && a.get('frequency')?.errors" class="invalid-feedback">
-                  <div *ngIf="a.get('frequency')?.errors?.required">Neutral is required</div>
+                  <div *ngIf="a.get('frequency')?.errors?.required">Frequency is required</div>
                 </div>
               </div>
             </div>
@@ -524,21 +524,21 @@
                   <td>
                     <input type="text" formControlName="rNImpedence" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('rNImpedence')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('rNImpedence')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('rNImpedence')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('rNImpedence')?.errors?.required">rNImpedence is required</div>
                     </div>
                   </td>
 
                   <td>
                     <input type="text" formControlName="rNCurrent" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('rNCurrent')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('rNCurrent')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('rNCurrent')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('rNCurrent')?.errors?.required">rNCurrent is required</div>
                     </div>
                   </td>
 
                   <td>
                     <input type="text" formControlName="rNTime" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('rNTime')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('rNTime')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('rNTime')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('rNTime')?.errors?.required">rNTime is required</div>
                     </div>
                   </td>
 
@@ -555,21 +555,21 @@
                   <td>
                     <input type="text" formControlName="yNImpedence" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('yNImpedence')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('yNImpedence')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('yNImpedence')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('yNImpedence')?.errors?.required">yNImpedence is required</div>
                     </div>
                   </td>
 
                   <td>
                     <input type="text" formControlName="yNCurrent" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('yNCurrent')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('yNCurrent')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('yNCurrent')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('yNCurrent')?.errors?.required">yNCurrent is required</div>
                     </div>
                   </td>
 
                   <td>
                     <input type="text" formControlName="yNTime" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('yNTime')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('yNTime')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('yNTime')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('yNTime')?.errors?.required">yNTime is required</div>
                     </div>
                   </td>
 
@@ -586,21 +586,21 @@
                   <td>
                     <input type="text" formControlName="bNImpedence" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('bNImpedence')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('bNImpedence')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('bNImpedence')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('bNImpedence')?.errors?.required">bNImpedence is required</div>
                     </div>
                   </td>
 
                   <td>
                     <input type="text" formControlName="bNCurrent" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('bNCurrent')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('bNCurrent')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('bNCurrent')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('bNCurrent')?.errors?.required">bNCurrent is required</div>
                     </div>
                   </td>
 
                   <td>
                     <input type="text" formControlName="bNTime" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('bNTime')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('bNTime')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('bNTime')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('bNTime')?.errors?.required">bNTime is required</div>
                     </div>
                   </td>
 
@@ -617,21 +617,21 @@
                   <td>
                     <input type="text" formControlName="rEImpedence" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('rEImpedence')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('rEImpedence')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('rEImpedence')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('rEImpedence')?.errors?.required">rEImpedence is required</div>
                     </div>
                   </td>
 
                   <td>
                     <input type="text" formControlName="rECurrent" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('rECurrent')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('rECurrent')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('rECurrent')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('rECurrent')?.errors?.required">rECurrent is required</div>
                     </div>
                   </td>
 
                   <td>
                     <input type="text" formControlName="rETime" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('rETime')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('rETime')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('rETime')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('rETime')?.errors?.required">rETime is required</div>
                     </div>
                   </td>
 
@@ -648,21 +648,21 @@
                   <td>
                     <input type="text" formControlName="yEImpedence" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('yEImpedence')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('yEImpedence')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('yEImpedence')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('yEImpedence')?.errors?.required">yEImpedence is required</div>
                     </div>
                   </td>
 
                   <td>
                     <input type="text" formControlName="yECurrent" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('yECurrent')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('yECurrent')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('yECurrent')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('yECurrent')?.errors?.required">yECurrent is required</div>
                     </div>
                   </td>
 
                   <td>
                     <input type="text" formControlName="yETime" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('yETime')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('yETime')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('yETime')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('yETime')?.errors?.required">yETime is required</div>
                     </div>
                   </td>
 
@@ -679,21 +679,21 @@
                   <td>
                     <input type="text" formControlName="bEImpedence" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('bEImpedence')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('bEImpedence')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('bEImpedence')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('bEImpedence')?.errors?.required">bEImpedence is required</div>
                     </div>
                   </td>
 
                   <td>
                     <input type="text" formControlName="bECurrent" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('bECurrent')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('bECurrent')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('bECurrent')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('bECurrent')?.errors?.required">bECurrent is required</div>
                     </div>
                   </td>
 
                   <td>
                     <input type="text" formControlName="bETime" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('bETime')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('bETime')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('bETime')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('bETime')?.errors?.required">bETime is required</div>
                     </div>
                   </td>
 
@@ -710,21 +710,21 @@
                   <td>
                     <input type="text" formControlName="rYImpedence" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('rYImpedence')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('rYImpedence')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('rYImpedence')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('rYImpedence')?.errors?.required">rYImpedence is required</div>
                     </div>
                   </td>
 
                   <td>
                     <input type="text" formControlName="rYCurrent" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('rYCurrent')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('rYCurrent')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('rYCurrent')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('rYCurrent')?.errors?.required">rYCurrent is required</div>
                     </div>
                   </td>
 
                   <td>
                     <input type="text" formControlName="rYTime" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('rYTime')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('rYTime')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('rYTime')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('rYTime')?.errors?.required">rYTime is required</div>
                     </div>
                   </td>
 
@@ -741,21 +741,21 @@
                   <td>
                     <input type="text" formControlName="yBImpedence" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('yBImpedence')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('yBImpedence')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('yBImpedence')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('yBImpedence')?.errors?.required">yBImpedence is required</div>
                     </div>
                   </td>
 
                   <td>
                     <input type="text" formControlName="yBCurrent" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('yBCurrent')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('yBCurrent')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('yBCurrent')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('yBCurrent')?.errors?.required">yBCurrent is required</div>
                     </div>
                   </td>
 
                   <td>
                     <input type="text" formControlName="yBTime" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('yBTime')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('yBTime')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('yBTime')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('yBTime')?.errors?.required">yBTime is required</div>
                     </div>
                   </td>
 
@@ -772,21 +772,21 @@
                   <td>
                     <input type="text" formControlName="bRImpedence" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('bRImpedence')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('bRImpedence')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('bRImpedence')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('bRImpedence')?.errors?.required">bRImpedence is required</div>
                     </div>
                   </td>
 
                   <td>
                     <input type="text" formControlName="bRCurrent" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('bRCurrent')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('bRCurrent')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('bRCurrent')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('bRCurrent')?.errors?.required">bRCurrent is required</div>
                     </div>
                   </td>
 
                   <td>
                     <input type="text" formControlName="bRTime" [ngClass]="{ 'is-invalid': submittedRCBO && a.get('bRTime')?.errors }">
                     <div *ngIf="submittedRCBO && a.get('bRTime')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('bRTime')?.errors?.required">Neutral is required</div>
+                      <div *ngIf="a.get('bRTime')?.errors?.required">bRTime is required</div>
                     </div>
                   </td>
 
@@ -807,7 +807,7 @@
                 <input type="number" class="form-control" formControlName="shockVoltage" 
                 [ngClass]="{ 'is-invalid': submittedRCBO && a.get('shockVoltage')?.errors }">
                 <div *ngIf="submittedRCBO && a.get('shockVoltage')?.errors" class="invalid-feedback">
-                  <div *ngIf="a.get('shockVoltage')?.errors?.required">Neutral is required</div>
+                  <div *ngIf="a.get('shockVoltage')?.errors?.required">Touch/Shock Voltage is required</div>
                 </div>
               </div>
             </div>
@@ -818,7 +818,7 @@
                 <input type="number" class="form-control" formControlName="floorResistance" 
                 [ngClass]="{ 'is-invalid': submittedRCBO && a.get('floorResistance')?.errors }">
                 <div *ngIf="submittedRCBO && a.get('floorResistance')?.errors" class="invalid-feedback">
-                  <div *ngIf="a.get('floorResistance')?.errors?.required">Neutral is required</div>
+                  <div *ngIf="a.get('floorResistance')?.errors?.required">Floor Resistance is required</div>
                 </div>
               </div>
             </div>
@@ -829,7 +829,7 @@
                 <input type="number" class="form-control" formControlName="wallResistance" 
                 [ngClass]="{ 'is-invalid': submittedRCBO && a.get('wallResistance')?.errors }">
                 <div *ngIf="submittedRCBO && a.get('wallResistance')?.errors" class="invalid-feedback">
-                  <div *ngIf="a.get('wallResistance')?.errors?.required">Neutral is required</div>
+                  <div *ngIf="a.get('wallResistance')?.errors?.required">Wall Resistance is required</div>
                 </div>
               </div>
             </div>
@@ -842,9 +842,22 @@
     </form>
     </div>
 
+    <div *ngIf="validationError" style="text-align: center;margin-top: 20px;">
+        <span class="alert alert-danger">{{validationErrorMsg}}</span>
+      </div>
+
+      <div class="centre-text m-btm30">
+        <div *ngIf="success" style="text-align: center;margin-top: 5px;margin-bottom: 40px">
+          <span class="successshow">{{ successMsg }}</span>
+        </div>
+        <div *ngIf="error" style="text-align: center;margin-top: 5px;margin-bottom: 40px">
+          <span class="errorshow">{{ errorMsg }}</span>
+        </div>
+      </div>
+
     <div style="display: inline">    
         <button type="button"  style="float: left; margin-left: 400px"
-          class="btn btn-info" (click)="saveRCBO()">
+          class="btn btn-info" (click)="saveRCBO(rcboFlag)">
           <i class="bi bi-person-plus-fill icon"></i> Save
         </button>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -853,6 +866,7 @@
           <span aria-hidden="true">Cancel</span>
         </button>
       </div>
+      <br>
   </div>
 
   

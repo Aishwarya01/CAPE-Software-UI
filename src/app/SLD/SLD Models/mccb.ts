@@ -1,6 +1,8 @@
 export class MCCB {
+    mccbID!: number;
     nodeId!: String;
     fileName!: String;
+    userName!: String;
     referenceName!: String;
     manufacturerName!: String;
     rating!: number;

@@ -3,7 +3,7 @@
         <h2 class="modal-title" style="display: contents">Light</h2>
       </div>
       <div class="card-body">
-      <form [formGroup]="lightForm">
+      <form [formGroup]="lightForm" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
       <div class="row">
         <div class="col-md-4">
           <label>Reference Name</label>
@@ -19,7 +19,7 @@
           <input type="text" class="form-control" formControlName="manufacturerName" [(ngModel)]="light.manufacturerName"
           [ngClass]="{ 'is-invalid': submitted && f.manufacturerName?.errors }">
           <div *ngIf="submitted && f.manufacturerName?.errors" class="invalid-feedback">
-            <div *ngIf="f.manufacturerName?.errors?.required">Reference name is required</div>
+            <div *ngIf="f.manufacturerName?.errors?.required">Manfacturer name is required</div>
           </div>
         </div>
 
@@ -28,7 +28,7 @@
           <input type="number" class="form-control" formControlName="powerCapacity" [(ngModel)]="light.powerCapacity"
           [ngClass]="{ 'is-invalid': submitted && f.powerCapacity?.errors }">
           <div *ngIf="submitted && f.powerCapacity?.errors" class="invalid-feedback">
-            <div *ngIf="f.powerCapacity?.errors?.required">Reference name is required</div>
+            <div *ngIf="f.powerCapacity?.errors?.required">Power Capacity is required</div>
           </div>
         </div>
 
@@ -38,10 +38,10 @@
 
         <div class="col-md-4">
           <label>Current Rating(A)</label>
-          <input type="number" class="form-control" formControlName="rating" [(ngModel)]="light.rating"
+          <input type="number" class="form-control" formControlName="rating" [(ngModel)]="light.currentRating"
           [ngClass]="{ 'is-invalid': submitted && f.rating?.errors }">
           <div *ngIf="submitted && f.rating?.errors" class="invalid-feedback">
-            <div *ngIf="f.rating?.errors?.required">Reference name is required</div>
+            <div *ngIf="f.rating?.errors?.required">Current Rating is required</div>
           </div>
         </div>
 
@@ -50,7 +50,7 @@
           <input type="number" class="form-control" formControlName="voltage" [(ngModel)]="light.voltage"
           [ngClass]="{ 'is-invalid': submitted && f.voltage?.errors }">
           <div *ngIf="submitted && f.voltage?.errors" class="invalid-feedback">
-            <div *ngIf="f.voltage?.errors?.required">Reference name is required</div>
+            <div *ngIf="f.voltage?.errors?.required">Voltage is required</div>
           </div>
         </div>
 
@@ -59,7 +59,7 @@
           <input type="text" class="form-control" formControlName="type" [(ngModel)]="light.type"
           [ngClass]="{ 'is-invalid': submitted && f.type?.errors }">
           <div *ngIf="submitted && f.type?.errors" class="invalid-feedback">
-            <div *ngIf="f.type?.errors?.required">Reference name is required</div>
+            <div *ngIf="f.type?.errors?.required">Model/Type is required</div>
           </div>
         </div>
       
@@ -73,7 +73,7 @@
           <input type="text" class="form-control" formControlName="incomingSizePhase" [(ngModel)]="light.incomingSizePhase"
           [ngClass]="{ 'is-invalid': submitted && f.incomingSizePhase?.errors }">
           <div *ngIf="submitted && f.incomingSizePhase?.errors" class="invalid-feedback">
-            <div *ngIf="f.incomingSizePhase?.errors?.required">Reference name is required</div>
+            <div *ngIf="f.incomingSizePhase?.errors?.required">Phase is required</div>
           </div>
         </div>
         <div class="col-md-4">
@@ -81,7 +81,7 @@
           <input type="text" class="form-control" formControlName="incomingSizeNeutral" [(ngModel)]="light.incomingSizeNeutral"
           [ngClass]="{ 'is-invalid': submitted && f.incomingSizeNeutral?.errors }">
           <div *ngIf="submitted && f.incomingSizeNeutral?.errors" class="invalid-feedback">
-            <div *ngIf="f.incomingSizeNeutral?.errors?.required">Reference name is required</div>
+            <div *ngIf="f.incomingSizeNeutral?.errors?.required">Neutral is required</div>
           </div>
         </div>
         <div class="col-md-4">
@@ -89,7 +89,7 @@
           <input type="text" class="form-control" formControlName="incomingSizeProtective" [(ngModel)]="light.incomingSizeProtective"
           [ngClass]="{ 'is-invalid': submitted && f.incomingSizeProtective?.errors }">
           <div *ngIf="submitted && f.incomingSizeProtective?.errors" class="invalid-feedback">
-            <div *ngIf="f.incomingSizeProtective?.errors?.required">Reference name is required</div>
+            <div *ngIf="f.incomingSizeProtective?.errors?.required">Protective Conductor is required</div>
           </div>
         </div>
       </div>
@@ -103,7 +103,7 @@
           <input type="text" class="form-control" formControlName="incomingLengthPhase" [(ngModel)]="light.incomingLengthPhase"
           [ngClass]="{ 'is-invalid': submitted && f.incomingLengthPhase?.errors }">
           <div *ngIf="submitted && f.incomingLengthPhase?.errors" class="invalid-feedback">
-            <div *ngIf="f.incomingLengthPhase?.errors?.required">Reference name is required</div>
+            <div *ngIf="f.incomingLengthPhase?.errors?.required">Phase is required</div>
           </div>
         </div>
         <div class="col-md-4">
@@ -111,7 +111,7 @@
           <input type="text" class="form-control" formControlName="incomingLengthNeutral" [(ngModel)]="light.incomingLengthNeutral"
           [ngClass]="{ 'is-invalid': submitted && f.incomingLengthNeutral?.errors }">
           <div *ngIf="submitted && f.incomingLengthNeutral?.errors" class="invalid-feedback">
-            <div *ngIf="f.incomingLengthNeutral?.errors?.required">Reference name is required</div>
+            <div *ngIf="f.incomingLengthNeutral?.errors?.required">Neutral is required</div>
           </div>
         </div>
         <div class="col-md-4">
@@ -119,7 +119,7 @@
           <input type="text" class="form-control" formControlName="incomingLengthProtective" [(ngModel)]="light.incomingLengthProtective"
           [ngClass]="{ 'is-invalid': submitted && f.incomingLengthProtective?.errors }">
           <div *ngIf="submitted && f.incomingLengthProtective?.errors" class="invalid-feedback">
-            <div *ngIf="f.incomingLengthProtective?.errors?.required">Reference name is required</div>
+            <div *ngIf="f.incomingLengthProtective?.errors?.required">Protective Conductor is required</div>
           </div>
         </div>
       </div>
@@ -165,21 +165,21 @@
                     <td>
                       <input type="text" formControlName="phNVoltage" [ngClass]="{ 'is-invalid': submitted && a.get('phNVoltage')?.errors }">
                       <div *ngIf="submitted && a.get('phNVoltage')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('phNVoltage')?.errors?.required">Neutral is required</div>
+                        <div *ngIf="a.get('phNVoltage')?.errors?.required">phNVoltage is required</div>
                       </div>
                     </td>
     
                     <td>
                       <input type="text" formControlName="phNIResistance" [ngClass]="{ 'is-invalid': submitted && a.get('phIResistance')?.errors }">
                       <div *ngIf="submitted && a.get('phIResistance')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('phIResistance')?.errors?.required">Neutral is required</div>
+                        <div *ngIf="a.get('phIResistance')?.errors?.required">phNIResistance is required</div>
                       </div>
                     </td>
 
                     <td>
                       <input type="text" formControlName="phNCResistance" [ngClass]="{ 'is-invalid': submitted && a.get('phNCResistance')?.errors }">
                       <div *ngIf="submitted && a.get('phNCResistance')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('phNCResistance')?.errors?.required">Neutral is required</div>
+                        <div *ngIf="a.get('phNCResistance')?.errors?.required">phNCResistance is required</div>
                       </div>
                     </td>
                   </tr>
@@ -192,21 +192,21 @@
                     <td>
                       <input type="text" formControlName="phEVoltage" [ngClass]="{ 'is-invalid': submitted && a.get('phEVoltage')?.errors }">
                       <div *ngIf="submitted && a.get('phEVoltage')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('phEVoltage')?.errors?.required">Neutral is required</div>
+                        <div *ngIf="a.get('phEVoltage')?.errors?.required">phEVoltage is required</div>
                       </div>
                     </td>
     
                     <td>
                       <input type="text" formControlName="phEIResistance" [ngClass]="{ 'is-invalid': submitted && a.get('phEIResistance')?.errors }">
                       <div *ngIf="submitted && a.get('phEIResistance')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('phEIResistance')?.errors?.required">Neutral is required</div>
+                        <div *ngIf="a.get('phEIResistance')?.errors?.required">phEVoltage is required</div>
                       </div>
                     </td>
 
                     <td>
                       <input type="text" formControlName="phECResistance" [ngClass]="{ 'is-invalid': submitted && a.get('phECResistance')?.errors }">
                       <div *ngIf="submitted && a.get('phECResistance')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('phECResistance')?.errors?.required">Neutral is required</div>
+                        <div *ngIf="a.get('phECResistance')?.errors?.required">phECResistance is required</div>
                       </div>
                     </td>
                   </tr>
@@ -219,21 +219,21 @@
                     <td>
                       <input type="text"  formControlName="nEVoltage" [ngClass]="{ 'is-invalid': submitted && a.get('nEVoltage')?.errors }">
                       <div *ngIf="submitted && a.get('nEVoltage')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('nEVoltage')?.errors?.required">Neutral is required</div>
+                        <div *ngIf="a.get('nEVoltage')?.errors?.required">nEVoltage is required</div>
                       </div>
                     </td>
     
                     <td>
                       <input type="text"  formControlName="nEIResistance" [ngClass]="{ 'is-invalid': submitted && a.get('nEIResistance')?.errors }">
                       <div *ngIf="submitted && a.get('nEIResistance')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('nEIResistance')?.errors?.required">Neutral is required</div>
+                        <div *ngIf="a.get('nEIResistance')?.errors?.required">nEIResistance is required</div>
                       </div>
                     </td>
 
                     <td>
                       <input type="text"  formControlName="nECResistance" [ngClass]="{ 'is-invalid': submitted && a.get('nECResistance')?.errors }">
                       <div *ngIf="submitted && a.get('nECResistance')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('nECResistance')?.errors?.required">Neutral is required</div>
+                        <div *ngIf="a.get('nECResistance')?.errors?.required">nECResistance is required</div>
                       </div>
                     </td>
                   </tr>
@@ -267,7 +267,7 @@
                     <td>
                       <input type="text" formControlName="iRCurrent" [ngClass]="{ 'is-invalid': submitted && a.get('iRCurrent')?.errors }">
                       <div *ngIf="submitted && a.get('iRCurrent')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('iRCurrent')?.errors?.required">Neutral is required</div>
+                        <div *ngIf="a.get('iRCurrent')?.errors?.required">iRCurrent is required</div>
                       </div>
                     </td>
                   </tr>
@@ -280,7 +280,7 @@
                     <td>
                       <input type="text" formControlName="iNCurrent" [ngClass]="{ 'is-invalid': submitted && a.get('iNCurrent')?.errors }">
                       <div *ngIf="submitted && a.get('iNCurrent')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('iNCurrent')?.errors?.required">Neutral is required</div>
+                        <div *ngIf="a.get('iNCurrent')?.errors?.required">iNCurrent is required</div>
                       </div>
                     </td>
                   </tr>
@@ -293,7 +293,7 @@
                     <td>
                       <input type="text" formControlName="iPECurrent" [ngClass]="{ 'is-invalid': submitted && a.get('iPECurrent')?.errors }">
                       <div *ngIf="submitted && a.get('iPECurrent')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('iPECurrent')?.errors?.required">Neutral is required</div>
+                        <div *ngIf="a.get('iPECurrent')?.errors?.required">iPECurrent is required</div>
                       </div>
                     </td>
                   </tr>
@@ -310,7 +310,7 @@
                   <label>Power Factor</label>
                   <input type="number" class="form-control" formControlName="powerFactor" [ngClass]="{ 'is-invalid': submitted && a.get('powerFactor')?.errors }">
                   <div *ngIf="submitted && a.get('powerFactor')?.errors" class="invalid-feedback">
-                    <div *ngIf="a.get('powerFactor')?.errors?.required">Neutral is required</div>
+                    <div *ngIf="a.get('powerFactor')?.errors?.required">Power Factor is required</div>
                   </div>
                 </div>
               </div>
@@ -320,7 +320,7 @@
                   <label>Frequency(Hz)</label>
                   <input type="number" class="form-control" formControlName="frequency" [ngClass]="{ 'is-invalid': submitted && a.get('frequency')?.errors }">
                   <div *ngIf="submitted && a.get('frequency')?.errors" class="invalid-feedback">
-                    <div *ngIf="a.get('frequency')?.errors?.required">Neutral is required</div>
+                    <div *ngIf="a.get('frequency')?.errors?.required">Frequency is required</div>
                   </div>
                 </div>
               </div>
@@ -371,21 +371,21 @@
                     <td>
                       <input type="text" formControlName="phNImpedence" [ngClass]="{ 'is-invalid': submitted && a.get('phNImpedence')?.errors }">
                       <div *ngIf="submitted && a.get('phNImpedence')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('phNImpedence')?.errors?.required">Neutral is required</div>
+                        <div *ngIf="a.get('phNImpedence')?.errors?.required">phNImpedence is required</div>
                       </div>
                     </td>
 
                     <td>
                       <input type="text" formControlName="phNCurrent" [ngClass]="{ 'is-invalid': submitted && a.get('phNCurrent')?.errors }">
                       <div *ngIf="submitted && a.get('phNCurrent')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('phNCurrent')?.errors?.required">Neutral is required</div>
+                        <div *ngIf="a.get('phNCurrent')?.errors?.required">phNCurrent is required</div>
                       </div>
                     </td>
 
                     <td>
                       <input type="text" formControlName="phNTime" [ngClass]="{ 'is-invalid': submitted && a.get('phNTime')?.errors }">
                       <div *ngIf="submitted && a.get('phNTime')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('phNTime')?.errors?.required">Neutral is required</div>
+                        <div *ngIf="a.get('phNTime')?.errors?.required">phNTime is required</div>
                       </div>
                     </td>
 
@@ -402,21 +402,21 @@
                     <td>
                       <input type="text" formControlName="phEImpedence" [ngClass]="{ 'is-invalid': submitted && a.get('phEImpedence')?.errors }">
                       <div *ngIf="submitted && a.get('phEImpedence')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('phEImpedence')?.errors?.required">Neutral is required</div>
+                        <div *ngIf="a.get('phEImpedence')?.errors?.required">phEImpedence is required</div>
                       </div>
                     </td>
 
                     <td>
                       <input type="text" formControlName="phECurrent" [ngClass]="{ 'is-invalid': submitted && a.get('phECurrent')?.errors }">
                       <div *ngIf="submitted && a.get('phECurrent')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('phECurrent')?.errors?.required">Neutral is required</div>
+                        <div *ngIf="a.get('phECurrent')?.errors?.required">phECurrent is required</div>
                       </div>
                     </td>
 
                     <td>
                       <input type="text" formControlName="phETime" [ngClass]="{ 'is-invalid': submitted && a.get('phETime')?.errors }">
                       <div *ngIf="submitted && a.get('phETime')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('phETime')?.errors?.required">Neutral is required</div>
+                        <div *ngIf="a.get('phETime')?.errors?.required">phETime is required</div>
                       </div>
                     </td>
 
@@ -433,21 +433,21 @@
                     <td>
                       <input type="text" formControlName="nEImpedence" [ngClass]="{ 'is-invalid': submitted && a.get('nEImpedence')?.errors }">
                       <div *ngIf="submitted && a.get('nEImpedence')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('nEImpedence')?.errors?.required">Neutral is required</div>
+                        <div *ngIf="a.get('nEImpedence')?.errors?.required">nEImpedence is required</div>
                       </div>
                     </td>
 
                     <td>
                       <input type="text" formControlName="nECurrent" [ngClass]="{ 'is-invalid': submitted && a.get('nECurrent')?.errors }">
                       <div *ngIf="submitted && a.get('nECurrent')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('nECurrent')?.errors?.required">Neutral is required</div>
+                        <div *ngIf="a.get('nECurrent')?.errors?.required">nECurrent is required</div>
                       </div>
                     </td>
 
                     <td>
                       <input type="text" formControlName="nETime" [ngClass]="{ 'is-invalid': submitted && a.get('nETime')?.errors }">
                       <div *ngIf="submitted && a.get('nETime')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('nETime')?.errors?.required">Neutral is required</div>
+                        <div *ngIf="a.get('nETime')?.errors?.required">nETime is required</div>
                       </div>
                     </td>
 
@@ -468,7 +468,7 @@
                   <input type="number" class="form-control" formControlName="shockVoltage" 
                   [ngClass]="{ 'is-invalid': submitted && a.get('shockVoltage')?.errors }">
                   <div *ngIf="submitted && a.get('shockVoltage')?.errors" class="invalid-feedback">
-                    <div *ngIf="a.get('shockVoltage')?.errors?.required">Neutral is required</div>
+                    <div *ngIf="a.get('shockVoltage')?.errors?.required">Touch/Shock is required</div>
                   </div>
                 </div>
               </div>
@@ -479,7 +479,7 @@
                   <input type="number" class="form-control" formControlName="floorResistance" 
                   [ngClass]="{ 'is-invalid': submitted && a.get('floorResistance')?.errors }">
                   <div *ngIf="submitted && a.get('floorResistance')?.errors" class="invalid-feedback">
-                    <div *ngIf="a.get('floorResistance')?.errors?.required">Neutral is required</div>
+                    <div *ngIf="a.get('floorResistance')?.errors?.required">Floor Resistance is required</div>
                   </div>
                 </div>
               </div>
@@ -490,7 +490,7 @@
                   <input type="number" class="form-control" formControlName="wallResistance" 
                   [ngClass]="{ 'is-invalid': submitted && a.get('wallResistance')?.errors }">
                   <div *ngIf="submitted && a.get('wallResistance')?.errors" class="invalid-feedback">
-                    <div *ngIf="a.get('wallResistance')?.errors?.required">Neutral is required</div>
+                    <div *ngIf="a.get('wallResistance')?.errors?.required">Wall Resistance is required</div>
                   </div>
                 </div>
               </div>
@@ -503,9 +503,22 @@
       </form>
       </div>
 
+      <div *ngIf="validationError" style="text-align: center;margin-top: 20px;">
+        <span class="alert alert-danger">{{validationErrorMsg}}</span>
+      </div>
+
+      <div class="centre-text m-btm30">
+        <div *ngIf="success" style="text-align: center;margin-top: 5px;margin-bottom: 40px">
+          <span class="successshow">{{ successMsg }}</span>
+        </div>
+        <div *ngIf="error" style="text-align: center;margin-top: 5px;margin-bottom: 40px">
+          <span class="errorshow">{{ errorMsg }}</span>
+        </div>
+      </div>
+
       <div style="display: inline;margin-top: 30px;">    
         <button type="button"  style="float: left; margin-left: 400px"
-          class="btn btn-info" (click)="saveLight()">
+          class="btn btn-info" (click)="saveLight(lightFlag)">
           <i class="bi bi-person-plus-fill icon"></i> Save
         </button>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -514,6 +527,7 @@
           <span aria-hidden="true">Cancel</span>
         </button>
       </div>
+      <br>
     </div>
 
     

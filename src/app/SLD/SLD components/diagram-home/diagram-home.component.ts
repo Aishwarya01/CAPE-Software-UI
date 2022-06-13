@@ -208,6 +208,7 @@ export class DiagramHomeComponent implements OnInit {
         });
         dialogRef.componentInstance.nodeId = e.element.properties.id;;
         dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
+        dialogRef.componentInstance.email = this.email;
       }
       else if(e.element.properties.id.includes('MCCB')) {
         const dialogRef = this.dialog.open(MCCBComponent, {
@@ -217,6 +218,7 @@ export class DiagramHomeComponent implements OnInit {
         });
         dialogRef.componentInstance.nodeId = e.element.properties.id;;
         dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
+        dialogRef.componentInstance.email = this.email;
       }
       else if(e.element.properties.id.includes('MCB_with_RCD')) {
         const dialogRef = this.dialog.open(RCBOComponent, {
@@ -226,6 +228,7 @@ export class DiagramHomeComponent implements OnInit {
         });
         dialogRef.componentInstance.nodeId = e.element.properties.id;;
         dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
+        dialogRef.componentInstance.email = this.email;
       }
       else if(e.element.properties.id.includes('MCB')) {
         const dialogRef = this.dialog.open(MCBComponent, {
@@ -235,6 +238,7 @@ export class DiagramHomeComponent implements OnInit {
         });
         dialogRef.componentInstance.nodeId = e.element.properties.id;;
         dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
+        dialogRef.componentInstance.email = this.email;
       }
       else if(e.element.properties.id.includes('Battery')) {
         //this.modalService.open(content10, { centered: true,size: 'xl'});

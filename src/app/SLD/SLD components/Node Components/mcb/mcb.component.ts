@@ -17,10 +17,19 @@ export class MCBComponent implements OnInit {
   submitted: boolean = false;
   mcbFlag: boolean = false;
   mcbData: any;
+  success: boolean = false;
+  successMsg: String = '';
+  error: boolean = false;
+  errorMsg: String = ''
+  errorData: any;
   @Input()
   nodeId: any;
   @Input()
   fileName: any;
+  @Input()
+  email: any;
+  validationError: boolean= false;
+  validationErrorMsg: string="";
   constructor(private mcbService: MCBServicesService,
               private formBuilder: FormBuilder,
               private dialog: MatDialog,
@@ -224,6 +233,7 @@ export class MCBComponent implements OnInit {
       this.mcb.nodeId = i.nodeId;
       this.mcb.fileName = i.fileName;
       this.mcb.userName = i.userName;
+      this.mcb.mcbID = i.mcbID;
 
       this.populateMcbForm(i);
     }
@@ -404,10 +414,34 @@ export class MCBComponent implements OnInit {
     });
   }
 
+
+  onChangeForm(event:any){
+    if(!this.mcbForm.invalid){
+      if(this.mcbForm.dirty){
+        this.validationError=false;
+      }
+      else{
+        this.validationError=false;
+      }
+     }
+  }
+  onKeyForm(event: KeyboardEvent) { 
+    if(!this.mcbForm.invalid){
+      if(this.mcbForm.dirty){
+        this.validationError=false;
+      }
+      else{
+        this.validationError=false;
+      }
+     }
+  } 
+
   //submit MCB
-  saveMCB() {
+  saveMCB(mcbFlag: any) {
     this.submitted = true;
     if(this.mcbForm.invalid) {
+      this.validationError=true;
+      this.validationErrorMsg="Please check all the fields";
       return;
     }
 
@@ -735,15 +769,65 @@ export class MCBComponent implements OnInit {
 
     this.mcb.generalTestingMCB = this.mcbForm.value.generalTestingMCB;
     this.mcb.safetyTestingMCB = this.mcbForm.value.safetyTestingMCB;
-
-    this.mcbService.addMCB(this.mcb).subscribe(
+    this.mcb.userName = this.email;
+    if(this.mcbFlag) {
+      this.mcbService.updateMCB(this.mcb).subscribe(
+        data => {
+          this.mcbService.retriveMCB(this.mcb.fileName,this.mcb.nodeId).subscribe(
+            data => {
+              this.mcbData = JSON.parse(data);
+              if(this.mcbData.length != 0) {
+                this.retrieveMcbNode(this.mcbData);
+              }
+            }
+          )
+          this.success = true;
+          this.successMsg = data;
+          setTimeout(()=>{
+            this.success = false;
+          this.successMsg = ""
+          }, 3000);
+        },
+        error => {
+          this.error = true;
+          this.errorData = JSON.parse(error.error);
+          this.errorMsg = this.errorData.message;
+          setTimeout(()=>{
+            this.error = false;
+            this.errorMsg = ""
+          }, 3000);
+        }
+      )
+    }
+    else {
+      this.mcbService.addMCB(this.mcb).subscribe(
       data => {
-
+        this.mcbService.retriveMCB(this.mcb.fileName,this.mcb.nodeId).subscribe(
+          data => {
+            this.mcbData = JSON.parse(data);
+            if(this.mcbData.length != 0) {
+              this.retrieveMcbNode(this.mcbData);
+            }
+          }
+        )
+        this.success = true;
+        this.successMsg = data;
+        setTimeout(()=>{
+          this.success = false;
+        this.successMsg = "";
+        }, 3000);
       },
       error => {
-        
+        this.error = true;
+        this.errorData = JSON.parse(error.error);
+        this.errorMsg = this.errorData.message;
+        setTimeout(()=>{
+          this.error = false;
+          this.errorMsg = "";
+        }, 3000);
       }
     )
+    }
   }
 
   close() {

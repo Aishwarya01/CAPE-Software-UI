@@ -19,10 +19,19 @@ export class RCBOComponent implements OnInit {
   rcboGeneralTestingArray: any = [];
   rcboSafetyTestingArray: any = [];
   submittedRCBO: boolean = false;
+  success: boolean = false;
+  successMsg: String = '';
+  error: boolean = false;
+  errorMsg: String = ''
+  errorData: any;
   @Input()
   fileName: any;
   @Input()
   nodeId: any;
+  @Input()
+  email: any;
+  validationError: boolean= false;
+  validationErrorMsg: string="";
 
 
   constructor(private formBuilder: FormBuilder,
@@ -217,6 +226,8 @@ export class RCBOComponent implements OnInit {
       this.rcbo.nodeId = i.nodeId;
       this.rcbo.fileName = i.fileName;
       this.rcbo.userName = i.userName;
+      this.rcbo.rcboId = i.rcboId;
+
 
       this.populateRcboForm(i);
     }
@@ -413,10 +424,33 @@ export class RCBOComponent implements OnInit {
     (this.mcbWithRcdForm.get('safetyTestingRCBO') as FormArray).removeAt(i)
   }
 
+  onChangeForm(event:any){
+    if(!this.mcbWithRcdForm.invalid){
+      if(this.mcbWithRcdForm.dirty){
+        this.validationError=false;
+      }
+      else{
+        this.validationError=false;
+      }
+     }
+  }
+  onKeyForm(event: KeyboardEvent) { 
+    if(!this.mcbWithRcdForm.invalid){
+      if(this.mcbWithRcdForm.dirty){
+        this.validationError=false;
+      }
+      else{
+        this.validationError=false;
+      }
+     }
+  }
+
   //submit MCB with RCD or RCBO
-  saveRCBO() {
+  saveRCBO(rcboFlag: any) {
     this.submittedRCBO = true;
     if(this.mcbWithRcdForm.invalid) {
+      this.validationError=true;
+      this.validationErrorMsg="Please check all the fields";
       return;
     }
 
@@ -744,15 +778,67 @@ export class RCBOComponent implements OnInit {
 
     this.rcbo.generalTestingRCBO = this.mcbWithRcdForm.value.generalTestingRCBO;
     this.rcbo.safetyTestingRCBO = this.mcbWithRcdForm.value.safetyTestingRCBO;
+    this.rcbo.userName = this.email;
 
-    this.rcboService.addRCBO(this.rcbo).subscribe(
-      data => {
-
-      },
-      error => {
-        
-      }
-    )
+    if(this.rcboFlag) {
+      this.rcboService.updateRCBO(this.rcbo).subscribe(
+        data => {
+          this.rcboService.retriveRCBO(this.rcbo.fileName,this.rcbo.nodeId).subscribe(
+            data => {
+              this.rcboData = JSON.parse(data);
+              if(this.rcboData.length != 0) {
+                this.retrieveRcboNode(this.rcboData);
+              }
+            }
+          )
+          this.success = true;
+          this.successMsg = data;
+          setTimeout(()=>{
+            this.success = false;
+          this.successMsg = ""
+          }, 3000);
+        },
+        error => {
+          this.error = true;
+          this.errorData = JSON.parse(error.error);
+          this.errorMsg = this.errorData.message;
+          setTimeout(()=>{
+            this.error = false;
+            this.errorMsg = ""
+          }, 3000);
+        }
+      )
+    }
+    else {
+      this.rcboService.addRCBO(this.rcbo).subscribe(
+        data => {
+          this.rcboService.retriveRCBO(this.rcbo.fileName,this.rcbo.nodeId).subscribe(
+            data => {
+              this.rcboData = JSON.parse(data);
+              if(this.rcboData.length != 0) {
+                this.retrieveRcboNode(this.rcboData);
+              }
+            }
+          )
+          this.success = true;
+          this.successMsg = data;
+          setTimeout(()=>{
+            this.success = false;
+          this.successMsg = ""
+          }, 3000);
+        },
+        error => {
+          this.error = true;
+          this.errorData = JSON.parse(error.error);
+          this.errorMsg = this.errorData.message;
+          setTimeout(()=>{
+            this.error = false;
+            this.errorMsg = ""
+          }, 3000);
+        }
+      )
+    }
+    
   }
 
   close() {
