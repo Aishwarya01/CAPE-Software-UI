@@ -17,7 +17,7 @@
                                     <select class="form-control" formControlName="location" (change)="changeLocation($event,f);noOfDangerus($event,f)"
                                     [ngClass]="{ 'is-invalid': submitted && f.get('location')?.errors }">
                                         <option value="" selected>Select Option</option>
-                                        <option *ngFor="let value of locationList" [selected]="value.gfdValue=== getLocation">{{value.gfdValue}}</option>
+                                        <option *ngFor="let value of locationList" [selected]="f.get('location')?.value === value.location">{{value.location}}</option>
                                     </select>
                                     <div *ngIf="submitted && f.get('location')?.errors" class="invalid-feedback">
                                         <div *ngIf="f.get('location')?.errors?.required">Location is required</div>

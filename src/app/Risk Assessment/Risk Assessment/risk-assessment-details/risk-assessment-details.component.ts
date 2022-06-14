@@ -477,8 +477,8 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     let selectedValue = e.target.value;
     this.getLocation='';
     for(let i of this.locationList) {
-      if(i.gfdValue == selectedValue) {
-        form.controls.groundFlashDensity.setValue(i.location);
+      if(i.location == selectedValue) {
+        form.controls.groundFlashDensity.setValue(i.gfdValue);
         this.showFlashDensity = true;
       }
       if(selectedValue == 'Others') {
