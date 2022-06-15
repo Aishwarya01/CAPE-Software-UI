@@ -17,3 +17,8 @@ hr {
 th {
   text-align: center;
 }
+
+#upperCase{
+  height: 3rem;
+  text-transform: uppercase;
+}
