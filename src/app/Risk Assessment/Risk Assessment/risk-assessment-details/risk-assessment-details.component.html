@@ -14,10 +14,10 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Location :</label>
-                                    <select class="form-control" formControlName="location" (change)="changeLocation($event,f);noOfDangerus($event,f)"
+                                    <select class="form-control" formControlName="location" (change)="changeLocation($event,f)"
                                     [ngClass]="{ 'is-invalid': submitted && f.get('location')?.errors }">
                                         <option value="" selected>Select Option</option>
-                                        <option *ngFor="let value of locationList" [selected]="f.get('location')?.value === value.location">{{value.location}}</option>
+                                        <option *ngFor="let value of locationList" [selected]="value.gfdValue=== getLocation">{{value.gfdValue}}</option>
                                     </select>
                                     <div *ngIf="submitted && f.get('location')?.errors" class="invalid-feedback">
                                         <div *ngIf="f.get('location')?.errors?.required">Location is required</div>
@@ -377,7 +377,7 @@
                                     <div class="form-group">
                                         <label>Collection Area Of Adjacent Structure :</label>
                                         <input type="number" class="form-control" readonly formControlName="collAreaOfAdjacentStruc" placeholder="Enter Designation" 
-                                        [ngClass]="{ 'is-invalid': submitted && f.get('collAreaOfAdjacentStruc')?.errors }" (change)="noOfDangerus($event,f)">
+                                        [ngClass]="{ 'is-invalid': submitted && f.get('collAreaOfAdjacentStruc')?.errors }" (ngModelChange)="noOfDangerus($event,f)">
                                         <div *ngIf="submitted && f.get('collAreaOfAdjacentStruc')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('collAreaOfAdjacentStruc')?.errors?.required">Collection Area Of Adjacent Structure is required</div>
                                         </div>
@@ -998,7 +998,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Loss Due To Failure Of Internal System :</label>
-                                        <select class="form-control" formControlName="ecoLossOfFailureOfInternalSystem" (change)="economicLossL4($event,f)"
+                                        <select class="form-control" formControlName="ecoLossOfFailureOfInternalSystem" (change)="economicLossL4($event,f);lossServiceToPublicL2($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && b.get('ecoLossOfFailureOfInternalSystem')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="0.1">Risk of explosion</option>
@@ -1274,7 +1274,7 @@
                             <div class="col-md-6" *ngIf="f.get('explosion')?.value === 'Explosion'">
                                 <div class="form-group">
                                     <select class="form-control" formControlName="explosion1"
-                                    (change)="fireRiskDropDown($event,f)">
+                                    (change)="fireRiskDropDown($event,f);economicLossL4($event,f)">
                                         <option value="" selected>Select Option</option>
                                         <option value="1">Zones 0, 20 and solid explosive</option>
                                         <option value="0.1">Zones 1, 21</option>
@@ -1284,7 +1284,7 @@
                             </div>
                             <div class="col-md-6" *ngIf="f.get('explosion')?.value === 'Fire'">
                                 <div class="form-group">
-                                    <select class="form-control" formControlName="fire" (change)="fireRiskDropDown1($event,f)">
+                                    <select class="form-control" formControlName="fire" (change)="fireRiskDropDown1($event,f);economicLossL4($event,f)">
                                         <option value="" selected>Select Option</option>
                                         <option value="0.1">High</option>
                                         <option value="0.01">Ordinary</option>
@@ -1294,7 +1294,7 @@
                             </div>
                             <div class="col-md-6" *ngIf="f.get('explosion')?.value === 'None'">
                                 <div class="form-group">
-                                    <select class="form-control" formControlName="none" (change)="fireRiskDropDown2($event,f)">
+                                    <select class="form-control" formControlName="none" (change)="fireRiskDropDown2($event,f);economicLossL4($event,f)">
                                         <option value="" selected>Select Option</option>
                                         <option value="0">None</option>
                                     </select>
