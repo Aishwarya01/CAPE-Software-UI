@@ -600,7 +600,7 @@
                                 <!-- CLD/P , CLI/P -->
                                 <div class="col-md-4"> 
                                     <div class="form-group">
-                                        <label>Shielding, groundig, isolation :</label>
+                                        <label>Shielding, grounding, isolation :</label>
                                         <select class="form-control" formControlName="shieldingGroundingIsolation" (change)="shielding($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && a.get('shieldingGroundingIsolation')?.errors }">
                                             <option value="" selected>Select Option</option>
@@ -710,7 +710,7 @@
                             <div class="row" >
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Shielding, groundig, isolation :</label>
+                                        <label>Shielding, grounding, isolation :</label>
                                         <select class="form-control" formControlName="shieldingGroundingIsolationL1"  
                                         [ngClass]="{ 'is-invalid': submitted && a.get('shieldingGroundingIsolationL1')?.errors }" (change)="shielding($event,f)">
                                             <option value="" selected>Select Option</option>
@@ -1312,6 +1312,7 @@
         <div style="margin-top: 20px;text-align: center;">
             <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
             <button *ngIf="updateButton" class="next" mat-button>Update & Print &raquo;</button>
+            <button title="Generate PDF">Print</button>
             <button *ngIf="saveButton" class="next" (click)="gotoNextModal(contents,content)"mat-button>Save & Print &raquo;</button>
         </div>
     </form>
