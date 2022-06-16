@@ -98,7 +98,7 @@ export class RiskSavedReportsComponent implements OnInit {
       }
   
       if(this.superAdminFlag) {
-        this.customerDetailsService.retriveAllCustomerDetails(this.email).subscribe(
+        this.customerDetailsService.retriveAllCustomerDetails().subscribe(
           data => {
             this.customerData=JSON.parse(data);
             for(let i of this.customerData){
@@ -116,7 +116,7 @@ export class RiskSavedReportsComponent implements OnInit {
           this.superAdminFlag = false;
       }
       else {
-        this.customerDetailsService.retriveAllCustomerDetails(this.email).subscribe(
+        this.customerDetailsService.retrieveCustomerDetailsBasedOnUserName(this.email).subscribe(
           data => {
             this.customerData=JSON.parse(data);
             for(let i of this.customerData){

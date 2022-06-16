@@ -110,7 +110,7 @@ export class RiskFinalReportsComponent implements OnInit {
     }
       
     if(this.superAdminFlag) {
-      this.customerDetailsService.retriveAllCustomerDetails(this.email).subscribe(
+      this.customerDetailsService.retriveAllCustomerDetails().subscribe(
         data => {
           // this.myfunction(data);
           this.lpsData=JSON.parse(data);
@@ -128,7 +128,7 @@ export class RiskFinalReportsComponent implements OnInit {
       this.superAdminFlag = false;
     }
     else {
-      this.customerDetailsService.retriveAllCustomerDetails(this.email).subscribe(
+      this.customerDetailsService.retrieveCustomerDetailsBasedOnUserName(this.email).subscribe(
         data => {
           // this.myfunction(data);
           this.lpsData=JSON.parse(data);
