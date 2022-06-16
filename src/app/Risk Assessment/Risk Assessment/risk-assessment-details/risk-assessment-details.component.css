@@ -21,4 +21,12 @@ th {
 #upperCase{
   height: 3rem;
   text-transform: uppercase;
+  font-weight: bold;
+}
+
+a {
+  color: blue !important;
+  cursor: pointer !important;
+  text-decoration: underline !important;
+  margin-left: 6px;
 }

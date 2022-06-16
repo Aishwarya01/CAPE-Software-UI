@@ -17,7 +17,7 @@
                                     <select class="form-control" formControlName="location" (change)="changeLocation($event,f)"
                                     [ngClass]="{ 'is-invalid': submitted && f.get('location')?.errors }">
                                         <option value="" selected>Select Option</option>
-                                        <option *ngFor="let value of locationList" [selected]="value.gfdValue=== getLocation">{{value.gfdValue}}</option>
+                                        <option *ngFor="let value of locationList" [selected]="f.get('location')?.value === value.location">{{value.location}}</option>
                                     </select>
                                     <div *ngIf="submitted && f.get('location')?.errors" class="invalid-feedback">
                                         <div *ngIf="f.get('location')?.errors?.required">Location is required</div>
@@ -495,7 +495,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Risk of Fire :</label>
-                                        <a (click)="goToRiskPopup(popup1)" style="color: blue;cursor: pointer;text-decoration: underline;">Pick the Risk of Fire</a>
+                                        <a (click)="goToRiskPopup(popup1)">Pick the Risk of Fire</a>
                                         <input type="text" class="form-control" readonly formControlName="stRiskOfFire" placeholder="Enter Designation" 
                                         [ngClass]="{ 'is-invalid': submitted && a.get('stRiskOfFire')?.errors }" (ngModelChange)="riskOfFireDropDown($event,f)" (change)="lossHumanLifeL1($event,f);lossServiceToPublicL2($event,f);economicLossL4($event,f)">
                                         <div *ngIf="submitted && a.get('stRiskOfFire')?.errors" class="invalid-feedback">
@@ -1117,7 +1117,7 @@
                                     <!-- RT1 -->
                                     <td>
                                         <div class="input-group">
-                                            <input readonly formControlName="lossOfHumanLifeRT1" class="form-control" placeholder="1.00E-05" style="height: 3rem;">
+                                            <input readonly formControlName="lossOfHumanLifeRT1" class="form-control" placeholder="1.00E-05" style="height: 3rem;font-weight: bold;">
                                         </div>
                                     </td>
                                     <td>=></td>
@@ -1140,7 +1140,7 @@
                                     <!-- R1 -->
                                     <td>
                                         <div class="input-group">
-                                            <input readonly formControlName="riskProtectionR1" class="form-control" placeholder="0E+00"
+                                            <input readonly formControlName="riskProtectionR1" class="form-control" placeholder="0E+00" [ngStyle]="{'color': a.get('riskProtectionR1')?.value > 1.00E-05 ? 'red' : 'green'}"
                                             id="upperCase">
                                         </div>
                                     </td>
@@ -1152,7 +1152,7 @@
                                     <td>
                                         <div class="input-group">
                                             <input readonly formControlName="lossOfPublicSerivceRT2" class="form-control" placeholder="1.00E-03"
-                                            id="upperCase">
+                                            style="height: 3rem;font-weight: bold;">
                                         </div>
                                     </td>
                                     <td>=></td>
@@ -1176,7 +1176,7 @@
                                     <td>
                                         <div class="input-group">
                                             <input readonly formControlName="riskProtectionR2" class="form-control" placeholder="0E+00"
-                                            id="upperCase">
+                                            id="upperCase" [ngStyle]="{'color': a.get('riskProtectionR2')?.value > 1.00E-03 ? 'red' : 'green'}">
                                         </div>
                                     </td>
                                 </tr>
@@ -1187,7 +1187,7 @@
                                     <td>
                                         <div class="input-group">
                                             <input readonly formControlName="lossOfCulturalHeritageRT3" class="form-control" placeholder="1.00E-04"
-                                            id="upperCase">
+                                            style="height: 3rem;font-weight: bold;">
                                         </div>
                                     </td>
                                     <td>=></td>
@@ -1211,7 +1211,7 @@
                                     <td>
                                         <div class="input-group">
                                             <input readonly formControlName="riskProtectionR3" class="form-control" placeholder="0E+00"
-                                            id="upperCase">
+                                            id="upperCase" [ngStyle]="{'color': a.get('riskProtectionR3')?.value > 1.00E-04 ? 'red' : 'green'}">
                                         </div>
                                     </td>
                                 </tr>
@@ -1222,7 +1222,7 @@
                                     <td>
                                         <div class="input-group">
                                             <input readonly formControlName="economicLossRT4" class="form-control" placeholder="1.00E-03"
-                                            style="height: 3rem;">
+                                            style="height: 3rem;font-weight: bold;">
                                         </div>
                                     </td>
                                     <td>=></td>
@@ -1246,7 +1246,7 @@
                                     <td>
                                         <div class="input-group">
                                             <input readonly formControlName="riskProtectionR4" class="form-control" placeholder="0E+00"
-                                            id="upperCase">
+                                            id="upperCase" [ngStyle]="{'color': a.get('riskProtectionR4')?.value > 1.00E-03 ? 'red' : 'green'}">
                                         </div>
                                     </td>
                                 </tr>
@@ -1303,7 +1303,7 @@
                         </div>
                     </div>
                     <button type="button" class="col-md-6" style="text-align: center;width: auto;position: relative;float: right;" class="btn btn-danger btn-rounded btn-md font-weight-medium auth-form-btn"
-                    aria-label="Close" (click)="closeModalDialog()">Close</button>
+                    aria-label="Close" (click)="closeModalDialog()" title="Close the window">Close</button>
                 </div>
             </ng-template>
         </ng-container>

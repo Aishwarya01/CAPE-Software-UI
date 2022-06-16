@@ -477,8 +477,8 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     let selectedValue = e.target.value;
     this.getLocation='';
     for(let i of this.locationList) {
-      if(i.gfdValue == selectedValue) {
-        form.controls.groundFlashDensity.setValue(i.location);
+      if(i.location == selectedValue) {
+        form.controls.groundFlashDensity.setValue(i.gfdValue);
         this.showFlashDensity = true;
       }
       if(selectedValue == 'Others') {
@@ -844,8 +844,8 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       form.controls.losses.controls[0].controls.serToPubPhysicalDamageL1.setValue('');
     }
     // Loss due to failure of internal systems 
-    if(form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystem!='' && form.controls.noOfPeopleInZone!='' && form.controls.noOfPeopleInBuilding!=''){
-      var b = form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystem.value*form.controls.noOfPeopleInZone.value/form.controls.noOfPeopleInBuilding.value;
+    if(form.controls.losses.controls[0].controls.serToPubfailureOfInternalSystem!='' && form.controls.noOfPeopleInZone!='' && form.controls.noOfPeopleInBuilding!=''){
+      var b = form.controls.losses.controls[0].controls.serToPubfailureOfInternalSystem.value*form.controls.noOfPeopleInZone.value/form.controls.noOfPeopleInBuilding.value;
 
       form.controls.losses.controls[0].controls.serToPubfailureOfInternalSystemL1.setValue(b.toFixed(2));
     }
@@ -1010,7 +1010,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
         var b = this.internalScreeningEffectivenessValue;
         if(form.controls.structureScreeningEffectiveness!='' && form.controls.internalScreeningEffectiveness!='' && form.controls.structureAttributes.controls[0].controls.stTypeOfInternalWiring!=''){
 
-          var c = (a*b*form.controls.structureAttributes.controls[0].controls.stTypeOfInternalWiring.value*1)*2;
+          var c = (a*b*form.controls.structureAttributes.controls[0].controls.stTypeOfInternalWiring.value*1)*(a*b*form.controls.structureAttributes.controls[0].controls.stTypeOfInternalWiring.value*1);
           form.controls.protection.controls[0].controls.protectionPMS.setValue(Math.ceil(c));
         }
         else{
@@ -1057,7 +1057,9 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 
       // RA1 La = ecoLossOfInjuryOfElectricShock, PA = protectionPA, Nd = noOfDangerousEventOnStructure, Ra1 = riskProtectionRA1
       if(form.controls.noOfDangerousEventOnStructure!='' && form.controls.protection.controls[0].controls.protectionPA!='' && form.controls.losses.controls[0].controls.ecoLossOfInjuryOfElectricShock!=''){
+
         var a=form.controls.noOfDangerousEventOnStructure.value*form.controls.protection.controls[0].controls.protectionPA.value*form.controls.losses.controls[0].controls.ecoLossOfInjuryOfElectricShock.value;
+
         form.controls.protection.controls[0].controls.riskProtectionRA1.setValue(a.toFixed(28));
       }else{
         form.controls.protection.controls[0].controls.riskProtectionRA1.setValue('');
@@ -1066,7 +1068,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 
       // RB1 = riskProtectionRB1, ND × PB × LB, Pb = classOfLPS, LB = ecoLossOfPhysicalDamageL1
       if(form.controls.noOfDangerousEventOnStructure!='' && form.controls.losses.controls[0].controls.classOfLPS!='' && form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageL1!=''){
-        var b=form.controls.noOfDangerousEventOnStructure.value*form.controls.protection.controls[0].controls.protectionPA.value*form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageL1.value;
+        var b=form.controls.noOfDangerousEventOnStructure.value*form.controls.losses.controls[0].controls.classOfLPS.value*form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageL1.value;
         form.controls.protection.controls[0].controls.riskProtectionRB1.setValue(b.toFixed(27));
       }else{
         form.controls.protection.controls[0].controls.riskProtectionRB1.setValue('');
@@ -1253,7 +1255,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
         var a=(+form.controls.calculatedRisk.controls[0].controls.riskProtectionRD2.value+ +form.controls.calculatedRisk.controls[0].controls.riskProtectionRI2.value);
         form.controls.calculatedRisk.controls[0].controls.riskProtectionR2.setValue(a.toExponential(1));
       }else{
-        form.controls.calculatedRisk.controls[0].controls.riskProtectionRI2.setValue('');
+        form.controls.calculatedRisk.controls[0].controls.riskProtectionR2.setValue('');
       }
     }
 
@@ -1303,7 +1305,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 
       // RB = econamicValueRB, ND × PB × LB, Pb = classOfLPS, LB = ecoLossOfPhysicalDamageL1
       if(form.controls.noOfDangerousEventOnStructure!='' && form.controls.losses.controls[0].controls.classOfLPS!='' && form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageL1!=''){
-        var b=form.controls.noOfDangerousEventOnStructure.value*form.controls.protection.controls[0].controls.protectionPA.value*form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageL1.value;
+        var b=form.controls.noOfDangerousEventOnStructure.value*form.controls.losses.controls[0].controls.classOfLPS.value*form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageL1.value;
         form.controls.riskProtection.controls[0].controls.econamicValueRB.setValue(b.toFixed(23));
       }else{
         form.controls.riskProtection.controls[0].controls.econamicValueRB.setValue('');
@@ -1311,7 +1313,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 
       // RC = econamicValueRC, formula = ND × PC × LC, Pc = protectionPC, LC=LM=LW=LZ = ecoLossOfFailureOfInternalSystemL1
       if(form.controls.noOfDangerousEventOnStructure!='' && form.controls.protection.controls[0].controls.protectionPC!='' && form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemL1!=''){
-        var c=form.controls.noOfDangerousEventOnStructure.value*form.controls.protection.controls[0].controls.protectionPA.value*form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemL1.value;
+        var c=form.controls.noOfDangerousEventOnStructure.value*form.controls.protection.controls[0].controls.protectionPC.value*form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemL1.value;
         form.controls.riskProtection.controls[0].controls.econamicValueRC.setValue(c.toFixed(23));
       }else{
         form.controls.riskProtection.controls[0].controls.econamicValueRC.setValue('');
@@ -1362,7 +1364,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       }
       this.lossCulturalRD4(event,form);
       this.lossCulturalRI4(event,form);
-      this.lossCulturalR4(event,form);
+      
     }
 
     // RD4 = riskProtectionRD4, formula = RA4 + RB4 + RC4+ RU4 + RV4 + RW4  
@@ -1375,6 +1377,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       }else{
         form.controls.calculatedRisk.controls[0].controls.riskProtectionRD4.setValue('');
       }
+      this.lossCulturalR4(event,form);
     }
 
     // RI4 = riskProtectionRI4, formula = RM4 + RZ4
@@ -1385,6 +1388,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       }else{
         form.controls.calculatedRisk.controls[0].controls.riskProtectionRI4.setValue('');
       }
+      this.lossCulturalR4(event,form);
     }
     // R4 = riskProtectionR4, formula = Rd4 + Ri4
     lossCulturalR4(event:any,form:any){
