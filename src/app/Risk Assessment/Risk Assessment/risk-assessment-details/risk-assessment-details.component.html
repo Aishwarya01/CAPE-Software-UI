@@ -200,7 +200,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Electrical / Telephone Service Line :</label>
-                                        <select class="form-control" formControlName="telephoneServiceLine" (ngModelChange)="noOfDangerus($event,f);lengthPowerline($event,f)"
+                                        <select class="form-control" formControlName="telephoneServiceLine" (ngModelChange)="noOfDangerus($event,f);lengthPowerline($event,f);economicLossL4($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && f.get('telephoneServiceLine')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="1">LV power, telecommunication or data line</option>
@@ -792,7 +792,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Hazard Classification :</label>
-                                        <select class="form-control" formControlName="hazardClassification" (change)="lossHumanLifeL1($event,f)"
+                                        <select class="form-control" formControlName="hazardClassification" (ngModelChange)="lossHumanLifeL1($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && b.get('hazardClassification')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="1">Concrete houses</option>
@@ -813,7 +813,7 @@
                                     <div class="form-group">
                                         <label>Loss Due To Physical Damage :</label>
                                         <select class="form-control" formControlName="humanLossOfphysicalDamage" 
-                                        [ngClass]="{ 'is-invalid': submitted && b.get('humanLossOfphysicalDamage')?.errors }">
+                                        [ngClass]="{ 'is-invalid': submitted && b.get('humanLossOfphysicalDamage')?.errors }" (ngModelChange)="lossHumanLifeL1($event,f)">
                                             <option value="" selected>Select Option</option>
                                             <option value="0.1">Risk of explosion</option>
                                             <option value="0.1">Hospitals,hotel,school,civic building</option>
@@ -830,7 +830,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Loss Due To Failure Of Internal Systems :</label>
-                                        <select class="form-control" formControlName="humanLossOffailureOfInternalSystem"  
+                                        <select class="form-control" formControlName="humanLossOffailureOfInternalSystem"  (ngModelChange)="lossHumanLifeL1($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && b.get('humanLossOffailureOfInternalSystem')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="0.1">Risk of explosion</option>
@@ -888,7 +888,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Loss Due To Physical Damage :</label>
-                                        <select class="form-control" formControlName="serToPubPhysicalDamage" (change)="lossHumanLifeL1($event,f)"
+                                        <select class="form-control" formControlName="serToPubPhysicalDamage" (change)="lossServiceToPublicL2($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && b.get('serToPubPhysicalDamage')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="0.1">Gas,water,power supply</option>
@@ -904,7 +904,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Loss Due To Failure Of Internal System :</label>
-                                        <select class="form-control" formControlName="serToPubfailureOfInternalSystem" (change)="lossHumanLifeL1($event,f);lossServiceToPublicL2($event,f)"
+                                        <select class="form-control" formControlName="serToPubfailureOfInternalSystem" (change)="lossServiceToPublicL2($event,f);lossServiceToPublicL2($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && b.get('serToPubfailureOfInternalSystem')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="0.01">Gas,water,power supply</option>
@@ -981,7 +981,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Loss Due To Physical Damage :</label>
-                                        <select class="form-control" formControlName="ecoLossOfPhysicalDamage"  
+                                        <select class="form-control" formControlName="ecoLossOfPhysicalDamage" (ngModelChange)="economicLossL4($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && b.get('ecoLossOfPhysicalDamage')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="1">Risk of explosion</option>
@@ -998,7 +998,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Loss Due To Failure Of Internal System :</label>
-                                        <select class="form-control" formControlName="ecoLossOfFailureOfInternalSystem" (change)="economicLossL4($event,f);lossServiceToPublicL2($event,f)"
+                                        <select class="form-control" formControlName="ecoLossOfFailureOfInternalSystem" (ngModelChange)="economicLossL4($event,f);lossServiceToPublicL2($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && b.get('ecoLossOfFailureOfInternalSystem')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="0.1">Risk of explosion</option>
@@ -1311,9 +1311,9 @@
     <br>
         <div style="margin-top: 20px;text-align: center;">
             <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
-            <button *ngIf="updateButton" class="next" mat-button>Update & Print &raquo;</button>
-            <button title="Generate PDF">Print</button>
-            <button *ngIf="saveButton" class="next" (click)="gotoNextModal(contents,content)"mat-button>Save & Print &raquo;</button>
+            <button *ngIf="updateButton" class="next" mat-button>Update &raquo;</button>
+            <button *ngIf="saveButton" class="next" (click)="gotoNextModal(contents,content)" mat-button>Save &raquo;</button>
+            <button class="next" title="Generate PDF" mat-button>Print</button>
         </div>
     </form>
     </div>

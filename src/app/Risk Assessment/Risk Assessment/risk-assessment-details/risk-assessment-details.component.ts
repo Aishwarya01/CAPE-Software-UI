@@ -755,6 +755,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     }
     // No of Dangerous Event Near The Telecom Lines
     if(form.controls.groundFlashDensity!='' && form.controls.structureAttributes.controls[0].controls.collNearOfTelecomLines!='' && form.controls.structureAttributes.controls[0].controls.typeOfTelecomLines!='' && form.controls.environment!='' && form.controls.telephoneServiceLine!=''){
+      
       var c = form.controls.groundFlashDensity.value*form.controls.structureAttributes.controls[0].controls.collNearOfTelecomLines.value*form.controls.structureAttributes.controls[0].controls.typeOfTelecomLines.value*form.controls.environment.value*form.controls.telephoneServiceLine.value*0.000001;
       form.controls.structureAttributes.controls[0].controls.eventNearTheTelecomeLines.setValue(c.toFixed(8));
     }
@@ -802,7 +803,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 
   // Math for LOSS OF HUMAN LIFE (L1)
   lossHumanLifeL1(event:any, form:any){
-    // Loss due to injury to living beings by electric shock
+    // Loss due to injury to living beings by electric shock, fromula = rt × LT × nz/nt × tz/8760
     if(form.controls.structureAttributes.controls[0].controls.stTypeOfFloorSurface!='' && form.controls.noOfPeopleInZone!='' && form.controls.noOfPeopleInBuilding!='' && form.controls.yearPeoplePresentBuilding!=''){
       var a =form.controls.structureAttributes.controls[0].controls.stTypeOfFloorSurface.value*0.01*form.controls.noOfPeopleInZone.value/form.controls.noOfPeopleInBuilding.value*form.controls.yearPeoplePresentBuilding.value/8760;
       form.controls.losses.controls[0].controls.humanLossOfInjuryOfElectricShock.setValue(a.toFixed(17));
@@ -810,19 +811,19 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     else{
       form.controls.losses.controls[0].controls.humanLossOfInjuryOfElectricShock.setValue('');
     }
-    // Loss due to physical damage (L1) rp × rf × hZ × LF × nz/nt × tz/8760
-    if(form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure!='' && form.controls.structureAttributes.controls[0].controls.stRiskOfFire!='' && form.controls.losses.controls[0].controls.hazardClassification!='' && form.controls.losses.controls[0].controls.serToPubPhysicalDamage!='' && form.controls.noOfPeopleInZone!='' && form.controls.noOfPeopleInBuilding!='' && form.controls.yearPeoplePresentBuilding!=''){
+    // Loss due to physical damage (L1), formula = rp × rf × hZ × LF × nz/nt × tz/8760
+    if(form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure!='' && form.controls.structureAttributes.controls[0].controls.stRiskOfFire!='' && form.controls.losses.controls[0].controls.hazardClassification!='' && form.controls.losses.controls[0].controls.humanLossOfphysicalDamage!='' && form.controls.noOfPeopleInZone!='' && form.controls.noOfPeopleInBuilding!='' && form.controls.yearPeoplePresentBuilding!=''){
 
-      var b = form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure.value*this.riskInputValue*form.controls.losses.controls[0].controls.hazardClassification.value*form.controls.losses.controls[0].controls.serToPubPhysicalDamage.value*form.controls.noOfPeopleInZone.value/form.controls.noOfPeopleInBuilding.value*form.controls.yearPeoplePresentBuilding.value/8760;
+      var b = form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure.value*this.riskInputValue*form.controls.losses.controls[0].controls.hazardClassification.value*form.controls.losses.controls[0].controls.humanLossOfphysicalDamage.value*form.controls.noOfPeopleInZone.value/form.controls.noOfPeopleInBuilding.value*form.controls.yearPeoplePresentBuilding.value/8760;
 
       form.controls.losses.controls[0].controls.humanLossOfPhysicalDamageL1.setValue(b.toFixed(17));
     }
     else{
       form.controls.losses.controls[0].controls.humanLossOfPhysicalDamageL1.setValue('');
     }
-    // Loss due to failure of internal systems 
-    if(form.controls.losses.controls[0].controls.serToPubfailureOfInternalSystem!='' && form.controls.noOfPeopleInZone!='' && form.controls.noOfPeopleInBuilding!='' && form.controls.yearPeoplePresentBuilding!=''){
-      var c = form.controls.losses.controls[0].controls.serToPubfailureOfInternalSystem.value*form.controls.noOfPeopleInZone.value/form.controls.noOfPeopleInBuilding.value*form.controls.yearPeoplePresentBuilding.value/8760;
+    // Loss due to failure of internal systems, formula = LO × nz/nt × tz/8760
+    if(form.controls.losses.controls[0].controls.humanLossOffailureOfInternalSystem!='' && form.controls.noOfPeopleInZone!='' && form.controls.noOfPeopleInBuilding!='' && form.controls.yearPeoplePresentBuilding!=''){
+      var c = form.controls.losses.controls[0].controls.humanLossOffailureOfInternalSystem.value*form.controls.noOfPeopleInZone.value/form.controls.noOfPeopleInBuilding.value*form.controls.yearPeoplePresentBuilding.value/8760;
       
       form.controls.losses.controls[0].controls.humanLossOffailureOfInternalSystemL1.setValue(c.toFixed(17));
     }
@@ -833,17 +834,17 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 
   // Math for LOSS OF SERVICE TO PUBLIC (L2)
   lossServiceToPublicL2(event:any, form:any){
-    // Loss due to physical damage 
-    if(form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure!='' && form.controls.structureAttributes.controls[0].controls.stRiskOfFire!='' && form.controls.losses.controls[0].controls.culHerOfPhysicalDamage!='' && form.controls.noOfPeopleInZone!='' && form.controls.noOfPeopleInBuilding!=''){
+    // Loss due to physical damage, formula = rp × rf × LF × nz/nt 
+    if(form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure!='' && form.controls.structureAttributes.controls[0].controls.stRiskOfFire!='' && form.controls.losses.controls[0].controls.serToPubPhysicalDamage!='' && form.controls.noOfPeopleInZone!='' && form.controls.noOfPeopleInBuilding!=''){
       
-      var a = form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure.value*this.riskInputValue*form.controls.losses.controls[0].controls.culHerOfPhysicalDamage.value*form.controls.noOfPeopleInZone.value/form.controls.noOfPeopleInBuilding.value;
+      var a = form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure.value*this.riskInputValue*form.controls.losses.controls[0].controls.serToPubPhysicalDamage.value*form.controls.noOfPeopleInZone.value/form.controls.noOfPeopleInBuilding.value;
 
       form.controls.losses.controls[0].controls.serToPubPhysicalDamageL1.setValue(a.toFixed(1));
     }
     else{
       form.controls.losses.controls[0].controls.serToPubPhysicalDamageL1.setValue('');
     }
-    // Loss due to failure of internal systems 
+    // Loss due to failure of internal systems, formula = LO × nz/nt 
     if(form.controls.losses.controls[0].controls.serToPubfailureOfInternalSystem!='' && form.controls.noOfPeopleInZone!='' && form.controls.noOfPeopleInBuilding!=''){
       var b = form.controls.losses.controls[0].controls.serToPubfailureOfInternalSystem.value*form.controls.noOfPeopleInZone.value/form.controls.noOfPeopleInBuilding.value;
 
@@ -853,7 +854,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       form.controls.losses.controls[0].controls.serToPubfailureOfInternalSystemL1.setValue('');
     }
 
-    // Math for LOSS OF CULTURAL HERITAGE (L3) rp × rf × LF × cz/ct 
+    // Math for LOSS OF CULTURAL HERITAGE (L3), formula =  rp × rf × LF × cz/ct 
     if(form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure!='' && form.controls.structureAttributes.controls[0].controls.stRiskOfFire!='' && form.controls.losses.controls[0].controls.culHerOfPhysicalDamage!=''){
 
       var c = form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure.value*this.riskInputValue*form.controls.losses.controls[0].controls.culHerOfPhysicalDamage.value*1/1;
@@ -867,9 +868,11 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 
   // Math for ECONOMIC LOSS (L4)
   economicLossL4(event:any, form:any){
-    // Loss due to injury to living beings by electric shock rt × LT × ca/ct  
+    // Loss due to injury to living beings by electric shock, formula = rt × LT × ca/ct  
     if(form.controls.structureAttributes.controls[0].controls.stTypeOfFloorSurface!=''){
+
       var a = form.controls.structureAttributes.controls[0].controls.stTypeOfFloorSurface.value*0.01*1/1;
+
       form.controls.losses.controls[0].controls.ecoLossOfInjuryOfElectricShock.setValue(a.toFixed(4));
       console.log(form.controls.losses.controls[0].controls.ecoLossOfInjuryOfElectricShock.value);
     }
@@ -877,19 +880,21 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       form.controls.losses.controls[0].controls.ecoLossOfInjuryOfElectricShock.setValue("");
     }
 
-    // Loss due to physical damage  rp × rf × LF × (ca + cb + cc + cs)/ct 
-    if(form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure!='' && form.controls.structureAttributes.controls[0].controls.stRiskOfFire!='' && form.controls.losses.controls[0].controls.culHerOfPhysicalDamage!=''){
+    // Loss due to physical damage, formula = rp × rf × LF × (ca + cb + cc + cs)/ct 
+    if(form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure!='' && form.controls.structureAttributes.controls[0].controls.stRiskOfFire!='' && form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamage!='' && form.controls.telephoneServiceLine!=''){
 
-      var b = (form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure.value*this.riskInputValue*form.controls.losses.controls[0].controls.culHerOfPhysicalDamage.value)*4/1;
+      var b = (form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure.value*this.riskInputValue*form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamage.value*form.controls.telephoneServiceLine.value)*4/1;
+
       form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageL1.setValue(Math.ceil(b));
     }
     else{
       form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageL1.setValue("");
     }
 
-    // Loss due to failure of internal systems  LO × cs/ct 
+    // Loss due to failure of internal systems, formula = LO × cs/ct 
     if(form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystem!=''){
       var c = form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystem.value*1/1;
+
       form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemL1.setValue(c.toFixed(1));
     } 
     else{
