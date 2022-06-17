@@ -4,9 +4,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
-import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
-import { NewFileComponent } from '../new-file/new-file.component';
-import { InspectionVerificationService } from '../services/inspection-verification.service';
+import { ConfirmationBoxComponent } from '../../../confirmation-box/confirmation-box.component';
+import { NewFileComponent } from '../../../new-file/new-file.component';
+import { InspectionVerificationService } from '../../../services/inspection-verification.service';
+import { DiagramServicesService } from '../../SLD Services/diagram-services.service';
 
 @Component({
   selector: 'app-diagram-list',
@@ -38,6 +39,7 @@ export class DiagramListComponent implements OnInit {
   fileName: any;
   constructor(private router: ActivatedRoute,
               private inspectionService: InspectionVerificationService,
+              private diagramService: DiagramServicesService,
               private dialog: MatDialog,
 
     ) {
@@ -49,7 +51,7 @@ export class DiagramListComponent implements OnInit {
   }
 
   retrieveDiagramDetails() {
-    this.inspectionService.retriveAllDiagram(this.email).subscribe(
+    this.diagramService.retriveAllDiagram(this.email).subscribe(
       data => {
         this.allData = JSON.parse(data);
         this.savedDiagram_dataSource = new MatTableDataSource(this.allData);
