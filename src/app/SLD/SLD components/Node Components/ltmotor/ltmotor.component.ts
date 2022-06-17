@@ -50,7 +50,7 @@ export class LTMotorComponent implements OnInit {
       currentRating: ['', Validators.required],
       voltage: ['', Validators.required],
       noOfPhase: [''],
-      type: ['', Validators.required],
+      model: ['', Validators.required],
       incomingSizePhase: ['', Validators.required],
       incomingSizeNeutral: ['', Validators.required],
       incomingSizeProtective: ['', Validators.required],
@@ -231,7 +231,7 @@ export class LTMotorComponent implements OnInit {
       this.ltMotor.currentRating = i.currentRating;
       this.ltMotor.voltage = i.voltage;
       this.ltMotor.noOfPhase = i.noOfPhase;
-      this.ltMotor.type = i.type;
+      this.ltMotor.model = i.model;
       this.ltMotor.incomingSizePhase = i.incomingSizePhase;
       this.ltMotor.incomingSizeNeutral = i.incomingSizeNeutral;
       this.ltMotor.incomingSizeProtective = i.incomingSizeProtective;

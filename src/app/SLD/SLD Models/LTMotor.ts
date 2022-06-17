@@ -9,7 +9,7 @@ export class LTMotor {
     currentRating!: number;
     voltage!: number;
     noOfPhase!: string;
-    type!: number;
+    model!: number;
     phase!: number;
     neutral!: number;
     protectiveConductor!: number;

@@ -101,10 +101,10 @@
           <div class="col-md-4">
             <div class="form-group">
               <label>Model/Type</label>
-              <input type="number" class="form-control" formControlName="type" [(ngModel)]="ltMotor.type"
-              [ngClass]="{ 'is-invalid': submittedltMotor && j.type?.errors }">
-              <div *ngIf="submittedltMotor && j.type?.errors" class="invalid-feedback">
-                <div *ngIf="j.type?.errors?.required">Model is required</div>
+              <input type="number" class="form-control" formControlName="model" [(ngModel)]="ltMotor.model"
+              [ngClass]="{ 'is-invalid': submittedltMotor && j.model?.errors }">
+              <div *ngIf="submittedltMotor && j.model?.errors" class="invalid-feedback">
+                <div *ngIf="j.model?.errors?.required">Model is required</div>
               </div>
             </div>        
           </div>
