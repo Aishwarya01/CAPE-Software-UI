@@ -25,6 +25,11 @@ export class MCCBComponent implements OnInit {
   error: boolean = false;
   errorMsg: String = ''
   errorData: any;
+  popup: boolean = false;
+  finalSpinner: boolean = false;
+  Error: boolean = false;
+  errorArr: any = [];
+
   @Input()
   fileName: any;
   @Input()
@@ -783,9 +788,17 @@ export class MCCBComponent implements OnInit {
     this.mccb.safetyTestingMCCB = this.mccbForm.value.safetyTestingMCCB;
     this.mccb.userName = this.email;
 
-    if(!mccbFlag) {
-    this.mccbService.addMCCB(this.mccb).subscribe(
+  if(mccbFlag) {
+    this.mccbService.updateMCCB(this.mccb).subscribe(
       data => {
+        this.mccbService.retriveMCCB(this.mccb.fileName,this.mccb.nodeId).subscribe(
+          data => {
+            this.mccbData = JSON.parse(data);
+            if(this.mccbData.length != 0) {
+              this.retrieveMccbNode(this.mccbData);
+            }
+          }
+        )
         this.success = true;
         this.successMsg = data;
         setTimeout(()=>{
@@ -805,13 +818,21 @@ export class MCCBComponent implements OnInit {
     )
   }
   else{
-    this.mccbService.updateMCCB(this.mccb).subscribe(
+    this.mccbService.addMCCB(this.mccb).subscribe(
       data => {
+        this.mccbService.retriveMCCB(this.mccb.fileName,this.mccb.nodeId).subscribe(
+          data => {
+            this.mccbData = JSON.parse(data);
+            if(this.mccbData.length != 0) {
+              this.retrieveMccbNode(this.mccbData);
+            }
+          }
+        )
         this.success = true;
         this.successMsg = data;
         setTimeout(()=>{
           this.success = false;
-        this.successMsg = ""
+        this.successMsg = "";
         }, 3000);
       },
       error => {
@@ -820,7 +841,7 @@ export class MCCBComponent implements OnInit {
         this.errorMsg = this.errorData.message;
         setTimeout(()=>{
           this.error = false;
-          this.errorMsg = ""
+          this.errorMsg = "";
         }, 3000);
       }
     )

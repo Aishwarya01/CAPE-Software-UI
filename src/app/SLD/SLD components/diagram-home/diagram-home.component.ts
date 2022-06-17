@@ -12,6 +12,8 @@ import { MCBServicesService } from '../../../SLD/SLD Services/mcb-services.servi
 import { MCCBServicesService } from '../../../SLD/SLD Services/mccb-services.service';
 import { RCBOServicesService } from '../../../SLD/SLD Services/rcbo-services.service';
 import { LightServicesService } from '../../../SLD/SLD Services/light-services.service';
+import { LTMotorServicesService } from '../../../SLD/SLD Services/LTMotor-services.service';
+
 import { MCB } from '../../SLD Models/mcb';
 import { MCCB } from '../../SLD Models/mccb';
 import { RCBO } from '../../SLD Models/rcbo';
@@ -21,6 +23,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { MCCBComponent } from '../Node Components/mccb/mccb.component';
 import { RCBOComponent } from '../Node Components/rcbo/rcbo.component';
 import { LightComponent } from '../Node Components/light/light.component';
+import { LTMotorComponent } from '../Node Components/ltmotor/ltmotor.component';
+
+//import { FanComponent } from '../Node Components/fan/fan.component';
+//import { FanServicesService } from '../../../SLD/SLD Services/fan-services.service';
 
 
 @Component({
@@ -29,6 +35,7 @@ import { LightComponent } from '../Node Components/light/light.component';
   styleUrls: ['./diagram-home.component.css']
 })
 export class DiagramHomeComponent implements OnInit {
+
   @ViewChild("diagram")
   public diagram!: DiagramComponent;
   
@@ -120,6 +127,14 @@ export class DiagramHomeComponent implements OnInit {
   validationError: boolean= false;
   validationErrorMsg: string="";
 
+  //LT Motor
+  ltMotorForm!: FormGroup;
+  submittedltMotor: boolean = false;
+  ltMotorFlag: boolean = false;
+  ltMotorData: any;
+  ltMotorGeneralTestingArray: any = [];
+  ltMotorSafetyTestingArray: any = [];
+
   //RCBO
   mcbWithRcdForm!: FormGroup;
   rcboData: any;
@@ -206,27 +221,27 @@ export class DiagramHomeComponent implements OnInit {
           maxHeight: '90vh',
           disableClose: true,
         });
-        dialogRef.componentInstance.nodeId = e.element.properties.id;;
+        dialogRef.componentInstance.nodeId = e.element.properties.id;
         dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
         dialogRef.componentInstance.email = this.email;
       }
-      else if(e.element.properties.id.includes('MCCB')) {
-        const dialogRef = this.dialog.open(MCCBComponent, {
-          width: '1100px',
-          maxHeight: '90vh',
-          disableClose: true,
-        });
-        dialogRef.componentInstance.nodeId = e.element.properties.id;;
-        dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
-        dialogRef.componentInstance.email = this.email;
-      }
+      // else if(e.element.properties.id.includes('Fan')) {
+      //   const dialogRef = this.dialog.open(FanComponent, {
+      //     width: '1100px',
+      //     maxHeight: '90vh',
+      //     disableClose: true,
+      //   });
+      //   dialogRef.componentInstance.nodeId = e.element.properties.id;
+      //   dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
+      //   dialogRef.componentInstance.email = this.email;
+      // }
       else if(e.element.properties.id.includes('MCB_with_RCD')) {
         const dialogRef = this.dialog.open(RCBOComponent, {
           width: '1100px',
           maxHeight: '90vh',
           disableClose: true,
         });
-        dialogRef.componentInstance.nodeId = e.element.properties.id;;
+        dialogRef.componentInstance.nodeId = e.element.properties.id;
         dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
         dialogRef.componentInstance.email = this.email;
       }
@@ -236,17 +251,39 @@ export class DiagramHomeComponent implements OnInit {
           maxHeight: '90vh',
           disableClose: true,
         });
-        dialogRef.componentInstance.nodeId = e.element.properties.id;;
+        dialogRef.componentInstance.nodeId = e.element.properties.id;
         dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
         dialogRef.componentInstance.email = this.email;
       }
+      else if(e.element.properties.id.includes('MCCB')) {
+        const dialogRef = this.dialog.open(MCCBComponent, {
+          width: '1100px',
+          maxHeight: '90vh',
+          disableClose: true,
+        });
+        dialogRef.componentInstance.nodeId = e.element.properties.id;
+        dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
+        dialogRef.componentInstance.email = this.email;
+      }
+	
+      else if(e.element.properties.id.includes('Motor')) {
+        const dialogRef = this.dialog.open(LTMotorComponent, {
+          width: '1000px',
+          maxHeight: '90vh',
+          disableClose: true,
+        });
+        dialogRef.componentInstance.nodeId = e.element.properties.id;
+        dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
+        dialogRef.componentInstance.email = this.email;
+	}
       else if(e.element.properties.id.includes('Battery')) {
         //this.modalService.open(content10, { centered: true,size: 'xl'});
       }
       // let person = prompt("Please enter color of the node:", "Red");
       // e.element.style.fill = person;
       console.log(e.element)
-    } else if(e.element instanceof Connector){
+    } 
+    else if(e.element instanceof Connector){
       let person = prompt("Please enter type of the connector:", "Straight");
       e.element.type = person;
       console.log(e.element)
@@ -582,6 +619,8 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
               private mccbService: MCCBServicesService,
               private rcboService: RCBOServicesService,
               private lightService: LightServicesService,
+              //private fanService: FanServicesService,
+              private LTMotorService:LTMotorServicesService,
               private router: ActivatedRoute,
               private modalService: NgbModal,
               private formBuilder: FormBuilder
