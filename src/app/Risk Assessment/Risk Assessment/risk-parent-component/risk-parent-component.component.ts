@@ -8,6 +8,7 @@ import { flag } from 'ngx-bootstrap-icons';
 import { ConfirmationBoxComponent } from 'src/app/confirmation-box/confirmation-box.component';
 import { GlobalsService } from 'src/app/globals.service';
 import { CustomerDetailsServiceService } from '../../Risk Assessment Services/customer-details-service.service';
+import { RiskglobalserviceService } from '../../riskglobalservice.service';
 import { RiskAssessmentDetailsComponent } from '../risk-assessment-details/risk-assessment-details.component';
 import { RiskCustomerDetailsComponent } from '../risk-customer-details/risk-customer-details.component';
 import { RiskFinalReportsComponent } from '../risk-final-reports/risk-final-reports.component';
@@ -53,7 +54,8 @@ export class RiskParentComponentComponent implements OnInit {
   constructor(
           private customerDetailsService: CustomerDetailsServiceService,
           public service: GlobalsService, private router: ActivatedRoute,
-          private dialog: MatDialog,private ChangeDetectorRef: ChangeDetectorRef
+          private dialog: MatDialog,private ChangeDetectorRef: ChangeDetectorRef,
+          private riskGlobal: RiskglobalserviceService
     ) { }
 
   ngOnInit(): void {
@@ -68,7 +70,6 @@ export class RiskParentComponentComponent implements OnInit {
     if (this.customerDetails.isCustomerFormUpdated) {
       this.initializeRiskId();
       this.riskStep2.isRiskFormUpdated = true;
-      this.riskStep2.ngOnInit();
       // this.riskStep2.updateMethod();
       this.customerDetails.isCustomerFormUpdated=false;
     }
@@ -78,7 +79,6 @@ export class RiskParentComponentComponent implements OnInit {
   public doSomething2(next: any): void {
     this.service.isLinear=false;
     this.service.isCompleted8 = next;
-    this.saved.ngOnInit();
     // this.final.ngOnInit();
   }
 
@@ -112,7 +112,7 @@ export class RiskParentComponentComponent implements OnInit {
     this.riskStep2.updateButton=true;
     this.riskStep2.saveButton=false;
    // this.doSomething1(false);
-    this.changeTabLpsSavedReport(0,riskId,this.router.snapshot.paramMap.get('email') || '{}',flag);
+    this.changeTabLpsSavedReport(0,riskId,this.router.snapshot.paramMap.get('email') || '{}');
     setTimeout(() => {
       this.saved.spinner=false;
       setTimeout(() => {
@@ -124,7 +124,7 @@ export class RiskParentComponentComponent implements OnInit {
   preview(riskId: any): void {
     this.ngOnInit();
     this.isEditable=true;
-    this.changeTabLpsSavedReport(0,riskId,this.router.snapshot.paramMap.get('email') || '{}',flag);
+    this.changeTabLpsSavedReport(0,riskId,this.router.snapshot.paramMap.get('email') || '{}');
   }
 
   public onCallSavedMethod(e: any) {
@@ -139,13 +139,14 @@ export class RiskParentComponentComponent implements OnInit {
     this.ChangeDetectorRef.detectChanges();
   }
 
-  public changeTabLpsSavedReport(index: number, riskId: any, userName: any,flag:any) {
+  public changeTabLpsSavedReport(index: number, riskId: any, userName: any) {
     this.step1 = false;
     this.step2 = false;
     setTimeout(() => {
       this.step1 = true;
       this.step2 = true;
     }, 50);
+
      setTimeout(() => {
        this.customerDetailsService.retrieveFinalRisk(userName, riskId).subscribe(
         (data) => {
@@ -153,15 +154,16 @@ export class RiskParentComponentComponent implements OnInit {
           // this.final.finalReportBody = true;
           this.dataJSON = JSON.parse(data);
           //CustomerDetails
-          if (this.dataJSON.basicLps != null) {
+          if (this.dataJSON.customerDetails != null) {
             this.selectedIndex = index;
-            this.customerDetails.retriveCustomerDetails();
-            this.riskStep2.appendRiskId(riskId);  
+            this.customerDetails.updateCustomerDetails(this.dataJSON.riskId,this.dataJSON);
+           // this.customerDetails.retriveCustomerDetails();
+           // this.riskStep2.appendRiskId(riskId);  
             this.initializeRiskId();
           }
           //Risk Assessment Details
-          if (this.dataJSON.airTermination != null) {
-            this.riskStep2.retriveRiskDetails();
+          if (this.dataJSON.structureCharacteristics != null) {
+            this.riskStep2.updateRiskDetails(this.dataJSON.userName,this.dataJSON.riskId,this.dataJSON);
           }  
         },
         (error) => {
@@ -232,5 +234,6 @@ export class RiskParentComponentComponent implements OnInit {
     this.riskStep2.appendRiskId(this.riskStep2.riskAssessmentDetails.riskId);   
     this.riskStep2.riskId=this.riskStep2.riskAssessmentDetails.riskId;   
     this.riskStep2.isEditable=this.isEditable;
+    this.riskGlobal.riskId=this.riskStep2.riskAssessmentDetails.riskId;
   }
 }

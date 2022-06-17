@@ -46,7 +46,7 @@ export class StructureCharacteristics {
     yearPeoplePresentBuilding!: String;
 
     structureCharacteristicsId!: Number;
-    riskId!: Number;
+    riskId!: String;
     userName!: String;
     updatedBy!: String;
     updatedDate!: String;
@@ -113,59 +113,59 @@ export class Protection {
     // Loss of Human Life
     protectionId!: Number;
     
-    protectionPEB!: Number;
-    protectionPMS!: Number;
-    protectionPM!: Number;
-    protectionPA!: Number;
-    protectionPC!: Number;
-    protectionPU!: Number;
-    protectionPV!: Number;
-    protectionPW!: Number;
-    protectionPZ!: Number;
+    protectionPEB!: String;
+    protectionPMS!: String;
+    protectionPM!: String;
+    protectionPA!: String;
+    protectionPC!: String;
+    protectionPU!: String;
+    protectionPV!: String;
+    protectionPW!: String;
+    protectionPZ!: String;
     // RISK OF LOSS OF HUMAN BEINGS (R1)	
-    riskProtectionRA1!: Number;
-    riskProtectionRB1!: Number;
-    riskProtectionRC1!: Number;
-    riskProtectionRM1!: Number;
-    riskProtectionRU1!: Number;
-    riskProtectionRV1!: Number;
-    riskProtectionRW1!: Number;
-    riskProtectionRZ1!: Number;
-    riskProtectionRD1!: Number;
-    riskProtectionRI1!: Number;
-    riskProtectionR1!: Number;
-    riskProtectionRB2!: Number;
-    culturalRB!: Number;
-    culturalRV!: Number;
+    riskProtectionRA1!: String;
+    riskProtectionRB1!: String;
+    riskProtectionRC1!: String;
+    riskProtectionRM1!: String;
+    riskProtectionRU1!: String;
+    riskProtectionRV1!: String;
+    riskProtectionRW1!: String;
+    riskProtectionRZ1!: String;
+    riskProtectionRD1!: String;
+    riskProtectionRI1!: String;
+    riskProtectionR1!: String;
+    riskProtectionRB2!: String;
+    culturalRB!: String;
+    culturalRV!: String;
 }
 
 export class RiskProtection {
     riskProtectionId!: Number;
 
-    riskProtectionRC2!: Number;
-    riskProtectionRM2!: Number;
-    riskProtectionRV2!: Number;
-    riskProtectionRW2!: Number;
-    riskProtectionRZ2!: Number;
-    riskProtectionRB3!: Number;
-    riskProtectionRV3!: Number;
-    riskProtectionRA4!: Number;
-    riskProtectionRB4!: Number;
-    riskProtectionRC4!: Number;
-    riskProtectionRM4!: Number;
-    riskProtectionRU4!: Number;
-    riskProtectionRV4!: Number;
-    riskProtectionRW4!: Number;
-    riskProtectionRZ4!: Number;
+    riskProtectionRC2!: String;
+    riskProtectionRM2!: String;
+    riskProtectionRV2!: String;
+    riskProtectionRW2!: String;
+    riskProtectionRZ2!: String;
+    riskProtectionRB3!: String;
+    riskProtectionRV3!: String;
+    riskProtectionRA4!: String;
+    riskProtectionRB4!: String;
+    riskProtectionRC4!: String;
+    riskProtectionRM4!: String;
+    riskProtectionRU4!: String;
+    riskProtectionRV4!: String;
+    riskProtectionRW4!: String;
+    riskProtectionRZ4!: String;
 
-    econamicValueRA!: Number;
-    econamicValueRB!: Number;
-    econamicValueRC!: Number;
-    econamicValueRM!: Number;
-    econamicValueRU!: Number;
-    econamicValueRV!: Number;
-    econamicValueRW!: Number;
-    econamicValueRZ!: Number;
+    econamicValueRA!: String;
+    econamicValueRB!: String;
+    econamicValueRC!: String;
+    econamicValueRM!: String;
+    econamicValueRU!: String;
+    econamicValueRV!: String;
+    econamicValueRW!: String;
+    econamicValueRZ!: String;
 }
 
 export class CalculatedRisk {
@@ -176,18 +176,18 @@ export class CalculatedRisk {
     lossOfCulturalHeritageRT3!: String;
     economicLossRT4!: String;
 
-    riskProtectionR1!: Number;
-    riskProtectionR2!: Number;
-    riskProtectionR3!: Number;
-    riskProtectionR4!: Number;
+    riskProtectionR1!: String;
+    riskProtectionR2!: String;
+    riskProtectionR3!: String;
+    riskProtectionR4!: String;
 
-    riskProtectionRD1!: Number;
-    riskProtectionRD2!: Number;
-    riskProtectionRD3!: Number;
-    riskProtectionRD4!: Number;
+    riskProtectionRD1!: String;
+    riskProtectionRD2!: String;
+    riskProtectionRD3!: String;
+    riskProtectionRD4!: String;
 
-    riskProtectionRI1!: Number;
-    riskProtectionRI2!: Number;
-    riskProtectionRI3!: Number;
-    riskProtectionRI4!: Number;
+    riskProtectionRI1!: String;
+    riskProtectionRI2!: String;
+    riskProtectionRI3!: String;
+    riskProtectionRI4!: String;
 }

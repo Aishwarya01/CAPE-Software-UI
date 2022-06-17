@@ -103,11 +103,11 @@ export class RiskCustomerDetailsComponent implements OnInit {
   updateCustomerDetails(riskId:any,data:any){
     this.proceedFlag = false;  
     
-     if(data.customerData == undefined ){
+     if(data.customerDetails == undefined ){
       this.customerList = data;
      }
      else{
-      this.customerList = data.customerData;
+      this.customerList = data.customerDetails;
      }
       // this.success = true;
       this.customerDetailsModel.riskId = this.customerList.riskId;

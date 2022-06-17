@@ -315,6 +315,9 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 
       structureAttributes: this.formBuilder.array([this.createStructureAttributesFormRtr(item.structureAttributes[0])]),
       losses: this.formBuilder.array([this.createLossesFormRtr(item.losses[0])]),
+      protection: this.formBuilder.array([this.protectionRtr(item.protection[0])]),
+      riskProtection: this.formBuilder.array([this.riskProtectionRtr(item.riskProtection[0])]),
+      calculatedRisk: this.formBuilder.array([this.calculatedRiskRtr(item.calculatedRisk[0])]),
     })
   }
 
@@ -433,10 +436,11 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   calculatedRiskRtr(item: any): FormGroup{
     return this.formBuilder.group({
       calculatedRiskId: new FormControl({ disabled: false, value: item.calculatedRiskId }),
-      lossOfHumanLife: new FormControl({ disabled: false, value: item.lossOfHumanLife }),
-      lossOfPublicSerivce: new FormControl({ disabled: false, value: item.lossOfPublicSerivce }),
-      lossOfCulturalHeritage: new FormControl({ disabled: false, value: item.lossOfCulturalHeritage }),
-      economicLoss: new FormControl({ disabled: false, value: item.economicLoss }),
+
+      lossOfHumanLifeRT1: new FormControl({ disabled: false, value: item.lossOfHumanLifeRT1 }),
+      lossOfPublicSerivceRT2: new FormControl({ disabled: false, value: item.lossOfPublicSerivceRT2 }),
+      lossOfCulturalHeritageRT3: new FormControl({ disabled: false, value: item.lossOfCulturalHeritageRT3 }),
+      economicLossRT4: new FormControl({ disabled: false, value: item.economicLossRT4 }),
 
       riskProtectionRD1: new FormControl({ disabled: false, value: item.riskProtectionRD1 }),
       riskProtectionRD2: new FormControl({ disabled: false, value: item.riskProtectionRD2 }),
@@ -1495,7 +1499,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     this.riskAssessmentService.retriveRiskAssessmentDetails(this.router.snapshot.paramMap.get('email') || '{}',this.riskAssessmentDetails.riskId).subscribe(
       data => {
         if (JSON.parse(data)[0] != undefined && JSON.parse(data)[0].riskId != null) {
-          this.updateRiskDetails(this.riskAssessmentDetails.userName,this.riskId,data);
+          this.updateRiskDetails(this.riskAssessmentDetails.userName,this.riskId,JSON.parse(data)[0]);
         }
       },
       error => {
@@ -1505,15 +1509,20 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 
   updateRiskDetails(userName: any, riskId: any, data:any){
     this.proceedFlag = false;
-    let list = JSON.parse(data);
-    this.step2List = list[0];
+    if(data.structureCharacteristics == undefined ){
+      this.riskList = data;
+     }
+     else{
+      this.riskList = data.structureCharacteristics;
+     }
+     
       this.riskAssessmentDetails.riskId = riskId;
-      this.riskAssessmentDetails.createdBy = this.step2List.createdBy;
-      this.riskAssessmentDetails.createdDate = this.step2List.createdDate;
-      this.riskAssessmentDetails.userName = this.step2List.userName;
-      this.riskAssessmentDetails.userName = this.step2List.updatedDate;
-      this.riskAssessmentDetails.userName = this.step2List.updatedBy;
-      this.riskAssessmentRetrieve(this.step2List);
+      this.riskAssessmentDetails.createdBy = this.riskList.createdBy;
+      this.riskAssessmentDetails.createdDate = this.riskList.createdDate;
+      this.riskAssessmentDetails.userName = this.riskList.userName;
+      this.riskAssessmentDetails.userName = this.riskList.updatedDate;
+      this.riskAssessmentDetails.userName = this.riskList.updatedBy;
+      this.riskAssessmentRetrieve(this.riskList);
       this.flag = true;
   }
 
