@@ -184,9 +184,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     ecoLossOfPhysicalDamageL1: new FormControl('',[Validators.required]),
     ecoLossOfFailureOfInternalSystemL1: new FormControl('',[Validators.required]),
     classOfLPS: new FormControl('',[Validators.required]),
-    classOfSPD: new FormControl('',[Validators.required]),
-    // this will deleted in future
-    dummy: new FormControl('')
+    classOfSPD: new FormControl('',[Validators.required])
     })
   }
 
@@ -312,6 +310,11 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       noOfPeopleInZone: new FormControl({ disabled: false, value: item.noOfPeopleInZone }, Validators.required),
       dayPeoplePresentBuilding: new FormControl({ disabled: false, value: item.dayPeoplePresentBuilding }, Validators.required),
       yearPeoplePresentBuilding: new FormControl({ disabled: false, value: item.yearPeoplePresentBuilding }, Validators.required),
+      
+      explosion: new FormControl(''),
+      explosion1: new FormControl(''),
+      fire: new FormControl(''),
+      none: new FormControl(''),
 
       structureAttributes: this.formBuilder.array([this.createStructureAttributesFormRtr(item.structureAttributes[0])]),
       losses: this.formBuilder.array([this.createLossesFormRtr(item.losses[0])]),

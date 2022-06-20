@@ -112,6 +112,7 @@ export class RiskParentComponentComponent implements OnInit {
     this.riskStep2.updateButton=true;
     this.riskStep2.saveButton=false;
    // this.doSomething1(false);
+    // this.selectedIndex=0;
     this.changeTabLpsSavedReport(0,riskId,this.router.snapshot.paramMap.get('email') || '{}');
     setTimeout(() => {
       this.saved.spinner=false;
@@ -158,7 +159,7 @@ export class RiskParentComponentComponent implements OnInit {
             this.selectedIndex = index;
             this.customerDetails.updateCustomerDetails(this.dataJSON.riskId,this.dataJSON);
            // this.customerDetails.retriveCustomerDetails();
-           // this.riskStep2.appendRiskId(riskId);  
+           this.riskStep2.appendRiskId(riskId);  
             this.initializeRiskId();
           }
           //Risk Assessment Details
