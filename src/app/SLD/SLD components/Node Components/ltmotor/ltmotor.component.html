@@ -958,6 +958,16 @@
         <div *ngIf="validationError" style="text-align: center;margin-top: 20px;">
           <span class="alert alert-danger">{{validationErrorMsg}}</span>
         </div>
+
+        <div class="centre-text m-btm30">
+          <div *ngIf="success" style="text-align: center;margin-top: 5px;margin-bottom: 40px">
+            <span class="successshow">{{ successMsg }}</span>
+          </div>
+          <div *ngIf="error" style="text-align: center;margin-top: 5px;margin-bottom: 40px">
+            <span class="errorshow">{{ errorMsg }}</span>
+          </div>
+        </div>
+        
         <div style="display: inline;margin-top: 30px;">    
           <button type="button"  style="float: left; margin-left: 400px"
             class="btn btn-info" (click)="saveLTMotor(ltMotorFlag)">

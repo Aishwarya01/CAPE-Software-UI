@@ -99,10 +99,10 @@
         <div class="col-md-3">
           <div class="form-group">
             <label>Overcurrent instantaneous / High stage/ I>> (A)</label>
-            <input type="number" class="form-control" formControlName="overCurrent" [(ngModel)]="mccb.overCurrent"
-            [ngClass]="{ 'is-invalid': submittedMccb && h.overCurrent?.errors }">
-            <div *ngIf="submittedMccb && h.overCurrent?.errors" class="invalid-feedback">
-              <div *ngIf="h.overCurrent?.errors?.required">Overcurrent is required</div>
+            <input type="number" class="form-control" formControlName="overcurrent" [(ngModel)]="mccb.overcurrent"
+            [ngClass]="{ 'is-invalid': submittedMccb && h.overcurrent?.errors }">
+            <div *ngIf="submittedMccb && h.overcurrent?.errors" class="invalid-feedback">
+              <div *ngIf="h.overcurrent?.errors?.required">OverCurrent is required</div>
             </div>
           </div>
         </div>
