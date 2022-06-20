@@ -4,6 +4,7 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Valida
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { arrow90DegDown } from 'ngx-bootstrap-icons';
+import { Observable } from 'rxjs';
 import { GlobalsService } from 'src/app/globals.service';
 import { RiskAssessmentDetails } from '../../Risk Assesment Model/risk-assessment-details';
 import { RiskAssessmentDetailsServiceService } from '../../Risk Assessment Services/risk-assessment-details-service.service';
@@ -316,40 +317,97 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       fire: new FormControl(''),
       none: new FormControl(''),
 
-      structureAttributes: this.formBuilder.array([this.createStructureAttributesFormRtr(item.structureAttributes[0])]),
-      losses: this.formBuilder.array([this.createLossesFormRtr(item.losses[0])]),
-      protection: this.formBuilder.array([this.protectionRtr(item.protection[0])]),
-      riskProtection: this.formBuilder.array([this.riskProtectionRtr(item.riskProtection[0])]),
-      calculatedRisk: this.formBuilder.array([this.calculatedRiskRtr(item.calculatedRisk[0])]),
-    })
+      structureAttributes: this.formBuilder.array(this.structureAttributesID(item)),
+      losses: this.formBuilder.array(this.lossesID(item)),
+      protection: this.formBuilder.array(this.protectionID(item)),
+      riskProtection: this.formBuilder.array(this.riskProtectionID(item)),
+      calculatedRisk: this.formBuilder.array(this.calculatedRiskID(item)),
+    });
   }
 
+  structureAttributesID(item:any){
+    let structureAttributes=[];
+    for(let value of item.structureAttributes){
+     structureAttributes.push(this.createStructureAttributesFormRtr(value));
+    
+    }
+   if(structureAttributes.length == 0){
+    structureAttributes.push(this.createStructureAttributesForm());
+   }
+    return structureAttributes;
+  }
+
+  lossesID(item:any):any[]{
+    let losses=[];
+    for(let value of item.losses){
+      losses.push(this.createLossesFormRtr(value));
+    }
+    if(losses.length == 0){
+      losses.push(this.createLossesForm());
+     }
+    return losses;
+  }
+
+  protectionID(item:any):any[]{
+    let protection=[];
+    for(let value of item.protection){
+      protection.push(this.protectionRtr(value));
+    }
+    if(protection.length == 0){
+      protection.push(this.protectionForm());
+     }
+    return protection;
+  }
+
+  riskProtectionID(item:any):any[]{
+    let riskProtection=[];
+    for(let value of item.riskProtection){
+      riskProtection.push(this.riskProtectionRtr(value));
+    }
+    if(riskProtection.length == 0){
+      riskProtection.push(this.riskProtectionForm());
+     }
+    return riskProtection;
+  }
+
+  calculatedRiskID(item:any):any[]{
+    let calculatedRisk=[];
+    for(let value of item.calculatedRisk){
+      calculatedRisk.push(this.calculatedRiskRtr(value));
+    }
+    if(calculatedRisk.length == 0){
+      calculatedRisk.push(this.createLossesForm());
+     }
+    return calculatedRisk;
+  }
+
+
   createStructureAttributesFormRtr(item: any): FormGroup {
-    return this.formBuilder.group({
-      structureAttributesId: new FormControl({ disabled: false, value: item.structureAttributesId }),
-      stTypeOfFloorSurface: new FormControl({ disabled: false, value: item.stTypeOfFloorSurface }, Validators.required),
-      stAdditionalProtection: new FormControl({ disabled: false, value: item.stAdditionalProtection }, Validators.required),
-      stRiskOfFire: new FormControl({ disabled: false, value: item.stRiskOfFire }, Validators.required),
-      stFireProtectionMeasure: new FormControl({ disabled: false, value: item.stFireProtectionMeasure }, Validators.required),
-      stTypeOfInternalWiring: new FormControl({ disabled: false, value: item.stTypeOfInternalWiring }, Validators.required),
-      totalNoOfLines: new FormControl({ disabled: false, value: item.totalNoOfLines }, Validators.required),
-      noOfPowerLines: new FormControl({ disabled: false, value: item.noOfPowerLines }, Validators.required),
-      typeOfPowerLines: new FormControl({ disabled: false, value: item.typeOfPowerLines }, Validators.required),
-      lengthOfPowerLines: new FormControl({ disabled: false, value: item.lengthOfPowerLines }, Validators.required),
-      shieldingGroundingIsolation: new FormControl({ disabled: false, value: item.shieldingGroundingIsolation }, Validators.required),
-      collAreaOfPowerLines: new FormControl({ disabled: false, value: item.collAreaOfPowerLines }, Validators.required),
-      collAreaOfNearLines: new FormControl({ disabled: false, value: item.collAreaOfNearLines }, Validators.required),
-      eventNearThePowerLines: new FormControl({ disabled: false, value: item.eventNearThePowerLines }, Validators.required),
-      eventOnThePowerLines: new FormControl({ disabled: false, value: item.eventOnThePowerLines }, Validators.required),
-      noOfTelecomLines: new FormControl({ disabled: false, value: item.noOfTelecomLines }, Validators.required),
-      typeOfTelecomLines: new FormControl({ disabled: false, value: item.typeOfTelecomLines }, Validators.required),
-      lengthOfTelecomLines: new FormControl({ disabled: false, value: item.lengthOfTelecomLines }, Validators.required),
-      shieldingGroundingIsolationL1: new FormControl({ disabled: false, value: item.shieldingGroundingIsolationL1 }, Validators.required),
-      collAreaOfTelecomLines: new FormControl({ disabled: false, value: item.collAreaOfTelecomLines }, Validators.required),
-      collNearOfTelecomLines: new FormControl({ disabled: false, value: item.collNearOfTelecomLines }, Validators.required),
-      eventNearTheTelecomeLines: new FormControl({ disabled: false, value: item.eventNearTheTelecomeLines }, Validators.required),
-      eventOnTheTelecomLines: new FormControl({ disabled: false, value: item.eventOnTheTelecomLines }, Validators.required),
-    })
+      return this.formBuilder.group({
+        structureAttributesId: new FormControl({ disabled: false, value: item.structureAttributesId }),
+        stTypeOfFloorSurface: new FormControl({ disabled: false, value: item.stTypeOfFloorSurface }, Validators.required),
+        stAdditionalProtection: new FormControl({ disabled: false, value: item.stAdditionalProtection }, Validators.required),
+        stRiskOfFire: new FormControl({ disabled: false, value: item.stRiskOfFire }, Validators.required),
+        stFireProtectionMeasure: new FormControl({ disabled: false, value: item.stFireProtectionMeasure }, Validators.required),
+        stTypeOfInternalWiring: new FormControl({ disabled: false, value: item.stTypeOfInternalWiring }, Validators.required),
+        totalNoOfLines: new FormControl({ disabled: false, value: item.totalNoOfLines }, Validators.required),
+        noOfPowerLines: new FormControl({ disabled: false, value: item.noOfPowerLines }, Validators.required),
+        typeOfPowerLines: new FormControl({ disabled: false, value: item.typeOfPowerLines }, Validators.required),
+        lengthOfPowerLines: new FormControl({ disabled: false, value: item.lengthOfPowerLines }, Validators.required),
+        shieldingGroundingIsolation: new FormControl({ disabled: false, value: item.shieldingGroundingIsolation }, Validators.required),
+        collAreaOfPowerLines: new FormControl({ disabled: false, value: item.collAreaOfPowerLines }, Validators.required),
+        collAreaOfNearLines: new FormControl({ disabled: false, value: item.collAreaOfNearLines }, Validators.required),
+        eventNearThePowerLines: new FormControl({ disabled: false, value: item.eventNearThePowerLines }, Validators.required),
+        eventOnThePowerLines: new FormControl({ disabled: false, value: item.eventOnThePowerLines }, Validators.required),
+        noOfTelecomLines: new FormControl({ disabled: false, value: item.noOfTelecomLines }, Validators.required),
+        typeOfTelecomLines: new FormControl({ disabled: false, value: item.typeOfTelecomLines }, Validators.required),
+        lengthOfTelecomLines: new FormControl({ disabled: false, value: item.lengthOfTelecomLines }, Validators.required),
+        shieldingGroundingIsolationL1: new FormControl({ disabled: false, value: item.shieldingGroundingIsolationL1 }, Validators.required),
+        collAreaOfTelecomLines: new FormControl({ disabled: false, value: item.collAreaOfTelecomLines }, Validators.required),
+        collNearOfTelecomLines: new FormControl({ disabled: false, value: item.collNearOfTelecomLines }, Validators.required),
+        eventNearTheTelecomeLines: new FormControl({ disabled: false, value: item.eventNearTheTelecomeLines }, Validators.required),
+        eventOnTheTelecomLines: new FormControl({ disabled: false, value: item.eventOnTheTelecomLines }, Validators.required),
+      })
   }
 
   createLossesFormRtr(item: any): FormGroup {
@@ -1518,7 +1576,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
      else{
       this.riskList = data.structureCharacteristics;
      }
-     
+      this.riskGlobal.riskId=riskId;
       this.riskAssessmentDetails.riskId = riskId;
       this.riskAssessmentDetails.createdBy = this.riskList.createdBy;
       this.riskAssessmentDetails.createdDate = this.riskList.createdDate;

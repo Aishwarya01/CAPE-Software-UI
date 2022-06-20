@@ -43,6 +43,7 @@ export class RiskSavedReportsComponent implements OnInit {
   superAdminFlag: boolean = false;
   currentUser: any = [];
   currentUser1: any = [];
+  selectedIndex: number=0;
   userData: any=[];
   upDateBasic: any=[]
   deleteSuccess: boolean = false;

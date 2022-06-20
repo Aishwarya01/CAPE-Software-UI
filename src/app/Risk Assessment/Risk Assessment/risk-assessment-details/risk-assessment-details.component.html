@@ -497,7 +497,7 @@
                                         <label>Risk of Fire :</label>
                                         <a (click)="goToRiskPopup(popup1)">Pick the Risk of Fire</a>
                                         <input type="text" class="form-control" readonly formControlName="stRiskOfFire" placeholder="Please Pick the Risk of Fire " 
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('stRiskOfFire')?.errors }" (ngModelChange)="riskOfFireDropDown($event,f)" (change)="lossHumanLifeL1($event,f);lossServiceToPublicL2($event,f);economicLossL4($event,f)">
+                                        [ngClass]="{ 'is-invalid': submitted && a.get('stRiskOfFire')?.errors }" (ngModelChange)="riskOfFireDropDown($event,f);lossHumanLifeL1($event,f);lossServiceToPublicL2($event,f);economicLossL4($event,f)">
                                         <div *ngIf="submitted && a.get('stRiskOfFire')?.errors" class="invalid-feedback">
                                             <div *ngIf="a.get('stRiskOfFire')?.errors?.required">Designation is required</div>
                                         </div>
@@ -834,7 +834,6 @@
                                         [ngClass]="{ 'is-invalid': submitted && b.get('humanLossOffailureOfInternalSystem')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="0.1">Risk of explosion</option>
-                                            <option value="Concrete houses">Concrete houses</option>
                                             <option value="0.01">Intensive care unit & Operation block of hospital</option>
                                             <option value="0.001">Other part of Buildings</option>
                                         </select>

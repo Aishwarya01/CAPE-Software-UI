@@ -108,12 +108,12 @@ export class RiskParentComponentComponent implements OnInit {
   continue(riskId: any): void {
     this.refresh();
     this.ngOnInit();
-    this.isEditable=false;
+    // this.isEditable=false;
     this.riskStep2.updateButton=true;
     this.riskStep2.saveButton=false;
    // this.doSomething1(false);
     // this.selectedIndex=0;
-    this.changeTabLpsSavedReport(0,riskId,this.router.snapshot.paramMap.get('email') || '{}');
+    this.changeTabRiskSavedReport(0,riskId,this.router.snapshot.paramMap.get('email') || '{}');
     setTimeout(() => {
       this.saved.spinner=false;
       setTimeout(() => {
@@ -125,7 +125,7 @@ export class RiskParentComponentComponent implements OnInit {
   preview(riskId: any): void {
     this.ngOnInit();
     this.isEditable=true;
-    this.changeTabLpsSavedReport(0,riskId,this.router.snapshot.paramMap.get('email') || '{}');
+    this.changeTabRiskSavedReport(0,riskId,this.router.snapshot.paramMap.get('email') || '{}');
   }
 
   public onCallSavedMethod(e: any) {
@@ -140,7 +140,7 @@ export class RiskParentComponentComponent implements OnInit {
     this.ChangeDetectorRef.detectChanges();
   }
 
-  public changeTabLpsSavedReport(index: number, riskId: any, userName: any) {
+  public changeTabRiskSavedReport(index: number, riskId: any, userName: any) {
     this.step1 = false;
     this.step2 = false;
     setTimeout(() => {
@@ -156,22 +156,20 @@ export class RiskParentComponentComponent implements OnInit {
           this.dataJSON = JSON.parse(data);
           //CustomerDetails
           if (this.dataJSON.customerDetails != null) {
-            this.selectedIndex = index;
+            this.selectedIndex=index;
             this.customerDetails.updateCustomerDetails(this.dataJSON.riskId,this.dataJSON);
-           // this.customerDetails.retriveCustomerDetails();
-           this.riskStep2.appendRiskId(riskId);  
+            this.riskStep2.appendRiskId(riskId);  
             this.initializeRiskId();
           }
           //Risk Assessment Details
           if (this.dataJSON.structureCharacteristics != null) {
+            this.selectedIndex=index;
             this.riskStep2.updateRiskDetails(this.dataJSON.userName,this.dataJSON.riskId,this.dataJSON);
           }  
         },
         (error) => {
 
-        }
-       )
-     }, 3000);
+        })}, 3000);
    }
 
   // interceptTabChange(tab: MatTab, tabHeader: MatTabHeader) {
@@ -230,11 +228,11 @@ export class RiskParentComponentComponent implements OnInit {
   // }
 
   initializeRiskId(){
-    this.customerDetails.isEditable=this.isEditable;
+    // this.customerDetails.isEditable=this.isEditable;
     // Risk Assessment Details
     this.riskStep2.appendRiskId(this.riskStep2.riskAssessmentDetails.riskId);   
     this.riskStep2.riskId=this.riskStep2.riskAssessmentDetails.riskId;   
-    this.riskStep2.isEditable=this.isEditable;
+    // this.riskStep2.isEditable=this.isEditable;
     this.riskGlobal.riskId=this.riskStep2.riskAssessmentDetails.riskId;
   }
 }

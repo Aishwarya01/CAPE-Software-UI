@@ -48,7 +48,7 @@ export class RiskCustomerDetailsComponent implements OnInit {
     private modalService: NgbModal,
     private customerDetailsService :CustomerDetailsServiceService,
     public service: GlobalsService,
-    public riskGobal: RiskglobalserviceService
+    public riskGlobal: RiskglobalserviceService
   ) {}
 
   ngOnInit(): void {
@@ -110,6 +110,7 @@ export class RiskCustomerDetailsComponent implements OnInit {
       this.customerList = data.customerDetails;
      }
       // this.success = true;
+      this.riskGlobal.riskId=riskId;
       this.customerDetailsModel.riskId = this.customerList.riskId;
       this.customerDetailsModel.updatedBy = this.customerList.updatedBy;
       this.customerDetailsModel.updatedDate = this.customerList.updatedDate;
@@ -282,7 +283,7 @@ export class RiskCustomerDetailsComponent implements OnInit {
           this.disable = true;
           this.CustomerDetailsForm.markAsPristine();
           this.proceedNext.emit(true);
-          this.riskGobal.riskId=JSON.parse(data).riskId;
+          this.riskGlobal.riskId=JSON.parse(data).riskId;
         },
         error => {
            this.popup=true;

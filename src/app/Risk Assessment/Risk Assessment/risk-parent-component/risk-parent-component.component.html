@@ -7,7 +7,7 @@
                <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
                Customer Details
               </ng-template>
-          <app-risk-customer-details *ngIf="customerFlag" (proceedNext)="doSomething1($event)"></app-risk-customer-details>
+          <app-risk-customer-details *ngIf="step1" (proceedNext)="doSomething1($event)"></app-risk-customer-details>
         </mat-step>
   
     <!-- Step-1 Risk Assessment Details -->
@@ -16,7 +16,7 @@
             <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
             Risk Assessment Details
             </ng-template> 
-          <app-risk-assessment-details *ngIf="riskFlag" (navigateStepSummary) = "navigateStepMethod($event)" (proceedNext)="doSomething2($event)"></app-risk-assessment-details>
+          <app-risk-assessment-details *ngIf="step2" (navigateStepSummary) = "navigateStepMethod($event)" (proceedNext)="doSomething2($event)"></app-risk-assessment-details>
           <button class="riskStep2" mat-button (click)="goBack(stepper)">&laquo; Back</button> 
         </mat-step>
        
