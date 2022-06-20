@@ -50,7 +50,7 @@ export class MCCBComponent implements OnInit {
       noOfPoles: ['', Validators.required],
       relayManufacturer: ['', Validators.required],
       model: [''],
-      overCurrent: ['', Validators.required],
+      overcurrent: ['', Validators.required],
       setTimes: ['', Validators.required],
       earthFault: ['', Validators.required],
       setTime: ['', Validators.required],
@@ -228,7 +228,7 @@ export class MCCBComponent implements OnInit {
   get h(){
     return this.mccbForm.controls;
   }
-
+ 
   retrieveMccbNode(data: any) {
     this.mccbFlag = true;
     for(let i of data) {
@@ -239,7 +239,7 @@ export class MCCBComponent implements OnInit {
       this.mccb.relayManufacturer= i.relayManufacturer;
       this.mccb.noOfPoles = i.noOfPoles;
       this.mccb.model = i.model;
-      this.mccb.overCurrent = i.overCurrent;
+      this.mccb.overcurrent = i.overcurrent;
       this.mccb.setTimes = i.setTimes;
       this.mccb.earthFault = i.earthFault;
       this.mccb.setTime = i.setTime;
