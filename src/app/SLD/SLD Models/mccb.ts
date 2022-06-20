@@ -10,7 +10,7 @@ export class MCCB {
     relayManufacturer!: String;
     noOfPoles!: number;
     model!: number;
-    overCurrent!: number;
+    overcurrent!: number;
     setTimes!: number;
     earthFault!: number;
     setTime!: number;
@@ -37,6 +37,11 @@ export class GeneralTestingMCCB {
     yB!: String;
     bR!: String;
     nE!: String;
+    // iRCurrent!: number;
+    // iYCurrent!: number;
+    // iBCurrent!: number;
+    // iNCurrent!: number;
+    // iPECurrent!: number;
     powerFactor!: String;
     frequency!: String;    
 }
