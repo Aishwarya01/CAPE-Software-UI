@@ -55,6 +55,11 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   tabErrorMsg: string = "";
   isRiskFormUpdated: boolean =false;
 
+  spinner: boolean=false;
+  spinnerValue: String = '';
+  disablepage: boolean=true;
+  mode: any= 'indeterminate';
+
   validationErrorTab: boolean=false;
   validationErrorMsgTab: string='';
   // brick: String='1';
@@ -541,16 +546,22 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   changeLocation(e: any, form:any) {
     let selectedValue = e.target.value;
     this.getLocation='';
-    for(let i of this.locationList) {
-      if(i.location == selectedValue) {
-        form.controls.groundFlashDensity.setValue(i.gfdValue);
-        this.showFlashDensity = true;
+    this.spinner=true;
+    this.disablepage=false;
+    setTimeout(()=>{
+      for(let i of this.locationList) {
+        if(i.location == selectedValue) {
+          form.controls.groundFlashDensity.setValue(i.gfdValue);
+          this.showFlashDensity = true;
+          this.spinner=false;
+          this.disablepage=true;
+        }
+        if(selectedValue == 'Others') {
+          form.controls.groundFlashDensity.setValue('');
+          this.showFlashDensity = false;
+        }
       }
-      if(selectedValue == 'Others') {
-        form.controls.groundFlashDensity.setValue('');
-        this.showFlashDensity = false;
-      }
-    }
+    },3000);
   }
 
   buildingValue(event: any, form: any){
@@ -689,7 +700,6 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     else{
       form.controls.noOfDangerousEventOnStructure.setValue('');
     }
-    console.log(form.controls.noOfDangerousEventOnStructure.value);
   }
   // Math for No of dangerous event near the structure
   noOfDangerus(event:any, form:any){
@@ -740,7 +750,8 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     if(event.target.value == 'No'){
       form.controls.adjacentLength.setValue('0.00');
       form.controls.adjacentWidth.setValue('0.00');
-      form.controls.adjacentHeight.setValue('0.00');
+      form.controls.adjacentHeight.setValue('0.00'); 
+      form.controls.collAreaOfAdjacentStruc.setValue('0.00')
       form.controls.collAreaOfAdjacentStruc.clearValidators();
       form.controls.collAreaOfAdjacentStruc.updateValueAndValidity();
     }
@@ -935,11 +946,8 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   economicLossL4(event:any, form:any){
     // Loss due to injury to living beings by electric shock, formula = rt × LT × ca/ct  
     if(form.controls.structureAttributes.controls[0].controls.stTypeOfFloorSurface!=''){
-
       var a = form.controls.structureAttributes.controls[0].controls.stTypeOfFloorSurface.value*0.01*1/1;
-
       form.controls.losses.controls[0].controls.ecoLossOfInjuryOfElectricShock.setValue(a.toFixed(4));
-      console.log(form.controls.losses.controls[0].controls.ecoLossOfInjuryOfElectricShock.value);
     }
     else{
       form.controls.losses.controls[0].controls.ecoLossOfInjuryOfElectricShock.setValue("");
@@ -1008,7 +1016,6 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 // shieldingGroundingIsolation and shieldingGroundingIsolationL1
   // some of the shielding values are goes for Protection form
   shielding(event:any, form:any){
-    debugger
     let a:any = [];
     let b:any = [];
     a = (form.controls.structureAttributes.controls[0].controls.shieldingGroundingIsolation.value).split(',');
@@ -1018,8 +1025,6 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     if(form.controls.losses.controls[0].controls.classOfSPD!='' && form.controls.structureAttributes.controls[0].controls.shieldingGroundingIsolation!='' && form.controls.structureAttributes.controls[0].controls.shieldingGroundingIsolationL1!=''){
       var c = form.controls.losses.controls[0].controls.classOfSPD.value*(parseFloat(b[0])+parseFloat(a[0]));
       form.controls.protection.controls[0].controls.protectionPC.setValue(c);
-
-      console.log("Pc =>" +form.controls.protection.controls[0].controls.protectionPC.value);
     }
     else{
       form.controls.protection.controls[0].controls.protectionPC.setValue('');
@@ -1030,8 +1035,6 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     if(form.controls.losses.controls[0].controls.classOfSPD!='' && form.controls.structureAttributes.controls[0].controls.shieldingGroundingIsolation!='' && form.controls.structureAttributes.controls[0].controls.shieldingGroundingIsolationL1!=''){
       var d = 1*form.controls.losses.controls[0].controls.classOfSPD.value*(parseFloat(b[0])+parseFloat(a[0]));
       form.controls.protection.controls[0].controls.protectionPU.setValue(d);
-
-      console.log("Pu =>" +form.controls.protection.controls[0].controls.protectionPU.value);
     }else{
       form.controls.protection.controls[0].controls.protectionPU.setValue('');
     }
@@ -1040,8 +1043,6 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     if(form.controls.losses.controls[0].controls.classOfSPD!='' && form.controls.structureAttributes.controls[0].controls.shieldingGroundingIsolation!='' && form.controls.structureAttributes.controls[0].controls.shieldingGroundingIsolationL1!=''){
       var e = form.controls.losses.controls[0].controls.classOfSPD.value*1*(parseFloat(b[0])+parseFloat(a[0]));
       form.controls.protection.controls[0].controls.protectionPV.setValue(e);
-
-      console.log("Pv =>" +form.controls.protection.controls[0].controls.protectionPV.value);
     }else{
       form.controls.protection.controls[0].controls.protectionPV.setValue('');
     }
@@ -1050,8 +1051,6 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     if(form.controls.losses.controls[0].controls.classOfSPD!='' && form.controls.structureAttributes.controls[0].controls.shieldingGroundingIsolation!='' && form.controls.structureAttributes.controls[0].controls.shieldingGroundingIsolationL1!=''){
       var f = form.controls.losses.controls[0].controls.classOfSPD.value*1*(parseFloat(b[0])+parseFloat(a[0]));
       form.controls.protection.controls[0].controls.protectionPW.setValue(f);
-
-      console.log("Pw =>" +form.controls.protection.controls[0].controls.protectionPW.value);
     }else{
       form.controls.protection.controls[0].controls.protectionPW.setValue('');
     }
@@ -1061,8 +1060,6 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 
       var g = form.controls.losses.controls[0].controls.classOfSPD.value*1*(parseFloat(b[1])+parseFloat(a[1]));
       form.controls.protection.controls[0].controls.protectionPZ.setValue(g);
-
-      console.log("Pz =>" +form.controls.protection.controls[0].controls.protectionPZ.value);
     }else{
       form.controls.protection.controls[0].controls.protectionPZ.setValue('');
     }
@@ -1086,7 +1083,6 @@ export class RiskAssessmentDetailsComponent implements OnInit {
         else{
           form.controls.protection.controls[0].controls.protectionPMS.setValue('');
         }
-        console.log("Pms =>" +form.controls.protection.controls[0].controls.protectionPMS.value);
       }
     
     // PSPD × PMS for Pm
@@ -1098,7 +1094,6 @@ export class RiskAssessmentDetailsComponent implements OnInit {
         else{
           form.controls.protection.controls[0].controls.protectionPM.setValue('');
         }
-        console.log("Pm =>" +form.controls.protection.controls[0].controls.protectionPM.value)
         this.lossOfHumanCalc(event,form);
         this.lossOfServiceCalc(event,form);
         this.lossCulturalCalc(event,form);
@@ -1114,7 +1109,6 @@ export class RiskAssessmentDetailsComponent implements OnInit {
         else{
           form.controls.protection.controls[0].controls.protectionPA.setValue('');
         }
-        console.log("PA" +form.controls.protection.controls[0].controls.protectionPA.value)
         this.lossOfHumanCalc(event,form);
         this.lossOfServiceCalc(event,form);
         this.lossCulturalCalc(event,form);
@@ -1133,7 +1127,6 @@ export class RiskAssessmentDetailsComponent implements OnInit {
         form.controls.protection.controls[0].controls.riskProtectionRA1.setValue(a.toFixed(28));
       }else{
         form.controls.protection.controls[0].controls.riskProtectionRA1.setValue('');
-        console.log(form.controls.protection.controls[0].controls.riskProtectionRA1.value)
       }
 
       // RB1 = riskProtectionRB1, ND × PB × LB, Pb = classOfLPS, LB = ecoLossOfPhysicalDamageL1
@@ -1593,35 +1586,32 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     this.popArray = [];
   }
 
-  reloadFromBack() {
-    if (this.step2Form.invalid) {
-      this.service.isCompleted = false;
-      this.service.isLinear = true;
-      this.service.editable = false;
+  reloadFromBack(){
+    if(this.step2Form.invalid){
+      this.service.isCompleted2= false;
+      this.service.isLinear=true;
       this.validationErrorTab = true;
-      this.validationErrorMsgTab = 'Please check all the fields in Airtermination';
+      this.validationErrorMsgTab= 'Please check all the fields in Risk Assessment Details';
       setTimeout(() => {
         this.validationErrorTab = false;
       }, 3000);
       return false;
-    }
-    else if (this.step2Form.dirty && this.step2Form.touched) {
-      this.service.isCompleted2 = false;
-      this.service.isLinear = true;
-      this.service.editable = false;
+     }
+    else if(this.step2Form.dirty && this.step2Form.touched){
+      this.service.isCompleted2= false;
+      this.service.isLinear=true;
       this.tabError = true;
-      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      this.tabErrorMsg = 'Kindly click on Save or Update button to update the changes!';
       setTimeout(() => {
         this.tabError = false;
       }, 3000);
       return false;
     }
-    else {
-      this.service.isCompleted2 = true;
-      this.service.isLinear = false;
-      this.service.editable = true;
+    else{
+      this.service.isCompleted2= true;
+      this.service.isLinear=false;
       this.step2Form.markAsPristine();
-      return true;
+    return true;
     }
   }
 
@@ -1633,7 +1623,6 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 
   // Submitting to DB
   onSubmit(flag:any) {
-    debugger
     this.submitted=true;
       if (this.step2Form.invalid) {
         return;

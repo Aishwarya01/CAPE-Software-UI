@@ -1,8 +1,25 @@
+<div *ngIf="service.msgForStep1" style="text-align: center;margin-top: 30px;">
+    <span class="successshow">Please fill steps to proceed further!</span>
+</div>
+<div *ngIf="tabError" style="text-align: center;">
+    <span class="alert alert-danger">{{tabErrorMsg}}</span>
+</div>
+<div *ngIf="validationErrorTab" style="text-align: center;">
+    <span class="alert alert-danger">{{validationErrorMsgTab}}</span>
+</div>
+
+<mat-progress-spinner style="margin: 0 auto;" *ngIf="spinner"  color="primary" [mode]="mode" value="50" diameter="50">
+</mat-progress-spinner>
+<!-- <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" *ngIf="spinner" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner> -->
+<br>
+<div *ngIf="spinner" style="text-align: center;">
+    {{spinnerValue}}
+</div>
 <div class="card">
     <div class="card-body">
     <form [formGroup]="step2Form" (ngSubmit)="onSubmit(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">  
     <ng-container class="row" formArrayName="structureCharacters" *ngFor="let f of overAllControls(); let i = index">
-        <ng-container [formGroupName]="i">
+        <ng-container [formGroupName]="i" *ngIf="disablepage">
             <mat-accordion>
                 <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                     <mat-expansion-panel-header>

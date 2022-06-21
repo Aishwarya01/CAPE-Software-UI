@@ -42,7 +42,6 @@ export class RiskParentComponentComponent implements OnInit {
   @ViewChild(RiskAssessmentDetailsComponent)
   riskStep2!: RiskAssessmentDetailsComponent;
   isEditable:boolean=false;
-
   dataJSON: any = [];
   @ViewChild(RiskSavedReportsComponent)saved!: RiskSavedReportsComponent;
   @ViewChild(RiskFinalReportsComponent)final!: RiskFinalReportsComponent;
@@ -55,7 +54,7 @@ export class RiskParentComponentComponent implements OnInit {
           private customerDetailsService: CustomerDetailsServiceService,
           public service: GlobalsService, private router: ActivatedRoute,
           private dialog: MatDialog,private ChangeDetectorRef: ChangeDetectorRef,
-          private riskGlobal: RiskglobalserviceService
+          public riskGlobal: RiskglobalserviceService
     ) { }
 
   ngOnInit(): void {
@@ -65,7 +64,7 @@ export class RiskParentComponentComponent implements OnInit {
 
   public doSomething1(next: any): void {
     this.service.isLinear=false;
-    this.service.isCompleted = next;
+    this.service.isCompleted2 = next;
 
     if (this.customerDetails.isCustomerFormUpdated) {
       this.initializeRiskId();
@@ -78,7 +77,7 @@ export class RiskParentComponentComponent implements OnInit {
 
   public doSomething2(next: any): void {
     this.service.isLinear=false;
-    this.service.isCompleted8 = next;
+    this.service.isCompleted3 = next;
     // this.final.ngOnInit();
   }
 
@@ -88,11 +87,7 @@ export class RiskParentComponentComponent implements OnInit {
   }
 
   goBack(stepper: MatStepper) {
-    if(this.isEditable && !this.riskStep2.reloadFromBack()){
-      this.riskStep2.validationErrorTab=false;
-      stepper.previous();
-    }
-    else if(this.riskStep2.reloadFromBack()){
+    if(this.riskStep2.reloadFromBack()){
       stepper.previous();
     }
   }
