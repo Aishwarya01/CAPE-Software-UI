@@ -218,7 +218,7 @@ export class LTMotorComponent implements OnInit {
 
   removeLTMotortesting(a: any, i: any) {
     (this.ltMotorForm.get('generalTestingLTMotor') as FormArray).removeAt(i);
-    (this.ltMotorForm.get('safetyTestingLTMotor') as FormArray).removeAt(i)
+    (this.ltMotorForm.get('safetyTestingLTMotor') as FormArray).removeAt(i);
   }
 
   retrieveLTMotorNode(data: any) {
@@ -244,7 +244,6 @@ export class LTMotorComponent implements OnInit {
       this.ltMotor.updatedDate = i.updatedDate;
       this.ltMotor.nodeId = i.nodeId;
       this.ltMotor.fileName = i.fileName;
-      this.ltMotor.userName = i.userName; 
       this.ltMotor.motorId=i.motorId;
       
       this.populateLtMotorForm(i);
