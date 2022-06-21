@@ -218,7 +218,7 @@ export class LTMotorComponent implements OnInit {
 
   removeLTMotortesting(a: any, i: any) {
     (this.ltMotorForm.get('generalTestingLTMotor') as FormArray).removeAt(i);
-    (this.ltMotorForm.get('safetyTestingLTMotor') as FormArray).removeAt(i)
+    (this.ltMotorForm.get('safetyTestingLTMotor') as FormArray).removeAt(i);
   }
 
   retrieveLTMotorNode(data: any) {
@@ -244,8 +244,8 @@ export class LTMotorComponent implements OnInit {
       this.ltMotor.updatedDate = i.updatedDate;
       this.ltMotor.nodeId = i.nodeId;
       this.ltMotor.fileName = i.fileName;
-      this.ltMotor.userName = i.userName;
-
+      this.ltMotor.motorId=i.motorId;
+      
       this.populateLtMotorForm(i);
     }
   }
@@ -285,7 +285,7 @@ export class LTMotorComponent implements OnInit {
    // nE = q.nE.split(",");
 
     return new FormGroup({
-      generalTestingLtMotorId: new FormControl(q.generalTestingLtMotorId),
+      generalTestingMotorId: new FormControl(q.generalTestingMotorId),
 
       rE: new FormControl(''),
       rEVoltage: new FormControl(rE[0], Validators.required),
@@ -364,7 +364,7 @@ export class LTMotorComponent implements OnInit {
     bR = w.bR.split(",");
 
     return new FormGroup({
-      safetyTestingLtMotorId: new FormControl(w.safetyTestingLtMotorId),
+      safetyTestingMotorId: new FormControl(w.safetyTestingMotorId),
       rN: new FormControl(''),
       rNImpedance: new FormControl(rN[0], Validators.required),
       rNCurrent: new FormControl(rN[1], Validators.required),
