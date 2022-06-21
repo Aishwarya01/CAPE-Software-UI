@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { GlobalsService } from 'src/app/globals.service';
 import { RiskAssessmentDetails } from '../../Risk Assesment Model/risk-assessment-details';
 import { RiskAssessmentDetailsServiceService } from '../../Risk Assessment Services/risk-assessment-details-service.service';
+import { RiskfinalpdfService } from '../../Risk Assessment Services/riskfinalpdf.service';
 import { RiskglobalserviceService } from '../../riskglobalservice.service';
 import { RiskParentComponentComponent } from '../risk-parent-component/risk-parent-component.component';
 
@@ -73,13 +74,16 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   riskInputValue: any;
   structureScreeningEffectivenessValue: any;
   internalScreeningEffectivenessValue: any;
+  enablePrint: boolean = false;
+  projectName: any = '';
 
   constructor(private router: ActivatedRoute,
               private formBuilder: FormBuilder,
               private modalService: NgbModal,
               private riskAssessmentService: RiskAssessmentDetailsServiceService,
               public riskGlobal: RiskglobalserviceService, 
-              public service: GlobalsService
+              public service: GlobalsService,
+              private riskfinalpdfService: RiskfinalpdfService
   ) { }
 
   ngOnInit(): void {
@@ -1484,7 +1488,6 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       this.service.windowTabClick=1;
      }
   }
-
   onKeyForm(event: KeyboardEvent) { 
    if(!this.step2Form.invalid){ 
     if(this.step2Form.dirty){
@@ -1554,6 +1557,11 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       data => {
         if (JSON.parse(data)[0] != undefined && JSON.parse(data)[0].riskId != null) {
           this.updateRiskDetails(this.riskAssessmentDetails.userName,this.riskId,JSON.parse(data)[0]);
+          setTimeout(() => {
+            if(!this.step2Form.invalid) {
+              this.enablePrint =true;
+            }
+          }, 3000);
         }
       },
       error => {
@@ -1563,6 +1571,8 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 
   updateRiskDetails(userName: any, riskId: any, data:any){
     this.proceedFlag = false;
+    this.updateButton = true;
+    this.saveButton = false;
     if(data.structureCharacteristics == undefined ){
       this.riskList = data;
      }
@@ -1577,6 +1587,14 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       this.riskAssessmentDetails.userName = this.riskList.updatedDate;
       this.riskAssessmentDetails.userName = this.riskList.updatedBy;
       this.riskAssessmentRetrieve(this.riskList);
+      setTimeout(() => {
+        if(!this.step2Form.invalid) {
+          this.enablePrint = true;
+        }
+        else {
+          this.enablePrint = false;
+        }
+      }, 3000);
       this.flag = true;
   }
 
@@ -1616,24 +1634,30 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   }
 
   //To get the value of RiskId form MAT STEPPER
-  appendRiskId(riskId: any) {
+  appendRiskId(riskId: any,projectName: any) {
     this.riskAssessmentDetails.riskId = riskId;
+    this.projectName = projectName;
     this.riskId = riskId;
+  }
+
+  printPdf() {
+    this.riskfinalpdfService.printPDF(this.riskAssessmentDetails.riskId,this.riskAssessmentDetails.userName,this.projectName);
   }
 
   // Submitting to DB
   onSubmit(flag:any) {
-    this.submitted=true;
-      if (this.step2Form.invalid) {
-        return;
-      }
+    debugger
+    //this.submitted=true;
+      // if (this.step2Form.invalid) {
+      //   return;
+      // }
     //  this.spinner = true;
      this.popup=false;
     this.riskAssessmentDetails = this.step2Form.value.structureCharacters[0];
     this.riskAssessmentDetails.riskId = this.riskGlobal.riskId;
     this.riskAssessmentDetails.userName = this.router.snapshot.paramMap.get('email') || '{}';
 
-    if (!this.validationError) {
+    //if (!this.validationError) {
       if(flag) {
         if(this.step2Form.dirty && this.step2Form.touched){ 
             this.riskAssessmentService.updateRiskAssessmentDetails(this.riskAssessmentDetails).subscribe(
@@ -1702,7 +1726,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
             this.proceedNext.emit(false); 
           })
         }
-      }
+    //  }
   }
 
   gotoNextTab() {
@@ -1710,7 +1734,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       this.service.isCompleted = false;
       this.service.isLinear = true;
       this.service.editable = false;
-      this.validationError = false;
+      //this.validationError = false;
       this.validationErrorTab = true;
       this.validationErrorMsgTab = 'Please check all the fields in basic information';
       setTimeout(() => {

@@ -42,6 +42,7 @@ export class RiskParentComponentComponent implements OnInit {
   @ViewChild(RiskAssessmentDetailsComponent)
   riskStep2!: RiskAssessmentDetailsComponent;
   isEditable:boolean=false;
+
   dataJSON: any = [];
   @ViewChild(RiskSavedReportsComponent)saved!: RiskSavedReportsComponent;
   @ViewChild(RiskFinalReportsComponent)final!: RiskFinalReportsComponent;
@@ -54,7 +55,7 @@ export class RiskParentComponentComponent implements OnInit {
           private customerDetailsService: CustomerDetailsServiceService,
           public service: GlobalsService, private router: ActivatedRoute,
           private dialog: MatDialog,private ChangeDetectorRef: ChangeDetectorRef,
-          public riskGlobal: RiskglobalserviceService
+          private riskGlobal: RiskglobalserviceService
     ) { }
 
   ngOnInit(): void {
@@ -153,7 +154,7 @@ export class RiskParentComponentComponent implements OnInit {
           if (this.dataJSON.customerDetails != null) {
             this.selectedIndex=index;
             this.customerDetails.updateCustomerDetails(this.dataJSON);
-            this.riskStep2.appendRiskId(riskId);  
+            this.riskStep2.appendRiskId(riskId,this.dataJSON.customerDetails.projectName);            
             this.initializeRiskId();
           }
           //Risk Assessment Details
@@ -161,6 +162,9 @@ export class RiskParentComponentComponent implements OnInit {
             this.selectedIndex=index;
             this.riskStep2.updateRiskDetails(this.dataJSON.userName,this.dataJSON.riskId,this.dataJSON);
           }  
+          else {
+            this.riskStep2.enablePrint = false;
+          }
         },
         (error) => {
 

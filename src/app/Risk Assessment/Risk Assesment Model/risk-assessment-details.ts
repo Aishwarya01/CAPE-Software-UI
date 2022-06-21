@@ -4,6 +4,7 @@ export class RiskAssessmentDetails {
     
     riskId!:Number;
     userName!: String;
+    projectName!: String;
     createdDate!: Date;
     createdBy!: String;
 	updatedDate!: Date;

@@ -1329,7 +1329,7 @@
             <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
             <button *ngIf="updateButton" class="next" (click)="gotoNextModal(contents,content)" mat-button>Update &raquo;</button>
             <button *ngIf="saveButton" class="next" (click)="gotoNextModal(contents,content)" mat-button>Save &raquo;</button>
-            <button class="next" title="Generate PDF" mat-button>Print</button>
+            <button type="button" *ngIf="enablePrint" class="next" (click)="printPdf()"  title="Generate PDF" mat-button>Print</button>
         </div>
     </form>
     </div>
