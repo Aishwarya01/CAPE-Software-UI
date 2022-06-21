@@ -792,7 +792,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Hazard Classification :</label>
-                                        <select class="form-control" formControlName="hazardClassification" (ngModelChange)="lossHumanLifeL1($event,f)"
+                                        <select class="form-control" formControlName="hazardClassification" (ngModelChange)="riskOfFireDropDown($event,f);lossHumanLifeL1($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && b.get('hazardClassification')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="1">Concrete houses</option>

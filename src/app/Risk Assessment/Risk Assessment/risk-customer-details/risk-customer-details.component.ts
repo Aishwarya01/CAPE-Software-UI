@@ -92,7 +92,7 @@ export class RiskCustomerDetailsComponent implements OnInit {
       data => {
         let customerdetails=JSON.parse(data)[0];
         if(customerdetails !=undefined && customerdetails.riskId !=null && customerdetails.riskId != undefined){
-        this.updateCustomerDetails('',customerdetails);
+        this.updateCustomerDetails(customerdetails);
         }
       },
       error=>{
@@ -100,7 +100,7 @@ export class RiskCustomerDetailsComponent implements OnInit {
     );  
   }
 
-  updateCustomerDetails(riskId:any,data:any){
+  updateCustomerDetails(data:any){
     this.proceedFlag = false;  
     
      if(data.customerDetails == undefined ){
@@ -110,7 +110,7 @@ export class RiskCustomerDetailsComponent implements OnInit {
       this.customerList = data.customerDetails;
      }
       // this.success = true;
-      this.riskGlobal.riskId=riskId;
+      this.riskGlobal.riskId=this.customerList.riskId;
       this.customerDetailsModel.riskId = this.customerList.riskId;
       this.customerDetailsModel.updatedBy = this.customerList.updatedBy;
       this.customerDetailsModel.updatedDate = this.customerList.updatedDate;

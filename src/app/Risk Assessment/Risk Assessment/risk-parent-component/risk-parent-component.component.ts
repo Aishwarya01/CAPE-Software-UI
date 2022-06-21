@@ -112,7 +112,7 @@ export class RiskParentComponentComponent implements OnInit {
     this.riskStep2.updateButton=true;
     this.riskStep2.saveButton=false;
    // this.doSomething1(false);
-    // this.selectedIndex=0;
+    this.selectedIndex=1;
     this.changeTabRiskSavedReport(0,riskId,this.router.snapshot.paramMap.get('email') || '{}');
     setTimeout(() => {
       this.saved.spinner=false;
@@ -157,7 +157,7 @@ export class RiskParentComponentComponent implements OnInit {
           //CustomerDetails
           if (this.dataJSON.customerDetails != null) {
             this.selectedIndex=index;
-            this.customerDetails.updateCustomerDetails(this.dataJSON.riskId,this.dataJSON);
+            this.customerDetails.updateCustomerDetails(this.dataJSON);
             this.riskStep2.appendRiskId(riskId);  
             this.initializeRiskId();
           }
@@ -230,9 +230,8 @@ export class RiskParentComponentComponent implements OnInit {
   initializeRiskId(){
     // this.customerDetails.isEditable=this.isEditable;
     // Risk Assessment Details
-    this.riskStep2.appendRiskId(this.riskStep2.riskAssessmentDetails.riskId);   
-    this.riskStep2.riskId=this.riskStep2.riskAssessmentDetails.riskId;   
+    this.riskStep2.riskId=this.customerDetails.customerDetailsModel.riskId;
     // this.riskStep2.isEditable=this.isEditable;
-    this.riskGlobal.riskId=this.riskStep2.riskAssessmentDetails.riskId;
+    this.riskGlobal.riskId=this.customerDetails.customerDetailsModel.riskId;
   }
 }
