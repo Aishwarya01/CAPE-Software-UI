@@ -428,6 +428,27 @@ export class LTMotorComponent implements OnInit {
     return this.ltMotorForm.controls;
   }
 
+  onChangeForm(event:any){
+    if(!this.ltMotorForm.invalid){
+      if(this.ltMotorForm.dirty){
+        this.validationError=false;
+      }
+      else{
+        this.validationError=false;
+      }
+     }
+  }
+  onKeyForm(event: KeyboardEvent) { 
+    if(!this.ltMotorForm.invalid){
+      if(this.ltMotorForm.dirty){
+        this.validationError=false;
+      }
+      else{
+        this.validationError=false;
+      }
+     }
+  } 
+
   saveLTMotor(ltMotorFlag: any) {
     this.submittedltMotor = true;
     if (this.ltMotorForm.invalid) {
