@@ -1584,8 +1584,8 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       this.riskAssessmentDetails.createdBy = this.riskList.createdBy;
       this.riskAssessmentDetails.createdDate = this.riskList.createdDate;
       this.riskAssessmentDetails.userName = this.riskList.userName;
-      this.riskAssessmentDetails.userName = this.riskList.updatedDate;
-      this.riskAssessmentDetails.userName = this.riskList.updatedBy;
+      this.riskAssessmentDetails.updatedDate = this.riskList.updatedDate;
+      this.riskAssessmentDetails.updatedBy = this.riskList.updatedBy;
       this.riskAssessmentRetrieve(this.riskList);
       setTimeout(() => {
         if(!this.step2Form.invalid) {
