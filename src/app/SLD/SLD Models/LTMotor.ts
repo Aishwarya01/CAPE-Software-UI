@@ -1,4 +1,5 @@
 export class LTMotor {
+    motorId!:number;
     nodeId!: String;
     fileName!: String;
     userName!: String;
@@ -10,12 +11,6 @@ export class LTMotor {
     voltage!: number;
     noOfPhase!: string;
     model!: number;
-    phase!: number;
-    neutral!: number;
-    protectiveConductor!: number;
-    phaseLen!: number;
-    neutralLen!: number;
-    protectiveConductorLen!: number;
     incomingSizePhase!: number;
     incomingSizeNeutral!: number;
     incomingSizeProtective!: number;
@@ -38,9 +33,9 @@ export class GeneralTestingLTMotor {
     rY!: String;
     yB!: String;
     bR!: String;
-    polarityR!: number;
-    polarityY!: number;
-    polarityB!: number;
+    polarityR!: String;
+    polarityY!: String;
+    polarityB!: String;
     powerFactor!: String;
     frequency!: String;    
 }
