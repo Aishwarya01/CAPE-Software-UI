@@ -98,7 +98,12 @@ import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 import { ConfirmationBoxComponent } from './confirmation-box/confirmation-box.component';
 import { LpssummaryComponent } from './LPS/lpssummary/lpssummary.component';
 import { SignaturePadModule } from 'angular2-signaturepad';
-import { SignatureComponent } from './signature/signature.component'
+import { SignatureComponent } from './signature/signature.component';
+import { RiskParentComponentComponent } from './Risk Assessment/Risk Assessment/risk-parent-component/risk-parent-component.component';
+import { RiskCustomerDetailsComponent } from './Risk Assessment/Risk Assessment/risk-customer-details/risk-customer-details.component';
+import { RiskSavedReportsComponent } from './Risk Assessment/Risk Assessment/risk-saved-reports/risk-saved-reports.component';
+import { RiskFinalReportsComponent } from './Risk Assessment/Risk Assessment/risk-final-reports/risk-final-reports.component';
+import { RiskAssessmentDetailsComponent } from './Risk Assessment/Risk Assessment/risk-assessment-details/risk-assessment-details.component'
 
 import { DiagramAllModule, SymbolPaletteAllModule, OverviewAllModule } from '@syncfusion/ej2-angular-diagrams';
 import { DiagramListComponent } from './SLD/SLD components/diagram-list/diagram-list.component';
@@ -175,7 +180,8 @@ import { LTMotorComponent } from './SLD/SLD components/Node Components/ltmotor/l
     LpsEarthStudComponent,
     LpsSavedReportComponent,
     LpsWelcomePageComponent, 
-    LpsFinalReportComponent, SignatureComponent, DiagramListComponent, DiagramHomeComponent, DiagramWelcomePageComponent, NewFileComponent, LpssummaryComponent, MCBComponent, MCCBComponent, RCBOComponent, LightComponent, LTMotorComponent, 
+
+    LpsFinalReportComponent, SignatureComponent, DiagramListComponent, DiagramHomeComponent, DiagramWelcomePageComponent, NewFileComponent, LpssummaryComponent, MCBComponent, MCCBComponent, RCBOComponent, LightComponent, LTMotorComponent, RiskParentComponentComponent, RiskCustomerDetailsComponent, RiskSavedReportsComponent, RiskFinalReportsComponent, RiskAssessmentDetailsComponent,  
     //FanComponent,
   ],
   imports: [

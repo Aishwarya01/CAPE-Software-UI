@@ -1,0 +1,238 @@
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatStepper } from '@angular/material/stepper';
+import { MatTab, MatTabGroup, MatTabHeader } from '@angular/material/tabs';
+import { ActivatedRoute } from '@angular/router';
+import { flag } from 'ngx-bootstrap-icons';
+import { ConfirmationBoxComponent } from 'src/app/confirmation-box/confirmation-box.component';
+import { GlobalsService } from 'src/app/globals.service';
+import { CustomerDetailsServiceService } from '../../Risk Assessment Services/customer-details-service.service';
+import { RiskglobalserviceService } from '../../riskglobalservice.service';
+import { RiskAssessmentDetailsComponent } from '../risk-assessment-details/risk-assessment-details.component';
+import { RiskCustomerDetailsComponent } from '../risk-customer-details/risk-customer-details.component';
+import { RiskFinalReportsComponent } from '../risk-final-reports/risk-final-reports.component';
+import { RiskSavedReportsComponent } from '../risk-saved-reports/risk-saved-reports.component';
+
+@Component({
+  selector: 'app-risk-parent-component',
+  templateUrl: './risk-parent-component.component.html',
+  styleUrls: ['./risk-parent-component.component.css'],
+  providers: [
+    {
+      provide: STEPPER_GLOBAL_OPTIONS,
+      useValue: { showError: true },
+    },
+  ],
+})
+export class RiskParentComponentComponent implements OnInit {
+
+  isCompleted: boolean = true;
+  isLinear:boolean=false; 
+  editable:boolean=false;
+  isCompleted2: boolean=false;
+  step1: boolean = true;
+  step2: boolean = true;
+  selectedIndex: any;
+  customerFlag: boolean=true;
+  riskFlag: boolean=true;
+
+  @ViewChild(RiskCustomerDetailsComponent)
+  customerDetails!: RiskCustomerDetailsComponent;
+  @ViewChild(RiskAssessmentDetailsComponent)
+  riskStep2!: RiskAssessmentDetailsComponent;
+  isEditable:boolean=false;
+
+  dataJSON: any = [];
+  @ViewChild(RiskSavedReportsComponent)saved!: RiskSavedReportsComponent;
+  @ViewChild(RiskFinalReportsComponent)final!: RiskFinalReportsComponent;
+  @ViewChild('tabs') tabs!: MatTabGroup;
+
+  @ViewChild(MatTabGroup) tabGroup!: MatTabGroup;
+  @ViewChild('stepper', { static: false }) stepper!: MatStepper;
+
+  constructor(
+          private customerDetailsService: CustomerDetailsServiceService,
+          public service: GlobalsService, private router: ActivatedRoute,
+          private dialog: MatDialog,private ChangeDetectorRef: ChangeDetectorRef,
+          private riskGlobal: RiskglobalserviceService
+    ) { }
+
+  ngOnInit(): void {
+    this.refresh();
+    // this.tabs._handleClick = this.interceptTabChange.bind(this);
+  }
+
+  public doSomething1(next: any): void {
+    this.service.isLinear=false;
+    this.service.isCompleted2 = next;
+
+    if (this.customerDetails.isCustomerFormUpdated) {
+      this.initializeRiskId();
+      this.riskStep2.isRiskFormUpdated = true;
+      // this.riskStep2.updateMethod();
+      this.customerDetails.isCustomerFormUpdated=false;
+    }
+    this.saved.ngOnInit();
+  }
+
+  public doSomething2(next: any): void {
+    this.service.isLinear=false;
+    this.service.isCompleted3 = next;
+    // this.final.ngOnInit();
+  }
+
+  triggerClickTab(){
+    this.customerDetails.gotoNextTab();
+    this.riskStep2.gotoNextTab();
+  }
+
+  goBack(stepper: MatStepper) {
+    if(this.riskStep2.reloadFromBack()){
+      stepper.previous();
+    }
+  }
+
+  navigateStep(index: any) {
+    this.selectedIndex = index;
+  }
+
+  navigateStepMethod(e: any) {
+    this.navigateStep(e);
+  }
+
+  continue(riskId: any): void {
+    this.refresh();
+    this.ngOnInit();
+    // this.isEditable=false;
+    this.riskStep2.updateButton=true;
+    this.riskStep2.saveButton=false;
+   // this.doSomething1(false);
+    this.selectedIndex=1;
+    this.changeTabRiskSavedReport(0,riskId,this.router.snapshot.paramMap.get('email') || '{}');
+    setTimeout(() => {
+      this.saved.spinner=false;
+      setTimeout(() => {
+      this.saved.disablepage=true;
+         }, 1000);
+    }, 3000);
+  }
+
+  preview(riskId: any): void {
+    this.ngOnInit();
+    this.isEditable=true;
+    this.changeTabRiskSavedReport(0,riskId,this.router.snapshot.paramMap.get('email') || '{}');
+  }
+
+  public onCallSavedMethod(e: any) {
+    this.continue(e);
+  }
+
+  public onCallFinalMethod(e: any) {
+    this.preview(e);
+  }
+  
+  refresh() {  
+    this.ChangeDetectorRef.detectChanges();
+  }
+
+  public changeTabRiskSavedReport(index: number, riskId: any, userName: any) {
+    this.step1 = false;
+    this.step2 = false;
+    setTimeout(() => {
+      this.step1 = true;
+      this.step2 = true;
+    }, 50);
+
+     setTimeout(() => {
+       this.customerDetailsService.retrieveFinalRisk(userName, riskId).subscribe(
+        (data) => {
+          // this.final.finalReportSpinner = false;
+          // this.final.finalReportBody = true;
+          this.dataJSON = JSON.parse(data);
+          //CustomerDetails
+          if (this.dataJSON.customerDetails != null) {
+            this.selectedIndex=index;
+            this.customerDetails.updateCustomerDetails(this.dataJSON);
+            this.riskStep2.appendRiskId(riskId,this.dataJSON.customerDetails.projectName);            
+            this.initializeRiskId();
+          }
+          //Risk Assessment Details
+          if (this.dataJSON.structureCharacteristics != null) {
+            this.selectedIndex=index;
+            this.riskStep2.updateRiskDetails(this.dataJSON.userName,this.dataJSON.riskId,this.dataJSON);
+          }  
+          else {
+            this.riskStep2.enablePrint = false;
+          }
+        },
+        (error) => {
+
+        })}, 3000);
+   }
+
+  // interceptTabChange(tab: MatTab, tabHeader: MatTabHeader) {
+  //   if((this.service.lvClick==1) && (this.service.allStepsCompleted==true))
+  //      {
+  //       const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+  //         width: '420px',
+  //         maxHeight: '90vh',
+  //         disableClose: true,
+  //       });
+  //       dialogRef.componentInstance.editModal = false;
+  //       dialogRef.componentInstance.viewModal = false;
+  //       dialogRef.componentInstance.triggerModal = true;
+  //       dialogRef.componentInstance.linkModal = false;
+    
+  //       dialogRef.componentInstance.confirmBox.subscribe(data=>{
+  //         if(data) {
+           
+  //           if(tab.textLabel == "Saved Reports"){
+  //             this.selectedIndex=1; 
+  //           }
+  //           // else if(tab.textLabel == "Final Reports"){
+  //           //   this.selectedIndex=2; 
+  //           // }
+  //           this.service.windowTabClick=0;
+  //           this.service.logoutClick=0; 
+  //           this.service.lvClick=0; 
+  //         }
+  //         else{
+  //           return;
+  //         }
+  //       })
+  //       }
+  //       else if((this.service.lvClick==0) || (this.service.allStepsCompleted==false)){
+  //       this.service.windowTabClick=0;
+  //       this.service.logoutClick=0;
+  //       this.service.lvClick=0; 
+  //       const tabs = tab.textLabel;
+  //       if((tabs==="Lightning Protection System"))  {
+  //            this.selectedIndex=0; 
+  //         }
+  //         else if((tabs==="Saved Reports")){
+  //           this.selectedIndex=1;
+  //           if(this.customerDetails.customerDetailsModel.riskId != undefined){
+  //             this.saved.retrieveCustomerDetails();
+  //             this.saved.disablepage=true;
+  //             // setTimeout(() => {
+  //             //   this.saved.spinner1=true;
+  //             // }, 3000);
+  //           }
+  //         }    
+  //         else{
+  //           this.selectedIndex=2; 
+  //         }        
+  //       }
+  // }
+
+  initializeRiskId(){
+    // this.customerDetails.isEditable=this.isEditable;
+    // Risk Assessment Details
+    this.riskStep2.riskId=this.customerDetails.customerDetailsModel.riskId;
+    this.riskStep2.projectName = this.customerDetails.customerDetailsModel.projectName;
+    // this.riskStep2.isEditable=this.isEditable;
+    this.riskGlobal.riskId=this.customerDetails.customerDetailsModel.riskId;
+    this.riskGlobal.projectName = this.customerDetails.customerDetailsModel.projectName;
+  }
+}
