@@ -76,6 +76,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   internalScreeningEffectivenessValue: any;
   enablePrint: boolean = false;
   projectName: any = '';
+  originalData: any = [];
 
   constructor(private router: ActivatedRoute,
               private formBuilder: FormBuilder,
@@ -91,7 +92,21 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     this.locationList = [];
     this.riskAssessmentService.fetchLocation().subscribe(
       data=> {
-        this.locationList = JSON.parse(data);
+        this.originalData = JSON.parse(data);
+        this.locationList = [];
+        for(let i of this.originalData){
+          if(i.location == 'Others') {
+            this.locationList.push(i);
+          }
+        }
+
+        for(let j of this.originalData) {
+          if(j.location != 'Others') {
+            this.locationList.push(j);
+          }
+        }
+        
+       // this.locationList = JSON.parse(data);
       })
 
     this.step2Form = this.formBuilder.group({
@@ -286,6 +301,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     this.getLocation=item.location;
     return this.formBuilder.group({
       structureCharacteristicsId: new FormControl({ disabled: false, value: item.structureCharacteristicsId }),
+      projectName: new FormControl({ disabled: false, value: item.projectName }),
       location: new FormControl({ disabled: false, value: item.location }, Validators.required),
       otherLocation: new FormControl({ disabled: false, value: item.otherLocation }),
       groundFlashDensity: new FormControl({ disabled: false, value: item.groundFlashDensity }, Validators.required),
@@ -1575,12 +1591,15 @@ export class RiskAssessmentDetailsComponent implements OnInit {
      }
      else{
       this.riskList = data.structureCharacteristics;
+      
      }
       this.riskGlobal.riskId=riskId;
       this.riskAssessmentDetails.riskId = riskId;
       this.riskAssessmentDetails.createdBy = this.riskList.createdBy;
       this.riskAssessmentDetails.createdDate = this.riskList.createdDate;
       this.riskAssessmentDetails.userName = this.riskList.userName;
+      this.riskAssessmentDetails.projectName = this.riskList.projectName;
+      this.projectName = this.riskList.projectName;
       this.riskAssessmentDetails.updatedDate = this.riskList.updatedDate;
       this.riskAssessmentDetails.updatedBy = this.riskList.updatedBy;
       this.riskAssessmentRetrieve(this.riskList);
@@ -1700,6 +1719,8 @@ export class RiskAssessmentDetailsComponent implements OnInit {
           }
       }
       else {
+        this.riskAssessmentDetails.projectName = this.riskGlobal.projectName;
+
         this.riskAssessmentService.addRiskAssessmentDetails(this.riskAssessmentDetails).subscribe(
           data => {
             this.popup=true;

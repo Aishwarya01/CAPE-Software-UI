@@ -111,6 +111,7 @@ export class RiskCustomerDetailsComponent implements OnInit {
      }
       // this.success = true;
       this.riskGlobal.riskId=this.customerList.riskId;
+      this.riskGlobal.projectName = this.customerList.projectName;
       this.customerDetailsModel.riskId = this.customerList.riskId;
       this.customerDetailsModel.updatedBy = this.customerList.updatedBy;
       this.customerDetailsModel.updatedDate = this.customerList.updatedDate;
@@ -284,6 +285,8 @@ export class RiskCustomerDetailsComponent implements OnInit {
           this.CustomerDetailsForm.markAsPristine();
           this.proceedNext.emit(true);
           this.riskGlobal.riskId=JSON.parse(data).riskId;
+          this.riskGlobal.projectName=JSON.parse(data).projectName;
+
         },
         error => {
            this.popup=true;

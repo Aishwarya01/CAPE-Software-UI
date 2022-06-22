@@ -230,7 +230,9 @@ export class RiskParentComponentComponent implements OnInit {
     // this.customerDetails.isEditable=this.isEditable;
     // Risk Assessment Details
     this.riskStep2.riskId=this.customerDetails.customerDetailsModel.riskId;
+    this.riskStep2.projectName = this.customerDetails.customerDetailsModel.projectName;
     // this.riskStep2.isEditable=this.isEditable;
     this.riskGlobal.riskId=this.customerDetails.customerDetailsModel.riskId;
+    this.riskGlobal.projectName = this.customerDetails.customerDetailsModel.projectName;
   }
 }
