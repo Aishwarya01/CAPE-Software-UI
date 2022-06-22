@@ -1,0 +1,17 @@
+.mat-form-field {
+    margin-top: 16px;
+  }
+
+  .riskStep2 {
+    background-color: #f1f1f1;
+    color: black;
+    position: relative;
+    bottom: 57px;
+    left: 36%;
+  }
+  .riskStep2:hover {
+    background-color: #747a76;
+    color: white;
+    /* position: relative;
+    bottom: 54px; */
+  }
