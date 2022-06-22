@@ -134,10 +134,12 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       noOfPeopleInZone: new FormControl('',[Validators.required]),
       dayPeoplePresentBuilding: new FormControl('',[Validators.required]),
       yearPeoplePresentBuilding: new FormControl('',[Validators.required]),
+      
       explosion: new FormControl(''),
       explosion1: new FormControl(''),
       fire: new FormControl(''),
       none: new FormControl(''),
+      riskOfFireData: new FormControl(''),
 
       structureAttributes: this.formBuilder.array([this.createStructureAttributesForm()]),
       losses: this.formBuilder.array([this.createLossesForm()]),
@@ -211,6 +213,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       protectionPV: new FormControl(''),
       protectionPW: new FormControl(''),
       protectionPZ: new FormControl(''),
+
       // RISK OF LOSS OF HUMAN BEINGS (R1)	
       riskProtectionRA1: new FormControl(''),
       riskProtectionRB1: new FormControl(''),
@@ -220,8 +223,11 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       riskProtectionRV1: new FormControl(''),
       riskProtectionRW1: new FormControl(''),
       riskProtectionRZ1: new FormControl(''),
+    
+      // RB2
       riskProtectionRB2: new FormControl(''),
 
+      // RISK OF LOSS OF CULTURAL HERITAGE (R3)
       culturalRB: new FormControl(''),
       culturalRV: new FormControl(''),
 
@@ -236,17 +242,10 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       riskProtectionRV2: new FormControl(''),
       riskProtectionRW2: new FormControl(''),
       riskProtectionRZ2: new FormControl(''),
-      riskProtectionRB3: new FormControl(''),
-      riskProtectionRV3: new FormControl(''),
-      riskProtectionRA4: new FormControl(''),
-      riskProtectionRB4: new FormControl(''),
-      riskProtectionRC4: new FormControl(''),
-      riskProtectionRM4: new FormControl(''),
-      riskProtectionRU4: new FormControl(''),
-      riskProtectionRV4: new FormControl(''),
-      riskProtectionRW4: new FormControl(''),
-      riskProtectionRZ4: new FormControl(''),
 
+      // RISK OF LOSS OF ECONOMIC VALUE (R4), 
+      // Insteed of the RA4 we gave econamicValueRA to econamicValueRZ upto RZ4
+      
       econamicValueRA: new FormControl(''),
       econamicValueRB: new FormControl(''),
       econamicValueRC: new FormControl(''),
@@ -325,6 +324,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       explosion1: new FormControl(''),
       fire: new FormControl(''),
       none: new FormControl(''),
+      riskOfFireData: new FormControl(''),
 
       structureAttributes: this.formBuilder.array(this.structureAttributesID(item)),
       losses: this.formBuilder.array(this.lossesID(item)),
@@ -481,16 +481,6 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       riskProtectionRV2: new FormControl({ disabled: false, value: item.riskProtectionRV2 }),
       riskProtectionRW2: new FormControl({ disabled: false, value: item.riskProtectionRW2 }),
       riskProtectionRZ2: new FormControl({ disabled: false, value: item.riskProtectionRZ2 }),
-      riskProtectionRB3: new FormControl({ disabled: false, value: item.riskProtectionRB3 }),
-      riskProtectionRV3: new FormControl({ disabled: false, value: item.riskProtectionRV3 }),
-      riskProtectionRA4: new FormControl({ disabled: false, value: item.riskProtectionRA4 }),
-      riskProtectionRB4: new FormControl({ disabled: false, value: item.riskProtectionRB4 }),
-      riskProtectionRC4: new FormControl({ disabled: false, value: item.riskProtectionRC4 }),
-      riskProtectionRM4: new FormControl({ disabled: false, value: item.riskProtectionRM4 }),
-      riskProtectionRU4: new FormControl({ disabled: false, value: item.riskProtectionRU4 }),
-      riskProtectionRV4: new FormControl({ disabled: false, value: item.riskProtectionRV4 }),
-      riskProtectionRW4: new FormControl({ disabled: false, value: item.riskProtectionRW4 }),
-      riskProtectionRZ4: new FormControl({ disabled: false, value: item.riskProtectionRZ4 }),
 
       econamicValueRA: new FormControl({ disabled: false, value: item.econamicValueRA }),
       econamicValueRB: new FormControl({ disabled: false, value: item.econamicValueRB }),
@@ -552,12 +542,12 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     this.getLocation='';
     this.spinner=true;
     this.disablepage=false;
-    setTimeout(()=>{
+    // setTimeout(()=>{
       for(let i of this.locationList) {
         if(i.location == selectedValue) {
           form.controls.groundFlashDensity.setValue(i.gfdValue);
           this.showFlashDensity = true;
-          this.spinner=false;
+          // this.spinner=false;
           this.disablepage=true;
         }
         if(selectedValue == 'Others') {
@@ -565,7 +555,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
           this.showFlashDensity = false;
         }
       }
-    },3000);
+    // },3000);
   }
 
   buildingValue(event: any, form: any){
@@ -857,24 +847,31 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 
     if(form.controls.structureAttributes.controls[0].controls.stRiskOfFire.value == "Zones 0, 20 and solid explosive"){
       this.riskInputValue='1';
+      form.controls.riskOfFireData.setValue('1');
     }
     else if(form.controls.structureAttributes.controls[0].controls.stRiskOfFire.value == "Zones 1, 21"){
       this.riskInputValue='0.1';
+      form.controls.riskOfFireData.setValue('0.1');
     }
     else if(form.controls.structureAttributes.controls[0].controls.stRiskOfFire.value == "Zones 2, 22"){
       this.riskInputValue='0.001';
+      form.controls.riskOfFireData.setValue('0.001');
     }
     else if(form.controls.structureAttributes.controls[0].controls.stRiskOfFire.value == "High"){
       this.riskInputValue='0.1';
+      form.controls.riskOfFireData.setValue('0.1');
     }
     else if(form.controls.structureAttributes.controls[0].controls.stRiskOfFire.value == "Ordinary"){
       this.riskInputValue='0.01';
+      form.controls.riskOfFireData.setValue('0.01');
     }
     else if(form.controls.structureAttributes.controls[0].controls.stRiskOfFire.value == "Low"){
       this.riskInputValue='0.001';
+      form.controls.riskOfFireData.setValue('0.001');
     }
     else if(form.controls.structureAttributes.controls[0].controls.stRiskOfFire.value == "None"){
       this.riskInputValue='0';
+      form.controls.riskOfFireData.setValue('0');
     }
     this.economicLossL4(event,form);
     this.lossHumanLifeL1(event,form);
@@ -894,7 +891,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     // Loss due to physical damage (L1), formula = rp × rf × hZ × LF × nz/nt × tz/8760
     if(form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure!='' && form.controls.structureAttributes.controls[0].controls.stRiskOfFire!='' && form.controls.losses.controls[0].controls.hazardClassification!='' && form.controls.losses.controls[0].controls.humanLossOfphysicalDamage!='' && form.controls.noOfPeopleInZone!='' && form.controls.noOfPeopleInBuilding!='' && form.controls.yearPeoplePresentBuilding!=''){
 
-      var b = form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure.value*this.riskInputValue*form.controls.losses.controls[0].controls.hazardClassification.value*form.controls.losses.controls[0].controls.humanLossOfphysicalDamage.value*form.controls.noOfPeopleInZone.value/form.controls.noOfPeopleInBuilding.value*form.controls.yearPeoplePresentBuilding.value/8760;
+      var b = form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure.value*form.controls.riskOfFireData.value*form.controls.losses.controls[0].controls.hazardClassification.value*form.controls.losses.controls[0].controls.humanLossOfphysicalDamage.value*form.controls.noOfPeopleInZone.value/form.controls.noOfPeopleInBuilding.value*form.controls.yearPeoplePresentBuilding.value/8760;
 
       form.controls.losses.controls[0].controls.humanLossOfPhysicalDamageL1.setValue(b.toFixed(17));
     }
@@ -917,7 +914,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     // Loss due to physical damage, formula = rp × rf × LF × nz/nt 
     if(form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure!='' && form.controls.structureAttributes.controls[0].controls.stRiskOfFire!='' && form.controls.losses.controls[0].controls.serToPubPhysicalDamage!='' && form.controls.noOfPeopleInZone!='' && form.controls.noOfPeopleInBuilding!=''){
       
-      var a = form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure.value*this.riskInputValue*form.controls.losses.controls[0].controls.serToPubPhysicalDamage.value*form.controls.noOfPeopleInZone.value/form.controls.noOfPeopleInBuilding.value;
+      var a = form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure.value*form.controls.riskOfFireData.value*form.controls.losses.controls[0].controls.serToPubPhysicalDamage.value*form.controls.noOfPeopleInZone.value/form.controls.noOfPeopleInBuilding.value;
 
       form.controls.losses.controls[0].controls.serToPubPhysicalDamageL1.setValue(a.toFixed(1));
     }
@@ -937,7 +934,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     // Math for LOSS OF CULTURAL HERITAGE (L3), formula =  rp × rf × LF × cz/ct 
     if(form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure!='' && form.controls.structureAttributes.controls[0].controls.stRiskOfFire!='' && form.controls.losses.controls[0].controls.culHerOfPhysicalDamage!=''){
 
-      var c = form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure.value*this.riskInputValue*form.controls.losses.controls[0].controls.culHerOfPhysicalDamage.value*1/1;
+      var c = form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure.value*form.controls.riskOfFireData.value*form.controls.losses.controls[0].controls.culHerOfPhysicalDamage.value*1/1;
 
       form.controls.losses.controls[0].controls.culHerOfPhysicalDamageL1.setValue(c.toFixed(1));
     }
@@ -960,7 +957,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     // Loss due to physical damage, formula = rp × rf × LF × (ca + cb + cc + cs)/ct 
     if(form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure!='' && form.controls.structureAttributes.controls[0].controls.stRiskOfFire!='' && form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamage!='' && form.controls.telephoneServiceLine!=''){
 
-      var b = (form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure.value*this.riskInputValue*form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamage.value*form.controls.telephoneServiceLine.value)*4/1;
+      var b = (form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure.value*form.controls.riskOfFireData.value*form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamage.value*form.controls.telephoneServiceLine.value)*4/1;
 
       form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageL1.setValue(Math.ceil(b));
     }

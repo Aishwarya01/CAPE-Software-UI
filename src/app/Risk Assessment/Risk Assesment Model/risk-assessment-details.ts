@@ -132,9 +132,6 @@ export class Protection {
     riskProtectionRV1!: String;
     riskProtectionRW1!: String;
     riskProtectionRZ1!: String;
-    riskProtectionRD1!: String;
-    riskProtectionRI1!: String;
-    riskProtectionR1!: String;
     riskProtectionRB2!: String;
     culturalRB!: String;
     culturalRV!: String;
@@ -148,16 +145,6 @@ export class RiskProtection {
     riskProtectionRV2!: String;
     riskProtectionRW2!: String;
     riskProtectionRZ2!: String;
-    riskProtectionRB3!: String;
-    riskProtectionRV3!: String;
-    riskProtectionRA4!: String;
-    riskProtectionRB4!: String;
-    riskProtectionRC4!: String;
-    riskProtectionRM4!: String;
-    riskProtectionRU4!: String;
-    riskProtectionRV4!: String;
-    riskProtectionRW4!: String;
-    riskProtectionRZ4!: String;
 
     econamicValueRA!: String;
     econamicValueRB!: String;
