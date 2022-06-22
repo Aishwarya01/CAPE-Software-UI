@@ -106,10 +106,16 @@ import { RiskFinalReportsComponent } from './Risk Assessment/Risk Assessment/ris
 import { RiskAssessmentDetailsComponent } from './Risk Assessment/Risk Assessment/risk-assessment-details/risk-assessment-details.component'
 
 import { DiagramAllModule, SymbolPaletteAllModule, OverviewAllModule } from '@syncfusion/ej2-angular-diagrams';
-import { DiagramListComponent } from './diagram-list/diagram-list.component';
-import { DiagramHomeComponent } from './diagram-home/diagram-home.component';
-import { DiagramWelcomePageComponent } from './diagram-welcome-page/diagram-welcome-page.component';
+import { DiagramListComponent } from './SLD/SLD components/diagram-list/diagram-list.component';
+import { DiagramHomeComponent } from './SLD/SLD components/diagram-home/diagram-home.component';
+import { DiagramWelcomePageComponent } from './SLD/SLD components/diagram-welcome-page/diagram-welcome-page.component';
 import { NewFileComponent } from './new-file/new-file.component';
+import { MCBComponent } from './SLD/SLD components/Node Components/mcb/mcb.component';
+import { MCCBComponent } from './SLD/SLD components/Node Components/mccb/mccb.component';
+import { RCBOComponent } from './SLD/SLD components/Node Components/rcbo/rcbo.component';
+import { LightComponent } from './SLD/SLD components/Node Components/light/light.component';
+import { LTMotorComponent } from './SLD/SLD components/Node Components/ltmotor/ltmotor.component';
+//import { FanComponent } from './SLD/SLD components/Node Components/fan/fan.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -174,7 +180,9 @@ import { NewFileComponent } from './new-file/new-file.component';
     LpsEarthStudComponent,
     LpsSavedReportComponent,
     LpsWelcomePageComponent, 
-    LpsFinalReportComponent, SignatureComponent, DiagramListComponent, DiagramHomeComponent, DiagramWelcomePageComponent, NewFileComponent, LpssummaryComponent,RiskParentComponentComponent, RiskCustomerDetailsComponent, RiskSavedReportsComponent, RiskFinalReportsComponent, RiskAssessmentDetailsComponent, 
+
+    LpsFinalReportComponent, SignatureComponent, DiagramListComponent, DiagramHomeComponent, DiagramWelcomePageComponent, NewFileComponent, LpssummaryComponent, MCBComponent, MCCBComponent, RCBOComponent, LightComponent, LTMotorComponent, RiskParentComponentComponent, RiskCustomerDetailsComponent, RiskSavedReportsComponent, RiskFinalReportsComponent, RiskAssessmentDetailsComponent,  
+    //FanComponent,
   ],
   imports: [
     SignaturePadModule,

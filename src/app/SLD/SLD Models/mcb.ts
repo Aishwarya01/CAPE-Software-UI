@@ -1,4 +1,5 @@
 export class MCB {
+    mcbID!: number;
     nodeId!: String;
     fileName!: String;
     referenceName!: String;
