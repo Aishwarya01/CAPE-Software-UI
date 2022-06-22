@@ -92,7 +92,7 @@
                               <i class="bi bi-person-lines-fill"></i>
                           </span>
                         </div>
-                        <input class="form-control" [readonly]="isEditable" type="text" formControlName="contactPersonName" placeholder="Enter Contact Person Name"
+                        <input class="form-control" type="text" [readonly]="isEditable" formControlName="contactPersonName" placeholder="Enter Contact Person Name"
                           [ngClass]="{ 'is-invalid': submitted && f.get('contactPersonName')?.errors }"/>
                             <div *ngIf="submitted && f.get('contactPersonName')?.errors" class="invalid-feedback">
                               <div *ngIf="f.get('contactPersonName')?.errors?.required">Contact Person Name is required</div>
@@ -134,7 +134,7 @@
 
                   <div class="col-md-4">
                     <label for="contact">Contact Number</label>
-                        <input class="form-control" [readonly]="isEditable" type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" formControlName="contactNumber" placeholder="Enter Contact Number"
+                        <input class="form-control" [readonly]="isEditable" (keypress)="keyPressNumbers($event)" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" formControlName="contactNumber" placeholder="Enter Contact Number"
                         (countryChange)="countryChange($event)" [ngClass]="{ 'is-invalid': submitted && f.get('contactNumber')?.errors }"/>
                           <div *ngIf="submitted && f.get('contactNumber')?.errors" class="invalid-feedback">
                             <div *ngIf="f.get('contactNumber')?.errors?.required">Contact Number is required</div>
@@ -151,7 +151,7 @@
                               <i class="bi bi-envelope-fill"></i>
                           </span>
                         </div>
-                        <input class="form-control" [readonly]="isEditable" type="text" formControlName="email" placeholder="Enter Email ID"
+                        <input class="form-control" [readonly]="isEditable" type="email" formControlName="email" placeholder="Enter Email ID"
                           [ngClass]="{ 'is-invalid': submitted && f.get('email')?.errors }"/>
                             <div *ngIf="submitted && f.get('email')?.errors" class="invalid-feedback">
                               <div *ngIf="f.get('email')?.errors?.required">Email ID is required</div>

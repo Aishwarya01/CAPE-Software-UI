@@ -123,6 +123,7 @@ export class Protection {
     protectionPV!: String;
     protectionPW!: String;
     protectionPZ!: String;
+
     // RISK OF LOSS OF HUMAN BEINGS (R1)	
     riskProtectionRA1!: String;
     riskProtectionRB1!: String;
@@ -132,7 +133,11 @@ export class Protection {
     riskProtectionRV1!: String;
     riskProtectionRW1!: String;
     riskProtectionRZ1!: String;
+
+    // R2
     riskProtectionRB2!: String;
+
+    // RISK OF LOSS OF CULTURAL HERITAGE (R3)
     culturalRB!: String;
     culturalRV!: String;
 }
@@ -140,12 +145,14 @@ export class Protection {
 export class RiskProtection {
     riskProtectionId!: Number;
 
+    // R2
     riskProtectionRC2!: String;
     riskProtectionRM2!: String;
     riskProtectionRV2!: String;
     riskProtectionRW2!: String;
     riskProtectionRZ2!: String;
 
+    // RISK OF LOSS OF ECONOMIC VALUE (R4)
     econamicValueRA!: String;
     econamicValueRB!: String;
     econamicValueRC!: String;
@@ -159,6 +166,7 @@ export class RiskProtection {
 export class CalculatedRisk {
     calculatedRiskId!: Number;
 
+    // VALUES OF TOLERABLE RISK (RT)
     lossOfHumanLifeRT1!: String;
     lossOfPublicSerivceRT2!: String;
     lossOfCulturalHeritageRT3!: String;

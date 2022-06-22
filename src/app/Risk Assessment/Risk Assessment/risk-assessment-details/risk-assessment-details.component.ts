@@ -557,14 +557,12 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     let selectedValue = e.target.value;
     this.getLocation='';
     this.spinner=true;
-    this.disablepage=false;
     setTimeout(()=>{
       for(let i of this.locationList) {
         if(i.location == selectedValue) {
           form.controls.groundFlashDensity.setValue(i.gfdValue);
           this.showFlashDensity = true;
           this.spinner=false;
-          this.disablepage=true;
         }
         if(selectedValue == 'Others') {
           form.controls.groundFlashDensity.setValue('');
@@ -1535,14 +1533,14 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   }
 
   gotoNextModal(contents: any,content:any) {
-    if (this.step2Form.invalid) {
-      this.validationError = true;
-      this.validationErrorMsg = 'Please check all the fields';
-      setTimeout(() => {
-        this.validationError = false;
-      }, 3000);
-      return;
-    }
+    // if (this.step2Form.invalid) {
+    //   this.validationError = true;
+    //   this.validationErrorMsg = 'Please check all the fields';
+    //   setTimeout(() => {
+    //     this.validationError = false;
+    //   }, 3000);
+    //   return;
+    // }
     
     //  Update and Success msg will be showing
     if(this.step2Form.dirty && this.step2Form.touched){
@@ -1686,7 +1684,6 @@ export class RiskAssessmentDetailsComponent implements OnInit {
               this.step2Form.markAsPristine();
               this.retriveRiskDetails();
               this.proceedNext.emit(true);
-              
             },
               // update failed msg
             error => {
