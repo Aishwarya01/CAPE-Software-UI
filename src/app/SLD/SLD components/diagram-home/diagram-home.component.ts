@@ -25,8 +25,8 @@ import { RCBOComponent } from '../Node Components/rcbo/rcbo.component';
 import { LightComponent } from '../Node Components/light/light.component';
 import { LTMotorComponent } from '../Node Components/ltmotor/ltmotor.component';
 
-//import { FanComponent } from '../Node Components/fan/fan.component';
-//import { FanServicesService } from '../../../SLD/SLD Services/fan-services.service';
+import { FanComponent } from '../Node Components/fan/fan.component';
+import { FanServicesService } from '../../../SLD/SLD Services/fan-services.service';
 
 
 @Component({
@@ -225,16 +225,16 @@ export class DiagramHomeComponent implements OnInit {
         dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
         dialogRef.componentInstance.email = this.email;
       }
-      // else if(e.element.properties.id.includes('Fan')) {
-      //   const dialogRef = this.dialog.open(FanComponent, {
-      //     width: '1100px',
-      //     maxHeight: '90vh',
-      //     disableClose: true,
-      //   });
-      //   dialogRef.componentInstance.nodeId = e.element.properties.id;
-      //   dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
-      //   dialogRef.componentInstance.email = this.email;
-      // }
+      else if(e.element.properties.id.includes('Fan')) {
+        const dialogRef = this.dialog.open(FanComponent, {
+          width: '1100px',
+          maxHeight: '90vh',
+          disableClose: true,
+        });
+        dialogRef.componentInstance.nodeId = e.element.properties.id;
+        dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
+        dialogRef.componentInstance.email = this.email;
+      }
       else if(e.element.properties.id.includes('MCB_with_RCD')) {
         const dialogRef = this.dialog.open(RCBOComponent, {
           width: '1100px',
@@ -619,7 +619,7 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
               private mccbService: MCCBServicesService,
               private rcboService: RCBOServicesService,
               private lightService: LightServicesService,
-              //private fanService: FanServicesService,
+              private fanService: FanServicesService,
               private LTMotorService:LTMotorServicesService,
               private router: ActivatedRoute,
               private modalService: NgbModal,
