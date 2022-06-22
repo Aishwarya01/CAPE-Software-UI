@@ -542,12 +542,12 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     this.getLocation='';
     this.spinner=true;
     this.disablepage=false;
-    // setTimeout(()=>{
+    setTimeout(()=>{
       for(let i of this.locationList) {
         if(i.location == selectedValue) {
           form.controls.groundFlashDensity.setValue(i.gfdValue);
           this.showFlashDensity = true;
-          // this.spinner=false;
+          this.spinner=false;
           this.disablepage=true;
         }
         if(selectedValue == 'Others') {
@@ -555,7 +555,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
           this.showFlashDensity = false;
         }
       }
-    // },3000);
+    },3000);
   }
 
   buildingValue(event: any, form: any){
