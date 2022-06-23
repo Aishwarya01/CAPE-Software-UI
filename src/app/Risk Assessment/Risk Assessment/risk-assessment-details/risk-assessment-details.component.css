@@ -1,0 +1,31 @@
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-color: #3f51b5 !important;
+}
+
+.next{
+    background-color: #f1f1f1;
+    color: black;
+    margin-left: 30px;
+  }
+  .next:hover{
+    background-color: #04AA6D;
+    color: white;
+    margin-left: 30px;
+    }
+th {
+  text-align: center;
+}
+
+#upperCase{
+  height: 3rem;
+  text-transform: uppercase;
+}
+
+a {
+  color: blue !important;
+  cursor: pointer !important;
+  text-decoration: underline !important;
+  margin-left: 6px;
+}
