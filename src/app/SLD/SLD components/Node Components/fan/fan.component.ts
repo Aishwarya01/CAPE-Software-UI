@@ -243,21 +243,21 @@ export class FanComponent implements OnInit {
    });
  }
 
- addFanTesting() {
-   let generalTestingFanArr: any = [];
-   let safetyTestingFanArr: any = [];
+//  addFanTesting() {
+//    let generalTestingFanArr: any = [];
+//    let safetyTestingFanArr: any = [];
 
-   generalTestingFanArr = this.fanForm.get('generalTestingFan') as FormArray;
-   safetyTestingFanArr = this.fanForm.get('safetyTestingFan') as FormArray;
+//    generalTestingFanArr = this.fanForm.get('generalTestingFan') as FormArray;
+//    safetyTestingFanArr = this.fanForm.get('safetyTestingFan') as FormArray;
 
-   generalTestingFanArr.push(this.createGeneralTestingFan());
-   safetyTestingFanArr.push(this.createSafetyTestingFan());
- }
+//    generalTestingFanArr.push(this.createGeneralTestingFan());
+//    safetyTestingFanArr.push(this.createSafetyTestingFan());
+//  }
 
- removeFantesting(a: any, i: any) {
-   (this.fanForm.get('generalTestingFan') as FormArray).removeAt(i);
-   (this.fanForm.get('safetyTestingFan') as FormArray).removeAt(i)
- }
+//  removeFantesting(a: any, i: any) {
+//    (this.fanForm.get('generalTestingFan') as FormArray).removeAt(i);
+//    (this.fanForm.get('safetyTestingFan') as FormArray).removeAt(i)
+//  }
 
  get f(){
    return this.fanForm.controls;
