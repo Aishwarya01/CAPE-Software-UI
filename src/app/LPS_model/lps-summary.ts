@@ -40,6 +40,9 @@ export class SummaryLpsObservation {
     observation!: String;
     recommendation!: number;
     observationComponentDetails!: String;
+    serialNoUi!: String;     
+    headingUi!: String;
+    heading!: String;
     summaryLpsInnerObservation!: SummaryLpsInnerObservation[];
 }
 

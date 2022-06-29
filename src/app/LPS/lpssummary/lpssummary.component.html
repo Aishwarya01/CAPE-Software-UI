@@ -99,24 +99,28 @@
                             </tr>
                           </thead>
                           <tbody formArrayName="airTermination" *ngFor="let a of airTerminationControl(q); let i= index">
-                              <tr [formGroupName]="i">
-                              <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
-                              <td>{{a.get("serialNo")?.value}}</td>
-                              <td>
-                                <textarea type="text" class="form-control"  cols="30" rows="1" formControlName="observation"
-                                placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
-                              </td>
-                              <td> 
-                                <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
-                                placeholder="Ex. Recommendations..."></textarea> 
-                              </td>
-                              </tr>
+                           
+                            <tr *ngIf="a.get('observation')?.value != null && a.get('observation')?.value  != '' " [formGroupName]="i" > 
+                                
+                              <td nowrap="nowrap" style="font-weight: bold;">{{a.get("headingUi")?.value}}</td>
+                              <td>{{a.get('serialNoUi')?.value}}</td>
+                                  <td>
+                                    <textarea type="text" class="form-control"  cols="30" rows="1" formControlName="observation"
+                                    placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                                  </td>
+                                  <td> 
+                                    <textarea type="text" class="form-control" [readonly]="isEditable" cols="30" rows="1" formControlName="recommendation"
+                                    placeholder="Ex. Recommendations..."></textarea> 
+                                  </td>
+                                  
+                                  </tr>
+                              
                           </tbody>
 
                           <tbody formArrayName="airVertical" *ngFor="let a of airVerticalControl(q); let i= index">
-                            <tr [formGroupName]="i">
-                            <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
-                            <td>{{a.get("serialNo")?.value}}</td>
+                            <tr  *ngIf="a.get('observation')?.value != null && a.get('observation')?.value  != '' " [formGroupName]="i">
+                              <td nowrap="nowrap" style="font-weight: bold;">{{a.get("headingUi")?.value}}</td>
+                              <td>{{a.get('serialNoUi')?.value}}</td>
                             <td>
                               <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
                               placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
@@ -129,9 +133,9 @@
                         </tbody>
                         
                         <tbody formArrayName="airVerticalList" *ngFor="let a of airVerticalListControl(q); let i= index">
-                          <tr [formGroupName]="i">
-                          <td nowrap="nowrap" style="padding-left: 60px;">{{a.get("heading")?.value}}</td>
-                          <td>{{a.get("serialNo")?.value}}</td>
+                          <tr *ngIf="a.get('observation')?.value != null && a.get('observation')?.value  != '' " [formGroupName]="i">
+                            <td nowrap="nowrap" style="font-weight: bold;">{{a.get("headingUi")?.value}}</td>
+                            <td>{{a.get('serialNoUi')?.value}}</td>
                           <td>
                             <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
                             placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
@@ -144,9 +148,9 @@
                       </tbody>
                 
                         <tbody formArrayName="airMesh" *ngFor="let a of airMeshControl(q); let i= index">
-                          <tr [formGroupName]="i">
-                          <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
-                          <td>{{a.get("serialNo")?.value}}</td>
+                          <tr  *ngIf="a.get('observation')?.value != null && a.get('observation')?.value  != '' " [formGroupName]="i">
+                            <td nowrap="nowrap" style="font-weight: bold;">{{a.get("headingUi")?.value}}</td>
+                            <td>{{a.get('serialNoUi')?.value}}</td>
                           <td>
                             <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
                             placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
@@ -159,9 +163,9 @@
                       </tbody>
 
                       <tbody formArrayName="airHolder" *ngFor="let a of airHolderControl(q); let i= index">
-                        <tr [formGroupName]="i">
-                        <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
-                        <td>{{a.get("serialNo")?.value}}</td>
+                        <tr  *ngIf="a.get('observation')?.value != null && a.get('observation')?.value  != '' " [formGroupName]="i">
+                          <td nowrap="nowrap" style="font-weight: bold;">{{a.get("headingUi")?.value}}</td>
+                          <td>{{a.get('serialNoUi')?.value}}</td>
                         <td>
                           <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
                           placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
@@ -174,9 +178,9 @@
                     </tbody>
 
                     <tbody formArrayName="airHolderList" *ngFor="let a of airHolderListControl(q); let i= index">
-                      <tr [formGroupName]="i">
-                      <td nowrap="nowrap" style="padding-left: 60px;">{{a.get("heading")?.value}}</td>
-                      <td>{{a.get("serialNo")?.value}}</td>
+                      <tr  *ngIf="a.get('observation')?.value != null && a.get('observation')?.value  != '' " [formGroupName]="i">
+                        <td nowrap="nowrap" style="font-weight: bold;">{{a.get("headingUi")?.value}}</td>
+                        <td>{{a.get('serialNoUi')?.value}}</td>
                       <td>
                         <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
                         placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
@@ -189,9 +193,9 @@
                   </tbody>
 
                         <tbody formArrayName="airClamps" *ngFor="let a of airClampsControl(q); let i= index">
-                          <tr [formGroupName]="i">
-                          <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
-                          <td>{{a.get("serialNo")?.value}}</td>
+                          <tr  *ngIf="a.get('observation')?.value != null && a.get('observation')?.value  != '' " [formGroupName]="i">
+                            <td nowrap="nowrap" style="font-weight: bold;">{{a.get("headingUi")?.value}}</td>
+                            <td>{{a.get('serialNoUi')?.value}}</td>
                           <td>
                             <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
                             placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
@@ -203,9 +207,9 @@
                           </tr>
                       </tbody>
                       <tbody formArrayName="airExpansion" *ngFor="let a of airExpansionControl(q); let i= index">
-                        <tr [formGroupName]="i">
-                        <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
-                        <td>{{a.get("serialNo")?.value}}</td>
+                        <tr  *ngIf="a.get('observation')?.value != null && a.get('observation')?.value  != '' " [formGroupName]="i">
+                          <td nowrap="nowrap" style="font-weight: bold;">{{a.get("headingUi")?.value}}</td>
+                          <td>{{a.get('serialNoUi')?.value}}</td>
                         <td>
                           <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
                           placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
@@ -217,9 +221,9 @@
                         </tr>
                     </tbody>
                       <tbody formArrayName="airConnectors" *ngFor="let a of airConnectorsControl(q); let i= index">
-                        <tr [formGroupName]="i">
-                        <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
-                        <td>{{a.get("serialNo")?.value}}</td>
+                        <tr  *ngIf="a.get('observation')?.value != null && a.get('observation')?.value  != '' " [formGroupName]="i">
+                          <td nowrap="nowrap" style="font-weight: bold;">{{a.get("headingUi")?.value}}</td>
+                          <td>{{a.get('serialNoUi')?.value}}</td>
                         <td>
                           <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
                           placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
@@ -246,10 +250,11 @@
                   </div>
                 </div>
 
-                <div class="tableObserve" *ngIf="downConductorBasicControl(q).length != 0 || downConductorControl(q).length != 0 ||
+                <div class="tableObserve" *ngIf="(downConductorBasicControl(q).length != 0 || downConductorControl(q).length != 0 ||
                 bridgingDescControl(q).length != 0 || downHoldersControl(q).length != 0 ||
                 downConnectorsControl(q).length != 0 || testingJointsControl(q).length != 0 ||
-                lightningCountersControl(q).length != 0 || downConductorTestingControl(q).length != 0 ">
+                lightningCountersControl(q).length != 0 || downConductorTestingControl(q).length != 0 ) && dwonconductorRemarks">
+               
                   <div class="form-group">
                   <!-- Observation starts here -->
                   <label>
@@ -269,9 +274,10 @@
                               </tr>
                             </thead>
                             <tbody formArrayName="downConductorReport" *ngFor="let a of downConductorBasicControl(q); let i= index">
-                                <tr [formGroupName]="i">
-                                <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
-                                <td>{{a.get("serialNo")?.value}}</td>
+                                <tr  *ngIf="a.get('observation')?.value != null && a.get('observation')?.value  != '' " [formGroupName]="i">
+                                  <td nowrap="nowrap" style="font-weight: bold;">{{a.get("headingUi")?.value}}</td>
+                                  <td>{{a.get('serialNoUi')?.value}}</td>
+                                
                                 <td>
                                   <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
                                   placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
@@ -284,9 +290,9 @@
                             </tbody>
   
                             <tbody formArrayName="downConductor" *ngFor="let a of downConductorControl(q); let i= index">
-                              <tr [formGroupName]="i">
-                              <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
-                              <td>{{a.get("serialNo")?.value}}</td>
+                              <tr  *ngIf="a.get('observation')?.value != null && a.get('observation')?.value  != '' " [formGroupName]="i">
+                                <td nowrap="nowrap" style="font-weight: bold;">{{a.get("headingUi")?.value}}</td>
+                                <td>{{a.get('serialNoUi')?.value}}</td>
                               <td>
                                 <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
                                 placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
@@ -299,9 +305,9 @@
                           </tbody>
                           
                           <tbody formArrayName="bridgingDesc" *ngFor="let a of bridgingDescControl(q); let i= index">
-                            <tr [formGroupName]="i">
-                            <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
-                            <td>{{a.get("serialNo")?.value}}</td>
+                            <tr  *ngIf="a.get('observation')?.value != null && a.get('observation')?.value  != '' " [formGroupName]="i">
+                              <td nowrap="nowrap" style="font-weight: bold;">{{a.get("headingUi")?.value}}</td>
+                              <td>{{a.get('serialNoUi')?.value}}</td>
                             <td>
                               <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
                               placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
@@ -314,9 +320,9 @@
                         </tbody>
                   
                           <tbody formArrayName="downHolders" *ngFor="let a of downHoldersControl(q); let i= index">
-                            <tr [formGroupName]="i">
-                            <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
-                            <td>{{a.get("serialNo")?.value}}</td>
+                            <tr  *ngIf="a.get('observation')?.value != null && a.get('observation')?.value  != '' " [formGroupName]="i">
+                              <td nowrap="nowrap" style="font-weight: bold;">{{a.get("headingUi")?.value}}</td>
+                              <td>{{a.get('serialNoUi')?.value}}</td>
                             <td>
                               <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
                               placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
@@ -329,9 +335,9 @@
                         </tbody>
   
                         <tbody formArrayName="downConnectors" *ngFor="let a of downConnectorsControl(q); let i= index">
-                          <tr [formGroupName]="i">
-                          <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
-                          <td>{{a.get("serialNo")?.value}}</td>
+                          <tr  *ngIf="a.get('observation')?.value != null && a.get('observation')?.value  != '' " [formGroupName]="i">
+                            <td nowrap="nowrap" style="font-weight: bold;">{{a.get("headingUi")?.value}}</td>
+                            <td>{{a.get('serialNoUi')?.value}}</td>
                           <td>
                             <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
                             placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
@@ -344,9 +350,9 @@
                       </tbody>
   
                       <tbody formArrayName="testingJoint" *ngFor="let a of testingJointsControl(q); let i= index">
-                        <tr [formGroupName]="i">
-                        <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
-                        <td>{{a.get("serialNo")?.value}}</td>
+                        <tr  *ngIf="a.get('observation')?.value != null && a.get('observation')?.value  != '' " [formGroupName]="i">
+                          <td nowrap="nowrap" style="font-weight: bold;">{{a.get("headingUi")?.value}}</td>
+                          <td>{{a.get('serialNoUi')?.value}}</td>
                         <td>
                           <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
                           placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
@@ -359,9 +365,9 @@
                     </tbody>
   
                           <tbody formArrayName="lightingCounter" *ngFor="let a of lightningCountersControl(q); let i= index">
-                            <tr [formGroupName]="i">
-                            <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
-                            <td>{{a.get("serialNo")?.value}}</td>
+                            <tr  *ngIf="a.get('observation')?.value != null && a.get('observation')?.value  != '' " [formGroupName]="i">
+                              <td nowrap="nowrap" style="font-weight: bold;">{{a.get("headingUi")?.value}}</td>
+                              <td>{{a.get('serialNoUi')?.value}}</td>
                             <td>
                               <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
                               placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
@@ -373,9 +379,9 @@
                             </tr>
                         </tbody>
                         <tbody formArrayName="downConductorTesting" *ngFor="let a of downConductorTestingControl(q); let i= index">
-                          <tr [formGroupName]="i">
-                          <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
-                          <td>{{a.get("serialNo")?.value}}</td>
+                          <tr *ngIf="a.get('observation')?.value != null && a.get('observation')?.value  != '' " [formGroupName]="i">
+                            <td nowrap="nowrap" style="font-weight: bold;">{{a.get("headingUi")?.value}}</td>
+                            <td>{{a.get('serialNoUi')?.value}}</td>
                           <td>
                             <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
                             placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
@@ -425,9 +431,10 @@
                                 </tr>
                               </thead>
                               <tbody formArrayName="earthingReport" *ngFor="let a of earthingReportControl(q); let i= index">
-                                  <tr [formGroupName]="i">
-                                  <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
-                                  <td>{{a.get("serialNo")?.value}}</td>
+                                  <tr [formGroupName]="i"  *ngIf="a.get('observation')?.value != null && a.get('observation')?.value  != '' " >
+                                  <td nowrap="nowrap" style="font-weight: bold;">{{a.get("headingUi")?.value}}</td>
+                                  <td>{{a.get('serialNoUi')?.value}}</td>
+                                                             
                                   <td>
                                     <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
                                     placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
@@ -440,9 +447,9 @@
                               </tbody>
     
                               <tbody formArrayName="earthingDescription" *ngFor="let a of earthingDescriptionControl(q); let i= index">
-                                <tr [formGroupName]="i">
-                                <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
-                                <td>{{a.get("serialNo")?.value}}</td>
+                                <tr [formGroupName]="i" *ngIf="a.get('observation')?.value != null && a.get('observation')?.value  != '' " >
+                                  <td nowrap="nowrap" style="font-weight: bold;">{{a.get("headingUi")?.value}}</td>
+                                  <td>{{a.get('serialNoUi')?.value}}</td>
                                 <td>
                                   <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
                                   placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
@@ -455,9 +462,9 @@
                             </tbody>
                             
                             <tbody formArrayName="earthingDescriptionList" *ngFor="let a of earthingDescriptionListControl(q); let i= index">
-                              <tr [formGroupName]="i">
-                              <td nowrap="nowrap" style="padding-left: 60px;">{{a.get("heading")?.value}}</td>
-                              <td>{{a.get("serialNo")?.value}}</td>
+                              <tr *ngIf="a.get('observation')?.value != null && a.get('observation')?.value  != '' " [formGroupName]="i">
+                                <td nowrap="nowrap" style="font-weight: bold;">{{a.get("headingUi")?.value}}</td>
+                                <td>{{a.get('serialNoUi')?.value}}</td>
                               <td>
                                 <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
                                 placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
@@ -470,9 +477,9 @@
                           </tbody>
 
                             <tbody formArrayName="earthingClamps" *ngFor="let a of earthingClampsControl(q); let i= index">
-                              <tr [formGroupName]="i">
-                              <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
-                              <td>{{a.get("serialNo")?.value}}</td>
+                              <tr [formGroupName]="i"  *ngIf="a.get('observation')?.value != null && a.get('observation')?.value  != '' " >
+                                <td nowrap="nowrap" style="font-weight: bold;">{{a.get("headingUi")?.value}}</td>
+                                <td>{{a.get('serialNoUi')?.value}}</td>
                               <td>
                                 <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
                                 placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
@@ -485,9 +492,9 @@
                           </tbody>
                     
                             <tbody formArrayName="earthingElectrodeChamber" *ngFor="let a of earthingElectrodeChamberControl(q); let i= index">
-                              <tr [formGroupName]="i">
-                              <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
-                              <td>{{a.get("serialNo")?.value}}</td>
+                              <tr *ngIf="a.get('observation')?.value != null && a.get('observation')?.value  != '' " [formGroupName]="i">
+                                <td nowrap="nowrap" style="font-weight: bold;">{{a.get("headingUi")?.value}}</td>
+                                <td>{{a.get('serialNoUi')?.value}}</td>
                               <td>
                                 <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
                                 placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
@@ -500,9 +507,9 @@
                           </tbody>
     
                           <tbody formArrayName="earthingSystem" *ngFor="let a of earthingSystemControl(q); let i= index">
-                            <tr [formGroupName]="i">
-                            <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
-                            <td>{{a.get("serialNo")?.value}}</td>
+                            <tr [formGroupName]="i"  *ngIf="a.get('observation')?.value != null && a.get('observation')?.value  != '' " >
+                              <td nowrap="nowrap" style="font-weight: bold;">{{a.get("headingUi")?.value}}</td>
+                              <td>{{a.get('serialNoUi')?.value}}</td>
                             <td>
                               <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
                               placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
@@ -515,9 +522,9 @@
                         </tbody>
     
                         <tbody formArrayName="earthElectrodeTesting" *ngFor="let a of earthElectrodeTestingControl(q); let i= index">
-                          <tr [formGroupName]="i">
-                          <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
-                          <td>{{a.get("serialNo")?.value}}</td>
+                          <tr *ngIf="a.get('observation')?.value != null && a.get('observation')?.value  != '' " [formGroupName]="i">
+                            <td nowrap="nowrap" style="font-weight: bold;">{{a.get("headingUi")?.value}}</td>
+                            <td>{{a.get('serialNoUi')?.value}}</td>
                           <td>
                             <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
                             placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
@@ -563,9 +570,9 @@
                                   </tr>
                                 </thead>
                                 <tbody formArrayName="spdReport" *ngFor="let a of spdReportControl(q); let i= index">
-                                    <tr [formGroupName]="i">
-                                    <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
-                                    <td>{{a.get("serialNo")?.value}}</td>
+                                    <tr [formGroupName]="i"  *ngIf="a.get('observation')?.value != null && a.get('observation')?.value  != '' " >
+                                    <td nowrap="nowrap" style="font-weight: bold;">{{a.get("headingUi")?.value}}</td>
+                                    <td>{{a.get('serialNoUi')?.value}}</td>
                                     <td>
                                       <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
                                       placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
@@ -579,8 +586,8 @@
       
                                 <tbody formArrayName="spdReportList" *ngFor="let a of spdReportListControl(q); let i= index">
                                   <tr [formGroupName]="i">
-                                  <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
-                                  <td>{{a.get("serialNo")?.value}}</td>
+                                  <td nowrap="nowrap" style="font-weight: bold;">{{a.get("headingUi")?.value}}</td>
+                                  <td>{{a.get('serialNoUi')?.value}}</td>
                                   <td>
                                     <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
                                     placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
@@ -623,10 +630,11 @@
                                       <th>Recommendation</th> 
                                     </tr>
                                   </thead>
+                                  
                                   <tbody formArrayName="separationDistance" *ngFor="let a of separationDistanceControl(q); let i= index">
-                                      <tr [formGroupName]="i">
-                                      <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
-                                      <td>{{a.get("serialNo")?.value}}</td>
+                                      <tr [formGroupName]="i"  *ngIf="a.get('observation')?.value != null && a.get('observation')?.value  != '' " >
+                                      <td nowrap="nowrap" style="font-weight: bold;">{{a.get("headingUi")?.value}}</td>
+                                      <td>{{a.get('serialNoUi')?.value}}</td>
                                       <td>
                                         <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
                                         placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
@@ -638,9 +646,9 @@
                                       </tr>
                                   </tbody>
                                   <tbody formArrayName="separateDistance" *ngFor="let a of separateDistanceControl(q); let i= index">
-                                    <tr [formGroupName]="i">
-                                    <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
-                                    <td>{{a.get("serialNo")?.value}}</td>
+                                    <tr [formGroupName]="i" *ngIf="a.get('observation')?.value != null && a.get('observation')?.value  != '' ">
+                                    <td nowrap="nowrap" style="font-weight: bold;">{{a.get("headingUi")?.value}}</td>
+                                    <td>{{a.get('serialNoUi')?.value}}</td>
                                     <td>
                                       <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
                                       placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
@@ -652,9 +660,9 @@
                                     </tr>
                                 </tbody>
                                 <tbody formArrayName="separationDistanceDown" *ngFor="let a of separationDistanceDownControl(q); let i= index">
-                                  <tr [formGroupName]="i">
-                                  <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
-                                  <td>{{a.get("serialNo")?.value}}</td>
+                                  <tr [formGroupName]="i"  *ngIf="a.get('observation')?.value != null && a.get('observation')?.value  != '' " >
+                                  <td nowrap="nowrap" style="font-weight: bold;">{{a.get("headingUi")?.value}}</td>
+                                  <td>{{a.get('serialNoUi')?.value}}</td>
                                   <td>
                                     <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
                                     placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 
@@ -698,9 +706,9 @@
                                       </tr>
                                     </thead>
                                     <tbody formArrayName="earthStudDesc" *ngFor="let a of earthStudDescControl(q); let i= index">
-                                        <tr [formGroupName]="i">
-                                        <td nowrap="nowrap" style="font-weight: bold;">{{a.get("heading")?.value}}</td>
-                                        <td>{{a.get("serialNo")?.value}}</td>
+                                        <tr [formGroupName]="i"  *ngIf="a.get('observation')?.value != null && a.get('observation')?.value  != '' " >
+                                        <td nowrap="nowrap" style="font-weight: bold;">{{a.get("headingUi")?.value}}</td>
+                                        <td>{{a.get('serialNoUi')?.value}}</td>
                                         <td>
                                           <textarea type="text" class="form-control" cols="30" rows="1" formControlName="observation"
                                           placeholder="Ex. Observations..." readonly style="background-color: #e9ecef;"></textarea> 

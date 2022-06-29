@@ -1618,7 +1618,7 @@
                                                         <mat-icon class="mousechange" class="dlt" type="button"
                                                             title="Delete" [ngClass]="{'disableForm':isEditable}"
                                                             *ngIf="getAirTUnitControls(a).length > 1"
-                                                            (click)="removeItemAir(a,w)"
+                                                            (click)="removeItemAir(a,w,q.get('buildingCount')?.value)"
                                                             style="cursor: pointer;float: right;">remove_circle_outline
                                                         </mat-icon>
                                                     </div>

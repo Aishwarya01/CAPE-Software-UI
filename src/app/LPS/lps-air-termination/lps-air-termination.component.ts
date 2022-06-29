@@ -159,7 +159,7 @@ export class LpsAirTerminationComponent implements OnInit {
   index: any;
 
   deletedLpsDataForFileIdupdate: any = [];
-
+  addDeletedVeritcalAirterminationListIndex:any=[];
 
   // successMsg1: Strin:g="";
 
@@ -564,12 +564,13 @@ export class LpsAirTerminationComponent implements OnInit {
     })
   }
 
-  removeItemAir(a: any, w: any) {
+  removeItemAir(a: any, w: any,buildingCount:any) {
     this.airTerminationForm.markAsTouched();
     this.airterminationArr = a.controls.verticalAirTerminationList as FormArray;
     if (this.flag && this.airterminationArr.value[w].verticalAirTerminationListId != null && this.airterminationArr.value[w].verticalAirTerminationListId != '' && this.airterminationArr.value[w].verticalAirTerminationListId != undefined) {
       this.airterminationArr.value[w].flag = 'R';
       this.deletedAirTerminationListArr.push(this.airterminationArr.value[w]);
+      this.addDeletedVeritcalAirterminationListIndex.push( buildingCount +"-"+ w);
     }
     this.airterminationArr.removeAt(w);
     this.airTerminationForm.markAsDirty();
@@ -832,7 +833,7 @@ export class LpsAirTerminationComponent implements OnInit {
   createGroup(item: any, lpsAirDescId: any): FormGroup {
     return this.formBuilder.group({
       lpsVerticalAirTerminationId: new FormControl({ disabled: false, value: item.lpsVerticalAirTerminationId }),
-      lpsAirDescId: new FormControl({ disabled: false, value: item.lpsAirDescId }),
+      lpsAirDescId: new FormControl({ disabled: false, value: lpsAirDescId }),
       // For file upload
       fileNameVAir: new FormControl({ disabled: false, value: item.fileNameVAir }),
       fileSize: new FormControl({ disabled: false, value: item.fileSize }),
