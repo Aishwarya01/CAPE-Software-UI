@@ -116,6 +116,8 @@ import { RCBOComponent } from './SLD/SLD components/Node Components/rcbo/rcbo.co
 import { LightComponent } from './SLD/SLD components/Node Components/light/light.component';
 import { FanComponent } from './SLD/SLD components/Node Components/fan/fan.component';
 import { LTMotorComponent } from './SLD/SLD components/Node Components/ltmotor/ltmotor.component';
+import { PortableApplianceComponent } from './SLD/SLD components/Node Components/portable-appliance/portable-appliance.component';
+
 
 @NgModule({
   declarations: [
@@ -199,7 +201,7 @@ import { LTMotorComponent } from './SLD/SLD components/Node Components/ltmotor/l
     RiskFinalReportsComponent,
     RiskAssessmentDetailsComponent,  
     FanComponent,
-
+    PortableApplianceComponent,
   ],
   imports: [
     SignaturePadModule,

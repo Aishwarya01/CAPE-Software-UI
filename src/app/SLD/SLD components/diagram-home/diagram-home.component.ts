@@ -13,7 +13,6 @@ import { MCCBServicesService } from '../../../SLD/SLD Services/mccb-services.ser
 import { RCBOServicesService } from '../../../SLD/SLD Services/rcbo-services.service';
 import { LightServicesService } from '../../../SLD/SLD Services/light-services.service';
 import { LTMotorServicesService } from '../../../SLD/SLD Services/LTMotor-services.service';
-
 import { MCB } from '../../SLD Models/mcb';
 import { MCCB } from '../../SLD Models/mccb';
 import { RCBO } from '../../SLD Models/rcbo';
@@ -24,8 +23,8 @@ import { MCCBComponent } from '../Node Components/mccb/mccb.component';
 import { RCBOComponent } from '../Node Components/rcbo/rcbo.component';
 import { LightComponent } from '../Node Components/light/light.component';
 import { LTMotorComponent } from '../Node Components/ltmotor/ltmotor.component';
-
 import { FanComponent } from '../Node Components/fan/fan.component';
+import { PortableApplianceComponent } from '../Node Components/portable-appliance/portable-appliance.component';	
 import { FanServicesService } from '../../../SLD/SLD Services/fan-services.service';
 
 
@@ -179,7 +178,6 @@ export class DiagramHomeComponent implements OnInit {
   public loadDiagram(userName: any,fileName: any){
     this.diagramService.retriveDiagram(userName,fileName).subscribe(
       data => {
-        console.log(data);
         this.diagramData = JSON.parse(data);
         this.flag = true;
         this.diagramComponent.diagramId = this.diagramData.diagramId;
@@ -195,7 +193,7 @@ export class DiagramHomeComponent implements OnInit {
   }
 
   getAccessibility(e: any) {
-    console.log(e);
+    //console.log(e);
   }
 
   clickFunction(e: any) {
@@ -275,18 +273,28 @@ export class DiagramHomeComponent implements OnInit {
         dialogRef.componentInstance.nodeId = e.element.properties.id;
         dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
         dialogRef.componentInstance.email = this.email;
-	}
+	    }
+
+      else if(e.element.properties.id.includes('PortableAppliance')) {	
+        const dialogRef = this.dialog.open(PortableApplianceComponent, {	
+          width: '1450px',	
+          maxHeight: '90vh',	
+          disableClose: true,	
+        });	
+        dialogRef.componentInstance.nodeId = e.element.properties.id;;	
+        dialogRef.componentInstance.fileName = this.diagramComponent.fileName;	
+        dialogRef.componentInstance.email = this.email;      
+      }
+
       else if(e.element.properties.id.includes('Battery')) {
         //this.modalService.open(content10, { centered: true,size: 'xl'});
       }
       // let person = prompt("Please enter color of the node:", "Red");
       // e.element.style.fill = person;
-      console.log(e.element)
     } 
     else if(e.element instanceof Connector){
       let person = prompt("Please enter type of the connector:", "Straight");
       e.element.type = person;
-      console.log(e.element)
     }
   }
   // public portIp1: PointPortModel[] = [
@@ -585,7 +593,6 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
   this.diagramService.fetchAllDiagramSymbols().subscribe(
     data => {
       shapes = JSON.parse(data);
-      console.log('a'); 
   for (let i = 0; i < shapes.length; i++) {
     let symbolItems: any = {
     id: shapes[i].imageName,
