@@ -65,7 +65,7 @@ export class RiskCustomerDetailsComponent implements OnInit {
       projectName:new FormControl('', Validators.required),
       projectDescription:new FormControl('', Validators.required),
       contactPersonName:new FormControl('', Validators.required),
-      contactNumber:new FormControl('', [Validators.maxLength(10), Validators.minLength(10), Validators.required]),
+      contactNumber:new FormControl('', [Validators.maxLength(10), Validators.minLength(10)]),
       email:new FormControl('',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       preparedBy:new FormControl('', Validators.required),
       verifiedBy:new FormControl('', Validators.required),
@@ -79,7 +79,7 @@ export class RiskCustomerDetailsComponent implements OnInit {
       projectName:new FormControl({disabled: false, value: item.projectName}, Validators.required),
       projectDescription:new FormControl({disabled: false, value: item.projectDescription}, Validators.required),
       contactPersonName:new FormControl({disabled: false, value: item.contactPersonName}, Validators.required),
-      contactNumber:new FormControl({disabled: false, value: item.contactNumber}, Validators.required),
+      contactNumber:new FormControl({disabled: false, value: item.contactNumber}),
       email:new FormControl({disabled: false, value: item.email},[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       preparedBy:new FormControl({disabled: false, value: item.preparedBy}, Validators.required),
       verifiedBy:new FormControl({disabled: false, value: item.verifiedBy}, Validators.required),
@@ -230,7 +230,7 @@ export class RiskCustomerDetailsComponent implements OnInit {
      this.customerDetailsModel.projectName=this.CustomerDetailsForm.value.riskCustomerDetails[0].projectName;
      this.customerDetailsModel.projectDescription=this.CustomerDetailsForm.value.riskCustomerDetails[0].projectDescription;
      this.customerDetailsModel.contactPersonName=this.CustomerDetailsForm.value.riskCustomerDetails[0].contactPersonName;
-     this.customerDetailsModel.contactNumber=this.CustomerDetailsForm.value.riskCustomerDetails[0].contactNumber;
+     this.customerDetailsModel.contactNumber=this.CustomerDetailsForm.value.riskCustomerDetails[0].contactNumber ? this.CustomerDetailsForm.value.riskCustomerDetails[0].contactNumber: "";
      this.customerDetailsModel.email=this.CustomerDetailsForm.value.riskCustomerDetails[0].email;
      this.customerDetailsModel.preparedBy=this.CustomerDetailsForm.value.riskCustomerDetails[0].preparedBy;
      this.customerDetailsModel.verifiedBy=this.CustomerDetailsForm.value.riskCustomerDetails[0].verifiedBy;
