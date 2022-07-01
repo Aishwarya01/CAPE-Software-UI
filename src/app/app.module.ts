@@ -114,8 +114,11 @@ import { MCBComponent } from './SLD/SLD components/Node Components/mcb/mcb.compo
 import { MCCBComponent } from './SLD/SLD components/Node Components/mccb/mccb.component';
 import { RCBOComponent } from './SLD/SLD components/Node Components/rcbo/rcbo.component';
 import { LightComponent } from './SLD/SLD components/Node Components/light/light.component';
+import { FanComponent } from './SLD/SLD components/Node Components/fan/fan.component';
 import { LTMotorComponent } from './SLD/SLD components/Node Components/ltmotor/ltmotor.component';
-//import { FanComponent } from './SLD/SLD components/Node Components/fan/fan.component';
+import { PortableApplianceComponent } from './SLD/SLD components/Node Components/portable-appliance/portable-appliance.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -180,9 +183,25 @@ import { LTMotorComponent } from './SLD/SLD components/Node Components/ltmotor/l
     LpsEarthStudComponent,
     LpsSavedReportComponent,
     LpsWelcomePageComponent, 
-
-    LpsFinalReportComponent, SignatureComponent, DiagramListComponent, DiagramHomeComponent, DiagramWelcomePageComponent, NewFileComponent, LpssummaryComponent, MCBComponent, MCCBComponent, RCBOComponent, LightComponent, LTMotorComponent, RiskParentComponentComponent, RiskCustomerDetailsComponent, RiskSavedReportsComponent, RiskFinalReportsComponent, RiskAssessmentDetailsComponent,  
-    //FanComponent,
+    LpsFinalReportComponent,
+    SignatureComponent,
+    DiagramListComponent,
+    DiagramHomeComponent,
+    DiagramWelcomePageComponent,
+    NewFileComponent,
+    LpssummaryComponent,
+    MCBComponent,
+    MCCBComponent,
+    RCBOComponent,
+    LightComponent,
+    LTMotorComponent,
+    RiskParentComponentComponent,
+    RiskCustomerDetailsComponent,
+    RiskSavedReportsComponent,
+    RiskFinalReportsComponent,
+    RiskAssessmentDetailsComponent,  
+    FanComponent,
+    PortableApplianceComponent,
   ],
   imports: [
     SignaturePadModule,
