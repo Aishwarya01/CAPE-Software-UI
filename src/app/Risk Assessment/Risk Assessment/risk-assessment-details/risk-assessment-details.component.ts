@@ -80,6 +80,8 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   enablePrint: boolean = false;
   projectName: any = '';
   originalData: any = [];
+  printDirtyMsg: string="";
+  printMsg: boolean=false;
 
   constructor(private router: ActivatedRoute,
               private formBuilder: FormBuilder,
@@ -2066,8 +2068,15 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     this.riskId = riskId;
   }
 
-  printPdf() {
-    this.riskfinalpdfService.printPDF(this.riskAssessmentDetails.riskId,this.riskAssessmentDetails.userName,this.projectName);
+  printPdf(content1:any) {
+    if(this.step2Form.dirty && this.step2Form.touched){
+      this.modalService.open(content1, { centered: true,backdrop: 'static' });
+      this.printMsg=true;
+      this.printDirtyMsg="Please click the update button, To reflect the modified data in PDF..!";
+    }
+    else{
+      this.riskfinalpdfService.printPDF(this.riskAssessmentDetails.riskId,this.riskAssessmentDetails.userName,this.projectName);
+    }
   }
 
   // Submitting to DB

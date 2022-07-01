@@ -8,17 +8,10 @@
     <span class="alert alert-danger">{{validationErrorMsgTab}}</span>
 </div>
 
-<div *ngIf="blurMode" class="spinner-grow text-primary" style="width: 50px;height: 50px;overflow: inherit;left: 50%;margin: 0px auto;position: fixed;z-index: 1000;top: 50%;" role="status">
+<div *ngIf="blurMode" class="spinner-grow" style="width: 50px;height: 50px;animation-duration: 1s;color: dark;overflow: inherit;left: 50%;margin: 0px auto;position: fixed;z-index: 1000;top: 50%;" role="status">
     <pre class="visually-hidden" style="top: 35%;left: 110%;position: fixed;top: 50%;">Please wait Loading...</pre>
 </div>
 
-<!-- <mat-progress-spinner style="margin: 0px auto;width: 50px;top: 116px;z-index: 200;overflow: inherit;" *ngIf="spinner"  color="primary" [mode]="mode" value="50" diameter="50">
-</mat-progress-spinner> -->
-<!-- <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" *ngIf="spinner" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner> -->
-<!-- <br>
-<div *ngIf="spinner" style="text-align: center;">
-    {{spinnerValue}}
-</div> -->
 
 <div class="card" [ngStyle]="{'filter': (blurMode ? 'blur(1px)' : 'blur(0px)') ,'pointer-events': (blurMode ? 'none' : 'visible')}">
     <div class="card-body">
@@ -1334,11 +1327,33 @@
             <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
             <button *ngIf="updateButton" class="next" (click)="gotoNextModal(contents,content)" mat-button>Update &raquo;</button>
             <button *ngIf="saveButton" class="next" (click)="gotoNextModal(contents,content)" mat-button>Save &raquo;</button>
-            <button type="button" *ngIf="enablePrint" class="next" (click)="printPdf()"  title="Generate PDF" mat-button>Print</button>
+            <button type="button" *ngIf="enablePrint" class="next" (click)="printPdf(content1)" title="Generate PDF" mat-button>Print</button>
         </div>
     </form>
     </div>
 </div>
+
+<!-- printDirtyMsg -->
+<!-- <div *ngIf="printMsg" style="text-align: center;margin-bottom: 10px;">
+    <span class="alert alert-danger">{{printDirtyMsg}}</span>
+</div> -->
+
+<ng-template #content1 let-modal>
+    <div class="modal-body" *ngIf="printMsg">
+        <div class="centre-text m-btm30">
+            <div style="text-align: center;">
+                <span class="errorshow">{{printDirtyMsg}}</span>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div *ngIf="printMsg" style="text-align: center;">
+        <button type="button" *ngIf="printMsg" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+        aria-label="Close" (click)="closeModalDialog()" style="margin-left: 195px;width: 16%;" matStepperNext>
+         <span aria-hidden="true">Ok</span>
+        </button>
+    </div>
+</ng-template> 
 
 
 <ng-template #content let-modal>
