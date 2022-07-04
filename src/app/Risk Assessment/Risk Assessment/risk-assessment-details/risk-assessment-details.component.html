@@ -76,11 +76,11 @@
                                         <select class="form-control" formControlName="typeOfBuilding" (change)="buildingValue($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && f.get('typeOfBuilding')?.errors }">
                                             <option value="" selected>Select Option</option>
-                                            <option value="1">Brick</option>
-                                            <option value="0.5">RCC with Brick</option>
-                                            <option value="0.2">PEB with sheet</option>
-                                            <option value="0.20">System designed by CAPE RCC building</option>
-                                            <option value="0.001">System designed by CAPE PEB building</option>
+                                            <option value="Brick">Brick</option>
+                                            <option value="RCC with Brick">RCC with Brick</option>
+                                            <option value="PEB with sheet">PEB with sheet</option>
+                                            <option value="System designed by CAPE RCC building">System designed by CAPE RCC building</option>
+                                            <option value="System designed by CAPE PEB building">System designed by CAPE PEB building</option>
                                         </select>
                                         <div *ngIf="submitted && f.get('typeOfBuilding')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('typeOfBuilding')?.errors?.required">Types of Building is required</div>
@@ -164,7 +164,7 @@
                                     <div class="form-group">
                                         <label>Collection Area of Structure :</label>
                                         <input type="number" class="form-control" readonly formControlName="collectionAreaOfStructure" placeholder="Collection Area of Structure" 
-                                        [ngClass]="{ 'is-invalid': submitted && f.get('collectionAreaOfStructure')?.errors }" (change)="heightNearStruct($event,f)">
+                                        [ngClass]="{ 'is-invalid': submitted && f.get('collectionAreaOfStructure')?.errors }" (ngModelChange)="heightNearStruct($event,f)">
                                         <div *ngIf="submitted && f.get('collectionAreaOfStructure')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('collectionAreaOfStructure')?.errors?.required">Collection Area of Structure is required</div>
                                         </div>
@@ -202,7 +202,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Height of Nearby Structure :</label>
-                                        <select class="form-control" formControlName="heightNearByStructure" (ngModelChange)="noOfDangerus($event,f);heightNearByStructureD($event,f);heightNearStruct($event,f)"
+                                        <select class="form-control" formControlName="heightNearByStructure" (ngModelChange)="heightNearByStructureD($event,f);noOfDangerus($event,f);heightNearStruct($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && f.get('heightNearByStructure')?.errors }" >
                                             <option value="" selected>Select Option</option>
                                             <option value="Lower than surrounding buildings">Lower than surrounding buildings</option>
@@ -219,7 +219,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Electrical / Telephone Service Line :</label>
-                                        <select class="form-control" formControlName="telephoneServiceLine" (ngModelChange)="noOfDangerus($event,f);lengthPowerline($event,f);economicLossL4($event,f);telephoneServiceLineD($event,f)"
+                                        <select class="form-control" formControlName="telephoneServiceLine" (ngModelChange)="telephoneServiceLineD($event,f);noOfDangerus($event,f);lengthPowerline($event,f);economicLossL4($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && f.get('telephoneServiceLine')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="LV power, telecommunication or data line">LV power, telecommunication or data line</option>
@@ -234,7 +234,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Environment :</label>
-                                        <select class="form-control" formControlName="environment" (ngModelChange)="lengthPowerline($event,f);environmentD($event,f)"
+                                        <select class="form-control" formControlName="environment" (ngModelChange)="environmentD($event,f);lengthPowerline($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && f.get('environment')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="Rural">Rural</option>
@@ -457,7 +457,7 @@
                                     <div class="form-group">
                                         <label>Number of hours/year people are present in the building :</label>
                                         <input type="number" class="form-control" readonly formControlName="yearPeoplePresentBuilding" placeholder="Number of hours/year people are present in the building" 
-                                        [ngClass]="{ 'is-invalid': submitted && f.get('yearPeoplePresentBuilding')?.errors }" (change)="lossHumanLifeL1($event,f)">
+                                        [ngClass]="{ 'is-invalid': submitted && f.get('yearPeoplePresentBuilding')?.errors }" (ngModelChange)="lossHumanLifeL1($event,f)">
                                         <div *ngIf="submitted && f.get('yearPeoplePresentBuilding')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('yearPeoplePresentBuilding')?.errors?.required">Number of hours/year people are present in the building is required</div>
                                         </div>

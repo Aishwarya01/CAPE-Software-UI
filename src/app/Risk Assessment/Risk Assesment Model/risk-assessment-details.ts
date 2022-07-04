@@ -47,10 +47,6 @@ export class StructureCharacteristics {
     yearPeoplePresentBuilding!: String;
 
     structureCharacteristicsId!: Number;
-    riskId!: String;
-    userName!: String;
-    updatedBy!: String;
-    updatedDate!: String;
 
     structureAttributes!:StructureAttributes[];
     losses!:Losses[];
