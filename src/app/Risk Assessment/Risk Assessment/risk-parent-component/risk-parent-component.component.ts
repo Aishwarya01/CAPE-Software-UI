@@ -79,7 +79,7 @@ export class RiskParentComponentComponent implements OnInit {
   public doSomething2(next: any): void {
     this.service.isLinear=false;
     this.service.isCompleted3 = next;
-    // this.final.ngOnInit();
+    this.saved.ngOnInit();
   }
 
   triggerClickTab(){

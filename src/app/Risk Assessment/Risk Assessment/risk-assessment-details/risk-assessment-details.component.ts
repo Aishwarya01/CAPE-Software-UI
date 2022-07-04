@@ -66,17 +66,10 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 
   validationErrorTab: boolean=false;
   validationErrorMsgTab: string='';
-  // brick: String='1';
-  // rccwithBrick: String='0.5';
-  // pebwithsheet: String='0.2';
-  // rccbuilding: String='0.2';
-  // pebbuilding: String='0.001';
 
   updateButton: boolean=false;
   saveButton: boolean=true;
   riskInputValue: any;
-  structureScreeningEffectivenessValue: any;
-  internalScreeningEffectivenessValue: any;
   enablePrint: boolean = false;
   projectName: any = '';
   originalData: any = [];
@@ -965,30 +958,24 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     }
   }
 
-
   buildingValue(event: any, form: any){
-    if(event.target.value == '1'){
-      // form.controls.typeOfBuilding.setValue(this.brick);
+    if(form.controls.typeOfBuilding.value == 'Brick'){
       form.controls.structureScreeningEffectiveness.setValue('Poor');
       form.controls.internalScreeningEffectiveness.setValue('Poor');
     }
-    else if(event.target.value == '0.5'){
-      // form.controls.typeOfBuilding.setValue(this.rccwithBrick);
+    else if(form.controls.typeOfBuilding.value == 'RCC with Brick'){
       form.controls.structureScreeningEffectiveness.setValue('Average');
       form.controls.internalScreeningEffectiveness.setValue('Average');
     }
-    else if(event.target.value == '0.2'){
-      // form.controls.typeOfBuilding.setValue(this.pebwithsheet);
+    else if(form.controls.typeOfBuilding.value == 'PEB with sheet'){
       form.controls.structureScreeningEffectiveness.setValue('Good');
       form.controls.internalScreeningEffectiveness.setValue('Good');
     }
-    else if(event.target.value == '0.20'){
-      // form.controls.typeOfBuilding.setValue(this.rccbuilding);
+    else if(form.controls.typeOfBuilding.value == 'System designed by CAPE RCC building'){
       form.controls.structureScreeningEffectiveness.setValue('Good');
       form.controls.internalScreeningEffectiveness.setValue('Good');
     }
-    else if(event.target.value == '0.001'){
-      // form.controls.typeOfBuilding.setValue(this.pebbuilding);
+    else if(form.controls.typeOfBuilding.value == 'System designed by CAPE PEB building'){
       form.controls.structureScreeningEffectiveness.setValue('Very Good');
       form.controls.internalScreeningEffectiveness.setValue('Very Good');
     }
@@ -998,23 +985,18 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   buildingValue1(event:any,form:any){
     // Getting BuildingType value from StructureScreeningEffectiveness
     if(form.controls.structureScreeningEffectiveness.value == "Poor"){
-      this.structureScreeningEffectivenessValue='1';
       form.controls.typeOFbuildingdrop.setValue('1')
     }
     else if(form.controls.structureScreeningEffectiveness.value == "Average"){
-      this.structureScreeningEffectivenessValue='0.5';
       form.controls.typeOFbuildingdrop.setValue('0.5')
     }
-    else if(form.controls.structureScreeningEffectiveness.value == "Good" && form.controls.typeOfBuilding.value == "0.2"){
-      this.structureScreeningEffectivenessValue='0.2';
+    else if(form.controls.structureScreeningEffectiveness.value == "Good" && form.controls.typeOfBuilding.value == "PEB with sheet"){
       form.controls.typeOFbuildingdrop.setValue('0.2')
     }
-    else if(form.controls.structureScreeningEffectiveness.value == "Good" && form.controls.typeOfBuilding.value == "0.20"){
-      this.structureScreeningEffectivenessValue='0.20';
+    else if(form.controls.structureScreeningEffectiveness.value == "Good" && form.controls.typeOfBuilding.value == "System designed by CAPE RCC building"){
       form.controls.typeOFbuildingdrop.setValue('0.20')
     }
     else if(form.controls.structureScreeningEffectiveness.value == "Very Good"){
-      this.structureScreeningEffectivenessValue='0.001';
       form.controls.typeOFbuildingdrop.setValue('0.001')
     }
   }
@@ -1023,23 +1005,18 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   buildingValue2(event:any,form:any){
     // Getting BuildingType value from internalScreeningEffectivenessValue
     if(form.controls.internalScreeningEffectiveness.value == "Poor"){
-      this.internalScreeningEffectivenessValue='1';
       form.controls.typeOFbuildingdrop1.setValue('1')
     }
     else if(form.controls.internalScreeningEffectiveness.value == "Average"){
-      this.internalScreeningEffectivenessValue='0.5';
       form.controls.typeOFbuildingdrop1.setValue('0.5')
     }
-    else if(form.controls.internalScreeningEffectiveness.value == "Good" && form.controls.typeOfBuilding.value == "0.2"){
-      this.internalScreeningEffectivenessValue='0.2';
+    else if(form.controls.internalScreeningEffectiveness.value == "Good" && form.controls.typeOfBuilding.value == "PEB with sheet"){
       form.controls.typeOFbuildingdrop1.setValue('0.2')
     }
-    else if(form.controls.internalScreeningEffectiveness.value == "Good" && form.controls.typeOfBuilding.value == "0.20"){
-      this.internalScreeningEffectivenessValue='0.20';
+    else if(form.controls.internalScreeningEffectiveness.value == "Good" && form.controls.typeOfBuilding.value == "System designed by CAPE RCC building"){
       form.controls.typeOFbuildingdrop1.setValue('0.20')
     }
     else if(form.controls.internalScreeningEffectiveness.value == "Very Good"){
-      this.internalScreeningEffectivenessValue='0.001';
       form.controls.typeOFbuildingdrop1.setValue('0.001')
     }
   }
@@ -1105,6 +1082,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 
   // Math for No of dangerous event on structure
   heightNearStruct(event:any, form:any){
+    this.heightNearByStructureD(event,form);
     if(form.controls.heightNearByStructure!='' && form.controls.collectionAreaOfStructure!='' && form.controls.groundFlashDensity!='' && form.controls.heightNearByStructure!=null && form.controls.collectionAreaOfStructure!=null && form.controls.groundFlashDensity!=null && form.controls.heightNearByStructure!=undefined && form.controls.collectionAreaOfStructure!=undefined && form.controls.groundFlashDensity!=undefined){
 
       var a = form.controls.groundFlashDensity.value*form.controls.collectionAreaOfStructure.value*form.controls.heightNearByStructureDrop.value*0.000001;
@@ -1116,6 +1094,8 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   }
   // Math for No of dangerous event near the structure
   noOfDangerus(event:any, form:any){
+    this.heightNearByStructureD(event,form);
+    this.telephoneServiceLineD(event,form);
     if(form.controls.groundFlashDensity!='' && form.controls.collAreaOfNearStructure!='' && form.controls.groundFlashDensity!=null && form.controls.collAreaOfNearStructure!=null && form.controls.groundFlashDensity!=undefined && form.controls.collAreaOfNearStructure!=undefined){
       var a = form.controls.groundFlashDensity.value*form.controls.collAreaOfNearStructure.value*0.000001
       form.controls.noOfDangerousEventNearStructure.setValue(a.toFixed(10));
@@ -1199,6 +1179,9 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 
   // Math for Length of Power line
   lengthPowerline(event:any, form:any){
+    this.telephoneServiceLineD(event,form);
+    this.environmentD(event,form);
+    this.typeOfPowerLinesD(event,form);
     // Collection area of the lines && Collection Area Near The Lines
     let arr = form.controls.structureAttributes.controls[0].controls.lengthOfPowerLines.value;
     if(form.controls.structureAttributes.controls[0].controls.lengthOfPowerLines!=''){
@@ -1232,6 +1215,8 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   }
   // Math for Length Of Telecom Lines 
   lengthOfTelecomLines(event:any, form:any){
+    this.telephoneServiceLineD(event,form);
+    this.typeOfTelecomLinesD(event,form);
     // Collection Area Of The Telecom Lines && Collection Area Near The Telecom Lines
     let arr = form.controls.structureAttributes.controls[0].controls.lengthOfTelecomLines.value;
     if(form.controls.structureAttributes.controls[0].controls.lengthOfTelecomLines!='' && form.controls.structureAttributes.controls[0].controls. lengthOfTelecomLines!=null && form.controls.structureAttributes.controls[0].controls.lengthOfTelecomLines!=undefined){
@@ -1288,13 +1273,16 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     else if(form.controls.structureAttributes.controls[0].controls.stRiskOfFire.value == "None"){
       form.controls.riskOfFireData.setValue('0');
     }
-    this.economicLossL4(event,form);
-    this.lossHumanLifeL1(event,form);
-    this.lossServiceToPublicL2(event,form);
   }
 
   // Math for LOSS OF HUMAN LIFE (L1)
   lossHumanLifeL1(event:any, form:any){
+    this.riskOfFireDropDown(event,form);
+    this.stTypeOfFloorSurfaceD(event,form);
+    this.stFireProtectionMeasureD(event,form);
+    this.hazardClassificationD(event,form);
+    this.humanLossOfphysicalDamageD(event,form);
+    this.humanLossOffailureOfInternalSystemD(event,form);
     // Loss due to injury to living beings by electric shock, fromula = rt × LT × nz/nt × tz/8760
     if(form.controls.structureAttributes.controls[0].controls.stTypeOfFloorSurface!='' && form.controls.noOfPeopleInZone!='' && form.controls.noOfPeopleInBuilding!='' && form.controls.yearPeoplePresentBuilding!='' && form.controls.structureAttributes.controls[0].controls.stTypeOfFloorSurface!=null && form.controls.noOfPeopleInZone!=null && form.controls.noOfPeopleInBuilding!=null && form.controls.yearPeoplePresentBuilding!=null && form.controls.structureAttributes.controls[0].controls.stTypeOfFloorSurface!=undefined && form.controls.noOfPeopleInZone!=undefined && form.controls.noOfPeopleInBuilding!=undefined && form.controls.yearPeoplePresentBuilding!=undefined){
 
@@ -1327,6 +1315,11 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 
   // Math for LOSS OF SERVICE TO PUBLIC (L2)
   lossServiceToPublicL2(event:any, form:any){
+    this.riskOfFireDropDown(event,form);
+    this.stFireProtectionMeasureD(event,form);
+    this.serToPubPhysicalDamageD(event,form);
+    this.serToPubfailureOfInternalSystemD(event,form);
+    this.culHerOfPhysicalDamageD(event,form);
     // Loss due to physical damage, formula = rp × rf × LF × nz/nt 
     if(form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure!='' && form.controls.structureAttributes.controls[0].controls.stRiskOfFire!='' && form.controls.losses.controls[0].controls.serToPubPhysicalDamage!='' && form.controls.noOfPeopleInZone!='' && form.controls.noOfPeopleInBuilding!='' && form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure!=null && form.controls.structureAttributes.controls[0].controls.stRiskOfFire!=null && form.controls.losses.controls[0].controls.serToPubPhysicalDamage!=null && form.controls.noOfPeopleInZone!=null && form.controls.noOfPeopleInBuilding!=null && form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure!=undefined && form.controls.structureAttributes.controls[0].controls.stRiskOfFire!=undefined && form.controls.losses.controls[0].controls.serToPubPhysicalDamage!=undefined && form.controls.noOfPeopleInZone!=undefined && form.controls.noOfPeopleInBuilding!=undefined){
       
@@ -1362,6 +1355,12 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 
   // Math for ECONOMIC LOSS (L4)
   economicLossL4(event:any, form:any){
+    this.riskOfFireDropDown(event,form);
+    this.telephoneServiceLineD(event,form);
+    this.stTypeOfFloorSurfaceD(event,form);
+    this.ecoLossOfPhysicalDamageD(event,form);
+    this.ecoLossOfFailureOfInternalSystemD(event,form);
+    this.stFireProtectionMeasureD(event,form);
     // Loss due to injury to living beings by electric shock, formula = rt × LT × ca/ct  
     if(form.controls.structureAttributes.controls[0].controls.stTypeOfFloorSurface!='' && form.controls.structureAttributes.controls[0].controls.stTypeOfFloorSurface!=null && form.controls.structureAttributes.controls[0].controls.stTypeOfFloorSurface!=undefined){
 
@@ -1387,7 +1386,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     if(form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystem!='' && form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystem!=null && form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystem!=undefined){
       var c = form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemDrop.value*1/1;
 
-      form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemL1.setValue(c.toFixed(1));
+      form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemL1.setValue(c.toFixed(4));
     } 
     else{
       form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemL1.setValue("");
@@ -1435,6 +1434,9 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 // shieldingGroundingIsolation and shieldingGroundingIsolationL1
   // some of the shielding values are goes for Protection form
   shielding(event:any, form:any){
+    this.shieldingGroundingIsolationD(event,form);
+    this.shieldingGroundingIsolationL1D(event,form);
+    this.classOfSpdD(event,form);
     let a:any = [];
     let b:any = [];
     a = (form.controls.structureAttributes.controls[0].controls.shieldingGroundingIsolationDrop.value).split(',');
@@ -1493,6 +1495,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   // PROTECTION CALCULATION 
     // (Ks1 × Ks2 × Ks3 × Ks4)2 for Pms
       protectionPms(event:any,form:any){
+        this.stTypeOfInternalWiringD(event,form);
         // var a = form.controls.typeOFbuildingdrop.value;
         // var b = form.controls.typeOFbuildingdrop.value1;
         if(form.controls.structureScreeningEffectiveness!='' && form.controls.internalScreeningEffectiveness!='' && form.controls.structureAttributes.controls[0].controls.stTypeOfInternalWiring!='' && form.controls.structureScreeningEffectiveness!=null && form.controls.internalScreeningEffectiveness!=null && form.controls.structureAttributes.controls[0].controls.stTypeOfInternalWiring!=null && form.controls.structureScreeningEffectiveness!=undefined && form.controls.internalScreeningEffectiveness!=undefined && form.controls.structureAttributes.controls[0].controls.stTypeOfInternalWiring!=undefined){
@@ -1507,6 +1510,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     
     // PSPD × PMS for Pm
       protectionPm(event:any,form:any){
+        this.classOfSpdD(event,form);
         if(form.controls.losses.controls[0].controls.classOfSPD!='' && form.controls.protection.controls[0].controls.protectionPMS!='' && form.controls.losses.controls[0].controls.classOfSPD!=null && form.controls.protection.controls[0].controls.protectionPMS!=null && form.controls.losses.controls[0].controls.classOfSPD!=undefined && form.controls.protection.controls[0].controls.protectionPMS!=undefined){
           var a = form.controls.losses.controls[0].controls.classOfSPDDrop.value*form.controls.protection.controls[0].controls.protectionPMS.value;
           form.controls.protection.controls[0].controls.protectionPM.setValue(Math.ceil(a));
@@ -1522,6 +1526,8 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 
     // PTA  × PB for Pa 
       protectionPA(event:any,form:any){
+        this.stAdditionalProtectionD(event,form);
+        this.classOfLPSD(event,form);
         if(form.controls.structureAttributes.controls[0].controls.stAdditionalProtection!='' && form.controls.losses.controls[0].controls.classOfLPS!='' && form.controls.structureAttributes.controls[0].controls.stAdditionalProtection!=null && form.controls.losses.controls[0].controls.classOfLPS!=null && form.controls.structureAttributes.controls[0].controls.stAdditionalProtection!=undefined && form.controls.losses.controls[0].controls.classOfLPS!=undefined){
           
           var a = form.controls.structureAttributes.controls[0].controls.stAdditionalProtectionDrop.value*form.controls.losses.controls[0].controls.classOfLPSDrop.value;
@@ -1539,7 +1545,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   // Calcualted Risk Table calculation are given below 
   // Loss of human life or permanent injuries - First Row
     lossOfHumanCalc(event:any,form:any){ 
-
+      this.classOfLPSD(event,form);
       // RA1 La = ecoLossOfInjuryOfElectricShock, PA = protectionPA, Nd = noOfDangerousEventOnStructure, Ra1 = riskProtectionRA1
       if(form.controls.noOfDangerousEventOnStructure!='' && form.controls.protection.controls[0].controls.protectionPA!='' && form.controls.losses.controls[0].controls.ecoLossOfInjuryOfElectricShock!='' && form.controls.noOfDangerousEventOnStructure!=null && form.controls.protection.controls[0].controls.protectionPA!=null && form.controls.losses.controls[0].controls.ecoLossOfInjuryOfElectricShock!=null && form.controls.noOfDangerousEventOnStructure!=undefined && form.controls.protection.controls[0].controls.protectionPA!=undefined && form.controls.losses.controls[0].controls.ecoLossOfInjuryOfElectricShock!=undefined){
 
@@ -1656,6 +1662,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 
   // Loss of service to public - Second Row
     lossOfServiceCalc(event:any,form:any){
+      this.classOfLPSD(event,form);
       // RB2 = riskProtectionRB2, formula = ND × PB × LB, ND = noOfDangerousEventOnStructure, PB = classOfLPS, LB = ecoLossOfPhysicalDamageL1
       if(form.controls.noOfDangerousEventOnStructure!='' && form.controls.losses.controls[0].controls.classOfLPS!='' && form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageL1!='' && form.controls.noOfDangerousEventOnStructure!=null && form.controls.losses.controls[0].controls.classOfLPS!=null && form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageL1!=null && form.controls.noOfDangerousEventOnStructure!=undefined && form.controls.losses.controls[0].controls.classOfLPS!=undefined && form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageL1!=undefined){
 
@@ -1747,6 +1754,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 
   // Loss of cultural heritage - Third Row
     lossCulturalCalc(event:any,form:any){
+      this.classOfLPSD(event,form);
       // RB = culturalRB, formula = ND × PB × LB, ND = noOfDangerousEventOnStructure, PB = classOfLPS, LB = ecoLossOfPhysicalDamageL1
       if(form.controls.noOfDangerousEventOnStructure!='' && form.controls.losses.controls[0].controls.classOfLPS!='' && form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageL1!='' && form.controls.noOfDangerousEventOnStructure!=null && form.controls.losses.controls[0].controls.classOfLPS!=null && form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageL1!=null && form.controls.noOfDangerousEventOnStructure!=undefined && form.controls.losses.controls[0].controls.classOfLPS!=undefined && form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageL1!=undefined){
         var a=form.controls.noOfDangerousEventOnStructure.value*form.controls.losses.controls[0].controls.classOfLPSDrop.value*form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageL1.value;
@@ -1781,6 +1789,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   
   // Loss of economic value - Fourth row
     lossEconomicCalc(event:any,form:any){
+      this.classOfLPSD(event,form);
       // RA = econamicValueRA, formula = ND × PA × LA, 
       if(form.controls.noOfDangerousEventOnStructure!='' && form.controls.protection.controls[0].controls.protectionPA!='' && form.controls.losses.controls[0].controls.ecoLossOfInjuryOfElectricShock!='' && form.controls.noOfDangerousEventOnStructure!=null && form.controls.protection.controls[0].controls.protectionPA!=null && form.controls.losses.controls[0].controls.ecoLossOfInjuryOfElectricShock!=null && form.controls.noOfDangerousEventOnStructure!=undefined && form.controls.protection.controls[0].controls.protectionPA!=undefined && form.controls.losses.controls[0].controls.ecoLossOfInjuryOfElectricShock!=undefined){
         var a=form.controls.noOfDangerousEventOnStructure.value*form.controls.protection.controls[0].controls.protectionPA.value*form.controls.losses.controls[0].controls.ecoLossOfInjuryOfElectricShock.value;
@@ -2091,6 +2100,8 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     this.riskAssessmentDetails = this.step2Form.value.structureCharacters[0];
     this.riskAssessmentDetails.riskId = this.riskGlobal.riskId;
     this.riskAssessmentDetails.userName = this.router.snapshot.paramMap.get('email') || '{}';
+    this.riskAssessmentDetails.updatedDate = this.riskList.updatedDate;
+    this.riskAssessmentDetails.updatedBy = this.riskList.updatedBy;
 
     //if (!this.validationError) {
       if(flag) {
