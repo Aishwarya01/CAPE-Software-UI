@@ -75,6 +75,15 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   originalData: any = [];
   printDirtyMsg: string="";
   printMsg: boolean=false;
+  printMsg1: any;
+
+  printSuccessMsg: String="";
+  printErrorMsg: String="";
+  printPopup: boolean=false;
+
+  // Print Pdf purpose
+  successPdf: boolean=false;
+  errorPdf: boolean=false;
 
   constructor(private router: ActivatedRoute,
               private formBuilder: FormBuilder,
@@ -2077,14 +2086,37 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     this.riskId = riskId;
   }
 
-  printPdf(content1:any) {
+  printPdf(content1:any,content2:any) {
     if(this.step2Form.dirty && this.step2Form.touched){
       this.modalService.open(content1, { centered: true,backdrop: 'static' });
       this.printMsg=true;
       this.printDirtyMsg="Please click the update button, To reflect the modified data in PDF..!";
     }
     else{
-      this.riskfinalpdfService.printPDF(this.riskAssessmentDetails.riskId,this.riskAssessmentDetails.userName,this.projectName);
+      this.modalService.open(content2, { centered: true,backdrop: 'static' });
+      // Popup msg
+      this.printPopup=true;
+      this.successPdf=true;
+      this.printSuccessMsg="Your PDF will be generating, Please wait a while";
+
+      this.riskfinalpdfService.printPDF(this.riskAssessmentDetails.riskId,this.riskAssessmentDetails.userName,this.projectName).subscribe(
+        data =>{
+          setTimeout(()=>{
+            this.printPopup=false;
+            this.successPdf=false;
+            this.printSuccessMsg="";
+            var fileURL: any = URL.createObjectURL(data);
+            var a = document.createElement("a");
+            a.href = fileURL;
+            a.target = '_blank';
+            a.click();
+          }, 4000)
+          this.modalService.dismissAll();
+        },
+        error=>{
+          this.errorPdf=true;
+          this.printErrorMsg="Something Went Wrong, Please try again later";
+        })
     }
   }
 

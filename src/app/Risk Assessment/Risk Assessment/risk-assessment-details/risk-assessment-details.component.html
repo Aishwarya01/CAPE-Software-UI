@@ -1331,7 +1331,7 @@
             <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
             <button *ngIf="updateButton" class="next" (click)="gotoNextModal(contents,content)" mat-button>Update &raquo;</button>
             <button *ngIf="saveButton" class="next" (click)="gotoNextModal(contents,content)" mat-button>Save &raquo;</button>
-            <button type="button" *ngIf="enablePrint" class="next" (click)="printPdf(content1)" title="Generate PDF" mat-button>Print</button>
+            <button type="button" *ngIf="enablePrint" class="next" (click)="printPdf(content1,content2)" title="Generate PDF" mat-button>Print</button>
         </div>
     </form>
     </div>
@@ -1359,7 +1359,26 @@
     </div>
 </ng-template> 
 
-
+<ng-template #content2 let-modal>
+    <div class="modal-body" *ngIf="printPopup">
+        <div class="centre-text m-btm30">
+            <div *ngIf="successPdf" style="text-align: center;">
+                <span class="successshow">{{printSuccessMsg}}</span>
+            </div>
+            <div *ngIf="errorPdf" style="text-align: center;">
+                <span class="errorshow">{{printErrorMsg}}</span>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div style="text-align: center;">
+        <button type="button" *ngIf="errorPdf" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+        aria-label="Close" (click)="closeModalDialog()" style="margin-left: 195px;width: 16%;" matStepperNext>
+         <span aria-hidden="true">Ok</span>
+        </button>
+    </div>
+</ng-template> 
+    
 <ng-template #content let-modal>
     <!-- Spinner -->
     <!-- <mat-progress-spinner style="margin: 0 auto;" *ngIf="spinner" color="primary" [mode]="mode" value="50" diameter="50">
@@ -1417,28 +1436,3 @@
   </div>
   
 </ng-template>
-
-<!-- <ng-template #content let-modal>
-    <div class="modal-body" *ngIf="printPdf">
-        <div class="centre-text m-btm30">
-            <div *ngIf="success" style="text-align: center;">
-                <span class="successsPrintMsg">{{successsPrintMsg}}</span>
-            </div>
-            <div *ngIf="Error" style="text-align: center;">
-                <span class="errorPrintMsg">{{errorPrintMsg}}</span>
-            </div>
-        </div>
-    </div>
-    <br>
-    <div *ngIf="popup" style="text-align: center;">
-        <button type="button" *ngIf="successPrint" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
-        aria-label="Close" (click)="closeModalDialog()" style="margin-left: 195px;width: 16%;" matStepperNext>
-         <span aria-hidden="true">Ok</span>
-        </button>
-    
-        <button type="button" *ngIf="errorPrint" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
-        aria-label="Close" (click)="closeModalDialog()" style="margin-left: 195px;width: 16%;" >
-        <span aria-hidden="true">Ok</span>
-        </button>
-    </div>
-</ng-template>  -->
