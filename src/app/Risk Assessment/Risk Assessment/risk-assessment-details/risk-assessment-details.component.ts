@@ -2114,14 +2114,16 @@ export class RiskAssessmentDetailsComponent implements OnInit {
             this.modalService.dismissAll();
         },
         error=>{
-          this.blurMode=false;
-          this.blurMsg="";
-          this.modalService.open(content2, { centered: true,backdrop: 'static' });
           this.printPopup=true;
           this.successPdf=false;
           this.printSuccessMsg="";
-          this.errorPdf=true;
-          this.printErrorMsg="Something went wrong, Please try again later";
+          setTimeout(()=>{
+            this.blurMode=false;
+            this.blurMsg="";
+            this.modalService.open(content2, { centered: true,backdrop: 'static' });
+            this.errorPdf=true;
+            this.printErrorMsg="Something went wrong, Please try again later";
+          },2000);
         })
     }
   }
