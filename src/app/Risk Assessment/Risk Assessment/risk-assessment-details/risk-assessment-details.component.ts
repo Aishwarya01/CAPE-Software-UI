@@ -62,6 +62,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   mode: any= 'indeterminate';
 
   blurMode: boolean=false;
+  blurMsg: string="";
   locationDrop: boolean=false;
 
   validationErrorTab: boolean=false;
@@ -620,6 +621,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     this.getLocation='';
     this.spinner=true;
     this.blurMode=true;
+    this.blurMsg="Please wait Loading...";
     setTimeout(()=>{
       for(let i of this.locationList) {
         if(i.location == selectedValue) {
@@ -628,6 +630,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
           this.locationDrop=false;
           this.spinner=false;
           this.blurMode=false;
+          this.blurMsg="";
         }
         if(selectedValue == 'Others') {
           form.controls.groundFlashDensity.setValue('');
@@ -2093,15 +2096,13 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       this.printDirtyMsg="Please click the update button, To reflect the modified data in PDF..!";
     }
     else{
-      this.modalService.open(content2, { centered: true,backdrop: 'static' });
-      // Popup msg
-      this.printPopup=true;
-      this.successPdf=true;
-      this.printSuccessMsg="Your PDF will be generating, Please wait a while";
-
+      this.blurMode=true;
+      this.blurMsg="Your PDF will be generating, Please wait a while";
       this.riskfinalpdfService.printPDF(this.riskAssessmentDetails.riskId,this.riskAssessmentDetails.userName,this.projectName).subscribe(
         data =>{
-          setTimeout(()=>{
+          // Popup msg
+            this.blurMode=false;
+            this.blurMsg="";
             this.printPopup=false;
             this.successPdf=false;
             this.printSuccessMsg="";
@@ -2110,12 +2111,17 @@ export class RiskAssessmentDetailsComponent implements OnInit {
             a.href = fileURL;
             a.target = '_blank';
             a.click();
-          }, 4000)
-          this.modalService.dismissAll();
+            this.modalService.dismissAll();
         },
         error=>{
+          this.blurMode=false;
+          this.blurMsg="";
+          this.modalService.open(content2, { centered: true,backdrop: 'static' });
+          this.printPopup=true;
+          this.successPdf=false;
+          this.printSuccessMsg="";
           this.errorPdf=true;
-          this.printErrorMsg="Something Went Wrong, Please try again later";
+          this.printErrorMsg="Something went wrong, Please try again later";
         })
     }
   }

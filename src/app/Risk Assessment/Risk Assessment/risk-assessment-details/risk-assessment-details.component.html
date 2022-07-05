@@ -14,7 +14,7 @@
 
 <div class="animBox" *ngIf="blurMode" style="overflow: inherit;margin: 0px auto;position: fixed;z-index: 1000;top: 50%;"></div>
 <div class="waviy">
-    <pre *ngIf="blurMode" style="top: 52%;position: fixed;overflow: inherit;margin: 0px auto;z-index: 1000;margin-left: 48%;font-weight: bold;">Please wait Loading...</pre>
+    <pre *ngIf="blurMode" style="top: 52%;position: fixed;overflow: inherit;margin: 0px auto;z-index: 1000;margin-left: 48%;font-weight: bold;">{{blurMsg}}</pre>
 </div>
 
 <div class="card" [ngStyle]="{'filter': (blurMode ? 'blur(1px)' : 'blur(0px)') ,'pointer-events': (blurMode ? 'none' : 'visible')}">
@@ -1362,9 +1362,6 @@
 <ng-template #content2 let-modal>
     <div class="modal-body" *ngIf="printPopup">
         <div class="centre-text m-btm30">
-            <div *ngIf="successPdf" style="text-align: center;">
-                <span class="successshow">{{printSuccessMsg}}</span>
-            </div>
             <div *ngIf="errorPdf" style="text-align: center;">
                 <span class="errorshow">{{printErrorMsg}}</span>
             </div>
