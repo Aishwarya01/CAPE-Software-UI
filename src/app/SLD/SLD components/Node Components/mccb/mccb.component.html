@@ -58,7 +58,7 @@
             <label>No of Poles</label>
             <select  class="form-control" formControlName="noOfPoles" [(ngModel)]="mccb.noOfPoles"
             [ngClass]="{ 'is-invalid': submittedMccb && h.noOfPoles?.errors }">
-              <option value="">Select Option</option>
+              <option value="" disabled>Select Option</option>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>

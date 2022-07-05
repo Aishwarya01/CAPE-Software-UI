@@ -23,10 +23,15 @@ import { MCCBComponent } from '../Node Components/mccb/mccb.component';
 import { RCBOComponent } from '../Node Components/rcbo/rcbo.component';
 import { LightComponent } from '../Node Components/light/light.component';
 import { LTMotorComponent } from '../Node Components/ltmotor/ltmotor.component';
-import { FanComponent } from '../Node Components/fan/fan.component';
 import { PortableApplianceComponent } from '../Node Components/portable-appliance/portable-appliance.component';	
-import { FanServicesService } from '../../../SLD/SLD Services/fan-services.service';
 
+import { FanServicesService } from '../../../SLD/SLD Services/fan-services.service';
+import { FanComponent } from '../Node Components/fan/fan.component';
+import { CablesComponent } from '../Node Components/cables/cables.component';
+import { CablesServicesService } from '../../../SLD/SLD Services/cables-services.service';
+
+//import { CableConnectorComponent } from '../Node Components/cable-connector/cable-connector.component';
+//import { CableConnectorServicesService } from '../../../SLD/SLD Services/cableConnector-service.service';
 
 @Component({
   selector: 'app-diagram-home',
@@ -233,6 +238,16 @@ export class DiagramHomeComponent implements OnInit {
         dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
         dialogRef.componentInstance.email = this.email;
       }
+      else if(e.element.properties.id.includes('Wire')) {
+        const dialogRef = this.dialog.open(CablesComponent, {
+          width: '1100px',
+          maxHeight: '90vh',
+          disableClose: true,
+        });
+        dialogRef.componentInstance.nodeId = e.element.properties.id;
+        dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
+        dialogRef.componentInstance.email = this.email;
+      }
       else if(e.element.properties.id.includes('MCB_with_RCD')) {
         const dialogRef = this.dialog.open(RCBOComponent, {
           width: '1100px',
@@ -292,10 +307,62 @@ export class DiagramHomeComponent implements OnInit {
       // let person = prompt("Please enter color of the node:", "Red");
       // e.element.style.fill = person;
     } 
-    else if(e.element instanceof Connector){
-      let person = prompt("Please enter type of the connector:", "Straight");
-      e.element.type = person;
-    }
+    // else if(e.element instanceof Connector){
+    //   let person = prompt("Please enter type of the connector:", "Straight");
+    //   e.element.type = person;
+    //   console.log(e.element)
+
+    //   if(e.element.properties.id.includes('Orthogonal1')) {
+    //     const dialogRef = this.dialog.open(CableConnectorComponent, {
+    //       width: '1100px',
+    //       maxHeight: '90vh',
+    //       disableClose: true,
+    //     });
+    //     dialogRef.componentInstance.cableConnectorId = e.element.properties.id;
+    //     dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
+    //     dialogRef.componentInstance.email = this.email;
+    //   }
+    //   if(e.element.properties.id.includes('Orthogonal2')) {
+    //     const dialogRef = this.dialog.open(CableConnectorComponent, {
+    //       width: '1100px',
+    //       maxHeight: '90vh',
+    //       disableClose: true,
+    //     });
+    //     dialogRef.componentInstance.cableConnectorId = e.element.properties.id;
+    //     dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
+    //     dialogRef.componentInstance.email = this.email;
+    //   }
+    //   if(e.element.properties.id.includes('Straight1')) {
+    //     const dialogRef = this.dialog.open(CableConnectorComponent, {
+    //       width: '1100px',
+    //       maxHeight: '90vh',
+    //       disableClose: true,
+    //     });
+    //     dialogRef.componentInstance.cableConnectorId = e.element.properties.id;
+    //     dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
+    //     dialogRef.componentInstance.email = this.email;
+    //   }
+    //   if(e.element.properties.id.includes('Straight2')) {
+    //     const dialogRef = this.dialog.open(CableConnectorComponent, {
+    //       width: '1100px',
+    //       maxHeight: '90vh',
+    //       disableClose: true,
+    //     });
+    //     dialogRef.componentInstance.cableConnectorId = e.element.properties.id;
+    //     dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
+    //     dialogRef.componentInstance.email = this.email;
+    //   }
+    //   if(e.element.properties.id.includes('Bezier')) {
+    //     const dialogRef = this.dialog.open(CableConnectorComponent, {
+    //       width: '1100px',
+    //       maxHeight: '90vh',
+    //       disableClose: true,
+    //     });
+    //     dialogRef.componentInstance.cableConnectorId = e.element.properties.id;
+    //     dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
+    //     dialogRef.componentInstance.email = this.email;
+    //   }
+    // }
   }
   // public portIp1: PointPortModel[] = [
   //   {
@@ -627,7 +694,9 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
               private rcboService: RCBOServicesService,
               private lightService: LightServicesService,
               private fanService: FanServicesService,
+              private cablesService: CablesServicesService,
               private LTMotorService:LTMotorServicesService,
+            //  private cableConnectorservice:CableConnectorServicesService,
               private router: ActivatedRoute,
               private modalService: NgbModal,
               private formBuilder: FormBuilder
