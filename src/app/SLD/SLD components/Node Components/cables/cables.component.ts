@@ -144,6 +144,7 @@ export class CablesComponent implements OnInit {
       phN: new FormControl(j.phN[0], Validators.required),
       phNIResistance: new FormControl(j.phN[1], Validators.required),
       phNCResistance: new FormControl(j.phN[2], Validators.required),
+      flag: new FormControl(j.flag, Validators.required),
     });
   }
 

@@ -1,6 +1,6 @@
-export class Cables {
+export class CableConnector {
     cableId!: number;
-    nodeId!: String;
+    cableConnectorId!: String;
     fileName!: String;
     manufacturerName!: String;
     userName!: String;
@@ -18,11 +18,11 @@ export class Cables {
     createdBy!: String;
     updatedDate!: Date;
 
-    generalTestingCables!: GeneralTestingCables[];
+    generalTestingCableConnector!: GeneralTestingCableConnector[];
 }
 
-export class GeneralTestingCables {
-    generalTestingCablesId!: number;
+export class GeneralTestingCableConnector {
+    generalTestingCableConnectorId!: number;
     phN!: String;
     // phE!: String;
     // nE!: String;
