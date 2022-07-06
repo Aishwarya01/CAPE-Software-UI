@@ -23,7 +23,8 @@ export class CableConnector {
 
 export class GeneralTestingCableConnector {
     generalTestingCableConnectorId!: number;
+    potentialReport!: String;
     phN!: String;
-    // phE!: String;
-    // nE!: String;
+    phNIResistance!: String;
+    phNCResistance!: String;
 }

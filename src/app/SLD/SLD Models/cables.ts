@@ -23,7 +23,8 @@ export class Cables {
 
 export class GeneralTestingCables {
     generalTestingCablesId!: number;
+    potentialReport!: String;
     phN!: String;
-    // phE!: String;
-    // nE!: String;
+    phNIResistance!: String;
+    phNCResistance!: String;
 }

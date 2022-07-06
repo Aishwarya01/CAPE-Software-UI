@@ -74,6 +74,7 @@ export class CableConnectorComponent implements OnInit {
 
 private createGeneralTestingCableConnector(): FormGroup {
   return new FormGroup({
+    potentialReport: new FormControl(''),
     phN: new FormControl('', Validators.required),
     phNIResistance: new FormControl('', Validators.required),
     phNCResistance: new FormControl('', Validators.required),
@@ -128,9 +129,10 @@ populateCableConnectorForm(i: any) {
 populateGeneralTestingCableConnectorForm(j: any): FormGroup {
   return new FormGroup({
     generalTestingCableConnectorId: new FormControl(j.generalTestingCableConnectorId),
-    phN: new FormControl(j.phN[0], Validators.required),
-    phNIResistance: new FormControl(j.phN[1], Validators.required),
-    phNCResistance: new FormControl(j.phN[2], Validators.required),
+    potentialReport: new FormControl(j.potentialReport),
+    phN: new FormControl(j.phN, Validators.required),
+    phNIResistance: new FormControl(j.phNIResistance, Validators.required),
+    phNCResistance: new FormControl(j.phNCResistance, Validators.required),
     flag: new FormControl(j.flag, Validators.required),
     });
 }
@@ -208,25 +210,37 @@ saveCableConnector(cableConnectorFlag: any) {
     this.validationErrorMsg="Please check all the fields";
     return;
   }
- this.cableConnectorGeneralTestingArray = this.cableConnectorForm.get('generalTestingCableConnector') as FormArray;
+ //this.cableConnectorGeneralTestingArray = this.cableConnectorForm.get('generalTestingCableConnector') as FormArray;
 
-    for (let i of this.cableConnectorGeneralTestingArray.controls) {
-      let arr1: any = [];
-      arr1.push(i.controls.phN.value, i.controls.phNIResistance.value, i.controls.phNCResistance.value);
-      let phN: String = '';
-      for (let a of arr1) {
-        if (a != '' && a != null && a != undefined) {
-          phN += a ;
-        }
-        else {
-          phN += '';
-        }
-      }
-      phN = phN.replace(/,\s*$/, '');
-      i.controls.phN.setValue(phN);
+ this.cableConnector.generalTestingCableConnector = this.cableConnectorForm.value.generalTestingCableConnector;
+  for(let i of this.cableConnector.generalTestingCableConnector) {
+    if(this.cableConnector.potentialTestReport == 'Available') {
+    i.potentialReport = 'Available';
     }
+    else if(this.cableConnector.potentialTestReport == 'Not available') {
+      i.potentialReport = 'Not available';
+    }
+    else if(this.cableConnector.potentialTestReport == 'Not applicable') {
+      i.potentialReport = 'Not applicable';
+    }
+  }
+    // for (let i of this.cableConnectorGeneralTestingArray.controls) {
+    //   let arr1: any = [];
+    //   arr1.push(i.controls.phN.value, i.controls.phNIResistance.value, i.controls.phNCResistance.value);
+    //   let phN: String = '';
+    //   for (let a of arr1) {
+    //     if (a != '' && a != null && a != undefined) {
+    //       phN += a ;
+    //     }
+    //     else {
+    //       phN += '';
+    //     }
+    //   }
+    //   phN = phN.replace(/,\s*$/, '');
+    //   i.controls.phN.setValue(phN);
+    // }
 
-    this.cableConnector.generalTestingCableConnector = this.cableConnectorForm.value.generalTestingCableConnector;
+ //   this.cableConnector.generalTestingCableConnector = this.cableConnectorForm.value.generalTestingCableConnector;
     this.cableConnector.userName = this.email;
 
   

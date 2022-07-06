@@ -74,17 +74,11 @@ export class CablesComponent implements OnInit {
 
   private createGeneralTestingCables(): FormGroup {
     return new FormGroup({
+      potentialReport: new FormControl(''),
       phN: new FormControl('', Validators.required),
       phNIResistance: new FormControl('', Validators.required),
       phNCResistance: new FormControl('', Validators.required),
       flag: new FormControl('A')
-      // phE: new FormControl('', Validators.required),
-      // phEIResistance: new FormControl('', Validators.required),
-      // phECResistance: new FormControl('', Validators.required),
-
-      // nE: new FormControl('', Validators.required),
-      // nEIResistance: new FormControl('', Validators.required),
-      // nECResistance: new FormControl('', Validators.required),
     });
   }
 
@@ -141,9 +135,10 @@ export class CablesComponent implements OnInit {
   populateGeneralTestingCablesForm(j: any): FormGroup {
     return new FormGroup({
       generalTestingCableId: new FormControl(j.generalTestingCableId),
-      phN: new FormControl(j.phN[0], Validators.required),
-      phNIResistance: new FormControl(j.phN[1], Validators.required),
-      phNCResistance: new FormControl(j.phN[2], Validators.required),
+      potentialReport: new FormControl(j.potentialReport),
+      phN: new FormControl(j.phN, Validators.required),
+      phNIResistance: new FormControl(j.phNIResistance, Validators.required),
+      phNCResistance: new FormControl(j.phNCResistance, Validators.required),
       flag: new FormControl(j.flag, Validators.required),
     });
   }
@@ -293,29 +288,41 @@ export class CablesComponent implements OnInit {
       return;
     }
 
-    this.cablesGeneralTestingArray = this.cablesForm.get('generalTestingCables') as FormArray;
-
-    for (let i of this.cablesGeneralTestingArray.controls) {
-      let arr1: any = [];
-
-      arr1.push(i.controls.phN.value, i.controls.phNIResistance.value, i.controls.phNCResistance.value);
-    
-      let phN: String = '';
-      
-      for (let a of arr1) {
-        if (a != '' && a != null && a != undefined) {
-          phN += a ;
-        }
-        else {
-          phN += '';
-        }
-      }
-      phN = phN.replace(/,\s*$/, '');
-      i.controls.phN.setValue(phN);
-
-    }
-
     this.cables.generalTestingCables = this.cablesForm.value.generalTestingCables;
+    for(let i of this.cables.generalTestingCables) {
+      if(this.cables.potentialTestReport == 'Available') {
+      i.potentialReport = 'Available';
+      }
+      else if(this.cables.potentialTestReport == 'Not available') {
+        i.potentialReport = 'Not available';
+      }
+      else if(this.cables.potentialTestReport == 'Not applicable') {
+        i.potentialReport = 'Not applicable';
+      }
+    }
+   // this.cablesGeneralTestingArray = this.cablesForm.get('generalTestingCables') as FormArray;
+
+    // for (let i of this.cablesGeneralTestingArray.controls) {
+    //   let arr1: any = [];
+
+    //   arr1.push(i.controls.phN.value, i.controls.phNIResistance.value, i.controls.phNCResistance.value);
+    
+    //   let phN: String = '';
+      
+    //   for (let a of arr1) {
+    //     if (a != '' && a != null && a != undefined) {
+    //       phN += a ;
+    //     }
+    //     else {
+    //       phN += '';
+    //     }
+    //   }
+    //   phN = phN.replace(/,\s*$/, '');
+    //   i.controls.phN.setValue(phN);
+
+    // }
+
+  //  this.cables.generalTestingCables = this.cablesForm.value.generalTestingCables;
     this.cables.userName = this.email;
 
 
