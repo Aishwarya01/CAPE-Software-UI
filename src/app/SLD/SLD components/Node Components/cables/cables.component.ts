@@ -163,6 +163,15 @@ export class CablesComponent implements OnInit {
       changedValue = event;
     }
     this.generalTestingCablesArr = this.cablesForm.get('generalTestingCables') as FormArray;
+
+    if(changedValue == 'Available') {
+      this.f.generalTestingCables.controls[0].controls['phN'].setValidators([Validators.required]);
+      this.f.generalTestingCables.controls[0].controls['phN'].updateValueAndValidity();
+      this.f.generalTestingCables.controls[0].controls['phNIResistance'].setValidators([Validators.required]);
+      this.f.generalTestingCables.controls[0].controls['phNIResistance'].updateValueAndValidity();
+      this.f.generalTestingCables.controls[0].controls['phNCResistance'].setValidators([Validators.required]);
+      this.f.generalTestingCables.controls[0].controls['phNCResistance'].updateValueAndValidity();
+
     if(this.cablesFlag) {
       let lengthValue = this.generalTestingCablesArr.length;
       for(let i=0; i<lengthValue; i++) {
@@ -175,6 +184,10 @@ export class CablesComponent implements OnInit {
       }
       this.generalTestingCablesArr.push(this.createGeneralTestingCables());
     }
+  }
+  else if(changedValue == 'Not available' || changedValue == 'Not applicable'){
+        this.disableValidators();
+  }
   }
 
   // showPotential(event: any) {
@@ -215,44 +228,19 @@ export class CablesComponent implements OnInit {
   //   }
 
   // }
-  // disableValidators() {
-  //   this.f.generalTestingCables.controls[0].controls['phN'].setValue('');
-  //   this.f.generalTestingCables.controls[0].controls['phN'].clearValidators();
-  //   this.f.generalTestingCables.controls[0].controls['phN'].updateValueAndValidity();
+  disableValidators() {
+    this.f.generalTestingCables.controls[0].controls['phN'].setValue('');
+    this.f.generalTestingCables.controls[0].controls['phN'].clearValidators();
+    this.f.generalTestingCables.controls[0].controls['phN'].updateValueAndValidity();
 
-  //   this.f.generalTestingCables.controls[0].controls['phNIResistance'].setValue('');
-  //   this.f.generalTestingCables.controls[0].controls['phNIResistance'].clearValidators();
-  //   this.f.generalTestingCables.controls[0].controls['phNIResistance'].updateValueAndValidity();
+    this.f.generalTestingCables.controls[0].controls['phNIResistance'].setValue('');
+    this.f.generalTestingCables.controls[0].controls['phNIResistance'].clearValidators();
+    this.f.generalTestingCables.controls[0].controls['phNIResistance'].updateValueAndValidity();
 
-  //   this.f.generalTestingCables.controls[0].controls['phNCResistance'].setValue('');
-  //   this.f.generalTestingCables.controls[0].controls['phNCResistance'].clearValidators();
-  //   this.f.generalTestingCables.controls[0].controls['phNCResistance'].updateValueAndValidity();
-
-  //   // this.f.generalTestingCables.controls[0].controls['phE'].setValue('');
-  //   // this.f.generalTestingCables.controls[0].controls['phE'].clearValidators();
-  //   // this.f.generalTestingCables.controls[0].controls['phE'].updateValueAndValidity();
-
-  //   // this.f.generalTestingCables.controls[0].controls['phEIResistance'].setValue('');
-  //   // this.f.generalTestingCables.controls[0].controls['phEIResistance'].clearValidators();
-  //   // this.f.generalTestingCables.controls[0].controls['phEIResistance'].updateValueAndValidity();
-
-  //   // this.f.generalTestingCables.controls[0].controls['phECResistance'].setValue('');
-  //   // this.f.generalTestingCables.controls[0].controls['phECResistance'].clearValidators();
-  //   // this.f.generalTestingCables.controls[0].controls['phECResistance'].updateValueAndValidity();
-
-  //   // this.f.generalTestingCables.controls[0].controls['nE'].setValue('');
-  //   // this.f.generalTestingCables.controls[0].controls['nE'].clearValidators();
-  //   // this.f.generalTestingCables.controls[0].controls['nE'].updateValueAndValidity();
-
-  //   // this.f.generalTestingCables.controls[0].controls['nEIResistance'].setValue('');
-  //   // this.f.generalTestingCables.controls[0].controls['nEIResistance'].clearValidators();
-  //   // this.f.generalTestingCables.controls[0].controls['nEIResistance'].updateValueAndValidity();
-
-  //   // this.f.generalTestingCables.controls[0].controls['nECResistance'].setValue('');
-  //   // this.f.generalTestingCables.controls[0].controls['nECResistance'].clearValidators();
-  //   // this.f.generalTestingCables.controls[0].controls['nECResistance'].updateValueAndValidity();
-
-  // }
+    this.f.generalTestingCables.controls[0].controls['phNCResistance'].setValue('');
+    this.f.generalTestingCables.controls[0].controls['phNCResistance'].clearValidators();
+    this.f.generalTestingCables.controls[0].controls['phNCResistance'].updateValueAndValidity();
+  }
 
   get f(): any {
     return this.cablesForm.controls;

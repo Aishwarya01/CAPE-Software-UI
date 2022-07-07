@@ -154,7 +154,7 @@ removeCableConnectortesting(i: any) {
     this.cableConnectorForm.markAsDirty();
 }
 
-get f(){
+get f():any{
   return this.cableConnectorForm.controls; 
 }
 
@@ -167,6 +167,14 @@ showPotential(event: any) {
     changedValue = event;
   }
   this.generalTestingCableConnectorArr = this.cableConnectorForm.get('generalTestingCableConnector') as FormArray;
+  if(changedValue == 'Available') {
+    this.f.generalTestingCableConnector.controls[0].controls['phN'].setValidators([Validators.required]);
+    this.f.generalTestingCableConnector.controls[0].controls['phN'].updateValueAndValidity();
+    this.f.generalTestingCableConnector.controls[0].controls['phNIResistance'].setValidators([Validators.required]);
+    this.f.generalTestingCableConnector.controls[0].controls['phNIResistance'].updateValueAndValidity();
+    this.f.generalTestingCableConnector.controls[0].controls['phNCResistance'].setValidators([Validators.required]);
+    this.f.generalTestingCableConnector.controls[0].controls['phNCResistance'].updateValueAndValidity();
+
   if(this.cableConnectorFlag) {
     let lengthValue = this.generalTestingCableConnectorArr.length;
     for(let i=0; i<lengthValue; i++) {
@@ -179,6 +187,24 @@ showPotential(event: any) {
     }
     this.generalTestingCableConnectorArr.push(this.createGeneralTestingCableConnector());
   }
+}
+else if(changedValue == 'Not available' || changedValue == 'Not applicable'){
+  this.disableValidators();
+}
+}
+
+disableValidators() {
+  this.f.generalTestingCableConnector.controls[0].controls['phN'].setValue('');
+  this.f.generalTestingCableConnector.controls[0].controls['phN'].clearValidators();
+  this.f.generalTestingCableConnector.controls[0].controls['phN'].updateValueAndValidity();
+
+  this.f.generalTestingCableConnector.controls[0].controls['phNIResistance'].setValue('');
+  this.f.generalTestingCableConnector.controls[0].controls['phNIResistance'].clearValidators();
+  this.f.generalTestingCableConnector.controls[0].controls['phNIResistance'].updateValueAndValidity();
+
+  this.f.generalTestingCableConnector.controls[0].controls['phNCResistance'].setValue('');
+  this.f.generalTestingCableConnector.controls[0].controls['phNCResistance'].clearValidators();
+  this.f.generalTestingCableConnector.controls[0].controls['phNCResistance'].updateValueAndValidity();
 }
 
 onChangeForm(event:any){
