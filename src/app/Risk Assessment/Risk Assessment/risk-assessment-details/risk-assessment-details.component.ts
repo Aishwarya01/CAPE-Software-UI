@@ -62,6 +62,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   mode: any= 'indeterminate';
 
   blurMode: boolean=false;
+  blurMsg: string="";
   locationDrop: boolean=false;
 
   validationErrorTab: boolean=false;
@@ -75,6 +76,15 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   originalData: any = [];
   printDirtyMsg: string="";
   printMsg: boolean=false;
+  printMsg1: any;
+
+  printSuccessMsg: String="";
+  printErrorMsg: String="";
+  printPopup: boolean=false;
+
+  // Print Pdf purpose
+  successPdf: boolean=false;
+  errorPdf: boolean=false;
 
   constructor(private router: ActivatedRoute,
               private formBuilder: FormBuilder,
@@ -611,6 +621,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     this.getLocation='';
     this.spinner=true;
     this.blurMode=true;
+    this.blurMsg="Please wait Loading...";
     setTimeout(()=>{
       for(let i of this.locationList) {
         if(i.location == selectedValue) {
@@ -619,6 +630,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
           this.locationDrop=false;
           this.spinner=false;
           this.blurMode=false;
+          this.blurMsg="";
         }
         if(selectedValue == 'Others') {
           form.controls.groundFlashDensity.setValue('');
@@ -671,16 +683,16 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   }
 
   stTypeOfFloorSurfaceD(event:any,form:any){
-    if(form.controls.structureAttributes.controls[0].controls.stTypeOfFloorSurface.value == 'Agricultural,concrete'){
+    if(form.controls.structureAttributes.controls[0].controls.stTypeOfFloorSurface.value == 'Agricultural, concrete'){
       form.controls.structureAttributes.controls[0].controls.stTypeOfFloorSurfaceDrop.setValue("0.01");
     }
-    else if(form.controls.structureAttributes.controls[0].controls.stTypeOfFloorSurface.value == 'Marble,Ceramic'){
+    else if(form.controls.structureAttributes.controls[0].controls.stTypeOfFloorSurface.value == 'Marble, Ceramic'){
       form.controls.structureAttributes.controls[0].controls.stTypeOfFloorSurfaceDrop.setValue("0.001");
     }
-    else if(form.controls.structureAttributes.controls[0].controls.stTypeOfFloorSurface.value == 'Gravel,moquette,carpets'){
+    else if(form.controls.structureAttributes.controls[0].controls.stTypeOfFloorSurface.value == 'Gravel, moquette, carpets'){
       form.controls.structureAttributes.controls[0].controls.stTypeOfFloorSurfaceDrop.setValue("0.0001");
     }
-    else if(form.controls.structureAttributes.controls[0].controls.stTypeOfFloorSurface.value == 'Asphalt,linoleum,wood'){
+    else if(form.controls.structureAttributes.controls[0].controls.stTypeOfFloorSurface.value == 'Asphalt, linoleum, wood'){
       form.controls.structureAttributes.controls[0].controls.stTypeOfFloorSurfaceDrop.setValue("0.00001");
     }
   }
@@ -716,13 +728,13 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   }
 
   stTypeOfInternalWiringD(event:any,form:any){
-    if(form.controls.structureAttributes.controls[0].controls.stTypeOfInternalWiring.value == 'Unshielded,improper routing'){
+    if(form.controls.structureAttributes.controls[0].controls.stTypeOfInternalWiring.value == 'Unshielded, improper routing'){
       form.controls.structureAttributes.controls[0].controls.stTypeOfInternalWiringDrop.setValue("1");
     }
-    else if(form.controls.structureAttributes.controls[0].controls.stTypeOfInternalWiring.value == 'Unshielded,proper routing to avoid large loops'){
+    else if(form.controls.structureAttributes.controls[0].controls.stTypeOfInternalWiring.value == 'Unshielded, proper routing to avoid large loops'){
       form.controls.structureAttributes.controls[0].controls.stTypeOfInternalWiringDrop.setValue("0.2");
     }
-    else if(form.controls.structureAttributes.controls[0].controls.stTypeOfInternalWiring.value == 'Unshielded,proper routing to avoid loops'){
+    else if(form.controls.structureAttributes.controls[0].controls.stTypeOfInternalWiring.value == 'Unshielded, proper routing to avoid loops'){
       form.controls.structureAttributes.controls[0].controls.stTypeOfInternalWiringDrop.setValue("0.01");
     }
     else if(form.controls.structureAttributes.controls[0].controls.stTypeOfInternalWiring.value == 'Shielded cables running in metal conduits'){
@@ -734,7 +746,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     if(form.controls.structureAttributes.controls[0].controls.typeOfPowerLines.value == 'Overhead'){
       form.controls.structureAttributes.controls[0].controls.typeOfPowerLinesDrop.setValue("1");
     }
-    else if(form.controls.structureAttributes.controls[0].controls.typeOfPowerLines.value == 'U.G cable from Electricity supplier'){
+    else if(form.controls.structureAttributes.controls[0].controls.typeOfPowerLines.value == '"U.G cable from Electricity supplier'){
       form.controls.structureAttributes.controls[0].controls.typeOfPowerLinesDrop.setValue("0.5");
     }
     else if(form.controls.structureAttributes.controls[0].controls.typeOfPowerLines.value == 'U.G cable from own transformer'){
@@ -824,7 +836,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     else if(form.controls.losses.controls[0].controls.hazardClassification.value == 'Culturals/sports - more than 1000 people'){
       form.controls.losses.controls[0].controls.hazardClassificationDrop.setValue("10");
     }
-    else if(form.controls.losses.controls[0].controls.hazardClassification.value == 'Multistoried buildings/hotels/industrial/commercial'){
+    else if(form.controls.losses.controls[0].controls.hazardClassification.value == 'multistoried buildings / hotels / industrial / commercial'){
       form.controls.losses.controls[0].controls.hazardClassificationDrop.setValue("5");
     }
     else if(form.controls.losses.controls[0].controls.hazardClassification.value == 'Risk of explosion'){
@@ -836,13 +848,13 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     if(form.controls.losses.controls[0].controls.humanLossOfphysicalDamage.value == 'Risk of explosion'){
       form.controls.losses.controls[0].controls.humanLossOfphysicalDamageDrop.setValue("0.1");
     }
-    else if(form.controls.losses.controls[0].controls.humanLossOfphysicalDamage.value == 'Hospitals,hotel,school,civic building'){
+    else if(form.controls.losses.controls[0].controls.humanLossOfphysicalDamage.value == 'Hospitals, hotel,school,civic building'){
       form.controls.losses.controls[0].controls.humanLossOfphysicalDamageDrop.setValue("0.1");
     }
     else if(form.controls.losses.controls[0].controls.humanLossOfphysicalDamage.value == 'Public entertainment,church,museume'){
       form.controls.losses.controls[0].controls.humanLossOfphysicalDamageDrop.setValue("0.05");
     }
-    else if(form.controls.losses.controls[0].controls.humanLossOfphysicalDamage.value == 'Industrial,commercials'){
+    else if(form.controls.losses.controls[0].controls.humanLossOfphysicalDamage.value == 'Industrial, commercial'){
       form.controls.losses.controls[0].controls.humanLossOfphysicalDamageDrop.setValue("0.02");
     }
     else if(form.controls.losses.controls[0].controls.humanLossOfphysicalDamage.value == 'Others'){
@@ -857,7 +869,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     else if(form.controls.losses.controls[0].controls.humanLossOffailureOfInternalSystem.value == 'Intensive care unit & Operation block of hospital'){
       form.controls.losses.controls[0].controls.humanLossOffailureOfInternalSystemDrop.setValue("0.01");
     }
-    else if(form.controls.losses.controls[0].controls.humanLossOffailureOfInternalSystem.value == 'Other part of Buildings'){
+    else if(form.controls.losses.controls[0].controls.humanLossOffailureOfInternalSystem.value == 'Other part of Building'){
       form.controls.losses.controls[0].controls.humanLossOffailureOfInternalSystemDrop.setValue("0.001");
     }
   }
@@ -899,10 +911,10 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     if(form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamage.value == 'Risk of explosion'){
       form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageDrop.setValue("1");
     }
-    else if(form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamage.value == 'Hospitals,industrial,museum,agricultural'){
+    else if(form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamage.value == 'Hospitals, industrial, museum, agricultural'){
       form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageDrop.setValue("0.5");
     }
-    else if(form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamage.value == 'Hotel,school,office,public entertainment,church,commercial'){
+    else if(form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamage.value == 'Hotel,school, office, public entertainment, church, commercial'){
       form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageDrop.setValue("0.2");
     }
     else if(form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamage.value == 'Others'){
@@ -914,10 +926,10 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     if(form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystem.value == 'Risk of explosion'){
       form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemDrop.setValue("0.1");
     }
-    else if(form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystem.value == 'Hospitals,industrial,hotel,office,commercial'){
+    else if(form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystem.value == 'Hospitals, industrial, hotel, office, commercial'){
       form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemDrop.setValue("0.01");
     }
-    else if(form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystem.value == 'Museum,agricultural,school,office,public entertainment,church'){
+    else if(form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystem.value == 'Museum, agricultural, school, office, public entertainment, church'){
       form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemDrop.setValue("0.001");
     }
     else if(form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystem.value == 'Others'){
@@ -953,7 +965,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     else if(form.controls.losses.controls[0].controls.classOfSPD.value == 'Protec T1HS 300 3+1 R'){
       form.controls.losses.controls[0].controls.classOfSPDDrop.setValue("0.01");
     }
-    else if(form.controls.losses.controls[0].controls.classOfSPD.value == 'Protec T1H 300 3+1 R & Protec T2H 300 3+1'){
+    else if(form.controls.losses.controls[0].controls.classOfSPD.value == 'Protec T1HS 300 3 + 1 R & Protec T2H 300 3 + 1'){
       form.controls.losses.controls[0].controls.classOfSPDDrop.setValue("0.005");
     }
   }
@@ -1325,7 +1337,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       
       var a = form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasureDrop.value*form.controls.riskOfFireData.value*form.controls.losses.controls[0].controls.serToPubPhysicalDamageDrop.value*form.controls.noOfPeopleInZone.value/form.controls.noOfPeopleInBuilding.value;
 
-      form.controls.losses.controls[0].controls.serToPubPhysicalDamageL1.setValue(a.toFixed(1));
+      form.controls.losses.controls[0].controls.serToPubPhysicalDamageL1.setValue(a.toFixed(4));
     }
     else{
       form.controls.losses.controls[0].controls.serToPubPhysicalDamageL1.setValue('');
@@ -1346,7 +1358,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 
       var c = form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasureDrop.value*form.controls.riskOfFireData.value*form.controls.losses.controls[0].controls.culHerOfPhysicalDamageDrop.value*1/1;
 
-      form.controls.losses.controls[0].controls.culHerOfPhysicalDamageL1.setValue(c.toFixed(1));
+      form.controls.losses.controls[0].controls.culHerOfPhysicalDamageL1.setValue(c.toFixed(4));
     }
     else{
       form.controls.losses.controls[0].controls.culHerOfPhysicalDamageL1.setValue('');
@@ -2077,14 +2089,42 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     this.riskId = riskId;
   }
 
-  printPdf(content1:any) {
+  printPdf(content1:any,content2:any) {
     if(this.step2Form.dirty && this.step2Form.touched){
       this.modalService.open(content1, { centered: true,backdrop: 'static' });
       this.printMsg=true;
       this.printDirtyMsg="Please click the update button, To reflect the modified data in PDF..!";
     }
     else{
-      this.riskfinalpdfService.printPDF(this.riskAssessmentDetails.riskId,this.riskAssessmentDetails.userName,this.projectName);
+      this.blurMode=true;
+      this.blurMsg="Your PDF will be generating, Please wait a while";
+      this.riskfinalpdfService.printPDF(this.riskAssessmentDetails.riskId,this.riskAssessmentDetails.userName,this.projectName).subscribe(
+        data =>{
+          // Popup msg
+            this.blurMode=false;
+            this.blurMsg="";
+            this.printPopup=false;
+            this.successPdf=false;
+            this.printSuccessMsg="";
+            var fileURL: any = URL.createObjectURL(data);
+            var a = document.createElement("a");
+            a.href = fileURL;
+            a.target = '_blank';
+            a.click();
+            this.modalService.dismissAll();
+        },
+        error=>{
+          this.printPopup=true;
+          this.successPdf=false;
+          this.printSuccessMsg="";
+          setTimeout(()=>{
+            this.blurMode=false;
+            this.blurMsg="";
+            this.modalService.open(content2, { centered: true,backdrop: 'static' });
+            this.errorPdf=true;
+            this.printErrorMsg="Something went wrong, Please try again later";
+          },2000);
+        })
     }
   }
 

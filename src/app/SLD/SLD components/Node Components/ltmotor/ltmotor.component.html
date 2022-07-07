@@ -32,7 +32,7 @@
               <label>Winding Connection</label>
               <select  class="form-control" formControlName="windingConnection" [(ngModel)]="ltMotor.windingConnection"
               [ngClass]="{ 'is-invalid': submittedltMotor && j.windingConnection?.errors }">
-                <option value="">Select Option</option>
+                <option value="" disabled>Select Option</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -87,7 +87,7 @@
               <label>No of Phase(V)</label>
               <select  class="form-control" formControlName="noOfPhase" [(ngModel)]="ltMotor.noOfPhase"
               [ngClass]="{ 'is-invalid': submittedltMotor && j.noOfPhase?.errors }">
-                <option value="">Select Option</option>
+                <option value="" disabled>Select Option</option>
                 <option value="1phase">1phase</option>
                 <option value="3phase">3phase</option>
               </select>    
