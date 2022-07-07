@@ -11,6 +11,7 @@ export class RiskfinalpdfService {
   apiUrl = environment.apiUrl_RISK;
   apiUrl1 = environment.apiUrl;
 
+
   constructor(private http: HttpClient) { }
 
   public downloadPDF(riskId: any,userName: any,projectName: any) {
@@ -54,15 +55,7 @@ export class RiskfinalpdfService {
     //   }
 
   public printPDF(riskId: any,userName: any, projectName: any) {
-      return   this.http.get(this.apiUrl + '/printFinalPDF'+'/'+userName+ '/' +riskId+ '/' +projectName, { responseType: 'blob' }).subscribe(
-           data =>{
-             var fileURL: any = URL.createObjectURL(data);
-             var a = document.createElement("a");
-             a.href = fileURL;
-             a.target = '_blank';
-             a.click();
-           },
-           err=>{})
+     return this.http.get(this.apiUrl + '/printFinalPDF'+'/'+userName+ '/' +riskId+ '/' +projectName, { responseType: 'blob' })
     }
 
     public mailPDF(riskId: any,userName: any, projectName: any): Observable<any> {

@@ -14,7 +14,7 @@
 
 <div class="animBox" *ngIf="blurMode" style="overflow: inherit;margin: 0px auto;position: fixed;z-index: 1000;top: 50%;"></div>
 <div class="waviy">
-    <pre *ngIf="blurMode" style="top: 52%;position: fixed;overflow: inherit;margin: 0px auto;z-index: 1000;margin-left: 48%;font-weight: bold;">Please wait Loading...</pre>
+    <pre *ngIf="blurMode" style="top: 52%;position: fixed;overflow: inherit;margin: 0px auto;z-index: 1000;margin-left: 48%;font-weight: bold;">{{blurMsg}}</pre>
 </div>
 
 <div class="card" [ngStyle]="{'filter': (blurMode ? 'blur(1px)' : 'blur(0px)') ,'pointer-events': (blurMode ? 'none' : 'visible')}">
@@ -482,10 +482,10 @@
                                         <select class="form-control" formControlName="stTypeOfFloorSurface" (change)="stTypeOfFloorSurfaceD($event,f);lossHumanLifeL1($event,f);economicLossL4($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && a.get('stTypeOfFloorSurface')?.errors }">
                                             <option value="" selected>Select Option</option>
-                                            <option value="Agricultural,concrete">Agricultural,concrete</option>
-                                            <option value="Marble,Ceramic">Marble,Ceramic</option>
-                                            <option value="Gravel,moquette,carpets">Gravel,moquette,carpets</option>
-                                            <option value="Asphalt,linoleum,wood">Asphalt,linoleum,wood</option>
+                                            <option value="Agricultural, concrete">Agricultural, concrete</option>
+                                            <option value="Marble, Ceramic">Marble, Ceramic</option>
+                                            <option value="Gravel, moquette, carpets">Gravel, moquette, carpets</option>
+                                            <option value="Asphalt, linoleum, wood">Asphalt, linoleum, wood</option>
                                         </select>
                                         <div *ngIf="submitted && a.get('stTypeOfFloorSurface')?.errors" class="invalid-feedback">
                                             <div *ngIf="a.get('stTypeOfFloorSurface')?.errors?.required">Installation type is required</div>
@@ -547,9 +547,9 @@
                                         <select class="form-control" formControlName="stTypeOfInternalWiring"  
                                         [ngClass]="{ 'is-invalid': submitted && a.get('stTypeOfInternalWiring')?.errors }" (ngModelChange)="stTypeOfInternalWiringD($event,f);protectionPms($event,f)">
                                             <option value="" selected>Select Option</option>
-                                            <option value="Unshielded,improper routing">Unshielded,improper routing</option>
-                                            <option value="Unshielded,proper routing to avoid large loops">Unshielded,proper routing to avoid large loops</option>
-                                            <option value="Unshielded,proper routing to avoid loops">Unshielded,proper routing to avoid loops</option>
+                                            <option value="Unshielded, improper routing">Unshielded, improper routing</option>
+                                            <option value="Unshielded, proper routing to avoid large loops">Unshielded, proper routing to avoid large loops</option>
+                                            <option value="Unshielded, proper routing to avoid loops">Unshielded, proper routing to avoid loops</option>
                                             <option value="Shielded cables running in metal conduits">Shielded cables running in metal conduits</option>
                                         </select>
                                         <div *ngIf="submitted && a.get('stTypeOfInternalWiring')?.errors" class="invalid-feedback">
@@ -819,7 +819,7 @@
                                             <option value="Culturals/sports - 100 to 1000 people">Culturals/sports - 100 to 1000 people</option>
                                             <option value="Hospitals,Multi-Storey Buildings">Hospitals,Multi-Storey Buildings</option>
                                             <option value="Culturals/sports - more than 1000 people">Culturals/sports - more than 1000 people</option>
-                                            <option value="Multistoried buildings/hotels/industrial/commercial">Multistoried buildings/hotels/industrial/commercial</option>
+                                            <option value="multistoried buildings / hotels / industrial / commercial">Multistoried buildings / hotels / industrial / commercial</option>
                                             <option value="Risk of explosion">Risk of explosion</option>
                                         </select>
                                         <div *ngIf="submitted && b.get('hazardClassification')?.errors" class="invalid-feedback">
@@ -835,9 +835,9 @@
                                         [ngClass]="{ 'is-invalid': submitted && b.get('humanLossOfphysicalDamage')?.errors }" (ngModelChange)="humanLossOfphysicalDamageD($event,f);lossHumanLifeL1($event,f);calculatedProtection($event,f)">
                                             <option value="" selected>Select Option</option>
                                             <option value="Risk of explosion">Risk of explosion</option>
-                                            <option value="Hospitals,hotel,school,civic building">Hospitals,hotel,school,civic building</option>
+                                            <option value="Hospitals, hotel,school,civic building">Hospitals, hotel,school,civic building</option>
                                             <option value="Public entertainment,church,museume">Public entertainment,church,museume</option>
-                                            <option value="Industrial,commercials">Industrial,commercials</option>
+                                            <option value="Industrial, commercial">Industrial, commercial</option>
                                             <option value="Others">Others</option>
                                         </select>
                                         <div *ngIf="submitted && b.get('humanLossOfphysicalDamage')?.errors" class="invalid-feedback">
@@ -854,7 +854,7 @@
                                             <option value="" selected>Select Option</option>
                                             <option value="Risk of explosion">Risk of explosion</option>
                                             <option value="Intensive care unit & Operation block of hospital">Intensive care unit & Operation block of hospital</option>
-                                            <option value="Other part of Buildings">Other part of Buildings</option>
+                                            <option value="Other part of Building">Other part of Building</option>
                                         </select>
                                         <div *ngIf="submitted && b.get('humanLossOffailureOfInternalSystem')?.errors" class="invalid-feedback">
                                             <div *ngIf="b.get('humanLossOffailureOfInternalSystem')?.errors?.required">Installation type is required</div>
@@ -1003,8 +1003,8 @@
                                         [ngClass]="{ 'is-invalid': submitted && b.get('ecoLossOfPhysicalDamage')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="Risk of explosion">Risk of explosion</option>
-                                            <option value="Hospitals,industrial,museum,agricultural">Hospitals,industrial,museum,agricultural</option>
-                                            <option value="Hotel,school,office,public entertainment,church,commercial">Hotel,school,office,public entertainment,church,commercial</option>
+                                            <option value="Hospitals, industrial, museum, agricultural">Hospitals, industrial, museum, agricultural</option>
+                                            <option value="Hotel,school, office, public entertainment, church, commercial">Hotel, school, office, public entertainment, church, commercial</option>
                                             <option value="Others">Others</option>
                                         </select>
                                         <div *ngIf="submitted && b.get('ecoLossOfPhysicalDamage')?.errors" class="invalid-feedback">
@@ -1020,8 +1020,8 @@
                                         [ngClass]="{ 'is-invalid': submitted && b.get('ecoLossOfFailureOfInternalSystem')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="Risk of explosion">Risk of explosion</option>
-                                            <option value="Hospitals,industrial,hotel,office,commercial">Hospitals,industrial,hotel,office,commercial</option>
-                                            <option value="Museum,agricultural,school,office,public entertainment,church">Museum,agricultural,school,office,public entertainment,church</option>
+                                            <option value="Hospitals, industrial, hotel, office, commercial">Hospitals, industrial, hotel, office, commercial</option>
+                                            <option value="Museum, agricultural, school, office, public entertainment, church">Museum, agricultural, school, office, public entertainment, church</option>
                                             <option value="Others">Others</option>
                                         </select>
                                         <div *ngIf="submitted && b.get('ecoLossOfFailureOfInternalSystem')?.errors" class="invalid-feedback">
@@ -1099,7 +1099,7 @@
                                             <option value="No SPD">No SPD</option>
                                             <option value="Protec T1H 300 3+1 R">Protec T1H 300 3+1 R</option>
                                             <option value="Protec T1HS 300 3+1 R">Protec T1HS 300 3+1 R</option>
-                                            <option value="Protec T1H 300 3+1 R & Protec T2H 300 3+1">Protec T1H 300 3+1 R & Protec T2H 300 3+1</option>
+                                            <option value="Protec T1HS 300 3 + 1 R & Protec T2H 300 3 + 1">Protec T1HS 300 3 + 1 R & Protec T2H 300 3 + 1</option>
                                         </select>
                                         <div *ngIf="submitted && b.get('classOfSPD')?.errors" class="invalid-feedback">
                                             <div *ngIf="b.get('classOfSPD')?.errors?.required">Installation type is required</div>
@@ -1331,7 +1331,7 @@
             <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
             <button *ngIf="updateButton" class="next" (click)="gotoNextModal(contents,content)" mat-button>Update &raquo;</button>
             <button *ngIf="saveButton" class="next" (click)="gotoNextModal(contents,content)" mat-button>Save &raquo;</button>
-            <button type="button" *ngIf="enablePrint" class="next" (click)="printPdf(content1)" title="Generate PDF" mat-button>Print</button>
+            <button type="button" *ngIf="enablePrint" class="next" (click)="printPdf(content1,content2)" title="Generate PDF" mat-button>Print</button>
         </div>
     </form>
     </div>
@@ -1359,7 +1359,23 @@
     </div>
 </ng-template> 
 
-
+<ng-template #content2 let-modal>
+    <div class="modal-body" *ngIf="printPopup">
+        <div class="centre-text m-btm30">
+            <div *ngIf="errorPdf" style="text-align: center;">
+                <span class="errorshow">{{printErrorMsg}}</span>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div style="text-align: center;">
+        <button type="button" *ngIf="errorPdf" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+        aria-label="Close" (click)="closeModalDialog()" style="margin-left: 195px;width: 16%;" matStepperNext>
+         <span aria-hidden="true">Ok</span>
+        </button>
+    </div>
+</ng-template> 
+    
 <ng-template #content let-modal>
     <!-- Spinner -->
     <!-- <mat-progress-spinner style="margin: 0 auto;" *ngIf="spinner" color="primary" [mode]="mode" value="50" diameter="50">
@@ -1417,28 +1433,3 @@
   </div>
   
 </ng-template>
-
-<!-- <ng-template #content let-modal>
-    <div class="modal-body" *ngIf="printPdf">
-        <div class="centre-text m-btm30">
-            <div *ngIf="success" style="text-align: center;">
-                <span class="successsPrintMsg">{{successsPrintMsg}}</span>
-            </div>
-            <div *ngIf="Error" style="text-align: center;">
-                <span class="errorPrintMsg">{{errorPrintMsg}}</span>
-            </div>
-        </div>
-    </div>
-    <br>
-    <div *ngIf="popup" style="text-align: center;">
-        <button type="button" *ngIf="successPrint" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
-        aria-label="Close" (click)="closeModalDialog()" style="margin-left: 195px;width: 16%;" matStepperNext>
-         <span aria-hidden="true">Ok</span>
-        </button>
-    
-        <button type="button" *ngIf="errorPrint" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
-        aria-label="Close" (click)="closeModalDialog()" style="margin-left: 195px;width: 16%;" >
-        <span aria-hidden="true">Ok</span>
-        </button>
-    </div>
-</ng-template>  -->
