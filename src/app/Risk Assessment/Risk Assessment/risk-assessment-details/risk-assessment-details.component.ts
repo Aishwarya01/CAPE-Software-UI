@@ -86,6 +86,8 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   successPdf: boolean=false;
   errorPdf: boolean=false;
 
+  @Output() migrationData = new EventEmitter<any>();
+
   constructor(private router: ActivatedRoute,
               private formBuilder: FormBuilder,
               private modalService: NgbModal,
@@ -96,6 +98,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
     // Fetching location list 
     this.locationList = [];
     this.riskAssessmentService.fetchLocation().subscribe(
@@ -120,6 +123,11 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     this.step2Form = this.formBuilder.group({
       structureCharacters: this.formBuilder.array([this.structureCharactersForm()])
     });
+
+    setTimeout(() => {
+      debugger
+      this.migratedData('',this.step2Form);
+    }, 4000);
   }
 
   structureCharactersForm() {
@@ -754,7 +762,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     }
   }
 
-  shieldingGroundingIsolationD(event:any,form:any){
+  shieldingGroundingIsolationD(form:any){
     if(form.controls.structureAttributes.controls[0].controls.shieldingGroundingIsolation.value == 'TN-C-S system with PME'){
       form.controls.structureAttributes.controls[0].controls.shieldingGroundingIsolationDrop.setValue("1,0.2");
     }
@@ -779,6 +787,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     else if(form.controls.structureAttributes.controls[0].controls.shieldingGroundingIsolation.value == 'Designed by CAPE(large building with transformer and DG)'){
       form.controls.structureAttributes.controls[0].controls.shieldingGroundingIsolationDrop.setValue("0,0");
     }
+    this.shielding(event,form);
   }
 
   typeOfTelecomLinesD(event:any,form:any){
@@ -818,6 +827,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     else if(form.controls.structureAttributes.controls[0].controls.shieldingGroundingIsolationL1.value == 'Designed by CAPE(large building with transformer and DG)'){
       form.controls.structureAttributes.controls[0].controls.shieldingGroundingIsolationL1Drop.setValue("0,0");
     }
+    this.shielding(event,form);
   }
 
   hazardClassificationD(event:any,form:any){ 
@@ -968,6 +978,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     else if(form.controls.losses.controls[0].controls.classOfSPD.value == 'Protec T1HS 300 3 + 1 R & Protec T2H 300 3 + 1'){
       form.controls.losses.controls[0].controls.classOfSPDDrop.setValue("0.005");
     }
+    this.shielding(event,form);
   }
 
   buildingValue(event: any, form: any){
@@ -1446,9 +1457,6 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 // shieldingGroundingIsolation and shieldingGroundingIsolationL1
   // some of the shielding values are goes for Protection form
   shielding(event:any, form:any){
-    this.shieldingGroundingIsolationD(event,form);
-    this.shieldingGroundingIsolationL1D(event,form);
-    this.classOfSpdD(event,form);
     let a:any = [];
     let b:any = [];
     a = (form.controls.structureAttributes.controls[0].controls.shieldingGroundingIsolationDrop.value).split(',');
@@ -1991,6 +1999,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   }
 
   retriveRiskDetails(){
+    debugger
     this.proceedFlag = false;
     this.riskAssessmentService.retriveRiskAssessmentDetails(this.router.snapshot.paramMap.get('email') || '{}',this.riskAssessmentDetails.riskId).subscribe(
       data => {
@@ -2017,7 +2026,6 @@ export class RiskAssessmentDetailsComponent implements OnInit {
      }
      else{
       this.riskList = data.structureCharacteristics;
-      
      }
       this.riskGlobal.riskId=riskId;
       this.riskAssessmentDetails.riskId = riskId;
@@ -2037,14 +2045,24 @@ export class RiskAssessmentDetailsComponent implements OnInit {
           this.enablePrint = false;
         }
       }, 3000);
-      this.flag = true;
+    this.flag = true;
   }
 
+  migratedData(event:any,form:any){
+    debugger
+    this.riskGlobal.migDataCheck();
+    this.migrationData.emit(true);
+    if(this.riskGlobal.migData=="Migrated Data" && this.riskGlobal.migDataFlag==true){
+      this.calculatedProtection(event,form);
+    }
+  }
+  
   calculatedProtection(event:any,form:any){
-    this.shielding(event,form);
-    this.protectionPA(event,form);
-    this.protectionPm(event,form);
-    this.protectionPms(event,form);
+    this.shieldingGroundingIsolationD(form.controls.structureCharacters.controls[0]);
+    this.shieldingGroundingIsolationL1D(event,form.controls.structureCharacters.controls[0]);
+    this.protectionPA(event,form.controls.structureCharacters.controls[0]);
+    this.protectionPm(event,form.controls.structureCharacters.controls[0]);
+    this.protectionPms(event,form.controls.structureCharacters.controls[0]);
   }
 
   riskAssessmentRetrieve(item:any){

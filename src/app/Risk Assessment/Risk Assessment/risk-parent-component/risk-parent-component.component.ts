@@ -50,6 +50,7 @@ export class RiskParentComponentComponent implements OnInit {
 
   @ViewChild(MatTabGroup) tabGroup!: MatTabGroup;
   @ViewChild('stepper', { static: false }) stepper!: MatStepper;
+  migData: String='';
 
   constructor(
           private customerDetailsService: CustomerDetailsServiceService,
@@ -61,6 +62,7 @@ export class RiskParentComponentComponent implements OnInit {
   ngOnInit(): void {
     this.refresh();
     // this.tabs._handleClick = this.interceptTabChange.bind(this);
+    this.riskStep2.migrationData.emit(true);
   }
 
   public doSomething1(next: any): void {
@@ -234,5 +236,6 @@ export class RiskParentComponentComponent implements OnInit {
     // this.riskStep2.isEditable=this.isEditable;
     this.riskGlobal.riskId=this.customerDetails.customerDetailsModel.riskId;
     this.riskGlobal.projectName = this.customerDetails.customerDetailsModel.projectName;
+    this.riskGlobal.migData=this.customerDetails.customerDetailsModel.updatedBy;
   }
 }

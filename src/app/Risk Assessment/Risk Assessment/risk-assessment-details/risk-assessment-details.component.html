@@ -46,7 +46,7 @@
 
                             <div class="col-md-4" *ngIf="f.get('location')?.value === 'Others'">
                                 <div class="form-group">
-                                    <label>Other Location* :</label>
+                                    <label>Other Location :</label>
                                     <input type="text" class="form-control" formControlName="otherLocation" placeholder="Enter Other Locations" 
                                     [ngClass]="{ 'is-invalid': submitted && f.get('otherLocation')?.errors }">
                                     <div *ngIf="submitted && f.get('otherLocation')?.errors" class="invalid-feedback">
@@ -72,7 +72,7 @@
                             <div class="row" >
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Types of Building* :</label>
+                                        <label>Types of Building :</label>
                                         <select class="form-control" formControlName="typeOfBuilding" (change)="buildingValue($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && f.get('typeOfBuilding')?.errors }">
                                             <option value="" selected>Select Option</option>
@@ -620,7 +620,7 @@
                                 <div class="col-md-4"> 
                                     <div class="form-group">
                                         <label>Shielding, grounding, isolation :</label>
-                                        <select class="form-control" formControlName="shieldingGroundingIsolation" (change)="shieldingGroundingIsolationD($event,f);shielding($event,f)"
+                                        <select class="form-control" formControlName="shieldingGroundingIsolation" (change)="shieldingGroundingIsolationD(f);shielding($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && a.get('shieldingGroundingIsolation')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="TN-C-S system with PME">TN-C-S system with PME</option>
@@ -811,7 +811,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Hazard Classification :</label>
-                                        <select class="form-control" formControlName="hazardClassification" (ngModelChange)="hazardClassificationD($event,f);riskOfFireDropDown($event,f);lossHumanLifeL1($event,f);calculatedProtection($event,f)"
+                                        <select class="form-control" formControlName="hazardClassification" (ngModelChange)="hazardClassificationD($event,f);riskOfFireDropDown($event,f);lossHumanLifeL1($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && b.get('hazardClassification')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="Concrete houses">Concrete houses</option>
@@ -832,7 +832,7 @@
                                     <div class="form-group">
                                         <label>Loss Due To Physical Damage :</label>
                                         <select class="form-control" formControlName="humanLossOfphysicalDamage" 
-                                        [ngClass]="{ 'is-invalid': submitted && b.get('humanLossOfphysicalDamage')?.errors }" (ngModelChange)="humanLossOfphysicalDamageD($event,f);lossHumanLifeL1($event,f);calculatedProtection($event,f)">
+                                        [ngClass]="{ 'is-invalid': submitted && b.get('humanLossOfphysicalDamage')?.errors }" (ngModelChange)="humanLossOfphysicalDamageD($event,f);lossHumanLifeL1($event,f)">
                                             <option value="" selected>Select Option</option>
                                             <option value="Risk of explosion">Risk of explosion</option>
                                             <option value="Hospitals, hotel,school,civic building">Hospitals, hotel,school,civic building</option>
@@ -849,7 +849,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Loss Due To Failure Of Internal Systems :</label>
-                                        <select class="form-control" formControlName="humanLossOffailureOfInternalSystem" (ngModelChange)="humanLossOffailureOfInternalSystemD($event,f);lossHumanLifeL1($event,f);calculatedProtection($event,f)"
+                                        <select class="form-control" formControlName="humanLossOffailureOfInternalSystem" (ngModelChange)="humanLossOffailureOfInternalSystemD($event,f);lossHumanLifeL1($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && b.get('humanLossOffailureOfInternalSystem')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="Risk of explosion">Risk of explosion</option>
