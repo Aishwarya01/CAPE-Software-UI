@@ -142,7 +142,7 @@
               <option value="Not available">Not available</option>
               <option value="Not applicable">Not applicable</option>
             </select>
-            <span>
+            <span *ngIf="f.potentialTestReport?.value === 'Available'">
               <h3><b>Note:</b>Applicable only for HV cable</h3>
             </span>
             <div *ngIf="submittedCableConnector && f.potentialTestReport?.errors" class="invalid-feedback">
