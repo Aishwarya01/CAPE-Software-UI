@@ -803,7 +803,8 @@ export class MCCBComponent implements OnInit {
         this.successMsg = data;
         setTimeout(()=>{
           this.success = false;
-        this.successMsg = ""
+        this.successMsg = "";
+        this.dialog.closeAll();
         }, 3000);
       },
       error => {
@@ -812,7 +813,7 @@ export class MCCBComponent implements OnInit {
         this.errorMsg = this.errorData.message;
         setTimeout(()=>{
           this.error = false;
-          this.errorMsg = ""
+          this.errorMsg = "";
         }, 3000);
       }
     )
@@ -833,6 +834,7 @@ export class MCCBComponent implements OnInit {
         setTimeout(()=>{
           this.success = false;
         this.successMsg = "";
+        this.dialog.closeAll();
         }, 3000);
       },
       error => {

@@ -334,7 +334,8 @@ export class CablesComponent implements OnInit {
           this.successMsg = data;
           setTimeout(() => {
             this.success = false;
-            this.successMsg = ""
+            this.successMsg = "";
+            this.dialog.closeAll();
           }, 3000);
         },
         error => {
@@ -343,7 +344,7 @@ export class CablesComponent implements OnInit {
           this.errorMsg = this.errorData.message;
           setTimeout(() => {
             this.error = false;
-            this.errorMsg = ""
+            this.errorMsg = "";
           }, 3000);
         }
       )
@@ -363,7 +364,8 @@ export class CablesComponent implements OnInit {
           this.successMsg = data;
           setTimeout(() => {
             this.success = false;
-            this.successMsg = ""
+            this.successMsg = "";
+            this.dialog.closeAll();
           }, 3000);
         },
         error => {

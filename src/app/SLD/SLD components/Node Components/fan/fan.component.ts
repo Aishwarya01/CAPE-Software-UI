@@ -432,7 +432,8 @@ export class FanComponent implements OnInit {
          this.successMsg = data;
          setTimeout(()=>{
            this.success = false;
-         this.successMsg = ""
+         this.successMsg = "";
+         this.dialog.closeAll();
          }, 3000);
        },
        error => {
@@ -461,7 +462,8 @@ export class FanComponent implements OnInit {
          this.successMsg = data;
          setTimeout(()=>{
            this.success = false;
-         this.successMsg = ""
+         this.successMsg = "";
+         this.dialog.closeAll();
          }, 3000);
        },
        error => {

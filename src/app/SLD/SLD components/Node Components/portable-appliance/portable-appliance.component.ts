@@ -239,7 +239,8 @@ savePAT(patFlag: any) {
         this.successMsg = data;
         setTimeout(()=>{
           this.success = false;
-        this.successMsg = ""
+        this.successMsg = "";
+        this.dialog.closeAll();
         }, 3000);
       },
       error => {
@@ -268,7 +269,8 @@ savePAT(patFlag: any) {
         this.successMsg = data;
         setTimeout(()=>{
           this.success = false;
-        this.successMsg = ""
+        this.successMsg = "";
+        this.dialog.closeAll();
         }, 3000);
       },
       error => {
