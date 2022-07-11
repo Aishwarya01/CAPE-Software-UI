@@ -270,11 +270,6 @@ export class CablesComponent implements OnInit {
   //submit MCB
   saveCables(cablesFlag: any) {
     this.submittedCables = true;
-    if (this.cablesForm.invalid) {
-      this.validationError = true;
-      this.validationErrorMsg = "Please check all the fields";
-      return;
-    }
 
     this.cables.generalTestingCables = this.cablesForm.value.generalTestingCables;
     for(let i of this.cables.generalTestingCables) {
@@ -283,11 +278,20 @@ export class CablesComponent implements OnInit {
       }
       else if(this.cables.potentialTestReport == 'Not available') {
         i.potentialReport = 'Not available';
+        this.disableValidators();
       }
       else if(this.cables.potentialTestReport == 'Not applicable') {
         i.potentialReport = 'Not applicable';
+        this.disableValidators();
       }
     }
+
+    if (this.cablesForm.invalid) {
+      this.validationError = true;
+      this.validationErrorMsg = "Please check all the fields";
+      return;
+    }
+
    // this.cablesGeneralTestingArray = this.cablesForm.get('generalTestingCables') as FormArray;
 
     // for (let i of this.cablesGeneralTestingArray.controls) {
@@ -315,6 +319,7 @@ export class CablesComponent implements OnInit {
 
 
     if (this.cablesFlag) {
+      if(this.cablesForm.dirty && this.cablesForm.touched){
       if(this.deletedArr.length != 0) {
         for(let i of this.deletedArr) {
           this.cables.generalTestingCables.push(i);
@@ -349,6 +354,10 @@ export class CablesComponent implements OnInit {
         }
       )
     }
+    else{
+      return;
+    }
+    }
     else {
       this.cablesService.addCables(this.cables).subscribe(
         data => {
@@ -379,7 +388,7 @@ export class CablesComponent implements OnInit {
         }
       )
     }
-
+    this.cablesForm.markAsPristine();
   }
 
   close() {
