@@ -21,7 +21,7 @@
                 <div class="row" style="margin-top:1rem">
           
                   <div class="col-md-4">
-                    <label for="organisation">Organisation Name</label>
+                    <label for="organisation">Organization Name</label>
                       <div class="input-group">
                         <div class="input-group-prepend">
                           <span class="input-group-text">
@@ -31,8 +31,8 @@
                         <input class="form-control" [readonly]="isEditable" type="text" formControlName="organisationName" placeholder="Enter Organisation Name"
                           [ngClass]="{ 'is-invalid': submitted && f.get('organisationName')?.errors }"/>
                             <div *ngIf="submitted && f.get('organisationName')?.errors" class="invalid-feedback">
-                              <div *ngIf="f.get('organisationName')?.errors?.required">Organisation Name is required</div>
-                            </div>
+                              <div *ngIf="f.get('organisationName')?.errors?.required">Organization Name is required</div>
+                            </div>  
                       </div>
                   </div>
           

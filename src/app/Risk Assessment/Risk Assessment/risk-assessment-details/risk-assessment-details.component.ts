@@ -86,8 +86,6 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   successPdf: boolean=false;
   errorPdf: boolean=false;
 
-  @Output() migrationData = new EventEmitter<any>();
-
   constructor(private router: ActivatedRoute,
               private formBuilder: FormBuilder,
               private modalService: NgbModal,
@@ -125,7 +123,6 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     });
 
     setTimeout(() => {
-      debugger
       this.migratedData('',this.step2Form);
     }, 4000);
   }
@@ -648,9 +645,9 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     },3000);
   }
 
-  // Height of Nearby Structure
   // Changing number into String for Pdf
 
+  // Height of Nearby Structure
   heightNearByStructureD(event:any,form:any){
       if(form.controls.heightNearByStructure.value == 'Lower than surrounding buildings'){
         form.controls.heightNearByStructureDrop.setValue("0.25");
@@ -663,6 +660,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       }
   }
 
+  // Electrical / Telephone Service Line
   telephoneServiceLineD(event:any,form:any){
     if(form.controls.telephoneServiceLine.value == 'LV power, telecommunication or data line'){
       form.controls.telephoneServiceLineDrop.setValue("1");
@@ -672,6 +670,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     }
   }
 
+  // Environment Drop Down list changes
   environmentD(event:any,form:any){
     if(form.controls.environment.value == 'Rural'){
       form.controls.environmentDrop.setValue("1");
@@ -690,6 +689,8 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     }
   }
 
+  // Under Structure's Attributes Form Array  
+  // Type of Floor Surface
   stTypeOfFloorSurfaceD(event:any,form:any){
     if(form.controls.structureAttributes.controls[0].controls.stTypeOfFloorSurface.value == 'Agricultural, concrete'){
       form.controls.structureAttributes.controls[0].controls.stTypeOfFloorSurfaceDrop.setValue("0.01");
@@ -705,6 +706,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     }
   }
 
+  // Additional Protection
   stAdditionalProtectionD(event:any,form:any){
     if(form.controls.structureAttributes.controls[0].controls.stAdditionalProtection.value == 'No protection measures'){
       form.controls.structureAttributes.controls[0].controls.stAdditionalProtectionDrop.setValue("1");
@@ -723,6 +725,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     }
   }
 
+  // Fire Protection Measures
   stFireProtectionMeasureD(event:any,form:any){
     if(form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasure.value == 'No provision'){
       form.controls.structureAttributes.controls[0].controls.stFireProtectionMeasureDrop.setValue("1");
@@ -735,6 +738,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     }
   }
 
+  // Type of Internal Wiring
   stTypeOfInternalWiringD(event:any,form:any){
     if(form.controls.structureAttributes.controls[0].controls.stTypeOfInternalWiring.value == 'Unshielded, improper routing'){
       form.controls.structureAttributes.controls[0].controls.stTypeOfInternalWiringDrop.setValue("1");
@@ -750,6 +754,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     }
   }
 
+  // Type of Power Lines
   typeOfPowerLinesD(event:any,form:any){
     if(form.controls.structureAttributes.controls[0].controls.typeOfPowerLines.value == 'Overhead'){
       form.controls.structureAttributes.controls[0].controls.typeOfPowerLinesDrop.setValue("1");
@@ -762,6 +767,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     }
   }
 
+  // Shielding, grounding, isolation
   shieldingGroundingIsolationD(form:any){
     if(form.controls.structureAttributes.controls[0].controls.shieldingGroundingIsolation.value == 'TN-C-S system with PME'){
       form.controls.structureAttributes.controls[0].controls.shieldingGroundingIsolationDrop.setValue("1,0.2");
@@ -787,9 +793,10 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     else if(form.controls.structureAttributes.controls[0].controls.shieldingGroundingIsolation.value == 'Designed by CAPE(large building with transformer and DG)'){
       form.controls.structureAttributes.controls[0].controls.shieldingGroundingIsolationDrop.setValue("0,0");
     }
-    this.shielding(event,form);
+    this.shielding(form);
   }
 
+  // Type of Telecom Lines
   typeOfTelecomLinesD(event:any,form:any){
     if(form.controls.structureAttributes.controls[0].controls.typeOfTelecomLines.value == 'Overhead'){
       form.controls.structureAttributes.controls[0].controls.typeOfTelecomLinesDrop.setValue("1");
@@ -802,7 +809,8 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     }
   }
 
-  shieldingGroundingIsolationL1D(event:any,form:any){
+  // Shielding, grounding, isolation
+  shieldingGroundingIsolationL1D(form:any){
     if(form.controls.structureAttributes.controls[0].controls.shieldingGroundingIsolationL1.value == 'TN-C-S system with PME'){
       form.controls.structureAttributes.controls[0].controls.shieldingGroundingIsolationL1Drop.setValue("1,0.2");
     }
@@ -827,9 +835,11 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     else if(form.controls.structureAttributes.controls[0].controls.shieldingGroundingIsolationL1.value == 'Designed by CAPE(large building with transformer and DG)'){
       form.controls.structureAttributes.controls[0].controls.shieldingGroundingIsolationL1Drop.setValue("0,0");
     }
-    this.shielding(event,form);
+    this.shielding(form);
   }
 
+  // Losses
+  // Hazard Classification
   hazardClassificationD(event:any,form:any){ 
     if(form.controls.losses.controls[0].controls.hazardClassification.value == 'Concrete houses'){
       form.controls.losses.controls[0].controls.hazardClassificationDrop.setValue("1");
@@ -854,6 +864,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     }
   }
 
+  // Loss Due To Physical Damage
   humanLossOfphysicalDamageD(event:any,form:any){
     if(form.controls.losses.controls[0].controls.humanLossOfphysicalDamage.value == 'Risk of explosion'){
       form.controls.losses.controls[0].controls.humanLossOfphysicalDamageDrop.setValue("0.1");
@@ -872,6 +883,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     }
   }
 
+  // Loss Due To Failure Of Internal Systems
   humanLossOffailureOfInternalSystemD(event:any,form:any){
     if(form.controls.losses.controls[0].controls.humanLossOffailureOfInternalSystem.value == 'Risk of explosion'){
       form.controls.losses.controls[0].controls.humanLossOffailureOfInternalSystemDrop.setValue("0.1");
@@ -884,6 +896,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     }
   }
 
+  // Loss Due To Physical Damage
   serToPubPhysicalDamageD(event:any,form:any){
     if(form.controls.losses.controls[0].controls.serToPubPhysicalDamage.value == 'Gas,water,power supply'){
       form.controls.losses.controls[0].controls.serToPubPhysicalDamageDrop.setValue("0.1");
@@ -896,6 +909,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     }
   }
 
+  // Loss Due To Failure Of Internal System
   serToPubfailureOfInternalSystemD(event:any,form:any){
     if(form.controls.losses.controls[0].controls.serToPubfailureOfInternalSystem.value == 'Gas,water,power supply'){
       form.controls.losses.controls[0].controls.serToPubfailureOfInternalSystemDrop.setValue("0.01");
@@ -908,6 +922,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     }
   }
 
+  // Loss Due To Physical Damage
   culHerOfPhysicalDamageD(event:any,form:any){
     if(form.controls.losses.controls[0].controls.culHerOfPhysicalDamage.value == 'Museums,galleries'){
       form.controls.losses.controls[0].controls.culHerOfPhysicalDamageDrop.setValue("0.1");
@@ -917,6 +932,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     }
   }
 
+  // Loss Due To Physical Damage
   ecoLossOfPhysicalDamageD(event:any,form:any){
     if(form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamage.value == 'Risk of explosion'){
       form.controls.losses.controls[0].controls.ecoLossOfPhysicalDamageDrop.setValue("1");
@@ -932,6 +948,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     }
   }
 
+  // Loss Due To Failure Of Internal System
   ecoLossOfFailureOfInternalSystemD(event:any,form:any){
     if(form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystem.value == 'Risk of explosion'){
       form.controls.losses.controls[0].controls.ecoLossOfFailureOfInternalSystemDrop.setValue("0.1");
@@ -947,6 +964,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     }
   }
 
+  // Class of LPS
   classOfLPSD(event:any,form:any){
     if(form.controls.losses.controls[0].controls.classOfLPS.value == 'No External LPS'){
       form.controls.losses.controls[0].controls.classOfLPSDrop.setValue("1");
@@ -965,7 +983,8 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     }
   }
 
-  classOfSpdD(event:any,form:any){
+  // Class of SPD
+  classOfSpdD(form:any){
     if(form.controls.losses.controls[0].controls.classOfSPD.value == 'No SPD'){
       form.controls.losses.controls[0].controls.classOfSPDDrop.setValue("1");
     }
@@ -978,7 +997,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     else if(form.controls.losses.controls[0].controls.classOfSPD.value == 'Protec T1HS 300 3 + 1 R & Protec T2H 300 3 + 1'){
       form.controls.losses.controls[0].controls.classOfSPDDrop.setValue("0.005");
     }
-    this.shielding(event,form);
+    this.shielding(form);
   }
 
   buildingValue(event: any, form: any){
@@ -1456,7 +1475,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 // PROTECTION calculation's are below
 // shieldingGroundingIsolation and shieldingGroundingIsolationL1
   // some of the shielding values are goes for Protection form
-  shielding(event:any, form:any){
+  shielding(form:any){
     let a:any = [];
     let b:any = [];
     a = (form.controls.structureAttributes.controls[0].controls.shieldingGroundingIsolationDrop.value).split(',');
@@ -1530,7 +1549,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     
     // PSPD × PMS for Pm
       protectionPm(event:any,form:any){
-        this.classOfSpdD(event,form);
+        this.classOfSpdD(form);
         if(form.controls.losses.controls[0].controls.classOfSPD!='' && form.controls.protection.controls[0].controls.protectionPMS!='' && form.controls.losses.controls[0].controls.classOfSPD!=null && form.controls.protection.controls[0].controls.protectionPMS!=null && form.controls.losses.controls[0].controls.classOfSPD!=undefined && form.controls.protection.controls[0].controls.protectionPMS!=undefined){
           var a = form.controls.losses.controls[0].controls.classOfSPDDrop.value*form.controls.protection.controls[0].controls.protectionPMS.value;
           form.controls.protection.controls[0].controls.protectionPM.setValue(Math.ceil(a));
@@ -1999,7 +2018,6 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   }
 
   retriveRiskDetails(){
-    debugger
     this.proceedFlag = false;
     this.riskAssessmentService.retriveRiskAssessmentDetails(this.router.snapshot.paramMap.get('email') || '{}',this.riskAssessmentDetails.riskId).subscribe(
       data => {
@@ -2048,18 +2066,18 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     this.flag = true;
   }
 
+  // This is for migration data purpose, this will be deleted in future
   migratedData(event:any,form:any){
-    debugger
     this.riskGlobal.migDataCheck();
-    this.migrationData.emit(true);
     if(this.riskGlobal.migData=="Migrated Data" && this.riskGlobal.migDataFlag==true){
       this.calculatedProtection(event,form);
     }
   }
   
+  // This is for migration data purpose, Here we are triggering all below function for calculation purpose. this will be deleted in future
   calculatedProtection(event:any,form:any){
     this.shieldingGroundingIsolationD(form.controls.structureCharacters.controls[0]);
-    this.shieldingGroundingIsolationL1D(event,form.controls.structureCharacters.controls[0]);
+    this.shieldingGroundingIsolationL1D(form.controls.structureCharacters.controls[0]);
     this.protectionPA(event,form.controls.structureCharacters.controls[0]);
     this.protectionPm(event,form.controls.structureCharacters.controls[0]);
     this.protectionPms(event,form.controls.structureCharacters.controls[0]);
@@ -2107,6 +2125,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     this.riskId = riskId;
   }
 
+  // Converting the given data's into pdf using this function
   printPdf(content1:any,content2:any) {
     if(this.step2Form.dirty && this.step2Form.touched){
       this.modalService.open(content1, { centered: true,backdrop: 'static' });
@@ -2148,13 +2167,12 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 
   // Submitting to DB
   onSubmit(flag:any) {
-    debugger
     //this.submitted=true;
       // if (this.step2Form.invalid) {
       //   return;
       // }
     //  this.spinner = true;
-     this.popup=false;
+    this.popup=false;
     this.riskAssessmentDetails = this.step2Form.value.structureCharacters[0];
     this.riskAssessmentDetails.riskId = this.riskGlobal.riskId;
     this.riskAssessmentDetails.userName = this.router.snapshot.paramMap.get('email') || '{}';

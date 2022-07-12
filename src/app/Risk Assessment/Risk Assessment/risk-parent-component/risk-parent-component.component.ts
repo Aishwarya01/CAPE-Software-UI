@@ -62,7 +62,6 @@ export class RiskParentComponentComponent implements OnInit {
   ngOnInit(): void {
     this.refresh();
     // this.tabs._handleClick = this.interceptTabChange.bind(this);
-    this.riskStep2.migrationData.emit(true);
   }
 
   public doSomething1(next: any): void {
@@ -229,11 +228,9 @@ export class RiskParentComponentComponent implements OnInit {
   // }
 
   initializeRiskId(){
-    // this.customerDetails.isEditable=this.isEditable;
     // Risk Assessment Details
     this.riskStep2.riskId=this.customerDetails.customerDetailsModel.riskId;
     this.riskStep2.projectName = this.customerDetails.customerDetailsModel.projectName;
-    // this.riskStep2.isEditable=this.isEditable;
     this.riskGlobal.riskId=this.customerDetails.customerDetailsModel.riskId;
     this.riskGlobal.projectName = this.customerDetails.customerDetailsModel.projectName;
     this.riskGlobal.migData=this.customerDetails.customerDetailsModel.updatedBy;
