@@ -382,7 +382,7 @@ export class LpsEarthingComponent implements OnInit {
         this.step4List = data.earthingReport;
         setTimeout(() => {
           this.createEarthingForm(data.airTermination);
-        }, 500);
+        }, 5000);
         this.populateData(data.earthingReport);
       }
       this.earthingReport.basicLpsId = basicLpsId;
