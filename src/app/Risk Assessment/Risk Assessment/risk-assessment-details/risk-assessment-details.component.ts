@@ -19,9 +19,6 @@ import { RiskParentComponentComponent } from '../risk-parent-component/risk-pare
   styleUrls: ['./risk-assessment-details.component.css'],
 })
 
-@Injectable({
-  providedIn: 'root'
-})
 export class RiskAssessmentDetailsComponent implements OnInit {
 
   step2Form!: FormGroup;
