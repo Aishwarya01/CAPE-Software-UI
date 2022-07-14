@@ -1,5 +1,5 @@
 import { UpperCasePipe } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Injectable, OnInit, Output, ViewChild } from '@angular/core';
 import { AbstractControl, Form, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -10,12 +10,17 @@ import { RiskAssessmentDetails } from '../../Risk Assesment Model/risk-assessmen
 import { RiskAssessmentDetailsServiceService } from '../../Risk Assessment Services/risk-assessment-details-service.service';
 import { RiskfinalpdfService } from '../../Risk Assessment Services/riskfinalpdf.service';
 import { RiskglobalserviceService } from '../../riskglobalservice.service';
+import { RiskCustomerDetailsComponent } from '../risk-customer-details/risk-customer-details.component';
 import { RiskParentComponentComponent } from '../risk-parent-component/risk-parent-component.component';
 
 @Component({
   selector: 'app-risk-assessment-details',
   templateUrl: './risk-assessment-details.component.html',
-  styleUrls: ['./risk-assessment-details.component.css']
+  styleUrls: ['./risk-assessment-details.component.css'],
+})
+
+@Injectable({
+  providedIn: 'root'
 })
 export class RiskAssessmentDetailsComponent implements OnInit {
 
@@ -54,6 +59,8 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   getLocation: String='';
   tabError: boolean = false;
   tabErrorMsg: string = "";
+  tabError1: boolean = false;
+  tabErrorMsg1: string = "";
   isRiskFormUpdated: boolean =false;
 
   spinner: boolean=false;
@@ -68,11 +75,15 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   validationErrorTab: boolean=false;
   validationErrorMsgTab: string='';
 
+  validationErrorTab1: boolean=false;
+  validationErrorMsgTab1: string='';
+
   updateButton: boolean=false;
   saveButton: boolean=true;
   riskInputValue: any;
   enablePrint: boolean = false;
   projectName: any = '';
+  organisationName: any='';
   originalData: any = [];
   printDirtyMsg: string="";
   printMsg: boolean=false;
@@ -1988,7 +1999,8 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     }
   }
 
-  gotoNextModal(contents: any,content:any) {
+  gotoNextModal(contents: any,content:any,content4:any) {
+    debugger
     // if (this.step2Form.invalid) {
     //   this.validationError = true;
     //   this.validationErrorMsg = 'Please check all the fields';
@@ -1997,6 +2009,15 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     //   }, 3000);
     //   return;
     // }
+
+    // if (this.riskGlobal.projectName!='' && this.riskGlobal.projectName==undefined && this.riskGlobal.organisationName==undefined && this.riskGlobal.projectName==null && this.riskGlobal.organisationName==null) {
+
+    if(this.riskGlobal.isCustomerDetailsValid){
+      this.modalService.open(content4, { centered: true,backdrop: 'static' });
+      this.validationError = true;
+      this.validationErrorMsg = 'Customer Details Form is Required, Please fill for further proceed';
+      return;
+    }
     
     //  Update and Success msg will be showing
     if(this.step2Form.dirty && this.step2Form.touched){
@@ -2093,18 +2114,18 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     if(this.step2Form.invalid){
       this.service.isCompleted2= false;
       this.service.isLinear=true;
-      this.validationErrorTab = true;
-      this.validationErrorMsgTab= 'Please check all the fields in Risk Assessment Details';
+      this.validationErrorTab1 = true;
+      this.validationErrorMsgTab1 = 'Please check all the fields in Risk Assessment Details';
       setTimeout(() => {
-        this.validationErrorTab = false;
+        this.validationErrorTab1 = false;
       }, 3000);
       return false;
      }
     else if(this.step2Form.dirty && this.step2Form.touched){
       this.service.isCompleted2= false;
       this.service.isLinear=true;
-      this.tabError = true;
-      this.tabErrorMsg = 'Kindly click on Save or Update button to update the changes!';
+      this.tabError1 = true;
+      this.tabErrorMsg1 = 'Kindly click on Save or Update button to update the changes!';
       setTimeout(() => {
         this.tabError = false;
       }, 3000);
@@ -2119,10 +2140,12 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   }
 
   //To get the value of RiskId form MAT STEPPER
-  appendRiskId(riskId: any,projectName: any) {
+  appendRiskId(riskId: any,projectName: any, organisationName:any) {
+    debugger
     this.riskAssessmentDetails.riskId = riskId;
     this.projectName = projectName;
     this.riskId = riskId;
+    this.organisationName= organisationName;
   }
 
   // Converting the given data's into pdf using this function
@@ -2253,16 +2276,15 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   }
 
   gotoNextTab() {
-    if (this.step2Form.dirty && this.step2Form.invalid) {
+    if ((this.step2Form.dirty && this.step2Form.invalid) || this.service.isCompleted == false) {
       this.service.isCompleted = false;
       this.service.isLinear = true;
       this.service.editable = false;
-      //this.validationError = false;
       this.validationErrorTab = true;
-      this.validationErrorMsgTab = 'Please check all the fields in basic information';
-      setTimeout(() => {
-        this.validationErrorTab = false;
-      }, 3000);
+      this.validationErrorMsgTab = 'Please check all the fields in Risk Assessement Details';
+      // setTimeout(() => {
+      //   this.validationErrorTab = false;
+      // }, 3000);
       return;
     }
     else if (this.step2Form.dirty && this.step2Form.touched) {
@@ -2277,7 +2299,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       return;
     }
     else {
-      this.service.isCompleted = true;
+      this.service.isCompleted2 = true;
       this.service.isLinear = false;
       this.service.editable = true;
     }

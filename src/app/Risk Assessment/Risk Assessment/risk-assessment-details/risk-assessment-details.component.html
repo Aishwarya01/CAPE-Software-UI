@@ -1,11 +1,14 @@
 <div *ngIf="service.msgForStep1" style="text-align: center;margin-top: 30px;">
     <span class="successshow">Please fill steps to proceed further!</span>
 </div>
-<div *ngIf="tabError" style="text-align: center;">
+<div *ngIf="tabError" style="text-align: center;margin-top: 1rem;margin-bottom: 1rem;">
     <span class="alert alert-danger">{{tabErrorMsg}}</span>
 </div>
-<div *ngIf="validationErrorTab" style="text-align: center;">
+<div *ngIf="validationErrorTab" style="text-align: center;margin-top: 1rem;margin-bottom: 1rem;">
     <span class="alert alert-danger">{{validationErrorMsgTab}}</span>
+</div>
+<div *ngIf="validationErrorTab1" style="text-align: center;margin-top: 1rem;margin-bottom: 1rem;">
+    <span class="alert alert-danger">{{validationErrorMsgTab1}}</span>
 </div>
 
 <!-- <div *ngIf="blurMode" class="spinner-grow" style="width: 50px;height: 50px;animation-duration: 1s;color: dark;overflow: inherit;left: 50%;margin: 0px auto;position: fixed;z-index: 1000;top: 50%;" role="status">
@@ -1329,8 +1332,8 @@
     <br>
         <div style="margin-top: 20px;text-align: center;">
             <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
-            <button *ngIf="updateButton" class="next" (click)="gotoNextModal(contents,content)" mat-button>Update &raquo;</button>
-            <button *ngIf="saveButton" class="next" (click)="gotoNextModal(contents,content)" mat-button>Save &raquo;</button>
+            <button *ngIf="updateButton" class="next" (click)="gotoNextModal(contents,content,content4)" mat-button>Update &raquo;</button>
+            <button *ngIf="saveButton" class="next" (click)="gotoNextModal(contents,content,content4)" mat-button>Save &raquo;</button>
             <button type="button" *ngIf="enablePrint" class="next" (click)="printPdf(content1,content2)" title="Generate PDF" mat-button>Print</button>
         </div>
     </form>
@@ -1370,6 +1373,23 @@
     <br>
     <div style="text-align: center;">
         <button type="button" *ngIf="errorPdf" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+        aria-label="Close" (click)="closeModalDialog()" style="margin-left: 195px;width: 16%;" matStepperNext>
+         <span aria-hidden="true">Ok</span>
+        </button>
+    </div>
+</ng-template> 
+
+<ng-template #content4 let-modal>
+    <div class="modal-body" *ngIf="validationError">
+        <div class="centre-text m-btm30">
+            <div *ngIf="validationError" style="text-align: center;">
+                <span class="errorshow">{{validationErrorMsg}}</span>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div style="text-align: center;">
+        <button type="button" *ngIf="validationError" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
         aria-label="Close" (click)="closeModalDialog()" style="margin-left: 195px;width: 16%;" matStepperNext>
          <span aria-hidden="true">Ok</span>
         </button>

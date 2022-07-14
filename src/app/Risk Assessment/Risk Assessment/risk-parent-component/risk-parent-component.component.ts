@@ -27,10 +27,10 @@ import { RiskSavedReportsComponent } from '../risk-saved-reports/risk-saved-repo
 })
 export class RiskParentComponentComponent implements OnInit {
 
-  isCompleted: boolean = true;
-  isLinear:boolean=false; 
-  editable:boolean=false;
-  isCompleted2: boolean=false;
+
+  @ViewChild(MatTabGroup) tabGroup!: MatTabGroup;
+  @ViewChild('stepper', { static: false }) stepper!: MatStepper;
+
   step1: boolean = true;
   step2: boolean = true;
   selectedIndex: any;
@@ -48,8 +48,6 @@ export class RiskParentComponentComponent implements OnInit {
   @ViewChild(RiskFinalReportsComponent)final!: RiskFinalReportsComponent;
   @ViewChild('tabs') tabs!: MatTabGroup;
 
-  @ViewChild(MatTabGroup) tabGroup!: MatTabGroup;
-  @ViewChild('stepper', { static: false }) stepper!: MatStepper;
   migData: String='';
 
   constructor(
@@ -66,32 +64,22 @@ export class RiskParentComponentComponent implements OnInit {
 
   public doSomething1(next: any): void {
     this.service.isLinear=false;
-    this.service.isCompleted2 = next;
+    this.service.isCompleted = next;
 
     if (this.customerDetails.isCustomerFormUpdated) {
       this.initializeRiskId();
       this.riskStep2.isRiskFormUpdated = true;
       // this.riskStep2.updateMethod();
       this.customerDetails.isCustomerFormUpdated=false;
+      this.isForm1Valid();
     }
     this.saved.ngOnInit();
   }
 
   public doSomething2(next: any): void {
     this.service.isLinear=false;
-    this.service.isCompleted3 = next;
+    this.service.isCompleted2 = next;
     this.saved.ngOnInit();
-  }
-
-  triggerClickTab(){
-    this.customerDetails.gotoNextTab();
-    this.riskStep2.gotoNextTab();
-  }
-
-  goBack(stepper: MatStepper) {
-    if(this.riskStep2.reloadFromBack()){
-      stepper.previous();
-    }
   }
 
   navigateStep(index: any) {
@@ -105,10 +93,8 @@ export class RiskParentComponentComponent implements OnInit {
   continue(riskId: any): void {
     this.refresh();
     this.ngOnInit();
-    // this.isEditable=false;
     this.riskStep2.updateButton=true;
     this.riskStep2.saveButton=false;
-   // this.doSomething1(false);
     this.selectedIndex=1;
     this.changeTabRiskSavedReport(0,riskId,this.router.snapshot.paramMap.get('email') || '{}');
     setTimeout(() => {
@@ -155,8 +141,9 @@ export class RiskParentComponentComponent implements OnInit {
           if (this.dataJSON.customerDetails != null) {
             this.selectedIndex=index;
             this.customerDetails.updateCustomerDetails(this.dataJSON);
-            this.riskStep2.appendRiskId(riskId,this.dataJSON.customerDetails.projectName);            
+            this.riskStep2.appendRiskId(riskId,this.dataJSON.customerDetails.projectName,this.dataJSON.customerDetails.organisationName);            
             this.initializeRiskId();
+            this.isForm1Valid();
           }
           //Risk Assessment Details
           if (this.dataJSON.structureCharacteristics != null) {
@@ -169,63 +156,24 @@ export class RiskParentComponentComponent implements OnInit {
         },
         (error) => {
 
-        })}, 3000);
+        })
+      }, 3000);
    }
 
-  // interceptTabChange(tab: MatTab, tabHeader: MatTabHeader) {
-  //   if((this.service.lvClick==1) && (this.service.allStepsCompleted==true))
-  //      {
-  //       const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
-  //         width: '420px',
-  //         maxHeight: '90vh',
-  //         disableClose: true,
-  //       });
-  //       dialogRef.componentInstance.editModal = false;
-  //       dialogRef.componentInstance.viewModal = false;
-  //       dialogRef.componentInstance.triggerModal = true;
-  //       dialogRef.componentInstance.linkModal = false;
-    
-  //       dialogRef.componentInstance.confirmBox.subscribe(data=>{
-  //         if(data) {
-           
-  //           if(tab.textLabel == "Saved Reports"){
-  //             this.selectedIndex=1; 
-  //           }
-  //           // else if(tab.textLabel == "Final Reports"){
-  //           //   this.selectedIndex=2; 
-  //           // }
-  //           this.service.windowTabClick=0;
-  //           this.service.logoutClick=0; 
-  //           this.service.lvClick=0; 
-  //         }
-  //         else{
-  //           return;
-  //         }
-  //       })
-  //       }
-  //       else if((this.service.lvClick==0) || (this.service.allStepsCompleted==false)){
-  //       this.service.windowTabClick=0;
-  //       this.service.logoutClick=0;
-  //       this.service.lvClick=0; 
-  //       const tabs = tab.textLabel;
-  //       if((tabs==="Lightning Protection System"))  {
-  //            this.selectedIndex=0; 
-  //         }
-  //         else if((tabs==="Saved Reports")){
-  //           this.selectedIndex=1;
-  //           if(this.customerDetails.customerDetailsModel.riskId != undefined){
-  //             this.saved.retrieveCustomerDetails();
-  //             this.saved.disablepage=true;
-  //             // setTimeout(() => {
-  //             //   this.saved.spinner1=true;
-  //             // }, 3000);
-  //           }
-  //         }    
-  //         else{
-  //           this.selectedIndex=2; 
-  //         }        
-  //       }
-  // }
+   isForm1Valid(){
+     if(this.customerDetails.CustomerDetailsForm.invalid && this.customerDetails.customerDetailsModel.contactNumber==null){
+      this.riskGlobal.isCustomerDetailsValid=true;
+      this.customerDetails.isStep1Valid();
+     }
+     else if(this.customerDetails.CustomerDetailsForm.invalid && this.customerDetails.customerDetailsModel.contactNumber!=null){
+      this.riskGlobal.isCustomerDetailsValid=true;
+      this.customerDetails.isStep1Valid();
+     }
+     else{
+      this.riskGlobal.isCustomerDetailsValid=false;
+     }
+   }
+
 
   initializeRiskId(){
     // Risk Assessment Details
@@ -234,5 +182,19 @@ export class RiskParentComponentComponent implements OnInit {
     this.riskGlobal.riskId=this.customerDetails.customerDetailsModel.riskId;
     this.riskGlobal.projectName = this.customerDetails.customerDetailsModel.projectName;
     this.riskGlobal.migData=this.customerDetails.customerDetailsModel.updatedBy;
+    this.riskGlobal.organisationName=this.customerDetails.customerDetailsModel.organisationName;
+  }
+
+  triggerClickTab(){
+    this.customerDetails.gotoNextTab();
+    this.riskStep2.gotoNextTab();
+  }
+
+  goBack(stepper: MatStepper) {
+    if(this.riskStep2.reloadFromBack()){
+      stepper.previous();
+    }
   }
 }
+
+
