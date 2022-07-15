@@ -40,8 +40,14 @@ export class RiskCustomerDetailsComponent implements OnInit {
   validationErrorMsgTab: string="";
   tabError: boolean=false;
   tabErrorMsg: string="";
+  tabError1: boolean=false;
+  tabErrorMsg1: string="";
   isCustomerFormUpdated: boolean =false;
-
+  validationErrorMsgTab1: string='';
+  migError: boolean=false;
+  validationErrorMsgTab2: string='';
+  validationError1: boolean=false;
+  validationErrorTab1: boolean=false;
   constructor(
     private formBuilder: FormBuilder,
     private router: ActivatedRoute,
@@ -65,7 +71,7 @@ export class RiskCustomerDetailsComponent implements OnInit {
       projectName:new FormControl('', Validators.required),
       projectDescription:new FormControl('', Validators.required),
       contactPersonName:new FormControl('', Validators.required),
-      contactNumber:new FormControl('', [Validators.maxLength(10), Validators.minLength(10)]),
+      contactNumber:new FormControl(),
       email:new FormControl('',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       preparedBy:new FormControl('', Validators.required),
       verifiedBy:new FormControl('', Validators.required),
@@ -109,6 +115,13 @@ export class RiskCustomerDetailsComponent implements OnInit {
       return false;
     } else {
       return true;
+    }
+  }
+
+  isStep1Valid(){
+    if(this.riskGlobal.isCustomerDetailsValid){
+      this.migError=true;
+      this.validationErrorMsgTab1 = 'Please Fill all the fields in Customer Details Form for further proceed';
     }
   }
 
@@ -197,16 +210,16 @@ export class RiskCustomerDetailsComponent implements OnInit {
     }
   }
 
+
   gotoNextModal(content: any,contents: any) {
     if (this.CustomerDetailsForm.invalid) {
-      this.validationError = true;
-      this.validationErrorMsg = 'Please check all the fields';
+      this.validationErrorTab = true;
+      this.validationErrorMsgTab = 'Please Fill all the fields in Customer Details';
       setTimeout(() => {
-        this.validationError = false;
-      }, 3000);
+        this.validationErrorTab = false;
+      }, 5000);
       return;
     }
-    
     //  Update and Success msg will be showing
     if(this.CustomerDetailsForm.dirty && this.CustomerDetailsForm.touched){
       this.modalService.open(content, { centered: true,backdrop: 'static' });
@@ -215,6 +228,8 @@ export class RiskCustomerDetailsComponent implements OnInit {
     else{
       this.modalService.open(contents, { centered: true,backdrop: 'static' });
     }   
+    this.migError=false;
+    this.validationErrorMsgTab1='';
   }
 
   onSubmit(flag:any) {
@@ -313,17 +328,16 @@ export class RiskCustomerDetailsComponent implements OnInit {
       }
     }
   }
-  
+
   gotoNextTab() {
     if (this.CustomerDetailsForm.dirty && this.CustomerDetailsForm.invalid) {
       this.service.isCompleted = false;
       this.service.isLinear = true;
       this.service.editable = false;
-      this.validationError = false;
-      this.validationErrorTab = true;
-      this.validationErrorMsgTab = 'Please check all the fields in basic information';
+      this.validationErrorTab1 = true;
+      this.validationErrorMsgTab2 = 'Please Fill all the fields in Customer Details Form for further proceed';
       setTimeout(() => {
-        this.validationErrorTab = false;
+        this.validationErrorTab1 = false;
       }, 3000);
       return;
     }
@@ -331,8 +345,8 @@ export class RiskCustomerDetailsComponent implements OnInit {
       this.service.isCompleted = false;
       this.service.isLinear = true;
       this.service.editable = false;
-      this.tabError = true;
-      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      this.tabError1 = true;
+      this.tabErrorMsg1 = 'Kindly click on next button to update the changes!';
       setTimeout(() => {
         this.tabError = false;
       }, 3000);

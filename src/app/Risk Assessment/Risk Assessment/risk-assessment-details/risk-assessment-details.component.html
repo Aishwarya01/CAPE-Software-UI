@@ -1,11 +1,14 @@
 <div *ngIf="service.msgForStep1" style="text-align: center;margin-top: 30px;">
     <span class="successshow">Please fill steps to proceed further!</span>
 </div>
-<div *ngIf="tabError" style="text-align: center;">
+<div *ngIf="tabError" style="text-align: center;margin-top: 1rem;margin-bottom: 1rem;">
     <span class="alert alert-danger">{{tabErrorMsg}}</span>
 </div>
-<div *ngIf="validationErrorTab" style="text-align: center;">
+<div *ngIf="validationErrorTab" style="text-align: center;margin-top: 1rem;margin-bottom: 1rem;">
     <span class="alert alert-danger">{{validationErrorMsgTab}}</span>
+</div>
+<div *ngIf="validationErrorTab1" style="text-align: center;margin-top: 1rem;margin-bottom: 1rem;">
+    <span class="alert alert-danger">{{validationErrorMsgTab1}}</span>
 </div>
 
 <!-- <div *ngIf="blurMode" class="spinner-grow" style="width: 50px;height: 50px;animation-duration: 1s;color: dark;overflow: inherit;left: 50%;margin: 0px auto;position: fixed;z-index: 1000;top: 50%;" role="status">
@@ -46,7 +49,7 @@
 
                             <div class="col-md-4" *ngIf="f.get('location')?.value === 'Others'">
                                 <div class="form-group">
-                                    <label>Other Location* :</label>
+                                    <label>Other Location :</label>
                                     <input type="text" class="form-control" formControlName="otherLocation" placeholder="Enter Other Locations" 
                                     [ngClass]="{ 'is-invalid': submitted && f.get('otherLocation')?.errors }">
                                     <div *ngIf="submitted && f.get('otherLocation')?.errors" class="invalid-feedback">
@@ -72,7 +75,7 @@
                             <div class="row" >
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Types of Building* :</label>
+                                        <label>Types of Building :</label>
                                         <select class="form-control" formControlName="typeOfBuilding" (change)="buildingValue($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && f.get('typeOfBuilding')?.errors }">
                                             <option value="" selected>Select Option</option>
@@ -129,7 +132,7 @@
                                     <div class="form-group">
                                         <label>Width :</label>
                                         <input type="number" class="form-control" formControlName="protrusionWidth" placeholder="Please Enter Width" 
-                                        [ngClass]="{ 'is-invalid': submitted && f.get('protrusionWidth')?.errors }" (ngModelChange)="collectionAreaWidth($event,f)">
+                                        [ngClass]="{ 'is-invalid': submitted && f.get('protrusionWidth')?.errors }" (ngModelChange)="collectionAreaLength($event,f)">
                                         <div *ngIf="submitted && f.get('protrusionWidth')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('protrusionWidth')?.errors?.required">Width is required</div>
                                         </div>
@@ -140,7 +143,7 @@
                                     <div class="form-group">
                                         <label>Height :</label>
                                         <input type="number" class="form-control" formControlName="protrusionHeight" placeholder="Please Enter Height" 
-                                        [ngClass]="{ 'is-invalid': submitted && f.get('protrusionHeight')?.errors }" (ngModelChange)="collectionAreaHeight($event,f)">
+                                        [ngClass]="{ 'is-invalid': submitted && f.get('protrusionHeight')?.errors }" (ngModelChange)="collectionAreaLength($event,f)">
                                         <div *ngIf="submitted && f.get('protrusionHeight')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('protrusionHeight')?.errors?.required">Height is required</div>
                                         </div>
@@ -203,7 +206,7 @@
                                     <div class="form-group">
                                         <label>Height of Nearby Structure :</label>
                                         <select class="form-control" formControlName="heightNearByStructure" (ngModelChange)="heightNearByStructureD($event,f);noOfDangerus($event,f);heightNearStruct($event,f)"
-                                        [ngClass]="{ 'is-invalid': submitted && f.get('heightNearByStructure')?.errors }" >
+                                        [ngClass]="{ 'is-invalid': submitted && f.get('heightNearByStructure')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="Lower than surrounding buildings">Lower than surrounding buildings</option>
                                             <option value="Similar in height">Similar in height</option>
@@ -620,7 +623,7 @@
                                 <div class="col-md-4"> 
                                     <div class="form-group">
                                         <label>Shielding, grounding, isolation :</label>
-                                        <select class="form-control" formControlName="shieldingGroundingIsolation" (change)="shieldingGroundingIsolationD($event,f);shielding($event,f)"
+                                        <select class="form-control" formControlName="shieldingGroundingIsolation" (change)="shieldingGroundingIsolationD(f);shielding(f)"
                                         [ngClass]="{ 'is-invalid': submitted && a.get('shieldingGroundingIsolation')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="TN-C-S system with PME">TN-C-S system with PME</option>
@@ -731,7 +734,7 @@
                                     <div class="form-group">
                                         <label>Shielding, grounding, isolation :</label>
                                         <select class="form-control" formControlName="shieldingGroundingIsolationL1"  
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('shieldingGroundingIsolationL1')?.errors }" (ngModelChange)="shieldingGroundingIsolationL1D($event,f);shielding($event,f)">
+                                        [ngClass]="{ 'is-invalid': submitted && a.get('shieldingGroundingIsolationL1')?.errors }" (ngModelChange)="shieldingGroundingIsolationL1D(f);shielding(f)">
                                             <option value="" selected>Select Option</option>
                                             <option value="TN-C-S system with PME">TN-C-S system with PME</option>
                                             <option value="Burried, shield not equipotentially bonded">Burried, shield not equipotentially bonded</option>
@@ -763,7 +766,7 @@
                                     <div class="form-group">
                                         <label>Collection Area Near The Telecom Lines :</label>
                                         <input type="number" readonly class="form-control"  formControlName="collNearOfTelecomLines" placeholder="Collection Area Near The Telecom Lines" 
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('collNearOfTelecomLines')?.errors }" (change)="lengthOfTelecomLines($event,f)">
+                                        [ngClass]="{ 'is-invalid': submitted && a.get('collNearOfTelecomLines')?.errors }" (ngModelChange)="lengthOfTelecomLines($event,f)">
                                         <div *ngIf="submitted && a.get('collNearOfTelecomLines')?.errors" class="invalid-feedback">
                                             <div *ngIf="a.get('collNearOfTelecomLines')?.errors?.required">Designation is required</div>
                                         </div>
@@ -811,7 +814,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Hazard Classification :</label>
-                                        <select class="form-control" formControlName="hazardClassification" (ngModelChange)="hazardClassificationD($event,f);riskOfFireDropDown($event,f);lossHumanLifeL1($event,f);calculatedProtection($event,f)"
+                                        <select class="form-control" formControlName="hazardClassification" (ngModelChange)="hazardClassificationD($event,f);riskOfFireDropDown($event,f);lossHumanLifeL1($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && b.get('hazardClassification')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="Concrete houses">Concrete houses</option>
@@ -832,7 +835,7 @@
                                     <div class="form-group">
                                         <label>Loss Due To Physical Damage :</label>
                                         <select class="form-control" formControlName="humanLossOfphysicalDamage" 
-                                        [ngClass]="{ 'is-invalid': submitted && b.get('humanLossOfphysicalDamage')?.errors }" (ngModelChange)="humanLossOfphysicalDamageD($event,f);lossHumanLifeL1($event,f);calculatedProtection($event,f)">
+                                        [ngClass]="{ 'is-invalid': submitted && b.get('humanLossOfphysicalDamage')?.errors }" (ngModelChange)="humanLossOfphysicalDamageD($event,f);lossHumanLifeL1($event,f)">
                                             <option value="" selected>Select Option</option>
                                             <option value="Risk of explosion">Risk of explosion</option>
                                             <option value="Hospitals, hotel,school,civic building">Hospitals, hotel,school,civic building</option>
@@ -849,7 +852,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Loss Due To Failure Of Internal Systems :</label>
-                                        <select class="form-control" formControlName="humanLossOffailureOfInternalSystem" (ngModelChange)="humanLossOffailureOfInternalSystemD($event,f);lossHumanLifeL1($event,f);calculatedProtection($event,f)"
+                                        <select class="form-control" formControlName="humanLossOffailureOfInternalSystem" (ngModelChange)="humanLossOffailureOfInternalSystemD($event,f);lossHumanLifeL1($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && b.get('humanLossOffailureOfInternalSystem')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="Risk of explosion">Risk of explosion</option>
@@ -922,7 +925,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Loss Due To Failure Of Internal System :</label>
-                                        <select class="form-control" formControlName="serToPubfailureOfInternalSystem" (change)="serToPubfailureOfInternalSystemD($event,f);lossServiceToPublicL2($event,f);lossServiceToPublicL2($event,f)"
+                                        <select class="form-control" formControlName="serToPubfailureOfInternalSystem" (change)="serToPubfailureOfInternalSystemD($event,f);lossServiceToPublicL2($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && b.get('serToPubfailureOfInternalSystem')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="Gas,water,power supply">Gas,water,power supply</option>
@@ -1094,7 +1097,7 @@
                                     <div class="form-group">
                                         <label>Class of SPD :</label>
                                         <select class="form-control" formControlName="classOfSPD"  
-                                        [ngClass]="{ 'is-invalid': submitted && b.get('classOfSPD')?.errors }" (change)="classOfSpdD($event,f);protectionPm($event,f);shielding($event,f)">
+                                        [ngClass]="{ 'is-invalid': submitted && b.get('classOfSPD')?.errors }" (change)="classOfSpdD(f);protectionPm($event,f);shielding(f)">
                                             <option value="" selected>Select Option</option>
                                             <option value="No SPD">No SPD</option>
                                             <option value="Protec T1H 300 3+1 R">Protec T1H 300 3+1 R</option>
@@ -1329,8 +1332,8 @@
     <br>
         <div style="margin-top: 20px;text-align: center;">
             <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
-            <button *ngIf="updateButton" class="next" (click)="gotoNextModal(contents,content)" mat-button>Update &raquo;</button>
-            <button *ngIf="saveButton" class="next" (click)="gotoNextModal(contents,content)" mat-button>Save &raquo;</button>
+            <button *ngIf="updateButton" class="next" (click)="gotoNextModal(contents,content,content4)" mat-button>Update &raquo;</button>
+            <button *ngIf="saveButton" class="next" (click)="gotoNextModal(contents,content,content4)" mat-button>Save &raquo;</button>
             <button type="button" *ngIf="enablePrint" class="next" (click)="printPdf(content1,content2)" title="Generate PDF" mat-button>Print</button>
         </div>
     </form>
@@ -1370,6 +1373,23 @@
     <br>
     <div style="text-align: center;">
         <button type="button" *ngIf="errorPdf" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+        aria-label="Close" (click)="closeModalDialog()" style="margin-left: 195px;width: 16%;" matStepperNext>
+         <span aria-hidden="true">Ok</span>
+        </button>
+    </div>
+</ng-template> 
+
+<ng-template #content4 let-modal>
+    <div class="modal-body" *ngIf="validationError">
+        <div class="centre-text m-btm30">
+            <div *ngIf="validationError" style="text-align: center;">
+                <span class="errorshow">{{validationErrorMsg}}</span>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div style="text-align: center;">
+        <button type="button" *ngIf="validationError" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
         aria-label="Close" (click)="closeModalDialog()" style="margin-left: 195px;width: 16%;" matStepperNext>
          <span aria-hidden="true">Ok</span>
         </button>

@@ -1,17 +1,20 @@
-<!-- <div *ngIf="service.msgForStep1" style="text-align: center;margin-top: 30px;">
-    <span class="successshow">Please fill steps to proceed further!</span>
-</div>
 
-<div *ngIf="tabError" style="text-align: center;">
-    <span class="alert alert-danger">{{tabErrorMsg}}</span>
+<div *ngIf="migError" style="text-align: center;margin-top: 1rem;margin-bottom: 1rem;">
+  <span class="alert alert-danger">{{validationErrorMsgTab1}}</span>
 </div>
-<div *ngIf="validationErrorTab" style="text-align: center;">
-    <span class="alert alert-danger">{{validationErrorMsgTab}}</span>
-</div> -->
+<div *ngIf="tabError" style="text-align: center;margin-top: 1rem;margin-bottom: 1rem;">
+  <span class="alert alert-danger">{{tabErrorMsg}}</span>
+</div>
+<div *ngIf="tabError1" style="text-align: center;margin-top: 1rem;margin-bottom: 1rem;">
+  <span class="alert alert-danger">{{tabErrorMsg1}}</span>
+</div>
+<div *ngIf="validationErrorTab1" style="text-align: center;margin-top: 1rem;margin-bottom: 1rem;">
+  <span class="alert alert-danger">{{validationErrorMsgTab2}}</span>
+</div>
 
 <div class="card">
     <div class="card-body">
-        <form [formGroup]="CustomerDetailsForm" (ngSubmit)="onSubmit(flag)">
+        <form [formGroup]="CustomerDetailsForm" (ngSubmit)="onSubmit(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
           <div formArrayName="riskCustomerDetails" *ngFor="let f of overAllControl(); let j = index">
               <div class="col-md-4" class="form-group" [formGroupName]="j">
 
@@ -21,7 +24,7 @@
                 <div class="row" style="margin-top:1rem">
           
                   <div class="col-md-4">
-                    <label for="organisation">Organisation Name</label>
+                    <label for="organisation">Organization Name</label>
                       <div class="input-group">
                         <div class="input-group-prepend">
                           <span class="input-group-text">
@@ -31,8 +34,8 @@
                         <input class="form-control" [readonly]="isEditable" type="text" formControlName="organisationName" placeholder="Enter Organisation Name"
                           [ngClass]="{ 'is-invalid': submitted && f.get('organisationName')?.errors }"/>
                             <div *ngIf="submitted && f.get('organisationName')?.errors" class="invalid-feedback">
-                              <div *ngIf="f.get('organisationName')?.errors?.required">Organisation Name is required</div>
-                            </div>
+                              <div *ngIf="f.get('organisationName')?.errors?.required">Organization Name is required</div>
+                            </div>  
                       </div>
                   </div>
           
@@ -134,7 +137,7 @@
 
                   <div class="col-md-4">
                     <label for="contact">Contact Number</label>
-                        <input class="form-control" [readonly]="isEditable" (keypress)="keyPressNumbers($event)" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" formControlName="contactNumber" placeholder="Enter Contact Number"
+                        <input class="form-control" [readonly]="isEditable" (keypress)="keyPressNumbers($event)" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" formControlName="contactNumber" placeholder="Enter Contact Number" maxlength="10" minlength="10"
                         (countryChange)="countryChange($event)" [ngClass]="{ 'is-invalid': submitted && f.get('contactNumber')?.errors }"/>
                           <div *ngIf="submitted && f.get('contactNumber')?.errors" class="invalid-feedback">
                             <div *ngIf="f.get('contactNumber')?.errors?.required">Contact Number is required</div>
@@ -162,6 +165,8 @@
 
               </div>
           </div>
+
+          
               
           <div>
             <div style="text-align: center;margin-top: 40px;margin-left: 80px;">
@@ -174,6 +179,7 @@
         </form>
     </div>
   </div>
+  
   
   <ng-template #content let-modal>
     <!-- Spinner -->
@@ -230,5 +236,4 @@
           <span aria-hidden="true">Cancel</span>
       </button>
     </div>
-    
   </ng-template>
