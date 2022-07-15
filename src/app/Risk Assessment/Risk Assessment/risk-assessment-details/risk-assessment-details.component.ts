@@ -2307,9 +2307,9 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       this.service.editable = false;
       this.validationErrorTab = true;
       this.validationErrorMsgTab = 'Please check all the fields in Risk Assessement Details';
-      // setTimeout(() => {
-      //   this.validationErrorTab = false;
-      // }, 3000);
+      setTimeout(() => {
+        this.validationErrorTab = false;
+      }, 3000);
       return;
     }
     else if (this.step2Form.dirty && this.step2Form.touched) {
@@ -2317,7 +2317,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       this.service.isLinear = true;
       this.service.editable = false;
       this.tabError = true;
-      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      this.tabErrorMsg = 'Kindly click on Update/Save button to reflect the latest changes!';
       setTimeout(() => {
         this.tabError = false;
       }, 3000);
