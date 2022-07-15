@@ -62,7 +62,7 @@
                                 <div class="form-group">
                                     <label>Ground flash density :</label>
                                     <input type="number" class="form-control" [readonly]="showFlashDensity" formControlName="groundFlashDensity" placeholder="Please enter Ground flash density" 
-                                    [ngClass]="{ 'is-invalid': submitted && f.get('groundFlashDensity')?.errors }" (ngModelChange)="heightNearStruct($event,f);noOfDangerus($event,f);lengthPowerline($event,f);lengthOfTelecomLines($event,f)">
+                                    [ngClass]="{ 'is-invalid': submitted && f.get('groundFlashDensity')?.errors }" (ngModelChange)="heightNearStruct($event,f);noOfDangerus($event,f);lengthOfTelecomLines($event,f)">
                                     <div *ngIf="submitted && f.get('groundFlashDensity')?.errors" class="invalid-feedback">
                                         <div *ngIf="f.get('groundFlashDensity')?.errors?.required">Ground flash density is required</div>
                                     </div>
@@ -222,7 +222,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Electrical / Telephone Service Line :</label>
-                                        <select class="form-control" formControlName="telephoneServiceLine" (ngModelChange)="telephoneServiceLineD($event,f);noOfDangerus($event,f);lengthPowerline($event,f);economicLossL4($event,f)"
+                                        <select class="form-control" formControlName="telephoneServiceLine" (ngModelChange)="telephoneServiceLineD($event,f);noOfDangerus($event,f);economicLossL4($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && f.get('telephoneServiceLine')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="LV power, telecommunication or data line">LV power, telecommunication or data line</option>
@@ -237,7 +237,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Environment :</label>
-                                        <select class="form-control" formControlName="environment" (ngModelChange)="environmentD($event,f);lengthPowerline($event,f)"
+                                        <select class="form-control" formControlName="environment" (ngModelChange)="environmentD($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && f.get('environment')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="Rural">Rural</option>
@@ -623,7 +623,7 @@
                                 <div class="col-md-4"> 
                                     <div class="form-group">
                                         <label>Shielding, grounding, isolation :</label>
-                                        <select class="form-control" formControlName="shieldingGroundingIsolation" (change)="shieldingGroundingIsolationD(f);shielding(f)"
+                                        <select class="form-control" formControlName="shieldingGroundingIsolation" (ngModelChange)="shieldingGroundingIsolationD($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && a.get('shieldingGroundingIsolation')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="TN-C-S system with PME">TN-C-S system with PME</option>
@@ -734,7 +734,7 @@
                                     <div class="form-group">
                                         <label>Shielding, grounding, isolation :</label>
                                         <select class="form-control" formControlName="shieldingGroundingIsolationL1"  
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('shieldingGroundingIsolationL1')?.errors }" (ngModelChange)="shieldingGroundingIsolationL1D(f);shielding(f)">
+                                        [ngClass]="{ 'is-invalid': submitted && a.get('shieldingGroundingIsolationL1')?.errors }" (ngModelChange)="shieldingGroundingIsolationL1D($event,f)">
                                             <option value="" selected>Select Option</option>
                                             <option value="TN-C-S system with PME">TN-C-S system with PME</option>
                                             <option value="Burried, shield not equipotentially bonded">Burried, shield not equipotentially bonded</option>
@@ -766,7 +766,7 @@
                                     <div class="form-group">
                                         <label>Collection Area Near The Telecom Lines :</label>
                                         <input type="number" readonly class="form-control"  formControlName="collNearOfTelecomLines" placeholder="Collection Area Near The Telecom Lines" 
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('collNearOfTelecomLines')?.errors }" (ngModelChange)="lengthOfTelecomLines($event,f)">
+                                        [ngClass]="{ 'is-invalid': submitted && a.get('collNearOfTelecomLines')?.errors }" (ngModelChge)="lengthOfTelecomLines($event,f)">
                                         <div *ngIf="submitted && a.get('collNearOfTelecomLines')?.errors" class="invalid-feedback">
                                             <div *ngIf="a.get('collNearOfTelecomLines')?.errors?.required">Designation is required</div>
                                         </div>
@@ -1097,7 +1097,7 @@
                                     <div class="form-group">
                                         <label>Class of SPD :</label>
                                         <select class="form-control" formControlName="classOfSPD"  
-                                        [ngClass]="{ 'is-invalid': submitted && b.get('classOfSPD')?.errors }" (change)="classOfSpdD(f);protectionPm($event,f);shielding(f)">
+                                        [ngClass]="{ 'is-invalid': submitted && b.get('classOfSPD')?.errors }" (change)="classOfSpdD($event,f);protectionPm($event,f);shielding($event,f)">
                                             <option value="" selected>Select Option</option>
                                             <option value="No SPD">No SPD</option>
                                             <option value="Protec T1H 300 3+1 R">Protec T1H 300 3+1 R</option>
