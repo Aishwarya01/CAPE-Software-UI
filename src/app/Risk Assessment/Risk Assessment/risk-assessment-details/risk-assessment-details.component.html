@@ -132,7 +132,7 @@
                                     <div class="form-group">
                                         <label>Width :</label>
                                         <input type="number" class="form-control" formControlName="protrusionWidth" placeholder="Please Enter Width" 
-                                        [ngClass]="{ 'is-invalid': submitted && f.get('protrusionWidth')?.errors }" (ngModelChange)="collectionAreaWidth($event,f)">
+                                        [ngClass]="{ 'is-invalid': submitted && f.get('protrusionWidth')?.errors }" (ngModelChange)="collectionAreaLength($event,f)">
                                         <div *ngIf="submitted && f.get('protrusionWidth')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('protrusionWidth')?.errors?.required">Width is required</div>
                                         </div>
@@ -143,7 +143,7 @@
                                     <div class="form-group">
                                         <label>Height :</label>
                                         <input type="number" class="form-control" formControlName="protrusionHeight" placeholder="Please Enter Height" 
-                                        [ngClass]="{ 'is-invalid': submitted && f.get('protrusionHeight')?.errors }" (ngModelChange)="collectionAreaHeight($event,f)">
+                                        [ngClass]="{ 'is-invalid': submitted && f.get('protrusionHeight')?.errors }" (ngModelChange)="collectionAreaLength($event,f)">
                                         <div *ngIf="submitted && f.get('protrusionHeight')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('protrusionHeight')?.errors?.required">Height is required</div>
                                         </div>
@@ -206,7 +206,7 @@
                                     <div class="form-group">
                                         <label>Height of Nearby Structure :</label>
                                         <select class="form-control" formControlName="heightNearByStructure" (ngModelChange)="heightNearByStructureD($event,f);noOfDangerus($event,f);heightNearStruct($event,f)"
-                                        [ngClass]="{ 'is-invalid': submitted && f.get('heightNearByStructure')?.errors }" >
+                                        [ngClass]="{ 'is-invalid': submitted && f.get('heightNearByStructure')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="Lower than surrounding buildings">Lower than surrounding buildings</option>
                                             <option value="Similar in height">Similar in height</option>
@@ -766,7 +766,7 @@
                                     <div class="form-group">
                                         <label>Collection Area Near The Telecom Lines :</label>
                                         <input type="number" readonly class="form-control"  formControlName="collNearOfTelecomLines" placeholder="Collection Area Near The Telecom Lines" 
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('collNearOfTelecomLines')?.errors }" (change)="lengthOfTelecomLines($event,f)">
+                                        [ngClass]="{ 'is-invalid': submitted && a.get('collNearOfTelecomLines')?.errors }" (ngModelChange)="lengthOfTelecomLines($event,f)">
                                         <div *ngIf="submitted && a.get('collNearOfTelecomLines')?.errors" class="invalid-feedback">
                                             <div *ngIf="a.get('collNearOfTelecomLines')?.errors?.required">Designation is required</div>
                                         </div>
@@ -925,7 +925,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Loss Due To Failure Of Internal System :</label>
-                                        <select class="form-control" formControlName="serToPubfailureOfInternalSystem" (change)="serToPubfailureOfInternalSystemD($event,f);lossServiceToPublicL2($event,f);lossServiceToPublicL2($event,f)"
+                                        <select class="form-control" formControlName="serToPubfailureOfInternalSystem" (change)="serToPubfailureOfInternalSystemD($event,f);lossServiceToPublicL2($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && b.get('serToPubfailureOfInternalSystem')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="Gas,water,power supply">Gas,water,power supply</option>
