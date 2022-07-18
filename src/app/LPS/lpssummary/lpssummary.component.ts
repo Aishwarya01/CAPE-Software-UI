@@ -4631,6 +4631,18 @@ SignatureDesigner1(){
     }
   }
 
+  // Only Accept numbers
+  keyPressNumbers(event: any) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9 with dot
+    if (charCode != 46 && (charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+        return true;
+    }
+  }
+
   downloadPdf() {
     this.summaryPdf.downloadSummaryPDF(this.basicLpsId,this.email,this.lpsSummaryPDF);
   }

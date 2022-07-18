@@ -29,7 +29,7 @@
                               <i class="bi bi-align-start"></i>
                           </span>
                       </div>
-                      <input type="number" class="form-control" placeholder="Enter Building Number" readonly
+                      <input class="form-control" placeholder="Enter Building Number" readonly
                       formControlName="buildingNumber"
                       />
                   </div>
@@ -761,7 +761,7 @@
               <div class="row">
                 <div class="col-sm-12">
                   <label>We also recommend that, ligthning protection system to be periodical inspected for every</label>
-                  <input type="number" min="0" [readonly]="isEditable"
+                  <input onwheel="this.blur()" min="0" [readonly]="isEditable" (keypress)="keyPressNumbers($event)" min="0" [readonly]="isEditable"
                   [ngClass]="[submitted && f.recommendYears?.errors ? 'is-invalid' : '' ]"
                   style="
                   width: 75px;

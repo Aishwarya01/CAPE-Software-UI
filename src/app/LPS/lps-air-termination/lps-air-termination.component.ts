@@ -2035,7 +2035,7 @@ export class LpsAirTerminationComponent implements OnInit {
         return;
       }
       verticalAirTerminationListArray.controls[index].controls.angleProtectionHeightOb
-        .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_I[heightOfAirterminal - 1].angle + "˚ / " + this.AIRTERMINATION_CONSTANTS.LEVEL_I[heightOfAirterminal - 1].distance + "m");
+        .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_I[heightOfAirterminal - 1].angle + "deg / " + this.AIRTERMINATION_CONSTANTS.LEVEL_I[heightOfAirterminal - 1].distance + "m");
     }
 
     else if (protectionLevel == "Level II") {
@@ -2047,7 +2047,7 @@ export class LpsAirTerminationComponent implements OnInit {
         return;
       }
       verticalAirTerminationListArray.controls[index].controls.angleProtectionHeightOb
-        .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_II[heightOfAirterminal - 1].angle + "˚ / " + this.AIRTERMINATION_CONSTANTS.LEVEL_II[heightOfAirterminal - 1].distance + "m");
+        .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_II[heightOfAirterminal - 1].angle + "deg / " + this.AIRTERMINATION_CONSTANTS.LEVEL_II[heightOfAirterminal - 1].distance + "m");
     }
 
     else if (protectionLevel == "Level III") {
@@ -2059,7 +2059,7 @@ export class LpsAirTerminationComponent implements OnInit {
         return;
       }
       verticalAirTerminationListArray.controls[index].controls.angleProtectionHeightOb
-        .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_III[heightOfAirterminal - 1].angle + "˚ / " + this.AIRTERMINATION_CONSTANTS.LEVEL_III[heightOfAirterminal - 1].distance + "m");
+        .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_III[heightOfAirterminal - 1].angle + "deg / " + this.AIRTERMINATION_CONSTANTS.LEVEL_III[heightOfAirterminal - 1].distance + "m");
     }
 
     else if (protectionLevel == "Level IV") {
@@ -2071,7 +2071,7 @@ export class LpsAirTerminationComponent implements OnInit {
         return;
       }
       verticalAirTerminationListArray.controls[index].controls.angleProtectionHeightOb
-        .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_IV[heightOfAirterminal - 1].angle + "˚ / " + this.AIRTERMINATION_CONSTANTS.LEVEL_IV[heightOfAirterminal - 1].distance + "m");
+        .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_IV[heightOfAirterminal - 1].angle + "deg / " + this.AIRTERMINATION_CONSTANTS.LEVEL_IV[heightOfAirterminal - 1].distance + "m");
     }
 
     verticalAirTerminationListArray.controls[index].controls.angleProtectionHeightOb.updateValueAndValidity();
@@ -2097,7 +2097,7 @@ export class LpsAirTerminationComponent implements OnInit {
         }
         else {
           verticalAir.controls[j].controls.angleProtectionHeightOb
-            .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_I[heightOfAirterminal - 1].angle + "˚ / " + this.AIRTERMINATION_CONSTANTS.LEVEL_I[heightOfAirterminal - 1].distance + "m");
+            .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_I[heightOfAirterminal - 1].angle + "deg / " + this.AIRTERMINATION_CONSTANTS.LEVEL_I[heightOfAirterminal - 1].distance + "m");
         }
       }
       else if (protectionLevel == "Level II" && heightOfAirterminal != '') {
@@ -2109,7 +2109,7 @@ export class LpsAirTerminationComponent implements OnInit {
         }
         else {
           verticalAir.controls[j].controls.angleProtectionHeightOb
-            .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_II[heightOfAirterminal - 1].angle + "˚ / " + this.AIRTERMINATION_CONSTANTS.LEVEL_II[heightOfAirterminal - 1].distance + "m");
+            .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_II[heightOfAirterminal - 1].angle + "deg / " + this.AIRTERMINATION_CONSTANTS.LEVEL_II[heightOfAirterminal - 1].distance + "m");
         }
       }
       else if (protectionLevel == "Level III" && heightOfAirterminal != '') {
@@ -2121,7 +2121,7 @@ export class LpsAirTerminationComponent implements OnInit {
         }
         else {
           verticalAir.controls[j].controls.angleProtectionHeightOb
-            .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_III[heightOfAirterminal - 1].angle + "˚ / " + this.AIRTERMINATION_CONSTANTS.LEVEL_III[heightOfAirterminal - 1].distance + "m");
+            .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_III[heightOfAirterminal - 1].angle + "deg / " + this.AIRTERMINATION_CONSTANTS.LEVEL_III[heightOfAirterminal - 1].distance + "m");
         }
       }
       else if (protectionLevel == "Level IV" && heightOfAirterminal != '') {
@@ -2133,7 +2133,7 @@ export class LpsAirTerminationComponent implements OnInit {
         }
         else {
           verticalAir.controls[j].controls.angleProtectionHeightOb
-            .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_IV[heightOfAirterminal - 1].angle + "˚ / " + this.AIRTERMINATION_CONSTANTS.LEVEL_IV[heightOfAirterminal - 1].distance + "m");
+            .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_IV[heightOfAirterminal - 1].angle + "deg / " + this.AIRTERMINATION_CONSTANTS.LEVEL_IV[heightOfAirterminal - 1].distance + "m");
         }
       }
       verticalAir.controls[j].controls.angleProtectionHeightOb.updateValueAndValidity();
