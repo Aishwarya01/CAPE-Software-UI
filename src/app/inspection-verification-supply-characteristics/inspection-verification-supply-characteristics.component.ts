@@ -1644,7 +1644,7 @@ showHideAccordion(index: number) {
   refreshCommentSection() {
     this.spinner=true;
     this.cardBodyComments=false;
-    this.siteService.retrieveFinal(this.savedUserName,this.supplycharesteristic.siteId).subscribe(
+    this.siteService.retrieveFinal(this.supplycharesteristic.siteId).subscribe(
       (data) => {
          this.commentDataArr = JSON.parse(data);
          this.step2List.supplyCharacteristics.supplyCharacteristicComment = this.commentDataArr.supplyCharacteristics.supplyCharacteristicComment;
@@ -3848,7 +3848,7 @@ showHideAccordion(index: number) {
           this.service.retrieveMainNominalVoltage=this.mainNominalArr;
           this.service.retrieveMainNominalVoltage=this.retrieveMainNominalVoltage;
           this.service.nominalVoltageArr2=this.supplycharesteristic.supplyParameters;
-          this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.supplycharesteristic.userName,this.supplycharesteristic.siteId).subscribe(
+          this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.supplycharesteristic.siteId).subscribe(
             data=>{
              this.retrieveAllDetailsforSupply(this.supplycharesteristic.userName,this.supplycharesteristic.siteId,data);
             }
@@ -3895,7 +3895,7 @@ else{
           this.service.retrieveMainNominalVoltage=this.mainNominalArr;
           this.service.retrieveMainNominalVoltage=this.retrieveMainNominalVoltage;
           this.service.nominalVoltageArr2=this.supplycharesteristic.supplyParameters;
-          this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.supplycharesteristic.userName,this.supplycharesteristic.siteId).subscribe(
+          this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.supplycharesteristic.siteId).subscribe(
             data=>{
              this.retrieveAllDetailsforSupply(this.supplycharesteristic.userName,this.supplycharesteristic.siteId,data);
             }

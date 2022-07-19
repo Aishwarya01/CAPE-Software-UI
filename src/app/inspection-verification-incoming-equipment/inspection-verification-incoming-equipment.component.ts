@@ -645,7 +645,7 @@ showHideAccordion(index: number) {
   refreshCommentSection() {
     this.spinner=true;
     this.cardBodyComments=false;
-    this.siteService.retrieveFinal(this.savedUserName,this.inspectionDetails.siteId).subscribe(
+    this.siteService.retrieveFinal(this.inspectionDetails.siteId).subscribe(
       (data) => {
          this.commentDataArr = JSON.parse(data);
          this.step3List.periodicInspection.periodicInspectorComment = this.commentDataArr.periodicInspection.periodicInspectorComment;
@@ -1847,7 +1847,7 @@ for(let i of this.deletedInnerObservation) {
         data=> {
           this.popup=true;
           this.finalSpinner=false;
-          this.testingService.retrieveTesting(this.inspectionDetails.siteId,this.inspectionDetails.userName).subscribe(
+          this.testingService.retrieveTesting(this.inspectionDetails.siteId).subscribe(
             (data) => {
               this.proceedNext.emit(false);
             },
@@ -1879,7 +1879,7 @@ for(let i of this.deletedInnerObservation) {
           this.service.windowTabClick=0;
           this.service.logoutClick=0; 
           this.service.lvClick=0; 
-          this.inspectionDetailsService.retrieveInspectionDetails(this.inspectionDetails.userName,this.inspectionDetails.siteId).subscribe(
+          this.inspectionDetailsService.retrieveInspectionDetails(this.inspectionDetails.siteId).subscribe(
             data=>{
             this.retrieveAllDetailsforIncoming(this.inspectionDetails.userName,this.inspectionDetails.siteId,data);
             }
@@ -1923,7 +1923,7 @@ for(let i of this.deletedInnerObservation) {
         this.successMsg = data; 
         }
          this.intermediateSave=false;
-          this.inspectionDetailsService.retrieveInspectionDetails(this.inspectionDetails.userName,this.inspectionDetails.siteId).subscribe(
+          this.inspectionDetailsService.retrieveInspectionDetails(this.inspectionDetails.siteId).subscribe(
             data=>{
              this.retrieveAllDetailsforIncoming(this.inspectionDetails.userName,this.inspectionDetails.siteId,data);
             }
