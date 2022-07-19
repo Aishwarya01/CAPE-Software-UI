@@ -826,7 +826,7 @@ export class VerificationlvComponent implements OnInit {
 changeTab(index: number, sitedId: any, userName: any, companyName: any, departmentName: any, site: any): void {
   // this.selectedIndex=1;
  // this.logger.error('changeTab started');
-  this.siteService.retrieveFinal(userName,sitedId).subscribe(
+  this.siteService.retrieveFinal(sitedId).subscribe(
     data=> {
     
             //this.logger.debug('data fetched');
@@ -954,7 +954,7 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
     }, 500);
     
  setTimeout(() => {
-  this.siteService.retrieveFinal(userName,sitedId).subscribe(
+  this.siteService.retrieveFinal(sitedId).subscribe(
     data=> {
      
       //this.selectedIndex = index;

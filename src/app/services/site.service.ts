@@ -57,8 +57,8 @@ export class SiteService {
     return this.http.get<any>(this.apiUrlV2 + '/fetchStatesByCountryCode' + '/' +countryName, { responseType: 'text' as 'json' })
   }
 
-  public retrieveFinal(userName: String,siteId: any): Observable<any> {
-    return this.http.get<any>(this.apiUrl + '/retrieveReport' + '/' +userName+ '/' +siteId, { responseType: 'text' as 'json' })
+  public retrieveFinal(siteId: any): Observable<any> {
+    return this.http.get<any>(this.apiUrl + '/retrieveReport' + '/' +siteId, { responseType: 'text' as 'json' })
   }
   public retrieveStateV2(countryName: String): Observable<any> {
     return this.http.get<any>(this.apiUrlV2 + '/fetchStatesByCountryCode' + '/' +countryName, { responseType: 'text' as 'json' })
