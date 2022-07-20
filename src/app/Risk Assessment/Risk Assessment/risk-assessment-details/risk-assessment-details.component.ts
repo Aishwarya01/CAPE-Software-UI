@@ -628,6 +628,18 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     return this.step2Form.controls;
   }
 
+  // Only Accept numbers
+  keyPressNumbers(event:any) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   changeLocation(e: any, form:any) {
     this.locationDrop=true;
     let selectedValue = e.target.value;
@@ -680,6 +692,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     }
     this.noOfDangerus(event,form);
     this.economicLossL4(event,form);
+    this.lengthPowerline(event,form);
   }
 
   // Environment Drop Down list changes
@@ -699,6 +712,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     else if(form.controls.environment.value == 'Exposed hilltop'){
       form.controls.environmentDrop.setValue("2");
     }
+    this.lengthPowerline(event,form);
   }
 
   // Under Structure's Attributes Form Array  
@@ -775,15 +789,23 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 
   // Type of Power Lines
   typeOfPowerLinesD(event:any,form:any){
-    if(form.controls.structureAttributes.controls[0].controls.typeOfPowerLines.value == 'Overhead'){
-      form.controls.structureAttributes.controls[0].controls.typeOfPowerLinesDrop.setValue("1");
-    }
-    else if(form.controls.structureAttributes.controls[0].controls.typeOfPowerLines.value == '"U.G cable from Electricity supplier'){
-      form.controls.structureAttributes.controls[0].controls.typeOfPowerLinesDrop.setValue("0.5");
-    }
-    else if(form.controls.structureAttributes.controls[0].controls.typeOfPowerLines.value == 'U.G cable from own transformer'){
-      form.controls.structureAttributes.controls[0].controls.typeOfPowerLinesDrop.setValue("0.01");
-    }
+    this.blurMode=true;
+    this.blurMsg="Please wait Loading...";
+    setTimeout(() => {
+      if(form.controls.structureAttributes.controls[0].controls.typeOfPowerLines.value == 'Overhead'){
+        form.controls.structureAttributes.controls[0].controls.typeOfPowerLinesDrop.setValue("1");
+      }
+      else if(form.controls.structureAttributes.controls[0].controls.typeOfPowerLines.value == '"U.G cable from Electricity supplier'){
+        form.controls.structureAttributes.controls[0].controls.typeOfPowerLinesDrop.setValue("0.5");
+      }
+      else if(form.controls.structureAttributes.controls[0].controls.typeOfPowerLines.value == 'U.G cable from own transformer'){
+        form.controls.structureAttributes.controls[0].controls.typeOfPowerLinesDrop.setValue("0.01");
+      }
+      this.lengthPowerline(event,form);
+      this.blurMode=false;
+      this.blurMsg="";
+    }, 2000);
+    
   }
 
   // Shielding, grounding, isolation
@@ -1247,12 +1269,9 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 
   // Math for Length of Power line
   lengthPowerline(event:any, form:any){
-    this.environmentD(event,form);
-    this.typeOfPowerLinesD(event,form);
-    this.telephoneServiceLineD(event,form);
     // Collection area of the lines && Collection Area Near The Lines
     let arr = form.controls.structureAttributes.controls[0].controls.lengthOfPowerLines.value;
-    if(form.controls.structureAttributes.controls[0].controls.lengthOfPowerLines!=''){
+    if(form.controls.structureAttributes.controls[0].controls.lengthOfPowerLines!='' && form.controls.structureAttributes.controls[0].controls.lengthOfPowerLines!=null && form.controls.structureAttributes.controls[0].controls.lengthOfPowerLines!=undefined){
       var a = 40*arr;
       var b = 4000*arr;
       form.controls.structureAttributes.controls[0].controls.collAreaOfPowerLines.setValue(a);
@@ -2025,7 +2044,6 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   }
 
   gotoNextModal(contents: any,content:any,content4:any) {
-    debugger
     // if (this.step2Form.invalid) {
     //   this.validationError = true;
     //   this.validationErrorMsg = 'Please check all the fields';
@@ -2166,7 +2184,6 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 
   //To get the value of RiskId form MAT STEPPER
   appendRiskId(riskId: any,projectName: any, organisationName:any) {
-    debugger
     this.riskAssessmentDetails.riskId = riskId;
     this.projectName = projectName;
     this.riskId = riskId;
