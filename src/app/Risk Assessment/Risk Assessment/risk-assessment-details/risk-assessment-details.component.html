@@ -61,7 +61,7 @@
                             <div class="col-md-4" >
                                 <div class="form-group">
                                     <label>Ground flash density :</label>
-                                    <input type="number" class="form-control" [readonly]="showFlashDensity" formControlName="groundFlashDensity" placeholder="Please enter Ground flash density" 
+                                    <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" [readonly]="showFlashDensity" formControlName="groundFlashDensity" placeholder="Please enter Ground flash density" 
                                     [ngClass]="{ 'is-invalid': submitted && f.get('groundFlashDensity')?.errors }" (ngModelChange)="heightNearStruct($event,f);noOfDangerus($event,f);lengthOfTelecomLines($event,f)">
                                     <div *ngIf="submitted && f.get('groundFlashDensity')?.errors" class="invalid-feedback">
                                         <div *ngIf="f.get('groundFlashDensity')?.errors?.required">Ground flash density is required</div>
@@ -120,7 +120,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Length :</label>
-                                        <input type="number" class="form-control" (ngModelChange)="collectionAreaLength($event,f)" formControlName="protrusionLenght" placeholder="Please Enter Length" 
+                                        <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" (ngModelChange)="collectionAreaLength($event,f)" formControlName="protrusionLenght" placeholder="Please Enter Length" 
                                         [ngClass]="{ 'is-invalid': submitted && f.get('protrusionLenght')?.errors }">
                                         <div *ngIf="submitted && f.get('protrusionLenght')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('protrusionLenght')?.errors?.required">Length is required</div>
@@ -131,7 +131,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Width :</label>
-                                        <input type="number" class="form-control" formControlName="protrusionWidth" placeholder="Please Enter Width" 
+                                        <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="protrusionWidth" placeholder="Please Enter Width" 
                                         [ngClass]="{ 'is-invalid': submitted && f.get('protrusionWidth')?.errors }" (ngModelChange)="collectionAreaLength($event,f)">
                                         <div *ngIf="submitted && f.get('protrusionWidth')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('protrusionWidth')?.errors?.required">Width is required</div>
@@ -142,7 +142,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Height :</label>
-                                        <input type="number" class="form-control" formControlName="protrusionHeight" placeholder="Please Enter Height" 
+                                        <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="protrusionHeight" placeholder="Please Enter Height" 
                                         [ngClass]="{ 'is-invalid': submitted && f.get('protrusionHeight')?.errors }" (ngModelChange)="collectionAreaLength($event,f)">
                                         <div *ngIf="submitted && f.get('protrusionHeight')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('protrusionHeight')?.errors?.required">Height is required</div>
@@ -155,7 +155,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Height of Highest Roof Protrusion :</label>
-                                        <input type="number" class="form-control" formControlName="heighestRoofProtrusion" placeholder="Please Enter Height of Highest Roof Protrusion" 
+                                        <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="heighestRoofProtrusion" placeholder="Please Enter Height of Highest Roof Protrusion" 
                                         [ngClass]="{ 'is-invalid': submitted && f.get('heighestRoofProtrusion')?.errors }" (ngModelChange)="collectionAreaProtrusion($event,f)">
                                         <div *ngIf="submitted && f.get('heighestRoofProtrusion')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('heighestRoofProtrusion')?.errors?.required">Height of Highest Roof Protrusion is required</div>
@@ -298,7 +298,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Length :</label>
-                                        <input [readonly]="f.get('protectionPartOFBuilding')?.value ==='No'" type="number" class="form-control" formControlName="protectionLenght" placeholder="Please Enter Length" 
+                                        <input [readonly]="f.get('protectionPartOFBuilding')?.value ==='No'" onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="protectionLenght" placeholder="Please Enter Length" 
                                         [ngClass]="{ 'is-invalid': submitted && f.get('protectionLenght')?.errors }" (change)="collectionArea($event,f)">
                                         <div *ngIf="submitted && f.get('protectionLenght')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('protectionLenght')?.errors?.required">Length is required</div>
@@ -309,7 +309,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Width :</label>
-                                        <input [readonly]="f.get('protectionPartOFBuilding')?.value ==='No'" type="number" class="form-control" formControlName="protectionWidth" placeholder="Please Enter Width" 
+                                        <input [readonly]="f.get('protectionPartOFBuilding')?.value ==='No'" onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="protectionWidth" placeholder="Please Enter Width" 
                                         [ngClass]="{ 'is-invalid': submitted && f.get('protectionWidth')?.errors }" (change)="collectionArea($event,f)">
                                         <div *ngIf="submitted && f.get('protectionWidth')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('protectionWidth')?.errors?.required">Width is required</div>
@@ -322,7 +322,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Height :</label>
-                                        <input [readonly]="f.get('protectionPartOFBuilding')?.value ==='No'" type="number" class="form-control" formControlName="protectionHeight" placeholder="Please Enter Height" 
+                                        <input [readonly]="f.get('protectionPartOFBuilding')?.value ==='No'" onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="protectionHeight" placeholder="Please Enter Height" 
                                         [ngClass]="{ 'is-invalid': submitted && f.get('protectionHeight')?.errors }" (change)="collectionArea($event,f)">
                                         <div *ngIf="submitted && f.get('protectionHeight')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('protectionHeight')?.errors?.required">Height is required</div>
@@ -363,7 +363,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Length :</label>
-                                        <input type="number" [readonly]="f.get('adjacentBuilding')?.value ==='No'" (change)="collectionOfAdjacent($event,f)" class="form-control" formControlName="adjacentLength" placeholder="Please Enter Length" 
+                                        <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" [readonly]="f.get('adjacentBuilding')?.value ==='No'" (change)="collectionOfAdjacent($event,f)" class="form-control" formControlName="adjacentLength" placeholder="Please Enter Length" 
                                         [ngClass]="{ 'is-invalid': submitted && f.get('adjacentLength')?.errors }">
                                         <div *ngIf="submitted && f.get('adjacentLength')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('adjacentLength')?.errors?.required">Length is required</div>
@@ -374,7 +374,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Width :</label>
-                                        <input type="number" [readonly]="f.get('adjacentBuilding')?.value ==='No'" (change)="collectionOfAdjacent($event,f)" class="form-control"  formControlName="adjacentWidth" placeholder="Please Enter Width" 
+                                        <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" [readonly]="f.get('adjacentBuilding')?.value ==='No'" (change)="collectionOfAdjacent($event,f)" class="form-control"  formControlName="adjacentWidth" placeholder="Please Enter Width" 
                                         [ngClass]="{ 'is-invalid': submitted && f.get('adjacentWidth')?.errors }">
                                         <div *ngIf="submitted && f.get('adjacentWidth')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('adjacentWidth')?.errors?.required">Width is required</div>
@@ -387,7 +387,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Height :</label>
-                                        <input type="number" [readonly]="f.get('adjacentBuilding')?.value ==='No'" (change)="collectionOfAdjacent($event,f)" class="form-control"  formControlName="adjacentHeight" placeholder="Please Enter Height" 
+                                        <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" [readonly]="f.get('adjacentBuilding')?.value ==='No'" (change)="collectionOfAdjacent($event,f)" class="form-control"  formControlName="adjacentHeight" placeholder="Please Enter Height" 
                                         [ngClass]="{ 'is-invalid': submitted && f.get('adjacentHeight')?.errors }">
                                         <div *ngIf="submitted && f.get('adjacentHeight')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('adjacentHeight')?.errors?.required">Height is required</div>
@@ -424,7 +424,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Number Of People In The Building :</label>
-                                        <input type="number" class="form-control" formControlName="noOfPeopleInBuilding" placeholder="Please Enter Number Of People In The Building" 
+                                        <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="noOfPeopleInBuilding" placeholder="Please Enter Number Of People In The Building" 
                                         [ngClass]="{ 'is-invalid': submitted && f.get('noOfPeopleInBuilding')?.errors }" (ngModelChange)="lossHumanLifeL1($event,f);lossServiceToPublicL2($event,f)">
                                         <div *ngIf="submitted && f.get('noOfPeopleInBuilding')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('noOfPeopleInBuilding')?.errors?.required">Number Of People In The Building is required</div>
@@ -435,7 +435,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Number of People In The Zone :</label>
-                                        <input type="number" class="form-control" formControlName="noOfPeopleInZone" placeholder="Please Enter Number of People In The Zone" 
+                                        <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="noOfPeopleInZone" placeholder="Please Enter Number of People In The Zone" 
                                         [ngClass]="{ 'is-invalid': submitted && f.get('noOfPeopleInZone')?.errors }" (ngModelChange)="lossHumanLifeL1($event,f);lossServiceToPublicL2($event,f);">
                                         <div *ngIf="submitted && f.get('noOfPeopleInZone')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('noOfPeopleInZone')?.errors?.required">Number of People In The Zone is required</div>
@@ -446,7 +446,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Number of Hours/Day People Are Present In The Building :</label>
-                                        <input type="number" class="form-control" formControlName="dayPeoplePresentBuilding" placeholder="Please Enter Number of Hours/Day People Are Present In The Building" 
+                                        <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="dayPeoplePresentBuilding" placeholder="Please Enter Number of Hours/Day People Are Present In The Building" 
                                         [ngClass]="{ 'is-invalid': submitted && f.get('dayPeoplePresentBuilding')?.errors }" (change)="houseYearBuilding($event,f)">
                                         <div *ngIf="submitted && f.get('dayPeoplePresentBuilding')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('dayPeoplePresentBuilding')?.errors?.required">Number of Hours/Day People Are Present In The Building is required</div>
@@ -572,7 +572,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Total No of Lines :</label>
-                                        <input type="number" class="form-control"  formControlName="totalNoOfLines" placeholder="Please Enter Total No of Lines" 
+                                        <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control"  formControlName="totalNoOfLines" placeholder="Please Enter Total No of Lines" 
                                         [ngClass]="{ 'is-invalid': submitted && a.get('totalNoOfLines')?.errors }">
                                         <div *ngIf="submitted && a.get('totalNoOfLines')?.errors" class="invalid-feedback">
                                             <div *ngIf="a.get('totalNoOfLines')?.errors?.required">Designation is required</div>
@@ -583,7 +583,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Number of Power Lines :</label>
-                                        <input type="number" class="form-control"  formControlName="noOfPowerLines" placeholder="Please Enter Number of Power Lines" 
+                                        <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control"  formControlName="noOfPowerLines" placeholder="Please Enter Number of Power Lines" 
                                         [ngClass]="{ 'is-invalid': submitted && a.get('noOfPowerLines')?.errors }">
                                         <div *ngIf="submitted && a.get('noOfPowerLines')?.errors" class="invalid-feedback">
                                             <div *ngIf="a.get('noOfPowerLines')?.errors?.required">Designation is required</div>
@@ -594,7 +594,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Type of Power Lines :</label>
-                                        <select class="form-control" formControlName="typeOfPowerLines" (change)="typeOfPowerLinesD($event,f);lengthPowerline($event,f)"
+                                        <select class="form-control" formControlName="typeOfPowerLines" (ngModelChange)="typeOfPowerLinesD($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && a.get('typeOfPowerLines')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="Overhead">Overhead</option>
@@ -612,8 +612,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Length Of Power Line (In Meters) :</label>
-                                        <input type="number" class="form-control"  formControlName="lengthOfPowerLines" placeholder="Please Enter Length Of Power Line (In Meters)" 
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('lengthOfPowerLines')?.errors }" (change)="lengthPowerline($event,f)">
+                                        <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control"  formControlName="lengthOfPowerLines" placeholder="Please Enter Length Of Power Line (In Meters)" 
+                                        [ngClass]="{ 'is-invalid': submitted && a.get('lengthOfPowerLines')?.errors }" (ngModelChange)="lengthPowerline($event,f)">
                                         <div *ngIf="submitted && a.get('lengthOfPowerLines')?.errors" class="invalid-feedback">
                                             <div *ngIf="a.get('lengthOfPowerLines')?.errors?.required">Designation is required</div>
                                         </div>
@@ -692,7 +692,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Number of Telecom lines :</label>
-                                        <input type="number" class="form-control" formControlName="noOfTelecomLines" placeholder="Please Enter Number of Telecom lines" 
+                                        <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="noOfTelecomLines" placeholder="Please Enter Number of Telecom lines" 
                                         [ngClass]="{ 'is-invalid': submitted && a.get('noOfTelecomLines')?.errors }">
                                         <div *ngIf="submitted && a.get('noOfTelecomLines')?.errors" class="invalid-feedback">
                                             <div *ngIf="a.get('noOfTelecomLines')?.errors?.required">Designation is required</div>
@@ -719,7 +719,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Length Of Telecom Line (In Meters) :</label>
-                                        <input type="number" class="form-control"  formControlName="lengthOfTelecomLines" placeholder="Please Enter Length Of Telecom Line (In Meters)" 
+                                        <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control"  formControlName="lengthOfTelecomLines" placeholder="Please Enter Length Of Telecom Line (In Meters)" 
                                         [ngClass]="{ 'is-invalid': submitted && a.get('lengthOfTelecomLines')?.errors }" (ngModelChange)="lengthOfTelecomLines($event,f)">
                                         <div *ngIf="submitted && a.get('lengthOfTelecomLines')?.errors" class="invalid-feedback">
                                             <div *ngIf="a.get('lengthOfTelecomLines')?.errors?.required">Designation is required</div>
