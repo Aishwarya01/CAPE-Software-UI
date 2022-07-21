@@ -1712,7 +1712,7 @@ export class LpsDownConductorsComponent implements OnInit {
         return;
       }
 
-      else if(this.downConductorForm.value.earthing[0].buildingNumber == undefined && this.downConductorForm.value.earthing[0].buildingNumber == '' && this.downConductorForm.value.earthing[0].buildingName=='' && this.downConductorForm.value.earthing[0].buildingName == undefined){
+      else if(this.downConductorForm.value.downConductorDescription[0].buildingNumber == undefined && this.downConductorForm.value.earthStud[0].buildingNumber == '' && this.downConductorForm.value.earthStud[0].buildingName=='' && this.downConductorForm.value.earthStud[0].buildingName == undefined){
         this.validationError = true;
         this.validationErrorMsg = 'Air Termination Form is Required, Please fill';
         setTimeout(() => {

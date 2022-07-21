@@ -91,7 +91,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
       }, 3000);
       return;
     }
-    else if(this.separeteDistanceForm.value.earthing[0].buildingNumber == undefined && this.separeteDistanceForm.value.earthing[0].buildingNumber == '' && this.separeteDistanceForm.value.earthing[0].buildingName=='' && this.separeteDistanceForm.value.earthing[0].buildingName == undefined){
+    else if(this.separeteDistanceForm.value.seperationDistanceDescription[0].buildingNumber == undefined && this.separeteDistanceForm.value.seperationDistanceDescription[0].buildingNumber == '' && this.separeteDistanceForm.value.seperationDistanceDescription[0].buildingName=='' && this.separeteDistanceForm.value.seperationDistanceDescription[0].buildingName == undefined){
       this.validationError = true;
       this.validationErrorMsg = 'Air Termination Form is Required, Please fill';
       setTimeout(() => {
