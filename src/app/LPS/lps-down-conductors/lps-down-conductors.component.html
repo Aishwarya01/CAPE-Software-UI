@@ -445,7 +445,7 @@
                                                             <td nowrap style="text-align: center;">
                                                                 <button type="button" class="btn btn-secondary btn-xs mr-4" [disabled]="uploadDisable"
                                                                 (click)="onUpload(contentSpinner,q.get('buildingCount')?.value,a,j)" title="Upload">
-                                                                    <i class="fa fa-upload" style="color: white;"></i>
+                                                                    <i class="fa fa-upload" style="color: white;"></i> Upload
                                                                 </button>
                                                                 <div *ngIf="submitted && a.get('fileId')?.errors"class="invalid-feedback">
                                                                     <div *ngIf="a.get('fileId')?.errors?.required">File upload is required</div>
@@ -458,7 +458,7 @@
                                                                 </button> -->
                                                                 <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="a.get('fileId')?.value" (click)="onDownload(a.get('fileName')?.value,a.get('fileId')?.value)" 
                                                                 href='javascript:void(0)' [ngClass]="{'disableForm':isEditable}" title="Download">
-                                                                    <i class="fa fa-download" style="color: white;"></i>
+                                                                    <i class="fa fa-download" style="color: white;"></i> Download
                                                                 </button>
                                                                 <!-- <button type="button" class="btn btn-danger btn-xs mr-4">
                                                                     <i class="fa fa-trash-o" style="color: white;"></i> Delete
@@ -1067,7 +1067,7 @@
                                     <td nowrap style="text-align: center;">
                                         <button type="button" class="btn btn-secondary btn-xs mr-4" [disabled]="uploadDisable1"
                                         (click)="onUpload1(contentSpinner,q.get('buildingCount')?.value,q,j)" title="Upload">
-                                            <i class="fa fa-upload" style="color: white;"></i>
+                                            <i class="fa fa-upload" style="color: white;"></i> Upload
                                         </button>
                                         <div *ngIf="submitted && q.get('fileId1')?.errors" class="invalid-feedback">
                                             <div *ngIf="q.get('fileId1')?.errors?.required">File upload is required</div>
@@ -1080,7 +1080,7 @@
                                         </button> -->
                                         <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="q.get('fileId1')?.value" (click)="onDownload1(q.get('fileName1')?.value,q.get('fileId1')?.value)"
                                         href='javascript:void(0)' [ngClass]="{'disableForm':isEditable}" title="Download">
-                                            <i class="fa fa-download" style="color: white;"></i>
+                                            <i class="fa fa-download" style="color: white;"></i> Download
                                         </button>
                                         <!-- <button type="button" class="btn btn-danger btn-xs mr-4">
                                             <i class="fa fa-trash-o" style="color: white;"></i> Delete
