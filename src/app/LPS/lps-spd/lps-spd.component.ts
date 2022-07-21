@@ -510,7 +510,7 @@ export class LpsSpdComponent implements OnInit {
       }, 3000);
       return;
     }
-    else if(this.spdForm.value.spd[0].buildingNumber == undefined || this.spdForm.value.spd[0].buildingNumber == ''){
+    else if(this.spdForm.value.earthing[0].buildingNumber == undefined && this.spdForm.value.earthing[0].buildingNumber == '' && this.spdForm.value.earthing[0].buildingName=='' && this.spdForm.value.earthing[0].buildingName == undefined){
       this.validationError = true;
       this.validationErrorMsg = 'Air Termination Form is Required, Please fill';
       setTimeout(() => {
