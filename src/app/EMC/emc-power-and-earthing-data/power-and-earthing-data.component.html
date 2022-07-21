@@ -338,12 +338,12 @@
 
                                         <td nowrap style="text-align: center;">
                                             <button type="button" class="btn btn-secondary btn-xs mr-4" [disabled]="uploadDisable" (click)="onUpload(contentSpinner)" title="Upload">
-                                                <i class="fa fa-upload" style="color: white;"></i> Upload
+                                                <i class="fa fa-upload" style="color: white;"></i>
                                             </button>
 
                                             <button type="button" class="btn btn-success btn-xs mr-4" (click)="onDownload()" *ngIf="fileId != ''" href='javascript:onDownload()' 
                                             href='javascript:void(0)' [ngClass]="{'disableForm':isEditableEmc}" title="Download">
-                                                <i class="fa fa-download" style="color: white;"></i> Download
+                                                <i class="fa fa-download" style="color: white;"></i>
                                             </button>
 
                                             <button type="button" class="btn btn-danger btn-xs mr-4" *ngIf="fileId != ''"  (click)="deleteFile(contentSpinnerDelete)" 
