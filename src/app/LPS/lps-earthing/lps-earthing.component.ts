@@ -215,7 +215,7 @@ export class LpsEarthingComponent implements OnInit {
       earthElectrodeMaterialInRem: new FormControl(''),
       earthElectrodeTypeInOb: new FormControl('', Validators.required),
       earthElectrodeTypeInRem: new FormControl(''),
-      earthElectrodeSizeInOb: new FormControl(''),
+      earthElectrodeSizeInOb: new FormControl('', Validators.required),
       earthElectrodeSizeInRem: new FormControl(''),
       earthElectrodeLengthingOb: new FormControl('', Validators.required),
       earthElectrodeLengthingRem: new FormControl(''),
@@ -256,9 +256,9 @@ export class LpsEarthingComponent implements OnInit {
     physicalInspeRem: new FormControl(''),
     chamberTypeOb: new FormControl('', Validators.required),
     chamberTypeRem: new FormControl(''),
-    chamberSizeOb: new FormControl(''),
+    chamberSizeOb: new FormControl('', Validators.required),
     chamberSizeRem: new FormControl(''),
-    maximumWithStandLoadOb: new FormControl(''),
+    maximumWithStandLoadOb: new FormControl('', Validators.required),
     maximumWithStandLoadRem: new FormControl(''),
     chamberLocationOb: new FormControl('', Validators.required),
     chamberLocationRem: new FormControl(''),
@@ -304,7 +304,7 @@ export class LpsEarthingComponent implements OnInit {
       materialOfEartElectrodeRem: new FormControl(''),
       typeOfEarthElectrodeOb: new FormControl('', Validators.required),
       typeOfEarthElectrodeRem: new FormControl(''),
-      sizeOfEarthElectrodeOb: new FormControl(''),
+      sizeOfEarthElectrodeOb: new FormControl('', Validators.required),
       sizeOfEarthElectrodeRem: new FormControl(''),
       maximumDistanceEartElectrodeWalOb: new FormControl(null, Validators.required),
       maximumDistanceEartElectrodeWalRem: new FormControl(''),
@@ -524,7 +524,7 @@ export class LpsEarthingComponent implements OnInit {
       earthElectrodeMaterialInRem:  new FormControl({disabled: false, value: item.earthElectrodeMaterialInRem}),
       earthElectrodeTypeInOb:  new FormControl({disabled: false, value: item.earthElectrodeTypeInOb}, Validators.required),
       earthElectrodeTypeInRem:  new FormControl({disabled: false, value: item.earthElectrodeTypeInRem}),
-      earthElectrodeSizeInOb:  new FormControl({disabled: false, value: item.earthElectrodeSizeInOb}),
+      earthElectrodeSizeInOb:  new FormControl({disabled: false, value: item.earthElectrodeSizeInOb}, Validators.required),
       earthElectrodeSizeInRem:  new FormControl({disabled: false, value: item.earthElectrodeSizeInRem}),
       earthElectrodeLengthingOb:  new FormControl({disabled: false, value: item.earthElectrodeLengthingOb}, Validators.required),
       earthElectrodeLengthingRem:  new FormControl({disabled: false, value: item.earthElectrodeLengthingRem}),
@@ -586,9 +586,9 @@ export class LpsEarthingComponent implements OnInit {
         physicalInspeRem: new FormControl({disabled: false, value: item.physicalInspeRem}),
         chamberTypeOb: new FormControl({disabled: false, value: item.chamberTypeOb}, Validators.required),
         chamberTypeRem: new FormControl({disabled: false, value: item.chamberTypeRem}),
-        chamberSizeOb: new FormControl({disabled: false, value: item.chamberSizeOb}),
+        chamberSizeOb: new FormControl({disabled: false, value: item.chamberSizeOb}, Validators.required),
         chamberSizeRem: new FormControl({disabled: false, value: item.chamberSizeRem}),
-        maximumWithStandLoadOb: new FormControl({disabled: false, value: item.maximumWithStandLoadOb}),
+        maximumWithStandLoadOb: new FormControl({disabled: false, value: item.maximumWithStandLoadOb}, Validators.required),
         maximumWithStandLoadRem: new FormControl({disabled: false, value: item.maximumWithStandLoadRem}),
         maximumPlacedSoilOb: new FormControl({disabled: false, value: item.maximumPlacedSoilOb}, Validators.required),
         maximumPlacedSoilRem: new FormControl({disabled: false, value: item.maximumPlacedSoilRem}),
@@ -640,7 +640,7 @@ export class LpsEarthingComponent implements OnInit {
         jointsMadeBrazingRem: new FormControl({disabled: false, value: item.jointsMadeBrazingRem}),
         materialOfEartElectrodeOb: new FormControl({disabled: false, value: item.materialOfEartElectrodeOb}, Validators.required),
         materialOfEartElectrodeRem: new FormControl({disabled: false, value: item.materialOfEartElectrodeRem}),
-        sizeOfEarthElectrodeOb: new FormControl({disabled: false, value: item.sizeOfEarthElectrodeOb}),
+        sizeOfEarthElectrodeOb: new FormControl({disabled: false, value: item.sizeOfEarthElectrodeOb}, Validators.required),
         sizeOfEarthElectrodeRem: new FormControl({disabled: false, value: item.sizeOfEarthElectrodeRem}),
         maximumDistanceEartElectrodeWalOb: new FormControl({disabled: false, value: item.maximumDistanceEartElectrodeWalOb}, Validators.required),
         maximumDistanceEartElectrodeWalRem: new FormControl({disabled: false, value: item.maximumDistanceEartElectrodeWalRem}),
@@ -903,7 +903,7 @@ export class LpsEarthingComponent implements OnInit {
       grountLevelComponentFilledInRem: new FormControl(''),
       earthElectrodeMaterialInOb: new FormControl('', Validators.required),
       earthElectrodeMaterialInRem: new FormControl(''),
-      earthElectrodeSizeInOb: new FormControl(''),
+      earthElectrodeSizeInOb: new FormControl('', Validators.required),
       earthElectrodeSizeInRem: new FormControl(''),
       earthElectrodeLengthingOb: new FormControl('', Validators.required),
       earthElectrodeLengthingRem: new FormControl(''),
@@ -1107,7 +1107,7 @@ export class LpsEarthingComponent implements OnInit {
         }, 3000);
         return;
       }
-      else if(this.earthingForm.value.earthing[0].buildingNumber == undefined && this.earthingForm.value.earthing[0].buildingNumber == '' && this.earthingForm.value.earthing[0].buildingName=='' && this.earthingForm.value.earthing[0].buildingName == undefined){
+      else if(this.earthingForm.value.earthing[0].buildingNumber == undefined || this.earthingForm.value.earthing[0].buildingNumber == ''){
         this.validationError = true;
         this.validationErrorMsg = 'Air Termination Form is Required, Please fill';
         setTimeout(() => {
