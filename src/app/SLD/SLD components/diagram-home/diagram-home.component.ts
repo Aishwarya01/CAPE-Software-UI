@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -32,6 +32,9 @@ import { CablesServicesService } from '../../../SLD/SLD Services/cables-services
 
 import { CableConnectorComponent } from '../Node Components/cable-connector/cable-connector.component';
 import { CableConnectorServicesService } from '../../../SLD/SLD Services/cableConnector-service.service';
+import { DGComponent } from '../Node Components/dg/dg.component';
+
+import { IDoubleClickEventArgs } from '@syncfusion/ej2-diagrams/src/diagram/objects/interface/IElement';
 
 @Component({
   selector: 'app-diagram-home',
@@ -110,7 +113,6 @@ export class DiagramHomeComponent implements OnInit {
   errorArr: any = [];
   errorMsg: String = '';
   mode: any= 'indeterminate';
-
   //MCB
   mcbForm!: FormGroup;
   mcb = new MCB();
@@ -156,6 +158,7 @@ export class DiagramHomeComponent implements OnInit {
   lightGeneralTestingArray: any = [];
   lightSafetyTestingArray: any = [];
   submittedLight: boolean = false;
+ 
 
   public getNodeDefaults(node: any): NodeModel {
     // node.height = 200;
@@ -201,164 +204,184 @@ export class DiagramHomeComponent implements OnInit {
     //console.log(e);
   }
 
-  clickFunction(e: any) {
-    if(e.element instanceof Node){
-      if(e.element.properties.id.includes('Inductor')) {
+  // public doubleClick(args: IDoubleClickEventArgs) {
+  //   console.log(args.source);
+  //   alert('Double click Triggered');
+  // }
+
+  //clickFunction(e: any) {
+  //console.log(this.diagram);
+  public clickFunction(args: any) {
+    console.log(args.source);
+    if(args.source instanceof Node){
+      if(args.source.properties.id.includes('Inductor')) {
+
         //this.modalService.open(content2, { centered: true,size: 'xl'});
       }
-      else if(e.element.properties.id.includes('Diode')) {
+      else if(args.source.properties.id.includes('Diode')) {
         //this.modalService.open(content3, { centered: true,size: 'xl'});
       }
-      else if(e.element.properties.id.includes('Resistor')) {
+      else if(args.source.properties.id.includes('Resistor')) {
         //this.modalService.open(content4, { centered: true,size: 'xl'});
       }
-      else if(e.element.properties.id.includes('Circuit Breaker')) {
+      else if(args.source.properties.id.includes('Circuit Breaker')) {
         //this.modalService.open(content5, { centered: true,size: 'xl'});
       }
-      else if(e.element.properties.id.includes('Ground')) {
+      else if(args.source.properties.id.includes('Ground')) {
         //this.modalService.open(content6, { centered: true,size: 'xl'});
       }
-      else if(e.element.properties.id.includes('Light')) {
+      else if(args.source.properties.id.includes('Light')) {
         const dialogRef = this.dialog.open(LightComponent, {
           width: '1100px',
           maxHeight: '90vh',
           disableClose: true,
         });
-        dialogRef.componentInstance.nodeId = e.element.properties.id;
+        dialogRef.componentInstance.nodeId = args.source.properties.id;
         dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
         dialogRef.componentInstance.email = this.email;
       }
-      else if(e.element.properties.id.includes('Fan')) {
+      else if(args.source.properties.id.includes('Fan')) {
         const dialogRef = this.dialog.open(FanComponent, {
           width: '1100px',
           maxHeight: '90vh',
           disableClose: true,
         });
-        dialogRef.componentInstance.nodeId = e.element.properties.id;
+        dialogRef.componentInstance.nodeId = args.source.properties.id;
         dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
         dialogRef.componentInstance.email = this.email;
       }
-      else if(e.element.properties.id.includes('Wire')) {
-        const dialogRef = this.dialog.open(CablesComponent, {
-          width: '1100px',
-          maxHeight: '90vh',
-          disableClose: true,
-        });
-        dialogRef.componentInstance.nodeId = e.element.properties.id;
-        dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
-        dialogRef.componentInstance.email = this.email;
+      else if(args.source.properties.id.includes('Wire')) {
+          const dialogRef = this.dialog.open(CablesComponent, {
+            width: '1100px',
+            maxHeight: '90vh',
+            disableClose: true,
+          });
+          dialogRef.componentInstance.nodeId = args.source.properties.id;
+          dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
+          dialogRef.componentInstance.email = this.email;
       }
-      else if(e.element.properties.id.includes('MCB_with_RCD')) {
+      else if(args.source.properties.id.includes('MCB_with_RCD')) {
         const dialogRef = this.dialog.open(RCBOComponent, {
           width: '1100px',
           maxHeight: '90vh',
           disableClose: true,
         });
-        dialogRef.componentInstance.nodeId = e.element.properties.id;
+        dialogRef.componentInstance.nodeId = args.source.properties.id;
         dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
         dialogRef.componentInstance.email = this.email;
       }
-      else if(e.element.properties.id.includes('MCB')) {
+      else if(args.source.properties.id.includes('MCB')) {
         const dialogRef = this.dialog.open(MCBComponent, {
           width: '1100px',
           maxHeight: '90vh',
           disableClose: true,
         });
-        dialogRef.componentInstance.nodeId = e.element.properties.id;
+        dialogRef.componentInstance.nodeId = args.source.properties.id;
         dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
         dialogRef.componentInstance.email = this.email;
       }
-      else if(e.element.properties.id.includes('MCCB')) {
+      else if(args.source.properties.id.includes('MCCB')) {
         const dialogRef = this.dialog.open(MCCBComponent, {
           width: '1100px',
           maxHeight: '90vh',
           disableClose: true,
         });
-        dialogRef.componentInstance.nodeId = e.element.properties.id;
+        dialogRef.componentInstance.nodeId = args.source.properties.id;
         dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
         dialogRef.componentInstance.email = this.email;
       }
 	
-      else if(e.element.properties.id.includes('Motor')) {
+      else if(args.source.properties.id.includes('Motor')) {
         const dialogRef = this.dialog.open(LTMotorComponent, {
           width: '1000px',
           maxHeight: '90vh',
           disableClose: true,
         });
-        dialogRef.componentInstance.nodeId = e.element.properties.id;
+        dialogRef.componentInstance.nodeId = args.source.properties.id;
         dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
         dialogRef.componentInstance.email = this.email;
 	    }
 
-      else if(e.element.properties.id.includes('PortableAppliance')) {	
+      else if(args.source.properties.id.includes('PortableAppliance')) {	
         const dialogRef = this.dialog.open(PortableApplianceComponent, {	
           width: '1450px',	
           maxHeight: '90vh',	
           disableClose: true,	
         });	
-        dialogRef.componentInstance.nodeId = e.element.properties.id;;	
+        dialogRef.componentInstance.nodeId = args.source.properties.id;;	
         dialogRef.componentInstance.fileName = this.diagramComponent.fileName;	
         dialogRef.componentInstance.email = this.email;      
       }
 
-      else if(e.element.properties.id.includes('Battery')) {
+      else if(args.source.properties.id.includes('DieselGenerator')) {	
+        const dialogRef = this.dialog.open(DGComponent, {	
+          width: '1450px',	
+          maxHeight: '90vh',	
+          disableClose: true,	
+        });	
+        dialogRef.componentInstance.nodeId = args.source.properties.id;;	
+        dialogRef.componentInstance.fileName = this.diagramComponent.fileName;	
+        dialogRef.componentInstance.email = this.email;      
+      }
+
+      else if(args.source.properties.id.includes('Battery')) {
         //this.modalService.open(content10, { centered: true,size: 'xl'});
       }
       // let person = prompt("Please enter color of the node:", "Red");
-      // e.element.style.fill = person;
+      // args.source.style.fill = person;
     } 
-    else if(e.element instanceof Connector){
+    else if(args.source instanceof Connector){
       // let person = prompt("Please enter type of the connector:", "Straight");
-      // e.element.type = person;
-      // console.log(e.element)
+      // args.source.type = person;
+      // console.log(args.source)
 
-      if(e.element.properties.id.includes('Orthogonal1')) {
+      if(args.source.properties.id.includes('Orthogonal1')) {
         const dialogRef = this.dialog.open(CableConnectorComponent, {
           width: '1100px',
           maxHeight: '90vh',
           disableClose: true,
         });
-        dialogRef.componentInstance.cableConnectorId = e.element.properties.id;
+        dialogRef.componentInstance.cableConnectorId = args.source.properties.id;
         dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
         dialogRef.componentInstance.email = this.email;
       }
-      if(e.element.properties.id.includes('Orthogonal2')) {
+      if(args.source.properties.id.includes('Orthogonal2')) {
         const dialogRef = this.dialog.open(CableConnectorComponent, {
           width: '1100px',
           maxHeight: '90vh',
           disableClose: true,
         });
-        dialogRef.componentInstance.cableConnectorId = e.element.properties.id;
+        dialogRef.componentInstance.cableConnectorId = args.source.properties.id;
         dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
         dialogRef.componentInstance.email = this.email;
       }
-      if(e.element.properties.id.includes('Straight1')) {
+      if(args.source.properties.id.includes('Straight1')) {
         const dialogRef = this.dialog.open(CableConnectorComponent, {
           width: '1100px',
           maxHeight: '90vh',
           disableClose: true,
         });
-        dialogRef.componentInstance.cableConnectorId = e.element.properties.id;
+        dialogRef.componentInstance.cableConnectorId = args.source.properties.id;
         dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
         dialogRef.componentInstance.email = this.email;
       }
-      if(e.element.properties.id.includes('Straight2')) {
+      if(args.source.properties.id.includes('Straight2')) {
         const dialogRef = this.dialog.open(CableConnectorComponent, {
           width: '1100px',
           maxHeight: '90vh',
           disableClose: true,
         });
-        dialogRef.componentInstance.cableConnectorId = e.element.properties.id;
+        dialogRef.componentInstance.cableConnectorId = args.source.properties.id;
         dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
         dialogRef.componentInstance.email = this.email;
       }
-      if(e.element.properties.id.includes('Bezier')) {
+      if(args.source.properties.id.includes('Bezier')) {
         const dialogRef = this.dialog.open(CableConnectorComponent, {
           width: '1100px',
           maxHeight: '90vh',
           disableClose: true,
         });
-        dialogRef.componentInstance.cableConnectorId = e.element.properties.id;
+        dialogRef.componentInstance.cableConnectorId = args.source.properties.id;
         dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
         dialogRef.componentInstance.email = this.email;
       }

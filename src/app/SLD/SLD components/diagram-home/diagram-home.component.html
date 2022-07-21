@@ -13,7 +13,10 @@
                 [getConnectorDefaults]='getConnectorDefaults' [getNodeDefaults]='getNodeDefaults' (created)="diagramCreate($event)">
                 </ejs-diagram> -->
 
-                <ejs-diagram #diagram id="diagram" width="100%" height="580px" (drop)="getAccessibility($event)" (click) ="clickFunction($event)"  [getNodeDefaults] ='getNodeDefaults' [getConnectorDefaults] ='getConnectorDefaults' >
+                <ejs-diagram #diagram id="diagram" width="100%" height="580px" (drop)="getAccessibility($event)" 
+                (doubleClick) ="clickFunction($event)"  [getNodeDefaults] ='getNodeDefaults'
+                [getConnectorDefaults] ='getConnectorDefaults'>
+
                   <!-- <e-connectors>
                     <e-connector id='connectorIp1' type='Orthogonal'  sourceID='nodeIp1' targetID='node1'>
                     </e-connector>
@@ -62,7 +65,8 @@
                     </e-node>
                   </e-nodes>  -->
                 </ejs-diagram>
-        </div>
+
+                </div>
     </div>
 
     <button *ngIf="!flag" class="btn btn-primary" (click)="submit(flag,content1)">Add Diagram</button>
