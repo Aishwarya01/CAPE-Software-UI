@@ -416,7 +416,7 @@ export class LpsEarthStudComponent implements OnInit {
      }, 3000);
       return;
     }
-    else if(this.EarthStudForm.value.earthing[0].buildingNumber == undefined && this.EarthStudForm.value.earthing[0].buildingNumber == '' && this.EarthStudForm.value.earthing[0].buildingName=='' && this.EarthStudForm.value.earthing[0].buildingName == undefined){
+    else if(this.EarthStudForm.value.earthStud[0].buildingNumber == undefined && this.EarthStudForm.value.earthStud[0].buildingNumber == '' && this.EarthStudForm.value.earthStud[0].buildingName=='' && this.EarthStudForm.value.earthStud[0].buildingName == undefined){
       this.validationError = true;
       this.validationErrorMsg = 'Air Termination Form is Required, Please fill';
       setTimeout(() => {
