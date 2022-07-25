@@ -325,7 +325,7 @@ export class DiagramHomeComponent implements OnInit {
       // }
 
       else if((args.source.properties.id.includes('Transformer_delta_delta')) || (args.source.properties.id.includes('Transformer_delta_star'))
-                || (args.source.properties.id.includes('Transformer_star_delta')) || (args.source.properties.id.includes('Transformer_delta_star'))) {	
+                || (args.source.properties.id.includes('Transformer_star_delta')) || (args.source.properties.id.includes('Transformer_star_star'))) {	
         const dialogRef = this.dialog.open(TransformerComponent, {	
           width: '1450px',	
           maxHeight: '90vh',	
