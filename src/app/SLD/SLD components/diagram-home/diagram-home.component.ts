@@ -32,7 +32,7 @@ import { CablesServicesService } from '../../../SLD/SLD Services/cables-services
 
 import { CableConnectorComponent } from '../Node Components/cable-connector/cable-connector.component';
 import { CableConnectorServicesService } from '../../../SLD/SLD Services/cableConnector-service.service';
-// import { DGComponent } from '../Node Components/dg/dg.component';
+import { DGComponent } from '../Node Components/dg/dg.component';
 import { IDoubleClickEventArgs } from '@syncfusion/ej2-diagrams/src/diagram/objects/interface/IElement';
 import { TransformerComponent } from '../Node Components/transformer/transformer.component';
 
@@ -313,16 +313,16 @@ export class DiagramHomeComponent implements OnInit {
         dialogRef.componentInstance.email = this.email;      
       }
 
-      // else if(args.source.properties.id.includes('DieselGenerator')) {	
-      //   const dialogRef = this.dialog.open(DGComponent, {	
-      //     width: '1450px',	
-      //     maxHeight: '90vh',	
-      //     disableClose: true,	
-      //   });	
-      //   dialogRef.componentInstance.nodeId = args.source.properties.id;;	
-      //   dialogRef.componentInstance.fileName = this.diagramComponent.fileName;	
-      //   dialogRef.componentInstance.email = this.email;      
-      // }
+      else if(args.source.properties.id.includes('DieselGenerator')) {	
+        const dialogRef = this.dialog.open(DGComponent, {	
+          width: '1450px',	
+          maxHeight: '90vh',	
+          disableClose: true,	
+        });	
+        dialogRef.componentInstance.nodeId = args.source.properties.id;;	
+        dialogRef.componentInstance.mainFileName = this.diagramComponent.fileName;	
+        dialogRef.componentInstance.email = this.email;      
+      }
 
       else if((args.source.properties.id.includes('Transformer_delta_delta')) || (args.source.properties.id.includes('Transformer_delta_star'))
                 || (args.source.properties.id.includes('Transformer_star_delta')) || (args.source.properties.id.includes('Transformer_star_star'))) {	

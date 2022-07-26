@@ -13,154 +13,154 @@ import { TransformerServicesService } from 'src/app/SLD/SLD Services/transformer
   styleUrls: ['./transformer.component.css']
 })
 export class TransformerComponent implements OnInit {
-//Transformer
-transformerForm!: FormGroup;
-transformerData: any;
-transformer = new Transformer();
-transformerFlag: boolean = false;
-submittedTransformer: boolean = false;
-submitted: boolean = false;
+  //Transformer
+  transformerForm!: FormGroup;
+  transformerData: any;
+  transformer = new Transformer();
+  transformerFlag: boolean = false;
+  submittedTransformer: boolean = false;
+  submitted: boolean = false;
 
-success: boolean = false;
-successMsg: String = '';
-error: boolean = false;
-errorMsg: String = ''
-errorData: any;
-@Input()
-mainFileName: any;
-@Input()
-nodeId: any;
-@Input()
-email: any;
-validationError: boolean= false;
-validationErrorMsg: string="";
+  success: boolean = false;
+  successMsg: String = '';
+  error: boolean = false;
+  errorMsg: String = ''
+  errorData: any;
+  @Input()
+  mainFileName: any;
+  @Input()
+  nodeId: any;
+  @Input()
+  email: any;
+  validationError: boolean = false;
+  validationErrorMsg: string = "";
 
-deletedArr: any = [];
-deletedArrFlag: any;
+  deletedArr: any = [];
+  deletedArrFlag: any;
 
-//file upload
-file: any = [];
-fileName: String = '';
-fileSize: String = '';
-uploadDisable: boolean = true;
-uploadFlag: boolean = true;
-JSONdata: any;
-fileId: any="";
-fileErrorData: any;
-fileStatus: any="";
-fileFlag: boolean = false;
-uploadClicked: boolean = false;
-fileStatusSuccess: boolean = true;
-fileErrorFlag: boolean = false;
-fileSuccessFlag: boolean = false;
-constructor(private formBuilder: FormBuilder,
-           private transformerService: TransformerServicesService,
-           private transformerFileUploadServiceService: TransformerFileUploadServiceService,
-           private dialog: MatDialog) { }
+  //file upload
+  file: any = [];
+  fileName: String = '';
+  fileSize: String = '';
+  uploadDisable: boolean = true;
+  uploadFlag: boolean = true;
+  JSONdata: any;
+  fileId: any = "";
+  fileErrorData: any;
+  fileStatus: any = "";
+  fileFlag: boolean = false;
+  uploadClicked: boolean = false;
+  fileStatusSuccess: boolean = true;
+  fileErrorFlag: boolean = false;
+  fileSuccessFlag: boolean = false;
+  constructor(private formBuilder: FormBuilder,
+    private transformerService: TransformerServicesService,
+    private transformerFileUploadServiceService: TransformerFileUploadServiceService,
+    private dialog: MatDialog) { }
 
-ngOnInit(): void {
- this.transformerForm = this.formBuilder.group({
-   referenceName: [''],
-   capacityRating: ['', Validators.required],
-   sideVoltageHV: [''],
-   sideVoltageLV: [''],
-   vectorGroup: ['', Validators.required],
-   faultCurrent: ['', Validators.required],
-   impedance: ['', Validators.required],
-   connectedNeutral: ['', Validators.required],
-   transformerTest: ['', Validators.required],
-   file: ['']
- });
+  ngOnInit(): void {
+    this.transformerForm = this.formBuilder.group({
+      referenceName: [''],
+      capacityRating: ['', Validators.required],
+      sideVoltageHV: [''],
+      sideVoltageLV: [''],
+      vectorGroup: ['', Validators.required],
+      faultCurrent: ['', Validators.required],
+      impedance: ['', Validators.required],
+      connectedNeutral: ['', Validators.required],
+      transformerTest: ['', Validators.required],
+      file: ['']
+    });
 
- this.transformer.fileName = this.mainFileName;
- this.transformer.nodeId = this.nodeId;
+    this.transformer.fileName = this.mainFileName;
+    this.transformer.nodeId = this.nodeId;
 
- this.transformerService.retriveTransformer(this.mainFileName,this.nodeId).subscribe(
-       data => {
-         this.transformerData = JSON.parse(data);
-         if(this.transformerData.length != 0) {
-           this.retrieveTransformerNode(this.transformerData);
-         }
-       }
-     )
+    this.transformerService.retriveTransformer(this.mainFileName, this.nodeId).subscribe(
+      data => {
+        this.transformerData = JSON.parse(data);
+        if (this.transformerData.length != 0) {
+          this.retrieveTransformerNode(this.transformerData);
+        }
+      }
+    )
 
-  this.retriveFileName();
-}
-
-retrieveTransformerNode(data: any) {
- this.transformerFlag = true;
- for(let i of data) {
-   this.transformer.referenceName = i.referenceName;
-   this.transformer.capacityRating = i.capacityRating;
-   this.transformer.sideVoltageHV = i.sideVoltageHV;
-   this.transformer.sideVoltageLV = i.sideVoltageLV;
-   this.transformer.vectorGroup = i.vectorGroup;
-   this.transformer.faultCurrent = i.faultCurrent;
-   this.transformer.impedance = i.impedance;
-   this.transformer.connectedNeutral = i.connectedNeutral;
-   this.transformer.transformerTest = i.transformerTest;
-   this.transformer.createdBy = i.createdBy;
-   this.transformer.createdDate = i.createdDate;
-   this.transformer.updatedBy = i.updatedBy;
-   this.transformer.updatedDate = i.updatedDate;
-   this.transformer.nodeId = i.nodeId;
-   this.transformer.fileName = i.fileName;
-   this.transformer.userName = i.userName;
-   this.transformer.transformerDetailsId = i.transformerDetailsId;
-  this.changeTransformerTest(i.transformerTest);
- }
-}
-
-get h(){
- return this.transformerForm.controls; 
-}
-
-onChangeForm(event:any){
- if(!this.transformerForm.invalid){
-   if(this.transformerForm.dirty){
-     this.validationError=false;
-   }
-   else{
-     this.validationError=false;
-   }
-  }
-}
-
-onKeyForm(event: KeyboardEvent) { 
- if(!this.transformerForm.invalid){
-   if(this.transformerForm.dirty){
-     this.validationError=false;
-   }
-   else{
-     this.validationError=false;
-   }
-  }
-} 
-
-changeTransformerTest(e: any) {
-  let selectedValue = "";
-  if(e.target != undefined) {
-    selectedValue = e.target.value;    
-  }
-  else{
-    selectedValue = e;
+    this.retriveFileName();
   }
 
-  if(selectedValue == 'Available') {
-    this.transformerForm.controls['file'].setValidators([Validators.required]);
-        this.transformerForm.controls['file'].updateValueAndValidity();
+  retrieveTransformerNode(data: any) {
+    this.transformerFlag = true;
+    for (let i of data) {
+      this.transformer.referenceName = i.referenceName;
+      this.transformer.capacityRating = i.capacityRating;
+      this.transformer.sideVoltageHV = i.sideVoltageHV;
+      this.transformer.sideVoltageLV = i.sideVoltageLV;
+      this.transformer.vectorGroup = i.vectorGroup;
+      this.transformer.faultCurrent = i.faultCurrent;
+      this.transformer.impedance = i.impedance;
+      this.transformer.connectedNeutral = i.connectedNeutral;
+      this.transformer.transformerTest = i.transformerTest;
+      this.transformer.createdBy = i.createdBy;
+      this.transformer.createdDate = i.createdDate;
+      this.transformer.updatedBy = i.updatedBy;
+      this.transformer.updatedDate = i.updatedDate;
+      this.transformer.nodeId = i.nodeId;
+      this.transformer.fileName = i.fileName;
+      this.transformer.userName = i.userName;
+      this.transformer.transformerDetailsId = i.transformerDetailsId;
+      this.changeTransformerTest(i.transformerTest);
+    }
   }
-  else {
-    this.transformerForm.controls.file.clearValidators();
-    this.transformerForm.controls.file.updateValueAndValidity();  
-  }
-}
 
-deleteFile() { 
-  this.fileErrorFlag = false;
-  this.fileSuccessFlag = false;
-  this.fileFlag = true;
-  this.fileStatus = "Please wait your file is getting deleted";
+  get h() {
+    return this.transformerForm.controls;
+  }
+
+  onChangeForm(event: any) {
+    if (!this.transformerForm.invalid) {
+      if (this.transformerForm.dirty) {
+        this.validationError = false;
+      }
+      else {
+        this.validationError = false;
+      }
+    }
+  }
+
+  onKeyForm(event: KeyboardEvent) {
+    if (!this.transformerForm.invalid) {
+      if (this.transformerForm.dirty) {
+        this.validationError = false;
+      }
+      else {
+        this.validationError = false;
+      }
+    }
+  }
+
+  changeTransformerTest(e: any) {
+    let selectedValue = "";
+    if (e.target != undefined) {
+      selectedValue = e.target.value;
+    }
+    else {
+      selectedValue = e;
+    }
+
+    // if (selectedValue == 'Available') {
+    //   this.transformerForm.controls['file'].setValidators([Validators.required]);
+    //   this.transformerForm.controls['file'].updateValueAndValidity();
+    // }
+    // else {
+    //   this.transformerForm.controls.file.clearValidators();
+    //   this.transformerForm.controls.file.updateValueAndValidity();
+    // }
+  }
+
+  deleteFile() {
+    this.fileErrorFlag = false;
+    this.fileSuccessFlag = false;
+    this.fileFlag = true;
+    this.fileStatus = "Please wait your file is getting deleted";
     this.transformerFileUploadServiceService.deleteFile(this.nodeId).subscribe(
       (data: any) => {
         this.fileName = "";
@@ -169,77 +169,77 @@ deleteFile() {
         this.retriveFileName();
       },
       (error) => {
-          
-      },)
-}
 
-onDownload() {
-  this.transformerFileUploadServiceService.downloadFile(this.nodeId)
-}
+      })
+  }
 
-retriveFileName() {
-  this.transformerFileUploadServiceService.retriveFile(this.nodeId).subscribe(
-    data => {
-      if (data != "" && data != undefined && data != null) {
-        this.uploadFlag = false;
-        this.JSONdata = JSON.parse(data);
-        this.fileName = this.JSONdata.fileName;
-        this.fileSize = this.JSONdata.fileSize;
-        this.fileId = this.JSONdata.fileId;
-        this.fileStatus = "";
-        this.fileSuccessFlag = true;            
-        this.fileErrorFlag = false;
-        this.fileFlag = false;
-        this.transformerForm.controls['file'].setValue('');
-        this.transformerForm.controls['file'].clearValidators();
-        this.transformerForm.controls['file'].updateValueAndValidity();
-      } else {
+  onDownload() {
+    this.transformerFileUploadServiceService.downloadFile(this.nodeId)
+  }
+
+  retriveFileName() {
+    this.transformerFileUploadServiceService.retriveFile(this.nodeId).subscribe(
+      data => {
+        if (data != "" && data != undefined && data != null) {
+          this.uploadFlag = false;
+          this.JSONdata = JSON.parse(data);
+          this.fileName = this.JSONdata.fileName;
+          this.fileSize = this.JSONdata.fileSize;
+          this.fileId = this.JSONdata.fileId;
+          this.fileStatus = "";
+          this.fileSuccessFlag = true;
+          this.fileErrorFlag = false;
+          this.fileFlag = false;
+          this.transformerForm.controls['file'].setValue('');
+         // this.transformerForm.controls['file'].clearValidators();
+         // this.transformerForm.controls['file'].updateValueAndValidity();
+        } else {
+          this.uploadFlag = true;
+          this.fileStatus = "";
+          this.fileSuccessFlag = false;
+          this.fileErrorFlag = false;
+          this.fileFlag = false;
+         // this.transformerForm.controls['file'].setValidators([Validators.required]);
+         // this.transformerForm.controls['file'].updateValueAndValidity();
+        }
+
+      },
+      error => {
         this.uploadFlag = true;
         this.fileStatus = "";
-        this.fileSuccessFlag = false;      
-        this.fileErrorFlag = false;      
+        this.fileSuccessFlag = false;
+        this.fileErrorFlag = false;
         this.fileFlag = false;
-        this.transformerForm.controls['file'].setValidators([Validators.required]);
-        this.transformerForm.controls['file'].updateValueAndValidity();
+        this.fileName = '';
+        this.fileSize = '';
+        this.fileId = '';
+       // this.transformerForm.controls['file'].setValidators([Validators.required]);
+       // this.transformerForm.controls['file'].updateValueAndValidity();
       }
-
-    },
-    error => {
-      this.uploadFlag = true;
-      this.fileStatus = "";
-      this.fileSuccessFlag = false;      
-      this.fileErrorFlag = false;      
-      this.fileFlag = false;
-      this.fileName = '';
-      this.fileSize = '';
-      this.fileId = '';
-      this.transformerForm.controls['file'].setValidators([Validators.required]);
-      this.transformerForm.controls['file'].updateValueAndValidity();
-    }
-  )
-}
-
-onChange(event: any) {
-  this.file = event.target.files;
-  if (this.file != null) {
-    this.uploadDisable = false;
+    )
   }
-  this.fileSize = Math.round(this.file[0].size / 1024) + " KB";
-  this.fileName = this.file[0].name;
-}
 
-onUpload() {
-  if (this.file != undefined) {
-    this.uploadClicked = true;
-    const formData = new FormData();
-    for (let f of this.file) {
-      formData.append('file', f, f.name);
+  onChange(event: any) {
+    this.file = event.target.files;
+    if (this.file != null) {
+      this.uploadDisable = false;
     }
-    formData.append('component','Transformer');
-    formData.append('mainFileName',this.mainFileName);
-    this.fileErrorFlag = false;
-    this.fileSuccessFlag = false;
-    this.fileFlag = true;
+    this.fileSize = Math.round(this.file[0].size / 1024) + " KB";
+    this.fileName = this.file[0].name;
+  }
+
+  onUpload() {
+    if (this.file != undefined) {
+      this.uploadClicked = true;
+      const formData = new FormData();
+      for (let f of this.file) {
+        formData.append('file', f, f.name);
+      }
+      formData.append('component', 'Transformer');
+      formData.append('mainFileName', this.mainFileName);
+      this.fileErrorFlag = false;
+      this.fileSuccessFlag = false;
+      this.fileFlag = true;
 
       if (this.uploadFlag) {
         this.fileStatus = "Please wait your file is getting uploaded";
@@ -248,7 +248,7 @@ onUpload() {
             this.uploadDisable = true;
             this.fileFlag = false;
             this.fileStatus = "";
-            this.fileSuccessFlag = true;            
+            this.fileSuccessFlag = true;
             this.fileErrorFlag = false;
             this.transformerForm.controls.file.setValue('');
             this.retriveFileName();
@@ -259,7 +259,7 @@ onUpload() {
             this.fileErrorFlag = true;
             this.fileSuccessFlag = false;
             this.fileErrorData = JSON.parse(error.error);
-        
+
           },
         )
       }
@@ -270,7 +270,7 @@ onUpload() {
             this.uploadDisable = true;
             this.fileFlag = false;
             this.fileStatus = "";
-            this.fileSuccessFlag = true;            
+            this.fileSuccessFlag = true;
             this.fileErrorFlag = false;
             this.transformerForm.controls.file.setValue('');
             this.retriveFileName();
@@ -278,91 +278,98 @@ onUpload() {
           (error) => {
             this.fileFlag = false;
             this.fileStatus = "";
-            this.fileSuccessFlag = true;            
+            this.fileSuccessFlag = true;
             this.fileErrorFlag = false;
-            this.fileErrorData = JSON.parse(error.error);      
+            this.fileErrorData = JSON.parse(error.error);
           },
         )
       }
+    }
+
   }
 
-}
+  //submit Transformer
+  saveTransformer(transformerFlag: any) {
+    this.submittedTransformer = true;
 
-//submit Transformer
-saveTransformer(transformerFlag: any) {
- this.submittedTransformer = true;
- if(this.transformerForm.invalid) {
-   this.validationError=true;
-   this.validationErrorMsg="Please check all the fields";
-   return;
- }
+    if (this.transformer.transformerTest == 'Available') {
+      if (!this.fileSuccessFlag) {
+        return;
+      }
+    }
 
- this.transformer.userName = this.email;
+    if (this.transformerForm.invalid) {
+      this.validationError = true;
+      this.validationErrorMsg = "Please check all the fields";
+      return;
+    }
 
- if(this.transformerFlag) { 
-   this.transformerService.updateTransformer(this.transformer).subscribe(
-     data => {
-       this.transformerService.retriveTransformer(this.transformer.fileName,this.transformer.nodeId).subscribe(
-         data => {
-           this.transformerData = JSON.parse(data);
-           if(this.transformerData.length != 0) {
-             this.retrieveTransformerNode(this.transformerData);
-           }
-         }
-       )
-       this.success = true;
-       this.successMsg = data;
-       setTimeout(()=>{
-         this.success = false;
-       this.successMsg = ""
-       }, 3000);
-     },
-     error => {
-       this.error = true;
-       this.errorData = JSON.parse(error.error);
-       this.errorMsg = this.errorData.message;
-       setTimeout(()=>{
-         this.error = false;
-         this.errorMsg = ""
-       }, 3000);
-     }
-   )
- }
- else {
-   this.transformerService.addTransformer(this.transformer).subscribe(
-     data => {
-       this.transformerService.retriveTransformer(this.transformer.fileName,this.transformer.nodeId).subscribe(
-         data => {
-           this.transformerData = JSON.parse(data);
-           if(this.transformerData.length != 0) {
-             this.retrieveTransformerNode(this.transformerData);
-           }
-         }
-       )
-       this.success = true;
-       this.successMsg = data;
-       setTimeout(()=>{
-         this.success = false;
-       this.successMsg = ""
-       }, 3000);
-     },
-     error => {
-       this.error = true;
-       this.errorData = JSON.parse(error.error);
-       this.errorMsg = this.errorData.message;
-       setTimeout(()=>{
-         this.error = false;
-         this.errorMsg = ""
-       }, 3000);
-     }
-   )
- }
+    this.transformer.userName = this.email;
 
-}
+    if (this.transformerFlag) {
+      this.transformerService.updateTransformer(this.transformer).subscribe(
+        data => {
+          this.transformerService.retriveTransformer(this.transformer.fileName, this.transformer.nodeId).subscribe(
+            data => {
+              this.transformerData = JSON.parse(data);
+              if (this.transformerData.length != 0) {
+                this.retrieveTransformerNode(this.transformerData);
+              }
+            }
+          )
+          this.success = true;
+          this.successMsg = data;
+          setTimeout(() => {
+            this.success = false;
+            this.successMsg = ""
+          }, 3000);
+        },
+        error => {
+          this.error = true;
+          this.errorData = JSON.parse(error.error);
+          this.errorMsg = this.errorData.message;
+          setTimeout(() => {
+            this.error = false;
+            this.errorMsg = ""
+          }, 3000);
+        }
+      )
+    }
+    else {
+      this.transformerService.addTransformer(this.transformer).subscribe(
+        data => {
+          this.transformerService.retriveTransformer(this.transformer.fileName, this.transformer.nodeId).subscribe(
+            data => {
+              this.transformerData = JSON.parse(data);
+              if (this.transformerData.length != 0) {
+                this.retrieveTransformerNode(this.transformerData);
+              }
+            }
+          )
+          this.success = true;
+          this.successMsg = data;
+          setTimeout(() => {
+            this.success = false;
+            this.successMsg = ""
+          }, 3000);
+        },
+        error => {
+          this.error = true;
+          this.errorData = JSON.parse(error.error);
+          this.errorMsg = this.errorData.message;
+          setTimeout(() => {
+            this.error = false;
+            this.errorMsg = ""
+          }, 3000);
+        }
+      )
+    }
 
-close() {
- this.dialog.closeAll();
-}
+  }
+
+  close() {
+    this.dialog.closeAll();
+  }
 
 
 }
