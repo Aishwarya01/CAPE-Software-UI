@@ -478,7 +478,7 @@ export class LpsAirTerminationComponent implements OnInit {
 
   addIndex(){
 
-      for (let i = 0; i < this.lpsAirDescription.controls.length; i++) {
+      for (let i = 0; this.lpsAirDescription.controls!=undefined && i < this.lpsAirDescription.controls.length; i++) {
         if(this.lpsAirDescription.controls[i].controls.airBasicDescription.controls.length!=0){
           this.lpsAirDescription.controls[i].controls.airBasicDescription.controls[0].controls.fileIndex.setValue(i);
 

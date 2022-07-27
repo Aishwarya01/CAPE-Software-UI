@@ -1276,7 +1276,7 @@ export class LpsDownConductorsComponent implements OnInit {
       }
       else if(changedValue == 'Applicable'){
         if(connectorsArray.length == 0) {
-          connectorsArray.push(this.createHolderArrForm());
+          connectorsArray.push(this.createConnectorArrForm());
         }
       }
 
@@ -2195,22 +2195,30 @@ export class LpsDownConductorsComponent implements OnInit {
            this.downConductorDescription = this.downConductorForm.get('downConductorDescription') as FormArray;
            let a = 0;
            for(let i of this.JSONdata){ 
-            if( i.componentName =='downConductor'
-             && this.downConductorDescription.controls[i.index].controls.downConductor.controls[0].controls.fileName.value == i.fileName
-             &&(this.downConductorDescription.controls[i.index].controls.downConductor.controls[0].controls.fileId.value == '' || this.downConductorDescription.controls[i.index].controls.downConductor.controls[0].controls.fileId.value == i.fileId) ){
-              this.downConductorDescription.controls[i.index].controls.downConductor.controls[0].controls.fileName.setValue(i.fileName);
-              this.downConductorDescription.controls[i.index].controls.downConductor.controls[0].controls.fileType.setValue(i.fileType);
-              this.downConductorDescription.controls[i.index].controls.downConductor.controls[0].controls.fileId.setValue(i.fileId);
-              this.download[i.index] = false;
-            }
-            if(i.componentName=='downConductor-1' && this.downConductorDescription.controls[i.index].controls.fileName1.value == i.fileName &&
-           (this.downConductorDescription.controls[i.index].controls.fileId1.value == '' || this.downConductorDescription.controls[i.index].controls.fileId1.value == i.fileId) ){
-              this.downConductorDescription.controls[i.index].controls.fileName1.setValue(i.fileName);
-              this.downConductorDescription.controls[i.index].controls.fileType1.setValue(i.fileType);
-              this.downConductorDescription.controls[i.index].controls.fileId1.setValue(i.fileId);
-              this.download1[i.index] = false;
-            }
-            a=a+1;
+             for(let j=0;j< this.downConductorDescription.controls.length;j++){
+             let flag = false;
+              if( (i.buildingCount == '' || i.buildingCount == null) || ( i.buildingCount !=null && (parseInt(i.buildingCount) == this.downConductorDescription.controls[0].controls.buildingCount.value))){
+                flag = true;
+              }
+
+              if( i.componentName =='downConductor' && this.downConductorDescription.controls[j].controls.downConductor.controls[0].controls.fileName.value == i.fileName && flag
+              &&(this.downConductorDescription.controls[j].controls.downConductor.controls[0].controls.fileId.value == '' || this.downConductorDescription.controls[j].controls.downConductor.controls[0].controls.fileId.value == i.fileId) ){
+               this.downConductorDescription.controls[j].controls.downConductor.controls[0].controls.fileName.setValue(i.fileName);
+               this.downConductorDescription.controls[j].controls.downConductor.controls[0].controls.fileType.setValue(i.fileType);
+               this.downConductorDescription.controls[j].controls.downConductor.controls[0].controls.fileId.setValue(i.fileId);
+               this.download[j] = false;
+             }
+             if(i.componentName=='downConductor-1' && flag &&
+             this.downConductorDescription.controls[j].controls.fileName1.value == i.fileName &&
+            (this.downConductorDescription.controls[j].controls.fileId1.value == '' || 
+            this.downConductorDescription.controls[j].controls.fileId1.value == i.fileId)){
+
+               this.downConductorDescription.controls[j].controls.fileName1.setValue(i.fileName);
+               this.downConductorDescription.controls[j].controls.fileType1.setValue(i.fileType);
+               this.downConductorDescription.controls[j].controls.fileId1.setValue(i.fileId);
+               this.download1[j] = false;
+             }
+             } 
           }
         } 
       },
