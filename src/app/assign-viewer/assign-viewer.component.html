@@ -110,6 +110,9 @@
                         <div *ngIf="a.get('siteName')?.errors?.minlength">
                           Site Name should be more than 2 characters
                         </div>
+                        <div *ngIf="a.get('siteName')?.errors?.pattern">
+                          Site Name cannot contain special characters
+                        </div>
                       </div>
 
                       <div *ngIf="existSite" class="invalid-feedback">
