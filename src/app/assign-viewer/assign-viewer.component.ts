@@ -132,7 +132,7 @@ export class AssignViewerComponent implements OnInit {
     return new FormGroup({
     name: new FormControl('', Validators.required),
     companyName: new FormControl('', Validators.required),
-    siteName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.pattern("^(?=.*[A-Za-z0-9])[A-Za-z0-9 _]*$")]),
+    siteName: new FormControl('', [Validators.required, Validators.minLength(3),Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
     email: new FormControl('', Validators.required),
     designation: new FormControl('', Validators.required),
     contactNumber: new FormControl('', Validators.required),
@@ -348,7 +348,7 @@ createNewGroup(item: any): FormGroup{
   return this.formBuilder.group({
     name: new FormControl('',Validators.required),
     companyName: new FormControl('',Validators.required),
-    siteName: new FormControl('',[Validators.required, Validators.minLength(3), Validators.pattern("^(?=.*[A-Za-z0-9])[A-Za-z0-9 _]*$")]),
+    siteName: new FormControl('',[Validators.required, Validators.minLength(3),Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
     email: new FormControl({value: item.username}),
     designation: new FormControl('',Validators.required),
     contactNumber: new FormControl('',Validators.required),
