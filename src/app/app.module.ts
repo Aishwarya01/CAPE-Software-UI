@@ -120,6 +120,8 @@ import { PortableApplianceComponent } from './SLD/SLD components/Node Components
 import { CablesComponent } from './SLD/SLD components/Node Components/cables/cables.component';
 import { FanComponent } from './SLD/SLD components/Node Components/fan/fan.component';
 import { CableConnectorComponent } from './SLD/SLD components/Node Components/cable-connector/cable-connector.component';
+import { TransformerComponent } from './SLD/SLD components/Node Components/transformer/transformer.component';
+import { DGComponent } from './SLD/SLD components/Node Components/dg/dg.component';
 
 @NgModule({
   declarations: [
@@ -204,7 +206,8 @@ import { CableConnectorComponent } from './SLD/SLD components/Node Components/ca
     RiskAssessmentDetailsComponent,  
     FanComponent,
     PortableApplianceComponent,
-    FanComponent, CablesComponent, CableConnectorComponent,
+    FanComponent, CablesComponent, CableConnectorComponent, TransformerComponent,
+    DGComponent,
 
   ],
   imports: [
