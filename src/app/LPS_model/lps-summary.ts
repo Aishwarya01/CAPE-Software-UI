@@ -18,6 +18,8 @@ export class SummaryLpsBuildings {
     buildingNumber!: number;
     buildingName!: String;
     buildingCount!: number;
+    serialNoUi!: number;
+    headingUi!: String;
     flag!: String;
     summaryLpsObservation!: SummaryLpsObservation[];
 }

@@ -1377,7 +1377,7 @@ SignatureDesigner1(){
           data=>{
             
            // this.retrieveFromAirTermination();
-          //  if(this.addingRemarksCompleted){
+           if(this.addingRemarksCompleted){
               this.addingRemarksCompleted= false;
               this.airTerminationData=JSON.parse(data);
               this.downConductorData=JSON.parse(data);
@@ -1440,7 +1440,7 @@ SignatureDesigner1(){
               }
 
            }
-            // } 
+             } 
           })
           } 
 
@@ -1458,7 +1458,7 @@ SignatureDesigner1(){
           let airBasicDescriptionId = airterminationData.airBasicDescription[index].airBasicDescriptionId;
           let heading = '';
           let headingUi = '';
-          let airBasicDescription = summaryform.airBasicDescription as FormArray;
+          let airBasicDescription = summaryform.airTermination as FormArray;
 
         if (value == 'consultantNameRemarks') { 
           heading = "AT_Basic Details Observation"; 
@@ -1579,7 +1579,7 @@ SignatureDesigner1(){
           let airTerminationId = airterminationData.airClamps[0][remarkName].clampsId;
           let heading = '';
           let headingUi = '';
-          let airTerminationForm = summaryform.airVerticalList as FormArray;
+          let airTerminationForm = summaryform.airClamps as FormArray;
 
         if (value == 'physicalInspectionRe') { 
           heading = "AT_Clamps Observation";
@@ -1744,7 +1744,7 @@ SignatureDesigner1(){
           let airTerminationId = airterminationData.airHolderDescription[0].airHolderList[i].holderListId;
           let heading = '';
           let headingUi = '';
-          let airTerminationForm = summaryform.airVerticalList as FormArray;
+          let airTerminationForm = summaryform.airHolderList as FormArray;
 
         if (value == 'holderTypeRe') { 
           heading = 'AT_Holder List-'+(i+1);
@@ -1784,7 +1784,7 @@ SignatureDesigner1(){
           let airTerminationId = airterminationData.airClamps[0][remarkName].clampsId;
           let heading = '';
           let headingUi = '';
-          let airTerminationForm = summaryform.airVerticalList as FormArray;
+          let airTerminationForm = summaryform.airMesh as FormArray;
 
         if (value == 'physicalInspectionRe') { 
           heading = "AT_Mesh Observation";
@@ -1947,7 +1947,7 @@ SignatureDesigner1(){
             let dwonConductorId = dwonConductorData.downConductorDescription[index].holder[0].holderId;
             let heading = '';
             let headingUi = '';
-            let downConductorForm = summaryform.holder as FormArray;
+            let downConductorForm = summaryform.downHolders as FormArray;
   
               if (value == 'physicalInspectionRem') { 
                 heading = "DC_Holder Observation";
