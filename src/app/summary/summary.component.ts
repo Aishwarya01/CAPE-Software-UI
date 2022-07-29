@@ -44,6 +44,9 @@ import { ObservationService } from '../services/observation.service';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
 import { SignatureComponent } from '../signature/signature.component';
+import { SuperAdminProd } from 'src/environments/environment.prod';
+import { SuperAdminDev } from 'src/environments/environment.dev';
+import { SuperAdminLocal } from 'src/environments/environment';
 
 @Component({
   selector: 'app-summary',
@@ -241,6 +244,12 @@ export class SummaryComponent implements OnInit,OnDestroy {
   noObserveTesting: boolean= true;
   signarr: any;
   signarr1: any;
+
+  //superAdmin 
+  prodAdmin = new SuperAdminProd();
+  devAdmin = new SuperAdminDev();
+  localAdmin = new SuperAdminLocal();
+  submitButton: boolean = false;
   constructor(
     private _formBuilder: FormBuilder,
     private modalService: NgbModal,
@@ -257,6 +266,27 @@ export class SummaryComponent implements OnInit,OnDestroy {
     private basic: MainNavComponent,
   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
+
+    for( let i=0; i<this.devAdmin.adminEmail.length; i++){
+      if(this.devAdmin.adminEmail[i] == this.email)
+      {
+        this.submitButton = true;
+      }
+    }
+
+    for( let i=0; i<this.prodAdmin.adminEmail.length; i++){
+      if(this.prodAdmin.adminEmail[i] == this.email)
+      {
+        this.submitButton = true;
+      }
+    }
+
+    // for( let i=0; i<this.localAdmin.adminEmail.length; i++){
+    //   if(this.localAdmin.adminEmail[i] == this.email)
+    //   {
+    //     this.submitButton = true;
+    //   }
+    // }
   }
   ngOnDestroy(): void {
     this.service.allFieldsDisable = false; 
