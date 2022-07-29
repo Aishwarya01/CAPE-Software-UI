@@ -20,12 +20,9 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>Capacity Rating (kVA)</label>
-            <select class="form-control" formControlName="capacityRating" [(ngModel)]="dieselGenerator.capacityRating"
+            <input type="number" class="form-control" formControlName="capacityRating"
+              [(ngModel)]="dieselGenerator.capacityRating"
               [ngClass]="{ 'is-invalid': submittedDieselGenerator && f.capacityRating?.errors }">
-              <option value="" disabled>Select Option</option>
-              <option value="1">Cable</option>
-              <option value="2">Bus Duct</option>
-            </select>
             <div *ngIf="submittedDieselGenerator && f.capacityRating?.errors" class="invalid-feedback">
               <div *ngIf="f.capacityRating?.errors?.required">Capacity Rating is required</div>
             </div>
@@ -49,12 +46,9 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>Fault current (kA)</label>
-            <select class="form-control" formControlName="faultCurrent" [(ngModel)]="dieselGenerator.faultCurrent"
+            <input type="number" class="form-control" formControlName="faultCurrent"
+              [(ngModel)]="dieselGenerator.faultCurrent"
               [ngClass]="{ 'is-invalid': submittedDieselGenerator && f.faultCurrent?.errors }">
-              <option value="" disabled>Select Option</option>
-              <option value="1">Aluminium</option>
-              <option value="2">copper</option>
-            </select>
             <div *ngIf="submittedDieselGenerator && f.faultCurrent?.errors" class="invalid-feedback">
               <div *ngIf="f.faultCurrent?.errors?.required">Fault current is required</div>
             </div>

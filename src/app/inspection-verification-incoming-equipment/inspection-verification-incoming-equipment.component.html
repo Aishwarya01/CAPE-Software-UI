@@ -2648,7 +2648,7 @@ position: relative;">
  </div>
 <br>
  <button type="button" *ngIf="popup" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
- aria-label="Close" (click)="closeModalDialog()" matStepperNext>
+ aria-label="Close" (click)="closeModalDialog()" (matStepperNext)="stepperNav">
   <span aria-hidden="true">Ok</span>
 </button>
 </ng-template>
