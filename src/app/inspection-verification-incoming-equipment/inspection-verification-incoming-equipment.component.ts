@@ -184,6 +184,7 @@ export class InspectionVerificationIncomingEquipmentComponent
   intermediateSave:boolean=false;
   intermediateSaveInspection:boolean=true;
   intermediateSaveInspectionInCircuits:boolean=true;
+  stepperNav: boolean=false;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -1631,12 +1632,14 @@ showHideAccordion(index: number) {
       this.Error = false;
       this.service.isCompleted3= false;
       this.service.isLinear=true;
+      this.stepperNav=false;
       this.modalService.dismissAll((this.errorMsg = ""));
     } 
     else {
       this.success = false;
       this.service.isCompleted3= true;
       this.service.isLinear=false;
+      this.stepperNav=true;
       this.modalService.dismissAll((this.successMsg = ""));
       this.disable = false;
     }

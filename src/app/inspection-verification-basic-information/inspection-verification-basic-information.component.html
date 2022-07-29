@@ -1583,32 +1583,39 @@
 
     </div>
   </div>
+
   <ng-template #content1 let-modal>
-  <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinner"
-    color="primary"
-    [mode]="mode"
-    value="50"
-    diameter="50">
-    </mat-progress-spinner>
-    <br>
-    <div *ngIf="finalSpinner" style="text-align: center;">
-      Basic Information Save in Progress!
-    </div>
-  <div class="modal-body" *ngIf="popup">
-   <div class="centre-text m-btm30">
-    <div *ngIf="success" style="text-align: center;">
-      <span class="successshow">{{successMsg}}</span>
-     </div>
-     <div *ngIf="Error" style="text-align: center;">
-       <span class="errorshow">{{errorMsg}}</span>
+      <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinner"
+        color="primary"
+        [mode]="mode"
+        value="50"
+        diameter="50">
+        </mat-progress-spinner>
+        <br>
+        <div *ngIf="finalSpinner" style="text-align: center;">
+          Basic Information Save in Progress!
+        </div>
+      <div class="modal-body" *ngIf="popup">
+      <div class="centre-text m-btm30">
+        <div *ngIf="success" style="text-align: center;">
+          <span class="successshow">{{successMsg}}</span>
+        </div>
+        <div *ngIf="Error" style="text-align: center;">
+          <span class="errorshow">{{errorMsg}}</span>
+          </div>
+        </div>
       </div>
-    </div>
-   </div>
-  <br>
-     <button type="button" *ngIf="popup" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
-     aria-label="Close"  (click)="closeModalDialog()" matStepperNext>
-      <span aria-hidden="true">Ok</span>
-  </button>
+      <br>
+      <div *ngIf="popup">
+        <button type="button" *ngIf="success" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+        aria-label="Close"  (click)="closeModalDialog()" matStepperNext>
+        <span aria-hidden="true">Ok</span>
+      </button>
+      <button type="button" *ngIf="Error" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+        aria-label="Close"  (click)="closeModalDialog()">
+          <span aria-hidden="true">Ok</span>
+        </button>
+      </div>
   </ng-template>
 
   <ng-template #content2 let-modal>
