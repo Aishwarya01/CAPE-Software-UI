@@ -1451,39 +1451,41 @@ SignatureDesigner1(){
        let airBasicDescriptionSerialNoUi = 1;
        let airBasicDescriptionHeadingUiFlag = true;
      
-         
-        for (let remarkName of this.airBasicName) {
+        if(airterminationData.airBasicDescription!=null && airterminationData.airBasicDescription!=undefined && airterminationData.airBasicDescription.length!=0){
+          for (let remarkName of this.airBasicName) {
 
-          let value = airterminationData.airBasicDescription[index][remarkName];
-          let airBasicDescriptionId = airterminationData.airBasicDescription[index].airBasicDescriptionId;
-          let heading = '';
-          let headingUi = '';
-          let airBasicDescription = summaryform.airTermination as FormArray;
-
-        if (value == 'consultantNameRemarks') { 
-          heading = "AT_Basic Details Observation"; 
+            let value = airterminationData.airBasicDescription[index][remarkName];
+            let airBasicDescriptionId = airterminationData.airBasicDescription[index].airBasicDescriptionId;
+            let heading = '';
+            let headingUi = '';
+            let airBasicDescription = summaryform.airTermination as FormArray;
+  
+          if (value == 'consultantNameRemarks') { 
+            heading = "AT_Basic Details Observation"; 
+          }
+  
+          let displySerialNo = 0;
+          if (value !='' && value != null) {
+             displySerialNo = airBasicDescriptionSerialNoUi;
+             airBasicDescriptionSerialNoUi = airBasicDescriptionSerialNoUi + 1;
+            
+             if(airBasicDescriptionHeadingUiFlag){
+              headingUi = 'AT_Basic Details Observation';
+              airBasicDescriptionHeadingUiFlag = false;
+             }
+          }
+   
+          let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'airTermination', value, airBasicDescriptiontRerialNo, heading
+          , displySerialNo, headingUi, (airBasicDescriptiontRerialNo-1),airBasicDescriptionId);
+  
+          summaryObservation.observationComponentDetails = 'airBasicDescription' + airBasicDescriptiontRerialNo;
+          summaryObservation.remarkName = value;
+          summaryObservation.remarksId = airBasicDescriptionId;
+          airBasicDescription.push( this.populateForm(summaryObservation));
+          airBasicDescriptiontRerialNo = airBasicDescriptiontRerialNo + 1;
+          }
         }
-
-        let displySerialNo = 0;
-        if (value !='' && value != null) {
-           displySerialNo = airBasicDescriptionSerialNoUi;
-           airBasicDescriptionSerialNoUi = airBasicDescriptionSerialNoUi + 1;
-          
-           if(airBasicDescriptionHeadingUiFlag){
-            headingUi = 'AT_Basic Details Observation';
-            airBasicDescriptionHeadingUiFlag = false;
-           }
-        }
- 
-        let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'airTermination', value, airBasicDescriptiontRerialNo, heading
-        , displySerialNo, headingUi, (airBasicDescriptiontRerialNo-1),airBasicDescriptionId);
-
-        summaryObservation.observationComponentDetails = 'airBasicDescription' + airBasicDescriptiontRerialNo;
-        summaryObservation.remarkName = value;
-        summaryObservation.remarksId = airBasicDescriptionId;
-        airBasicDescription.push( this.populateForm(summaryObservation));
-        airBasicDescriptiontRerialNo = airBasicDescriptiontRerialNo + 1;
-      }
+        
 
 
          //updating airtermination_lpsVerticalAirTermination_Remarks value to summaryAirtermination observation
@@ -1492,79 +1494,84 @@ SignatureDesigner1(){
          let airVerticalTerminationSerialNoUi = 1;
          let airVerticalterminationHeadingUiFlag = true;
 
-         for (let remarkName of this.airVerticalName) {
+         if(airterminationData.lpsVerticalAirTermination!=null && airterminationData.lpsVerticalAirTermination!=undefined && airterminationData.lpsVerticalAirTermination.length!=0){
+          for (let remarkName of this.airVerticalName) {
 
-          let value = airterminationData.lpsVerticalAirTermination[0][remarkName] ;
-          let airTerminationId = airterminationData.lpsVerticalAirTermination[0].lpsVerticalAirTerminationId;
-          let heading = '';
-          let headingUi = '';
-          let airTerminationForm = summaryform.airVertical as FormArray;
-
-        if (value == 'consultantNameRemarks') { 
-          heading = "AT_Vertical Observation"; 
+            let value = airterminationData.lpsVerticalAirTermination[0][remarkName] ;
+            let airTerminationId = airterminationData.lpsVerticalAirTermination[0].lpsVerticalAirTerminationId;
+            let heading = '';
+            let headingUi = '';
+            let airTerminationForm = summaryform.airVertical as FormArray;
+  
+          if (value == 'consultantNameRemarks') { 
+            heading = "AT_Vertical Observation"; 
+          }
+  
+          let displySerialNo = 0;
+          if (value !='' && value != null) {
+             displySerialNo = airVerticalTerminationSerialNoUi;
+             airVerticalTerminationSerialNoUi = airVerticalTerminationSerialNoUi + 1;
+            
+             if(airVerticalterminationHeadingUiFlag){
+              headingUi = 'AT_Vertical Observation';
+              airVerticalterminationHeadingUiFlag = false;
+             }
+          }
+   
+          let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'airVertical', value, airVerticalTerminationSerialNo, heading
+          , displySerialNo, headingUi, (airVerticalTerminationSerialNo-1),airTerminationId);
+  
+          summaryObservation.observationComponentDetails = 'lpsVerticalAirTermination' + airVerticalTerminationSerialNo;
+          summaryObservation.remarkName = value;
+          summaryObservation.remarksId = airTerminationId;
+          airTerminationForm.push( this.populateForm(summaryObservation));
+          airVerticalTerminationSerialNo = airVerticalTerminationSerialNo + 1;
+          } 
         }
-
-        let displySerialNo = 0;
-        if (value !='' && value != null) {
-           displySerialNo = airVerticalTerminationSerialNoUi;
-           airVerticalTerminationSerialNoUi = airVerticalTerminationSerialNoUi + 1;
-          
-           if(airVerticalterminationHeadingUiFlag){
-            headingUi = 'AT_Vertical Observation';
-            airVerticalterminationHeadingUiFlag = false;
-           }
-        }
- 
-        let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'airVertical', value, airVerticalTerminationSerialNo, heading
-        , displySerialNo, headingUi, (airVerticalTerminationSerialNo-1),airTerminationId);
-
-        summaryObservation.observationComponentDetails = 'lpsVerticalAirTermination' + airVerticalTerminationSerialNo;
-        summaryObservation.remarkName = value;
-        summaryObservation.remarksId = airTerminationId;
-        airTerminationForm.push( this.populateForm(summaryObservation));
-        airVerticalTerminationSerialNo = airVerticalTerminationSerialNo + 1;
-   } 
+         
 
         //updating airtermination_verticalAirTerminationList_Remarks value to summaryAirtermination observation
         //let verticalAirterminationListLength=0;
        
+        if(airterminationData.lpsVerticalAirTermination!=null && airterminationData.lpsVerticalAirTermination!=undefined && airterminationData.lpsVerticalAirTermination[0].verticalAirTerminationList.length!=0){
 
          for(let i=0;i<airterminationData.lpsVerticalAirTermination[0].verticalAirTerminationList.length;i++){
           let aiterminationVerticalListSerialNo = 1;
           let  airterminationVerticalFlag = true;
           let airterminationSerialNoUi = 1;
-          for (let remarkName of this.airVerticalListName) { 
-            let value = airterminationData.lpsVerticalAirTermination[0].verticalAirTerminationList[i][remarkName];
-            let airTerminationId = airterminationData.lpsVerticalAirTermination[0].verticalAirTerminationList[i].verticalAirTerminationListId;
-            let heading = '';
-            let headingUi = '';
-            let airTerminationForm = summaryform.airVerticalList as FormArray;
-  
-          if (value == 'materialOfTerminalRe') { 
-            heading = 'AT_Vertical List-'+(i+1);
-          }
-  
-          let displySerialNo = 0;
-          if (value !='' && value != null) {
-             displySerialNo = airterminationSerialNoUi;
-             airterminationSerialNoUi = airterminationSerialNoUi + 1;
-            
-             if(airterminationVerticalFlag){
-              headingUi = 'AT_Vertical List-'+(i+1);
-              airterminationVerticalFlag = false;
-             }
-          }
-   
-          let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'airVerticalList', value, aiterminationVerticalListSerialNo, heading
-          , displySerialNo, headingUi, (aiterminationVerticalListSerialNo-1),airTerminationId);
-  
-          summaryObservation.observationComponentDetails = 'verticalAirTerminationList' + aiterminationVerticalListSerialNo;
-          summaryObservation.remarkName = value;
-          summaryObservation.remarksId = airTerminationId;
-          airTerminationForm.push( this.populateForm(summaryObservation));
-          aiterminationVerticalListSerialNo = aiterminationVerticalListSerialNo + 1;
-          }
 
+            for (let remarkName of this.airVerticalListName) { 
+              let value = airterminationData.lpsVerticalAirTermination[0].verticalAirTerminationList[i][remarkName];
+              let airTerminationId = airterminationData.lpsVerticalAirTermination[0].verticalAirTerminationList[i].verticalAirTerminationListId;
+              let heading = '';
+              let headingUi = '';
+              let airTerminationForm = summaryform.airVerticalList as FormArray;
+    
+            if (value == 'materialOfTerminalRe') { 
+              heading = 'AT_Vertical List-'+(i+1);
+            }
+    
+            let displySerialNo = 0;
+            if (value !='' && value != null) {
+               displySerialNo = airterminationSerialNoUi;
+               airterminationSerialNoUi = airterminationSerialNoUi + 1;
+              
+               if(airterminationVerticalFlag){
+                headingUi = 'AT_Vertical List-'+(i+1);
+                airterminationVerticalFlag = false;
+               }
+            }
+     
+            let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'airVerticalList', value, aiterminationVerticalListSerialNo, heading
+            , displySerialNo, headingUi, (aiterminationVerticalListSerialNo-1),airTerminationId);
+    
+            summaryObservation.observationComponentDetails = 'verticalAirTerminationList' + aiterminationVerticalListSerialNo;
+            summaryObservation.remarkName = value;
+            summaryObservation.remarksId = airTerminationId;
+            airTerminationForm.push( this.populateForm(summaryObservation));
+            aiterminationVerticalListSerialNo = aiterminationVerticalListSerialNo + 1;
+            }
+          }
     }
      
 
@@ -1573,8 +1580,8 @@ SignatureDesigner1(){
        let airterminationClampsSerialNoUi = 1;
        let airterminationHeadingUiFlag = true;
 
-         for (let remarkName of this.airClampsName) {
-
+       if(airterminationData.airClamps!=null && airterminationData.airClamps!=undefined && airterminationData.airClamps.length!=0){
+        for (let remarkName of this.airClampsName) {
           let value = airterminationData.airClamps[0][remarkName];
           let airTerminationId = airterminationData.airClamps[0][remarkName].clampsId;
           let heading = '';
@@ -1605,172 +1612,180 @@ SignatureDesigner1(){
         airTerminationForm.push( this.populateForm(summaryObservation));
         airterminationClampSerialNo = airterminationClampSerialNo + 1;
  
-      }
+        }
+       }
+         
 
         //updating airtermination_airConnectors_Remarks value to summaryAirtermination observation
         let airConnectorSerialNo = 1;
         let airConnectorSerialNoUi = 1;
         let airConnectorsHeadingUiFlag = true;
-         for (let remarkName of this.airConnectorsName) {
+        
+        if(airterminationData.airConnectors!=null && airterminationData.airConnectors!=undefined && airterminationData.airConnectors.length!=0){
+          for (let remarkName of this.airConnectorsName) {
 
-          let value = airterminationData.airConnectors[0][remarkName];
-          let airTerminationId = airterminationData.airConnectors[0][remarkName].connectorId;
-          let heading = '';
-          let headingUi = '';
-          let airTerminationForm = summaryform.airConnectors as FormArray;
-
-        if (value == 'physicalInspectionRe') { 
-          heading = "AT_Connectors Observation";
+            let value = airterminationData.airConnectors[0][remarkName];
+            let airTerminationId = airterminationData.airConnectors[0][remarkName].connectorId;
+            let heading = '';
+            let headingUi = '';
+            let airTerminationForm = summaryform.airConnectors as FormArray;
+  
+          if (value == 'physicalInspectionRe') { 
+            heading = "AT_Connectors Observation";
+          }
+  
+          let displySerialNo = 0;
+          if (value !='' && value != null) {
+             displySerialNo = airConnectorSerialNoUi;
+             airConnectorSerialNoUi = airConnectorSerialNoUi + 1;
+            
+             if(airConnectorsHeadingUiFlag){
+              headingUi = "AT_Connectors Observation";
+              airConnectorsHeadingUiFlag = false;
+             }
+          }
+   
+          let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'airConnectors', value, airConnectorSerialNo, heading
+          , displySerialNo, headingUi, (airConnectorSerialNo-1),airTerminationId);
+  
+          summaryObservation.observationComponentDetails = 'airConnectors' + airConnectorSerialNo;
+          summaryObservation.remarkName = value;
+          summaryObservation.remarksId = airTerminationId;
+          airTerminationForm.push( this.populateForm(summaryObservation));
+          airConnectorSerialNo = airConnectorSerialNo + 1;
+           
+          }
         }
-
-        let displySerialNo = 0;
-        if (value !='' && value != null) {
-           displySerialNo = airConnectorSerialNoUi;
-           airConnectorSerialNoUi = airConnectorSerialNoUi + 1;
-          
-           if(airConnectorsHeadingUiFlag){
-            headingUi = "AT_Connectors Observation";
-            airConnectorsHeadingUiFlag = false;
-           }
-        }
- 
-        let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'airConnectors', value, airConnectorSerialNo, heading
-        , displySerialNo, headingUi, (airConnectorSerialNo-1),airTerminationId);
-
-        summaryObservation.observationComponentDetails = 'airConnectors' + airConnectorSerialNo;
-        summaryObservation.remarkName = value;
-        summaryObservation.remarksId = airTerminationId;
-        airTerminationForm.push( this.populateForm(summaryObservation));
-        airConnectorSerialNo = airConnectorSerialNo + 1;
-         
-        }
+        
 
         //updating airtermination_airExpansion_Remarks value to summaryAirtermination observation
         let airExpansionSerialNo = 1;
         let airExpansionSerialNoUi = 1;
         let airExpansionHeadingUiFlag = true;
 
-         for (let remarkName of this.airExpansionName) {
+        if(airterminationData.airExpansion!=null && airterminationData.airExpansion!=undefined && airterminationData.airExpansion.length!=0){
+          for (let remarkName of this.airExpansionName) {
 
-          let value = airterminationData.airExpansion[0][remarkName];
-          let airTerminationId = airterminationData.airExpansion[0][remarkName].expansionId;
-          let heading = '';
-          let headingUi = '';
-          let airTerminationForm = summaryform.airExpansion as FormArray;
-
-        if (value == 'physicalInspectionRe') { 
-          heading = "AT_Expansion Observation";
+            let value = airterminationData.airExpansion[0][remarkName];
+            let airTerminationId = airterminationData.airExpansion[0][remarkName].expansionId;
+            let heading = '';
+            let headingUi = '';
+            let airTerminationForm = summaryform.airExpansion as FormArray;
+  
+          if (value == 'physicalInspectionRe') { 
+            heading = "AT_Expansion Observation";
+          }
+  
+          let displySerialNo = 0;
+          if (value !='' && value != null) {
+             displySerialNo = airExpansionSerialNoUi;
+             airExpansionSerialNoUi = airExpansionSerialNoUi + 1;
+            
+             if(airExpansionHeadingUiFlag){
+              headingUi = "AT_Expansion Observation";
+              airExpansionHeadingUiFlag = false;
+             }
+          }
+   
+          let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'airExpansion', value, airExpansionSerialNo, heading
+          , displySerialNo, headingUi, (airExpansionSerialNo-1),airTerminationId);
+  
+          summaryObservation.observationComponentDetails = 'airExpansion' + airExpansionSerialNo;
+          summaryObservation.remarkName = value;
+          summaryObservation.remarksId = airTerminationId;
+          airTerminationForm.push( this.populateForm(summaryObservation));
+          airExpansionSerialNo = airExpansionSerialNo + 1;
+   
+           
+          }
+  
         }
-
-        let displySerialNo = 0;
-        if (value !='' && value != null) {
-           displySerialNo = airExpansionSerialNoUi;
-           airExpansionSerialNoUi = airExpansionSerialNoUi + 1;
-          
-           if(airExpansionHeadingUiFlag){
-            headingUi = "AT_Expansion Observation";
-            airExpansionHeadingUiFlag = false;
-           }
-        }
- 
-        let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'airExpansion', value, airExpansionSerialNo, heading
-        , displySerialNo, headingUi, (airExpansionSerialNo-1),airTerminationId);
-
-        summaryObservation.observationComponentDetails = 'airExpansion' + airExpansionSerialNo;
-        summaryObservation.remarkName = value;
-        summaryObservation.remarksId = airTerminationId;
-        airTerminationForm.push( this.populateForm(summaryObservation));
-        airExpansionSerialNo = airExpansionSerialNo + 1;
- 
          
-        }
-
         //updating airtermination_airHolderDescription_Remarks value to summaryAirtermination observation
         
         let airHolderSerialNo = 1;
         let airHolderSerialNoUi = 1;
         let airHolderHeadingUiFlag = true;
 
-         for (let remarkName of this.airHolderName) {
-
-          
-          let value = airterminationData.airHolderDescription[0][remarkName];
-          let airTerminationId = airterminationData.airHolderDescription[0][remarkName].holderDescriptionId;
-          let heading = '';
-          let headingUi = '';
-          let airTerminationForm = summaryform.airHolder as FormArray;
-
-        if (value == 'physicalInspectionRe') { 
-          heading = "AT_Holder Observation";
-        }
-
-        let displySerialNo = 0;
-        if (value !='' && value != null) {
-           displySerialNo = airHolderSerialNoUi;
-           airHolderSerialNoUi = airHolderSerialNoUi + 1;
-          
-           if(airHolderHeadingUiFlag){
-            headingUi = "AT_Holder Observation";
-            airHolderHeadingUiFlag = false;
+        if(airterminationData.airHolderDescription!=null && airterminationData.airHolderDescription!=undefined && airterminationData.airHolderDescription.length!=0){
+          for (let remarkName of this.airHolderName) {
+            let value = airterminationData.airHolderDescription[0][remarkName];
+            let airTerminationId = airterminationData.airHolderDescription[0][remarkName].holderDescriptionId;
+            let heading = '';
+            let headingUi = '';
+            let airTerminationForm = summaryform.airHolder as FormArray;
+  
+          if (value == 'physicalInspectionRe') { 
+            heading = "AT_Holder Observation";
+          }
+  
+          let displySerialNo = 0;
+          if (value !='' && value != null) {
+             displySerialNo = airHolderSerialNoUi;
+             airHolderSerialNoUi = airHolderSerialNoUi + 1;
+            
+             if(airHolderHeadingUiFlag){
+              headingUi = "AT_Holder Observation";
+              airHolderHeadingUiFlag = false;
+             }
+          }
+   
+        let  summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'airHolder', value, airHolderSerialNo, heading
+          , displySerialNo, headingUi, (airHolderSerialNo-1),airTerminationId);
+  
+          summaryObservation.observationComponentDetails = 'airHolderDescription' + airHolderSerialNo;
+          summaryObservation.remarkName = value;
+          summaryObservation.remarksId = airTerminationId;
+          airTerminationForm.push( this.populateForm(summaryObservation));
+          airHolderSerialNo = airHolderSerialNo + 1;
            }
         }
- 
-      let  summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'airHolder', value, airHolderSerialNo, heading
-        , displySerialNo, headingUi, (airHolderSerialNo-1),airTerminationId);
-
-        summaryObservation.observationComponentDetails = 'airHolderDescription' + airHolderSerialNo;
-        summaryObservation.remarkName = value;
-        summaryObservation.remarksId = airTerminationId;
-        airTerminationForm.push( this.populateForm(summaryObservation));
-        airHolderSerialNo = airHolderSerialNo + 1;
-  }
-
-  
 
         //updating airtermination_airHolderList_Remarks value to summaryAirtermination observation
       //  let airholderLength=0;
       
-     
-
       for(let i=0;i<airterminationData.airHolderDescription[0].airHolderList.length;i++){
 
         let aiterminationListSerialNo = 1;
         let  airterminationListFlag = true;
         let airterminationSerialNoUi = 1;
 
-        for (let remarkName of this.airHolderListName) { 
+        if(airterminationData.airHolderDescription!=null && airterminationData.airHolderDescription!=undefined && airterminationData.airHolderDescription.length!=0 && airterminationData.airHolderDescription[0].airHolderList!=null && airterminationData.airHolderDescription[0].airHolderList!=undefined && airterminationData.airHolderDescription[0].airHolderList.length!=0){
+          for (let remarkName of this.airHolderListName) { 
 
-          let value = airterminationData.airHolderDescription[0].airHolderList[i][remarkName];
-          let airTerminationId = airterminationData.airHolderDescription[0].airHolderList[i].holderListId;
-          let heading = '';
-          let headingUi = '';
-          let airTerminationForm = summaryform.airHolderList as FormArray;
-
-        if (value == 'holderTypeRe') { 
-          heading = 'AT_Holder List-'+(i+1);
+            let value = airterminationData.airHolderDescription[0].airHolderList[i][remarkName];
+            let airTerminationId = airterminationData.airHolderDescription[0].airHolderList[i].holderListId;
+            let heading = '';
+            let headingUi = '';
+            let airTerminationForm = summaryform.airHolderList as FormArray;
+  
+          if (value == 'holderTypeRe') { 
+            heading = 'AT_Holder List-'+(i+1);
+          }
+  
+          let displySerialNo = 0;
+          if (value !='' && value != null) {
+             displySerialNo = airterminationSerialNoUi;
+             airterminationSerialNoUi = airterminationSerialNoUi + 1;
+            
+             if(airterminationListFlag){
+              headingUi = 'AT_Holder List-'+(i+1);
+              airterminationListFlag = false;
+             }
+          }
+   
+          let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'airHolderList', value, aiterminationListSerialNo, heading
+          , displySerialNo, headingUi, (aiterminationListSerialNo-1),airTerminationId);
+  
+          summaryObservation.observationComponentDetails = 'airHolderList' + aiterminationListSerialNo;
+          summaryObservation.remarkName = value;
+          summaryObservation.remarksId = airTerminationId;
+          airTerminationForm.push( this.populateForm(summaryObservation));
+          aiterminationListSerialNo = aiterminationListSerialNo + 1;
+            
+          } 
         }
-
-        let displySerialNo = 0;
-        if (value !='' && value != null) {
-           displySerialNo = airterminationSerialNoUi;
-           airterminationSerialNoUi = airterminationSerialNoUi + 1;
-          
-           if(airterminationListFlag){
-            headingUi = 'AT_Holder List-'+(i+1);
-            airterminationListFlag = false;
-           }
-        }
- 
-        let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'airHolderList', value, aiterminationListSerialNo, heading
-        , displySerialNo, headingUi, (aiterminationListSerialNo-1),airTerminationId);
-
-        summaryObservation.observationComponentDetails = 'airHolderList' + aiterminationListSerialNo;
-        summaryObservation.remarkName = value;
-        summaryObservation.remarksId = airTerminationId;
-        airTerminationForm.push( this.populateForm(summaryObservation));
-        aiterminationListSerialNo = aiterminationListSerialNo + 1;
-          
-        } 
+        
    }
 
         //updating airtermination_airMeshDescription_Remarks value to summaryAirtermination observation
@@ -1778,42 +1793,45 @@ SignatureDesigner1(){
         let airMeshSerialNoUi = 1;
         let airMeshUiFlag = true;
 
-        for (let remarkName of this.airMeshName) {
+        if(airterminationData.airClamps!=null && airterminationData.airClamps!=undefined && airterminationData.airClamps.length!=0){
+          for (let remarkName of this.airMeshName) {
           
-          let value = airterminationData.airClamps[0][remarkName];
-          let airTerminationId = airterminationData.airClamps[0][remarkName].clampsId;
-          let heading = '';
-          let headingUi = '';
-          let airTerminationForm = summaryform.airMesh as FormArray;
-
-        if (value == 'physicalInspectionRe') { 
-          heading = "AT_Mesh Observation";
+            let value = airterminationData.airClamps[0][remarkName];
+            let airTerminationId = airterminationData.airClamps[0][remarkName].clampsId;
+            let heading = '';
+            let headingUi = '';
+            let airTerminationForm = summaryform.airMesh as FormArray;
+  
+          if (value == 'physicalInspectionRe') { 
+            heading = "AT_Mesh Observation";
+          }
+  
+          let displySerialNo = 0;
+          if (value !='' && value != null) {
+             displySerialNo = airMeshSerialNoUi;
+             airMeshSerialNoUi = airMeshSerialNoUi + 1;
+            
+             if(airMeshUiFlag){
+              headingUi = "AT_Mesh Observation";
+              airMeshUiFlag = false;
+             }
+          }
+   
+          let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'airMesh', value, airMeshSerialNo, heading
+          , displySerialNo, headingUi, (airMeshSerialNo-1),airTerminationId);
+  
+          summaryObservation.observationComponentDetails = 'airBasicDescription' + airMeshSerialNo;
+          summaryObservation.remarkName = value;
+          summaryObservation.remarksId = airTerminationId;
+          airTerminationForm.push( this.populateForm(summaryObservation));
+          airMeshSerialNo = airMeshSerialNo + 1; 
+  
+      
+           
+          } 
         }
-
-        let displySerialNo = 0;
-        if (value !='' && value != null) {
-           displySerialNo = airMeshSerialNoUi;
-           airMeshSerialNoUi = airMeshSerialNoUi + 1;
-          
-           if(airMeshUiFlag){
-            headingUi = "AT_Mesh Observation";
-            airMeshUiFlag = false;
-           }
-        }
- 
-        let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'airMesh', value, airMeshSerialNo, heading
-        , displySerialNo, headingUi, (airMeshSerialNo-1),airTerminationId);
-
-        summaryObservation.observationComponentDetails = 'airBasicDescription' + airMeshSerialNo;
-        summaryObservation.remarkName = value;
-        summaryObservation.remarksId = airTerminationId;
-        airTerminationForm.push( this.populateForm(summaryObservation));
-        airMeshSerialNo = airMeshSerialNo + 1; 
-
-    
-         
-        } 
       }
+
       updateSummaryDwonConductorObervation(summaryform: any, dwonConductorData: any, index: any) {
 
 
@@ -1823,38 +1841,40 @@ SignatureDesigner1(){
             let downConductorReportSerialNoUi = 1;
             let headingReportUiFlag = true;
   
-            for (let remarkName of this.downBasicName) {
+            if(dwonConductorData.downConductorDescription=null && dwonConductorData.downConductorDescription[index]!=undefined && dwonConductorData.downConductorDescription.length!=0){
+              for (let remarkName of this.downBasicName) {
   
-            let value = dwonConductorData.downConductorDescription[index][remarkName];
-            let dwonConductorId = dwonConductorData.downConductorDescription[index].downConductorReportId;
-            let heading = '';
-            let headingUi = '';
-            let downConductor = summaryform.downConductorReport as FormArray;
-  
-              if (value == 'biMetallicIssueRem') { 
-                heading = "DC_Basic Details Observation";
-              }
-  
-              let displySerialNo = 0;
-              if (value !='' && value != null) {
-                displySerialNo = downConductorReportSerialNoUi;
-                downConductorReportSerialNoUi = downConductorReportSerialNoUi + 1;
-                
-                if(headingReportUiFlag){
-                  headingUi = "DC_Basic Details Observation";
-                  headingReportUiFlag = false;
-                }
-              }
+                let value = dwonConductorData.downConductorDescription[index][remarkName];
+                let dwonConductorId = dwonConductorData.downConductorDescription[index].downConductorReportId;
+                let heading = '';
+                let headingUi = '';
+                let downConductor = summaryform.downConductorReport as FormArray;
       
-              let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'downConductorReport', value, downConductorReportSerialNo, heading
-              , displySerialNo, headingUi, (downConductorReportSerialNo-1),dwonConductorId);
-  
-              summaryObservation.observationComponentDetails = 'downConductorBasicDescription' + downConductorReportSerialNo;
-              summaryObservation.remarkName = value;
-              summaryObservation.remarksId = dwonConductorId;
-              downConductor.push( this.populateForm(summaryObservation));
-              downConductorReportSerialNo = downConductorReportSerialNo + 1;
-          }
+                  if (value == 'biMetallicIssueRem') { 
+                    heading = "DC_Basic Details Observation";
+                  }
+      
+                  let displySerialNo = 0;
+                  if (value !='' && value != null) {
+                    displySerialNo = downConductorReportSerialNoUi;
+                    downConductorReportSerialNoUi = downConductorReportSerialNoUi + 1;
+                    
+                    if(headingReportUiFlag){
+                      headingUi = "DC_Basic Details Observation";
+                      headingReportUiFlag = false;
+                    }
+                  }
+          
+                  let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'downConductorReport', value, downConductorReportSerialNo, heading
+                  , displySerialNo, headingUi, (downConductorReportSerialNo-1),dwonConductorId);
+      
+                  summaryObservation.observationComponentDetails = 'downConductorBasicDescription' + downConductorReportSerialNo;
+                  summaryObservation.remarkName = value;
+                  summaryObservation.remarksId = dwonConductorId;
+                  downConductor.push( this.populateForm(summaryObservation));
+                  downConductorReportSerialNo = downConductorReportSerialNo + 1;
+                }
+            }
 
           //updating downConductor_remarks value to summarydownconductor observation
           
@@ -1862,38 +1882,40 @@ SignatureDesigner1(){
           let downConductorSerialNoUi = 1;
           let headingUiFlag = true;
 
-          for (let remarkName of this.downConductorName) {
+          if(dwonConductorData.downConductorDescription!=null && dwonConductorData.downConductorDescription!=undefined && dwonConductorData.downConductorDescription[index].downConductor.length!=0){
+            for (let remarkName of this.downConductorName) {
             
-            let value = dwonConductorData.downConductorDescription[index].downConductor[0][remarkName];
-            let dwonConductorId = dwonConductorData.downConductorDescription[index].downConductor[0].downConductorId;
-            let heading = '';
-            let headingUi = '';
-            let downConductorForm = summaryform.downConductor as FormArray;
-  
-              if (value == 'physicalInspectionRem') { 
-                heading = "DC_Downconductors Observation";
-              }
-  
-              let displySerialNo = 0;
-              if (value !='' && value != null) {
-                displySerialNo = downConductorSerialNoUi;
-                downConductorSerialNoUi = downConductorSerialNoUi + 1;
-                
-                if(headingUiFlag){
-                  headingUi = "DC_Downconductors Observation";
-                  headingUiFlag = false;
+              let value = dwonConductorData.downConductorDescription[index].downConductor[0][remarkName];
+              let dwonConductorId = dwonConductorData.downConductorDescription[index].downConductor[0].downConductorId;
+              let heading = '';
+              let headingUi = '';
+              let downConductorForm = summaryform.downConductor as FormArray;
+    
+                if (value == 'physicalInspectionRem') { 
+                  heading = "DC_Downconductors Observation";
                 }
-              }
-      
-              let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'downConductor', value, downConductorSerialNo, heading
-              , displySerialNo, headingUi, (downConductorSerialNo-1),dwonConductorId);
-  
-              summaryObservation.observationComponentDetails = 'downConductorDescription' + downConductorSerialNo;
-              summaryObservation.remarkName = value;
-              summaryObservation.remarksId = dwonConductorId;
-              downConductorForm.push( this.populateForm(summaryObservation));
-              downConductorSerialNo = downConductorSerialNo + 1;
-           
+    
+                let displySerialNo = 0;
+                if (value !='' && value != null) {
+                  displySerialNo = downConductorSerialNoUi;
+                  downConductorSerialNoUi = downConductorSerialNoUi + 1;
+                  
+                  if(headingUiFlag){
+                    headingUi = "DC_Downconductors Observation";
+                    headingUiFlag = false;
+                  }
+                }
+        
+                let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'downConductor', value, downConductorSerialNo, heading
+                , displySerialNo, headingUi, (downConductorSerialNo-1),dwonConductorId);
+    
+                summaryObservation.observationComponentDetails = 'downConductorDescription' + downConductorSerialNo;
+                summaryObservation.remarkName = value;
+                summaryObservation.remarksId = dwonConductorId;
+                downConductorForm.push( this.populateForm(summaryObservation));
+                downConductorSerialNo = downConductorSerialNo + 1;
+             
+            }
           }
 
           //updating bridgingDescription_remarks value to summarydownconductor observation
@@ -1902,232 +1924,252 @@ SignatureDesigner1(){
           let bridgingDescriptionSerialNoUi = 1;
           let bridgingDescriptionUiFlag = true;
 
-          for (let remarkName of this.bridgingName) {
+          if(dwonConductorData.downConductorDescription!=null && dwonConductorData.downConductorDescription!=undefined && dwonConductorData.downConductorDescription[index].bridgingDescription.length!=0){
+            for (let remarkName of this.bridgingName) {
  
-            let value = dwonConductorData.downConductorDescription[index].bridgingDescription[0][remarkName];
-            let dwonConductorId = dwonConductorData.downConductorDescription[index].bridgingDescription[0].bridgingDescriptionId;
-            let heading = '';
-            let headingUi = '';
-            let downConductorForm = summaryform.bridgingDesc as FormArray;
-  
-              if (value == 'ensureBridgingCableRem') { 
-                heading = "DC_Bridging Observation";
-              }
-  
-              let displySerialNo = 0;
-              if (value !='' && value != null) {
-                displySerialNo = bridgingDescriptionSerialNoUi;
-                bridgingDescriptionSerialNoUi = bridgingDescriptionSerialNoUi + 1;
-                
-                if(bridgingDescriptionUiFlag){
-                  headingUi = "DC_Bridging Observation";
-                  bridgingDescriptionUiFlag = false;
+              let value = dwonConductorData.downConductorDescription[index].bridgingDescription[0][remarkName];
+              let dwonConductorId = dwonConductorData.downConductorDescription[index].bridgingDescription[0].bridgingDescriptionId;
+              let heading = '';
+              let headingUi = '';
+              let downConductorForm = summaryform.bridgingDesc as FormArray;
+    
+                if (value == 'ensureBridgingCableRem') { 
+                  heading = "DC_Bridging Observation";
                 }
-              }
-      
-              let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'bridgingDesc', value, bridgingDescriptionSerialNo, heading
-              , displySerialNo, headingUi, (bridgingDescriptionSerialNo-1),dwonConductorId);
-  
-              summaryObservation.observationComponentDetails = 'bridgingDescription' + bridgingDescriptionSerialNo;
-              summaryObservation.remarkName = value;
-              summaryObservation.remarksId = dwonConductorId;
-              downConductorForm.push( this.populateForm(summaryObservation));
-              bridgingDescriptionSerialNo = bridgingDescriptionSerialNo + 1;
-  
-      }
+    
+                let displySerialNo = 0;
+                if (value !='' && value != null) {
+                  displySerialNo = bridgingDescriptionSerialNoUi;
+                  bridgingDescriptionSerialNoUi = bridgingDescriptionSerialNoUi + 1;
+                  
+                  if(bridgingDescriptionUiFlag){
+                    headingUi = "DC_Bridging Observation";
+                    bridgingDescriptionUiFlag = false;
+                  }
+                }
+        
+                let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'bridgingDesc', value, bridgingDescriptionSerialNo, heading
+                , displySerialNo, headingUi, (bridgingDescriptionSerialNo-1),dwonConductorId);
+    
+                summaryObservation.observationComponentDetails = 'bridgingDescription' + bridgingDescriptionSerialNo;
+                summaryObservation.remarkName = value;
+                summaryObservation.remarksId = dwonConductorId;
+                downConductorForm.push( this.populateForm(summaryObservation));
+                bridgingDescriptionSerialNo = bridgingDescriptionSerialNo + 1;
+    
+            }
+          }
+          
 
           //updating holder_remarks value to summarydownconductor observation
           let holderSerialNo = 1;
           let holderSerialNoUi = 1;
           let holderUiFlag = true;
 
-          for (let remarkName of this.downHolderName) {
+          if(dwonConductorData.downConductorDescription!=null && dwonConductorData.downConductorDescription!=undefined && dwonConductorData.downConductorDescription[index].holder.length!=0){
+            for (let remarkName of this.downHolderName) {
 
-            let value = dwonConductorData.downConductorDescription[index].holder[0][remarkName];
-            let dwonConductorId = dwonConductorData.downConductorDescription[index].holder[0].holderId;
-            let heading = '';
-            let headingUi = '';
-            let downConductorForm = summaryform.downHolders as FormArray;
-  
-              if (value == 'physicalInspectionRem') { 
-                heading = "DC_Holder Observation";
-              }
-  
-              let displySerialNo = 0;
-              if (value !='' && value != null) {
-                displySerialNo = holderSerialNoUi;
-                holderSerialNoUi = holderSerialNoUi + 1;
-                
-                if(holderUiFlag){
-                  headingUi = "DC_Holder Observation";
-                  holderUiFlag = false;
+              let value = dwonConductorData.downConductorDescription[index].holder[0][remarkName];
+              let dwonConductorId = dwonConductorData.downConductorDescription[index].holder[0].holderId;
+              let heading = '';
+              let headingUi = '';
+              let downConductorForm = summaryform.downHolders as FormArray;
+    
+                if (value == 'physicalInspectionRem') { 
+                  heading = "DC_Holder Observation";
                 }
-              }
-      
-              let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'downHolders', value, holderSerialNo, heading
-              , displySerialNo, headingUi, (holderSerialNo-1),dwonConductorId);
-  
-              summaryObservation.observationComponentDetails = 'holder' + holderSerialNo;
-              summaryObservation.remarkName = value;
-              summaryObservation.remarksId = dwonConductorId;
-              downConductorForm.push( this.populateForm(summaryObservation));
-              holderSerialNo = holderSerialNo + 1;
+    
+                let displySerialNo = 0;
+                if (value !='' && value != null) {
+                  displySerialNo = holderSerialNoUi;
+                  holderSerialNoUi = holderSerialNoUi + 1;
+                  
+                  if(holderUiFlag){
+                    headingUi = "DC_Holder Observation";
+                    holderUiFlag = false;
+                  }
+                }
+        
+                let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'downHolders', value, holderSerialNo, heading
+                , displySerialNo, headingUi, (holderSerialNo-1),dwonConductorId);
+    
+                summaryObservation.observationComponentDetails = 'holder' + holderSerialNo;
+                summaryObservation.remarkName = value;
+                summaryObservation.remarksId = dwonConductorId;
+                downConductorForm.push( this.populateForm(summaryObservation));
+                holderSerialNo = holderSerialNo + 1;
+            }
           }
+          
 
           //updating connectors_remarks value to summarydownconductor observation
           let connectorsSerialNo = 1;
           let connectorsSerialNoUi = 1;
           let connectorsheadingUiFlag = true;
-          for (let remarkName of this.connectorsName) {
 
-            let value = dwonConductorData.downConductorDescription[index].connectors[0][remarkName];
-            let dwonConductorId = dwonConductorData.downConductorDescription[index].connectors[0].connectorId;
-            let heading = '';
-            let headingUi = '';
-            let downConductorForm = summaryform.downConnectors as FormArray;
-  
-              if (value == 'physicalInspectionRem') { 
-                heading = "DC_Connectors Observation";
-              }
-  
-              let displySerialNo = 0;
-              if (value !='' && value != null) {
-                displySerialNo = connectorsSerialNoUi;
-                connectorsSerialNoUi = connectorsSerialNoUi + 1;
-                
-                if(connectorsheadingUiFlag){
-                  headingUi = "DC_Connectors Observation";
-                  connectorsheadingUiFlag = false;
+          if(dwonConductorData.downConductorDescription!=null && dwonConductorData.downConductorDescription!=undefined && dwonConductorData.downConductorDescription[index].connectors.length!=0){
+            for (let remarkName of this.connectorsName) {
+
+              let value = dwonConductorData.downConductorDescription[index].connectors[0][remarkName];
+              let dwonConductorId = dwonConductorData.downConductorDescription[index].connectors[0].connectorId;
+              let heading = '';
+              let headingUi = '';
+              let downConductorForm = summaryform.downConnectors as FormArray;
+    
+                if (value == 'physicalInspectionRem') { 
+                  heading = "DC_Connectors Observation";
                 }
-              }
-      
-              let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'downConnectors', value, connectorsSerialNo, heading
-              , displySerialNo, headingUi, (connectorsSerialNo-1),dwonConductorId);
-  
-              summaryObservation.observationComponentDetails = 'connectors' + connectorsSerialNo;
-              summaryObservation.remarkName = value;
-              summaryObservation.remarksId = dwonConductorId;
-              downConductorForm.push( this.populateForm(summaryObservation));
-              connectorsSerialNo = connectorsSerialNo + 1;
+    
+                let displySerialNo = 0;
+                if (value !='' && value != null) {
+                  displySerialNo = connectorsSerialNoUi;
+                  connectorsSerialNoUi = connectorsSerialNoUi + 1;
+                  
+                  if(connectorsheadingUiFlag){
+                    headingUi = "DC_Connectors Observation";
+                    connectorsheadingUiFlag = false;
+                  }
+                }
+        
+                let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'downConnectors', value, connectorsSerialNo, heading
+                , displySerialNo, headingUi, (connectorsSerialNo-1),dwonConductorId);
+    
+                summaryObservation.observationComponentDetails = 'connectors' + connectorsSerialNo;
+                summaryObservation.remarkName = value;
+                summaryObservation.remarksId = dwonConductorId;
+                downConductorForm.push( this.populateForm(summaryObservation));
+                connectorsSerialNo = connectorsSerialNo + 1;
+            }
           }
+          
 
           //updating lightningCounter_remarks value to summarydownconductor observation
           let lightningCounterSerialNo = 1;
           let lightningCounterSerialNoUi = 1;
           let lightningCounterUiFlag = true;
 
-          for (let remarkName of this.lightingCounterName) {
+          if(dwonConductorData.downConductorDescription!=null && dwonConductorData.downConductorDescription!=undefined && dwonConductorData.downConductorDescription[index].lightningCounter.length!=0){
+            for (let remarkName of this.lightingCounterName) {
 
-            let value = dwonConductorData.downConductorDescription[index].lightningCounter[0][remarkName];
-            let dwonConductorId = dwonConductorData.downConductorDescription[index].lightningCounter[0].lightingCountersId;
-            let heading = '';
-            let headingUi = '';
-            let downConductorForm = summaryform.lightingCounter as FormArray;
-  
-              if (value == 'threadHoldCurrentRem') { 
-                heading = "DC_LightningCounter Observation";
-              }
-  
-              let displySerialNo = 0;
-              if (value !='' && value != null) {
-                displySerialNo = lightningCounterSerialNoUi;
-                lightningCounterSerialNoUi = lightningCounterSerialNoUi + 1;
-                
-                if(lightningCounterUiFlag){
-                  headingUi = "DC_LightningCounter Observation";
-                  lightningCounterUiFlag = false;
+              let value = dwonConductorData.downConductorDescription[index].lightningCounter[0][remarkName];
+              let dwonConductorId = dwonConductorData.downConductorDescription[index].lightningCounter[0].lightingCountersId;
+              let heading = '';
+              let headingUi = '';
+              let downConductorForm = summaryform.lightingCounter as FormArray;
+    
+                if (value == 'threadHoldCurrentRem') { 
+                  heading = "DC_LightningCounter Observation";
                 }
-              }
-      
-              let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'lightingCounter', value, lightningCounterSerialNo, heading
-              , displySerialNo, headingUi, (lightningCounterSerialNo-1),dwonConductorId);
+    
+                let displySerialNo = 0;
+                if (value !='' && value != null) {
+                  displySerialNo = lightningCounterSerialNoUi;
+                  lightningCounterSerialNoUi = lightningCounterSerialNoUi + 1;
+                  
+                  if(lightningCounterUiFlag){
+                    headingUi = "DC_LightningCounter Observation";
+                    lightningCounterUiFlag = false;
+                  }
+                }
+        
+                let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'lightingCounter', value, lightningCounterSerialNo, heading
+                , displySerialNo, headingUi, (lightningCounterSerialNo-1),dwonConductorId);
+    
+                summaryObservation.observationComponentDetails = 'lightningCounter' + lightningCounterSerialNo;
+                summaryObservation.remarkName = value;
+                summaryObservation.remarksId = dwonConductorId;
+                downConductorForm.push( this.populateForm(summaryObservation));
+                lightningCounterSerialNo = lightningCounterSerialNo + 1;
+   
   
-              summaryObservation.observationComponentDetails = 'lightningCounter' + lightningCounterSerialNo;
-              summaryObservation.remarkName = value;
-              summaryObservation.remarksId = dwonConductorId;
-              downConductorForm.push( this.populateForm(summaryObservation));
-              lightningCounterSerialNo = lightningCounterSerialNo + 1;
- 
-
+            }
           }
+          
 
           //updating testingJoint_remarks value to summarydownconductor observation
           let testingJointSerialNo = 1;
           let testingJointSerialNoUi = 1;
           let testingJointUiFlag = true;
 
-          for (let remarkName of this.testingJointName) {
+          if(dwonConductorData.downConductorDescription!=null && dwonConductorData.downConductorDescription!=undefined && dwonConductorData.downConductorDescription[index].testingJoint.length!=0){
+            for (let remarkName of this.testingJointName) {
 
-            let value = dwonConductorData.downConductorDescription[index].testingJoint[0][remarkName];
-            let dwonConductorId = dwonConductorData.downConductorDescription[index].testingJoint[0].testJointId;
-            let heading = '';
-            let headingUi = '';
-            let downConductorForm = summaryform.testingJoint as FormArray;
-  
-              if (value == 'materialTestJointRem') { 
-                heading = "DC_TestingJoint Observation";
-              }
-  
-              let displySerialNo = 0;
-              if (value !='' && value != null) {
-                displySerialNo = testingJointSerialNoUi;
-                testingJointSerialNoUi = testingJointSerialNoUi + 1;
-                
-                if(testingJointUiFlag){
-                  headingUi = "DC_TestingJoint Observation";
-                  testingJointUiFlag = false;
+              let value = dwonConductorData.downConductorDescription[index].testingJoint[0][remarkName];
+              let dwonConductorId = dwonConductorData.downConductorDescription[index].testingJoint[0].testJointId;
+              let heading = '';
+              let headingUi = '';
+              let downConductorForm = summaryform.testingJoint as FormArray;
+    
+                if (value == 'materialTestJointRem') { 
+                  heading = "DC_TestingJoint Observation";
                 }
-              }
-      
-              let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'testingJoint', value, testingJointSerialNo, heading
-              , displySerialNo, headingUi, (testingJointSerialNo-1),dwonConductorId);
+    
+                let displySerialNo = 0;
+                if (value !='' && value != null) {
+                  displySerialNo = testingJointSerialNoUi;
+                  testingJointSerialNoUi = testingJointSerialNoUi + 1;
+                  
+                  if(testingJointUiFlag){
+                    headingUi = "DC_TestingJoint Observation";
+                    testingJointUiFlag = false;
+                  }
+                }
+        
+                let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'testingJoint', value, testingJointSerialNo, heading
+                , displySerialNo, headingUi, (testingJointSerialNo-1),dwonConductorId);
+    
+                summaryObservation.observationComponentDetails = 'testingJoint' + testingJointSerialNo;
+                summaryObservation.remarkName = value;
+                summaryObservation.remarksId = dwonConductorId;
+                downConductorForm.push( this.populateForm(summaryObservation));
+                testingJointSerialNo = testingJointSerialNo + 1;
+   
   
-              summaryObservation.observationComponentDetails = 'testingJoint' + testingJointSerialNo;
-              summaryObservation.remarkName = value;
-              summaryObservation.remarksId = dwonConductorId;
-              downConductorForm.push( this.populateForm(summaryObservation));
-              testingJointSerialNo = testingJointSerialNo + 1;
- 
-
+            }
           }
+          
 
           //updating downConductorTesting_remarks value to summarydownconductor observation
            
           let downConductorTestingSerialNo = 1;
           let downConductorTestingSerialNoUi = 1;
           let downConductorTestingUiFlag = true;
-          for (let i = 0; i < dwonConductorData.downConductorDescription[index].downConductorTesting.length; i++) {
+
+          if(dwonConductorData.downConductorDescription!=null && dwonConductorData.downConductorDescription!=undefined && dwonConductorData.downConductorDescription[index].downConductorTesting.length!=0){
+            for (let i = 0; i < dwonConductorData.downConductorDescription[index].downConductorTesting.length; i++) {
            
-            let value = dwonConductorData.downConductorDescription[index].downConductorTesting[0][this.downConductorTestingName[0]];
-            let dwonConductorId = dwonConductorData.downConductorDescription[index].downConductorTesting[0].downConductorTestingId;
-            let heading = '';
-            let headingUi = '';
-            let downConductorForm = summaryform.downConductorTesting as FormArray;
-  
-              if (i == 0) { 
-                heading = "DC_DownConductorTesting Observation";
-              }
-  
-              let displySerialNo = 0;
-              if (value !='' && value != null) {
-                displySerialNo = downConductorTestingSerialNoUi;
-                downConductorTestingSerialNoUi = downConductorTestingSerialNoUi + 1;
-                
-                if(downConductorTestingUiFlag){
-                  headingUi = "DC_DownConductorTesting Observation";
-                  downConductorTestingUiFlag = false;
+              let value = dwonConductorData.downConductorDescription[index].downConductorTesting[0][this.downConductorTestingName[0]];
+              let dwonConductorId = dwonConductorData.downConductorDescription[index].downConductorTesting[0].downConductorTestingId;
+              let heading = '';
+              let headingUi = '';
+              let downConductorForm = summaryform.downConductorTesting as FormArray;
+    
+                if (i == 0) { 
+                  heading = "DC_DownConductorTesting Observation";
                 }
-              }
-              
-              let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'downConductorTesting', value, downConductorTestingSerialNo, heading
-              , displySerialNo, headingUi, (downConductorTestingSerialNo-1),dwonConductorId);
-  
-              summaryObservation.observationComponentDetails = 'downConductorTesting' + downConductorTestingSerialNo;
-              summaryObservation.remarkName = value;
-              summaryObservation.remarksId = dwonConductorId;
-              downConductorForm.push( this.populateForm(summaryObservation));
-              downConductorTestingSerialNo = downConductorTestingSerialNo + 1;
-        }
+    
+                let displySerialNo = 0;
+                if (value !='' && value != null) {
+                  displySerialNo = downConductorTestingSerialNoUi;
+                  downConductorTestingSerialNoUi = downConductorTestingSerialNoUi + 1;
+                  
+                  if(downConductorTestingUiFlag){
+                    headingUi = "DC_DownConductorTesting Observation";
+                    downConductorTestingUiFlag = false;
+                  }
+                }
+                
+                let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'downConductorTesting', value, downConductorTestingSerialNo, heading
+                , displySerialNo, headingUi, (downConductorTestingSerialNo-1),dwonConductorId);
+    
+                summaryObservation.observationComponentDetails = 'downConductorTesting' + downConductorTestingSerialNo;
+                summaryObservation.remarkName = value;
+                summaryObservation.remarksId = dwonConductorId;
+                downConductorForm.push( this.populateForm(summaryObservation));
+                downConductorTestingSerialNo = downConductorTestingSerialNo + 1;
+            }
+          }
+          
   }
 
   updateSummaryEarthingObervation(summaryform: any, earthingData: any, index: any) {
@@ -2141,39 +2183,42 @@ SignatureDesigner1(){
     let earthingReportHeadingUiFlag = true;
     let earthingReportRemarkIndex = 1;
 
-    for (let value of this.earthingReportName) {
-      let earthingValue = earthingData.earthingLpsDescription[index][value];
-      let earthingId = earthingData.earthingLpsDescription[index].earthingId;
-      let earthingReportHeading = '';
-      let earthingReportHeadingUi = '';
-     let earthingReport = summaryform.earthingReport as FormArray;
-        
-      if (value == 'earthingTypeInRem') {
-        earthingReportHeading = 'ET_Basic Details Observation';
+    if(earthingData.earthingLpsDescription!=null && earthingData.earthingLpsDescription!=undefined && earthingData.earthingLpsDescription[index].length!=0){
+      for (let value of this.earthingReportName) {
+        let earthingValue = earthingData.earthingLpsDescription[index][value];
+        let earthingId = earthingData.earthingLpsDescription[index].earthingId;
+        let earthingReportHeading = '';
+        let earthingReportHeadingUi = '';
+       let earthingReport = summaryform.earthingReport as FormArray;
+          
+        if (value == 'earthingTypeInRem') {
+          earthingReportHeading = 'ET_Basic Details Observation';
+        }
+   
+        //serial Number
+        let displySerialNo = 0;
+        if (earthingValue != '' && earthingValue != null) {
+          displySerialNo = earthingReportSerialNoUi;
+          earthingReportSerialNoUi = earthingReportSerialNoUi + 1;
+        }
+  
+        //headingUI 
+        if (earthingValue != '' && earthingValue != null && earthingReportHeadingUiFlag) {
+          earthingReportHeadingUi = 'ET_Basic Details Observation';
+          earthingReportHeadingUiFlag = false;
+        }
+  
+       
+        let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'earthingReport', earthingValue, earthingReportRerialNo, earthingReportHeading
+          , displySerialNo, earthingReportHeadingUi, (earthingReportRerialNo-1),earthingId);
+        summaryObservation.observationComponentDetails = 'earthingLpsDescription' + earthingReportRerialNo;
+        summaryObservation.remarkName = value;
+        summaryObservation.remarksId = earthingId;
+        earthingReport.push( this.populateForm(summaryObservation));
+        earthingReportRerialNo = earthingReportRerialNo + 1;
       }
- 
-      //serial Number
-      let displySerialNo = 0;
-      if (earthingValue != '' && earthingValue != null) {
-        displySerialNo = earthingReportSerialNoUi;
-        earthingReportSerialNoUi = earthingReportSerialNoUi + 1;
-      }
-
-      //headingUI 
-      if (earthingValue != '' && earthingValue != null && earthingReportHeadingUiFlag) {
-        earthingReportHeadingUi = 'ET_Basic Details Observation';
-        earthingReportHeadingUiFlag = false;
-      }
-
-     
-      let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'earthingReport', earthingValue, earthingReportRerialNo, earthingReportHeading
-        , displySerialNo, earthingReportHeadingUi, (earthingReportRerialNo-1),earthingId);
-      summaryObservation.observationComponentDetails = 'earthingLpsDescription' + earthingReportRerialNo;
-      summaryObservation.remarkName = value;
-      summaryObservation.remarksId = earthingId;
-      earthingReport.push( this.populateForm(summaryObservation));
-      earthingReportRerialNo = earthingReportRerialNo + 1;
     }
+    
 
     //  ========================= earthingDescription ========================
     let earthingDescriptionserialNo = 1;
@@ -2182,38 +2227,41 @@ SignatureDesigner1(){
     let earthingDescriptionRemarkIndex = 1;
     let earthingDescription = summaryform.earthingDescription as FormArray;
     
-    for (let value of this.earthingDescriptionName) {
-      let earthingValue = earthingData.earthingLpsDescription[index].earthingDescription[0][value];
-      let earthDescriptionId = earthingData.earthingLpsDescription[index].earthingDescription[0].earthDescriptionId;
-      let earthingDescriptionHeadingUi = '';
-      let earthingDescriptionHeading = '';
-
-      //
-      if (value == 'soilResistivityInRem') {
-        earthingDescriptionHeading = 'EarthingDescription Observation';
+    if(earthingData.earthingLpsDescription!=null && earthingData.earthingLpsDescription!=undefined && earthingData.earthingLpsDescription[index].earthingDescription.length!=0){
+      for (let value of this.earthingDescriptionName) {
+        let earthingValue = earthingData.earthingLpsDescription[index].earthingDescription[0][value];
+        let earthDescriptionId = earthingData.earthingLpsDescription[index].earthingDescription[0].earthDescriptionId;
+        let earthingDescriptionHeadingUi = '';
+        let earthingDescriptionHeading = '';
+  
+        //
+        if (value == 'soilResistivityInRem') {
+          earthingDescriptionHeading = 'EarthingDescription Observation';
+        }
+  
+        let displySerialNo = 0;
+        if (earthingValue != '' && earthingValue != null) {
+          displySerialNo = earthingDescriptionSerialNoUi;
+          earthingDescriptionSerialNoUi = earthingDescriptionSerialNoUi + 1;
+        }
+  
+        if (earthingValue != '' && earthingValue != null && earthingDescriptionHeadingUiFlag) {
+          earthingDescriptionHeadingUi = 'EarthingDescription Observation';
+          earthingDescriptionHeadingUiFlag = false;
+  
+        }
+  
+        let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'earthingDescription', earthingValue,
+          earthingDescriptionserialNo, earthingDescriptionHeading
+          , displySerialNo, earthingDescriptionHeadingUi, (earthingDescriptionserialNo-1),earthDescriptionId);
+        summaryObservation.observationComponentDetails = 'earthingDescriptionMain' + earthingDescriptionserialNo;
+        summaryObservation.remarkName = value;
+        summaryObservation.remarksId = earthDescriptionId;
+        earthingDescription.push( this.populateForm(summaryObservation));
+        earthingDescriptionserialNo = earthingDescriptionserialNo + 1;
       }
-
-      let displySerialNo = 0;
-      if (earthingValue != '' && earthingValue != null) {
-        displySerialNo = earthingDescriptionSerialNoUi;
-        earthingDescriptionSerialNoUi = earthingDescriptionSerialNoUi + 1;
-      }
-
-      if (earthingValue != '' && earthingValue != null && earthingDescriptionHeadingUiFlag) {
-        earthingDescriptionHeadingUi = 'EarthingDescription Observation';
-        earthingDescriptionHeadingUiFlag = false;
-
-      }
-
-      let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'earthingDescription', earthingValue,
-        earthingDescriptionserialNo, earthingDescriptionHeading
-        , displySerialNo, earthingDescriptionHeadingUi, (earthingDescriptionserialNo-1),earthDescriptionId);
-      summaryObservation.observationComponentDetails = 'earthingDescriptionMain' + earthingDescriptionserialNo;
-      summaryObservation.remarkName = value;
-      summaryObservation.remarksId = earthDescriptionId;
-      earthingDescription.push( this.populateForm(summaryObservation));
-      earthingDescriptionserialNo = earthingDescriptionserialNo + 1;
     }
+    
 
     //  ========================= earthingDescriptionListName ========================
     let earthingDescriptionList = summaryform.earthingDescriptionList as FormArray;
@@ -2224,39 +2272,42 @@ SignatureDesigner1(){
       let earthingDescriptionListHeadingUiFlag = true;
       let earthingDescriptionListRemarkIndex = 1;
 
-      for (let value of this.earthingDescriptionListName) {
-        let earthingValue = earthingData.earthingLpsDescription[index].earthingDescription[0].earthingDescriptionList[i][value];
-        let earthingDescriptionListHeadingUi = '';
-        let earthingDescriptionListHeading = '';
-        let earthDescriptionListId = earthingData.earthingLpsDescription[index].earthingDescription[0].earthingDescriptionList[i].earthDescriptionListId;
-
-        //
-        if (value == 'earthingConductorMaterialInRem') {
-          earthingDescriptionListHeading = 'EarthingDescription List-' + (i+1);
+      if(earthingData.earthingLpsDescription!=null && earthingData.earthingLpsDescription!=undefined && earthingData.earthingLpsDescription[index].earthingDescription.length!=0){
+        for (let value of this.earthingDescriptionListName) {
+          let earthingValue = earthingData.earthingLpsDescription[index].earthingDescription[0].earthingDescriptionList[i][value];
+          let earthingDescriptionListHeadingUi = '';
+          let earthingDescriptionListHeading = '';
+          let earthDescriptionListId = earthingData.earthingLpsDescription[index].earthingDescription[0].earthingDescriptionList[i].earthDescriptionListId;
+  
+          //
+          if (value == 'earthingConductorMaterialInRem') {
+            earthingDescriptionListHeading = 'EarthingDescription List-' + (i+1);
+          }
+  
+          let displySerialNo = 0;
+          if (earthingValue != '' && earthingValue != null) {
+            displySerialNo = earthingDescriptionListSerialNoUi;
+            earthingDescriptionListSerialNoUi = earthingDescriptionListSerialNoUi + 1;
+          }
+  
+          //serial Number
+          if (earthingValue != '' && earthingValue != null && earthingDescriptionListHeadingUiFlag) {
+            earthingDescriptionListHeadingUi = 'EarthingDescription List-' + (i+1);
+            earthingDescriptionListHeadingUiFlag = false;
+  
+          }
+  
+          let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'earthingDescriptionList', earthingValue,
+            earthingDescriptionListserialNo, earthingDescriptionListHeading
+            , displySerialNo, earthingDescriptionListHeadingUi, (earthingDescriptionListserialNo-1),earthDescriptionListId);
+          summaryObservation.observationComponentDetails = 'earthingDescriptionList' + earthingDescriptionListserialNo;
+          summaryObservation.remarkName = value;
+          summaryObservation.remarksId = earthDescriptionListId;
+          earthingDescriptionList.push( this.populateForm(summaryObservation));
+          earthingDescriptionListserialNo = earthingDescriptionListserialNo + 1;
         }
-
-        let displySerialNo = 0;
-        if (earthingValue != '' && earthingValue != null) {
-          displySerialNo = earthingDescriptionListSerialNoUi;
-          earthingDescriptionListSerialNoUi = earthingDescriptionListSerialNoUi + 1;
-        }
-
-        //serial Number
-        if (earthingValue != '' && earthingValue != null && earthingDescriptionListHeadingUiFlag) {
-          earthingDescriptionListHeadingUi = 'EarthingDescription List-' + (i+1);
-          earthingDescriptionListHeadingUiFlag = false;
-
-        }
-
-        let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'earthingDescriptionList', earthingValue,
-          earthingDescriptionListserialNo, earthingDescriptionListHeading
-          , displySerialNo, earthingDescriptionListHeadingUi, (earthingDescriptionListserialNo-1),earthDescriptionListId);
-        summaryObservation.observationComponentDetails = 'earthingDescriptionList' + earthingDescriptionListserialNo;
-        summaryObservation.remarkName = value;
-        summaryObservation.remarksId = earthDescriptionListId;
-        earthingDescriptionList.push( this.populateForm(summaryObservation));
-        earthingDescriptionListserialNo = earthingDescriptionListserialNo + 1;
       }
+      
     }
 
 
@@ -2266,82 +2317,87 @@ SignatureDesigner1(){
     let earthingClampHeadingUiFlag = true;
     let earthingClampRemarkIndex = 1;
 
-    for (let value of this.earthingClampsName) {
-    let earthingClampHeadingUi = '';
-    let earthingClampHeading = '';
-    let earthingClamps = summaryform.earthingClamps as FormArray;
-
-    let earthingValue = earthingData.earthingLpsDescription[index].earthingClamps[0][value];
-    let earthingClampsId = earthingData.earthingLpsDescription[index].earthingClamps[0].earthingClampsId;
-
-      //
-      if (value == 'earthingConductorMaterialInRem') {
-        earthingClampHeading = 'EarthingClamps Observation';
-      }
-
-      let displySerialNo = 0;
-      if (earthingValue != '' && earthingValue != null) {
-        displySerialNo = earthingClampSerialNoUi;
-        earthingClampSerialNoUi = earthingClampSerialNoUi + 1;
-      }
-
-      if (earthingValue != '' && earthingValue != null && earthingClampHeadingUiFlag) {
-        earthingClampHeadingUi = 'EarthingClamps Observation';
-        earthingClampHeadingUiFlag = false;
-
-      }
-
-      let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'earthingClamps', earthingValue,
-        earthingClampserialNo, earthingClampHeading
-        , displySerialNo, earthingClampHeadingUi, (earthingClampserialNo-1),earthingClampsId);
-      summaryObservation.observationComponentDetails = 'earthingClamps' + earthingClampserialNo;
-      summaryObservation.remarkName = value;
-      summaryObservation.remarksId = earthingClampsId;
-      earthingClamps.push( this.populateForm(summaryObservation));
-      earthingClampserialNo = earthingClampserialNo + 1;
+    if(earthingData.earthingLpsDescription!=null && earthingData.earthingLpsDescription!=undefined && earthingData.earthingLpsDescription[index].earthingClamps.length!=0){
+      for (let value of this.earthingClampsName) {
+        let earthingClampHeadingUi = '';
+        let earthingClampHeading = '';
+        let earthingClamps = summaryform.earthingClamps as FormArray;
+    
+        let earthingValue = earthingData.earthingLpsDescription[index].earthingClamps[0][value];
+        let earthingClampsId = earthingData.earthingLpsDescription[index].earthingClamps[0].earthingClampsId;
+    
+          //
+          if (value == 'earthingConductorMaterialInRem') {
+            earthingClampHeading = 'EarthingClamps Observation';
+          }
+    
+          let displySerialNo = 0;
+          if (earthingValue != '' && earthingValue != null) {
+            displySerialNo = earthingClampSerialNoUi;
+            earthingClampSerialNoUi = earthingClampSerialNoUi + 1;
+          }
+    
+          if (earthingValue != '' && earthingValue != null && earthingClampHeadingUiFlag) {
+            earthingClampHeadingUi = 'EarthingClamps Observation';
+            earthingClampHeadingUiFlag = false;
+    
+          }
+    
+          let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'earthingClamps', earthingValue,
+            earthingClampserialNo, earthingClampHeading
+            , displySerialNo, earthingClampHeadingUi, (earthingClampserialNo-1),earthingClampsId);
+          summaryObservation.observationComponentDetails = 'earthingClamps' + earthingClampserialNo;
+          summaryObservation.remarkName = value;
+          summaryObservation.remarksId = earthingClampsId;
+          earthingClamps.push( this.populateForm(summaryObservation));
+          earthingClampserialNo = earthingClampserialNo + 1;
+        }
     }
-
+    
     //  ========================= earthingElectrodeChamber ========================
     let earthingElectrodeChamberserialNo = 1;
     let earthingElectrodeChamberSerialNoUi = 1;
     let earthingElectrodeChamberHeadingUiFlag = true;
     let earthingElectrodeChamberRemarkIndex = 1;
 
-    for (let value of this.earthingElectrodeChamberName) {
-      let earthingValue = earthingData.earthingLpsDescription[index].earthingElectrodeChamber[0][value];
-      let earthingElectrodeChamberId = earthingData.earthingLpsDescription[index].earthingElectrodeChamber[0].earthingElectrodeChamberId;
-      let earthingElectrodeChamberHeading = '';
-      let earthingElectrodeChamberHeadingUi = '';
-      let earthingElectrodeChamber = summaryform.earthingElectrodeChamber as FormArray;
-      //
-      if (value == 'physicalInspeRem') {
-        earthingElectrodeChamberHeading = 'EarthingElectrodeChamber Observation';
+    if(earthingData.earthingLpsDescription!=null && earthingData.earthingLpsDescription!=undefined && earthingData.earthingLpsDescription[index].earthingElectrodeChamber.length!=0){
+      for (let value of this.earthingElectrodeChamberName) {
+        let earthingValue = earthingData.earthingLpsDescription[index].earthingElectrodeChamber[0][value];
+        let earthingElectrodeChamberId = earthingData.earthingLpsDescription[index].earthingElectrodeChamber[0].earthingElectrodeChamberId;
+        let earthingElectrodeChamberHeading = '';
+        let earthingElectrodeChamberHeadingUi = '';
+        let earthingElectrodeChamber = summaryform.earthingElectrodeChamber as FormArray;
+        //
+        if (value == 'physicalInspeRem') {
+          earthingElectrodeChamberHeading = 'EarthingElectrodeChamber Observation';
+        }
+  
+        let displySerialNo = 0;
+        if (earthingValue != '' && earthingValue != null) {
+          displySerialNo = earthingElectrodeChamberSerialNoUi;
+          earthingElectrodeChamberSerialNoUi = earthingElectrodeChamberSerialNoUi + 1;
+        }
+  
+        //serial Number
+        if (earthingValue != '' && earthingValue != null && earthingElectrodeChamberHeadingUiFlag) {
+          earthingElectrodeChamberHeadingUi = 'EarthingElectrodeChamber Observation';
+          earthingElectrodeChamberHeadingUiFlag = false;
+  
+        }
+  
+        let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'earthingElectrodeChamber', earthingValue,
+          earthingElectrodeChamberserialNo, earthingElectrodeChamberHeading
+          , displySerialNo, earthingElectrodeChamberHeadingUi, (earthingElectrodeChamberserialNo-1),earthingElectrodeChamberId);
+        summaryObservation.observationComponentDetails = 'earthingElectrodeChamber' + earthingElectrodeChamberserialNo;
+        summaryObservation.remarkName = value;
+        summaryObservation.remarksId = earthingElectrodeChamberId;
+        earthingElectrodeChamber.push( this.populateForm(summaryObservation));
+        earthingElectrodeChamberserialNo = earthingElectrodeChamberserialNo + 1;
+        earthingElectrodeChamberHeading = ''; 
+        earthingElectrodeChamberHeadingUi = '';
       }
-
-      let displySerialNo = 0;
-      if (earthingValue != '' && earthingValue != null) {
-        displySerialNo = earthingElectrodeChamberSerialNoUi;
-        earthingElectrodeChamberSerialNoUi = earthingElectrodeChamberSerialNoUi + 1;
-      }
-
-      //serial Number
-      if (earthingValue != '' && earthingValue != null && earthingElectrodeChamberHeadingUiFlag) {
-        earthingElectrodeChamberHeadingUi = 'EarthingElectrodeChamber Observation';
-        earthingElectrodeChamberHeadingUiFlag = false;
-
-      }
-
-      let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'earthingElectrodeChamber', earthingValue,
-        earthingElectrodeChamberserialNo, earthingElectrodeChamberHeading
-        , displySerialNo, earthingElectrodeChamberHeadingUi, (earthingElectrodeChamberserialNo-1),earthingElectrodeChamberId);
-      summaryObservation.observationComponentDetails = 'earthingElectrodeChamber' + earthingElectrodeChamberserialNo;
-      summaryObservation.remarkName = value;
-      summaryObservation.remarksId = earthingElectrodeChamberId;
-      earthingElectrodeChamber.push( this.populateForm(summaryObservation));
-      earthingElectrodeChamberserialNo = earthingElectrodeChamberserialNo + 1;
-      earthingElectrodeChamberHeading = ''; 
-      earthingElectrodeChamberHeadingUi = '';
     }
+    
 
     //  ========================= earthingSystemName ========================
     let earthingSystemserialNo = 1;
@@ -2349,91 +2405,94 @@ SignatureDesigner1(){
     let earthingSystemHeadingUiFlag = true;
     let earthingSystemRemarkIndex = 1;
 
-    for (let value of this.earthingSystemName) {
-      let earthingValue = earthingData.earthingLpsDescription[index].earthingSystem[0][value];
-      let earthingSystemId = earthingData.earthingLpsDescription[index].earthingSystem[0].earthingSystemId;
-      let earthingSystem = summaryform.earthingSystem as FormArray;
-      let earthingSystemHeadingUi = '';
-      let earthingSystemHeading = '';
-
-
-      //
-      if (value == 'eastRem') {
-        earthingSystemHeading = 'EarthingSystem Observation';
+    if(earthingData.earthingLpsDescription!=null && earthingData.earthingLpsDescription!=undefined && earthingData.earthingLpsDescription[index].earthingSystem.length!=0){
+      for (let value of this.earthingSystemName) {
+        let earthingValue = earthingData.earthingLpsDescription[index].earthingSystem[0][value];
+        let earthingSystemId = earthingData.earthingLpsDescription[index].earthingSystem[0].earthingSystemId;
+        let earthingSystem = summaryform.earthingSystem as FormArray;
+        let earthingSystemHeadingUi = '';
+        let earthingSystemHeading = '';
+  
+  
+        //
+        if (value == 'eastRem') {
+          earthingSystemHeading = 'EarthingSystem Observation';
+        }
+  
+        let displySerialNo = 0;
+        if (earthingValue != '' && earthingValue != null) {
+          displySerialNo = earthingSystemSerialNoUi;
+          earthingSystemSerialNoUi = earthingSystemSerialNoUi + 1;
+        }
+  
+        //serial Number
+        if (earthingValue != '' && earthingValue != null && earthingSystemHeadingUiFlag) {
+          earthingSystemHeadingUi = 'EarthingSystem Observation';
+          earthingSystemHeadingUiFlag = false;
+  
+        }
+  
+        let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'earthingSystem', earthingValue,
+          earthingSystemserialNo, earthingSystemHeading
+          , displySerialNo, earthingSystemHeadingUi, (earthingSystemserialNo -1),earthingSystemId);
+        summaryObservation.observationComponentDetails = 'earthingSystem' + earthingSystemserialNo;
+        summaryObservation.remarkName = value;
+        summaryObservation.remarksId = earthingSystemId;
+        earthingSystem.push( this.populateForm(summaryObservation));
+        earthingSystemserialNo = earthingSystemserialNo + 1;
+        earthingSystemHeading = ''; 
+        earthingSystemHeadingUi = '';
       }
-
-      let displySerialNo = 0;
-      if (earthingValue != '' && earthingValue != null) {
-        displySerialNo = earthingSystemSerialNoUi;
-        earthingSystemSerialNoUi = earthingSystemSerialNoUi + 1;
-      }
-
-      //serial Number
-      if (earthingValue != '' && earthingValue != null && earthingSystemHeadingUiFlag) {
-        earthingSystemHeadingUi = 'EarthingSystem Observation';
-        earthingSystemHeadingUiFlag = false;
-
-      }
-
-      let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'earthingSystem', earthingValue,
-        earthingSystemserialNo, earthingSystemHeading
-        , displySerialNo, earthingSystemHeadingUi, (earthingSystemserialNo -1),earthingSystemId);
-      summaryObservation.observationComponentDetails = 'earthingSystem' + earthingSystemserialNo;
-      summaryObservation.remarkName = value;
-      summaryObservation.remarksId = earthingSystemId;
-      earthingSystem.push( this.populateForm(summaryObservation));
-      earthingSystemserialNo = earthingSystemserialNo + 1;
-      earthingSystemHeading = ''; 
-      earthingSystemHeadingUi = '';
     }
+    
 
     //  ========================= earthElectrodeTestingName ========================
     let earthElectrodeTestingserialNo = 1;
     let earthElectrodeTestingSerialNoUi = 1;
     let earthElectrodeTestingHeadingUiFlag = true;
     let earthElectrodeTestingRemarkIndex = 1;
-    for(let i=0;i<earthingData.earthingLpsDescription[index].earthElectrodeTesting.length; i++){
-  
-      for (let value of this.earthElectrodeTestingName) {
-        let earthingValue = earthingData.earthingLpsDescription[index].earthElectrodeTesting[i][value];
-        let earthElectrodeTesting = summaryform.earthElectrodeTesting as FormArray;
-        let earthDescriptionListId = earthingData.earthingLpsDescription[index].earthElectrodeTesting[i].earthingElectrodeTestingId;
 
-        let earthElectrodeTestingHeading = '';
-        let earthElectrodeTestingHeadingUi = '';
+    if(earthingData.earthingLpsDescription!=null && earthingData.earthingLpsDescription!=undefined && earthingData.earthingLpsDescription[index].earthElectrodeTesting.length!=0){
+      for(let i=0;i<earthingData.earthingLpsDescription[index].earthElectrodeTesting.length; i++){
+        for (let value of this.earthElectrodeTestingName) {
+          let earthingValue = earthingData.earthingLpsDescription[index].earthElectrodeTesting[i][value];
+          let earthElectrodeTesting = summaryform.earthElectrodeTesting as FormArray;
+          let earthDescriptionListId = earthingData.earthingLpsDescription[index].earthElectrodeTesting[i].earthingElectrodeTestingId;
   
-  
-        //
-        if (value == 'earthingElectrodeRemarks') {
-          earthElectrodeTestingHeading = 'EarthElectrodeTesting Observation';
-        }
-  
-        let displySerialNo = 0;
-        if (earthingValue != '' && earthingValue != null) {
-          displySerialNo = earthElectrodeTestingSerialNoUi;
-          earthElectrodeTestingSerialNoUi = earthElectrodeTestingSerialNoUi + 1;
-        }
+          let earthElectrodeTestingHeading = '';
+          let earthElectrodeTestingHeadingUi = '';
     
-        if (earthingValue != '' && earthingValue != null && earthElectrodeTestingHeadingUiFlag) {
-          earthElectrodeTestingHeadingUi = 'EarthElectrodeTesting Observation';
-          earthElectrodeTestingHeadingUiFlag = false;
-  
+    
+          //
+          if (value == 'earthingElectrodeRemarks') {
+            earthElectrodeTestingHeading = 'EarthElectrodeTesting Observation';
+          }
+    
+          let displySerialNo = 0;
+          if (earthingValue != '' && earthingValue != null) {
+            displySerialNo = earthElectrodeTestingSerialNoUi;
+            earthElectrodeTestingSerialNoUi = earthElectrodeTestingSerialNoUi + 1;
+          }
+      
+          if (earthingValue != '' && earthingValue != null && earthElectrodeTestingHeadingUiFlag) {
+            earthElectrodeTestingHeadingUi = 'EarthElectrodeTesting Observation';
+            earthElectrodeTestingHeadingUiFlag = false;
+    
+          }
+    
+          let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'earthElectrodeTesting', earthingValue,
+            earthElectrodeTestingserialNo, earthElectrodeTestingHeading
+            , displySerialNo, earthElectrodeTestingHeadingUi, (earthElectrodeTestingserialNo - 1),earthDescriptionListId);
+          summaryObservation.observationComponentDetails = 'earthElectrodeTesting' + earthElectrodeTestingserialNo;
+          summaryObservation.remarkName = value;
+          summaryObservation.remarksId = earthDescriptionListId;
+          earthElectrodeTesting.push( this.populateForm(summaryObservation));
+          earthElectrodeTestingserialNo = earthElectrodeTestingserialNo + 1;
+          
+          
         }
-  
-        let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'earthElectrodeTesting', earthingValue,
-          earthElectrodeTestingserialNo, earthElectrodeTestingHeading
-          , displySerialNo, earthElectrodeTestingHeadingUi, (earthElectrodeTestingserialNo - 1),earthDescriptionListId);
-        summaryObservation.observationComponentDetails = 'earthElectrodeTesting' + earthElectrodeTestingserialNo;
-        summaryObservation.remarkName = value;
-        summaryObservation.remarksId = earthDescriptionListId;
-        earthElectrodeTesting.push( this.populateForm(summaryObservation));
-        earthElectrodeTestingserialNo = earthElectrodeTestingserialNo + 1;
-        
-        
       }
     }
-   
-
   }
 
   updateSummarySPDObervation(summaryform: any, spdData: any, index: any) {
@@ -2447,77 +2506,81 @@ SignatureDesigner1(){
     let spdReportHeadingUiFlag = true;
     let spdReportRemarkIndex = 1;
 
-    for (let value of this.spdReportName) {
-      let spdValue = spdData.spd[index][value];
-      let spdReportId = spdData.spd[index].spdReportId;
-      let spdReportHeadingUi = '';
-      let spdReportHeading = '';
-      let spdReport = summaryform.spdReport as FormArray;
-
-      if (value == 'mainsIncomingRem') {
-        spdReportHeading = 'SPD Details Observation';
+    if(spdData.spd!=null && spdData.spd!=undefined && spdData.spd[index].length!=0){
+      for (let value of this.spdReportName) {
+        let spdValue = spdData.spd[index][value];
+        let spdReportId = spdData.spd[index].spdReportId;
+        let spdReportHeadingUi = '';
+        let spdReportHeading = '';
+        let spdReport = summaryform.spdReport as FormArray;
+  
+        if (value == 'mainsIncomingRem') {
+          spdReportHeading = 'SPD Details Observation';
+        }
+  
+        let displySerialNo = 0;
+        if (spdValue != '' && spdValue != null) {
+          displySerialNo = spdReportSerialNoUi;
+          spdReportSerialNoUi = spdReportSerialNoUi + 1;
+        }
+   
+        if (spdValue != '' && spdValue != null && spdReportHeadingUiFlag) {
+          spdReportHeadingUi =  'SPD Details Observation';
+          spdReportHeadingUiFlag = false;
+  
+        }
+  
+        let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'spdReport', spdValue, spdReportRerialNo, spdReportHeading
+          , displySerialNo, spdReportHeadingUi, (spdReportRerialNo -1 ),spdReportId);
+          summaryObservation.remarksName = value;
+          summaryObservation.remarksId = spdReportId;
+        summaryObservation.observationComponentDetails = 'spdReport' + spdReportRerialNo;
+        spdReport.push(this.populateForm(summaryObservation));
+        spdReportRerialNo = spdReportRerialNo + 1;
       }
-
-      let displySerialNo = 0;
-      if (spdValue != '' && spdValue != null) {
-        displySerialNo = spdReportSerialNoUi;
-        spdReportSerialNoUi = spdReportSerialNoUi + 1;
-      }
- 
-      if (spdValue != '' && spdValue != null && spdReportHeadingUiFlag) {
-        spdReportHeadingUi =  'SPD Details Observation';
-        spdReportHeadingUiFlag = false;
-
-      }
-
-      let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'spdReport', spdValue, spdReportRerialNo, spdReportHeading
-        , displySerialNo, spdReportHeadingUi, (spdReportRerialNo -1 ),spdReportId);
-        summaryObservation.remarksName = value;
-        summaryObservation.remarksId = spdReportId;
-      summaryObservation.observationComponentDetails = 'spdReport' + spdReportRerialNo;
-      spdReport.push(this.populateForm(summaryObservation));
-      spdReportRerialNo = spdReportRerialNo + 1;
     }
 
      //=========================== spd list =================================================
- for(let i=0;i<spdData.spd[index].spdDescription.length;i++){
+    for(let i=0;i<spdData.spd[index].spdDescription.length;i++){
 
      let spdDescriptionSerialNo = 1;
      let spdDescriptionSerialNoUi = 1;
      let spdDescriptionHeadingUiFlag = true;
      let spdDescriptionRemarkIndex = 1;
  
-     for (let value of this.spdReportListName) {
-      let spdReportList = summaryform.spdReportList as FormArray;
-       let earthingValue = spdData.spd[index].spdDescription[i][value];
-       let spdDescriptionId = spdData.spd[index].spdDescription[i].spdDescriptionId;
-       let spdDescriptionHeading = '';
-       let spdDescriptionHeadingUi = '';
- 
-       if (value == 'mainsIncomingRem') {
-         spdDescriptionHeading = ('SPD List-' + (i+1));
+     if(spdData.spd!=null && spdData.spd!=undefined && spdData.spd[index].length!=0){
+      for (let value of this.spdReportListName) {
+        let spdReportList = summaryform.spdReportList as FormArray;
+         let earthingValue = spdData.spd[index].spdDescription[i][value];
+         let spdDescriptionId = spdData.spd[index].spdDescription[i].spdDescriptionId;
+         let spdDescriptionHeading = '';
+         let spdDescriptionHeadingUi = '';
+   
+         if (value == 'mainsIncomingRem') {
+           spdDescriptionHeading = ('SPD List-' + (i+1));
+         }
+   
+         let displySerialNo = 0;
+         if (earthingValue != '' && earthingValue != null) {
+           displySerialNo = spdDescriptionSerialNoUi;
+           spdDescriptionSerialNoUi = spdDescriptionSerialNoUi + 1;
+         }
+   
+        
+         if (earthingValue != '' && earthingValue != null && spdDescriptionHeadingUiFlag) {
+           spdDescriptionHeadingUi =   ('SPD List-' + (i+1));
+           spdDescriptionHeadingUiFlag = false;
+   
+         }
+   
+         let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'spdDescription', earthingValue, spdDescriptionSerialNo, spdDescriptionHeading
+           , displySerialNo, spdDescriptionHeadingUi, (spdDescriptionSerialNo -1),spdDescriptionId);
+         summaryObservation.observationComponentDetails = 'spdDescription' + spdDescriptionSerialNo;
+         summaryObservation.remarksName = value;
+         summaryObservation.remarksId = spdDescriptionId;
+         spdReportList.push(this.populateForm(summaryObservation));
+         spdDescriptionSerialNo = spdDescriptionSerialNo + 1;
        }
- 
-       let displySerialNo = 0;
-       if (earthingValue != '' && earthingValue != null) {
-         displySerialNo = spdDescriptionSerialNoUi;
-         spdDescriptionSerialNoUi = spdDescriptionSerialNoUi + 1;
-       }
- 
-      
-       if (earthingValue != '' && earthingValue != null && spdDescriptionHeadingUiFlag) {
-         spdDescriptionHeadingUi =   ('SPD List-' + (i+1));
-         spdDescriptionHeadingUiFlag = false;
- 
-       }
- 
-       let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'spdDescription', earthingValue, spdDescriptionSerialNo, spdDescriptionHeading
-         , displySerialNo, spdDescriptionHeadingUi, (spdDescriptionSerialNo -1),spdDescriptionId);
-       summaryObservation.observationComponentDetails = 'spdDescription' + spdDescriptionSerialNo;
-       summaryObservation.remarksName = value;
-       summaryObservation.remarksId = spdDescriptionId;
-       spdReportList.push(this.populateForm(summaryObservation));
-       spdDescriptionSerialNo = spdDescriptionSerialNo + 1;
      }
    }
   }
@@ -2533,121 +2596,127 @@ SignatureDesigner1(){
     let seperationDistanceHeadingUiFlag = true;
     let seperationDistanceRemarkIndex = 1;
 
-    for (let value of this.separationDistanceName) {
-      let separationDistanceValue = separationDistanceData.seperationDistanceDescription[index][value];
-      let seperationDistanceId = separationDistanceData.seperationDistanceDescription[index].seperationDistanceId;
-      let seperationDistanceHeadingUi = '';
-      let seperationDistanceHeading = '';
-      let separationDistance = summaryform.separationDistance as FormArray;
-
-      if (value == 'calculatedSeperationDistanceRem') {
-        seperationDistanceHeading = 'SeparationDistance Observation';
+    if(separationDistanceData.seperationDistanceDescription!=null && separationDistanceData.seperationDistanceDescription!=undefined && separationDistanceData.seperationDistanceDescription[index].length!=0){
+      for (let value of this.separationDistanceName) {
+        let separationDistanceValue = separationDistanceData.seperationDistanceDescription[index][value];
+        let seperationDistanceId = separationDistanceData.seperationDistanceDescription[index].seperationDistanceId;
+        let seperationDistanceHeadingUi = '';
+        let seperationDistanceHeading = '';
+        let separationDistance = summaryform.separationDistance as FormArray;
+  
+        if (value == 'calculatedSeperationDistanceRem') {
+          seperationDistanceHeading = 'SeparationDistance Observation';
+        }
+  
+        let displySerialNo = 0;
+        if (separationDistanceValue != '' && separationDistanceValue != null) {
+          displySerialNo = seperationDistanceSerialNoUi;
+          seperationDistanceSerialNoUi = seperationDistanceSerialNoUi + 1;
+        }
+   
+        if (separationDistanceValue != '' && separationDistanceValue != null && seperationDistanceHeadingUiFlag) {
+          seperationDistanceHeadingUi =  'SeparationDistance Observation';
+          seperationDistanceHeadingUiFlag = false;
+  
+        }
+  
+        let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'separationDistance', separationDistanceValue, seperationDistanceSerialNo, seperationDistanceHeading
+          , displySerialNo, seperationDistanceHeadingUi, (seperationDistanceSerialNo -1 ),seperationDistanceId);
+          summaryObservation.remarksName = value;
+          summaryObservation.remarksId = seperationDistanceId;
+        summaryObservation.observationComponentDetails = 'seperationDistanceDescription' + seperationDistanceSerialNo;
+        separationDistance.push(this.populateForm(summaryObservation));
+      seperationDistanceSerialNo = seperationDistanceSerialNo + 1;
       }
-
-      let displySerialNo = 0;
-      if (separationDistanceValue != '' && separationDistanceValue != null) {
-        displySerialNo = seperationDistanceSerialNoUi;
-        seperationDistanceSerialNoUi = seperationDistanceSerialNoUi + 1;
-      }
- 
-      if (separationDistanceValue != '' && separationDistanceValue != null && seperationDistanceHeadingUiFlag) {
-        seperationDistanceHeadingUi =  'SeparationDistance Observation';
-        seperationDistanceHeadingUiFlag = false;
-
-      }
-
-      let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'separationDistance', separationDistanceValue, seperationDistanceSerialNo, seperationDistanceHeading
-        , displySerialNo, seperationDistanceHeadingUi, (seperationDistanceSerialNo -1 ),seperationDistanceId);
-        summaryObservation.remarksName = value;
-        summaryObservation.remarksId = seperationDistanceId;
-      summaryObservation.observationComponentDetails = 'seperationDistanceDescription' + seperationDistanceSerialNo;
-      separationDistance.push(this.populateForm(summaryObservation));
-    seperationDistanceSerialNo = seperationDistanceSerialNo + 1;
-    }
+    }  
 
      //=========================== SeparateDistance =================================================
 
-  
  
      let SeparateDistanceSerialNo = 1;
      let SeparateDistanceSerialNoUi = 1;
      let SeparateDistanceHeadingUiFlag = true;
      let SeparateDistanceRemarkIndex = 1;
-     for(let i=0;i<separationDistanceData.seperationDistanceDescription[index].separateDistance.length;i++){
-     // for (let value of this.separateDistanceName) {
-        let separationDistanceValue = separationDistanceData.seperationDistanceDescription[index].separateDistance[i][this.separateDistanceName[0]];
-        let seperationDistanceDescId = separationDistanceData.seperationDistanceDescription[index].separateDistance[i].seperationDistanceDescId;
-        let SeparateDistanceHeadingUi = '';
-        let SeparateDistanceHeading = '';
-        let separateDistance = summaryform.separateDistance as FormArray;
-  
-        if (this.separateDistanceName[0] == 'seperationDistanceRem') {
-          SeparateDistanceHeading = 'SeparateDistance Observation';
+
+     if(separationDistanceData.seperationDistanceDescription!=null && separationDistanceData.seperationDistanceDescription!=undefined && separationDistanceData.seperationDistanceDescription[index].length!=0){
+      for(let i=0;i<separationDistanceData.seperationDistanceDescription[index].separateDistance.length;i++){
+        // for (let value of this.separateDistanceName) {
+           let separationDistanceValue = separationDistanceData.seperationDistanceDescription[index].separateDistance[i][this.separateDistanceName[0]];
+           let seperationDistanceDescId = separationDistanceData.seperationDistanceDescription[index].separateDistance[i].seperationDistanceDescId;
+           let SeparateDistanceHeadingUi = '';
+           let SeparateDistanceHeading = '';
+           let separateDistance = summaryform.separateDistance as FormArray;
+     
+           if (this.separateDistanceName[0] == 'seperationDistanceRem') {
+             SeparateDistanceHeading = 'SeparateDistance Observation';
+           }
+     
+           let displySerialNo = 0;
+           if (separationDistanceValue != '' && separationDistanceValue != null) {
+             displySerialNo = SeparateDistanceSerialNoUi;
+             SeparateDistanceSerialNoUi = SeparateDistanceSerialNoUi + 1;
+           }
+      
+           if (separationDistanceValue != '' && separationDistanceValue != null && SeparateDistanceHeadingUiFlag) {
+             SeparateDistanceHeadingUi =  'SeparateDistance Observation';
+             SeparateDistanceHeadingUiFlag = false;
+     
+           }
+     
+           let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'separateDistance', separationDistanceValue, SeparateDistanceSerialNo, SeparateDistanceHeading
+             , displySerialNo, SeparateDistanceHeadingUi, (SeparateDistanceSerialNo - 1),seperationDistanceDescId);
+             summaryObservation.remarksName = this.separateDistanceName[0];
+             summaryObservation.remarksId = seperationDistanceDescId;
+           summaryObservation.observationComponentDetails = 'separateDistanceDesc' + SeparateDistanceSerialNo;
+           separateDistance.push(this.populateForm(summaryObservation));
+         SeparateDistanceSerialNo = SeparateDistanceSerialNo + 1;
+        // }
         }
-  
-        let displySerialNo = 0;
-        if (separationDistanceValue != '' && separationDistanceValue != null) {
-          displySerialNo = SeparateDistanceSerialNoUi;
-          SeparateDistanceSerialNoUi = SeparateDistanceSerialNoUi + 1;
-        }
-   
-        if (separationDistanceValue != '' && separationDistanceValue != null && SeparateDistanceHeadingUiFlag) {
-          SeparateDistanceHeadingUi =  'SeparateDistance Observation';
-          SeparateDistanceHeadingUiFlag = false;
-  
-        }
-  
-        let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'separateDistance', separationDistanceValue, SeparateDistanceSerialNo, SeparateDistanceHeading
-          , displySerialNo, SeparateDistanceHeadingUi, (SeparateDistanceSerialNo - 1),seperationDistanceDescId);
-          summaryObservation.remarksName = this.separateDistanceName[0];
-          summaryObservation.remarksId = seperationDistanceDescId;
-        summaryObservation.observationComponentDetails = 'separateDistanceDesc' + SeparateDistanceSerialNo;
-        separateDistance.push(this.populateForm(summaryObservation));
-      SeparateDistanceSerialNo = SeparateDistanceSerialNo + 1;
-     // }
- 
      }
 
+     
        //=========================== SeparationDistanceDown =================================================
 
        let SeparationDistanceDownSerialNo = 1;
        let SeparationDistanceDownSerialNoUi = 1;
        let SeparationDistanceDownHeadingUiFlag = true;
        let SeparationDistanceDownRemarkIndex = 1;
-    for (let i = 0; i < separationDistanceData.seperationDistanceDescription[index].separateDistanceDownConductors.length; i++) {
-      for (let value of this.separateDistanceDownName) {
-        let separationDistanceValue = separationDistanceData.seperationDistanceDescription[index].separateDistanceDownConductors[i][value];
-        let seperationDistanceDownConductorId = separationDistanceData.seperationDistanceDescription[index].separateDistanceDownConductors[i].seperationDistanceDownConductorId;
-        let SeparationDistanceDownHeadingUi = '';
-        let SeparationDistanceDownHeading = '';
-        let separationDistanceDown = summaryform.separationDistanceDown as FormArray;
 
-        if (value == 'seperationDistanceRem') {
-          SeparationDistanceDownHeading = 'SeparationDistanceDown Observation';
+       if(separationDistanceData.seperationDistanceDescription!=null && separationDistanceData.seperationDistanceDescription!=undefined && separationDistanceData.seperationDistanceDescription[index].separateDistanceDownConductors.length!=0){
+        for (let i = 0; i < separationDistanceData.seperationDistanceDescription[index].separateDistanceDownConductors.length; i++) {
+          for (let value of this.separateDistanceDownName) {
+            let separationDistanceValue = separationDistanceData.seperationDistanceDescription[index].separateDistanceDownConductors[i][value];
+            let seperationDistanceDownConductorId = separationDistanceData.seperationDistanceDescription[index].separateDistanceDownConductors[i].seperationDistanceDownConductorId;
+            let SeparationDistanceDownHeadingUi = '';
+            let SeparationDistanceDownHeading = '';
+            let separationDistanceDown = summaryform.separationDistanceDown as FormArray;
+    
+            if (value == 'seperationDistanceRem') {
+              SeparationDistanceDownHeading = 'SeparationDistanceDown Observation';
+            }
+    
+            let displySerialNo = 0;
+            if (separationDistanceValue != '' && separationDistanceValue != null) {
+              displySerialNo = SeparationDistanceDownSerialNoUi;
+              SeparationDistanceDownSerialNoUi = SeparationDistanceDownSerialNoUi + 1;
+            }
+    
+            if (separationDistanceValue != '' && separationDistanceValue != null && SeparationDistanceDownHeadingUiFlag) {
+              SeparationDistanceDownHeadingUi = 'SeparationDistanceDown Observation';
+              SeparationDistanceDownHeadingUiFlag = false;
+    
+            }
+    
+            let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'separationDistanceDown', separationDistanceValue, SeparationDistanceDownSerialNo, SeparationDistanceDownHeading
+              , displySerialNo, SeparationDistanceDownHeadingUi, (SeparationDistanceDownSerialNo -1),seperationDistanceDownConductorId);
+            summaryObservation.remarksName = value;
+            summaryObservation.remarksId = seperationDistanceDownConductorId;
+            summaryObservation.observationComponentDetails = 'separateDistanceDownConductors' + SeparationDistanceDownSerialNo;
+            separationDistanceDown.push(this.populateForm(summaryObservation));
+            SeparationDistanceDownSerialNo = SeparationDistanceDownSerialNo + 1;
+          }
         }
-
-        let displySerialNo = 0;
-        if (separationDistanceValue != '' && separationDistanceValue != null) {
-          displySerialNo = SeparationDistanceDownSerialNoUi;
-          SeparationDistanceDownSerialNoUi = SeparationDistanceDownSerialNoUi + 1;
-        }
-
-        if (separationDistanceValue != '' && separationDistanceValue != null && SeparationDistanceDownHeadingUiFlag) {
-          SeparationDistanceDownHeadingUi = 'SeparationDistanceDown Observation';
-          SeparationDistanceDownHeadingUiFlag = false;
-
-        }
-
-        let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'separationDistanceDown', separationDistanceValue, SeparationDistanceDownSerialNo, SeparationDistanceDownHeading
-          , displySerialNo, SeparationDistanceDownHeadingUi, (SeparationDistanceDownSerialNo -1),seperationDistanceDownConductorId);
-        summaryObservation.remarksName = value;
-        summaryObservation.remarksId = seperationDistanceDownConductorId;
-        summaryObservation.observationComponentDetails = 'separateDistanceDownConductors' + SeparationDistanceDownSerialNo;
-        separationDistanceDown.push(this.populateForm(summaryObservation));
-        SeparationDistanceDownSerialNo = SeparationDistanceDownSerialNo + 1;
-      }
-    }
-
+       }
   }
 
    //equipotential bonding or earthStud
@@ -2662,36 +2731,38 @@ SignatureDesigner1(){
     let earthStudHeadingUiFlag = true;
     let earthStudRemarkIndex = 1;
 
-    for (let value of this.earthStudDescName) {
-      let separationDistanceValue = earthStudData.earthStudDescription[index][value];
-      let earthStudDescId = earthStudData.earthStudDescription[index].earthStudDescId;
-      let earthStudHeadingUi = '';
-      let earthStudHeading = '';
-      let earthStudDesc = summaryform.earthStudDesc as FormArray;
-
-      if (value == 'availableEquipotentialBondingRem') {
-        earthStudHeading = 'Equipotential Bonding Observation';
+    if(earthStudData.earthStudDescription!=null && earthStudData.earthStudDescription!=undefined && earthStudData.earthStudDescription[index].length!=0){
+      for (let value of this.earthStudDescName) {
+        let separationDistanceValue = earthStudData.earthStudDescription[index][value];
+        let earthStudDescId = earthStudData.earthStudDescription[index].earthStudDescId;
+        let earthStudHeadingUi = '';
+        let earthStudHeading = '';
+        let earthStudDesc = summaryform.earthStudDesc as FormArray;
+  
+        if (value == 'availableEquipotentialBondingRem') {
+          earthStudHeading = 'Equipotential Bonding Observation';
+        }
+  
+        let displySerialNo = 0;
+        if (separationDistanceValue != '' && separationDistanceValue != null) {
+          displySerialNo = earthStudSerialNoUi;
+          earthStudSerialNoUi = earthStudSerialNoUi + 1;
+        }
+   
+        if (separationDistanceValue != '' && separationDistanceValue != null && earthStudHeadingUiFlag) {
+          earthStudHeadingUi = 'Equipotential Bonding Observation';
+          earthStudHeadingUiFlag = false;
+  
+        }
+  
+        let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'earthStudDescription', separationDistanceValue, earthStudSerialNo, earthStudHeading
+          , displySerialNo, earthStudHeadingUi, (earthStudSerialNo - 1),earthStudDescId);
+          summaryObservation.remarksName = value;
+          summaryObservation.remarksId = earthStudDescId;
+        summaryObservation.observationComponentDetails = 'Equipotential Bonding' + earthStudSerialNo;
+        earthStudDesc.push(this.populateForm(summaryObservation));
+        earthStudSerialNo = earthStudSerialNo + 1;
       }
-
-      let displySerialNo = 0;
-      if (separationDistanceValue != '' && separationDistanceValue != null) {
-        displySerialNo = earthStudSerialNoUi;
-        earthStudSerialNoUi = earthStudSerialNoUi + 1;
-      }
- 
-      if (separationDistanceValue != '' && separationDistanceValue != null && earthStudHeadingUiFlag) {
-        earthStudHeadingUi = 'Equipotential Bonding Observation';
-        earthStudHeadingUiFlag = false;
-
-      }
-
-      let summaryObservation = this.isSummaryDataAvilable(this.summaryArr, 'earthStudDescription', separationDistanceValue, earthStudSerialNo, earthStudHeading
-        , displySerialNo, earthStudHeadingUi, (earthStudSerialNo - 1),earthStudDescId);
-        summaryObservation.remarksName = value;
-        summaryObservation.remarksId = earthStudDescId;
-      summaryObservation.observationComponentDetails = 'Equipotential Bonding' + earthStudSerialNo;
-      earthStudDesc.push(this.populateForm(summaryObservation));
-      earthStudSerialNo = earthStudSerialNo + 1;
     }
   }
 
