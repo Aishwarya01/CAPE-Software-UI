@@ -363,7 +363,7 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
      this.service.isLinear=true;
      this.service.editable=false;
      this.validationErrorTab = true;
-     this.validationErrorMsgTab= 'Please check all the fields in testing';
+     this.validationErrorMsgTab= 'Please check all the fields in electromagnetic compatibility section';
      setTimeout(() => {
        this.validationErrorTab = false;
      }, 3000);
@@ -394,7 +394,7 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
       this.service.isLinear=true;
       this.service.editable=false;
       this.validationErrorTab = true;
-      this.validationErrorMsgTab= 'Please check all the fields in testing';
+      this.validationErrorMsgTab= 'Please check all the fields in electromagnetic compatibility section';
       setTimeout(() => {
         this.validationErrorTab = false;
       }, 3000);

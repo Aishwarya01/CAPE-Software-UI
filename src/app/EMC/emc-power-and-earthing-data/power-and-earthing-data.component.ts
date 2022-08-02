@@ -179,7 +179,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
   gotoNextModal(content2: any, content: any) {
     if (this.EMCPowerAndEarthForm.invalid) {
       this.validationError = true;
-      this.validationErrorMsg = "Please check all the fields";
+      this.validationErrorMsg = "Please check all the fields in power and earthing section";
       //     setTimeout(()=>{
       //       this.validationError=false;
       //  }, 3000);
@@ -547,7 +547,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
      this.service.isLinear=true;
      this.service.editable=false;
      this.validationErrorTab = true;
-     this.validationErrorMsgTab= 'Please check all the fields in inspection';
+     this.validationErrorMsgTab= 'Please check all the fields in power and earthing section';
      setTimeout(() => {
        this.validationErrorTab = false;
      }, 3000);
@@ -578,7 +578,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
       this.service.isLinear=true;      
       this.service.editable=false;
       this.validationErrorTab = true;
-      this.validationErrorMsgTab= 'Please check all the fields in inspection';
+      this.validationErrorMsgTab= 'Please check all the fields in power and earthing section';
       setTimeout(() => {
         this.validationErrorTab = false;
       }, 3000);
