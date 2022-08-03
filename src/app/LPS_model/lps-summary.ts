@@ -45,6 +45,7 @@ export class SummaryLpsObservation {
     serialNoUi!: String;     
     headingUi!: String;
     heading!: String;
+    remarksId!: String;
     summaryLpsInnerObservation!: SummaryLpsInnerObservation[];
 }
 
