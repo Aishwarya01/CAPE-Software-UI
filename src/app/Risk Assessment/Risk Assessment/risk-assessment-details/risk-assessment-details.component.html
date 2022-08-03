@@ -594,8 +594,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Type of Power Lines :</label>
-                                        <select class="form-control" formControlName="typeOfPowerLines" (ngModelChange)="typeOfPowerLinesD($event,f)"
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('typeOfPowerLines')?.errors }">
+                                        <select class="form-control" formControlName="typeOfPowerLines" (change)="typeOfPowerLinesD($event,f);lengthPowerline($event,f)" [ngClass]="{ 'is-invalid': submitted && a.get('typeOfPowerLines')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="Overhead">Overhead</option>
                                             <option value="U.G cable from Electricity supplier">U.G cable from Electricity supplier</option>
@@ -623,7 +622,7 @@
                                 <div class="col-md-4"> 
                                     <div class="form-group">
                                         <label>Shielding, grounding, isolation :</label>
-                                        <select class="form-control" formControlName="shieldingGroundingIsolation" (ngModelChange)="shieldingGroundingIsolationD($event,f)"
+                                        <select class="form-control" formControlName="shieldingGroundingIsolation" (ngModelChange)="shieldingGroundingIsolationD($event,f);shielding($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && a.get('shieldingGroundingIsolation')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="TN-C-S system with PME">TN-C-S system with PME</option>
@@ -734,7 +733,7 @@
                                     <div class="form-group">
                                         <label>Shielding, grounding, isolation :</label>
                                         <select class="form-control" formControlName="shieldingGroundingIsolationL1"  
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('shieldingGroundingIsolationL1')?.errors }" (ngModelChange)="shieldingGroundingIsolationL1D($event,f)">
+                                        [ngClass]="{ 'is-invalid': submitted && a.get('shieldingGroundingIsolationL1')?.errors }" (ngModelChange)="shieldingGroundingIsolationL1D($event,f);shielding($event,f)">
                                             <option value="" selected>Select Option</option>
                                             <option value="TN-C-S system with PME">TN-C-S system with PME</option>
                                             <option value="Burried, shield not equipotentially bonded">Burried, shield not equipotentially bonded</option>
@@ -1079,7 +1078,7 @@
                                     <div class="form-group">
                                         <label>Class of LPS :</label>
                                         <select class="form-control" formControlName="classOfLPS"  
-                                        [ngClass]="{ 'is-invalid': submitted && b.get('classOfLPS')?.errors }" (change)="classOfLPSD($event,f);protectionPA($event,f);lossOfHumanCalc($event,f);lossOfServiceCalc($event,f);lossCulturalCalc($event,f);lossEconomicCalc($event,f)">
+                                        [ngClass]="{ 'is-invalid': submitted && b.get('classOfLPS')?.errors }" (change)="classOfLPSD($event,f);protectionPA($event,f);lossOfHumanCalc($event,f);lossOfServiceCalc($event,f);lossCulturalCalc($event,f);lossEconomicCalc($event,f);shielding($event,f)">
                                             <option value="" selected>Select Option</option>
                                             <option value="No External LPS">No External LPS</option>
                                             <option value="Class IV LPS">Class IV LPS</option>
@@ -1097,7 +1096,7 @@
                                     <div class="form-group">
                                         <label>Class of SPD :</label>
                                         <select class="form-control" formControlName="classOfSPD"  
-                                        [ngClass]="{ 'is-invalid': submitted && b.get('classOfSPD')?.errors }" (change)="classOfSpdD($event,f);protectionPm($event,f);shielding($event,f)">
+                                        [ngClass]="{ 'is-invalid': submitted && b.get('classOfSPD')?.errors }" (change)="classOfSpdD($event,f);protectionPm($event,f);protectionPms($event,f);shielding($event,f);lossOfHumanCalc($event,f);lossOfServiceCalc($event,f);lossCulturalCalc($event,f);lossEconomicCalc($event,f)">
                                             <option value="" selected>Select Option</option>
                                             <option value="No SPD">No SPD</option>
                                             <option value="Protec T1H 300 3+1 R">Protec T1H 300 3+1 R</option>
