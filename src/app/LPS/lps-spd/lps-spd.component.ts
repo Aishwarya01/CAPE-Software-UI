@@ -527,12 +527,6 @@ export class LpsSpdComponent implements OnInit {
       this.modalService.open(contents, { centered: true, backdrop: 'static' });
     }
   }
-
-  summaryEvent(content:any){
-    this.modalService.open(content, { centered: true, backdrop: 'static' });
-    this.onSubmit(this.flag);
-    this.summaryPopup=false;
-  }
   
   retriveSPD() {
     this.lpsSpd_Services.retrieveSPDDetails(this.router.snapshot.paramMap.get('email') || '{}', this.basicLpsId).subscribe(

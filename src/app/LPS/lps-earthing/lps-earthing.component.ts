@@ -1126,13 +1126,6 @@ export class LpsEarthingComponent implements OnInit {
      }
     }
 
-    summaryEvent(content:any){
-      this.modalService.open(content, { centered: true, backdrop: 'static' });
-      this.summaryPopup=false;
-      this.onSubmit(this.flag);
-    }
-
-
     onKey(e: any,formarray:any,index:any){
       
       let accordion:any;
