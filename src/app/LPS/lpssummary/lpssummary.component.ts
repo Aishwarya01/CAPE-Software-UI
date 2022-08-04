@@ -2828,7 +2828,7 @@ SignatureDesigner1(){
           for(let value of this.airTermination){
             if(value.remarksId == remarksId && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
-
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           }
        
@@ -2840,6 +2840,8 @@ SignatureDesigner1(){
           for(let value of this.airTermination1){
             if(value.remarksId == remarksId  && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
+
             }
           }
        
@@ -2851,6 +2853,8 @@ SignatureDesigner1(){
           for(let value of this.airTerminationList){
             if(value.remarksId == remarksId && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
+
             }
           }
        
@@ -2863,6 +2867,8 @@ SignatureDesigner1(){
           for(let value of this.airTermination2){
             if(value.remarksId == remarksId && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
+
             }
           }
        
@@ -2874,6 +2880,8 @@ SignatureDesigner1(){
           for(let value of this.airTermination3){
             if(value.remarksId == remarksId  && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
+
             }
           } 
         }
@@ -2884,6 +2892,8 @@ SignatureDesigner1(){
           for(let value of this.airTerminationHolderList){
             if(value.remarksId == remarksId  && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
+
             }
           } 
         }
@@ -2894,6 +2904,8 @@ SignatureDesigner1(){
           for(let value of this.airTermination4){
             if(value.remarksId == remarksId && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
+
             }
           } 
         }
@@ -2904,6 +2916,7 @@ SignatureDesigner1(){
           for(let value of this.airTermination5){
             if(value.remarksId == remarksId  && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           } 
         }
@@ -2914,6 +2927,7 @@ SignatureDesigner1(){
           for(let value of this.airTermination6){
             if(value.remarksId == remarksId  && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           } 
         }
@@ -2926,6 +2940,7 @@ SignatureDesigner1(){
           for(let value of this.downConductor1){
             if(value.remarksId == remarksId  && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           } 
         }
@@ -2936,6 +2951,7 @@ SignatureDesigner1(){
           for(let value of this.downConductor2){
             if(value.remarksId == remarksId  && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           } 
         }
@@ -2946,6 +2962,7 @@ SignatureDesigner1(){
           for(let value of this.downConductor3){
             if(value.remarksId == remarksId  && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           } 
         }
@@ -2956,6 +2973,7 @@ SignatureDesigner1(){
           for(let value of this.downConductor4){
             if(value.remarksId == remarksId  && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           } 
         }
@@ -2966,6 +2984,7 @@ SignatureDesigner1(){
           for(let value of this.downConductor5){
             if(value.remarksId == remarksId  && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           } 
         }
@@ -2976,6 +2995,7 @@ SignatureDesigner1(){
           for(let value of this.downConductor6){
             if(value.remarksId == remarksId  && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           } 
         }
@@ -2986,6 +3006,7 @@ SignatureDesigner1(){
           for(let value of this.downConductor7){
             if(value.remarksId == remarksId  && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           } 
         }
@@ -2996,6 +3017,7 @@ SignatureDesigner1(){
           for(let value of this.downConductor8){
             if(value.remarksId == remarksId  && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           } 
         }
@@ -3006,6 +3028,7 @@ SignatureDesigner1(){
           for(let value of this.earthing1){
             if(value.remarksId == remarksId && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           }
        
@@ -3018,6 +3041,7 @@ SignatureDesigner1(){
           for(let value of this.earthing2){
             if(value.remarksId == remarksId && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             } 
         }
       }
@@ -3029,6 +3053,7 @@ SignatureDesigner1(){
           for (let value of this.earthing3) {
             if (value.remarksId == remarksId && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           }
         }
@@ -3040,6 +3065,7 @@ SignatureDesigner1(){
        for(let value of this.earthingList ){
         if (value.remarksId == remarksId && value.observationComponentDetails == observationComponentDetails){
           summaryObservation.recommendation = value.recommendation;
+          summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
         }
        } 
       }
@@ -3051,6 +3077,7 @@ SignatureDesigner1(){
           for (let value of this.earthing4) {
             if (value.remarksId == remarksId && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           }
         }
@@ -3062,6 +3089,7 @@ SignatureDesigner1(){
           for (let value of this.earthing5) {
             if (value.remarksId == remarksId && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           }
         }
@@ -3073,6 +3101,7 @@ SignatureDesigner1(){
           for (let value of this.earthing6) {
             if (value.remarksId == remarksId && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           }
         }
@@ -3083,6 +3112,7 @@ SignatureDesigner1(){
           for (let value of this.spd1) {
             if (value.remarksId == remarksId && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           }
         }
@@ -3093,6 +3123,7 @@ SignatureDesigner1(){
           for (let value of this.spd2) {
             if (value.remarksId == remarksId && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           }
         }
@@ -3103,6 +3134,7 @@ SignatureDesigner1(){
           for (let value of this.separation1) {
             if (value.remarksId == remarksId && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           }
         }
@@ -3113,6 +3145,7 @@ SignatureDesigner1(){
           for (let value of this.separation2) {
             if (value.remarksId == remarksId && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           }
         }
@@ -3123,6 +3156,7 @@ SignatureDesigner1(){
           for (let value of this.separation3) {
             if (value.remarksId == remarksId && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           }
         }
@@ -3133,6 +3167,7 @@ SignatureDesigner1(){
           for (let value of this.equipotential1) {
             if (value.remarksId == remarksId && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           }
         }
