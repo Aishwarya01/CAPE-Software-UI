@@ -1252,10 +1252,16 @@ style="margin-left: 10px;" >
         </div>
         <br>
 
-        <button type="button" class="close" *ngIf="popup" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
-        aria-label="Close" (click)="closeModalDialog()" matStepperNext>
-         <span aria-hidden="true">Ok</span>
-     </button>
+        <div *ngIf="popup">
+          <button type="button" *ngIf="success" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+          aria-label="Close"  (click)="closeModalDialog()" matStepperNext>
+           <span aria-hidden="true">Ok</span>
+         </button>
+         <button type="button" *ngIf="Error" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+           aria-label="Close"  (click)="closeModalDialog()">
+            <span aria-hidden="true">Ok</span>
+          </button>
+        </div>
 
     </ng-template>
 

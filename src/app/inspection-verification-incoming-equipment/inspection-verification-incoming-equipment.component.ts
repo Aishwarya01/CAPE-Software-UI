@@ -184,6 +184,7 @@ export class InspectionVerificationIncomingEquipmentComponent
   intermediateSave:boolean=false;
   intermediateSaveInspection:boolean=true;
   intermediateSaveInspectionInCircuits:boolean=true;
+  stepperNav: boolean=false;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -645,7 +646,7 @@ showHideAccordion(index: number) {
   refreshCommentSection() {
     this.spinner=true;
     this.cardBodyComments=false;
-    this.siteService.retrieveFinal(this.savedUserName,this.inspectionDetails.siteId).subscribe(
+    this.siteService.retrieveFinal(this.inspectionDetails.siteId).subscribe(
       (data) => {
          this.commentDataArr = JSON.parse(data);
          this.step3List.periodicInspection.periodicInspectorComment = this.commentDataArr.periodicInspection.periodicInspectorComment;
@@ -833,9 +834,9 @@ showHideAccordion(index: number) {
       ipaoInspectionId: new FormControl({disabled: false,value: ipaoInspectionId}),
       locationCount: new FormControl({disabled: false,value: itemvalue.locationCount}),
       locationFlag: new FormControl(false),
-      distributionBoardDetails: new FormControl({ disabled: false, value: itemvalue.distributionBoardDetails },[Validators.required]),
-      referance: new FormControl({ disabled: false, value: itemvalue.referance },[Validators.required]),
-      location: new FormControl({ disabled: false, value: itemvalue.location },[Validators.required]),
+      distributionBoardDetails: new FormControl({ disabled: false, value: itemvalue.distributionBoardDetails },[Validators.required,Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
+      referance: new FormControl({ disabled: false, value: itemvalue.referance },[Validators.required,Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
+      location: new FormControl({ disabled: false, value: itemvalue.location },[Validators.required,Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
       accessWorking: new FormControl({disabled: false,value: itemvalue.accessWorking}, [Validators.required]),
       securityFixing: new FormControl({disabled: false,value: itemvalue.securityFixing}, [Validators.required]),
       livePartsDamage: new FormControl({disabled: false,value: itemvalue.livePartsDamage}, [Validators.required]),
@@ -876,9 +877,9 @@ showHideAccordion(index: number) {
       circuitId: new FormControl({disabled: false,value: itemvalue.circuitId}),
       ipaoInspectionId: new FormControl({disabled: false,value: ipaoInspectionId}),
       identificationConductors: new FormControl({disabled: false,value: itemvalue.identificationConductors}, [Validators.required]),
-      distributionBoardDetails: new FormControl({ disabled: false, value: itemvalue.distributionBoardDetails },[Validators.required]),
-      referance: new FormControl({ disabled: false, value: itemvalue.referance },[Validators.required]),
-      location: new FormControl({ disabled: false, value: itemvalue.location },[Validators.required]),
+      distributionBoardDetails: new FormControl({ disabled: false, value: itemvalue.distributionBoardDetails },[Validators.required,Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
+      referance: new FormControl({ disabled: false, value: itemvalue.referance },[Validators.required,Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
+      location: new FormControl({ disabled: false, value: itemvalue.location },[Validators.required,Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
       cableInstallation: new FormControl({disabled: false,value: itemvalue.cableInstallation}, [Validators.required]),
       examinationCables: new FormControl({disabled: false,value: itemvalue.examinationCables}, [Validators.required]),
       examinationInsulation: new FormControl({disabled: false,value: itemvalue.examinationInsulation}, [Validators.required]),
@@ -996,10 +997,10 @@ showHideAccordion(index: number) {
     return new FormGroup({
       ipaoInspectionId: new FormControl(''),
       consumerId: new FormControl(''),
-      distributionBoardDetails:  new FormControl('', [Validators.required]),
+      distributionBoardDetails:  new FormControl('', [Validators.required,Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
       locationFlag: new FormControl(false),
-      referance:  new FormControl('', [Validators.required]),
-      location: new FormControl('', [Validators.required]),
+      referance:  new FormControl('', [Validators.required,Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
+      location: new FormControl('', [Validators.required,Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
       accessWorking: new FormControl('', [Validators.required]),
       securityFixing: new FormControl('', [Validators.required]),
       livePartsDamage: new FormControl('', [Validators.required]),
@@ -1037,12 +1038,12 @@ showHideAccordion(index: number) {
   }
   private createEarthingForm1(ipaoInspectionId: any): FormGroup {
     return new FormGroup({
-      distributionBoardDetails:  new FormControl('', [Validators.required]),
+      distributionBoardDetails:  new FormControl('', [Validators.required,Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
       ipaoInspectionId: new FormControl({disabled: false,value: ipaoInspectionId}),
       consumerId: new FormControl(''),
       locationFlag: new FormControl(false),
-      referance:  new FormControl('', [Validators.required]),
-      location: new FormControl('', [Validators.required]),
+      referance:  new FormControl('', [Validators.required,Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
+      location: new FormControl('', [Validators.required,Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
       accessWorking: new FormControl('', [Validators.required]),
       securityFixing: new FormControl('', [Validators.required]),
       livePartsDamage: new FormControl('', [Validators.required]),
@@ -1086,9 +1087,9 @@ showHideAccordion(index: number) {
       ipaoInspectionId: new FormControl(''),
       circuitId: new FormControl(''),
       identificationConductors: new FormControl('', [Validators.required]),
-      distributionBoardDetails:  new FormControl('', [Validators.required]),
-      referance:  new FormControl('', [Validators.required]),
-      location: new FormControl('', [Validators.required]),
+      distributionBoardDetails:  new FormControl('', [Validators.required,Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
+      referance:  new FormControl('', [Validators.required,Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
+      location: new FormControl('', [Validators.required,Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
       cableInstallation: new FormControl('', [Validators.required]),
       examinationCables: new FormControl('', [Validators.required]),
       examinationInsulation: new FormControl('', [Validators.required]),
@@ -1128,9 +1129,9 @@ showHideAccordion(index: number) {
       ipaoInspectionId: new FormControl({disabled: false,value: ipaoInspectionId}),
       circuitId: new FormControl(''),
       identificationConductors: new FormControl('', [Validators.required]),
-      distributionBoardDetails:  new FormControl('', [Validators.required]),
-      referance:  new FormControl('', [Validators.required]),
-      location: new FormControl('', [Validators.required]),
+      distributionBoardDetails:  new FormControl('', [Validators.required,Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
+      referance:  new FormControl('', [Validators.required,Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
+      location: new FormControl('', [Validators.required,Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
       cableInstallation: new FormControl('', [Validators.required]),
       examinationCables: new FormControl('', [Validators.required]),
       examinationInsulation: new FormControl('', [Validators.required]),
@@ -1631,12 +1632,14 @@ showHideAccordion(index: number) {
       this.Error = false;
       this.service.isCompleted3= false;
       this.service.isLinear=true;
+      this.stepperNav=false;
       this.modalService.dismissAll((this.errorMsg = ""));
     } 
     else {
       this.success = false;
       this.service.isCompleted3= true;
       this.service.isLinear=false;
+      this.stepperNav=true;
       this.modalService.dismissAll((this.successMsg = ""));
       this.disable = false;
     }
@@ -1847,7 +1850,7 @@ for(let i of this.deletedInnerObservation) {
         data=> {
           this.popup=true;
           this.finalSpinner=false;
-          this.testingService.retrieveTesting(this.inspectionDetails.siteId,this.inspectionDetails.userName).subscribe(
+          this.testingService.retrieveTesting(this.inspectionDetails.siteId).subscribe(
             (data) => {
               this.proceedNext.emit(false);
             },
@@ -1879,7 +1882,7 @@ for(let i of this.deletedInnerObservation) {
           this.service.windowTabClick=0;
           this.service.logoutClick=0; 
           this.service.lvClick=0; 
-          this.inspectionDetailsService.retrieveInspectionDetails(this.inspectionDetails.userName,this.inspectionDetails.siteId).subscribe(
+          this.inspectionDetailsService.retrieveInspectionDetails(this.inspectionDetails.siteId).subscribe(
             data=>{
             this.retrieveAllDetailsforIncoming(this.inspectionDetails.userName,this.inspectionDetails.siteId,data);
             }
@@ -1923,7 +1926,7 @@ for(let i of this.deletedInnerObservation) {
         this.successMsg = data; 
         }
          this.intermediateSave=false;
-          this.inspectionDetailsService.retrieveInspectionDetails(this.inspectionDetails.userName,this.inspectionDetails.siteId).subscribe(
+          this.inspectionDetailsService.retrieveInspectionDetails(this.inspectionDetails.siteId).subscribe(
             data=>{
              this.retrieveAllDetailsforIncoming(this.inspectionDetails.userName,this.inspectionDetails.siteId,data);
             }

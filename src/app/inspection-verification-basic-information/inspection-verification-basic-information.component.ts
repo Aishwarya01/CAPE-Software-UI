@@ -1129,7 +1129,7 @@ showHideAccordion(index: number) {
   refreshCommentSection() {
     this.spinner=true;
     this.cardBodyComments=false;
-    this.siteService.retrieveFinal(this.savedUserName,this.reportDetails.siteId).subscribe(
+    this.siteService.retrieveFinal(this.reportDetails.siteId).subscribe(
       (data) => {
          this.commentDataArr = JSON.parse(data);
          this.step1List.reportDetails.reportDetailsComment = this.commentDataArr.reportDetails.reportDetailsComment;
@@ -2401,7 +2401,7 @@ onPopState(event:any) {
        this.service.windowTabClick=0;
        this.service.logoutClick=0; 
        this.service.lvClick=0; 
-       this.reportDetailsService.retrieveBasic(this.reportDetails.siteId,this.reportDetails.userName).subscribe(
+       this.reportDetailsService.retrieveBasic(this.reportDetails.siteId).subscribe(
          data=>{
           this.retrieveAllDetailsforBasic(this.reportDetails.userName,this.reportDetails.siteId,this.siteValue,data);
          }

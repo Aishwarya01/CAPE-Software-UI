@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
+import { DiagramServicesService } from '../SLD/SLD Services/diagram-services.service';
 
 @Component({
   selector: 'app-new-file',
@@ -26,7 +27,7 @@ export class NewFileComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private dialog: MatDialog,
-              private inspectionService: InspectionVerificationService) { }
+              private diagramService: DiagramServicesService) { }
 
   ngOnInit(): void {
     this.newFileNameForm = this.formBuilder.group({
@@ -40,7 +41,7 @@ export class NewFileComponent implements OnInit {
 
   onFocusOut() {
     if(this.newFileNameForm.value.fileName != '') {
-      this.inspectionService.retriveFileName(this.email,this.newFileNameForm.value.fileName).subscribe(
+      this.diagramService.retriveFileName(this.email,this.newFileNameForm.value.fileName).subscribe(
         data => {
           this.successFlag = true;  
           this.validationFlag = true;

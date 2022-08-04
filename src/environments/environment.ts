@@ -10,6 +10,7 @@ export const environment = {
   sessionTimeOut: 6000,
   apiUrl_v2: 'http://localhost:5000/api/v2',
   apiUrl_LPS: 'http://localhost:5001/api/lps/v1',
+  apiUrl_RISK: 'http://localhost:5003/api/risk/v2',
   apiUrl_Diagram: 'http://localhost:5005/api/diagram/v1',
 
   hoursOfGettingApproved: 2,
@@ -27,6 +28,8 @@ export class SuperAdminLocal {
     this.adminEmail[2] = 'thirumoorthy@capeindia.net';
     this.adminEmail[3] = 'elangovan.m@capeindia.net';
     this.adminEmail[4] = 'aishwarya@capeindia.net';
+    this.adminEmail[5] = 'hasan@capeindia.net';
+    this.adminEmail[6] = 'sivaraju@capeindia.net';
   }       
 };
 

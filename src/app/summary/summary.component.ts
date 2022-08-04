@@ -1101,7 +1101,7 @@ showHideAccordion(index: number) {
   refreshCommentSection() {
     this.spinner=true;
     this.cardBodyComments=false;
-    this.siteService.retrieveFinal(this.savedUserName,this.summary.siteId).subscribe(
+    this.siteService.retrieveFinal(this.summary.siteId).subscribe(
       (data) => {
          this.commentDataArr = JSON.parse(data);
          this.summaryList.summary.summaryComment = this.commentDataArr.summary.summaryComment;

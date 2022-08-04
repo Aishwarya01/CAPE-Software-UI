@@ -343,7 +343,7 @@ export class InspectionVerificationTestingComponent implements OnInit, OnDestroy
  retrieveDetailsFromIncoming() {
   if(this.service.siteCount !=0 && this.service.siteCount!=undefined) {
     if(this.currentUser1.role == 'Inspector') {
-      this.inspectionDetailsService.retrieveInspectionDetails(this.email, this.service.siteCount).subscribe(
+      this.inspectionDetailsService.retrieveInspectionDetails(this.service.siteCount).subscribe(
         data=>{
         this.incomingValues = JSON.parse(data);
         this.testingForm = this.formBuilder.group({
@@ -408,7 +408,7 @@ export class InspectionVerificationTestingComponent implements OnInit, OnDestroy
       });
     }
     else {
-      this.inspectionDetailsService.retrieveInspectionDetails(this.currentUser1.assignedBy, this.service.siteCount).subscribe(
+      this.inspectionDetailsService.retrieveInspectionDetails(this.service.siteCount).subscribe(
         data=>{
           this.incomingValues = JSON.parse(data);
           this.testingForm = this.formBuilder.group({
@@ -498,7 +498,7 @@ reset(){
   this.pushJsonArray=[];
    if(this.service.siteCount !=0 && this.service.siteCount!=undefined){
      if(this.currentUser1.role == 'Inspector') {
-      this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.email, this.service.siteCount).subscribe(
+      this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.service.siteCount).subscribe(
         data=>{
         this.supplyValues = JSON.parse(data);
        	        //for(let i of this.supplyValues) {	
@@ -562,7 +562,7 @@ reset(){
       )
      }
      else {
-      this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.currentUser1.assignedBy, this.service.siteCount).subscribe(
+      this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.service.siteCount).subscribe(
         data=>{
           this.supplyValues = JSON.parse(data);
                    //for(let i of this.supplyValues) {	
@@ -758,7 +758,7 @@ callValue(e: any) {
 
   updateMethod(){
     this.ngOnInit();
-    this.testingService.retrieveTesting(this.testingDetails.siteId,this.email).subscribe(
+    this.testingService.retrieveTesting(this.testingDetails.siteId).subscribe(
       data=>{
        this.retrieveDetailsforTesting(this.email,this.testingDetails.siteId,data);    
        
@@ -807,7 +807,7 @@ callValue(e: any) {
                 controls.location.setValue(this.incomingValues.ipaoInspection[r].consumerUnit[l].location);
               }
 
-              this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.email, this.service.siteCount).subscribe(
+              this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.service.siteCount).subscribe(
                 data=>{
                 this.supplyValues = JSON.parse(data);
                 for(let j of this.supplyValues.supplyParameters) {                  
@@ -856,7 +856,7 @@ callValue(e: any) {
                   this.testaccordianArr.controls[i].controls.testDistRecords.controls[j].controls.testDistribution.controls[0].
                   controls.location.setValue(this.incomingValues.ipaoInspection[i].consumerUnit[j].location);
   
-                  this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.email, this.service.siteCount).subscribe(
+                  this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.service.siteCount).subscribe(
                     data=>{
                     this.supplyValues = JSON.parse(data);
                     for(let k of this.supplyValues.supplyParameters) {                  
@@ -903,7 +903,7 @@ callValue(e: any) {
                 this.testaccordianArr.controls[i].controls.testDistRecords.controls[j].controls.testDistribution.controls[0].
                 controls.location.setValue(this.incomingValues.ipaoInspection[i].consumerUnit[j].location);
 
-                this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.email, this.service.siteCount).subscribe(
+                this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.service.siteCount).subscribe(
                   data=>{
                   this.supplyValues = JSON.parse(data);
                   for(let k of this.supplyValues.supplyParameters) {                  
@@ -1270,7 +1270,7 @@ callValue(e: any) {
   refreshCommentSection() {
     this.spinner = true;
     this.cardBodyComments = false;
-    this.siteService.retrieveFinal(this.savedUserName, this.testingDetails.siteId).subscribe(
+    this.siteService.retrieveFinal(this.testingDetails.siteId).subscribe(
       (data) => {
         this.commentDataArr = JSON.parse(data);
         this.testList.testingReport.testingComment = this.commentDataArr.testingReport.testingComment;
@@ -3727,7 +3727,7 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any,testing
           this.service.windowTabClick=0;
        this.service.logoutClick=0; 
        this.service.lvClick=0; 
-       this.testingService.retrieveTesting(this.testingDetails.siteId,this.testingDetails.userName).subscribe(
+       this.testingService.retrieveTesting(this.testingDetails.siteId).subscribe(
         data=>{
          this.retrieveDetailsforTesting(this.testingDetails.userName,this.testingDetails.siteId,data);
         }
@@ -3760,7 +3760,7 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any,testing
           this.service.windowTabClick=0;
        this.service.logoutClick=0; 
        this.service.lvClick=0; 
-          this.testingService.retrieveTesting(this.testingDetails.siteId,this.testingDetails.userName).subscribe(
+          this.testingService.retrieveTesting(this.testingDetails.siteId).subscribe(
             data=>{
              this.retrieveDetailsforTesting(this.testingDetails.userName,this.testingDetails.siteId,data);
             }

@@ -98,13 +98,31 @@ import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 import { ConfirmationBoxComponent } from './confirmation-box/confirmation-box.component';
 import { LpssummaryComponent } from './LPS/lpssummary/lpssummary.component';
 import { SignaturePadModule } from 'angular2-signaturepad';
-import { SignatureComponent } from './signature/signature.component'
+import { SignatureComponent } from './signature/signature.component';
+import { RiskParentComponentComponent } from './Risk Assessment/Risk Assessment/risk-parent-component/risk-parent-component.component';
+import { RiskCustomerDetailsComponent } from './Risk Assessment/Risk Assessment/risk-customer-details/risk-customer-details.component';
+import { RiskSavedReportsComponent } from './Risk Assessment/Risk Assessment/risk-saved-reports/risk-saved-reports.component';
+import { RiskFinalReportsComponent } from './Risk Assessment/Risk Assessment/risk-final-reports/risk-final-reports.component';
+import { RiskAssessmentDetailsComponent } from './Risk Assessment/Risk Assessment/risk-assessment-details/risk-assessment-details.component'
 
 import { DiagramAllModule, SymbolPaletteAllModule, OverviewAllModule } from '@syncfusion/ej2-angular-diagrams';
-import { DiagramListComponent } from './diagram-list/diagram-list.component';
-import { DiagramHomeComponent } from './diagram-home/diagram-home.component';
-import { DiagramWelcomePageComponent } from './diagram-welcome-page/diagram-welcome-page.component';
+import { DiagramListComponent } from './SLD/SLD components/diagram-list/diagram-list.component';
+import { DiagramHomeComponent } from './SLD/SLD components/diagram-home/diagram-home.component';
+import { DiagramWelcomePageComponent } from './SLD/SLD components/diagram-welcome-page/diagram-welcome-page.component';
 import { NewFileComponent } from './new-file/new-file.component';
+import { MCBComponent } from './SLD/SLD components/Node Components/mcb/mcb.component';
+import { MCCBComponent } from './SLD/SLD components/Node Components/mccb/mccb.component';
+import { RCBOComponent } from './SLD/SLD components/Node Components/rcbo/rcbo.component';
+import { LightComponent } from './SLD/SLD components/Node Components/light/light.component';
+import { LTMotorComponent } from './SLD/SLD components/Node Components/ltmotor/ltmotor.component';
+import { PortableApplianceComponent } from './SLD/SLD components/Node Components/portable-appliance/portable-appliance.component';
+
+import { CablesComponent } from './SLD/SLD components/Node Components/cables/cables.component';
+import { FanComponent } from './SLD/SLD components/Node Components/fan/fan.component';
+import { CableConnectorComponent } from './SLD/SLD components/Node Components/cable-connector/cable-connector.component';
+import { TransformerComponent } from './SLD/SLD components/Node Components/transformer/transformer.component';
+import { DGComponent } from './SLD/SLD components/Node Components/dg/dg.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -169,7 +187,28 @@ import { NewFileComponent } from './new-file/new-file.component';
     LpsEarthStudComponent,
     LpsSavedReportComponent,
     LpsWelcomePageComponent, 
-    LpsFinalReportComponent, SignatureComponent, DiagramListComponent, DiagramHomeComponent, DiagramWelcomePageComponent, NewFileComponent, LpssummaryComponent,
+    LpsFinalReportComponent,
+    SignatureComponent,
+    DiagramListComponent,
+    DiagramHomeComponent,
+    DiagramWelcomePageComponent,
+    NewFileComponent,
+    LpssummaryComponent,
+    MCBComponent,
+    MCCBComponent,
+    RCBOComponent,
+    LightComponent,
+    LTMotorComponent,
+    RiskParentComponentComponent,
+    RiskCustomerDetailsComponent,
+    RiskSavedReportsComponent,
+    RiskFinalReportsComponent,
+    RiskAssessmentDetailsComponent,  
+    FanComponent,
+    PortableApplianceComponent,
+    FanComponent, CablesComponent, CableConnectorComponent, TransformerComponent,
+    DGComponent,
+
   ],
   imports: [
     SignaturePadModule,
