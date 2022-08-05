@@ -3393,68 +3393,77 @@ SignatureDesigner1(){
 
            let airBasicFlag = true;
            let serialNo = 1;
-            for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airBasicDescription){
-                for(let j = 0; j < this.airBasicName.length; j++){
-                 // if(i[this.airBasicName[j]]!="" && i[this.airBasicName[j]]!=null){
-                    this.airTerminationArr.push(this.createAirTermination());
-                    this.airTerminationArr.controls[index].controls.heading.setValue('AT_Basic Details Observation');
 
-                     if(i[this.airBasicName[j]]!="" && i[this.airBasicName[j]]!=null && airBasicFlag){
-                      this.airTerminationArr.controls[index].controls.headingUi.setValue('AT_Basic Details Observation');
-                      airBasicFlag = false;
-                     }
-                     if(i[this.airBasicName[j]]!="" && i[this.airBasicName[j]]!=null){
-                      this.airTerminationArr.controls[index].controls.serialNoUi.setValue(serialNo);
-                      serialNo = serialNo + 1;
-                      this.airtermiantionFlag[w] = true;
-                     }
-                    this.airTerminationArr.controls[index].controls.observationComponentDetails.setValue('airBasicDescription' + index);
-                    this.airTerminationArr.controls[index].controls.serialNo.setValue(index+1);
-                    this.airTerminationArr.controls[index].controls.observation.setValue(i[this.airBasicName[j]]);
-                    this.airTerminationArr.controls[index].controls.remarksName.setValue(this.airBasicName[j]);
-                    this.airTerminationArr.controls[index].controls.remarksId.setValue(i.airBasicDescriptionId);
-                    index++;
-                 // }
-                }
-            }
+           if(this.airTerminationData!=null && this.airTerminationData.airTermination!=null && this.airTerminationData.airTermination[0]!=null && this.airTerminationData.airTermination[0].lpsAirDiscription!=null && this.airTerminationData.airTermination[0].lpsAirDiscription[w].length!=0 && this.airTerminationData.airTermination[0].lpsAirDiscription[w].airBasicDescription!=null){
+            for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airBasicDescription){
+              for(let j = 0; j < this.airBasicName.length; j++){
+               // if(i[this.airBasicName[j]]!="" && i[this.airBasicName[j]]!=null){
+                  this.airTerminationArr.push(this.createAirTermination());
+                  this.airTerminationArr.controls[index].controls.heading.setValue('AT_Basic Details Observation');
+
+                   if(i[this.airBasicName[j]]!="" && i[this.airBasicName[j]]!=null && airBasicFlag){
+                    this.airTerminationArr.controls[index].controls.headingUi.setValue('AT_Basic Details Observation');
+                    airBasicFlag = false;
+                   }
+                   if(i[this.airBasicName[j]]!="" && i[this.airBasicName[j]]!=null){
+                    this.airTerminationArr.controls[index].controls.serialNoUi.setValue(serialNo);
+                    serialNo = serialNo + 1;
+                    this.airtermiantionFlag[w] = true;
+                   }
+                  this.airTerminationArr.controls[index].controls.observationComponentDetails.setValue('airBasicDescription' + index);
+                  this.airTerminationArr.controls[index].controls.serialNo.setValue(index+1);
+                  this.airTerminationArr.controls[index].controls.observation.setValue(i[this.airBasicName[j]]);
+                  this.airTerminationArr.controls[index].controls.remarksName.setValue(this.airBasicName[j]);
+                  this.airTerminationArr.controls[index].controls.remarksId.setValue(i.airBasicDescriptionId);
+                  index++;
+               // }
+              }
+          }
+           }
+
+            
             //vertical
             this.airVerticalArr
             this.airVerticalArr=this.summaryArr.controls[w].controls.airVertical as FormArray;
             let index1 =0;
             let verticalFlag = true;
             let verticalSerialNo = 1;
-            for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination){
-              for(let j = 0; j < this.airVerticalName.length; j++){
-              //  if(i[this.airVerticalName[j]]!="" && i[this.airVerticalName[j]]!= null){
-                  this.airVerticalArr.push(this.createAirVertical());
-                  this.airVerticalArr.controls[0].controls.heading.setValue('AT_Vertical Observation');
 
-                  if(i[this.airVerticalName[j]]!="" && i[this.airVerticalName[j]]!= null && verticalFlag){
-                    this.airVerticalArr.controls[index1].controls.headingUi.setValue('AT_Vertical Observation');
-                    verticalFlag = false;
-                   }
-                   if(i[this.airVerticalName[j]]!="" && i[this.airVerticalName[j]]!= null){
-                    this.airVerticalArr.controls[index1].controls.serialNoUi.setValue(verticalSerialNo);
-                    verticalSerialNo = verticalSerialNo + 1;
-                    this.airtermiantionFlag[w] = true;
-                   }
-                  this.airVerticalArr.controls[index1].controls.observationComponentDetails.setValue('lpsVerticalAirTermination' + index1);
-                  this.airVerticalArr.controls[index1].controls.serialNo.setValue(index1 + 1);
-                  this.airVerticalArr.controls[index1].controls.observation.setValue(i[this.airVerticalName[j]]);
-                  this.airVerticalArr.controls[index1].controls.remarksName.setValue(this.airVerticalName[j]);
-                  this.airVerticalArr.controls[index1].controls.remarksId.setValue(i.lpsVerticalAirTerminationId);
-                  index1++;
-              //  }
+            if(this.airTerminationData!=null && this.airTerminationData.airTermination!=null && this.airTerminationData.airTermination[0]!=null && this.airTerminationData.airTermination[0].lpsAirDiscription!=null && this.airTerminationData.airTermination[0].lpsAirDiscription[w].length!=0 && this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination!=null){
+
+              for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination){
+                for(let j = 0; j < this.airVerticalName.length; j++){
+                //  if(i[this.airVerticalName[j]]!="" && i[this.airVerticalName[j]]!= null){
+                    this.airVerticalArr.push(this.createAirVertical());
+                    this.airVerticalArr.controls[0].controls.heading.setValue('AT_Vertical Observation');
+  
+                    if(i[this.airVerticalName[j]]!="" && i[this.airVerticalName[j]]!= null && verticalFlag){
+                      this.airVerticalArr.controls[index1].controls.headingUi.setValue('AT_Vertical Observation');
+                      verticalFlag = false;
+                     }
+                     if(i[this.airVerticalName[j]]!="" && i[this.airVerticalName[j]]!= null){
+                      this.airVerticalArr.controls[index1].controls.serialNoUi.setValue(verticalSerialNo);
+                      verticalSerialNo = verticalSerialNo + 1;
+                      this.airtermiantionFlag[w] = true;
+                     }
+                    this.airVerticalArr.controls[index1].controls.observationComponentDetails.setValue('lpsVerticalAirTermination' + index1);
+                    this.airVerticalArr.controls[index1].controls.serialNo.setValue(index1 + 1);
+                    this.airVerticalArr.controls[index1].controls.observation.setValue(i[this.airVerticalName[j]]);
+                    this.airVerticalArr.controls[index1].controls.remarksName.setValue(this.airVerticalName[j]);
+                    this.airVerticalArr.controls[index1].controls.remarksId.setValue(i.lpsVerticalAirTerminationId);
+                    index1++;
+                //  }
+                }
               }
-        }
+            }
+            
           //vertical list
           this.airVerticalListArr=this.summaryArr.controls[w].controls.airVerticalList as FormArray;
           let index0 =0;
           let vatListIndex=1;
         
-          if(this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination.length > index){
+          if(this.airTerminationData!=null && this.airTerminationData.airTermination!=null && this.airTerminationData.airTermination[0]!=null && this.airTerminationData.airTermination[0].lpsAirDiscription!=null && this.airTerminationData.airTermination[0].lpsAirDiscription[w].length!=0 && this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination!=null && this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination[0].verticalAirTerminationList!=null){
             
-          
             for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination[0].verticalAirTerminationList)
             {
               let verticalListFlag = true;
@@ -3496,73 +3505,81 @@ SignatureDesigner1(){
       let index2 =0;
       let airmeshFlag = true;
       let airmeshSerialNo = 1;
-      for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airMeshDescription){
-        for(let j = 0; j < this.airMeshName.length; j++){
-        //  if(i[this.airMeshName[j]]!="" && i[this.airMeshName[j]]!= null){
-          this.airMeshArr.push(this.createAirMesh());
-          this.airMeshArr.controls[0].controls.heading.setValue('AT_Mesh Observation');
 
-          if(i[this.airMeshName[j]]!="" && i[this.airMeshName[j]]!= null && airmeshFlag){
-            this.airMeshArr.controls[index2].controls.headingUi.setValue('AT_Mesh Observation');
-            airmeshFlag = false;
-           }
-           if(i[this.airMeshName[j]]!="" && i[this.airMeshName[j]]!= null){
-            this.airMeshArr.controls[index2].controls.serialNoUi.setValue(airmeshSerialNo);
-            airmeshSerialNo = airmeshSerialNo + 1;
-            this.airtermiantionFlag[w] = true;
-           }
-
-          this.airMeshArr.controls[index2].controls.observationComponentDetails.setValue('airMeshDescription' + index2);
-          this.airMeshArr.controls[index2].controls.serialNo.setValue(index2+1);
-          this.airMeshArr.controls[index2].controls.observation.setValue(i[this.airMeshName[j]]);
-          this.airMeshArr.controls[index2].controls.remarksName.setValue(this.airMeshName[j]);
-          this.airMeshArr.controls[index2].controls.remarksId.setValue(i.meshDescriptionId);
-          index2++;
-         // }
-        }
-    }
+      if(this.airTerminationData!=null && this.airTerminationData.airTermination!=null && this.airTerminationData.airTermination[0]!=null && this.airTerminationData.airTermination[0].lpsAirDiscription!=null && this.airTerminationData.airTermination[0].lpsAirDiscription[w].length!=0 && this.airTerminationData.airTermination[0].lpsAirDiscription[w].airMeshDescription!=null){
+        for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airMeshDescription){
+          for(let j = 0; j < this.airMeshName.length; j++){
+          //  if(i[this.airMeshName[j]]!="" && i[this.airMeshName[j]]!= null){
+            this.airMeshArr.push(this.createAirMesh());
+            this.airMeshArr.controls[0].controls.heading.setValue('AT_Mesh Observation');
+  
+            if(i[this.airMeshName[j]]!="" && i[this.airMeshName[j]]!= null && airmeshFlag){
+              this.airMeshArr.controls[index2].controls.headingUi.setValue('AT_Mesh Observation');
+              airmeshFlag = false;
+             }
+             if(i[this.airMeshName[j]]!="" && i[this.airMeshName[j]]!= null){
+              this.airMeshArr.controls[index2].controls.serialNoUi.setValue(airmeshSerialNo);
+              airmeshSerialNo = airmeshSerialNo + 1;
+              this.airtermiantionFlag[w] = true;
+             }
+  
+            this.airMeshArr.controls[index2].controls.observationComponentDetails.setValue('airMeshDescription' + index2);
+            this.airMeshArr.controls[index2].controls.serialNo.setValue(index2+1);
+            this.airMeshArr.controls[index2].controls.observation.setValue(i[this.airMeshName[j]]);
+            this.airMeshArr.controls[index2].controls.remarksName.setValue(this.airMeshName[j]);
+            this.airMeshArr.controls[index2].controls.remarksId.setValue(i.meshDescriptionId);
+            index2++;
+           // }
+          }
+      }
+      }
+  
       //holder
       this.airHolderArr=this.summaryArr.controls[w].controls.airHolder as FormArray;
       let index3 =0;
       let holderFlag = true;
       let holderSerialNo = 1;
-      for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription){
-       
-        if(holderSerialNo > 7){
-          holderSerialNo=1;
-          holderFlag=true;
-         }
 
-        for(let j = 0; j < this.airHolderName.length; j++){
-        //  if(i[this.airHolderName[j]]!="" && i[this.airHolderName[j]]!= null){
-            this.airHolderArr.push(this.createAirHolder());
-            this.airHolderArr.controls[0].controls.heading.setValue('AT_Holder Observation');
-            if(i[this.airHolderName[j]]!="" && i[this.airHolderName[j]]!= null && holderFlag){
-              this.airHolderArr.controls[index3].controls.headingUi.setValue('AT_Holder Observation');
-              holderFlag = false;
-             }
-             if(i[this.airHolderName[j]]!="" && i[this.airHolderName[j]]!= null){
-              this.airHolderArr.controls[index3].controls.serialNoUi.setValue(holderSerialNo);
-              holderSerialNo = holderSerialNo + 1;
-              this.airtermiantionFlag[w] = true;
-             }
-            this.airHolderArr.controls[index3].controls.observationComponentDetails.setValue('airHolderDescription' + index3);
-            this.airHolderArr.controls[index3].controls.serialNo.setValue(index3+1);
-            this.airHolderArr.controls[index3].controls.observation.setValue(i[this.airHolderName[j]]);
-            this.airHolderArr.controls[index3].controls.remarksName.setValue(this.airHolderName[j]);
-            this.airHolderArr.controls[index3].controls.remarksId.setValue(i.holderDescriptionId);
-            index3++;        
-         // }
-      
+      if(this.airTerminationData!=null && this.airTerminationData.airTermination!=null && this.airTerminationData.airTermination[0]!=null && this.airTerminationData.airTermination[0].lpsAirDiscription!=null && this.airTerminationData.airTermination[0].lpsAirDiscription[w].length!=0 && this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription!=null){
+        for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription){
+       
+          if(holderSerialNo > 7){
+            holderSerialNo=1;
+            holderFlag=true;
+           }
+  
+          for(let j = 0; j < this.airHolderName.length; j++){
+          //  if(i[this.airHolderName[j]]!="" && i[this.airHolderName[j]]!= null){
+              this.airHolderArr.push(this.createAirHolder());
+              this.airHolderArr.controls[0].controls.heading.setValue('AT_Holder Observation');
+              if(i[this.airHolderName[j]]!="" && i[this.airHolderName[j]]!= null && holderFlag){
+                this.airHolderArr.controls[index3].controls.headingUi.setValue('AT_Holder Observation');
+                holderFlag = false;
+               }
+               if(i[this.airHolderName[j]]!="" && i[this.airHolderName[j]]!= null){
+                this.airHolderArr.controls[index3].controls.serialNoUi.setValue(holderSerialNo);
+                holderSerialNo = holderSerialNo + 1;
+                this.airtermiantionFlag[w] = true;
+               }
+              this.airHolderArr.controls[index3].controls.observationComponentDetails.setValue('airHolderDescription' + index3);
+              this.airHolderArr.controls[index3].controls.serialNo.setValue(index3+1);
+              this.airHolderArr.controls[index3].controls.observation.setValue(i[this.airHolderName[j]]);
+              this.airHolderArr.controls[index3].controls.remarksName.setValue(this.airHolderName[j]);
+              this.airHolderArr.controls[index3].controls.remarksId.setValue(i.holderDescriptionId);
+              index3++;        
+           // }
+        
+          }
         }
       }
+
       //holder list
       this.airHolderListArr=this.summaryArr.controls[w].controls.airHolderList as FormArray;
       let index01 =0;
       let holderListIndex=1;
       let indexHolder=0;
       
-      if(this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription.length > index){
+      if(this.airTerminationData!=null && this.airTerminationData.airTermination!=null && this.airTerminationData.airTermination[0]!=null && this.airTerminationData.airTermination[0].lpsAirDiscription!=null && this.airTerminationData.airTermination[0].lpsAirDiscription[w].length!=0 && this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription!=null && this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription[0].airHolderList!=null){
    
         for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription[0].airHolderList)
         {
@@ -3605,91 +3622,103 @@ SignatureDesigner1(){
       let index4 =0;
       let clampsFlag = true;
       let clampsSerialNo = 1;
-      for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airClamps){
-        for(let j = 0; j < this.airClampsName.length; j++){
-         // if(i[this.airClampsName[j]]!="" && i[this.airClampsName[j]]!= null){
-            this.airClampsArr.push(this.createAirClamps());
-            this.airClampsArr.controls[0].controls.heading.setValue('AT_Clamps Observation');
 
-            if(i[this.airClampsName[j]]!="" && i[this.airClampsName[j]]!= null && clampsFlag){
-              this.airClampsArr.controls[index4].controls.headingUi.setValue('AT_Clamps Observation');
-              clampsFlag = false;
-             }
-             if(i[this.airClampsName[j]]!="" && i[this.airClampsName[j]]!= null){
-              this.airClampsArr.controls[index4].controls.serialNoUi.setValue(clampsSerialNo);
-              clampsSerialNo = clampsSerialNo + 1;
-              this.airtermiantionFlag[w] = true;
-             }
+      if(this.airTerminationData!=null && this.airTerminationData.airTermination!=null && this.airTerminationData.airTermination[0]!=null && this.airTerminationData.airTermination[0].lpsAirDiscription!=null && this.airTerminationData.airTermination[0].lpsAirDiscription[w].length!=0 && this.airTerminationData.airTermination[0].lpsAirDiscription[w].airClamps!=null){
 
-            this.airClampsArr.controls[index4].controls.observationComponentDetails.setValue('airClamps' + index4);
-            this.airClampsArr.controls[index4].controls.serialNo.setValue(index4+1);
-            this.airClampsArr.controls[index4].controls.observation.setValue(i[this.airClampsName[j]]);
-            this.airClampsArr.controls[index4].controls.remarksName.setValue(this.airClampsName[j]);
-            this.airClampsArr.controls[index4].controls.remarksId.setValue(i.clampsId);
-            index4++;        
-         // }
+        for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airClamps){
+          for(let j = 0; j < this.airClampsName.length; j++){
+           // if(i[this.airClampsName[j]]!="" && i[this.airClampsName[j]]!= null){
+              this.airClampsArr.push(this.createAirClamps());
+              this.airClampsArr.controls[0].controls.heading.setValue('AT_Clamps Observation');
+  
+              if(i[this.airClampsName[j]]!="" && i[this.airClampsName[j]]!= null && clampsFlag){
+                this.airClampsArr.controls[index4].controls.headingUi.setValue('AT_Clamps Observation');
+                clampsFlag = false;
+               }
+               if(i[this.airClampsName[j]]!="" && i[this.airClampsName[j]]!= null){
+                this.airClampsArr.controls[index4].controls.serialNoUi.setValue(clampsSerialNo);
+                clampsSerialNo = clampsSerialNo + 1;
+                this.airtermiantionFlag[w] = true;
+               }
+  
+              this.airClampsArr.controls[index4].controls.observationComponentDetails.setValue('airClamps' + index4);
+              this.airClampsArr.controls[index4].controls.serialNo.setValue(index4+1);
+              this.airClampsArr.controls[index4].controls.observation.setValue(i[this.airClampsName[j]]);
+              this.airClampsArr.controls[index4].controls.remarksName.setValue(this.airClampsName[j]);
+              this.airClampsArr.controls[index4].controls.remarksId.setValue(i.clampsId);
+              index4++;        
+           // }
+          }
         }
       }
+
+
       //expansion
       this.airExpansionArr=this.summaryArr.controls[w].controls.airExpansion as FormArray;
       let index5 =0;
       let expansionFlag = true;
       let expansionSerialNo = 1;
-      for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airExpansion){
-        for(let j = 0; j < this.airExpansionName.length; j++){
-         // if(i[this.airExpansionName[j]]!="" && i[this.airExpansionName[j]]!= null){
-            this.airExpansionArr.push(this.createAirExpansion());
 
-            if(i[this.airExpansionName[j]]!="" && i[this.airExpansionName[j]]!= null && expansionFlag){
-              this.airExpansionArr.controls[index5].controls.headingUi.setValue('AT_Expansion Observation');
-              expansionFlag = false;
-             }
-             if(i[this.airExpansionName[j]]!="" && i[this.airExpansionName[j]]!= null){
-              this.airExpansionArr.controls[index5].controls.serialNoUi.setValue(expansionSerialNo);
-              expansionSerialNo = expansionSerialNo + 1;
-              this.airtermiantionFlag[w] = true;
-             }
-
-            this.airExpansionArr.controls[0].controls.heading.setValue('AT_Expansion Observation');
-            this.airExpansionArr.controls[index5].controls.observationComponentDetails.setValue('airExpansion' + index5);
-            this.airExpansionArr.controls[index5].controls.serialNo.setValue(index5+1);
-            this.airExpansionArr.controls[index5].controls.observation.setValue(i[this.airExpansionName[j]]);
-            this.airExpansionArr.controls[index5].controls.remarksName.setValue(this.airExpansionName[j]);
-            this.airExpansionArr.controls[index5].controls.remarksId.setValue(i.expansionId);
-            index5++;        
-         // }
+      if(this.airTerminationData!=null && this.airTerminationData.airTermination!=null && this.airTerminationData.airTermination[0]!=null && this.airTerminationData.airTermination[0].lpsAirDiscription!=null && this.airTerminationData.airTermination[0].lpsAirDiscription[w].length!=0 && this.airTerminationData.airTermination[0].lpsAirDiscription[w].airExpansion!=null){
+        for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airExpansion){
+          for(let j = 0; j < this.airExpansionName.length; j++){
+           // if(i[this.airExpansionName[j]]!="" && i[this.airExpansionName[j]]!= null){
+              this.airExpansionArr.push(this.createAirExpansion());
+  
+              if(i[this.airExpansionName[j]]!="" && i[this.airExpansionName[j]]!= null && expansionFlag){
+                this.airExpansionArr.controls[index5].controls.headingUi.setValue('AT_Expansion Observation');
+                expansionFlag = false;
+               }
+               if(i[this.airExpansionName[j]]!="" && i[this.airExpansionName[j]]!= null){
+                this.airExpansionArr.controls[index5].controls.serialNoUi.setValue(expansionSerialNo);
+                expansionSerialNo = expansionSerialNo + 1;
+                this.airtermiantionFlag[w] = true;
+               }
+  
+              this.airExpansionArr.controls[0].controls.heading.setValue('AT_Expansion Observation');
+              this.airExpansionArr.controls[index5].controls.observationComponentDetails.setValue('airExpansion' + index5);
+              this.airExpansionArr.controls[index5].controls.serialNo.setValue(index5+1);
+              this.airExpansionArr.controls[index5].controls.observation.setValue(i[this.airExpansionName[j]]);
+              this.airExpansionArr.controls[index5].controls.remarksName.setValue(this.airExpansionName[j]);
+              this.airExpansionArr.controls[index5].controls.remarksId.setValue(i.expansionId);
+              index5++;        
+           // }
+          }
         }
       }
+      
       //connectors
       this.airConnectorsArr=this.summaryArr.controls[w].controls.airConnectors as FormArray;
       let index6 =0;
       let connectorsFlag = true;
       let connectorsSerialNo = 1;
-      for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airConnectors){
-        for(let j = 0; j < this.airConnectorsName.length; j++){
-         // if(i[this.airConnectorsName[j]]!="" && i[this.airConnectorsName[j]]!= null){
-            this.airConnectorsArr.push(this.createAirConnectors());
-
-            if(i[this.airConnectorsName[j]]!="" && i[this.airConnectorsName[j]]!= null && connectorsFlag){
-              this.airConnectorsArr.controls[index6].controls.headingUi.setValue('AT_Connectors Observation');
-              connectorsFlag = false;
-             }
-             if(i[this.airConnectorsName[j]]!="" && i[this.airConnectorsName[j]]!= null){
-              this.airConnectorsArr.controls[index6].controls.serialNoUi.setValue(connectorsSerialNo);
-              connectorsSerialNo = connectorsSerialNo + 1;
-              this.airtermiantionFlag[w] = true;
-             }
-            this.airConnectorsArr.controls[0].controls.heading.setValue('AT_Connectors Observation');
-            this.airConnectorsArr.controls[index6].controls.observationComponentDetails.setValue('airConnectors' + index6);
-            this.airConnectorsArr.controls[index6].controls.serialNo.setValue(index6+1);
-            this.airConnectorsArr.controls[index6].controls.observation.setValue(i[this.airConnectorsName[j]]);
-            this.airConnectorsArr.controls[index6].controls.remarksName.setValue(this.airConnectorsName[j]);
-            this.airConnectorsArr.controls[index6].controls.remarksId.setValue(i.connectorId);
-            index6++;        
-         // }
+      if(this.airTerminationData!=null && this.airTerminationData.airTermination!=null && this.airTerminationData.airTermination[0]!=null && this.airTerminationData.airTermination[0].lpsAirDiscription!=null && this.airTerminationData.airTermination[0].lpsAirDiscription[w].length!=0 && this.airTerminationData.airTermination[0].lpsAirDiscription[w].airExpansion!=null){
+        for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airConnectors){
+          for(let j = 0; j < this.airConnectorsName.length; j++){
+           // if(i[this.airConnectorsName[j]]!="" && i[this.airConnectorsName[j]]!= null){
+              this.airConnectorsArr.push(this.createAirConnectors());
+  
+              if(i[this.airConnectorsName[j]]!="" && i[this.airConnectorsName[j]]!= null && connectorsFlag){
+                this.airConnectorsArr.controls[index6].controls.headingUi.setValue('AT_Connectors Observation');
+                connectorsFlag = false;
+               }
+               if(i[this.airConnectorsName[j]]!="" && i[this.airConnectorsName[j]]!= null){
+                this.airConnectorsArr.controls[index6].controls.serialNoUi.setValue(connectorsSerialNo);
+                connectorsSerialNo = connectorsSerialNo + 1;
+                this.airtermiantionFlag[w] = true;
+               }
+              this.airConnectorsArr.controls[0].controls.heading.setValue('AT_Connectors Observation');
+              this.airConnectorsArr.controls[index6].controls.observationComponentDetails.setValue('airConnectors' + index6);
+              this.airConnectorsArr.controls[index6].controls.serialNo.setValue(index6+1);
+              this.airConnectorsArr.controls[index6].controls.observation.setValue(i[this.airConnectorsName[j]]);
+              this.airConnectorsArr.controls[index6].controls.remarksName.setValue(this.airConnectorsName[j]);
+              this.airConnectorsArr.controls[index6].controls.remarksId.setValue(i.connectorId);
+              index6++;        
+           // }
+          }
         }
       }
-        } 
+    } 
         //down conductors
         if(this.downConductorData.downConductorReport!=null && this.downConductorData.downConductorReport[0].downConductorDescription.length !=0){
           this.downConductorsBasicArr=this.summaryArr.controls[w].controls.downConductorReport as FormArray;
@@ -3730,218 +3759,250 @@ SignatureDesigner1(){
           let index1 =0;
           let dwonconductorFlag = true;
           let downConductorSerialNo = 1;
-          for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].downConductor){
-            for(let j = 0; j < this.downConductorName.length; j++){
-             // if(i[this.downConductorName[j]]!="" && i[this.downConductorName[j]]!= null){
-                this.downConductorsArr.push(this.createDownConductors());
-                this.downConductorsArr.controls[0].controls.heading.setValue('DC_Downconductors Observation');
-                
-                if(i[this.downConductorName[j]]!="" && i[this.downConductorName[j]]!= null && dwonconductorFlag){
-                  this.downConductorsArr.controls[index1].controls.headingUi.setValue('DC_Downconductors Observation');
-                 dwonconductorFlag = false;
-                }
-                if(i[this.downConductorName[j]]!="" && i[this.downConductorName[j]]!= null){
-                  this.downConductorsArr.controls[index1].controls.serialNoUi.setValue(downConductorSerialNo);
-                 downConductorSerialNo = downConductorSerialNo + 1;
-                 this.dwonconductorRemarks = true;
-                 this.downConductorFlag[w] = true;
-                }
-                this.downConductorsArr.controls[index1].controls.observationComponentDetails.setValue('downConductorDescription' + index1);
-                this.downConductorsArr.controls[index1].controls.serialNo.setValue(index1+1);
-                this.downConductorsArr.controls[index1].controls.observation.setValue(i[this.downConductorName[j]]);
-                this.downConductorsArr.controls[index1].controls.remarksName.setValue(this.downConductorName[j]);
-                this.downConductorsArr.controls[index1].controls.remarksId.setValue(i.downConductorId);
-                index1++;            
-             // }
+
+          if(this.downConductorData!=null && this.downConductorData.downConductorReport!=null && this.downConductorData.downConductorReport[0]!=null && this.downConductorData.downConductorReport[0].downConductorDescription!=null && this.downConductorData.downConductorReport[0].downConductorDescription[w].length!=0 && this.downConductorData.downConductorReport[0].downConductorDescription[w].downConductor!=null){
+            for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].downConductor){
+              for(let j = 0; j < this.downConductorName.length; j++){
+               // if(i[this.downConductorName[j]]!="" && i[this.downConductorName[j]]!= null){
+                  this.downConductorsArr.push(this.createDownConductors());
+                  this.downConductorsArr.controls[0].controls.heading.setValue('DC_Downconductors Observation');
+                  
+                  if(i[this.downConductorName[j]]!="" && i[this.downConductorName[j]]!= null && dwonconductorFlag){
+                    this.downConductorsArr.controls[index1].controls.headingUi.setValue('DC_Downconductors Observation');
+                   dwonconductorFlag = false;
+                  }
+                  if(i[this.downConductorName[j]]!="" && i[this.downConductorName[j]]!= null){
+                    this.downConductorsArr.controls[index1].controls.serialNoUi.setValue(downConductorSerialNo);
+                   downConductorSerialNo = downConductorSerialNo + 1;
+                   this.dwonconductorRemarks = true;
+                   this.downConductorFlag[w] = true;
+                  }
+                  this.downConductorsArr.controls[index1].controls.observationComponentDetails.setValue('downConductorDescription' + index1);
+                  this.downConductorsArr.controls[index1].controls.serialNo.setValue(index1+1);
+                  this.downConductorsArr.controls[index1].controls.observation.setValue(i[this.downConductorName[j]]);
+                  this.downConductorsArr.controls[index1].controls.remarksName.setValue(this.downConductorName[j]);
+                  this.downConductorsArr.controls[index1].controls.remarksId.setValue(i.downConductorId);
+                  index1++;            
+               // }
+              }
             }
-      }
+          }
+          
         
       //Bridging
       this.bridgingDescArr=this.summaryArr.controls[w].controls.bridgingDesc as FormArray;
       let index2 =0;
       let bridgingFlag = true;
       let bridgingSerialNo = 1;
-      for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].bridgingDescription){
-        for(let j = 0; j < this.bridgingName.length; j++){
-         // if(i[this.bridgingName[j]]!="" && i[this.bridgingName[j]]!= null){
-            this.bridgingDescArr.push(this.createBridgingDesc());
 
-            if(i[this.bridgingName[j]]!="" && i[this.bridgingName[j]]!= null && bridgingFlag){
-              this.bridgingDescArr.controls[index2].controls.headingUi.setValue('DC_Bridging Observation');
-              bridgingFlag = false;
-             }
-             if(i[this.bridgingName[j]]!="" && i[this.bridgingName[j]]!= null){
-              this.bridgingDescArr.controls[index2].controls.serialNoUi.setValue(bridgingSerialNo);
-              bridgingSerialNo = bridgingSerialNo + 1;
-              this.dwonconductorRemarks = true;
-              this.downConductorFlag[w] = true;
-             }
+      if(this.downConductorData!=null && this.downConductorData.downConductorReport!=null && this.downConductorData.downConductorReport[0]!=null && this.downConductorData.downConductorReport[0].downConductorDescription!=null && this.downConductorData.downConductorReport[0].downConductorDescription[w].length!=0 && this.downConductorData.downConductorReport[0].downConductorDescription[w].bridgingDescription!=null){
 
-            this.bridgingDescArr.controls[0].controls.heading.setValue('DC_Bridging Observation');
-            this.bridgingDescArr.controls[index2].controls.observationComponentDetails.setValue('bridgingDescription' + index2);
-            this.bridgingDescArr.controls[index2].controls.serialNo.setValue(index2+1);
-            this.bridgingDescArr.controls[index2].controls.observation.setValue(i[this.bridgingName[j]]);
-            this.bridgingDescArr.controls[index2].controls.remarksName.setValue(this.bridgingName[j]);
-            this.bridgingDescArr.controls[index2].controls.remarksId.setValue(i.bridgingDescriptionId);
-            index2++;        
-          //}
-        }
-    }
+        for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].bridgingDescription){
+          for(let j = 0; j < this.bridgingName.length; j++){
+           // if(i[this.bridgingName[j]]!="" && i[this.bridgingName[j]]!= null){
+              this.bridgingDescArr.push(this.createBridgingDesc());
+  
+              if(i[this.bridgingName[j]]!="" && i[this.bridgingName[j]]!= null && bridgingFlag){
+                this.bridgingDescArr.controls[index2].controls.headingUi.setValue('DC_Bridging Observation');
+                bridgingFlag = false;
+               }
+               if(i[this.bridgingName[j]]!="" && i[this.bridgingName[j]]!= null){
+                this.bridgingDescArr.controls[index2].controls.serialNoUi.setValue(bridgingSerialNo);
+                bridgingSerialNo = bridgingSerialNo + 1;
+                this.dwonconductorRemarks = true;
+                this.downConductorFlag[w] = true;
+               }
+  
+              this.bridgingDescArr.controls[0].controls.heading.setValue('DC_Bridging Observation');
+              this.bridgingDescArr.controls[index2].controls.observationComponentDetails.setValue('bridgingDescription' + index2);
+              this.bridgingDescArr.controls[index2].controls.serialNo.setValue(index2+1);
+              this.bridgingDescArr.controls[index2].controls.observation.setValue(i[this.bridgingName[j]]);
+              this.bridgingDescArr.controls[index2].controls.remarksName.setValue(this.bridgingName[j]);
+              this.bridgingDescArr.controls[index2].controls.remarksId.setValue(i.bridgingDescriptionId);
+              index2++;        
+            //}
+          }
+      }
+      }
+
+      
     //holder
     this.downHoldersArr=this.summaryArr.controls[w].controls.downHolders as FormArray;
     let index3 =0;
     let holderFlag = true;
     let holderSerialNo = 1;
-    for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].holder){
-      for(let j = 0; j < this.downHolderName.length; j++){
-       // if(i[this.downHolderName[j]]!="" && i[this.downHolderName[j]]!= null){
-          this.downHoldersArr.push(this.createDownHolders());
 
-          if(i[this.downHolderName[j]]!="" && i[this.downHolderName[j]]!= null && holderFlag){
-            this.downHoldersArr.controls[index3].controls.headingUi.setValue('DC_Holder Observation');
-            holderFlag = false;
-           }
-           if(i[this.downHolderName[j]]!="" && i[this.downHolderName[j]]!= null){
-            this.downHoldersArr.controls[index3].controls.serialNoUi.setValue(holderSerialNo);
-            holderSerialNo = holderSerialNo + 1;
-            this.dwonconductorRemarks = true;
-            this.downConductorFlag[w] = true;
-           }
-          this.downHoldersArr.controls[0].controls.heading.setValue('DC_Holder Observation');
-          this.downHoldersArr.controls[index3].controls.observationComponentDetails.setValue('holder' + index3);
-          this.downHoldersArr.controls[index3].controls.serialNo.setValue(index3+1);
-          this.downHoldersArr.controls[index3].controls.observation.setValue(i[this.downHolderName[j]]);
-          this.downHoldersArr.controls[index3].controls.remarksName.setValue(this.downHolderName[j]);
-          this.downHoldersArr.controls[index3].controls.remarksId.setValue(i.holderId);
-          index3++;      
-       // }
-      }
-  }
+    if(this.downConductorData!=null && this.downConductorData.downConductorReport!=null && this.downConductorData.downConductorReport[0]!=null && this.downConductorData.downConductorReport[0].downConductorDescription!=null && this.downConductorData.downConductorReport[0].downConductorDescription[w].length!=0 && this.downConductorData.downConductorReport[0].downConductorDescription[w].holder!=null){
+
+      for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].holder){
+        for(let j = 0; j < this.downHolderName.length; j++){
+         // if(i[this.downHolderName[j]]!="" && i[this.downHolderName[j]]!= null){
+            this.downHoldersArr.push(this.createDownHolders());
+  
+            if(i[this.downHolderName[j]]!="" && i[this.downHolderName[j]]!= null && holderFlag){
+              this.downHoldersArr.controls[index3].controls.headingUi.setValue('DC_Holder Observation');
+              holderFlag = false;
+             }
+             if(i[this.downHolderName[j]]!="" && i[this.downHolderName[j]]!= null){
+              this.downHoldersArr.controls[index3].controls.serialNoUi.setValue(holderSerialNo);
+              holderSerialNo = holderSerialNo + 1;
+              this.dwonconductorRemarks = true;
+              this.downConductorFlag[w] = true;
+             }
+            this.downHoldersArr.controls[0].controls.heading.setValue('DC_Holder Observation');
+            this.downHoldersArr.controls[index3].controls.observationComponentDetails.setValue('holder' + index3);
+            this.downHoldersArr.controls[index3].controls.serialNo.setValue(index3+1);
+            this.downHoldersArr.controls[index3].controls.observation.setValue(i[this.downHolderName[j]]);
+            this.downHoldersArr.controls[index3].controls.remarksName.setValue(this.downHolderName[j]);
+            this.downHoldersArr.controls[index3].controls.remarksId.setValue(i.holderId);
+            index3++;      
+         // }
+        }
+     }
+    }
+    
   
       //connectors
       this.downConnectorsArr=this.summaryArr.controls[w].controls.downConnectors as FormArray;
       let index4 =0;
       let connectorsFlag = true;
       let connectorsSerialNo = 1;
-      for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].connectors){
-      for(let j = 0; j < this.connectorsName.length; j++){
-      //  if(i[this.connectorsName[j]]!="" && i[this.connectorsName[j]]!= null){
-          this.downConnectorsArr.push(this.createDownConnectors());
 
-          if(i[this.connectorsName[j]]!="" && i[this.connectorsName[j]]!= null && connectorsFlag){
-            this.downConnectorsArr.controls[index4].controls.headingUi.setValue('DC_Connectors Observation');
-            connectorsFlag = false;
-           }
-           if(i[this.connectorsName[j]]!="" && i[this.connectorsName[j]]!= null){
-            this.downConnectorsArr.controls[index4].controls.serialNoUi.setValue(connectorsSerialNo);
-            connectorsSerialNo = connectorsSerialNo + 1;
-            this.dwonconductorRemarks = true;
-            this.downConductorFlag[w] = true;
-           }
-          this.downConnectorsArr.controls[0].controls.heading.setValue('DC_Connectors Observation');
-          this.downConnectorsArr.controls[index4].controls.observationComponentDetails.setValue('connectors' + index4);
-          this.downConnectorsArr.controls[index4].controls.serialNo.setValue(index4+1);
-          this.downConnectorsArr.controls[index4].controls.observation.setValue(i[this.connectorsName[j]]);
-          this.downConnectorsArr.controls[index4].controls.remarksName.setValue(this.connectorsName[j]);
-          this.downConnectorsArr.controls[index4].controls.remarksId.setValue(i.connectorId);
-          index4++;      
-       // }
+      if(this.downConductorData!=null && this.downConductorData.downConductorReport!=null && this.downConductorData.downConductorReport[0]!=null && this.downConductorData.downConductorReport[0].downConductorDescription!=null && this.downConductorData.downConductorReport[0].downConductorDescription[w].length!=0 && this.downConductorData.downConductorReport[0].downConductorDescription[w].connectors!=null){
+
+        for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].connectors){
+          for(let j = 0; j < this.connectorsName.length; j++){
+          //  if(i[this.connectorsName[j]]!="" && i[this.connectorsName[j]]!= null){
+              this.downConnectorsArr.push(this.createDownConnectors());
+    
+              if(i[this.connectorsName[j]]!="" && i[this.connectorsName[j]]!= null && connectorsFlag){
+                this.downConnectorsArr.controls[index4].controls.headingUi.setValue('DC_Connectors Observation');
+                connectorsFlag = false;
+               }
+               if(i[this.connectorsName[j]]!="" && i[this.connectorsName[j]]!= null){
+                this.downConnectorsArr.controls[index4].controls.serialNoUi.setValue(connectorsSerialNo);
+                connectorsSerialNo = connectorsSerialNo + 1;
+                this.dwonconductorRemarks = true;
+                this.downConductorFlag[w] = true;
+               }
+              this.downConnectorsArr.controls[0].controls.heading.setValue('DC_Connectors Observation');
+              this.downConnectorsArr.controls[index4].controls.observationComponentDetails.setValue('connectors' + index4);
+              this.downConnectorsArr.controls[index4].controls.serialNo.setValue(index4+1);
+              this.downConnectorsArr.controls[index4].controls.observation.setValue(i[this.connectorsName[j]]);
+              this.downConnectorsArr.controls[index4].controls.remarksName.setValue(this.connectorsName[j]);
+              this.downConnectorsArr.controls[index4].controls.remarksId.setValue(i.connectorId);
+              index4++;      
+           // }
+          }
+          }
       }
-      }
+      
       //testingJoint
       this.testingJointArr=this.summaryArr.controls[w].controls.testingJoint as FormArray;
       let index5 =0;
       let testingJointFlag = true;
       let testingJointSerialNo = 1;
-      for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].testingJoint){
-      for(let j = 0; j < this.testingJointName.length; j++){
-       // if(i[this.testingJointName[j]]!="" && i[this.testingJointName[j]]!= null){
-          this.testingJointArr.push(this.createTestingJoints());
-          this.testingJointArr.controls[0].controls.heading.setValue('DC_TestingJoint Observation');
 
-          if(i[this.testingJointName[j]]!="" && i[this.testingJointName[j]]!= null && testingJointFlag){
-            this.testingJointArr.controls[index5].controls.headingUi.setValue('DC_TestingJoint Observation');
-            testingJointFlag = false;
-           }
-           if(i[this.testingJointName[j]]!="" && i[this.testingJointName[j]]!= null){
-            this.testingJointArr.controls[index5].controls.serialNoUi.setValue(testingJointSerialNo);
-            testingJointSerialNo = testingJointSerialNo + 1;
-            this.dwonconductorRemarks = true;
-            this.downConductorFlag[w] = true;
-           }
-          this.testingJointArr.controls[index5].controls.observationComponentDetails.setValue('testingJoint' + index5);
-          this.testingJointArr.controls[index5].controls.serialNo.setValue(index5+1);
-          this.testingJointArr.controls[index5].controls.observation.setValue(i[this.testingJointName[j]]);
-          this.testingJointArr.controls[index5].controls.remarksName.setValue(this.testingJointName[j]);
-          this.testingJointArr.controls[index5].controls.remarksId.setValue(i.testJointId);
-          index5++;      
-       // }
+      if(this.downConductorData!=null && this.downConductorData.downConductorReport!=null && this.downConductorData.downConductorReport[0]!=null && this.downConductorData.downConductorReport[0].downConductorDescription!=null && this.downConductorData.downConductorReport[0].downConductorDescription[w].length!=0 && this.downConductorData.downConductorReport[0].downConductorDescription[w].testingJoint!=null){
+
+        for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].testingJoint){
+          for(let j = 0; j < this.testingJointName.length; j++){
+           // if(i[this.testingJointName[j]]!="" && i[this.testingJointName[j]]!= null){
+              this.testingJointArr.push(this.createTestingJoints());
+              this.testingJointArr.controls[0].controls.heading.setValue('DC_TestingJoint Observation');
+    
+              if(i[this.testingJointName[j]]!="" && i[this.testingJointName[j]]!= null && testingJointFlag){
+                this.testingJointArr.controls[index5].controls.headingUi.setValue('DC_TestingJoint Observation');
+                testingJointFlag = false;
+               }
+               if(i[this.testingJointName[j]]!="" && i[this.testingJointName[j]]!= null){
+                this.testingJointArr.controls[index5].controls.serialNoUi.setValue(testingJointSerialNo);
+                testingJointSerialNo = testingJointSerialNo + 1;
+                this.dwonconductorRemarks = true;
+                this.downConductorFlag[w] = true;
+               }
+              this.testingJointArr.controls[index5].controls.observationComponentDetails.setValue('testingJoint' + index5);
+              this.testingJointArr.controls[index5].controls.serialNo.setValue(index5+1);
+              this.testingJointArr.controls[index5].controls.observation.setValue(i[this.testingJointName[j]]);
+              this.testingJointArr.controls[index5].controls.remarksName.setValue(this.testingJointName[j]);
+              this.testingJointArr.controls[index5].controls.remarksId.setValue(i.testJointId);
+              index5++;      
+           // }
+          }
+          }
       }
-      }
+      
       //lightingCounter
       this.lightingCounterArr=this.summaryArr.controls[w].controls.lightingCounter as FormArray;
       let index6 =0;
       let lightingCounterFlag = true;
       let lightningCounterSerialNo = 1;
-      for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].lightningCounter){
-      for(let j = 0; j < this.lightingCounterName.length; j++){
-       // if(i[this.lightingCounterName[j]]!="" && i[this.lightingCounterName[j]]!= null){
-          this.lightingCounterArr.push(this.createLightingCounter());
 
-          if(i[this.lightingCounterName[j]]!="" && i[this.lightingCounterName[j]]!= null && lightingCounterFlag){
-            this.lightingCounterArr.controls[index6].controls.headingUi.setValue('DC_LightningCounter Observation');
-            lightingCounterFlag = false;
-           }
-           if(i[this.lightingCounterName[j]]!="" && i[this.lightingCounterName[j]]!= null){
-            this.lightingCounterArr.controls[index6].controls.serialNoUi.setValue(lightningCounterSerialNo);
-            lightningCounterSerialNo = lightningCounterSerialNo + 1;
-            this.dwonconductorRemarks = true;
-            this.downConductorFlag[w] = true;
-           }
-
-          this.lightingCounterArr.controls[0].controls.heading.setValue('DC_LightningCounter Observation');
-          this.lightingCounterArr.controls[index6].controls.observationComponentDetails.setValue('lightningCounter' + index6);
-          this.lightingCounterArr.controls[index6].controls.serialNo.setValue(index6+1);
-          this.lightingCounterArr.controls[index6].controls.observation.setValue(i[this.lightingCounterName[j]]);
-          this.lightingCounterArr.controls[index6].controls.remarksName.setValue(this.lightingCounterName[j]);
-          this.lightingCounterArr.controls[index6].controls.remarksId.setValue(i.lightingCountersId);
-          index6++;      
-       // }
+      if(this.downConductorData!=null && this.downConductorData.downConductorReport!=null && this.downConductorData.downConductorReport[0]!=null && this.downConductorData.downConductorReport[0].downConductorDescription!=null && this.downConductorData.downConductorReport[0].downConductorDescription[w].length!=0 && this.downConductorData.downConductorReport[0].downConductorDescription[w].lightningCounter!=null){
+        for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].lightningCounter){
+          for(let j = 0; j < this.lightingCounterName.length; j++){
+           // if(i[this.lightingCounterName[j]]!="" && i[this.lightingCounterName[j]]!= null){
+              this.lightingCounterArr.push(this.createLightingCounter());
+    
+              if(i[this.lightingCounterName[j]]!="" && i[this.lightingCounterName[j]]!= null && lightingCounterFlag){
+                this.lightingCounterArr.controls[index6].controls.headingUi.setValue('DC_LightningCounter Observation');
+                lightingCounterFlag = false;
+               }
+               if(i[this.lightingCounterName[j]]!="" && i[this.lightingCounterName[j]]!= null){
+                this.lightingCounterArr.controls[index6].controls.serialNoUi.setValue(lightningCounterSerialNo);
+                lightningCounterSerialNo = lightningCounterSerialNo + 1;
+                this.dwonconductorRemarks = true;
+                this.downConductorFlag[w] = true;
+               }
+    
+              this.lightingCounterArr.controls[0].controls.heading.setValue('DC_LightningCounter Observation');
+              this.lightingCounterArr.controls[index6].controls.observationComponentDetails.setValue('lightningCounter' + index6);
+              this.lightingCounterArr.controls[index6].controls.serialNo.setValue(index6+1);
+              this.lightingCounterArr.controls[index6].controls.observation.setValue(i[this.lightingCounterName[j]]);
+              this.lightingCounterArr.controls[index6].controls.remarksName.setValue(this.lightingCounterName[j]);
+              this.lightingCounterArr.controls[index6].controls.remarksId.setValue(i.lightingCountersId);
+              index6++;      
+           // }
+          }
+          }
       }
-      }
+      
   
     //downConductorTesting
     this.downConductorTestingArr=this.summaryArr.controls[w].controls.downConductorTesting as FormArray;
     let index8 =0;
     let dwonconductorTestingFlag = true;
     let dwonconductorTestingSerialNo = 1;
-    for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].downConductorTesting){
-    for(let j = 0; j < this.downConductorTestingName.length; j++){
-     // if(i[this.downConductorTestingName[j]]!="" && i[this.downConductorTestingName[j]]!= null){
-        this.downConductorTestingArr.push(this.createDownConductorsTesting());
-        
-        if(i[this.downConductorTestingName[j]]!="" && i[this.downConductorTestingName[j]]!= null && dwonconductorTestingFlag){
-          this.downConductorTestingArr.controls[index8].controls.headingUi.setValue('DC_DownConductorTesting Observation');
-          dwonconductorTestingFlag = false;
-         }
-         if(i[this.downConductorTestingName[j]]!="" && i[this.downConductorTestingName[j]]!= null){
-          this.downConductorTestingArr.controls[index8].controls.serialNoUi.setValue(dwonconductorTestingSerialNo);
-          dwonconductorTestingSerialNo = dwonconductorTestingSerialNo + 1;
-          this.dwonconductorRemarks = true;
-          this.downConductorFlag[w] = true;
-         }
 
-        this.downConductorTestingArr.controls[0].controls.heading.setValue('DC_DownConductorTesting Observation');
-        this.downConductorTestingArr.controls[index8].controls.observationComponentDetails.setValue('downConductorTesting' + index8);
-        this.downConductorTestingArr.controls[index8].controls.serialNo.setValue(index8+1);
-        this.downConductorTestingArr.controls[index8].controls.observation.setValue(i[this.downConductorTestingName[j]]);
-        this.downConductorTestingArr.controls[index8].controls.remarksName.setValue(this.downConductorTestingName[j]);
-        this.downConductorTestingArr.controls[index8].controls.remarksId.setValue(i.downConductorTestingId);
-        index8++;    
-     // }
-    }
-    }
+    if(this.downConductorData!=null && this.downConductorData.downConductorReport!=null && this.downConductorData.downConductorReport[0]!=null && this.downConductorData.downConductorReport[0].downConductorDescription!=null && this.downConductorData.downConductorReport[0].downConductorDescription[w].length!=0 && this.downConductorData.downConductorReport[0].downConductorDescription[w].downConductorTesting!=null){
+      for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].downConductorTesting){
+        for(let j = 0; j < this.downConductorTestingName.length; j++){
+         // if(i[this.downConductorTestingName[j]]!="" && i[this.downConductorTestingName[j]]!= null){
+            this.downConductorTestingArr.push(this.createDownConductorsTesting());
+            
+            if(i[this.downConductorTestingName[j]]!="" && i[this.downConductorTestingName[j]]!= null && dwonconductorTestingFlag){
+              this.downConductorTestingArr.controls[index8].controls.headingUi.setValue('DC_DownConductorTesting Observation');
+              dwonconductorTestingFlag = false;
+             }
+             if(i[this.downConductorTestingName[j]]!="" && i[this.downConductorTestingName[j]]!= null){
+              this.downConductorTestingArr.controls[index8].controls.serialNoUi.setValue(dwonconductorTestingSerialNo);
+              dwonconductorTestingSerialNo = dwonconductorTestingSerialNo + 1;
+              this.dwonconductorRemarks = true;
+              this.downConductorFlag[w] = true;
+             }
+    
+            this.downConductorTestingArr.controls[0].controls.heading.setValue('DC_DownConductorTesting Observation');
+            this.downConductorTestingArr.controls[index8].controls.observationComponentDetails.setValue('downConductorTesting' + index8);
+            this.downConductorTestingArr.controls[index8].controls.serialNo.setValue(index8+1);
+            this.downConductorTestingArr.controls[index8].controls.observation.setValue(i[this.downConductorTestingName[j]]);
+            this.downConductorTestingArr.controls[index8].controls.remarksName.setValue(this.downConductorTestingName[j]);
+            this.downConductorTestingArr.controls[index8].controls.remarksId.setValue(i.downConductorTestingId);
+            index8++;    
+         // }
         }
+        }
+    }
+  }
         //earthing
         let earthingFlag = true;
         let earthingSerialNo = 1;
@@ -3979,36 +4040,42 @@ SignatureDesigner1(){
 
           this.earthingDescArr=this.summaryArr.controls[w].controls.earthingDescription as FormArray;
           let index1 =0;
-          for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingDescription){
-            for(let j = 0; j < this.earthingDescriptionName.length; j++){
-             // if(i[this.earthingDescriptionName[j]]!="" && i[this.earthingDescriptionName[j]]!= null){
-                this.earthingDescArr.push(this.createEarthingDescription());
 
-                if(i[this.earthingDescriptionName[j]]!="" && i[this.earthingDescriptionName[j]]!= null && earthingDescriptionFlag){
-                  this.earthingDescArr.controls[index1].controls.headingUi.setValue('EarthingDescription Observation');
-                  earthingDescriptionFlag = false;
-                }
-                if(i[this.earthingDescriptionName[j]]!="" && i[this.earthingDescriptionName[j]]!= null){
-                  this.earthingDescArr.controls[index1].controls.serialNoUi.setValue(earthingDescriptionSerialNo);
-                  earthingDescriptionSerialNo = earthingDescriptionSerialNo + 1;
-                  this.earthingFlag[w] = true;
-                }
-                this.earthingDescArr.controls[0].controls.heading.setValue('EarthingDescription Observation');
-                this.earthingDescArr.controls[index1].controls.observationComponentDetails.setValue('earthingDescriptionMain' + index1);
-                this.earthingDescArr.controls[index1].controls.serialNo.setValue(index1+1);
-                this.earthingDescArr.controls[index1].controls.observation.setValue(i[this.earthingDescriptionName[j]]);
-                this.earthingDescArr.controls[index1].controls.remarksName.setValue(this.earthingDescriptionName[j]);
-                this.earthingDescArr.controls[index1].controls.remarksId.setValue(i.earthDescriptionId);
-                index1++;            
-              //}
-            }
-      }
+          if(this.earthingData!=null && this.earthingData.earthingReport!=null && this.earthingData.earthingReport[0]!=null && this.earthingData.earthingReport[0].earthingLpsDescription!=null && this.earthingData.earthingReport[0].earthingLpsDescription[w].length!=0 && this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingDescription!=null){
+
+            for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingDescription){
+              for(let j = 0; j < this.earthingDescriptionName.length; j++){
+               // if(i[this.earthingDescriptionName[j]]!="" && i[this.earthingDescriptionName[j]]!= null){
+                  this.earthingDescArr.push(this.createEarthingDescription());
+  
+                  if(i[this.earthingDescriptionName[j]]!="" && i[this.earthingDescriptionName[j]]!= null && earthingDescriptionFlag){
+                    this.earthingDescArr.controls[index1].controls.headingUi.setValue('EarthingDescription Observation');
+                    earthingDescriptionFlag = false;
+                  }
+                  if(i[this.earthingDescriptionName[j]]!="" && i[this.earthingDescriptionName[j]]!= null){
+                    this.earthingDescArr.controls[index1].controls.serialNoUi.setValue(earthingDescriptionSerialNo);
+                    earthingDescriptionSerialNo = earthingDescriptionSerialNo + 1;
+                    this.earthingFlag[w] = true;
+                  }
+                  this.earthingDescArr.controls[0].controls.heading.setValue('EarthingDescription Observation');
+                  this.earthingDescArr.controls[index1].controls.observationComponentDetails.setValue('earthingDescriptionMain' + index1);
+                  this.earthingDescArr.controls[index1].controls.serialNo.setValue(index1+1);
+                  this.earthingDescArr.controls[index1].controls.observation.setValue(i[this.earthingDescriptionName[j]]);
+                  this.earthingDescArr.controls[index1].controls.remarksName.setValue(this.earthingDescriptionName[j]);
+                  this.earthingDescArr.controls[index1].controls.remarksId.setValue(i.earthDescriptionId);
+                  index1++;            
+                //}
+              }
+        }
+          }
+          
       //earthingDescription list
       this.earthingDescriptionListArr=this.summaryArr.controls[w].controls.earthingDescriptionList as FormArray;
       let index0 =0;
       let vatListIndex=1;
       let indexVertical=0;
-      if(this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingDescription.length > index){
+      
+      if(this.earthingData!=null && this.earthingData.earthingReport!=null && this.earthingData.earthingReport[0]!=null && this.earthingData.earthingReport[0].earthingLpsDescription!=null && this.earthingData.earthingReport[0].earthingLpsDescription[w].length!=0 && this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingDescription!=null && this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingDescription[0].earthingDescriptionList!=null){
 
         for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingDescription[0].earthingDescriptionList)
         {
@@ -4050,117 +4117,134 @@ SignatureDesigner1(){
       let index2 =0;
       let earthingClampsFlag = true;
       let earthingClampsSerialNo = 1;
-      for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingClamps){
-        for(let j = 0; j < this.earthingClampsName.length; j++){
-         // if(i[this.earthingClampsName[j]]!="" && i[this.earthingClampsName[j]]!= null){
-            this.earthingClampsArr.push(this.createEarthingClamps());
-            this.earthingClampsArr.controls[0].controls.heading.setValue('EarthingClamps Observation');
 
-            if(i[this.earthingClampsName[j]]!="" && i[this.earthingClampsName[j]]!= null && earthingClampsFlag){
-              this.earthingClampsArr.controls[index2].controls.headingUi.setValue('EarthingClamps Observation');
-              earthingClampsFlag = false;
-            }
-            if(i[this.earthingClampsName[j]]!="" && i[this.earthingClampsName[j]]!= null){
-              this.earthingClampsArr.controls[index2].controls.serialNoUi.setValue(earthingClampsSerialNo);
-              earthingClampsSerialNo = earthingClampsSerialNo + 1;
-              this.earthingFlag[w] = true;
-            }
-
-            this.earthingClampsArr.controls[index2].controls.observationComponentDetails.setValue('earthingClamps' + index2);
-            this.earthingClampsArr.controls[index2].controls.serialNo.setValue(index2+1);
-            this.earthingClampsArr.controls[index2].controls.observation.setValue(i[this.earthingClampsName[j]]);
-            this.earthingClampsArr.controls[index2].controls.remarksName.setValue(this.earthingClampsName[j]);
-            this.earthingClampsArr.controls[index2].controls.remarksId.setValue(i.earthingClampsId);
-            index2++;        
-         // }
-        }
-    }
+      if(this.earthingData!=null && this.earthingData.earthingReport!=null && this.earthingData.earthingReport[0]!=null && this.earthingData.earthingReport[0].earthingLpsDescription!=null && this.earthingData.earthingReport[0].earthingLpsDescription[w].length!=0 && this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingClamps!=null){ 
+        for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingClamps){
+          for(let j = 0; j < this.earthingClampsName.length; j++){
+           // if(i[this.earthingClampsName[j]]!="" && i[this.earthingClampsName[j]]!= null){
+              this.earthingClampsArr.push(this.createEarthingClamps());
+              this.earthingClampsArr.controls[0].controls.heading.setValue('EarthingClamps Observation');
+  
+              if(i[this.earthingClampsName[j]]!="" && i[this.earthingClampsName[j]]!= null && earthingClampsFlag){
+                this.earthingClampsArr.controls[index2].controls.headingUi.setValue('EarthingClamps Observation');
+                earthingClampsFlag = false;
+              }
+              if(i[this.earthingClampsName[j]]!="" && i[this.earthingClampsName[j]]!= null){
+                this.earthingClampsArr.controls[index2].controls.serialNoUi.setValue(earthingClampsSerialNo);
+                earthingClampsSerialNo = earthingClampsSerialNo + 1;
+                this.earthingFlag[w] = true;
+              }
+  
+              this.earthingClampsArr.controls[index2].controls.observationComponentDetails.setValue('earthingClamps' + index2);
+              this.earthingClampsArr.controls[index2].controls.serialNo.setValue(index2+1);
+              this.earthingClampsArr.controls[index2].controls.observation.setValue(i[this.earthingClampsName[j]]);
+              this.earthingClampsArr.controls[index2].controls.remarksName.setValue(this.earthingClampsName[j]);
+              this.earthingClampsArr.controls[index2].controls.remarksId.setValue(i.earthingClampsId);
+              index2++;        
+           // }
+          }
+      }
+      }
+      
+      
     //earthingElectrodeChamber
     this.earthingElectrodeChamberArr=this.summaryArr.controls[w].controls.earthingElectrodeChamber as FormArray;
     let index3 =0;
     let earthingElectrodeChamberFlag = true;
     let earthingElectrodeChamberSerialNo = 1;
-    for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingElectrodeChamber){
-      for(let j = 0; j < this.earthingElectrodeChamberName.length; j++){
-       // if(i[this.earthingElectrodeChamberName[j]]!="" && i[this.earthingElectrodeChamberName[j]]!= null){
-          this.earthingElectrodeChamberArr.push(this.createEarthingElectrodeChamber());
 
-          if(i[this.earthingElectrodeChamberName[j]]!="" && i[this.earthingElectrodeChamberName[j]]!= null && earthingElectrodeChamberFlag){
-            this.earthingElectrodeChamberArr.controls[index3].controls.headingUi.setValue('EarthingElectrodeChamber Observation');
-            earthingElectrodeChamberFlag = false;
-          }
-          if(i[this.earthingElectrodeChamberName[j]]!="" && i[this.earthingElectrodeChamberName[j]]!= null){
-            this.earthingElectrodeChamberArr.controls[index3].controls.serialNoUi.setValue(earthingElectrodeChamberSerialNo);
-            earthingElectrodeChamberSerialNo = earthingElectrodeChamberSerialNo + 1;
-            this.earthingFlag[w] = true;
-          }
-          this.earthingElectrodeChamberArr.controls[0].controls.heading.setValue('EarthingElectrodeChamber Observation');
-          this.earthingElectrodeChamberArr.controls[index3].controls.observationComponentDetails.setValue('earthingElectrodeChamber' + index3);
-          this.earthingElectrodeChamberArr.controls[index3].controls.serialNo.setValue(index3+1);
-          this.earthingElectrodeChamberArr.controls[index3].controls.observation.setValue(i[this.earthingElectrodeChamberName[j]]);
-          this.earthingElectrodeChamberArr.controls[index3].controls.remarksName.setValue(this.earthingElectrodeChamberName[j]);
-          this.earthingElectrodeChamberArr.controls[index3].controls.remarksId.setValue(i.earthingElectrodeChamberId);
-          index3++;      
-       // }
+    if(this.earthingData!=null && this.earthingData.earthingReport!=null && this.earthingData.earthingReport[0]!=null && this.earthingData.earthingReport[0].earthingLpsDescription!=null && this.earthingData.earthingReport[0].earthingLpsDescription[w].length!=0 && this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingElectrodeChamber!=null){
+
+      for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingElectrodeChamber){
+        for(let j = 0; j < this.earthingElectrodeChamberName.length; j++){
+         // if(i[this.earthingElectrodeChamberName[j]]!="" && i[this.earthingElectrodeChamberName[j]]!= null){
+            this.earthingElectrodeChamberArr.push(this.createEarthingElectrodeChamber());
+  
+            if(i[this.earthingElectrodeChamberName[j]]!="" && i[this.earthingElectrodeChamberName[j]]!= null && earthingElectrodeChamberFlag){
+              this.earthingElectrodeChamberArr.controls[index3].controls.headingUi.setValue('EarthingElectrodeChamber Observation');
+              earthingElectrodeChamberFlag = false;
+            }
+            if(i[this.earthingElectrodeChamberName[j]]!="" && i[this.earthingElectrodeChamberName[j]]!= null){
+              this.earthingElectrodeChamberArr.controls[index3].controls.serialNoUi.setValue(earthingElectrodeChamberSerialNo);
+              earthingElectrodeChamberSerialNo = earthingElectrodeChamberSerialNo + 1;
+              this.earthingFlag[w] = true;
+            }
+            this.earthingElectrodeChamberArr.controls[0].controls.heading.setValue('EarthingElectrodeChamber Observation');
+            this.earthingElectrodeChamberArr.controls[index3].controls.observationComponentDetails.setValue('earthingElectrodeChamber' + index3);
+            this.earthingElectrodeChamberArr.controls[index3].controls.serialNo.setValue(index3+1);
+            this.earthingElectrodeChamberArr.controls[index3].controls.observation.setValue(i[this.earthingElectrodeChamberName[j]]);
+            this.earthingElectrodeChamberArr.controls[index3].controls.remarksName.setValue(this.earthingElectrodeChamberName[j]);
+            this.earthingElectrodeChamberArr.controls[index3].controls.remarksId.setValue(i.earthingElectrodeChamberId);
+            index3++;      
+         // }
+        }
       }
     }
-  
       //earthingSystem
       this.earthingSystemArr=this.summaryArr.controls[w].controls.earthingSystem as FormArray;
       let index4 =0;
       let earthingSystemFlag = true;
       let earthingSystemserialNo = 1;
-      for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingSystem){
-        for(let j = 0; j < this.earthingSystemName.length; j++){
-        this.earthingSystemArr.push(this.createEarthingSystem());
-        this.earthingSystemArr.controls[0].controls.heading.setValue('EarthingSystem Observation');
-        
-          if(i[this.earthingSystemName[j]]!="" && i[this.earthingSystemName[j]]!= null && earthingSystemFlag){
-            this.earthingSystemArr.controls[index4].controls.headingUi.setValue('EarthingSystem Observation');
-            earthingSystemFlag = false;
+
+      if(this.earthingData!=null && this.earthingData.earthingReport!=null && this.earthingData.earthingReport[0]!=null && this.earthingData.earthingReport[0].earthingLpsDescription!=null && this.earthingData.earthingReport[0].earthingLpsDescription[w].length!=0 && this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingSystem!=null){
+        for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingSystem){
+          for(let j = 0; j < this.earthingSystemName.length; j++){
+          this.earthingSystemArr.push(this.createEarthingSystem());
+          this.earthingSystemArr.controls[0].controls.heading.setValue('EarthingSystem Observation');
+          
+            if(i[this.earthingSystemName[j]]!="" && i[this.earthingSystemName[j]]!= null && earthingSystemFlag){
+              this.earthingSystemArr.controls[index4].controls.headingUi.setValue('EarthingSystem Observation');
+              earthingSystemFlag = false;
+            }
+            if(i[this.earthingSystemName[j]]!="" && i[this.earthingSystemName[j]]!= null){
+              this.earthingSystemArr.controls[index4].controls.serialNoUi.setValue(earthingSystemserialNo);
+              earthingSystemserialNo = earthingSystemserialNo + 1;
+              this.earthingFlag[w] = true;
+            }
+            this.earthingSystemArr.controls[index4].controls.observation.setValue(i[this.earthingSystemName[j]]);
+            this.earthingSystemArr.controls[index4].controls.remarksId.setValue(i.earthingSystemId);
+            this.earthingSystemArr.controls[index4].controls.observationComponentDetails.setValue('earthingSystem' + index4);
+            this.earthingSystemArr.controls[index4].controls.serialNo.setValue(index4+1); 
+            this.earthingSystemArr.controls[index4].controls.remarksName.setValue(this.earthingSystemName[j]);
+            index4++; 
           }
-          if(i[this.earthingSystemName[j]]!="" && i[this.earthingSystemName[j]]!= null){
-            this.earthingSystemArr.controls[index4].controls.serialNoUi.setValue(earthingSystemserialNo);
-            earthingSystemserialNo = earthingSystemserialNo + 1;
-            this.earthingFlag[w] = true;
-          }
-          this.earthingSystemArr.controls[index4].controls.observation.setValue(i[this.earthingSystemName[j]]);
-          this.earthingSystemArr.controls[index4].controls.remarksId.setValue(i.earthingSystemId);
-          this.earthingSystemArr.controls[index4].controls.observationComponentDetails.setValue('earthingSystem' + index4);
-          this.earthingSystemArr.controls[index4].controls.serialNo.setValue(index4+1); 
-          this.earthingSystemArr.controls[index4].controls.remarksName.setValue(this.earthingSystemName[j]);
-          index4++; 
         }
       }
+      
       //earthElectrodeTesting
       this.earthElectrodeTestingArr=this.summaryArr.controls[w].controls.earthElectrodeTesting as FormArray;
       let index5 =0;
       let earthElectodeTestingFlag = true;
       let earthingelectrodeTestingSerialNo = 1;
-      for(let j = 0; j < this.earthElectrodeTestingName.length; j++){ 
-        this.earthElectrodeTestingArr.push(this.createEarthElectrodeTesting());
 
-          for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthElectrodeTesting){
+      if(this.earthingData!=null && this.earthingData.earthingReport!=null && this.earthingData.earthingReport[0]!=null && this.earthingData.earthingReport[0].earthingLpsDescription!=null && this.earthingData.earthingReport[0].earthingLpsDescription[w].length!=0 && this.earthingData.earthingReport[0].earthingLpsDescription[w].earthElectrodeTesting!=null){
 
-          if(i[this.earthElectrodeTestingName[j]]!="" && i[this.earthElectrodeTestingName[j]]!= null && earthElectodeTestingFlag){
-            this.earthElectrodeTestingArr.controls[index5].controls.headingUi.setValue('EarthElectrodeTesting Observation');
-            earthElectodeTestingFlag = false;
+        for(let j = 0; j < this.earthElectrodeTestingName.length; j++){ 
+          this.earthElectrodeTestingArr.push(this.createEarthElectrodeTesting());
+  
+            for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthElectrodeTesting){
+  
+            if(i[this.earthElectrodeTestingName[j]]!="" && i[this.earthElectrodeTestingName[j]]!= null && earthElectodeTestingFlag){
+              this.earthElectrodeTestingArr.controls[index5].controls.headingUi.setValue('EarthElectrodeTesting Observation');
+              earthElectodeTestingFlag = false;
+            }
+            if(i[this.earthElectrodeTestingName[j]]!="" && i[this.earthElectrodeTestingName[j]]!= null){
+              this.earthElectrodeTestingArr.controls[index5].controls.serialNoUi.setValue(earthingelectrodeTestingSerialNo);
+              earthingelectrodeTestingSerialNo = earthingelectrodeTestingSerialNo + 1;
+              this.earthingFlag[w] = true;
+            }
+            this.earthElectrodeTestingArr.controls[index5].controls.observation.setValue(i[this.earthElectrodeTestingName[j]]);
+            this.earthElectrodeTestingArr.controls[index5].controls.remarksId.setValue(i.earthingElectrodeTestingId);
           }
-          if(i[this.earthElectrodeTestingName[j]]!="" && i[this.earthElectrodeTestingName[j]]!= null){
-            this.earthElectrodeTestingArr.controls[index5].controls.serialNoUi.setValue(earthingelectrodeTestingSerialNo);
-            earthingelectrodeTestingSerialNo = earthingelectrodeTestingSerialNo + 1;
-            this.earthingFlag[w] = true;
-          }
-          this.earthElectrodeTestingArr.controls[index5].controls.observation.setValue(i[this.earthElectrodeTestingName[j]]);
-          this.earthElectrodeTestingArr.controls[index5].controls.remarksId.setValue(i.earthingElectrodeTestingId);
+  
+            this.earthElectrodeTestingArr.controls[0].controls.heading.setValue('EarthElectrodeTesting Observation');
+            this.earthElectrodeTestingArr.controls[index5].controls.observationComponentDetails.setValue('earthElectrodeTesting' + index5);
+            this.earthElectrodeTestingArr.controls[index5].controls.serialNo.setValue(index5+1); 
+            this.earthElectrodeTestingArr.controls[index5].controls.remarksName.setValue(this.earthElectrodeTestingName[j]);
+            index5++;      
         }
-
-          this.earthElectrodeTestingArr.controls[0].controls.heading.setValue('EarthElectrodeTesting Observation');
-          this.earthElectrodeTestingArr.controls[index5].controls.observationComponentDetails.setValue('earthElectrodeTesting' + index5);
-          this.earthElectrodeTestingArr.controls[index5].controls.serialNo.setValue(index5+1); 
-          this.earthElectrodeTestingArr.controls[index5].controls.remarksName.setValue(this.earthElectrodeTestingName[j]);
-          index5++;      
       }
+      
   }
       //spd
       if(this.spdReportData.spdReport!=null && this.spdReportData.spdReport[0].spd.length >w){
@@ -4273,58 +4357,67 @@ SignatureDesigner1(){
           let indexS =0;
           let separateDistanceFlag = true;
           let separateDistanceSerialNo = 1;
-          for(let i of this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription[w].separateDistance){
-            for(let j = 0; j < this.separateDistanceName.length; j++){
-            //  if(i[this.separateDistanceName[j]]!="" && i[this.separateDistanceName[j]]!= null){
-                this.separateDistanceArr.push(this.createSeparateDistance());
-                this.separateDistanceArr.controls[0].controls.heading.setValue('SeparateDistance Observation');
 
-                if (i[this.separateDistanceName[j]]!="" && i[this.separateDistanceName[j]]!= null && separateDistanceFlag) {
-                  this.separateDistanceArr.controls[indexS].controls.headingUi.setValue('SeparateDistance Observation');
-                separateDistanceFlag = false;
+          if(this.separationDistanceData!=null && this.separationDistanceData.seperationDistanceReport!=null && this.separationDistanceData.airTermination[0]!=null && this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription!=null && this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription[w].length!=0 && this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription[w].separateDistance!=null){
+
+            for(let i of this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription[w].separateDistance){
+              for(let j = 0; j < this.separateDistanceName.length; j++){
+              //  if(i[this.separateDistanceName[j]]!="" && i[this.separateDistanceName[j]]!= null){
+                  this.separateDistanceArr.push(this.createSeparateDistance());
+                  this.separateDistanceArr.controls[0].controls.heading.setValue('SeparateDistance Observation');
+  
+                  if (i[this.separateDistanceName[j]]!="" && i[this.separateDistanceName[j]]!= null && separateDistanceFlag) {
+                    this.separateDistanceArr.controls[indexS].controls.headingUi.setValue('SeparateDistance Observation');
+                  separateDistanceFlag = false;
+                }
+                if (i[this.separateDistanceName[j]]!="" && i[this.separateDistanceName[j]]!= null) {
+                  this.separateDistanceArr.controls[indexS].controls.serialNoUi.setValue(separateDistanceSerialNo);
+                  separateDistanceSerialNo = separateDistanceSerialNo + 1;
+                  this.seperationFlag[w] = true;
+                }
+                  this.separateDistanceArr.controls[indexS].controls.observationComponentDetails.setValue('separateDistanceDesc' + indexS);
+                  this.separateDistanceArr.controls[indexS].controls.serialNo.setValue(indexS+1);
+                  this.separateDistanceArr.controls[indexS].controls.observation.setValue(i[this.separateDistanceName[j]]);
+                  this.separateDistanceArr.controls[indexS].controls.remarksId.setValue(i.seperationDistanceDescId);
+                  this.separateDistanceArr.controls[indexS].controls.remarksName.setValue(this.separateDistanceName[j]);
+                  indexS++;            
+               // }
               }
-              if (i[this.separateDistanceName[j]]!="" && i[this.separateDistanceName[j]]!= null) {
-                this.separateDistanceArr.controls[indexS].controls.serialNoUi.setValue(separateDistanceSerialNo);
-                separateDistanceSerialNo = separateDistanceSerialNo + 1;
-                this.seperationFlag[w] = true;
-              }
-                this.separateDistanceArr.controls[indexS].controls.observationComponentDetails.setValue('separateDistanceDesc' + indexS);
-                this.separateDistanceArr.controls[indexS].controls.serialNo.setValue(indexS+1);
-                this.separateDistanceArr.controls[indexS].controls.observation.setValue(i[this.separateDistanceName[j]]);
-                this.separateDistanceArr.controls[indexS].controls.remarksId.setValue(i.seperationDistanceDescId);
-                this.separateDistanceArr.controls[indexS].controls.remarksName.setValue(this.separateDistanceName[j]);
-                indexS++;            
-             // }
-            }
-        }
+          }
+          }
+          
         this.separationDistanceDownArr=this.summaryArr.controls[w].controls.separationDistanceDown as FormArray;
         let indexSD =0;
         let separationDistanceDownFlag = true;
         let separationDistanceDownSerialNo = 1;
-        for(let i of this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription[w].separateDistanceDownConductors){
-          for(let j = 0; j < this.separateDistanceDownName.length; j++){
-          //  if(i[this.separateDistanceDownName[j]]!="" && i[this.separateDistanceDownName[j]]!= null){
-              this.separationDistanceDownArr.push(this.createSeparationDownDistance());
-              this.separationDistanceDownArr.controls[0].controls.heading.setValue('SeparationDistanceDown Observation');
 
-              if (i[this.separateDistanceDownName[j]]!="" && i[this.separateDistanceDownName[j]]!= null && separationDistanceDownFlag) {
-                this.separationDistanceDownArr.controls[indexSD].controls.headingUi.setValue('SeparationDistanceDown Observation');
-                separationDistanceDownFlag = false;
-              }
-              if (i[this.separateDistanceDownName[j]]!="" && i[this.separateDistanceDownName[j]]!= null) {
-                this.separationDistanceDownArr.controls[indexSD].controls.serialNoUi.setValue(separationDistanceDownSerialNo);
-                separationDistanceDownSerialNo = separationDistanceDownSerialNo + 1;
-                this.seperationFlag[w] = true;
-              }
-              this.separationDistanceDownArr.controls[indexSD].controls.observationComponentDetails.setValue('separateDistanceDownConductors' + indexSD);
-              this.separationDistanceDownArr.controls[indexSD].controls.serialNo.setValue(indexSD+1);
-              this.separationDistanceDownArr.controls[indexSD].controls.observation.setValue(i[this.separateDistanceDownName[j]]);
-              this.separationDistanceDownArr.controls[indexSD].controls.remarksId.setValue(i.seperationDistanceDownConductorId);
-              this.separationDistanceDownArr.controls[indexSD].controls.remarksName.setValue(this.separateDistanceDownName[j]);
-              indexSD++;          
-          //  }
-          }
-      }
+        if(this.separationDistanceData!=null && this.separationDistanceData.seperationDistanceReport!=null && this.separationDistanceData.airTermination[0]!=null && this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription!=null && this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription[w].length!=0 && this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription[w].separateDistanceDownConductors!=null){
+          for(let i of this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription[w].separateDistanceDownConductors){
+            for(let j = 0; j < this.separateDistanceDownName.length; j++){
+            //  if(i[this.separateDistanceDownName[j]]!="" && i[this.separateDistanceDownName[j]]!= null){
+                this.separationDistanceDownArr.push(this.createSeparationDownDistance());
+                this.separationDistanceDownArr.controls[0].controls.heading.setValue('SeparationDistanceDown Observation');
+  
+                if (i[this.separateDistanceDownName[j]]!="" && i[this.separateDistanceDownName[j]]!= null && separationDistanceDownFlag) {
+                  this.separationDistanceDownArr.controls[indexSD].controls.headingUi.setValue('SeparationDistanceDown Observation');
+                  separationDistanceDownFlag = false;
+                }
+                if (i[this.separateDistanceDownName[j]]!="" && i[this.separateDistanceDownName[j]]!= null) {
+                  this.separationDistanceDownArr.controls[indexSD].controls.serialNoUi.setValue(separationDistanceDownSerialNo);
+                  separationDistanceDownSerialNo = separationDistanceDownSerialNo + 1;
+                  this.seperationFlag[w] = true;
+                }
+                this.separationDistanceDownArr.controls[indexSD].controls.observationComponentDetails.setValue('separateDistanceDownConductors' + indexSD);
+                this.separationDistanceDownArr.controls[indexSD].controls.serialNo.setValue(indexSD+1);
+                this.separationDistanceDownArr.controls[indexSD].controls.observation.setValue(i[this.separateDistanceDownName[j]]);
+                this.separationDistanceDownArr.controls[indexSD].controls.remarksId.setValue(i.seperationDistanceDownConductorId);
+                this.separationDistanceDownArr.controls[indexSD].controls.remarksName.setValue(this.separateDistanceDownName[j]);
+                indexSD++;          
+            //  }
+            }
+        }
+        }
+       
       }
 
       //equipotential bonding
