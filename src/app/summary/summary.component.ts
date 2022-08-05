@@ -47,6 +47,7 @@ import { SignatureComponent } from '../signature/signature.component';
 import { SuperAdminProd } from 'src/environments/environment.prod';
 import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminLocal } from 'src/environments/environment';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-summary',
@@ -459,7 +460,7 @@ SignatureDesigner1(){
              }
              else if(j.observationComponentDetails == 'alternate') {
                //i.controls.observationsSupply.setValue(j.observationDescription);
-               if(j.alternativeInnerObservation.lengt != 0) {
+               if(j.alternativeInnerObservation.length != 0) {
                  let alternateArr: any = [];
                  for(let k=0;k<j.alternativeInnerObservation.length; k++) {
                    alternateArr = i.controls.alternateArr;
@@ -469,6 +470,7 @@ SignatureDesigner1(){
                    let alternateArr = i.controls.alternateArr;
                    alternateArr.controls[k].controls.observations.setValue(j.alternativeInnerObservation[k].observationDescription);
                    alternateArr.controls[k].controls.observationComponentDetails.setValue(j.alternativeInnerObservation[k].observationComponentDetails);
+                   alternateArr.controls[k].controls.referenceId.setValue(j.alternativeInnerObservation[k].supplyInnerObervationsId);
 
                   }
                }
@@ -614,7 +616,7 @@ SignatureDesigner1(){
               }
               else if(j.observationComponentDetails == 'alternate') {
                 //i.controls.observationsSupply.setValue(j.observationDescription);
-                if(j.alternativeInnerObservation.lengt != 0) {
+                if(j.alternativeInnerObservation.length != 0) {
                   let alternateArr: any = [];
                   for(let k=0;k<j.alternativeInnerObservation.length; k++) {
                     alternateArr = i.controls.alternateArr;
@@ -624,6 +626,7 @@ SignatureDesigner1(){
                     let alternateArr = i.controls.alternateArr;
                     alternateArr.controls[k].controls.observations.setValue(j.alternativeInnerObservation[k].observationDescription);
                     alternateArr.controls[k].controls.observationComponentDetails.setValue(j.alternativeInnerObservation[k].observationComponentDetails);
+                    alternateArr.controls[k].controls.referenceId.setValue(j.alternativeInnerObservation[k].supplyInnerObervationsId);
 
                   }
                 }
@@ -699,6 +702,117 @@ SignatureDesigner1(){
       )
     }
   }
+
+  onservationChangedDetection() {
+    if(this.service.siteCount!=0 && this.service.siteCount!=undefined){
+      this.observationService.retrieveObservationSummary(this.service.siteCount, this.email).subscribe(
+        data => {
+          debugger
+          this.ObservationsSumaryArr=JSON.parse(data);
+          let ObservationsSumaryValueArr:any=[];
+          ObservationsSumaryValueArr = this.addsummary.get('ObservationsArr') as FormArray;
+          for(let i of ObservationsSumaryValueArr.controls){
+            for(let j of this.ObservationsSumaryArr.supplyOuterObservation) {
+              if(j.observationComponentDetails == 'mains') {
+                i.controls.mainsObservations.setValue(j.observationDescription)
+              }
+              else if(j.observationComponentDetails == 'instalLocationReportOb') {
+                i.controls.earthElectrodeObservations.setValue(j.observationDescription);
+              }
+              else if(j.observationComponentDetails == 'bondingNoOfJointsOb') {
+                i.controls.bondingConductorObservations.setValue(j.observationDescription);
+              }
+              else if(j.observationComponentDetails == 'earthingNoOfJointsOb') {
+                i.controls.earthingConductorObservations.setValue(j.observationDescription);
+              } 
+              else if(j.observationComponentDetails == 'alternate') {
+                if(j.alternativeInnerObservation.length != 0) {
+                  let alternateArr: any = [];
+                  alternateArr = i.controls.alternateArr;
+
+                  if(j.alternativeInnerObservation.length == i.controls.alternateArr.length) {
+                    for(let k=0;k<alternateArr.length; k++) {
+                      if(alternateArr.controls[k].controls.referenceId.value == j.alternativeInnerObservation[k].supplyInnerObervationsId) {
+                        alternateArr.controls[k].controls.observations.setValue(j.alternativeInnerObservation[k].observationDescription);
+                      } 
+                      else {
+                        alternateArr.controls[k].reset();
+                        alternateArr.controls[k].controls.observations.setValue(j.alternativeInnerObservation[k].observationDescription);
+                        alternateArr.controls[k].controls.observationComponentDetails.setValue(j.alternativeInnerObservation[k].observationComponentDetails);
+                        alternateArr.controls[k].controls.referenceId.setValue(j.alternativeInnerObservation[k].supplyInnerObervationsId);
+                      }                                      
+                    }
+                  }
+                  else{
+                    for(let k=i.controls.alternateArr.length ;k<j.alternativeInnerObservation.length; k++) {
+                      alternateArr.push(this.alternateObservationsForm());
+                    }
+
+                    for(let k=0;k<alternateArr.length; k++) {
+                      if(alternateArr.controls[k].controls.referenceId.value == j.alternativeInnerObservation[k].supplyInnerObervationsId) {
+                        alternateArr.controls[k].controls.observations.setValue(j.alternativeInnerObservation[k].observationDescription);
+                      }    
+                      else {
+                       let tempArr: any= [];
+                       let count=0;
+                       let indexValue: any;
+                       j.alternativeInnerObservation.forEach((element: any,index: any) => {
+                        if(alternateArr.controls[k].controls.referenceId.value == element.supplyInnerObervationsId) {
+                          console.log(index);
+                          count++;
+                          indexValue = index;
+                          // tempArr.push()
+                          // for(let y=k; y<alternateArr.length; y++) {
+                          //   tempArr.push(alternateArr.controls[y]);
+                          //   alternateArr.removeAt(y);
+                          // }
+                        }
+                       })
+                       if(count==0) {
+                        alternateArr.controls[k].reset();
+                        alternateArr.controls[k].controls.observations.setValue(j.alternativeInnerObservation[k].observationDescription);
+                        alternateArr.controls[k].controls.observationComponentDetails.setValue(j.alternativeInnerObservation[k].observationComponentDetails);
+                        alternateArr.controls[k].controls.referenceId.setValue(j.alternativeInnerObservation[k].supplyInnerObervationsId);
+                       }
+                       else {
+                        alternateArr.controls[k].controls.observations.setValue(j.alternativeInnerObservation[indexValue].observationDescription);
+                       }
+
+
+                      }    
+                              
+                    }
+                  }
+                  
+                  // for(let k=0;k<j.alternativeInnerObservation.length; k++) {
+                  //   alternateArr = i.controls.alternateArr;
+                  //   alternateArr.push(this.alternateObservationsForm());
+                  // }
+                  // for(let k=0;k<j.alternativeInnerObservation.length; k++) {
+                  //   let alternateArr = i.controls.alternateArr;
+                  //   alternateArr.controls[k].controls.observations.setValue(j.alternativeInnerObservation[k].observationDescription);
+                  //   alternateArr.controls[k].controls.observationComponentDetails.setValue(j.alternativeInnerObservation[k].observationComponentDetails);
+                          
+                  // }
+                }
+                else {
+
+                }
+              }
+  
+            }
+          }
+
+          
+          
+        },
+        error => {
+          
+        }
+      )
+      }
+  }
+
    reloadFromBack(){
     if(this.addsummary.invalid){
      this.service.isCompleted5= false;
@@ -777,6 +891,7 @@ SignatureDesigner1(){
         generalConditionInstallation: this.summaryList.summary.generalConditionInstallation,
         overallAssessmentInstallation: this.summaryList.summary.overallAssessmentInstallation,
     })
+      this.onservationChangedDetection();
     // this.flag=true;
      }
 
@@ -1220,6 +1335,8 @@ showHideAccordion(index: number) {
       return this._formBuilder.group({
         observationComponentDetails: new FormControl({disabled: false,value: item.observationComponentDetails}),
         observations: new FormControl({disabled: false,value: item.observations}),
+        observationsId: new FormControl({disabled: false,value: item.observationsId}),
+        referenceId: new FormControl({disabled: false,value: item.referenceId}),
         furtherActions: new FormControl({disabled: false,value: item.furtherActions}),
         comment: new FormControl({disabled: false,value: item.comment}),
         obervationStatus: new FormControl(item.obervationStatus),
@@ -1339,9 +1456,11 @@ showHideAccordion(index: number) {
     return new FormGroup({
       observationComponentDetails: new FormControl(''),
       observations: new FormControl(''),
+      observationsId: new FormControl(''),
       furtherActions: new FormControl('', [Validators.required]),
       comment: new FormControl('', [Validators.required]),
       obervationStatus: new FormControl('A'),
+      referenceId: new FormControl(''),
       summaryInnerObservation:this._formBuilder.array([]),
     });
   }
@@ -1760,6 +1879,29 @@ showHideAccordion(index: number) {
 
 //  }
 
+  adminSubmit() {
+    this.UpateInspectionService.updateSummary(this.summary,true).subscribe(
+      data=> {
+        this.success = true;
+        this.popup=true;
+        this.finalSpinner=false;
+        this.successMsg = data;
+        this.addsummary.markAsPristine();
+        this.service.windowTabClick=0;
+    this.service.logoutClick=0; 
+    this.service.lvClick=0; 
+      },
+      (error) => {
+        this.Error = true;
+        this.popup=true;
+        this.finalSpinner=false;
+        this.errorArr = [];
+        this.errorArr = JSON.parse(error.error);
+        this.errorMsg = this.errorArr.message;
+      });
+      
+  }
+
   SubmitTab5(flag: any,content5:any) {
     if(!flag) {
       this.summary.siteId = this.service.siteCount;
@@ -1853,11 +1995,14 @@ showHideAccordion(index: number) {
                   this.summary.summaryObservation.push(i);
                 }
               }
-            this.UpateInspectionService.updateSummary(this.summary).subscribe(
+            this.UpateInspectionService.updateSummary(this.summary,false).subscribe(
               data=> {
                 this.success = true;
+                this.popup=true;
+                this.finalSpinner=false;
+
                 this.successMsg = data;
-                this.finalFlag = true;
+                //this.finalFlag = true;
                 this.addsummary.markAsPristine();
                 this.service.windowTabClick=0;
             this.service.logoutClick=0; 
@@ -1865,6 +2010,8 @@ showHideAccordion(index: number) {
               },
               (error) => {
                 this.Error = true;
+                this.popup=true;
+                this.finalSpinner=false;
                 this.errorArr = [];
                 this.errorArr = JSON.parse(error.error);
                 this.errorMsg = this.errorArr.message;
@@ -1882,9 +2029,9 @@ showHideAccordion(index: number) {
                 this.success = true;
                 this.successMsg = data;
                 this.addsummary.markAsPristine();
-                this.service.allFieldsDisable = true; 
-                this.service.disableSubmitSummary=true;
-                this.finalFlag = true;
+                // this.service.allFieldsDisable = true; 
+                // this.service.disableSubmitSummary=true;
+                // this.finalFlag = true;
                 this.service.windowTabClick=0;
                 this.service.logoutClick=0; 
                 this.service.lvClick=0; 
