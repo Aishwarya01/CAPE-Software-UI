@@ -519,6 +519,13 @@ export class LpssummaryComponent implements OnInit {
 
   dwonconductorRemarks: boolean = false;
   addingRemarksCompleted:boolean = true;
+
+  airtermiantionFlag:any=[]
+  downConductorFlag:any=[]
+  earthingFlag:any=[]
+  spdFlag:any=[]
+  seperationFlag:any=[]
+  earthStudFlag:any=[]
   
   constructor(private summaryService:SummaryServiceService,private formBuilder: FormBuilder,
     private airterminationServices: AirterminationService, private router: ActivatedRoute,
@@ -555,6 +562,12 @@ export class LpssummaryComponent implements OnInit {
   }
 
     ngOnInit(): void {
+      this.airtermiantionFlag[0] = false;
+      this.downConductorFlag[0] = false;
+      this.earthingFlag[0] = false;
+      this.spdFlag[0] = false;
+      this.seperationFlag[0] = false;
+      this.earthStudFlag[0] = false;
        this.addingRemarksCompleted = true;
       this.summaryForm = this.formBuilder.group({
         summaryLpsBuildings: this.formBuilder.array([this.summaryLPSArr()]),
@@ -1478,10 +1491,11 @@ SignatureDesigner1(){
        let airBasicDescriptiontRerialNo = 0;
        let airBasicDescriptionSerialNoUi = 1;
        let airBasicDescriptionHeadingUiFlag = true;
-     
+       this.airtermiantionFlag[index]=false;
+
         if(airterminationData.airBasicDescription!=null && airterminationData.airBasicDescription!=undefined && airterminationData.airBasicDescription[0] !=undefined){
           for (let remarkName of this.airBasicName) {
-
+            
             let value = airterminationData.airBasicDescription[0][remarkName];
             let airBasicDescriptionId = airterminationData.airBasicDescription[0].airBasicDescriptionId;
             let heading = '';
@@ -1496,7 +1510,7 @@ SignatureDesigner1(){
           if (value !='' && value != null) {
              displySerialNo = airBasicDescriptionSerialNoUi;
              airBasicDescriptionSerialNoUi = airBasicDescriptionSerialNoUi + 1;
-            
+             this.airtermiantionFlag[index]=true;
              if(airBasicDescriptionHeadingUiFlag){
               headingUi = 'AT_Basic Details Observation';
               airBasicDescriptionHeadingUiFlag = false;
@@ -1539,7 +1553,7 @@ SignatureDesigner1(){
           if (value !='' && value != null) {
              displySerialNo = airVerticalTerminationSerialNoUi;
              airVerticalTerminationSerialNoUi = airVerticalTerminationSerialNoUi + 1;
-            
+             this.airtermiantionFlag[index]=true;
              if(airVerticalterminationHeadingUiFlag){
               headingUi = 'AT_Vertical Observation';
               airVerticalterminationHeadingUiFlag = false;
@@ -1583,7 +1597,7 @@ SignatureDesigner1(){
             if (value !='' && value != null) {
                displySerialNo = airterminationSerialNoUi;
                airterminationSerialNoUi = airterminationSerialNoUi + 1;
-              
+               this.airtermiantionFlag[index]=true;
                if(airterminationVerticalFlag){
                 headingUi = 'AT_Vertical List-'+(i+1);
                 airterminationVerticalFlag = false;
@@ -1624,7 +1638,7 @@ SignatureDesigner1(){
         if (value !='' && value != null) {
            displySerialNo = airterminationClampsSerialNoUi;
            airterminationClampsSerialNoUi = airterminationClampsSerialNoUi + 1;
-          
+           this.airtermiantionFlag[index]=true;
            if(airterminationHeadingUiFlag){
             headingUi = "AT_Clamps Observation";
             airterminationHeadingUiFlag = false;
@@ -1666,7 +1680,7 @@ SignatureDesigner1(){
           if (value !='' && value != null) {
              displySerialNo = airConnectorSerialNoUi;
              airConnectorSerialNoUi = airConnectorSerialNoUi + 1;
-            
+             this.airtermiantionFlag[index]=true;
              if(airConnectorsHeadingUiFlag){
               headingUi = "AT_Connectors Observation";
               airConnectorsHeadingUiFlag = false;
@@ -1708,7 +1722,7 @@ SignatureDesigner1(){
           if (value !='' && value != null) {
              displySerialNo = airExpansionSerialNoUi;
              airExpansionSerialNoUi = airExpansionSerialNoUi + 1;
-            
+             this.airtermiantionFlag[index]=true;
              if(airExpansionHeadingUiFlag){
               headingUi = "AT_Expansion Observation";
               airExpansionHeadingUiFlag = false;
@@ -1751,7 +1765,7 @@ SignatureDesigner1(){
           if (value !='' && value != null) {
              displySerialNo = airHolderSerialNoUi;
              airHolderSerialNoUi = airHolderSerialNoUi + 1;
-            
+             this.airtermiantionFlag[index]=true;
              if(airHolderHeadingUiFlag){
               headingUi = "AT_Holder Observation";
               airHolderHeadingUiFlag = false;
@@ -1795,7 +1809,7 @@ SignatureDesigner1(){
           if (value !='' && value != null) {
              displySerialNo = airHolderListSerialNoUi;
              airHolderListSerialNoUi = airHolderListSerialNoUi + 1;
-            
+             this.airtermiantionFlag[index]=true;
              if(airHolderListFlag){
               headingUi = 'AT_Holder List-'+(i+1);
               airHolderListFlag = false;
@@ -1838,7 +1852,7 @@ SignatureDesigner1(){
           if (value !='' && value != null) {
              displySerialNo = airMeshSerialNoUi;
              airMeshSerialNoUi = airMeshSerialNoUi + 1;
-            
+             this.airtermiantionFlag[index]=true;
              if(airMeshUiFlag){
               headingUi = "AT_Mesh Observation";
               airMeshUiFlag = false;
@@ -1862,7 +1876,7 @@ SignatureDesigner1(){
 
       updateSummaryDwonConductorObervation(summaryform: any, dwonConductorData: any, index: any) {
 
-
+        this.downConductorFlag[index]=false;
           //updating downConductorReport_remarks value to summarydownconductor observation
             
             let downConductorReportSerialNo = 0;
@@ -1886,7 +1900,7 @@ SignatureDesigner1(){
                   if (value !='' && value != null) {
                     displySerialNo = downConductorReportSerialNoUi;
                     downConductorReportSerialNoUi = downConductorReportSerialNoUi + 1;
-                    
+                    this.downConductorFlag[index]=true;
                     if(headingReportUiFlag){
                       headingUi = "DC_Basic Details Observation";
                       headingReportUiFlag = false;
@@ -1927,7 +1941,7 @@ SignatureDesigner1(){
                 if (value !='' && value != null) {
                   displySerialNo = downConductorSerialNoUi;
                   downConductorSerialNoUi = downConductorSerialNoUi + 1;
-                  
+                  this.downConductorFlag[index]=true;
                   if(headingUiFlag){
                     headingUi = "DC_Downconductors Observation";
                     headingUiFlag = false;
@@ -1969,7 +1983,7 @@ SignatureDesigner1(){
                 if (value !='' && value != null) {
                   displySerialNo = bridgingDescriptionSerialNoUi;
                   bridgingDescriptionSerialNoUi = bridgingDescriptionSerialNoUi + 1;
-                  
+                  this.downConductorFlag[index]=true;
                   if(bridgingDescriptionUiFlag){
                     headingUi = "DC_Bridging Observation";
                     bridgingDescriptionUiFlag = false;
@@ -2011,7 +2025,7 @@ SignatureDesigner1(){
                 if (value !='' && value != null) {
                   displySerialNo = holderSerialNoUi;
                   holderSerialNoUi = holderSerialNoUi + 1;
-                  
+                  this.downConductorFlag[index]=true;
                   if(holderUiFlag){
                     headingUi = "DC_Holder Observation";
                     holderUiFlag = false;
@@ -2052,7 +2066,7 @@ SignatureDesigner1(){
                 if (value !='' && value != null) {
                   displySerialNo = connectorsSerialNoUi;
                   connectorsSerialNoUi = connectorsSerialNoUi + 1;
-                  
+                  this.downConductorFlag[index]=true;
                   if(connectorsheadingUiFlag){
                     headingUi = "DC_Connectors Observation";
                     connectorsheadingUiFlag = false;
@@ -2093,7 +2107,7 @@ SignatureDesigner1(){
                 if (value !='' && value != null) {
                   displySerialNo = lightningCounterSerialNoUi;
                   lightningCounterSerialNoUi = lightningCounterSerialNoUi + 1;
-                  
+                  this.downConductorFlag[index]=true;
                   if(lightningCounterUiFlag){
                     headingUi = "DC_LightningCounter Observation";
                     lightningCounterUiFlag = false;
@@ -2136,7 +2150,7 @@ SignatureDesigner1(){
                 if (value !='' && value != null) {
                   displySerialNo = testingJointSerialNoUi;
                   testingJointSerialNoUi = testingJointSerialNoUi + 1;
-                  
+                  this.downConductorFlag[index]=true;
                   if(testingJointUiFlag){
                     headingUi = "DC_TestingJoint Observation";
                     testingJointUiFlag = false;
@@ -2180,7 +2194,7 @@ SignatureDesigner1(){
                 if (value !='' && value != null) {
                   displySerialNo = downConductorTestingSerialNoUi;
                   downConductorTestingSerialNoUi = downConductorTestingSerialNoUi + 1;
-                  
+                  this.downConductorFlag[index]=true;
                   if(downConductorTestingUiFlag){
                     headingUi = "DC_DownConductorTesting Observation";
                     downConductorTestingUiFlag = false;
@@ -2201,9 +2215,8 @@ SignatureDesigner1(){
   }
 
   updateSummaryEarthingObervation(summaryform: any, earthingData: any, index: any) {
-    this.summaryArr = this.summaryForm.get('summaryLpsBuildings') as FormArray;
-   // this.airTerminationArr = this.summaryArr.controls[index].controls.airTermination as FormArray;
-
+    
+    this.earthingFlag[index]=false;
     //=========================== earthingReport =================================================
 
     let earthingReportRerialNo = 0;
@@ -2234,6 +2247,7 @@ SignatureDesigner1(){
         if (earthingValue != '' && earthingValue != null && earthingReportHeadingUiFlag) {
           earthingReportHeadingUi = 'ET_Basic Details Observation';
           earthingReportHeadingUiFlag = false;
+          this.earthingFlag[index]=true;
         }
   
        
@@ -2276,7 +2290,7 @@ SignatureDesigner1(){
         if (earthingValue != '' && earthingValue != null && earthingDescriptionHeadingUiFlag) {
           earthingDescriptionHeadingUi = 'EarthingDescription Observation';
           earthingDescriptionHeadingUiFlag = false;
-  
+          this.earthingFlag[index]=true;
         }
   
         let summaryObservation = this.isSummaryDataAvilable('earthingDescriptionMain' + earthingDescriptionserialNo, 'earthingDescription', earthingValue,
@@ -2323,6 +2337,7 @@ SignatureDesigner1(){
           if (earthingValue != '' && earthingValue != null && earthingDescriptionListHeadingUiFlag) {
             earthingDescriptionListHeadingUi = 'EarthingDescription List-' + (i+1);
             earthingDescriptionListHeadingUiFlag = false;
+            this.earthingFlag[index]=true;
   
           }
   
@@ -2369,7 +2384,7 @@ SignatureDesigner1(){
           if (earthingValue != '' && earthingValue != null && earthingClampHeadingUiFlag) {
             earthingClampHeadingUi = 'EarthingClamps Observation';
             earthingClampHeadingUiFlag = false;
-    
+            this.earthingFlag[index]=true;
           }
     
           let summaryObservation = this.isSummaryDataAvilable('earthingClamps' + earthingClampserialNo, 'earthingClamps', earthingValue,
@@ -2411,7 +2426,7 @@ SignatureDesigner1(){
         if (earthingValue != '' && earthingValue != null && earthingElectrodeChamberHeadingUiFlag) {
           earthingElectrodeChamberHeadingUi = 'EarthingElectrodeChamber Observation';
           earthingElectrodeChamberHeadingUiFlag = false;
-  
+          this.earthingFlag[index]=true;
         }
   
         let summaryObservation = this.isSummaryDataAvilable( 'earthingElectrodeChamber' + earthingElectrodeChamberserialNo, 'earthingElectrodeChamber', earthingValue,
@@ -2458,7 +2473,7 @@ SignatureDesigner1(){
         if (earthingValue != '' && earthingValue != null && earthingSystemHeadingUiFlag) {
           earthingSystemHeadingUi = 'EarthingSystem Observation';
           earthingSystemHeadingUiFlag = false;
-  
+          this.earthingFlag[index]=true;
         }
   
         let summaryObservation = this.isSummaryDataAvilable('earthingSystem' + earthingSystemserialNo, 'earthingSystem', earthingValue,
@@ -2507,7 +2522,7 @@ SignatureDesigner1(){
           if (earthingValue != '' && earthingValue != null && earthElectrodeTestingHeadingUiFlag) {
             earthElectrodeTestingHeadingUi = 'EarthElectrodeTesting Observation';
             earthElectrodeTestingHeadingUiFlag = false;
-    
+            this.earthingFlag[index]=true;
           }
     
           let summaryObservation = this.isSummaryDataAvilable('earthElectrodeTesting' + earthElectrodeTestingserialNo, 'earthElectrodeTesting', earthingValue,
@@ -2526,9 +2541,7 @@ SignatureDesigner1(){
   }
 
   updateSummarySPDObervation(summaryform: any, spdData: any, index: any) {
-    //this.summaryArr = this.summaryForm.get('summaryLpsBuildings') as FormArray;
-   // this.airTerminationArr = this.summaryArr.controls[index].controls.airTermination as FormArray;
-
+    this.spdFlag[index]=false;
     //=========================== spd report =================================================
 
     let spdReportRerialNo = 0;
@@ -2557,7 +2570,7 @@ SignatureDesigner1(){
         if (spdValue != '' && spdValue != null && spdReportHeadingUiFlag) {
           spdReportHeadingUi =  'SPD Details Observation';
           spdReportHeadingUiFlag = false;
-  
+          this.spdFlag[index]=true;
         }
   
         let summaryObservation = this.isSummaryDataAvilable('spdReport' + spdReportRerialNo, 'spdReport', spdValue, spdReportRerialNo, spdReportHeading
@@ -2600,7 +2613,7 @@ SignatureDesigner1(){
          if (earthingValue != '' && earthingValue != null && spdDescriptionHeadingUiFlag) {
            spdDescriptionHeadingUi =   ('SPD List-' + (i+1));
            spdDescriptionHeadingUiFlag = false;
-   
+           this.spdFlag[index]=true;
          }
    
          let summaryObservation = this.isSummaryDataAvilable( 'spdDescription' + spdDescriptionSerialNo, 'spdDescription', earthingValue, spdDescriptionSerialNo, spdDescriptionHeading
@@ -2616,7 +2629,7 @@ SignatureDesigner1(){
   }
   
   updateSeperationObservation(summaryform: any, separationDistanceData: any, index: any) {
-
+    this.seperationFlag[index]=false;
   //  this.summaryArr = this.summaryForm.get('summaryLpsBuildings') as FormArray;
  
     //=========================== SeparationDistance =================================================
@@ -2647,7 +2660,7 @@ SignatureDesigner1(){
         if (separationDistanceValue != '' && separationDistanceValue != null && seperationDistanceHeadingUiFlag) {
           seperationDistanceHeadingUi =  'SeparationDistance Observation';
           seperationDistanceHeadingUiFlag = false;
-  
+          this.seperationFlag[index]=true;
         }
   
         let summaryObservation = this.isSummaryDataAvilable('seperationDistanceDescription' + seperationDistanceSerialNo, 'separationDistance', separationDistanceValue, seperationDistanceSerialNo, seperationDistanceHeading
@@ -2690,7 +2703,7 @@ SignatureDesigner1(){
            if (separationDistanceValue != '' && separationDistanceValue != null && SeparateDistanceHeadingUiFlag) {
              SeparateDistanceHeadingUi =  'SeparateDistance Observation';
              SeparateDistanceHeadingUiFlag = false;
-     
+             this.seperationFlag[index]=true;
            }
      
            let summaryObservation = this.isSummaryDataAvilable('separateDistanceDesc' + SeparateDistanceSerialNo, 'separateDistance', separationDistanceValue, SeparateDistanceSerialNo, SeparateDistanceHeading
@@ -2734,7 +2747,7 @@ SignatureDesigner1(){
             if (separationDistanceValue != '' && separationDistanceValue != null && SeparationDistanceDownHeadingUiFlag) {
               SeparationDistanceDownHeadingUi = 'SeparationDistanceDown Observation';
               SeparationDistanceDownHeadingUiFlag = false;
-    
+              this.seperationFlag[index]=true;
             }
     
             let summaryObservation = this.isSummaryDataAvilable('separateDistanceDownConductors' + SeparationDistanceDownSerialNo, 'separationDistanceDown', separationDistanceValue, SeparationDistanceDownSerialNo, SeparationDistanceDownHeading
@@ -2751,7 +2764,7 @@ SignatureDesigner1(){
 
    //equipotential bonding or earthStud
   updateEarthStudObservation(summaryform: any, earthStudData: any, index: any) {
-
+    this.earthStudFlag[index]=false;
   //  this.summaryArr = this.summaryForm.get('summaryLpsBuildings') as FormArray;
  
     //=========================== EarthStud =================================================
@@ -2782,7 +2795,7 @@ SignatureDesigner1(){
         if (separationDistanceValue != '' && separationDistanceValue != null && earthStudHeadingUiFlag) {
           earthStudHeadingUi = 'Equipotential Bonding Observation';
           earthStudHeadingUiFlag = false;
-  
+          this.earthStudFlag[index]=true;
         }
   
         let summaryObservation = this.isSummaryDataAvilable('equipotentialBonding' + earthStudSerialNo, 'earthStudDescription', separationDistanceValue, earthStudSerialNo, earthStudHeading
@@ -2815,7 +2828,7 @@ SignatureDesigner1(){
           for(let value of this.airTermination){
             if(value.remarksId == remarksId && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
-
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           }
        
@@ -2827,6 +2840,8 @@ SignatureDesigner1(){
           for(let value of this.airTermination1){
             if(value.remarksId == remarksId  && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
+
             }
           }
        
@@ -2838,6 +2853,8 @@ SignatureDesigner1(){
           for(let value of this.airTerminationList){
             if(value.remarksId == remarksId && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
+
             }
           }
        
@@ -2850,6 +2867,8 @@ SignatureDesigner1(){
           for(let value of this.airTermination2){
             if(value.remarksId == remarksId && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
+
             }
           }
        
@@ -2861,6 +2880,8 @@ SignatureDesigner1(){
           for(let value of this.airTermination3){
             if(value.remarksId == remarksId  && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
+
             }
           } 
         }
@@ -2871,6 +2892,8 @@ SignatureDesigner1(){
           for(let value of this.airTerminationHolderList){
             if(value.remarksId == remarksId  && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
+
             }
           } 
         }
@@ -2881,6 +2904,8 @@ SignatureDesigner1(){
           for(let value of this.airTermination4){
             if(value.remarksId == remarksId && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
+
             }
           } 
         }
@@ -2891,6 +2916,7 @@ SignatureDesigner1(){
           for(let value of this.airTermination5){
             if(value.remarksId == remarksId  && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           } 
         }
@@ -2901,6 +2927,7 @@ SignatureDesigner1(){
           for(let value of this.airTermination6){
             if(value.remarksId == remarksId  && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           } 
         }
@@ -2913,6 +2940,7 @@ SignatureDesigner1(){
           for(let value of this.downConductor1){
             if(value.remarksId == remarksId  && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           } 
         }
@@ -2923,6 +2951,7 @@ SignatureDesigner1(){
           for(let value of this.downConductor2){
             if(value.remarksId == remarksId  && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           } 
         }
@@ -2933,6 +2962,7 @@ SignatureDesigner1(){
           for(let value of this.downConductor3){
             if(value.remarksId == remarksId  && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           } 
         }
@@ -2943,6 +2973,7 @@ SignatureDesigner1(){
           for(let value of this.downConductor4){
             if(value.remarksId == remarksId  && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           } 
         }
@@ -2953,6 +2984,7 @@ SignatureDesigner1(){
           for(let value of this.downConductor5){
             if(value.remarksId == remarksId  && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           } 
         }
@@ -2963,6 +2995,7 @@ SignatureDesigner1(){
           for(let value of this.downConductor6){
             if(value.remarksId == remarksId  && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           } 
         }
@@ -2973,6 +3006,7 @@ SignatureDesigner1(){
           for(let value of this.downConductor7){
             if(value.remarksId == remarksId  && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           } 
         }
@@ -2983,6 +3017,7 @@ SignatureDesigner1(){
           for(let value of this.downConductor8){
             if(value.remarksId == remarksId  && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           } 
         }
@@ -2993,6 +3028,7 @@ SignatureDesigner1(){
           for(let value of this.earthing1){
             if(value.remarksId == remarksId && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           }
        
@@ -3005,6 +3041,7 @@ SignatureDesigner1(){
           for(let value of this.earthing2){
             if(value.remarksId == remarksId && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             } 
         }
       }
@@ -3016,6 +3053,7 @@ SignatureDesigner1(){
           for (let value of this.earthing3) {
             if (value.remarksId == remarksId && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           }
         }
@@ -3027,6 +3065,7 @@ SignatureDesigner1(){
        for(let value of this.earthingList ){
         if (value.remarksId == remarksId && value.observationComponentDetails == observationComponentDetails){
           summaryObservation.recommendation = value.recommendation;
+          summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
         }
        } 
       }
@@ -3038,6 +3077,7 @@ SignatureDesigner1(){
           for (let value of this.earthing4) {
             if (value.remarksId == remarksId && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           }
         }
@@ -3049,6 +3089,7 @@ SignatureDesigner1(){
           for (let value of this.earthing5) {
             if (value.remarksId == remarksId && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           }
         }
@@ -3060,6 +3101,7 @@ SignatureDesigner1(){
           for (let value of this.earthing6) {
             if (value.remarksId == remarksId && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           }
         }
@@ -3070,6 +3112,7 @@ SignatureDesigner1(){
           for (let value of this.spd1) {
             if (value.remarksId == remarksId && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           }
         }
@@ -3080,6 +3123,7 @@ SignatureDesigner1(){
           for (let value of this.spd2) {
             if (value.remarksId == remarksId && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           }
         }
@@ -3090,6 +3134,7 @@ SignatureDesigner1(){
           for (let value of this.separation1) {
             if (value.remarksId == remarksId && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           }
         }
@@ -3100,6 +3145,7 @@ SignatureDesigner1(){
           for (let value of this.separation2) {
             if (value.remarksId == remarksId && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           }
         }
@@ -3110,6 +3156,7 @@ SignatureDesigner1(){
           for (let value of this.separation3) {
             if (value.remarksId == remarksId && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           }
         }
@@ -3120,6 +3167,7 @@ SignatureDesigner1(){
           for (let value of this.equipotential1) {
             if (value.remarksId == remarksId && value.observationComponentDetails == observationComponentDetails){
               summaryObservation.recommendation = value.recommendation;
+              summaryObservation.summaryLpsObservationId = value.summaryLpsObservationId;
             }
           }
         }
@@ -3328,6 +3376,7 @@ SignatureDesigner1(){
           this.separationDistanceData=JSON.parse(data);
           this.equiBondingData=JSON.parse(data);
           this.summaryArr=this.summaryForm.get('summaryLpsBuildings') as FormArray;
+         
           for(let w=0; w<this.summaryArr.controls.length; w++){
             //air termination
         if(this.airTerminationData.airTermination!=null){
@@ -3335,7 +3384,13 @@ SignatureDesigner1(){
           this.airTerminationArr=[];
             this.airTerminationArr=this.summaryArr.controls[w].controls.airTermination as FormArray;
             let index =0;
-            //let value=this.airTerminationData.airTermination[0].lpsAirDiscription[0];
+            this.airtermiantionFlag[w] = false;
+            this.downConductorFlag[w] = false;
+            this.earthingFlag[w] = false;
+            this.spdFlag[w] = false;
+            this.seperationFlag[w] = false;
+            this.earthStudFlag[w] = false;
+
            let airBasicFlag = true;
            let serialNo = 1;
             for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airBasicDescription){
@@ -3351,6 +3406,7 @@ SignatureDesigner1(){
                      if(i[this.airBasicName[j]]!="" && i[this.airBasicName[j]]!=null){
                       this.airTerminationArr.controls[index].controls.serialNoUi.setValue(serialNo);
                       serialNo = serialNo + 1;
+                      this.airtermiantionFlag[w] = true;
                      }
                     this.airTerminationArr.controls[index].controls.observationComponentDetails.setValue('airBasicDescription' + index);
                     this.airTerminationArr.controls[index].controls.serialNo.setValue(index+1);
@@ -3380,6 +3436,7 @@ SignatureDesigner1(){
                    if(i[this.airVerticalName[j]]!="" && i[this.airVerticalName[j]]!= null){
                     this.airVerticalArr.controls[index1].controls.serialNoUi.setValue(verticalSerialNo);
                     verticalSerialNo = verticalSerialNo + 1;
+                    this.airtermiantionFlag[w] = true;
                    }
                   this.airVerticalArr.controls[index1].controls.observationComponentDetails.setValue('lpsVerticalAirTermination' + index1);
                   this.airVerticalArr.controls[index1].controls.serialNo.setValue(index1 + 1);
@@ -3417,6 +3474,7 @@ SignatureDesigner1(){
                    if(i[this.airVerticalListName[j]]!=""  && i[this.airVerticalListName[j]]!= null){
                     this.airVerticalListArr.controls[index0].controls.serialNoUi.setValue(verticalListSerialNo);
                     verticalListSerialNo = verticalListSerialNo + 1;
+                    this.airtermiantionFlag[w] = true;
                    }
 
                   this.airVerticalListArr.controls[index0].controls.remarksId.setValue(i.verticalAirTerminationListId);
@@ -3451,6 +3509,7 @@ SignatureDesigner1(){
            if(i[this.airMeshName[j]]!="" && i[this.airMeshName[j]]!= null){
             this.airMeshArr.controls[index2].controls.serialNoUi.setValue(airmeshSerialNo);
             airmeshSerialNo = airmeshSerialNo + 1;
+            this.airtermiantionFlag[w] = true;
            }
 
           this.airMeshArr.controls[index2].controls.observationComponentDetails.setValue('airMeshDescription' + index2);
@@ -3485,6 +3544,7 @@ SignatureDesigner1(){
              if(i[this.airHolderName[j]]!="" && i[this.airHolderName[j]]!= null){
               this.airHolderArr.controls[index3].controls.serialNoUi.setValue(holderSerialNo);
               holderSerialNo = holderSerialNo + 1;
+              this.airtermiantionFlag[w] = true;
              }
             this.airHolderArr.controls[index3].controls.observationComponentDetails.setValue('airHolderDescription' + index3);
             this.airHolderArr.controls[index3].controls.serialNo.setValue(index3+1);
@@ -3524,6 +3584,7 @@ SignatureDesigner1(){
                if(i[this.airHolderListName[j]]!="" && i[this.airHolderListName[j]]!= null){
                 this.airHolderListArr.controls[index01].controls.serialNoUi.setValue(holderListSerialNo);
                 holderListSerialNo = holderListSerialNo + 1;
+                this.airtermiantionFlag[w] = true;
                }
               this.airHolderListArr.controls[index01].controls.remarksId.setValue(i.holderListId);
               this.airHolderListArr.controls[index01].controls.observationComponentDetails.setValue('airHolderList' + index01);
@@ -3557,6 +3618,7 @@ SignatureDesigner1(){
              if(i[this.airClampsName[j]]!="" && i[this.airClampsName[j]]!= null){
               this.airClampsArr.controls[index4].controls.serialNoUi.setValue(clampsSerialNo);
               clampsSerialNo = clampsSerialNo + 1;
+              this.airtermiantionFlag[w] = true;
              }
 
             this.airClampsArr.controls[index4].controls.observationComponentDetails.setValue('airClamps' + index4);
@@ -3585,6 +3647,7 @@ SignatureDesigner1(){
              if(i[this.airExpansionName[j]]!="" && i[this.airExpansionName[j]]!= null){
               this.airExpansionArr.controls[index5].controls.serialNoUi.setValue(expansionSerialNo);
               expansionSerialNo = expansionSerialNo + 1;
+              this.airtermiantionFlag[w] = true;
              }
 
             this.airExpansionArr.controls[0].controls.heading.setValue('AT_Expansion Observation');
@@ -3614,6 +3677,7 @@ SignatureDesigner1(){
              if(i[this.airConnectorsName[j]]!="" && i[this.airConnectorsName[j]]!= null){
               this.airConnectorsArr.controls[index6].controls.serialNoUi.setValue(connectorsSerialNo);
               connectorsSerialNo = connectorsSerialNo + 1;
+              this.airtermiantionFlag[w] = true;
              }
             this.airConnectorsArr.controls[0].controls.heading.setValue('AT_Connectors Observation');
             this.airConnectorsArr.controls[index6].controls.observationComponentDetails.setValue('airConnectors' + index6);
@@ -3649,6 +3713,7 @@ SignatureDesigner1(){
                     this.downConductorsBasicArr.controls[index].controls.serialNoUi.setValue(downConductorReportSerialNo);
                     downConductorReportSerialNo = downConductorReportSerialNo + 1;
                     this.dwonconductorRemarks = true;
+                    this.downConductorFlag[w] = true;
                    }
 
                   this.downConductorsBasicArr.controls[index].controls.observationComponentDetails.setValue('downConductorBasicDescription' + index);
@@ -3679,6 +3744,7 @@ SignatureDesigner1(){
                   this.downConductorsArr.controls[index1].controls.serialNoUi.setValue(downConductorSerialNo);
                  downConductorSerialNo = downConductorSerialNo + 1;
                  this.dwonconductorRemarks = true;
+                 this.downConductorFlag[w] = true;
                 }
                 this.downConductorsArr.controls[index1].controls.observationComponentDetails.setValue('downConductorDescription' + index1);
                 this.downConductorsArr.controls[index1].controls.serialNo.setValue(index1+1);
@@ -3708,6 +3774,7 @@ SignatureDesigner1(){
               this.bridgingDescArr.controls[index2].controls.serialNoUi.setValue(bridgingSerialNo);
               bridgingSerialNo = bridgingSerialNo + 1;
               this.dwonconductorRemarks = true;
+              this.downConductorFlag[w] = true;
              }
 
             this.bridgingDescArr.controls[0].controls.heading.setValue('DC_Bridging Observation');
@@ -3738,6 +3805,7 @@ SignatureDesigner1(){
             this.downHoldersArr.controls[index3].controls.serialNoUi.setValue(holderSerialNo);
             holderSerialNo = holderSerialNo + 1;
             this.dwonconductorRemarks = true;
+            this.downConductorFlag[w] = true;
            }
           this.downHoldersArr.controls[0].controls.heading.setValue('DC_Holder Observation');
           this.downHoldersArr.controls[index3].controls.observationComponentDetails.setValue('holder' + index3);
@@ -3768,6 +3836,7 @@ SignatureDesigner1(){
             this.downConnectorsArr.controls[index4].controls.serialNoUi.setValue(connectorsSerialNo);
             connectorsSerialNo = connectorsSerialNo + 1;
             this.dwonconductorRemarks = true;
+            this.downConductorFlag[w] = true;
            }
           this.downConnectorsArr.controls[0].controls.heading.setValue('DC_Connectors Observation');
           this.downConnectorsArr.controls[index4].controls.observationComponentDetails.setValue('connectors' + index4);
@@ -3798,6 +3867,7 @@ SignatureDesigner1(){
             this.testingJointArr.controls[index5].controls.serialNoUi.setValue(testingJointSerialNo);
             testingJointSerialNo = testingJointSerialNo + 1;
             this.dwonconductorRemarks = true;
+            this.downConductorFlag[w] = true;
            }
           this.testingJointArr.controls[index5].controls.observationComponentDetails.setValue('testingJoint' + index5);
           this.testingJointArr.controls[index5].controls.serialNo.setValue(index5+1);
@@ -3826,6 +3896,7 @@ SignatureDesigner1(){
             this.lightingCounterArr.controls[index6].controls.serialNoUi.setValue(lightningCounterSerialNo);
             lightningCounterSerialNo = lightningCounterSerialNo + 1;
             this.dwonconductorRemarks = true;
+            this.downConductorFlag[w] = true;
            }
 
           this.lightingCounterArr.controls[0].controls.heading.setValue('DC_LightningCounter Observation');
@@ -3857,6 +3928,7 @@ SignatureDesigner1(){
           this.downConductorTestingArr.controls[index8].controls.serialNoUi.setValue(dwonconductorTestingSerialNo);
           dwonconductorTestingSerialNo = dwonconductorTestingSerialNo + 1;
           this.dwonconductorRemarks = true;
+          this.downConductorFlag[w] = true;
          }
 
         this.downConductorTestingArr.controls[0].controls.heading.setValue('DC_DownConductorTesting Observation');
@@ -3888,6 +3960,7 @@ SignatureDesigner1(){
                   if(this.earthingData.earthingReport[0].earthingLpsDescription[w][this.earthingReportName[j]]!="" && this.earthingData.earthingReport[0].earthingLpsDescription[w][this.earthingReportName[j]]!= null){
                     this.earthingReportArr.controls[index].controls.serialNoUi.setValue(earthingSerialNo);
                     earthingSerialNo = earthingSerialNo + 1;
+                    this.earthingFlag[w] = true;
                   }
 
                   this.earthingReportArr.controls[0].controls.heading.setValue('ET_Basic Details Observation');
@@ -3918,6 +3991,7 @@ SignatureDesigner1(){
                 if(i[this.earthingDescriptionName[j]]!="" && i[this.earthingDescriptionName[j]]!= null){
                   this.earthingDescArr.controls[index1].controls.serialNoUi.setValue(earthingDescriptionSerialNo);
                   earthingDescriptionSerialNo = earthingDescriptionSerialNo + 1;
+                  this.earthingFlag[w] = true;
                 }
                 this.earthingDescArr.controls[0].controls.heading.setValue('EarthingDescription Observation');
                 this.earthingDescArr.controls[index1].controls.observationComponentDetails.setValue('earthingDescriptionMain' + index1);
@@ -3954,6 +4028,7 @@ SignatureDesigner1(){
               if(i[this.earthingDescriptionListName[j]]!="" && i[this.earthingDescriptionListName[j]]!= null){
                 this.earthingDescriptionListArr.controls[index0].controls.serialNoUi.setValue(earthingDescriptionListSerialNo);
                 earthingDescriptionListSerialNo = earthingDescriptionListSerialNo + 1;
+                this.earthingFlag[w] = true;
               }
 
               this.earthingDescriptionListArr.controls[index0].controls.observationComponentDetails.setValue('earthingDescriptionList' + index0);
@@ -3988,6 +4063,7 @@ SignatureDesigner1(){
             if(i[this.earthingClampsName[j]]!="" && i[this.earthingClampsName[j]]!= null){
               this.earthingClampsArr.controls[index2].controls.serialNoUi.setValue(earthingClampsSerialNo);
               earthingClampsSerialNo = earthingClampsSerialNo + 1;
+              this.earthingFlag[w] = true;
             }
 
             this.earthingClampsArr.controls[index2].controls.observationComponentDetails.setValue('earthingClamps' + index2);
@@ -4016,6 +4092,7 @@ SignatureDesigner1(){
           if(i[this.earthingElectrodeChamberName[j]]!="" && i[this.earthingElectrodeChamberName[j]]!= null){
             this.earthingElectrodeChamberArr.controls[index3].controls.serialNoUi.setValue(earthingElectrodeChamberSerialNo);
             earthingElectrodeChamberSerialNo = earthingElectrodeChamberSerialNo + 1;
+            this.earthingFlag[w] = true;
           }
           this.earthingElectrodeChamberArr.controls[0].controls.heading.setValue('EarthingElectrodeChamber Observation');
           this.earthingElectrodeChamberArr.controls[index3].controls.observationComponentDetails.setValue('earthingElectrodeChamber' + index3);
@@ -4045,6 +4122,7 @@ SignatureDesigner1(){
           if(i[this.earthingSystemName[j]]!="" && i[this.earthingSystemName[j]]!= null){
             this.earthingSystemArr.controls[index4].controls.serialNoUi.setValue(earthingSystemserialNo);
             earthingSystemserialNo = earthingSystemserialNo + 1;
+            this.earthingFlag[w] = true;
           }
           this.earthingSystemArr.controls[index4].controls.observation.setValue(i[this.earthingSystemName[j]]);
           this.earthingSystemArr.controls[index4].controls.remarksId.setValue(i.earthingSystemId);
@@ -4071,6 +4149,7 @@ SignatureDesigner1(){
           if(i[this.earthElectrodeTestingName[j]]!="" && i[this.earthElectrodeTestingName[j]]!= null){
             this.earthElectrodeTestingArr.controls[index5].controls.serialNoUi.setValue(earthingelectrodeTestingSerialNo);
             earthingelectrodeTestingSerialNo = earthingelectrodeTestingSerialNo + 1;
+            this.earthingFlag[w] = true;
           }
           this.earthElectrodeTestingArr.controls[index5].controls.observation.setValue(i[this.earthElectrodeTestingName[j]]);
           this.earthElectrodeTestingArr.controls[index5].controls.remarksId.setValue(i.earthingElectrodeTestingId);
@@ -4105,6 +4184,7 @@ SignatureDesigner1(){
                   && this.spdReportData.spdReport[0].spd[w][this.spdReportName[j]]!= null){
                     this.spdReportArr.controls[index].controls.serialNoUi.setValue(spdReportSerialNo);
                     spdReportSerialNo = spdReportSerialNo + 1;
+                    this.spdFlag[w] = true;
                   }
                   this.spdReportArr.controls[index].controls.observationComponentDetails.setValue('spdReport' + index);
                   this.spdReportArr.controls[index].controls.serialNo.setValue(index+1);
@@ -4139,6 +4219,7 @@ SignatureDesigner1(){
                   if(i[this.spdReportListName[j]]!="" && i[this.spdReportListName[j]]!= null){
                     this.spdListArr.controls[index07].controls.serialNoUi.setValue(spdListSerialNo);
                     spdListSerialNo = spdListSerialNo + 1;
+                    this.spdFlag[w] = true;
                   }
 
             // this.spdListArr.controls[0].controls.heading.setValue('SPD List Observation');
@@ -4177,6 +4258,7 @@ SignatureDesigner1(){
                   && this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription[w][this.separationDistanceName[j]] != null) {
                   this.separationDistanceArr.controls[index].controls.serialNoUi.setValue(separationDistanceSerialNo);
                   separationDistanceSerialNo = separationDistanceSerialNo + 1;
+                  this.seperationFlag[w] = true;
                 }
                   this.separationDistanceArr.controls[index].controls.observationComponentDetails.setValue('seperationDistanceDescription' + index);
                   this.separationDistanceArr.controls[index].controls.serialNo.setValue(index+1);
@@ -4204,6 +4286,7 @@ SignatureDesigner1(){
               if (i[this.separateDistanceName[j]]!="" && i[this.separateDistanceName[j]]!= null) {
                 this.separateDistanceArr.controls[indexS].controls.serialNoUi.setValue(separateDistanceSerialNo);
                 separateDistanceSerialNo = separateDistanceSerialNo + 1;
+                this.seperationFlag[w] = true;
               }
                 this.separateDistanceArr.controls[indexS].controls.observationComponentDetails.setValue('separateDistanceDesc' + indexS);
                 this.separateDistanceArr.controls[indexS].controls.serialNo.setValue(indexS+1);
@@ -4231,6 +4314,7 @@ SignatureDesigner1(){
               if (i[this.separateDistanceDownName[j]]!="" && i[this.separateDistanceDownName[j]]!= null) {
                 this.separationDistanceDownArr.controls[indexSD].controls.serialNoUi.setValue(separationDistanceDownSerialNo);
                 separationDistanceDownSerialNo = separationDistanceDownSerialNo + 1;
+                this.seperationFlag[w] = true;
               }
               this.separationDistanceDownArr.controls[indexSD].controls.observationComponentDetails.setValue('separateDistanceDownConductors' + indexSD);
               this.separationDistanceDownArr.controls[indexSD].controls.serialNo.setValue(indexSD+1);
@@ -4264,6 +4348,7 @@ SignatureDesigner1(){
                   && this.equiBondingData.earthStudReport[0].earthStudDescription[w][this.earthStudDescName[j]]!= null) {
                     this.equiBondingArr.controls[index].controls.serialNoUi.setValue(earthStudFlagSerialNo);
                     earthStudFlagSerialNo = earthStudFlagSerialNo + 1;
+                    this.earthStudFlag[w] = true;
                   }
                   this.equiBondingArr.controls[index].controls.observationComponentDetails.setValue('equipotentialBonding' + index);
                   this.equiBondingArr.controls[index].controls.serialNo.setValue(index+1);
@@ -4287,7 +4372,7 @@ SignatureDesigner1(){
        }
     }
     closeModalDialog() {
-      this.downloadPdf();
+     // this.downloadPdf();
       if (this.errorMsg != "") {
         this.Error = false;
         this.modalService.dismissAll((this.errorMsg = ""));

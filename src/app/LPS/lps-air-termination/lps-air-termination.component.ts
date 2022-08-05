@@ -1697,11 +1697,6 @@ export class LpsAirTerminationComponent implements OnInit {
     }
   }
 
-  summaryEvent(content:any){
-    this.modalService.open(content, { centered: true, backdrop: 'static' });
-    this.onSubmit(this.flag);
-    this.summaryPopup=false;
-  }
 
   closeModalDialog() {
     if (this.errorMsg != '') {

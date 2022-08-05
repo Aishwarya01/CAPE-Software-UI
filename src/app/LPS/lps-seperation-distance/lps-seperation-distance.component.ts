@@ -109,12 +109,6 @@ export class LpsSeperationDistanceComponent implements OnInit {
    }
   }
 
-  summaryEvent(content:any){
-    this.modalService.open(content, { centered: true, backdrop: 'static' });
-    this.onSubmit(this.flag);
-    this.summaryPopup=false;
-  }
-
   ngOnInit(): void {
 
     this.separeteDistanceForm = this.formBuilder.group({

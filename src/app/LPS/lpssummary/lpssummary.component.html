@@ -76,11 +76,11 @@
                   </div>
                 </div>
            </div>
-                <div class="tableObserve" *ngIf="airTerminationControl(q).length != 0 || airVerticalControl(q).length != 0 ||
+                <div class="tableObserve" *ngIf="(airTerminationControl(q).length != 0 || airVerticalControl(q).length != 0 ||
                 airVerticalListControl(q).length != 0 || airMeshControl(q).length != 0 ||
                  airHolderControl(q).length != 0 || airHolderListControl(q).length != 0 ||
                   airClampsControl(q).length != 0 || airExpansionControl(q).length != 0 || 
-                    airConnectorsControl(q).length != 0">
+                    airConnectorsControl(q).length != 0) && airtermiantionFlag[j]">
                 <div class="form-group">
                 <!-- Observation starts here -->
                 <label>
@@ -253,7 +253,7 @@
                 <div class="tableObserve" *ngIf="(downConductorBasicControl(q).length != 0 || downConductorControl(q).length != 0 ||
                 bridgingDescControl(q).length != 0 || downHoldersControl(q).length != 0 ||
                 downConnectorsControl(q).length != 0 || testingJointsControl(q).length != 0 ||
-                lightningCountersControl(q).length != 0 || downConductorTestingControl(q).length != 0 ) && dwonconductorRemarks">
+                lightningCountersControl(q).length != 0 || downConductorTestingControl(q).length != 0 ) && downConductorFlag[j]">
                
                   <div class="form-group">
                   <!-- Observation starts here -->
@@ -408,13 +408,14 @@
                     </div>
                   </div>
 
-                  <div class="tableObserve" *ngIf="(earthingReportControl(q).length != 0) || (earthingDescriptionControl(q).length != 0) ||
+                  <div class="tableObserve" *ngIf="((earthingReportControl(q).length != 0) || (earthingDescriptionControl(q).length != 0) ||
                   (earthingDescriptionListControl(q).length != 0) || (earthingClampsControl(q).length != 0) ||
                    (earthingElectrodeChamberControl(q).length != 0) || (earthingSystemControl(q).length != 0) ||
-                    (earthElectrodeTestingControl(q).length != 0) ">
+                    (earthElectrodeTestingControl(q).length != 0)) && earthingFlag[j] ">
+                   
                     <div class="form-group">
                     <!-- Observation starts here -->
-                    <label>
+                    <label >
                       <h3 style="cursor: pointer;" (click)= "navigateToStep(3)"><b><u>Earthing :</u></b></h3>
                     </label>
                     <br>
@@ -546,11 +547,11 @@
                             </div>
                           </div>
                       -->
-                     <br>
+              
                       </div>
                     </div>
 
-                    <div class="tableObserve" *ngIf="(spdReportControl(q).length != 0) || (spdReportListControl(q).length != 0)">
+                    <div class="tableObserve" *ngIf="(spdReportControl(q).length != 0) || (spdReportListControl(q).length != 0)&& spdFlag[j]">
                       <div class="form-group">
                       <!-- Observation starts here -->
                       <label>
@@ -585,7 +586,7 @@
                                 </tbody>
       
                                 <tbody formArrayName="spdReportList" *ngFor="let a of spdReportListControl(q); let i= index">
-                                  <tr [formGroupName]="i">
+                                  <tr [formGroupName]="i" *ngIf="a.get('observation')?.value != null && a.get('observation')?.value  != '' ">
                                   <td nowrap="nowrap" style="font-weight: bold;">{{a.get("headingUi")?.value}}</td>
                                   <td>{{a.get('serialNoUi')?.value}}</td>
                                   <td>
@@ -611,7 +612,7 @@
                       </div>
 
                       <div class="tableObserve" *ngIf="(separationDistanceControl(q).length != 0) || (separateDistanceControl(q).length != 0) &&
-                      (separationDistanceDownControl(q).length != 0)">
+                      (separationDistanceDownControl(q).length != 0)&& seperationFlag[j]">
                         <div class="form-group">
                         <!-- Observation starts here -->
                         <label>
@@ -686,7 +687,7 @@
                           </div>
                         </div>
 
-                        <div class="tableObserve" *ngIf="earthStudDescControl(q).length != 0">
+                        <div class="tableObserve" *ngIf="(earthStudDescControl(q).length != 0) && earthStudFlag[j]">
                           <div class="form-group">
                           <!-- Observation starts here -->
                           <label>
