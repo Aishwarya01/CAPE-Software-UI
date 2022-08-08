@@ -1309,7 +1309,7 @@ SignatureDesigner1(){
        //  }
       }
      
-      this.retrieveObservationLpsSummaryOnload();
+      //this.retrieveObservationLpsSummaryOnload();
       
       this.lpsSummary.basicLpsId = basicLpsId;
       this.basicLpsId = basicLpsId;
@@ -1327,7 +1327,7 @@ SignatureDesigner1(){
           this.lpsSummary.flag=this.jsonData.flag;
           this.flag1 = true;
           setTimeout(() => {
-         // this.retrieveFromAirTermination();
+          this.retrieveFromAirTermination();
           setTimeout(() => {
             this.addNewRemarksInformations();
           
@@ -2552,7 +2552,7 @@ SignatureDesigner1(){
     if(spdData.spd!=null && spdData.spd!=undefined){
       for (let value of this.spdReportName) {
         let spdValue = spdData.spd[index][value];
-        let spdReportId = spdData.spd[index].spdReportId;
+        let spdReportId = spdData.spd[index].spdId;
         let spdReportHeadingUi = '';
         let spdReportHeading = '';
         let spdReport = summaryform.spdReport as FormArray;
