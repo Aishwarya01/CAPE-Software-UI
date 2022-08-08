@@ -743,7 +743,7 @@ SignatureDesigner1(){
                       }                                      
                     }
                   }
-                  else{
+                  else if(j.alternativeInnerObservation.length > i.controls.alternateArr.length){
                     for(let k=i.controls.alternateArr.length ;k<j.alternativeInnerObservation.length; k++) {
                       alternateArr.push(this.alternateObservationsForm());
                     }
@@ -769,10 +769,25 @@ SignatureDesigner1(){
                         }
                        })
                        if(count==0) {
-                        alternateArr.controls[k].reset();
-                        alternateArr.controls[k].controls.observations.setValue(j.alternativeInnerObservation[k].observationDescription);
-                        alternateArr.controls[k].controls.observationComponentDetails.setValue(j.alternativeInnerObservation[k].observationComponentDetails);
-                        alternateArr.controls[k].controls.referenceId.setValue(j.alternativeInnerObservation[k].supplyInnerObervationsId);
+                        let valueExist = "No";
+                        let tempArr: any=[];
+                        alternateArr.controls.forEach((element: any,index: any) => {
+                          if(j.alternativeInnerObservation[k].supplyInnerObervationsId == element.controls.referenceId.value) {
+                            valueExist = "Yes";
+                            tempArr.push(element.controls);
+                            
+                          }
+                        });
+                        if(valueExist == "Yes") {
+
+                        }
+                        else {
+                          alternateArr.controls[k].reset();
+                          alternateArr.controls[k].controls.observations.setValue(j.alternativeInnerObservation[k].observationDescription);
+                          alternateArr.controls[k].controls.observationComponentDetails.setValue(j.alternativeInnerObservation[k].observationComponentDetails);
+                          alternateArr.controls[k].controls.referenceId.setValue(j.alternativeInnerObservation[k].supplyInnerObervationsId);
+                        }
+                        
                        }
                        else {
                         alternateArr.controls[k].controls.observations.setValue(j.alternativeInnerObservation[indexValue].observationDescription);
@@ -783,6 +798,46 @@ SignatureDesigner1(){
                               
                     }
                   }
+                  else if(j.alternativeInnerObservation.length < i.controls.alternateArr.length){
+                    let count=0;
+                    let indexValue: any;
+                    for(let k=0;k<alternateArr.length; k++) {
+                      j.alternativeInnerObservation.forEach((element: any,index: any) => {
+                        if(alternateArr.controls[k].controls.referenceId.value == element.supplyInnerObervationsId) {
+                          console.log(index);
+                          count++;
+                          indexValue = index;
+                          // tempArr.push()
+                          // for(let y=k; y<alternateArr.length; y++) {
+                          //   tempArr.push(alternateArr.controls[y]);
+                          //   alternateArr.removeAt(y);
+                          // }
+                        }
+                       })
+                      if(count==0) {
+                        alternateArr.removeAt(k);
+                      }
+                      else {
+                        count=0;
+                        indexValue = undefined;
+                      }
+                    }
+
+                    for(let k=0;k<alternateArr.length; k++) {
+                      if(alternateArr.controls[k].controls.referenceId.value == j.alternativeInnerObservation[k].supplyInnerObervationsId) {
+                        alternateArr.controls[k].controls.observations.setValue(j.alternativeInnerObservation[k].observationDescription);
+                      } 
+                      else {
+                        alternateArr.controls[k].reset();
+                        alternateArr.controls[k].controls.observations.setValue(j.alternativeInnerObservation[k].observationDescription);
+                        alternateArr.controls[k].controls.observationComponentDetails.setValue(j.alternativeInnerObservation[k].observationComponentDetails);
+                        alternateArr.controls[k].controls.referenceId.setValue(j.alternativeInnerObservation[k].supplyInnerObervationsId);
+                      }                                      
+                    }
+
+
+                    }
+                    
                   
                   // for(let k=0;k<j.alternativeInnerObservation.length; k++) {
                   //   alternateArr = i.controls.alternateArr;
@@ -1335,7 +1390,7 @@ showHideAccordion(index: number) {
       return this._formBuilder.group({
         observationComponentDetails: new FormControl({disabled: false,value: item.observationComponentDetails}),
         observations: new FormControl({disabled: false,value: item.observations}),
-        observationsId: new FormControl({disabled: false,value: item.observationsId}),
+        // observationsId: new FormControl({disabled: false,value: item.observationsId}),
         referenceId: new FormControl({disabled: false,value: item.referenceId}),
         furtherActions: new FormControl({disabled: false,value: item.furtherActions}),
         comment: new FormControl({disabled: false,value: item.comment}),
@@ -1456,7 +1511,7 @@ showHideAccordion(index: number) {
     return new FormGroup({
       observationComponentDetails: new FormControl(''),
       observations: new FormControl(''),
-      observationsId: new FormControl(''),
+      // observationsId: new FormControl(''),
       furtherActions: new FormControl('', [Validators.required]),
       comment: new FormControl('', [Validators.required]),
       obervationStatus: new FormControl('A'),
