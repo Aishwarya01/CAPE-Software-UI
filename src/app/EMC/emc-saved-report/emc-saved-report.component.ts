@@ -23,7 +23,7 @@ export class EmcSavedReportComponent implements OnInit {
   savedReportsEmcColumns: string[] = [ 'clientName', 'contactPerson', 'clientLocation', 'clientAddress', 'updatedDate', 'updatedBy','continue'];
   savedReportEmc_dataSource!: MatTableDataSource<EmcClientDetails[]>;
   @ViewChild('savedReportEmcPaginator', {static: false}) savedReportEmcPaginator!: MatPaginator;
-  @ViewChild('savedReportEmcSort') savedReportEmcSort!: MatSort;
+  @ViewChild('savedReportEmcSort', {static: false}) savedReportEmcSort!: MatSort;
 
    // @Output("changeTab") changeTab: EventEmitter<any> = new EventEmitter();
    email: String ="";
