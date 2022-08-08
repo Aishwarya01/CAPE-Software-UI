@@ -20,10 +20,10 @@ import { SuperAdminProd } from 'src/environments/environment.prod';
 })
 export class EmcSavedReportComponent implements OnInit {
 
-  savedReportsEmcColumns: string[] = [ 'clientName', 'contactPerson', 'clientLocation', 'clientAddress', 'createdDate', 'createdBy','continue'];
+  savedReportsEmcColumns: string[] = [ 'clientName', 'contactPerson', 'clientLocation', 'clientAddress', 'updatedDate', 'updatedBy','continue'];
   savedReportEmc_dataSource!: MatTableDataSource<EmcClientDetails[]>;
-  @ViewChild('savedReportEmcPaginator', { static: true }) savedReportEmcPaginator!: MatPaginator;
-  @ViewChild('savedReportEmcSort', {static: true}) savedReportEmcSort!: MatSort;
+  @ViewChild('savedReportEmcPaginator', {static: false}) savedReportEmcPaginator!: MatPaginator;
+  @ViewChild('savedReportEmcSort') savedReportEmcSort!: MatSort;
 
    // @Output("changeTab") changeTab: EventEmitter<any> = new EventEmitter();
    email: String ="";
