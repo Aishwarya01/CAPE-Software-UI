@@ -573,7 +573,7 @@ export class LpsEarthStudComponent implements OnInit {
     }
   }
   getAirterminationData(){
-    this.airterminationServices.retriveAirTerminationDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
+    this.airterminationServices.retriveAirTerminationDetails(this.basicLpsId).subscribe(
       data => {
         this.createearthStudForm(JSON.parse(data)[0]);
       }       

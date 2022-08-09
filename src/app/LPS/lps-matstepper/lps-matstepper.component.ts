@@ -446,7 +446,7 @@ export class LpsMatstepperComponent implements OnInit {
   }
 
   getAirterminationData(basicLpsId: any) {
-    this.airterminationServices.retriveAirTerminationDetails(this.router.snapshot.paramMap.get('email') || '{}', basicLpsId).subscribe(
+    this.airterminationServices.retriveAirTerminationDetails(basicLpsId).subscribe(
       data => {
         this.createFormForAirterminationBuilding(JSON.parse(data)[0]);
       }

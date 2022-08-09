@@ -188,7 +188,7 @@ export class LpsDownConductorsComponent implements OnInit {
 
   retrieveFromAirTermination() {
     if(this.basicLpsId != 0 && this.basicLpsId != undefined) {
-      this.airterminationServices.retriveAirTerminationDetails(this.email,this.basicLpsId).subscribe(
+      this.airterminationServices.retriveAirTerminationDetails(this.basicLpsId).subscribe(
         (data) => {
           this.airTerminationValues = JSON.parse(data);
           if(this.airTerminationValues != undefined && this.airTerminationValues[0] != undefined && this.airTerminationValues !=null  ){
@@ -229,7 +229,7 @@ export class LpsDownConductorsComponent implements OnInit {
         this.downConductorDescription = this.downConductorForm.get(
           'downConductorDescription'
         ) as FormArray;
-        if(this.airTerminationValues[0].lpsAirDescription.length != this.step3List1[0].downConductorDescription.length) {
+        if(this.airTerminationValues[0] !=null && this.step3List1[0] && this.airTerminationValues[0].lpsAirDescription.length != this.step3List1[0].downConductorDescription.length) {
           this.tempArray = [];
           for(let i=0;  i<this.step3List1[0].downConductorDescription.length; i++) {
             for(let j=0;  j<this.airTerminationValues[0].lpsAirDescription.length; j++) {

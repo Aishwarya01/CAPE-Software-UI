@@ -551,7 +551,7 @@
                       </div>
                     </div>
 
-                    <div class="tableObserve" *ngIf="(spdReportControl(q).length != 0) || (spdReportListControl(q).length != 0)&& spdFlag[j]">
+                    <div class="tableObserve" *ngIf="((spdReportControl(q).length != 0) || (spdReportListControl(q).length != 0))&& spdFlag[j]">
                       <div class="form-group">
                       <!-- Observation starts here -->
                       <label>
@@ -611,8 +611,9 @@
                         </div>
                       </div>
 
-                      <div class="tableObserve" *ngIf="(separationDistanceControl(q).length != 0) || (separateDistanceControl(q).length != 0) &&
-                      (separationDistanceDownControl(q).length != 0)&& seperationFlag[j]">
+                      <div class="tableObserve" *ngIf="((separationDistanceControl(q).length != 0) || (separateDistanceControl(q).length != 0) &&
+                      (separationDistanceDownControl(q).length != 0)) && seperationFlag[j]">
+                     
                         <div class="form-group">
                         <!-- Observation starts here -->
                         <label>
