@@ -1313,7 +1313,7 @@ export class LpsEarthingComponent implements OnInit {
   }
 
   getAirterminationData(){
-    this.airterminationServices.retriveAirTerminationDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
+    this.airterminationServices.retriveAirTerminationDetails(this.basicLpsId).subscribe(
       data => {
         let earthing_air = JSON.parse(data)[0];
         if(earthing_air != undefined && earthing_air.basicLpsId !=null){
