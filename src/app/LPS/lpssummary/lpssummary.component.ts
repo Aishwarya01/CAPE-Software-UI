@@ -3394,7 +3394,12 @@ SignatureDesigner1(){
            let airBasicFlag = true;
            let serialNo = 1;
 
-           if(this.airTerminationData!=null && this.airTerminationData.airTermination!=null && this.airTerminationData.airTermination[0]!=null && this.airTerminationData.airTermination[0].lpsAirDiscription!=null && this.airTerminationData.airTermination[0].lpsAirDiscription[w].length!=0 && this.airTerminationData.airTermination[0].lpsAirDiscription[w].airBasicDescription!=null){
+           if(this.airTerminationData!=null && this.airTerminationData.airTermination!=null 
+            && this.airTerminationData.airTermination[0]!=null 
+            && this.airTerminationData.airTermination[0].lpsAirDiscription!=null 
+            && this.airTerminationData.airTermination[0].lpsAirDiscription[w].length!=0 
+            && this.airTerminationData.airTermination[0].lpsAirDiscription[w].airBasicDescription!=null){
+
             for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airBasicDescription){
               for(let j = 0; j < this.airBasicName.length; j++){
                // if(i[this.airBasicName[j]]!="" && i[this.airBasicName[j]]!=null){
@@ -3429,7 +3434,11 @@ SignatureDesigner1(){
             let verticalFlag = true;
             let verticalSerialNo = 1;
 
-            if(this.airTerminationData!=null && this.airTerminationData.airTermination!=null && this.airTerminationData.airTermination[0]!=null && this.airTerminationData.airTermination[0].lpsAirDiscription!=null && this.airTerminationData.airTermination[0].lpsAirDiscription[w].length!=0 && this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination!=null){
+            if(this.airTerminationData!=null && this.airTerminationData.airTermination!=null 
+              && this.airTerminationData.airTermination[0]!=null 
+              && this.airTerminationData.airTermination[0].lpsAirDiscription!=null 
+              && this.airTerminationData.airTermination[0].lpsAirDiscription[w].length!=0 
+              && this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination!=null){
 
               for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination){
                 for(let j = 0; j < this.airVerticalName.length; j++){
@@ -3462,7 +3471,14 @@ SignatureDesigner1(){
           let index0 =0;
           let vatListIndex=1;
         
-          if(this.airTerminationData!=null && this.airTerminationData.airTermination!=null && this.airTerminationData.airTermination[0]!=null && this.airTerminationData.airTermination[0].lpsAirDiscription!=null && this.airTerminationData.airTermination[0].lpsAirDiscription[w].length!=0 && this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination!=null && this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination[0].verticalAirTerminationList!=null){
+          if(this.airTerminationData!=null 
+            && this.airTerminationData.airTermination!=null 
+            && this.airTerminationData.airTermination[0]!=null 
+            && this.airTerminationData.airTermination[0].lpsAirDiscription!=null 
+            && this.airTerminationData.airTermination[0].lpsAirDiscription[w].length!=0 
+            && this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination!=null 
+            && this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination.length!=0 
+            && this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination[0].verticalAirTerminationList!=null){
             
             for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination[0].verticalAirTerminationList)
             {
@@ -3506,7 +3522,12 @@ SignatureDesigner1(){
       let airmeshFlag = true;
       let airmeshSerialNo = 1;
 
-      if(this.airTerminationData!=null && this.airTerminationData.airTermination!=null && this.airTerminationData.airTermination[0]!=null && this.airTerminationData.airTermination[0].lpsAirDiscription!=null && this.airTerminationData.airTermination[0].lpsAirDiscription[w].length!=0 && this.airTerminationData.airTermination[0].lpsAirDiscription[w].airMeshDescription!=null){
+      if(this.airTerminationData!=null 
+        && this.airTerminationData.airTermination!=null 
+        && this.airTerminationData.airTermination[0]!=null 
+        && this.airTerminationData.airTermination[0].lpsAirDiscription[w]!=null 
+        && this.airTerminationData.airTermination[0].lpsAirDiscription[w].length!=0 
+        && this.airTerminationData.airTermination[0].lpsAirDiscription[w].airMeshDescription!=null){
         for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airMeshDescription){
           for(let j = 0; j < this.airMeshName.length; j++){
           //  if(i[this.airMeshName[j]]!="" && i[this.airMeshName[j]]!= null){
@@ -3540,7 +3561,11 @@ SignatureDesigner1(){
       let holderFlag = true;
       let holderSerialNo = 1;
 
-      if(this.airTerminationData!=null && this.airTerminationData.airTermination!=null && this.airTerminationData.airTermination[0]!=null && this.airTerminationData.airTermination[0].lpsAirDiscription!=null && this.airTerminationData.airTermination[0].lpsAirDiscription[w].length!=0 && this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription!=null){
+      if(this.airTerminationData!=null && this.airTerminationData.airTermination!=null 
+        && this.airTerminationData.airTermination[0]!=null 
+        && this.airTerminationData.airTermination[0].lpsAirDiscription[w]!=null 
+        && this.airTerminationData.airTermination[0].lpsAirDiscription[w].length!=0 
+        && this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription!=null){
         for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription){
        
           if(holderSerialNo > 7){
@@ -3579,7 +3604,13 @@ SignatureDesigner1(){
       let holderListIndex=1;
       let indexHolder=0;
       
-      if(this.airTerminationData!=null && this.airTerminationData.airTermination!=null && this.airTerminationData.airTermination[0]!=null && this.airTerminationData.airTermination[0].lpsAirDiscription!=null && this.airTerminationData.airTermination[0].lpsAirDiscription[w].length!=0 && this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription!=null && this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription[0].airHolderList!=null){
+      if(this.airTerminationData!=null && this.airTerminationData.airTermination!=null 
+        && this.airTerminationData.airTermination[0]!=null 
+        && this.airTerminationData.airTermination[0].lpsAirDiscription!=null 
+        && this.airTerminationData.airTermination[0].lpsAirDiscription[w].length!=0 
+        && this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription!=null 
+        && this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription.length!=0 
+        && this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription[0].airHolderList!=null){
    
         for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription[0].airHolderList)
         {
@@ -3623,7 +3654,11 @@ SignatureDesigner1(){
       let clampsFlag = true;
       let clampsSerialNo = 1;
 
-      if(this.airTerminationData!=null && this.airTerminationData.airTermination!=null && this.airTerminationData.airTermination[0]!=null && this.airTerminationData.airTermination[0].lpsAirDiscription!=null && this.airTerminationData.airTermination[0].lpsAirDiscription[w].length!=0 && this.airTerminationData.airTermination[0].lpsAirDiscription[w].airClamps!=null){
+      if(this.airTerminationData!=null && this.airTerminationData.airTermination!=null 
+        && this.airTerminationData.airTermination[0]!=null 
+        && this.airTerminationData.airTermination[0].lpsAirDiscription[w]!=null 
+        && this.airTerminationData.airTermination[0].lpsAirDiscription[w].length!=0 
+        && this.airTerminationData.airTermination[0].lpsAirDiscription[w].airClamps!=null){
 
         for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airClamps){
           for(let j = 0; j < this.airClampsName.length; j++){
@@ -3659,7 +3694,12 @@ SignatureDesigner1(){
       let expansionFlag = true;
       let expansionSerialNo = 1;
 
-      if(this.airTerminationData!=null && this.airTerminationData.airTermination!=null && this.airTerminationData.airTermination[0]!=null && this.airTerminationData.airTermination[0].lpsAirDiscription!=null && this.airTerminationData.airTermination[0].lpsAirDiscription[w].length!=0 && this.airTerminationData.airTermination[0].lpsAirDiscription[w].airExpansion!=null){
+      if(this.airTerminationData!=null 
+        && this.airTerminationData.airTermination!=null 
+        && this.airTerminationData.airTermination[0]!=null 
+        && this.airTerminationData.airTermination[0].lpsAirDiscription!=null 
+        && this.airTerminationData.airTermination[0].lpsAirDiscription[w].length!=0 
+        && this.airTerminationData.airTermination[0].lpsAirDiscription[w].airExpansion!=null){
         for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airExpansion){
           for(let j = 0; j < this.airExpansionName.length; j++){
            // if(i[this.airExpansionName[j]]!="" && i[this.airExpansionName[j]]!= null){
@@ -3692,7 +3732,12 @@ SignatureDesigner1(){
       let index6 =0;
       let connectorsFlag = true;
       let connectorsSerialNo = 1;
-      if(this.airTerminationData!=null && this.airTerminationData.airTermination!=null && this.airTerminationData.airTermination[0]!=null && this.airTerminationData.airTermination[0].lpsAirDiscription!=null && this.airTerminationData.airTermination[0].lpsAirDiscription[w].length!=0 && this.airTerminationData.airTermination[0].lpsAirDiscription[w].airExpansion!=null){
+      if(this.airTerminationData!=null 
+        && this.airTerminationData.airTermination!=null 
+        && this.airTerminationData.airTermination[0]!=null 
+        && this.airTerminationData.airTermination[0].lpsAirDiscription!=null 
+        && this.airTerminationData.airTermination[0].lpsAirDiscription[w].length!=0 
+        && this.airTerminationData.airTermination[0].lpsAirDiscription[w].airExpansion!=null){
         for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airConnectors){
           for(let j = 0; j < this.airConnectorsName.length; j++){
            // if(i[this.airConnectorsName[j]]!="" && i[this.airConnectorsName[j]]!= null){
@@ -3720,7 +3765,8 @@ SignatureDesigner1(){
       }
     } 
         //down conductors
-        if(this.downConductorData.downConductorReport!=null && this.downConductorData.downConductorReport[0].downConductorDescription.length !=0){
+        if(this.downConductorData.downConductorReport!=null 
+          && this.downConductorData.downConductorReport[0].downConductorDescription.length !=0){
           this.downConductorsBasicArr=this.summaryArr.controls[w].controls.downConductorReport as FormArray;
           let index =0; 
           let dwonconductorReportFlag = true;
@@ -3760,7 +3806,12 @@ SignatureDesigner1(){
           let dwonconductorFlag = true;
           let downConductorSerialNo = 1;
 
-          if(this.downConductorData!=null && this.downConductorData.downConductorReport!=null && this.downConductorData.downConductorReport[0]!=null && this.downConductorData.downConductorReport[0].downConductorDescription!=null && this.downConductorData.downConductorReport[0].downConductorDescription[w].length!=0 && this.downConductorData.downConductorReport[0].downConductorDescription[w].downConductor!=null){
+          if(this.downConductorData!=null 
+            && this.downConductorData.downConductorReport!=null 
+            && this.downConductorData.downConductorReport[0]!=null 
+            && this.downConductorData.downConductorReport[0].downConductorDescription!=null 
+            && this.downConductorData.downConductorReport[0].downConductorDescription[w].length!=0 
+            && this.downConductorData.downConductorReport[0].downConductorDescription[w].downConductor!=null){
             for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].downConductor){
               for(let j = 0; j < this.downConductorName.length; j++){
                // if(i[this.downConductorName[j]]!="" && i[this.downConductorName[j]]!= null){
@@ -3795,7 +3846,12 @@ SignatureDesigner1(){
       let bridgingFlag = true;
       let bridgingSerialNo = 1;
 
-      if(this.downConductorData!=null && this.downConductorData.downConductorReport!=null && this.downConductorData.downConductorReport[0]!=null && this.downConductorData.downConductorReport[0].downConductorDescription!=null && this.downConductorData.downConductorReport[0].downConductorDescription[w].length!=0 && this.downConductorData.downConductorReport[0].downConductorDescription[w].bridgingDescription!=null){
+      if(this.downConductorData!=null 
+        && this.downConductorData.downConductorReport!=null 
+        && this.downConductorData.downConductorReport[0]!=null 
+        && this.downConductorData.downConductorReport[0].downConductorDescription!=null 
+        && this.downConductorData.downConductorReport[0].downConductorDescription[w].length!=0 
+        && this.downConductorData.downConductorReport[0].downConductorDescription[w].bridgingDescription!=null){
 
         for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].bridgingDescription){
           for(let j = 0; j < this.bridgingName.length; j++){
@@ -3832,7 +3888,12 @@ SignatureDesigner1(){
     let holderFlag = true;
     let holderSerialNo = 1;
 
-    if(this.downConductorData!=null && this.downConductorData.downConductorReport!=null && this.downConductorData.downConductorReport[0]!=null && this.downConductorData.downConductorReport[0].downConductorDescription!=null && this.downConductorData.downConductorReport[0].downConductorDescription[w].length!=0 && this.downConductorData.downConductorReport[0].downConductorDescription[w].holder!=null){
+    if(this.downConductorData!=null 
+      && this.downConductorData.downConductorReport!=null 
+      && this.downConductorData.downConductorReport[0]!=null 
+      && this.downConductorData.downConductorReport[0].downConductorDescription!=null 
+      && this.downConductorData.downConductorReport[0].downConductorDescription[w].length!=0 
+      && this.downConductorData.downConductorReport[0].downConductorDescription[w].holder!=null){
 
       for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].holder){
         for(let j = 0; j < this.downHolderName.length; j++){
@@ -3868,7 +3929,12 @@ SignatureDesigner1(){
       let connectorsFlag = true;
       let connectorsSerialNo = 1;
 
-      if(this.downConductorData!=null && this.downConductorData.downConductorReport!=null && this.downConductorData.downConductorReport[0]!=null && this.downConductorData.downConductorReport[0].downConductorDescription!=null && this.downConductorData.downConductorReport[0].downConductorDescription[w].length!=0 && this.downConductorData.downConductorReport[0].downConductorDescription[w].connectors!=null){
+      if(this.downConductorData!=null 
+        && this.downConductorData.downConductorReport!=null 
+        && this.downConductorData.downConductorReport[0]!=null 
+        && this.downConductorData.downConductorReport[0].downConductorDescription!=null 
+        && this.downConductorData.downConductorReport[0].downConductorDescription[w].length!=0 
+        && this.downConductorData.downConductorReport[0].downConductorDescription[w].connectors!=null){
 
         for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].connectors){
           for(let j = 0; j < this.connectorsName.length; j++){
@@ -3903,7 +3969,12 @@ SignatureDesigner1(){
       let testingJointFlag = true;
       let testingJointSerialNo = 1;
 
-      if(this.downConductorData!=null && this.downConductorData.downConductorReport!=null && this.downConductorData.downConductorReport[0]!=null && this.downConductorData.downConductorReport[0].downConductorDescription!=null && this.downConductorData.downConductorReport[0].downConductorDescription[w].length!=0 && this.downConductorData.downConductorReport[0].downConductorDescription[w].testingJoint!=null){
+      if(this.downConductorData!=null
+         && this.downConductorData.downConductorReport!=null 
+         && this.downConductorData.downConductorReport[0]!=null 
+         && this.downConductorData.downConductorReport[0].downConductorDescription!=null 
+         && this.downConductorData.downConductorReport[0].downConductorDescription[w].length!=0 
+         && this.downConductorData.downConductorReport[0].downConductorDescription[w].testingJoint!=null){
 
         for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].testingJoint){
           for(let j = 0; j < this.testingJointName.length; j++){
@@ -3938,7 +4009,12 @@ SignatureDesigner1(){
       let lightingCounterFlag = true;
       let lightningCounterSerialNo = 1;
 
-      if(this.downConductorData!=null && this.downConductorData.downConductorReport!=null && this.downConductorData.downConductorReport[0]!=null && this.downConductorData.downConductorReport[0].downConductorDescription!=null && this.downConductorData.downConductorReport[0].downConductorDescription[w].length!=0 && this.downConductorData.downConductorReport[0].downConductorDescription[w].lightningCounter!=null){
+      if(this.downConductorData!=null 
+        && this.downConductorData.downConductorReport!=null 
+        && this.downConductorData.downConductorReport[0]!=null 
+        && this.downConductorData.downConductorReport[0].downConductorDescription!=null 
+        && this.downConductorData.downConductorReport[0].downConductorDescription[w].length!=0 
+        && this.downConductorData.downConductorReport[0].downConductorDescription[w].lightningCounter!=null){
         for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].lightningCounter){
           for(let j = 0; j < this.lightingCounterName.length; j++){
            // if(i[this.lightingCounterName[j]]!="" && i[this.lightingCounterName[j]]!= null){
@@ -3974,7 +4050,12 @@ SignatureDesigner1(){
     let dwonconductorTestingFlag = true;
     let dwonconductorTestingSerialNo = 1;
 
-    if(this.downConductorData!=null && this.downConductorData.downConductorReport!=null && this.downConductorData.downConductorReport[0]!=null && this.downConductorData.downConductorReport[0].downConductorDescription!=null && this.downConductorData.downConductorReport[0].downConductorDescription[w].length!=0 && this.downConductorData.downConductorReport[0].downConductorDescription[w].downConductorTesting!=null){
+    if(this.downConductorData!=null 
+      && this.downConductorData.downConductorReport!=null 
+      && this.downConductorData.downConductorReport[0]!=null 
+      && this.downConductorData.downConductorReport[0].downConductorDescription!=null 
+      && this.downConductorData.downConductorReport[0].downConductorDescription[w].length!=0 
+      && this.downConductorData.downConductorReport[0].downConductorDescription[w].downConductorTesting!=null){
       for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].downConductorTesting){
         for(let j = 0; j < this.downConductorTestingName.length; j++){
          // if(i[this.downConductorTestingName[j]]!="" && i[this.downConductorTestingName[j]]!= null){
@@ -4006,7 +4087,8 @@ SignatureDesigner1(){
         //earthing
         let earthingFlag = true;
         let earthingSerialNo = 1;
-        if(this.earthingData.earthingReport!=null && this.earthingData.earthingReport[0].earthingLpsDescription.length > w){
+        if(this.earthingData.earthingReport!=null 
+          && this.earthingData.earthingReport[0].earthingLpsDescription.length > w){
           this.earthingReportArr=this.summaryArr.controls[w].controls.earthingReport as FormArray;
           let index =0; 
         // for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w]){
@@ -4041,7 +4123,12 @@ SignatureDesigner1(){
           this.earthingDescArr=this.summaryArr.controls[w].controls.earthingDescription as FormArray;
           let index1 =0;
 
-          if(this.earthingData!=null && this.earthingData.earthingReport!=null && this.earthingData.earthingReport[0]!=null && this.earthingData.earthingReport[0].earthingLpsDescription!=null && this.earthingData.earthingReport[0].earthingLpsDescription[w].length!=0 && this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingDescription!=null){
+          if(this.earthingData!=null 
+            && this.earthingData.earthingReport!=null 
+            && this.earthingData.earthingReport[0]!=null 
+            && this.earthingData.earthingReport[0].earthingLpsDescription!=null 
+            && this.earthingData.earthingReport[0].earthingLpsDescription[w].length!=0 
+            && this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingDescription!=null){
 
             for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingDescription){
               for(let j = 0; j < this.earthingDescriptionName.length; j++){
@@ -4075,7 +4162,14 @@ SignatureDesigner1(){
       let vatListIndex=1;
       let indexVertical=0;
       
-      if(this.earthingData!=null && this.earthingData.earthingReport!=null && this.earthingData.earthingReport[0]!=null && this.earthingData.earthingReport[0].earthingLpsDescription!=null && this.earthingData.earthingReport[0].earthingLpsDescription[w].length!=0 && this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingDescription!=null && this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingDescription[0].earthingDescriptionList!=null){
+      if(this.earthingData!=null 
+        && this.earthingData.earthingReport!=null 
+        && this.earthingData.earthingReport[0]!=null 
+        && this.earthingData.earthingReport[0].earthingLpsDescription!=null 
+        && this.earthingData.earthingReport[0].earthingLpsDescription[w].length!=0 
+        && this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingDescription!=null 
+        && this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingDescription.length!=0
+        && this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingDescription[0].earthingDescriptionList!=null){
 
         for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingDescription[0].earthingDescriptionList)
         {
@@ -4118,7 +4212,12 @@ SignatureDesigner1(){
       let earthingClampsFlag = true;
       let earthingClampsSerialNo = 1;
 
-      if(this.earthingData!=null && this.earthingData.earthingReport!=null && this.earthingData.earthingReport[0]!=null && this.earthingData.earthingReport[0].earthingLpsDescription!=null && this.earthingData.earthingReport[0].earthingLpsDescription[w].length!=0 && this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingClamps!=null){ 
+      if(this.earthingData!=null 
+        && this.earthingData.earthingReport!=null 
+        && this.earthingData.earthingReport[0]!=null 
+        && this.earthingData.earthingReport[0].earthingLpsDescription!=null 
+        && this.earthingData.earthingReport[0].earthingLpsDescription[w].length!=0 
+        && this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingClamps!=null){ 
         for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingClamps){
           for(let j = 0; j < this.earthingClampsName.length; j++){
            // if(i[this.earthingClampsName[j]]!="" && i[this.earthingClampsName[j]]!= null){
@@ -4153,7 +4252,12 @@ SignatureDesigner1(){
     let earthingElectrodeChamberFlag = true;
     let earthingElectrodeChamberSerialNo = 1;
 
-    if(this.earthingData!=null && this.earthingData.earthingReport!=null && this.earthingData.earthingReport[0]!=null && this.earthingData.earthingReport[0].earthingLpsDescription!=null && this.earthingData.earthingReport[0].earthingLpsDescription[w].length!=0 && this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingElectrodeChamber!=null){
+    if(this.earthingData!=null
+       && this.earthingData.earthingReport!=null
+        && this.earthingData.earthingReport[0]!=null
+         && this.earthingData.earthingReport[0].earthingLpsDescription!=null
+          && this.earthingData.earthingReport[0].earthingLpsDescription[w].length!=0 
+          && this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingElectrodeChamber!=null){
 
       for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingElectrodeChamber){
         for(let j = 0; j < this.earthingElectrodeChamberName.length; j++){
@@ -4186,7 +4290,12 @@ SignatureDesigner1(){
       let earthingSystemFlag = true;
       let earthingSystemserialNo = 1;
 
-      if(this.earthingData!=null && this.earthingData.earthingReport!=null && this.earthingData.earthingReport[0]!=null && this.earthingData.earthingReport[0].earthingLpsDescription!=null && this.earthingData.earthingReport[0].earthingLpsDescription[w].length!=0 && this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingSystem!=null){
+      if(this.earthingData!=null 
+        && this.earthingData.earthingReport!=null 
+        && this.earthingData.earthingReport[0]!=null 
+        && this.earthingData.earthingReport[0].earthingLpsDescription!=null 
+        && this.earthingData.earthingReport[0].earthingLpsDescription[w].length!=0 
+        && this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingSystem!=null){
         for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingSystem){
           for(let j = 0; j < this.earthingSystemName.length; j++){
           this.earthingSystemArr.push(this.createEarthingSystem());
@@ -4217,7 +4326,12 @@ SignatureDesigner1(){
       let earthElectodeTestingFlag = true;
       let earthingelectrodeTestingSerialNo = 1;
 
-      if(this.earthingData!=null && this.earthingData.earthingReport!=null && this.earthingData.earthingReport[0]!=null && this.earthingData.earthingReport[0].earthingLpsDescription!=null && this.earthingData.earthingReport[0].earthingLpsDescription[w].length!=0 && this.earthingData.earthingReport[0].earthingLpsDescription[w].earthElectrodeTesting!=null){
+      if(this.earthingData!=null 
+        && this.earthingData.earthingReport!=null 
+        && this.earthingData.earthingReport[0]!=null 
+        && this.earthingData.earthingReport[0].earthingLpsDescription!=null 
+        && this.earthingData.earthingReport[0].earthingLpsDescription[w].length!=0 
+        && this.earthingData.earthingReport[0].earthingLpsDescription[w].earthElectrodeTesting!=null){
 
         for(let j = 0; j < this.earthElectrodeTestingName.length; j++){ 
           this.earthElectrodeTestingArr.push(this.createEarthElectrodeTesting());
@@ -4247,7 +4361,9 @@ SignatureDesigner1(){
       
   }
       //spd
-      if(this.spdReportData.spdReport!=null && this.spdReportData.spdReport[0].spd.length >w){
+      if(this.spdReportData.spdReport!=null  
+        && this.spdReportData.spdReport[0].spd !=null
+        && this.spdReportData.spdReport[0].spd.length !=0){
         //spd report
           this.spdReportArr=this.summaryArr.controls[w].controls.spdReport as FormArray;
           let index =0;
@@ -4284,44 +4400,51 @@ SignatureDesigner1(){
         let index07 =0;
         let vatListIndex=1;
         let indexVertical=0;
-        for(let i of this.spdReportData.spdReport[0].spd[w].spdDescription)
-        {
-          let spdListFlag = true;
-          let spdListSerialNo = 1;
-
-          for(let j = 0; j < this.spdReportListName.length; j++){
-          //  if(i[this.spdReportListName[j]]!="" && i[this.spdReportListName[j]]!= null){
-              this.spdListArr.push(this.createSpdReportList());
-              if(indexVertical==0){
-                this.spdListArr.controls[index07].controls.heading.setValue('SPD List-' + vatListIndex);
-              }
-
-              if(i[this.spdReportListName[j]]!="" && i[this.spdReportListName[j]]!= null && spdListFlag){
-                this.spdListArr.controls[index07].controls.headingUi.setValue('SPD List-' + vatListIndex);
-                 spdListFlag = false;
-                  }
-                  if(i[this.spdReportListName[j]]!="" && i[this.spdReportListName[j]]!= null){
-                    this.spdListArr.controls[index07].controls.serialNoUi.setValue(spdListSerialNo);
-                    spdListSerialNo = spdListSerialNo + 1;
-                    this.spdFlag[w] = true;
-                  }
-
-            // this.spdListArr.controls[0].controls.heading.setValue('SPD List Observation');
-              this.spdListArr.controls[index07].controls.observationComponentDetails.setValue('spdDescription' + index07);
-              this.spdListArr.controls[index07].controls.serialNo.setValue(indexVertical+1);
-              this.spdListArr.controls[index07].controls.observation.setValue(i[this.spdReportListName[j]]);
-              this.spdListArr.controls[index07].controls.remarksId.setValue(i.spdDescriptionId);
-              this.spdListArr.controls[index07].controls.remarksName.setValue(this.spdReportListName[j]);
-              index07++;
-              indexVertical++;          
-           // }
-          }
-          indexVertical=0;
-          vatListIndex++;
-    }
+        if(this.spdReportData.spdReport!=null  
+          && this.spdReportData.spdReport[0].spd !=null
+          && this.spdReportData.spdReport[0].spd[w].length !=0
+          && this.spdReportData.spdReport[0].spd[w].spdDescription !=null){
+          for(let i of this.spdReportData.spdReport[0].spd[w].spdDescription)
+          {
+            let spdListFlag = true;
+            let spdListSerialNo = 1;
+  
+            for(let j = 0; j < this.spdReportListName.length; j++){
+            //  if(i[this.spdReportListName[j]]!="" && i[this.spdReportListName[j]]!= null){
+                this.spdListArr.push(this.createSpdReportList());
+                if(indexVertical==0){
+                  this.spdListArr.controls[index07].controls.heading.setValue('SPD List-' + vatListIndex);
+                }
+  
+                if(i[this.spdReportListName[j]]!="" && i[this.spdReportListName[j]]!= null && spdListFlag){
+                  this.spdListArr.controls[index07].controls.headingUi.setValue('SPD List-' + vatListIndex);
+                   spdListFlag = false;
+                    }
+                    if(i[this.spdReportListName[j]]!="" && i[this.spdReportListName[j]]!= null){
+                      this.spdListArr.controls[index07].controls.serialNoUi.setValue(spdListSerialNo);
+                      spdListSerialNo = spdListSerialNo + 1;
+                      this.spdFlag[w] = true;
+                    }
+  
+              // this.spdListArr.controls[0].controls.heading.setValue('SPD List Observation');
+                this.spdListArr.controls[index07].controls.observationComponentDetails.setValue('spdDescription' + index07);
+                this.spdListArr.controls[index07].controls.serialNo.setValue(indexVertical+1);
+                this.spdListArr.controls[index07].controls.observation.setValue(i[this.spdReportListName[j]]);
+                this.spdListArr.controls[index07].controls.remarksId.setValue(i.spdDescriptionId);
+                this.spdListArr.controls[index07].controls.remarksName.setValue(this.spdReportListName[j]);
+                index07++;
+                indexVertical++;          
+             // }
+            }
+            indexVertical=0;
+            vatListIndex++;
+      }
+        }
+    
       }
       //separationDistance
-      if(this.separationDistanceData.seperationDistanceReport!=null && this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription.length > w){
+      if(this.separationDistanceData.seperationDistanceReport!=null 
+        && this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription !=null ){
         //separationDistance report
           this.separationDistanceArr=this.summaryArr.controls[w].controls.separationDistance as FormArray;
           let index =0;
@@ -4358,7 +4481,12 @@ SignatureDesigner1(){
           let separateDistanceFlag = true;
           let separateDistanceSerialNo = 1;
 
-          if(this.separationDistanceData!=null && this.separationDistanceData.seperationDistanceReport!=null && this.separationDistanceData.airTermination[0]!=null && this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription!=null && this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription[w].length!=0 && this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription[w].separateDistance!=null){
+          if(this.separationDistanceData!=null 
+            && this.separationDistanceData.seperationDistanceReport!=null 
+            && this.separationDistanceData.airTermination[0]!=null 
+            && this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription!=null 
+            && this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription[w].length!=0 
+            && this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription[w].separateDistance!=null){
 
             for(let i of this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription[w].separateDistance){
               for(let j = 0; j < this.separateDistanceName.length; j++){
@@ -4391,7 +4519,12 @@ SignatureDesigner1(){
         let separationDistanceDownFlag = true;
         let separationDistanceDownSerialNo = 1;
 
-        if(this.separationDistanceData!=null && this.separationDistanceData.seperationDistanceReport!=null && this.separationDistanceData.airTermination[0]!=null && this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription!=null && this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription[w].length!=0 && this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription[w].separateDistanceDownConductors!=null){
+        if(this.separationDistanceData!=null 
+          && this.separationDistanceData.seperationDistanceReport!=null 
+          && this.separationDistanceData.airTermination[0]!=null 
+          && this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription!=null 
+          && this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription[w].length!=0 
+          && this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription[w].separateDistanceDownConductors!=null){
           for(let i of this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription[w].separateDistanceDownConductors){
             for(let j = 0; j < this.separateDistanceDownName.length; j++){
             //  if(i[this.separateDistanceDownName[j]]!="" && i[this.separateDistanceDownName[j]]!= null){
@@ -4422,7 +4555,9 @@ SignatureDesigner1(){
 
       //equipotential bonding
   
-      if(this.equiBondingData.earthStudReport!=null && this.equiBondingData.earthStudReport[0].earthStudDescription.length > w){
+      if(this.equiBondingData.earthStudReport!=null 
+        && this.equiBondingData.earthStudReport[0].earthStudDescription !=null 
+        && this.equiBondingData.earthStudReport[0].earthStudDescription[w] !=null){
           this.equiBondingArr=this.summaryArr.controls[w].controls.earthStudDesc as FormArray;
           let index =0;
           let earthStudFlag = true;
