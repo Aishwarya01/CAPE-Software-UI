@@ -1238,53 +1238,56 @@ SignatureDesigner1(){
 
     retrieveFromAirTermination() {
       if(this.basicLpsId != 0 && this.basicLpsId != undefined && this.addingRemarksCompleted) {
-        this.airterminationServices.retriveAirTerminationDetails(this.email,this.basicLpsId).subscribe(
+        this.airterminationServices.retriveAirTerminationDetails(this.basicLpsId).subscribe(
           (data) => {
             this.airTerminationValues=[]
-            this.airTerminationValues = JSON.parse(data);      
-            this.airTerminationDesc = this.airTerminationValues[0].lpsAirDescription;
-             //if no summarydatas and airterminationdata then create new summary form 
-            if (this.numberOfBuildingCount.length == 0 && this.airTerminationValues[0].lpsAirDescription != undefined && this.airTerminationValues[0].lpsAirDescription != null) {
-              this.summaryForm = this.formBuilder.group({
-                summaryLpsBuildings: this.formBuilder.array([]),
-                Declaration1Arr: this.formBuilder.array([this.Declaration1Form()]),
-                Declaration2Arr: this.formBuilder.array([this.Declaration2Form()]),
-                declarationDate: new FormControl('', Validators.required),
-                recommendYears: new FormControl('', Validators.required),
-                flag: new FormControl('A'),
-              }); 
-            }
-            let numberOfBuildingCountlength = this.numberOfBuildingCount.length;
-            let airterminationlength = this.airTerminationDesc.length;
- 
-            this.summaryLpsBuildingsArr=[]
-            this.summaryLpsBuildingsArr = this.summaryForm.get('summaryLpsBuildings') as FormArray
-           
-            // if airterminationdata size lessthan buildingcount size
-            if(this.airTerminationDesc.length > numberOfBuildingCountlength || numberOfBuildingCountlength == 0 ){
-
-              for (let j = 0;  j < this.airTerminationDesc.length; j++) {
-        
-                let summaryDataAlreadythere = 'No';
-                for (let i = 0; summaryDataAlreadythere == "No"&& this.numberOfBuildingCount.length !=0 && i < this.airTerminationDesc.length; i++) {
-                  if (this.jsonData.summaryLpsBuildings[i] !=undefined && this.jsonData.summaryLpsBuildings[i].buildingCount == this.airTerminationDesc[j].buildingCount) {
-                    summaryDataAlreadythere = "yes";
-                  }
-                }
-                if (summaryDataAlreadythere != "yes") {
-                  if(this.airTerminationDesc.length >  this.summaryLpsBuildingsArr.controls.length){
-                    this.addSummaryLPS();
-                  }
-                    this.summaryLpsBuildingsArr.controls[numberOfBuildingCountlength].controls.buildingName.setValue(this.airTerminationDesc[j].buildingName);
-                    this.summaryLpsBuildingsArr.controls[numberOfBuildingCountlength].controls.buildingNumber.setValue(this.airTerminationDesc[j].buildingNumber);
-                    this.summaryLpsBuildingsArr.controls[numberOfBuildingCountlength].controls.buildingCount.setValue(this.airTerminationDesc[j].buildingCount);
-                    numberOfBuildingCountlength=numberOfBuildingCountlength+1;
-                  
-                }
+            this.airTerminationValues = JSON.parse(data);  
+            if(this.airTerminationValues !=undefined && this.airTerminationValues !=null && this.airTerminationValues.length !=0){
+              this.airTerminationDesc = this.airTerminationValues[0].lpsAirDescription;
+              //if no summarydatas and airterminationdata then create new summary form 
+             if (this.numberOfBuildingCount.length == 0 && this.airTerminationValues[0].lpsAirDescription != undefined && this.airTerminationValues[0].lpsAirDescription != null) {
+               this.summaryForm = this.formBuilder.group({
+                 summaryLpsBuildings: this.formBuilder.array([]),
+                 Declaration1Arr: this.formBuilder.array([this.Declaration1Form()]),
+                 Declaration2Arr: this.formBuilder.array([this.Declaration2Form()]),
+                 declarationDate: new FormControl('', Validators.required),
+                 recommendYears: new FormControl('', Validators.required),
+                 flag: new FormControl('A'),
+               }); 
+             }
+             let numberOfBuildingCountlength = this.numberOfBuildingCount.length;
+             let airterminationlength = this.airTerminationDesc.length;
   
-              }
-            }
-           
+             this.summaryLpsBuildingsArr=[]
+             this.summaryLpsBuildingsArr = this.summaryForm.get('summaryLpsBuildings') as FormArray
+            
+             // if airterminationdata size lessthan buildingcount size
+             if(this.airTerminationDesc.length > numberOfBuildingCountlength || numberOfBuildingCountlength == 0 ){
+ 
+               for (let j = 0;  j < this.airTerminationDesc.length; j++) {
+         
+                 let summaryDataAlreadythere = 'No';
+                 for (let i = 0; summaryDataAlreadythere == "No"&& this.numberOfBuildingCount.length !=0 && i < this.airTerminationDesc.length; i++) {
+                   if (this.jsonData.summaryLpsBuildings[i] !=undefined && this.jsonData.summaryLpsBuildings[i].buildingCount == this.airTerminationDesc[j].buildingCount) {
+                     summaryDataAlreadythere = "yes";
+                   }
+                 }
+                 if (summaryDataAlreadythere != "yes") {
+                   if(this.airTerminationDesc.length >  this.summaryLpsBuildingsArr.controls.length){
+                     this.addSummaryLPS();
+                   }
+                     this.summaryLpsBuildingsArr.controls[numberOfBuildingCountlength].controls.buildingName.setValue(this.airTerminationDesc[j].buildingName);
+                     this.summaryLpsBuildingsArr.controls[numberOfBuildingCountlength].controls.buildingNumber.setValue(this.airTerminationDesc[j].buildingNumber);
+                     this.summaryLpsBuildingsArr.controls[numberOfBuildingCountlength].controls.buildingCount.setValue(this.airTerminationDesc[j].buildingCount);
+                     numberOfBuildingCountlength=numberOfBuildingCountlength+1;
+                   
+                 }
+   
+               }
+             }
+            
+            }    
+            
           },
           (error) => {
   
@@ -4363,7 +4366,8 @@ SignatureDesigner1(){
       //spd
       if(this.spdReportData.spdReport!=null  
         && this.spdReportData.spdReport[0].spd !=null
-        && this.spdReportData.spdReport[0].spd.length !=0){
+        && this.spdReportData.spdReport[0].spd[w] !=null 
+        && this.spdReportData.spdReport[0].spd[w].length !=0){
         //spd report
           this.spdReportArr=this.summaryArr.controls[w].controls.spdReport as FormArray;
           let index =0;
@@ -4444,7 +4448,8 @@ SignatureDesigner1(){
       }
       //separationDistance
       if(this.separationDistanceData.seperationDistanceReport!=null 
-        && this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription !=null ){
+        && this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription !=null 
+        && this.separationDistanceData.seperationDistanceReport[0].seperationDistanceDescription[w] !=null ){
         //separationDistance report
           this.separationDistanceArr=this.summaryArr.controls[w].controls.separationDistance as FormArray;
           let index =0;

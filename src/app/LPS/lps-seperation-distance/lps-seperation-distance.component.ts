@@ -487,7 +487,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
   }
 
   getAirterminationData(){
-    this.airterminationServices.retriveAirTerminationDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
+    this.airterminationServices.retriveAirTerminationDetails(this.basicLpsId).subscribe(
       data => {
         let seprationDistance_air=JSON.parse(data)[0];
         if(seprationDistance_air !=undefined && seprationDistance_air.basicLpsId !=null){
