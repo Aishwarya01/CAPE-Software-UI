@@ -337,7 +337,7 @@ export class DiagramHomeComponent implements OnInit {
         dialogRef.componentInstance.email = this.email;      
       }
 
-      else if(args.source.properties.id.includes('Breaker')) {	
+      else if(args.source.properties.id.includes('ACB')) {	
         const dialogRef = this.dialog.open(ACBComponent, {	
           width: '1450px',	
           maxHeight: '90vh',	
