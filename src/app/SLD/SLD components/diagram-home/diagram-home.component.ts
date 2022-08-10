@@ -35,6 +35,8 @@ import { CableConnectorServicesService } from '../../../SLD/SLD Services/cableCo
 import { DGComponent } from '../Node Components/dg/dg.component';
 import { IDoubleClickEventArgs } from '@syncfusion/ej2-diagrams/src/diagram/objects/interface/IElement';
 import { TransformerComponent } from '../Node Components/transformer/transformer.component';
+import { SwitchBoardsComponent } from '../Node Components/switch-boards/switch-boards.component';
+import { ACBComponent } from '../Node Components/acb/acb.component';
 
 @Component({
   selector: 'app-diagram-home',
@@ -321,6 +323,28 @@ export class DiagramHomeComponent implements OnInit {
         });	
         dialogRef.componentInstance.nodeId = args.source.properties.id;;	
         dialogRef.componentInstance.mainFileName = this.diagramComponent.fileName;	
+        dialogRef.componentInstance.email = this.email;      
+      }
+
+      else if(args.source.properties.id.includes('Distribution board')) {	
+        const dialogRef = this.dialog.open(SwitchBoardsComponent, {	
+          width: '1450px',	
+          maxHeight: '90vh',	
+          disableClose: true,	
+        });	
+        dialogRef.componentInstance.nodeId = args.source.properties.id;;	
+        dialogRef.componentInstance.mainFileName = this.diagramComponent.fileName;	
+        dialogRef.componentInstance.email = this.email;      
+      }
+
+      else if(args.source.properties.id.includes('Breaker')) {	
+        const dialogRef = this.dialog.open(ACBComponent, {	
+          width: '1450px',	
+          maxHeight: '90vh',	
+          disableClose: true,	
+        });	
+        dialogRef.componentInstance.nodeId = args.source.properties.id;;	
+        dialogRef.componentInstance.fileName = this.diagramComponent.fileName;	
         dialogRef.componentInstance.email = this.email;      
       }
 
