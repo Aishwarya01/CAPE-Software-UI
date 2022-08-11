@@ -2177,23 +2177,23 @@
                                             <select class="form-control"  (change)="onChangeCounters($event,q)" formControlName="lightningCounterAvailabilityOb" [attr.disabled]="isEditable ? '' : null"
                                             [ngClass]="{ 'is-invalid': submitted && q.get('lightningCounterAvailabilityOb')?.errors }" style="height: 3rem;">
                                                 <option value="" selected>Select Option</option>
-                                                <option value="Applicable">Applicable </option>
-                                                <option value="Not applicable">Not applicable</option>
+                                                <option value="Available">Available </option>
+                                                <option value="Not available">Not available</option>
                                             </select>
                                             <div *ngIf="submitted && q.get('lightningCounterAvailabilityOb')?.errors" class="invalid-feedback">
                                                 <div *ngIf="q.get('lightningCounterAvailabilityOb')?.errors?.required">Please select the field</div>
                                             </div>
                                         </td>
                                         <td class="col-md-6">
-                                            <textarea [readonly]="isEditable || q.get('lightningCounterAvailabilityOb')?.value ==='Not applicable'" formControlName="lightningCounterAvailabilityRem" type="text"
+                                            <textarea [readonly]="isEditable || q.get('lightningCounterAvailabilityOb')?.value ==='Not available'" formControlName="lightningCounterAvailabilityRem" type="text"
                                             placeholder="Please enter Remarks here" class="form-control"></textarea>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>                                                                               
-                        <div style="margin-top: 10px;" *ngIf="q.get('lightningCounterAvailabilityOb')?.value != 'Applicable'"><b>Note:</b> &nbsp; Select applicable if you intend to fill details for Lightning Counters</div>
-                        <h2 *ngIf="q.get('lightningCounterAvailabilityOb')?.value === 'Applicable'"><u>Lightning Counter:</u></h2>
+                        <div style="margin-top: 10px;" *ngIf="q.get('lightningCounterAvailabilityOb')?.value != 'Available'"><b>Note:</b> &nbsp; Select applicable if you intend to fill details for Lightning Counters</div>
+                        <h2 *ngIf="q.get('lightningCounterAvailabilityOb')?.value === 'Available'"><u>Lightning Counter:</u></h2>
                         <br>
                         
                         <div class="table-responsive" style="overflow-x: unset;" *ngIf="q.get('lightningCounterAvailabilityOb')?.value === 'Applicable'">
