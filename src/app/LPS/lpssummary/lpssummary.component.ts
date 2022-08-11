@@ -3358,7 +3358,7 @@ SignatureDesigner1(){
       return this.formBuilder.group({
         summaryLpsDeclarationId: new FormControl({disabled: false,value: item.summaryLpsDeclarationId}, Validators.required),
         name: new FormControl({disabled: false,value: item.name}, Validators.required),
-        signature: new FormControl({disabled: false,value: item.signature}),
+        signature: new FormControl({disabled: false,value: item.signature}, Validators.required),
         company: new FormControl({disabled: false,value: item.company}, Validators.required),
         position: new FormControl({disabled: false,value: item.position}, Validators.required),
         address: new FormControl({disabled: false,value: item.address}, Validators.required),
@@ -4703,11 +4703,6 @@ SignatureDesigner1(){
       summaryLpsObservationArr.push(j);
       }
       for(let j of i.controls.airVertical.controls){
-        //if(j.controls.observationComponentDetails.value=='lpsVerticalAirTermination0'){
-          // for(let list1 of i.controls.airVerticalList.controls){
-          //   j.controls.summaryLpsInnerObservation.push(list1);
-          // }
-        //}
         summaryLpsObservationArr.push(j);
       }
 
@@ -4719,11 +4714,6 @@ SignatureDesigner1(){
         summaryLpsObservationArr.push(j);
       }
       for(let j of i.controls.airHolder.controls){
-        // if(j.controls.observationComponentDetails.value=='airHolderDescription0'){
-        //   for(let list1 of i.controls.airHolderList.controls){
-        //     j.controls.summaryLpsInnerObservation.push(list1);
-        //   }
-        // }
         summaryLpsObservationArr.push(j);
       }
 
@@ -4764,11 +4754,6 @@ SignatureDesigner1(){
         summaryLpsObservationArr.push(j);
       }
       for(let j of i.controls.earthingDescription.controls){
-        // if(j.controls.observationComponentDetails.value=='earthingDescription0'){
-        //   for(let list1 of i.controls.earthingDescriptionList.controls){
-        //     j.controls.summaryLpsInnerObservation.push(list1);
-        //   }
-        // }
         summaryLpsObservationArr.push(j);
       }
       for(let j of i.controls.earthingDescriptionList.controls){
@@ -4785,11 +4770,6 @@ SignatureDesigner1(){
       }
 
       for(let j of i.controls.spdReport.controls){
-        // if(j.controls.observationComponentDetails.value=='spdReport0'){
-        //   for(let list1 of i.controls.spdReportList.controls){
-        //     j.controls.summaryLpsInnerObservation.push(list1);
-        //   }
-        // }
         summaryLpsObservationArr.push(j);
       }
 
@@ -4798,14 +4778,6 @@ SignatureDesigner1(){
       }
 
       for(let j of i.controls.separationDistance.controls){
-        // if(j.controls.observationComponentDetails.value=='seperationDistanceDescription0'){
-        //   for(let list1 of i.controls.separateDistance.controls){
-        //     j.controls.summaryLpsInnerObservation.push(list1);
-        //   }
-        //   for(let list2 of i.controls.separationDistanceDown.controls){
-        //     j.controls.summaryLpsInnerObservation.push(list2);
-        //   }
-        // }
         summaryLpsObservationArr.push(j);
       }
 
@@ -4825,6 +4797,8 @@ SignatureDesigner1(){
       this.finalSpinner = true;
       this.popup = false;
       this.popup1 = false
+      this.lpsSummary.summaryLpsBuildings=[];
+      this.lpsSummary.summaryLpsDeclaration=[];
       this.summaryForm.value.Declaration1Arr[0].signature=this.service.bytestring7;
       this.summaryForm.value.Declaration2Arr[0].signature=this.service.bytestring8;
       this.lpsSummary.summaryLpsBuildings= this.summaryForm.value.summaryLpsBuildings;
