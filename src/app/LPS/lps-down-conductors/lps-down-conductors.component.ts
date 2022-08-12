@@ -1596,18 +1596,18 @@ export class LpsDownConductorsComponent implements OnInit {
         }
     }
 
-    validationChangeDownTestJoint(event: any,q: any,formControl: any) {
-      let arr: any = [];
-      arr = q.controls.testingJoint as FormArray;
-      if(event.target.value == 'No') {
-        arr.controls[0].controls[formControl].setValidators([Validators.required]);
-        arr.controls[0].controls[formControl].updateValueAndValidity();
-      }
-      else {
-        arr.controls[0].controls[formControl].clearValidators();
-        arr.controls[0].controls[formControl].updateValueAndValidity();
-      }
-    }
+    // validationChangeDownTestJoint(event: any,q: any,formControl: any) {
+    //   let arr: any = [];
+    //   arr = q.controls.testingJoint as FormArray;
+    //   if(event.target.value == 'No') {
+    //     arr.controls[0].controls[formControl].setValidators([Validators.required]);
+    //     arr.controls[0].controls[formControl].updateValueAndValidity();
+    //   }
+    //   else {
+    //     arr.controls[0].controls[formControl].clearValidators();
+    //     arr.controls[0].controls[formControl].updateValueAndValidity();
+    //   }
+    // }
     validationChangeDownTestJointKey(event: any,q: any,formControl: any) {  
       let arr: any = [];
         arr = q.controls.testingJoint as FormArray;

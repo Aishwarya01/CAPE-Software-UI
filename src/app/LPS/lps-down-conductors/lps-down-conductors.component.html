@@ -337,7 +337,7 @@
                                             [ngClass]="{ 'is-invalid': submitted && q.get('downConductorAvailabilityOb')?.errors }" style="height: 3rem;" >
                                                 <option value="" selected>Select Option</option>
                                                 <option value="Applicable">Applicable </option>
-                                                <option value="Not applicable in case of natural down conductors">Not applicable in case of natural down conductors</option>
+                                                <option value="Not applicable in case of natural down conductors">Not Applicable in case of natural down conductors</option>
                                             </select>
                                             <div *ngIf="submitted && q.get('downConductorAvailabilityOb')?.errors" class="invalid-feedback">
                                                 <div *ngIf="q.get('downConductorAvailabilityOb')?.errors?.required">Please select the field</div>
@@ -1138,7 +1138,7 @@
                                             [ngClass]="{ 'is-invalid': submitted && q.get('bridgingDescriptionAvailabilityOb')?.errors }" style="height: 3rem;">
                                                 <option value="" selected>Select Option</option>
                                                 <option value="Applicable">Applicable </option>
-                                                <option value="Not applicable">Not applicable</option>
+                                                <option value="Not applicable">Not Applicable</option>
                                             </select>
                                             <div *ngIf="submitted && q.get('bridgingDescriptionAvailabilityOb')?.errors" class="invalid-feedback">
                                                 <div *ngIf="q.get('bridgingDescriptionAvailabilityOb')?.errors?.required">Please select the field</div>
@@ -1496,7 +1496,7 @@
                                             [ngClass]="{ 'is-invalid': submitted && q.get('holderAvailabilityOb')?.errors }" style="height: 3rem;" [attr.disabled]="isEditable ? '' : null">
                                                 <option value="" selected>Select Option</option>
                                                 <option value="Applicable">Applicable </option>
-                                                <option value="Not applicable">Not applicable</option>
+                                                <option value="Not applicable">Not Applicable</option>
                                             </select>
                                             <div *ngIf="submitted && q.get('holderAvailabilityOb')?.errors" class="invalid-feedback">
                                                 <div *ngIf="q.get('holderAvailabilityOb')?.errors?.required">Please select the field</div>
@@ -1853,7 +1853,7 @@
                                             [ngClass]="{ 'is-invalid': submitted && q.get('connectorsAvailabilityOb')?.errors }" style="height: 3rem;">
                                                 <option value="" selected>Select Option</option>
                                                 <option value="Applicable">Applicable </option>
-                                                <option value="Not applicable">Not applicable</option>
+                                                <option value="Not applicable">Not Applicable</option>
                                             </select>
                                             <div *ngIf="submitted && q.get('connectorsAvailabilityOb')?.errors" class="invalid-feedback">
                                                 <div *ngIf="q.get('connectorsAvailabilityOb')?.errors?.required">Please select the field</div>
@@ -2178,7 +2178,7 @@
                                             [ngClass]="{ 'is-invalid': submitted && q.get('lightningCounterAvailabilityOb')?.errors }" style="height: 3rem;">
                                                 <option value="" selected>Select Option</option>
                                                 <option value="Available">Available </option>
-                                                <option value="Not available">Not available</option>
+                                                <option value="Not available">Not Available</option>
                                             </select>
                                             <div *ngIf="submitted && q.get('lightningCounterAvailabilityOb')?.errors" class="invalid-feedback">
                                                 <div *ngIf="q.get('lightningCounterAvailabilityOb')?.errors?.required">Please select the field</div>
@@ -2589,7 +2589,7 @@
                                             [ngClass]="{ 'is-invalid': submitted && q.get('testingJointAvailabilityOb')?.errors }" style="height: 3rem;">
                                                 <option value="" selected>Select Option</option>
                                                 <option value="Available">Available </option>
-                                                <option value="Not available">Not available</option>
+                                                <option value="Not available">Not Available</option>
                                             </select>
                                             <div *ngIf="submitted && q.get('testingJointAvailabilityOb')?.errors" class="invalid-feedback">
                                                 <div *ngIf="q.get('testingJointAvailabilityOb')?.errors?.required">Please select the field</div>
@@ -2781,8 +2781,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                        <select class="form-control" formControlName="bimetallicIssueCheckOb" placeholder="Please enter Presence of Bi-metalllic corrosion issue here" [attr.disabled]="isEditable ? '' : null"
-                                                        (change)="validationChangeDownTestJoint($event,q,'bimetallicIssueCheckRem')" [ngClass]="{ 'is-invalid': submitted && a.get('bimetallicIssueCheckOb')?.errors}" style="height: 3rem;">
+                                                        <select class="form-control" formControlName="bimetallicIssueCheckOb" placeholder="Please enter Presence of Bi-metalllic corrosion issue here" [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && a.get('bimetallicIssueCheckOb')?.errors}" style="height: 3rem;">
                                                             <option  value="" selected>Select Option</option>
                                                             <option value="Yes" >Yes</option>
                                                             <option value="No" >No</option>

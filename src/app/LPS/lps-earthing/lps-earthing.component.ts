@@ -306,10 +306,6 @@ export class LpsEarthingComponent implements OnInit {
       typeOfEarthElectrodeRem: new FormControl(''),
       sizeOfEarthElectrodeOb: new FormControl(''),
       sizeOfEarthElectrodeRem: new FormControl(''),
-      maximumDistanceEartElectrodeWalOb: new FormControl(null, Validators.required),
-      maximumDistanceEartElectrodeWalRem: new FormControl(''),
-      manimumDistanceEartElectrodeWalOb: new FormControl(null, Validators.required),
-      manimumDistanceEartElectrodeWalRem: new FormControl(''),
 
     });
   }
@@ -642,10 +638,6 @@ export class LpsEarthingComponent implements OnInit {
         materialOfEartElectrodeRem: new FormControl({disabled: false, value: item.materialOfEartElectrodeRem}),
         sizeOfEarthElectrodeOb: new FormControl({disabled: false, value: item.sizeOfEarthElectrodeOb}),
         sizeOfEarthElectrodeRem: new FormControl({disabled: false, value: item.sizeOfEarthElectrodeRem}),
-        maximumDistanceEartElectrodeWalOb: new FormControl({disabled: false, value: item.maximumDistanceEartElectrodeWalOb}, Validators.required),
-        maximumDistanceEartElectrodeWalRem: new FormControl({disabled: false, value: item.maximumDistanceEartElectrodeWalRem}),
-        manimumDistanceEartElectrodeWalOb: new FormControl({disabled: false, value: item.manimumDistanceEartElectrodeWalOb}, Validators.required),
-        manimumDistanceEartElectrodeWalRem: new FormControl({disabled: false, value: item.manimumDistanceEartElectrodeWalRem}),
       });
     }
 

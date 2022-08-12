@@ -897,7 +897,7 @@
                                                 [ngClass]="{ 'is-invalid': submitted && q.get('earthingClampsAvailabilityOb')?.errors }">
                                                     <option value="" selected>Select Option</option>
                                                     <option value="Applicable" >Applicable</option>
-                                                    <option value="Not applicable">Not applicable</option>
+                                                    <option value="Not applicable">Not Applicable</option>
                                                 </select>
                                                 <div *ngIf="submitted && q.get('earthingClampsAvailabilityOb')?.errors" class="invalid-feedback">
                                                     <div *ngIf="q.get('earthingClampsAvailabilityOb')?.errors?.required">Please select the field</div>
@@ -2149,74 +2149,7 @@
                                             </div>
                                         </td>
                                     </tr>
-
-                                    <tr>
-                                        <td style="text-align: center;">7(i)</td>
-                                        <td>Maximum distance between earth electrode and wall in meters</td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
-                                                    </span>
-                                                </div>
-                                                <input onwheel="this.blur()" class="form-control" [readonly]="isEditable" formControlName="maximumDistanceEartElectrodeWalOb" (keypress)="keyPressNumbers($event)"
-                                                placeholder="Please enter Maximum distance between earth electrode and wall in meters here" [ngClass]="{ 'is-invalid': submitted && a.get('maximumDistanceEartElectrodeWalOb')?.errors}">
-                                                <div *ngIf="submitted && a.get('maximumDistanceEartElectrodeWalOb')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="a.get('maximumDistanceEartElectrodeWalOb')?.errors?.required">Maximum distance between earth electrode and wall observation is required</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
-                                                    </span>
-                                                </div>
-                                                <textarea type="text" class="form-control"
-                                                    [readonly]="isEditable" formControlName="maximumDistanceEartElectrodeWalRem" placeholder="Please enter Remarks here"
-                                                    ></textarea>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td style="text-align: center;">7(j)</td>
-                                        <td>Minimum distance between earth electrode and wall in meters</td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
-                                                    </span>
-                                                </div>
-                                                <input onwheel="this.blur()" class="form-control" (keypress)="keyPressNumbers($event)"
-                                                    [readonly]="isEditable" formControlName="manimumDistanceEartElectrodeWalOb"
-                                                    placeholder="Please enter Minimum distance between earth electrode and wall in meters here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('manimumDistanceEartElectrodeWalOb')?.errors}">
-                                                <div *ngIf="submitted && a.get('manimumDistanceEartElectrodeWalOb')?.errors"
-                                                    class="invalid-feedback">
-                                                    <div
-                                                        *ngIf="a.get('manimumDistanceEartElectrodeWalOb')?.errors?.required">
-                                                        Minimum distance between earth electrode and wall observation is required</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
-                                                    </span>
-                                                </div>
-                                                <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="manimumDistanceEartElectrodeWalRem"
-                                                 placeholder="Please enter Remarks here"></textarea>
-                                            </div>
-                                        </td>
-                                    </tr>
                                 </div>
-
                             </tbody>
                         </table>
                     </div>
