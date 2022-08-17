@@ -2196,7 +2196,7 @@
                         <h2 *ngIf="q.get('lightningCounterAvailabilityOb')?.value === 'Available'"><u>Lightning Counter:</u></h2>
                         <br>
                         
-                        <div class="table-responsive" style="overflow-x: unset;" *ngIf="q.get('lightningCounterAvailabilityOb')?.value === 'Applicable'">
+                        <div class="table-responsive" style="overflow-x: unset;" *ngIf="q.get('lightningCounterAvailabilityOb')?.value === 'Available'">
                             <table class="table TableBorder">
                                 <tbody formArrayName="lightningCounter" *ngFor="let a of lightControls(q); let f = index">
                                     <div class="form-group" [formGroupName]="f">

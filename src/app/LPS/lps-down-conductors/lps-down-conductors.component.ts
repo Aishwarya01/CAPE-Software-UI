@@ -1293,7 +1293,7 @@ export class LpsDownConductorsComponent implements OnInit {
       }
       let lightningCounterArray: any = [];
       lightningCounterArray =  a.controls.lightningCounter as FormArray;
-      if (changedValue == 'Not applicable') {
+      if (changedValue == 'Not available') {
         if(lightningCounterArray.length>0) {
           if(this.flag && lightningCounterArray.value[0].lightingCountersId !=null && lightningCounterArray.value[0].lightingCountersId !='' && lightningCounterArray.value[0].lightingCountersId !=undefined){
             lightningCounterArray.value[0].flag ='R';
@@ -1303,7 +1303,7 @@ export class LpsDownConductorsComponent implements OnInit {
         }
         a.controls.lightningCounterAvailabilityRem.setValue('As per latest standard IS/IEC 62305,installation of single lightning counter for whole building is mandatory');
       }
-      else if(changedValue == 'Applicable'){
+      else if(changedValue == 'Available'){
         if(lightningCounterArray.length == 0) {
           lightningCounterArray.push(this.createLightArrForm());
         }
