@@ -486,7 +486,8 @@
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td style="width: 1rem; text-align: center;">4</td>
+                                  <td style="width: 1rem; text-align: center;" *ngIf="q.get('airBasicDescriptionAvailabilityOb').value != 'Available' || q.get('airBasicDescriptionAvailabilityOb').value == ''">1</td>
+                                  <td style="width: 1rem; text-align: center;" *ngIf="q.get('airBasicDescriptionAvailabilityOb').value == 'Available' && q.get('airBasicDescriptionAvailabilityOb').value != ''">4</td>
                                   <td style="width: 24rem;">Name of company who done the installation</td>
                                   <td style="width: 43rem;">
                                     <div class="input-group">
