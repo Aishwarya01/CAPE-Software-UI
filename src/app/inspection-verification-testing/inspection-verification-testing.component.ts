@@ -38,6 +38,8 @@ import { DatePipe } from '@angular/common'
 import { ValueTransformer } from '@angular/compiler/src/util';
 import { MatDialog } from '@angular/material/dialog';
 import { ObservationService } from '../services/observation.service';
+import { SummaryServiceService } from '../LPS_services/summary-service.service';
+import { SummarydetailsService } from '../services/summarydetails.service';
 // import { ObservationTesting } from '../model/observation-testing';
 
 @Component({
@@ -60,6 +62,8 @@ export class InspectionVerificationTestingComponent implements OnInit, OnDestroy
   // email: String = '';
   isHidden=true;
   @Output() proceedNext = new EventEmitter<any>();
+  @Output() summaryNext = new EventEmitter<{siteId: any,summaryData: any,flag: boolean}>();
+
   testingDetails = new TestingDetails();
   incomingVoltage: String = '';
   incomingLoopImpedance: String = '';
@@ -293,6 +297,7 @@ export class InspectionVerificationTestingComponent implements OnInit, OnDestroy
     private siteService: SiteService,
     private basic: MainNavComponent,public datepipe: DatePipe,
     private UpateInspectionService: InspectionVerificationService,
+    private summaryService: SummarydetailsService
   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
   }
@@ -3732,6 +3737,17 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any,testing
          this.retrieveDetailsforTesting(this.testingDetails.userName,this.testingDetails.siteId,data);
         }
       )
+
+      this.summaryService.retrieveSummary(this.testingDetails.siteId).subscribe(
+        (data) => {
+          // let summaryData: any= [];
+          // summaryData = JSON.parse(data);
+          this.summaryNext.emit({siteId: this.testingDetails.siteId,summaryData: data,flag: true});
+        },
+        (error) => {
+          this.summaryNext.emit({siteId: this.testingDetails.siteId,summaryData: null,flag: false});
+        }
+      )
         },
         (error) => {
           this.popup=true;
@@ -3766,6 +3782,16 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any,testing
             }
           )
          
+          this.summaryService.retrieveSummary(this.testingDetails.siteId).subscribe(
+            (data) => {
+              // let summaryData: any= [];
+              // summaryData = JSON.parse(data);
+              this.summaryNext.emit({siteId: this.testingDetails.siteId,summaryData: data,flag: true});
+            },
+            (error) => {
+              this.summaryNext.emit({siteId: this.testingDetails.siteId,summaryData: null,flag: false});
+            }
+          )
 
           //  if(!this.observationFlag){
           //   this.observation.siteId = this.service.siteCount;

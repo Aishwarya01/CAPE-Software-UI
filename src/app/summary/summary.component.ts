@@ -251,6 +251,7 @@ export class SummaryComponent implements OnInit,OnDestroy {
   devAdmin = new SuperAdminDev();
   localAdmin = new SuperAdminLocal();
   submitButton: boolean = false;
+  summaryData: any;
   constructor(
     private _formBuilder: FormBuilder,
     private modalService: NgbModal,
@@ -1314,67 +1315,117 @@ SignatureDesigner1(){
    return true;
     }
   }
-  retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
-       this.summaryList = JSON.parse(data);
-       this.summary.siteId = siteId;
-       this.summary.summaryId = this.summaryList.summary.summaryId;
-       this.summary.createdBy = this.summaryList.summary.createdBy;
-       this.summary.createdDate = this.summaryList.summary.createdDate;
-        this.yesObserveSupply= true;
-        this.noObserveSupply= false;
+    retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
+        this.summaryList = JSON.parse(data);
+        this.summary.siteId = siteId;
+        this.summary.summaryId = this.summaryList.summary.summaryId;
+        this.summary.createdBy = this.summaryList.summary.createdBy;
+        this.summary.createdDate = this.summaryList.summary.createdDate;
+          this.yesObserveSupply= true;
+          this.noObserveSupply= false;
 
-        this.yesObserveInspection= true;
-        this.noObserveInspection= false;
+          this.yesObserveInspection= true;
+          this.noObserveInspection= false;
 
-        this.yesObserveTesting= true;
-        this.noObserveTesting= false;
-              // this.summary.limitationsInspection = this.summaryList.summary.limitationsInspection;
-      // this.limitationsValue = this.summaryList.summary.limitationsInspection;
-      //  this.summary.furtherActions = this.summaryList.summary.furtherActions,
-      //  this.summary.referanceNumberReport = this.summaryList.summary.referanceNumberReport,
-       this.summary.recommendationsDate = this.summaryList.summary.recommendationsDate;
-       //this.summary.comment = this.summaryList.summary.comment,
-       //this.onChange(this.limitationsValue);
-       for(let i of this.summaryList.summary.summaryDeclaration) {
-         if(i.declarationRole == "Inspector") {
-          this.signarr=[i];
-          this.signarr[0].signature=atob(i.signature);
-          this.addsummary.patchValue({
-            Declaration1Arr: this.signarr
-            //Declaration1Arr: [i]
-          })
-         }
-         else{
-          this.signarr1=[i];
-          this.signarr1[0].signature=atob(i.signature);
-          this.addsummary.patchValue({
-            Declaration2Arr: this.signarr1
-           // Declaration2Arr: [i]
-          })
-         }
-       }
-       this.populateData(siteId);
-       this.populateDataComments();
-       this.flag = true;
-
-       this.addsummary.patchValue({
-        extentInstallation: this.summaryList.summary.extentInstallation,
-        agreedLimitations: this.summaryList.summary.agreedLimitations,
-        agreedWith: this.summaryList.summary.agreedWith,
-        operationalLimitations: this.summaryList.summary.operationalLimitations,
-        //furtherActions: this.summaryList.summary.furtherActions,
-       // referanceNumberReport: this.summaryList.summary.referanceNumberReport,
-        recommendationsDate: this.summaryList.summary.recommendationsDate,
-        //comment: this.summaryList.summary.comment,
+          this.yesObserveTesting= true;
+          this.noObserveTesting= false;        
+          this.summary.recommendationsDate = this.summaryList.summary.recommendationsDate;
         
-        //recommendationsDate: this.summaryList.summary.recommendationsDate,
-        //inspectionTestingDetailed: this.summaryList.summary.inspectionTestingDetailed,
-        generalConditionInstallation: this.summaryList.summary.generalConditionInstallation,
-        overallAssessmentInstallation: this.summaryList.summary.overallAssessmentInstallation,
-    })
-      this.onservationChangedDetection();
-    // this.flag=true;
-     }
+        for(let i of this.summaryList.summary.summaryDeclaration) {
+          if(i.declarationRole == "Inspector") {
+            this.signarr=[i];
+            this.signarr[0].signature=atob(i.signature);
+            this.addsummary.patchValue({
+              Declaration1Arr: this.signarr
+              //Declaration1Arr: [i]
+            })
+          }
+          else{
+            this.signarr1=[i];
+            this.signarr1[0].signature=atob(i.signature);
+            this.addsummary.patchValue({
+              Declaration2Arr: this.signarr1
+            // Declaration2Arr: [i]
+            })
+          }
+        }
+        this.populateData(this.summaryList.summary.summaryObservation);
+        this.populateDataComments();
+        this.flag = true;
+
+        this.addsummary.patchValue({
+          extentInstallation: this.summaryList.summary.extentInstallation,
+          agreedLimitations: this.summaryList.summary.agreedLimitations,
+          agreedWith: this.summaryList.summary.agreedWith,
+          operationalLimitations: this.summaryList.summary.operationalLimitations,
+          //furtherActions: this.summaryList.summary.furtherActions,
+        // referanceNumberReport: this.summaryList.summary.referanceNumberReport,
+          recommendationsDate: this.summaryList.summary.recommendationsDate,
+          //comment: this.summaryList.summary.comment,
+          
+          //recommendationsDate: this.summaryList.summary.recommendationsDate,
+          //inspectionTestingDetailed: this.summaryList.summary.inspectionTestingDetailed,
+          generalConditionInstallation: this.summaryList.summary.generalConditionInstallation,
+          overallAssessmentInstallation: this.summaryList.summary.overallAssessmentInstallation,
+      })
+        this.onservationChangedDetection();
+      }
+
+     retrieveDetailsfromSummary(siteId: any,data: any){
+      this.summaryData = JSON.parse(data);
+      this.summary.siteId = siteId;
+      this.summary.summaryId = this.summaryData.summaryId;
+      this.summary.createdBy = this.summaryData.createdBy;
+      this.summary.createdDate = this.summaryData.createdDate;
+       this.yesObserveSupply= true;
+       this.noObserveSupply= false;
+
+       this.yesObserveInspection= true;
+       this.noObserveInspection= false;
+
+       this.yesObserveTesting= true;
+       this.noObserveTesting= false;        
+       this.summary.recommendationsDate = this.summaryData.recommendationsDate;
+      
+      for(let i of this.summaryData.summaryDeclaration) {
+        if(i.declarationRole == "Inspector") {
+         this.signarr=[i];
+         this.signarr[0].signature=atob(i.signature);
+         this.addsummary.patchValue({
+           Declaration1Arr: this.signarr
+           //Declaration1Arr: [i]
+         })
+        }
+        else{
+         this.signarr1=[i];
+         this.signarr1[0].signature=atob(i.signature);
+         this.addsummary.patchValue({
+           Declaration2Arr: this.signarr1
+          // Declaration2Arr: [i]
+         })
+        }
+      }
+      this.populateData(this.summaryData.summaryObservation);
+      this.populateDataComments();
+      this.flag = true;
+
+      this.addsummary.patchValue({
+       extentInstallation: this.summaryData.extentInstallation,
+       agreedLimitations: this.summaryData.agreedLimitations,
+       agreedWith: this.summaryData.agreedWith,
+       operationalLimitations: this.summaryData.operationalLimitations,
+       //furtherActions: this.summaryList.summary.furtherActions,
+      // referanceNumberReport: this.summaryList.summary.referanceNumberReport,
+       recommendationsDate: this.summaryData.recommendationsDate,
+       //comment: this.summaryList.summary.comment,
+       
+       //recommendationsDate: this.summaryList.summary.recommendationsDate,
+       //inspectionTestingDetailed: this.summaryList.summary.inspectionTestingDetailed,
+       generalConditionInstallation: this.summaryData.generalConditionInstallation,
+       overallAssessmentInstallation: this.summaryData.overallAssessmentInstallation,
+   })
+     this.onservationChangedDetection();
+    }
 
 //comments section starts
 
@@ -1771,13 +1822,13 @@ showHideAccordion(index: number) {
   }
 //comments section ends
 
-     populateData(siteId: any) {
+     populateData(data: any) {
       this.arr = [];
       // for (let item of this.summaryList.summary.summaryObservation) {
       //   this.arr.push(this.createGroup(item));
       // }
       this.ObservationsArr=this.addsummary.get('ObservationsArr') as FormArray;
-      this.arr.push(this.createGroup(this.summaryList.summary.summaryObservation));
+      this.arr.push(this.createGroup(data));
       this.addsummary.setControl('ObservationsArr', this._formBuilder.array(this.arr || []))
       //this.retrieveFromOngoingForObservation(siteId);
     }
@@ -2390,27 +2441,49 @@ showHideAccordion(index: number) {
 
 //  }
 
-  adminSubmit() {
-    this.UpateInspectionService.updateSummary(this.summary,true).subscribe(
-      data=> {
-        this.success = true;
-        this.popup=true;
-        this.finalSpinner=false;
-        this.successMsg = data;
-        this.addsummary.markAsPristine();
-        this.service.windowTabClick=0;
-    this.service.logoutClick=0; 
-    this.service.lvClick=0; 
-      },
-      (error) => {
-        this.Error = true;
-        this.popup=true;
-        this.finalSpinner=false;
-        this.errorArr = [];
-        this.errorArr = JSON.parse(error.error);
-        this.errorMsg = this.errorArr.message;
+  adminSubmit(flag: any,content5:any) {
+    if(flag) {
+      const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+        width: '420px',
+        maxHeight: '90vh',
+        disableClose: true,
       });
-      
+      dialogRef.componentInstance.editModal = false;
+      dialogRef.componentInstance.viewModal = false;
+      dialogRef.componentInstance.triggerModal = false;
+      dialogRef.componentInstance.linkModal = false;
+      dialogRef.componentInstance.summaryModal = true;
+      dialogRef.componentInstance.confirmBox.subscribe(data=>{
+        if(data) {
+          this.modalService.open(content5, { centered: true, backdrop: 'static'});
+  
+          this.UpateInspectionService.updateSummary(this.summary,true).subscribe(
+            data=> {
+              this.success = true;
+              this.popup=true;
+              this.finalSpinner=false;
+              this.successMsg = data;
+              this.proceedNext.emit(false);
+              this.addsummary.markAsPristine();
+              this.service.allFieldsDisable = true; 
+              this.service.disableSubmitSummary=true;
+              this.finalFlag = true;
+              this.service.windowTabClick=0;
+              this.service.logoutClick=0; 
+              this.service.lvClick=0; 
+            },
+            (error) => {
+              this.Error = true;
+              this.popup=true;
+              this.finalSpinner=false;
+              this.errorArr = [];
+              this.errorArr = JSON.parse(error.error);
+              this.errorMsg = this.errorArr.message;
+            });
+        }
+      });     
+  
+    }
   }
 
   SubmitTab5(flag: any,content5:any) {
@@ -2427,20 +2500,8 @@ showHideAccordion(index: number) {
       // }, 3000);
       return;
     }
-    const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
-      width: '420px',
-      maxHeight: '90vh',
-      disableClose: true,
-    });
-    dialogRef.componentInstance.editModal = false;
-    dialogRef.componentInstance.viewModal = false;
-    dialogRef.componentInstance.triggerModal = false;
-    dialogRef.componentInstance.linkModal = false;
-    dialogRef.componentInstance.summaryModal = true;
-    dialogRef.componentInstance.confirmBox.subscribe(data=>{
-      if(data) {
+    
         this.modalService.open(content5, { centered: true, backdrop: 'static'});
-
         this.summaryObervation=this.addsummary.get('summaryObervation') as FormArray;
         this.ObservationsArr=this.addsummary.get('ObservationsArr') as FormArray;
 
@@ -2511,13 +2572,18 @@ showHideAccordion(index: number) {
                 this.success = true;
                 this.popup=true;
                 this.finalSpinner=false;
-
                 this.successMsg = data;
                 //this.finalFlag = true;
+                this.summarydetailsService.retrieveSummary(this.summary.siteId).subscribe(
+                  (data) => {
+                    this.retrieveDetailsfromSummary(this.summary.siteId,data)
+                  }
+                )
                 this.addsummary.markAsPristine();
+                this.proceedNext.emit(true);
                 this.service.windowTabClick=0;
-            this.service.logoutClick=0; 
-            this.service.lvClick=0; 
+                this.service.logoutClick=0; 
+                this.service.lvClick=0; 
               },
               (error) => {
                 this.Error = true;
@@ -2543,6 +2609,12 @@ showHideAccordion(index: number) {
                 // this.service.allFieldsDisable = true; 
                 // this.service.disableSubmitSummary=true;
                 // this.finalFlag = true;
+                this.summarydetailsService.retrieveSummary(this.summary.siteId).subscribe(
+                  (data) => {
+                    this.retrieveDetailsfromSummary(this.summary.siteId,data)
+                  }
+                )
+                this.proceedNext.emit(true);
                 this.service.windowTabClick=0;
                 this.service.logoutClick=0; 
                 this.service.lvClick=0; 
@@ -2554,17 +2626,12 @@ showHideAccordion(index: number) {
                 this.errorArr = [];
                 this.errorArr = JSON.parse(error.error);
                 this.errorMsg = this.errorArr.message;
-                this.proceedNext.emit(false);
                 this.service.disableSubmitSummary=false;
                 //this.addsummary.markAsPristine();
               });
           }
 
-      }
-      else{
-        return;
-      }
-    })
+      
   //   if(!confirm("Are you sure you want to procced?\r\n\r\nNote: Once saved, details can't be modified!")){
   //    return;
   //   }

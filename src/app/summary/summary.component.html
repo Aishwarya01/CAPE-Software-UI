@@ -1197,10 +1197,10 @@ style="margin-left: 10px;" >
       <div class="row" style="margin-top: 20px;margin-left: 200px;">
         <div class="col-sm-12">
         <div style="text-align: center;"> 
-        <button type="submit" class="btn btn-info"> Save</button>
-        <button  style="width: auto;margin-left: 50px;" type="button"  *ngIf="submitButton"
+        <button type="submit" class="btn btn-info" [ngClass]="{'disableSubmit':service.disableSubmitSummary}"> Save</button>
+        <button type="button" style="width: auto;margin-left: 50px;" type="button"  *ngIf="submitButton" [disabled]="flag && addsummary.dirty"
         class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn next"
-        mat-button [ngClass]="{'disableSubmit':service.disableSubmitSummary}">
+        mat-button [ngClass]="{'disableSubmit':service.disableSubmitSummary}" (click)="adminSubmit(flag,content5)">
           <i class="bi bi-journal-arrow-up icon"></i> Submit</button>
     </div>
         </div>

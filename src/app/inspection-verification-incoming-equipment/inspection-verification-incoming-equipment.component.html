@@ -2617,7 +2617,7 @@ position: relative;">
 </button>	
 <div style="text-align: center;">	
   <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->	
-  <button  class="next" (click)="gotoNextModal(content3,content2)" mat-button >Next &raquo;</button>	
+  <button  class="next"  [ngClass]="{'disableSubmit':service.disableSubmitSummary}" (click)="gotoNextModal(content3,content2)" mat-button >Next &raquo;</button>	
 </div>	
 </form>	
 </div>	
