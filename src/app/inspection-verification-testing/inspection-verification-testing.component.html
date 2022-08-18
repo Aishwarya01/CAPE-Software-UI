@@ -1224,15 +1224,14 @@ style="margin-left: 10px;" >
               <br>
             <div style="text-align: center;margin-top: 20px;">
                 <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
-                <button class="next" (click)="gotoNextModal(content4,content2)" mat-button>Next &raquo;</button>
+                <button class="next" (click)="gotoNextModal(content4,content2)"   [ngClass]="{'disableSubmit':service.disableSubmitSummary}" mat-button>Next &raquo;</button>
         </div>
       </form>
     </div>
   </div>
     <ng-template #content4 let-modal>
         <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinner"
-        color="primary"
-        [mode]="mode"
+         [mode]="mode"
         value="50"
         diameter="50">
         </mat-progress-spinner>
