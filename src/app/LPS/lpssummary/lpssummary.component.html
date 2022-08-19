@@ -1040,7 +1040,11 @@
       </div>
       <br>
       <div *ngIf="popup1" style="text-align: center;">
-          <button type="button" class="col-md-6" class="close" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+        <button type="button" *ngIf="success" class="col-md-6" class="close" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+          aria-label="Close" (click)="closeModalDialog()" style="width: 18%;margin: 0 auto;">
+          <span aria-hidden="true">Ok</span>
+        </button>
+        <button type="button" *ngIf="Error" class="col-md-6" class="close" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
           aria-label="Close" (click)="closeModalDialog()" style="width: 18%;margin: 0 auto;">
           <span aria-hidden="true">Ok</span>
         </button>

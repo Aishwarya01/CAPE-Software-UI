@@ -95,6 +95,8 @@
                 <label for="buildingdimension" style="font-weight: 400;margin: 10px;
                                 font-size: 16px;">Building Dimensions: </label>
               </div>
+
+              <!-- Here we are doing decimal conversion for l,h,w-->
               <div class="row">
                 <div class="col-md-4">
                   <label for="length(m)">Length(m)</label>
@@ -104,7 +106,7 @@
                         <i class="bi bi-align-start"></i>
                       </span>
                     </div>
-                    <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="buildingLength" [ngClass]="{ 'is-invalid': submitted && q.get('buildingLength')?.errors }" required [readonly]="isEditable" />
+                    <input onwheel="this.blur()" class="form-control" formControlName="buildingLength" [ngClass]="{ 'is-invalid': submitted && q.get('buildingLength')?.errors }" required [readonly]="isEditable" (change)="decimalConversion($event,q)" (keypress)="keyPressNumbers1($event)" />
                     <div *ngIf="submitted && q.get('buildingLength')?.errors" class="invalid-feedback">
                       <div *ngIf="q.get('buildingLength')?.errors?.required">Length is required </div>
                     </div>
@@ -118,7 +120,7 @@
                         <i class="bi bi-border-width"></i>
                       </span>
                     </div>
-                    <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="buildingWidth" [ngClass]="{ 'is-invalid': submitted && q.get('buildingWidth')?.errors }" [readonly]="isEditable" required />
+                    <input onwheel="this.blur()" (change)="decimalConversion($event,q)" (keypress)="keyPressNumbers1($event)" class="form-control" formControlName="buildingWidth" [ngClass]="{ 'is-invalid': submitted && q.get('buildingWidth')?.errors }" [readonly]="isEditable" required />
                     <div *ngIf="submitted && q.get('buildingWidth')?.errors" class="invalid-feedback">
                       <div *ngIf="q.get('buildingWidth')?.errors?.required">Width is required </div>
                     </div>
@@ -132,7 +134,7 @@
                         <i class="bi bi-distribute-horizontal"></i>
                       </span>
                     </div>
-                    <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="buildingHeight" [ngClass]="{ 'is-invalid': submitted && q.get('buildingHeight')?.errors }" [readonly]="isEditable" required />
+                    <input onwheel="this.blur()" (change)="decimalConversion($event,q)" (keypress)="keyPressNumbers1($event)" class="form-control" formControlName="buildingHeight" [ngClass]="{ 'is-invalid': submitted && q.get('buildingHeight')?.errors }" [readonly]="isEditable" required />
                     <div *ngIf="submitted && q.get('buildingHeight')?.errors" class="invalid-feedback">
                       <div *ngIf="q.get('buildingHeight')?.errors?.required">Height is required </div>
                     </div>
@@ -146,7 +148,7 @@
                         <i class="bi bi-distribute-horizontal"></i>
                       </span>
                     </div>
-                    <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Height of tallest protrution" formControlName="protrusionHeight" [ngClass]="{ 'is-invalid': submitted && q.get('protrusionHeight')?.errors }" required [readonly]="isEditable">
+                    <input onwheel="this.blur()" (change)="decimalConversion($event,q)" (keypress)="keyPressNumbers1($event)" class="form-control" placeholder="Height of tallest protrution" formControlName="protrusionHeight" [ngClass]="{ 'is-invalid': submitted && q.get('protrusionHeight')?.errors }" required [readonly]="isEditable">
                     <div *ngIf="submitted && q.get('protrusionHeight')?.errors" class="invalid-feedback">
                       <div *ngIf="q.get('protrusionHeight')?.errors?.required">Height is required </div>
                     </div>

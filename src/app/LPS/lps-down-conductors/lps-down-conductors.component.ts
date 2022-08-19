@@ -509,7 +509,7 @@ export class LpsDownConductorsComponent implements OnInit {
     lpsAirDescArr.push(this.allLPSDownConductor());
   }
 
-      // Only Accept numbers
+  // Only Accept numbers
   keyPressNumbers(event:any) {
     var charCode = (event.which) ? event.which : event.keyCode;
         // Only Numbers 0-9
@@ -521,7 +521,17 @@ export class LpsDownConductorsComponent implements OnInit {
     }
   }
 
-  
+// Only Accept numbers and allow .(dot)
+keyPressNumbers1(event: any) {
+  var charCode = (event.which) ? event.which : event.keyCode;
+  // Only Numbers 0-9
+  if ((charCode < 46 || charCode > 46) && (charCode < 48 || charCode > 57)) {
+    event.preventDefault();
+    return false;
+  } else {
+    return true;
+  }
+}
   
   //creating form array based on airtermination building
   // createDwonconductorForm(noOfBuildingNumber:any){
@@ -2225,6 +2235,70 @@ export class LpsDownConductorsComponent implements OnInit {
 
   closeModalDialogFile() {
     this.modalService.dismissAll();
+  }
+
+  // Down conductors (exposed / Natural) Accordian				
+  decimalConversion(event:any,form:any){
+    // 7(j)
+    if(form.controls.maximumDownConductOb.value!="" && form.controls.maximumDownConductOb.value!=undefined && form.controls.maximumDownConductOb.value!=null){
+      var conversionValue = form.controls.maximumDownConductOb.value;
+      form.controls.maximumDownConductOb.setValue(parseFloat(conversionValue).toFixed(1));
+    }else{
+      form.controls.maximumDownConductOb.setValue('');
+    }
+    // 7(k)
+    if(form.controls.manimumDownConductOb.value!="" && form.controls.manimumDownConductOb.value!=undefined && form.controls.manimumDownConductOb.value!=null){
+      var conversionValue = form.controls.manimumDownConductOb.value;
+      form.controls.manimumDownConductOb.setValue(parseFloat(conversionValue).toFixed(1));
+    }else{
+      form.controls.manimumDownConductOb.setValue('');
+    }
+  }
+
+  // Holder Accordian
+  decimalConversion1(event:any,form:any){
+    // 9(d) form.controls.successiveDistanceOb
+    if(form.controls.successiveDistanceOb.value!="" && form.controls.successiveDistanceOb.value!=undefined && form.controls.successiveDistanceOb.value!=null){
+      var conversionValue = form.controls.successiveDistanceOb.value;
+      form.controls.successiveDistanceOb.setValue(parseFloat(conversionValue).toFixed(1));
+    }else{
+      form.controls.successiveDistanceOb.setValue('');
+    }
+  }
+
+  // Lightning Counters	Accodian
+  decimalConversion2(event:any,form:any){
+    // 11(a)
+    if(form.controls.threadHoldCurrentOb.value!="" && form.controls.threadHoldCurrentOb.value!=undefined && form.controls.threadHoldCurrentOb.value!=null){
+      var conversionValue = form.controls.threadHoldCurrentOb.value;
+      form.controls.threadHoldCurrentOb.setValue(parseFloat(conversionValue).toFixed(1));
+    }else{
+      form.controls.threadHoldCurrentOb.setValue('');
+    }
+    
+    // 11(b)
+    if(form.controls.maximumWithStandCurrentOb.value!="" && form.controls.maximumWithStandCurrentOb.value!=undefined && form.controls.maximumWithStandCurrentOb.value!=null){
+      var conversionValue = form.controls.maximumWithStandCurrentOb.value;
+      form.controls.maximumWithStandCurrentOb.setValue(parseFloat(conversionValue).toFixed(1));
+    }else{
+      form.controls.maximumWithStandCurrentOb.setValue('');
+    }
+  }
+
+  decimalConversion3(event:any,form:any){
+    if(form.controls.length.value!="" && form.controls.length.value!=undefined && form.controls.length.value!=null){
+      var conversionValue = form.controls.length.value;
+      form.controls.length.setValue(parseFloat(conversionValue).toFixed(1));
+    }else{
+      form.controls.length.setValue('');
+    }
+    
+    if(form.controls.resistance.value!="" && form.controls.resistance.value!=undefined && form.controls.resistance.value!=null){
+      var conversionValue = form.controls.resistance.value;
+      form.controls.resistance.setValue(parseFloat(conversionValue).toFixed(1));
+    }else{
+      form.controls.resistance.setValue('');
+    }
   }
 }
     

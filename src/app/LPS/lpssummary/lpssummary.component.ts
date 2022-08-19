@@ -4843,7 +4843,7 @@ SignatureDesigner1(){
             this.spinner=false;
             this.finalSpinner=false;
             this.popup1=true;
-            this.proceedNext.emit(true);
+            this.proceedNext.emit(false);
           }
         },
         (error)=> {
@@ -4881,7 +4881,7 @@ SignatureDesigner1(){
               this.popup1=true;
               this.spinner=false;
               this.finalSpinner=false;
-              this.proceedNext.emit(true);
+              this.proceedNext.emit(false);
             }
           },
           (error)=> {
