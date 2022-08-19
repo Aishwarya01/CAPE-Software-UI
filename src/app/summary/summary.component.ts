@@ -125,7 +125,7 @@ export class SummaryComponent implements OnInit,OnDestroy {
   finalSpinner: boolean = true;
   popup: boolean = false;
 
-  @Output() proceedNext = new EventEmitter<any>();
+  @Output() proceedNext = new EventEmitter<{adminFlag: boolean,nextFlag: boolean}>();
   fcname: string[] = [
     'obervationStatus',
     'observationsInspection',
@@ -2419,14 +2419,14 @@ showHideAccordion(index: number) {
       this.service.isCompleted5= false;
       this.service.isLinear=true;
       this.modalService.dismissAll((this.errorMsg = ""));
-      this.proceedNext.emit(false);
+      //this.proceedNext.emit({false});
     } 
     else {
       this.success = false;
       this.service.isCompleted5= true;
       this.service.isLinear=false;
       this.modalService.dismissAll((this.successMsg = ""));
-      this.proceedNext.emit(true);
+      //this.proceedNext.emit(true);
     }
 
     // if(this.finalFlag) {
@@ -2463,7 +2463,7 @@ showHideAccordion(index: number) {
               this.popup=true;
               this.finalSpinner=false;
               this.successMsg = data;
-              this.proceedNext.emit(false);
+              this.proceedNext.emit({adminFlag: this.submitButton, nextFlag: false});
               this.addsummary.markAsPristine();
               this.service.allFieldsDisable = true; 
               this.service.disableSubmitSummary=true;
@@ -2580,7 +2580,7 @@ showHideAccordion(index: number) {
                   }
                 )
                 this.addsummary.markAsPristine();
-                this.proceedNext.emit(true);
+                this.proceedNext.emit({adminFlag: this.submitButton,nextFlag: true});
                 this.service.windowTabClick=0;
                 this.service.logoutClick=0; 
                 this.service.lvClick=0; 
@@ -2614,7 +2614,7 @@ showHideAccordion(index: number) {
                     this.retrieveDetailsfromSummary(this.summary.siteId,data)
                   }
                 )
-                this.proceedNext.emit(true);
+                this.proceedNext.emit({adminFlag: this.submitButton,nextFlag: true});
                 this.service.windowTabClick=0;
                 this.service.logoutClick=0; 
                 this.service.lvClick=0; 

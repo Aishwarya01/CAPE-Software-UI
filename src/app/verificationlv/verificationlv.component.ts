@@ -728,7 +728,9 @@ export class VerificationlvComponent implements OnInit {
 
   public summaryFunctionCall3(value: any) {
     if(value.flag) {
-      this.summary.retrieveDetailsfromSummary(value.siteId,value.summaryData)
+      setTimeout(() => {
+        this.summary.retrieveDetailsfromSummary(value.siteId,value.summaryData)
+      }, 1000);
     }
   }
 
@@ -761,14 +763,13 @@ export class VerificationlvComponent implements OnInit {
   public NextStep3(next: any): void {
     if(next){
       this.callTestingNgOnInit();
-      this.callSummaryNgOnInit();
     }
     else{
       // need to uncoment for testing update issue
       this.testing.updateMethod();
-      this.callSummaryNgOnInit();
     }
     //this.service.addstep3 = next;
+    this.summary.ngOnInit();
     this.service.isLinear=false;
     this.service.isCompleted3= next;
 
@@ -786,9 +787,11 @@ export class VerificationlvComponent implements OnInit {
     this.service.isLinear=false;
     //this.service.addsummary = next;
     this.service.isCompleted5 = next;
-    if(next){
+    if(next.nextFlag){
     this.service.allStepsCompleted=false;
-    this.selectedIndex=1;
+      if(!next.adminFlag) {       
+        this.selectedIndex=1;
+      }   
     }
     else {
       this.service.allStepsCompleted=true;
