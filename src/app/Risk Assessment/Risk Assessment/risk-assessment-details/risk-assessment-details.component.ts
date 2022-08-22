@@ -1735,7 +1735,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     lossHumanR1(event:any,form:any){
       if(form.controls.calculatedRisk.controls[0].controls.riskProtectionRD1!='' && form.controls.calculatedRisk.controls[0].controls.riskProtectionRI1!='' && form.controls.calculatedRisk.controls[0].controls.riskProtectionRD1!=null && form.controls.calculatedRisk.controls[0].controls.riskProtectionRI1!=null && form.controls.calculatedRisk.controls[0].controls.riskProtectionRD1!=undefined && form.controls.calculatedRisk.controls[0].controls.riskProtectionRI1!=undefined){
         var a=(+form.controls.calculatedRisk.controls[0].controls.riskProtectionRD1.value+ +form.controls.calculatedRisk.controls[0].controls.riskProtectionRI1.value)
-        form.controls.calculatedRisk.controls[0].controls.riskProtectionR1.setValue(a.toExponential(1));
+        form.controls.calculatedRisk.controls[0].controls.riskProtectionR1.setValue(a.toExponential(2));
       }else{
         form.controls.calculatedRisk.controls[0].controls.riskProtectionR1.setValue('');
       }
@@ -1830,7 +1830,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     lossServiceR2(event:any,form:any){
       if(form.controls.calculatedRisk.controls[0].controls.riskProtectionRD2!='' && form.controls.calculatedRisk.controls[0].controls.riskProtectionRI2!='' && form.controls.calculatedRisk.controls[0].controls.riskProtectionRD2!=null && form.controls.calculatedRisk.controls[0].controls.riskProtectionRI2!=null && form.controls.calculatedRisk.controls[0].controls.riskProtectionRD2!=undefined && form.controls.calculatedRisk.controls[0].controls.riskProtectionRI2!=undefined){
         var a=(+form.controls.calculatedRisk.controls[0].controls.riskProtectionRD2.value+ +form.controls.calculatedRisk.controls[0].controls.riskProtectionRI2.value);
-        form.controls.calculatedRisk.controls[0].controls.riskProtectionR2.setValue(a.toExponential(1));
+        form.controls.calculatedRisk.controls[0].controls.riskProtectionR2.setValue(a.toExponential(2));
       }else{
         form.controls.calculatedRisk.controls[0].controls.riskProtectionR2.setValue('');
       }
@@ -1866,7 +1866,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       if(form.controls.protection.controls[0].controls.culturalRB!='' && form.controls.protection.controls[0].controls.culturalRV!='' && form.controls.protection.controls[0].controls.culturalRB!=null && form.controls.protection.controls[0].controls.culturalRV!=null && form.controls.protection.controls[0].controls.culturalRB!=undefined && form.controls.protection.controls[0].controls.culturalRV!=undefined){
         var a=(+form.controls.protection.controls[0].controls.culturalRB.value+ +form.controls.protection.controls[0].controls.culturalRV.value)
         form.controls.calculatedRisk.controls[0].controls.riskProtectionRD3.setValue(a.toExponential(1));
-        form.controls.calculatedRisk.controls[0].controls.riskProtectionR3.setValue(a.toExponential(1));
+        form.controls.calculatedRisk.controls[0].controls.riskProtectionR3.setValue(a.toExponential(2));
       }else{
         form.controls.calculatedRisk.controls[0].controls.riskProtectionRD3.setValue('');
         form.controls.calculatedRisk.controls[0].controls.riskProtectionR3.setValue('');
@@ -1979,7 +1979,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     lossCulturalR4(event:any,form:any){
       if(form.controls.calculatedRisk.controls[0].controls.riskProtectionRD4!='' && form.controls.calculatedRisk.controls[0].controls.riskProtectionRI4!='' && form.controls.calculatedRisk.controls[0].controls.riskProtectionRD4!=null && form.controls.calculatedRisk.controls[0].controls.riskProtectionRI4!=null && form.controls.calculatedRisk.controls[0].controls.riskProtectionRD4!=undefined && form.controls.calculatedRisk.controls[0].controls.riskProtectionRI4!=undefined){
         var a=(+form.controls.calculatedRisk.controls[0].controls.riskProtectionRD4.value+ +form.controls.calculatedRisk.controls[0].controls.riskProtectionRI4.value)
-        form.controls.calculatedRisk.controls[0].controls.riskProtectionR4.setValue(a.toExponential(1));
+        form.controls.calculatedRisk.controls[0].controls.riskProtectionR4.setValue(a.toExponential(2));
       }else{
         form.controls.calculatedRisk.controls[0].controls.riskProtectionR4.setValue('');
       }
