@@ -1373,60 +1373,62 @@ SignatureDesigner1(){
       }
 
      retrieveDetailsfromSummary(siteId: any,data: any){
-      this.summaryData = JSON.parse(data);
-      this.summary.siteId = siteId;
-      this.summary.userName = this.summaryData.userName;
-      this.summary.summaryId = this.summaryData.summaryId;
-      this.summary.createdBy = this.summaryData.createdBy;
-      this.summary.createdDate = this.summaryData.createdDate;
-       this.yesObserveSupply= true;
-       this.noObserveSupply= false;
-
-       this.yesObserveInspection= true;
-       this.noObserveInspection= false;
-
-       this.yesObserveTesting= true;
-       this.noObserveTesting= false;        
-       this.summary.recommendationsDate = this.summaryData.recommendationsDate;
-      
-      for(let i of this.summaryData.summaryDeclaration) {
-        if(i.declarationRole == "Inspector") {
-         this.signarr=[i];
-         this.signarr[0].signature=atob(i.signature);
-         this.addsummary.patchValue({
-           Declaration1Arr: this.signarr
-           //Declaration1Arr: [i]
-         })
+      if(data != null) {
+        this.summaryData = JSON.parse(data);
+        this.summary.siteId = siteId;
+        this.summary.userName = this.summaryData.userName;
+        this.summary.summaryId = this.summaryData.summaryId;
+        this.summary.createdBy = this.summaryData.createdBy;
+        this.summary.createdDate = this.summaryData.createdDate;
+         this.yesObserveSupply= true;
+         this.noObserveSupply= false;
+  
+         this.yesObserveInspection= true;
+         this.noObserveInspection= false;
+  
+         this.yesObserveTesting= true;
+         this.noObserveTesting= false;        
+         this.summary.recommendationsDate = this.summaryData.recommendationsDate;
+        
+        for(let i of this.summaryData.summaryDeclaration) {
+          if(i.declarationRole == "Inspector") {
+           this.signarr=[i];
+           this.signarr[0].signature=atob(i.signature);
+           this.addsummary.patchValue({
+             Declaration1Arr: this.signarr
+             //Declaration1Arr: [i]
+           })
+          }
+          else{
+           this.signarr1=[i];
+           this.signarr1[0].signature=atob(i.signature);
+           this.addsummary.patchValue({
+             Declaration2Arr: this.signarr1
+            // Declaration2Arr: [i]
+           })
+          }
         }
-        else{
-         this.signarr1=[i];
-         this.signarr1[0].signature=atob(i.signature);
-         this.addsummary.patchValue({
-           Declaration2Arr: this.signarr1
-          // Declaration2Arr: [i]
-         })
-        }
-      }
-      this.populateData(this.summaryData.summaryObservation);
-      this.populateDataComments();
-      this.flag = true;
-
-      this.addsummary.patchValue({
-       extentInstallation: this.summaryData.extentInstallation,
-       agreedLimitations: this.summaryData.agreedLimitations,
-       agreedWith: this.summaryData.agreedWith,
-       operationalLimitations: this.summaryData.operationalLimitations,
-       //furtherActions: this.summaryList.summary.furtherActions,
-      // referanceNumberReport: this.summaryList.summary.referanceNumberReport,
-       recommendationsDate: this.summaryData.recommendationsDate,
-       //comment: this.summaryList.summary.comment,
-       
-       //recommendationsDate: this.summaryList.summary.recommendationsDate,
-       //inspectionTestingDetailed: this.summaryList.summary.inspectionTestingDetailed,
-       generalConditionInstallation: this.summaryData.generalConditionInstallation,
-       overallAssessmentInstallation: this.summaryData.overallAssessmentInstallation,
-   })
-     this.onservationChangedDetection();
+        this.populateData(this.summaryData.summaryObservation);
+        this.populateDataComments();
+        this.flag = true;
+  
+        this.addsummary.patchValue({
+         extentInstallation: this.summaryData.extentInstallation,
+         agreedLimitations: this.summaryData.agreedLimitations,
+         agreedWith: this.summaryData.agreedWith,
+         operationalLimitations: this.summaryData.operationalLimitations,
+         //furtherActions: this.summaryList.summary.furtherActions,
+        // referanceNumberReport: this.summaryList.summary.referanceNumberReport,
+         recommendationsDate: this.summaryData.recommendationsDate,
+         //comment: this.summaryList.summary.comment,
+         
+         //recommendationsDate: this.summaryList.summary.recommendationsDate,
+         //inspectionTestingDetailed: this.summaryList.summary.inspectionTestingDetailed,
+         generalConditionInstallation: this.summaryData.generalConditionInstallation,
+         overallAssessmentInstallation: this.summaryData.overallAssessmentInstallation,
+     })
+       this.onservationChangedDetection();
+      }      
     }
 
 //comments section starts
