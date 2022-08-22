@@ -1318,6 +1318,7 @@ SignatureDesigner1(){
     retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
         this.summaryList = JSON.parse(data);
         this.summary.siteId = siteId;
+        this.summary.userName = this.summaryList.summary.userName;
         this.summary.summaryId = this.summaryList.summary.summaryId;
         this.summary.createdBy = this.summaryList.summary.createdBy;
         this.summary.createdDate = this.summaryList.summary.createdDate;
@@ -1374,6 +1375,7 @@ SignatureDesigner1(){
      retrieveDetailsfromSummary(siteId: any,data: any){
       this.summaryData = JSON.parse(data);
       this.summary.siteId = siteId;
+      this.summary.userName = this.summaryData.userName;
       this.summary.summaryId = this.summaryData.summaryId;
       this.summary.createdBy = this.summaryData.createdBy;
       this.summary.createdDate = this.summaryData.createdDate;
@@ -1872,6 +1874,7 @@ showHideAccordion(index: number) {
         furtherActions: new FormControl({disabled: false,value: item.furtherActions}),
         comment: new FormControl({disabled: false,value: item.comment}),
         obervationStatus: new FormControl(item.obervationStatus),
+        summaryInnerObservation:this._formBuilder.array([]),
       });
     }
     populateInspection(item: any) {
@@ -1928,6 +1931,7 @@ showHideAccordion(index: number) {
         comment: new FormControl({disabled: false,value: item.comment}),
         referenceId: new FormControl({disabled: false,value: item.referenceId}),
         obervationStatus: new FormControl(item.obervationStatus),
+        summaryInnerObservation:this._formBuilder.array([]),
       });
     }
   private Declaration1Form(): FormGroup {
@@ -2443,6 +2447,15 @@ showHideAccordion(index: number) {
 
   adminSubmit(flag: any,content5:any) {
     if(flag) {
+      this.submitted = true;
+      if (this.addsummary.invalid) {
+        this.validationError = true;
+        this.validationErrorMsg = 'Please check all the fields';
+        // setTimeout(() => {
+        //   this.validationError = false;
+        // }, 3000);
+        return;
+      }
       const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
         width: '420px',
         maxHeight: '90vh',
@@ -2456,7 +2469,64 @@ showHideAccordion(index: number) {
       dialogRef.componentInstance.confirmBox.subscribe(data=>{
         if(data) {
           this.modalService.open(content5, { centered: true, backdrop: 'static'});
-  
+          this.summaryObervation=this.addsummary.get('summaryObervation') as FormArray;
+          this.ObservationsArr=this.addsummary.get('ObservationsArr') as FormArray;
+
+          for(let i of this.summaryObervation.controls){
+          if(i.controls.observationComponentDetails.value == 'mainsObservations')  {
+            i.controls.comment.setValue(this.ObservationsArr.controls[0].controls.mainsComment.value);
+            i.controls.furtherActions.setValue(this.ObservationsArr.controls[0].controls.mainsFurtherActions.value);
+            i.controls.observations.setValue(this.ObservationsArr.controls[0].controls.mainsObservations.value);
+          } 
+          else if(i.controls.observationComponentDetails.value == 'earthElectrodeObservations')  {
+            i.controls.comment.setValue(this.ObservationsArr.controls[0].controls.electrodeComment.value);
+            i.controls.furtherActions.setValue(this.ObservationsArr.controls[0].controls.electrodeFurtherActions.value);
+            i.controls.observations.setValue(this.ObservationsArr.controls[0].controls.earthElectrodeObservations.value);
+          } 
+          else  if(i.controls.observationComponentDetails.value == 'boundingObservations')  {
+            i.controls.comment.setValue(this.ObservationsArr.controls[0].controls.bondingComment.value);
+            i.controls.furtherActions.setValue(this.ObservationsArr.controls[0].controls.bondingFurtherActions.value); 
+            i.controls.observations.setValue(this.ObservationsArr.controls[0].controls.bondingConductorObservations.value);
+          } 
+          else if(i.controls.observationComponentDetails.value == 'earthingObservations')  {
+            i.controls.comment.setValue(this.ObservationsArr.controls[0].controls.earthingComment.value);
+            i.controls.furtherActions.setValue(this.ObservationsArr.controls[0].controls.earthingFurtherActions.value);
+            i.controls.observations.setValue(this.ObservationsArr.controls[0].controls.earthingConductorObservations.value);
+          }    
+          }
+
+          if(this.ObservationsArr.value[0].alternateArr.length!=0){
+            this.alternateArr=this.ObservationsArr.controls[0].controls.alternateArr as FormArray;
+            for(let i of this.alternateArr.value){
+              this.summaryObervation.value.push(i);
+            }
+          }
+          if(this.ObservationsArr.value[0].inspectionArr.length!=0){
+            this.inspectionArr=this.ObservationsArr.controls[0].controls.inspectionArr as FormArray;
+            for(let i of this.inspectionArr.value){
+              this.summaryObervation.value.push(i);
+              // for(let j of i.summaryInnerObservation){
+              //   this.summaryObervation.value.push(j);
+              // }
+            }
+          }
+          if(this.ObservationsArr.value[0].testingArr.length!=0){
+            this.testingArr=this.ObservationsArr.controls[0].controls.testingArr as FormArray;
+            for(let i of this.testingArr.value){
+              this.summaryObervation.value.push(i);
+            }
+          }
+      
+          //this.verification.callFinalSavedMethod();
+          this.addsummary.value.Declaration1Arr[0].signature=this.service.bytestring5;
+          this.addsummary.value.Declaration2Arr[0].signature=this.service.bytestring6;
+          this.summary.summaryObservation = this.addsummary.value.summaryObervation;
+          this.summary.summaryDeclaration = this.addsummary.value.Declaration1Arr; 
+          this.summary.limitationsInspection='The following observations are made';
+          this.summary.summaryDeclaration = this.summary.summaryDeclaration.concat(
+            this.addsummary.value.Declaration2Arr
+          );
+          
           this.UpateInspectionService.updateSummary(this.summary,true).subscribe(
             data=> {
               this.success = true;
@@ -2489,8 +2559,9 @@ showHideAccordion(index: number) {
   SubmitTab5(flag: any,content5:any) {
     if(!flag) {
       this.summary.siteId = this.service.siteCount;
+      this.summary.userName = this.email;
     }
-    this.summary.userName = this.email;
+    
     this.submitted = true;
     if (this.addsummary.invalid) {
       this.validationError = true;
@@ -2500,8 +2571,9 @@ showHideAccordion(index: number) {
       // }, 3000);
       return;
     }
-    
-        this.modalService.open(content5, { centered: true, backdrop: 'static'});
+        if(this.addsummary.dirty) {
+          this.modalService.open(content5, { centered: true, backdrop: 'static'});
+        }
         this.summaryObervation=this.addsummary.get('summaryObervation') as FormArray;
         this.ObservationsArr=this.addsummary.get('ObservationsArr') as FormArray;
 
