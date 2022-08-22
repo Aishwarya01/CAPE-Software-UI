@@ -1,0 +1,144 @@
+<div class="card">
+    <div class="card-header" style="text-align: center; display: block">
+       <h2 class="modal-title" style="display: contents">Protective Earth conductor</h2>
+     </div>
+   <div class="card-body">
+     <form [formGroup]="equipBondConnForm" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
+    
+   <h2><b><u>Testing</u></b></h2>
+   
+       <ng-container formArrayName="safetyTestingEquipBondConn" *ngFor="let a of getSafetyTestingEquipBondConnControls(); let i = index">
+         <ng-container [formGroupName]="i">
+           <h2>Testing related to safety</h2>
+       
+           <div class="table-responsive">
+             <table class="table" style="width: 100%; border: 1px solid black">
+               <thead>
+                 <tr>
+                   <th>
+                     Make
+                   </th>
+       
+                   <th>
+                    Type (flat or bare conductor)
+                   </th>
+       
+                   <th>
+                    Material (copper /aluminum/GI)
+                   </th>
+       
+                   <th>
+                    size (sq.mm.)
+                   </th>
+       
+                   <th>
+                    Conductor length
+                   </th>
+                   <th>
+                    conductor resistance
+                   </th>
+                   <th>
+                    Max allowable resistance
+                   </th>
+                   <th>
+                    Remarks
+                   </th>
+                 </tr>
+               </thead>
+       
+               <tbody>
+                 <tr>
+                    <td>
+                        <input type="text" formControlName="make"
+                          [ngClass]="{ 'is-invalid': submittedEquipBondConn && a.get('make')?.errors }">
+                        <div *ngIf="submittedEquipBondConn && a.get('make')?.errors" class="invalid-feedback">
+                          <div *ngIf="a.get('make')?.errors?.required">Make is required</div>
+                        </div>
+                      </td>
+       
+                   <td>
+                     <input type="text" formControlName="type"
+                       [ngClass]="{ 'is-invalid': submittedEquipBondConn && a.get('type')?.errors }">
+                     <div *ngIf="submittedEquipBondConn && a.get('type')?.errors" class="invalid-feedback">
+                       <div *ngIf="a.get('type')?.errors?.required">Type is required</div>
+                     </div>
+                   </td>
+       
+                   <td>
+                     <input type="text" formControlName="material"
+                       [ngClass]="{ 'is-invalid': submittedEquipBondConn && a.get('material')?.errors }">
+                     <div *ngIf="submittedEquipBondConn && a.get('material')?.errors" class="invalid-feedback">
+                       <div *ngIf="a.get('material')?.errors?.required">Material is required</div>
+                     </div>
+                   </td>
+       
+                   <td>
+                     <input type="text" formControlName="size"
+                       [ngClass]="{ 'is-invalid': submittedEquipBondConn && a.get('size')?.errors }">
+                     <div *ngIf="submittedEquipBondConn && a.get('size')?.errors" class="invalid-feedback">
+                       <div *ngIf="a.get('size')?.errors?.required">Size is required</div>
+                     </div>
+                   </td>
+       
+                   <td>
+                    <input type="text" formControlName="conductorLength"
+                      [ngClass]="{ 'is-invalid': submittedEquipBondConn && a.get('conductorLength')?.errors }">
+                    <div *ngIf="submittedEquipBondConn && a.get('conductorLength')?.errors" class="invalid-feedback">
+                      <div *ngIf="a.get('conductorLength')?.errors?.required">Size is required</div>
+                    </div>
+                  </td>
+                  <td>
+                    <input type="text" formControlName="conductorResistance"
+                      [ngClass]="{ 'is-invalid': submittedEquipBondConn && a.get('conductorResistance')?.errors }">
+                    <div *ngIf="submittedEquipBondConn && a.get('conductorResistance')?.errors" class="invalid-feedback">
+                      <div *ngIf="a.get('conductorResistance')?.errors?.required">Size is required</div>
+                    </div>
+                  </td>
+                  <td>
+                    <input type="text" formControlName="maxResistance"
+                      [ngClass]="{ 'is-invalid': submittedEquipBondConn && a.get('maxResistance')?.errors }">
+                    <div *ngIf="submittedEquipBondConn && a.get('maxResistance')?.errors" class="invalid-feedback">
+                      <div *ngIf="a.get('maxResistance')?.errors?.required">Size is required</div>
+                    </div>
+                  </td>
+                   <td>
+                     <input type="text" formControlName="rNRemarks">
+                   </td>
+                 </tr>
+       
+               </tbody>
+             </table>
+           </div>
+         </ng-container>
+       </ng-container>
+     </form>
+   </div>
+
+   <div *ngIf="validationError" style="text-align: center;;margin-top: 5px;margin-bottom: 40px">
+       <span class="alert alert-danger">{{validationErrorMsg}}</span>
+     </div>
+
+     <div class="centre-text m-btm30">
+       <div *ngIf="success" style="text-align: center;margin-top: 5px;margin-bottom: 40px">
+         <span class="successshow">{{ successMsg }}</span>
+       </div>
+       <div *ngIf="error" style="text-align: center;margin-top: 5px;margin-bottom: 40px">
+         <span class="errorshow">{{ errorMsg }}</span>
+       </div>
+     </div>
+     
+     <div style="display: inline;margin-top: 30px;">    
+       <button type="button"  style="float: left; margin-left: 400px"
+         class="btn btn-info" (click)="saveEquipBondConn(equipBondConnFlag)">
+         <i class="bi bi-person-plus-fill icon"></i> Save
+       </button>
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <button type="button"  class="btn btn-danger" aria-label="Close"  (click)="close()"
+         style="float: right; margin-right: 400px" >
+         <span aria-hidden="true">Cancel</span>
+       </button>
+     </div>
+     <br>
+ </div>
+
+ 
