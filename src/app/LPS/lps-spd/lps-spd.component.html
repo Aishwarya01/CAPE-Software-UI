@@ -501,7 +501,7 @@
                                                             <i class="bi bi-list-ol"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" [readonly]="isEditable" (keypress)="keyPressNumbers($event)" formControlName="lengthOfConnectingWirePhaseOb" class="form-control" style="height: 3rem;"
+                                                    <input onwheel="this.blur()" [readonly]="isEditable" (keypress)="keyPressNumbers1($event)" (change)="decimalConversion($event,a)" formControlName="lengthOfConnectingWirePhaseOb" class="form-control" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('lengthOfConnectingWirePhaseOb')?.errors}" placeholder="Please enter Phase here in numbers">
                                                     <div *ngIf="submitted && a.get('lengthOfConnectingWirePhaseOb')?.errors" class="invalid-feedback">
                                                         <div *ngIf="a.get('lengthOfConnectingWirePhaseOb')?.errors?.required">Phase observation is required</div>
@@ -529,7 +529,7 @@
                                                             <i class="bi bi-list-ol"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" [readonly]="isEditable" (keypress)="keyPressNumbers($event)" formControlName="lengthOfConnectingWireProtectiveOb" class="form-control" style="height: 3rem;"
+                                                    <input onwheel="this.blur()" [readonly]="isEditable" (keypress)="keyPressNumbers1($event)" (change)="decimalConversion($event,a)" formControlName="lengthOfConnectingWireProtectiveOb" class="form-control" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('lengthOfConnectingWireProtectiveOb')?.errors}" placeholder="Please enter Protective conductor here in numbers">
                                                     <div *ngIf="submitted && a.get('lengthOfConnectingWireProtectiveOb')?.errors" class="invalid-feedback">
                                                         <div *ngIf="a.get('lengthOfConnectingWireProtectiveOb')?.errors?.required">Protective conductor observation is required</div>
@@ -562,7 +562,7 @@
                                                             <i class="bi bi-list-ol"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" [readonly]="isEditable" (keypress)="keyPressNumbers($event)" formControlName="sizeOfConnectingWirePhaseOb" class="form-control" style="height: 3rem;"
+                                                    <input onwheel="this.blur()" [readonly]="isEditable" (keypress)="keyPressNumbers1($event)" (change)="decimalConversion($event,a)" formControlName="sizeOfConnectingWirePhaseOb" class="form-control" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('sizeOfConnectingWirePhaseOb')?.errors}" placeholder="Please enter Phase here in numbers">
                                                     <div *ngIf="submitted && a.get('sizeOfConnectingWirePhaseOb')?.errors" class="invalid-feedback">
                                                         <div *ngIf="a.get('sizeOfConnectingWirePhaseOb')?.errors?.required">Phase observation is required</div>
@@ -590,7 +590,7 @@
                                                             <i class="bi bi-list-ol"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" [readonly]="isEditable" (keypress)="keyPressNumbers($event)" formControlName="sizeOfConnectingWireProtectiveOb" class="form-control" style="height: 3rem;"
+                                                    <input onwheel="this.blur()" [readonly]="isEditable" (keypress)="keyPressNumbers1($event)" (change)="decimalConversion($event,a)" formControlName="sizeOfConnectingWireProtectiveOb" class="form-control" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('sizeOfConnectingWireProtectiveOb')?.errors}" placeholder="Please enter Protective conductor here in numbers">
                                                     <div *ngIf="submitted && a.get('sizeOfConnectingWireProtectiveOb')?.errors" class="invalid-feedback">
                                                         <div *ngIf="a.get('sizeOfConnectingWireProtectiveOb')?.errors?.required">Protective conductor observation is required</div>

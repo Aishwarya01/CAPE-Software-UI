@@ -191,7 +191,7 @@ export class LpsAirTerminationComponent implements OnInit {
       buildingName: new FormControl('', Validators.required),
       buildingType: new FormControl('', Validators.required),
       buildingTypeOthers: new FormControl(''),
-      buildingLength: new FormControl('', Validators.required),
+      buildingLength: new FormControl('',Validators.required),
       buildingHeight: new FormControl('', Validators.required),
       buildingWidth: new FormControl('', Validators.required),
       protrusionHeight: new FormControl('', Validators.required),
@@ -619,6 +619,18 @@ export class LpsAirTerminationComponent implements OnInit {
       return true;
     }
   }
+
+    // Only Accept numbers and allow .(dot)
+    keyPressNumbers1(event: any) {
+      var charCode = (event.which) ? event.which : event.keyCode;
+      // Only Numbers 0-9
+      if ((charCode < 46 || charCode > 46) && (charCode < 48 || charCode > 57)) {
+        event.preventDefault();
+        return false;
+      } else {
+        return true;
+      }
+    }
 
   reset() {
     this.airTerminationForm.reset();
@@ -2430,5 +2442,36 @@ export class LpsAirTerminationComponent implements OnInit {
     this.listOfAllFileId = [];
   }
 
+  // Decimal conversion
+  decimalConversion(event:any,form:any){
+
+    if(form.controls.buildingLength.value!="" && form.controls.buildingLength.value !=undefined && form.controls.buildingLength.value !=null){
+      var conversionValue = form.controls.buildingLength.value;
+      form.controls.buildingLength.setValue(parseFloat(parseFloat(conversionValue).toFixed(1)));
+    }else{
+      form.controls.buildingLength.setValue('');
+    }
+
+    if(form.controls.buildingWidth.value!="" && form.controls.buildingWidth.value !=undefined && form.controls.buildingWidth.value !=null){
+      var conversionValue1 = form.controls.buildingWidth.value; 
+      form.controls.buildingWidth.setValue(parseFloat(parseFloat(conversionValue1).toFixed(1)));
+    }else{
+      form.controls.buildingWidth.setValue('');
+    }
+
+    if(form.controls.buildingHeight.value!="" && form.controls.buildingHeight.value !=undefined && form.controls.buildingHeight.value !=null){
+      var conversionValue2 = form.controls.buildingHeight.value;
+      form.controls.buildingHeight.setValue(parseFloat(parseFloat(conversionValue2).toFixed(1)));
+    }else{
+      form.controls.buildingHeight.setValue('');
+    }
+
+    if(form.controls.protrusionHeight.value!="" && form.controls.protrusionHeight.value !=undefined && form.controls.protrusionHeight.value !=null){
+      var conversionValue3 = form.controls.protrusionHeight.value;
+      form.controls.protrusionHeight.setValue(parseFloat(parseFloat(conversionValue3).toFixed(1)));
+    }else{
+      form.controls.protrusionHeight.setValue('');
+    } 
+  }
 }
 

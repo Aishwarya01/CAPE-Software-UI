@@ -83,7 +83,7 @@ export class LpsSpdComponent implements OnInit {
     }
   }
 
-    // Only Accept numbers
+  // Only Accept numbers
     keyPressNumbers(event:any) {
       var charCode = (event.which) ? event.which : event.keyCode;
           // Only Numbers 0-9
@@ -94,6 +94,18 @@ export class LpsSpdComponent implements OnInit {
             return true;
       }
     }
+
+  // Only Accept numbers and allow .(dot)
+  keyPressNumbers1(event: any) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 46 || charCode > 46) && (charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+  }
 
   allSPD(buildingNumber:any,buildingName:any,buildingCount:any):FormGroup {
     return new FormGroup({
@@ -653,4 +665,30 @@ export class LpsSpdComponent implements OnInit {
     }
   }
 
+  decimalConversion(event:any,form:any){
+    if(form.controls.lengthOfConnectingWirePhaseOb.value!="" && form.controls.lengthOfConnectingWirePhaseOb.value!=undefined && form.controls.lengthOfConnectingWirePhaseOb.value!=null){
+      var conversionValue=form.controls.lengthOfConnectingWirePhaseOb.value;
+      form.controls.lengthOfConnectingWirePhaseOb.setValue(parseFloat(parseFloat(conversionValue).toFixed(1)));
+    }else{
+      form.controls.lengthOfConnectingWirePhaseOb.setValue("");
+    }
+    if(form.controls.lengthOfConnectingWireProtectiveOb.value!="" && form.controls.lengthOfConnectingWireProtectiveOb.value!=undefined && form.controls.lengthOfConnectingWireProtectiveOb.value!=null){
+      var conversionValue1=form.controls.lengthOfConnectingWireProtectiveOb.value;
+      form.controls.lengthOfConnectingWireProtectiveOb.setValue(parseFloat(parseFloat(conversionValue1).toFixed(1)));
+    }else{
+      form.controls.lengthOfConnectingWireProtectiveOb.setValue("");
+    }
+    if(form.controls.sizeOfConnectingWirePhaseOb.value!="" && form.controls.sizeOfConnectingWirePhaseOb.value!=undefined && form.controls.sizeOfConnectingWirePhaseOb.value!=null){
+      var conversionValue2=form.controls.sizeOfConnectingWirePhaseOb.value;
+      form.controls.sizeOfConnectingWirePhaseOb.setValue(parseFloat(parseFloat(conversionValue2).toFixed(1)));
+    }else{
+      form.controls.sizeOfConnectingWirePhaseOb.setValue("");
+    }
+    if(form.controls.sizeOfConnectingWireProtectiveOb.value!="" && form.controls.sizeOfConnectingWireProtectiveOb.value!=undefined && form.controls.sizeOfConnectingWireProtectiveOb.value!=null){
+      var conversionValue3=form.controls.sizeOfConnectingWireProtectiveOb.value;
+      form.controls.sizeOfConnectingWireProtectiveOb.setValue(parseFloat(parseFloat(conversionValue3).toFixed(1)));
+    }else{
+      form.controls.sizeOfConnectingWireProtectiveOb.setValue("");
+    }
+  }
 }

@@ -2,16 +2,7 @@ export class Airtermination {
     basicLpsId!: number;
     lpsAirDescId!: number;
     userName!: string;
-    // connectionMadeBraOb!: string;
-    // connectionMadeBraRe!: string;
-    // electricalEquipPlacedOb!: string;
-    // electricalEquipPlacedRe!: string;
-    // combustablePartOb!: string;
-    // combustablePartRe!: string;
-    // terminationMeshConductorOb!: string;
-    // terminationMeshConductorRe!: string;
-    // bondingEquipotentialOb!: string;
-    // bondingEquipotentialRe!: string;
+   
     airTerminationId!: Number;
     createdBy!: String;
     createdDate!: Date;
