@@ -139,17 +139,29 @@ export class LpsSeperationDistanceComponent implements OnInit {
     this.separeteDistanceForm.reset();
   }
 
-      // Only Accept numbers
-      keyPressNumbers(event:any) {
-        var charCode = (event.which) ? event.which : event.keyCode;
-            // Only Numbers 0-9
-        if ((charCode < 48 || charCode > 57)) {
-          event.preventDefault();
-          return false;
-          } else {
-              return true;
-        }
-      }
+  // Only Accept numbers
+  keyPressNumbers(event:any) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+        // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+      } else {
+          return true;
+    }
+  }
+
+  // Only Accept numbers and allow .(dot)
+  keyPressNumbers1(event: any) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 46 || charCode > 46) && (charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+  }
 
   retrieveDetailsfromSavedReports(data: any){
       // this.service.lvClick=1;
@@ -594,6 +606,24 @@ export class LpsSeperationDistanceComponent implements OnInit {
       this.service.editable=true;
       this.separeteDistanceForm.markAsPristine();
    return true;
+    }
+  }
+
+  decimalConversion(event:any,form:any){
+    if(form.controls.seperationDistanceOb.value!="" && form.controls.seperationDistanceOb.value!=undefined && form.controls.seperationDistanceOb.value!=null){
+      var conversionValue = form.controls.seperationDistanceOb.value;
+      form.controls.seperationDistanceOb.setValue(parseFloat(parseFloat(conversionValue).toFixed(1)));
+    }else{
+      form.controls.seperationDistanceOb.setValue("");
+    }
+  }
+
+  decimalConversion1(event:any,form:any){
+    if(form.controls.seperationDistanceOb.value!="" && form.controls.seperationDistanceOb.value!=undefined && form.controls.seperationDistanceOb.value!=null){
+      var conversionValue = form.controls.seperationDistanceOb.value;
+      form.controls.seperationDistanceOb.setValue(parseFloat(parseFloat(conversionValue).toFixed(1)));
+    }else{
+      form.controls.seperationDistanceOb.setValue("");
     }
   }
 

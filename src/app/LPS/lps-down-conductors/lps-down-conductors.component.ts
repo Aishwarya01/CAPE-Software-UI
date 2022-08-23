@@ -509,7 +509,7 @@ export class LpsDownConductorsComponent implements OnInit {
     lpsAirDescArr.push(this.allLPSDownConductor());
   }
 
-      // Only Accept numbers
+  // Only Accept numbers
   keyPressNumbers(event:any) {
     var charCode = (event.which) ? event.which : event.keyCode;
         // Only Numbers 0-9
@@ -521,7 +521,17 @@ export class LpsDownConductorsComponent implements OnInit {
     }
   }
 
-  
+// Only Accept numbers and allow .(dot)
+keyPressNumbers1(event: any) {
+  var charCode = (event.which) ? event.which : event.keyCode;
+  // Only Numbers 0-9
+  if ((charCode < 46 || charCode > 46) && (charCode < 48 || charCode > 57)) {
+    event.preventDefault();
+    return false;
+  } else {
+    return true;
+  }
+}
   
   //creating form array based on airtermination building
   // createDwonconductorForm(noOfBuildingNumber:any){
@@ -1293,7 +1303,7 @@ export class LpsDownConductorsComponent implements OnInit {
       }
       let lightningCounterArray: any = [];
       lightningCounterArray =  a.controls.lightningCounter as FormArray;
-      if (changedValue == 'Not applicable') {
+      if (changedValue == 'Not available') {
         if(lightningCounterArray.length>0) {
           if(this.flag && lightningCounterArray.value[0].lightingCountersId !=null && lightningCounterArray.value[0].lightingCountersId !='' && lightningCounterArray.value[0].lightingCountersId !=undefined){
             lightningCounterArray.value[0].flag ='R';
@@ -1303,7 +1313,7 @@ export class LpsDownConductorsComponent implements OnInit {
         }
         a.controls.lightningCounterAvailabilityRem.setValue('As per latest standard IS/IEC 62305,installation of single lightning counter for whole building is mandatory');
       }
-      else if(changedValue == 'Applicable'){
+      else if(changedValue == 'Available'){
         if(lightningCounterArray.length == 0) {
           lightningCounterArray.push(this.createLightArrForm());
         }
@@ -1596,18 +1606,18 @@ export class LpsDownConductorsComponent implements OnInit {
         }
     }
 
-    validationChangeDownTestJoint(event: any,q: any,formControl: any) {
-      let arr: any = [];
-      arr = q.controls.testingJoint as FormArray;
-      if(event.target.value == 'No') {
-        arr.controls[0].controls[formControl].setValidators([Validators.required]);
-        arr.controls[0].controls[formControl].updateValueAndValidity();
-      }
-      else {
-        arr.controls[0].controls[formControl].clearValidators();
-        arr.controls[0].controls[formControl].updateValueAndValidity();
-      }
-    }
+    // validationChangeDownTestJoint(event: any,q: any,formControl: any) {
+    //   let arr: any = [];
+    //   arr = q.controls.testingJoint as FormArray;
+    //   if(event.target.value == 'No') {
+    //     arr.controls[0].controls[formControl].setValidators([Validators.required]);
+    //     arr.controls[0].controls[formControl].updateValueAndValidity();
+    //   }
+    //   else {
+    //     arr.controls[0].controls[formControl].clearValidators();
+    //     arr.controls[0].controls[formControl].updateValueAndValidity();
+    //   }
+    // }
     validationChangeDownTestJointKey(event: any,q: any,formControl: any) {  
       let arr: any = [];
         arr = q.controls.testingJoint as FormArray;
@@ -2225,6 +2235,70 @@ export class LpsDownConductorsComponent implements OnInit {
 
   closeModalDialogFile() {
     this.modalService.dismissAll();
+  }
+
+  // Down conductors (exposed / Natural) Accordian				
+  decimalConversion(event:any,form:any){
+    // 7(j)
+    if(form.controls.maximumDownConductOb.value!="" && form.controls.maximumDownConductOb.value!=undefined && form.controls.maximumDownConductOb.value!=null){
+      var conversionValue = form.controls.maximumDownConductOb.value;
+      form.controls.maximumDownConductOb.setValue(parseFloat(parseFloat(conversionValue).toFixed(1)));
+    }else{
+      form.controls.maximumDownConductOb.setValue('');
+    }
+    // 7(k)
+    if(form.controls.manimumDownConductOb.value!="" && form.controls.manimumDownConductOb.value!=undefined && form.controls.manimumDownConductOb.value!=null){
+      var conversionValue1 = form.controls.manimumDownConductOb.value;
+      form.controls.manimumDownConductOb.setValue(parseFloat(parseFloat(conversionValue1).toFixed(1)));
+    }else{
+      form.controls.manimumDownConductOb.setValue('');
+    }
+  }
+
+  // Holder Accordian
+  decimalConversion1(event:any,form:any){
+    // 9(d) form.controls.successiveDistanceOb
+    if(form.controls.successiveDistanceOb.value!="" && form.controls.successiveDistanceOb.value!=undefined && form.controls.successiveDistanceOb.value!=null){
+      var conversionValue = form.controls.successiveDistanceOb.value;
+      form.controls.successiveDistanceOb.setValue(parseFloat(parseFloat(conversionValue).toFixed(1)));
+    }else{
+      form.controls.successiveDistanceOb.setValue('');
+    }
+  }
+
+  // Lightning Counters	Accodian
+  decimalConversion2(event:any,form:any){
+    // 11(a)
+    if(form.controls.threadHoldCurrentOb.value!="" && form.controls.threadHoldCurrentOb.value!=undefined && form.controls.threadHoldCurrentOb.value!=null){
+      var conversionValue = form.controls.threadHoldCurrentOb.value;
+      form.controls.threadHoldCurrentOb.setValue(parseFloat(parseFloat(conversionValue).toFixed(1)));
+    }else{
+      form.controls.threadHoldCurrentOb.setValue('');
+    }
+    
+    // 11(b)
+    if(form.controls.maximumWithStandCurrentOb.value!="" && form.controls.maximumWithStandCurrentOb.value!=undefined && form.controls.maximumWithStandCurrentOb.value!=null){
+      var conversionValue1 = form.controls.maximumWithStandCurrentOb.value;
+      form.controls.maximumWithStandCurrentOb.setValue(parseFloat(parseFloat(conversionValue1).toFixed(1)));
+    }else{
+      form.controls.maximumWithStandCurrentOb.setValue('');
+    }
+  }
+
+  decimalConversion3(event:any,form:any){
+    if(form.controls.length.value!="" && form.controls.length.value!=undefined && form.controls.length.value!=null){
+      var conversionValue = form.controls.length.value;
+      form.controls.length.setValue(parseFloat(parseFloat(conversionValue).toFixed(1)));
+    }else{
+      form.controls.length.setValue('');
+    }
+    
+    if(form.controls.resistance.value!="" && form.controls.resistance.value!=undefined && form.controls.resistance.value!=null){
+      var conversionValue1 = form.controls.resistance.value;
+      form.controls.resistance.setValue(parseFloat(parseFloat(conversionValue1).toFixed(3)));
+    }else{
+      form.controls.resistance.setValue('');
+    }
   }
 }
     

@@ -333,11 +333,11 @@
                                 <tbody>
                                     <tr>
                                         <td class="col-md-6">
-                                            <select class="form-control"  (change)="onChangeDownCon($event,downConductorControls(q))" formControlName="downConductorAvailabilityOb" [attr.disabled]="isEditable ? '' : null"
+                                            <select class="form-control" (change)="onChangeDownCon($event,downConductorControls(q))" formControlName="downConductorAvailabilityOb" [attr.disabled]="isEditable ? '' : null"
                                             [ngClass]="{ 'is-invalid': submitted && q.get('downConductorAvailabilityOb')?.errors }" style="height: 3rem;" >
                                                 <option value="" selected>Select Option</option>
                                                 <option value="Applicable">Applicable </option>
-                                                <option value="Not applicable in case of natural down conductors">Not applicable in case of natural down conductors</option>
+                                                <option value="Not applicable in case of natural down conductors">Not Applicable in case of natural down conductors</option>
                                             </select>
                                             <div *ngIf="submitted && q.get('downConductorAvailabilityOb')?.errors" class="invalid-feedback">
                                                 <div *ngIf="q.get('downConductorAvailabilityOb')?.errors?.required">Please select the field</div>
@@ -762,7 +762,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" [readonly]="isEditable" formControlName="maximumDownConductOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Maximum distance between down conductors here in number"
+                                                    <input onwheel="this.blur()" [readonly]="isEditable" formControlName="maximumDownConductOb" (keypress)="keyPressNumbers1($event)" (change)="decimalConversion($event,a)" class="form-control" placeholder="Please enter Maximum distance between down conductors here in number"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('maximumDownConductOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('maximumDownConductOb')?.errors" class="invalid-feedback">
                                                         <div *ngIf="a.get('maximumDownConductOb')?.errors?.required">Maximum distance between down conductors observation is required</div>
@@ -791,7 +791,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" [readonly]="isEditable" formControlName="manimumDownConductOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Minimum distance between down conductors here in numbers"
+                                                    <input onwheel="this.blur()" [readonly]="isEditable" formControlName="manimumDownConductOb" (keypress)="keyPressNumbers1($event)" (change)="decimalConversion($event,a)" class="form-control" placeholder="Please enter Minimum distance between down conductors here in numbers"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('manimumDownConductOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('manimumDownConductOb')?.errors" class="invalid-feedback">
                                                         <div *ngIf="a.get('manimumDownConductOb')?.errors?.required">Minimum distance between down conductors observation is required</div>
@@ -1138,7 +1138,7 @@
                                             [ngClass]="{ 'is-invalid': submitted && q.get('bridgingDescriptionAvailabilityOb')?.errors }" style="height: 3rem;">
                                                 <option value="" selected>Select Option</option>
                                                 <option value="Applicable">Applicable </option>
-                                                <option value="Not applicable">Not applicable</option>
+                                                <option value="Not applicable">Not Applicable</option>
                                             </select>
                                             <div *ngIf="submitted && q.get('bridgingDescriptionAvailabilityOb')?.errors" class="invalid-feedback">
                                                 <div *ngIf="q.get('bridgingDescriptionAvailabilityOb')?.errors?.required">Please select the field</div>
@@ -1496,7 +1496,7 @@
                                             [ngClass]="{ 'is-invalid': submitted && q.get('holderAvailabilityOb')?.errors }" style="height: 3rem;" [attr.disabled]="isEditable ? '' : null">
                                                 <option value="" selected>Select Option</option>
                                                 <option value="Applicable">Applicable </option>
-                                                <option value="Not applicable">Not applicable</option>
+                                                <option value="Not applicable">Not Applicable</option>
                                             </select>
                                             <div *ngIf="submitted && q.get('holderAvailabilityOb')?.errors" class="invalid-feedback">
                                                 <div *ngIf="q.get('holderAvailabilityOb')?.errors?.required">Please select the field</div>
@@ -1641,7 +1641,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="successiveDistanceOb" [attr.disabled]="isEditable ? '' : null"
+                                                    <input onwheel="this.blur()" (keypress)="keyPressNumbers1($event)" (change)="decimalConversion1($event,a)" class="form-control" formControlName="successiveDistanceOb" [attr.disabled]="isEditable ? '' : null"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('successiveDistanceOb')?.errors}" placeholder="Please enter Distance between two successive holder in meters here" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('successiveDistanceOb')?.errors"class="invalid-feedback">
                                                         <div *ngIf="a.get('successiveDistanceOb')?.errors?.required">Distance between two successive holder in meters observation is required</div>
@@ -1853,7 +1853,7 @@
                                             [ngClass]="{ 'is-invalid': submitted && q.get('connectorsAvailabilityOb')?.errors }" style="height: 3rem;">
                                                 <option value="" selected>Select Option</option>
                                                 <option value="Applicable">Applicable </option>
-                                                <option value="Not applicable">Not applicable</option>
+                                                <option value="Not applicable">Not Applicable</option>
                                             </select>
                                             <div *ngIf="submitted && q.get('connectorsAvailabilityOb')?.errors" class="invalid-feedback">
                                                 <div *ngIf="q.get('connectorsAvailabilityOb')?.errors?.required">Please select the field</div>
@@ -2177,26 +2177,26 @@
                                             <select class="form-control"  (change)="onChangeCounters($event,q)" formControlName="lightningCounterAvailabilityOb" [attr.disabled]="isEditable ? '' : null"
                                             [ngClass]="{ 'is-invalid': submitted && q.get('lightningCounterAvailabilityOb')?.errors }" style="height: 3rem;">
                                                 <option value="" selected>Select Option</option>
-                                                <option value="Applicable">Applicable </option>
-                                                <option value="Not applicable">Not applicable</option>
+                                                <option value="Available">Available </option>
+                                                <option value="Not available">Not Available</option>
                                             </select>
                                             <div *ngIf="submitted && q.get('lightningCounterAvailabilityOb')?.errors" class="invalid-feedback">
                                                 <div *ngIf="q.get('lightningCounterAvailabilityOb')?.errors?.required">Please select the field</div>
                                             </div>
                                         </td>
                                         <td class="col-md-6">
-                                            <textarea [readonly]="isEditable || q.get('lightningCounterAvailabilityOb')?.value ==='Not applicable'" formControlName="lightningCounterAvailabilityRem" type="text"
+                                            <textarea [readonly]="isEditable || q.get('lightningCounterAvailabilityOb')?.value ==='Not available'" formControlName="lightningCounterAvailabilityRem" type="text"
                                             placeholder="Please enter Remarks here" class="form-control"></textarea>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>                                                                               
-                        <div style="margin-top: 10px;" *ngIf="q.get('lightningCounterAvailabilityOb')?.value != 'Applicable'"><b>Note:</b> &nbsp; Select applicable if you intend to fill details for Lightning Counters</div>
-                        <h2 *ngIf="q.get('lightningCounterAvailabilityOb')?.value === 'Applicable'"><u>Lightning Counter:</u></h2>
+                        <div style="margin-top: 10px;" *ngIf="q.get('lightningCounterAvailabilityOb')?.value != 'Available'"><b>Note:</b> &nbsp; Select applicable if you intend to fill details for Lightning Counters</div>
+                        <h2 *ngIf="q.get('lightningCounterAvailabilityOb')?.value === 'Available'"><u>Lightning Counter:</u></h2>
                         <br>
                         
-                        <div class="table-responsive" style="overflow-x: unset;" *ngIf="q.get('lightningCounterAvailabilityOb')?.value === 'Applicable'">
+                        <div class="table-responsive" style="overflow-x: unset;" *ngIf="q.get('lightningCounterAvailabilityOb')?.value === 'Available'">
                             <table class="table TableBorder">
                                 <tbody formArrayName="lightningCounter" *ngFor="let a of lightControls(q); let f = index">
                                     <div class="form-group" [formGroupName]="f">
@@ -2216,7 +2216,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" [readonly]="isEditable" formControlName="threadHoldCurrentOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter hreshold current in kA here in numbers"
+                                                    <input onwheel="this.blur()" [readonly]="isEditable" formControlName="threadHoldCurrentOb" (keypress)="keyPressNumbers1($event)" (change)="decimalConversion2($event,a)" class="form-control" placeholder="Please enter hreshold current in kA here in numbers"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('threadHoldCurrentOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('threadHoldCurrentOb')?.errors" class="invalid-feedback">
                                                         <div *ngIf="a.get('threadHoldCurrentOb')?.errors?.required">Threshold current observation is required</div>
@@ -2245,7 +2245,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" [readonly]="isEditable" formControlName="maximumWithStandCurrentOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Maximum withstand current in kA here in numbers"
+                                                    <input onwheel="this.blur()" [readonly]="isEditable" formControlName="maximumWithStandCurrentOb" (keypress)="keyPressNumbers1($event)" (change)="decimalConversion2($event,a)" class="form-control" placeholder="Please enter Maximum withstand current in kA here in numbers"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('maximumWithStandCurrentOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('maximumWithStandCurrentOb')?.errors"
                                                         class="invalid-feedback">
@@ -2589,7 +2589,7 @@
                                             [ngClass]="{ 'is-invalid': submitted && q.get('testingJointAvailabilityOb')?.errors }" style="height: 3rem;">
                                                 <option value="" selected>Select Option</option>
                                                 <option value="Available">Available </option>
-                                                <option value="Not available">Not available</option>
+                                                <option value="Not available">Not Available</option>
                                             </select>
                                             <div *ngIf="submitted && q.get('testingJointAvailabilityOb')?.errors" class="invalid-feedback">
                                                 <div *ngIf="q.get('testingJointAvailabilityOb')?.errors?.required">Please select the field</div>
@@ -2781,8 +2781,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                        <select class="form-control" formControlName="bimetallicIssueCheckOb" placeholder="Please enter Presence of Bi-metalllic corrosion issue here" [attr.disabled]="isEditable ? '' : null"
-                                                        (change)="validationChangeDownTestJoint($event,q,'bimetallicIssueCheckRem')" [ngClass]="{ 'is-invalid': submitted && a.get('bimetallicIssueCheckOb')?.errors}" style="height: 3rem;">
+                                                        <select class="form-control" formControlName="bimetallicIssueCheckOb" placeholder="Please enter Presence of Bi-metalllic corrosion issue here" [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && a.get('bimetallicIssueCheckOb')?.errors}" style="height: 3rem;">
                                                             <option  value="" selected>Select Option</option>
                                                             <option value="Yes" >Yes</option>
                                                             <option value="No" >No</option>
@@ -3093,7 +3092,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                    <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="length" placeholder="Length in Meters"
+                                                    <input onwheel="this.blur()" (keypress)="keyPressNumbers1($event)" (change)="decimalConversion3($event,a)" class="form-control" formControlName="length" placeholder="Length in Meters"
                                                     [readonly]="isEditable" [ngClass]="{ 'is-invalid': submitted && a.get('length')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('length')?.errors"
                                                         class="invalid-feedback">
@@ -3110,7 +3109,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                    <input onwheel="this.blur()" class="form-control" (keypress)="keyPressNumbers($event)" formControlName="resistance" placeholder="Resistance in mΩ"
+                                                    <input onwheel="this.blur()" class="form-control" (keypress)="keyPressNumbers1($event)" (change)="decimalConversion3($event,a)" formControlName="resistance" placeholder="Resistance in mΩ"
                                                     [readonly]="isEditable" (keyup)="populateDownConductorTesting($event,a)" [ngClass]="{ 'is-invalid': submitted && a.get('resistance')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('resistance')?.errors"
                                                         class="invalid-feedback">

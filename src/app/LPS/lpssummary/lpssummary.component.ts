@@ -2272,7 +2272,9 @@ SignatureDesigner1(){
     let earthingDescriptionRemarkIndex = 1;
     let earthingDescription = summaryform.earthingDescription as FormArray;
     
-    if(earthingData.earthingLpsDescription!=null && earthingData.earthingLpsDescription!=undefined && earthingData.earthingLpsDescription[index].earthingDescription[index] !=undefined){
+    if(earthingData.earthingLpsDescription!=null && earthingData.earthingLpsDescription!=undefined
+      && earthingData.earthingLpsDescription[index].earthingDescription !=undefined
+      && earthingData.earthingLpsDescription[index].earthingDescription.length !=0){
       for (let value of this.earthingDescriptionName) {
         let earthingValue = earthingData.earthingLpsDescription[index].earthingDescription[0][value];
         let earthDescriptionId = earthingData.earthingLpsDescription[index].earthingDescription[0].earthDescriptionId;
@@ -2364,7 +2366,9 @@ SignatureDesigner1(){
     let earthingClampHeadingUiFlag = true;
     let earthingClampRemarkIndex = 1;
 
-    if(earthingData.earthingLpsDescription!=null && earthingData.earthingLpsDescription!=undefined && earthingData.earthingLpsDescription[index].earthingClamps[index] !=undefined){
+    if(earthingData.earthingLpsDescription!=null && earthingData.earthingLpsDescription!=undefined
+      && earthingData.earthingLpsDescription[index].earthingClamps !=undefined
+      && earthingData.earthingLpsDescription[index].earthingClamps.length !=0){
       for (let value of this.earthingClampsName) {
         let earthingClampHeadingUi = '';
         let earthingClampHeading = '';
@@ -2407,7 +2411,10 @@ SignatureDesigner1(){
     let earthingElectrodeChamberHeadingUiFlag = true;
     let earthingElectrodeChamberRemarkIndex = 1;
 
-    if(earthingData.earthingLpsDescription!=null && earthingData.earthingLpsDescription!=undefined && earthingData.earthingLpsDescription[index].earthingElectrodeChamber[index] !=undefined){
+
+    if(earthingData.earthingLpsDescription!=null && earthingData.earthingLpsDescription!=undefined
+      && earthingData.earthingLpsDescription[index].earthingElectrodeChamber !=undefined
+      && earthingData.earthingLpsDescription[index].earthingElectrodeChamber.length !=0){
       for (let value of this.earthingElectrodeChamberName) {
         let earthingValue = earthingData.earthingLpsDescription[index].earthingElectrodeChamber[0][value];
         let earthingElectrodeChamberId = earthingData.earthingLpsDescription[index].earthingElectrodeChamber[0].earthingElectrodeChamberId;
@@ -3358,7 +3365,7 @@ SignatureDesigner1(){
       return this.formBuilder.group({
         summaryLpsDeclarationId: new FormControl({disabled: false,value: item.summaryLpsDeclarationId}, Validators.required),
         name: new FormControl({disabled: false,value: item.name}, Validators.required),
-        signature: new FormControl({disabled: false,value: item.signature}),
+        signature: new FormControl({disabled: false,value: item.signature}, Validators.required),
         company: new FormControl({disabled: false,value: item.company}, Validators.required),
         position: new FormControl({disabled: false,value: item.position}, Validators.required),
         address: new FormControl({disabled: false,value: item.address}, Validators.required),
@@ -3400,6 +3407,7 @@ SignatureDesigner1(){
            if(this.airTerminationData!=null && this.airTerminationData.airTermination!=null 
             && this.airTerminationData.airTermination[0]!=null 
             && this.airTerminationData.airTermination[0].lpsAirDiscription!=null 
+            && this.airTerminationData.airTermination[0].lpsAirDiscription[w]!=undefined
             && this.airTerminationData.airTermination[0].lpsAirDiscription[w].length!=0 
             && this.airTerminationData.airTermination[0].lpsAirDiscription[w].airBasicDescription!=null){
 
@@ -3440,6 +3448,7 @@ SignatureDesigner1(){
             if(this.airTerminationData!=null && this.airTerminationData.airTermination!=null 
               && this.airTerminationData.airTermination[0]!=null 
               && this.airTerminationData.airTermination[0].lpsAirDiscription!=null 
+              && this.airTerminationData.airTermination[0].lpsAirDiscription[w]!=undefined
               && this.airTerminationData.airTermination[0].lpsAirDiscription[w].length!=0 
               && this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination!=null){
 
@@ -3478,6 +3487,7 @@ SignatureDesigner1(){
             && this.airTerminationData.airTermination!=null 
             && this.airTerminationData.airTermination[0]!=null 
             && this.airTerminationData.airTermination[0].lpsAirDiscription!=null 
+            && this.airTerminationData.airTermination[0].lpsAirDiscription[w]!=undefined
             && this.airTerminationData.airTermination[0].lpsAirDiscription[w].length!=0 
             && this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination!=null 
             && this.airTerminationData.airTermination[0].lpsAirDiscription[w].lpsVerticalAirTermination.length!=0 
@@ -3529,6 +3539,7 @@ SignatureDesigner1(){
         && this.airTerminationData.airTermination!=null 
         && this.airTerminationData.airTermination[0]!=null 
         && this.airTerminationData.airTermination[0].lpsAirDiscription[w]!=null 
+        && this.airTerminationData.airTermination[0].lpsAirDiscription[w]!=undefined
         && this.airTerminationData.airTermination[0].lpsAirDiscription[w].length!=0 
         && this.airTerminationData.airTermination[0].lpsAirDiscription[w].airMeshDescription!=null){
         for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airMeshDescription){
@@ -3567,6 +3578,7 @@ SignatureDesigner1(){
       if(this.airTerminationData!=null && this.airTerminationData.airTermination!=null 
         && this.airTerminationData.airTermination[0]!=null 
         && this.airTerminationData.airTermination[0].lpsAirDiscription[w]!=null 
+        && this.airTerminationData.airTermination[0].lpsAirDiscription[w]!=undefined
         && this.airTerminationData.airTermination[0].lpsAirDiscription[w].length!=0 
         && this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription!=null){
         for(let i of this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription){
@@ -3610,6 +3622,7 @@ SignatureDesigner1(){
       if(this.airTerminationData!=null && this.airTerminationData.airTermination!=null 
         && this.airTerminationData.airTermination[0]!=null 
         && this.airTerminationData.airTermination[0].lpsAirDiscription!=null 
+        && this.airTerminationData.airTermination[0].lpsAirDiscription[w]!=undefined
         && this.airTerminationData.airTermination[0].lpsAirDiscription[w].length!=0 
         && this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription!=null 
         && this.airTerminationData.airTermination[0].lpsAirDiscription[w].airHolderDescription.length!=0 
@@ -3660,6 +3673,7 @@ SignatureDesigner1(){
       if(this.airTerminationData!=null && this.airTerminationData.airTermination!=null 
         && this.airTerminationData.airTermination[0]!=null 
         && this.airTerminationData.airTermination[0].lpsAirDiscription[w]!=null 
+        && this.airTerminationData.airTermination[0].lpsAirDiscription[w]!=undefined
         && this.airTerminationData.airTermination[0].lpsAirDiscription[w].length!=0 
         && this.airTerminationData.airTermination[0].lpsAirDiscription[w].airClamps!=null){
 
@@ -4703,11 +4717,6 @@ SignatureDesigner1(){
       summaryLpsObservationArr.push(j);
       }
       for(let j of i.controls.airVertical.controls){
-        //if(j.controls.observationComponentDetails.value=='lpsVerticalAirTermination0'){
-          // for(let list1 of i.controls.airVerticalList.controls){
-          //   j.controls.summaryLpsInnerObservation.push(list1);
-          // }
-        //}
         summaryLpsObservationArr.push(j);
       }
 
@@ -4719,11 +4728,6 @@ SignatureDesigner1(){
         summaryLpsObservationArr.push(j);
       }
       for(let j of i.controls.airHolder.controls){
-        // if(j.controls.observationComponentDetails.value=='airHolderDescription0'){
-        //   for(let list1 of i.controls.airHolderList.controls){
-        //     j.controls.summaryLpsInnerObservation.push(list1);
-        //   }
-        // }
         summaryLpsObservationArr.push(j);
       }
 
@@ -4764,11 +4768,6 @@ SignatureDesigner1(){
         summaryLpsObservationArr.push(j);
       }
       for(let j of i.controls.earthingDescription.controls){
-        // if(j.controls.observationComponentDetails.value=='earthingDescription0'){
-        //   for(let list1 of i.controls.earthingDescriptionList.controls){
-        //     j.controls.summaryLpsInnerObservation.push(list1);
-        //   }
-        // }
         summaryLpsObservationArr.push(j);
       }
       for(let j of i.controls.earthingDescriptionList.controls){
@@ -4785,11 +4784,6 @@ SignatureDesigner1(){
       }
 
       for(let j of i.controls.spdReport.controls){
-        // if(j.controls.observationComponentDetails.value=='spdReport0'){
-        //   for(let list1 of i.controls.spdReportList.controls){
-        //     j.controls.summaryLpsInnerObservation.push(list1);
-        //   }
-        // }
         summaryLpsObservationArr.push(j);
       }
 
@@ -4798,14 +4792,6 @@ SignatureDesigner1(){
       }
 
       for(let j of i.controls.separationDistance.controls){
-        // if(j.controls.observationComponentDetails.value=='seperationDistanceDescription0'){
-        //   for(let list1 of i.controls.separateDistance.controls){
-        //     j.controls.summaryLpsInnerObservation.push(list1);
-        //   }
-        //   for(let list2 of i.controls.separationDistanceDown.controls){
-        //     j.controls.summaryLpsInnerObservation.push(list2);
-        //   }
-        // }
         summaryLpsObservationArr.push(j);
       }
 
@@ -4825,6 +4811,8 @@ SignatureDesigner1(){
       this.finalSpinner = true;
       this.popup = false;
       this.popup1 = false
+      this.lpsSummary.summaryLpsBuildings=[];
+      this.lpsSummary.summaryLpsDeclaration=[];
       this.summaryForm.value.Declaration1Arr[0].signature=this.service.bytestring7;
       this.summaryForm.value.Declaration2Arr[0].signature=this.service.bytestring8;
       this.lpsSummary.summaryLpsBuildings= this.summaryForm.value.summaryLpsBuildings;
@@ -4855,7 +4843,7 @@ SignatureDesigner1(){
             this.spinner=false;
             this.finalSpinner=false;
             this.popup1=true;
-            this.proceedNext.emit(true);
+            this.proceedNext.emit(false);
           }
         },
         (error)=> {
@@ -4893,7 +4881,7 @@ SignatureDesigner1(){
               this.popup1=true;
               this.spinner=false;
               this.finalSpinner=false;
-              this.proceedNext.emit(true);
+              this.proceedNext.emit(false);
             }
           },
           (error)=> {

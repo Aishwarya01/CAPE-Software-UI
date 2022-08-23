@@ -95,6 +95,8 @@
                 <label for="buildingdimension" style="font-weight: 400;margin: 10px;
                                 font-size: 16px;">Building Dimensions: </label>
               </div>
+
+              <!-- Here we are doing decimal conversion for l,h,w-->
               <div class="row">
                 <div class="col-md-4">
                   <label for="length(m)">Length(m)</label>
@@ -104,7 +106,7 @@
                         <i class="bi bi-align-start"></i>
                       </span>
                     </div>
-                    <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="buildingLength" [ngClass]="{ 'is-invalid': submitted && q.get('buildingLength')?.errors }" required [readonly]="isEditable" />
+                    <input onwheel="this.blur()" class="form-control" formControlName="buildingLength" [ngClass]="{ 'is-invalid': submitted && q.get('buildingLength')?.errors }" required [readonly]="isEditable" (change)="decimalConversion($event,q)" (keypress)="keyPressNumbers1($event)" />
                     <div *ngIf="submitted && q.get('buildingLength')?.errors" class="invalid-feedback">
                       <div *ngIf="q.get('buildingLength')?.errors?.required">Length is required </div>
                     </div>
@@ -118,7 +120,7 @@
                         <i class="bi bi-border-width"></i>
                       </span>
                     </div>
-                    <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="buildingWidth" [ngClass]="{ 'is-invalid': submitted && q.get('buildingWidth')?.errors }" [readonly]="isEditable" required />
+                    <input onwheel="this.blur()" (change)="decimalConversion($event,q)" (keypress)="keyPressNumbers1($event)" class="form-control" formControlName="buildingWidth" [ngClass]="{ 'is-invalid': submitted && q.get('buildingWidth')?.errors }" [readonly]="isEditable" required />
                     <div *ngIf="submitted && q.get('buildingWidth')?.errors" class="invalid-feedback">
                       <div *ngIf="q.get('buildingWidth')?.errors?.required">Width is required </div>
                     </div>
@@ -132,7 +134,7 @@
                         <i class="bi bi-distribute-horizontal"></i>
                       </span>
                     </div>
-                    <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="buildingHeight" [ngClass]="{ 'is-invalid': submitted && q.get('buildingHeight')?.errors }" [readonly]="isEditable" required />
+                    <input onwheel="this.blur()" (change)="decimalConversion($event,q)" (keypress)="keyPressNumbers1($event)" class="form-control" formControlName="buildingHeight" [ngClass]="{ 'is-invalid': submitted && q.get('buildingHeight')?.errors }" [readonly]="isEditable" required />
                     <div *ngIf="submitted && q.get('buildingHeight')?.errors" class="invalid-feedback">
                       <div *ngIf="q.get('buildingHeight')?.errors?.required">Height is required </div>
                     </div>
@@ -146,7 +148,7 @@
                         <i class="bi bi-distribute-horizontal"></i>
                       </span>
                     </div>
-                    <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Height of tallest protrution" formControlName="protrusionHeight" [ngClass]="{ 'is-invalid': submitted && q.get('protrusionHeight')?.errors }" required [readonly]="isEditable">
+                    <input onwheel="this.blur()" (change)="decimalConversion($event,q)" (keypress)="keyPressNumbers1($event)" class="form-control" placeholder="Height of tallest protrution" formControlName="protrusionHeight" [ngClass]="{ 'is-invalid': submitted && q.get('protrusionHeight')?.errors }" required [readonly]="isEditable">
                     <div *ngIf="submitted && q.get('protrusionHeight')?.errors" class="invalid-feedback">
                       <div *ngIf="q.get('protrusionHeight')?.errors?.required">Height is required </div>
                     </div>
@@ -183,23 +185,24 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td style="width: 38rem;">
+                      <td class="col-md-6">
                         <select class="form-control" (change)="onChangeBasic($event,q)" formControlName="airBasicDescriptionAvailabilityOb" [ngClass]="{ 'is-invalid': submitted && q.get('airBasicDescriptionAvailabilityOb')?.errors }" [attr.disabled]="isEditable ? '' : null">
                           <option value="" selected>Select Option</option>
                           <option value="Available">Available </option>
-                          <option value="Not available">Not available</option>
+                          <option value="Not available">Not Available</option>
                         </select>
                         <div *ngIf="submitted && q.get('airBasicDescriptionAvailabilityOb')?.errors" class="invalid-feedback">
                           <div *ngIf="q.get('airBasicDescriptionAvailabilityOb')?.errors?.required"> Please select the field</div>
                         </div>
                       </td>
-                      <td>
+                      <td class="col-md-6">
                         <textarea [readonly]="isEditable" formControlName="airBasicDescriptionAvailabilityRem" type="text" class="form-control" placeholder="Please enter Remarks here"></textarea>
                       </td>
                     </tr>
                   </tbody>
                 </table>
               </div>
+
               <div style="margin-top: 10px;" *ngIf="q.get('airBasicDescriptionAvailabilityOb')?.value != 'Available'">
                 <b>Note:</b> &nbsp; Select applicable if you intend to fill details for Drawing Details
               </div>
@@ -207,440 +210,470 @@
               <h2 *ngIf="q.get('airBasicDescriptionAvailabilityOb')?.value === 'Available'">
                 <u>Drawing Details:</u>
               </h2>
+
               <!-- Table -->
-              <div class="row">
-                <div class="col-sm-16">
-                  <div class="table-responsive" style="overflow-x: unset; margin-top: 20px;">
-                    <table class="table TableBorder">
-                      <tbody formArrayName="airBasicDescription" *ngFor="let a of getDescriptionControl(q); let j = index">
-                        <div class="form-group" [formGroupName]="j">
-                          <thead style="text-align: center;">
-                            <th>SI.No</th>
-                            <th>Description</th>
-                            <th>Observation</th>
-                            <th>Remarks(Optional)</th>
-                          </thead>
-                          <tr *ngIf="q.get('airBasicDescriptionAvailabilityOb')?.value === 'Available'">
-                            <td style="width: 1rem; text-align: center;">1(a)</td>
-                            <td style="width: 24rem;">Name of consultant/PMC/Contractor who designed lightning protection system</td>
-                            <td class="col-md-6">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">
-                                    <i class="bi bi-text-paragraph"></i>
-                                  </span>
-                                </div>
-                                <textarea type="text" class="form-control" placeholder="Please enter Name of consultant/PMC/Contractor here" [readonly]="isEditable" formControlName="consultantNameObserv" [ngClass]="{ 'is-invalid': submitted && a.get('consultantNameObserv')?.errors }" required></textarea>
-                                <div *ngIf="submitted && a.get('consultantNameObserv')?.errors" class="invalid-feedback">
-                                  <div *ngIf="a.get('consultantNameObserv')?.errors?.required"> Architect Name is required</div>
-                                </div>
-                              </div>
-                            </td>
-                            <td class="col-md-6">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">
-                                    <i class="bi bi-text-paragraph"></i>
-                                  </span>
-                                </div>
-                                <textarea type="text" [readonly]="isEditable" formControlName="consultantNameRemarks" class="form-control" placeholder="Please enter Remarks here"></textarea>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr *ngIf="q.get('airBasicDescriptionAvailabilityOb')?.value === 'Available'">
-                            <td style="width: 1rem; text-align: center;">1(b)</td>
-                            <td style="width: 24rem;">Architect/ Designer Name</td>
-                            <td style="width: 43rem;">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">
-                                    <i class="bi bi-text-paragraph"></i>
-                                  </span>
-                                </div>
-                                <textarea type="text" class="form-control" placeholder="Please enter Architect/ Designer Name here" [readonly]="isEditable" formControlName="architectNameObserv" [ngClass]="{ 'is-invalid': submitted && a.get('architectNameObserv')?.errors }" required></textarea>
-                                <div *ngIf="submitted && a.get('architectNameObserv')?.errors" class="invalid-feedback">
-                                  <div *ngIf="a.get('architectNameObserv')?.errors?.required"> Architect Name is required</div>
-                                </div>
-                              </div>
-                            </td>
-                            <td style="width: 43rem;">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">
-                                    <i class="bi bi-text-paragraph"></i>
-                                  </span>
-                                </div>
-                                <textarea type="text" [readonly]="isEditable" formControlName="architectNameRemarks" class="form-control" placeholder="Please enter Remarks here"></textarea>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr *ngIf="q.get('airBasicDescriptionAvailabilityOb')?.value === 'Available'">
-                            <td style="width: 1rem; text-align: center;">1(c)</td>
-                            <td style="width: 24rem;">Date of Design</td>
-                            <td style="width: 43rem;">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">
-                                    <i class="bi bi-text-paragraph"></i>
-                                  </span>
-                                </div>
-                                <input type="date" class="form-control" [readonly]="isEditable" formControlName="designDateObserv" [ngClass]="{ 'is-invalid': submitted && a.get('designDateObserv')?.errors }" style="height: 3rem;">
-                                <div *ngIf="submitted && a.get('designDateObserv')?.errors" class="invalid-feedback">
-                                  <div *ngIf="a.get('designDateObserv')?.errors?.required"> Date of Design is required</div>
-                                </div>
-                              </div>
-                            </td>
-                            <td style="width: 43rem;">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">
-                                    <i class="bi bi-text-paragraph"></i>
-                                  </span>
-                                </div>
-                                <textarea type="text" [readonly]="isEditable" formControlName="designDateRemarks" class="form-control" placeholder="Please enter Remarks here"></textarea>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr *ngIf="q.get('airBasicDescriptionAvailabilityOb')?.value === 'Available'">
-                            <td style="width: 1rem; text-align: center;">1(d)</td>
-                            <td style="width: 24rem;">Approved by</td>
-                            <td style="width: 43rem;">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">
-                                    <i class="bi bi-text-paragraph"></i>
-                                  </span>
-                                </div>
-                                <textarea type="text" class="form-control" placeholder="Please enter Approved by here" [readonly]="isEditable" formControlName="approvedByObserv" [ngClass]="{ 'is-invalid': submitted && a.get('approvedByObserv')?.errors }" required></textarea>
-                                <div *ngIf="submitted && a.get('approvedByObserv')?.errors" class="invalid-feedback">
-                                  <div *ngIf="a.get('approvedByObserv')?.errors?.required"> Approved by is required</div>
-                                </div>
-                              </div>
-                            </td>
-                            <td style="width: 43rem;">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">
-                                    <i class="bi bi-text-paragraph"></i>
-                                  </span>
-                                </div>
-                                <textarea type="text" [readonly]="isEditable" formControlName="approvedByRemarks" class="form-control" placeholder="Please enter Remarks here"></textarea>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr *ngIf="q.get('airBasicDescriptionAvailabilityOb')?.value === 'Available'">
-                            <td style="width: 1rem; text-align: center;">1(e)</td>
-                            <td style="width: 24rem;">Date of approval</td>
-                            <td style="width: 43rem;">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">
-                                    <i class="bi bi-text-paragraph"></i>
-                                  </span>
-                                </div>
-                                <input type="date" class="form-control" [readonly]="isEditable" formControlName="dateOfApprovalOb" [ngClass]="{ 'is-invalid': submitted && a.get('dateOfApprovalOb')?.errors }" style="height: 3rem;" />
-                                <div *ngIf="submitted && a.get('dateOfApprovalOb')?.errors" class="invalid-feedback">
-                                  <div *ngIf="a.get('dateOfApprovalOb')?.errors?.required"> Date of approval is required</div>
-                                </div>
-                              </div>
-                            </td>
-                            <td style="width: 43rem;">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">
-                                    <i class="bi bi-text-paragraph"></i>
-                                  </span>
-                                </div>
-                                <textarea type="text" [readonly]="isEditable" formControlName="dateOfApprovalRem" class="form-control" placeholder="Please enter Remarks here"></textarea>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr *ngIf="q.get('airBasicDescriptionAvailabilityOb')?.value === 'Available'">
-                            <td style="width: 1rem; text-align: center;">1(f)</td>
-                            <td style="width: 24rem;">Drawing number</td>
-                            <td style="width: 43rem;">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">
-                                    <i class="bi bi-text-paragraph"></i>
-                                  </span>
-                                </div>
-                                <textarea type="text" class="form-control" placeholder="Please enter Drawing number here" [readonly]="isEditable" formControlName="drawingObserv" [ngClass]="{ 'is-invalid': submitted && a.get('drawingObserv')?.errors }" required></textarea>
-                                <div *ngIf="submitted && a.get('drawingObserv')?.errors" class="invalid-feedback">
-                                  <div *ngIf="a.get('drawingObserv')?.errors?.required"> Drawing number is required</div>
-                                </div>
-                              </div>
-                            </td>
-                            <td style="width: 43rem;">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">
-                                    <i class="bi bi-text-paragraph"></i>
-                                  </span>
-                                </div>
-                                <textarea type="text" [readonly]="isEditable" formControlName="drawingRemarks" class="form-control" placeholder="Please enter Remarks here"></textarea>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr *ngIf="q.get('airBasicDescriptionAvailabilityOb')?.value === 'Available'">
-                            <td style="width: 1rem; text-align: center;">1(g)</td>
-                            <td style="width: 24rem;">Revision number</td>
-                            <td style="width: 43rem;">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">
-                                    <i class="bi bi-text-paragraph"></i>
-                                  </span>
-                                </div>
-                                <textarea type="text" class="form-control" placeholder="Please enter Revision number here" [readonly]="isEditable" formControlName="revisionNoObserv" [ngClass]="{ 'is-invalid': submitted && a.get('revisionNoObserv')?.errors }" required></textarea>
-                                <div *ngIf="submitted && a.get('revisionNoObserv')?.errors" class="invalid-feedback">
-                                  <div *ngIf="a.get('revisionNoObserv')?.errors?.required"> Revision number is required</div>
-                                </div>
-                              </div>
-                            </td>
-                            <td style="width: 43rem;">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">
-                                    <i class="bi bi-text-paragraph"></i>
-                                  </span>
-                                </div>
-                                <textarea type="text" [readonly]="isEditable" formControlName="revisionNoRemarks" class="form-control" placeholder="Please enter Remarks here"></textarea>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr *ngIf="q.get('airBasicDescriptionAvailabilityOb')?.value === 'Available'">
-                            <td style="width: 1rem; text-align: center;">2</td>
-                            <td style="width: 24rem;">Check for any deviation of design with standard</td>
-                            <td style="width: 43rem;">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">
-                                    <i class="bi bi-text-paragraph"></i>
-                                  </span>
-                                </div>
-                                <select class="form-control" formControlName="deviationObserv" [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && a.get('deviationObserv')?.errors }" (change)="validationChange($event,q,'deviationRemarks')" style="height: 3rem;">
-                                  <option value="" selected>Select Option</option>
-                                  <option value="Yes">Yes</option>
-                                  <option value="No">No</option>
-                                </select>
-                                <div *ngIf="submitted && a.get('deviationObserv')?.errors" class="invalid-feedback">
-                                  <div *ngIf="a.get('deviationObserv')?.errors?.required"> Check for any deviation of design with standard is required</div>
-                                </div>
-                              </div>
-                            </td>
-                            <td style="width: 43rem;">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">
-                                    <i class="bi bi-text-paragraph"></i>
-                                  </span>
-                                </div>
-                                <textarea type="text" [readonly]="isEditable" formControlName="deviationRemarks" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('deviationRemarks')?.errors }" placeholder="Please enter Remarks here"></textarea>
-                                <div *ngIf="submitted && a.get('deviationRemarks')?.errors" class="invalid-feedback">
-                                  <div *ngIf="a.get('deviationRemarks')?.errors?.required"> Remarks is required</div>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr *ngIf="q.get('airBasicDescriptionAvailabilityOb')?.value === 'Available'">
-                            <td style="width: 1rem; text-align: center;">3</td>
-                            <td style="width: 24rem;">Check for any deviation of installation with design</td>
-                            <td style="width: 43rem;">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">
-                                    <i class="bi bi-text-paragraph"></i>
-                                  </span>
-                                </div>
-                                <select class="form-control" formControlName="deviationInstallationObserv" [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && a.get('deviationInstallationObserv')?.errors }" (change)="validationChange($event,q,'deviationInstallationRemarks')" style="height: 3rem;">
-                                  <option value="" selected>Select Option</option>
-                                  <option value="Yes">Yes</option>
-                                  <option value="No">No</option>
-                                </select>
-                                <div *ngIf="submitted && a.get('deviationInstallationObserv')?.errors" class="invalid-feedback">
-                                  <div *ngIf="a.get('deviationInstallationObserv')?.errors?.required"> Check for any deviation of installation with design</div>
-                                </div>
-                              </div>
-                            </td>
-                            <td style="width: 43rem;">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">
-                                    <i class="bi bi-text-paragraph"></i>
-                                  </span>
-                                </div>
-                                <textarea type="text" [readonly]="isEditable" formControlName="deviationInstallationRemarks" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('deviationInstallationRemarks')?.errors }" placeholder="Please enter Remarks here"></textarea>
-                                <div *ngIf="submitted && a.get('deviationInstallationRemarks')?.errors" class="invalid-feedback">
-                                  <div *ngIf="a.get('deviationInstallationRemarks')?.errors?.required"> Remarks is required</div>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td style="width: 1rem; text-align: center;">4</td>
-                            <td style="width: 24rem;">Name of company who done the installation</td>
-                            <td style="width: 43rem;">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">
-                                    <i class="bi bi-text-paragraph"></i>
-                                  </span>
-                                </div>
-                                <textarea type="text" class="form-control" placeholder="Please enter Name of company who done the installation here" [readonly]="isEditable" formControlName="companyNameObserv" [ngClass]="{ 'is-invalid': submitted && a.get('companyNameObserv')?.errors }" required></textarea>
-                                <div *ngIf="submitted && a.get('companyNameObserv')?.errors" class="invalid-feedback">
-                                  <div *ngIf="a.get('companyNameObserv')?.errors?.required"> Name of company who done the installation</div>
-                                </div>
-                              </div>
-                            </td>
-                            <td style="width: 43rem;">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">
-                                    <i class="bi bi-text-paragraph"></i>
-                                  </span>
-                                </div>
-                                <textarea type="text" [readonly]="isEditable" formControlName="companyNameRemarks" class="form-control" placeholder="Please enter Remarks here"></textarea>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td style="width: 1rem; text-align: center;">1.</td>
-                            <td style="width: 24rem;">Type of connection</td>
-                            <td style="width: 43rem;">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">
-                                    <i class="bi bi-text-paragraph"></i>
-                                  </span>
-                                </div>
-                                <select class="form-control" formControlName="connectionMadeBraOb" [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && a.get('connectionMadeBraOb')?.errors}" required style="height: 3rem;">
-                                  <option value="" selected>Select Option</option>
-                                  <option value="Brazing">Brazing</option>
-                                  <option value="Welding">Welding</option>
-                                  <option value="Crimping">Crimping</option>
-                                  <option value="Seaming">Seaming</option>
-                                  <option value="Screwing">Screwing</option>
-                                  <option value="Bolting">Bolting (connectors) </option>
-                                </select>
-                                <div *ngIf="submitted && a.get('connectionMadeBraOb')?.errors" class="invalid-feedback">
-                                  <div *ngIf="a.get('connectionMadeBraOb')?.errors?.required"> Type of connection</div>
-                                </div>
-                              </div>
-                            </td>
-                            <td style="width: 43rem;">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">
-                                    <i class="bi bi-text-paragraph"></i>
-                                  </span>
-                                </div>
-                                <textarea type="text" [readonly]="isEditable" formControlName="connectionMadeBraRe" class="form-control" placeholder="Please enter Remarks here"></textarea>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td style="width: 1rem; text-align: center;">2.</td>
-                            <td style="width: 24rem;">Electrical and electronic equipment is placed on walls outside structures</td>
-                            <td class="col-md-6">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">
-                                    <i class="bi bi-text-paragraph"></i>
-                                  </span>
-                                </div>
-                                <select class="form-control" formControlName="electricalEquipPlacedOb" [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && a.get('electricalEquipPlacedOb')?.errors}" (change)="validationChange($event,q,'electricalEquipPlacedRe')" style="height: 3rem;">
-                                  <option value="" selected>Select Option</option>
-                                  <option value="Yes">Yes</option>
-                                  <option value="No">No</option>
-                                </select>
-                                <div *ngIf="submitted && a.get('electricalEquipPlacedOb')?.errors" class="invalid-feedback">
-                                  <div *ngIf="a.get('electricalEquipPlacedOb')?.errors?.required"> Electrical and electronic equipment observation is required</div>
-                                </div>
-                              </div>
-                            </td>
-                            <td class="col-md-6">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">
-                                    <i class="bi bi-text-paragraph"></i>
-                                  </span>
-                                </div>
-                                <textarea type="text" [readonly]="isEditable" formControlName="electricalEquipPlacedRe" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('electricalEquipPlacedRe')?.errors }" placeholder="Please enter Remarks here"></textarea>
-                                <div *ngIf="submitted && a.get('electricalEquipPlacedRe')?.errors" class="invalid-feedback">
-                                  <div *ngIf="a.get('electricalEquipPlacedRe')?.errors?.required"> Remarks is required</div>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td style="width: 1rem; text-align: center;">3.</td>
-                            <td style="width: 24rem;">Presence of direct contact between easily combustible part and air termination systems</td>
-                            <td style="width: 43rem;">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">
-                                    <i class="bi bi-text-paragraph"></i>
-                                  </span>
-                                </div>
-                                <select class="form-control" formControlName="combustablePartOb" [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && a.get('combustablePartOb')?.errors}" (change)="validationChange($event,q,'combustablePartRe')" style="height: 3rem;">
-                                  <option value="" selected>Select Option</option>
-                                  <option value="Yes">Yes</option>
-                                  <option value="No">No</option>
-                                </select>
-                                <div *ngIf="submitted && a.get('combustablePartOb')?.errors" class="invalid-feedback">
-                                  <div *ngIf="a.get('combustablePartOb')?.errors?.required"> Easily combustible part observation is required </div>
-                                </div>
-                              </div>
-                            </td>
-                            <td>
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">
-                                    <i class="bi bi-text-paragraph"></i>
-                                  </span>
-                                </div>
-                                <textarea type="text" [readonly]="isEditable" formControlName="combustablePartRe" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('combustablePartRe')?.errors }" placeholder="Please enter Remarks here"></textarea>
-                                <div *ngIf="submitted && a.get('combustablePartRe')?.errors" class="invalid-feedback">
-                                  <div *ngIf="a.get('combustablePartRe')?.errors?.required"> Remarks is required</div>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td style="width: 1rem; text-align: center;">4.</td>
-                            <td style="width: 24rem;">Presence of power/ control/ instrumentation/telecommunication cable or cable passage in path/near air terminals and/or air termination mesh conductor</td>
-                            <td style="width: 43rem;">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">
-                                    <i class="bi bi-text-paragraph"></i>
-                                  </span>
-                                </div>
-                                <select class="form-control" formControlName="terminationMeshConductorOb" [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && a.get('terminationMeshConductorOb')?.errors}" (change)="validationChange($event,q,'terminationMeshConductorRe')" style="height: 3rem;">
-                                  <option value="" selected>Select Option</option>
-                                  <option value="Yes">Yes</option>
-                                  <option value="No">No</option>
-                                </select>
-                                <div *ngIf="submitted && a.get('terminationMeshConductorOb')?.errors" class="invalid-feedback">
-                                  <div *ngIf="a.get('terminationMeshConductorOb')?.errors?.required"> Presence of power/ control/ instrumentation/telecommunication observation is required</div>
-                                </div>
-                              </div>
-                            </td>
-                            <td>
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">
-                                    <i class="bi bi-text-paragraph"></i>
-                                  </span>
-                                </div>
-                                <textarea type="text" [readonly]="isEditable" formControlName="terminationMeshConductorRe" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('terminationMeshConductorRe')?.errors }" placeholder="Please enter Remarks here"></textarea>
-                                <div *ngIf="submitted && a.get('terminationMeshConductorRe')?.errors" class="invalid-feedback">
-                                  <div *ngIf="a.get('terminationMeshConductorRe')?.errors?.required"> Remarks is required</div>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
+              <div class="table-responsive" style="overflow-x: unset;">
+                    <div formArrayName="airBasicDescription" *ngFor="let a of getDescriptionControl(q); let j = index">
+                      <div class="form-group" [formGroupName]="j">
+                        <div class="table-responsive" style="overflow-x: unset;">
+                          <table class="table TableBorder">
+                            <tbody>
+                              <tr>
+                                <th>SI.No</th>
+                                <th>Description</th>
+                                <th>Observation</th>
+                                <th>Remarks(Optional)</th>
+                              </tr>
+                            </tbody>
+                          </table>
+
+                          <table class="table TableBorder">
+                            <tbody>
+                                <tr *ngIf="q.get('airBasicDescriptionAvailabilityOb')?.value === 'Available'">
+                                  <td style="width: 1rem; text-align: center;">1(a)</td>
+                                  <td style="width: 24rem;">Name of consultant/PMC/Contractor who designed lightning protection system</td>
+                                  <td style="width: 43rem;">
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                          <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                      </div>
+                                      <textarea type="text" class="form-control" placeholder="Please enter Name of consultant/PMC/Contractor here" [readonly]="isEditable" formControlName="consultantNameObserv" [ngClass]="{ 'is-invalid': submitted && a.get('consultantNameObserv')?.errors }" required></textarea>
+                                      <div *ngIf="submitted && a.get('consultantNameObserv')?.errors" class="invalid-feedback">
+                                        <div *ngIf="a.get('consultantNameObserv')?.errors?.required"> Architect Name is required</div>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td style="width: 43rem;">
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                          <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                      </div>
+                                      <textarea type="text" [readonly]="isEditable" formControlName="consultantNameRemarks" class="form-control" placeholder="Please enter Remarks here"></textarea>
+                                    </div>
+                                  </td>
+                                </tr>
+                                
+                                <tr *ngIf="q.get('airBasicDescriptionAvailabilityOb')?.value === 'Available'">
+                                  <td style="width: 1rem; text-align: center;">1(b)</td>
+                                  <td style="width: 24rem;">Architect/ Designer Name</td>
+                                  <td style="width: 43rem;">
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                          <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                      </div>
+                                      <textarea type="text" class="form-control" placeholder="Please enter Architect/ Designer Name here" [readonly]="isEditable" formControlName="architectNameObserv" [ngClass]="{ 'is-invalid': submitted && a.get('architectNameObserv')?.errors }" required></textarea>
+                                      <div *ngIf="submitted && a.get('architectNameObserv')?.errors" class="invalid-feedback">
+                                        <div *ngIf="a.get('architectNameObserv')?.errors?.required"> Architect Name is required</div>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td style="width: 43rem;">
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                          <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                      </div>
+                                      <textarea type="text" [readonly]="isEditable" formControlName="architectNameRemarks" class="form-control" placeholder="Please enter Remarks here"></textarea>
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr *ngIf="q.get('airBasicDescriptionAvailabilityOb')?.value === 'Available'">
+                                  <td style="width: 1rem; text-align: center;">1(c)</td>
+                                  <td style="width: 24rem;">Date of Design</td>
+                                  <td style="width: 43rem;">
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                          <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                      </div>
+                                      <input type="date" class="form-control" [readonly]="isEditable" formControlName="designDateObserv" [ngClass]="{ 'is-invalid': submitted && a.get('designDateObserv')?.errors }" style="height: 3rem;">
+                                      <div *ngIf="submitted && a.get('designDateObserv')?.errors" class="invalid-feedback">
+                                        <div *ngIf="a.get('designDateObserv')?.errors?.required"> Date of Design is required</div>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td style="width: 43rem;">
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                          <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                      </div>
+                                      <textarea type="text" [readonly]="isEditable" formControlName="designDateRemarks" class="form-control" placeholder="Please enter Remarks here"></textarea>
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr *ngIf="q.get('airBasicDescriptionAvailabilityOb')?.value === 'Available'">
+                                  <td style="width: 1rem; text-align: center;">1(d)</td>
+                                  <td style="width: 24rem;">Approved by</td>
+                                  <td style="width: 43rem;">
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                          <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                      </div>
+                                      <textarea type="text" class="form-control" placeholder="Please enter Approved by here" [readonly]="isEditable" formControlName="approvedByObserv" [ngClass]="{ 'is-invalid': submitted && a.get('approvedByObserv')?.errors }" required></textarea>
+                                      <div *ngIf="submitted && a.get('approvedByObserv')?.errors" class="invalid-feedback">
+                                        <div *ngIf="a.get('approvedByObserv')?.errors?.required"> Approved by is required</div>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td style="width: 43rem;">
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                          <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                      </div>
+                                      <textarea type="text" [readonly]="isEditable" formControlName="approvedByRemarks" class="form-control" placeholder="Please enter Remarks here"></textarea>
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr *ngIf="q.get('airBasicDescriptionAvailabilityOb')?.value === 'Available'">
+                                  <td style="width: 1rem; text-align: center;">1(e)</td>
+                                  <td style="width: 24rem;">Date of approval</td>
+                                  <td style="width: 43rem;">
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                          <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                      </div>
+                                      <input type="date" class="form-control" [readonly]="isEditable" formControlName="dateOfApprovalOb" [ngClass]="{ 'is-invalid': submitted && a.get('dateOfApprovalOb')?.errors }" style="height: 3rem;" />
+                                      <div *ngIf="submitted && a.get('dateOfApprovalOb')?.errors" class="invalid-feedback">
+                                        <div *ngIf="a.get('dateOfApprovalOb')?.errors?.required"> Date of approval is required</div>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td style="width: 43rem;">
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                          <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                      </div>
+                                      <textarea type="text" [readonly]="isEditable" formControlName="dateOfApprovalRem" class="form-control" placeholder="Please enter Remarks here"></textarea>
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr *ngIf="q.get('airBasicDescriptionAvailabilityOb')?.value === 'Available'">
+                                  <td style="width: 1rem; text-align: center;">1(f)</td>
+                                  <td style="width: 24rem;">Drawing number</td>
+                                  <td style="width: 43rem;">
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                          <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                      </div>
+                                      <textarea type="text" class="form-control" placeholder="Please enter Drawing number here" [readonly]="isEditable" formControlName="drawingObserv" [ngClass]="{ 'is-invalid': submitted && a.get('drawingObserv')?.errors }" required></textarea>
+                                      <div *ngIf="submitted && a.get('drawingObserv')?.errors" class="invalid-feedback">
+                                        <div *ngIf="a.get('drawingObserv')?.errors?.required"> Drawing number is required</div>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td style="width: 43rem;">
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                          <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                      </div>
+                                      <textarea type="text" [readonly]="isEditable" formControlName="drawingRemarks" class="form-control" placeholder="Please enter Remarks here"></textarea>
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr *ngIf="q.get('airBasicDescriptionAvailabilityOb')?.value === 'Available'">
+                                  <td style="width: 1rem; text-align: center;">1(g)</td>
+                                  <td style="width: 24rem;">Revision number</td>
+                                  <td style="width: 43rem;">
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                          <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                      </div>
+                                      <textarea type="text" class="form-control" placeholder="Please enter Revision number here" [readonly]="isEditable" formControlName="revisionNoObserv" [ngClass]="{ 'is-invalid': submitted && a.get('revisionNoObserv')?.errors }" required></textarea>
+                                      <div *ngIf="submitted && a.get('revisionNoObserv')?.errors" class="invalid-feedback">
+                                        <div *ngIf="a.get('revisionNoObserv')?.errors?.required"> Revision number is required</div>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td style="width: 43rem;">
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                          <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                      </div>
+                                      <textarea type="text" [readonly]="isEditable" formControlName="revisionNoRemarks" class="form-control" placeholder="Please enter Remarks here"></textarea>
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr *ngIf="q.get('airBasicDescriptionAvailabilityOb')?.value === 'Available'">
+                                  <td style="width: 1rem; text-align: center;">2</td>
+                                  <td style="width: 24rem;">Check for any deviation of design with standard</td>
+                                  <td style="width: 43rem;">
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                          <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                      </div>
+                                      <select class="form-control" formControlName="deviationObserv" [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && a.get('deviationObserv')?.errors }" (change)="validationChange($event,q,'deviationRemarks')" style="height: 3rem;">
+                                        <option value="" selected>Select Option</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                      </select>
+                                      <div *ngIf="submitted && a.get('deviationObserv')?.errors" class="invalid-feedback">
+                                        <div *ngIf="a.get('deviationObserv')?.errors?.required"> Check for any deviation of design with standard is required</div>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td style="width: 43rem;">
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                          <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                      </div>
+                                      <textarea type="text" [readonly]="isEditable" formControlName="deviationRemarks" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('deviationRemarks')?.errors }" placeholder="Please enter Remarks here"></textarea>
+                                      <div *ngIf="submitted && a.get('deviationRemarks')?.errors" class="invalid-feedback">
+                                        <div *ngIf="a.get('deviationRemarks')?.errors?.required"> Remarks is required</div>
+                                      </div>
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr *ngIf="q.get('airBasicDescriptionAvailabilityOb')?.value === 'Available'">
+                                  <td style="width: 1rem; text-align: center;">3</td>
+                                  <td style="width: 24rem;">Check for any deviation of installation with design</td>
+                                  <td style="width: 43rem;">
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                          <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                      </div>
+                                      <select class="form-control" formControlName="deviationInstallationObserv" [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && a.get('deviationInstallationObserv')?.errors }" (change)="validationChange($event,q,'deviationInstallationRemarks')" style="height: 3rem;">
+                                        <option value="" selected>Select Option</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                      </select>
+                                      <div *ngIf="submitted && a.get('deviationInstallationObserv')?.errors" class="invalid-feedback">
+                                        <div *ngIf="a.get('deviationInstallationObserv')?.errors?.required"> Check for any deviation of installation with design</div>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td style="width: 43rem;">
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                          <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                      </div>
+                                      <textarea type="text" [readonly]="isEditable" formControlName="deviationInstallationRemarks" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('deviationInstallationRemarks')?.errors }" placeholder="Please enter Remarks here"></textarea>
+                                      <div *ngIf="submitted && a.get('deviationInstallationRemarks')?.errors" class="invalid-feedback">
+                                        <div *ngIf="a.get('deviationInstallationRemarks')?.errors?.required"> Remarks is required</div>
+                                      </div>
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style="width: 1rem; text-align: center;" *ngIf="q.get('airBasicDescriptionAvailabilityOb').value != 'Available' || q.get('airBasicDescriptionAvailabilityOb').value == ''">1</td>
+                                  <td style="width: 1rem; text-align: center;" *ngIf="q.get('airBasicDescriptionAvailabilityOb').value == 'Available' && q.get('airBasicDescriptionAvailabilityOb').value != ''">4</td>
+                                  <td style="width: 24rem;">Name of company who done the installation</td>
+                                  <td style="width: 43rem;">
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                          <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                      </div>
+                                      <textarea type="text" class="form-control" placeholder="Please enter Name of company who done the installation here" [readonly]="isEditable" formControlName="companyNameObserv" [ngClass]="{ 'is-invalid': submitted && a.get('companyNameObserv')?.errors }" required></textarea>
+                                      <div *ngIf="submitted && a.get('companyNameObserv')?.errors" class="invalid-feedback">
+                                        <div *ngIf="a.get('companyNameObserv')?.errors?.required"> Name of company who done the installation</div>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td style="width: 43rem;">
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                          <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                      </div>
+                                      <textarea type="text" [readonly]="isEditable" formControlName="companyNameRemarks" class="form-control" placeholder="Please enter Remarks here"></textarea>
+                                    </div>
+                                  </td>
+                                </tr>
+                            </tbody>
+                          </table>
+
+                          <table class="table TableBorder">
+                            <tbody>
+                              <tr>
+                                <th style="font-weight: bold">SI.No</th>
+                                <th style="font-weight: bold">Description</th>
+                                <th style="font-weight: bold">Observation</th>
+                                <th style="font-weight: bold">Remarks(Optional)</th>
+                              </tr>
+                            </tbody>
+                          </table>
+                        
+                        <table class="table TableBorder">
+                          <tbody>
+                              <tr>
+                                <td style="width: 1rem; text-align: center;">1.</td>
+                                <td style="width: 24rem;">Type of connection</td>
+                                <td style="width: 43rem;">
+                                  <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">
+                                        <i class="bi bi-text-paragraph"></i>
+                                      </span>
+                                    </div>
+                                    <select class="form-control" formControlName="connectionMadeBraOb" [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && a.get('connectionMadeBraOb')?.errors}" required style="height: 3rem;">
+                                      <option value="" selected>Select Option</option>
+                                      <option value="Brazing">Brazing</option>
+                                      <option value="Welding">Welding</option>
+                                      <option value="Crimping">Crimping</option>
+                                      <option value="Seaming">Seaming</option>
+                                      <option value="Screwing">Screwing</option>
+                                      <option value="Bolting">Bolting (connectors) </option>
+                                    </select>
+                                    <div *ngIf="submitted && a.get('connectionMadeBraOb')?.errors" class="invalid-feedback">
+                                      <div *ngIf="a.get('connectionMadeBraOb')?.errors?.required"> Type of connection</div>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td style="width: 43rem;">
+                                  <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">
+                                        <i class="bi bi-text-paragraph"></i>
+                                      </span>
+                                    </div>
+                                    <textarea type="text" [readonly]="isEditable" formControlName="connectionMadeBraRe" class="form-control" placeholder="Please enter Remarks here"></textarea>
+                                  </div>
+                                </td>
+                              </tr>
+
+                              <tr>
+                                <td style="width: 1rem; text-align: center;">2.</td>
+                                <td style="width: 24rem;">Electrical and electronic equipment is placed on walls outside structures</td>
+                                <td style="width: 43rem;">
+                                  <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">
+                                        <i class="bi bi-text-paragraph"></i>
+                                      </span>
+                                    </div>
+                                    <select class="form-control" formControlName="electricalEquipPlacedOb" [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && a.get('electricalEquipPlacedOb')?.errors}" (change)="validationChange($event,q,'electricalEquipPlacedRe')" style="height: 3rem;">
+                                      <option value="" selected>Select Option</option>
+                                      <option value="Yes">Yes</option>
+                                      <option value="No">No</option>
+                                    </select>
+                                    <div *ngIf="submitted && a.get('electricalEquipPlacedOb')?.errors" class="invalid-feedback">
+                                      <div *ngIf="a.get('electricalEquipPlacedOb')?.errors?.required"> Electrical and electronic equipment observation is required</div>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td style="width: 43rem;">
+                                  <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">
+                                        <i class="bi bi-text-paragraph"></i>
+                                      </span>
+                                    </div>
+                                    <textarea type="text" [readonly]="isEditable" formControlName="electricalEquipPlacedRe" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('electricalEquipPlacedRe')?.errors }" placeholder="Please enter Remarks here"></textarea>
+                                    <div *ngIf="submitted && a.get('electricalEquipPlacedRe')?.errors" class="invalid-feedback">
+                                      <div *ngIf="a.get('electricalEquipPlacedRe')?.errors?.required"> Remarks is required</div>
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
+
+                              <tr>
+                                <td style="width: 1rem; text-align: center;">3.</td>
+                                <td style="width: 24rem;">Presence of direct contact between easily combustible part and air termination systems</td>
+                                <td style="width: 43rem;">
+                                  <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">
+                                        <i class="bi bi-text-paragraph"></i>
+                                      </span>
+                                    </div>
+                                    <select class="form-control" formControlName="combustablePartOb" [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && a.get('combustablePartOb')?.errors}" (change)="validationChange($event,q,'combustablePartRe')" style="height: 3rem;">
+                                      <option value="" selected>Select Option</option>
+                                      <option value="Yes">Yes</option>
+                                      <option value="No">No</option>
+                                    </select>
+                                    <div *ngIf="submitted && a.get('combustablePartOb')?.errors" class="invalid-feedback">
+                                      <div *ngIf="a.get('combustablePartOb')?.errors?.required"> Easily combustible part observation is required </div>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td style="width: 43rem;">
+                                  <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">
+                                        <i class="bi bi-text-paragraph"></i>
+                                      </span>
+                                    </div>
+                                    <textarea type="text" [readonly]="isEditable" formControlName="combustablePartRe" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('combustablePartRe')?.errors }" placeholder="Please enter Remarks here"></textarea>
+                                    <div *ngIf="submitted && a.get('combustablePartRe')?.errors" class="invalid-feedback">
+                                      <div *ngIf="a.get('combustablePartRe')?.errors?.required"> Remarks is required</div>
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
+
+                              <tr>
+                                <td style="width: 1rem; text-align: center;">4.</td>
+                                <td style="width: 24rem;">Presence of power/ control/ instrumentation/telecommunication cable or cable passage in path/near air terminals and/or air termination mesh conductor</td>
+                                <td style="width: 43rem;">
+                                  <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">
+                                        <i class="bi bi-text-paragraph"></i>
+                                      </span>
+                                    </div>
+                                    <select class="form-control" formControlName="terminationMeshConductorOb" [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && a.get('terminationMeshConductorOb')?.errors}" (change)="validationChange($event,q,'terminationMeshConductorRe')" style="height: 3rem;">
+                                      <option value="" selected>Select Option</option>
+                                      <option value="Yes">Yes</option>
+                                      <option value="No">No</option>
+                                    </select>
+                                    <div *ngIf="submitted && a.get('terminationMeshConductorOb')?.errors" class="invalid-feedback">
+                                      <div *ngIf="a.get('terminationMeshConductorOb')?.errors?.required"> Presence of power/ control/ instrumentation/telecommunication observation is required</div>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td style="width: 43rem;">
+                                  <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">
+                                        <i class="bi bi-text-paragraph"></i>
+                                      </span>
+                                    </div>
+                                    <textarea type="text" [readonly]="isEditable" formControlName="terminationMeshConductorRe" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('terminationMeshConductorRe')?.errors }" placeholder="Please enter Remarks here"></textarea>
+                                    <div *ngIf="submitted && a.get('terminationMeshConductorRe')?.errors" class="invalid-feedback">
+                                      <div *ngIf="a.get('terminationMeshConductorRe')?.errors?.required"> Remarks is required</div>
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
+                          </tbody>
+                        </table>
+
                           <!-- File Upload -->
                           <table class="table TableBorder" style="margin-top: 1rem;">
                             <thead>
@@ -679,52 +712,49 @@
                               </tr>
                             </tbody>
                           </table>
-                          <!-- File upload -->
-                          <!-- <br><div style="margin-left: 3rem;"><label class="form-label">Attach The File Here:</label><div class="row input-group mb-2"><div class="col-md-6"><input style="height: 3rem;" type="file" class="form-control" (change)="onChange($event)" [attr.disabled]="isEditable ? '' : null"
-                                         accept=".txt,.jpeg,.png,.jpg,.pdf"></div><div class="col-md-6"><button type="button" [disabled]="uploadDisable" class="btn btn-success" (click)="onUpload(contentSpinner,overAllControl().length-1,a.get('fileId')?.value)">Upload</button><a (click)="onDownload(a.get('fileName')?.value)" *ngIf="a.get('fileName')?.value != ''" href='javascript:void(0)' title="Download" style="margin-left: 30px;text-decoration: underline;" 
-                                        [ngClass]="{'disableForm':isEditable}">{{a.get('fileName')?.value}}</a></div><div *ngIf="submitted && a.get('fileName')?.errors"
-                                    class="invalid-feedback"><div
-                                        *ngIf="a.get('fileName')?.errors?.required">
-                                        Field is required</div></div></div></div><br>  -->
-                          <tr>
-                            <td style="width: 5rem; text-align: center;">5.</td>
-                            <td style="width: 20rem;">Equipotenial bonding of terrace equipments (i.e exposed and extraneous conductive parts) are carried out</td>
-                            <td style="width: 45rem;">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">
-                                    <i class="bi bi-text-paragraph"></i>
-                                  </span>
-                                </div>
-                                <select class="form-control" formControlName="bondingEquipotentialOb" [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && a.get('bondingEquipotentialOb')?.errors}" (change)="validationChangeNo($event,q,'bondingEquipotentialRe')" style="height: 3rem;">
-                                  <option value="" selected>Select Option</option>
-                                  <option value="Yes">Yes</option>
-                                  <option value="No">No</option>
-                                </select>
-                                <div *ngIf="submitted && a.get('bondingEquipotentialOb')?.errors" class="invalid-feedback">
-                                  <div *ngIf="a.get('bondingEquipotentialOb')?.errors?.required"> Equipotenial bonding of terrace equipments observation is required</div>
-                                </div>
-                              </div>
-                            </td>
-                            <td style="width: 46rem;">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">
-                                    <i class="bi bi-text-paragraph"></i>
-                                  </span>
-                                </div>
-                                <textarea type="text" [readonly]="isEditable" formControlName="bondingEquipotentialRe" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('bondingEquipotentialRe')?.errors }" placeholder="Please enter Remarks here"></textarea>
-                                <div *ngIf="submitted && a.get('bondingEquipotentialRe')?.errors" class="invalid-feedback">
-                                  <div *ngIf="a.get('bondingEquipotentialRe')?.errors?.required"> Remarks is required</div>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                        </div>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
+                                
+
+                          <table class="table TableBorder">
+                            <tbody>
+                              <tr>
+                                <td style="width: 1rem; text-align: center;">5.</td>
+                                <td style="width: 24rem;">Equipotenial bonding of terrace equipments (i.e exposed and extraneous conductive parts) are carried out</td>
+                                <td style="width: 43rem;">
+                                  <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">
+                                        <i class="bi bi-text-paragraph"></i>
+                                      </span>
+                                    </div>
+                                    <select class="form-control" formControlName="bondingEquipotentialOb" [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && a.get('bondingEquipotentialOb')?.errors}" (change)="validationChangeNo($event,q,'bondingEquipotentialRe')" style="height: 3rem;">
+                                      <option value="" selected>Select Option</option>
+                                      <option value="Yes">Yes</option>
+                                      <option value="No">No</option>
+                                    </select>
+                                    <div *ngIf="submitted && a.get('bondingEquipotentialOb')?.errors" class="invalid-feedback">
+                                      <div *ngIf="a.get('bondingEquipotentialOb')?.errors?.required"> Equipotenial bonding of terrace equipments observation is required</div>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td style="width: 43rem;">
+                                  <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">
+                                        <i class="bi bi-text-paragraph"></i>
+                                      </span>
+                                    </div>
+                                    <textarea type="text" [readonly]="isEditable" formControlName="bondingEquipotentialRe" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('bondingEquipotentialRe')?.errors }" placeholder="Please enter Remarks here"></textarea>
+                                    <div *ngIf="submitted && a.get('bondingEquipotentialRe')?.errors" class="invalid-feedback">
+                                      <div *ngIf="a.get('bondingEquipotentialRe')?.errors?.required"> Remarks is required</div>
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                      </div>
+                    </div>
+                    </div>
               </div>
             </mat-expansion-panel>
 
@@ -742,17 +772,17 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td style="width: 38rem;">
+                      <td class="col-md-6">
                         <select class="form-control" (change)="onChangeAir($event,q)" formControlName="verticalAirTerminationAvailabilityOb" [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && q.get('verticalAirTerminationAvailabilityOb')?.errors }" style="height: 3rem;">
                           <option value="" selected>Select Option</option>
                           <option value="Applicable">Applicable </option>
-                          <option value="Not applicable">Not applicable</option>
+                          <option value="Not applicable">Not Applicable</option>
                         </select>
                         <div *ngIf="submitted && q.get('verticalAirTerminationAvailabilityOb')?.errors" class="invalid-feedback">
                           <div *ngIf="q.get('verticalAirTerminationAvailabilityOb')?.errors?.required"> Please select the field</div>
                         </div>
                       </td>
-                      <td>
+                      <td class="col-md-6">
                         <textarea [readonly]="isEditable" formControlName="verticalAirTerminationAvailabilityRem" type="text" class="form-control" placeholder="Please enter Remarks here"></textarea>
                       </td>
                     </tr>
@@ -1230,17 +1260,17 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td style="width: 38rem;">
+                      <td class="col-md-6">
                         <select class="form-control" (change)="onChangeMesh($event,q)" formControlName="airMeshDescriptionAvailabilityOb" [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && q.get('airMeshDescriptionAvailabilityOb')?.errors }" style="height: 3rem;">
                           <option value="" selected>Select Option</option>
                           <option value="Applicable">Applicable </option>
-                          <option value="Not applicable">Not applicable</option>
+                          <option value="Not applicable">Not Applicable</option>
                         </select>
                         <div *ngIf="submitted && q.get('airMeshDescriptionAvailabilityOb')?.errors" class="invalid-feedback">
                           <div *ngIf="q.get('airMeshDescriptionAvailabilityOb')?.errors?.required"> Please select the field</div>
                         </div>
                       </td>
-                      <td>
+                      <td class="col-md-6">
                         <textarea [readonly]="isEditable" formControlName="airMeshDescriptionAvailabilityRem" type="text" class="form-control" placeholder="Please enter Remarks here"></textarea>
                       </td>
                     </tr>
@@ -1560,17 +1590,17 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td style="width: 38rem;">
+                      <td class="col-md-6">
                         <select class="form-control" (change)="onChangeHolders($event,q)" formControlName="airHolderDescriptionAvailabilityOb" [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && q.get('airHolderDescriptionAvailabilityOb')?.errors }" style="height: 3rem;">
                           <option value="" selected>Select Option</option>
                           <option value="Applicable">Applicable </option>
-                          <option value="Not applicable">Not applicable</option>
+                          <option value="Not applicable">Not Applicable</option>
                         </select>
                         <div *ngIf="submitted && q.get('airHolderDescriptionAvailabilityOb')?.errors" class="invalid-feedback">
                           <div *ngIf="q.get('airHolderDescriptionAvailabilityOb')?.errors?.required"> Please select the field</div>
                         </div>
                       </td>
-                      <td>
+                      <td class="col-md-6">
                         <textarea [readonly]="isEditable" formControlName="airHolderDescriptionAvailabilityRem" type="text" class="form-control" placeholder="Please enter Remarks here"></textarea>
                       </td>
                     </tr>
@@ -2064,17 +2094,17 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td style="width: 38rem;">
+                      <td class="col-md-6">
                         <select class="form-control" (change)="onChangeClamps($event,q)" formControlName="airClampsAvailabilityOb" [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && q.get('airClampsAvailabilityOb')?.errors }" style="height: 3rem;">
                           <option value="" selected>Select Option</option>
                           <option value="Applicable">Applicable </option>
-                          <option value="Not applicable">Not applicable</option>
+                          <option value="Not applicable">Not Applicable</option>
                         </select>
                         <div *ngIf="submitted && q.get('airClampsAvailabilityOb')?.errors" class="invalid-feedback">
                           <div *ngIf="q.get('airClampsAvailabilityOb')?.errors?.required"> Please select the field</div>
                         </div>
                       </td>
-                      <td>
+                      <td class="col-md-6">
                         <textarea [readonly]="isEditable" formControlName="airClampsAvailabilityRem" type="text" class="form-control" placeholder="Please enter Remarks here"></textarea>
                       </td>
                     </tr>
@@ -2444,17 +2474,17 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td style="width: 38rem;">
+                      <td class="col-md-6">
                         <select class="form-control" (change)="onChangeExpansion($event,q)" formControlName="airExpansionAvailabilityOb" [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && q.get('airExpansionAvailabilityOb')?.errors }" style="height: 3rem;">
                           <option value="" selected>Select Option</option>
                           <option value="Applicable">Applicable </option>
-                          <option value="Not applicable">Not applicable</option>
+                          <option value="Not applicable">Not Applicable</option>
                         </select>
                         <div *ngIf="submitted && q.get('airExpansionAvailabilityOb')?.errors" class="invalid-feedback">
                           <div *ngIf="q.get('airExpansionAvailabilityOb')?.errors?.required"> Please select the field</div>
                         </div>
                       </td>
-                      <td>
+                      <td class="col-md-6">
                         <textarea [readonly]="isEditable" formControlName="airExpansionAvailabilityRem" type="text" class="form-control" placeholder="Please enter Remarks here"></textarea>
                       </td>
                     </tr>
@@ -2820,17 +2850,17 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td style="width: 38rem;">
+                      <td class="col-md-6">
                         <select class="form-control" (change)="onChangeConnectors($event,q)" formControlName="airConnectorsAvailabilityOb" [ngClass]="{ 'is-invalid': submitted && q.get('airConnectorsAvailabilityOb')?.errors }" style="height: 3rem;" [attr.disabled]="isEditable ? '' : null">
                           <option value="" selected>Select Option</option>
                           <option value="Applicable">Applicable </option>
-                          <option value="Not applicable">Not applicable</option>
+                          <option value="Not applicable">Not Applicable</option>
                         </select>
                         <div *ngIf="submitted && q.get('airConnectorsAvailabilityOb')?.errors" class="invalid-feedback">
                           <div *ngIf="q.get('airConnectorsAvailabilityOb')?.errors?.required"> Please select the field</div>
                         </div>
                       </td>
-                      <td>
+                      <td class="col-md-6">
                         <textarea [readonly]="isEditable" formControlName="airConnectorsAvailabilityRem" type="text" class="form-control" placeholder="Please enter Remarks here"></textarea>
                       </td>
                     </tr>
