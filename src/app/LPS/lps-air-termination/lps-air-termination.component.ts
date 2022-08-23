@@ -2447,28 +2447,28 @@ export class LpsAirTerminationComponent implements OnInit {
 
     if(form.controls.buildingLength.value!="" && form.controls.buildingLength.value !=undefined && form.controls.buildingLength.value !=null){
       var conversionValue = form.controls.buildingLength.value;
-      form.controls.buildingLength.setValue(parseFloat(conversionValue).toFixed(1));
+      form.controls.buildingLength.setValue(parseFloat(parseFloat(conversionValue).toFixed(1)));
     }else{
       form.controls.buildingLength.setValue('');
     }
 
     if(form.controls.buildingWidth.value!="" && form.controls.buildingWidth.value !=undefined && form.controls.buildingWidth.value !=null){
       var conversionValue1 = form.controls.buildingWidth.value; 
-      form.controls.buildingWidth.setValue(parseFloat(conversionValue1).toFixed(1));
+      form.controls.buildingWidth.setValue(parseFloat(parseFloat(conversionValue1).toFixed(1)));
     }else{
       form.controls.buildingWidth.setValue('');
     }
 
     if(form.controls.buildingHeight.value!="" && form.controls.buildingHeight.value !=undefined && form.controls.buildingHeight.value !=null){
       var conversionValue2 = form.controls.buildingHeight.value;
-      form.controls.buildingHeight.setValue(parseFloat(conversionValue2).toFixed(1));
+      form.controls.buildingHeight.setValue(parseFloat(parseFloat(conversionValue2).toFixed(1)));
     }else{
       form.controls.buildingHeight.setValue('');
     }
 
     if(form.controls.protrusionHeight.value!="" && form.controls.protrusionHeight.value !=undefined && form.controls.protrusionHeight.value !=null){
       var conversionValue3 = form.controls.protrusionHeight.value;
-      form.controls.protrusionHeight.setValue(parseFloat(conversionValue3).toFixed(1));
+      form.controls.protrusionHeight.setValue(parseFloat(parseFloat(conversionValue3).toFixed(1)));
     }else{
       form.controls.protrusionHeight.setValue('');
     } 
