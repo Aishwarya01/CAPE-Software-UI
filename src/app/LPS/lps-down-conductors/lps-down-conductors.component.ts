@@ -845,7 +845,7 @@ keyPressNumbers1(event: any) {
       bridgingCableConnectionRem: new FormControl({disabled: false, value: item.bridgingCableConnectionRem}),
       bridgingCableMaterialOb: new FormControl({disabled: false, value: item.bridgingCableMaterialOb}, Validators.required),
       bridgingCableMaterialRem: new FormControl({disabled: false, value: item.bridgingCableMaterialRem}),
-      bridgingCableSizeOb: new FormControl({disabled: false, value: item.bridgingCableSizeOb}, Validators.required),
+      bridgingCableSizeOb: new FormControl({disabled: false, value: item.bridgingCableSizeOb}),
       bridgingCableSizeRem: new FormControl({disabled: false, value: item.bridgingCableSizeRem}),
       totalNoBridgingCableOb: new FormControl({disabled: false, value: item.totalNoBridgingCableOb}, Validators.required),
       totalNoBridgingCableRem: new FormControl({disabled: false, value: item.totalNoBridgingCableRem}),
