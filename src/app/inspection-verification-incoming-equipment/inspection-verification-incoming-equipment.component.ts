@@ -1232,7 +1232,7 @@ showHideAccordion(index: number) {
       if(!b.get('location')?.errors?.minlength) {
         this.inspectionDetailsService.retrieveLocationDetails(distributionBoardDetails,referance,location).subscribe(
           data => {
-            debugger
+            
             if(data != '') {
               b.controls.locationFlag.setValue(true);
             }
@@ -1260,7 +1260,7 @@ showHideAccordion(index: number) {
       if(!b.get('location')?.errors?.minlength) {
         this.inspectionDetailsService.retrieveLocationDetails(distributionBoardDetails,referance,location).subscribe(
           data => {
-            debugger
+            
             if(data != '') {
               b.controls.locationFlag.setValue(true);
             }
@@ -1288,7 +1288,7 @@ showHideAccordion(index: number) {
       if(!b.get('location')?.errors?.minlength) {
         this.inspectionDetailsService.retrieveLocationDetails(distributionBoardDetails,referance,location).subscribe(
           data => {
-            debugger
+            
             if(data != '') {
               b.controls.locationFlag.setValue(true);
             }

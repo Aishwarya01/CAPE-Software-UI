@@ -214,7 +214,7 @@ export class DiagramHomeComponent implements OnInit {
   //clickFunction(e: any) {
   //console.log(this.diagram);
   public clickFunction(args: any) {
-    console.log(args.source);
+    //console.log(args.source);
     if(args.source instanceof Node){
       if(args.source.properties.id.includes('Inductor')) {
 
@@ -725,7 +725,7 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
     }
     },
     error => {
-      console.log(error);
+      //console.log(error);
     }
   )
 }

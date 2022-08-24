@@ -2182,7 +2182,7 @@ showHideAccordion(index: number) {
   // }
 
   onKey1(event: KeyboardEvent) {
-    debugger
+    
     this.values = (<HTMLInputElement>event.target).value;
     this.value = this.values;
     this.location1Arr = this.supplycharesteristicForm.get(

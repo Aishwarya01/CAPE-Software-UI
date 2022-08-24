@@ -708,7 +708,7 @@ SignatureDesigner1(){
     if(this.service.siteCount!=0 && this.service.siteCount!=undefined){
       this.observationService.retrieveObservationSummary(this.service.siteCount, this.email).subscribe(
         data => {
-          debugger
+          
           this.ObservationsSumaryArr=JSON.parse(data);
           let ObservationsSumaryValueArr:any=[];
           ObservationsSumaryValueArr = this.addsummary.get('ObservationsArr') as FormArray;
@@ -798,7 +798,7 @@ SignatureDesigner1(){
                       for(let k=0;k<alternateArr.length; k++) {
                         j.alternativeInnerObservation.forEach((element: any,index: any) => {
                           if(alternateArr.controls[k].controls.referenceId.value == element.supplyInnerObervationsId) {
-                            console.log(index);
+                            //console.log(index);
                             count++;
                             indexValue = index;
                 
@@ -939,7 +939,7 @@ SignatureDesigner1(){
                   for(let k=0;k<inspectionArr.length; k++) {
                     this.ObservationsSumaryArr.inspectionOuterObservation.forEach((element: any,index: any) => {
                       if(inspectionArr.controls[k].controls.referenceId.value == element.inspectionOuterObservationId) {
-                        console.log(index);
+                        //console.log(index);
                         count++;
                         indexValue = index;
             
@@ -1068,7 +1068,7 @@ SignatureDesigner1(){
                       for(let k=0;k<summaryInnerObservation.length; k++) {
                         this.ObservationsSumaryArr.inspectionOuterObservation[x].inspectionInnerObservations.forEach((element: any,index: any) => {
                           if(summaryInnerObservation.controls[k].controls.referenceId.value == element.inspectionInnerObservationsId) {
-                            console.log(index);
+                            //console.log(index);
                             count++;
                             indexValue = index;
                 
@@ -1214,7 +1214,7 @@ SignatureDesigner1(){
                   for(let k=0;k<testingArr.length; k++) {
                     this.ObservationsSumaryArr.testingInnerObservation.forEach((element: any,index: any) => {
                       if(testingArr.controls[k].controls.referenceId.value == element.testingInnerObervationsId) {
-                        console.log(index);
+                        //console.log(index);
                         count++;
                         indexValue = index;
             

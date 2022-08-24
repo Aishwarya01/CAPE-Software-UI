@@ -1125,7 +1125,7 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
   }
 
   myTabSelectedTabChange(e: any) {
-    console.log(e);
+    //console.log(e);
   }
 
   continue1(siteId: any,userName :any,clientName: any,departmentName: any,site: any) {
