@@ -13,6 +13,7 @@ export class LpsGlobalserviceService {
   allStepsCompleted:boolean=false;
   allFieldsDisable:boolean=false; //after submiting all 5 steps
   disableSubmitSummary:boolean=false; //after submiting all 5 steps
+  basiclpsId:number=0;
   
   constructor(
     //public matstepper: LpsMatstepperComponent,

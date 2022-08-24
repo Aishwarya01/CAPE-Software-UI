@@ -90,9 +90,11 @@ table tr td {
 }
 
 textarea{
+  padding: 21px 10px 10px;
   font-size: 12px;
   height: 4rem;
-  padding: 21px 10px 10px;
+  resize: none;
+  transition: 1s;
 }
 
 /* .disableForm{
@@ -120,7 +122,14 @@ textarea{
   left: 83%; */
   border-radius: 5px;
 }
+
 textarea::placeholder {
   position: relative;
   /* top: 9px; */
 }
+
+/* textarea:hover{
+  height: 8rem;
+} */
+
+

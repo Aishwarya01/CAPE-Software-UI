@@ -20,16 +20,25 @@ export const environment = {
 // For super admin purpose
 export class SuperAdminDev {
   adminEmail: any=[];  
+  riskAdminEmail: any=[];
   constructor() {
       this.email();
+      this.riskAdminEmailDetails();
   }
   email(){
     this.adminEmail[0] = 'awstesting@rushforsafety.com';
     this.adminEmail[1] = 'gk@capeindia.net';
     this.adminEmail[2] = 'vinoth@capeindia.net';
-    this.adminEmail[3] = 'arunkumark5797@gmail.com';
-
   }       
+
+  riskAdminEmailDetails(){
+    this.riskAdminEmail[0] = 'awstesting@rushforsafety.com';
+    this.riskAdminEmail[1] = 'gk@capeindia.net';
+    this.riskAdminEmail[2] = 'vinoth@capeindia.net';
+    this.riskAdminEmail[3] = 'krishna.kumar@capeindia.net';
+    this.riskAdminEmail[4] = 'manoj@capeindia.net';
+  }     
+
 };
 
 /*

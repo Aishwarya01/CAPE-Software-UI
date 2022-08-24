@@ -159,7 +159,7 @@ export class LpsAirTerminationComponent implements OnInit {
   index: any;
 
   deletedLpsDataForFileIdupdate: any = [];
-
+  addDeletedVeritcalAirterminationListIndex:any=[];
 
   // successMsg1: Strin:g="";
 
@@ -191,7 +191,7 @@ export class LpsAirTerminationComponent implements OnInit {
       buildingName: new FormControl('', Validators.required),
       buildingType: new FormControl('', Validators.required),
       buildingTypeOthers: new FormControl(''),
-      buildingLength: new FormControl('', Validators.required),
+      buildingLength: new FormControl('',Validators.required),
       buildingHeight: new FormControl('', Validators.required),
       buildingWidth: new FormControl('', Validators.required),
       protrusionHeight: new FormControl('', Validators.required),
@@ -478,7 +478,7 @@ export class LpsAirTerminationComponent implements OnInit {
 
   addIndex(){
 
-      for (let i = 0; i < this.lpsAirDescription.controls.length; i++) {
+      for (let i = 0; this.lpsAirDescription.controls!=undefined && i < this.lpsAirDescription.controls.length; i++) {
         if(this.lpsAirDescription.controls[i].controls.airBasicDescription.controls.length!=0){
           this.lpsAirDescription.controls[i].controls.airBasicDescription.controls[0].controls.fileIndex.setValue(i);
 
@@ -564,12 +564,13 @@ export class LpsAirTerminationComponent implements OnInit {
     })
   }
 
-  removeItemAir(a: any, w: any) {
+  removeItemAir(a: any, w: any,buildingCount:any) {
     this.airTerminationForm.markAsTouched();
     this.airterminationArr = a.controls.verticalAirTerminationList as FormArray;
     if (this.flag && this.airterminationArr.value[w].verticalAirTerminationListId != null && this.airterminationArr.value[w].verticalAirTerminationListId != '' && this.airterminationArr.value[w].verticalAirTerminationListId != undefined) {
       this.airterminationArr.value[w].flag = 'R';
       this.deletedAirTerminationListArr.push(this.airterminationArr.value[w]);
+      this.addDeletedVeritcalAirterminationListIndex.push( buildingCount +"-"+ w);
     }
     this.airterminationArr.removeAt(w);
     this.airTerminationForm.markAsDirty();
@@ -618,6 +619,18 @@ export class LpsAirTerminationComponent implements OnInit {
       return true;
     }
   }
+
+    // Only Accept numbers and allow .(dot)
+    keyPressNumbers1(event: any) {
+      var charCode = (event.which) ? event.which : event.keyCode;
+      // Only Numbers 0-9
+      if ((charCode < 46 || charCode > 46) && (charCode < 48 || charCode > 57)) {
+        event.preventDefault();
+        return false;
+      } else {
+        return true;
+      }
+    }
 
   reset() {
     this.airTerminationForm.reset();
@@ -832,7 +845,7 @@ export class LpsAirTerminationComponent implements OnInit {
   createGroup(item: any, lpsAirDescId: any): FormGroup {
     return this.formBuilder.group({
       lpsVerticalAirTerminationId: new FormControl({ disabled: false, value: item.lpsVerticalAirTerminationId }),
-      lpsAirDescId: new FormControl({ disabled: false, value: item.lpsAirDescId }),
+      lpsAirDescId: new FormControl({ disabled: false, value: lpsAirDescId }),
       // For file upload
       fileNameVAir: new FormControl({ disabled: false, value: item.fileNameVAir }),
       fileSize: new FormControl({ disabled: false, value: item.fileSize }),
@@ -1653,7 +1666,7 @@ export class LpsAirTerminationComponent implements OnInit {
   }
 
   retriveAirTermination() {
-    this.airterminationServices.retriveAirTerminationDetails(this.router.snapshot.paramMap.get('email') || '{}', this.basicLpsId).subscribe(
+    this.airterminationServices.retriveAirTerminationDetails(this.basicLpsId).subscribe(
       data => {
         if (JSON.parse(data)[0] != undefined && JSON.parse(data)[0].basicLpsId != null) {
           this.retrieveDetailsfromSavedReports1(this.airtermination.userName, this.basicLpsId, this.ClientName, data);
@@ -1696,11 +1709,6 @@ export class LpsAirTerminationComponent implements OnInit {
     }
   }
 
-  summaryEvent(content:any){
-    this.modalService.open(content, { centered: true, backdrop: 'static' });
-    this.onSubmit(this.flag);
-    this.summaryPopup=false;
-  }
 
   closeModalDialog() {
     if (this.errorMsg != '') {
@@ -2034,7 +2042,7 @@ export class LpsAirTerminationComponent implements OnInit {
         return;
       }
       verticalAirTerminationListArray.controls[index].controls.angleProtectionHeightOb
-        .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_I[heightOfAirterminal - 1].angle + "˚ / " + this.AIRTERMINATION_CONSTANTS.LEVEL_I[heightOfAirterminal - 1].distance + "m");
+        .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_I[heightOfAirterminal - 1].angle + "deg / " + this.AIRTERMINATION_CONSTANTS.LEVEL_I[heightOfAirterminal - 1].distance + "m");
     }
 
     else if (protectionLevel == "Level II") {
@@ -2046,7 +2054,7 @@ export class LpsAirTerminationComponent implements OnInit {
         return;
       }
       verticalAirTerminationListArray.controls[index].controls.angleProtectionHeightOb
-        .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_II[heightOfAirterminal - 1].angle + "˚ / " + this.AIRTERMINATION_CONSTANTS.LEVEL_II[heightOfAirterminal - 1].distance + "m");
+        .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_II[heightOfAirterminal - 1].angle + "deg / " + this.AIRTERMINATION_CONSTANTS.LEVEL_II[heightOfAirterminal - 1].distance + "m");
     }
 
     else if (protectionLevel == "Level III") {
@@ -2058,7 +2066,7 @@ export class LpsAirTerminationComponent implements OnInit {
         return;
       }
       verticalAirTerminationListArray.controls[index].controls.angleProtectionHeightOb
-        .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_III[heightOfAirterminal - 1].angle + "˚ / " + this.AIRTERMINATION_CONSTANTS.LEVEL_III[heightOfAirterminal - 1].distance + "m");
+        .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_III[heightOfAirterminal - 1].angle + "deg / " + this.AIRTERMINATION_CONSTANTS.LEVEL_III[heightOfAirterminal - 1].distance + "m");
     }
 
     else if (protectionLevel == "Level IV") {
@@ -2070,7 +2078,7 @@ export class LpsAirTerminationComponent implements OnInit {
         return;
       }
       verticalAirTerminationListArray.controls[index].controls.angleProtectionHeightOb
-        .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_IV[heightOfAirterminal - 1].angle + "˚ / " + this.AIRTERMINATION_CONSTANTS.LEVEL_IV[heightOfAirterminal - 1].distance + "m");
+        .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_IV[heightOfAirterminal - 1].angle + "deg / " + this.AIRTERMINATION_CONSTANTS.LEVEL_IV[heightOfAirterminal - 1].distance + "m");
     }
 
     verticalAirTerminationListArray.controls[index].controls.angleProtectionHeightOb.updateValueAndValidity();
@@ -2096,7 +2104,7 @@ export class LpsAirTerminationComponent implements OnInit {
         }
         else {
           verticalAir.controls[j].controls.angleProtectionHeightOb
-            .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_I[heightOfAirterminal - 1].angle + "˚ / " + this.AIRTERMINATION_CONSTANTS.LEVEL_I[heightOfAirterminal - 1].distance + "m");
+            .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_I[heightOfAirterminal - 1].angle + "deg / " + this.AIRTERMINATION_CONSTANTS.LEVEL_I[heightOfAirterminal - 1].distance + "m");
         }
       }
       else if (protectionLevel == "Level II" && heightOfAirterminal != '') {
@@ -2108,7 +2116,7 @@ export class LpsAirTerminationComponent implements OnInit {
         }
         else {
           verticalAir.controls[j].controls.angleProtectionHeightOb
-            .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_II[heightOfAirterminal - 1].angle + "˚ / " + this.AIRTERMINATION_CONSTANTS.LEVEL_II[heightOfAirterminal - 1].distance + "m");
+            .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_II[heightOfAirterminal - 1].angle + "deg / " + this.AIRTERMINATION_CONSTANTS.LEVEL_II[heightOfAirterminal - 1].distance + "m");
         }
       }
       else if (protectionLevel == "Level III" && heightOfAirterminal != '') {
@@ -2120,7 +2128,7 @@ export class LpsAirTerminationComponent implements OnInit {
         }
         else {
           verticalAir.controls[j].controls.angleProtectionHeightOb
-            .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_III[heightOfAirterminal - 1].angle + "˚ / " + this.AIRTERMINATION_CONSTANTS.LEVEL_III[heightOfAirterminal - 1].distance + "m");
+            .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_III[heightOfAirterminal - 1].angle + "deg / " + this.AIRTERMINATION_CONSTANTS.LEVEL_III[heightOfAirterminal - 1].distance + "m");
         }
       }
       else if (protectionLevel == "Level IV" && heightOfAirterminal != '') {
@@ -2132,7 +2140,7 @@ export class LpsAirTerminationComponent implements OnInit {
         }
         else {
           verticalAir.controls[j].controls.angleProtectionHeightOb
-            .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_IV[heightOfAirterminal - 1].angle + "˚ / " + this.AIRTERMINATION_CONSTANTS.LEVEL_IV[heightOfAirterminal - 1].distance + "m");
+            .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_IV[heightOfAirterminal - 1].angle + "deg / " + this.AIRTERMINATION_CONSTANTS.LEVEL_IV[heightOfAirterminal - 1].distance + "m");
         }
       }
       verticalAir.controls[j].controls.angleProtectionHeightOb.updateValueAndValidity();
@@ -2434,5 +2442,36 @@ export class LpsAirTerminationComponent implements OnInit {
     this.listOfAllFileId = [];
   }
 
+  // Decimal conversion
+  decimalConversion(event:any,form:any){
+
+    if(form.controls.buildingLength.value!="" && form.controls.buildingLength.value !=undefined && form.controls.buildingLength.value !=null){
+      var conversionValue = form.controls.buildingLength.value;
+      form.controls.buildingLength.setValue(parseFloat(parseFloat(conversionValue).toFixed(1)));
+    }else{
+      form.controls.buildingLength.setValue('');
+    }
+
+    if(form.controls.buildingWidth.value!="" && form.controls.buildingWidth.value !=undefined && form.controls.buildingWidth.value !=null){
+      var conversionValue1 = form.controls.buildingWidth.value; 
+      form.controls.buildingWidth.setValue(parseFloat(parseFloat(conversionValue1).toFixed(1)));
+    }else{
+      form.controls.buildingWidth.setValue('');
+    }
+
+    if(form.controls.buildingHeight.value!="" && form.controls.buildingHeight.value !=undefined && form.controls.buildingHeight.value !=null){
+      var conversionValue2 = form.controls.buildingHeight.value;
+      form.controls.buildingHeight.setValue(parseFloat(parseFloat(conversionValue2).toFixed(1)));
+    }else{
+      form.controls.buildingHeight.setValue('');
+    }
+
+    if(form.controls.protrusionHeight.value!="" && form.controls.protrusionHeight.value !=undefined && form.controls.protrusionHeight.value !=null){
+      var conversionValue3 = form.controls.protrusionHeight.value;
+      form.controls.protrusionHeight.setValue(parseFloat(parseFloat(conversionValue3).toFixed(1)));
+    }else{
+      form.controls.protrusionHeight.setValue('');
+    } 
+  }
 }
 

@@ -9,7 +9,7 @@
 </div>
 <div class="card">
     <div class="card-body">
-        <form [formGroup]="earthingForm" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
+        <form [formGroup]="earthingForm" (ngSubmit)="onSubmit(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
             <div formArrayName="earthing" *ngFor="let q of overAllEarthingControl(); let j = index">
             <div class="form-group" [formGroupName]="j">
 
@@ -24,7 +24,7 @@
                                             <i class="bi bi-align-start"></i>
                                         </span>
                                     </div>
-                                    <input type="number" class="form-control" formControlName="buildingNumber" readonly/>
+                                    <input onwheel="this.blur()" class="form-control" formControlName="buildingNumber" readonly/>
                                 </div>
                             </div>
             
@@ -129,7 +129,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control" *ngIf="mandatory1"
-                                                [readonly]="isEditable" formControlName="bimetallicIssueInRem" placeholder="Please enter remarks here, (Maximum 500 characters)"
+                                                [readonly]="isEditable" formControlName="bimetallicIssueInRem" placeholder="Please enter remarks here"
                                                 [ngClass]="{ 'is-invalid': submitted && q.get('bimetallicIssueInRem')?.errors}"></textarea>
 
                                                 <div *ngIf="submitted && q.get('bimetallicIssueInRem')?.errors"
@@ -214,7 +214,7 @@
                                                         <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
+                                                <input onwheel="this.blur()" (keypress)="keyPressNumbers1($event)" (change)="decimalConversion($event,a)" class="form-control"
                                                     [readonly]="isEditable" formControlName="soilResistivityInOb" placeholder="Please enter Soil resistivity in ohm-meter here"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('soilResistivityInOb')?.errors}" style="height: 3rem;">
                                                 <div *ngIf="submitted && a.get('soilResistivityInOb')?.errors"
@@ -545,7 +545,7 @@
                                                                 <i class="bi bi-list-ol"></i>
                                                             </span>
                                                         </div>
-                                                        <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
+                                                        <input onwheel="this.blur()" (keypress)="keyPressNumbers1($event)" (change)="decimalConversion1($event,h)" class="form-control"
                                                             [readonly]="isEditable" formControlName="earthElectrodeLengthingOb"
                                                             placeholder="Please Length/Depth of earth electrode in meters here"
                                                             [ngClass]="{ 'is-invalid': submitted && h.get('earthElectrodeLengthingOb')?.errors}"
@@ -593,7 +593,7 @@
                                                         <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" (change)="checkEarthelectMaxiDistWallInOb($event,a,'earthelectMaxiDistWallInRem')" (keypress)="keyPressNumbers($event)" class="form-control"
+                                                <input onwheel="this.blur()" (change)="checkEarthelectMaxiDistWallInOb($event,a,'earthelectMaxiDistWallInRem');decimalConversion($event,a)" (keypress)="keyPressNumbers1($event)" class="form-control"
                                                     [readonly]="isEditable" formControlName="earthelectMaxiDistWallInOb" placeholder="Please enter Maximum distance between earth electrode and wall in meters here"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('earthelectMaxiDistWallInOb')?.errors}" style="height: 3rem;">
                                                 <div *ngIf="submitted && a.get('earthelectMaxiDistWallInOb')?.errors"
@@ -626,7 +626,7 @@
                                                         <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" (change)="checkEarthelectMaxiDistWallInOb($event,a,'earthelectManimumDistanceWallInRem')" (keypress)="keyPressNumbers($event)" class="form-control"
+                                                <input onwheel="this.blur()" (change)="checkEarthelectMaxiDistWallInOb($event,a,'earthelectManimumDistanceWallInRem');decimalConversion($event,a)" (keypress)="keyPressNumbers1($event)" class="form-control"
                                                     [readonly]="isEditable" formControlName="earthelectManimumDistanceWallInOb"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('earthelectManimumDistanceWallInOb')?.errors}" placeholder="Please enter Minimum distance between earth electrode and wall in meters here" style="height: 3rem;">
                                                 <div *ngIf="submitted && a.get('earthelectManimumDistanceWallInOb')?.errors"
@@ -663,7 +663,7 @@
                                                         <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
+                                                <input onwheel="this.blur()" (keypress)="keyPressNumbers1($event)" (change)="decimalConversion($event,a)" class="form-control"
                                                     [readonly]="isEditable" formControlName="earthelectMaxiDistOb" placeholder="Please enter Maximum distance between earth electrodes in meters here" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('earthelectMaxiDistOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('earthelectMaxiDistOb')?.errors"
@@ -696,7 +696,7 @@
                                                         <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
+                                                <input onwheel="this.blur()" (keypress)="keyPressNumbers1($event)" (change)="decimalConversion($event,a)" class="form-control"
                                                     [readonly]="isEditable" formControlName="earthelectManiDistOb" placeholder="Please enter Minimum distance between earth electrodes in meters here" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('earthelectManiDistOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('earthelectManiDistOb')?.errors"
@@ -729,7 +729,7 @@
                                                         <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
+                                                <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control"
                                                     [readonly]="isEditable" formControlName="totalNumberOfElectrodeOb" placeholder="Please enter Total number of earthing electrodes here" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('totalNumberOfElectrodeOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('totalNumberOfElectrodeOb')?.errors"
@@ -762,7 +762,7 @@
                                                         <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
+                                                <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control"
                                                     [readonly]="isEditable" formControlName="inspectedNoOb" placeholder="Please enter Number of earthing electrode inspected here" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('inspectedNoOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('inspectedNoOb')?.errors"
@@ -794,7 +794,7 @@
                                                         <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
+                                                <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control"
                                                     [readonly]="isEditable" formControlName="inspectedPassedNoOb" placeholder="Please enter Number of inspection passed here" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('inspectedPassedNoOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('inspectedPassedNoOb')?.errors"
@@ -827,7 +827,7 @@
                                                         <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
+                                                <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control"
                                                     [readonly]="isEditable" formControlName="inspectedFailedNoOb" (change)="typeAEarthingValidationChangeR($event,a)" placeholder="Please enter Number of inspection failed here" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('inspectedFailedNoOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('inspectedFailedNoOb')?.errors"
@@ -897,7 +897,7 @@
                                                 [ngClass]="{ 'is-invalid': submitted && q.get('earthingClampsAvailabilityOb')?.errors }">
                                                     <option value="" selected>Select Option</option>
                                                     <option value="Applicable" >Applicable</option>
-                                                    <option value="Not applicable">Not applicable</option>
+                                                    <option value="Not applicable">Not Applicable</option>
                                                 </select>
                                                 <div *ngIf="submitted && q.get('earthingClampsAvailabilityOb')?.errors" class="invalid-feedback">
                                                     <div *ngIf="q.get('earthingClampsAvailabilityOb')?.errors?.required">Please select the field</div>
@@ -1126,7 +1126,7 @@
                                                             <i class="bi bi-list-ol"></i>
                                                         </span>
                                                     </div>
-                                                    <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
+                                                    <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control"
                                                         [readonly]="isEditable" formControlName="totalNoClampsInOb" placeholder="Please enter Total number of clamps here" style="height: 3rem;"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('totalNoClampsInOb')?.errors}">
                                                     <div *ngIf="submitted && a.get('totalNoClampsInOb')?.errors"
@@ -1159,7 +1159,7 @@
                                                             <i class="bi bi-list-ol"></i>
                                                         </span>
                                                     </div>
-                                                    <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
+                                                    <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control"
                                                         [readonly]="isEditable" formControlName="inspectedClampsInOb" placeholder="Please enter Number of clamps inspected here" style="height: 3rem;"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('inspectedClampsInOb')?.errors}">
                                                     <div *ngIf="submitted && a.get('inspectedClampsInOb')?.errors"
@@ -1192,7 +1192,7 @@
                                                             <i class="bi bi-list-ol"></i>
                                                         </span>
                                                     </div>
-                                                    <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
+                                                    <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control"
                                                         [readonly]="isEditable" formControlName="inspectionPassedInOb" placeholder="Please Number of inspections passed here" style="height: 3rem;"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('inspectionPassedInOb')?.errors}">
                                                     <div *ngIf="submitted && a.get('inspectionPassedInOb')?.errors"
@@ -1225,7 +1225,7 @@
                                                             <i class="bi bi-list-ol"></i>
                                                         </span>
                                                     </div>
-                                                    <input type="number" (keypress)="keyPressNumbers($event)" class="form-control" (change)="clampsValidationChange($event,a,'inspectionFailedInRem')"
+                                                    <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" (change)="clampsValidationChange($event,a,'inspectionFailedInRem')"
                                                         [readonly]="isEditable" formControlName="inspectionFailedInOb" placeholder="Please enter Number of inspections failed here" style="height: 3rem;"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedInOb')?.errors}">
                                                     <div *ngIf="submitted && a.get('inspectionFailedInOb')?.errors"
@@ -1532,7 +1532,7 @@
                                                         <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
+                                                <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control"
                                                     [readonly]="isEditable" formControlName="totalChamberNoOb" placeholder="Please enter Total number of chambers here" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('totalChamberNoOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('totalChamberNoOb')?.errors"
@@ -1564,7 +1564,7 @@
                                                         <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
+                                                <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control"
                                                     [readonly]="isEditable" formControlName="inspectedChamberInOb" placeholder="Please Number of chambers inspected here" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('inspectedChamberInOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('inspectedChamberInOb')?.errors" class="invalid-feedback">
@@ -1594,7 +1594,7 @@
                                                         <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
+                                                <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control"
                                                     [readonly]="isEditable" formControlName="inspectionPassedInOb" placeholder="Please enter Number of inspections passed here" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('inspectionPassedInOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('inspectionPassedInOb')?.errors"
@@ -1627,7 +1627,7 @@
                                                         <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"  (change)="clampsValidationChange($event,a,'inspectionFailedInRem')"
+                                                <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control"  (change)="clampsValidationChange($event,a,'inspectionFailedInRem')"
                                                     [readonly]="isEditable" formControlName="inspectionFailedInOb" placeholder="Please Number of inspections failed here" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedInOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('inspectionFailedInOb')?.errors"
@@ -1709,7 +1709,7 @@
                                                         <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" (change)="checkEarthelectMaxiDistWallInOb($event,a,'eastRem')" (keypress)="keyPressNumbers($event)" class="form-control" [readonly]="isEditable" formControlName="eastOb" placeholder="The value must be a number" style="height: 3rem;"
+                                                <input onwheel="this.blur()" (change)="checkEarthelectMaxiDistWallInOb($event,a,'eastRem');decimalConversion2($event,a)" (keypress)="keyPressNumbers1($event)" class="form-control" [readonly]="isEditable" formControlName="eastOb" placeholder="The value must be a number" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('eastOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('eastOb')?.errors"
                                                     class="invalid-feedback">
@@ -1739,7 +1739,7 @@
                                                         <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" (change)="checkEarthelectMaxiDistWallInOb($event,a,'westRem')" (keypress)="keyPressNumbers($event)" class="form-control" [readonly]="isEditable" formControlName="westOb"
+                                                <input onwheel="this.blur()" (change)="checkEarthelectMaxiDistWallInOb($event,a,'westRem');decimalConversion2($event,a)" (keypress)="keyPressNumbers1($event)" class="form-control" [readonly]="isEditable" formControlName="westOb"
                                                 placeholder="The value must be a number" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('westOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('westOb')?.errors"
@@ -1772,7 +1772,7 @@
                                                         <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" (change)="checkEarthelectMaxiDistWallInOb($event,a,'northRem')" (keypress)="keyPressNumbers($event)" class="form-control" [readonly]="isEditable" formControlName="northOb"
+                                                <input onwheel="this.blur()" (change)="checkEarthelectMaxiDistWallInOb($event,a,'northRem');decimalConversion2($event,a)" (keypress)="keyPressNumbers1($event)" class="form-control" [readonly]="isEditable" formControlName="northOb"
                                                 placeholder="The value must be a number" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('northOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('northOb')?.errors"
@@ -1805,7 +1805,7 @@
                                                         <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" (change)="checkEarthelectMaxiDistWallInOb($event,a,'southRem')" (keypress)="keyPressNumbers($event)" class="form-control" [readonly]="isEditable" formControlName="southOb"
+                                                <input onwheel="this.blur()" (change)="checkEarthelectMaxiDistWallInOb($event,a,'southRem');decimalConversion2($event,a)" (keypress)="keyPressNumbers1($event)" class="form-control" [readonly]="isEditable" formControlName="southOb"
                                                 placeholder="The value must be a number" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('southOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('southOb')?.errors"
@@ -1844,7 +1844,7 @@
                                                         <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" (change)="checkEarthelectMaxiDistWallInOb($event,a,'ringWallEarthEastRem')" (keypress)="keyPressNumbers($event)" class="form-control"
+                                                <input onwheel="this.blur()" (change)="checkEarthelectMaxiDistWallInOb($event,a,'ringWallEarthEastRem');decimalConversion2($event,a)" (keypress)="keyPressNumbers1($event)" class="form-control"
                                                     [readonly]="isEditable" formControlName="ringWallEarthEastOb" placeholder="The value must be a number" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('ringWallEarthEastOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('ringWallEarthEastOb')?.errors"
@@ -1877,7 +1877,7 @@
                                                         <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number"  (change)="checkEarthelectMaxiDistWallInOb($event,a,'ringWallEarthWestRem')" (keypress)="keyPressNumbers($event)" class="form-control"
+                                                <input onwheel="this.blur()"  (change)="checkEarthelectMaxiDistWallInOb($event,a,'ringWallEarthWestRem');decimalConversion2($event,a)" (keypress)="keyPressNumbers1($event)" class="form-control"
                                                     [readonly]="isEditable" formControlName="ringWallEarthWestOb" placeholder="The value must be a number" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('ringWallEarthWestOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('ringWallEarthWestOb')?.errors"
@@ -1910,7 +1910,7 @@
                                                         <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="text"type="number" (change)="checkEarthelectMaxiDistWallInOb($event,a,'ringWallEarthNorthRem')" (keypress)="keyPressNumbers($event)" class="form-control"
+                                                <input type="text"onwheel="this.blur()" (change)="checkEarthelectMaxiDistWallInOb($event,a,'ringWallEarthNorthRem');decimalConversion2($event,a)" (keypress)="keyPressNumbers1($event)" class="form-control"
                                                     [readonly]="isEditable" formControlName="ringWallEarthNorthOb" placeholder="The value must be a number" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('ringWallEarthNorthOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('ringWallEarthNorthOb')?.errors"
@@ -1943,7 +1943,7 @@
                                                         <i class="bi bi-list-ol"></i>
                                                     </span>
                                                 </div>
-                                                <input type="number" (change)="checkEarthelectMaxiDistWallInOb($event,a,'ringWallEarthSouthRem')" (keypress)="keyPressNumbers($event)" class="form-control"
+                                                <input onwheel="this.blur()" (change)="checkEarthelectMaxiDistWallInOb($event,a,'ringWallEarthSouthRem');decimalConversion2($event,a)" (keypress)="keyPressNumbers1($event)" class="form-control"
                                                     [readonly]="isEditable" formControlName="ringWallEarthSouthOb" placeholder="The value must be a number" style="height: 3rem;"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('ringWallEarthSouthOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('ringWallEarthSouthOb')?.errors"
@@ -2149,74 +2149,7 @@
                                             </div>
                                         </td>
                                     </tr>
-
-                                    <tr>
-                                        <td style="text-align: center;">7(i)</td>
-                                        <td>Maximum distance between earth electrode and wall in meters</td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
-                                                    </span>
-                                                </div>
-                                                <input type="number" class="form-control" [readonly]="isEditable" formControlName="maximumDistanceEartElectrodeWalOb" (keypress)="keyPressNumbers($event)"
-                                                placeholder="Please enter Maximum distance between earth electrode and wall in meters here" [ngClass]="{ 'is-invalid': submitted && a.get('maximumDistanceEartElectrodeWalOb')?.errors}">
-                                                <div *ngIf="submitted && a.get('maximumDistanceEartElectrodeWalOb')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="a.get('maximumDistanceEartElectrodeWalOb')?.errors?.required">Maximum distance between earth electrode and wall observation is required</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
-                                                    </span>
-                                                </div>
-                                                <textarea type="text" class="form-control"
-                                                    [readonly]="isEditable" formControlName="maximumDistanceEartElectrodeWalRem" placeholder="Please enter Remarks here"
-                                                    ></textarea>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td style="text-align: center;">7(j)</td>
-                                        <td>Minimum distance between earth electrode and wall in meters</td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
-                                                    </span>
-                                                </div>
-                                                <input type="number" class="form-control" (keypress)="keyPressNumbers($event)"
-                                                    [readonly]="isEditable" formControlName="manimumDistanceEartElectrodeWalOb"
-                                                    placeholder="Please enter Minimum distance between earth electrode and wall in meters here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('manimumDistanceEartElectrodeWalOb')?.errors}">
-                                                <div *ngIf="submitted && a.get('manimumDistanceEartElectrodeWalOb')?.errors"
-                                                    class="invalid-feedback">
-                                                    <div
-                                                        *ngIf="a.get('manimumDistanceEartElectrodeWalOb')?.errors?.required">
-                                                        Minimum distance between earth electrode and wall observation is required</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
-                                                    </span>
-                                                </div>
-                                                <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="manimumDistanceEartElectrodeWalRem"
-                                                 placeholder="Please enter Remarks here"></textarea>
-                                            </div>
-                                        </td>
-                                    </tr>
                                 </div>
-
                             </tbody>
                         </table>
                     </div>
@@ -2341,7 +2274,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <textarea class="form-control" [readonly]="isEditable" formControlName="earthingElectrodeSize" type="number" (keypress)="keyPressNumbers($event)"
+                                                        <textarea class="form-control" [readonly]="isEditable" formControlName="earthingElectrodeSize" onwheel="this.blur()" (keypress)="keyPressNumbers($event)"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('earthingElectrodeSize')?.errors}"
                                                             placeholder="Information to user: incase of 1. rod -diameter (mm)/cross sectional area (sq.mm), 2. pipe- inner&outer diameter (mm), 3.flat - cross sectional area (sq.mm), 4. chemical pipe-diameter (mm)"></textarea>
                                                         <div *ngIf="submitted && a.get('earthingElectrodeSize')?.errors" class="invalid-feedback">
@@ -2357,7 +2290,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <textarea class="form-control" [readonly]="isEditable" formControlName="earthingElectrodeDepth" type="number" (keypress)="keyPressNumbers($event)"
+                                                        <textarea class="form-control" [readonly]="isEditable" formControlName="earthingElectrodeDepth" onwheel="this.blur()" (keypress)="keyPressNumbers1($event)" (change)="decimalConversion3($event,a)"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('earthingElectrodeDepth')?.errors}"
                                                             placeholder="Depth /length of earth electrode (m)"></textarea>
                                                         <div *ngIf="submitted && a.get('earthingElectrodeDepth')?.errors" class="invalid-feedback">
@@ -2374,7 +2307,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <textarea class="form-control" [readonly]="isEditable" formControlName="earthingElectrodeResistance" (change)="remarksChange($event,a,'earthingElectrodeRemarks')"  type="number" (keypress)="keyPressNumbers($event)"
+                                                        <textarea class="form-control" [readonly]="isEditable" formControlName="earthingElectrodeResistance" (change)="remarksChange($event,a,'earthingElectrodeRemarks');decimalConversion3($event,a)" onwheel="this.blur()" (keypress)="keyPressNumbers1($event)"
                                                             [ngClass]="{ 'is-invalid': submitted && a.get('earthingElectrodeResistance')?.errors}"
                                                             placeholder="Electrode resistance to earth in (Ω)"></textarea>
                                                         <div *ngIf="submitted && a.get('earthingElectrodeResistance')?.errors" class="invalid-feedback">
@@ -2434,39 +2367,13 @@
     </div>
 </div>
 
-<!-- This will be modified later -->
 <ng-template #content1 let-modal>
-    <div *ngIf="summaryPopup">
-        <div class="modal-body">
-            <div class="centre-text m-btm30">
-                <div style="text-align: center;">
-                    <span style="font-size: 15px;"><b>Note:</b> Since you are updating the remarks section, your content in summary recommendation will be reset..! </span>
-                </div>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <button type="button" class="col-md-6" style="width: 5rem;position: relative;margin-left: 30%;"
-                class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close" (click)="summaryEvent(content)">
-                <i class="bi bi-arrow-right-circle"></i>&nbsp;
-                <span aria-hidden="true" *ngIf="summaryPopup">Ok</span>
-            </button>
-            <button type="button" class="col-md-6" style="text-align: center;width: auto;position: relative;margin-right: 30%;"
-                class="btn btn-danger btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close" (click)="closeModalDialog()">
-                <i class="bi bi-x icon"></i>
-                <span aria-hidden="true">Cancel</span>
-            </button>
-        </div>
-    </div>
-</ng-template>
-
-<ng-template #content let-modal>
     <!-- Spinner -->
     <mat-progress-spinner style="margin: 0 auto;" *ngIf="spinner" color="primary" [mode]="mode" value="50" diameter="50">
     </mat-progress-spinner>
     <br>
     <div *ngIf="spinner" style="text-align: center;">
-        Please wait, the details are loading!
+        Please wait, Earthing details are loading!
     </div>
     <div class="modal-body" *ngIf="popup">
         <div class="centre-text m-btm30">

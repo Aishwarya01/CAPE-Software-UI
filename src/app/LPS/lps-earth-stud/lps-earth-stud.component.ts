@@ -436,12 +436,6 @@ export class LpsEarthStudComponent implements OnInit {
      }
   }
 
-  summaryEvent(content:any){
-    this.modalService.open(content, { centered: true, backdrop: 'static' });
-    this.onSubmit(this.flag);
-    this.summaryPopup=false;
-  }
-
   retriveStud(){
     
     this.earthStudService.retrieveEarthStud(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
@@ -579,7 +573,7 @@ export class LpsEarthStudComponent implements OnInit {
     }
   }
   getAirterminationData(){
-    this.airterminationServices.retriveAirTerminationDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
+    this.airterminationServices.retriveAirTerminationDetails(this.basicLpsId).subscribe(
       data => {
         this.createearthStudForm(JSON.parse(data)[0]);
       }       

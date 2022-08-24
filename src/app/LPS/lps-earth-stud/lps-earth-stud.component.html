@@ -9,7 +9,7 @@
 </div>
 <div class="card">
     <div class="card-body">
-        <form [formGroup]="EarthStudForm" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
+        <form [formGroup]="EarthStudForm" (ngSubmit)="onSubmit(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
             <div formArrayName="earthStud" *ngFor="let f of overAllEartStudControl(); let j = index">
                 <div class="form-group" [formGroupName]="j">
 
@@ -24,7 +24,7 @@
                                                 <i class="bi bi-align-start"></i>
                                             </span>
                                         </div>
-                                        <input type="number" class="form-control" formControlName="buildingNumber" readonly/>
+                                        <input onwheel="this.blur()" class="form-control" formControlName="buildingNumber" readonly/>
                                     </div>
                                 </div>
                 
@@ -87,7 +87,7 @@
                                             </span>
                                         </div>
                                         <textarea [readonly]="isEditable" formControlName="availableEquipotentialBondingRem"
-                                        type="text" class="form-control"  placeholder="Please enter Remarks here (Optional)"></textarea>
+                                        type="text" class="form-control"  placeholder="Please enter Remarks here"></textarea>
                                     </div>
                                 </td>
                             </tr>
@@ -116,7 +116,7 @@
                                             </span>
                                         </div>
                                         <textarea [readonly]="isEditable" formControlName="numberOfEquipotentialBondingRem" type="text" class="form-control" 
-                                        placeholder="Please enter Remarks here (Optional)"></textarea>
+                                        placeholder="Please enter Remarks here"></textarea>
                                     </div>
                                 </td>
                             </tr>
@@ -145,7 +145,7 @@
                                                 </span>
                                             </div>
                                             <textarea [readonly]="isEditable" formControlName="sizeOfEarthingConductorRem"  type="text" class="form-control" 
-                                            placeholder="Please enter Remarks here (Optional)"></textarea>
+                                            placeholder="Please enter Remarks here"></textarea>
                                         </div>
                                 </td>
                             </tr>
@@ -179,7 +179,7 @@
                                             </span>
                                         </div>
                                         <textarea [readonly]="isEditable" formControlName="conceptOfEquipotentialBondingRem"  type="text" class="form-control" 
-                                        placeholder="Please enter Remarks here (Optional)"></textarea>
+                                        placeholder="Please enter Remarks here"></textarea>
                                     </div>
                                 </td>
                             </tr>
@@ -206,7 +206,7 @@
                                                 <i class="bi bi-text-paragraph"></i>
                                             </span>
                                         </div>
-                                        <textarea [readonly]="isEditable" formControlName="mainProtectiveEquipotentialBondingRem" type="text" class="form-control"  placeholder="Please enter Remarks here (Optional)"></textarea>
+                                        <textarea [readonly]="isEditable" formControlName="mainProtectiveEquipotentialBondingRem" type="text" class="form-control"  placeholder="Please enter Remarks here"></textarea>
                                     </div>
                                 </td>
                             </tr>
@@ -234,7 +234,7 @@
                                             </span>
                                         </div>
                                         <textarea [readonly]="isEditable" formControlName="sizeOfMainProtectiveRem" type="text" class="form-control" 
-                                        placeholder="Please enter Remarks here (Optional)"></textarea>
+                                        placeholder="Please enter Remarks here"></textarea>
                                     </div>
                                 </td>
                             </tr>
@@ -263,7 +263,7 @@
                                             </span>
                                         </div>
                                         <textarea [readonly]="isEditable" formControlName="supplimentaryMainProtectiveRem" type="text" class="form-control" 
-                                        placeholder="Please enter Remarks here (Optional)"></textarea>
+                                        placeholder="Please enter Remarks here"></textarea>
                                     </div>
                                 </td>
                             </tr><tr>
@@ -290,7 +290,7 @@
                                             </span>
                                         </div>
                                         <textarea [readonly]="isEditable" formControlName="sizeOfSupplimentaryProtectiveRem" type="text" class="form-control" 
-                                        placeholder="Please enter Remarks here (Optional)"></textarea>
+                                        placeholder="Please enter Remarks here"></textarea>
                                     </div>
                                 </td>
                             </tr>
@@ -338,7 +338,7 @@
                                         </span>
                                     </div>
                                     <textarea [readonly]="isEditable" formControlName="earthStudVisibilityRem" type="text" class="form-control" 
-                                    placeholder="Please enter Remarks here (Optional)"></textarea>
+                                    placeholder="Please enter Remarks here"></textarea>
                                 </div>
                             </td>
                          </tr>
@@ -367,7 +367,7 @@
                                         </span>
                                     </div>
                                     <textarea [readonly]="isEditable" formControlName="earthStudBendRem" type="text" class="form-control" 
-                                    placeholder="Please enter Remarks here (Optional)"></textarea>
+                                    placeholder="Please enter Remarks here"></textarea>
                                 </div>
                             </td>
                          </tr>
@@ -396,7 +396,7 @@
                                         </span>
                                     </div>
                                     <textarea [readonly]="isEditable" formControlName="properBondingRailRem" type="text" class="form-control" 
-                                    placeholder="Please enter Remarks here (Optional)"></textarea>
+                                    placeholder="Please enter Remarks here"></textarea>
                                 </div>
                             </td>
                          </tr>
@@ -425,7 +425,7 @@
                                         </span>
                                     </div>
                                     <textarea [readonly]="isEditable" formControlName="physicalDamageStudRem" type="text" class="form-control" 
-                                    placeholder="Please enter Remarks here (Optional)"></textarea>
+                                    placeholder="Please enter Remarks here"></textarea>
                                 </div>
                             </td>
                          </tr>
@@ -454,7 +454,7 @@
                                         </span>
                                     </div>
                                     <textarea [readonly]="isEditable"  type="text" class="form-control" formControlName="continutyExistaEarthRem" 
-                                    placeholder="Please enter Remarks here (Optional)"></textarea>
+                                    placeholder="Please enter Remarks here"></textarea>
                                 </div>
                             </td>
                          </tr>
@@ -481,39 +481,13 @@
 </div>
 </div>
 
-<!-- This will be modified later -->
 <ng-template #content1 let-modal>
-    <div *ngIf="summaryPopup">
-        <div class="modal-body">
-            <div class="centre-text m-btm30">
-                <div style="text-align: center;">
-                    <span style="font-size: 15px;"><b>Note:</b> Since you are updating the remarks section, your content in summary recommendation will be reset..! </span>
-                </div>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <button type="button" class="col-md-6" style="width: 5rem;position: relative;margin-left: 30%;"
-                class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close" (click)="summaryEvent(content)">
-                <i class="bi bi-arrow-right-circle"></i>&nbsp;
-                <span aria-hidden="true" *ngIf="summaryPopup">Ok</span>
-            </button>
-            <button type="button" class="col-md-6" style="text-align: center;width: auto;position: relative;margin-right: 30%;"
-                class="btn btn-danger btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close" (click)="closeModalDialog()">
-                <i class="bi bi-x icon"></i>
-                <span aria-hidden="true">Cancel</span>
-            </button>
-        </div>
-    </div>
-</ng-template>
-
-<ng-template #content let-modal>
     <!-- Spinner -->
     <mat-progress-spinner style="margin: 0 auto;" *ngIf="spinner" color="primary" [mode]="mode" value="50" diameter="50">
     </mat-progress-spinner>
     <br>
     <div *ngIf="spinner" style="text-align: center;">
-        Please wait, the details are loading!
+        Please wait, Equipotential Bonding details are loading!
     </div>
     <div class="modal-body" *ngIf="popup">
         <div class="centre-text m-btm30">

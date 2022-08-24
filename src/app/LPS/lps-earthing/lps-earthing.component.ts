@@ -306,10 +306,6 @@ export class LpsEarthingComponent implements OnInit {
       typeOfEarthElectrodeRem: new FormControl(''),
       sizeOfEarthElectrodeOb: new FormControl(''),
       sizeOfEarthElectrodeRem: new FormControl(''),
-      maximumDistanceEartElectrodeWalOb: new FormControl(null, Validators.required),
-      maximumDistanceEartElectrodeWalRem: new FormControl(''),
-      manimumDistanceEartElectrodeWalOb: new FormControl(null, Validators.required),
-      manimumDistanceEartElectrodeWalRem: new FormControl(''),
 
     });
   }
@@ -332,11 +328,23 @@ export class LpsEarthingComponent implements OnInit {
   keyPressNumbers(event: any) {
     var charCode = (event.which) ? event.which : event.keyCode;
     // Only Numbers 0-9 with dot
-    if (charCode != 46 && (charCode < 48 || charCode > 57)) {
+    if ((charCode < 48 || charCode > 57)) {
       event.preventDefault();
       return false;
     } else {
         return true;
+    }
+  }
+
+  // Only Accept numbers and allow .(dot)
+  keyPressNumbers1(event: any) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 46 || charCode > 46) && (charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
     }
   }
 
@@ -382,7 +390,7 @@ export class LpsEarthingComponent implements OnInit {
         this.step4List = data.earthingReport;
         setTimeout(() => {
           this.createEarthingForm(data.airTermination);
-        }, 500);
+        }, 5000);
         this.populateData(data.earthingReport);
       }
       this.earthingReport.basicLpsId = basicLpsId;
@@ -642,10 +650,6 @@ export class LpsEarthingComponent implements OnInit {
         materialOfEartElectrodeRem: new FormControl({disabled: false, value: item.materialOfEartElectrodeRem}),
         sizeOfEarthElectrodeOb: new FormControl({disabled: false, value: item.sizeOfEarthElectrodeOb}),
         sizeOfEarthElectrodeRem: new FormControl({disabled: false, value: item.sizeOfEarthElectrodeRem}),
-        maximumDistanceEartElectrodeWalOb: new FormControl({disabled: false, value: item.maximumDistanceEartElectrodeWalOb}, Validators.required),
-        maximumDistanceEartElectrodeWalRem: new FormControl({disabled: false, value: item.maximumDistanceEartElectrodeWalRem}),
-        manimumDistanceEartElectrodeWalOb: new FormControl({disabled: false, value: item.manimumDistanceEartElectrodeWalOb}, Validators.required),
-        manimumDistanceEartElectrodeWalRem: new FormControl({disabled: false, value: item.manimumDistanceEartElectrodeWalRem}),
       });
     }
 
@@ -1126,13 +1130,6 @@ export class LpsEarthingComponent implements OnInit {
      }
     }
 
-    summaryEvent(content:any){
-      this.modalService.open(content, { centered: true, backdrop: 'static' });
-      this.summaryPopup=false;
-      this.onSubmit(this.flag);
-    }
-
-
     onKey(e: any,formarray:any,index:any){
       
       let accordion:any;
@@ -1320,7 +1317,7 @@ export class LpsEarthingComponent implements OnInit {
   }
 
   getAirterminationData(){
-    this.airterminationServices.retriveAirTerminationDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
+    this.airterminationServices.retriveAirTerminationDetails(this.basicLpsId).subscribe(
       data => {
         let earthing_air = JSON.parse(data)[0];
         if(earthing_air != undefined && earthing_air.basicLpsId !=null){
@@ -1467,5 +1464,135 @@ export class LpsEarthingComponent implements OnInit {
     }
   }
 
+  decimalConversion(event:any,form:any){
+    // 4.a
+    if(form.controls.soilResistivityInOb.value!="" && form.controls.soilResistivityInOb.value!=undefined && form.controls.soilResistivityInOb.value!=null){
+      var conversionValue=form.controls.soilResistivityInOb.value;
+      form.controls.soilResistivityInOb.setValue(parseFloat(parseFloat(conversionValue).toFixed(1)));
+    }
+    else{
+      form.controls.soilResistivityInOb.setValue("");
+    }
+    // 4.k
+    if(form.controls.earthelectMaxiDistWallInOb.value!="" && form.controls.earthelectMaxiDistWallInOb.value!=undefined && form.controls.earthelectMaxiDistWallInOb.value!=null){
+      var conversionValue1=form.controls.earthelectMaxiDistWallInOb.value;
+      form.controls.earthelectMaxiDistWallInOb.setValue(parseFloat(parseFloat(conversionValue1).toFixed(1)));
+    }
+    else{
+      form.controls.earthelectMaxiDistWallInOb.setValue("");
+    }
+    // 4.l 
+    if(form.controls.earthelectManimumDistanceWallInOb.value!="" && form.controls.earthelectManimumDistanceWallInOb.value!=undefined && form.controls.earthelectManimumDistanceWallInOb.value!=null){
+      var conversionValue2=form.controls.earthelectManimumDistanceWallInOb.value;
+      form.controls.earthelectManimumDistanceWallInOb.setValue(parseFloat(parseFloat(conversionValue2).toFixed(1)));
+    }
+    else{
+      form.controls.earthelectManimumDistanceWallInOb.setValue("");
+    }
+    // 4.m
+    if(form.controls.earthelectMaxiDistOb.value!="" && form.controls.earthelectMaxiDistOb.value!=undefined && form.controls.earthelectMaxiDistOb.value!=null){
+      var conversionValue3=form.controls.earthelectMaxiDistOb.value;
+      form.controls.earthelectMaxiDistOb.setValue(parseFloat(parseFloat(conversionValue3).toFixed(1)));
+    }
+    else{
+      form.controls.earthelectMaxiDistOb.setValue("");
+    }
+    // 4.n
+    if(form.controls.earthelectManiDistOb.value!="" && form.controls.earthelectManiDistOb.value!=undefined && form.controls.earthelectManiDistOb.value!=null){
+      var conversionValue4=form.controls.earthelectManiDistOb.value;
+      form.controls.earthelectManiDistOb.setValue(parseFloat(parseFloat(conversionValue4).toFixed(1)));
+    }
+    else{
+      form.controls.earthelectManiDistOb.setValue("");
+    }
+  }
+
+  decimalConversion1(event:any,form:any){
+    // 4.j
+    if(form.controls.earthElectrodeLengthingOb.value!="" && form.controls.earthElectrodeLengthingOb.value!=undefined && form.controls.earthElectrodeLengthingOb.value!=null){
+      var conversionValue=form.controls.earthElectrodeLengthingOb.value;
+      form.controls.earthElectrodeLengthingOb.setValue(parseFloat(parseFloat(conversionValue).toFixed(1)));
+    }
+    else{
+      form.controls.earthElectrodeLengthingOb.setValue("");
+    }
+  }
+
+  decimalConversion2(event:any,form:any){
+    if(form.controls.eastOb.value!="" && form.controls.eastOb.value!=undefined && form.controls.eastOb.value!=null){
+      var conversionValue=form.controls.eastOb.value;
+      form.controls.eastOb.setValue(parseFloat(parseFloat(conversionValue).toFixed(1)));
+    }
+    else{
+      form.controls.eastOb.setValue("");
+    }
+    if(form.controls.westOb.value!="" && form.controls.westOb.value!=undefined && form.controls.westOb.value!=null){
+      var conversionValue1=form.controls.westOb.value;
+      form.controls.westOb.setValue(parseFloat(parseFloat(conversionValue1).toFixed(1)));
+    }
+    else{
+      form.controls.westOb.setValue("");
+    }
+    if(form.controls.northOb.value!="" && form.controls.northOb.value!=undefined && form.controls.northOb.value!=null){
+      var conversionValue2=form.controls.northOb.value;
+      form.controls.northOb.setValue(parseFloat(parseFloat(conversionValue2).toFixed(1)));
+    }
+    else{
+      form.controls.northOb.setValue("");
+    }
+    if(form.controls.southOb.value!="" && form.controls.southOb.value!=undefined && form.controls.southOb.value!=null){
+      var conversionValue3=form.controls.southOb.value;
+      form.controls.southOb.setValue(parseFloat(parseFloat(conversionValue3).toFixed(1)));
+    }
+    else{
+      form.controls.southOb.setValue("");
+    }
+
+    if(form.controls.ringWallEarthEastOb.value!="" && form.controls.ringWallEarthEastOb.value!=undefined && form.controls.ringWallEarthEastOb.value!=null){
+      var conversionValue4=form.controls.ringWallEarthEastOb.value;
+      form.controls.ringWallEarthEastOb.setValue(parseFloat(parseFloat(conversionValue4).toFixed(1)));
+    }
+    else{
+      form.controls.ringWallEarthEastOb.setValue("");
+    }
+    if(form.controls.ringWallEarthWestOb.value!="" && form.controls.ringWallEarthWestOb.value!=undefined && form.controls.ringWallEarthWestOb.value!=null){
+      var conversionValue5=form.controls.ringWallEarthWestOb.value;
+      form.controls.ringWallEarthWestOb.setValue(parseFloat(parseFloat(conversionValue5).toFixed(1)));
+    }
+    else{
+      form.controls.ringWallEarthWestOb.setValue("");
+    }
+    if(form.controls.ringWallEarthNorthOb.value!="" && form.controls.ringWallEarthNorthOb.value!=undefined && form.controls.ringWallEarthNorthOb.value!=null){
+      var conversionValue6=form.controls.ringWallEarthNorthOb.value;
+      form.controls.ringWallEarthNorthOb.setValue(parseFloat(parseFloat(conversionValue6).toFixed(1)));
+    }
+    else{
+      form.controls.ringWallEarthNorthOb.setValue("");
+    }
+    if(form.controls.ringWallEarthSouthOb.value!="" && form.controls.ringWallEarthSouthOb.value!=undefined && form.controls.ringWallEarthSouthOb.value!=null){
+      var conversionValue7=form.controls.ringWallEarthSouthOb.value;
+      form.controls.ringWallEarthSouthOb.setValue(parseFloat(parseFloat(conversionValue7).toFixed(1)));
+    }
+    else{
+      form.controls.ringWallEarthSouthOb.setValue("");
+    }
+  }
+
+  decimalConversion3(event:any,form:any){
+    if(form.controls.earthingElectrodeDepth.value!="" && form.controls.earthingElectrodeDepth.value!=undefined && form.controls.earthingElectrodeDepth.value!=null){
+      var conversionValue=form.controls.earthingElectrodeDepth.value;
+      form.controls.earthingElectrodeDepth.setValue(parseFloat(parseFloat(conversionValue).toFixed(1)));
+    }
+    else{
+      form.controls.earthingElectrodeDepth.setValue("");
+    }
+    if(form.controls.earthingElectrodeResistance.value!="" && form.controls.earthingElectrodeResistance.value!=undefined && form.controls.earthingElectrodeResistance.value!=null){
+      var conversionValue1=form.controls.earthingElectrodeResistance.value;
+      form.controls.earthingElectrodeResistance.setValue(parseFloat(parseFloat(conversionValue1).toFixed(1)));
+    }
+    else{
+      form.controls.earthingElectrodeResistance.setValue("");
+    }
+  }
 }
  

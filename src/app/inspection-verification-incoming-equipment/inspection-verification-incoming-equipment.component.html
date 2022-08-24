@@ -916,6 +916,7 @@
             [ngClass]="{ 'is-invalid': submitted && b.get('distributionBoardDetails')?.errors }" [readonly]="service.allFieldsDisable" >
             <div *ngIf="submitted && b.get('distributionBoardDetails')?.errors" class="invalid-feedback">
               <div *ngIf="b.get('distributionBoardDetails')?.errors?.required">Distribution board details  value is required</div>
+              <div *ngIf="b.get('distributionBoardDetails')?.errors?.pattern">Distribution board details cannot contain special characters</div>
             </div>
         </div>
 
@@ -926,6 +927,7 @@
             class="form-control"[ngClass]="{ 'is-invalid': submitted && b.get('referance')?.errors }" [readonly]="service.allFieldsDisable" >
             <div *ngIf="submitted && b.get('referance')?.errors" class="invalid-feedback">
               <div *ngIf="b.get('referance')?.errors?.required">Reference name  is required</div>
+              <div *ngIf="b.get('referance')?.errors?.pattern">Reference name cannot contain special characters</div>
             </div>
         </div>
 
@@ -936,6 +938,7 @@
             class="form-control"[ngClass]="{ 'is-invalid': submitted && b.get('location')?.errors }" [readonly]="service.allFieldsDisable" >
             <div *ngIf="submitted && b.get('location')?.errors" class="invalid-feedback">
               <div *ngIf="b.get('location')?.errors?.required">Location  name  is required</div>
+              <div *ngIf="b.get('location')?.errors?.pattern">Location  name cannot contain special characters</div>
             </div>
 
             <div *ngIf="b.get('locationFlag')?.value" class="invalid-feedback">
@@ -2645,7 +2648,7 @@ position: relative;">
  </div>
 <br>
  <button type="button" *ngIf="popup" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
- aria-label="Close" (click)="closeModalDialog()" matStepperNext>
+ aria-label="Close" (click)="closeModalDialog()" (matStepperNext)="stepperNav">
   <span aria-hidden="true">Ok</span>
 </button>
 </ng-template>
