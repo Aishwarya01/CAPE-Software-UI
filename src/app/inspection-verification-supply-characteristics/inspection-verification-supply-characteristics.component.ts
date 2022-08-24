@@ -12,6 +12,7 @@ import { CommentsSection } from '../model/comments-section';
 import { InspectionVerificationBasicInformationComponent } from '../inspection-verification-basic-information/inspection-verification-basic-information.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ObservationService } from '../services/observation.service';
+import { SummarydetailsService } from '../services/summarydetails.service';
 // import { ObservationSupply } from '../model/observation-supply';
 
 @Component({
@@ -66,6 +67,8 @@ export class InspectionVerificationSupplyCharacteristicsComponent
   flag: boolean=false;
 
   @Output() proceedNext = new EventEmitter<any>();
+
+  @Output() summaryNext = new EventEmitter<{siteId: any,summaryData: any,flag: boolean}>();
 
   mainArr1: any = [];
   mainArr2: any = [];
@@ -362,6 +365,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
     //private step1: InspectionVerificationBasicInformationComponent,
     private modalService: NgbModal,private siteService: SiteService,
     private UpateInspectionService: InspectionVerificationService,
+    private summaryService: SummarydetailsService
   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
   }
@@ -3858,6 +3862,16 @@ showHideAccordion(index: number) {
           this.service.logoutClick=0; 
           this.service.lvClick=0; 
           //this.proceedNext.emit(true);
+          this.summaryService.retrieveSummary(this.supplycharesteristic.siteId).subscribe(
+            (data) => {
+              // let summaryData: any= [];
+              // summaryData = JSON.parse(data);
+              this.summaryNext.emit({siteId: this.supplycharesteristic.siteId,summaryData: data,flag: true});
+            },
+            (error) => {
+              this.summaryNext.emit({siteId: this.supplycharesteristic.siteId,summaryData: null,flag: false});
+            }
+          )
          },
          (error) => {
           this.popup=true;
@@ -3898,6 +3912,17 @@ else{
           this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.supplycharesteristic.siteId).subscribe(
             data=>{
              this.retrieveAllDetailsforSupply(this.supplycharesteristic.userName,this.supplycharesteristic.siteId,data);
+            }
+          )
+
+          this.summaryService.retrieveSummary(this.supplycharesteristic.siteId).subscribe(
+            (data) => {
+              // let summaryData: any= [];
+              // summaryData = JSON.parse(data);
+              this.summaryNext.emit({siteId: this.supplycharesteristic.siteId,summaryData: data,flag: true});
+            },
+            (error) => {
+              this.summaryNext.emit({siteId: this.supplycharesteristic.siteId,summaryData: null,flag: false});
             }
           )
 
@@ -4079,6 +4104,5 @@ else{
         (this.supplycharesteristicForm.get('alternateArr') as FormArray).removeAt(index);
         this.supplycharesteristicForm.markAsDirty();
       }
-     }
-  
+     }  
 }

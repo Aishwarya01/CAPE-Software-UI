@@ -29,7 +29,8 @@ export class SuperAdminDev {
     this.adminEmail[0] = 'awstesting@rushforsafety.com';
     this.adminEmail[1] = 'gk@capeindia.net';
     this.adminEmail[2] = 'vinoth@capeindia.net';
-  }     
+  }       
+
   riskAdminEmailDetails(){
     this.riskAdminEmail[0] = 'awstesting@rushforsafety.com';
     this.riskAdminEmail[1] = 'gk@capeindia.net';
@@ -37,6 +38,7 @@ export class SuperAdminDev {
     this.riskAdminEmail[3] = 'krishna.kumar@capeindia.net';
     this.riskAdminEmail[4] = 'manoj@capeindia.net';
   }     
+
 };
 
 /*

@@ -32,6 +32,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ObservationService } from '../services/observation.service';
 import { flatten } from '@angular/compiler';
 import { TestingService } from '../services/testing.service';
+import { SummarydetailsService } from '../services/summarydetails.service';
 
 @Component({
   selector: 'app-inspection-verification-incoming-equipment',
@@ -79,6 +80,8 @@ export class InspectionVerificationIncomingEquipmentComponent
   step3List: any = [];
   flag: boolean=false;
   @Output() testing = new EventEmitter<any>();
+  @Output() summaryNext = new EventEmitter<{siteId: any,summaryData: any,flag: boolean}>();
+
   validationErrorTab: boolean = false;
   validationErrorMsgTab: string="";
   //comments starts
@@ -198,7 +201,8 @@ export class InspectionVerificationIncomingEquipmentComponent
     private siteService: SiteService,
     private UpateInspectionService: InspectionVerificationService,
     private basic: MainNavComponent,
-    private testingService: TestingService
+    private testingService: TestingService,
+    private summaryService: SummarydetailsService
   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
   }
@@ -1886,7 +1890,18 @@ for(let i of this.deletedInnerObservation) {
             data=>{
             this.retrieveAllDetailsforIncoming(this.inspectionDetails.userName,this.inspectionDetails.siteId,data);
             }
-      )
+          )
+
+          this.summaryService.retrieveSummary(this.inspectionDetails.siteId).subscribe(
+            (data) => {
+              // let summaryData: any= [];
+              // summaryData = JSON.parse(data);
+              this.summaryNext.emit({siteId: this.inspectionDetails.siteId,summaryData: data,flag: true});
+            },
+            (error) => {
+              this.summaryNext.emit({siteId: this.inspectionDetails.siteId,summaryData: null,flag: false});
+            }
+          )
          },
          (error) => {
           this.popup=true;
@@ -1929,6 +1944,17 @@ for(let i of this.deletedInnerObservation) {
           this.inspectionDetailsService.retrieveInspectionDetails(this.inspectionDetails.siteId).subscribe(
             data=>{
              this.retrieveAllDetailsforIncoming(this.inspectionDetails.userName,this.inspectionDetails.siteId,data);
+            }
+          )
+
+          this.summaryService.retrieveSummary(this.inspectionDetails.siteId).subscribe(
+            (data) => {
+              // let summaryData: any= [];
+              // summaryData = JSON.parse(data);
+              this.summaryNext.emit({siteId: this.inspectionDetails.siteId,summaryData: data,flag: true});
+            },
+            (error) => {
+              this.summaryNext.emit({siteId: this.inspectionDetails.siteId,summaryData: null,flag: false});
             }
           )
           // if(!this.observationFlag){
