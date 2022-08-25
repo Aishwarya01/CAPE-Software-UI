@@ -13,6 +13,7 @@ import { InspectionVerificationBasicInformationComponent } from '../inspection-v
 import { MatDialog } from '@angular/material/dialog';
 import { ObservationService } from '../services/observation.service';
 import { SummarydetailsService } from '../services/summarydetails.service';
+import { TestingService } from '../services/testing.service';
 // import { ObservationSupply } from '../model/observation-supply';
 
 @Component({
@@ -365,7 +366,8 @@ export class InspectionVerificationSupplyCharacteristicsComponent
     //private step1: InspectionVerificationBasicInformationComponent,
     private modalService: NgbModal,private siteService: SiteService,
     private UpateInspectionService: InspectionVerificationService,
-    private summaryService: SummarydetailsService
+    private summaryService: SummarydetailsService,
+    private testingService: TestingService
   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
   }
@@ -620,7 +622,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
        this.flag = true;
       
        this.populateData(this.step2List.supplyCharacteristics);
-       this.populateDataComments();
+       this.populateDataComments(this.step2List.supplyCharacteristics.supplyCharacteristicComment);
        this.supplycharesteristicForm.patchValue({
         clientName1: clientName,
         departmentName1:departmentName,
@@ -797,6 +799,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
 
          this.flag = true;
          this.populateData(this.step2List);
+         this.populateDataComments(this.step2List.supplyCharacteristicComment);
          this.supplycharesteristicForm.patchValue({
           shortName:this.step2List.shortName,
           systemEarthing:this.step2List.mainSystemEarthing,
@@ -1298,20 +1301,20 @@ export class InspectionVerificationSupplyCharacteristicsComponent
     }
 
 //comments section starts
-populateDataComments() {
+populateDataComments(retrievedCommentsData: any) {
   this.hideShowComment=true;
   this.reportViewerCommentArr = [];
   this.completedCommentArr3 = [];
   this.completedCommentArr4 = [];
   this.arrViewer = [];
   this.completedCommentArr1 = this.supplycharesteristicForm.get('completedCommentArr1') as FormArray;
- for(let value of this.step2List.supplyCharacteristics.supplyCharacteristicComment){
+ for(let value of retrievedCommentsData){
   this.arrViewer = [];
    if(this.currentUser1.role == 'Inspector' ) { //Inspector
     if(value.approveOrReject == 'APPROVED') {
       this.completedComments = true;
       this.enabledViewer=true;
-      for(let j of this.step2List.supplyCharacteristics.supplyCharacteristicComment) {
+      for(let j of retrievedCommentsData) {
         if(value.noOfComment == j.noOfComment) {
           this.completedCommentArr3.push(j);
         }
@@ -1319,7 +1322,7 @@ populateDataComments() {
        this.completedCommentArr4.push(this.addItem1(this.completedCommentArr3));               
       this.completedCommentArr3 = [];
     }
-    for(let j of this.step2List.supplyCharacteristics.supplyCharacteristicComment) {
+    for(let j of retrievedCommentsData) {
          if((j.approveOrReject == 'REJECT' || j.approveOrReject == '' || j.approveOrReject == null) && j.viewerFlag==1) {
           this.arrViewer.push(this.createCommentGroup(j));
          }
@@ -1369,7 +1372,7 @@ populateDataComments() {
               }
                this.completedComments = true;
                this.enabledViewer=true;
-               for(let j of this.step2List.supplyCharacteristics.supplyCharacteristicComment) {
+               for(let j of retrievedCommentsData) {
                  if(value.noOfComment == j.noOfComment) {
                    this.completedCommentArr3.push(j);
                  }
@@ -1387,7 +1390,7 @@ populateDataComments() {
                  this.basic.notification(1,value.viewerUserName,value.inspectorUserName,value.viewerDate,value.inspectorDate);
                  }
                }
-               if(this.step2List.supplyCharacteristics.supplyCharacteristicComment.length < 1) {
+               if(retrievedCommentsData.length < 1) {
                  this.reportViewerCommentArr.push(this.addCommentViewer());
                  this.supplycharesteristicForm.setControl('viewerCommentArr', this.formBuilder.array(this.reportViewerCommentArr || []));
                }
@@ -1452,7 +1455,7 @@ populateDataComments() {
              //this.showReplyBox=true;
              this.enabledViewer=true;
             }
-            for(let j of this.step2List.supplyCharacteristics.supplyCharacteristicComment) {
+            for(let j of retrievedCommentsData) {
                  if(j.approveOrReject == 'REJECT' || j.approveOrReject == '' || j.approveOrReject == null) {
                   this.arrViewer.push(this.createCommentGroup(j));
                  }
@@ -1652,7 +1655,7 @@ showHideAccordion(index: number) {
       (data) => {
          this.commentDataArr = JSON.parse(data);
          this.step2List.supplyCharacteristics.supplyCharacteristicComment = this.commentDataArr.supplyCharacteristics.supplyCharacteristicComment;
-         this.populateDataComments();
+         this.populateDataComments(this.step2List.supplyCharacteristics.supplyCharacteristicComment);
          setTimeout(()=>{
           this.spinner=false;
          this.cardBodyComments=true;
@@ -3842,6 +3845,14 @@ showHideAccordion(index: number) {
 
       this.UpateInspectionService.updateSupply(this.supplycharesteristic).subscribe(
         (data)=> {
+          this.testingService.retrieveTesting(this.supplycharesteristic.siteId).subscribe(
+            (data) => {
+              this.proceedNext.emit(false);
+            },
+            (error) => {
+              this.proceedNext.emit(true);
+            }
+          )
           this.popup=true;
           this.finalSpinner=false;
           this.success = true;

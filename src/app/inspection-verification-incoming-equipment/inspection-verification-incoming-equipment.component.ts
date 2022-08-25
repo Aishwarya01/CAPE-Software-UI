@@ -247,8 +247,8 @@ export class InspectionVerificationIncomingEquipmentComponent
         this.inspectionDetails.createdDate  = this.step3List.periodicInspection.createdDate;
         this.flag = true;
         this.populateData(this.step3List.periodicInspection);
-        this.populateDataComments();
-  }
+        this.populateDataComments(this.step3List.periodicInspection.periodicInspectorComment);
+      }
 
   retrieveAllDetailsforIncoming(userName: any,siteId: any,data: any){ 
     // if(this.service.disableFields==true){
@@ -265,6 +265,8 @@ export class InspectionVerificationIncomingEquipmentComponent
         this.inspectionDetails.createdDate  = this.step3List1.createdDate;
         this.flag = true;
         this.populateData(this.step3List1);
+        this.populateDataComments(this.step3List1.periodicInspectorComment);
+
   }
 
    // Only Accept numbers
@@ -281,20 +283,20 @@ export class InspectionVerificationIncomingEquipmentComponent
  
 //comments section starts
 
-populateDataComments() {
+populateDataComments(retrievedCommentsData: any) {
   this.hideShowComment=true;
   this.reportViewerCommentArr = [];
   this.completedCommentArr3 = [];
   this.completedCommentArr4 = [];
   this.arrViewer = [];
   this.completedCommentArr1 = this.addstep3.get('completedCommentArr1') as FormArray;
- for(let value of this.step3List.periodicInspection.periodicInspectorComment){
+ for(let value of retrievedCommentsData){
   this.arrViewer = [];
    if(this.currentUser1.role == 'Inspector' ) { //Inspector
     if(value.approveOrReject == 'APPROVED') {
       this.completedComments = true;
       this.enabledViewer=true;
-      for(let j of this.step3List.periodicInspection.periodicInspectorComment) {
+      for(let j of retrievedCommentsData) {
         if(value.noOfComment == j.noOfComment) {
           this.completedCommentArr3.push(j);
         }
@@ -302,7 +304,7 @@ populateDataComments() {
        this.completedCommentArr4.push(this.addItem1(this.completedCommentArr3));               
       this.completedCommentArr3 = [];
     }
-    for(let j of this.step3List.periodicInspection.periodicInspectorComment) {
+    for(let j of retrievedCommentsData) {
          if((j.approveOrReject == 'REJECT' || j.approveOrReject == '' || j.approveOrReject == null) && j.viewerFlag==1) {
           this.arrViewer.push(this.createCommentGroup(j));
          }
@@ -351,7 +353,7 @@ populateDataComments() {
               }
                this.completedComments = true;
                this.enabledViewer=true;
-               for(let j of this.step3List.periodicInspection.periodicInspectorComment) {
+               for(let j of retrievedCommentsData) {
                  if(value.noOfComment == j.noOfComment) {
                    this.completedCommentArr3.push(j);
                  }
@@ -369,7 +371,7 @@ populateDataComments() {
                  this.basic.notification(1,value.viewerUserName,value.inspectorUserName,value.viewerDate,value.inspectorDate);
                  }
                }
-               if(this.step3List.periodicInspection.periodicInspectorComment.length < 1) {
+               if(retrievedCommentsData.length < 1) {
                  this.reportViewerCommentArr.push(this.addCommentViewer());
                  this.addstep3.setControl('viewerCommentArr', this._formBuilder.array(this.reportViewerCommentArr || []));
                }
@@ -434,7 +436,7 @@ populateDataComments() {
              //this.showReplyBox=true;
              this.enabledViewer=true;
             }
-            for(let j of this.step3List.periodicInspection.periodicInspectorComment) {
+            for(let j of retrievedCommentsData) {
                  if(j.approveOrReject == 'REJECT' || j.approveOrReject == '' || j.approveOrReject == null) {
                   this.arrViewer.push(this.createCommentGroup(j));
                  }
@@ -654,7 +656,7 @@ showHideAccordion(index: number) {
       (data) => {
          this.commentDataArr = JSON.parse(data);
          this.step3List.periodicInspection.periodicInspectorComment = this.commentDataArr.periodicInspection.periodicInspectorComment;
-         this.populateDataComments();
+         this.populateDataComments(this.step3List.periodicInspection.periodicInspectorComment);
          setTimeout(()=>{
           this.spinner=false;
          this.cardBodyComments=true;

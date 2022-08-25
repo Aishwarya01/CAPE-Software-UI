@@ -729,6 +729,7 @@ callValue(e: any) {
     this.testingDetails.createdDate = this.testList1.createdDate;
     setTimeout(() => {
       this.populateData(this.testList1);
+      this.populateDataComments(this.testList1.testingComment);
     }, 1000);
     this.flag = true;
     }    
@@ -752,7 +753,7 @@ callValue(e: any) {
     this.testingDetails.createdDate = this.testList.testingReport.createdDate;
     setTimeout(() => {
       this.populateData(this.testList.testingReport);      
-      this.populateDataComments();
+      this.populateDataComments(this.testList.testingReport.testingComment);
     }, 1000);
     this.flag = true;
     } 
@@ -930,20 +931,20 @@ callValue(e: any) {
   }
   //comments section starts
 
-  populateDataComments() {
+  populateDataComments(retrievedCommentsData: any) {
     this.hideShowComment = true;
     this.reportViewerCommentArr = [];
     this.completedCommentArr3 = [];
     this.completedCommentArr4 = [];
     this.arrViewer = [];
     this.completedCommentArr1 = this.testingForm.get('completedCommentArr1') as FormArray;
-    for (let value of this.testList.testingReport.testingComment) {
+    for (let value of retrievedCommentsData) {
       this.arrViewer = [];
       if (this.currentUser1.role == 'Inspector') { //Inspector
         if (value.approveOrReject == 'APPROVED') {
           this.completedComments = true;
           this.enabledViewer = true;
-          for (let j of this.testList.testingReport.testingComment) {
+          for (let j of retrievedCommentsData) {
             if (value.noOfComment == j.noOfComment) {
               this.completedCommentArr3.push(j);
             }
@@ -951,7 +952,7 @@ callValue(e: any) {
           this.completedCommentArr4.push(this.addItem1(this.completedCommentArr3));
           this.completedCommentArr3 = [];
         }
-        for (let j of this.testList.testingReport.testingComment) {
+        for (let j of retrievedCommentsData) {
           if ((j.approveOrReject == 'REJECT' || j.approveOrReject == '' || j.approveOrReject == null) && j.viewerFlag == 1) {
             this.arrViewer.push(this.createCommentGroup(j));
           }
@@ -999,7 +1000,7 @@ callValue(e: any) {
             }
             this.completedComments = true;
             this.enabledViewer = true;
-            for (let j of this.testList.testingReport.testingComment) {
+            for (let j of retrievedCommentsData) {
               if (value.noOfComment == j.noOfComment) {
                 this.completedCommentArr3.push(j);
               }
@@ -1016,7 +1017,7 @@ callValue(e: any) {
                 this.basic.notification(1, value.viewerUserName, value.inspectorUserName, value.viewerDate, value.inspectorDate);
               }
             }
-            if (this.testList.testingReport.testingComment.length < 1) {
+            if (retrievedCommentsData.length < 1) {
               this.reportViewerCommentArr.push(this.addCommentViewer());
               this.testingForm.setControl('viewerCommentArr', this.formBuilder.array(this.reportViewerCommentArr || []));
             }
@@ -1080,7 +1081,7 @@ callValue(e: any) {
           //this.showReplyBox=true;
           this.enabledViewer = true;
         }
-        for (let j of this.testList.testingReport.testingComment) {
+        for (let j of retrievedCommentsData) {
           if (j.approveOrReject == 'REJECT' || j.approveOrReject == '' || j.approveOrReject == null) {
             this.arrViewer.push(this.createCommentGroup(j));
           }
@@ -1279,7 +1280,7 @@ callValue(e: any) {
       (data) => {
         this.commentDataArr = JSON.parse(data);
         this.testList.testingReport.testingComment = this.commentDataArr.testingReport.testingComment;
-        this.populateDataComments();
+        this.populateDataComments(this.testList.testingReport.testingComment);
         setTimeout(() => {
           this.spinner = false;
           this.cardBodyComments = true;
@@ -2267,7 +2268,7 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any,testing
                  }
           this.testingRecords.removeAt(this.testingRecords.length - 1);
           this.rateArr.removeAt(this.rateArr.length - 1);
-          this.observationArr.removeAt(this.testingRecords.length - 1);
+          this.observationArr.removeAt(this.observationArr.length - 1);
         }
       }
     }

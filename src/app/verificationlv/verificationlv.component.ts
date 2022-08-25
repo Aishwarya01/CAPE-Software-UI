@@ -722,7 +722,9 @@ export class VerificationlvComponent implements OnInit {
 
   public summaryFunctionCall2(value: any) {
     if(value.flag) {
-      this.summary.retrieveDetailsfromSummary(value.siteId,value.summaryData)
+      setTimeout(() => {
+        this.summary.retrieveDetailsfromSummary(value.siteId,value.summaryData)
+      }, 1000);
     }
   }
 
@@ -746,11 +748,11 @@ export class VerificationlvComponent implements OnInit {
 
     if(next) {
       this.callTestingNgOnInit();      
-      this.callSummaryNgOnInit();
     }
     else {
-      this.callSummaryNgOnInit();
+      this.testing.updateMethod();
     }
+    this.summary.ngOnInit();
   }
 
   callTestingNgOnInit() {
