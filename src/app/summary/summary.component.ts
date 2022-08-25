@@ -1351,7 +1351,7 @@ SignatureDesigner1(){
           }
         }
         this.populateData(this.summaryList.summary.summaryObservation);
-        this.populateDataComments();
+        this.populateDataComments(this.summaryList.summary.summaryComment);
         this.flag = true;
 
         this.addsummary.patchValue({
@@ -1409,7 +1409,7 @@ SignatureDesigner1(){
           }
         }
         this.populateData(this.summaryData.summaryObservation);
-        this.populateDataComments();
+        this.populateDataComments(this.summaryData.summaryComment);
         this.flag = true;
   
         this.addsummary.patchValue({
@@ -1433,20 +1433,20 @@ SignatureDesigner1(){
 
 //comments section starts
 
-populateDataComments() {
+populateDataComments(retrievedCommentsData: any) {
   this.hideShowComment=true;
   this.reportViewerCommentArr = [];
   this.completedCommentArr3 = [];
   this.completedCommentArr4 = [];
   this.arrViewer = [];
   this.completedCommentArr1 = this.addsummary.get('completedCommentArr1') as FormArray;
- for(let value of this.summaryList.summary.summaryComment){
+ for(let value of retrievedCommentsData){
    this.arrViewer=[];
    if(this.currentUser1.role == 'Inspector' ) { //Inspector
     if(value.approveOrReject == 'APPROVED') {
       this.completedComments = true;
       this.enabledViewer=true;
-      for(let j of this.summaryList.summary.summaryComment) {
+      for(let j of retrievedCommentsData) {
         if(value.noOfComment == j.noOfComment) {
           this.completedCommentArr3.push(j);
         }
@@ -1454,7 +1454,7 @@ populateDataComments() {
        this.completedCommentArr4.push(this.addItem1(this.completedCommentArr3));               
       this.completedCommentArr3 = [];
     }
-    for(let j of this.summaryList.summary.summaryComment) {
+    for(let j of retrievedCommentsData) {
          if((j.approveOrReject == 'REJECT' || j.approveOrReject == '' || j.approveOrReject == null) && j.viewerFlag==1) {
           this.arrViewer.push(this.createCommentGroup(j));
          }
@@ -1504,7 +1504,7 @@ populateDataComments() {
               }
                this.completedComments = true;
                this.enabledViewer=true;
-               for(let j of this.summaryList.summary.summaryComment) {
+               for(let j of retrievedCommentsData) {
                  if(value.noOfComment == j.noOfComment) {
                    this.completedCommentArr3.push(j);
                  }
@@ -1522,7 +1522,7 @@ populateDataComments() {
                  this.basic.notification(1,value.viewerUserName,value.inspectorUserName,value.viewerDate,value.inspectorDate);
                  }
                }
-               if(this.summaryList.summary.summaryComment.length < 1) {
+               if(retrievedCommentsData.length < 1) {
                  this.reportViewerCommentArr.push(this.addCommentViewer());
                  this.addsummary.setControl('viewerCommentArr', this._formBuilder.array(this.reportViewerCommentArr || []));
                }
@@ -1587,7 +1587,7 @@ populateDataComments() {
              //this.showReplyBox=true;
              this.enabledViewer=true;
             }
-            for(let j of this.summaryList.summary.summaryComment) {
+            for(let j of retrievedCommentsData) {
                  if(j.approveOrReject == 'REJECT' || j.approveOrReject == '' || j.approveOrReject == null) {
                   this.arrViewer.push(this.createCommentGroup(j));
                  }
@@ -1786,7 +1786,7 @@ showHideAccordion(index: number) {
       (data) => {
          this.commentDataArr = JSON.parse(data);
          this.summaryList.summary.summaryComment = this.commentDataArr.summary.summaryComment;
-         this.populateDataComments();
+         this.populateDataComments(this.summaryList.summary.summaryComment);
          setTimeout(()=>{
           this.spinner=false;
          this.cardBodyComments=true;
