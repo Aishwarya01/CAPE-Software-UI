@@ -3,12 +3,8 @@
        <h2 class="modal-title" style="display: contents">Protective Earth conductor</h2>
      </div>
    <div class="card-body">
-     <form [formGroup]="equipBondConnForm" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
-    
-   <h2><b><u>Testing</u></b></h2>
+     <form [formGroup]="protectiveEarthConductorForm" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
    
-       <ng-container formArrayName="safetyTestingEquipBondConn" *ngFor="let a of getSafetyTestingEquipBondConnControls(); let i = index">
-         <ng-container [formGroupName]="i">
            <h2>Testing related to safety</h2>
        
            <div class="table-responsive">
@@ -28,14 +24,14 @@
                    </th>
        
                    <th>
-                    size (sq.mm.)
+                    Size (sq.mm.)
                    </th>
        
                    <th>
                     Conductor length
                    </th>
                    <th>
-                    conductor resistance
+                    Conductor resistance
                    </th>
                    <th>
                     Max allowable resistance
@@ -49,68 +45,69 @@
                <tbody>
                  <tr>
                     <td>
-                        <input type="text" formControlName="make"
-                          [ngClass]="{ 'is-invalid': submittedEquipBondConn && a.get('make')?.errors }">
-                        <div *ngIf="submittedEquipBondConn && a.get('make')?.errors" class="invalid-feedback">
-                          <div *ngIf="a.get('make')?.errors?.required">Make is required</div>
+                        <input type="text" formControlName="make" [(ngModel)]="protectiveEarthConductor.make"
+                          [ngClass]="{ 'is-invalid': submittedPEC && a.make?.errors }">
+                        <div *ngIf="submittedPEC && a.make?.errors" class="invalid-feedback">
+                          <div *ngIf="a.make?.errors?.required">Make is required</div>
                         </div>
                       </td>
        
                    <td>
-                     <input type="text" formControlName="type"
-                       [ngClass]="{ 'is-invalid': submittedEquipBondConn && a.get('type')?.errors }">
-                     <div *ngIf="submittedEquipBondConn && a.get('type')?.errors" class="invalid-feedback">
-                       <div *ngIf="a.get('type')?.errors?.required">Type is required</div>
+                     <input type="text" formControlName="type" [(ngModel)]="protectiveEarthConductor.type"
+                       [ngClass]="{ 'is-invalid': submittedPEC && a.type?.errors }">
+                     <div *ngIf="submittedPEC && a.type?.errors" class="invalid-feedback">
+                       <div *ngIf="a.type?.errors?.required">Type is required</div>
                      </div>
                    </td>
        
                    <td>
-                     <input type="text" formControlName="material"
-                       [ngClass]="{ 'is-invalid': submittedEquipBondConn && a.get('material')?.errors }">
-                     <div *ngIf="submittedEquipBondConn && a.get('material')?.errors" class="invalid-feedback">
-                       <div *ngIf="a.get('material')?.errors?.required">Material is required</div>
+                     <input type="text" formControlName="material" [(ngModel)]="protectiveEarthConductor.material"
+                       [ngClass]="{ 'is-invalid': submittedPEC && a.material?.errors }">
+                     <div *ngIf="submittedPEC && a.material?.errors" class="invalid-feedback">
+                       <div *ngIf="a.material?.errors?.required">Material is required</div>
                      </div>
                    </td>
        
                    <td>
                      <input type="text" formControlName="size"
-                       [ngClass]="{ 'is-invalid': submittedEquipBondConn && a.get('size')?.errors }">
-                     <div *ngIf="submittedEquipBondConn && a.get('size')?.errors" class="invalid-feedback">
-                       <div *ngIf="a.get('size')?.errors?.required">Size is required</div>
-                     </div>
+                     [(ngModel)]="protectiveEarthConductor.size" (focusout)="onFocusOut($event,a)"
+                     [ngClass]="[ a.sizeFlag?.value  ? 'is-invalid' : '',submittedPEC && a.size?.errors ? 'is-invalid' : '']">
+                     <div *ngIf="a.sizeFlag?.value" class="invalid-feedback">
+                      <div>Value entered doesn't match the standard</div>
+                    </div>
                    </td>
        
-                   <td>
-                    <input type="text" formControlName="conductorLength"
-                      [ngClass]="{ 'is-invalid': submittedEquipBondConn && a.get('conductorLength')?.errors }">
-                    <div *ngIf="submittedEquipBondConn && a.get('conductorLength')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('conductorLength')?.errors?.required">Size is required</div>
+                   <td> 
+                    <input type="text" formControlName="conductorLength" [(ngModel)]="protectiveEarthConductor.conductorLength"
+                      [ngClass]="{ 'is-invalid': submittedPEC && a.conductorLength?.errors }"
+                      (focusout)="onFocusOut($event,a)">
+                    <div *ngIf="submittedPEC && a.conductorLength?.errors" class="invalid-feedback">
+                      <div *ngIf="a.conductorLength?.errors?.required">Size is required</div>
                     </div>
                   </td>
                   <td>
-                    <input type="text" formControlName="conductorResistance"
-                      [ngClass]="{ 'is-invalid': submittedEquipBondConn && a.get('conductorResistance')?.errors }">
-                    <div *ngIf="submittedEquipBondConn && a.get('conductorResistance')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('conductorResistance')?.errors?.required">Size is required</div>
+                    <input type="text" formControlName="conductorResistance" [(ngModel)]="protectiveEarthConductor.conductorResistance"
+                      [ngClass]="{ 'is-invalid': submittedPEC && a.conductorResistance?.errors }">
+                    <div *ngIf="submittedPEC && a.conductorResistance?.errors" class="invalid-feedback">
+                      <div *ngIf="a.conductorResistance?.errors?.required">Size is required</div>
                     </div>
                   </td>
                   <td>
-                    <input type="text" formControlName="maxResistance"
-                      [ngClass]="{ 'is-invalid': submittedEquipBondConn && a.get('maxResistance')?.errors }">
-                    <div *ngIf="submittedEquipBondConn && a.get('maxResistance')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('maxResistance')?.errors?.required">Size is required</div>
+                    <input type="text" formControlName="maxResistance" [(ngModel)]="protectiveEarthConductor.maxResistance"
+                      [ngClass]="{ 'is-invalid': submittedPEC && a.maxResistance?.errors }">
+                    <div *ngIf="submittedPEC && a.maxResistance?.errors" class="invalid-feedback">
+                      <div *ngIf="a.maxResistance?.errors?.required">Size is required</div>
                     </div>
                   </td>
                    <td>
-                     <input type="text" formControlName="rNRemarks">
+                     <input type="text" formControlName="rNRemarks" [(ngModel)]="protectiveEarthConductor.rNRemarks">
                    </td>
                  </tr>
        
                </tbody>
              </table>
            </div>
-         </ng-container>
-       </ng-container>
+       
      </form>
    </div>
 
@@ -129,7 +126,7 @@
      
      <div style="display: inline;margin-top: 30px;">    
        <button type="button"  style="float: left; margin-left: 400px"
-         class="btn btn-info" (click)="saveEquipBondConn(equipBondConnFlag)">
+         class="btn btn-info" (click)="savePEC(protectiveEarthConductorFlag)">
          <i class="bi bi-person-plus-fill icon"></i> Save
        </button>
        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

@@ -38,6 +38,8 @@ import { TransformerComponent } from '../Node Components/transformer/transformer
 import { SwitchBoardsComponent } from '../Node Components/switch-boards/switch-boards.component';
 import { ACBComponent } from '../Node Components/acb/acb.component';
 import { EquipotentialBondingComponent } from '../Node Components/equipotential-bonding/equipotential-bonding.component';
+import { getCurrencySymbol } from '@angular/common';
+import { ProtectiveEarthConductorComponent } from '../Node Components/protective-earth-conductor/protective-earth-conductor.component';
 
 
 @Component({
@@ -350,7 +352,7 @@ export class DiagramHomeComponent implements OnInit {
         dialogRef.componentInstance.email = this.email;      
       }
 
-      else if(args.source.properties.id.includes('EquipotentialBondingBar')) {	
+      else if(args.source.properties.id.includes('EquipBond')) {	
         const dialogRef = this.dialog.open(EquipotentialBondingComponent, {	
           width: '1450px',	
           maxHeight: '90vh',	 
@@ -422,8 +424,20 @@ export class DiagramHomeComponent implements OnInit {
         dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
         dialogRef.componentInstance.email = this.email;
       }
+     
       if(args.source.properties.id.includes('Bezier')) {
         const dialogRef = this.dialog.open(CableConnectorComponent, {
+          width: '1100px',
+          maxHeight: '90vh',
+          disableClose: true,
+        });
+        dialogRef.componentInstance.cableConnectorId = args.source.properties.id;
+        dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
+        dialogRef.componentInstance.email = this.email;
+      }
+
+      if(args.source.properties.id.includes('Straight3')) {
+        const dialogRef = this.dialog.open(ProtectiveEarthConductorComponent, {
           width: '1100px',
           maxHeight: '90vh',
           disableClose: true,
@@ -552,7 +566,15 @@ export class DiagramHomeComponent implements OnInit {
         targetPoint: { x: 40, y: 40 },
         style: { strokeWidth: 2},
         targetDecorator: { shape: 'None' }
-    }
+    },
+    {
+      id: 'Straight3',
+      type: 'Straight',
+      sourcePoint: { x: 0, y: 0 },
+      targetPoint: { x: 40, y: 40 },
+      targetDecorator: { shape: 'Arrow'},
+      style: { strokeWidth: 2}
+  }
     ];
 
   //SymbolPalette Properties

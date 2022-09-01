@@ -1,25 +1,19 @@
 export class ProtectiveEarthConductor {
-  equipBondConnID!: number;
-  nodeId!: String;
+  cableConnectorId!: String;
   fileName!: String;
   userName!: String;
   updatedBy!: String;
   createdDate!: Date; 
   createdBy!: String;
   updatedDate!: Date;
-
-  safetyTestingEquipotential_Bonding!: SafetyTestingEquipotential_Bonding[];
-}
-
-export class SafetyTestingEquipotential_Bonding {
-  rN!: String;
-  yN!: String;
-  bN!: String;
-  rE!: String;
-  yE!: String;
-  bE!: String;
-  rY!: String;
-  yB!: String;
-  bR!: String;
+  make!: String;
+  type!: String;
+  material!: String;
+  size!: String;
+  conductorLength!: String;
+  conductorResistance!: String;
+  maxResistance!: String;
+  rNRemarks!: String;
+  safetyTestingPECId!: number;
 }
 
