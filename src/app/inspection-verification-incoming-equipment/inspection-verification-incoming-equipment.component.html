@@ -716,7 +716,7 @@
       <mat-expansion-panel-header>
         <mat-panel-title>
           <h3>Other Methods Of Protection</h3>
-          <button  class="ButtonSave"  *ngIf="intermediateSaveInspection" title="Save" (click)="intermedeateIpaoSave('content3')"  mat-button ><i class="fa fa-save"></i></button>	
+          <button  class="ButtonSave"  *ngIf="intermediateSaveInspection" title="Save" (click)="intermedeateIpaoSave(content4)"  mat-button><i class="fa fa-save"></i></button>	
         </mat-panel-title>
       </mat-expansion-panel-header>
       <div class="row">
@@ -1699,7 +1699,7 @@
       <mat-expansion-panel-header>
         <mat-panel-title>
           <h3>Circuits</h3>
-          <button *ngIf="intermediateSaveInspectionInCircuits" class="save" title="Save" (click)="intermedeateIpaoSave1('content3')"  mat-button><i class="fa fa-save"></i></button>	
+          <button *ngIf="intermediateSaveInspectionInCircuits" class="save" title="Save" (click)="intermedeateIpaoSave1(content4)"  mat-button><i class="fa fa-save"></i></button>	
         </mat-panel-title>
       </mat-expansion-panel-header>
       <div formArrayName="circuit" *ngFor="let c of getcircuitControls(a); let i = index">
