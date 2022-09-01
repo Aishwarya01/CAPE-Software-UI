@@ -677,7 +677,7 @@ export class LpsEarthingComponent implements OnInit {
         earthingElectrodeSize: new FormControl({disabled: false, value: item.earthingElectrodeSize}, Validators.required),
         earthingElectrodeDepth: new FormControl({disabled: false, value: item.earthingElectrodeDepth}, Validators.required),
         earthingElectrodeResistance: new FormControl({disabled: false, value: item.earthingElectrodeResistance}, Validators.required),
-        earthingElectrodeRemarks: new FormControl({disabled: false, value: item.earthingElectrodeRemarks}, Validators.required),
+        earthingElectrodeRemarks: new FormControl({disabled: false, value: item.earthingElectrodeRemarks}),
         buildingCount: new FormControl(''),
       });
     }

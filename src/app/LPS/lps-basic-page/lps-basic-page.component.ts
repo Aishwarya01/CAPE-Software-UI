@@ -48,6 +48,12 @@ export class LpsBasicPageComponent implements OnInit {
   mode: any = 'indeterminate';
   nextButton: boolean = true;
   popup: boolean = false;
+  onSave: any;
+  email: any;
+  // License Purpose
+  // currentUserName: String='';
+  // currentUsermail: String='';
+  // userDetails: any;
 
   constructor(private formBuilder: FormBuilder, 
     private lPSBasicDetailsService: LPSBasicDetailsService,
@@ -61,20 +67,26 @@ export class LpsBasicPageComponent implements OnInit {
 
   
   ngOnInit(): void {
+    debugger
     this.countryCode = '91';
     this.LPSBasicForm = this.formBuilder.group({
       lpsBasic: this.formBuilder.array([this.allBasicForm()])
     });
+    // this.userDetails = sessionStorage.getItem('authenticatedUser');
+    // if(JSON.parse(this.userDetails).role == "Inspector"){
+    //   this.currentUserName=JSON.parse(this.userDetails).name;
+    //   this.currentUsermail=JSON.parse(this.userDetails).username;
+    // }
   }
 
   allBasicForm(): FormGroup {
     return new FormGroup({
       clientName: new FormControl('', Validators.required),
       projectName:new FormControl('', Validators.required),
-      pmcName:new FormControl('', Validators.required),
-      consultantName:new FormControl('', Validators.required),
-      contractorName:new FormControl('', Validators.required),
-      dealerContractorName:new FormControl('', Validators.required),
+      pmcName:new FormControl(''),
+      consultantName:new FormControl(''),
+      contractorName:new FormControl(''),
+      dealerContractorName:new FormControl(''),
       address:new FormControl('', Validators.required),
       location:new FormControl('', Validators.required),
       industryType:new FormControl('', Validators.required),
@@ -85,6 +97,9 @@ export class LpsBasicPageComponent implements OnInit {
       contactNumber:new FormControl('',[Validators.required ,Validators.maxLength(10),Validators.minLength(10)]),
       mailId:new FormControl('', [Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       availabilityOfPreviousReport:new FormControl('', Validators.required),
+      // license purpose 
+      // email1:new FormControl(''),
+      // name1:new FormControl('')
     });
   }
 
@@ -94,10 +109,10 @@ export class LpsBasicPageComponent implements OnInit {
 
       clientName: new FormControl({disabled: false, value: item.clientName}, Validators.required),
       projectName: new FormControl({disabled: false, value: item.projectName}, Validators.required),
-      pmcName: new FormControl({disabled: false, value: item.pmcName}, Validators.required),
-      consultantName: new FormControl({disabled: false, value: item.consultantName}, Validators.required),
-      contractorName: new FormControl({disabled: false, value: item.contractorName}, Validators.required),
-      dealerContractorName: new FormControl({disabled: false, value: item.dealerContractorName}, Validators.required),
+      pmcName: new FormControl({disabled: false, value: item.pmcName}),
+      consultantName: new FormControl({disabled: false, value: item.consultantName}),
+      contractorName: new FormControl({disabled: false, value: item.contractorName}),
+      dealerContractorName: new FormControl({disabled: false, value: item.dealerContractorName}),
       address: new FormControl({disabled: false, value: item.address}, Validators.required),
       location: new FormControl({disabled: false, value: item.location}, Validators.required),
       industryType: new FormControl({disabled: false, value: item.industryType}, Validators.required),
@@ -109,6 +124,8 @@ export class LpsBasicPageComponent implements OnInit {
       mailId: new FormControl({disabled: false, value: item.mailId},
          [Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       availabilityOfPreviousReport: new FormControl({disabled: false, value: item.availabilityOfPreviousReport}, Validators.required),
+      // email1:new FormControl(''),
+      // name1:new FormControl('')
     });
   }
 
@@ -393,7 +410,6 @@ export class LpsBasicPageComponent implements OnInit {
 
     return this.basicDetails;
   }
-
 
   // getDescriptionControl(): AbstractControl[] {
   //   return (<FormArray>this.LPSBasicForm.get('basicLpsDescription')).controls;
