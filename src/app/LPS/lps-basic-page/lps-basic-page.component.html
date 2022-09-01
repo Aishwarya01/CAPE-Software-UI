@@ -58,7 +58,7 @@
                                 <i class="bi bi-person-lines-fill"></i>
                             </span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Enter PMC name" [readonly]="isEditable" formControlName="pmcName"
+                        <input type="text" class="form-control" placeholder="Enter PMC name (Optional)" [readonly]="isEditable" formControlName="pmcName"
                         [ngClass]="{ 'is-invalid': submitted && f.get('pmcName')?.errors }"/>
                         <div *ngIf="submitted && f.get('pmcName')?.errors" class="invalid-feedback">
                             <div *ngIf="f.get('pmcName')?.errors?.required">PMC Name is required</div>
@@ -74,7 +74,7 @@
                                 <i class="bi bi-person-lines-fill"></i>
                             </span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Enter consultant name"
+                        <input type="text" class="form-control" placeholder="Enter consultant name (Optional)"
                             [readonly]="isEditable" formControlName="consultantName" [ngClass]="{ 'is-invalid': submitted && f.get('consultantName')?.errors }"/>
                             <div *ngIf="submitted && f.get('consultantName')?.errors" class="invalid-feedback">
                                 <div *ngIf="f.get('consultantName')?.errors?.required">Consultant Name is required</div>
@@ -90,7 +90,7 @@
                                 <i class="bi bi-person-lines-fill"></i>
                             </span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Enter contractor name"
+                        <input type="text" class="form-control" placeholder="Enter contractor name (Optional)"
                             [readonly]="isEditable" formControlName="contractorName" [ngClass]="{ 'is-invalid': submitted && f.get('contractorName')?.errors }"/>
                             <div *ngIf="submitted && f.get('contractorName')?.errors" class="invalid-feedback">
                                 <div *ngIf="f.get('contractorName')?.errors?.required">Contractor Name is required</div>
@@ -106,7 +106,7 @@
                                 <i class="bi bi-person-lines-fill"></i>
                             </span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Enter dealer/sub-contractor name"
+                        <input type="text" class="form-control" placeholder="Enter dealer/sub-contractor name (Optional)"
                             [readonly]="isEditable" formControlName="dealerContractorName" [ngClass]="{ 'is-invalid': submitted && f.get('dealerContractorName')?.errors }"/>
                             <div *ngIf="submitted && f.get('dealerContractorName')?.errors" class="invalid-feedback">
                                 <div *ngIf="f.get('dealerContractorName')?.errors?.required">Dealer/Sub-contractor is required</div>

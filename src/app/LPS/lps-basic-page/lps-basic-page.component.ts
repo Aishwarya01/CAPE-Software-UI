@@ -67,7 +67,6 @@ export class LpsBasicPageComponent implements OnInit {
 
   
   ngOnInit(): void {
-    debugger
     this.countryCode = '91';
     this.LPSBasicForm = this.formBuilder.group({
       lpsBasic: this.formBuilder.array([this.allBasicForm()])
