@@ -709,60 +709,195 @@ showHideAccordion(index: number) {
     this.addstep3.setControl('incomingArr', this._formBuilder.array(this.arr || []))
   }
   createGroup(item: any,H:any): FormGroup {
-    return this._formBuilder.group({
-      ipaoInspectionId: new FormControl({disabled: false,value: item.ipaoInspectionId}),
-      locationName: new FormControl({disabled: false,value: item.locationName}, [Validators.required]),
-      locationNumber: new FormControl({disabled: false,value: item.locationNumber}, [Validators.required]),
-      locationCount: new FormControl({disabled: false,value: item.locationCount}),
-      serviceCable: new FormControl({disabled: false,value: item.serviceCable}, [Validators.required]),
-      serviceFuse: new FormControl({disabled: false,value: item.serviceFuse}, [Validators.required]),
-      meterDistributor: new FormControl({disabled: false,value: item.meterDistributor}, [Validators.required]),
-      meterConsumer: new FormControl({disabled: false,value: item.meterConsumer}, [Validators.required]),
-      meterEqu: new FormControl({disabled: false,value: item.meterEqu}, [Validators.required]),
-      tovMeasuresLVHV: new FormControl({disabled: false,value: item.tovMeasuresLVHV}, [Validators.required]),
-      isolator: new FormControl({disabled: false,value: item.isolator}, [Validators.required]),
+    if(item.electricShock == 'Protective measures with basic and fault protection') {
+      return this._formBuilder.group({
+        ipaoInspectionId: new FormControl({disabled: false,value: item.ipaoInspectionId}),
+        locationName: new FormControl({disabled: false,value: item.locationName}, [Validators.required]),
+        locationNumber: new FormControl({disabled: false,value: item.locationNumber}, [Validators.required]),
+        locationCount: new FormControl({disabled: false,value: item.locationCount}),
+        electricShock: new FormControl({disabled: false,value: item.electricShock}, [Validators.required]),
+        basicProtection: new FormControl({disabled: false,value: item.basicProtection}, [Validators.required]),
+        faultProtection: new FormControl({disabled: false,value: item.faultProtection}, [Validators.required]),
 
-      earthingArrangement: new FormControl({disabled: false,value: item.earthingArrangement}, [Validators.required]),
-      adequateArrangement: new FormControl({disabled: false,value: item.adequateArrangement}, [Validators.required]),
-      connectionGenerator: new FormControl({disabled: false,value: item.connectionGenerator}, [Validators.required]),
-      compatibilityCharacteristics: new FormControl({disabled: false,value: item.compatibilityCharacteristics}, [Validators.required]),
-      automaticDisconnectGenerator: new FormControl({disabled: false,value: item.automaticDisconnectGenerator}, [Validators.required]),
-      preventConnectGenerator: new FormControl({disabled: false,value: item.preventConnectGenerator}, [Validators.required]),
-      isolateGenerator: new FormControl({disabled: false,value: item.isolateGenerator}, [Validators.required]),
+        limitedValue: new FormControl({disabled: false,value: item.limitedValue}),
+        protectiveMeasure: new FormControl({disabled: false,value: item.protectiveMeasure}),
+        additionalMeasure: new FormControl({disabled: false,value: item.additionalMeasure}),
+        additionalProtection: new FormControl({disabled: false,value: item.additionalProtection}),
+        faultProtectionDesc: new FormControl({disabled: false,value: item.faultProtectionDesc}),      
+        serviceCable: new FormControl({disabled: false,value: item.serviceCable}, [Validators.required]),
+        serviceFuse: new FormControl({disabled: false,value: item.serviceFuse}, [Validators.required]),
+        meterDistributor: new FormControl({disabled: false,value: item.meterDistributor}, [Validators.required]),
+        meterConsumer: new FormControl({disabled: false,value: item.meterConsumer}, [Validators.required]),
+        meterEqu: new FormControl({disabled: false,value: item.meterEqu}, [Validators.required]),
+        tovMeasuresLVHV: new FormControl({disabled: false,value: item.tovMeasuresLVHV}, [Validators.required]),
+        isolator: new FormControl({disabled: false,value: item.isolator}, [Validators.required]),  
+        earthingArrangement: new FormControl({disabled: false,value: item.earthingArrangement}, [Validators.required]),
+        adequateArrangement: new FormControl({disabled: false,value: item.adequateArrangement}, [Validators.required]),
+        connectionGenerator: new FormControl({disabled: false,value: item.connectionGenerator}, [Validators.required]),
+        compatibilityCharacteristics: new FormControl({disabled: false,value: item.compatibilityCharacteristics}, [Validators.required]),
+        automaticDisconnectGenerator: new FormControl({disabled: false,value: item.automaticDisconnectGenerator}, [Validators.required]),
+        preventConnectGenerator: new FormControl({disabled: false,value: item.preventConnectGenerator}, [Validators.required]),
+        isolateGenerator: new FormControl({disabled: false,value: item.isolateGenerator}, [Validators.required]),
+        mainEarting: new FormControl({disabled: false,value: item.mainEarting}, [Validators.required]),
+        earthElectordeArrangement: new FormControl({disabled: false,value: item.earthElectordeArrangement}, [Validators.required]),
+        earthConductorConnection: new FormControl({disabled: false,value: item.earthConductorConnection}, [Validators.required]),
+        accessibility: new FormControl({disabled: false,value: item.accessibility}, [Validators.required]),
+        aainProtectBonding: new FormControl({disabled: false,value: item.aainProtectBonding}, [Validators.required]),
+        allProtectBonding: new FormControl({disabled: false,value: item.allProtectBonding}, [Validators.required]),
+        allAppropriateLocation: new FormControl({disabled: false,value: item.allAppropriateLocation}, [Validators.required]),
+        felvRequirement: new FormControl({disabled: false,value: item.felvRequirement}, [Validators.required]),
+        selvSystem: new FormControl({disabled: false,value: item.selvSystem}, [Validators.required]),
+        pelvSystem: new FormControl({disabled: false,value: item.pelvSystem}, [Validators.required]),
+        doubleInsulation: new FormControl({disabled: false,value: item.doubleInsulation}, [Validators.required]),
+        reinforcedInsulation: new FormControl({disabled: false,value: item.reinforcedInsulation}, [Validators.required]),
+        basicElectricalSepartion: new FormControl({disabled: false,value: item.basicElectricalSepartion}, [Validators.required]),
+        //isolatePublicSupply: new FormControl({disabled: false,value: item.isolatePublicSupply}, [Validators.required]),
+        insulationLiveParts: new FormControl({disabled: false,value: item.insulationLiveParts}, [Validators.required]),
+        barriersEnclosers: new FormControl({disabled: false,value: item.barriersEnclosers}, [Validators.required]),
+        obstacles: new FormControl({disabled: false,value: item.obstacles}, [Validators.required]),
+        placingOutReach: new FormControl({disabled: false,value: item.placingOutReach}, [Validators.required]),
+        // nonConductLocation: new FormControl({disabled: false,value: item.nonConductLocation}, [Validators.required]),
+        faultElectricalSepartion: new FormControl({disabled: false,value: item.faultElectricalSepartion}, [Validators.required]),
+        faultNonConductLocation: new FormControl({disabled: false,value: item.faultNonConductLocation}, [Validators.required]),
+        operatingCurrent: new FormControl({disabled: false,value: item.operatingCurrent}, [Validators.required]),
+        supplementaryBonding: new FormControl({disabled: false,value: item.supplementaryBonding}, [Validators.required]),
+        specificInspectionRe: new FormControl({disabled: false,value: item.specificInspectionRe}),
+        inspectionOuterObervation: this._formBuilder.array(this.populateInspectionOuterObervation(item.inspectionOuterObervation,item.ipaoInspectionId)),
+        consumerUnit: this._formBuilder.array(this.populateEarthing(item.consumerUnit,item.ipaoInspectionId,H.inspectionInnerObservations)),
+        circuit: this._formBuilder.array(this.populateCircuit(item.circuit,item.ipaoInspectionId)),
+        isolationCurrent: this._formBuilder.array([
+          this.populateIsolationCurrentForm(item.isolationCurrent),
+        ]),
+        inspectionFlag: new FormControl(item.inspectionFlag),
+      });
+    }
+    else if(item.electricShock == 'Protective measures (Limitation of Voltage or current)'){
+      return this._formBuilder.group({
+        ipaoInspectionId: new FormControl({disabled: false,value: item.ipaoInspectionId}),
+        locationName: new FormControl({disabled: false,value: item.locationName}, [Validators.required]),
+        locationNumber: new FormControl({disabled: false,value: item.locationNumber}, [Validators.required]),
+        locationCount: new FormControl({disabled: false,value: item.locationCount}),
+        electricShock: new FormControl({disabled: false,value: item.electricShock}),
+        basicProtection: new FormControl({disabled: false,value: item.basicProtection}),
+        faultProtection: new FormControl({disabled: false,value: item.faultProtection}),
+        
+        limitedValue: new FormControl({disabled: false,value: item.limitedValue}, [Validators.required]),
+        protectiveMeasure: new FormControl({disabled: false,value: item.protectiveMeasure}, [Validators.required]),
+        additionalMeasure: new FormControl({disabled: false,value: item.additionalMeasure}, [Validators.required]),
+       
+        additionalProtection: new FormControl({disabled: false,value: item.additionalProtection}),
+        faultProtectionDesc: new FormControl({disabled: false,value: item.faultProtectionDesc}),      
+        serviceCable: new FormControl({disabled: false,value: item.serviceCable}, [Validators.required]),
+        serviceFuse: new FormControl({disabled: false,value: item.serviceFuse}, [Validators.required]),
+        meterDistributor: new FormControl({disabled: false,value: item.meterDistributor}, [Validators.required]),
+        meterConsumer: new FormControl({disabled: false,value: item.meterConsumer}, [Validators.required]),
+        meterEqu: new FormControl({disabled: false,value: item.meterEqu}, [Validators.required]),
+        tovMeasuresLVHV: new FormControl({disabled: false,value: item.tovMeasuresLVHV}, [Validators.required]),
+        isolator: new FormControl({disabled: false,value: item.isolator}, [Validators.required]),
+        earthingArrangement: new FormControl({disabled: false,value: item.earthingArrangement}, [Validators.required]),
+        adequateArrangement: new FormControl({disabled: false,value: item.adequateArrangement}, [Validators.required]),
+        connectionGenerator: new FormControl({disabled: false,value: item.connectionGenerator}, [Validators.required]),
+        compatibilityCharacteristics: new FormControl({disabled: false,value: item.compatibilityCharacteristics}, [Validators.required]),
+        automaticDisconnectGenerator: new FormControl({disabled: false,value: item.automaticDisconnectGenerator}, [Validators.required]),
+        preventConnectGenerator: new FormControl({disabled: false,value: item.preventConnectGenerator}, [Validators.required]),
+        isolateGenerator: new FormControl({disabled: false,value: item.isolateGenerator}, [Validators.required]),
+        mainEarting: new FormControl({disabled: false,value: item.mainEarting}, [Validators.required]),
+        earthElectordeArrangement: new FormControl({disabled: false,value: item.earthElectordeArrangement}, [Validators.required]),
+        earthConductorConnection: new FormControl({disabled: false,value: item.earthConductorConnection}, [Validators.required]),
+        accessibility: new FormControl({disabled: false,value: item.accessibility}, [Validators.required]),
+        aainProtectBonding: new FormControl({disabled: false,value: item.aainProtectBonding}, [Validators.required]),
+        allProtectBonding: new FormControl({disabled: false,value: item.allProtectBonding}, [Validators.required]),
+        allAppropriateLocation: new FormControl({disabled: false,value: item.allAppropriateLocation}, [Validators.required]),
+        felvRequirement: new FormControl({disabled: false,value: item.felvRequirement}, [Validators.required]),
+        selvSystem: new FormControl({disabled: false,value: item.selvSystem}, [Validators.required]),
+        pelvSystem: new FormControl({disabled: false,value: item.pelvSystem}, [Validators.required]),
+        doubleInsulation: new FormControl({disabled: false,value: item.doubleInsulation}, [Validators.required]),
+        reinforcedInsulation: new FormControl({disabled: false,value: item.reinforcedInsulation}, [Validators.required]),
+        basicElectricalSepartion: new FormControl({disabled: false,value: item.basicElectricalSepartion}, [Validators.required]),
+        //isolatePublicSupply: new FormControl({disabled: false,value: item.isolatePublicSupply}, [Validators.required]),
+        insulationLiveParts: new FormControl({disabled: false,value: item.insulationLiveParts}, [Validators.required]),
+        barriersEnclosers: new FormControl({disabled: false,value: item.barriersEnclosers}, [Validators.required]),
+        obstacles: new FormControl({disabled: false,value: item.obstacles}, [Validators.required]),
+        placingOutReach: new FormControl({disabled: false,value: item.placingOutReach}, [Validators.required]),
+        // nonConductLocation: new FormControl({disabled: false,value: item.nonConductLocation}, [Validators.required]),
+        faultElectricalSepartion: new FormControl({disabled: false,value: item.faultElectricalSepartion}, [Validators.required]),
+        faultNonConductLocation: new FormControl({disabled: false,value: item.faultNonConductLocation}, [Validators.required]),
+        operatingCurrent: new FormControl({disabled: false,value: item.operatingCurrent}, [Validators.required]),
+        supplementaryBonding: new FormControl({disabled: false,value: item.supplementaryBonding}, [Validators.required]),
+        specificInspectionRe: new FormControl({disabled: false,value: item.specificInspectionRe}),
+        inspectionOuterObervation: this._formBuilder.array(this.populateInspectionOuterObervation(item.inspectionOuterObervation,item.ipaoInspectionId)),
+        consumerUnit: this._formBuilder.array(this.populateEarthing(item.consumerUnit,item.ipaoInspectionId,H.inspectionInnerObservations)),
+        circuit: this._formBuilder.array(this.populateCircuit(item.circuit,item.ipaoInspectionId)),
+        isolationCurrent: this._formBuilder.array([
+          this.populateIsolationCurrentForm(item.isolationCurrent),
+        ]),
+        inspectionFlag: new FormControl(item.inspectionFlag),
+      });
+    }
+    else{
+      return this._formBuilder.group({
+        ipaoInspectionId: new FormControl({disabled: false,value: item.ipaoInspectionId}),
+        locationName: new FormControl({disabled: false,value: item.locationName}, [Validators.required]),
+        locationNumber: new FormControl({disabled: false,value: item.locationNumber}, [Validators.required]),
+        locationCount: new FormControl({disabled: false,value: item.locationCount}),
+        electricShock: new FormControl({disabled: false,value: item.electricShock}),
+        basicProtection: new FormControl({disabled: false,value: item.basicProtection}),
+        faultProtection: new FormControl({disabled: false,value: item.faultProtection}),
+        limitedValue: new FormControl({disabled: false,value: item.limitedValue}),
+        protectiveMeasure: new FormControl({disabled: false,value: item.protectiveMeasure}),
+        additionalMeasure: new FormControl({disabled: false,value: item.additionalMeasure}),
 
-      mainEarting: new FormControl({disabled: false,value: item.mainEarting}, [Validators.required]),
-      earthElectordeArrangement: new FormControl({disabled: false,value: item.earthElectordeArrangement}, [Validators.required]),
-      earthConductorConnection: new FormControl({disabled: false,value: item.earthConductorConnection}, [Validators.required]),
-      accessibility: new FormControl({disabled: false,value: item.accessibility}, [Validators.required]),
-      aainProtectBonding: new FormControl({disabled: false,value: item.aainProtectBonding}, [Validators.required]),
-      allProtectBonding: new FormControl({disabled: false,value: item.allProtectBonding}, [Validators.required]),
-      allAppropriateLocation: new FormControl({disabled: false,value: item.allAppropriateLocation}, [Validators.required]),
-      felvRequirement: new FormControl({disabled: false,value: item.felvRequirement}, [Validators.required]),
+        additionalProtection: new FormControl({disabled: false,value: item.additionalProtection}, [Validators.required]),
+        faultProtectionDesc: new FormControl({disabled: false,value: item.faultProtectionDesc}, [Validators.required]),      
+        serviceCable: new FormControl({disabled: false,value: item.serviceCable}, [Validators.required]),
+        serviceFuse: new FormControl({disabled: false,value: item.serviceFuse}, [Validators.required]),
+        meterDistributor: new FormControl({disabled: false,value: item.meterDistributor}, [Validators.required]),
+        meterConsumer: new FormControl({disabled: false,value: item.meterConsumer}, [Validators.required]),
+        meterEqu: new FormControl({disabled: false,value: item.meterEqu}, [Validators.required]),
+        tovMeasuresLVHV: new FormControl({disabled: false,value: item.tovMeasuresLVHV}, [Validators.required]),
+        isolator: new FormControl({disabled: false,value: item.isolator}, [Validators.required]),
+        earthingArrangement: new FormControl({disabled: false,value: item.earthingArrangement}, [Validators.required]),
+        adequateArrangement: new FormControl({disabled: false,value: item.adequateArrangement}, [Validators.required]),
+        connectionGenerator: new FormControl({disabled: false,value: item.connectionGenerator}, [Validators.required]),
+        compatibilityCharacteristics: new FormControl({disabled: false,value: item.compatibilityCharacteristics}, [Validators.required]),
+        automaticDisconnectGenerator: new FormControl({disabled: false,value: item.automaticDisconnectGenerator}, [Validators.required]),
+        preventConnectGenerator: new FormControl({disabled: false,value: item.preventConnectGenerator}, [Validators.required]),
+        isolateGenerator: new FormControl({disabled: false,value: item.isolateGenerator}, [Validators.required]),
+        mainEarting: new FormControl({disabled: false,value: item.mainEarting}, [Validators.required]),
+        earthElectordeArrangement: new FormControl({disabled: false,value: item.earthElectordeArrangement}, [Validators.required]),
+        earthConductorConnection: new FormControl({disabled: false,value: item.earthConductorConnection}, [Validators.required]),
+        accessibility: new FormControl({disabled: false,value: item.accessibility}, [Validators.required]),
+        aainProtectBonding: new FormControl({disabled: false,value: item.aainProtectBonding}, [Validators.required]),
+        allProtectBonding: new FormControl({disabled: false,value: item.allProtectBonding}, [Validators.required]),
+        allAppropriateLocation: new FormControl({disabled: false,value: item.allAppropriateLocation}, [Validators.required]),
+        felvRequirement: new FormControl({disabled: false,value: item.felvRequirement}, [Validators.required]),
+        selvSystem: new FormControl({disabled: false,value: item.selvSystem}, [Validators.required]),
+        pelvSystem: new FormControl({disabled: false,value: item.pelvSystem}, [Validators.required]),
+        doubleInsulation: new FormControl({disabled: false,value: item.doubleInsulation}, [Validators.required]),
+        reinforcedInsulation: new FormControl({disabled: false,value: item.reinforcedInsulation}, [Validators.required]),
+        basicElectricalSepartion: new FormControl({disabled: false,value: item.basicElectricalSepartion}, [Validators.required]),
+        //isolatePublicSupply: new FormControl({disabled: false,value: item.isolatePublicSupply}, [Validators.required]),
+        insulationLiveParts: new FormControl({disabled: false,value: item.insulationLiveParts}, [Validators.required]),
+        barriersEnclosers: new FormControl({disabled: false,value: item.barriersEnclosers}, [Validators.required]),
+        obstacles: new FormControl({disabled: false,value: item.obstacles}, [Validators.required]),
+        placingOutReach: new FormControl({disabled: false,value: item.placingOutReach}, [Validators.required]),
+        // nonConductLocation: new FormControl({disabled: false,value: item.nonConductLocation}, [Validators.required]),
+        faultElectricalSepartion: new FormControl({disabled: false,value: item.faultElectricalSepartion}, [Validators.required]),
+        faultNonConductLocation: new FormControl({disabled: false,value: item.faultNonConductLocation}, [Validators.required]),
+        operatingCurrent: new FormControl({disabled: false,value: item.operatingCurrent}, [Validators.required]),
+        supplementaryBonding: new FormControl({disabled: false,value: item.supplementaryBonding}, [Validators.required]),
+        specificInspectionRe: new FormControl({disabled: false,value: item.specificInspectionRe}),
+        inspectionOuterObervation: this._formBuilder.array(this.populateInspectionOuterObervation(item.inspectionOuterObervation,item.ipaoInspectionId)),
+        consumerUnit: this._formBuilder.array(this.populateEarthing(item.consumerUnit,item.ipaoInspectionId,H.inspectionInnerObservations)),
+        circuit: this._formBuilder.array(this.populateCircuit(item.circuit,item.ipaoInspectionId)),
+        isolationCurrent: this._formBuilder.array([
+          this.populateIsolationCurrentForm(item.isolationCurrent),
+        ]),
+        inspectionFlag: new FormControl(item.inspectionFlag),
+      });
+    }
 
-      selvSystem: new FormControl({disabled: false,value: item.selvSystem}, [Validators.required]),
-      pelvSystem: new FormControl({disabled: false,value: item.pelvSystem}, [Validators.required]),
-      doubleInsulation: new FormControl({disabled: false,value: item.doubleInsulation}, [Validators.required]),
-      reinforcedInsulation: new FormControl({disabled: false,value: item.reinforcedInsulation}, [Validators.required]),
-      basicElectricalSepartion: new FormControl({disabled: false,value: item.basicElectricalSepartion}, [Validators.required]),
-      //isolatePublicSupply: new FormControl({disabled: false,value: item.isolatePublicSupply}, [Validators.required]),
-      insulationLiveParts: new FormControl({disabled: false,value: item.insulationLiveParts}, [Validators.required]),
-      barriersEnclosers: new FormControl({disabled: false,value: item.barriersEnclosers}, [Validators.required]),
-      obstacles: new FormControl({disabled: false,value: item.obstacles}, [Validators.required]),
-      placingOutReach: new FormControl({disabled: false,value: item.placingOutReach}, [Validators.required]),
-      // nonConductLocation: new FormControl({disabled: false,value: item.nonConductLocation}, [Validators.required]),
-      faultElectricalSepartion: new FormControl({disabled: false,value: item.faultElectricalSepartion}, [Validators.required]),
-      faultNonConductLocation: new FormControl({disabled: false,value: item.faultNonConductLocation}, [Validators.required]),
-      operatingCurrent: new FormControl({disabled: false,value: item.operatingCurrent}, [Validators.required]),
-      supplementaryBonding: new FormControl({disabled: false,value: item.supplementaryBonding}, [Validators.required]),
-      specificInspectionRe: new FormControl({disabled: false,value: item.specificInspectionRe}),
-      inspectionOuterObervation: this._formBuilder.array(this.populateInspectionOuterObervation(item.inspectionOuterObervation,item.ipaoInspectionId)),
-      consumerUnit: this._formBuilder.array(this.populateEarthing(item.consumerUnit,item.ipaoInspectionId,H.inspectionInnerObservations)),
-      circuit: this._formBuilder.array(this.populateCircuit(item.circuit,item.ipaoInspectionId)),
-      isolationCurrent: this._formBuilder.array([
-        this.populateIsolationCurrentForm(item.isolationCurrent),
-      ]),
-      inspectionFlag: new FormControl(item.inspectionFlag),
-    });
+    
   }
 
   private populateInspectionOuterObervation(itemValue: any,ipaoInspectionId: any) {
@@ -1334,6 +1469,14 @@ showHideAccordion(index: number) {
       ipaoInspectionId: new FormControl(''),
       locationName: new FormControl('', [Validators.required]),
       locationNumber: new FormControl('', [Validators.required]),
+      electricShock: new FormControl('', [Validators.required]),
+      basicProtection: new FormControl('', [Validators.required]),
+      faultProtection: new FormControl('', [Validators.required]),
+      limitedValue: new FormControl('', [Validators.required]),
+      protectiveMeasure: new FormControl('', [Validators.required]),
+      additionalMeasure: new FormControl('', [Validators.required]),
+      additionalProtection: new FormControl('', [Validators.required]),
+      faultProtectionDesc: new FormControl('', [Validators.required]),
       serviceCable: new FormControl('', [Validators.required]),
       serviceFuse: new FormControl('', [Validators.required]),
       meterDistributor: new FormControl('', [Validators.required]),
@@ -1721,6 +1864,94 @@ showHideAccordion(index: number) {
   //   )
   // }   
   //    }
+
+  changeElectricShock(e: any,a: any) {
+    let changedValue
+    if(e.target != undefined) {
+      changedValue = e.target.value;
+    }
+    else{
+      changedValue = e;
+    }
+
+    if(changedValue == 'Protective measures with basic and fault protection') {
+      a.controls.basicProtection.setValidators(Validators.required);
+      a.controls.basicProtection.updateValueAndValidity();
+      a.controls.faultProtection.setValidators(Validators.required);
+      a.controls.faultProtection.updateValueAndValidity();
+
+      a.controls.limitedValue.clearValidators();
+      a.controls.limitedValue.setValue('');
+      a.controls.limitedValue.updateValueAndValidity();
+
+      a.controls.protectiveMeasure.clearValidators();
+      a.controls.protectiveMeasure.setValue('');
+      a.controls.protectiveMeasure.updateValueAndValidity();
+
+      a.controls.additionalMeasure.clearValidators();
+      a.controls.additionalMeasure.setValue('');
+      a.controls.additionalMeasure.updateValueAndValidity();
+
+      a.controls.additionalProtection.clearValidators();
+      a.controls.additionalProtection.setValue('');
+      a.controls.additionalProtection.updateValueAndValidity();
+
+      a.controls.faultProtectionDesc.clearValidators();
+      a.controls.faultProtectionDesc.setValue('');
+      a.controls.faultProtectionDesc.updateValueAndValidity();
+    }
+    else if(changedValue == 'Protective measures (Limitation of Voltage or current)') {
+      a.controls.limitedValue.setValidators(Validators.required);
+      a.controls.limitedValue.updateValueAndValidity();
+      a.controls.protectiveMeasure.setValidators(Validators.required);
+      a.controls.protectiveMeasure.updateValueAndValidity();
+      a.controls.additionalMeasure.setValidators(Validators.required);
+      a.controls.additionalMeasure.updateValueAndValidity();
+
+      a.controls.basicProtection.clearValidators();
+      a.controls.basicProtection.setValue('');
+      a.controls.basicProtection.updateValueAndValidity();
+
+      a.controls.faultProtection.clearValidators();
+      a.controls.faultProtection.setValue('');
+      a.controls.faultProtection.updateValueAndValidity();
+
+      a.controls.additionalProtection.clearValidators();
+      a.controls.additionalProtection.setValue('');
+      a.controls.additionalProtection.updateValueAndValidity();
+      
+      a.controls.faultProtectionDesc.clearValidators();
+      a.controls.faultProtectionDesc.setValue('');
+      a.controls.faultProtectionDesc.updateValueAndValidity();
+    }
+    else if(changedValue == 'Protective measures with Additional Protection') {
+      a.controls.additionalProtection.setValidators(Validators.required);
+      a.controls.additionalProtection.updateValueAndValidity();
+      a.controls.faultProtectionDesc.setValidators(Validators.required);
+      a.controls.faultProtectionDesc.updateValueAndValidity();
+
+      a.controls.limitedValue.clearValidators();
+      a.controls.limitedValue.setValue('');
+      a.controls.limitedValue.updateValueAndValidity();
+
+      a.controls.protectiveMeasure.clearValidators();
+      a.controls.protectiveMeasure.setValue('');
+      a.controls.protectiveMeasure.updateValueAndValidity();
+
+      a.controls.additionalMeasure.clearValidators();
+      a.controls.additionalMeasure.setValue('');
+      a.controls.additionalMeasure.updateValueAndValidity();
+
+      a.controls.basicProtection.clearValidators();
+      a.controls.basicProtection.setValue('');
+      a.controls.basicProtection.updateValueAndValidity();
+
+      a.controls.faultProtection.clearValidators();
+      a.controls.faultProtection.setValue('');
+      a.controls.faultProtection.updateValueAndValidity();
+    }
+
+  }
 
   reset(){
     this.addstep3.reset();

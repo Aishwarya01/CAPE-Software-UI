@@ -1520,49 +1520,91 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any,testing
     let incomingLoopImpedanceArray = [];
     let incomingFaultCurrentArray = [];
     let incomingActualLoadArray=[];
-    incomingVoltageArray = incomingVoltage.split(",");
-    incomingLoopImpedanceArray = incomingLoopImpedance.split(",");
-    incomingFaultCurrentArray = incomingFaultCurrent.split(",");
-    incomingActualLoadArray= incomingActualLoad.split(",");
-    let item = [];
-    item.push(incomingVoltageArray, incomingLoopImpedanceArray, incomingFaultCurrentArray,incomingActualLoadArray);
-    return new FormGroup({
-      incomingVoltage1: new FormControl({ disabled: false, value: item[0][0] }),
-      incomingVoltage2: new FormControl({ disabled: false, value: item[0][1] }),
-      incomingVoltage3: new FormControl({ disabled: false, value: item[0][2] }),
-      incomingVoltage4: new FormControl({ disabled: false, value: item[0][3] }),
-      incomingVoltage5: new FormControl({ disabled: false, value: item[0][4] }),
-      incomingVoltage6: new FormControl({ disabled: false, value: item[0][5] }),
-      incomingVoltage7: new FormControl({ disabled: false, value: item[0][6] }),
-      incomingVoltage8: new FormControl({ disabled: false, value: item[0][7] }),
-      incomingVoltage9: new FormControl({ disabled: false, value: item[0][8] }),
-
-      incomingZs1: new FormControl({ disabled: false, value: item[1][0] }),
-      incomingZs2: new FormControl({ disabled: false, value: item[1][1] }),
-      incomingZs3: new FormControl({ disabled: false, value: item[1][2] }),
-      incomingZs4: new FormControl({ disabled: false, value: item[1][3] }),
-      incomingZs5: new FormControl({ disabled: false, value: item[1][4] }),
-      incomingZs6: new FormControl({ disabled: false, value: item[1][5] }),
-      incomingZs7: new FormControl({ disabled: false, value: item[1][6] }),
-      incomingZs8: new FormControl({ disabled: false, value: item[1][7] }),
-      incomingZs9: new FormControl({ disabled: false, value: item[1][8] }),
-
-      incomingIpf1: new FormControl({ disabled: false, value: item[2][0] }),
-      incomingIpf2: new FormControl({ disabled: false, value: item[2][1] }),
-      incomingIpf3: new FormControl({ disabled: false, value: item[2][2] }),
-      incomingIpf4: new FormControl({ disabled: false, value: item[2][3] }),
-      incomingIpf5: new FormControl({ disabled: false, value: item[2][4] }),
-      incomingIpf6: new FormControl({ disabled: false, value: item[2][5] }),
-      incomingIpf7: new FormControl({ disabled: false, value: item[2][6] }),
-      incomingIpf8: new FormControl({ disabled: false, value: item[2][7] }),
-      incomingIpf9: new FormControl({ disabled: false, value: item[2][8] }),
-
-      actualLoadAl1: new FormControl({ disabled: false, value: item[3][0] }),
-      actualLoadAl2: new FormControl({ disabled: false, value: item[3][1] }),
-      actualLoadAl3: new FormControl({ disabled: false, value: item[3][2] }),
-      actualLoadAl4: new FormControl({ disabled: false, value: item[3][3] }),
-     
-    });
+    if(incomingVoltage != undefined && incomingLoopImpedance != undefined && incomingFaultCurrent != undefined && incomingActualLoad != undefined) {
+      incomingVoltageArray = incomingVoltage.split(",");
+      incomingLoopImpedanceArray = incomingLoopImpedance.split(",");
+      incomingFaultCurrentArray = incomingFaultCurrent.split(",");
+      incomingActualLoadArray= incomingActualLoad.split(",");
+      let item = [];
+      item.push(incomingVoltageArray, incomingLoopImpedanceArray, incomingFaultCurrentArray,incomingActualLoadArray);
+      return new FormGroup({
+        incomingVoltage1: new FormControl({ disabled: false, value: item[0][0] }),
+        incomingVoltage2: new FormControl({ disabled: false, value: item[0][1] }),
+        incomingVoltage3: new FormControl({ disabled: false, value: item[0][2] }),
+        incomingVoltage4: new FormControl({ disabled: false, value: item[0][3] }),
+        incomingVoltage5: new FormControl({ disabled: false, value: item[0][4] }),
+        incomingVoltage6: new FormControl({ disabled: false, value: item[0][5] }),
+        incomingVoltage7: new FormControl({ disabled: false, value: item[0][6] }),
+        incomingVoltage8: new FormControl({ disabled: false, value: item[0][7] }),
+        incomingVoltage9: new FormControl({ disabled: false, value: item[0][8] }),
+  
+        incomingZs1: new FormControl({ disabled: false, value: item[1][0] }),
+        incomingZs2: new FormControl({ disabled: false, value: item[1][1] }),
+        incomingZs3: new FormControl({ disabled: false, value: item[1][2] }),
+        incomingZs4: new FormControl({ disabled: false, value: item[1][3] }),
+        incomingZs5: new FormControl({ disabled: false, value: item[1][4] }),
+        incomingZs6: new FormControl({ disabled: false, value: item[1][5] }),
+        incomingZs7: new FormControl({ disabled: false, value: item[1][6] }),
+        incomingZs8: new FormControl({ disabled: false, value: item[1][7] }),
+        incomingZs9: new FormControl({ disabled: false, value: item[1][8] }),
+  
+        incomingIpf1: new FormControl({ disabled: false, value: item[2][0] }),
+        incomingIpf2: new FormControl({ disabled: false, value: item[2][1] }),
+        incomingIpf3: new FormControl({ disabled: false, value: item[2][2] }),
+        incomingIpf4: new FormControl({ disabled: false, value: item[2][3] }),
+        incomingIpf5: new FormControl({ disabled: false, value: item[2][4] }),
+        incomingIpf6: new FormControl({ disabled: false, value: item[2][5] }),
+        incomingIpf7: new FormControl({ disabled: false, value: item[2][6] }),
+        incomingIpf8: new FormControl({ disabled: false, value: item[2][7] }),
+        incomingIpf9: new FormControl({ disabled: false, value: item[2][8] }),
+  
+        actualLoadAl1: new FormControl({ disabled: false, value: item[3][0] }),
+        actualLoadAl2: new FormControl({ disabled: false, value: item[3][1] }),
+        actualLoadAl3: new FormControl({ disabled: false, value: item[3][2] }),
+        actualLoadAl4: new FormControl({ disabled: false, value: item[3][3] }),
+       
+      });
+    }
+    else {
+      return new FormGroup({
+        incomingVoltage1: new FormControl(''),
+        incomingVoltage2: new FormControl(''),
+        incomingVoltage3: new FormControl(''),
+        incomingVoltage4: new FormControl(''),
+        incomingVoltage5: new FormControl(''),
+        incomingVoltage6: new FormControl(''),
+        incomingVoltage7: new FormControl(''),
+        incomingVoltage8: new FormControl(''),
+        incomingVoltage9: new FormControl(''),
+  
+        incomingZs1: new FormControl(''),
+        incomingZs2: new FormControl(''),
+        incomingZs3: new FormControl(''),
+        incomingZs4: new FormControl(''),
+        incomingZs5: new FormControl(''),
+        incomingZs6: new FormControl(''),
+        incomingZs7: new FormControl(''),
+        incomingZs8: new FormControl(''),
+        incomingZs9: new FormControl(''),
+  
+        incomingIpf1: new FormControl(''),
+        incomingIpf2: new FormControl(''),
+        incomingIpf3: new FormControl(''),
+        incomingIpf4: new FormControl(''),
+        incomingIpf5: new FormControl(''),
+        incomingIpf6: new FormControl(''),
+        incomingIpf7: new FormControl(''),
+        incomingIpf8: new FormControl(''),
+        incomingIpf9: new FormControl(''),
+  
+        actualLoadAl1: new FormControl(''),
+        actualLoadAl2: new FormControl(''),
+        actualLoadAl3: new FormControl(''),
+        actualLoadAl4: new FormControl(''),
+       
+      });
+    }
+    
   }
   private populateTestRecordsForm(testRecordsItem: any,testDistRecordId: any,testingId: any) {
     let disconnectionTimeArr = [];
