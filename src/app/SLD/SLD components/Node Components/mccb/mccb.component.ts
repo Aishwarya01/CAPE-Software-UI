@@ -48,15 +48,15 @@ export class MCCBComponent implements OnInit {
       rating: ['', Validators.required],
       voltage: ['', Validators.required],
       noOfPoles: ['', Validators.required],
-      relayManufacturer: ['', Validators.required],
+      // relayManufacturer: ['', Validators.required],
       model: [''],
       overcurrent: ['', Validators.required],
       setTimes: ['', Validators.required],
       earthFault: ['', Validators.required],
       setTime: ['', Validators.required],
-      outgoingSizePhase: ['', Validators.required],
-      outgoingSizeNeutral: ['', Validators.required],
-      outgoingSizeProtective: ['', Validators.required],
+      // outgoingSizePhase: ['', Validators.required],
+      // outgoingSizeNeutral: ['', Validators.required],
+      // outgoingSizeProtective: ['', Validators.required],
       generalTestingMCCB: this.formBuilder.array([this.createGeneralTestingMCCB()]),
       safetyTestingMCCB: this.formBuilder.array([this.createSafetyTestingMCCB()]),
     });
@@ -194,9 +194,9 @@ export class MCCBComponent implements OnInit {
       bRRemarks: new FormControl('', Validators.required),
 
 
-      shockVoltage: new FormControl('', Validators.required),
-      floorResistance: new FormControl('', Validators.required),
-      wallResistance: new FormControl('', Validators.required),
+      // shockVoltage: new FormControl('', Validators.required),
+      // floorResistance: new FormControl('', Validators.required),
+      // wallResistance: new FormControl('', Validators.required),
     });
   }
 
@@ -236,16 +236,16 @@ export class MCCBComponent implements OnInit {
       this.mccb.manufacturerName = i.manufacturerName;
       this.mccb.rating = i.rating;
       this.mccb.voltage = i.voltage;
-      this.mccb.relayManufacturer= i.relayManufacturer;
+      // this.mccb.relayManufacturer= i.relayManufacturer;
       this.mccb.noOfPoles = i.noOfPoles;
       this.mccb.model = i.model;
       this.mccb.overcurrent = i.overcurrent;
       this.mccb.setTimes = i.setTimes;
       this.mccb.earthFault = i.earthFault;
       this.mccb.setTime = i.setTime;
-      this.mccb.outgoingSizePhase = i.outgoingSizePhase;
-      this.mccb.outgoingSizeNeutral = i.outgoingSizeNeutral;
-      this.mccb.outgoingSizeProtective =i.outgoingSizeProtective;
+      // this.mccb.outgoingSizePhase = i.outgoingSizePhase;
+      // this.mccb.outgoingSizeNeutral = i.outgoingSizeNeutral;
+      // this.mccb.outgoingSizeProtective =i.outgoingSizeProtective;
       this.mccb.createdBy = i.createdBy;
       this.mccb.createdDate = i.createdDate;
       this.mccb.updatedBy = i.updatedBy;
@@ -427,9 +427,9 @@ export class MCCBComponent implements OnInit {
       bRTime: new FormControl(bR[2], Validators.required),
       bRRemarks: new FormControl(bR[3], Validators.required),
 
-      shockVoltage: new FormControl(w.shockVoltage, Validators.required),
-      floorResistance: new FormControl(w.floorResistance, Validators.required),
-      wallResistance: new FormControl(w.wallResistance, Validators.required),
+      // shockVoltage: new FormControl(w.shockVoltage, Validators.required),
+      // floorResistance: new FormControl(w.floorResistance, Validators.required),
+      // wallResistance: new FormControl(w.wallResistance, Validators.required),
     });
   }
 

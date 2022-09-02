@@ -46,12 +46,12 @@ export class LightComponent implements OnInit {
       rating: ['', Validators.required],
       voltage: [''],
       type: ['', Validators.required],
-      incomingSizePhase: ['', Validators.required],
-      incomingSizeNeutral: ['', Validators.required],
-      incomingSizeProtective: ['', Validators.required],
-      incomingLengthPhase: ['', Validators.required],
-      incomingLengthNeutral: ['', Validators.required],
-      incomingLengthProtective: ['', Validators.required],
+      // incomingSizePhase: ['', Validators.required],
+      // incomingSizeNeutral: ['', Validators.required],
+      // incomingSizeProtective: ['', Validators.required],
+      // incomingLengthPhase: ['', Validators.required],
+      // incomingLengthNeutral: ['', Validators.required],
+      // incomingLengthProtective: ['', Validators.required],
       generalTestingLight: this.formBuilder.array([this.createGeneralTestingLight()]),
       safetyTestingLight: this.formBuilder.array([this.createSafetyTestingLight()]),
     });
@@ -116,9 +116,9 @@ export class LightComponent implements OnInit {
       nETime: new FormControl('', Validators.required),
       nERemarks: new FormControl('', Validators.required),
 
-      shockVoltage: new FormControl('', Validators.required),
-      floorResistance: new FormControl('', Validators.required),
-      wallResistance: new FormControl('', Validators.required),
+      // shockVoltage: new FormControl('', Validators.required),
+      // floorResistance: new FormControl('', Validators.required),
+      // wallResistance: new FormControl('', Validators.required),
     });
   }
 
@@ -139,12 +139,12 @@ export class LightComponent implements OnInit {
       this.light.currentRating = i.currentRating;
       this.light.voltage = i.voltage;
       this.light.type = i.type;
-      this.light.incomingSizePhase = i.incomingSizePhase;
-      this.light.incomingSizeNeutral = i.incomingSizeNeutral;
-      this.light.incomingSizeProtective = i.incomingSizeProtective;
-      this.light.incomingLengthPhase = i.incomingLengthPhase;
-      this.light.incomingLengthNeutral = i.incomingLengthNeutral;
-      this.light.incomingLengthProtective =i.incomingLengthProtective;
+      // this.light.incomingSizePhase = i.incomingSizePhase;
+      // this.light.incomingSizeNeutral = i.incomingSizeNeutral;
+      // this.light.incomingSizeProtective = i.incomingSizeProtective;
+      // this.light.incomingLengthPhase = i.incomingLengthPhase;
+      // this.light.incomingLengthNeutral = i.incomingLengthNeutral;
+      // this.light.incomingLengthProtective =i.incomingLengthProtective;
       this.light.createdBy = i.createdBy;
       this.light.createdDate = i.createdDate;
       this.light.updatedBy = i.updatedBy;
@@ -239,9 +239,9 @@ export class LightComponent implements OnInit {
       nETime: new FormControl(nE[2], Validators.required),
       nERemarks: new FormControl(nE[3], Validators.required),
 
-      shockVoltage: new FormControl(k.shockVoltage, Validators.required),
-      floorResistance: new FormControl(k.floorResistance, Validators.required),
-      wallResistance: new FormControl(k.wallResistance, Validators.required),
+      // shockVoltage: new FormControl(k.shockVoltage, Validators.required),
+      // floorResistance: new FormControl(k.floorResistance, Validators.required),
+      // wallResistance: new FormControl(k.wallResistance, Validators.required),
     });
   }
 

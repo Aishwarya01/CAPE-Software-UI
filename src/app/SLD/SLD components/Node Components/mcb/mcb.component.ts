@@ -43,9 +43,9 @@ export class MCBComponent implements OnInit {
       voltage: [''],
       noOfPoles: ['', Validators.required],
       currentCurve: ['', Validators.required],
-      outgoingSizePhase: ['', Validators.required],
-      outgoingSizeNeutral: ['', Validators.required],
-      outgoingSizeProtective: ['', Validators.required],
+      // outgoingSizePhase: ['', Validators.required],
+      // outgoingSizeNeutral: ['', Validators.required],
+      // outgoingSizeProtective: ['', Validators.required],
       generalTestingMCB: this.formBuilder.array([this.createGeneralTestingMCB()]),
       safetyTestingMCB: this.formBuilder.array([this.createSafetyTestingMCB()]),
     });
@@ -180,9 +180,9 @@ export class MCBComponent implements OnInit {
       bRRemarks: new FormControl('', Validators.required),
 
 
-      shockVoltage: new FormControl('', Validators.required),
-      floorResistance: new FormControl('', Validators.required),
-      wallResistance: new FormControl('', Validators.required),
+      // shockVoltage: new FormControl('', Validators.required),
+      // floorResistance: new FormControl('', Validators.required),
+      // wallResistance: new FormControl('', Validators.required),
     });
   }
 
@@ -223,9 +223,9 @@ export class MCBComponent implements OnInit {
       this.mcb.voltage = i.voltage;
       this.mcb.noOfPoles = i.noOfPoles;
       this.mcb.currentCurve = i.currentCurve;
-      this.mcb.outgoingSizePhase = i.outgoingSizePhase;
-      this.mcb.outgoingSizeNeutral = i.outgoingSizeNeutral;
-      this.mcb.outgoingSizeProtective =i.outgoingSizeProtective;
+      // this.mcb.outgoingSizePhase = i.outgoingSizePhase;
+      // this.mcb.outgoingSizeNeutral = i.outgoingSizeNeutral;
+      // this.mcb.outgoingSizeProtective =i.outgoingSizeProtective;
       this.mcb.createdBy = i.createdBy;
       this.mcb.createdDate = i.createdDate;
       this.mcb.updatedBy = i.updatedBy;
@@ -408,9 +408,9 @@ export class MCBComponent implements OnInit {
       bRTime: new FormControl(bR[2], Validators.required),
       bRRemarks: new FormControl(bR[3], Validators.required),
 
-      shockVoltage: new FormControl(k.shockVoltage, Validators.required),
-      floorResistance: new FormControl(k.floorResistance, Validators.required),
-      wallResistance: new FormControl(k.wallResistance, Validators.required),
+      // shockVoltage: new FormControl(k.shockVoltage, Validators.required),
+      // floorResistance: new FormControl(k.floorResistance, Validators.required),
+      // wallResistance: new FormControl(k.wallResistance, Validators.required),
     });
   }
 

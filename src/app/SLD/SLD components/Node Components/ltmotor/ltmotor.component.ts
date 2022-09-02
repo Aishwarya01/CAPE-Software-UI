@@ -51,12 +51,12 @@ export class LTMotorComponent implements OnInit {
       voltage: ['', Validators.required],
       noOfPhase: [''],
       model: ['', Validators.required],
-      incomingSizePhase: ['', Validators.required],
-      incomingSizeNeutral: ['', Validators.required],
-      incomingSizeProtective: ['', Validators.required],
-      incomingLengthPhase: ['', Validators.required],
-      incomingLengthNeutral: ['', Validators.required],
-      incomingLengthProtective: ['', Validators.required],
+      // incomingSizePhase: ['', Validators.required],
+      // incomingSizeNeutral: ['', Validators.required],
+      // incomingSizeProtective: ['', Validators.required],
+      // incomingLengthPhase: ['', Validators.required],
+      // incomingLengthNeutral: ['', Validators.required],
+      // incomingLengthProtective: ['', Validators.required],
       generalTestingLTMotor: this.formBuilder.array([this.createGeneralTestingLTMotor()]),
       safetyTestingLTMotor: this.formBuilder.array([this.createSafetyTestingLTMotor()]),
     });
@@ -190,9 +190,9 @@ export class LTMotorComponent implements OnInit {
       bRRemarks: new FormControl('', Validators.required),
 
 
-      shockVoltage: new FormControl('', Validators.required),
-      floorResistance: new FormControl('', Validators.required),
-      wallResistance: new FormControl('', Validators.required),
+      // shockVoltage: new FormControl('', Validators.required),
+      // floorResistance: new FormControl('', Validators.required),
+      // wallResistance: new FormControl('', Validators.required),
     });
   }
 
@@ -232,12 +232,12 @@ export class LTMotorComponent implements OnInit {
       this.ltMotor.voltage = i.voltage;
       this.ltMotor.noOfPhase = i.noOfPhase;
       this.ltMotor.model = i.model;
-      this.ltMotor.incomingSizePhase = i.incomingSizePhase;
-      this.ltMotor.incomingSizeNeutral = i.incomingSizeNeutral;
-      this.ltMotor.incomingSizeProtective = i.incomingSizeProtective;
-      this.ltMotor.incomingLengthPhase = i.incomingLengthPhase;
-      this.ltMotor.incomingLengthNeutral = i.incomingLengthNeutral;
-      this.ltMotor.incomingLengthProtective = i.incomingLengthProtective;
+      // this.ltMotor.incomingSizePhase = i.incomingSizePhase;
+      // this.ltMotor.incomingSizeNeutral = i.incomingSizeNeutral;
+      // this.ltMotor.incomingSizeProtective = i.incomingSizeProtective;
+      // this.ltMotor.incomingLengthPhase = i.incomingLengthPhase;
+      // this.ltMotor.incomingLengthNeutral = i.incomingLengthNeutral;
+      // this.ltMotor.incomingLengthProtective = i.incomingLengthProtective;
       this.ltMotor.createdBy = i.createdBy;
       this.ltMotor.createdDate = i.createdDate;
       this.ltMotor.updatedBy = i.updatedBy;
@@ -419,9 +419,9 @@ export class LTMotorComponent implements OnInit {
       bRTime: new FormControl(bR[2], Validators.required),
       bRRemarks: new FormControl(bR[3], Validators.required),
 
-      shockVoltage: new FormControl(w.shockVoltage, Validators.required),
-      floorResistance: new FormControl(w.floorResistance, Validators.required),
-      wallResistance: new FormControl(w.wallResistance, Validators.required),
+      // shockVoltage: new FormControl(w.shockVoltage, Validators.required),
+      // floorResistance: new FormControl(w.floorResistance, Validators.required),
+      // wallResistance: new FormControl(w.wallResistance, Validators.required),
     });
   }
   get j() {

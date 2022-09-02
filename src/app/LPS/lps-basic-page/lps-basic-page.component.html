@@ -26,7 +26,7 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter clientname"
-                            [readonly]="isEditable" formControlName="clientName" [readonly]="isEditable"
+                            [readonly]="isEditable1" formControlName="clientName"
                             [ngClass]="{ 'is-invalid': submitted && f.get('clientName')?.errors }"/>
                         <div *ngIf="submitted && f.get('clientName')?.errors" class="invalid-feedback">
                                 <div *ngIf="f.get('clientName')?.errors?.required">ClientName is required</div>
@@ -42,11 +42,19 @@
                                 <i class="bi bi-journal-plus"></i>
                             </span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Enter project name"
-                            [readonly]="isEditable" formControlName="projectName" [ngClass]="{ 'is-invalid': submitted && f.get('projectName')?.errors }"/>
+                        <input type="text" class="form-control" placeholder="Enter project name" (change)="projectValidation($event,f)"
+                            [readonly]="isEditable1" formControlName="projectName" [ngClass]="{ 'is-invalid': submitted && f.get('projectName')?.errors }"/>
                             <div *ngIf="submitted && f.get('projectName')?.errors" class="invalid-feedback">
                                 <div *ngIf="f.get('projectName')?.errors?.required">ProjectName is required</div>
-                        </div>
+                            </div>
+
+                            <div *ngIf="projectNameError" class="invalid-feedback">
+                                <div>{{projectNameMsg}}</div>
+                            </div>
+                            
+                            <div *ngIf="projectNameSuccess" class="invalid-feedback">
+                                <div style="color: #11a807;">{{projectNameMsg1}}</div>
+                            </div>
                     </div>
                 </div>
 

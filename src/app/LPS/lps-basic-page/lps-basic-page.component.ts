@@ -50,6 +50,11 @@ export class LpsBasicPageComponent implements OnInit {
   popup: boolean = false;
   onSave: any;
   email: any;
+  projectNameMsg: string="";
+  projectNameError: boolean=false;
+  projectNameSuccess: boolean=false;
+  projectNameMsg1: string="";
+  isEditable1: boolean=false;
   // License Purpose
   // currentUserName: String='';
   // currentUsermail: String='';
@@ -165,7 +170,7 @@ export class LpsBasicPageComponent implements OnInit {
       this.LPSBasicForm = this.formBuilder.group({
         lpsBasic: this.formBuilder.array([this.createGroup(this.step1List)])
       });
-
+      this.isEditable1=true;
     }
 
     reset(){
@@ -244,30 +249,31 @@ export class LpsBasicPageComponent implements OnInit {
   }
 
   gotoNextModal(content: any,contents: any) {
-     if (this.LPSBasicForm.invalid) {
-       this.validationError = true;
-       this.validationErrorMsg = 'Please check all the fields';
-       setTimeout(() => {
-        this.validationError = false;
-       }, 3000);
-       return;
-     }
-     
-    //  Update and Success msg will be showing
-     if(this.LPSBasicForm.dirty && this.LPSBasicForm.touched){
-      this.modalService.open(content, { centered: true,backdrop: 'static' });
-     }
-    //  For Dirty popup
-     else{
-      this.modalService.open(contents, { centered: true,backdrop: 'static' });
-     }
+    if(!this.projectNameError){
+      if (this.LPSBasicForm.invalid) {
+        this.validationError = true;
+        this.validationErrorMsg = 'Please check all the fields';
+        setTimeout(() => {
+         this.validationError = false;
+        }, 3000);
+        return;
+      }
       
+     //  Update and Success msg will be showing
+      if(this.LPSBasicForm.dirty && this.LPSBasicForm.touched){
+       this.modalService.open(content, { centered: true,backdrop: 'static' });
+      }
+     //  For Dirty popup
+      else{
+       this.modalService.open(contents, { centered: true,backdrop: 'static' });
+      }
+    }
   }
  
   onSubmit(flag: any) {
     this.submitted=true;
     
-     if (this.LPSBasicForm.invalid) {
+     if (this.LPSBasicForm.invalid || this.projectNameError) {
        return;
      }
       this.spinner = true;
@@ -476,6 +482,32 @@ export class LpsBasicPageComponent implements OnInit {
       this.service.isCompleted = true;
       this.service.isLinear = false;
       this.service.editable = true;
+    }
+  }
+
+  projectValidation(event:any,form:any){
+    var a=event.target.value;
+
+    if(form.controls.clientName.value!=undefined && form.controls.projectName.value!=undefined && form.controls.clientName.value!=null && form.controls.projectName.value!=null && form.controls.clientName.value!="" && form.controls.projectName.value!=""){
+
+      this.lPSBasicDetailsService.validateProjectName(form.controls.clientName.value,form.controls.projectName.value).subscribe(
+        // this.lPSBasicDetailsService.validateProjectName(this.basicDetails.clientName,this.basicDetails.projectName).subscribe(
+        data =>{
+          var b=form.controls.projectName.value;
+          if(data != ''){
+            this.projectNameMsg="Project Name is already existing, Please give different Project Name";
+            this.projectNameMsg1="";
+            this.projectNameError=true;
+          }else {
+            this.projectNameMsg1="You can continue with this Project Name";
+            this.projectNameMsg="";
+            this.projectNameSuccess=true;
+            this.projectNameError=false;
+            setTimeout(() => {
+              this.projectNameSuccess=false;
+            }, 3000);
+          }
+      })
     }
   }
 }
