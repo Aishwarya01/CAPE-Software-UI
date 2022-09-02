@@ -78,7 +78,7 @@
                    </td>
        
                    <td> 
-                    <input type="text" formControlName="conductorLength" [(ngModel)]="protectiveEarthConductor.conductorLength"
+                    <input type="number" formControlName="conductorLength" [(ngModel)]="protectiveEarthConductor.conductorLength"
                       [ngClass]="{ 'is-invalid': submittedPEC && a.conductorLength?.errors }"
                       (focusout)="onFocusOut($event,a)">
                     <div *ngIf="submittedPEC && a.conductorLength?.errors" class="invalid-feedback">
@@ -87,7 +87,7 @@
                   </td>
                   <td>
                     <input type="text" formControlName="conductorResistance" [(ngModel)]="protectiveEarthConductor.conductorResistance"
-                      [ngClass]="{ 'is-invalid': submittedPEC && a.conductorResistance?.errors }">
+                      [ngClass]="{ 'is-invalid': submittedPEC && a.conductorResistance?.errors }" (focusout)="onFocusOutResistance($event,a)">
                     <div *ngIf="submittedPEC && a.conductorResistance?.errors" class="invalid-feedback">
                       <div *ngIf="a.conductorResistance?.errors?.required">Size is required</div>
                     </div>

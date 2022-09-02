@@ -106,7 +106,7 @@ export class ProtectiveEarthConductorComponent implements OnInit {
     && this.a.conductorLength.value!=undefined && this.a.conductorLength.value!='NA')
     {
         for(let i=0; i<this.nominalCrossSection.length; i++) {
-         // this.a.conductorLength.setValue((this.a.conductorLength.value).toFixed(1));
+          this.a.conductorLength.setValue(Number(this.a.conductorLength.value).toFixed(1));          
           if(this.nominalCrossSection[i] == this.a.size.value) {
             this.a.maxResistance.setValue(this.a.conductorLength.value*this.specificConductor[i]);
             this.a.maxResistance.setValue((this.a.maxResistance.value).toFixed(3));	
@@ -126,7 +126,13 @@ export class ProtectiveEarthConductorComponent implements OnInit {
         this.a.sizeFlag.setValue(false);  
        }
     }
-  
+
+    onFocusOutResistance(e: any,a: any) {
+    //  if(this.a.conductorResistance.value!='' && this.a.conductorResistance.value!=undefined && this.a.conductorResistance.value!='NA')
+   // {
+       this.a.conductorResistance.setValue(Number(this.a.conductorResistance.value).toFixed(3));          
+      // }
+    }
   onChangeForm(event:any){
     if(!this.protectiveEarthConductorForm.invalid){
       if(this.protectiveEarthConductorForm.dirty){
