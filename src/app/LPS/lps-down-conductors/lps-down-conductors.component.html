@@ -57,7 +57,7 @@
                                             <th>Sl.No</th>
                                             <th>Description</th>
                                             <th>Observation</th>
-                                            <th>Remarks(Optional)</th>
+                                            <th>Remarks</th>
                                         </thead>
                                         <tbody>
                                             <tr>
@@ -328,7 +328,7 @@
                             <table class="table TableBorder">
                                 <thead>
                                     <th>Availability of Down Conductors</th>
-                                    <th>Remarks(Optional)</th>
+                                    <th>Remarks</th>
                                 </thead>
                                 <tbody>
                                     <tr>
@@ -337,7 +337,7 @@
                                             [ngClass]="{ 'is-invalid': submitted && q.get('downConductorAvailabilityOb')?.errors }" style="height: 3rem;" >
                                                 <option value="" selected>Select Option</option>
                                                 <option value="Applicable">Applicable </option>
-                                                <option value="Not applicable in case of natural down conductors">Not Applicable in case of natural down conductors</option>
+                                                <option value="Not applicable in case of natural down conductors">Not applicable in case of natural down conductors</option>
                                             </select>
                                             <div *ngIf="submitted && q.get('downConductorAvailabilityOb')?.errors" class="invalid-feedback">
                                                 <div *ngIf="q.get('downConductorAvailabilityOb')?.errors?.required">Please select the field</div>
@@ -364,7 +364,7 @@
                                     <th>Sl.No</th>
                                     <th>Description</th>
                                     <th>Observation</th>
-                                    <th>Remarks(Optional)</th>
+                                    <th>Remarks</th>
                                 </thead> 
                                 <tbody [formGroupName]="l">                                        
                                         <tr *ngIf="q.get('downConductorAvailabilityOb')?.value == 'Applicable'">
@@ -1129,7 +1129,7 @@
                             <table class="table TableBorder">
                                 <thead>
                                     <th>Availability of Bridging Cables</th>
-                                    <th>Remarks(Optional)</th>
+                                    <th>Remarks</th>
                                 </thead>
                                 <tbody>
                                     <tr>
@@ -1138,7 +1138,7 @@
                                             [ngClass]="{ 'is-invalid': submitted && q.get('bridgingDescriptionAvailabilityOb')?.errors }" style="height: 3rem;">
                                                 <option value="" selected>Select Option</option>
                                                 <option value="Applicable">Applicable </option>
-                                                <option value="Not applicable">Not Applicable</option>
+                                                <option value="Not applicable">Not applicable</option>
                                             </select>
                                             <div *ngIf="submitted && q.get('bridgingDescriptionAvailabilityOb')?.errors" class="invalid-feedback">
                                                 <div *ngIf="q.get('bridgingDescriptionAvailabilityOb')?.errors?.required">Please select the field</div>
@@ -1164,7 +1164,7 @@
                                             <th>Sl.No</th>
                                             <th>Description</th>
                                             <th>Observation</th>
-                                            <th>Remarks(Optional)</th>
+                                            <th>Remarks</th>
                                         </thead>
                                         <tr>
                                             <td style="width: 1rem; text-align: center;">8(a)</td>
@@ -1487,7 +1487,7 @@
                             <table class="table TableBorder">
                                 <thead>
                                     <th>Availability of Holders</th>
-                                    <th>Remarks(Optional)</th>
+                                    <th>Remarks</th>
                                 </thead>
                                 <tbody>
                                     <tr>
@@ -1496,7 +1496,7 @@
                                             [ngClass]="{ 'is-invalid': submitted && q.get('holderAvailabilityOb')?.errors }" style="height: 3rem;" [attr.disabled]="isEditable ? '' : null">
                                                 <option value="" selected>Select Option</option>
                                                 <option value="Applicable">Applicable </option>
-                                                <option value="Not applicable">Not Applicable</option>
+                                                <option value="Not applicable">Not applicable</option>
                                             </select>
                                             <div *ngIf="submitted && q.get('holderAvailabilityOb')?.errors" class="invalid-feedback">
                                                 <div *ngIf="q.get('holderAvailabilityOb')?.errors?.required">Please select the field</div>
@@ -1521,7 +1521,7 @@
                                             <th>Sl.No</th>
                                             <th>Description</th>
                                             <th>Observation</th>
-                                            <th>Remarks(Optional)</th>
+                                            <th>Remarks</th>
                                         </thead>
                                         <tr>
                                             <td style="width: 1rem; text-align: center;">9(a)</td>
@@ -1844,7 +1844,7 @@
                             <table class="table TableBorder">
                                 <thead>
                                     <th>Availability of Connectors</th>
-                                    <th>Remarks(Optional)</th>
+                                    <th>Remarks</th>
                                 </thead>
                                 <tbody>
                                     <tr>
@@ -1853,7 +1853,7 @@
                                             [ngClass]="{ 'is-invalid': submitted && q.get('connectorsAvailabilityOb')?.errors }" style="height: 3rem;">
                                                 <option value="" selected>Select Option</option>
                                                 <option value="Applicable">Applicable </option>
-                                                <option value="Not applicable">Not Applicable</option>
+                                                <option value="Not applicable">Not applicable</option>
                                             </select>
                                             <div *ngIf="submitted && q.get('connectorsAvailabilityOb')?.errors" class="invalid-feedback">
                                                 <div *ngIf="q.get('connectorsAvailabilityOb')?.errors?.required">Please select the field</div>
@@ -1878,7 +1878,7 @@
                                             <th>Sl.No</th>
                                             <th>Description</th>
                                             <th>Observation</th>
-                                            <th>Remarks(Optional)</th>
+                                            <th>Remarks</th>
                                         </thead>
                                         <tr>
                                             <td style="width: 1rem; text-align: center;">10(a)</td>
@@ -2169,7 +2169,7 @@
                             <table class="table TableBorder">
                                 <thead>
                                     <th>Availability of Lightning Counter</th>
-                                    <th>Remarks(Optional)</th>
+                                    <th>Remarks</th>
                                 </thead>
                                 <tbody>
                                     <tr>
@@ -2178,7 +2178,7 @@
                                             [ngClass]="{ 'is-invalid': submitted && q.get('lightningCounterAvailabilityOb')?.errors }" style="height: 3rem;">
                                                 <option value="" selected>Select Option</option>
                                                 <option value="Available">Available </option>
-                                                <option value="Not available">Not Available</option>
+                                                <option value="Not available">Not available</option>
                                             </select>
                                             <div *ngIf="submitted && q.get('lightningCounterAvailabilityOb')?.errors" class="invalid-feedback">
                                                 <div *ngIf="q.get('lightningCounterAvailabilityOb')?.errors?.required">Please select the field</div>
@@ -2204,7 +2204,7 @@
                                             <th>Sl.No</th>
                                             <th>Description</th>
                                             <th>Observation</th>
-                                            <th>Remarks(Optional)</th>
+                                            <th>Remarks</th>
                                         </thead>
                                         <tr>
                                             <td style="width: 1rem; text-align: center;">11(a)</td>
@@ -2580,7 +2580,7 @@
                             <table class="table TableBorder">
                                 <thead>
                                     <th>Availability of Test Joints</th>
-                                    <th>Remarks(Optional)</th>
+                                    <th>Remarks</th>
                                 </thead>
                                 <tbody>
                                     <tr>
@@ -2589,7 +2589,7 @@
                                             [ngClass]="{ 'is-invalid': submitted && q.get('testingJointAvailabilityOb')?.errors }" style="height: 3rem;">
                                                 <option value="" selected>Select Option</option>
                                                 <option value="Available">Available </option>
-                                                <option value="Not available">Not Available</option>
+                                                <option value="Not available">Not available</option>
                                             </select>
                                             <div *ngIf="submitted && q.get('testingJointAvailabilityOb')?.errors" class="invalid-feedback">
                                                 <div *ngIf="q.get('testingJointAvailabilityOb')?.errors?.required">Please select the field</div>
@@ -2616,7 +2616,7 @@
                                             <th>Sl.No</th>
                                             <th>Description</th>
                                             <th>Observation</th>
-                                            <th>Remarks(Optional)</th>
+                                            <th>Remarks</th>
                                         </thead>
                                         <tr>
                                             <td style="text-align: center; width: 1rem;">12(a)</td>
@@ -3004,7 +3004,7 @@
                             <table class="table TableBorder">
                                 <thead>
                                     <th>Availability of Testing of down conductors</th>
-                                    <th>Remarks(Optional)</th>
+                                    <th>Remarks</th>
                                 </thead>
                                 <tbody>
                                     <tr>
@@ -3012,8 +3012,8 @@
                                             <select class="form-control" (change)="onChangeDownConductorTesting($event,q)"  formControlName="downConductorTestingAvailabilityOb" [attr.disabled]="isEditable ? '' : null"
                                             [ngClass]="{ 'is-invalid': submitted && q.get('downConductorTestingAvailabilityOb')?.errors }" style="height: 3rem;">
                                                 <option value="" selected>Select Option</option>
-                                                <option value="In Scope">In Scope </option>
-                                                <option value="Not in Scope">Not in Scope</option>
+                                                <option value="In scope">In scope </option>
+                                                <option value="Not in scope">Not in scope</option>
                                             </select>
                                             <div *ngIf="submitted && q.get('downConductorTestingAvailabilityOb')?.errors" class="invalid-feedback">
                                                 <div *ngIf="q.get('downConductorTestingAvailabilityOb')?.errors?.required">Please select the field</div>
@@ -3027,15 +3027,15 @@
                                 </tbody>
                             </table>
                         </div>                                                                              
-                        <div style="margin-top: 10px;" *ngIf="q.get('downConductorTestingAvailabilityOb')?.value != 'In Scope'"><b>Note:</b> &nbsp; Select In Scope if you intend to fill details for Testing of earth electrodes</div>
-                        <h2 *ngIf="q.get('downConductorTestingAvailabilityOb')?.value === 'In Scope'"><u>Testing of earth electrodes:</u></h2>
+                        <div style="margin-top: 10px;" *ngIf="q.get('downConductorTestingAvailabilityOb')?.value != 'In scope'"><b>Note:</b> &nbsp; Select In scope if you intend to fill details for Testing of earth electrodes</div>
+                        <h2 *ngIf="q.get('downConductorTestingAvailabilityOb')?.value === 'In scope'"><u>Testing of earth electrodes:</u></h2>
                         <br>
-                        <div class="row" *ngIf="q.get('downConductorTestingAvailabilityOb')?.value === 'In Scope'">
+                        <div class="row" *ngIf="q.get('downConductorTestingAvailabilityOb')?.value === 'In scope'">
                             <div class="col-md-6">
                                 <label>13(a). Down conductors resistance value (Table heading)</label>
                             </div>
                         </div>
-                        <div class="row" style="margin-top: 10px;" *ngIf="q.get('downConductorTestingAvailabilityOb')?.value === 'In Scope'">
+                        <div class="row" style="margin-top: 10px;" *ngIf="q.get('downConductorTestingAvailabilityOb')?.value === 'In scope'">
                             <div class="col-sm-12">
                             <div class="table-responsive" style="overflow-x: unset;">
                                 <table class="table TableBorder">
@@ -3044,7 +3044,7 @@
                                                 <th style="width: 7rem;">SI.No</th>
                                                 <th style="width: 27.5rem;">Reference</th>
                                                 <th style="width: 14.5rem;">Length in m</th>
-                                                <th style="width: 15rem;">Resistance in mΩ</th>
+                                                <th style="width: 15rem;">Resistance in Ω</th>
                                                 <th style="width: 35rem;">Remarks</th>
                                             </thead>
                                             <!-- <div formArrayName="downConductorTesting" *ngFor="let a of downConductorTestingControls(q); let i = index">
@@ -3109,7 +3109,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                    <input onwheel="this.blur()" class="form-control" (keypress)="keyPressNumbers1($event)" (change)="decimalConversion3($event,a)" formControlName="resistance" placeholder="Resistance in mΩ"
+                                                    <input onwheel="this.blur()" class="form-control" (keypress)="keyPressNumbers1($event)" (change)="decimalConversion3($event,a)" formControlName="resistance" placeholder="Resistance in Ω"
                                                     [readonly]="isEditable" (keyup)="populateDownConductorTesting($event,a)" [ngClass]="{ 'is-invalid': submitted && a.get('resistance')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('resistance')?.errors"
                                                         class="invalid-feedback">
@@ -3127,7 +3127,7 @@
                                                             </span>
                                                         </div>
                                                     <textarea type="text" class="form-control" formControlName="remarks" placeholder="Remarks" 
-                                                    [readonly]="isEditable || a.get('remarks')?.value === 'As per latest standard IS/IEC 62305 the value should be less than 0.2Ω'" [ngClass]="{ 'is-invalid': submitted && a.get('remarks')?.errors}"></textarea>
+                                                    readonly [ngClass]="{ 'is-invalid': submitted && a.get('remarks')?.errors}"></textarea>
                                                     <div *ngIf="submitted && a.get('remarks')?.errors"
                                                         class="invalid-feedback">
                                                         <div *ngIf="a.get('remarks')?.errors?.required">

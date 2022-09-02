@@ -62,7 +62,7 @@ export class ClientupdateComponent implements OnInit {
           this.dialog.closeAll();
         },3000);
       },error=>{
-        console.log(error);
+        //console.log(error);
         this.ErrorMsg=error;
       })
   }

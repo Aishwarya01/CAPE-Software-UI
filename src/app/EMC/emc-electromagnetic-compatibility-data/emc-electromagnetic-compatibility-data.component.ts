@@ -257,7 +257,7 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
   populateData(value: any) {
     this.arr2 = [];
     for (let item of value) {
-      console.log(item.exter)
+      //console.log(item.exter)
       this.arr2.push(this.createGroup(item));
     }
   }

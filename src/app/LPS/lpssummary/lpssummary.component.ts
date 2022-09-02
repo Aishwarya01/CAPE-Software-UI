@@ -2510,6 +2510,7 @@ SignatureDesigner1(){
       earthingData.earthingLpsDescription[index].earthElectrodeTesting !=null && earthingData.earthingLpsDescription[index].earthElectrodeTesting.length !=0){
       for(let i=0;i<earthingData.earthingLpsDescription[index].earthElectrodeTesting.length; i++){
         for (let value of this.earthElectrodeTestingName) {
+          if( earthingData.earthingLpsDescription[index].earthElectrodeTesting[i][value]!= null && earthingData.earthingLpsDescription[index].earthElectrodeTesting[i][value].trim().length != 0){
           let earthingValue = earthingData.earthingLpsDescription[index].earthElectrodeTesting[i][value];
           let earthElectrodeTesting = summaryform.earthElectrodeTesting as FormArray;
           let earthDescriptionListId = earthingData.earthingLpsDescription[index].earthElectrodeTesting[i].earthingElectrodeTestingId;
@@ -2543,9 +2544,8 @@ SignatureDesigner1(){
           summaryObservation.remarksId = earthDescriptionListId;
           earthElectrodeTesting.push( this.populateForm(summaryObservation));
           earthElectrodeTestingserialNo = earthElectrodeTestingserialNo + 1;
-          
-          
-        }
+        } 
+      }
       }
     }
   }
@@ -4315,24 +4315,27 @@ SignatureDesigner1(){
         && this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingSystem!=null){
         for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthingSystem){
           for(let j = 0; j < this.earthingSystemName.length; j++){
-          this.earthingSystemArr.push(this.createEarthingSystem());
-          this.earthingSystemArr.controls[0].controls.heading.setValue('EarthingSystem Observation');
+            if( i[this.earthingSystemName[j]]!= null && i[this.earthingSystemName[j]].trim().length != 0){
+              this.earthingSystemArr.push(this.createEarthingSystem());
+              this.earthingSystemArr.controls[0].controls.heading.setValue('EarthingSystem Observation');
+              
+                if(i[this.earthingSystemName[j]]!="" && i[this.earthingSystemName[j]]!= null && earthingSystemFlag){
+                  this.earthingSystemArr.controls[index4].controls.headingUi.setValue('EarthingSystem Observation');
+                  earthingSystemFlag = false;
+                }
+                if(i[this.earthingSystemName[j]]!="" && i[this.earthingSystemName[j]]!= null){
+                  this.earthingSystemArr.controls[index4].controls.serialNoUi.setValue(earthingSystemserialNo);
+                  earthingSystemserialNo = earthingSystemserialNo + 1;
+                  this.earthingFlag[w] = true;
+                }
+                this.earthingSystemArr.controls[index4].controls.observation.setValue(i[this.earthingSystemName[j]]);
+                this.earthingSystemArr.controls[index4].controls.remarksId.setValue(i.earthingSystemId);
+                this.earthingSystemArr.controls[index4].controls.observationComponentDetails.setValue('earthingSystem' + index4);
+                this.earthingSystemArr.controls[index4].controls.serialNo.setValue(index4+1); 
+                this.earthingSystemArr.controls[index4].controls.remarksName.setValue(this.earthingSystemName[j]);
+                index4++; 
+            }
           
-            if(i[this.earthingSystemName[j]]!="" && i[this.earthingSystemName[j]]!= null && earthingSystemFlag){
-              this.earthingSystemArr.controls[index4].controls.headingUi.setValue('EarthingSystem Observation');
-              earthingSystemFlag = false;
-            }
-            if(i[this.earthingSystemName[j]]!="" && i[this.earthingSystemName[j]]!= null){
-              this.earthingSystemArr.controls[index4].controls.serialNoUi.setValue(earthingSystemserialNo);
-              earthingSystemserialNo = earthingSystemserialNo + 1;
-              this.earthingFlag[w] = true;
-            }
-            this.earthingSystemArr.controls[index4].controls.observation.setValue(i[this.earthingSystemName[j]]);
-            this.earthingSystemArr.controls[index4].controls.remarksId.setValue(i.earthingSystemId);
-            this.earthingSystemArr.controls[index4].controls.observationComponentDetails.setValue('earthingSystem' + index4);
-            this.earthingSystemArr.controls[index4].controls.serialNo.setValue(index4+1); 
-            this.earthingSystemArr.controls[index4].controls.remarksName.setValue(this.earthingSystemName[j]);
-            index4++; 
           }
         }
       }
@@ -4351,10 +4354,10 @@ SignatureDesigner1(){
         && this.earthingData.earthingReport[0].earthingLpsDescription[w].earthElectrodeTesting!=null){
 
         for(let j = 0; j < this.earthElectrodeTestingName.length; j++){ 
-          this.earthElectrodeTestingArr.push(this.createEarthElectrodeTesting());
   
             for(let i of this.earthingData.earthingReport[0].earthingLpsDescription[w].earthElectrodeTesting){
-  
+              if( i[this.earthingSystemName[j]]!= null && i[this.earthingSystemName[j]].trim().length != 0){
+                this.earthElectrodeTestingArr.push(this.createEarthElectrodeTesting());
             if(i[this.earthElectrodeTestingName[j]]!="" && i[this.earthElectrodeTestingName[j]]!= null && earthElectodeTestingFlag){
               this.earthElectrodeTestingArr.controls[index5].controls.headingUi.setValue('EarthElectrodeTesting Observation');
               earthElectodeTestingFlag = false;
@@ -4372,7 +4375,8 @@ SignatureDesigner1(){
             this.earthElectrodeTestingArr.controls[index5].controls.observationComponentDetails.setValue('earthElectrodeTesting' + index5);
             this.earthElectrodeTestingArr.controls[index5].controls.serialNo.setValue(index5+1); 
             this.earthElectrodeTestingArr.controls[index5].controls.remarksName.setValue(this.earthElectrodeTestingName[j]);
-            index5++;      
+            index5++; 
+        }     
         }
       }
       

@@ -183,7 +183,7 @@ export class AssignViewerComponent implements OnInit {
       if(!a.get('siteName')?.errors?.minlength) {
         this.siteService.retrieveSiteName(companyName,departmentName,siteName).subscribe(
           data => {
-            debugger
+            
             if(data != '') {
               this.existSite = true;
             }
@@ -211,7 +211,7 @@ export class AssignViewerComponent implements OnInit {
       if(!a.get('siteName')?.errors?.minlength) {
         this.siteService.retrieveSiteName(companyName,departmentName,siteName).subscribe(
           data => {
-            debugger
+            
             if(data != '') {
               this.existSite = true;
             }
@@ -239,7 +239,7 @@ export class AssignViewerComponent implements OnInit {
       if(!a.get('siteName')?.errors?.minlength) {
         this.siteService.retrieveSiteName(companyName,departmentName,siteName).subscribe(
           data => {
-            debugger
+            
             if(data != '') {
               this.existSite = true;
             }
@@ -453,10 +453,10 @@ createNewGroup(item: any): FormGroup{
 //     this.modalService.dismissAll(id);
 // }
   onItemSelect(item: any) {
-    console.log(item);
+    //console.log(item);
   }
   onSelectAll(items: any) {
-    console.log(items);
+    //console.log(items);
   }
   get f() : any{
     return this.viewerRegisterForm.controls;

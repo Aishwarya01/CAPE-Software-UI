@@ -124,6 +124,8 @@ import { TransformerComponent } from './SLD/SLD components/Node Components/trans
 import { DGComponent } from './SLD/SLD components/Node Components/dg/dg.component';
 import { SwitchBoardsComponent } from './SLD/SLD components/Node Components/switch-boards/switch-boards.component';
 import { ACBComponent } from './SLD/SLD components/Node Components/acb/acb.component';
+import { EquipotentialBondingComponent } from './SLD/SLD components/Node Components/equipotential-bonding/equipotential-bonding.component';
+import { ProtectiveEarthConductorComponent } from './SLD/SLD components/Node Components/protective-earth-conductor/protective-earth-conductor.component';
 
 @NgModule({
   declarations: [
@@ -212,6 +214,8 @@ import { ACBComponent } from './SLD/SLD components/Node Components/acb/acb.compo
     DGComponent,
     SwitchBoardsComponent,
     ACBComponent,
+    EquipotentialBondingComponent,
+    ProtectiveEarthConductorComponent,
 
   ],
   imports: [

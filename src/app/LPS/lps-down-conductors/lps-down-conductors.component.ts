@@ -1020,7 +1020,7 @@ keyPressNumbers1(event: any) {
         reference: new FormControl({disabled: false, value: item.reference}, Validators.required),
         length: new FormControl({disabled: false, value: item.length}, Validators.required),
         resistance: new FormControl({disabled: false, value: item.resistance}, Validators.required),
-        remarks: new FormControl({disabled: false, value: item.remarks}, Validators.required),
+        remarks: new FormControl({disabled: false, value: item.remarks}),
         flag: new FormControl({disabled: false, value: item.flag}),
       });
     }
@@ -1364,7 +1364,7 @@ keyPressNumbers1(event: any) {
     }
     let downConductorTestingArray: any = [];
     downConductorTestingArray = a.controls.downConductorTesting as FormArray;
-    if (changedValue == 'Not in Scope') {
+    if (changedValue == "Not in scope") {
 
       a.controls.downConductorTestingAvailabilityOb.clearValidators();
       a.controls.downConductorTestingAvailabilityOb.updateValueAndValidity();
@@ -1381,7 +1381,7 @@ keyPressNumbers1(event: any) {
         }
       }
     }
-    else if (changedValue == 'In Scope') {
+    else if (changedValue == "In scope") {
 
       a.controls.downConductorTestingAvailabilityOb.setValidators(Validators.required);
       a.controls.downConductorTestingAvailabilityOb.updateValueAndValidity();

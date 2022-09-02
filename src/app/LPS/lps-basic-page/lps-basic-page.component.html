@@ -25,7 +25,7 @@
                                 <i class="bi bi-person-lines-fill"></i>
                             </span>
                         </div>
-                        <input tpe="text" class="form-control" placeholder="Enter clientname"
+                        <input type="text" class="form-control" placeholder="Enter clientname"
                             [readonly]="isEditable" formControlName="clientName" [readonly]="isEditable"
                             [ngClass]="{ 'is-invalid': submitted && f.get('clientName')?.errors }"/>
                         <div *ngIf="submitted && f.get('clientName')?.errors" class="invalid-feedback">
@@ -58,7 +58,7 @@
                                 <i class="bi bi-person-lines-fill"></i>
                             </span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Enter PMC name" [readonly]="isEditable" formControlName="pmcName"
+                        <input type="text" class="form-control" placeholder="Enter PMC name (Optional)" [readonly]="isEditable" formControlName="pmcName"
                         [ngClass]="{ 'is-invalid': submitted && f.get('pmcName')?.errors }"/>
                         <div *ngIf="submitted && f.get('pmcName')?.errors" class="invalid-feedback">
                             <div *ngIf="f.get('pmcName')?.errors?.required">PMC Name is required</div>
@@ -74,7 +74,7 @@
                                 <i class="bi bi-person-lines-fill"></i>
                             </span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Enter consultant name"
+                        <input type="text" class="form-control" placeholder="Enter consultant name (Optional)"
                             [readonly]="isEditable" formControlName="consultantName" [ngClass]="{ 'is-invalid': submitted && f.get('consultantName')?.errors }"/>
                             <div *ngIf="submitted && f.get('consultantName')?.errors" class="invalid-feedback">
                                 <div *ngIf="f.get('consultantName')?.errors?.required">Consultant Name is required</div>
@@ -90,7 +90,7 @@
                                 <i class="bi bi-person-lines-fill"></i>
                             </span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Enter contractor name"
+                        <input type="text" class="form-control" placeholder="Enter contractor name (Optional)"
                             [readonly]="isEditable" formControlName="contractorName" [ngClass]="{ 'is-invalid': submitted && f.get('contractorName')?.errors }"/>
                             <div *ngIf="submitted && f.get('contractorName')?.errors" class="invalid-feedback">
                                 <div *ngIf="f.get('contractorName')?.errors?.required">Contractor Name is required</div>
@@ -106,7 +106,7 @@
                                 <i class="bi bi-person-lines-fill"></i>
                             </span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Enter dealer/sub-contractor name"
+                        <input type="text" class="form-control" placeholder="Enter dealer/sub-contractor name (Optional)"
                             [readonly]="isEditable" formControlName="dealerContractorName" [ngClass]="{ 'is-invalid': submitted && f.get('dealerContractorName')?.errors }"/>
                             <div *ngIf="submitted && f.get('dealerContractorName')?.errors" class="invalid-feedback">
                                 <div *ngIf="f.get('dealerContractorName')?.errors?.required">Dealer/Sub-contractor is required</div>
@@ -177,6 +177,35 @@
                 </div>                
             </div>
 
+            <!-- <div class="row" style="font-weight: bold;">
+                <label for="Basicdetails" style="font-weight: bold;margin: 10px; font-size: 16px;">Person who preparing the report</label>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="email1">Email</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> 
+                                <i class="bi bi-person-lines-fill"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" formControlName="email1" [ngModel]="currentUsermail" readonly/>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="name1">Name</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> 
+                                <i class="bi bi-person-lines-fill"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" formControlName="name1" [ngModel]="currentUserName" readonly/>
+                    </div>
+                </div>
+            </div> -->
+
             <div class="row" style="font-weight: bold;">
                 <label for="Basicdetails" style="font-weight: bold;margin: 10px; font-size: 16px;">Person who ordering the report</label>
             </div>
@@ -191,7 +220,7 @@
                                 <i class="bi bi-person-lines-fill"></i>
                             </span>
                         </div>
-                        <input tpe="text" class="form-control" placeholder="Enter Name"
+                        <input type="text" class="form-control" placeholder="Enter Name"
                          formControlName="name"  [readonly]="isEditable" [ngClass]="{ 'is-invalid': submitted && f.get('name')?.errors }"/>
                          <div *ngIf="submitted && f.get('name')?.errors" class="invalid-feedback">
                              <div *ngIf="f.get('name')?.errors?.required">Name is required</div>
@@ -208,7 +237,7 @@
                                 <i class="bi bi-building"></i>
                             </span>
                         </div>
-                        <input tpe="text" class="form-control" placeholder="Enter Company" 
+                        <input type="text" class="form-control" placeholder="Enter Company" 
                         [readonly]="isEditable" formControlName="company" [ngClass]="{ 'is-invalid': submitted && f.get('company')?.errors }"/>
                         <div *ngIf="submitted && f.get('company')?.errors" class="invalid-feedback">
                             <div *ngIf="f.get('company')?.errors?.required">Company is required</div>
@@ -225,15 +254,13 @@
                                 <i class="bi bi-person-lines-fill"></i>
                             </span>
                         </div>
-                        <input tpe="text" class="form-control" placeholder="Enter Designation" 
+                        <input type="text" class="form-control" placeholder="Enter Designation" 
                         [readonly]="isEditable" formControlName="designation" [ngClass]="{ 'is-invalid': submitted && f.get('designation')?.errors }"/>
                         <div *ngIf="submitted && f.get('designation')?.errors" class="invalid-feedback">
                             <div *ngIf="f.get('designation')?.errors?.required">Designation is required</div>
                         </div>
                     </div>
                 </div>
-
-               
 
                 <div class="col-md-4">
                     <label for="contactNumber">Contact Number</label>
@@ -256,7 +283,7 @@
                                 <i class="bi bi-envelope-fill"></i>
                             </span>
                         </div>
-                        <input tpe="text" [readonly]="isEditable" formControlName="mailId" 
+                        <input type="text" [readonly]="isEditable" formControlName="mailId" 
                          class="form-control" placeholder="Enter Email Id"  [ngClass]="{ 'is-invalid': submitted && f.get('mailId')?.errors }"/>
                          <div *ngIf="submitted && f.get('mailId')?.errors" class="invalid-feedback">
                              <div *ngIf="f.get('mailId')?.errors?.required">Email Id is required</div>
@@ -290,9 +317,51 @@
                     </div>
                     </div>
                 </div>
-            </div>
+
+                <!-- File Upload for Basic -->
+                <!-- <div class="col-md-8">
+                    <table class="table TableBorder" style="margin-top: 1rem;">
+                        <thead>
+                            <tr>
+                                <th width="25%">Attach The File Here</th>
+                                <th width="27%">Name</th>
+                                <th width="6%" ng-show="uploader.isHTML5">Size</th>
+                                <th width="25%">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in uploader.queue">
+                                <td>
+                                    <input style="height: 3rem;" type="file" class="form-control" [attr.disabled]="isEditable ? '' : null"
+                                    accept=".txt,.jpeg,.png,.jpg,.pdf">
+                                    <div class="invalid-feedback">
+                                        <div >Field is required</div>
+                                    </div>
+                                </td>
+                                <td style="text-align: center;"></td>
+                                <td ng-show="uploader.isHTML5" nowrap style="text-align: center;"></td>
+                                <td nowrap style="text-align: center;">
+                                    <button type="button" class="btn btn-secondary btn-xs mr-4" title="Upload">
+                                        <i class="fa fa-upload" style="color: white;"></i> 
+                                    </button>
+                                    <div class="invalid-feedback">
+                                        <div >File upload is required</div>
+                                    </div>
+                                    <div style="text-align: center;">
+                                        <span class="errorshow"></span>
+                                    </div>
+                                    <button type="button" class="btn btn-success btn-xs mr-4"  
+                                    href='javascript:void(0)' [ngClass]="{'disableForm':isEditable}" title="Download">
+                                        <i class="fa fa-download" style="color: white;"></i> 
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> -->
             </div>
         </div>
+    </div>
             <div style="text-align: center;margin-top: 40px;margin-left: 80px;">
                 <button class="next" (click)="gotoNextModal(content,contents)" mat-button >Next &raquo;</button>
             </div>
@@ -303,6 +372,7 @@
     </form>
 </div>
 </div>
+
 <ng-template #content let-modal>
     <!-- Spinner -->
     <mat-progress-spinner style="margin: 0 auto;" *ngIf="spinner" color="primary" [mode]="mode" value="50" diameter="50">

@@ -67,10 +67,10 @@ export class UserUpdateComponent implements OnInit {
   }
 
   onItemSelect(item: any) {
-    console.log(item);
+    //console.log(item);
   }
   onSelectAll(items: any) {
-    console.log(items);
+    //console.log(items);
   }
 
   get f() {
