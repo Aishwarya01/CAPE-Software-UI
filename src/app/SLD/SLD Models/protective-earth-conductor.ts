@@ -10,7 +10,7 @@ export class ProtectiveEarthConductor {
   type!: String;
   material!: String;
   size!: String;
-  conductorLength!: String;
+  conductorLength!: number;
   conductorResistance!: String;
   maxResistance!: String;
   rNRemarks!: String;
