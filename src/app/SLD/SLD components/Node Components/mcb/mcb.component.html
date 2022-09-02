@@ -89,7 +89,8 @@
         </div>
       </div>
 
-      <br>
+      <!-- Commented by Arun as per current requirement  -->
+      <!-- <br>
       <h3 style="text-align: center">Outgoing Cable Size(sq.mm.)</h3>
       <br>
       <div class="row">
@@ -123,18 +124,19 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       
       <br>
       <h2><b><u>Testing</u></b></h2>
 
-      <mat-icon class="mousechange" (click)="addMCBTesting()" 
-          style="float:right; padding-right: 37px; padding-top: 10px;">add_box</mat-icon>
+      <!-- Commented by Arun because we don't need iteration -->
+      <!-- <mat-icon class="mousechange" (click)="addMCBTesting()" 
+          style="float:right; padding-right: 37px; padding-top: 10px;">add_box</mat-icon> -->
 
       <br>
       <ng-container formArrayName="generalTestingMCB" *ngFor="let a of getGeneralTestingMCBControls(); let i = index">
         <ng-container [formGroupName]="i">
-          <h2>Incomer -{{i+1}} (General Testing)</h2>
+          <h2>General Testing</h2>
           <div class="table-responsive">
             <table class="table" style="width: 70%; border: 1px solid black">
               <thead>
@@ -475,7 +477,7 @@
       <br>
       <ng-container formArrayName="safetyTestingMCB" *ngFor="let a of getSafetyTestingMCBControls(); let i = index">
         <ng-container [formGroupName]="i">
-          <h2>Incomer -{{i+1}} (Testing related to safety)</h2>
+          <h2>Testing related to safety</h2>
 
           <div class="table-responsive">
             <table class="table" style="width: 100%; border: 1px solid black">
@@ -788,7 +790,8 @@
 
           <br>
 
-          <div class="row">
+          <!-- Commented by Arun because as we don't need the following as per our current requirement  -->
+          <!-- <div class="row">
             <div class="col-md-4">
               <div class="form-group">
                 <label>Touch/Shock Voltage (V)</label>
@@ -821,7 +824,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <mat-icon class="mousechange" *ngIf="getGeneralTestingMCBControls().length>1" class="dlt" type="button" title="Delete"  (click)="removeMCBtesting(a,i)" style="float: right">remove_circle_outline</mat-icon>
 
