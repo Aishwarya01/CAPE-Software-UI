@@ -181,7 +181,7 @@
                 <table class="table TableBorder">
                   <thead>
                     <th>Availability of Drawing Details</th>
-                    <th>Remarks (Optional)</th>
+                    <th>Remarks</th>
                   </thead>
                   <tbody>
                     <tr>
@@ -189,7 +189,7 @@
                         <select class="form-control" (change)="onChangeBasic($event,q)" formControlName="airBasicDescriptionAvailabilityOb" [ngClass]="{ 'is-invalid': submitted && q.get('airBasicDescriptionAvailabilityOb')?.errors }" [attr.disabled]="isEditable ? '' : null">
                           <option value="" selected>Select Option</option>
                           <option value="Available">Available </option>
-                          <option value="Not available">Not Available</option>
+                          <option value="Not available">Not available</option>
                         </select>
                         <div *ngIf="submitted && q.get('airBasicDescriptionAvailabilityOb')?.errors" class="invalid-feedback">
                           <div *ngIf="q.get('airBasicDescriptionAvailabilityOb')?.errors?.required"> Please select the field</div>
@@ -217,17 +217,13 @@
                       <div class="form-group" [formGroupName]="j">
                         <div class="table-responsive" style="overflow-x: unset;">
                           <table class="table TableBorder">
-                            <tbody>
-                              <tr>
+                              <thead>
                                 <th>SI.No</th>
                                 <th>Description</th>
                                 <th>Observation</th>
-                                <th>Remarks(Optional)</th>
-                              </tr>
-                            </tbody>
-                          </table>
-
-                          <table class="table TableBorder">
+                                <th>Remarks</th>
+                              </thead>
+                         
                             <tbody>
                                 <tr *ngIf="q.get('airBasicDescriptionAvailabilityOb')?.value === 'Available'">
                                   <td style="width: 1rem; text-align: center;">1(a)</td>
@@ -519,17 +515,13 @@
                           </table>
 
                           <table class="table TableBorder">
-                            <tbody>
-                              <tr>
-                                <th style="font-weight: bold">SI.No</th>
-                                <th style="font-weight: bold">Description</th>
-                                <th style="font-weight: bold">Observation</th>
-                                <th style="font-weight: bold">Remarks(Optional)</th>
-                              </tr>
-                            </tbody>
-                          </table>
-                        
-                        <table class="table TableBorder">
+                            <thead>
+                              <th>SI.No</th>
+                              <th>Description</th>
+                              <th>Observation</th>
+                              <th>Remarks</th>
+                            </thead>
+                          
                           <tbody>
                               <tr>
                                 <td style="width: 1rem; text-align: center;">1.</td>
@@ -718,7 +710,7 @@
                             <tbody>
                               <tr>
                                 <td style="width: 1rem; text-align: center;">5.</td>
-                                <td style="width: 24rem;">Equipotenial bonding of terrace equipments (i.e exposed and extraneous conductive parts) are carried out</td>
+                                <td style="width: 27rem;">Equipotenial bonding of terrace equipments (i.e exposed and extraneous conductive parts) are carried out</td>
                                 <td style="width: 43rem;">
                                   <div class="input-group">
                                     <div class="input-group-prepend">
@@ -768,7 +760,7 @@
                 <table class="table TableBorder">
                   <thead>
                     <th>Availability of Vertical Air Termination</th>
-                    <th>Remarks(Optional)</th>
+                    <th>Remarks</th>
                   </thead>
                   <tbody>
                     <tr>
@@ -776,7 +768,7 @@
                         <select class="form-control" (change)="onChangeAir($event,q)" formControlName="verticalAirTerminationAvailabilityOb" [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && q.get('verticalAirTerminationAvailabilityOb')?.errors }" style="height: 3rem;">
                           <option value="" selected>Select Option</option>
                           <option value="Applicable">Applicable </option>
-                          <option value="Not applicable">Not Applicable</option>
+                          <option value="Not applicable">Not applicable</option>
                         </select>
                         <div *ngIf="submitted && q.get('verticalAirTerminationAvailabilityOb')?.errors" class="invalid-feedback">
                           <div *ngIf="q.get('verticalAirTerminationAvailabilityOb')?.errors?.required"> Please select the field</div>
@@ -806,7 +798,7 @@
                         <th>SI.No</th>
                         <th>Description</th>
                         <th>Observation</th>
-                        <th>Remarks(Optional)</th>
+                        <th>Remarks</th>
                       </thead>
                       <tr>
                         <td style="width: 1rem; text-align: center;">6(a)</td>
@@ -1256,7 +1248,7 @@
                 <table class="table TableBorder">
                   <thead>
                     <th>Availability of Mesh Conductors</th>
-                    <th>Remarks(Optional)</th>
+                    <th>Remarks</th>
                   </thead>
                   <tbody>
                     <tr>
@@ -1264,7 +1256,7 @@
                         <select class="form-control" (change)="onChangeMesh($event,q)" formControlName="airMeshDescriptionAvailabilityOb" [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && q.get('airMeshDescriptionAvailabilityOb')?.errors }" style="height: 3rem;">
                           <option value="" selected>Select Option</option>
                           <option value="Applicable">Applicable </option>
-                          <option value="Not applicable">Not Applicable</option>
+                          <option value="Not applicable">Not applicable</option>
                         </select>
                         <div *ngIf="submitted && q.get('airMeshDescriptionAvailabilityOb')?.errors" class="invalid-feedback">
                           <div *ngIf="q.get('airMeshDescriptionAvailabilityOb')?.errors?.required"> Please select the field</div>
@@ -1292,7 +1284,7 @@
                         <th>SI.No</th>
                         <th>Description</th>
                         <th>Observation</th>
-                        <th>Remarks(Optional)</th>
+                        <th>Remarks</th>
                       </thead>
                       <tr>
                         <td style="width: 1rem; text-align: center;">7(a)</td>
@@ -1586,7 +1578,7 @@
                 <table class="table TableBorder">
                   <thead>
                     <th>Availability of Holders</th>
-                    <th>Remarks(Optional)</th>
+                    <th>Remarks</th>
                   </thead>
                   <tbody>
                     <tr>
@@ -1594,7 +1586,7 @@
                         <select class="form-control" (change)="onChangeHolders($event,q)" formControlName="airHolderDescriptionAvailabilityOb" [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && q.get('airHolderDescriptionAvailabilityOb')?.errors }" style="height: 3rem;">
                           <option value="" selected>Select Option</option>
                           <option value="Applicable">Applicable </option>
-                          <option value="Not applicable">Not Applicable</option>
+                          <option value="Not applicable">Not applicable</option>
                         </select>
                         <div *ngIf="submitted && q.get('airHolderDescriptionAvailabilityOb')?.errors" class="invalid-feedback">
                           <div *ngIf="q.get('airHolderDescriptionAvailabilityOb')?.errors?.required"> Please select the field</div>
@@ -1622,7 +1614,7 @@
                         <th>SI.No</th>
                         <th>Description</th>
                         <th>Observation</th>
-                        <th>Remarks(Optional)</th>
+                        <th>Remarks</th>
                       </thead>
                       <tr>
                         <td style="width: 1rem; text-align: center;">8(a)</td>
@@ -2090,7 +2082,7 @@
                 <table class="table TableBorder">
                   <thead>
                     <th>Availability of Clamps</th>
-                    <th>Remarks(Optional)</th>
+                    <th>Remarks</th>
                   </thead>
                   <tbody>
                     <tr>
@@ -2098,7 +2090,7 @@
                         <select class="form-control" (change)="onChangeClamps($event,q)" formControlName="airClampsAvailabilityOb" [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && q.get('airClampsAvailabilityOb')?.errors }" style="height: 3rem;">
                           <option value="" selected>Select Option</option>
                           <option value="Applicable">Applicable </option>
-                          <option value="Not applicable">Not Applicable</option>
+                          <option value="Not applicable">Not applicable</option>
                         </select>
                         <div *ngIf="submitted && q.get('airClampsAvailabilityOb')?.errors" class="invalid-feedback">
                           <div *ngIf="q.get('airClampsAvailabilityOb')?.errors?.required"> Please select the field</div>
@@ -2126,7 +2118,7 @@
                         <th>SI.No</th>
                         <th>Description</th>
                         <th>Observation</th>
-                        <th>Remarks(Optional)</th>
+                        <th>Remarks</th>
                       </thead>
                       <tr>
                         <td style="width: 1rem; text-align: center;">9(a)</td>
@@ -2470,7 +2462,7 @@
                 <table class="table TableBorder">
                   <thead>
                     <th>Availability of Expansion Pieces</th>
-                    <th>Remarks(Optional)</th>
+                    <th>Remarks</th>
                   </thead>
                   <tbody>
                     <tr>
@@ -2478,7 +2470,7 @@
                         <select class="form-control" (change)="onChangeExpansion($event,q)" formControlName="airExpansionAvailabilityOb" [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && q.get('airExpansionAvailabilityOb')?.errors }" style="height: 3rem;">
                           <option value="" selected>Select Option</option>
                           <option value="Applicable">Applicable </option>
-                          <option value="Not applicable">Not Applicable</option>
+                          <option value="Not applicable">Not applicable</option>
                         </select>
                         <div *ngIf="submitted && q.get('airExpansionAvailabilityOb')?.errors" class="invalid-feedback">
                           <div *ngIf="q.get('airExpansionAvailabilityOb')?.errors?.required"> Please select the field</div>
@@ -2506,7 +2498,7 @@
                         <th>SI.No</th>
                         <th>Description</th>
                         <th>Observation</th>
-                        <th>Remarks(Optional)</th>
+                        <th>Remarks</th>
                       </thead>
                       <tr>
                         <td style="width: 1rem; text-align: center;">10(a)</td>
@@ -2846,7 +2838,7 @@
                 <table class="table TableBorder">
                   <thead>
                     <th>Availability of Connectors</th>
-                    <th>Remarks(Optional)</th>
+                    <th>Remarks</th>
                   </thead>
                   <tbody>
                     <tr>
@@ -2882,7 +2874,7 @@
                         <th>SI.No</th>
                         <th>Description</th>
                         <th>Observation</th>
-                        <th>Remarks(Optional)</th>
+                        <th>Remarks</th>
                       </thead>
                       <tr>
                         <td style="width: 1rem; text-align: center;">11(a)</td>
