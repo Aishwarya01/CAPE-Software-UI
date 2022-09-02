@@ -64,7 +64,8 @@
         </div>
       
       </div>
-      <br>
+      <!-- Commented by Arun as per current requirement  -->
+      <!-- <br>
       <h3 style="text-align: center">Incoming Cable Size(sq.mm.)</h3>
       <br>
       <div class="row">
@@ -122,18 +123,19 @@
             <div *ngIf="f.incomingLengthProtective?.errors?.required">Protective Conductor is required</div>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <br>
         <h2><b><u>Testing</u></b></h2>
 
-        <mat-icon class="mousechange" (click)="addLightTesting()" 
-            style="float:right; padding-right: 37px; padding-top: 10px;">add_box</mat-icon>
+        <!-- Commented by Arun because we don't need iteration -->
+        <!-- <mat-icon class="mousechange" (click)="addLightTesting()" 
+            style="float:right; padding-right: 37px; padding-top: 10px;">add_box</mat-icon> -->
 
         <br>
         <ng-container formArrayName="generalTestingLight" *ngFor="let a of getGeneralTestingLightControls(); let i = index">
           <ng-container [formGroupName]="i">
-            <h2>Incomer -{{i+1}} (General Testing)</h2>
+            <h2>General Testing</h2>
             <div class="table-responsive">
               <table class="table" style="width: 70%; border: 1px solid black">
                 <thead>
@@ -334,7 +336,7 @@
         <br>
         <ng-container formArrayName="safetyTestingLight" *ngFor="let a of getSafetyTestingLightControls(); let i = index">
           <ng-container [formGroupName]="i">
-            <h2>Incomer -{{i+1}} (Testing related to safety)</h2>
+            <h2>Testing related to safety</h2>
 
             <div class="table-responsive">
               <table class="table" style="width: 100%; border: 1px solid black">
@@ -461,7 +463,8 @@
 
             <br>
 
-            <div class="row">
+            <!-- Commented by Arun because as we don't need the following as per our current requirement  -->
+            <!-- <div class="row">
               <div class="col-md-4">
                 <div class="form-group">
                   <label>Touch/Shock Voltage (V)</label>
@@ -494,7 +497,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
 
             <mat-icon class="mousechange" *ngIf="getGeneralTestingLightControls().length>1" class="dlt" type="button" title="Delete"  (click)="removeLighttesting(a,i)" style="float: right">remove_circle_outline</mat-icon>
 
