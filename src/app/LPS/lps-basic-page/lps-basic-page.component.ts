@@ -495,7 +495,7 @@ export class LpsBasicPageComponent implements OnInit {
         data =>{
           var b=form.controls.projectName.value;
           if(data != ''){
-            this.projectNameMsg="Project Name is already existing, Please change it";
+            this.projectNameMsg="Project Name is already existing, Please give different Project Name";
             this.projectNameMsg1="";
             this.projectNameError=true;
           }else {
