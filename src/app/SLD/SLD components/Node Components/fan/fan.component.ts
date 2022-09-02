@@ -44,12 +44,12 @@ export class FanComponent implements OnInit {
      rating: ['', Validators.required],
      voltage: [''],
      model: ['', Validators.required],
-     incomingSizePhase: ['', Validators.required],
-     incomingSizeNeutral: ['', Validators.required],
-     incomingSizeProtective: ['', Validators.required],
-     incomingLengthPhase: ['', Validators.required],
-     incomingLengthNeutral: ['', Validators.required],
-     incomingLengthProtective: ['', Validators.required],
+    //  incomingSizePhase: ['', Validators.required],
+    //  incomingSizeNeutral: ['', Validators.required],
+    //  incomingSizeProtective: ['', Validators.required],
+    //  incomingLengthPhase: ['', Validators.required],
+    //  incomingLengthNeutral: ['', Validators.required],
+    //  incomingLengthProtective: ['', Validators.required],
      generalTestingFan: this.formBuilder.array([this.createGeneralTestingFan()]),
      safetyTestingFan: this.formBuilder.array([this.createSafetyTestingFan()]),
    });
@@ -114,9 +114,9 @@ export class FanComponent implements OnInit {
      nETime: new FormControl('', Validators.required),
      nERemarks: new FormControl('', Validators.required),
 
-     shockVoltage: new FormControl('', Validators.required),
-     floorResistance: new FormControl('', Validators.required),
-     wallResistance: new FormControl('', Validators.required),
+    //  shockVoltage: new FormControl('', Validators.required),
+    //  floorResistance: new FormControl('', Validators.required),
+    //  wallResistance: new FormControl('', Validators.required),
    });
  }
 
@@ -137,12 +137,12 @@ export class FanComponent implements OnInit {
      this.fan.currentRating = i.currentRating;
      this.fan.voltage = i.voltage;
      this.fan.model = i.model;
-     this.fan.incomingSizePhase = i.incomingSizePhase;
-     this.fan.incomingSizeNeutral = i.incomingSizeNeutral;
-     this.fan.incomingSizeProtective = i.incomingSizeProtective;
-     this.fan.incomingLengthPhase = i.incomingLengthPhase;
-     this.fan.incomingLengthNeutral = i.incomingLengthNeutral;
-     this.fan.incomingLengthProtective =i.incomingLengthProtective;
+    //  this.fan.incomingSizePhase = i.incomingSizePhase;
+    //  this.fan.incomingSizeNeutral = i.incomingSizeNeutral;
+    //  this.fan.incomingSizeProtective = i.incomingSizeProtective;
+    //  this.fan.incomingLengthPhase = i.incomingLengthPhase;
+    //  this.fan.incomingLengthNeutral = i.incomingLengthNeutral;
+    //  this.fan.incomingLengthProtective =i.incomingLengthProtective;
      this.fan.createdBy = i.createdBy;
      this.fan.createdDate = i.createdDate;
      this.fan.updatedBy = i.updatedBy;
@@ -237,9 +237,9 @@ export class FanComponent implements OnInit {
      nETime: new FormControl(nE[2], Validators.required),
      nERemarks: new FormControl(nE[3], Validators.required),
 
-     shockVoltage: new FormControl(k.shockVoltage, Validators.required),
-     floorResistance: new FormControl(k.floorResistance, Validators.required),
-     wallResistance: new FormControl(k.wallResistance, Validators.required),
+    //  shockVoltage: new FormControl(k.shockVoltage, Validators.required),
+    //  floorResistance: new FormControl(k.floorResistance, Validators.required),
+    //  wallResistance: new FormControl(k.wallResistance, Validators.required),
    });
  }
 
