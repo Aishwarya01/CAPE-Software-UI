@@ -8,7 +8,7 @@ export class Light {
     powerCapacity!: String;
     currentRating!: number;
     voltage!: number;
-    type!: number;
+    model!: String;
     incomingSizePhase!: number;
     incomingSizeNeutral!: number;
     incomingSizeProtective!: number;
