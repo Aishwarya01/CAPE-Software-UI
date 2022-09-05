@@ -45,7 +45,7 @@ export class LightComponent implements OnInit {
       powerCapacity: ['', Validators.required],
       rating: ['', Validators.required],
       voltage: [''],
-      type: ['', Validators.required],
+      model: ['', Validators.required],
       // incomingSizePhase: ['', Validators.required],
       // incomingSizeNeutral: ['', Validators.required],
       // incomingSizeProtective: ['', Validators.required],
@@ -138,7 +138,7 @@ export class LightComponent implements OnInit {
       this.light.powerCapacity = i.powerCapacity;
       this.light.currentRating = i.currentRating;
       this.light.voltage = i.voltage;
-      this.light.type = i.type;
+      this.light.model = i.model;
       // this.light.incomingSizePhase = i.incomingSizePhase;
       // this.light.incomingSizeNeutral = i.incomingSizeNeutral;
       // this.light.incomingSizeProtective = i.incomingSizeProtective;
