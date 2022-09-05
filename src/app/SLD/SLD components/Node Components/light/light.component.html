@@ -56,10 +56,10 @@
 
         <div class="col-md-4">
           <label>Model/Type</label>
-          <input type="text" class="form-control" formControlName="type" [(ngModel)]="light.type"
-          [ngClass]="{ 'is-invalid': submitted && f.type?.errors }">
-          <div *ngIf="submitted && f.type?.errors" class="invalid-feedback">
-            <div *ngIf="f.type?.errors?.required">Model/Type is required</div>
+          <input type="text" class="form-control" formControlName="model" [(ngModel)]="light.model"
+          [ngClass]="{ 'is-invalid': submitted && f.model?.errors }">
+          <div *ngIf="submitted && f.model?.errors" class="invalid-feedback">
+            <div *ngIf="f.model?.errors?.required">Model/Type is required</div>
           </div>
         </div>
       

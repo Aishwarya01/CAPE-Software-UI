@@ -113,7 +113,7 @@
     <div class="row">
       <div class="col-md-4">
         <label>Phase</label>
-        <input type="text" class="form-control" formControlName="outgoingSizePhase" [(ngModel)]="rcbo.outgoingSizePhase"
+        <input type="number" class="form-control" formControlName="outgoingSizePhase" [(ngModel)]="rcbo.outgoingSizePhase"
         [ngClass]="{ 'is-invalid': submittedRCBO && g.outgoingSizePhase?.errors }">
         <div *ngIf="submittedRCBO && g.outgoingSizePhase?.errors" class="invalid-feedback">
           <div *ngIf="g.outgoingSizePhase?.errors?.required">Phase is required</div>
@@ -121,7 +121,7 @@
       </div>
       <div class="col-md-4">
         <label>Neutral</label>
-        <input type="text" class="form-control" formControlName="outgoingSizeNeutral" [(ngModel)]="rcbo.outgoingSizeNeutral"
+        <input type="number" class="form-control" formControlName="outgoingSizeNeutral" [(ngModel)]="rcbo.outgoingSizeNeutral"
         [ngClass]="{ 'is-invalid': submittedRCBO && g.outgoingSizeNeutral?.errors }">
         <div *ngIf="submittedRCBO && g.outgoingSizeNeutral?.errors" class="invalid-feedback">
           <div *ngIf="g.outgoingSizeNeutral?.errors?.required">Neutral is required</div>
@@ -129,7 +129,7 @@
       </div>
       <div class="col-md-4">
         <label>Protective Conductor</label>
-        <input type="text" class="form-control" formControlName="outgoingSizeProtective" [(ngModel)]="rcbo.outgoingSizeProtective"
+        <input type="number" class="form-control" formControlName="outgoingSizeProtective" [(ngModel)]="rcbo.outgoingSizeProtective"
         [ngClass]="{ 'is-invalid': submittedRCBO && g.outgoingSizeProtective?.errors }">
         <div *ngIf="submittedRCBO && g.outgoingSizeProtective?.errors" class="invalid-feedback">
           <div *ngIf="g.outgoingSizeProtective?.errors?.required">Protective Conductor is required</div>
