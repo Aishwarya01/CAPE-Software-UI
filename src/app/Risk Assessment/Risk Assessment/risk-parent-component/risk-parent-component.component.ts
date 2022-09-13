@@ -49,12 +49,13 @@ export class RiskParentComponentComponent implements OnInit {
   @ViewChild('tabs') tabs!: MatTabGroup;
 
   migData: String='';
+  
 
   constructor(
           private customerDetailsService: CustomerDetailsServiceService,
           public service: GlobalsService, private router: ActivatedRoute,
           private dialog: MatDialog,private ChangeDetectorRef: ChangeDetectorRef,
-          private riskGlobal: RiskglobalserviceService
+          private riskGlobal: RiskglobalserviceService,
     ) { }
 
   ngOnInit(): void {
@@ -96,7 +97,7 @@ export class RiskParentComponentComponent implements OnInit {
     this.riskStep2.updateButton=true;
     this.riskStep2.saveButton=false;
     this.selectedIndex=1;
-    this.changeTabRiskSavedReport(0,riskId,this.router.snapshot.paramMap.get('email') || '{}');
+    this.changeTabRiskSavedReport(0,riskId,this.router.snapshot.paramMap.get('email') || '{}','','');
     setTimeout(() => {
       this.saved.spinner=false;
       setTimeout(() => {
@@ -108,7 +109,7 @@ export class RiskParentComponentComponent implements OnInit {
   preview(riskId: any): void {
     this.ngOnInit();
     this.isEditable=true;
-    this.changeTabRiskSavedReport(0,riskId,this.router.snapshot.paramMap.get('email') || '{}');
+    this.changeTabRiskSavedReport(0,riskId,this.router.snapshot.paramMap.get('email') || '{}','','');
   }
 
   public onCallSavedMethod(e: any) {
@@ -123,7 +124,7 @@ export class RiskParentComponentComponent implements OnInit {
     this.ChangeDetectorRef.detectChanges();
   }
 
-  public changeTabRiskSavedReport(index: number, riskId: any, userName: any) {
+  public changeTabRiskSavedReport(index: number, riskId: any, userName: any,event:any,form:any) {
     this.step1 = false;
     this.step2 = false;
     setTimeout(() => {
@@ -149,6 +150,11 @@ export class RiskParentComponentComponent implements OnInit {
           if (this.dataJSON.structureCharacteristics != null) {
             this.selectedIndex=index;
             this.riskStep2.updateRiskDetails(this.dataJSON.userName,this.dataJSON.riskId,this.dataJSON);
+            
+            // Migrated Data purpose
+            if(this.dataJSON.customerDetails.createdBy!=undefined && this.dataJSON.customerDetails.createdBy!=null && this.dataJSON.customerDetails.createdBy!="" && this.dataJSON.customerDetails.createdBy=="Migrated Data"){
+              this.riskStep2.migratedData(event,this.riskStep2.step2Form);
+            }
           }  
           else {
             this.riskStep2.enablePrint = false;
@@ -181,7 +187,7 @@ export class RiskParentComponentComponent implements OnInit {
     this.riskStep2.projectName = this.customerDetails.customerDetailsModel.projectName;
     this.riskGlobal.riskId=this.customerDetails.customerDetailsModel.riskId;
     this.riskGlobal.projectName = this.customerDetails.customerDetailsModel.projectName;
-    this.riskGlobal.migData=this.customerDetails.customerDetailsModel.updatedBy;
+    this.riskGlobal.migData=this.customerDetails.customerDetailsModel.createdBy;
     this.riskGlobal.organisationName=this.customerDetails.customerDetailsModel.organisationName;
   }
 

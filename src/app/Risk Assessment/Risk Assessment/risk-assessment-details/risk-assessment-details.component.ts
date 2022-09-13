@@ -104,7 +104,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
+    
     // Fetching location list 
     this.locationList = [];
     this.riskAssessmentService.fetchLocation().subscribe(
@@ -130,9 +130,9 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       structureCharacters: this.formBuilder.array([this.structureCharactersForm()])
     });
 
-    setTimeout(() => {
-      this.migratedData('',this.step2Form);
-    }, 4000);
+    // setTimeout(() => {
+    //   this.migratedData('',this.step2Form);
+    // }, 3000);
   }
 
   structureCharactersForm() {
@@ -2141,6 +2141,12 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     this.protectionPA(event,form.controls.structureCharacters.controls[0]);
     this.protectionPm(event,form.controls.structureCharacters.controls[0]);
     this.protectionPms(event,form.controls.structureCharacters.controls[0]);
+
+    this.lossOfHumanCalc(event,form.controls.structureCharacters.controls[0]);
+    this.lossOfServiceCalc(event,form.controls.structureCharacters.controls[0]);
+    this.lossCulturalCalc(event,form.controls.structureCharacters.controls[0]);
+    this.lossEconomicCalc(event,form.controls.structureCharacters.controls[0]);
+
   }
 
   riskAssessmentRetrieve(item:any){
