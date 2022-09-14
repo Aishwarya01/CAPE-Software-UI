@@ -1030,10 +1030,15 @@ profileUpdate(email: String) {
       dialogRef.componentInstance.triggerModal = false;
       dialogRef.componentInstance.linkModal = true;
       dialogRef.componentInstance.summaryModal = false;
+      if(this.service.sldClick == 1) {
+        dialogRef.componentInstance.sldModal = true;
+        dialogRef.componentInstance.linkModal = false;
+      }
 
       dialogRef.componentInstance.confirmBox.subscribe(data => {
         if (data) {
           this.service.lvClick = 0;
+          this.service.sldClick = 0;
           switch (id) {
             case 'LV Systems':
               this.viewContainerRef.clear();

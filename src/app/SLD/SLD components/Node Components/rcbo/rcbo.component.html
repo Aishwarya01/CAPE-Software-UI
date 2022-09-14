@@ -108,7 +108,7 @@
     </div>
 
     <br>
-    <h3 style="text-align: center">Outgoing Cable Size(sq.mm.)</h3>
+    <!-- <h3 style="text-align: center">Outgoing Cable Size(sq.mm.)</h3>
     <br>
     <div class="row">
       <div class="col-md-4">
@@ -135,18 +135,18 @@
           <div *ngIf="g.outgoingSizeProtective?.errors?.required">Protective Conductor is required</div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <br>
       <h2><b><u>Testing</u></b></h2>
 
-      <mat-icon class="mousechange" (click)="addRCBOTesting()" 
-          style="float:right; padding-right: 37px; padding-top: 10px;">add_box</mat-icon>
+      <!-- <mat-icon class="mousechange" (click)="addRCBOTesting()" 
+          style="float:right; padding-right: 37px; padding-top: 10px;">add_box</mat-icon> -->
 
       <br>
       <ng-container formArrayName="generalTestingRCBO" *ngFor="let a of getGeneralTestingRCBOControls(); let i = index">
         <ng-container [formGroupName]="i">
-          <h2>Incomer -{{i+1}} (General Testing)</h2>
+          <h2>General Testing</h2>
           <div class="table-responsive">
             <table class="table" style="width: 70%; border: 1px solid black">
               <thead>
@@ -487,7 +487,7 @@
       <br>
       <ng-container formArrayName="safetyTestingRCBO" *ngFor="let a of getSafetyTestingRCBOControls(); let i = index">
         <ng-container [formGroupName]="i">
-          <h2>Incomer -{{i+1}} (Testing related to safety)</h2>
+          <h2>Testing related to safety</h2>
 
           <div class="table-responsive">
             <table class="table" style="width: 100%; border: 1px solid black">
@@ -800,7 +800,7 @@
 
           <br>
 
-          <div class="row">
+          <!-- <div class="row">
             <div class="col-md-4">
               <div class="form-group">
                 <label>Touch/Shock Voltage (V)</label>
@@ -833,7 +833,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <mat-icon class="mousechange" *ngIf="getGeneralTestingRCBOControls().length>1" class="dlt" type="button" title="Delete"  (click)="removeRCBOtesting(a,i)" style="float: right">remove_circle_outline</mat-icon>
 
