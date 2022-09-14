@@ -48,9 +48,9 @@ export class RCBOComponent implements OnInit {
       currentCurve: ['', Validators.required],
       residualCurrentType: ['', Validators.required],
       residualCurrent: ['', Validators.required],
-      outgoingSizePhase: ['', Validators.required],
-      outgoingSizeNeutral: ['', Validators.required],
-      outgoingSizeProtective: ['', Validators.required],
+      // outgoingSizePhase: ['', Validators.required],
+      // outgoingSizeNeutral: ['', Validators.required],
+      // outgoingSizeProtective: ['', Validators.required],
       generalTestingRCBO: this.formBuilder.array([this.createGeneralTestingRCBO()]),
       safetyTestingRCBO: this.formBuilder.array([this.createSafetyTestingRCBO()]),
     });
@@ -191,9 +191,9 @@ export class RCBOComponent implements OnInit {
       bRRemarks: new FormControl('', Validators.required),
 
 
-      shockVoltage: new FormControl('', Validators.required),
-      floorResistance: new FormControl('', Validators.required),
-      wallResistance: new FormControl('', Validators.required),
+      // shockVoltage: new FormControl('', Validators.required),
+      // floorResistance: new FormControl('', Validators.required),
+      // wallResistance: new FormControl('', Validators.required),
     });
   }
 
@@ -216,9 +216,9 @@ export class RCBOComponent implements OnInit {
       this.rcbo.currentCurve = i.currentCurve;
       this.rcbo.residualCurrentType = i.residualCurrentType;
       this.rcbo.residualCurrent = i.residualCurrent;
-      this.rcbo.outgoingSizePhase = i.outgoingSizePhase;
-      this.rcbo.outgoingSizeNeutral = i.outgoingSizeNeutral;
-      this.rcbo.outgoingSizeProtective =i.outgoingSizeProtective;
+      // this.rcbo.outgoingSizePhase = i.outgoingSizePhase;
+      // this.rcbo.outgoingSizeNeutral = i.outgoingSizeNeutral;
+      // this.rcbo.outgoingSizeProtective =i.outgoingSizeProtective;
       this.rcbo.createdBy = i.createdBy;
       this.rcbo.createdDate = i.createdDate;
       this.rcbo.updatedBy = i.updatedBy;
@@ -402,9 +402,9 @@ export class RCBOComponent implements OnInit {
       bRTime: new FormControl(bR[2], Validators.required),
       bRRemarks: new FormControl(bR[3], Validators.required),
 
-      shockVoltage: new FormControl(k.shockVoltage, Validators.required),
-      floorResistance: new FormControl(k.floorResistance, Validators.required),
-      wallResistance: new FormControl(k.wallResistance, Validators.required),
+      // shockVoltage: new FormControl(k.shockVoltage, Validators.required),
+      // floorResistance: new FormControl(k.floorResistance, Validators.required),
+      // wallResistance: new FormControl(k.wallResistance, Validators.required),
     });
   }
 
