@@ -40,6 +40,7 @@ import { ACBComponent } from '../Node Components/acb/acb.component';
 import { EquipotentialBondingComponent } from '../Node Components/equipotential-bonding/equipotential-bonding.component';
 import { getCurrencySymbol } from '@angular/common';
 import { ProtectiveEarthConductorComponent } from '../Node Components/protective-earth-conductor/protective-earth-conductor.component';
+import { GlobalsService } from 'src/app/globals.service';
 
 
 @Component({
@@ -208,6 +209,11 @@ export class DiagramHomeComponent implements OnInit {
 
   getAccessibility(e: any) {
     //console.log(e);
+    this.service.allStepsCompleted = true;
+    this.service.lvClick = 1;
+    this.service.sldClick = 1;
+    this.service.windowTabClick=1;
+    this.service.logoutClick=1;
   }
 
   // public doubleClick(args: IDoubleClickEventArgs) {
@@ -791,7 +797,8 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
               private cableConnectorservice:CableConnectorServicesService,
               private router: ActivatedRoute,
               private modalService: NgbModal,
-              private formBuilder: FormBuilder
+              private formBuilder: FormBuilder,
+              private service: GlobalsService
     ) {
       this.email = this.router.snapshot.paramMap.get('email') || '{}';
      }
@@ -809,6 +816,50 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
     this.diagramComponent.fileName = fileName;
   }
 
+  doBeforeUnload() {
+   
+    if(this.service.logoutClick==1 && this.service.windowTabClick==0) {
+      return true;
+     }
+     else if(this.service.logoutClick==0 && this.service.windowTabClick==0){
+      return true;
+     }
+     else{
+      window.location.reload(); 
+      // Alert the user window is closing 
+      return false;
+     }
+    }
+
+    onPopState(event:any) {
+      
+      if(this.service.lvClick==1){
+        //alert("Changes won't be saved!");
+        if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on save or update button!"))
+        {
+        this.service.windowTabClick=0;
+        this.service.logoutClick=0; 
+        this.service.lvClick=0;
+         window.location.reload();
+         return true;
+         }
+       else{
+        history.pushState({page: 1}, "title 1", "?page=1");
+        history.pushState({page: 2}, "title 2", "?page=2");    
+        history.back();
+        history.back();    
+        history.go(0) // alerts "location: http://example.com/example.html, state: null"
+        return false;
+       }
+        }
+        else{
+          window.location.reload();
+          return;
+        }
+      
+    }
+  
+
   closeModalDialog() {
     this.finalSpinner=true;
       this.popup=false;
@@ -825,7 +876,11 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
   submit(flag: any,content1: any) {
     //var data = this.diagram.saveDiagram();
     var saveData: string = this.diagram.saveDiagram();
-  
+    this.service.allStepsCompleted = false;
+    this.service.lvClick = 0;
+    this.service.sldClick = 0;
+    this.service.windowTabClick=0;
+    this.service.logoutClick=0;
     this.diagramComponent.file = saveData;
     this.diagramComponent.userName =this.email;
     this.modalService.open(content1, { centered: true,size: 'md',backdrop: 'static'});
