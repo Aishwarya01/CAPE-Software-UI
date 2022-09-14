@@ -577,12 +577,13 @@ export class LpssummaryComponent implements OnInit {
         recommendYears: new FormControl('',Validators.required),
       });
       this.numberOfBuildingCount=[]
-      this.retrieveFromAirTermination();
-      setTimeout(() => {
-        this.retriveSummaryWhileUpdateSave();
-      }, 3000);
-       
-        
+      if( this.lpsGlobalservice.basiclpsId !=0 ){
+        this.retrieveFromAirTermination();
+        setTimeout(() => {
+          this.retriveSummaryWhileUpdateSave();
+        }, 3000);
+      }
+ 
     }
 
     /*e-siganture starts in progress*/ 

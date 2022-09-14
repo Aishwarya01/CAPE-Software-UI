@@ -368,9 +368,11 @@ export class LpsMatstepperComponent implements OnInit {
            
             if(tab.textLabel == "Saved Reports"){
               this.selectedIndex=1; 
+              this.lpsGlobalservice.basiclpsId = 0;
             }
             else if(tab.textLabel == "Final Reports"){
               this.selectedIndex=2; 
+              this.lpsGlobalservice.basiclpsId = 0;
             }
             this.service.windowTabClick=0;
             this.service.logoutClick=0; 
