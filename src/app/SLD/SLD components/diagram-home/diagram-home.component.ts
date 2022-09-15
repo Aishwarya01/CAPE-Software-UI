@@ -578,8 +578,8 @@ export class DiagramHomeComponent implements OnInit {
       type: 'Straight',
       sourcePoint: { x: 0, y: 0 },
       targetPoint: { x: 40, y: 40 },
-      targetDecorator: { shape: 'Arrow'},
-      style: { strokeWidth: 2}
+      targetDecorator: { shape: 'Arrow', style: {strokeColor: 'green', fill: 'green'} },
+      style: { strokeWidth: 2, strokeColor: 'green'}
   }
     ];
 
