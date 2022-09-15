@@ -41,6 +41,7 @@ import { EquipotentialBondingComponent } from '../Node Components/equipotential-
 import { getCurrencySymbol } from '@angular/common';
 import { ProtectiveEarthConductorComponent } from '../Node Components/protective-earth-conductor/protective-earth-conductor.component';
 import { GlobalsService } from 'src/app/globals.service';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -578,8 +579,8 @@ export class DiagramHomeComponent implements OnInit {
       type: 'Straight',
       sourcePoint: { x: 0, y: 0 },
       targetPoint: { x: 40, y: 40 },
-      targetDecorator: { shape: 'Arrow'},
-      style: { strokeWidth: 2}
+      targetDecorator: { shape: 'Arrow', style: {strokeColor: 'green', fill: 'green'} },
+      style: { strokeWidth: 2, strokeColor: 'green'}
   }
     ];
 
@@ -755,20 +756,17 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
 
  public AddSymbols() {
   let shapes: any;
-  this.diagramService.fetchAllDiagramSymbols().subscribe(
-    data => {
-      shapes = JSON.parse(data);
-  for (let i = 0; i < shapes.length; i++) {
-    let symbolItems: any = {
-    id: shapes[i].imageName,
-    shape: { type: 'Image', source: shapes[i].imageSource } , width: 50, height: 50 }
-    this.palette.addPaletteItem('flow', symbolItems);
-    }
-    },
-    error => {
-      //console.log(error);
-    }
-  )
+
+  shapes = environment.shapes; 
+  setTimeout(() => {
+    for (let i = 0; i < shapes.length; i++) {
+      let symbolItems: any = {
+      id: shapes[i].imageName,
+      shape: { type: 'Image', source: shapes[i].imageSource } , width: 50, height: 50 }
+      this.palette.addPaletteItem('flow', symbolItems);
+      }
+  }, 500);
+      
 }
   //shape: { type: 'Image', source: 'https://www.syncfusion.com/content/images/nuget/sync_logo_icon.png' } 
 
