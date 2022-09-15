@@ -32,7 +32,9 @@ export const environment = {
     {imageSource: '../../assets/img/Resistor.png', imageName: 'Resistor', id: 19},
     {imageSource: '../../assets/img/Ground1.png', imageName: 'Ground1', id: 20},
     {imageSource: '../../assets/img/PortableAppliance.png', imageName: 'PortableAppliance', id: 21},
-    {imageSource: '../../assets/img/Fan.png', imageName: 'Fan', id: 22}
+    {imageSource: '../../assets/img/Fan.png', imageName: 'Fan', id: 22},
+    {imageSource: '../../assets/img/DieselGenerator.png', imageName: 'DieselGenerator', id: 23},
+    {imageSource: '../../assets/img/EquipBond.png', imageName: 'EquipBond', id: 24}
     ],  
 };
 
