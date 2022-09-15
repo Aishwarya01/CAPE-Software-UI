@@ -103,7 +103,7 @@ export class RiskFinalReportsComponent implements OnInit {
       }
     }
 
-    for(let i of this.superAdminProd.adminEmail) {
+    for(let i of this.superAdminProd.riskAdminEmail) {
       if(this.email == i) {
         this.superAdminFlag = true;
       }

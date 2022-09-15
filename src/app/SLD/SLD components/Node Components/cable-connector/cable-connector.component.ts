@@ -231,25 +231,28 @@ onKeyForm(event: KeyboardEvent) {
 //submit MCB
 saveCableConnector(cableConnectorFlag: any) {
   this.submittedCableConnector = true;
-  if(this.cableConnectorForm.invalid) {
-    this.validationError=true;
-    this.validationErrorMsg="Please check all the fields";
-    return;
-  }
- //this.cableConnectorGeneralTestingArray = this.cableConnectorForm.get('generalTestingCableConnector') as FormArray;
 
- this.cableConnector.generalTestingCableConnector = this.cableConnectorForm.value.generalTestingCableConnector;
+  this.cableConnector.generalTestingCableConnector = this.cableConnectorForm.value.generalTestingCableConnector;
   for(let i of this.cableConnector.generalTestingCableConnector) {
     if(this.cableConnector.potentialTestReport == 'Available') {
     i.potentialReport = 'Available';
     }
     else if(this.cableConnector.potentialTestReport == 'Not available') {
       i.potentialReport = 'Not available';
+      this.disableValidators();
     }
     else if(this.cableConnector.potentialTestReport == 'Not applicable') {
       i.potentialReport = 'Not applicable';
+      this.disableValidators();
     }
   }
+
+  if(this.cableConnectorForm.invalid) {
+    this.validationError=true;
+    this.validationErrorMsg="Please check all the fields";
+    return;
+  }
+ //this.cableConnectorGeneralTestingArray = this.cableConnectorForm.get('generalTestingCableConnector') as FormArray;
     // for (let i of this.cableConnectorGeneralTestingArray.controls) {
     //   let arr1: any = [];
     //   arr1.push(i.controls.phN.value, i.controls.phNIResistance.value, i.controls.phNCResistance.value);
@@ -271,6 +274,7 @@ saveCableConnector(cableConnectorFlag: any) {
 
   
     if (this.cableConnectorFlag) {
+      if(this.cableConnectorForm.dirty && this.cableConnectorForm.touched){
       if(this.deletedArr.length != 0) {
         for(let i of this.deletedArr) {
           this.cableConnector.generalTestingCableConnector.push(i);
@@ -305,6 +309,10 @@ saveCableConnector(cableConnectorFlag: any) {
         }
       )
     }
+    else{
+      return;
+    }
+    }
     else {
       this.cableConnectorService.addCableConnector(this.cableConnector).subscribe(
         data => {
@@ -335,7 +343,7 @@ saveCableConnector(cableConnectorFlag: any) {
         }
       )
     }
-
+    this.cableConnectorForm.markAsPristine();
   }
 
   close() {

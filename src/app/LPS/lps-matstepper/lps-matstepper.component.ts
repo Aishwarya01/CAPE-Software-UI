@@ -23,6 +23,7 @@ import { tree } from 'ngx-bootstrap-icons';
 import { LpssummaryComponent } from '../lpssummary/lpssummary.component';
 import { MatStepper } from '@angular/material/stepper';
 import { LpsFileUploadService } from 'src/app/LPS_services/lps-file-upload.service';
+import { LpsGlobalserviceService } from '../lps-globalservice.service';
 
 @Component({
   selector: 'app-lps-matstepper',
@@ -96,8 +97,8 @@ export class LpsMatstepperComponent implements OnInit {
     private router: ActivatedRoute, public service: GlobalsService,
     private ChangeDetectorRef: ChangeDetectorRef,
     private airterminationServices: AirterminationService,
-    private fileUploadService:LpsFileUploadService
- 
+    private fileUploadService:LpsFileUploadService,
+    private lpsGlobalservice:LpsGlobalserviceService
     ) { 
     }
 
@@ -367,9 +368,11 @@ export class LpsMatstepperComponent implements OnInit {
            
             if(tab.textLabel == "Saved Reports"){
               this.selectedIndex=1; 
+              this.lpsGlobalservice.basiclpsId = 0;
             }
             else if(tab.textLabel == "Final Reports"){
               this.selectedIndex=2; 
+              this.lpsGlobalservice.basiclpsId = 0;
             }
             this.service.windowTabClick=0;
             this.service.logoutClick=0; 
@@ -445,7 +448,7 @@ export class LpsMatstepperComponent implements OnInit {
   }
 
   getAirterminationData(basicLpsId: any) {
-    this.airterminationServices.retriveAirTerminationDetails(this.router.snapshot.paramMap.get('email') || '{}', basicLpsId).subscribe(
+    this.airterminationServices.retriveAirTerminationDetails(basicLpsId).subscribe(
       data => {
         this.createFormForAirterminationBuilding(JSON.parse(data)[0]);
       }
@@ -470,7 +473,7 @@ export class LpsMatstepperComponent implements OnInit {
   initializeLpsId(){
     this.downConductors.availabilityOfPreviousReport = this.basic.availableReportNo;
     this.earthing.availabilityOfPreviousReport = this.basic.availableReportNo;
-    
+    this.lpsGlobalservice.basiclpsId = this.basic.basicDetails.basicLpsId;
     setTimeout(() => {
       if(this.basic.availableReportNo == 'No'){
         this.downConductors.validationTesting();

@@ -42,8 +42,10 @@ export const environment = {
 
 export class SuperAdminLocal {
   adminEmail: any=[];  
+  riskAdminEmail: any=[];
   constructor() {
       this.email();
+      this.riskAdminEmailDetails();
   }
   email(){
     this.adminEmail[0] = 'sd@capeindia.net';
@@ -51,9 +53,14 @@ export class SuperAdminLocal {
     this.adminEmail[2] = 'thirumoorthy@capeindia.net';
     this.adminEmail[3] = 'elangovan.m@capeindia.net';
     this.adminEmail[4] = 'aishwarya@capeindia.net';
-    this.adminEmail[5] = 'hasan@capeindia.net';
-    this.adminEmail[6] = 'sivaraju@capeindia.net';
-  }       
+  }   
+  riskAdminEmailDetails(){
+    this.riskAdminEmail[0] = 'awstesting@rushforsafety.com';
+    this.riskAdminEmail[1] = 'gk@capeindia.net';
+    this.riskAdminEmail[2] = 'vinoth@capeindia.net';
+    this.riskAdminEmail[3] = 'krishna.kumar@capeindia.net';
+    this.riskAdminEmail[4] = 'manoj@capeindia.net';
+  }    
 };
 
 /*

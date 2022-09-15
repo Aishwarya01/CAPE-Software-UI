@@ -416,7 +416,7 @@ export class LpsEarthStudComponent implements OnInit {
      }, 3000);
       return;
     }
-    else if(this.EarthStudForm.value.earthStud[0].buildingNumber == undefined || this.EarthStudForm.value.earthStud[0].buildingNumber == ''){
+    else if(this.EarthStudForm.value.earthStud[0].buildingNumber == undefined && this.EarthStudForm.value.earthStud[0].buildingNumber == '' && this.EarthStudForm.value.earthStud[0].buildingName=='' && this.EarthStudForm.value.earthStud[0].buildingName == undefined){
       this.validationError = true;
       this.validationErrorMsg = 'Air Termination Form is Required, Please fill';
       setTimeout(() => {
@@ -434,12 +434,6 @@ export class LpsEarthStudComponent implements OnInit {
       this.modalService.open(contents, { centered: true,backdrop: 'static' });
       // this.modalReference.close();
      }
-  }
-
-  summaryEvent(content:any){
-    this.modalService.open(content, { centered: true, backdrop: 'static' });
-    this.onSubmit(this.flag);
-    this.summaryPopup=false;
   }
 
   retriveStud(){
@@ -579,7 +573,7 @@ export class LpsEarthStudComponent implements OnInit {
     }
   }
   getAirterminationData(){
-    this.airterminationServices.retriveAirTerminationDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
+    this.airterminationServices.retriveAirTerminationDetails(this.basicLpsId).subscribe(
       data => {
         this.createearthStudForm(JSON.parse(data)[0]);
       }       

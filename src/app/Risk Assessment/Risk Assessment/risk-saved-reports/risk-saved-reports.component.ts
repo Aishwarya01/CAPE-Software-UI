@@ -84,14 +84,14 @@ export class RiskSavedReportsComponent implements OnInit {
       this.filteredData = [];
       this.completedFilterData=[];
       
-      for(let i of this.superAdminDev.adminEmail) {
+      for(let i of this.superAdminDev.riskAdminEmail) {
         if(this.email == i) {
           this.superAdminFlag = true;
           this.enableDelete = true;
         }
       }
   
-      for(let i of this.superAdminProd.adminEmail) {
+      for(let i of this.superAdminProd.riskAdminEmail) {
         if(this.email == i) {
           this.superAdminFlag = true;
           this.enableDelete = true;

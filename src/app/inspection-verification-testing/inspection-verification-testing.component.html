@@ -1224,15 +1224,14 @@ style="margin-left: 10px;" >
               <br>
             <div style="text-align: center;margin-top: 20px;">
                 <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
-                <button class="next" (click)="gotoNextModal(content4,content2)" mat-button>Next &raquo;</button>
+                <button class="next" (click)="gotoNextModal(content4,content2)"   [ngClass]="{'disableSubmit':service.disableSubmitSummary}" mat-button>Next &raquo;</button>
         </div>
       </form>
     </div>
   </div>
     <ng-template #content4 let-modal>
         <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinner"
-        color="primary"
-        [mode]="mode"
+         [mode]="mode"
         value="50"
         diameter="50">
         </mat-progress-spinner>
@@ -1252,10 +1251,16 @@ style="margin-left: 10px;" >
         </div>
         <br>
 
-        <button type="button" class="close" *ngIf="popup" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
-        aria-label="Close" (click)="closeModalDialog()" matStepperNext>
-         <span aria-hidden="true">Ok</span>
-     </button>
+        <div *ngIf="popup">
+          <button type="button" *ngIf="success" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+          aria-label="Close"  (click)="closeModalDialog()" matStepperNext>
+           <span aria-hidden="true">Ok</span>
+         </button>
+         <button type="button" *ngIf="Error" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+           aria-label="Close"  (click)="closeModalDialog()">
+            <span aria-hidden="true">Ok</span>
+          </button>
+        </div>
 
     </ng-template>
 

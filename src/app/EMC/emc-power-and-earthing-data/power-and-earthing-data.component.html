@@ -123,7 +123,7 @@
                             <div>
                                 <div>
                                     <label class="form-label">KVA: </label>
-                                    <input type="number" class="form-control" [readonly]="isEditableEmc"
+                                    <input onwheel="this.blur()" class="form-control" [readonly]="isEditableEmc"
                                         [(ngModel)]="emcPowerAndEarthingData.powerTransformationKVA"
                                         formControlName="powerTransformationKVA"
                                         [ngClass]="{'is-invalid':submitted && f.powerTransformationKVA?.errors}"
@@ -141,7 +141,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <label class="form-label">Volts:</label>
-                                    <input type="number" class="form-control" [readonly]="isEditableEmc"
+                                    <input onwheel="this.blur()" class="form-control" [readonly]="isEditableEmc"
                                         [(ngModel)]="emcPowerAndEarthingData.powerInputVolts"
                                         formControlName="powerInputVolts" placeholder="Enter Volts"
                                         [ngClass]="{'is-invalid':submitted && f.powerInputVolts?.errors}">
@@ -152,7 +152,7 @@
 
                                 <div class="col-md-4">
                                     <label class="form-label">No. of Phases:</label>
-                                    <input type="number" class="form-control" [readonly]="isEditableEmc"
+                                    <input onwheel="this.blur()" class="form-control" [readonly]="isEditableEmc"
                                         [(ngModel)]="emcPowerAndEarthingData.powerInputPhase"
                                         formControlName="powerInputPhase" placeholder="Enter No. of phases"
                                         [ngClass]="{'is-invalid':submitted && f.powerInputPhase?.errors}">
@@ -163,7 +163,7 @@
 
                                 <div class="col-md-4">
                                     <label class="form-label">No. of    wires:</label>
-                                    <input type="number" class="form-control" [readonly]="isEditableEmc"
+                                    <input onwheel="this.blur()" class="form-control" [readonly]="isEditableEmc"
                                         [(ngModel)]="emcPowerAndEarthingData.powerInputWires"
                                         formControlName="powerInputWires" placeholder="Enter No. of wires"
                                         [ngClass]="{'is-invalid':submitted && f.powerInputWires?.errors}">
@@ -212,7 +212,7 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <label class="form-label">Volts:</label>
-                                        <input type="number" class="form-control" [readonly]="isEditableEmc"
+                                        <input onwheel="this.blur()" class="form-control" [readonly]="isEditableEmc"
                                             [(ngModel)]="emcPowerAndEarthingData.powerOutputVolts"
                                             formControlName="powerOutputVolts" placeholder="Enter Volts"
                                             [ngClass]="{'is-invalid':submitted && f.powerOutputVolts?.errors}">
@@ -224,7 +224,7 @@
 
                                     <div class="col-md-4">
                                         <label class="form-label">No. of Phases:</label>
-                                        <input type="number" class="form-control" [readonly]="isEditableEmc"
+                                        <input onwheel="this.blur()" class="form-control" [readonly]="isEditableEmc"
                                             [(ngModel)]="emcPowerAndEarthingData.powerOutputPhase"
                                             formControlName="powerOutputPhase" placeholder="Enter No. of phases"
                                             [ngClass]="{'is-invalid':submitted && f.powerOutputPhase?.errors}">
@@ -236,7 +236,7 @@
 
                                     <div class="col-md-4">
                                         <label class="form-label">No. of Wires:</label>
-                                        <input type="number" class="form-control" [readonly]="isEditableEmc"
+                                        <input onwheel="this.blur()" class="form-control" [readonly]="isEditableEmc"
                                             [(ngModel)]="emcPowerAndEarthingData.powerOutputWires"
                                             formControlName="powerOutputWires" placeholder="Enter No. of wires"
                                             [ngClass]="{'is-invalid':submitted && f.powerOutputWires?.errors}">
@@ -263,7 +263,7 @@
 
                                     <div class="col-md-4">
                                         <label class="form-label">Incoming (Amps):</label>
-                                        <input type="number" class="form-control" [readonly]="isEditableEmc"
+                                        <input onwheel="this.blur()" class="form-control" [readonly]="isEditableEmc"
                                             [(ngModel)]="emcPowerAndEarthingData.powerIncomingAmps"
                                             formControlName="powerIncomingAmps" placeholder="Enter Amps here"
                                             [ngClass]="{'is-invalid':submitted && f.powerIncomingAmps?.errors}">
@@ -338,12 +338,12 @@
 
                                         <td nowrap style="text-align: center;">
                                             <button type="button" class="btn btn-secondary btn-xs mr-4" [disabled]="uploadDisable" (click)="onUpload(contentSpinner)" title="Upload">
-                                                <i class="fa fa-upload" style="color: white;"></i> Upload
+                                                <i class="fa fa-upload" style="color: white;"></i>
                                             </button>
 
                                             <button type="button" class="btn btn-success btn-xs mr-4" (click)="onDownload()" *ngIf="fileId != ''" href='javascript:onDownload()' 
                                             href='javascript:void(0)' [ngClass]="{'disableForm':isEditableEmc}" title="Download">
-                                                <i class="fa fa-download" style="color: white;"></i> Download
+                                                <i class="fa fa-download" style="color: white;"></i>
                                             </button>
 
                                             <button type="button" class="btn btn-danger btn-xs mr-4" *ngIf="fileId != ''"  (click)="deleteFile(contentSpinnerDelete)" 
@@ -645,7 +645,7 @@
                                             </td>
 
                                             <td>
-                                                <input type="number" class="form-control" formControlName="panelId"
+                                                <input onwheel="this.blur()" class="form-control" formControlName="panelId"
                                                     [ngClass]="{'is-invalid':submitted && a.get('panelId')?.errors}" [readonly]="isEditableEmc"
                                                     placeholder="Enter ID here">
                                                 <div *ngIf="submitted &&a.get('panelId')?.errors"
