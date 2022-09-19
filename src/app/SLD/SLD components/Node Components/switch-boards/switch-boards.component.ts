@@ -269,7 +269,7 @@ onUpload() {
     for (let f of this.file) {
       formData.append('file', f, f.name);
     }
-    formData.append('component', 'Transformer');
+    formData.append('component', 'SwitchBoard');
     formData.append('mainFileName', this.mainFileName);
     this.fileErrorFlag = false;
     this.fileSuccessFlag = false;
