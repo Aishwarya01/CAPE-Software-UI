@@ -736,7 +736,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     else if(form.controls.structureAttributes.controls[0].controls.stAdditionalProtection.value == 'Electrical Insulation'){
       form.controls.structureAttributes.controls[0].controls.stAdditionalProtectionDrop.setValue("0.01");
     }
-    else if(form.controls.structureAttributes.controls[0].controls.stAdditionalProtection.value == 'Effective Soil eqiupotentialisation'){
+    else if(form.controls.structureAttributes.controls[0].controls.stAdditionalProtection.value == 'Effective Soil equipotentialisation'){
       form.controls.structureAttributes.controls[0].controls.stAdditionalProtectionDrop.setValue("0.01");
     }
     else if(form.controls.structureAttributes.controls[0].controls.stAdditionalProtection.value == 'Physical restriction'){
@@ -889,7 +889,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     else if(form.controls.losses.controls[0].controls.humanLossOfphysicalDamage.value == 'Hospitals, hotel,school,civic building'){
       form.controls.losses.controls[0].controls.humanLossOfphysicalDamageDrop.setValue("0.1");
     }
-    else if(form.controls.losses.controls[0].controls.humanLossOfphysicalDamage.value == 'Public entertainment,church,museume'){
+    else if(form.controls.losses.controls[0].controls.humanLossOfphysicalDamage.value == 'Public entertainment,church,museum'){
       form.controls.losses.controls[0].controls.humanLossOfphysicalDamageDrop.setValue("0.05");
     }
     else if(form.controls.losses.controls[0].controls.humanLossOfphysicalDamage.value == 'Industrial, commercial'){
