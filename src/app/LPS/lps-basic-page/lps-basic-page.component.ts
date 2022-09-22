@@ -84,6 +84,11 @@ export class LpsBasicPageComponent implements OnInit {
 
   lpsBasic: any=[];
 
+  // License Purpose
+  // currentUserName: String='';
+  // currentUsermail: String='';
+  // userDetails: any;
+
   constructor(private formBuilder: FormBuilder, 
     private lPSBasicDetailsService: LPSBasicDetailsService,
     private modalService: NgbModal,
@@ -101,6 +106,12 @@ export class LpsBasicPageComponent implements OnInit {
     this.LPSBasicForm = this.formBuilder.group({
       lpsBasic: this.formBuilder.array([this.allBasicForm()])
     });
+    // License Purpose
+    // this.userDetails = sessionStorage.getItem('authenticatedUser');
+    // if(JSON.parse(this.userDetails).role == "Inspector"){
+    //   this.currentUserName=JSON.parse(this.userDetails).name;
+    //   this.currentUsermail=JSON.parse(this.userDetails).username;
+    // }
   }
 
   allBasicForm() {
@@ -295,7 +306,6 @@ export class LpsBasicPageComponent implements OnInit {
   }
 
   closeModalDialog1(value:any) {
-    debugger
     this.lpsBasic = this.LPSBasicForm.get('lpsBasic') as FormArray;
     this.lpsBasic.controls[0].controls.availabilityOfPreviousReport.value;
 
@@ -586,7 +596,6 @@ export class LpsBasicPageComponent implements OnInit {
   }
 
   onChange(event: any,form:any) {
-    debugger
     this.file = event.target.files;
     if (this.file != null) {
       this.uploadDisable = false;
