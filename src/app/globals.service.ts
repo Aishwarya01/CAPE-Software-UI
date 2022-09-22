@@ -107,10 +107,6 @@ autoLoginToken:number=0;
 
   bytestring7: String="";
   bytestring8: String="";
-
-  // LPS License page
-  triggerMsgForLicense: String="";
-  headerMsg: String="";
  constructor(private _scrollToService: ScrollToService
   ) {}
   
@@ -122,20 +118,6 @@ autoLoginToken:number=0;
       };
       this._scrollToService.scrollTo(config);
     }
-
-  // Lps License page
-  licensePageHeaging(){
-    if(this.headerMsg=="lpsPage"){
-      this.triggerMsgForLicense="lpsPage";
-    }
-    else if(this.headerMsg=="lvPage"){
-      this.triggerMsgForLicense="lvPage";
-    }
-    else{
-      this.triggerMsgForLicense="";
-    }
   }
-
-}
 
  

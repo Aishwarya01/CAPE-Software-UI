@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { GlobalsService } from 'src/app/globals.service';
 import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
 
 @Component({
@@ -18,22 +17,19 @@ export class LpsWelcomePageComponent implements OnInit {
   showLicence: boolean = false;
   showHome: boolean = false;
 
-  constructor( private router: ActivatedRoute,
-               private globalService: GlobalsService ) { 
+  constructor( private router: ActivatedRoute) { 
       {
         this.email = this.router.snapshot.paramMap.get('email') || '{}'
       }
     }
   ngOnInit(): void {
+    
   }
 
   onNavigateToQuestionaire() {
     this.viewContainerRef.clear();
     this.destroy = true;
-    // this.showHome = true;
-    this.showLicence = true;
-    this.globalService.headerMsg="lpsPage";
-    this.globalService.licensePageHeaging();
+    this.showHome = true;
   }
 
   displayIconsBasedOnEmail(){

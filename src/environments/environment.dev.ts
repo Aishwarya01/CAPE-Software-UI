@@ -26,7 +26,7 @@ export class SuperAdminDev {
   email(){
     this.adminEmail[0] = 'awstesting@rushforsafety.com';
     this.adminEmail[1] = 'gk@capeindia.net';
-    this.adminEmail[2] = 'elangovan.photonx@gmail.com';
+    this.adminEmail[2] = 'vinoth@capeindia.net';
   }       
 };
 

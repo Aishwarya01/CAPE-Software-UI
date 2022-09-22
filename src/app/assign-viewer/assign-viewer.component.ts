@@ -87,10 +87,6 @@ export class AssignViewerComponent implements OnInit {
   demoArr: any = [];
   existSite: boolean = false;
   arr: any = [];
-  
-  // lps license page
-  viewerForLps: boolean=false;
-  viewerForLV: boolean=false;
 
   constructor(private dialog: MatDialog,
               private formBuilder: FormBuilder, private modalService: NgbModal,
@@ -103,7 +99,6 @@ export class AssignViewerComponent implements OnInit {
               private globalService: GlobalsService,
               ) {
                 this.urlEmail = this.route.snapshot.paramMap.get('email') || '{}';
-                this.pageHeading();
                }
 
   ngOnInit(): void {
@@ -638,20 +633,5 @@ createNewGroup(item: any): FormGroup{
     )
   }  
 
-  }
-
-  pageHeading(){
-    debugger
-    this.globalService.licensePageHeaging();
-    // LPS Page
-    if(this.globalService.triggerMsgForLicense=='lpsPage'){
-      this.viewerForLps=true;
-      this.viewerForLV=false;
-    }
-    // LV Page
-    else if(this.globalService.triggerMsgForLicense=='lvPage'){
-      this.viewerForLV=true;
-      this.viewerForLps=false;
-    }
-  }
+}
 }
