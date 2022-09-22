@@ -22,6 +22,7 @@
  
         </div>
       </div>
+    <ng-container *ngIf="viewerForLV">
       <div class="row">
         <div class="col-sm-12">
           <label>Enter Viewer Email:</label>
@@ -63,6 +64,51 @@
           <span aria-hidden="true">Cancel</span>
         </button>
       </div>
+    </ng-container>
+
+    <ng-container *ngIf="viewerForLps">
+      <div class="row">
+        <div class="col-sm-12">
+          <label>Enter Viewer Email:</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="viewerEmail"
+            placeholder="Enter Email"
+            [ngClass]="{
+              'is-invalid':
+                submitted1 && assignViewerForm.controls.viewerEmail.errors
+            }"
+          />
+          <div
+            *ngIf="submitted1 && assignViewerForm.controls.viewerEmail.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="assignViewerForm.controls.viewerEmail.errors.required">
+              Email is required
+            </div>
+            <div *ngIf="assignViewerForm.controls.viewerEmail.errors.pattern">
+              Enter valid email
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div style="text-align: center">
+        <button class="btn btn-primary" (click)="continue(contentViewer)" id="login-btn" style="font-size: 14px;">
+          Continue</button
+        >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button
+          type="button"
+          aria-label="Close"
+          (click)="closeModalDialogContinue()"
+          class="btn btn-danger" style="font-size: 14px;"
+        >
+          <i class="bi bi-x icon"></i>
+          <span aria-hidden="true">Cancel</span>
+        </button>
+      </div>
+    </ng-container>
     </div>
   </div>
 </form>

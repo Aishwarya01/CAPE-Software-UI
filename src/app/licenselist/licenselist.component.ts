@@ -20,6 +20,7 @@ import { environment } from 'src/environments/environment';
 import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
 import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminProd } from 'src/environments/environment.prod';
+import { LpsBasicPageComponent } from '../LPS/lps-basic-page/lps-basic-page.component';
 
 @Component({
   selector: 'app-licenselist',
@@ -100,6 +101,7 @@ export class LicenselistComponent implements OnInit {
   superAdminArr: any = [];
   superAdminDev = new SuperAdminDev();
   superAdminProd = new SuperAdminProd();
+  licensePageHeading: String="";
 
   constructor(private formBuilder: FormBuilder,
               private dialog: MatDialog,
@@ -125,6 +127,7 @@ export class LicenselistComponent implements OnInit {
     // this.superAdminArr.push('vinoth@capeindia.net');
     // this.superAdminArr.push('awstesting@rushforsafety.com');
     this.retrieveSiteDetails();
+    this.pageHeading();
   }
  
   retrieveUserDetail() {
@@ -352,17 +355,33 @@ export class LicenselistComponent implements OnInit {
   
   decreaseLicense() {
     this.service.useClicked=true;
-    const dialogRef = this.dialog.open(AssignViewerComponent, {
-      width: '720px',
-    });
-    dialogRef.componentInstance.email = this.email;
-    dialogRef.componentInstance.onSave.subscribe(data=>{
-      if(data) {
-        this.navigateToSite();
-      }
-    })
-    dialogRef.afterClosed().subscribe((result) => {
-    });
+    if(this.service.headerMsg=="lvPage"){
+      const dialogRef = this.dialog.open(AssignViewerComponent, {
+        width: '720px',
+      });
+      dialogRef.componentInstance.email = this.email;
+      dialogRef.componentInstance.onSave.subscribe(data=>{
+        if(data) {
+          this.navigateToSite();
+        }
+      })
+      dialogRef.afterClosed().subscribe((result) => {
+      });
+    }
+
+    else if(this.service.headerMsg=="lpsPage"){
+      const dialogRef = this.dialog.open(LpsBasicPageComponent, {
+        width: '1080px',
+      });
+      dialogRef.componentInstance.email = this.email;
+      dialogRef.componentInstance.onSave.subscribe((data: any)=>{
+        if(data) {
+          this.navigateToSite();
+        }
+      })
+      dialogRef.afterClosed().subscribe((result) => {
+      });
+    }
   }
 
   purchaseLicense() {
@@ -380,6 +399,21 @@ export class LicenselistComponent implements OnInit {
     })
     dialogRef.afterClosed().subscribe((result) => {
     });
+  }
+
+  pageHeading(){
+    this.service.licensePageHeaging();
+    // LPS Page
+    if(this.service.triggerMsgForLicense=='lpsPage'){
+      this.licensePageHeading="LPS License Page"
+    }
+    // LV Page
+    else if(this.service.triggerMsgForLicense=='lvPage'){
+      this.licensePageHeading="LV License Page"
+    }
+    else{
+      this.licensePageHeading="";
+    }
   }
 
 }

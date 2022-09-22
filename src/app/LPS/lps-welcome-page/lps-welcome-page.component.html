@@ -2,7 +2,9 @@
     <ng-template #reference></ng-template>
 <body>
     <div *ngIf="destroy">
-         <app-lps-matstepper *ngIf="showHome"></app-lps-matstepper>
+         <!-- <app-lps-matstepper *ngIf="showHome"></app-lps-matstepper> -->
+         <app-licenselist *ngIf="showLicence"></app-licenselist>
+         <app-verificationlv *ngIf="showHome"></app-verificationlv>
     </div>
     <div *ngIf="!destroy" style="padding: 20px; background: white;">
     <button style="float: right;" type="submit"

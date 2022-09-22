@@ -3,6 +3,7 @@ import { Component, ComponentFactoryResolver, Input, OnInit, ViewChild, ViewCont
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { GlobalsService } from '../globals.service';
 import { VerificationlvComponent } from '../verificationlv/verificationlv.component';
 
 
@@ -20,7 +21,8 @@ export class LvInspectionDetailsComponent {
   showLicence: boolean = false;
   showHome: boolean = false;
 
-  constructor( private router: ActivatedRoute) { 
+  constructor( private router: ActivatedRoute,
+               private globalService: GlobalsService ) { 
       {
         this.email = this.router.snapshot.paramMap.get('email') || '{}'
       }
@@ -39,6 +41,8 @@ export class LvInspectionDetailsComponent {
     // }
     this.showHome = false;
     this.showLicence = true;
+    this.globalService.headerMsg="lvPage"
+    this.globalService.licensePageHeaging();
   }
 
   displayIconsBasedOnEmail(){
