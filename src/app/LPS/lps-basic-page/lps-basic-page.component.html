@@ -465,9 +465,6 @@
 <ng-template #contentSpinner let-modal>
     <mat-progress-spinner style="margin: 0 auto;" *ngIf="spinnerUpload" color="primary" [mode]="mode" value="50" diameter="50">
     </mat-progress-spinner>
-    <div *ngIf="spinnerUpload" style="text-align: center;">
-        Please wait, the details are loading!
-    </div>
     <div class="modal-body" *ngIf="popupUpload">
         <div class="centre-text m-btm30">
             <div *ngIf="filesuccess" style="text-align: center;">
@@ -478,7 +475,9 @@
             </div>
         </div>
     </div>
-    <br>
+    <div *ngIf="filesuccess" style="text-align: center;">
+        <b>Note:</b> Please click Next Button, Then only the file changes will reflect!
+      </div>
     <div *ngIf="popupUpload">
         <button type="button" style="text-align: center;margin-left:180px;width:20%" class="close" (click)="closeModalDialogFile()"
             class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close">
