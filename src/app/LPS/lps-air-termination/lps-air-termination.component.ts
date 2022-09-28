@@ -53,6 +53,9 @@ export class LpsAirTerminationComponent implements OnInit {
   uploadDisable1: boolean = true;
   uploadDisable2: boolean = true;
 
+  // File delete purpose
+  fileFalg: boolean=false;
+
   download: any = [];
   download1: any = [];
   download2: any = [];
@@ -160,6 +163,8 @@ export class LpsAirTerminationComponent implements OnInit {
 
   deletedLpsDataForFileIdupdate: any = [];
   addDeletedVeritcalAirterminationListIndex:any=[];
+  fileErrorMsg: string="";
+  fileError: boolean=false;
 
   // successMsg1: Strin:g="";
 
@@ -183,6 +188,7 @@ export class LpsAirTerminationComponent implements OnInit {
     this.airTerminationForm = this.formBuilder.group({
       lpsAirDescription: this.formBuilder.array([this.allLPSAirterminationArr()])
     });
+    this.retriveFIleName();
   }
 
   allLPSAirterminationArr() {
@@ -661,7 +667,7 @@ export class LpsAirTerminationComponent implements OnInit {
     this.deletedAirTerminationListArr = [];
     this.deletedHoldersListArr = [];
     this.airRetrieve();
-    // this.retriveFIleName();
+     this.retriveFIleName();
     this.flag = true;
   }
 
@@ -688,7 +694,7 @@ export class LpsAirTerminationComponent implements OnInit {
       this.airRetrieve();
       this.flag = true;
     }
-
+    this.retriveFIleName();
   }
 
   airRetrieve() {
@@ -2177,6 +2183,16 @@ export class LpsAirTerminationComponent implements OnInit {
   }
 
   onUpload(contentSpinner: any, q: any, fileId: any,form:any) {
+    if(this.basicLpsId ==0) {
+      this.fileErrorMsg = 'Basic Form is Required for uploading the file';
+      this.fileError = true;
+      setTimeout(() => {
+        this.fileErrorMsg = '';
+        this.fileError = false;
+      }, 3000);
+      return;
+    }
+    this.fileFalg=true;
     this.airTerminationForm.markAsDirty();
     this.airTerminationForm.markAsTouched();
     if (this.file != undefined) {
@@ -2231,6 +2247,16 @@ export class LpsAirTerminationComponent implements OnInit {
   }
 
   onUpload1(contentSpinner: any, q: any, fileId: any,form:any) {
+    if(this.basicLpsId ==0) {
+      this.fileErrorMsg = 'Basic Form is Required for uploading the file';
+      this.fileError = true;
+      setTimeout(() => {
+        this.fileErrorMsg = '';
+        this.fileError = false;
+      }, 3000);
+      return;
+    }
+    this.fileFalg=true;
     this.airTerminationForm.markAsDirty();
     this.airTerminationForm.markAsTouched();
     form.controls.fileIndexVAir.setValue(q);
@@ -2286,6 +2312,16 @@ export class LpsAirTerminationComponent implements OnInit {
   }
 
   onUpload2(contentSpinner: any, index: any, fileId: any,form:any) {
+    if(this.basicLpsId ==0) {
+      this.fileErrorMsg = 'Basic Form is Required for uploading the file';
+      this.fileError = true;
+      setTimeout(() => {
+        this.fileErrorMsg = '';
+        this.fileError = false;
+      }, 3000);
+      return;
+    }
+    this.fileFalg=true;
     this.airTerminationForm.markAsDirty();
     this.airTerminationForm.markAsTouched();
     form.controls.fileIndex_EP.setValue(index);
