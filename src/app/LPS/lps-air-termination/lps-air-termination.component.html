@@ -666,6 +666,8 @@
                           </tbody>
                         </table>
 
+                        <div class="row">
+                          <div class="col-md-12">
                           <!-- File Upload -->
                           <table class="table TableBorder" style="margin-top: 1rem;">
                             <thead>
@@ -694,6 +696,9 @@
                                   <div *ngIf="submitted && a.get('fileId')?.errors" class="invalid-feedback">
                                     <div *ngIf="a.get('fileId')?.errors?.required">File upload is required</div>
                                   </div>
+                                  <div *ngIf="fileError" style="text-align: center;">
+                                    <span class="errorshow">{{fileErrorMsg}}</span>
+                                  </div>
                                   <!-- <button type="button" class="btn btn-warning btn-xs mr-4"><i class="fa fa-ban" style="color: white;"></i> Cancel
                                                                 </button> -->
                                   <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="a.get('fileId')?.value != '' && a.get('fileId')?.value != null" (click)="onDownload(a.get('fileName')?.value,a.get('fileId')?.value)" href='javascript:void(0)' [ngClass]="{'disableForm':isEditable}" title="Download">
@@ -704,8 +709,10 @@
                               </tr>
                             </tbody>
                           </table>
-                                
-
+                          </div>
+                          <p class="col-md-12"style="font-weight: bold">Note :  If you are attaching multiple photos or files, Please create single PDF or Word document with photos and upload</p>
+                        </div>
+                          
                           <table class="table TableBorder">
                             <tbody>
                               <tr>
@@ -834,50 +841,48 @@
                           </div>
                         </td>
                       </tr>
-                      <!-- File Upload -->
-                      <table class="table TableBorder" style="margin-top: 1rem;" *ngIf="q.get('verticalAirTerminationAvailabilityOb')?.value === 'Applicable'">
-                        <thead>
-                          <tr>
-                            <th width="25%">Attach The File Here</th>
-                            <th width="27%">Name</th>
-                            <th width="6%" ng-show="uploader.isHTML5">Size</th>
-                            <th width="25%">Actions</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>
-                              <input style="height: 3rem;" type="file" class="form-control" (change)="onChange1($event,a)" [attr.disabled]="isEditable ? '' : null" accept=".txt,.jpeg,.png,.jpg,.pdf">
-                              <div *ngIf="submitted && a.get('fileNameVAir')?.errors" class="invalid-feedback">
-                                <div *ngIf="a.get('fileNameVAir')?.errors?.required">Field is required</div>
-                              </div>
-                            </td>
-                            <td style="text-align: center;">{{a.get('fileNameVAir')?.value}}</td>
-                            <td ng-show="uploader.isHTML5" nowrap style="text-align: center;">{{a.get('fileSize')?.value}}</td>
-                            <!-- <td ng-show="uploader.isHTML5"><div class="progress" style="margin-bottom: 0;"><div class="progress-bar" role="progressbar" ng-style="{ 'width': fileId.progress + '%' }"></div></div></td><td class="text-center"><span ng-show="fileId.isSuccess"><i class="glyphicon glyphicon-ok"></i></span><span ng-show="fileId.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span><span ng-show="fileId.isError"><i class="glyphicon glyphicon-remove"></i></span></td> -->
-                            <td nowrap style="text-align: center;">
-                              <button type="button" class="btn btn-secondary btn-xs mr-4" [disabled]="uploadDisable1" (click)="onUpload1(contentSpinner,f,a.get('fileIdVAir')?.value,a)" title="Upload">
-                                <i class="fa fa-upload" style="color: white;"></i>  </button>
-                              <div *ngIf="submitted && a.get('fileIdVAir')?.errors" class="invalid-feedback">
-                                <div *ngIf="a.get('fileIdVAir')?.errors?.required">File upload is required</div>
-                              </div>
-                              <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="a.get('fileIdVAir')?.value != '' && a.get('fileIdVAir')?.value != null" (click)="onDownload1(a.get('fileNameVAir')?.value,a.get('fileIdVAir')?.value)" href='javascript:void(0)' title="Download" [ngClass]="{'disableForm':isEditable}">
-                                <i class="fa fa-download" style="color: white;"></i>  </button>
-                              <!-- <button type="button" class="btn btn-danger btn-xs mr-4"><i class="fa fa-trash-o" style="color: white;"></i> Delete
-                                                            </button> -->
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <!-- <br><div style="margin-left: 3rem;"><label class="form-label">Attach The File Here:</label><div class="row input-group mb-2"><div class="col-md-6"><input style="height: 3rem;" type="file" class="form-control" (change)="onChange1($event,overAllControl().length-1)" [attr.disabled]="isEditable ? '' : null"
-                                                         accept=".txt,.jpeg,.png,.jpg,.pdf"></div><div class="col-md-6"><button type="button" class="btn btn-success" [disabled]="uploadDisable1" (click)="onUpload1(contentSpinner,overAllControl().length-1,a.get('fileIdVAir')?.value)">Upload</button><a (click)="onDownload1(a.get('fileNameVAir')?.value)" *ngIf="a.get('fileNameVAir')?.value!=''"   href='javascript:void(0)' title="Download" style="margin-left: 30px;text-decoration: underline;" 
-                                                        [ngClass]="{'disableForm':isEditable}" >{{a.get('fileNameVAir')?.value}}</a> -->
-                      <!-- <mat-icon *ngIf="a.get('fileNameVAir')?.value!=''"    class="mousechange" class="dlt" type="button" title="Delete" (click)="deleteFile1(contentSpinnerDelete,overAllControl().length-1)"
-                                                        style="position: absolute;margin-left: 40px; margin-top: 5px;">remove_circle_outline</mat-icon>-->
-                      <!-- </div><div *ngIf="submitted && a.get('fileNameVAir')?.errors"
-                                                    class="invalid-feedback"><div
-                                                        *ngIf="a.get('fileNameVAir')?.errors?.required">
-                                                        Field is required</div></div></div></div><br> -->
+
+                      <div class="row">
+                        <div class="col-md-12">
+                        <!-- File Upload -->
+                          <table class="table TableBorder" style="margin-top: 1rem;" *ngIf="q.get('verticalAirTerminationAvailabilityOb')?.value === 'Applicable'">
+                            <thead>
+                              <tr>
+                                <th width="25%">Attach The File Here</th>
+                                <th width="27%">Name</th>
+                                <th width="6%" ng-show="uploader.isHTML5">Size</th>
+                                <th width="25%">Actions</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <input style="height: 3rem;" type="file" class="form-control" (change)="onChange1($event,a)" [attr.disabled]="isEditable ? '' : null" accept=".txt,.jpeg,.png,.jpg,.pdf">
+                                  <div *ngIf="submitted && a.get('fileNameVAir')?.errors" class="invalid-feedback">
+                                    <div *ngIf="a.get('fileNameVAir')?.errors?.required">Field is required</div>
+                                  </div>
+                                </td>
+                                <td style="text-align: center;">{{a.get('fileNameVAir')?.value}}</td>
+                                <td ng-show="uploader.isHTML5" nowrap style="text-align: center;">{{a.get('fileSize')?.value}}</td>
+                                <td nowrap style="text-align: center;">
+                                  <button type="button" class="btn btn-secondary btn-xs mr-4" [disabled]="uploadDisable1" (click)="onUpload1(contentSpinner,f,a.get('fileIdVAir')?.value,a)" title="Upload">
+                                    <i class="fa fa-upload" style="color: white;"></i>  </button>
+                                  <div *ngIf="submitted && a.get('fileIdVAir')?.errors" class="invalid-feedback">
+                                    <div *ngIf="a.get('fileIdVAir')?.errors?.required">File upload is required</div>
+                                  </div>
+                                  <div *ngIf="fileError" style="text-align: center;">
+                                    <span class="errorshow">{{fileErrorMsg}}</span>
+                                  </div>
+                                  <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="a.get('fileIdVAir')?.value != '' && a.get('fileIdVAir')?.value != null" (click)="onDownload1(a.get('fileNameVAir')?.value,a.get('fileIdVAir')?.value)" href='javascript:void(0)' title="Download" [ngClass]="{'disableForm':isEditable}">
+                                    <i class="fa fa-download" style="color: white;"></i>  </button>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <p class="col-md-12" *ngIf="q.get('verticalAirTerminationAvailabilityOb')?.value === 'Applicable'" style="font-weight: bold">Note :  If you are attaching multiple photos or files, Please create single PDF or Word document with photos and upload</p>
+                      </div>
+
                       <div formArrayName="verticalAirTerminationList" class="search-bar1" style="margin-top: 1rem;margin-bottom: 1rem;" *ngFor="let z of getAirTUnitControls(a); let w = index">
                         <div [formGroupName]="w">
                           <h2>
@@ -2780,48 +2785,48 @@
                           </div>
                         </td>
                       </tr>
-                      <!-- File Upload -->
-                      <table class="table TableBorder" style="margin-top: 1rem;" *ngIf="q.get('airExpansionAvailabilityOb')?.value == 'Applicable'">
-                        <thead>
-                          <tr>
-                            <th width="25%">Attach The File Here</th>
-                            <th width="27%">Name</th>
-                            <th width="6%" ng-show="uploader.isHTML5">Size</th>
-                            <th width="25%">Actions</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>
-                              <input style="height: 3rem;" type="file" class="form-control" (change)="onChange2($event,a)" [attr.disabled]="isEditable ? '' : null" accept=".txt,.jpeg,.png,.jpg,.pdf">
-                              <div *ngIf="submitted && a.get('fileName_EP')?.errors" class="invalid-feedback">
-                                <div *ngIf="a.get('fileName_EP')?.errors?.required">Field is required</div>
-                              </div>
-                            </td>
-                            <td style="text-align: center;">{{a.get('fileName_EP')?.value}}</td>
-                            <td ng-show="uploader.isHTML5" nowrap style="text-align: center;">{{a.get('fileSize')?.value}}</td>
-                            <!-- <td ng-show="uploader.isHTML5"><div class="progress" style="margin-bottom: 0;"><div class="progress-bar" role="progressbar" ng-style="{ 'width': fileId.progress + '%' }"></div></div></td> -->
-                            <!-- <td class="text-center"><span ng-show="fileId.isSuccess"><i class="bi bi-check-circle-fill"></i></span><span ng-show="fileId.isError"><i class="bi bi-x-circle-fill"></i></span></td> -->
-                            <td nowrap style="text-align: center;">
-                              <button type="button" class="btn btn-secondary btn-xs mr-4" [disabled]="uploadDisable2" (click)="onUpload2(contentSpinner,f,a.get('fileIdEP')?.value,a)" title="Upload">
-                                <i class="fa fa-upload" style="color: white;"></i>  </button>
-                              <div *ngIf="submitted && a.get('fileIdEP')?.errors" class="invalid-feedback">
-                                <div *ngIf="a.get('fileIdEP')?.errors?.required">File upload is required</div>
-                              </div>
-                              <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="a.get('fileIdEP')?.value != '' && a.get('fileIdEP')?.value != null" (click)="onDownload2(a.get('fileName_EP')?.value,a.get('fileIdEP')?.value)" href='javascript:void(0)' title="Download" [ngClass]="{'disableForm':isEditable}">
-                                <i class="fa fa-download" style="color: white;"></i>  </button>
-                              <!-- <button type="button" class="btn btn-danger btn-xs mr-4"><i class="fa fa-trash-o" style="color: white;"></i> Delete
-                                                            </button> -->
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <!-- <br><div style="margin-left: 3rem;"><label class="form-label">Attach The File Here:</label><div class="row input-group mb-2"><div class="col-md-6"><input style="height: 3rem;" type="file" class="form-control"  (change)="onChange2($event)" [attr.disabled]="isEditable ? '' : null"
-                                                         accept=".txt,.jpeg,.png,.jpg,.pdf"></div><div class="col-md-6"><button type="button" class="btn btn-success" [disabled]="uploadDisable2"  (click)="onUpload2(contentSpinner,overAllControl().length-1,a.get('fileIdEP')?.value)">Upload</button><a (click)="onDownload2(a.get('fileName_EP')?.value )" *ngIf="a.get('fileName_EP')?.value != ''" href='javascript:void(0)' title="Download" style="margin-left: 30px;text-decoration: underline;" 
-                                                        [ngClass]="{'disableForm':isEditable}">{{a.get('fileName_EP')?.value}}</a> -->
-                      <!-- <mat-icon *ngIf="a.get('fileName_EP')?.value != ''" class="mousechange" class="dlt" type="button" title="Delete" (click)="deleteFile2(contentSpinnerDelete,overAllControl().length-1)"
-                                                        style="position: absolute;margin-left: 40px; margin-top: 5px;">remove_circle_outline</mat-icon> -->
-                      <!-- </div><div *ngIf="submitted && a.get('fileName_EP')?.errors" class="invalid-feedback"><div *ngIf="a.get('fileName_EP')?.errors?.required">Field is required</div></div></div></div><br> -->
+
+                      <div class="row">
+                        <div class="col-md-12">
+                          <!-- File Upload -->
+                          <table class="table TableBorder" style="margin-top: 1rem;" *ngIf="q.get('airExpansionAvailabilityOb')?.value == 'Applicable'">
+                            <thead>
+                              <tr>
+                                <th width="25%">Attach The File Here</th>
+                                <th width="27%">Name</th>
+                                <th width="6%" ng-show="uploader.isHTML5">Size</th>
+                                <th width="25%">Actions</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <input style="height: 3rem;" type="file" class="form-control" (change)="onChange2($event,a)" [attr.disabled]="isEditable ? '' : null" accept=".txt,.jpeg,.png,.jpg,.pdf">
+                                  <div *ngIf="submitted && a.get('fileName_EP')?.errors" class="invalid-feedback">
+                                    <div *ngIf="a.get('fileName_EP')?.errors?.required">Field is required</div>
+                                  </div>
+                                </td>
+                                <td style="text-align: center;">{{a.get('fileName_EP')?.value}}</td>
+                                <td ng-show="uploader.isHTML5" nowrap style="text-align: center;">{{a.get('fileSize')?.value}}</td>
+                                <td nowrap style="text-align: center;">
+                                  <button type="button" class="btn btn-secondary btn-xs mr-4" [disabled]="uploadDisable2" (click)="onUpload2(contentSpinner,f,a.get('fileIdEP')?.value,a)" title="Upload">
+                                    <i class="fa fa-upload" style="color: white;"></i>  </button>
+                                  <div *ngIf="submitted && a.get('fileIdEP')?.errors" class="invalid-feedback">
+                                    <div *ngIf="a.get('fileIdEP')?.errors?.required">File upload is required</div>
+                                  </div>
+                                  <div *ngIf="fileError" style="text-align: center;">
+                                    <span class="errorshow">{{fileErrorMsg}}</span>
+                                  </div>
+                                  <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="a.get('fileIdEP')?.value != '' && a.get('fileIdEP')?.value != null" (click)="onDownload2(a.get('fileName_EP')?.value,a.get('fileIdEP')?.value)" href='javascript:void(0)' title="Download" [ngClass]="{'disableForm':isEditable}">
+                                    <i class="fa fa-download" style="color: white;"></i>  </button>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <p class="col-md-12" *ngIf="q.get('airExpansionAvailabilityOb')?.value == 'Applicable'" style="font-weight: bold">Note :  If you are attaching multiple photos or files, Please create single PDF or Word document with photos and upload</p>
+                      </div>
+
                     </div>
                   </tbody>
                 </table>
@@ -3291,6 +3296,7 @@
     </button>
   </div>
 </ng-template>
+
 <ng-template #contentSpinner let-modal>
   <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinner" color="primary" [mode]="mode" value="50" diameter="50">></mat-progress-spinner>
   <div class="modal-body" *ngIf="popup">

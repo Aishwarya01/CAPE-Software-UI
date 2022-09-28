@@ -313,7 +313,7 @@
                         </span>
                     </div>
 
-                    <select class="form-control" formControlName="availabilityOfPreviousReport" [attr.disabled]="isEditable ? '' : null" 
+                    <select class="form-control" formControlName="availabilityOfPreviousReport" [attr.disabled]="isEditable ? '' : null" (change)="dropDownPopup($event,dropDown)"
                     [ngClass]="{ 'is-invalid': submitted && f.get('availabilityOfPreviousReport')?.errors }" [(ngModel)]="availableReportNo">
                         <option  value="" selected>Select Option</option>
                         <option value="Yes" >Yes</option>
@@ -325,48 +325,48 @@
                     </div>
                     </div>
                 </div>
+            </div>
 
+            <div class="row">
+                
                 <!-- File Upload for Basic -->
-                <!-- <div class="col-md-8">
+                <div class="col-md-12" *ngIf="f.get('availabilityOfPreviousReport')?.value == 'Yes'">
                     <table class="table TableBorder" style="margin-top: 1rem;">
                         <thead>
-                            <tr>
-                                <th width="25%">Attach The File Here</th>
-                                <th width="27%">Name</th>
-                                <th width="6%" ng-show="uploader.isHTML5">Size</th>
-                                <th width="25%">Actions</th>
-                            </tr>
+                          <tr>
+                            <th width="25%">Attach The File Here</th>
+                            <th width="27%">Name</th>
+                            <th width="6%" ng-show="uploader.isHTML5">Size</th>
+                            <th width="25%">Actions</th>
+                          </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="item in uploader.queue">
-                                <td>
-                                    <input style="height: 3rem;" type="file" class="form-control" [attr.disabled]="isEditable ? '' : null"
-                                    accept=".txt,.jpeg,.png,.jpg,.pdf">
-                                    <div class="invalid-feedback">
-                                        <div >Field is required</div>
-                                    </div>
-                                </td>
-                                <td style="text-align: center;"></td>
-                                <td ng-show="uploader.isHTML5" nowrap style="text-align: center;"></td>
-                                <td nowrap style="text-align: center;">
-                                    <button type="button" class="btn btn-secondary btn-xs mr-4" title="Upload">
-                                        <i class="fa fa-upload" style="color: white;"></i> 
-                                    </button>
-                                    <div class="invalid-feedback">
-                                        <div >File upload is required</div>
-                                    </div>
-                                    <div style="text-align: center;">
-                                        <span class="errorshow"></span>
-                                    </div>
-                                    <button type="button" class="btn btn-success btn-xs mr-4"  
-                                    href='javascript:void(0)' [ngClass]="{'disableForm':isEditable}" title="Download">
-                                        <i class="fa fa-download" style="color: white;"></i> 
-                                    </button>
-                                </td>
-                            </tr>
+                          <tr>
+                            <td>
+                              <input style="height: 3rem;" type="file" class="form-control" (change)="onChange($event,f)" [attr.disabled]="isEditable ? '' : null" accept=".txt,.jpeg,.png,.jpg,.pdf" formControlName="fileName">
+                              <div *ngIf="submitted && f.get('fileName')?.errors" class="invalid-feedback">
+                                <div *ngIf="f.get('fileName')?.errors?.required">Field is required</div>
+                              </div>
+                            </td>
+                            
+                            <td style="text-align: center;">{{fileName}}</td>
+                            <td ng-show="uploader.isHTML5" nowrap style="text-align: center;">{{fileSize}}</td>
+
+                            <td nowrap style="text-align: center;">
+                              <button type="button" class="btn btn-secondary btn-xs mr-4" [disabled]="uploadDisable" (click)="onUpload(contentSpinner,f)" title="Upload">
+                                <i class="fa fa-upload" style="color: white;"></i>  </button>
+                                  <div *ngIf="submitted && f.get('fileId')?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.get('fileId')?.errors?.required">File upload is required</div>
+                                  </div>
+                              <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="fileId!= null && fileId!=undefined && fileId!= ''" (click)="onDownload()" href='javascript:void(0)' title="Download" [ngClass]="{'disableForm':isEditable}">
+                                <i class="fa fa-download" style="color: white;"></i></button>
+                            </td>
+                          </tr>
                         </tbody>
-                    </table>
-                </div> -->
+                      </table>
+                </div>
+
+                <p class="col-md-12" *ngIf="f.get('availabilityOfPreviousReport')?.value == 'Yes'" style="font-weight: bold">Note :  If you are attaching multiple photos or files, Please create single PDF or Word document with photos and upload</p>
             </div>
         </div>
     </div>
@@ -412,6 +412,7 @@
         </button>
     </div>
 </ng-template> 
+
 <ng-template #contents let-modal>
     <div class="modal-body">
      <div class="centre-text m-btm30">
@@ -435,5 +436,52 @@
         <span aria-hidden="true">Cancel</span>
     </button>
   </div>
-  
+</ng-template>
+
+<ng-template #dropDown let-modal>
+    <div class="modal-body">
+     <div class="centre-text m-btm30">
+      <div style="text-align: center;">
+        <span class="warningMsg">Note: If select option No, On click of Next button Previously uploaded file will be Removed</span>
+       </div>
+      </div>
+     </div>
+    <br>
+    <div class="row">
+       <button type="button" class="col-md-6" style="position: relative;margin-left: 20%;width: auto;" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+       aria-label="Close" (click)="closeModalDialog1('No')">
+       <i class="bi bi-arrow-right-circle"></i>&nbsp;
+        <span aria-hidden="true">Confirm</span>
+    </button>
+    <button type="button" class="col-md-6" style="text-align: center;width: auto;position: relative;margin-right: 20%;" class="btn btn-danger btn-rounded btn-md font-weight-medium auth-form-btn"
+       aria-label="Close" (click)="closeModalDialog1('Yes')">
+       <i class="bi bi-x icon"></i>
+        <span aria-hidden="true">Cancel</span>
+    </button>
+  </div>
+</ng-template>
+
+<!-- File Upload -->
+<ng-template #contentSpinner let-modal>
+    <mat-progress-spinner style="margin: 0 auto;" *ngIf="spinnerUpload" color="primary" [mode]="mode" value="50" diameter="50">
+    </mat-progress-spinner>
+    <div class="modal-body" *ngIf="popupUpload">
+        <div class="centre-text m-btm30">
+            <div *ngIf="filesuccess" style="text-align: center;">
+                <span class="successshow">{{filesuccessMsg}}</span>
+            </div>
+            <div *ngIf="Error" style="text-align: center;">
+                <span class="errorshow">{{errorMsg}}</span>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="filesuccess" style="text-align: center;">
+        <b>Note:</b> Please click Next Button, Then only the file changes will reflect!
+      </div>
+    <div *ngIf="popupUpload">
+        <button type="button" style="text-align: center;margin-left:180px;width:20%" class="close" (click)="closeModalDialogFile()"
+            class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close">
+            <span >Ok</span>
+        </button>
+    </div>
 </ng-template>

@@ -346,10 +346,7 @@ export class LpsMatstepperComponent implements OnInit {
   }
 
   interceptTabChange(tab: MatTab, tabHeader: MatTabHeader) {
-    if ((this.airTermination.airTerminationForm.dirty && this.airTermination.airTerminationForm.touched) || 
-    (this.downConductors.downConductorForm.dirty && this.downConductors.downConductorForm.touched)) {
-      this.fileUploadService.removeUnusedFiles(this.airTermination.basicLpsId).subscribe();
-    }
+  
     if((this.service.lvClick==1) && (this.service.allStepsCompleted==true))
        {
         const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
@@ -359,20 +356,38 @@ export class LpsMatstepperComponent implements OnInit {
         });
         dialogRef.componentInstance.editModal = false;
         dialogRef.componentInstance.viewModal = false;
-        dialogRef.componentInstance.triggerModal = true;
+
+        if(this.airTermination.fileFalg || this.downConductors.fileFlag){
+          dialogRef.componentInstance.triggerModal1 = true;
+        }
+        else{
+          dialogRef.componentInstance.triggerModal = true;
+        }
+
         dialogRef.componentInstance.linkModal = false;
         dialogRef.componentInstance.summaryModal = false;
     
         dialogRef.componentInstance.confirmBox.subscribe(data=>{
           if(data) {
-           
             if(tab.textLabel == "Saved Reports"){
               this.selectedIndex=1; 
               this.lpsGlobalservice.basiclpsId = 0;
+
+              // File Delete purpose
+              if ((this.airTermination.airTerminationForm.dirty && this.airTermination.airTerminationForm.touched) || 
+              (this.downConductors.downConductorForm.dirty && this.downConductors.downConductorForm.touched)) {
+                this.fileUploadService.removeUnusedFiles(this.airTermination.basicLpsId).subscribe();
+              }
             }
             else if(tab.textLabel == "Final Reports"){
               this.selectedIndex=2; 
               this.lpsGlobalservice.basiclpsId = 0;
+
+              // File Delete purpose
+              if ((this.airTermination.airTerminationForm.dirty && this.airTermination.airTerminationForm.touched && !this.airTermination.fileFalg) || 
+              (this.downConductors.downConductorForm.dirty && this.downConductors.downConductorForm.touched && !this.downConductors.fileFlag)) {
+                this.fileUploadService.removeUnusedFiles(this.airTermination.basicLpsId).subscribe();
+              }
             }
             this.service.windowTabClick=0;
             this.service.logoutClick=0; 

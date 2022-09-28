@@ -469,6 +469,7 @@
                                                     </tbody>
                                                 </table>
                                                 </div>
+                                                <p class="col-md-12" *ngIf="q.get('downConductorAvailabilityOb')?.value == 'Applicable'" style="font-weight: bold">Note :  If you are attaching multiple photos or files, Please create single PDF or Word document with photos and upload</p>
                                             </Td>
                                         </tr>
                                         
@@ -1029,67 +1030,73 @@
                             </table>
                         </div>
 
-                        <!-- File Upload -->
-                        <table class="table TableBorder" style="margin-top: 1rem;">
-                            <thead>
-                                <tr>
-                                    <th width="25%">Attach The File Here</th>
-                                    <th width="27%">Name</th>
-                                    <th width="6%" ng-show="uploader.isHTML5">Size</th>
-                                    <!-- <th ng-show="uploader.isHTML5">Progress</th> -->
-                                    <!-- <th>Status</th> -->
-                                    <th width="25%">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="item in uploader.queue">
-                                    <td>
-                                        <input style="height: 3rem;" type="file" class="form-control" (change)="onChange1($event,q)" [attr.disabled]="isEditable ? '' : null"
-                                        accept=".txt,.jpeg,.png,.jpg,.pdf">
-                                        <div *ngIf="submitted && q.get('fileName1')?.errors" class="invalid-feedback">
-                                            <div *ngIf="q.get('fileName1')?.errors?.required">Field is required</div>
-                                        </div>
-                                    </td>
-                                    <td style="text-align: center;">{{q.get('fileName1')?.value}}</td>
-                                    <td ng-show="uploader.isHTML5" nowrap style="text-align: center;">{{q.get('fileSize')?.value}}</td>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!-- File Upload -->
+                                <table class="table TableBorder" style="margin-top: 1rem;">
+                                    <thead>
+                                        <tr>
+                                            <th width="25%">Attach The File Here</th>
+                                            <th width="27%">Name</th>
+                                            <th width="6%" ng-show="uploader.isHTML5">Size</th>
+                                            <!-- <th ng-show="uploader.isHTML5">Progress</th> -->
+                                            <!-- <th>Status</th> -->
+                                            <th width="25%">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in uploader.queue">
+                                            <td>
+                                                <input style="height: 3rem;" type="file" class="form-control" (change)="onChange1($event,q)" [attr.disabled]="isEditable ? '' : null"
+                                                accept=".txt,.jpeg,.png,.jpg,.pdf">
+                                                <div *ngIf="submitted && q.get('fileName1')?.errors" class="invalid-feedback">
+                                                    <div *ngIf="q.get('fileName1')?.errors?.required">Field is required</div>
+                                                </div>
+                                            </td>
+                                            <td style="text-align: center;">{{q.get('fileName1')?.value}}</td>
+                                            <td ng-show="uploader.isHTML5" nowrap style="text-align: center;">{{q.get('fileSize')?.value}}</td>
 
-                                    <!-- <td ng-show="uploader.isHTML5">
-                                        <div class="progress" style="margin-bottom: 0;">
-                                            <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
-                                        </div>
-                                    </td> -->
-                                    <!-- <td class="text-center">
-                                        <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
-                                        <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
-                                        <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
-                                    </td> -->
+                                            <!-- <td ng-show="uploader.isHTML5">
+                                                <div class="progress" style="margin-bottom: 0;">
+                                                    <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                                                </div>
+                                            </td> -->
+                                            <!-- <td class="text-center">
+                                                <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                                                <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                                                <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                                            </td> -->
 
-                                    <td nowrap style="text-align: center;">
-                                        <button type="button" class="btn btn-secondary btn-xs mr-4" [disabled]="uploadDisable1"
-                                        (click)="onUpload1(contentSpinner,q.get('buildingCount')?.value,q,j)" title="Upload">
-                                            <i class="fa fa-upload" style="color: white;"></i> 
-                                        </button>
-                                        <div *ngIf="submitted && q.get('fileId1')?.errors" class="invalid-feedback">
-                                            <div *ngIf="q.get('fileId1')?.errors?.required">File upload is required</div>
-                                        </div>
-                                        <div *ngIf="fileError" style="text-align: center;">
-                                            <span class="errorshow">{{fileErrorMsg}}</span>
-                                        </div>
-                                        <!-- <button type="button" class="btn btn-warning btn-xs mr-4">
-                                            <i class="fa fa-ban" style="color: white;"></i> Cancel
-                                        </button> -->
-                                        <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="q.get('fileId1')?.value" (click)="onDownload1(q.get('fileName1')?.value,q.get('fileId1')?.value)"
-                                        href='javascript:void(0)' [ngClass]="{'disableForm':isEditable}" title="Download">
-                                            <i class="fa fa-download" style="color: white;"></i> 
-                                        </button>
-                                        <!-- <button type="button" class="btn btn-danger btn-xs mr-4">
-                                            <i class="fa fa-trash-o" style="color: white;"></i> Delete
-                                        </button> -->
-                                        
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                            <td nowrap style="text-align: center;">
+                                                <button type="button" class="btn btn-secondary btn-xs mr-4" [disabled]="uploadDisable1"
+                                                (click)="onUpload1(contentSpinner,q.get('buildingCount')?.value,q,j)" title="Upload">
+                                                    <i class="fa fa-upload" style="color: white;"></i> 
+                                                </button>
+                                                <div *ngIf="submitted && q.get('fileId1')?.errors" class="invalid-feedback">
+                                                    <div *ngIf="q.get('fileId1')?.errors?.required">File upload is required</div>
+                                                </div>
+                                                <div *ngIf="fileError" style="text-align: center;">
+                                                    <span class="errorshow">{{fileErrorMsg}}</span>
+                                                </div>
+                                                <!-- <button type="button" class="btn btn-warning btn-xs mr-4">
+                                                    <i class="fa fa-ban" style="color: white;"></i> Cancel
+                                                </button> -->
+                                                <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="q.get('fileId1')?.value" (click)="onDownload1(q.get('fileName1')?.value,q.get('fileId1')?.value)"
+                                                href='javascript:void(0)' [ngClass]="{'disableForm':isEditable}" title="Download">
+                                                    <i class="fa fa-download" style="color: white;"></i> 
+                                                </button>
+                                                <!-- <button type="button" class="btn btn-danger btn-xs mr-4">
+                                                    <i class="fa fa-trash-o" style="color: white;"></i> Delete
+                                                </button> -->
+                                                
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p class="col-md-12"style="font-weight: bold">Note :  If you are attaching multiple photos or files, Please create single PDF or Word document with photos and upload</p>
+                        </div>
+                        
                         <!-- <br>
                         <div style="margin-left: 3rem;">
                             <label class="form-label">Attach The File Here:</label>

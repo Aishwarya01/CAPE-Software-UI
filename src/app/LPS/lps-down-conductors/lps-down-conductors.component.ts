@@ -167,6 +167,7 @@ export class LpsDownConductorsComponent implements OnInit {
   nextButton: boolean = true;
   fileErrorMsg ='';
   fileError =false;
+  fileFlag:boolean=false;
 
   constructor(
     private formBuilder: FormBuilder, lpsDownconductorService: LpsDownconductorService,
@@ -2039,6 +2040,7 @@ keyPressNumbers1(event: any) {
       }, 3000);
       return;
     }
+    this.fileFlag=true;
     fromarray.controls.index.setValue(index);
     fromarray.controls.index.updateValueAndValidity();
     this.downConductorForm.markAsDirty();
@@ -2108,6 +2110,7 @@ keyPressNumbers1(event: any) {
       }, 3000);
       return;
     }
+    this.fileFlag=true;
     this.downConductorForm.markAsDirty();
     this.downConductorForm.markAsTouched();
     fromarray.controls.index.setValue(index);
