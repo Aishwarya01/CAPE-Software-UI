@@ -818,8 +818,13 @@
                           <mat-icon class="mousechange" class="dlt" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}"
                             (click)="removeItemRecords(z,i,f)" *ngIf="gettestValueControls(z).length > 1" style="cursor: pointer;margin: 20px 5px 20px 5px;">remove_circle_outline</mat-icon>
                         <tr  class="form-group">
-                                <td><input type="text" formControlName="circuitNo" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <td ><textarea  formControlName="circuitDesc"  class="form-control" style="height:40px;width:170px;"  [readonly]="service.allFieldsDisable"></textarea> </td>
+                          <a style="cursor: pointer; text-decoration: underline;color: black;" 
+                          (click)="siteNameMethod(f);">
+                          <td>
+                            <input type="text" formControlName="circuitNo" class="form-control"   style="width:80px" 
+                            [readonly]="service.allFieldsDisable">
+                          </td>
+                        </a>                                <td ><textarea  formControlName="circuitDesc"  class="form-control" style="height:40px;width:170px;"  [readonly]="service.allFieldsDisable"></textarea> </td>
                                 <td><input type="text" formControlName="circuitStandardNo" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="circuitMake" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="circuitType" class="form-control" style="width:80px" [readonly]="service.allFieldsDisable"></td>
