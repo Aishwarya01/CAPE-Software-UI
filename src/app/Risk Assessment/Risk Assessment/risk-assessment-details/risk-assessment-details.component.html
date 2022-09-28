@@ -222,7 +222,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Electrical / Telephone Service Line :</label>
-                                        <select class="form-control" formControlName="telephoneServiceLine" (ngModelChange)="telephoneServiceLineD($event,f);noOfDangerus($event,f);economicLossL4($event,f)"
+                                        <select class="form-control" formControlName="telephoneServiceLine" (ngModelChange)="telephoneServiceLineD($event,f);lengthPowerline($event,f);lengthOfTelecomLines($event,f);noOfDangerus($event,f);economicLossL4($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && f.get('telephoneServiceLine')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="LV power, telecommunication or data line">LV power, telecommunication or data line</option>
@@ -237,7 +237,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Environment :</label>
-                                        <select class="form-control" formControlName="environment" (ngModelChange)="environmentD($event,f)"
+                                        <select class="form-control" formControlName="environment" (ngModelChange)="environmentD($event,f);lengthPowerline($event,f);lengthOfTelecomLines($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && f.get('environment')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="Rural">Rural</option>
@@ -788,7 +788,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>No of Dangerous Event On The Telecom Lines :</label>
-                                        <input type="number" readonly class="form-control"  formControlName="eventOnTheTelecomLines" placeholder="No of Dangerous Event On The Telecom Lines" 
+                                        <input type="number" readonly class="form-control" formControlName="eventOnTheTelecomLines" placeholder="No of Dangerous Event On The Telecom Lines" 
                                         [ngClass]="{ 'is-invalid': submitted && a.get('eventOnTheTelecomLines')?.errors }" (ngModelChange)="lossOfHumanCalc($event,f);lossOfServiceCalc($event,f);lossCulturalCalc($event,f);lossEconomicCalc($event,f)">
                                         <div *ngIf="submitted && a.get('eventOnTheTelecomLines')?.errors" class="invalid-feedback">
                                             <div *ngIf="a.get('eventOnTheTelecomLines')?.errors?.required">Designation is required</div>
@@ -865,33 +865,34 @@
                                 </div>
                             </div>
                             <!-- Output Fields -->
+                            <!-- LA=LU -->
                             <div class="row" >
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Loss Due To Injury To Living Beings By Electric Shock :</label>
-                                        <input type="number" readonly class="form-control"  formControlName="humanLossOfInjuryOfElectricShock" placeholder="Loss Due To Injury To Living Beings By Electric Shock" 
+                                        <input type="number" readonly class="form-control" (ngModelChange)="lossOfHumanCalc($event,f)" formControlName="humanLossOfInjuryOfElectricShock" placeholder="Loss Due To Injury To Living Beings By Electric Shock" 
                                         [ngClass]="{ 'is-invalid': submitted && b.get('humanLossOfInjuryOfElectricShock')?.errors }">
                                         <div *ngIf="submitted && b.get('humanLossOfInjuryOfElectricShock')?.errors" class="invalid-feedback">
                                             <div *ngIf="b.get('humanLossOfInjuryOfElectricShock')?.errors?.required">Designation is required</div>
                                         </div>
                                     </div>
                                 </div>
-                
+                            <!-- LB=LV -->
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Loss Due To Physical Damage L1 :</label>
-                                        <input type="number" readonly class="form-control"  formControlName="humanLossOfPhysicalDamageL1" placeholder="Loss Due To Physical Damage L1" 
+                                        <input type="number" readonly class="form-control" (ngModelChange)="lossOfHumanCalc($event,f)" formControlName="humanLossOfPhysicalDamageL1" placeholder="Loss Due To Physical Damage L1" 
                                         [ngClass]="{ 'is-invalid': submitted && b.get('humanLossOfPhysicalDamageL1')?.errors }">
                                         <div *ngIf="submitted && b.get('humanLossOfPhysicalDamageL1')?.errors" class="invalid-feedback">
                                             <div *ngIf="b.get('humanLossOfPhysicalDamageL1')?.errors?.required">Designation is required</div>
                                         </div>
                                     </div>            
                                 </div>
-                
+                            <!-- LC=LM=LW=LZ -->
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Loss Due To Failure Of Internal Systems :</label>
-                                        <input type="number" readonly class="form-control"  formControlName="humanLossOffailureOfInternalSystemL1" placeholder="Loss Due To Failure Of Internal Systems" 
+                                        <input type="number" readonly class="form-control" (ngModelChange)="lossOfHumanCalc($event,f)" formControlName="humanLossOffailureOfInternalSystemL1" placeholder="Loss Due To Failure Of Internal Systems" 
                                         [ngClass]="{ 'is-invalid': submitted && b.get('humanLossOffailureOfInternalSystemL1')?.errors }">
                                         <div *ngIf="submitted && b.get('humanLossOffailureOfInternalSystemL1')?.errors" class="invalid-feedback">
                                             <div *ngIf="b.get('humanLossOffailureOfInternalSystemL1')?.errors?.required">Designation is required</div>
@@ -937,21 +938,22 @@
                                     </div>            
                                 </div>
                                 <!-- Output Fields -->
+                                <!-- LB=LV -->
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Loss Due To Physical Damage :</label>
-                                        <input type="number" class="form-control" readonly formControlName="serToPubPhysicalDamageL1" placeholder="Loss Due To Physical Damage" 
+                                        <input type="number" class="form-control" readonly formControlName="serToPubPhysicalDamageL1" (ngModelChange)="lossOfServiceCalc($event,f)" placeholder="Loss Due To Physical Damage" 
                                         [ngClass]="{ 'is-invalid': submitted && b.get('serToPubPhysicalDamageL1')?.errors }">
                                         <div *ngIf="submitted && b.get('serToPubPhysicalDamageL1')?.errors" class="invalid-feedback">
                                             <div *ngIf="b.get('serToPubPhysicalDamageL1')?.errors?.required">Designation is required</div>
                                         </div>
                                     </div>            
                                 </div>
-                
+                                <!-- LC=LM=LW=LZ -->
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Loss Due To Failure Of Internal Systems :</label>
-                                        <input type="number" class="form-control" readonly formControlName="serToPubfailureOfInternalSystemL1" placeholder="Loss Due To Failure Of Internal Systems" 
+                                        <input type="number" class="form-control" readonly formControlName="serToPubfailureOfInternalSystemL1" (ngModelChange)="lossOfServiceCalc($event,f)" placeholder="Loss Due To Failure Of Internal Systems" 
                                         [ngClass]="{ 'is-invalid': submitted && b.get('serToPubfailureOfInternalSystemL1')?.errors }">
                                         <div *ngIf="submitted && b.get('serToPubfailureOfInternalSystemL1')?.errors" class="invalid-feedback">
                                             <div *ngIf="b.get('serToPubfailureOfInternalSystemL1')?.errors?.required">Designation is required</div>
@@ -979,11 +981,11 @@
                                         </div>
                                     </div>
                                 </div>
-                
+                            <!-- LB=LV -->
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Loss Due To Physical Damage :</label>
-                                        <input type="number" class="form-control" readonly formControlName="culHerOfPhysicalDamageL1" placeholder="Loss Due To Physical Damage" 
+                                        <input type="number" class="form-control" readonly formControlName="culHerOfPhysicalDamageL1" (ngModelChange)="lossCulturalCalc($event,f)" placeholder="Loss Due To Physical Damage" 
                                         [ngClass]="{ 'is-invalid': submitted && b.get('culHerOfPhysicalDamageL1')?.errors }">
                                         <div *ngIf="submitted && b.get('culHerOfPhysicalDamageL1')?.errors" class="invalid-feedback">
                                             <div *ngIf="b.get('culHerOfPhysicalDamageL1')?.errors?.required">Designation is required</div>
@@ -1032,6 +1034,7 @@
                                     </div>            
                                 </div>
                                 <!-- Ouput Fields -->
+                                <!-- LA=LU -->
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Loss Due To Injury To Living Beings By Electric Shock :</label>
@@ -1044,7 +1047,7 @@
                                 </div>
                 
                             </div>
-                
+                            <!-- LB=LV -->
                             <div class="row" >
                                 <div class="col-md-4">
                                     <div class="form-group">
@@ -1056,7 +1059,7 @@
                                         </div>
                                     </div>            
                                 </div>
-                
+                            <!-- LC=LM=LW=LZ -->
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Loss Due To Failure Of Internal Systems:</label>
@@ -1160,7 +1163,7 @@
                                     <!-- R1 -->
                                     <td>
                                         <div class="input-group">
-                                            <input readonly formControlName="riskProtectionR1" class="form-control" placeholder="0E+00" [ngStyle]="{'color': a.get('riskProtectionR1')?.value > 1.00E-05 ? 'red' : 'green'}"
+                                            <input readonly formControlName="riskProtectionR1" class="form-control" placeholder="0E+00" [ngStyle]="{'color': 1.00E-05 > a.get('riskProtectionR1')?.value ? 'green' : 'red'}"
                                             id="upperCase">
                                         </div>
                                     </td>
@@ -1196,7 +1199,7 @@
                                     <td>
                                         <div class="input-group">
                                             <input readonly formControlName="riskProtectionR2" class="form-control" placeholder="0E+00"
-                                            id="upperCase" [ngStyle]="{'color': a.get('riskProtectionR2')?.value > 1.00E-03 ? 'red' : 'green'}">
+                                            id="upperCase" [ngStyle]="{'color': 1.00E-03  > a.get('riskProtectionR2')?.value? 'green' : 'red'}">
                                         </div>
                                     </td>
                                 </tr>
@@ -1231,7 +1234,7 @@
                                     <td>
                                         <div class="input-group">
                                             <input readonly formControlName="riskProtectionR3" class="form-control" placeholder="0E+00"
-                                            id="upperCase" [ngStyle]="{'color': a.get('riskProtectionR3')?.value > 1.00E-04 ? 'red' : 'green'}">
+                                            id="upperCase" [ngStyle]="{'color': 1.00E-04 > a.get('riskProtectionR3')?.value ? 'green' : 'red'}">
                                         </div>
                                     </td>
                                 </tr>
@@ -1266,7 +1269,7 @@
                                     <td>
                                         <div class="input-group">
                                             <input readonly formControlName="riskProtectionR4" class="form-control" placeholder="0E+00"
-                                            id="upperCase" [ngStyle]="{'color': a.get('riskProtectionR4')?.value > 1.00E-03 ? 'red' : 'green'}">
+                                            id="upperCase" [ngStyle]="{'color': 1.00E-03 > a.get('riskProtectionR4')?.value  ? 'green' : 'red'}">
                                         </div>
                                     </td>
                                 </tr>

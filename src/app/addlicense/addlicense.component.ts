@@ -37,10 +37,10 @@ export class AddlicenseComponent implements OnInit {
     this.register.username = this.email;
     this.inspectorService.updateLicense(this.register).subscribe(
       data => {
-        console.log("success");
+        //console.log("success");
       },
       error => {
-        console.log(error);
+        //console.log(error);
       }
     )
     const dialogRef = this.dialog.open(AssignViewerComponent, {

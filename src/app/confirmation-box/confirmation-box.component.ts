@@ -21,6 +21,7 @@ export class ConfirmationBoxComponent implements OnInit {
   lpsAirHModal:boolean=false;
   lpsTypeEModal:boolean=false;
   prtsrcModal:boolean=false;
+  sldModal: boolean=false;
   constructor(private dialog: MatDialog,public service: GlobalsService,) { }
 
   ngOnInit(): void {

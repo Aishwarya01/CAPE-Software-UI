@@ -9,7 +9,7 @@ export class MCCB {
     voltage!: number;
     relayManufacturer!: String;
     noOfPoles!: number;
-    model!: number;
+    model!: String;
     overcurrent!: number;
     setTimes!: number;
     earthFault!: number;

@@ -35,6 +35,14 @@ import { CableConnectorServicesService } from '../../../SLD/SLD Services/cableCo
 import { DGComponent } from '../Node Components/dg/dg.component';
 import { IDoubleClickEventArgs } from '@syncfusion/ej2-diagrams/src/diagram/objects/interface/IElement';
 import { TransformerComponent } from '../Node Components/transformer/transformer.component';
+import { SwitchBoardsComponent } from '../Node Components/switch-boards/switch-boards.component';
+import { ACBComponent } from '../Node Components/acb/acb.component';
+import { EquipotentialBondingComponent } from '../Node Components/equipotential-bonding/equipotential-bonding.component';
+import { getCurrencySymbol } from '@angular/common';
+import { ProtectiveEarthConductorComponent } from '../Node Components/protective-earth-conductor/protective-earth-conductor.component';
+import { GlobalsService } from 'src/app/globals.service';
+import { environment } from 'src/environments/environment';
+
 
 @Component({
   selector: 'app-diagram-home',
@@ -202,6 +210,11 @@ export class DiagramHomeComponent implements OnInit {
 
   getAccessibility(e: any) {
     //console.log(e);
+    this.service.allStepsCompleted = true;
+    this.service.lvClick = 1;
+    this.service.sldClick = 1;
+    this.service.windowTabClick=1;
+    this.service.logoutClick=1;
   }
 
   // public doubleClick(args: IDoubleClickEventArgs) {
@@ -212,7 +225,7 @@ export class DiagramHomeComponent implements OnInit {
   //clickFunction(e: any) {
   //console.log(this.diagram);
   public clickFunction(args: any) {
-    console.log(args.source);
+    //console.log(args.source);
     if(args.source instanceof Node){
       if(args.source.properties.id.includes('Inductor')) {
 
@@ -324,6 +337,39 @@ export class DiagramHomeComponent implements OnInit {
         dialogRef.componentInstance.email = this.email;      
       }
 
+      else if(args.source.properties.id.includes('Distribution board')) {	
+        const dialogRef = this.dialog.open(SwitchBoardsComponent, {	
+          width: '1450px',	
+          maxHeight: '90vh',	
+          disableClose: true,	
+        });	
+        dialogRef.componentInstance.nodeId = args.source.properties.id;;	
+        dialogRef.componentInstance.mainFileName = this.diagramComponent.fileName;	
+        dialogRef.componentInstance.email = this.email;      
+      }
+
+      else if(args.source.properties.id.includes('ACB')) {	
+        const dialogRef = this.dialog.open(ACBComponent, {	
+          width: '1450px',	
+          maxHeight: '90vh',	 
+          disableClose: true,	   
+        });	
+        dialogRef.componentInstance.nodeId = args.source.properties.id;
+        dialogRef.componentInstance.fileName = this.diagramComponent.fileName;	
+        dialogRef.componentInstance.email = this.email;      
+      }
+
+      else if(args.source.properties.id.includes('EquipBond')) {	
+        const dialogRef = this.dialog.open(EquipotentialBondingComponent, {	
+          width: '1450px',	
+          maxHeight: '90vh',	 
+          disableClose: true,	   
+        });	
+        dialogRef.componentInstance.nodeId = args.source.properties.id;
+        dialogRef.componentInstance.fileName = this.diagramComponent.fileName;	
+        dialogRef.componentInstance.email = this.email;      
+      }
+
       else if((args.source.properties.id.includes('Transformer_delta_delta')) || (args.source.properties.id.includes('Transformer_delta_star'))
                 || (args.source.properties.id.includes('Transformer_star_delta')) || (args.source.properties.id.includes('Transformer_star_star'))) {	
         const dialogRef = this.dialog.open(TransformerComponent, {	
@@ -385,8 +431,20 @@ export class DiagramHomeComponent implements OnInit {
         dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
         dialogRef.componentInstance.email = this.email;
       }
+     
       if(args.source.properties.id.includes('Bezier')) {
         const dialogRef = this.dialog.open(CableConnectorComponent, {
+          width: '1100px',
+          maxHeight: '90vh',
+          disableClose: true,
+        });
+        dialogRef.componentInstance.cableConnectorId = args.source.properties.id;
+        dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
+        dialogRef.componentInstance.email = this.email;
+      }
+
+      if(args.source.properties.id.includes('Straight3')) {
+        const dialogRef = this.dialog.open(ProtectiveEarthConductorComponent, {
           width: '1100px',
           maxHeight: '90vh',
           disableClose: true,
@@ -515,7 +573,15 @@ export class DiagramHomeComponent implements OnInit {
         targetPoint: { x: 40, y: 40 },
         style: { strokeWidth: 2},
         targetDecorator: { shape: 'None' }
-    }
+    },
+    {
+      id: 'Straight3',
+      type: 'Straight',
+      sourcePoint: { x: 0, y: 0 },
+      targetPoint: { x: 40, y: 40 },
+      targetDecorator: { shape: 'Arrow', style: {strokeColor: 'green', fill: 'green'} },
+      style: { strokeWidth: 2, strokeColor: 'green'}
+  }
     ];
 
   //SymbolPalette Properties
@@ -690,20 +756,17 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
 
  public AddSymbols() {
   let shapes: any;
-  this.diagramService.fetchAllDiagramSymbols().subscribe(
-    data => {
-      shapes = JSON.parse(data);
-  for (let i = 0; i < shapes.length; i++) {
-    let symbolItems: any = {
-    id: shapes[i].imageName,
-    shape: { type: 'Image', source: shapes[i].imageSource } , width: 50, height: 50 }
-    this.palette.addPaletteItem('flow', symbolItems);
-    }
-    },
-    error => {
-      console.log(error);
-    }
-  )
+
+  shapes = environment.shapes; 
+  setTimeout(() => {
+    for (let i = 0; i < shapes.length; i++) {
+      let symbolItems: any = {
+      id: shapes[i].imageName,
+      shape: { type: 'Image', source: shapes[i].imageSource } , width: 50, height: 50 }
+      this.palette.addPaletteItem('flow', symbolItems);
+      }
+  }, 500);
+      
 }
   //shape: { type: 'Image', source: 'https://www.syncfusion.com/content/images/nuget/sync_logo_icon.png' } 
 
@@ -732,7 +795,8 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
               private cableConnectorservice:CableConnectorServicesService,
               private router: ActivatedRoute,
               private modalService: NgbModal,
-              private formBuilder: FormBuilder
+              private formBuilder: FormBuilder,
+              private service: GlobalsService
     ) {
       this.email = this.router.snapshot.paramMap.get('email') || '{}';
      }
@@ -750,6 +814,50 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
     this.diagramComponent.fileName = fileName;
   }
 
+  doBeforeUnload() {
+   
+    if(this.service.logoutClick==1 && this.service.windowTabClick==0) {
+      return true;
+     }
+     else if(this.service.logoutClick==0 && this.service.windowTabClick==0){
+      return true;
+     }
+     else{
+      window.location.reload(); 
+      // Alert the user window is closing 
+      return false;
+     }
+    }
+
+    onPopState(event:any) {
+      
+      if(this.service.lvClick==1){
+        //alert("Changes won't be saved!");
+        if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on save or update button!"))
+        {
+        this.service.windowTabClick=0;
+        this.service.logoutClick=0; 
+        this.service.lvClick=0;
+         window.location.reload();
+         return true;
+         }
+       else{
+        history.pushState({page: 1}, "title 1", "?page=1");
+        history.pushState({page: 2}, "title 2", "?page=2");    
+        history.back();
+        history.back();    
+        history.go(0) // alerts "location: http://example.com/example.html, state: null"
+        return false;
+       }
+        }
+        else{
+          window.location.reload();
+          return;
+        }
+      
+    }
+  
+
   closeModalDialog() {
     this.finalSpinner=true;
       this.popup=false;
@@ -766,7 +874,11 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
   submit(flag: any,content1: any) {
     //var data = this.diagram.saveDiagram();
     var saveData: string = this.diagram.saveDiagram();
-  
+    this.service.allStepsCompleted = false;
+    this.service.lvClick = 0;
+    this.service.sldClick = 0;
+    this.service.windowTabClick=0;
+    this.service.logoutClick=0;
     this.diagramComponent.file = saveData;
     this.diagramComponent.userName =this.email;
     this.modalService.open(content1, { centered: true,size: 'md',backdrop: 'static'});

@@ -42,7 +42,7 @@
 
       <div class="row">
 
-        <div class="col-md-3">
+        <div class="col-md-4">
           <div class="form-group">
             <label>Voltage(V)</label>
             <input type="number" class="form-control" formControlName="voltage" [(ngModel)]="mccb.voltage"
@@ -53,7 +53,7 @@
           </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-4">
           <div class="form-group">
             <label>No of Poles</label>
             <select  class="form-control" formControlName="noOfPoles" [(ngModel)]="mccb.noOfPoles"
@@ -70,7 +70,8 @@
           </div>
         </div>
 
-        <div class="col-md-3">
+        <!-- Commented by Arun because as we don't need the following as per our current requirement  -->
+        <!-- <div class="col-md-3">
           <div class="form-group">
             <label>Relay Manufacturers name (applicable only if ACB with micrologic or relay)</label>
             <input type="text" class="form-control" formControlName="relayManufacturer" [(ngModel)]="mccb.relayManufacturer"
@@ -79,8 +80,8 @@
               <div *ngIf="h.relayManufacturer?.errors?.required">Relay Manufacturers is required</div>
             </div>
           </div>
-        </div>
-        <div class="col-md-3">
+        </div> -->
+        <div class="col-md-4">
           <div class="form-group">
             <label>Model/Type</label>
             <input type="text" class="form-control" formControlName="model" [(ngModel)]="mccb.model"
@@ -138,7 +139,8 @@
         </div>
       </div>
 
-      <br>
+      <!-- Commented by Arun as per current requirement  -->
+      <!-- <br>
       <h3 style="text-align: center">Outgoing Cable Size  (sq.mm.)</h3>
       <br>
       <div class="row">
@@ -172,16 +174,17 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     <br>
     <h2><b><u>Testing</u></b></h2>
-    <mat-icon class="mousechange" (click)="addMCCBTesting()" style="float:right; padding-right: 37px; padding-top: 10px;
-    cursor:pointer;">add_box</mat-icon>
+    <!-- Commented by Arun because we don't need iteration -->
+    <!-- <mat-icon class="mousechange" (click)="addMCCBTesting()" style="float:right; padding-right: 37px; padding-top: 10px;
+    cursor:pointer;">add_box</mat-icon> -->
 
         <br>
         <ng-container formArrayName="generalTestingMCCB" *ngFor="let a of getGeneralTestingMCCBControls(); let i = index">
           <ng-container [formGroupName]="i">
-            <h2>Incomer -{{i+1}} (General Testing)</h2>
+            <h2>General Testing</h2>
             <div class="table-responsive">
               <table class="table" style="width: 70%; border: 1px solid black">
                 <thead>
@@ -546,7 +549,7 @@
         <br>
         <ng-container formArrayName="safetyTestingMCCB" *ngFor="let a of getSafetyTestingMCCBControls(); let i = index">
           <ng-container [formGroupName]="i">
-            <h2>Incomer -{{i+1}} (Testing related to safety)</h2>
+            <h2>Testing related to safety</h2>
         
             <div class="table-responsive">
               <table class="table" style="width: 100%; border: 1px solid black">
@@ -886,7 +889,8 @@
         
             <br>
         
-            <div class="row">
+            <!-- Commented by Arun because as we don't need the following as per our current requirement  -->
+            <!-- <div class="row">
               <div class="col-md-4">
                 <div class="form-group">
                   <label>Touch/Shock Voltage (V)</label>
@@ -919,7 +923,7 @@
                   </div>
                 </div>
               </div>
-        </div>
+        </div> -->
               <mat-icon class="mousechange" *ngIf="getGeneralTestingMCCBControls().length>1" class="dlt" type="button"
                 title="Delete" (click)="removeMCCBtesting(a,i)" style="float: right">remove_circle_outline</mat-icon>
         
