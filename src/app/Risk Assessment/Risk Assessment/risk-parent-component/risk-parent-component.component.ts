@@ -59,6 +59,7 @@ export class RiskParentComponentComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    this.riskGlobal.riskId=0;
     this.refresh();
     // this.tabs._handleClick = this.interceptTabChange.bind(this);
   }
@@ -167,11 +168,11 @@ export class RiskParentComponentComponent implements OnInit {
    }
 
    isForm1Valid(){
-     if(this.customerDetails.CustomerDetailsForm.invalid && this.customerDetails.customerDetailsModel.contactNumber==null){
+     if(this.customerDetails.CustomerDetailsForm.invalid && this.customerDetails.customerDetailsModel.contactNumber==null && this.customerDetails.customerDetailsModel.contactNumber==undefined && this.customerDetails.customerDetailsModel.contactNumber==""){
       this.riskGlobal.isCustomerDetailsValid=true;
       this.customerDetails.isStep1Valid();
      }
-     else if(this.customerDetails.CustomerDetailsForm.invalid && this.customerDetails.customerDetailsModel.contactNumber!=null){
+     else if(this.customerDetails.CustomerDetailsForm.invalid && this.customerDetails.customerDetailsModel.contactNumber!=null && this.customerDetails.customerDetailsModel.contactNumber!=undefined && this.customerDetails.customerDetailsModel.contactNumber!=""){
       this.riskGlobal.isCustomerDetailsValid=true;
       this.customerDetails.isStep1Valid();
      }

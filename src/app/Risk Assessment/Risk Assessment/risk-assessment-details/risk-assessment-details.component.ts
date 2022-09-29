@@ -104,7 +104,6 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    
     // Fetching location list 
     this.locationList = [];
     this.riskAssessmentService.fetchLocation().subscribe(
