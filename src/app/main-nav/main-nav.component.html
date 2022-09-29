@@ -96,12 +96,30 @@
           No new notifications!
         </div>
       </mat-menu>
-
       <mat-menu #menu="matMenu">
+        <button mat-menu-item [matMenuTriggerFor]="account"><mat-icon>account_balance</mat-icon>My Account</button>       
+         <!-- <button mat-menu-item (click)="profileUpdate(email)"><mat-icon >manage_accounts</mat-icon>Profile</button>
+        <button mat-menu-item (click)="changePassword(email)"><mat-icon >build</mat-icon>Change Password</button> -->
+        <button  mat-menu-item (click)="logout()"><mat-icon >logout</mat-icon>Logout</button>
+      </mat-menu>
+
+      <mat-menu #account="matMenu">
+        <button mat-menu-item (click)="profileUpdate(email)"><mat-icon>manage_accounts</mat-icon>Profile</button>        
+        <button mat-menu-item [matMenuTriggerFor]="orders"><mat-icon>shopping_cart</mat-icon>Previous Orders</button>
+        <button mat-menu-item><mat-icon>folder_shared</mat-icon>Available License</button>
+        <button mat-menu-item (click)="changePassword(email)"><mat-icon>build</mat-icon>Change Password</button>
+      </mat-menu>
+
+      <mat-menu #orders="matMenu">
+        <button mat-menu-item>LV Systems</button>
+        <button mat-menu-item>LPS Systems</button>
+        <button mat-menu-item>EMC Assessment</button>
+      </mat-menu>
+      <!-- <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="profileUpdate(email)"><mat-icon >manage_accounts</mat-icon>Profile</button>
         <button mat-menu-item (click)="changePassword(email)"><mat-icon >build</mat-icon>Change Password</button>
         <button  mat-menu-item (click)="logout()"><mat-icon >logout</mat-icon>Logout</button>
-      </mat-menu>
+      </mat-menu> -->
     </mat-toolbar-row>
   </mat-toolbar>
     <mat-sidenav-container class="example-container" [autosize]="autosize" fxFlexFill>
