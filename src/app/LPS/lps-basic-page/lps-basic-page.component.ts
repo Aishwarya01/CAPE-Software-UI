@@ -135,10 +135,10 @@ export class LpsBasicPageComponent implements OnInit {
       // license purpose 
       // email1:new FormControl(''),
       // name1:new FormControl(''),
-      fileName: new FormControl('', Validators.required),
+      fileName: new FormControl(''),
       basicLpsId: new FormControl(''),
       fileSize: new FormControl(''),
-      fileId: new FormControl('', Validators.required),
+      fileId: new FormControl(''),
     });
   }
 
@@ -153,6 +153,17 @@ export class LpsBasicPageComponent implements OnInit {
         (error) => {
         },
       )
+    }
+  }
+
+  dropDown1(event:any,form:any){
+    if(form.controls.availabilityOfPreviousReport.value=='No'){
+      form.controls.fileId.clearValidators();
+      form.controls.fileId.updateValueAndValidity();
+    }
+    else if(form.controls.availabilityOfPreviousReport.value=='Yes'){
+      form.controls.fileId.setValidators([Validators.required]);
+      form.controls.fileId.updateValueAndValidity();
     }
   }
 
@@ -178,6 +189,7 @@ export class LpsBasicPageComponent implements OnInit {
       mailId: new FormControl({disabled: false, value: item.mailId},
          [Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       availabilityOfPreviousReport: new FormControl({disabled: false, value: item.availabilityOfPreviousReport}, Validators.required),
+      // License Purpose
       // email1:new FormControl(''),
       // name1:new FormControl(''),
       fileName: new FormControl({disabled: false, value: item.fileName}),
@@ -324,7 +336,7 @@ export class LpsBasicPageComponent implements OnInit {
   }
 
   dropDownPopup(event:any,dropDown:any){
-    if(event.target.value == "No" && this.fileId!=undefined && this.fileId!=null && this.fileId!=0){
+    if(event!=null && event!=undefined && event!="" && event.target !=undefined && event.target !=null && event.target != "" && event.target.value !=undefined && event.target.value !='' && event.target.value == "No" && this.fileId!=undefined && this.fileId!=null && this.fileId!=0){
       this.modalService.open(dropDown, { centered: true,backdrop: 'static' });
     }
   }

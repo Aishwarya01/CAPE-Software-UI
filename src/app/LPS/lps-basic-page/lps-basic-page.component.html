@@ -187,9 +187,9 @@
 
             <!-- <div class="row" style="font-weight: bold;">
                 <label for="Basicdetails" style="font-weight: bold;margin: 10px; font-size: 16px;">Person who preparing the report</label>
-            </div>
+            </div> -->
             
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-md-4">
                     <label for="email1">Email</label>
                     <div class="input-group">
@@ -313,7 +313,7 @@
                         </span>
                     </div>
 
-                    <select class="form-control" formControlName="availabilityOfPreviousReport" [attr.disabled]="isEditable ? '' : null" (change)="dropDownPopup($event,dropDown)"
+                    <select class="form-control" formControlName="availabilityOfPreviousReport" [attr.disabled]="isEditable ? '' : null" (ngModelChange)="dropDown1($event,f);dropDownPopup($event,dropDown);" 
                     [ngClass]="{ 'is-invalid': submitted && f.get('availabilityOfPreviousReport')?.errors }" [(ngModel)]="availableReportNo">
                         <option  value="" selected>Select Option</option>
                         <option value="Yes" >Yes</option>
@@ -343,9 +343,9 @@
                         <tbody>
                           <tr>
                             <td>
-                              <input style="height: 3rem;" type="file" class="form-control" (change)="onChange($event,f)" [attr.disabled]="isEditable ? '' : null" accept=".txt,.jpeg,.png,.jpg,.pdf" formControlName="fileName">
-                              <div *ngIf="submitted && f.get('fileName')?.errors" class="invalid-feedback">
-                                <div *ngIf="f.get('fileName')?.errors?.required">Field is required</div>
+                              <input style="height: 3rem;" type="file" class="form-control" (change)="onChange($event,f)" [attr.disabled]="isEditable ? '' : null" accept=".txt,.jpeg,.png,.jpg,.pdf" formControlName="fileId">
+                              <div *ngIf="submitted && f.get('fileId')?.errors" class="invalid-feedback">
+                                <div *ngIf="f.get('fileId')?.errors?.required">Field is required</div>
                               </div>
                             </td>
                             
@@ -370,11 +370,11 @@
             </div>
         </div>
     </div>
-            <div style="text-align: center;margin-top: 40px;margin-left: 80px;">
+            <div style="text-align: center;margin-top: 20px;">
                 <button class="next" (click)="gotoNextModal(content,contents)" mat-button >Next &raquo;</button>
             </div>
        
-            <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
+            <div *ngIf="validationError" style="text-align: center;margin-left: 0%;">
             <span class="alert alert-danger">{{validationErrorMsg}}</span>
             </div>
     </form>

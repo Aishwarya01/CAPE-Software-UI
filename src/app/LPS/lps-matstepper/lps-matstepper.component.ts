@@ -580,7 +580,7 @@ export class LpsMatstepperComponent implements OnInit {
       this.lpsSummary.spinner1 = false;
       this.lpsSummary.spinnerValue = "";
       this.summarySpinner = false;
-    }, 5000);
+    }, 10000);
   }
   
 }
