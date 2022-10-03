@@ -758,7 +758,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   }
   
  }
-
+ 
  editSite(siteId: any,userName: any,site: any) {
   this.service.allStepsCompleted=true;
   this.service.disableSubmitSummary=false;
@@ -1017,6 +1017,27 @@ profileUpdate(email: String) {
     });
   }
 
+  LVHome(){
+     this.welcome = false;
+        this.viewContainerRef.clear();
+        const lvInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LvInspectionDetailsComponent);
+        const lvInspectionRef = this.viewContainerRef.createComponent(lvInspectionFactory);
+        lvInspectionRef.changeDetectorRef.detectChanges();
+  }
+  LPSHome(){
+    this.welcome = false;
+    this.viewContainerRef.clear();
+    const LpsInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LpsWelcomePageComponent);
+    const LpsInspectionRef = this.viewContainerRef.createComponent(LpsInspectionFactory);
+    LpsInspectionRef.changeDetectorRef.detectChanges();
+  }
+  EMCHome(){
+    this.welcome = false;
+    this.viewContainerRef.clear();
+    const emcAssessmentInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(EmcAssessmentInstallationComponent);
+    const emcAssessmentInspectionRef = this.viewContainerRef.createComponent(emcAssessmentInspectionFactory);
+    emcAssessmentInspectionRef.changeDetectorRef.detectChanges();
+  }
   showLinkDescription(id: any) {
     this.welcome = false;
     if ((this.service.lvClick == 1) && (this.service.allStepsCompleted == true)) {

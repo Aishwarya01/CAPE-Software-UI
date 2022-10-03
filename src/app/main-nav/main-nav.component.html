@@ -105,15 +105,15 @@
 
       <mat-menu #account="matMenu">
         <button mat-menu-item (click)="profileUpdate(email)"><mat-icon>manage_accounts</mat-icon>Profile</button>        
-        <button mat-menu-item [matMenuTriggerFor]="orders"><mat-icon>shopping_cart</mat-icon>Previous Orders</button>
+        <button mat-menu-item [matMenuTriggerFor]="orders"><mat-icon>shopping_cart</mat-icon>Application Types</button>
         <button mat-menu-item><mat-icon>folder_shared</mat-icon>Available License</button>
         <button mat-menu-item (click)="changePassword(email)"><mat-icon>build</mat-icon>Change Password</button>
       </mat-menu>
 
       <mat-menu #orders="matMenu">
-        <button mat-menu-item>LV Systems</button>
-        <button mat-menu-item>LPS Systems</button>
-        <button mat-menu-item>EMC Assessment</button>
+        <button mat-menu-item (click)="LVHome()">LV Systems</button>
+        <button mat-menu-item (click)="LPSHome()">LPS Systems</button>
+        <button mat-menu-item (click)="EMCHome()">EMC Assessment</button>
       </mat-menu>
       <!-- <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="profileUpdate(email)"><mat-icon >manage_accounts</mat-icon>Profile</button>
