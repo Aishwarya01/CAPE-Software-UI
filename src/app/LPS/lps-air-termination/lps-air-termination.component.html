@@ -3241,8 +3241,7 @@
         <span class="alertDanger">{{validationErrorMsg}}</span>
       </div>
       <div style="text-align: center;margin-bottom: 20px;">
-        <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
-        <button class="next" (click)="gotoNextModal(contents,content1)" mat-button>Next &raquo;</button>
+        <button [ngClass]="{'disableForm':isEditable}" class="next" (click)="gotoNextModal(contents,content1)" mat-button>Next &raquo;</button>
       </div>
     </form>
   </div>

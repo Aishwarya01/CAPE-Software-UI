@@ -98,7 +98,7 @@ export class LpsMatstepperComponent implements OnInit {
     private ChangeDetectorRef: ChangeDetectorRef,
     private airterminationServices: AirterminationService,
     private fileUploadService:LpsFileUploadService,
-    private lpsGlobalservice:LpsGlobalserviceService
+    private lpsGlobalservice:LpsGlobalserviceService,
     ) { 
     }
 
@@ -347,7 +347,7 @@ export class LpsMatstepperComponent implements OnInit {
 
   interceptTabChange(tab: MatTab, tabHeader: MatTabHeader) {
   
-    if((this.service.lvClick==1) && (this.service.allStepsCompleted==true))
+    if((this.service.lvClick==1) && (this.service.allStepsCompleted==true) && !this.isEditable)
        {
         const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
           width: '420px',
@@ -360,6 +360,7 @@ export class LpsMatstepperComponent implements OnInit {
         if(this.airTermination.fileFalg || this.downConductors.fileFlag){
           dialogRef.componentInstance.triggerModal1 = true;
         }
+
         else{
           dialogRef.componentInstance.triggerModal = true;
         }
@@ -368,7 +369,7 @@ export class LpsMatstepperComponent implements OnInit {
         dialogRef.componentInstance.summaryModal = false;
     
         dialogRef.componentInstance.confirmBox.subscribe(data=>{
-          if(data) {
+          if(data && this.isEditable) {
             if(tab.textLabel == "Saved Reports"){
               this.selectedIndex=1; 
               this.lpsGlobalservice.basiclpsId = 0;
@@ -407,7 +408,7 @@ export class LpsMatstepperComponent implements OnInit {
       //   return;
       // }
         }
-        else if((this.service.lvClick==0) || (this.service.allStepsCompleted==false)){
+        else if((this.service.lvClick==0) || (this.service.allStepsCompleted== true) && this.isEditable){
         this.service.windowTabClick=0;
         this.service.logoutClick=0;
         this.service.lvClick=0; 

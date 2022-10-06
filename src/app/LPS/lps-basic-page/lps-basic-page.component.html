@@ -371,7 +371,7 @@
         </div>
     </div>
             <div style="text-align: center;margin-top: 20px;">
-                <button class="next" (click)="gotoNextModal(content,contents)" mat-button >Next &raquo;</button>
+                <button [ngClass]="{'disableForm':isEditable}" class="next" (click)="gotoNextModal(content,contents)" mat-button>Next &raquo;</button>
             </div>
        
             <div *ngIf="validationError" style="text-align: center;margin-left: 0%;">

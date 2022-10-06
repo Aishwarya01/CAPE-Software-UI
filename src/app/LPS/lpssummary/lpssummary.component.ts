@@ -526,6 +526,7 @@ export class LpssummaryComponent implements OnInit {
   spdFlag:any=[]
   seperationFlag:any=[]
   earthStudFlag:any=[]
+  deleteSummaryLpsObservationArr: any=[];
   
   constructor(private summaryService:SummaryServiceService,private formBuilder: FormBuilder,
     private airterminationServices: AirterminationService, private router: ActivatedRoute,
@@ -556,7 +557,7 @@ export class LpssummaryComponent implements OnInit {
       //   }
       // }
   }
-  
+
   ngOnDestroy(): void {
     this.service.signatureImg7="";
     this.service.signatureImg8="";
@@ -4721,8 +4722,12 @@ SignatureDesigner1(){
     this.lpsSummary.basicLpsId = this.basicLpsId;  
     let a:any=[];
     a=this.summaryForm.controls.summaryLpsBuildings as FormArray;
+
     for(let i of a.controls){
       let summaryLpsObservationArr=i.controls.summaryLpsObservation as FormArray;
+      // Here, We are removing formArry Details 
+      summaryLpsObservationArr.clear();
+
       for(let j of i.controls.airTermination.controls){
       summaryLpsObservationArr.push(j);
       }

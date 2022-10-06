@@ -143,11 +143,11 @@ export class LpsBasicPageComponent implements OnInit {
   }
 
   getFileDetails(fileId:any){
-    if(fileId!=undefined && fileId!="" && fileId!=null){
+    if(fileId!=undefined && fileId!=null && fileId!=""){
       this.fileUplaodService.retriveBasicFile(fileId).subscribe(
         (data) => {
-          this.fileName = JSON.parse(data).fileName;
-          this.fileSize = JSON.parse(data).fileSize;
+          // this.fileName = JSON.parse(data).fileName;
+          // this.fileSize = JSON.parse(data).fileSize;
           this.fileId = JSON.parse(data).fileId;
         },
         (error) => {
@@ -192,9 +192,7 @@ export class LpsBasicPageComponent implements OnInit {
       // License Purpose
       // email1:new FormControl(''),
       // name1:new FormControl(''),
-      fileName: new FormControl({disabled: false, value: item.fileName}),
       basicLpsId: new FormControl({disabled: false, value: item.basicLpsId}),
-      fileSize: new FormControl({disabled: false, value: item.fileSize}),
       fileId: new FormControl({disabled: false, value: item.fileId}),
     });
     
