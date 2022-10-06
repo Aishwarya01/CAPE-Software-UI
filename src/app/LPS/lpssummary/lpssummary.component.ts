@@ -556,6 +556,7 @@ export class LpssummaryComponent implements OnInit {
       //   }
       // }
   }
+  
   ngOnDestroy(): void {
     this.service.signatureImg7="";
     this.service.signatureImg8="";
@@ -592,6 +593,8 @@ SignatureDesigner1(){
       maxHeight: '90vh',
       disableClose: true,
     });
+    this.summaryForm.markAllAsTouched();
+    this.summaryForm.markAsDirty();
     dialogRef.componentInstance.sigImg1 = false;
     dialogRef.componentInstance.sigImg2 = false;
     dialogRef.componentInstance.sigImg3 = false;
@@ -612,6 +615,8 @@ SignatureDesigner1(){
       maxHeight: '90vh',
       disableClose: true,
     });
+    this.summaryForm.markAllAsTouched();
+    this.summaryForm.markAsDirty();
     dialogRef.componentInstance.sigImg1 = false;
     dialogRef.componentInstance.sigImg2 = false;
     dialogRef.componentInstance.sigImg3 = false;
@@ -1396,7 +1401,7 @@ SignatureDesigner1(){
         this.arr.push(this.createGroup(item));
        }
       
-      if(data.summaryLpsDeclaration.length !=0){
+      // if(data.summaryLpsDeclaration.length !=0){
         this.arr1.push(this.createGroupDeclaration1( data.summaryLpsDeclaration[0]));
         this.arr2.push(this.createGroupDeclaration1( data.summaryLpsDeclaration[1]));
         
@@ -1406,7 +1411,7 @@ SignatureDesigner1(){
         this.summaryForm.controls.recommendYears.setValue(data.inspectedYear);
         this.summaryForm.controls.declarationDate.setValue(data.summaryDate);
          this.summaryForm.controls.declarationDate.setValue(data.summaryDate);
-      }
+      // }
        
        this.summaryForm.setControl('summaryLpsBuildings', this.formBuilder.array(this.arr || []));
        this.summaryForm.setControl('Declaration1Arr', this.formBuilder.array(this.arr1 || []));
