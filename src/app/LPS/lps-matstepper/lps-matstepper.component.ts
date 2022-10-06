@@ -369,7 +369,7 @@ export class LpsMatstepperComponent implements OnInit {
         dialogRef.componentInstance.summaryModal = false;
     
         dialogRef.componentInstance.confirmBox.subscribe(data=>{
-          if(data && this.isEditable) {
+          if(data) {
             if(tab.textLabel == "Saved Reports"){
               this.selectedIndex=1; 
               this.lpsGlobalservice.basiclpsId = 0;
