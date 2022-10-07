@@ -135,24 +135,35 @@ export class LpsBasicPageComponent implements OnInit {
       // license purpose 
       // email1:new FormControl(''),
       // name1:new FormControl(''),
-      fileName: new FormControl('', Validators.required),
+      fileName: new FormControl(''),
       basicLpsId: new FormControl(''),
       fileSize: new FormControl(''),
-      fileId: new FormControl('', Validators.required),
+      fileId: new FormControl(''),
     });
   }
 
   getFileDetails(fileId:any){
-    if(fileId!=undefined && fileId!="" && fileId!=null){
+    if(fileId!=undefined && fileId!=null && fileId!=""){
       this.fileUplaodService.retriveBasicFile(fileId).subscribe(
         (data) => {
-          this.fileName = JSON.parse(data).fileName;
-          this.fileSize = JSON.parse(data).fileSize;
+          // this.fileName = JSON.parse(data).fileName;
+          // this.fileSize = JSON.parse(data).fileSize;
           this.fileId = JSON.parse(data).fileId;
         },
         (error) => {
         },
       )
+    }
+  }
+
+  dropDown1(event:any,form:any){
+    if(form.controls.availabilityOfPreviousReport.value=='No'){
+      form.controls.fileId.clearValidators();
+      form.controls.fileId.updateValueAndValidity();
+    }
+    else if(form.controls.availabilityOfPreviousReport.value=='Yes'){
+      form.controls.fileId.setValidators([Validators.required]);
+      form.controls.fileId.updateValueAndValidity();
     }
   }
 
@@ -178,11 +189,10 @@ export class LpsBasicPageComponent implements OnInit {
       mailId: new FormControl({disabled: false, value: item.mailId},
          [Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       availabilityOfPreviousReport: new FormControl({disabled: false, value: item.availabilityOfPreviousReport}, Validators.required),
+      // License Purpose
       // email1:new FormControl(''),
       // name1:new FormControl(''),
-      fileName: new FormControl({disabled: false, value: item.fileName}),
       basicLpsId: new FormControl({disabled: false, value: item.basicLpsId}),
-      fileSize: new FormControl({disabled: false, value: item.fileSize}),
       fileId: new FormControl({disabled: false, value: item.fileId}),
     });
     
@@ -238,19 +248,19 @@ export class LpsBasicPageComponent implements OnInit {
     if(!this.LPSBasicForm.invalid){
       if(this.LPSBasicForm.dirty){
         this.validationError=false;
-        this.service.lvClick=1;
+        this.service.lpsClick=1;
         this.service.logoutClick=1;
          this.service.windowTabClick=1;
       }
       else{
         this.validationError=false;
-        this.service.lvClick=0;
+        this.service.lpsClick=0;
         this.service.logoutClick=0;
         this.service.windowTabClick=0;
       }
      }
      else {
-      this.service.lvClick=1;
+      this.service.lpsClick=1;
       this.service.logoutClick=1;
       this.service.windowTabClick=1;
      }
@@ -259,19 +269,19 @@ export class LpsBasicPageComponent implements OnInit {
    if(!this.LPSBasicForm.invalid){ 
     if(this.LPSBasicForm.dirty){
       this.validationError=false;
-      this.service.lvClick=1;
+      this.service.lpsClick=1;
       this.service.logoutClick=1;
       this.service.windowTabClick=1;
     }
     else{
       this.validationError=false;
-      this.service.lvClick=0;
+      this.service.lpsClick=0;
       this.service.logoutClick=0;
       this.service.windowTabClick=0;
     }
    }
    else {
-    this.service.lvClick=1;
+    this.service.lpsClick=1;
     this.service.logoutClick=1;
     this.service.windowTabClick=1;
    }
@@ -324,7 +334,7 @@ export class LpsBasicPageComponent implements OnInit {
   }
 
   dropDownPopup(event:any,dropDown:any){
-    if(event.target.value == "No" && this.fileId!=undefined && this.fileId!=null && this.fileId!=0){
+    if(event!=null && event!=undefined && event!="" && event.target !=undefined && event.target !=null && event.target != "" && event.target.value !=undefined && event.target.value !='' && event.target.value == "No" && this.fileId!=undefined && this.fileId!=null && this.fileId!=0){
       this.modalService.open(dropDown, { centered: true,backdrop: 'static' });
     }
   }
@@ -377,7 +387,7 @@ export class LpsBasicPageComponent implements OnInit {
           this.LPSBasicForm.markAsPristine();
           this.isBasicFormUpdated=true;
           this.proceedNext.emit(true);
-          this.service.lvClick=0;
+          this.service.lpsClick=0;
           this.service.logoutClick=0;
           this.service.windowTabClick=0;
           this.basicLpsIdRetrive=0;
@@ -431,7 +441,7 @@ export class LpsBasicPageComponent implements OnInit {
           this.LPSBasicForm.markAsPristine();
           this.isBasicFormUpdated=true;
           this.proceedNext.emit(true);
-          this.service.lvClick=0;
+          this.service.lpsClick=0;
           this.service.logoutClick=0;
           this.service.windowTabClick=0;
           

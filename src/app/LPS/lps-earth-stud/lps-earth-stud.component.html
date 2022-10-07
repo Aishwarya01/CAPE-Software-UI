@@ -475,7 +475,7 @@
     </div>
     <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
         <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
-        <button class="next" (click)="gotoNextModal(content1,contents)" mat-button>Next &raquo;</button>
+        <button [ngClass]="{'disableForm':isEditable}" class="next" (click)="gotoNextModal(content1,contents)" mat-button >Next &raquo;</button>
     </div>
     </form>
 </div>
@@ -494,7 +494,7 @@
             <div *ngIf="success" style="text-align: center;">
                 <span class="successshow">{{successMsg}}</span>
             </div>
-            
+                
             <div *ngIf="Error" style="text-align: center;">
                 <span class="errorshow">{{errorMsg}}</span>
             </div>

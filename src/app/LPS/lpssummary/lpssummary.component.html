@@ -15,7 +15,7 @@
 </div>
   <div class="card" *ngIf="!spinner1">
     <div class="card-body">
-  <form [formGroup]="summaryForm" (ngSubmit)="onSubmit(flag1,content,contents)">
+  <form [formGroup]="summaryForm" (ngSubmit)="onSubmit(flag1,content,contents)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
     <div formArrayName="summaryLpsBuildings" *ngFor="let q of summaryLpsBuildingsControl(); let j = index">
       <div class="form-group" [formGroupName]="j">
     <div class="search-bar">
@@ -816,7 +816,7 @@
                      [ngClass]="{ 'is-invalid': submitted && a.get('signature')?.errors }"
                      [readonly]="true" 
                      style="width: 90%;pointer-events:none;">
-                    <button type="button" (click)="SignatureDesigner1()" title="Click here"
+                    <button type="button" (click)="SignatureDesigner1()" [ngClass]="{'disableForm':isEditable}" title="Click here"
                     style="margin: 0px -5rem;">Sign
                     </button>
                 </div>
@@ -900,8 +900,7 @@
                        [ngClass]="{ 'is-invalid': submitted && a.get('signature')?.errors }"
                        [readonly]="true" 
                        style="width: 90%;pointer-events:none;">
-                      <button type="button" (click)="SignatureDesigner2()" title="Click here" style="margin: 0px -5rem;"
-                      >Sign
+                      <button type="button" (click)="SignatureDesigner2()" title="Click here" style="margin: 0px -5rem;" [ngClass]="{'disableForm':isEditable}">Sign
                       </button>
                   </div>
                     <!-- <input type="text" class="form-control" formControlName="signature" readonly

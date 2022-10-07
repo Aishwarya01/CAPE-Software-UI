@@ -133,7 +133,7 @@ export class LpsSpdComponent implements OnInit {
   }
 
    retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
-//     // this.service.lvClick=1;
+//     // this.service.lpsClick=1;
 //     
 //     this.step5List = data.earthStudReport;
 //     this.spdReport.basicLpsId = this.step7List.basicLpsId;
@@ -149,7 +149,7 @@ export class LpsSpdComponent implements OnInit {
  }
 
   retrieveDetailsfromSavedReports(data: any) {
-    this.service.lvClick = 1;
+    this.service.lpsClick = 1;
 
     if (data.basicLpsId != undefined && data.basicLpsId != 0) {
       this.step5List = data; 
@@ -391,7 +391,7 @@ export class LpsSpdComponent implements OnInit {
               this.successMsg = data;
               this.spdForm.markAsPristine();
               this.proceedNext.emit(true);
-              this.service.lvClick = 0;
+              this.service.lpsClick = 0;
               this.service.logoutClick = 0;
               this.service.windowTabClick = 0;
             },
@@ -435,7 +435,7 @@ export class LpsSpdComponent implements OnInit {
               this.getAirterminationData();
              }, 300);
             this.proceedNext.emit(true);
-            this.service.lvClick = 0;
+            this.service.lpsClick = 0;
             this.service.logoutClick = 0;
             this.service.windowTabClick = 0;
           },
@@ -455,19 +455,19 @@ export class LpsSpdComponent implements OnInit {
     if (!this.spdForm.invalid) {
       if (this.spdForm.dirty) {
         this.validationError = false;
-        this.service.lvClick = 1;
+        this.service.lpsClick = 1;
         this.service.logoutClick = 1;
         this.service.windowTabClick = 1;
       }
       else {
         this.validationError = false;
-        this.service.lvClick = 0;
+        this.service.lpsClick = 0;
         this.service.logoutClick = 0;
         this.service.windowTabClick = 0;
       }
     }
     else {
-      this.service.lvClick = 1;
+      this.service.lpsClick = 1;
       this.service.logoutClick = 1;
       this.service.windowTabClick = 1;
     }
@@ -476,19 +476,19 @@ export class LpsSpdComponent implements OnInit {
     if (!this.spdForm.invalid) {
       if (this.spdForm.dirty) {
         this.validationError = false;
-        this.service.lvClick = 1;
+        this.service.lpsClick = 1;
         this.service.logoutClick = 1;
         this.service.windowTabClick = 1;
       }
       else {
         this.validationError = false;
-        this.service.lvClick = 0;
+        this.service.lpsClick = 0;
         this.service.logoutClick = 0;
         this.service.windowTabClick = 0;
       }
     }
     else {
-      this.service.lvClick = 1;
+      this.service.lpsClick = 1;
       this.service.logoutClick = 1;
       this.service.windowTabClick = 1;
     }
