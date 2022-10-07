@@ -86,6 +86,21 @@ mat-header-cell.mat-header-cell {
   /* margin-left: 30px; */
   margin: 0 auto;
 }
+.next:disabled {
+  background-color: lightgrey;
+    color: black;
+    margin-left: 30px;
+    cursor: not-allowed;
+  }   
+  .disableForm{
+    pointer-events: none;
+  }
+  .disableSubmit{
+    pointer-events: none;
+    background-color: lightgrey;
+    color: black;
+    cursor: not-allowed !important;
+  }
 .reply{
   background-color: #f1f1f1;
   color: black;
@@ -195,3 +210,51 @@ p span {
     width: 400px;
 }
 
+.signatureBtn button {
+  overflow: visible;
+  position: relative;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  height: 38px;
+  width: 50px;
+  color: currentColor;
+  background: #82d7f7;
+  border-radius: 0 3px 3px 0;     
+  top: -38px;
+  float: right;
+  }  
+  
+  .signatureBtn button:hover{    
+  background: #82d7f7;
+  }  
+  
+  .signatureBtn button:active,
+  .signatureBtn button:focus{  
+  background: #82d7f7;
+  outline: 0;  
+  }
+  
+  .signatureBtn button:before { /* left arrow */
+  content: '';
+  position: absolute;
+  border-width: 8px 8px 8px 0;
+  border-style: solid solid solid none;
+  border-color: transparent #82d7f7 transparent;
+  top: 12px;
+  left: -6px;
+  }
+  
+  .signatureBtn button:hover:before{
+  border-right-color: #82d7f7;
+  }
+  
+  .signatureBtn button:focus:before,
+  .signatureBtn button:active:before{
+      border-right-color: #82d7f7;
+  }     
+  
+  .signatureBtn button::-moz-focus-inner { /* remove extra button spacing for Mozilla Firefox */
+  border: 0;
+  padding: 0;
+  }

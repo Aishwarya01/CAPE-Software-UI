@@ -44,7 +44,11 @@ export class DownConductorDescription {
     downConductorAvailabilityRem!: String;
     downConductorTestingAvailabilityOb!: String;
     downConductorTestingAvailabilityRem!: String
-
+    index!: number;
+    fileName1!: String;
+    fileType1!: String;
+    fileId1!: number;
+    
     downConductor!: DownConductor[];
     bridgingDescription!: BridgingDescription[];
     holder!: Holder[];
@@ -215,6 +219,10 @@ export class DownConductor {
     naturalDownCondutTypeRem!: String;
     naturalDownCondDimensionOb!: String;
     naturalDownCondDimensionRem!: String
+    index!: number;
+    fileName!: String;
+    fileType!: String;
+    fileId!: number;
 }
 
 export class DownConductorTesting {

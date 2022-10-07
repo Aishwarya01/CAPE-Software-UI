@@ -176,11 +176,7 @@ export class EarthingSystem {
     typeOfEarthElectrodeOb!: String;
     typeOfEarthElectrodeRem!: String;
     sizeOfEarthElectrodeOb!: String;
-    sizeOfEarthElectrodeRem!: String;
-    maximumDistanceEartElectrodeWalOb!: number;
-    maximumDistanceEartElectrodeWalRem!: String;
-    manimumDistanceEartElectrodeWalOb!: number;
-    manimumDistanceEartElectrodeWalRem!: String;                   
+    sizeOfEarthElectrodeRem!: String;               
 }
 
 export class EarthElectrodeTesting{

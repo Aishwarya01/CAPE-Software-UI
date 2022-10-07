@@ -1,0 +1,183 @@
+<div class="card">
+  <div class="card-header" style="text-align: center; display: block">
+    <h2 class="modal-title" style="display: contents">Diesel Generator (DG)</h2>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="dieselGeneratorForm" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Reference Name</label>
+            <input type="text" class="form-control" formControlName="referenceName"
+              [(ngModel)]="dieselGenerator.referenceName"
+              [ngClass]="{ 'is-invalid': submittedDieselGenerator && f.referenceName?.errors }">
+            <!-- <div *ngIf="submittedDieselGenerator && f.manufacturerName?.errors" class="invalid-feedback">
+               <div *ngIf="f.manufacturerName?.errors?.required">Manufacturer Name is required</div>
+             </div> -->
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Capacity Rating (kVA)</label>
+            <input type="number" class="form-control" formControlName="capacityRating"
+              [(ngModel)]="dieselGenerator.capacityRating"
+              [ngClass]="{ 'is-invalid': submittedDieselGenerator && f.capacityRating?.errors }">
+            <div *ngIf="submittedDieselGenerator && f.capacityRating?.errors" class="invalid-feedback">
+              <div *ngIf="f.capacityRating?.errors?.required">Capacity Rating is required</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Voltage Rating (V)</label>
+            <input type="number" class="form-control" formControlName="voltageRating"
+              [(ngModel)]="dieselGenerator.voltageRating"
+              [ngClass]="{ 'is-invalid': submittedDieselGenerator && f.voltageRating?.errors }">
+            <div *ngIf="submittedDieselGenerator && f.voltageRating?.errors" class="invalid-feedback">
+              <div *ngIf="f.voltageRating?.errors?.required">Voltage Rating is required</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Fault current (kA)</label>
+            <input type="number" class="form-control" formControlName="faultCurrent"
+              [(ngModel)]="dieselGenerator.faultCurrent"
+              [ngClass]="{ 'is-invalid': submittedDieselGenerator && f.faultCurrent?.errors }">
+            <div *ngIf="submittedDieselGenerator && f.faultCurrent?.errors" class="invalid-feedback">
+              <div *ngIf="f.faultCurrent?.errors?.required">Fault current is required</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Neutral connected to </label>
+            <select class="form-control" formControlName="neutralConnect" [(ngModel)]="dieselGenerator.neutralConnect"
+              [ngClass]="{ 'is-invalid': submittedDieselGenerator && f.neutralConnect?.errors }">
+              <option value="" disabled>Select Option</option>
+              <option value="Main earth terminal">Main earth terminal</option>
+              <option value="Independent earth electrode">Independent earth electrode</option>
+              <option value="Main earth terminal & independant earth electrode">Main earth terminal & independant earth
+                electrode</option>
+            </select>
+            <div *ngIf="submittedDieselGenerator && f.neutralConnect?.errors" class="invalid-feedback">
+              <div *ngIf="f.neutralConnect?.errors?.required">Neutral connect is required</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>DG test report</label>
+            <select class="form-control" formControlName="dieselGeneratorTestReport"
+              [(ngModel)]="dieselGenerator.dieselGeneratorTestReport"
+              [ngClass]="{ 'is-invalid': submittedDieselGenerator && f.dieselGeneratorTestReport?.errors }"
+              (change)="showPotential($event)">
+              <option value="" disabled>Select Option</option>
+              <option value="Available">Available</option>
+              <option value="Not available">Not available</option>
+            </select>
+            <div *ngIf="submittedDieselGenerator && f.dieselGeneratorTestReport?.errors" class="invalid-feedback">
+              <div *ngIf="f.dieselGeneratorTestReport?.errors?.required">DG Test report is required</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="f.dieselGeneratorTestReport?.value === 'Available'">
+        <h2><b><u>Attach Report</u></b></h2>
+        <br>
+        <table class="table TableBorder" style="margin-top: 3rem;">
+          <thead>
+            <tr style="text-align: center;">
+              <th width="25%">Attach SLD of power supply system:</th>
+              <th width="25%">Status</th>
+              <th width="27%">Name</th>
+              <th width="6%">Size</th>
+              <th width="17%">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <input style="height: 3rem;" type="file" (change)="onChange($event)" formControlName="attachFile"
+                  [ngClass]="{'is-invalid':submittedDieselGenerator && !fileSuccessFlag}"
+                  [attr.disabled]="false ? '' : null" accept=".txt,.jpeg,.png,.jpg,.pdf">
+                <div *ngIf="submittedDieselGenerator && !fileSuccessFlag" class="invalid-feedback">
+                  <div *ngIf="!fileSuccessFlag">Field Is Required</div>
+                </div>
+              </td>
+              <td>
+                <p *ngIf="fileFlag"> {{fileStatus}} </p>
+
+                <mat-icon *ngIf="fileSuccessFlag" class="material-icons-outlined"
+                  style="font-size: 40px; color: #06ea06; margin-left: 105px;">
+                  check_circle_outline
+                </mat-icon>
+
+                <mat-icon *ngIf="fileErrorFlag" class="material-icons-outlined"
+                  style="font-size: 40px; color: #eb1909; margin-left: 105px;">
+                  highlight_off
+                </mat-icon>
+              </td>
+              <td style="text-align: center;">{{fileName}}</td>
+              <td nowrap style="text-align: center;">{{fileSize}}</td>
+
+              <td nowrap style="text-align: center;">
+                <button type="button" class="btn btn-secondary btn-xs mr-4" [disabled]="uploadDisable"
+                  (click)="onUpload()" title="Upload">
+                  <i class="fa fa-upload" style="color: white;"></i>
+                </button>
+
+                <button type="button" class="btn btn-success btn-xs mr-4" (click)="onDownload()" *ngIf="fileId != ''"
+                  href='javascript:onDownload()' href='javascript:void(0)' [ngClass]="{'disableForm':false}"
+                  title="Download">
+                  <i class="fa fa-download" style="color: white;"></i>
+                </button>
+
+                <button type="button" class="btn btn-danger btn-xs mr-4" *ngIf="fileId != ''" (click)="deleteFile()"
+                  [ngClass]="{'disableForm':false}" title="Delete">
+                  <i class="fa fa-trash-o" style="color: white;"></i>
+                </button>
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </form>
+  </div>
+  <div *ngIf="validationError" style="text-align: center;;margin-top: 5px;margin-bottom: 40px">
+    <span class="alert alert-danger">{{validationErrorMsg}}</span>
+  </div>
+
+  <div class="centre-text m-btm30">
+    <div *ngIf="success" style="text-align: center;margin-top: 5px;margin-bottom: 40px">
+      <span class="successshow">{{ successMsg }}</span>
+    </div>
+    <div *ngIf="error" style="text-align: center;margin-top: 5px;margin-bottom: 40px">
+      <span class="errorshow">{{ errorMsg }}</span>
+    </div>
+  </div>
+
+  <div style="display: inline;margin-top: 30px;">
+    <button type="button" style="float: left; margin-left: 400px" class="btn btn-info"
+      (click)="saveDieselGenerator(dieselGeneratorFlag)">
+      <i class="bi bi-person-plus-fill icon"></i> Save
+    </button>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button type="button" class="btn btn-danger" aria-label="Close" (click)="close()"
+      style="float: right; margin-right: 400px">
+      <span aria-hidden="true">Cancel</span>
+    </button>
+  </div>
+  <br>
+</div>

@@ -17,6 +17,7 @@ export class InspectionVerificationService {
 
   apiUrl = environment.apiUrl_v2;
   apiUrl2= environment.apiUrl_v2;
+  apiUrl5 = environment.apiUrl_Diagram;
   constructor(private http: HttpClient) { }
 
   public updateBasic(reportDetails: Reportdetails): Observable<any> {
@@ -31,8 +32,8 @@ export class InspectionVerificationService {
   public updateTesting(testing: TestingDetails): Observable<any> {
     return this.http.put<any>(this.apiUrl + '/updatePeriodicTesting', testing, { responseType: 'text' as 'json' })
   }
-  public updateSummary(summary: Summary): Observable<any> {
-    return this.http.put<any>(this.apiUrl + '/updateSummary', summary, { responseType: 'text' as 'json' })
+  public updateSummary(summary: Summary,superAdminFlag: any): Observable<any> {
+    return this.http.put<any>(this.apiUrl + '/updateSummary' + '/' +superAdminFlag, summary, { responseType: 'text' as 'json' })
   }
   public downloadPDF(siteId: any,userName: any, siteName: any) {
   return   this.http.get(this.apiUrl2 + '/printFinalPDF'+'/'+userName+ '/' +siteId +'/' +siteName, { responseType: 'blob' }).subscribe(
@@ -69,4 +70,5 @@ export class InspectionVerificationService {
   public notificationRetrieveComments(userName: any): Observable<any> {
     return this.http.get<any>(this.apiUrl2 + '/retrieveComments'+'/'+userName, { responseType: 'text' as 'json' })
   }
+
 }

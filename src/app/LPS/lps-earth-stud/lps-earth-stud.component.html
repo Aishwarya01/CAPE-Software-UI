@@ -24,7 +24,7 @@
                                                 <i class="bi bi-align-start"></i>
                                             </span>
                                         </div>
-                                        <input type="number" class="form-control" formControlName="buildingNumber" readonly/>
+                                        <input onwheel="this.blur()" class="form-control" formControlName="buildingNumber" readonly/>
                                     </div>
                                 </div>
                 
@@ -56,7 +56,7 @@
                             <th>SI.No</th>
                             <th>Description</th>
                             <th>Observation</th>
-                            <th>Remarks(Optional)</th>
+                            <th>Remarks</th>
                         </thead>
                         <tbody>
                             <tr>
@@ -87,7 +87,7 @@
                                             </span>
                                         </div>
                                         <textarea [readonly]="isEditable" formControlName="availableEquipotentialBondingRem"
-                                        type="text" class="form-control"  placeholder="Please enter Remarks here (Optional)"></textarea>
+                                        type="text" class="form-control"  placeholder="Please enter Remarks here"></textarea>
                                     </div>
                                 </td>
                             </tr>
@@ -116,7 +116,7 @@
                                             </span>
                                         </div>
                                         <textarea [readonly]="isEditable" formControlName="numberOfEquipotentialBondingRem" type="text" class="form-control" 
-                                        placeholder="Please enter Remarks here (Optional)"></textarea>
+                                        placeholder="Please enter Remarks here"></textarea>
                                     </div>
                                 </td>
                             </tr>
@@ -145,7 +145,7 @@
                                                 </span>
                                             </div>
                                             <textarea [readonly]="isEditable" formControlName="sizeOfEarthingConductorRem"  type="text" class="form-control" 
-                                            placeholder="Please enter Remarks here (Optional)"></textarea>
+                                            placeholder="Please enter Remarks here"></textarea>
                                         </div>
                                 </td>
                             </tr>
@@ -179,7 +179,7 @@
                                             </span>
                                         </div>
                                         <textarea [readonly]="isEditable" formControlName="conceptOfEquipotentialBondingRem"  type="text" class="form-control" 
-                                        placeholder="Please enter Remarks here (Optional)"></textarea>
+                                        placeholder="Please enter Remarks here"></textarea>
                                     </div>
                                 </td>
                             </tr>
@@ -206,7 +206,7 @@
                                                 <i class="bi bi-text-paragraph"></i>
                                             </span>
                                         </div>
-                                        <textarea [readonly]="isEditable" formControlName="mainProtectiveEquipotentialBondingRem" type="text" class="form-control"  placeholder="Please enter Remarks here (Optional)"></textarea>
+                                        <textarea [readonly]="isEditable" formControlName="mainProtectiveEquipotentialBondingRem" type="text" class="form-control"  placeholder="Please enter Remarks here"></textarea>
                                     </div>
                                 </td>
                             </tr>
@@ -234,7 +234,7 @@
                                             </span>
                                         </div>
                                         <textarea [readonly]="isEditable" formControlName="sizeOfMainProtectiveRem" type="text" class="form-control" 
-                                        placeholder="Please enter Remarks here (Optional)"></textarea>
+                                        placeholder="Please enter Remarks here"></textarea>
                                     </div>
                                 </td>
                             </tr>
@@ -263,7 +263,7 @@
                                             </span>
                                         </div>
                                         <textarea [readonly]="isEditable" formControlName="supplimentaryMainProtectiveRem" type="text" class="form-control" 
-                                        placeholder="Please enter Remarks here (Optional)"></textarea>
+                                        placeholder="Please enter Remarks here"></textarea>
                                     </div>
                                 </td>
                             </tr><tr>
@@ -290,7 +290,7 @@
                                             </span>
                                         </div>
                                         <textarea [readonly]="isEditable" formControlName="sizeOfSupplimentaryProtectiveRem" type="text" class="form-control" 
-                                        placeholder="Please enter Remarks here (Optional)"></textarea>
+                                        placeholder="Please enter Remarks here"></textarea>
                                     </div>
                                 </td>
                             </tr>
@@ -311,7 +311,7 @@
                                         <th>SI.No</th>
                                         <th>Description</th>
                                         <th>Observation</th>
-                                        <th>Remarks(Optional)</th>
+                                        <th>Remarks</th>
                                     </thead>
                         <tbody>
                          <tr>
@@ -338,7 +338,7 @@
                                         </span>
                                     </div>
                                     <textarea [readonly]="isEditable" formControlName="earthStudVisibilityRem" type="text" class="form-control" 
-                                    placeholder="Please enter Remarks here (Optional)"></textarea>
+                                    placeholder="Please enter Remarks here"></textarea>
                                 </div>
                             </td>
                          </tr>
@@ -367,7 +367,7 @@
                                         </span>
                                     </div>
                                     <textarea [readonly]="isEditable" formControlName="earthStudBendRem" type="text" class="form-control" 
-                                    placeholder="Please enter Remarks here (Optional)"></textarea>
+                                    placeholder="Please enter Remarks here"></textarea>
                                 </div>
                             </td>
                          </tr>
@@ -396,7 +396,7 @@
                                         </span>
                                     </div>
                                     <textarea [readonly]="isEditable" formControlName="properBondingRailRem" type="text" class="form-control" 
-                                    placeholder="Please enter Remarks here (Optional)"></textarea>
+                                    placeholder="Please enter Remarks here"></textarea>
                                 </div>
                             </td>
                          </tr>
@@ -425,7 +425,7 @@
                                         </span>
                                     </div>
                                     <textarea [readonly]="isEditable" formControlName="physicalDamageStudRem" type="text" class="form-control" 
-                                    placeholder="Please enter Remarks here (Optional)"></textarea>
+                                    placeholder="Please enter Remarks here"></textarea>
                                 </div>
                             </td>
                          </tr>
@@ -454,7 +454,7 @@
                                         </span>
                                     </div>
                                     <textarea [readonly]="isEditable"  type="text" class="form-control" formControlName="continutyExistaEarthRem" 
-                                    placeholder="Please enter Remarks here (Optional)"></textarea>
+                                    placeholder="Please enter Remarks here"></textarea>
                                 </div>
                             </td>
                          </tr>
@@ -475,18 +475,19 @@
     </div>
     <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
         <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
-        <button class="next" (click)="gotoNextModal(content,contents)" mat-button>Next &raquo;</button>
+        <button class="next" (click)="gotoNextModal(content1,contents)" mat-button>Next &raquo;</button>
     </div>
     </form>
 </div>
 </div>
-<ng-template #content let-modal>
+
+<ng-template #content1 let-modal>
     <!-- Spinner -->
     <mat-progress-spinner style="margin: 0 auto;" *ngIf="spinner" color="primary" [mode]="mode" value="50" diameter="50">
     </mat-progress-spinner>
     <br>
     <div *ngIf="spinner" style="text-align: center;">
-        Please wait, the details are loading!
+        Please wait, Equipotential Bonding details are loading!
     </div>
     <div class="modal-body" *ngIf="popup">
         <div class="centre-text m-btm30">
@@ -501,8 +502,12 @@
     </div>
     <br>
     <div *ngIf="popup" style="text-align: center;">
-        <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+        <button type="button" *ngIf="success" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
         aria-label="Close"  (click)="closeModalDialog()" matStepperNext>
+        <span aria-hidden="true">Ok</span>
+        </button>
+        <button type="button" *ngIf="Error" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+        aria-label="Close"  (click)="closeModalDialog()">
         <span aria-hidden="true">Ok</span>
         </button>
     </div>
@@ -514,7 +519,7 @@
       <div style="text-align: center;">
         <span class="successshow">Are you sure you want to procced? </span>
         <br>
-        <span style="font-size: 12px;">Note: Please verify all the details! </span>
+        <span style="font-size: 12px;"><b>Note:</b> Please verify all the details! </span>
        </div>
       </div>
      </div>

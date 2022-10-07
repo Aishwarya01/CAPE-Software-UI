@@ -1,0 +1,23 @@
+h3 {
+    font-weight: bold;
+}
+
+body { margin: 20px; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.auth-form-btn {
+    margin-top: 15px;
+    width: 87px;
+    right: inherit;
+    margin: 0.15%;
+}
+ol.d {
+    list-style-type: lower-alpha;
+}
+
+ol.k {list-style-type: lower-alpha;}
+.auth-form-btn-continue{
+    margin-top: 15px;
+    width: 87px;
+    right: inherit;
+    margin: -1.85% 0%;
+}

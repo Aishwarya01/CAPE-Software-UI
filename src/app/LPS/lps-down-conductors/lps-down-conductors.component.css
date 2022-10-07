@@ -79,7 +79,7 @@ label{
 }
 textarea::placeholder {
   position: relative;
-  top: 9px;
+  /* top: 9px; */
 }
 
 table tr td {
@@ -88,6 +88,8 @@ table tr td {
 
 textarea{
   font-size: 12px;
+  height: 4rem;
+  padding: 21px 10px 10px;
 }
 
 .disableForm{

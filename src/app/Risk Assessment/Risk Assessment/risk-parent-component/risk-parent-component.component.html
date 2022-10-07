@@ -1,0 +1,34 @@
+<mat-tab-group [selectedIndex]="selectedIndex" style="background-color:white;" #tabs>
+    <mat-tab label="Risk Assessment"> 
+      <mat-horizontal-stepper [linear]="service.isLinear" #stepper>
+    <!-- Step-1 Customer Details -->
+        <mat-step [completed]="service.isCompleted" [editable]="service.editable">
+          <ng-template matStepLabel>
+               <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
+               Customer Details
+              </ng-template>
+          <app-risk-customer-details *ngIf="step1" (proceedNext)="doSomething1($event)"></app-risk-customer-details>
+        </mat-step>
+  
+    <!-- Step-1 Risk Assessment Details -->
+        <mat-step [completed]="service.isCompleted2" [editable]="service.editable">
+          <ng-template matStepLabel>
+            <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
+            Risk Assessment Details
+            </ng-template> 
+          <app-risk-assessment-details *ngIf="step2" (proceedNext)="doSomething2($event)"></app-risk-assessment-details>
+          <button class="riskStep2" mat-button (click)="goBack(stepper)">&laquo; Back</button> 
+        </mat-step>
+      </mat-horizontal-stepper>
+    </mat-tab>
+
+    <!-- Saved Report Page -->
+    <mat-tab label="Saved Reports">
+      <app-risk-saved-reports (callSavedMethod)="onCallSavedMethod($event)"></app-risk-saved-reports>
+    </mat-tab>
+  
+    <!-- <mat-tab label="Final Reports">
+      <app-risk-final-reports (callFinalMethod) = "onCallFinalMethod($event)"></app-risk-final-reports>
+    </mat-tab> -->
+  </mat-tab-group>
+

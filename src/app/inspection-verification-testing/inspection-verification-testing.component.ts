@@ -38,7 +38,10 @@ import { DatePipe } from '@angular/common'
 import { ValueTransformer } from '@angular/compiler/src/util';
 import { MatDialog } from '@angular/material/dialog';
 import { ObservationService } from '../services/observation.service';
+import { SummaryServiceService } from '../LPS_services/summary-service.service';
+import { SummarydetailsService } from '../services/summarydetails.service';
 // import { ObservationTesting } from '../model/observation-testing';
+import { TestingDialogBoxComponent } from '../testing-dialog-box/testing-dialog-box.component';
 
 @Component({
   selector: 'app-inspection-verification-testing',
@@ -60,6 +63,8 @@ export class InspectionVerificationTestingComponent implements OnInit, OnDestroy
   // email: String = '';
   isHidden=true;
   @Output() proceedNext = new EventEmitter<any>();
+  @Output() summaryNext = new EventEmitter<{siteId: any,summaryData: any,flag: boolean}>();
+
   testingDetails = new TestingDetails();
   incomingVoltage: String = '';
   incomingLoopImpedance: String = '';
@@ -206,6 +211,8 @@ export class InspectionVerificationTestingComponent implements OnInit, OnDestroy
   arrViewer: any = [];
   @ViewChild('target') private myScrollContainer!: ElementRef;
  
+  @ViewChild('testingDialog')
+  testingDialog: any;
 
   expandedIndexx!: number;
   inspectorName: String = '';
@@ -293,6 +300,7 @@ export class InspectionVerificationTestingComponent implements OnInit, OnDestroy
     private siteService: SiteService,
     private basic: MainNavComponent,public datepipe: DatePipe,
     private UpateInspectionService: InspectionVerificationService,
+    private summaryService: SummarydetailsService
   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
   }
@@ -343,7 +351,7 @@ export class InspectionVerificationTestingComponent implements OnInit, OnDestroy
  retrieveDetailsFromIncoming() {
   if(this.service.siteCount !=0 && this.service.siteCount!=undefined) {
     if(this.currentUser1.role == 'Inspector') {
-      this.inspectionDetailsService.retrieveInspectionDetails(this.email, this.service.siteCount).subscribe(
+      this.inspectionDetailsService.retrieveInspectionDetails(this.service.siteCount).subscribe(
         data=>{
         this.incomingValues = JSON.parse(data);
         this.testingForm = this.formBuilder.group({
@@ -408,7 +416,7 @@ export class InspectionVerificationTestingComponent implements OnInit, OnDestroy
       });
     }
     else {
-      this.inspectionDetailsService.retrieveInspectionDetails(this.currentUser1.assignedBy, this.service.siteCount).subscribe(
+      this.inspectionDetailsService.retrieveInspectionDetails(this.service.siteCount).subscribe(
         data=>{
           this.incomingValues = JSON.parse(data);
           this.testingForm = this.formBuilder.group({
@@ -498,7 +506,7 @@ reset(){
   this.pushJsonArray=[];
    if(this.service.siteCount !=0 && this.service.siteCount!=undefined){
      if(this.currentUser1.role == 'Inspector') {
-      this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.email, this.service.siteCount).subscribe(
+      this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.service.siteCount).subscribe(
         data=>{
         this.supplyValues = JSON.parse(data);
        	        //for(let i of this.supplyValues) {	
@@ -562,7 +570,7 @@ reset(){
       )
      }
      else {
-      this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.currentUser1.assignedBy, this.service.siteCount).subscribe(
+      this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.service.siteCount).subscribe(
         data=>{
           this.supplyValues = JSON.parse(data);
                    //for(let i of this.supplyValues) {	
@@ -724,6 +732,7 @@ callValue(e: any) {
     this.testingDetails.createdDate = this.testList1.createdDate;
     setTimeout(() => {
       this.populateData(this.testList1);
+      this.populateDataComments(this.testList1.testingComment);
     }, 1000);
     this.flag = true;
     }    
@@ -747,7 +756,7 @@ callValue(e: any) {
     this.testingDetails.createdDate = this.testList.testingReport.createdDate;
     setTimeout(() => {
       this.populateData(this.testList.testingReport);      
-      this.populateDataComments();
+      this.populateDataComments(this.testList.testingReport.testingComment);
     }, 1000);
     this.flag = true;
     } 
@@ -758,7 +767,7 @@ callValue(e: any) {
 
   updateMethod(){
     this.ngOnInit();
-    this.testingService.retrieveTesting(this.testingDetails.siteId,this.email).subscribe(
+    this.testingService.retrieveTesting(this.testingDetails.siteId).subscribe(
       data=>{
        this.retrieveDetailsforTesting(this.email,this.testingDetails.siteId,data);    
        
@@ -807,7 +816,7 @@ callValue(e: any) {
                 controls.location.setValue(this.incomingValues.ipaoInspection[r].consumerUnit[l].location);
               }
 
-              this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.email, this.service.siteCount).subscribe(
+              this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.service.siteCount).subscribe(
                 data=>{
                 this.supplyValues = JSON.parse(data);
                 for(let j of this.supplyValues.supplyParameters) {                  
@@ -856,7 +865,7 @@ callValue(e: any) {
                   this.testaccordianArr.controls[i].controls.testDistRecords.controls[j].controls.testDistribution.controls[0].
                   controls.location.setValue(this.incomingValues.ipaoInspection[i].consumerUnit[j].location);
   
-                  this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.email, this.service.siteCount).subscribe(
+                  this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.service.siteCount).subscribe(
                     data=>{
                     this.supplyValues = JSON.parse(data);
                     for(let k of this.supplyValues.supplyParameters) {                  
@@ -903,7 +912,7 @@ callValue(e: any) {
                 this.testaccordianArr.controls[i].controls.testDistRecords.controls[j].controls.testDistribution.controls[0].
                 controls.location.setValue(this.incomingValues.ipaoInspection[i].consumerUnit[j].location);
 
-                this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.email, this.service.siteCount).subscribe(
+                this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.service.siteCount).subscribe(
                   data=>{
                   this.supplyValues = JSON.parse(data);
                   for(let k of this.supplyValues.supplyParameters) {                  
@@ -925,20 +934,20 @@ callValue(e: any) {
   }
   //comments section starts
 
-  populateDataComments() {
+  populateDataComments(retrievedCommentsData: any) {
     this.hideShowComment = true;
     this.reportViewerCommentArr = [];
     this.completedCommentArr3 = [];
     this.completedCommentArr4 = [];
     this.arrViewer = [];
     this.completedCommentArr1 = this.testingForm.get('completedCommentArr1') as FormArray;
-    for (let value of this.testList.testingReport.testingComment) {
+    for (let value of retrievedCommentsData) {
       this.arrViewer = [];
       if (this.currentUser1.role == 'Inspector') { //Inspector
         if (value.approveOrReject == 'APPROVED') {
           this.completedComments = true;
           this.enabledViewer = true;
-          for (let j of this.testList.testingReport.testingComment) {
+          for (let j of retrievedCommentsData) {
             if (value.noOfComment == j.noOfComment) {
               this.completedCommentArr3.push(j);
             }
@@ -946,7 +955,7 @@ callValue(e: any) {
           this.completedCommentArr4.push(this.addItem1(this.completedCommentArr3));
           this.completedCommentArr3 = [];
         }
-        for (let j of this.testList.testingReport.testingComment) {
+        for (let j of retrievedCommentsData) {
           if ((j.approveOrReject == 'REJECT' || j.approveOrReject == '' || j.approveOrReject == null) && j.viewerFlag == 1) {
             this.arrViewer.push(this.createCommentGroup(j));
           }
@@ -994,7 +1003,7 @@ callValue(e: any) {
             }
             this.completedComments = true;
             this.enabledViewer = true;
-            for (let j of this.testList.testingReport.testingComment) {
+            for (let j of retrievedCommentsData) {
               if (value.noOfComment == j.noOfComment) {
                 this.completedCommentArr3.push(j);
               }
@@ -1011,7 +1020,7 @@ callValue(e: any) {
                 this.basic.notification(1, value.viewerUserName, value.inspectorUserName, value.viewerDate, value.inspectorDate);
               }
             }
-            if (this.testList.testingReport.testingComment.length < 1) {
+            if (retrievedCommentsData.length < 1) {
               this.reportViewerCommentArr.push(this.addCommentViewer());
               this.testingForm.setControl('viewerCommentArr', this.formBuilder.array(this.reportViewerCommentArr || []));
             }
@@ -1075,7 +1084,7 @@ callValue(e: any) {
           //this.showReplyBox=true;
           this.enabledViewer = true;
         }
-        for (let j of this.testList.testingReport.testingComment) {
+        for (let j of retrievedCommentsData) {
           if (j.approveOrReject == 'REJECT' || j.approveOrReject == '' || j.approveOrReject == null) {
             this.arrViewer.push(this.createCommentGroup(j));
           }
@@ -1270,11 +1279,11 @@ callValue(e: any) {
   refreshCommentSection() {
     this.spinner = true;
     this.cardBodyComments = false;
-    this.siteService.retrieveFinal(this.savedUserName, this.testingDetails.siteId).subscribe(
+    this.siteService.retrieveFinal(this.testingDetails.siteId).subscribe(
       (data) => {
         this.commentDataArr = JSON.parse(data);
         this.testList.testingReport.testingComment = this.commentDataArr.testingReport.testingComment;
-        this.populateDataComments();
+        this.populateDataComments(this.testList.testingReport.testingComment);
         setTimeout(() => {
           this.spinner = false;
           this.cardBodyComments = true;
@@ -1514,49 +1523,91 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any,testing
     let incomingLoopImpedanceArray = [];
     let incomingFaultCurrentArray = [];
     let incomingActualLoadArray=[];
-    incomingVoltageArray = incomingVoltage.split(",");
-    incomingLoopImpedanceArray = incomingLoopImpedance.split(",");
-    incomingFaultCurrentArray = incomingFaultCurrent.split(",");
-    incomingActualLoadArray= incomingActualLoad.split(",");
-    let item = [];
-    item.push(incomingVoltageArray, incomingLoopImpedanceArray, incomingFaultCurrentArray,incomingActualLoadArray);
-    return new FormGroup({
-      incomingVoltage1: new FormControl({ disabled: false, value: item[0][0] }),
-      incomingVoltage2: new FormControl({ disabled: false, value: item[0][1] }),
-      incomingVoltage3: new FormControl({ disabled: false, value: item[0][2] }),
-      incomingVoltage4: new FormControl({ disabled: false, value: item[0][3] }),
-      incomingVoltage5: new FormControl({ disabled: false, value: item[0][4] }),
-      incomingVoltage6: new FormControl({ disabled: false, value: item[0][5] }),
-      incomingVoltage7: new FormControl({ disabled: false, value: item[0][6] }),
-      incomingVoltage8: new FormControl({ disabled: false, value: item[0][7] }),
-      incomingVoltage9: new FormControl({ disabled: false, value: item[0][8] }),
-
-      incomingZs1: new FormControl({ disabled: false, value: item[1][0] }),
-      incomingZs2: new FormControl({ disabled: false, value: item[1][1] }),
-      incomingZs3: new FormControl({ disabled: false, value: item[1][2] }),
-      incomingZs4: new FormControl({ disabled: false, value: item[1][3] }),
-      incomingZs5: new FormControl({ disabled: false, value: item[1][4] }),
-      incomingZs6: new FormControl({ disabled: false, value: item[1][5] }),
-      incomingZs7: new FormControl({ disabled: false, value: item[1][6] }),
-      incomingZs8: new FormControl({ disabled: false, value: item[1][7] }),
-      incomingZs9: new FormControl({ disabled: false, value: item[1][8] }),
-
-      incomingIpf1: new FormControl({ disabled: false, value: item[2][0] }),
-      incomingIpf2: new FormControl({ disabled: false, value: item[2][1] }),
-      incomingIpf3: new FormControl({ disabled: false, value: item[2][2] }),
-      incomingIpf4: new FormControl({ disabled: false, value: item[2][3] }),
-      incomingIpf5: new FormControl({ disabled: false, value: item[2][4] }),
-      incomingIpf6: new FormControl({ disabled: false, value: item[2][5] }),
-      incomingIpf7: new FormControl({ disabled: false, value: item[2][6] }),
-      incomingIpf8: new FormControl({ disabled: false, value: item[2][7] }),
-      incomingIpf9: new FormControl({ disabled: false, value: item[2][8] }),
-
-      actualLoadAl1: new FormControl({ disabled: false, value: item[3][0] }),
-      actualLoadAl2: new FormControl({ disabled: false, value: item[3][1] }),
-      actualLoadAl3: new FormControl({ disabled: false, value: item[3][2] }),
-      actualLoadAl4: new FormControl({ disabled: false, value: item[3][3] }),
-     
-    });
+    if(incomingVoltage != undefined && incomingLoopImpedance != undefined && incomingFaultCurrent != undefined && incomingActualLoad != undefined) {
+      incomingVoltageArray = incomingVoltage.split(",");
+      incomingLoopImpedanceArray = incomingLoopImpedance.split(",");
+      incomingFaultCurrentArray = incomingFaultCurrent.split(",");
+      incomingActualLoadArray= incomingActualLoad.split(",");
+      let item = [];
+      item.push(incomingVoltageArray, incomingLoopImpedanceArray, incomingFaultCurrentArray,incomingActualLoadArray);
+      return new FormGroup({
+        incomingVoltage1: new FormControl({ disabled: false, value: item[0][0] }),
+        incomingVoltage2: new FormControl({ disabled: false, value: item[0][1] }),
+        incomingVoltage3: new FormControl({ disabled: false, value: item[0][2] }),
+        incomingVoltage4: new FormControl({ disabled: false, value: item[0][3] }),
+        incomingVoltage5: new FormControl({ disabled: false, value: item[0][4] }),
+        incomingVoltage6: new FormControl({ disabled: false, value: item[0][5] }),
+        incomingVoltage7: new FormControl({ disabled: false, value: item[0][6] }),
+        incomingVoltage8: new FormControl({ disabled: false, value: item[0][7] }),
+        incomingVoltage9: new FormControl({ disabled: false, value: item[0][8] }),
+  
+        incomingZs1: new FormControl({ disabled: false, value: item[1][0] }),
+        incomingZs2: new FormControl({ disabled: false, value: item[1][1] }),
+        incomingZs3: new FormControl({ disabled: false, value: item[1][2] }),
+        incomingZs4: new FormControl({ disabled: false, value: item[1][3] }),
+        incomingZs5: new FormControl({ disabled: false, value: item[1][4] }),
+        incomingZs6: new FormControl({ disabled: false, value: item[1][5] }),
+        incomingZs7: new FormControl({ disabled: false, value: item[1][6] }),
+        incomingZs8: new FormControl({ disabled: false, value: item[1][7] }),
+        incomingZs9: new FormControl({ disabled: false, value: item[1][8] }),
+  
+        incomingIpf1: new FormControl({ disabled: false, value: item[2][0] }),
+        incomingIpf2: new FormControl({ disabled: false, value: item[2][1] }),
+        incomingIpf3: new FormControl({ disabled: false, value: item[2][2] }),
+        incomingIpf4: new FormControl({ disabled: false, value: item[2][3] }),
+        incomingIpf5: new FormControl({ disabled: false, value: item[2][4] }),
+        incomingIpf6: new FormControl({ disabled: false, value: item[2][5] }),
+        incomingIpf7: new FormControl({ disabled: false, value: item[2][6] }),
+        incomingIpf8: new FormControl({ disabled: false, value: item[2][7] }),
+        incomingIpf9: new FormControl({ disabled: false, value: item[2][8] }),
+  
+        actualLoadAl1: new FormControl({ disabled: false, value: item[3][0] }),
+        actualLoadAl2: new FormControl({ disabled: false, value: item[3][1] }),
+        actualLoadAl3: new FormControl({ disabled: false, value: item[3][2] }),
+        actualLoadAl4: new FormControl({ disabled: false, value: item[3][3] }),
+       
+      });
+    }
+    else {
+      return new FormGroup({
+        incomingVoltage1: new FormControl(''),
+        incomingVoltage2: new FormControl(''),
+        incomingVoltage3: new FormControl(''),
+        incomingVoltage4: new FormControl(''),
+        incomingVoltage5: new FormControl(''),
+        incomingVoltage6: new FormControl(''),
+        incomingVoltage7: new FormControl(''),
+        incomingVoltage8: new FormControl(''),
+        incomingVoltage9: new FormControl(''),
+  
+        incomingZs1: new FormControl(''),
+        incomingZs2: new FormControl(''),
+        incomingZs3: new FormControl(''),
+        incomingZs4: new FormControl(''),
+        incomingZs5: new FormControl(''),
+        incomingZs6: new FormControl(''),
+        incomingZs7: new FormControl(''),
+        incomingZs8: new FormControl(''),
+        incomingZs9: new FormControl(''),
+  
+        incomingIpf1: new FormControl(''),
+        incomingIpf2: new FormControl(''),
+        incomingIpf3: new FormControl(''),
+        incomingIpf4: new FormControl(''),
+        incomingIpf5: new FormControl(''),
+        incomingIpf6: new FormControl(''),
+        incomingIpf7: new FormControl(''),
+        incomingIpf8: new FormControl(''),
+        incomingIpf9: new FormControl(''),
+  
+        actualLoadAl1: new FormControl(''),
+        actualLoadAl2: new FormControl(''),
+        actualLoadAl3: new FormControl(''),
+        actualLoadAl4: new FormControl(''),
+       
+      });
+    }
+    
   }
   private populateTestRecordsForm(testRecordsItem: any,testDistRecordId: any,testingId: any) {
     let disconnectionTimeArr = [];
@@ -2262,7 +2313,7 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any,testing
                  }
           this.testingRecords.removeAt(this.testingRecords.length - 1);
           this.rateArr.removeAt(this.rateArr.length - 1);
-          this.observationArr.removeAt(this.testingRecords.length - 1);
+          this.observationArr.removeAt(this.observationArr.length - 1);
         }
       }
     }
@@ -2422,7 +2473,28 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any,testing
   // clickAcc(){
   //   this.gotoNextTab();
   // }
+  siteNameMethod(f: any){
+    if(f.value.testingRecordId != "") {
+      const dialogRef = this.dialog.open(TestingDialogBoxComponent, {
+        width: '100%',
+        maxHeight: '90vh',
+      });
+     dialogRef.componentInstance.circuitArr = f.value;
+    // dialogRef.componentInstance.circuitArr1 = f.value.testingRecordsSourceSupply[0];
 
+     dialogRef.componentInstance.confirmBox.subscribe(data=>{
+      if(data) {
+      setTimeout(()=>{
+        this.testingDialog.showDialog(f.value);
+       // this.testingDialog.showDialog1(f.value.testingRecordsSourceSupply[0]);
+      }, 1000);
+      }
+      else{
+      return;
+      }
+    })
+    }
+  }
   onFocusOut(e: any,a: any) {
     if(a.controls.conductorPhase.value != '' && a.controls.conductorPhase.value != undefined
     && a.controls.continutiyApproximateLength.value != '' && a.controls.continutiyApproximateLength.value != undefined && a.controls.continutiyApproximateLength.value != 'NA') {
@@ -3727,9 +3799,20 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any,testing
           this.service.windowTabClick=0;
        this.service.logoutClick=0; 
        this.service.lvClick=0; 
-       this.testingService.retrieveTesting(this.testingDetails.siteId,this.testingDetails.userName).subscribe(
+       this.testingService.retrieveTesting(this.testingDetails.siteId).subscribe(
         data=>{
          this.retrieveDetailsforTesting(this.testingDetails.userName,this.testingDetails.siteId,data);
+        }
+      )
+
+      this.summaryService.retrieveSummary(this.testingDetails.siteId).subscribe(
+        (data) => {
+          // let summaryData: any= [];
+          // summaryData = JSON.parse(data);
+          this.summaryNext.emit({siteId: this.testingDetails.siteId,summaryData: data,flag: true});
+        },
+        (error) => {
+          this.summaryNext.emit({siteId: this.testingDetails.siteId,summaryData: null,flag: false});
         }
       )
         },
@@ -3760,12 +3843,22 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any,testing
           this.service.windowTabClick=0;
        this.service.logoutClick=0; 
        this.service.lvClick=0; 
-          this.testingService.retrieveTesting(this.testingDetails.siteId,this.testingDetails.userName).subscribe(
+          this.testingService.retrieveTesting(this.testingDetails.siteId).subscribe(
             data=>{
              this.retrieveDetailsforTesting(this.testingDetails.userName,this.testingDetails.siteId,data);
             }
           )
          
+          this.summaryService.retrieveSummary(this.testingDetails.siteId).subscribe(
+            (data) => {
+              // let summaryData: any= [];
+              // summaryData = JSON.parse(data);
+              this.summaryNext.emit({siteId: this.testingDetails.siteId,summaryData: data,flag: true});
+            },
+            (error) => {
+              this.summaryNext.emit({siteId: this.testingDetails.siteId,summaryData: null,flag: false});
+            }
+          )
 
           //  if(!this.observationFlag){
           //   this.observation.siteId = this.service.siteCount;

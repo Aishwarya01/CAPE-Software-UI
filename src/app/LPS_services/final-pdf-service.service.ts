@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { GlobalsService } from '../globals.service';
 declare var require: any
 const FileSaver = require('file-saver');
 
@@ -11,7 +12,7 @@ const FileSaver = require('file-saver');
 export class FinalPdfServiceService {
 
   apiUrl = environment.apiUrl_LPS;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,public service: GlobalsService) {}
 
   public downloadPDF(basicLpsId: any,userName: any,projectName: any) {
     
@@ -26,6 +27,32 @@ export class FinalPdfServiceService {
          }
        )
     }
+
+    public downloadSummaryPDF(basicLpsId: any,userName: any,projectName: any) {
+    
+      return   this.http.get(this.apiUrl + '/printLpsSummary'+'/'+userName+ '/' +basicLpsId+ '/' +projectName, { responseType: 'blob' }).subscribe(
+           data =>{
+             if(data != null && data.size != 0){
+              const fileName = projectName+'.pdf';
+              FileSaver.saveAs(data, fileName);
+              // this.service.enableDownload=true;
+             }
+             else{
+              this.service.pdfError="Not able to fetch SummaryPDF from DataBase";
+              // this.service.enableDownload=false;
+              setTimeout(() =>{
+                this.service.pdfError="";
+              }, 3000);
+             }
+           }, 
+           error=>{
+            this.service.pdfError="Not able to fetch SummaryPDF from DataBase";
+             setTimeout(() =>{
+              this.service.pdfError="";
+             }, 3000);
+           }
+         )
+      }
 
   public printPDF(basicLpsId: any,userName: any, projectName: any) {
       return   this.http.get(this.apiUrl + '/printFinalPDF'+'/'+userName+ '/' +basicLpsId+ '/' +projectName, { responseType: 'blob' }).subscribe(

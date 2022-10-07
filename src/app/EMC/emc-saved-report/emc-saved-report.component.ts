@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { EmcFacilityData } from 'src/app/EMC_Model/emc-facility-data';
 import { MatInput } from '@angular/material/input';
 import { MatPaginator } from '@angular/material/paginator';
@@ -7,7 +7,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalsService } from 'src/app/globals.service';
 import { EmcSavedReportService } from 'src/app/EMC_Services/emc-saved-report.service';
-import { EmcMatstepperComponent } from '../emc-matstepper/emc-matstepper.component';
 import { EmcClientDetails } from 'src/app/EMC_Model/emc-client-details';
 import { environment } from 'src/environments/environment';
 import { SuperAdminDev } from 'src/environments/environment.dev';
@@ -21,14 +20,14 @@ import { SuperAdminProd } from 'src/environments/environment.prod';
 })
 export class EmcSavedReportComponent implements OnInit {
 
-  savedReportsEmcColumns: string[] = [ 'clientName', 'contactPerson', 'clientLocation', 'clientAddress', 'createdDate', 'createdBy','continue'];
+  savedReportsEmcColumns: string[] = [ 'clientName', 'contactPerson', 'clientLocation', 'clientAddress', 'updatedDate', 'updatedBy','continue'];
   savedReportEmc_dataSource!: MatTableDataSource<EmcClientDetails[]>;
-  @ViewChild('savedReportEmcPaginator', { static: true }) savedReportEmcPaginator!: MatPaginator;
-  @ViewChild('savedReportEmcSort', {static: true}) savedReportEmcSort!: MatSort;
+  @ViewChild('savedReportEmcPaginator', {static: false}) savedReportEmcPaginator!: MatPaginator;
+  @ViewChild('savedReportEmcSort', {static: false}) savedReportEmcSort!: MatSort;
 
    // @Output("changeTab") changeTab: EventEmitter<any> = new EventEmitter();
    email: String ="";
-
+   @Output() savedReportEvent: EventEmitter<any> = new EventEmitter<{emcId: any, clientName: any, flag: boolean}>();
    emcClientDetails = new EmcClientDetails();
    clientName: String="";
    userName: String="";
@@ -63,7 +62,6 @@ export class EmcSavedReportComponent implements OnInit {
    constructor(private router: ActivatedRoute,
                public service: GlobalsService,
                public emcSavedReportService: EmcSavedReportService,
-               public emcParent: EmcMatstepperComponent,
    ) { 
      this.email = this.router.snapshot.paramMap.get('email') || '{}'
    }
@@ -144,7 +142,8 @@ export class EmcSavedReportComponent implements OnInit {
     //this.service.commentScrollToBottom=1;
   //  this.service.allFieldsDisable = false;
    // this.service.disableSubmitSummary=false;
-     this.emcParent.continue(emcId,clientName,true);
+     this.savedReportEvent.emit({emcId,clientName,flag: true});
+     //this.emcParent.continue(emcId,clientName,true);
    } 
 
    deleteBasicEmc(emcId:any){

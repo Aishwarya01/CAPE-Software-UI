@@ -36,6 +36,7 @@ export class AssignViewerComponent implements OnInit {
     country: new FormControl(''),
     state: new FormControl(''),
     pinCode: new FormControl(''),
+    pinCodeErrorMsg: new FormControl(''),
     userType: new FormControl(''),
     terms: new FormControl('')
   });
@@ -85,6 +86,7 @@ export class AssignViewerComponent implements OnInit {
   inspectorData: any = [];
   demoArr: any = [];
   existSite: boolean = false;
+  arr: any = [];
 
   constructor(private dialog: MatDialog,
               private formBuilder: FormBuilder, private modalService: NgbModal,
@@ -130,7 +132,7 @@ export class AssignViewerComponent implements OnInit {
     return new FormGroup({
     name: new FormControl('', Validators.required),
     companyName: new FormControl('', Validators.required),
-    siteName: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    siteName: new FormControl('', [Validators.required, Validators.minLength(3),Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
     email: new FormControl('', Validators.required),
     designation: new FormControl('', Validators.required),
     contactNumber: new FormControl('', Validators.required),
@@ -140,6 +142,7 @@ export class AssignViewerComponent implements OnInit {
     country: new FormControl('', Validators.required),
     state: new FormControl('', Validators.required),
     pinCode: new FormControl('', Validators.required),
+    pinCodeErrorMsg: new FormControl(''),
     userType: new FormControl('', Validators.required),
     terms: new FormControl(''),
     })
@@ -180,7 +183,7 @@ export class AssignViewerComponent implements OnInit {
       if(!a.get('siteName')?.errors?.minlength) {
         this.siteService.retrieveSiteName(companyName,departmentName,siteName).subscribe(
           data => {
-            debugger
+            
             if(data != '') {
               this.existSite = true;
             }
@@ -208,7 +211,7 @@ export class AssignViewerComponent implements OnInit {
       if(!a.get('siteName')?.errors?.minlength) {
         this.siteService.retrieveSiteName(companyName,departmentName,siteName).subscribe(
           data => {
-            debugger
+            
             if(data != '') {
               this.existSite = true;
             }
@@ -236,7 +239,7 @@ export class AssignViewerComponent implements OnInit {
       if(!a.get('siteName')?.errors?.minlength) {
         this.siteService.retrieveSiteName(companyName,departmentName,siteName).subscribe(
           data => {
-            debugger
+            
             if(data != '') {
               this.existSite = true;
             }
@@ -301,10 +304,29 @@ createGroup(item: any): FormGroup{
   this.selectCountry(item.country);
   this.state = this.registerData.state;
   // item.contactNumber = this.mobileArr[0]+this.mobileArr[1];
+  this.arr = []
+    if(item.country == 'INDIA') {
+      this.arr=[];
+      this.arr.push(Validators.required,Validators.pattern('^[1-9][0-9]{5}$'));
+      setTimeout(()=>{
+        this.f.viewerArr.controls[0].controls['pinCodeErrorMsg'].setValue('Please enter 6 digit pincode');
+      }, 500);
+    }
+    else if(item.country == 'NEPAL') {
+      this.arr=[];
+      this.arr.push(Validators.required,Validators.pattern('^[1-9][0-9]{4}$'));
+      setTimeout(()=>{
+        this.f.viewerArr.controls[0].controls['pinCodeErrorMsg'].setValue('Please enter 5 digit pincode');
+      }, 500);
+    }
+    else {
+      this.arr=[];
+      this.arr.push(Validators.required);
+    }
   return this.formBuilder.group({
     name: new FormControl({value: item.name}),
     companyName: new FormControl({value: item.companyName}),
-    siteName: new FormControl('',[Validators.required, Validators.minLength(3)]),
+    siteName: new FormControl('',[Validators.required, Validators.minLength(3),Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
     email: new FormControl({value: item.username}),
     designation: new FormControl({value: item.designation}),
     contactNumber: new FormControl(item.contactNumber),
@@ -313,7 +335,8 @@ createGroup(item: any): FormGroup{
     district: new FormControl({value: item.district},Validators.required),
     country: new FormControl({value: item.country},Validators.required),
     state: new FormControl({value: item.state},Validators.required),
-    pinCode: new FormControl({value: item.pinCode},Validators.required),
+    pinCode: new FormControl({value: item.pinCode},this.arr),
+    pinCodeErrorMsg: new FormControl(''),
     userType: new FormControl({value: 'Viewer'}),
     terms: new FormControl(''),
     
@@ -325,7 +348,7 @@ createNewGroup(item: any): FormGroup{
   return this.formBuilder.group({
     name: new FormControl('',Validators.required),
     companyName: new FormControl('',Validators.required),
-    siteName: new FormControl('',[Validators.required, Validators.minLength(3)]),
+    siteName: new FormControl('',[Validators.required, Validators.minLength(3),Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
     email: new FormControl({value: item.username}),
     designation: new FormControl('',Validators.required),
     contactNumber: new FormControl('',Validators.required),
@@ -335,6 +358,7 @@ createNewGroup(item: any): FormGroup{
     country: new FormControl('',Validators.required),
     state: new FormControl('',Validators.required),
     pinCode: new FormControl('',Validators.required),
+    pinCodeErrorMsg: new FormControl(''),
     userType: new FormControl({value: 'Viewer'}),
     terms: new FormControl(''),
   });
@@ -429,12 +453,12 @@ createNewGroup(item: any): FormGroup{
 //     this.modalService.dismissAll(id);
 // }
   onItemSelect(item: any) {
-    console.log(item);
+    //console.log(item);
   }
   onSelectAll(items: any) {
-    console.log(items);
+    //console.log(items);
   }
-  get f() {
+  get f() : any{
     return this.viewerRegisterForm.controls;
   }
 
@@ -463,6 +487,23 @@ createNewGroup(item: any): FormGroup{
       //     }
       //   );
       // }
+      if(changedValue == 'INDIA') {
+        this.f.viewerArr.controls[0].controls['pinCode'].setValidators([Validators.required,Validators.pattern('^[1-9][0-9]{5}$')]);
+        this.f.viewerArr.controls[0].controls['pinCode'].updateValueAndValidity();
+        this.f.viewerArr.controls[0].controls['pinCodeErrorMsg'].setValue('Please enter 6 digit pincode');
+      }
+      else if(changedValue == 'NEPAL') {
+        this.f.viewerArr.controls[0].controls['pinCode'].setValidators([Validators.required,Validators.pattern('^[1-9][0-9]{4}$')]);
+        this.f.viewerArr.controls[0].controls['pinCode'].updateValueAndValidity();
+        this.f.viewerArr.controls[0].controls['pinCodeErrorMsg'].setValue('Please enter 5 digit pincode');
+      }
+      else {
+        this.f.viewerArr.controls[0].controls['pinCode'].setValidators([Validators.required]);
+        this.f.viewerArr.controls[0].controls['pinCode'].updateValueAndValidity();
+        this.f.viewerArr.controls[0].controls['pinCodeErrorMsg'].setValue('');
+  
+        //this.pinCodeErrorMsg = 'Please enter pincode';
+      }
        
   }
 

@@ -65,8 +65,13 @@ export class AppComponent {
     if (keyCode == 44 || keyCode == 91) {
       this.copyToClipboard(keyCode);
       navigator.clipboard.writeText("hi").then(
-        success => console.log("text copied"),
-        err => console.log("error copying text")
+        success => {
+          //console.log("text copied")
+        }
+        ,err => 
+        {
+          //console.log("error copying text")
+        }
       );
     }
   }
@@ -95,7 +100,7 @@ export class AppComponent {
     dialogRef.componentInstance.confirmBox.subscribe(data =>{
       if(data) {
       // this.onKeydown(e);
-      console.log("hello");
+     // console.log("hello");
       }
       else{
         return;

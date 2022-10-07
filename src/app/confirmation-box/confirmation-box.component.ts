@@ -14,12 +14,14 @@ export class ConfirmationBoxComponent implements OnInit {
   editModal:boolean=false;
   viewModal:boolean=false;
   triggerModal:boolean=false;
+  triggerModal1:boolean=false;
   linkModal:boolean=false;
   summaryModal:boolean=false;
   lpsAirTModal:boolean=false;
   lpsAirHModal:boolean=false;
   lpsTypeEModal:boolean=false;
   prtsrcModal:boolean=false;
+  sldModal: boolean=false;
   constructor(private dialog: MatDialog,public service: GlobalsService,) { }
 
   ngOnInit(): void {

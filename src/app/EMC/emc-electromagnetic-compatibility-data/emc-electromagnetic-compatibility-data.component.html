@@ -271,7 +271,7 @@
 
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
-                                    <h3>Extrenal RFI Sources</h3>
+                                    <h3>External RFI Sources</h3>
                                 </mat-panel-title>
 
                             </mat-expansion-panel-header>
@@ -680,11 +680,8 @@
 
 
 <ng-template #content3 let-modal>
-    <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinner"
-        color="primary"
-        [mode]="mode"
-        value="50"
-        diameter="50">
+    <!-- Spinner -->
+    <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinner" color="primary" [mode]="mode" value="50" diameter="50">
     </mat-progress-spinner>
     <br>
     <div *ngIf="finalSpinner" style="text-align: center;">
@@ -701,10 +698,11 @@
         </div>
     </div>
     <br>
-
-    <button type="button" *ngIf="popup" class="close" style="text-align: center;margin-left:180px;width:20%"
-        class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
-        (click)="closeModalDialog()" matStepperNext>
-        <span aria-hidden="true">Ok</span>
-    </button>
+    <div *ngIf="popup">
+        <button type="button" class="close" style="text-align: center;margin-left:180px;width:20%"
+            class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
+            (click)="closeModalDialog()" matStepperNext>
+            <span aria-hidden="true">Ok</span>
+        </button>
+    </div>
 </ng-template>

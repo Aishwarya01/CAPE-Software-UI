@@ -90,12 +90,16 @@ table tr td {
 }
 
 textarea{
+  padding: 21px 10px 10px;
   font-size: 12px;
+  height: 4rem;
+  resize: none;
+  transition: 1s;
 }
 
-.disableForm{
+/* .disableForm{
   pointer-events: none;
-}
+} */
 .ButtonSave {
   color: black;
   line-height: 32px !important;
@@ -118,7 +122,14 @@ textarea{
   left: 83%; */
   border-radius: 5px;
 }
+
 textarea::placeholder {
   position: relative;
-  top: 9px;
+  /* top: 9px; */
 }
+
+/* textarea:hover{
+  height: 8rem;
+} */
+
+

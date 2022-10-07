@@ -1,0 +1,234 @@
+<div class="card">
+  <div class="card-header" style="text-align: center; display: block">
+    <h2 class="modal-title" style="display: contents">Transformer</h2>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="transformerForm" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>Reference Name</label>
+            <input type="text" class="form-control" formControlName="referenceName"
+              [(ngModel)]="transformer.referenceName"
+              [ngClass]="{ 'is-invalid': submittedTransformer && h.referenceName?.errors }">
+            <div *ngIf="submittedTransformer && h.referenceName?.errors" class="invalid-feedback">
+              <div *ngIf="h.referenceName?.errors?.required">Reference name is required</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>Capacity Rating (kVA)</label>
+            <input type="number" class="form-control" formControlName="capacityRating"
+              [(ngModel)]="transformer.capacityRating"
+              [ngClass]="{ 'is-invalid': submittedTransformer && h.capacityRating?.errors }">
+            <div *ngIf="submittedTransformer && h.capacityRating?.errors" class="invalid-feedback">
+              <div *ngIf="h.capacityRating?.errors?.required">Capacity Rating is required</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>HV side voltage (V)</label>
+            <input type="number" class="form-control" formControlName="sideVoltageHV"
+              [(ngModel)]="transformer.sideVoltageHV"
+              [ngClass]="{ 'is-invalid': submittedTransformer && h.sideVoltageHV?.errors }">
+            <div *ngIf="submittedTransformer && h.sideVoltageHV?.errors" class="invalid-feedback">
+              <div *ngIf="h.sideVoltageHV?.errors?.required">HV side Voltage is required</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>LV side voltage (V)</label>
+            <input type="number" class="form-control" formControlName="sideVoltageLV"
+              [(ngModel)]="transformer.sideVoltageLV"
+              [ngClass]="{ 'is-invalid': submittedTransformer && h.sideVoltageLV?.errors }">
+            <div *ngIf="submittedTransformer && h.sideVoltageLV?.errors" class="invalid-feedback">
+              <div *ngIf="h.sideVoltageLV?.errors?.required">LV side Voltage is required</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>Vector Group</label>
+            <input type="text" class="form-control" formControlName="vectorGroup" [(ngModel)]="transformer.vectorGroup"
+              [ngClass]="{ 'is-invalid': submittedTransformer && h.vectorGroup?.errors }">
+            <div *ngIf="submittedTransformer && h.vectorGroup?.errors" class="invalid-feedback">
+              <div *ngIf="h.vectorGroup?.errors?.required">Vector Group is required</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>Fault Current(kA)</label>
+            <input type="number" class="form-control" formControlName="faultCurrent"
+              [(ngModel)]="transformer.faultCurrent"
+              [ngClass]="{ 'is-invalid': submittedTransformer && h.faultCurrent?.errors }">
+            <div *ngIf="submittedTransformer && h.faultCurrent?.errors" class="invalid-feedback">
+              <div *ngIf="h.faultCurrent?.errors?.required">Fault Current is required</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>Impedance(%)</label>
+            <input type="number" class="form-control" formControlName="impedance" [(ngModel)]="transformer.impedance"
+              [ngClass]="{ 'is-invalid': submittedTransformer && h.impedance?.errors }">
+            <div *ngIf="submittedTransformer && h.impedance?.errors" class="invalid-feedback">
+              <div *ngIf="h.impedance?.errors?.required">Impedance is required</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>Neutral Connected to</label>
+            <select class="form-control" formControlName="connectedNeutral" [(ngModel)]="transformer.connectedNeutral"
+              [ngClass]="{ 'is-invalid': submittedTransformer && h.connectedNeutral?.errors }">
+              <option value="">Select Option</option>
+              <option value="Main earth terminal">Main earth terminal</option>
+              <option value="Independent earth electrode">Independent earth electrode</option>
+              <option value="Main earth terminal & independant earth electrode">Main earth terminal & independant earth
+                electrode</option>
+              <option value="Not applicable">Not applicable</option>
+            </select>
+            <div *ngIf="submittedTransformer && h.connectedNeutral?.errors" class="invalid-feedback">
+              <div *ngIf="h.connectedNeutral?.errors?.required">Neutral Connected to is required</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>Transfomer test report</label>
+            <select class="form-control" formControlName="transformerTest" (change)="changeTransformerTest($event)"
+              [(ngModel)]="transformer.transformerTest"
+              [ngClass]="{ 'is-invalid': submittedTransformer && h.transformerTest?.errors }">
+              <option value="">Select Option</option>
+              <option value="Available">Available</option>
+              <option value="Not available">Not available</option>
+            </select>
+            <div *ngIf="submittedTransformer && h.transformerTest?.errors" class="invalid-feedback">
+              <div *ngIf="h.transformerTest?.errors?.required">Transfomer test report</div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- <div class="col-md-3">
+         <div class="form-group">
+           <label>Attach file</label>
+           <input type="file" class="form-control" formControlName="file" (change) = "onChange($event)"
+           [ngClass]="{ 'is-invalid': submittedTransformer && h.file?.errors }">
+           <div *ngIf="submittedTransformer && h.file?.errors" class="invalid-feedback">
+             <div *ngIf="h.file?.errors?.required">file is required</div>
+           </div>
+           <button [disabled] = "uploadDisable" (click)="onUpload()">upload</button>
+         </div>
+       </div> -->
+
+
+      </div>
+
+      <div class="row" *ngIf="h.transformerTest?.value == 'Available'">
+        <table class="table TableBorder" style="margin-top: 3rem;">
+          <thead>
+            <tr style="text-align: center;">
+              <th width="25%">Attach SLD of power supply system:</th>
+              <th width="25%">Status</th>
+              <th width="27%">Name</th>
+              <th width="6%">Size</th>
+              <th width="17%">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <input style="height: 3rem;" type="file" (change)="onChange($event)" formControlName="file"
+                  [ngClass]="{'is-invalid':submittedTransformer && !fileSuccessFlag}" [attr.disabled]="false ? '' : null"
+                  accept=".txt,.jpeg,.png,.jpg,.pdf">
+                <div *ngIf="submittedTransformer && !fileSuccessFlag" class="invalid-feedback">
+                  <div *ngIf="!fileSuccessFlag">Field Is Required</div>
+                </div>
+              </td>
+              <td>
+                <p *ngIf="fileFlag"> {{fileStatus}} </p>
+
+                <mat-icon *ngIf="fileSuccessFlag" class="material-icons-outlined"
+                  style="font-size: 40px; color: #06ea06; margin-left: 105px;">
+                  check_circle_outline
+                </mat-icon>
+
+                <mat-icon *ngIf="fileErrorFlag" class="material-icons-outlined"
+                  style="font-size: 40px; color: #eb1909; margin-left: 105px;">
+                  highlight_off
+                </mat-icon>
+              </td>
+              <td style="text-align: center;">{{fileName}}</td>
+              <td nowrap style="text-align: center;">{{fileSize}}</td>
+
+              <td nowrap style="text-align: center;">
+                <button type="button" class="btn btn-secondary btn-xs mr-4" [disabled]="uploadDisable"
+                  (click)="onUpload()" title="Upload">
+                  <i class="fa fa-upload" style="color: white;"></i>
+                </button>
+
+                <button type="button" class="btn btn-success btn-xs mr-4" (click)="onDownload()" *ngIf="fileId != ''"
+                  href='javascript:onDownload()' href='javascript:void(0)' [ngClass]="{'disableForm':false}"
+                  title="Download">
+                  <i class="fa fa-download" style="color: white;"></i>
+                </button>
+
+                <button type="button" class="btn btn-danger btn-xs mr-4" *ngIf="fileId != ''" (click)="deleteFile()"
+                  [ngClass]="{'disableForm':false}" title="Delete">
+                  <i class="fa fa-trash-o" style="color: white;"></i>
+                </button>
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </form>
+  </div>
+
+  <div *ngIf="validationError" style="text-align: center;;margin-top: 5px;margin-bottom: 40px">
+    <span class="alert alert-danger">{{validationErrorMsg}}</span>
+  </div>
+
+  <div class="centre-text m-btm30">
+    <div *ngIf="success" style="text-align: center;margin-top: 5px;margin-bottom: 40px">
+      <span class="successshow">{{ successMsg }}</span>
+    </div>
+    <div *ngIf="error" style="text-align: center;margin-top: 5px;margin-bottom: 40px">
+      <span class="errorshow">{{ errorMsg }}</span>
+    </div>
+  </div>
+
+  <div style="display: inline;margin-top: 30px;">
+    <button type="button" style="float: left; margin-left: 400px" class="btn btn-info"
+      (click)="saveTransformer(transformerFlag)">
+      <i class="bi bi-person-plus-fill icon"></i> Save
+    </button>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button type="button" class="btn btn-danger" aria-label="Close" (click)="close()"
+      style="float: right; margin-right: 400px">
+      <span aria-hidden="true">Cancel</span>
+    </button>
+  </div>
+  <br>
+</div>

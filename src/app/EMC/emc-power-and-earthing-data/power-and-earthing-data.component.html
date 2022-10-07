@@ -123,7 +123,7 @@
                             <div>
                                 <div>
                                     <label class="form-label">KVA: </label>
-                                    <input type="number" class="form-control" [readonly]="isEditableEmc"
+                                    <input onwheel="this.blur()" class="form-control" [readonly]="isEditableEmc"
                                         [(ngModel)]="emcPowerAndEarthingData.powerTransformationKVA"
                                         formControlName="powerTransformationKVA"
                                         [ngClass]="{'is-invalid':submitted && f.powerTransformationKVA?.errors}"
@@ -141,7 +141,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <label class="form-label">Volts:</label>
-                                    <input type="number" class="form-control" [readonly]="isEditableEmc"
+                                    <input onwheel="this.blur()" class="form-control" [readonly]="isEditableEmc"
                                         [(ngModel)]="emcPowerAndEarthingData.powerInputVolts"
                                         formControlName="powerInputVolts" placeholder="Enter Volts"
                                         [ngClass]="{'is-invalid':submitted && f.powerInputVolts?.errors}">
@@ -152,7 +152,7 @@
 
                                 <div class="col-md-4">
                                     <label class="form-label">No. of Phases:</label>
-                                    <input type="number" class="form-control" [readonly]="isEditableEmc"
+                                    <input onwheel="this.blur()" class="form-control" [readonly]="isEditableEmc"
                                         [(ngModel)]="emcPowerAndEarthingData.powerInputPhase"
                                         formControlName="powerInputPhase" placeholder="Enter No. of phases"
                                         [ngClass]="{'is-invalid':submitted && f.powerInputPhase?.errors}">
@@ -163,7 +163,7 @@
 
                                 <div class="col-md-4">
                                     <label class="form-label">No. of    wires:</label>
-                                    <input type="number" class="form-control" [readonly]="isEditableEmc"
+                                    <input onwheel="this.blur()" class="form-control" [readonly]="isEditableEmc"
                                         [(ngModel)]="emcPowerAndEarthingData.powerInputWires"
                                         formControlName="powerInputWires" placeholder="Enter No. of wires"
                                         [ngClass]="{'is-invalid':submitted && f.powerInputWires?.errors}">
@@ -212,7 +212,7 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <label class="form-label">Volts:</label>
-                                        <input type="number" class="form-control" [readonly]="isEditableEmc"
+                                        <input onwheel="this.blur()" class="form-control" [readonly]="isEditableEmc"
                                             [(ngModel)]="emcPowerAndEarthingData.powerOutputVolts"
                                             formControlName="powerOutputVolts" placeholder="Enter Volts"
                                             [ngClass]="{'is-invalid':submitted && f.powerOutputVolts?.errors}">
@@ -224,7 +224,7 @@
 
                                     <div class="col-md-4">
                                         <label class="form-label">No. of Phases:</label>
-                                        <input type="number" class="form-control" [readonly]="isEditableEmc"
+                                        <input onwheel="this.blur()" class="form-control" [readonly]="isEditableEmc"
                                             [(ngModel)]="emcPowerAndEarthingData.powerOutputPhase"
                                             formControlName="powerOutputPhase" placeholder="Enter No. of phases"
                                             [ngClass]="{'is-invalid':submitted && f.powerOutputPhase?.errors}">
@@ -236,7 +236,7 @@
 
                                     <div class="col-md-4">
                                         <label class="form-label">No. of Wires:</label>
-                                        <input type="number" class="form-control" [readonly]="isEditableEmc"
+                                        <input onwheel="this.blur()" class="form-control" [readonly]="isEditableEmc"
                                             [(ngModel)]="emcPowerAndEarthingData.powerOutputWires"
                                             formControlName="powerOutputWires" placeholder="Enter No. of wires"
                                             [ngClass]="{'is-invalid':submitted && f.powerOutputWires?.errors}">
@@ -263,7 +263,7 @@
 
                                     <div class="col-md-4">
                                         <label class="form-label">Incoming (Amps):</label>
-                                        <input type="number" class="form-control" [readonly]="isEditableEmc"
+                                        <input onwheel="this.blur()" class="form-control" [readonly]="isEditableEmc"
                                             [(ngModel)]="emcPowerAndEarthingData.powerIncomingAmps"
                                             formControlName="powerIncomingAmps" placeholder="Enter Amps here"
                                             [ngClass]="{'is-invalid':submitted && f.powerIncomingAmps?.errors}">
@@ -309,7 +309,53 @@
                                     </div>
                                 </div>
                             </div>
-                            <br>
+
+                            <!-- File Upload -->
+                            <table class="table TableBorder" style="margin-top: 3rem;">
+                                <thead>
+                                    <tr style="text-align: center;">
+                                        <th width="25%">Attach SLD of power supply system:</th>
+                                        <th width="27%">Name</th>
+                                        <th width="6%" ng-show="uploader.isHTML5">Size</th>
+                                        <!-- <th ng-show="uploader.isHTML5">Progress</th> -->
+                                        <!-- <th>Status</th> -->
+                                        <th width="25%">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in uploader.queue">
+                                        <td>
+                                            <input style="height: 3rem;" type="file" id="inputGroupFile01" (change)="onChange($event)" formControlName="peAttachement" 
+                                            [(ngModel)]="emcPowerAndEarthingData.peAttachement" 
+                                            [ngClass]="{'is-invalid':submitted && f.peAttachement?.errors}" [attr.disabled]="isEditableEmc ? '' : null"
+                                            accept=".txt,.jpeg,.png,.jpg,.pdf">
+                                            <div *ngIf="submitted &&f.peAttachement?.errors" class="invalid-feedback">
+                                                <div *ngIf="f.peAttachement?.errors?.required">Field Is Required</div>
+                                            </div>
+                                        </td>
+                                        <td style="text-align: center;">{{fileName}}</td>
+                                        <td ng-show="uploader.isHTML5" nowrap style="text-align: center;">{{fileSize}}</td>
+
+                                        <td nowrap style="text-align: center;">
+                                            <button type="button" class="btn btn-secondary btn-xs mr-4" [disabled]="uploadDisable" (click)="onUpload(contentSpinner)" title="Upload">
+                                                <i class="fa fa-upload" style="color: white;"></i>
+                                            </button>
+
+                                            <button type="button" class="btn btn-success btn-xs mr-4" (click)="onDownload()" *ngIf="fileId != ''" href='javascript:onDownload()' 
+                                            href='javascript:void(0)' [ngClass]="{'disableForm':isEditableEmc}" title="Download">
+                                                <i class="fa fa-download" style="color: white;"></i>
+                                            </button>
+
+                                            <button type="button" class="btn btn-danger btn-xs mr-4" *ngIf="fileId != ''"  (click)="deleteFile(contentSpinnerDelete)" 
+                                            [ngClass]="{'disableForm':isEditableEmc}" title="Delete">
+                                                <i class="fa fa-trash-o" style="color: white;"></i> Delete
+                                            </button>
+                                            
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- <br>
                             <div>
                                 <label class="form-label">Attach SLD of power supply system:</label>
                                 <div class="row input-group mb-2">
@@ -328,25 +374,24 @@
                                       <button type="button" [disabled]="uploadDisable" class="btn btn-success" (click)="onUpload(contentSpinner)">
                                             Upload
                                       </button>
-                                      <a (click)="onDownload()" *ngIf="fileName != ''" href='javascript:onDownload()' title="Download" style="margin-left: 30px;text-decoration: underline;" [ngClass]="{'disableForm':isEditableEmc}">
+                                      <a (click)="onDownload()" *ngIf="fileName != ''" href='javascript:void(0)' title="Download" style="margin-left: 30px;text-decoration: underline;" [ngClass]="{'disableForm':isEditableEmc}">
                                         {{fileName}}</a>
                                       <mat-icon *ngIf="fileName != ''" class="mousechange" class="dlt" type="button" title="Delete" style="position: absolute;margin-left: 40px; margin-top: 5px;"(click)="deleteFile(contentSpinnerDelete)" [ngClass]="{'disableForm':isEditableEmc}"
                                        >remove_circle_outline</mat-icon>
                                     </div>
                                 </div>
-                                <!-- <div class="row">
+                                <div class="row">
                                     <div class="col-md-3">
                                         <mat-icon class="mousechange" class="dlt" type="button" title="Delete" 
                                        (click)="deleteFile(contentSpinnerDelete)"
                                         style="float: right;position: relative;padding: 3px;font-size: 26px;">remove_circle_outline</mat-icon>
                                        
                                     </div>
-                                </div> -->
-                                
-                            </div>
+                                </div>
+                            </div> -->
                         </div>
                     </div>
-                <br>
+
                     <!-- 6.Building Service Entrance -->
                     <div>
                         <label class="form-label">6. Building Service Entrance:</label>
@@ -600,7 +645,7 @@
                                             </td>
 
                                             <td>
-                                                <input type="number" class="form-control" formControlName="panelId"
+                                                <input onwheel="this.blur()" class="form-control" formControlName="panelId"
                                                     [ngClass]="{'is-invalid':submitted && a.get('panelId')?.errors}" [readonly]="isEditableEmc"
                                                     placeholder="Enter ID here">
                                                 <div *ngIf="submitted &&a.get('panelId')?.errors"
@@ -1340,8 +1385,14 @@
 
 
     <ng-template #content2 let-modal>
-        <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinner" color="primary">
+        <!-- Spinner -->
+        <mat-progress-spinner style="margin: 0 auto;" *ngIf="spinner" color="primary" [mode]="mode" value="50" diameter="50">
         </mat-progress-spinner>
+        <br>
+        <div *ngIf="spinner" style="text-align: center;">
+            Please wait, the details are loading!
+        </div>
+
         <div class="modal-body" *ngIf="popup">
             <div class="centre-text m-btm30">
                 <div *ngIf="success" style="text-align: center;">
@@ -1353,12 +1404,13 @@
             </div>
         </div>
         <br>
-
-        <button type="button" *ngIf="popup" class="close" style="text-align: center;margin-left:180px;width:20%"
-            class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
-            (click)="closeModalDialog()" matStepperNext>
-            <span aria-hidden="true">Ok</span>
-        </button>
+        <div *ngIf="popup">
+            <button type="button" class="close" style="text-align: center;margin-left:180px;width:20%"
+                class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
+                (click)="closeModalDialog()" matStepperNext>
+                <span aria-hidden="true">Ok</span>
+            </button>
+        </div>
     </ng-template>
 
     <ng-template #content let-modal>
@@ -1386,15 +1438,15 @@
                 <span aria-hidden="true">Cancel</span>
             </button>
         </div>
-
     </ng-template>
+
     <ng-template #contentSpinner let-modal>
-        <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinner" color="primary"
-        [mode]="mode"
-        value="50"
-       diameter="50">>
+        <mat-progress-spinner style="margin: 0 auto;" *ngIf="spinnerUpload" color="primary" [mode]="mode" value="50" diameter="50">
         </mat-progress-spinner>
-        <div class="modal-body" *ngIf="popup">
+        <div *ngIf="spinnerUpload" style="text-align: center;">
+            Please wait, the details are loading!
+        </div>
+        <div class="modal-body" *ngIf="popupUpload">
             <div class="centre-text m-btm30">
                 <div *ngIf="filesuccess" style="text-align: center;">
                     <span class="successshow">{{filesuccessMsg}}</span>
@@ -1405,19 +1457,22 @@
             </div>
         </div>
         <br>
-    
-        <button type="button" *ngIf="popup" style="text-align: center;margin-left:180px;width:20%" class="close"
-            class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
-             >
-            <span (click)="closeModalDialogFile()">Ok</span>
-        </button>
+        <div *ngIf="popupUpload">
+            <button type="button" style="text-align: center;margin-left:180px;width:20%" class="close"
+                class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close">
+                <span (click)="closeModalDialogFile()">Ok</span>
+            </button>
+        </div>
     </ng-template>
 
     <ng-template #contentSpinnerDelete let-modal>
         <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinnerDelete" color="primary"
         [mode]="mode"
         value="50"
-       diameter="50">>
+       diameter="50">
+       <div *ngIf="finalSpinnerDelete" style="text-align: center;">
+        Please wait, the details are loading!
+        </div>
         </mat-progress-spinner>
         <div class="modal-body" *ngIf="popupDelete">
             <div class="centre-text m-btm30">
@@ -1430,12 +1485,12 @@
             </div>
         </div>
         <br>
-    
-        <button type="button" *ngIf="popupDelete" style="text-align: center;margin-left:180px;width:20%" class="close"
-            class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
-             >
-            <span (click)="closeModalDialogFile()">Ok</span>
-        </button>
+        <div *ngIf="popupDelete">
+            <button type="button" style="text-align: center;margin-left:180px;width:20%" class="close"
+                class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close">
+                <span (click)="closeModalDialogFile()">Ok</span>
+            </button>
+        </div>
     </ng-template>
     
     
