@@ -248,19 +248,19 @@ export class LpsBasicPageComponent implements OnInit {
     if(!this.LPSBasicForm.invalid){
       if(this.LPSBasicForm.dirty){
         this.validationError=false;
-        this.service.lvClick=1;
+        this.service.lpsClick=1;
         this.service.logoutClick=1;
          this.service.windowTabClick=1;
       }
       else{
         this.validationError=false;
-        this.service.lvClick=0;
+        this.service.lpsClick=0;
         this.service.logoutClick=0;
         this.service.windowTabClick=0;
       }
      }
      else {
-      this.service.lvClick=1;
+      this.service.lpsClick=1;
       this.service.logoutClick=1;
       this.service.windowTabClick=1;
      }
@@ -269,19 +269,19 @@ export class LpsBasicPageComponent implements OnInit {
    if(!this.LPSBasicForm.invalid){ 
     if(this.LPSBasicForm.dirty){
       this.validationError=false;
-      this.service.lvClick=1;
+      this.service.lpsClick=1;
       this.service.logoutClick=1;
       this.service.windowTabClick=1;
     }
     else{
       this.validationError=false;
-      this.service.lvClick=0;
+      this.service.lpsClick=0;
       this.service.logoutClick=0;
       this.service.windowTabClick=0;
     }
    }
    else {
-    this.service.lvClick=1;
+    this.service.lpsClick=1;
     this.service.logoutClick=1;
     this.service.windowTabClick=1;
    }
@@ -387,7 +387,7 @@ export class LpsBasicPageComponent implements OnInit {
           this.LPSBasicForm.markAsPristine();
           this.isBasicFormUpdated=true;
           this.proceedNext.emit(true);
-          this.service.lvClick=0;
+          this.service.lpsClick=0;
           this.service.logoutClick=0;
           this.service.windowTabClick=0;
           this.basicLpsIdRetrive=0;
@@ -441,7 +441,7 @@ export class LpsBasicPageComponent implements OnInit {
           this.LPSBasicForm.markAsPristine();
           this.isBasicFormUpdated=true;
           this.proceedNext.emit(true);
-          this.service.lvClick=0;
+          this.service.lpsClick=0;
           this.service.logoutClick=0;
           this.service.windowTabClick=0;
           

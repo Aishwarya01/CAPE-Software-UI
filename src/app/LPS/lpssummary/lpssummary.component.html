@@ -15,7 +15,7 @@
 </div>
   <div class="card" *ngIf="!spinner1">
     <div class="card-body">
-  <form [formGroup]="summaryForm" (ngSubmit)="onSubmit(flag1,content,contents)">
+  <form [formGroup]="summaryForm" (ngSubmit)="onSubmit(flag1,content,contents)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
     <div formArrayName="summaryLpsBuildings" *ngFor="let q of summaryLpsBuildingsControl(); let j = index">
       <div class="form-group" [formGroupName]="j">
     <div class="search-bar">
