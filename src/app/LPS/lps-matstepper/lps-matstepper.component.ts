@@ -346,7 +346,6 @@ export class LpsMatstepperComponent implements OnInit {
   }
 
   interceptTabChange(tab: MatTab, tabHeader: MatTabHeader) {
-  debugger
     if((this.service.lpsClick==1) && (this.service.allStepsCompleted==true) && !this.isEditable)
        {
         const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
@@ -564,7 +563,6 @@ export class LpsMatstepperComponent implements OnInit {
     }
   }
   goBack8(stepper: MatStepper) {
-    debugger
     if(this.isEditable && !this.lpsSummary.reloadFromBack()){
       this.lpsSummary.validationErrorTab=false;
       stepper.previous();
