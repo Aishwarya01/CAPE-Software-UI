@@ -719,40 +719,18 @@ export class VerificationlvComponent implements OnInit {
     //this.basic.gotoNextTab();
     this.service.isCompleted= next;
   }
-
-  public summaryFunctionCall2(value: any) {
-    if(value.flag) {
-      setTimeout(() => {
-        this.summary.retrieveDetailsfromSummary(value.siteId,value.summaryData)
-      }, 1000);
-    }
-  }
-
-  public summaryFunctionCall3(value: any) {
-    if(value.flag) {
-      setTimeout(() => {
-        this.summary.retrieveDetailsfromSummary(value.siteId,value.summaryData)
-      }, 1000);
-    }
-  }
-
-  public summaryFunctionCall4(value: any) {
-    if(value.flag) {
-      this.summary.retrieveDetailsfromSummary(value.siteId,value.summaryData)
-    }
-  }
   public NextStep2(next: any): void {
     this.service.isLinear=false;
     //this.service.supplycharesteristicForm = next;
     this.service.isCompleted2= next;
 
     if(next) {
-      this.callTestingNgOnInit();      
+      this.callTestingNgOnInit();
+      this.callSummaryNgOnInit();
     }
     else {
-      this.testing.updateMethod();
+      this.callSummaryNgOnInit();
     }
-    this.summary.ngOnInit();
   }
 
   callTestingNgOnInit() {
@@ -765,13 +743,14 @@ export class VerificationlvComponent implements OnInit {
   public NextStep3(next: any): void {
     if(next){
       this.callTestingNgOnInit();
+      this.callSummaryNgOnInit();
     }
     else{
       // need to uncoment for testing update issue
       this.testing.updateMethod();
+      this.callSummaryNgOnInit();
     }
     //this.service.addstep3 = next;
-    this.summary.ngOnInit();
     this.service.isLinear=false;
     this.service.isCompleted3= next;
 
@@ -789,15 +768,9 @@ export class VerificationlvComponent implements OnInit {
     this.service.isLinear=false;
     //this.service.addsummary = next;
     this.service.isCompleted5 = next;
-    if(next.nextFlag){
+    if(next){
     this.service.allStepsCompleted=false;
-      if(!next.adminFlag) {       
-        this.selectedIndex=1;
-      }   
-    }
-    else {
-      this.service.allStepsCompleted=true;
-      this.selectedIndex=2;
+    this.selectedIndex=2;
     }
   }
   navigateStep(index: any) {
@@ -853,7 +826,7 @@ export class VerificationlvComponent implements OnInit {
 changeTab(index: number, sitedId: any, userName: any, companyName: any, departmentName: any, site: any): void {
   // this.selectedIndex=1;
  // this.logger.error('changeTab started');
-  this.siteService.retrieveFinal(sitedId).subscribe(
+  this.siteService.retrieveFinal(userName,sitedId).subscribe(
     data=> {
     
             //this.logger.debug('data fetched');
@@ -922,10 +895,7 @@ changeTab(index: number, sitedId: any, userName: any, companyName: any, departme
       //    this.testing.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
           if(this.dataJSON.summary != null) {
             this.noDetailsFlag = true;
-            if(this.dataJSON.allStepsCompleted == "Step5 completed"){
-              this.selectedIndexStepper=4;
-             }
-             else if(this.dataJSON.allStepsCompleted == "AllStepCompleted") {
+            if(this.dataJSON.allStepsCompleted == "AllStepCompleted"){
               this.selectedIndexStepper=0;
              }
             this.summary.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
@@ -984,7 +954,7 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
     }, 500);
     
  setTimeout(() => {
-  this.siteService.retrieveFinal(sitedId).subscribe(
+  this.siteService.retrieveFinal(userName,sitedId).subscribe(
     data=> {
      
       //this.selectedIndex = index;
@@ -1000,7 +970,7 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
            && this.dataJSON.supplyCharacteristics != null 
              && this.dataJSON.periodicInspection != null 
                && this.dataJSON.testingReport != null 
-                 && this.dataJSON.summary != null && this.dataJSON.allStepsCompleted == "AllStepCompleted") {
+                 && this.dataJSON.summary != null) {
                   this.service.allFieldsDisable = true;
                   this.service.disableSubmitSummary=true;
                  }
@@ -1061,10 +1031,7 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
           this.summary.retrieveFromOngoingForObservation(sitedId);
         }          
         if(this.dataJSON.summary != null) {
-           if(this.dataJSON.allStepsCompleted == "Step5 completed"){
-            this.selectedIndexStepper=4;
-           }
-           else if(this.dataJSON.allStepsCompleted == "AllStepCompleted") {
+          if(this.dataJSON.allStepsCompleted == "AllStepCompleted"){
             this.selectedIndexStepper=0;
            }
             this.summary.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
@@ -1127,7 +1094,7 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
   }
 
   myTabSelectedTabChange(e: any) {
-    //console.log(e);
+    console.log(e);
   }
 
   continue1(siteId: any,userName :any,clientName: any,departmentName: any,site: any) {

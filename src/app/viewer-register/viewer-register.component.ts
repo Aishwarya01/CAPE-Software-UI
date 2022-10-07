@@ -96,10 +96,10 @@ export class ViewerRegisterComponent implements OnInit {
   }
   
   onItemSelect(item: any) {
-    //console.log(item);
+    console.log(item);
   }
   onSelectAll(items: any) {
-   // console.log(items);
+    console.log(items);
   }
   get f() {
     return this.viewerRegisterForm.controls;

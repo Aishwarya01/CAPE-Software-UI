@@ -33,6 +33,9 @@ export class PowerAndEarthingDataComponent implements OnInit {
   submitted = false;
   successMsg: string = "";
   errorMsg: string = "";
+  finalSpinner: boolean = true;
+  finalSpinnerDelete: boolean = true;
+  popupDelete: boolean = false;
   fileDeleteSuccess: boolean = false;
   fileDeletesuccessMsg: string = "";
   validationErrorTab: boolean = false;
@@ -41,6 +44,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
   tabError: boolean = false;
   tabErrorMsg: string = "";
   validationErrorMsg: String = "";
+  popup: boolean = false;
   modalReference: any;
   email: String;
   step1List2: any;
@@ -48,25 +52,15 @@ export class PowerAndEarthingDataComponent implements OnInit {
   arr2: any = [];
   emcId: number = 0;
   fileName: any = "";
-  fileSize: any = "";
   file!: any; // Variable to store file
   uploadDisable: boolean = true;
+  mode: any = 'indeterminate';
   uploadFlag: boolean;
-  fileId: any = "";
+  fileId: number = 0;
   JSONdata: any = [];
   panelOpenState = false;
   isEditableEmc!:boolean
-  // For Spinner
-  spinner: boolean=false;
-  spinnerValue: String = '';
-  mode: any = 'indeterminate';
-  nextButton: boolean = true;
-  popup: boolean = false;
-  // Fileupload spinner
-  spinnerUpload: boolean = false;
-  popupUpload: boolean = false;
-  finalSpinnerDelete: boolean = true;
-  popupDelete: boolean = false;
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -179,7 +173,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
   gotoNextModal(content2: any, content: any) {
     if (this.EMCPowerAndEarthForm.invalid) {
       this.validationError = true;
-      this.validationErrorMsg = "Please check all the fields in power and earthing section";
+      this.validationErrorMsg = "Please check all the fields";
       //     setTimeout(()=>{
       //       this.validationError=false;
       //  }, 3000);
@@ -226,10 +220,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
     this.emcPowerAndEarthingData.powerIncomingAmps = this.step1List2.powerIncomingAmps;
     this.emcPowerAndEarthingData.powerNeutral = this.step1List2.powerNeutral;
     this.emcPowerAndEarthingData.psEarthing = this.step1List2.psEarthing;
-    //this.emcPowerAndEarthingData.peAttachement = this.step1List2.peAttachement;
-    // this.fileName = this.step1List2.peAttachement;
-    // this.emcPowerAndEarthingData.fileName = this.step1List2.fileName;
-    // this.emcPowerAndEarthingData.fileSize = this.step1List2.fileSize;
+    this.emcPowerAndEarthingData.peAttachement = this.step1List2.peAttachement;
     //this.emcPowerAndEarthingData.peAttachement=this.fileName;
     this.emcPowerAndEarthingData.dedicatedTransfermation = this.step1List2.dedicatedTransfermation;
     this.emcPowerAndEarthingData.dedicatedTransfermationOtherBuilding = this.step1List2.dedicatedTransfermationOtherBuilding;
@@ -381,15 +372,11 @@ export class PowerAndEarthingDataComponent implements OnInit {
   get f(): any {
     return this.EMCPowerAndEarthForm.controls;
   }
-
   onChange(event: any) {
     this.file = event.target.files;
     if (this.file != null) {
       this.uploadDisable = false;
     }
-    // form.controls.fileSize.setValue(Math.round(this.file[0].size / 1024) + " KB");
-    this.fileSize = Math.round(this.file[0].size / 1024) + " KB";
-    this.fileName = this.file[0].name;
   }
 
   onUpload(contentSpinner: any) {
@@ -403,17 +390,13 @@ export class PowerAndEarthingDataComponent implements OnInit {
       for (let f of this.file) {
         formData.append('file', f, f.name);
       }
-      this.spinnerUpload = true;
-      this.popupUpload = false;
-
+      setTimeout(() => {
         if (this.uploadFlag) {
-          this.fileUploadServiceService.uploadFile(formData, this.emcId, this.fileSize).subscribe(
+          this.fileUploadServiceService.uploadFile(formData, this.emcId).subscribe(
             (data) => {
-              setTimeout(() =>{
-                this.spinnerUpload = false;
-                this.popupUpload = true;
-              }, 1000);
               this.uploadDisable = true;
+              this.finalSpinner = false;
+              this.popup = true;
               this.filesuccess = true;
               this.filesuccessMsg = "File Upload Successfully";
               this.EMCPowerAndEarthForm.controls.peAttachement.setValue('');
@@ -421,19 +404,19 @@ export class PowerAndEarthingDataComponent implements OnInit {
               this.retriveFIleName();
             },
             (error) => {
-              this.spinnerUpload = false;
-              this.popupUpload = true;
+              this.finalSpinner = false;
+              this.popup = true;
               this.filesuccess = false;
               this.filesuccessMsg = "";
             },
           )
         }
         else {
-          this.fileUploadServiceService.updateFile(formData, this.fileId, this.fileSize).subscribe(
+          this.fileUploadServiceService.updateFile(formData, this.fileId).subscribe(
             (data) => {
-              this.spinnerUpload = false;
-              this.popupUpload = true;
               this.uploadDisable = true;
+              this.finalSpinner = false;
+              this.popup = true;
               this.filesuccess = true;
               this.filesuccessMsg = "File Updated Successfully";
               this.EMCPowerAndEarthForm.controls.peAttachement.setValue('');
@@ -441,13 +424,16 @@ export class PowerAndEarthingDataComponent implements OnInit {
               this.retriveFIleName();
             },
             (error) => {
-              this.spinnerUpload = false;
-              this.popupUpload = true;
+              this.finalSpinner = false;
+              this.popup = true;
               this.filesuccess = false;
               this.filesuccessMsg = "";
             },
           )
         }
+
+      }, 1000);
+
     }
 
   }
@@ -459,14 +445,12 @@ export class PowerAndEarthingDataComponent implements OnInit {
           this.uploadFlag = false;
           this.JSONdata = JSON.parse(data);
           this.fileName = this.JSONdata.fileName;
-          this.fileSize = this.JSONdata.fileSize;
           this.fileId = this.JSONdata.fileId;
           this.EMCPowerAndEarthForm.controls['peAttachement'].setValue('');
           this.EMCPowerAndEarthForm.controls['peAttachement'].clearValidators();
           this.EMCPowerAndEarthForm.controls['peAttachement'].updateValueAndValidity();
         } else {
           this.uploadFlag = true;
-          this.EMCPowerAndEarthForm.controls['peAttachement'].setValue('');
           this.EMCPowerAndEarthForm.controls['peAttachement'].setValidators([Validators.required]);
           this.EMCPowerAndEarthForm.controls['peAttachement'].updateValueAndValidity();
         }
@@ -475,14 +459,14 @@ export class PowerAndEarthingDataComponent implements OnInit {
       error => {
         this.uploadFlag = true;
         this.fileName = '';
-        this.fileSize = '';
-        this.fileId = '';
         this.EMCPowerAndEarthForm.controls['peAttachement'].setValidators([Validators.required]);
         this.EMCPowerAndEarthForm.controls['peAttachement'].updateValueAndValidity();
       }
     )
   }
   closeModalDialog() {
+    this.finalSpinner = true;
+    this.popup = false;
     if (this.errorMsg != "") {
       this.Error = false;
       this.service.isCompleted= false;
@@ -547,7 +531,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
      this.service.isLinear=true;
      this.service.editable=false;
      this.validationErrorTab = true;
-     this.validationErrorMsgTab= 'Please check all the fields in power and earthing section';
+     this.validationErrorMsgTab= 'Please check all the fields in inspection';
      setTimeout(() => {
        this.validationErrorTab = false;
      }, 3000);
@@ -578,7 +562,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
       this.service.isLinear=true;      
       this.service.editable=false;
       this.validationErrorTab = true;
-      this.validationErrorMsgTab= 'Please check all the fields in power and earthing section';
+      this.validationErrorMsgTab= 'Please check all the fields in inspection';
       setTimeout(() => {
         this.validationErrorTab = false;
       }, 3000);
@@ -610,24 +594,25 @@ export class PowerAndEarthingDataComponent implements OnInit {
       size: 'md',
       backdrop: 'static'
     });
-    this.finalSpinnerDelete = true;
-    this.popupDelete = false;
+
+    setTimeout(() => {
       this.fileUploadServiceService.deleteFile(this.emcId).subscribe(
         (data: any) => {
           this.finalSpinnerDelete = false;
-          this.popupDelete = true;          
+          this.popupDelete = true;
           this.fileDeleteSuccess = true;
           this.fileDeletesuccessMsg = data;
           this.fileName = "";
-          this.fileSize = "";
-          this.fileId = "";
-           this.EMCPowerAndEarthForm.controls['peAttachement'].setValue('');
+          //  this.EMCPowerAndEarthForm.controls['peAttachement'].reset();
+
           this.retriveFIleName();
+
         },
         (error) => {
-            this.finalSpinnerDelete = false;
-            this.popupDelete = true;
-        },)
+        },
+      )
+    }, 1000);
+
   }
 
 
@@ -636,8 +621,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
     if (this.EMCPowerAndEarthForm.invalid) {
       return
     }
-    this.spinner = true;
-    this.popup=false;    
+
     this.emcPowerAndEarthingData.userName = this.email;
     this.emcPowerAndEarthingData.emcId = this.emcId;
 
@@ -652,24 +636,25 @@ export class PowerAndEarthingDataComponent implements OnInit {
           .updatePowerEarthingData(this.emcPowerAndEarthingData)
           .subscribe(
             (data: any) => {
-              setTimeout(() =>{
-                this.popup=true;
-                this.spinner=false;
-              }, 3000)
+              this.finalSpinner = false;
+              this.popup = true;
               this.success = true;
               this.successMsg = data;
               this.service.isCompletedEmc2= true;
               this.service.isLinearEmc=false;
               this.retrivePowerAndEarthingDetails();
               this.proceedNext.emit(true);
+
+
             },
             (error: any) => {
-              this.popup=true;
-              this.spinner=false;
+              this.finalSpinner = false;
+              this.popup = true;
               this.Error = true;
               this.errorArr = [];
               this.errorArr = JSON.parse(error.error);
               this.errorMsg = this.errorArr.message;
+
             });
       }
     }
@@ -679,10 +664,8 @@ export class PowerAndEarthingDataComponent implements OnInit {
       this.emcPowerAndEarthingDataService.savePowerEarthingData(this.emcPowerAndEarthingData).subscribe(
 
         data => {
-          setTimeout(() =>{
-            this.popup=true;
-            this.spinner=false;
-          }, 3000)
+          this.finalSpinner = false;
+          this.popup = true;
           this.success = true;
           this.successMsg = data;
           //this.disable = true;
@@ -692,8 +675,8 @@ export class PowerAndEarthingDataComponent implements OnInit {
           this.proceedNext.emit(true);
         },
         error => {
-          this.popup=true;
-          this.spinner=false;
+          this.finalSpinner = false;
+          this.popup = true;
           this.Error = true;
           this.errorArr = [];
           this.service.isCompletedEmc2= false;

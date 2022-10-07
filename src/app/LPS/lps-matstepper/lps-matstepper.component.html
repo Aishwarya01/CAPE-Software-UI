@@ -69,17 +69,17 @@
           <ng-template matStepLabel>
             <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
             Summary</ng-template>
-          <app-lpssummary *ngIf="summary" (navigateStepSummary) = "navigateStepMethod($event)" (proceedNext)="doSomething8($event)"></app-lpssummary>
-          <button *ngIf="!summarySpinner" class="previousSummary" mat-button (click)="goBack8(stepper)">&laquo; Back</button> 
+          <app-lpssummary *ngIf="summary" (proceedNext)="doSomething8($event)"></app-lpssummary>
+          <button class="previousSummary" mat-button (click)="goBack8(stepper)">&laquo; Back</button> 
         </mat-step>
 
       </mat-horizontal-stepper>
     </mat-tab>
 
     <mat-tab label="Saved Reports">
-      <app-lps-saved-report (callSavedMethod) = "onCallSavedMethod($event)"></app-lps-saved-report>
+      <app-lps-saved-report></app-lps-saved-report>
     </mat-tab>
     <mat-tab label="Final Reports">
-      <app-lps-final-report  (callFinalMethod) = "onCallFinalMethod($event)" ></app-lps-final-report>
+      <app-lps-final-report ></app-lps-final-report>
     </mat-tab>
   </mat-tab-group>

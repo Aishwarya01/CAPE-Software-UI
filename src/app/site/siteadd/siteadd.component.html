@@ -187,11 +187,10 @@
                     <div class="col-md-4">
                         <label>Pincode:</label>
                         <input type="text" (keypress)="keyPressNumbers($event)" formControlName="pincode"
-                            class="form-control" placeholder="Enter Pincode"
+                            class="form-control" placeholder="Enter Pincode" minlength="5" maxlength="6"
                             [(ngModel)]="site.zipCode" [ngClass]="{ 'is-invalid': submitted && a.pincode?.errors}">
                         <div *ngIf="submitted && a.pincode?.errors" class="invalid-feedback">
                             <div *ngIf="a.pincode?.errors?.required">Pincode Is Required</div>
-                            <div *ngIf="a.pincode?.errors?.pattern">{{pinCodeErrorMsg}}</div>
                         </div>
                     </div>
                 </div>

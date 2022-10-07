@@ -119,6 +119,8 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
   }
 
   closeModalDialog() {
+    this.finalSpinner=true;
+    this.popup=false;
     if (this.errorMsg != "") {
       this.Error = false;
       this.service.isCompleted4= false;
@@ -257,7 +259,7 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
   populateData(value: any) {
     this.arr2 = [];
     for (let item of value) {
-      //console.log(item.exter)
+      console.log(item.exter)
       this.arr2.push(this.createGroup(item));
     }
   }
@@ -363,7 +365,7 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
      this.service.isLinear=true;
      this.service.editable=false;
      this.validationErrorTab = true;
-     this.validationErrorMsgTab= 'Please check all the fields in electromagnetic compatibility section';
+     this.validationErrorMsgTab= 'Please check all the fields in testing';
      setTimeout(() => {
        this.validationErrorTab = false;
      }, 3000);
@@ -394,7 +396,7 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
       this.service.isLinear=true;
       this.service.editable=false;
       this.validationErrorTab = true;
-      this.validationErrorMsgTab= 'Please check all the fields in electromagnetic compatibility section';
+      this.validationErrorMsgTab= 'Please check all the fields in testing';
       setTimeout(() => {
         this.validationErrorTab = false;
       }, 3000);
@@ -423,8 +425,6 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
     if (this.EMCElectroMagneticFormm.invalid) {
       return
     }
-    this.finalSpinner = true;
-    this.popup=false;
     this.emcElectromagneticCompatibility.userName = this.email;
 
     this.emcElectromagneticCompatibility.emcId = this.emcId;
@@ -453,10 +453,8 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
             .updateElectromagneticCompatability(this.emcElectromagneticCompatibility)
             .subscribe(
               (data: any) => {
-                setTimeout(() =>{
-                  this.popup=true;
-                  this.finalSpinner=false;
-                }, 3000);
+                this.finalSpinner = false;
+                this.popup = true;
                 this.success = true;
                 this.successMsg = data;
                 this.retriveElectroMagneticCompatibilityDetails();
@@ -480,10 +478,8 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
         this.emcElectroMagneticCompabilityService.addElectromagneticCompatability(this.emcElectromagneticCompatibility).subscribe(
 
           data => {
-            setTimeout(() =>{
-              this.popup=true;
-              this.finalSpinner=false;
-            }, 3000);
+            this.finalSpinner = false;
+            this.popup = true;
             this.success = true;
             this.successMsg = data;
             this.service.disableSubmitElectromagnetic=true;

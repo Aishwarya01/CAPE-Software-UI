@@ -2,7 +2,16 @@ export class Airtermination {
     basicLpsId!: number;
     lpsAirDescId!: number;
     userName!: string;
-   
+    // connectionMadeBraOb!: string;
+    // connectionMadeBraRe!: string;
+    // electricalEquipPlacedOb!: string;
+    // electricalEquipPlacedRe!: string;
+    // combustablePartOb!: string;
+    // combustablePartRe!: string;
+    // terminationMeshConductorOb!: string;
+    // terminationMeshConductorRe!: string;
+    // bondingEquipotentialOb!: string;
+    // bondingEquipotentialRe!: string;
     airTerminationId!: Number;
     createdBy!: String;
     createdDate!: Date;
@@ -58,13 +67,8 @@ export class airBasicDescription {
       combustablePartRe!: String;
       terminationMeshConductorOb!: String;
       terminationMeshConductorRe!: String;
-      file!: String;
       bondingEquipotentialOb!: String;
       bondingEquipotentialRe!: String;
-      fileName!:String;
-      fileType!:String;
-      fileId!:Number;
-      fileIndex!:Number;
 }
 
 export class airClamps {
@@ -134,10 +138,6 @@ export class LpsVerticalAirTermination {
     inspPassedNoRe!: string;
     inspFaileddNoOb!: string;
     inspFaileddNoRe!: string;
-    fileNameVAir!: string;
-    fileTypeVAir!:string;
-    fileIdVAir!:Number;
-    fileIndexVAir!:Number;
     verticalAirTerminationList!: VerticalAirTerminationList[];
 
 }
@@ -195,10 +195,6 @@ export class AirExpansion {
     inspectionPassedNoRe!: string;
     inspectionFailedNoOb!: string;
     inspectionFailedNoRe!: string
-    fileName_EP!: string;
-    fileType_EP!: string;
-    fileIdEP!:Number;
-    fileIndex_EP!:Number;
 }
 export class AirHolderDescription {
     holderDescriptionId!: Number;

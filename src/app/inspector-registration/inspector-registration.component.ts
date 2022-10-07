@@ -58,7 +58,6 @@ export class InspectorRegistrationComponent implements OnInit {
   modalReference: any;
   existFlag: boolean = false;
   notExistFlag: boolean = false;
-  pinCodeErrorMsg: String = '';
 
 
   constructor(private formBuilder: FormBuilder, private modalService: NgbModal,
@@ -85,7 +84,7 @@ export class InspectorRegistrationComponent implements OnInit {
       district: [''],
       country: ['', Validators.required],
       state: ['', Validators.required],
-      pinCode: [''],
+      pinCode: ['', Validators.required],
       userType: ['', Validators.required],
       terms: ['', Validators.required]
     });
@@ -126,10 +125,10 @@ export class InspectorRegistrationComponent implements OnInit {
   }
   
   onItemSelect(item: any) {
-    //console.log(item);
+    console.log(item);
   }
   onSelectAll(items: any) {
-    //console.log(items);
+    console.log(items);
   }
   get f() {
     return this.InspectorRegisterForm.controls;
@@ -158,21 +157,6 @@ export class InspectorRegistrationComponent implements OnInit {
       //     }
       //   );
       // }
-      if(changedValue == 'INDIA') {
-        this.f['pinCode'].setValidators([Validators.required,Validators.pattern('^[1-9][0-9]{5}$')]);
-        this.f['pinCode'].updateValueAndValidity();
-        this.pinCodeErrorMsg = 'Please enter 6 digit pincode';
-      }
-      else if(changedValue == 'NEPAL') {
-        this.f['pinCode'].setValidators([Validators.required,Validators.pattern('^[1-9][0-9]{4}$')]);
-        this.f['pinCode'].updateValueAndValidity();
-        this.pinCodeErrorMsg = 'Please enter 5 digit pincode';
-      }
-      else {
-        this.f['pinCode'].setValidators([Validators.required]);
-        this.f['pinCode'].updateValueAndValidity();
-        //this.pinCodeErrorMsg = 'Please enter pincode';
-      }
        
   }
 
@@ -186,7 +170,7 @@ export class InspectorRegistrationComponent implements OnInit {
         let changedValue = a.target.value;
         this.inspectorRegisterService.retrieveRegisterName(changedValue).subscribe(
           data => {
-            
+            debugger;
             if(data != '') {
               this.notExistFlag = false;
               this.existFlag = true;

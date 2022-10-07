@@ -9,6 +9,7 @@ import { GlobalsService } from 'src/app/globals.service';
 import { earthingReport } from 'src/app/LPS_model/earthingReport';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
 import { LpsEarthing } from 'src/app/LPS_services/lps-earthing';
+import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
 
 @Component({
   selector: 'app-lps-earthing',
@@ -22,7 +23,7 @@ export class LpsEarthingComponent implements OnInit {
   submitted=false;
   lpsEarthingService;
   disable: boolean=false;
-  summaryPopup: boolean = false;
+
   basicLpsId: number = 0;
   ClientName: String='';
   projectName: String='';
@@ -215,7 +216,7 @@ export class LpsEarthingComponent implements OnInit {
       earthElectrodeMaterialInRem: new FormControl(''),
       earthElectrodeTypeInOb: new FormControl('', Validators.required),
       earthElectrodeTypeInRem: new FormControl(''),
-      earthElectrodeSizeInOb: new FormControl(''),
+      earthElectrodeSizeInOb: new FormControl('', Validators.required),
       earthElectrodeSizeInRem: new FormControl(''),
       earthElectrodeLengthingOb: new FormControl('', Validators.required),
       earthElectrodeLengthingRem: new FormControl(''),
@@ -256,9 +257,9 @@ export class LpsEarthingComponent implements OnInit {
     physicalInspeRem: new FormControl(''),
     chamberTypeOb: new FormControl('', Validators.required),
     chamberTypeRem: new FormControl(''),
-    chamberSizeOb: new FormControl(''),
+    chamberSizeOb: new FormControl('', Validators.required),
     chamberSizeRem: new FormControl(''),
-    maximumWithStandLoadOb: new FormControl(''),
+    maximumWithStandLoadOb: new FormControl('', Validators.required),
     maximumWithStandLoadRem: new FormControl(''),
     chamberLocationOb: new FormControl('', Validators.required),
     chamberLocationRem: new FormControl(''),
@@ -304,8 +305,12 @@ export class LpsEarthingComponent implements OnInit {
       materialOfEartElectrodeRem: new FormControl(''),
       typeOfEarthElectrodeOb: new FormControl('', Validators.required),
       typeOfEarthElectrodeRem: new FormControl(''),
-      sizeOfEarthElectrodeOb: new FormControl(''),
+      sizeOfEarthElectrodeOb: new FormControl('', Validators.required),
       sizeOfEarthElectrodeRem: new FormControl(''),
+      maximumDistanceEartElectrodeWalOb: new FormControl(null, Validators.required),
+      maximumDistanceEartElectrodeWalRem: new FormControl(''),
+      manimumDistanceEartElectrodeWalOb: new FormControl(null, Validators.required),
+      manimumDistanceEartElectrodeWalRem: new FormControl(''),
 
     });
   }
@@ -328,23 +333,11 @@ export class LpsEarthingComponent implements OnInit {
   keyPressNumbers(event: any) {
     var charCode = (event.which) ? event.which : event.keyCode;
     // Only Numbers 0-9 with dot
-    if ((charCode < 48 || charCode > 57)) {
+    if (charCode != 46 && (charCode < 48 || charCode > 57)) {
       event.preventDefault();
       return false;
     } else {
         return true;
-    }
-  }
-
-  // Only Accept numbers and allow .(dot)
-  keyPressNumbers1(event: any) {
-    var charCode = (event.which) ? event.which : event.keyCode;
-    // Only Numbers 0-9
-    if ((charCode < 46 || charCode > 46) && (charCode < 48 || charCode > 57)) {
-      event.preventDefault();
-      return false;
-    } else {
-      return true;
     }
   }
 
@@ -390,7 +383,7 @@ export class LpsEarthingComponent implements OnInit {
         this.step4List = data.earthingReport;
         setTimeout(() => {
           this.createEarthingForm(data.airTermination);
-        }, 5000);
+        }, 500);
         this.populateData(data.earthingReport);
       }
       this.earthingReport.basicLpsId = basicLpsId;
@@ -532,7 +525,7 @@ export class LpsEarthingComponent implements OnInit {
       earthElectrodeMaterialInRem:  new FormControl({disabled: false, value: item.earthElectrodeMaterialInRem}),
       earthElectrodeTypeInOb:  new FormControl({disabled: false, value: item.earthElectrodeTypeInOb}, Validators.required),
       earthElectrodeTypeInRem:  new FormControl({disabled: false, value: item.earthElectrodeTypeInRem}),
-      earthElectrodeSizeInOb:  new FormControl({disabled: false, value: item.earthElectrodeSizeInOb}),
+      earthElectrodeSizeInOb:  new FormControl({disabled: false, value: item.earthElectrodeSizeInOb}, Validators.required),
       earthElectrodeSizeInRem:  new FormControl({disabled: false, value: item.earthElectrodeSizeInRem}),
       earthElectrodeLengthingOb:  new FormControl({disabled: false, value: item.earthElectrodeLengthingOb}, Validators.required),
       earthElectrodeLengthingRem:  new FormControl({disabled: false, value: item.earthElectrodeLengthingRem}),
@@ -594,9 +587,9 @@ export class LpsEarthingComponent implements OnInit {
         physicalInspeRem: new FormControl({disabled: false, value: item.physicalInspeRem}),
         chamberTypeOb: new FormControl({disabled: false, value: item.chamberTypeOb}, Validators.required),
         chamberTypeRem: new FormControl({disabled: false, value: item.chamberTypeRem}),
-        chamberSizeOb: new FormControl({disabled: false, value: item.chamberSizeOb}),
+        chamberSizeOb: new FormControl({disabled: false, value: item.chamberSizeOb}, Validators.required),
         chamberSizeRem: new FormControl({disabled: false, value: item.chamberSizeRem}),
-        maximumWithStandLoadOb: new FormControl({disabled: false, value: item.maximumWithStandLoadOb}),
+        maximumWithStandLoadOb: new FormControl({disabled: false, value: item.maximumWithStandLoadOb}, Validators.required),
         maximumWithStandLoadRem: new FormControl({disabled: false, value: item.maximumWithStandLoadRem}),
         maximumPlacedSoilOb: new FormControl({disabled: false, value: item.maximumPlacedSoilOb}, Validators.required),
         maximumPlacedSoilRem: new FormControl({disabled: false, value: item.maximumPlacedSoilRem}),
@@ -648,8 +641,12 @@ export class LpsEarthingComponent implements OnInit {
         jointsMadeBrazingRem: new FormControl({disabled: false, value: item.jointsMadeBrazingRem}),
         materialOfEartElectrodeOb: new FormControl({disabled: false, value: item.materialOfEartElectrodeOb}, Validators.required),
         materialOfEartElectrodeRem: new FormControl({disabled: false, value: item.materialOfEartElectrodeRem}),
-        sizeOfEarthElectrodeOb: new FormControl({disabled: false, value: item.sizeOfEarthElectrodeOb}),
+        sizeOfEarthElectrodeOb: new FormControl({disabled: false, value: item.sizeOfEarthElectrodeOb}, Validators.required),
         sizeOfEarthElectrodeRem: new FormControl({disabled: false, value: item.sizeOfEarthElectrodeRem}),
+        maximumDistanceEartElectrodeWalOb: new FormControl({disabled: false, value: item.maximumDistanceEartElectrodeWalOb}, Validators.required),
+        maximumDistanceEartElectrodeWalRem: new FormControl({disabled: false, value: item.maximumDistanceEartElectrodeWalRem}),
+        manimumDistanceEartElectrodeWalOb: new FormControl({disabled: false, value: item.manimumDistanceEartElectrodeWalOb}, Validators.required),
+        manimumDistanceEartElectrodeWalRem: new FormControl({disabled: false, value: item.manimumDistanceEartElectrodeWalRem}),
       });
     }
 
@@ -677,7 +674,7 @@ export class LpsEarthingComponent implements OnInit {
         earthingElectrodeSize: new FormControl({disabled: false, value: item.earthingElectrodeSize}, Validators.required),
         earthingElectrodeDepth: new FormControl({disabled: false, value: item.earthingElectrodeDepth}, Validators.required),
         earthingElectrodeResistance: new FormControl({disabled: false, value: item.earthingElectrodeResistance}, Validators.required),
-        earthingElectrodeRemarks: new FormControl({disabled: false, value: item.earthingElectrodeRemarks}),
+        earthingElectrodeRemarks: new FormControl({disabled: false, value: item.earthingElectrodeRemarks}, Validators.required),
         buildingCount: new FormControl(''),
       });
     }
@@ -724,7 +721,7 @@ export class LpsEarthingComponent implements OnInit {
   }
  
   onSubmit(flag: any) {
-    // this.submitted=true;
+    this.submitted=true;
     
     if(this.earthingForm.invalid && (this.earthingForm.value.earthing[0].buildingNumber != undefined || this.earthingForm.value.earthing[0].buildingNumber != ''))
     {return}
@@ -902,12 +899,12 @@ export class LpsEarthingComponent implements OnInit {
   }
   
   createTypeAEarthingIteration()  : FormGroup {
-    return this.formBuilder.group({ 
+    return this.formBuilder.group({
       grountLevelComponentFilledInOb: new FormControl('', Validators.required),
       grountLevelComponentFilledInRem: new FormControl(''),
       earthElectrodeMaterialInOb: new FormControl('', Validators.required),
       earthElectrodeMaterialInRem: new FormControl(''),
-      earthElectrodeSizeInOb: new FormControl(''),
+      earthElectrodeSizeInOb: new FormControl('', Validators.required),
       earthElectrodeSizeInRem: new FormControl(''),
       earthElectrodeLengthingOb: new FormControl('', Validators.required),
       earthElectrodeLengthingRem: new FormControl(''),
@@ -1091,8 +1088,8 @@ export class LpsEarthingComponent implements OnInit {
       }
     }
   
-    gotoNextModal(content1: any,contents:any) {
-      this.submitted=true;
+    gotoNextModal(content: any,contents:any) {
+     
        if (this.earthingForm.invalid) {
          this.validationError = true;
         
@@ -1111,7 +1108,7 @@ export class LpsEarthingComponent implements OnInit {
         }, 3000);
         return;
       }
-      else if(this.earthingForm.value.earthing[0].buildingNumber == undefined && this.earthingForm.value.earthing[0].buildingNumber == '' && this.earthingForm.value.earthing[0].buildingName=='' && this.earthingForm.value.earthing[0].buildingName == undefined){
+      else if(this.earthingForm.value.earthing[0].buildingNumber == undefined || this.earthingForm.value.earthing[0].buildingNumber == ''){
         this.validationError = true;
         this.validationErrorMsg = 'Air Termination Form is Required, Please fill';
         setTimeout(() => {
@@ -1121,14 +1118,14 @@ export class LpsEarthingComponent implements OnInit {
       }
       //  Update and Success msg will be showing
       else if(this.earthingForm.dirty && this.earthingForm.touched){
-        this.modalService.open(content1, { centered: true,backdrop: 'static' });
-        this.summaryPopup=true;
+        this.modalService.open(content, { centered: true,backdrop: 'static' });
      }
     //  For Dirty popup
      else{
       this.modalService.open(contents, { centered: true,backdrop: 'static' });
      }
     }
+
 
     onKey(e: any,formarray:any,index:any){
       
@@ -1317,7 +1314,7 @@ export class LpsEarthingComponent implements OnInit {
   }
 
   getAirterminationData(){
-    this.airterminationServices.retriveAirTerminationDetails(this.basicLpsId).subscribe(
+    this.airterminationServices.retriveAirTerminationDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
       data => {
         let earthing_air = JSON.parse(data)[0];
         if(earthing_air != undefined && earthing_air.basicLpsId !=null){
@@ -1464,135 +1461,5 @@ export class LpsEarthingComponent implements OnInit {
     }
   }
 
-  decimalConversion(event:any,form:any){
-    // 4.a
-    if(form.controls.soilResistivityInOb.value!="" && form.controls.soilResistivityInOb.value!=undefined && form.controls.soilResistivityInOb.value!=null){
-      var conversionValue=form.controls.soilResistivityInOb.value;
-      form.controls.soilResistivityInOb.setValue(parseFloat(parseFloat(conversionValue).toFixed(1)));
-    }
-    else{
-      form.controls.soilResistivityInOb.setValue("");
-    }
-    // 4.k
-    if(form.controls.earthelectMaxiDistWallInOb.value!="" && form.controls.earthelectMaxiDistWallInOb.value!=undefined && form.controls.earthelectMaxiDistWallInOb.value!=null){
-      var conversionValue1=form.controls.earthelectMaxiDistWallInOb.value;
-      form.controls.earthelectMaxiDistWallInOb.setValue(parseFloat(parseFloat(conversionValue1).toFixed(1)));
-    }
-    else{
-      form.controls.earthelectMaxiDistWallInOb.setValue("");
-    }
-    // 4.l 
-    if(form.controls.earthelectManimumDistanceWallInOb.value!="" && form.controls.earthelectManimumDistanceWallInOb.value!=undefined && form.controls.earthelectManimumDistanceWallInOb.value!=null){
-      var conversionValue2=form.controls.earthelectManimumDistanceWallInOb.value;
-      form.controls.earthelectManimumDistanceWallInOb.setValue(parseFloat(parseFloat(conversionValue2).toFixed(1)));
-    }
-    else{
-      form.controls.earthelectManimumDistanceWallInOb.setValue("");
-    }
-    // 4.m
-    if(form.controls.earthelectMaxiDistOb.value!="" && form.controls.earthelectMaxiDistOb.value!=undefined && form.controls.earthelectMaxiDistOb.value!=null){
-      var conversionValue3=form.controls.earthelectMaxiDistOb.value;
-      form.controls.earthelectMaxiDistOb.setValue(parseFloat(parseFloat(conversionValue3).toFixed(1)));
-    }
-    else{
-      form.controls.earthelectMaxiDistOb.setValue("");
-    }
-    // 4.n
-    if(form.controls.earthelectManiDistOb.value!="" && form.controls.earthelectManiDistOb.value!=undefined && form.controls.earthelectManiDistOb.value!=null){
-      var conversionValue4=form.controls.earthelectManiDistOb.value;
-      form.controls.earthelectManiDistOb.setValue(parseFloat(parseFloat(conversionValue4).toFixed(1)));
-    }
-    else{
-      form.controls.earthelectManiDistOb.setValue("");
-    }
-  }
-
-  decimalConversion1(event:any,form:any){
-    // 4.j
-    if(form.controls.earthElectrodeLengthingOb.value!="" && form.controls.earthElectrodeLengthingOb.value!=undefined && form.controls.earthElectrodeLengthingOb.value!=null){
-      var conversionValue=form.controls.earthElectrodeLengthingOb.value;
-      form.controls.earthElectrodeLengthingOb.setValue(parseFloat(parseFloat(conversionValue).toFixed(1)));
-    }
-    else{
-      form.controls.earthElectrodeLengthingOb.setValue("");
-    }
-  }
-
-  decimalConversion2(event:any,form:any){
-    if(form.controls.eastOb.value!="" && form.controls.eastOb.value!=undefined && form.controls.eastOb.value!=null){
-      var conversionValue=form.controls.eastOb.value;
-      form.controls.eastOb.setValue(parseFloat(parseFloat(conversionValue).toFixed(1)));
-    }
-    else{
-      form.controls.eastOb.setValue("");
-    }
-    if(form.controls.westOb.value!="" && form.controls.westOb.value!=undefined && form.controls.westOb.value!=null){
-      var conversionValue1=form.controls.westOb.value;
-      form.controls.westOb.setValue(parseFloat(parseFloat(conversionValue1).toFixed(1)));
-    }
-    else{
-      form.controls.westOb.setValue("");
-    }
-    if(form.controls.northOb.value!="" && form.controls.northOb.value!=undefined && form.controls.northOb.value!=null){
-      var conversionValue2=form.controls.northOb.value;
-      form.controls.northOb.setValue(parseFloat(parseFloat(conversionValue2).toFixed(1)));
-    }
-    else{
-      form.controls.northOb.setValue("");
-    }
-    if(form.controls.southOb.value!="" && form.controls.southOb.value!=undefined && form.controls.southOb.value!=null){
-      var conversionValue3=form.controls.southOb.value;
-      form.controls.southOb.setValue(parseFloat(parseFloat(conversionValue3).toFixed(1)));
-    }
-    else{
-      form.controls.southOb.setValue("");
-    }
-
-    if(form.controls.ringWallEarthEastOb.value!="" && form.controls.ringWallEarthEastOb.value!=undefined && form.controls.ringWallEarthEastOb.value!=null){
-      var conversionValue4=form.controls.ringWallEarthEastOb.value;
-      form.controls.ringWallEarthEastOb.setValue(parseFloat(parseFloat(conversionValue4).toFixed(1)));
-    }
-    else{
-      form.controls.ringWallEarthEastOb.setValue("");
-    }
-    if(form.controls.ringWallEarthWestOb.value!="" && form.controls.ringWallEarthWestOb.value!=undefined && form.controls.ringWallEarthWestOb.value!=null){
-      var conversionValue5=form.controls.ringWallEarthWestOb.value;
-      form.controls.ringWallEarthWestOb.setValue(parseFloat(parseFloat(conversionValue5).toFixed(1)));
-    }
-    else{
-      form.controls.ringWallEarthWestOb.setValue("");
-    }
-    if(form.controls.ringWallEarthNorthOb.value!="" && form.controls.ringWallEarthNorthOb.value!=undefined && form.controls.ringWallEarthNorthOb.value!=null){
-      var conversionValue6=form.controls.ringWallEarthNorthOb.value;
-      form.controls.ringWallEarthNorthOb.setValue(parseFloat(parseFloat(conversionValue6).toFixed(1)));
-    }
-    else{
-      form.controls.ringWallEarthNorthOb.setValue("");
-    }
-    if(form.controls.ringWallEarthSouthOb.value!="" && form.controls.ringWallEarthSouthOb.value!=undefined && form.controls.ringWallEarthSouthOb.value!=null){
-      var conversionValue7=form.controls.ringWallEarthSouthOb.value;
-      form.controls.ringWallEarthSouthOb.setValue(parseFloat(parseFloat(conversionValue7).toFixed(1)));
-    }
-    else{
-      form.controls.ringWallEarthSouthOb.setValue("");
-    }
-  }
-
-  decimalConversion3(event:any,form:any){
-    if(form.controls.earthingElectrodeDepth.value!="" && form.controls.earthingElectrodeDepth.value!=undefined && form.controls.earthingElectrodeDepth.value!=null){
-      var conversionValue=form.controls.earthingElectrodeDepth.value;
-      form.controls.earthingElectrodeDepth.setValue(parseFloat(parseFloat(conversionValue).toFixed(1)));
-    }
-    else{
-      form.controls.earthingElectrodeDepth.setValue("");
-    }
-    if(form.controls.earthingElectrodeResistance.value!="" && form.controls.earthingElectrodeResistance.value!=undefined && form.controls.earthingElectrodeResistance.value!=null){
-      var conversionValue1=form.controls.earthingElectrodeResistance.value;
-      form.controls.earthingElectrodeResistance.setValue(parseFloat(parseFloat(conversionValue1).toFixed(1)));
-    }
-    else{
-      form.controls.earthingElectrodeResistance.setValue("");
-    }
-  }
 }
  

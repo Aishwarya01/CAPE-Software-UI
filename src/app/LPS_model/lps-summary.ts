@@ -18,8 +18,6 @@ export class SummaryLpsBuildings {
     buildingNumber!: number;
     buildingName!: String;
     buildingCount!: number;
-    serialNoUi!: number;
-    headingUi!: String;
     flag!: String;
     summaryLpsObservation!: SummaryLpsObservation[];
 }
@@ -42,10 +40,6 @@ export class SummaryLpsObservation {
     observation!: String;
     recommendation!: number;
     observationComponentDetails!: String;
-    serialNoUi!: String;     
-    headingUi!: String;
-    heading!: String;
-    remarksId!: String;
     summaryLpsInnerObservation!: SummaryLpsInnerObservation[];
 }
 

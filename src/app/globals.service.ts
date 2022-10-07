@@ -71,7 +71,6 @@ export class GlobalsService {
  msgForStep1:boolean=false;
  msgForStep1Flag:boolean=false;
  lvClick: number=0;  
- sldClick: number=0;  
  windowTabClick: number=0; 
  logoutClick:number=0;
  disableSubmitElectromagnetic:boolean=false;
@@ -84,30 +83,10 @@ export class GlobalsService {
  isCompleted6: boolean = true;
  isCompleted7: boolean = true;
  isCompleted8: boolean = true; 
- enableDownload: boolean = false;
- pdfError: String="";
 //remember me
 autoLoginToken:number=0;
-  sigInput: number=0;
-  signatureImg1: String="";
-  signatureImg2: String="";
-  signatureImg3: String="";
-  signatureImg4: String="";
-  signatureImg5: String="";
-  signatureImg6: String="";
 
-  signatureImg7: String="";
-  signatureImg8: String="";
 
-  bytestring1: String="";
-  bytestring2: String="";
-  bytestring3: String="";
-  bytestring4: String="";
-  bytestring5: String="";
-  bytestring6: String="";
-
-  bytestring7: String="";
-  bytestring8: String="";
  constructor(private _scrollToService: ScrollToService
   ) {}
   

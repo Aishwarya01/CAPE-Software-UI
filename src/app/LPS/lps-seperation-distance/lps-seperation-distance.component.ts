@@ -23,7 +23,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
   separateDistanceDownConductors!: FormArray;
   submitted!: boolean;
   email: any;
-  summaryPopup: boolean = false;
+  
   validationError: boolean = false;
   validationErrorMsg: String = '';
   successMsg: string="";
@@ -72,8 +72,8 @@ export class LpsSeperationDistanceComponent implements OnInit {
     {
   }
 
-  gotoNextModal(content1: any,contents:any) {
-    this.submitted = true;
+  gotoNextModal(content: any,contents:any) {
+    
     if (this.separeteDistanceForm.invalid) {
       this.validationError = true;
       this.validationErrorMsg = 'Please check all the fields';
@@ -91,7 +91,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
       }, 3000);
       return;
     }
-    else if(this.separeteDistanceForm.value.seperationDistanceDescription[0].buildingNumber == undefined && this.separeteDistanceForm.value.seperationDistanceDescription[0].buildingNumber == '' && this.separeteDistanceForm.value.seperationDistanceDescription[0].buildingName=='' && this.separeteDistanceForm.value.seperationDistanceDescription[0].buildingName == undefined){
+    else if(this.separeteDistanceForm.value.seperationDistanceDescription[0].buildingNumber == undefined || this.separeteDistanceForm.value.seperationDistanceDescription[0].buildingNumber == ''){
       this.validationError = true;
       this.validationErrorMsg = 'Air Termination Form is Required, Please fill';
       setTimeout(() => {
@@ -100,8 +100,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
       return;
     }
     else if(this.separeteDistanceForm.dirty && this.separeteDistanceForm.touched){
-      this.modalService.open(content1, { centered: true,backdrop: 'static' });
-      this.summaryPopup=true;
+      this.modalService.open(content, { centered: true,backdrop: 'static' });
    }
   //  For Dirty popup
    else{
@@ -139,29 +138,17 @@ export class LpsSeperationDistanceComponent implements OnInit {
     this.separeteDistanceForm.reset();
   }
 
-  // Only Accept numbers
-  keyPressNumbers(event:any) {
-    var charCode = (event.which) ? event.which : event.keyCode;
-        // Only Numbers 0-9
-    if ((charCode < 48 || charCode > 57)) {
-      event.preventDefault();
-      return false;
-      } else {
-          return true;
-    }
-  }
-
-  // Only Accept numbers and allow .(dot)
-  keyPressNumbers1(event: any) {
-    var charCode = (event.which) ? event.which : event.keyCode;
-    // Only Numbers 0-9
-    if ((charCode < 46 || charCode > 46) && (charCode < 48 || charCode > 57)) {
-      event.preventDefault();
-      return false;
-    } else {
-      return true;
-    }
-  }
+      // Only Accept numbers
+      keyPressNumbers(event:any) {
+        var charCode = (event.which) ? event.which : event.keyCode;
+            // Only Numbers 0-9
+        if ((charCode < 48 || charCode > 57)) {
+          event.preventDefault();
+          return false;
+          } else {
+              return true;
+        }
+      }
 
   retrieveDetailsfromSavedReports(data: any){
       // this.service.lvClick=1;
@@ -375,7 +362,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
 
 
   onSubmit(flag: any) {
-    // this.submitted = true;
+    this.submitted = true;
     if (this.separeteDistanceForm.invalid && (this.separeteDistanceForm.value.seperationDistanceDescription[0].buildingNumber != undefined || this.separeteDistanceForm.value.seperationDistanceDescription[0].buildingNumber != '')) {
       return;
     }
@@ -499,7 +486,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
   }
 
   getAirterminationData(){
-    this.airterminationServices.retriveAirTerminationDetails(this.basicLpsId).subscribe(
+    this.airterminationServices.retriveAirTerminationDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
       data => {
         let seprationDistance_air=JSON.parse(data)[0];
         if(seprationDistance_air !=undefined && seprationDistance_air.basicLpsId !=null){
@@ -606,24 +593,6 @@ export class LpsSeperationDistanceComponent implements OnInit {
       this.service.editable=true;
       this.separeteDistanceForm.markAsPristine();
    return true;
-    }
-  }
-
-  decimalConversion(event:any,form:any){
-    if(form.controls.seperationDistanceOb.value!="" && form.controls.seperationDistanceOb.value!=undefined && form.controls.seperationDistanceOb.value!=null){
-      var conversionValue = form.controls.seperationDistanceOb.value;
-      form.controls.seperationDistanceOb.setValue(parseFloat(parseFloat(conversionValue).toFixed(1)));
-    }else{
-      form.controls.seperationDistanceOb.setValue("");
-    }
-  }
-
-  decimalConversion1(event:any,form:any){
-    if(form.controls.seperationDistanceOb.value!="" && form.controls.seperationDistanceOb.value!=undefined && form.controls.seperationDistanceOb.value!=null){
-      var conversionValue = form.controls.seperationDistanceOb.value;
-      form.controls.seperationDistanceOb.setValue(parseFloat(parseFloat(conversionValue).toFixed(1)));
-    }else{
-      form.controls.seperationDistanceOb.setValue("");
     }
   }
 

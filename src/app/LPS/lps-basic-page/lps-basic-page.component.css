@@ -67,14 +67,3 @@ textarea{
 .hidedate{
   pointer-events: none;
 }
-
-.warningMsg {
-  padding: 5px 8px;
-  text-align: center;
-  font-size: 14px;
-  color: #721c24;
-  background-color: #ffdcde;
-  border-color: #ffdcde;
-  border-radius: 0.25rem;
-  margin-bottom: 1rem;
-}

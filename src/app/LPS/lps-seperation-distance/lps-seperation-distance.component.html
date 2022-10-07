@@ -24,7 +24,7 @@
                                                 <i class="bi bi-align-start"></i>
                                             </span>
                                         </div>
-                                        <input onwheel="this.blur()" class="form-control" formControlName="buildingNumber" readonly/>
+                                        <input type="number" class="form-control" formControlName="buildingNumber" readonly/>
                                     </div>
                                 </div>
                 
@@ -54,7 +54,7 @@
                                                     <th>SI.No</th>
                                                     <th>Description</th>
                                                     <th>Observation</th>
-                                                    <th>Remarks</th>
+                                                    <th>Remarks(Optional)</th>
                                                 </thead>
                                                 <tbody>
                                                     <tr>
@@ -82,7 +82,7 @@
                                                                 </div>
                                                                 <textarea type="text" [readonly]="isEditable" formControlName="calculatedSeperationDistanceRem"
                                                                     class="form-control"
-                                                                    placeholder="Please enter Remarks here"></textarea>
+                                                                    placeholder="Please enter Remarks here (Optional)"></textarea>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -127,7 +127,7 @@
                                                                         <i class="bi bi-text-paragraph"></i>
                                                                     </span>
                                                                 </div>
-                                                                <input onwheel="this.blur()" (keypress)="keyPressNumbers1($event)" (change)="decimalConversion($event,f)" [readonly]="isEditable" formControlName="seperationDistanceOb" class="form-control" placeholder="The value must be a number"
+                                                                <input type="number" (keypress)="keyPressNumbers($event)" [readonly]="isEditable" formControlName="seperationDistanceOb" class="form-control" placeholder="The value must be a number"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.get('seperationDistanceOb')?.errors }" style="height: 3rem;">                                                               
                                                                  <div *ngIf="submitted && f.get('seperationDistanceOb')?.errors" class="invalid-feedback">
                                                                     <div *ngIf="f.get('seperationDistanceOb')?.errors?.required">
@@ -145,7 +145,7 @@
                                                                 </div>
                                                                 <textarea type="text" [readonly]="isEditable" formControlName="seperationDistanceRem"
                                                                     class="form-control"
-                                                                    placeholder="Please enter Remarks here"></textarea>
+                                                                    placeholder="Please enter Remarks here (Optional)"></textarea>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -207,7 +207,7 @@
                                                                         <i class="bi bi-text-paragraph"></i>
                                                                     </span>
                                                                 </div>
-                                                                <input onwheel="this.blur()" (keypress)="keyPressNumbers1($event)" (change)="decimalConversion1($event,f)" class="form-control" [readonly]="isEditable" formControlName="seperationDistanceOb" placeholder="The value must be a number"
+                                                                <input type="number" (keypress)="keyPressNumbers($event)" class="form-control" [readonly]="isEditable" formControlName="seperationDistanceOb" placeholder="The value must be a number"
                                                                     [ngClass]="{'is-invalid': submitted && f.get('seperationDistanceOb')?.errors}" style="height: 3rem;">
                                                                 <div *ngIf="submitted && f.get('seperationDistanceOb')?.errors"
                                                                     class="invalid-feedback">
@@ -227,7 +227,7 @@
                                                                 </div>
                                                                 <textarea type="text" class="form-control" [readonly]="isEditable"
                                                                     formControlName="seperationDistanceRem"
-                                                                    placeholder="Please enter Remarks here"></textarea>
+                                                                    placeholder="Please enter Remarks here (Optional)"></textarea>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -270,20 +270,20 @@
             </div>
             <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
                 <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
-                <button class="next" (click)="gotoNextModal(content1,contents)" mat-button>Next &raquo;</button>
+                <button class="next" (click)="gotoNextModal(content,contents)" mat-button>Next &raquo;</button>
             </div>
             
         </form>
     </div>
 </div>
 
-<ng-template #content1 let-modal>
+<ng-template #content let-modal>
     <!-- Spinner -->
     <mat-progress-spinner style="margin: 0 auto;" *ngIf="spinner" color="primary" [mode]="mode" value="50" diameter="50">
     </mat-progress-spinner>
     <br>
     <div *ngIf="spinner" style="text-align: center;">
-        Please wait, Seperation Distance details are loading!
+        Please wait, the details are loading!
     </div>
     <div class="modal-body" *ngIf="popup">
         <div class="centre-text m-btm30">
@@ -297,14 +297,9 @@
     </div>
     <br>
     <div *ngIf="popup" style="text-align: center;">
-    <button type="button" class="close" *ngIf="success"
+    <button type="button" class="close"
         class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
         (click)="closeModalDialog()" matStepperNext>
-        <span aria-hidden="true">Ok</span>
-    </button>
-    <button type="button" class="close" *ngIf="Error"
-        class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
-        (click)="closeModalDialog()">
         <span aria-hidden="true">Ok</span>
     </button>
     </div>
@@ -315,7 +310,7 @@
             <div style="text-align: center;">
                 <span class="successshow">Are you sure you want to procced? </span>
                 <br>
-                <span style="font-size: 12px;"><b>Note:</b> Please verify all the details! </span>
+                <span style="font-size: 12px;">Note: Please verify all the details! </span>
             </div>
         </div>
     </div>

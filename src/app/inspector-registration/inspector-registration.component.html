@@ -274,11 +274,10 @@
                                         <i class="bi bi-geo-fill"></i>
                                     </span>
                                 </div>
-                                <input type="number" formControlName="pinCode" class="form-control" minlength="3" maxlength="6" placeholder="Enter your pinCode" 
+                                <input type="number" formControlName="pinCode" class="form-control" placeholder="Enter your pinCode" 
                                 [ngClass]="{ 'is-invalid': submitted && f.pinCode.errors}" [(ngModel)]="register.pinCode"/>
                                 <div *ngIf="submitted && f.pinCode.errors" class="invalid-feedback">
                                     <div *ngIf="f.pinCode.errors.required">Pincode is required</div>
-                                    <div *ngIf="f.pinCode.errors.pattern">{{pinCodeErrorMsg}}</div>
                                 </div>
                             </div>
                         </div>

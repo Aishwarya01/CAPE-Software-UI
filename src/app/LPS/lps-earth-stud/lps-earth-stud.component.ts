@@ -6,6 +6,7 @@ import { GlobalsService } from 'src/app/globals.service';
 import { earthStudReport } from 'src/app/LPS_model/earthStudReport';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
 import { EarthStudService } from 'src/app/LPS_services/earth-stud.service';
+import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
 import { LpsWelcomePageComponent } from '../lps-welcome-page/lps-welcome-page.component';
 
 @Component({
@@ -19,7 +20,7 @@ export class LpsEarthStudComponent implements OnInit {
   submitted=false;
   earthStudReport = new earthStudReport;
   disable: boolean=false;
-  summaryPopup: boolean = false;
+
   basicLpsId: number = 0;
   ClientName: String='';
   projectName: String='';
@@ -71,6 +72,7 @@ export class LpsEarthStudComponent implements OnInit {
     private earthStudService: EarthStudService,
     private modalService: NgbModal, 
     private router: ActivatedRoute,
+    private lpsMatstepper: LpsMatstepperComponent,
     private welcome: LpsWelcomePageComponent,
     public service: GlobalsService,
     public airterminationServices: AirterminationService
@@ -248,7 +250,7 @@ export class LpsEarthStudComponent implements OnInit {
     }
 
   onSubmit(flag: any){
-    // this.submitted=true;
+    this.submitted=true;
     if(this.EarthStudForm.invalid && (this.EarthStudForm.value.earthStud[0].buildingNumber != undefined || this.EarthStudForm.value.earthStud[0].buildingNumber != ''))
     {return}
     this.spinner = true;
@@ -396,8 +398,7 @@ export class LpsEarthStudComponent implements OnInit {
     }
   }
 
-  gotoNextModal(content1: any,contents:any) {
-    this.submitted=true;
+  gotoNextModal(content: any,contents:any) {
      if (this.EarthStudForm.invalid) {
        this.validationError = true;
       
@@ -416,7 +417,7 @@ export class LpsEarthStudComponent implements OnInit {
      }, 3000);
       return;
     }
-    else if(this.EarthStudForm.value.earthStud[0].buildingNumber == undefined && this.EarthStudForm.value.earthStud[0].buildingNumber == '' && this.EarthStudForm.value.earthStud[0].buildingName=='' && this.EarthStudForm.value.earthStud[0].buildingName == undefined){
+    else if(this.EarthStudForm.value.earthStud[0].buildingNumber == undefined || this.EarthStudForm.value.earthStud[0].buildingNumber == ''){
       this.validationError = true;
       this.validationErrorMsg = 'Air Termination Form is Required, Please fill';
       setTimeout(() => {
@@ -426,8 +427,7 @@ export class LpsEarthStudComponent implements OnInit {
     }
       //  Update and Success msg will be showing
      else if(this.EarthStudForm.dirty && this.EarthStudForm.touched){
-        this.modalService.open(content1, { centered: true,backdrop: 'static' });
-        this.summaryPopup=true;
+        this.modalService.open(content, { centered: true,backdrop: 'static' });
      }
     //  For Dirty popup
      else{
@@ -573,7 +573,7 @@ export class LpsEarthStudComponent implements OnInit {
     }
   }
   getAirterminationData(){
-    this.airterminationServices.retriveAirTerminationDetails(this.basicLpsId).subscribe(
+    this.airterminationServices.retriveAirTerminationDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
       data => {
         this.createearthStudForm(JSON.parse(data)[0]);
       }       

@@ -72,10 +72,9 @@
 
                 <mat-icon class="material-icons-outlined-info info" (click)="continue(element.basicLpsId)" title="Edit this Record"
                 style="color: #17a2b8;cursor: pointer;">edit</mat-icon>
-
                 <mat-icon class="material-icons-outlined-danger delete" (click)="deleteBasicLps(element.basicLpsId)" *ngIf="enableDelete" title="Delete The Record"
                 style="margin-left: 1rem;cursor: pointer;">delete</mat-icon>
-                
+
             </td>
         </ng-container>
 
@@ -95,4 +94,3 @@
     </div>
     <span *ngIf="noDetailsRec" class="errorshow" style="margin: 0 auto;">{{noDetailsRecMsg}}</span>
   </div>
-  

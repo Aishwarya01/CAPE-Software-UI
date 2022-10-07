@@ -43,14 +43,10 @@ export class EmcFacilityDataComponent implements OnInit {
   email: String;
   step1List: any;
   arr2: any;
+  finalSpinner: boolean = true;
+  popup: boolean = false;
   modalReference: any;
   isEditableEmc!:boolean
-  // For Spinner
-  spinner: boolean=false;
-  spinnerValue: String = '';
-  mode: any = 'indeterminate';
-  nextButton: boolean = true;
-  popup: boolean = false;
 
   arr1: any = [];
   emcId!: number;
@@ -391,6 +387,8 @@ export class EmcFacilityDataComponent implements OnInit {
     }
   }
   closeModalDialog() {
+    this.finalSpinner=true;
+    this.popup=false;
     if (this.errorMsg != "") {
       this.Error = false;
       this.success = false;
@@ -413,7 +411,7 @@ export class EmcFacilityDataComponent implements OnInit {
       this.service.isLinear=true;
       this.service.editable=false;
       this.validationErrorTab = true;
-      this.validationErrorMsgTab= 'Please check all the fields in facility section';
+      this.validationErrorMsgTab= 'Please check all the fields in supply characteristics';
       setTimeout(() => {
         this.validationErrorTab = false;
       }, 3000);
@@ -439,7 +437,7 @@ export class EmcFacilityDataComponent implements OnInit {
   gotoNextModal(content1: any, content2: any) {
     if (this.EMCFacilityForm.invalid) {
       this.validationError = true;
-      this.validationErrorMsg = "Please check all the fields in facility section";
+      this.validationErrorMsg = "Please check all the fields";
       //     setTimeout(()=>{
       //       this.validationError=false;
       //  }, 3000);
@@ -464,8 +462,7 @@ export class EmcFacilityDataComponent implements OnInit {
     if (this.EMCFacilityForm.invalid) {
       return;
     }
-    this.spinner = true;
-    this.popup=false;
+
     this.emcFacilityData.userName = this.router.snapshot.paramMap.get('email') || '{}';
     this.emcFacilityData.emcId = this.emcId;
 
@@ -477,10 +474,8 @@ export class EmcFacilityDataComponent implements OnInit {
           .upDateFacilityData(this.emcFacilityData)
           .subscribe(
             (data: any) => {
-              setTimeout(() =>{
-                this.popup=true;
-                this.spinner=false;
-              }, 3000);
+              this.finalSpinner = false;
+              this.popup = true;
               this.success = true;
               this.successMsg = data;
               this.service.isCompleted2= true;
@@ -489,8 +484,8 @@ export class EmcFacilityDataComponent implements OnInit {
               this.proceedNext.emit(true);
        },
             (error: any) => {
-              this.popup=true;
-              this.spinner=false;
+              this.finalSpinner = false;
+              this.popup = true;
               this.Error = true;
               this.errorArr = [];
               this.errorArr = JSON.parse(error.error);
@@ -504,12 +499,10 @@ export class EmcFacilityDataComponent implements OnInit {
       this.emcFacilityDataService.addFacilityData(this.emcFacilityData).subscribe(
 
         data => {
-          setTimeout(() =>{
-            this.popup=true;
-            this.spinner=false;
-          }, 3000);
           // let emcFacilityDataItr = JSON.parse(data);
           // this.emcFacilityData.emcId = emcFacilityDataItr.emcId;
+          this.finalSpinner = false;
+          this.popup = true;
           this.success = true;
           this.successMsg = data;
           this.service.isCompleted2= true;
@@ -519,8 +512,8 @@ export class EmcFacilityDataComponent implements OnInit {
           this.proceedNext.emit(true);
         },
         error => {
-          this.popup=true;
-          this.spinner=false;
+          this.finalSpinner = false;
+          this.popup = true;
           this.Error = true;
           this.errorArr = [];
           this.errorArr = JSON.parse(error.error);

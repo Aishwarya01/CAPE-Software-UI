@@ -30,8 +30,9 @@
                         </div>
                         <div class="col-md-4">
                             <label>Contact Number:</label>
-                            <input type="tel" class="form-control" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
-                                [readonly]="setReadOnly" (keypress)="keyPressNumbers($event)"
+                            <input type="tel" ng2TelInput
+                                [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
+                                [(ngModel)]="emcClientDetails.contactNumber" [readonly]="setReadOnly" (keypress)="keyPressNumbers($event)"
                                 (countryChange)="countryChange($event)" placeholder="Enter Contact Number" 
                                 formControlName="contactNumber" class="form-control"
                                 [ngClass]="{ 'is-invalid': submitted && a.get('contactNumber')?.errors }">
@@ -168,14 +169,8 @@
 </div>
 
 <ng-template #content let-modal>
-    <!-- Spinner -->
-    <mat-progress-spinner style="margin: 0 auto;" *ngIf="spinner" color="primary" [mode]="mode" value="50" diameter="50">
+    <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinner" color="primary">
     </mat-progress-spinner>
-    <br>
-    <div *ngIf="spinner" style="text-align: center;">
-        Please wait, the details are loading!
-    </div>
-
     <div class="modal-body" *ngIf="popup">
         <div class="centre-text m-btm30">
             <div *ngIf="success" style="text-align: center;">
@@ -187,18 +182,12 @@
         </div>
     </div>
     <br>
-    <div *ngIf="popup">
-        <button type="button" *ngIf="success" style="text-align: center;margin-left:180px;width:20%" class="close"
+
+    <button type="button" *ngIf="popup" style="text-align: center;margin-left:180px;width:20%" class="close"
         class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
         (click)="closeModalDialog()" matStepperNext>
         <span aria-hidden="true">Ok</span>
     </button>
-    <button type="button" *ngIf="Error" style="text-align: center;margin-left:180px;width:20%" class="close"
-        class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
-        (click)="closeModalDialog()">
-        <span aria-hidden="true">Ok</span>
-    </button>
-    </div>
 </ng-template>
 
 <ng-template #content2 let-modal>
