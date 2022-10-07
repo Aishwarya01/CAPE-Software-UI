@@ -146,8 +146,8 @@ export class LpsBasicPageComponent implements OnInit {
     if(fileId!=undefined && fileId!=null && fileId!=""){
       this.fileUplaodService.retriveBasicFile(fileId).subscribe(
         (data) => {
-          // this.fileName = JSON.parse(data).fileName;
-          // this.fileSize = JSON.parse(data).fileSize;
+          this.fileName = JSON.parse(data).fileName;
+          this.fileSize = JSON.parse(data).fileSize;
           this.fileId = JSON.parse(data).fileId;
         },
         (error) => {
@@ -667,7 +667,8 @@ export class LpsBasicPageComponent implements OnInit {
             this.retreveFileId=data;
             this.fileId=parseInt(this.retreveFileId);
             form.controls.fileId.setValue(this.fileId);
-            this.filesuccessMsg = "File Uploaded Successfully";
+            this.filesuccess=true;
+            this.filesuccessMsg="File Uploaded Successfully";
           },
           (error) => {
             this.spinnerUpload = false;
