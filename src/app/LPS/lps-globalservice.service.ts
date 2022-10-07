@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class LpsGlobalserviceService {
 
   //stepper:any;
-  lvClick: number=0;  
+  lpsClick: number=0;  
   //completed-saved-final
   disableFields:boolean=false;
   allStepsCompleted:boolean=false;

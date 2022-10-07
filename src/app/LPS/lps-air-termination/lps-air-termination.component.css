@@ -97,9 +97,10 @@ textarea{
   transition: 1s;
 }
 
-/* .disableForm{
+.disableForm{
   pointer-events: none;
-} */
+}
+
 .ButtonSave {
   color: black;
   line-height: 32px !important;

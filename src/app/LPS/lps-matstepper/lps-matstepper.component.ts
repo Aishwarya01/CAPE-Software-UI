@@ -98,7 +98,7 @@ export class LpsMatstepperComponent implements OnInit {
     private ChangeDetectorRef: ChangeDetectorRef,
     private airterminationServices: AirterminationService,
     private fileUploadService:LpsFileUploadService,
-    private lpsGlobalservice:LpsGlobalserviceService
+    private lpsGlobalservice:LpsGlobalserviceService,
     ) { 
     }
 
@@ -346,8 +346,7 @@ export class LpsMatstepperComponent implements OnInit {
   }
 
   interceptTabChange(tab: MatTab, tabHeader: MatTabHeader) {
-  
-    if((this.service.lvClick==1) && (this.service.allStepsCompleted==true))
+    if((this.service.lpsClick==1) && (this.service.allStepsCompleted==true) && !this.isEditable)
        {
         const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
           width: '420px',
@@ -360,6 +359,7 @@ export class LpsMatstepperComponent implements OnInit {
         if(this.airTermination.fileFalg || this.downConductors.fileFlag){
           dialogRef.componentInstance.triggerModal1 = true;
         }
+
         else{
           dialogRef.componentInstance.triggerModal = true;
         }
@@ -391,7 +391,7 @@ export class LpsMatstepperComponent implements OnInit {
             }
             this.service.windowTabClick=0;
             this.service.logoutClick=0; 
-            this.service.lvClick=0; 
+            this.service.lpsClick=0; 
           }
           else{
             return;
@@ -401,16 +401,16 @@ export class LpsMatstepperComponent implements OnInit {
       //     this.selectedIndex=1; 
       //     this.service.windowTabClick=0;
       //     this.service.logoutClick=0; 
-      //     this.service.lvClick=0; 
+      //     this.service.lpsClick=0; 
       // }
       // else{
       //   return;
       // }
         }
-        else if((this.service.lvClick==0) || (this.service.allStepsCompleted==false)){
+        else if((this.service.lpsClick==0) || (this.service.allStepsCompleted== true) && this.isEditable){
         this.service.windowTabClick=0;
         this.service.logoutClick=0;
-        this.service.lvClick=0; 
+        this.service.lpsClick=0; 
         const tabs = tab.textLabel;
         if((tabs==="Lightning Protection System"))  {
              this.selectedIndex=0; 
@@ -580,7 +580,7 @@ export class LpsMatstepperComponent implements OnInit {
       this.lpsSummary.spinner1 = false;
       this.lpsSummary.spinnerValue = "";
       this.summarySpinner = false;
-    }, 5000);
+    }, 10000);
   }
   
 }

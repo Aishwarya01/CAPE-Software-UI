@@ -381,7 +381,7 @@ export class LpsEarthingComponent implements OnInit {
 
   retrieveDetailsfromSavedReports(basicLpsId: any,data: any){
     
-      // this.service.lvClick=1;
+      // this.service.lpsClick=1;
       if(data.basicLpsId != undefined && data.basicLpsId != 0){
         this.step4List = data;
         this.populateData(data);
@@ -779,7 +779,7 @@ export class LpsEarthingComponent implements OnInit {
             this.success = true;
             this.successMsg = data;
             this.earthingForm.markAsPristine();
-            this.service.lvClick=0;
+            this.service.lpsClick=0;
             this.service.logoutClick=0;
             this.service.windowTabClick=0;
             this.proceedNext.emit(true);
@@ -820,7 +820,7 @@ export class LpsEarthingComponent implements OnInit {
             this.retriveEarthingDetails();
             this.getAirterminationData();
             this.proceedNext.emit(true);
-            this.service.lvClick=0;
+            this.service.lpsClick=0;
             this.service.logoutClick=0;
             this.service.windowTabClick=0;
           },
@@ -1043,19 +1043,19 @@ export class LpsEarthingComponent implements OnInit {
     if(!this.earthingForm.invalid){
       if(this.earthingForm.dirty){
         this.validationError=false;
-        this.service.lvClick=1;
+        this.service.lpsClick=1;
         this.service.logoutClick=1;
         this.service.windowTabClick=1;
       }
       else{
         this.validationError=false;
-        this.service.lvClick=0;
+        this.service.lpsClick=0;
         this.service.logoutClick=0;
         this.service.windowTabClick=0;
       }
      }
      else {
-      this.service.lvClick=1;
+      this.service.lpsClick=1;
       this.service.logoutClick=1;
       this.service.windowTabClick=1;
      }
@@ -1064,19 +1064,19 @@ export class LpsEarthingComponent implements OnInit {
    if(!this.earthingForm.invalid){ 
     if(this.earthingForm.dirty){
       this.validationError=false;
-      this.service.lvClick=1;
+      this.service.lpsClick=1;
       this.service.logoutClick=1;
       this.service.windowTabClick=1;
     }
     else{
       this.validationError=false;
-      this.service.lvClick=0;
+      this.service.lpsClick=0;
       this.service.logoutClick=0;
       this.service.windowTabClick=0;
     }
    }
    else {
-    this.service.lvClick=1;
+    this.service.lpsClick=1;
     this.service.logoutClick=1;
     this.service.windowTabClick=1;
    }

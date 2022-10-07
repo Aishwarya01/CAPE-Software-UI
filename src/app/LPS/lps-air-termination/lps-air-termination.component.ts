@@ -649,7 +649,7 @@ export class LpsAirTerminationComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports(userName: any, basicLpsId: any, data: any) {
-    // this.service.lvClick=1;
+    // this.service.lpsClick=1;
     this.proceedFlag = false;
     this.step2List = data.airTermination;
     this.airtermination.basicLpsId = basicLpsId;
@@ -672,7 +672,7 @@ export class LpsAirTerminationComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports1(userName: any, basicLpsId: any, clientName: any, data: any) {
-    //this.service.lvClick=1;
+    //this.service.lpsClick=1;
     this.proceedFlag = false;
     let list = JSON.parse(data);
     this.step2List = list[0];
@@ -1635,18 +1635,18 @@ export class LpsAirTerminationComponent implements OnInit {
     if (!this.airTerminationForm.invalid) {
       if (this.airTerminationForm.dirty) {
         this.validationError = false;
-        this.service.lvClick = 1;
+        this.service.lpsClick = 1;
         this.service.logoutClick = 1;
         this.service.windowTabClick = 1;
       }
       else {
         this.validationError = false;
-        this.service.lvClick = 0;
+        this.service.lpsClick = 0;
         this.service.logoutClick = 0;
       }
     }
     else {
-      this.service.lvClick = 1;
+      this.service.lpsClick = 1;
       this.service.logoutClick = 1;
     }
   }
@@ -1655,18 +1655,18 @@ export class LpsAirTerminationComponent implements OnInit {
     if (!this.airTerminationForm.invalid) {
       if (this.airTerminationForm.dirty) {
         this.validationError = false;
-        this.service.lvClick = 1;
+        this.service.lpsClick = 1;
         this.service.logoutClick = 1;
         this.service.windowTabClick = 1;
       }
       else {
         this.validationError = false;
-        this.service.lvClick = 0;
+        this.service.lpsClick = 0;
         this.service.logoutClick = 0;
       }
     }
     else {
-      this.service.lvClick = 1;
+      this.service.lpsClick = 1;
       this.service.logoutClick = 1;
     }
   }
@@ -1878,7 +1878,7 @@ export class LpsAirTerminationComponent implements OnInit {
               this.success = true;
               this.successMsg = data;
               this.airTerminationForm.markAsPristine();
-              this.service.lvClick = 0;
+              this.service.lpsClick = 0;
               this.service.logoutClick = 0;
               this.service.windowTabClick = 0;
               this.deleteFileInDb();
@@ -1932,7 +1932,7 @@ export class LpsAirTerminationComponent implements OnInit {
             // setTimeout(() => {
               this.proceedNext.emit(true);
             // }, 4000);
-            this.service.lvClick = 0;
+            this.service.lpsClick = 0;
             this.service.logoutClick = 0;
             this.service.windowTabClick = 0;
           },

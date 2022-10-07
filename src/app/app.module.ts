@@ -126,6 +126,7 @@ import { SwitchBoardsComponent } from './SLD/SLD components/Node Components/swit
 import { ACBComponent } from './SLD/SLD components/Node Components/acb/acb.component';
 import { EquipotentialBondingComponent } from './SLD/SLD components/Node Components/equipotential-bonding/equipotential-bonding.component';
 import { ProtectiveEarthConductorComponent } from './SLD/SLD components/Node Components/protective-earth-conductor/protective-earth-conductor.component';
+import { TestingDialogBoxComponent } from './testing-dialog-box/testing-dialog-box.component';
 
 @NgModule({
   declarations: [
@@ -216,7 +217,7 @@ import { ProtectiveEarthConductorComponent } from './SLD/SLD components/Node Com
     ACBComponent,
     EquipotentialBondingComponent,
     ProtectiveEarthConductorComponent,
-
+    TestingDialogBoxComponent
   ],
   imports: [
     SignaturePadModule,

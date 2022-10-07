@@ -583,7 +583,7 @@ keyPressNumbers1(event: any) {
   }
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,data: any){
-      //this.service.lvClick=1;
+      //this.service.lpsClick=1;
             
       this.basicLpsId = basicLpsId;
       this.retrieveFromAirTermination();
@@ -618,7 +618,7 @@ keyPressNumbers1(event: any) {
     }
 
     retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
-      //this.service.lvClick=1;
+      //this.service.lpsClick=1;
       this.step3List1 = JSON.parse(data);
       this.downConductorReport.basicLpsId = basicLpsId;
       this.deletedBridgingDesc = [];
@@ -1654,19 +1654,19 @@ keyPressNumbers1(event: any) {
       if(!this.downConductorForm.invalid){
         if(this.downConductorForm.dirty){
           this.validationError=false;
-          this.service.lvClick=1;
+          this.service.lpsClick=1;
           this.service.logoutClick=1;
           this.service.windowTabClick=1;
         }
         else{
           this.validationError=false;
-          this.service.lvClick=0;
+          this.service.lpsClick=0;
           this.service.logoutClick=0;
           this.service.windowTabClick=0;
         }
       }
       else {
-        this.service.lvClick=1;
+        this.service.lpsClick=1;
         this.service.logoutClick=1;
         this.service.windowTabClick=1;
       }
@@ -1675,19 +1675,19 @@ keyPressNumbers1(event: any) {
     if(!this.downConductorForm.invalid){ 
       if(this.downConductorForm.dirty){
         this.validationError=false;
-        this.service.lvClick=1;
+        this.service.lpsClick=1;
         this.service.logoutClick=1;
         this.service.windowTabClick=1;
       }
       else{
         this.validationError=false;
-        this.service.lvClick=0;
+        this.service.lpsClick=0;
         this.service.logoutClick=0;
         this.service.windowTabClick=0;
       }
     }
     else {
-      this.service.lvClick=1;
+      this.service.lpsClick=1;
       this.service.logoutClick=1;
       this.service.windowTabClick=1;
     }
@@ -1854,7 +1854,7 @@ keyPressNumbers1(event: any) {
             this.success = true;
             this.successMsg = data;
             this.downConductorForm.markAsPristine();
-            this.service.lvClick=0;
+            this.service.lpsClick=0;
             this.service.logoutClick=0;
             this.service.windowTabClick=0;
             this.retriveDownConductor();
@@ -1898,7 +1898,7 @@ keyPressNumbers1(event: any) {
             this.disable = true;
             this.retriveDownConductor();
             this.proceedNext.emit(true);
-            this.service.lvClick=0;
+            this.service.lpsClick=0;
             this.service.logoutClick=0;
             this.service.windowTabClick=0;
           },
