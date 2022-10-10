@@ -46,7 +46,7 @@ import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.c
 import { SignatureComponent } from '../signature/signature.component';
 import { SuperAdminProd } from 'src/environments/environment.prod';
 import { SuperAdminDev } from 'src/environments/environment.dev';
-import { SuperAdminLocal } from 'src/environments/environment';
+
 import { element } from 'protractor';
 
 @Component({
@@ -249,7 +249,7 @@ export class SummaryComponent implements OnInit,OnDestroy {
   //superAdmin 
   prodAdmin = new SuperAdminProd();
   devAdmin = new SuperAdminDev();
-  localAdmin = new SuperAdminLocal();
+  //localAdmin = new SuperAdminLocal();
   submitButton: boolean = false;
   summaryData: any;
   constructor(
