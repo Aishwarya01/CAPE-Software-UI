@@ -250,8 +250,8 @@
             
                             <div class="col-md-4" *ngIf= "register.role === 'Inspector'">
                                 <div class="form-group">
-                                    <!-- <label for="applicationType">* Application Type</label> -->
-                                    <!-- <div class="input-group">
+                                    <label for="applicationType">* Application Type</label>
+                                 <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">
                                                 <i class="bi bi-card-list"></i>
@@ -261,24 +261,24 @@
                                             [placeholder]="'Select Application Type'"
                                             [settings]="dropdownSettings"
                                             [data]="dropdownList"
-                                            [(ngModel)]="selected"
+                                            [(ngModel)]="selectedCodeName"
                                             [disabled]="disableValue"                                
                                             formControlName="applicationType"
                                             dropdownPosition="auto">
-                                        </ng-multiselect-dropdown> -->
+                                        </ng-multiselect-dropdown> 
                                         <!-- <input type="text" formControlName="applicationType" class="form-control" placeholder="Enter your application type" 
                                         [ngClass]="{ 'is-invalid': submitted && f.applicationType.errors}" />
                                         <div *ngIf="submitted && f.applicationType.errors" class="invalid-feedback">
                                             <div *ngIf="f.applicationType.errors.required">Application type is required</div>
                                         </div> -->
-                                    <!-- </div> -->
+                                    </div> 
         
-                                        <mat-label class="client-description"><h3>Application Type</h3></mat-label>
+                                        <!-- <mat-label class="client-description"><h3>Application Type</h3></mat-label>
                                         <textarea matInput class="client-box-description" readonly formControlName="applicationType"
                                         maxlength="500" placeholder="Ex. Report description..." [(ngModel)]="register.applicationType" style="margin-top: -15px;
                                         width: 100%;
                                         height: 56px;
-                                        background-color: #e9ecef;"></textarea>
+                                        background-color: #e9ecef;"></textarea> -->
                                 </div>
                             </div>
             

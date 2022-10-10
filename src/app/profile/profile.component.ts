@@ -65,7 +65,7 @@ export class ProfileComponent implements OnInit {
   isChecked: boolean = false;
   countryCode: String = '';
   contactNumber: string = '';
-  disableValue: boolean = true;
+  disableValue: boolean = false;
 
   dropdownList:any = [];
   selectedItems:any = [];
@@ -102,6 +102,8 @@ export class ProfileComponent implements OnInit {
   contactNo!: any;
   arr :any = [];
   pincodeErrorMsg: String='';
+  selectedCodeName: any= [];
+  appendCodeNameArr: any=[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -121,10 +123,19 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.countryCode = '91';
     this.mobileArr = [];
+    this.applicationService.retrieveApplicationTypesV2().subscribe(
+      data => {
+        this.dropdownList = data;
+      }     
+    );
+
     this.profileService.getUser(this.register.username).subscribe(
       data =>{ this.register= JSON.parse(data);
       if(this.register.applicationType != null) {
         this.selectedItems = this.register.applicationType.split(',');
+        for(let i of this.selectedItems) {
+          this.appendCodeName(i);
+        }
       }
       //this.mobileArr= this.register.contactNumber.split('-');
       setTimeout(()=>{
@@ -132,11 +143,11 @@ export class ProfileComponent implements OnInit {
       }, 1000);
       }
     )
-    this.applicationService.retrieveApplicationTypesV2().subscribe(
-      data => {
-        this.dropdownList = data;
-      }     
-    );
+    // this.applicationService.retrieveApplicationTypesV2().subscribe(
+    //   data => {
+    //     this.dropdownList = data;
+    //   }     
+    // );
 
     this.dropdownSettings = {
       singleSelection: false,
@@ -227,6 +238,14 @@ export class ProfileComponent implements OnInit {
 
   onItemSelect(e: any) {
 
+  }
+  appendCodeName(codeName: any) {
+    for(let i of this.dropdownList) {
+      if(i.code == codeName) {
+        this.appendCodeNameArr = {"applicationName": i.applicationName,"code": codeName,"id": i.id,"type": i.type}
+        this.selectedCodeName.push(this.appendCodeNameArr);
+      }
+    }  
   }
 
   populateForm() {
@@ -356,6 +375,18 @@ export class ProfileComponent implements OnInit {
     //this.contactNumber = "+"+this.countryCode+"-"+this.profileForm.controls.profileArr.value[0].contactNumber
 
     this.register.contactNumber = this.profileForm.controls.profileArr.value[0].contactNumber;
+
+    this.applicationTypeData = "";
+
+    if(this.profileForm.controls.profileArr.value[0].applicationType != undefined) {
+      for(let i of this.profileForm.controls.profileArr.value[0].applicationType) {
+        if(i.code != "") {
+          this.applicationTypeData += i.code+",";
+        }
+      }
+      this.applicationTypeData = this.applicationTypeData.replace(/,\s*$/, "");
+      this.register.applicationType = this.applicationTypeData;
+    }
 
     this.profileService.updateRegister(this.register).subscribe(
       data=> {
