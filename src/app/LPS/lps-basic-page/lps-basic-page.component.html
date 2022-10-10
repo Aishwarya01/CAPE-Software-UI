@@ -343,7 +343,7 @@
                         <tbody>
                           <tr>
                             <td>
-                              <input style="height: 3rem;" type="file" class="form-control" (change)="onChange($event,f)" [attr.disabled]="isEditable ? '' : null" accept=".txt,.jpeg,.png,.jpg,.pdf" formControlName="fileId">
+                              <input style="height: 3rem;" type="file" class="form-control" (change)="onChange($event,f)" [attr.disabled]="isEditable ? '' : null" accept=".txt,.jpeg,.png,.jpg,.pdf">
                               <div *ngIf="submitted && f.get('fileId')?.errors" class="invalid-feedback">
                                 <div *ngIf="f.get('fileId')?.errors?.required">Field is required</div>
                               </div>
