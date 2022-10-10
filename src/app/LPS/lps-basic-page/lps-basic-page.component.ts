@@ -641,7 +641,7 @@ export class LpsBasicPageComponent implements OnInit {
             setTimeout(() =>{
               this.spinnerUpload = false;
               this.popupUpload = true;
-            }, 1000);
+            }, 3000);
             this.uploadDisable = true;
             this.filesuccess = true;
             this.filesuccessMsg = "File Updated Successfully";
@@ -660,7 +660,7 @@ export class LpsBasicPageComponent implements OnInit {
             setTimeout(() =>{
               this.spinnerUpload = false;
               this.popupUpload = true;
-            }, 4000);
+            }, 3000);
             this.uploadDisable = true;
             this.filesuccess=true;
             this.filesuccessMsg="File Uploaded Successfully";
