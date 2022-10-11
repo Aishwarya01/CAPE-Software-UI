@@ -815,9 +815,9 @@
                     src={{service.signatureImg7}} [(ngModel)] ="service.signatureImg7"
                      [ngClass]="{ 'is-invalid': submitted && a.get('signature')?.errors }"
                      [readonly]="true" 
-                     style="width: 90%;pointer-events:none;">
-                    <button type="button" (click)="SignatureDesigner1()" [ngClass]="{'disableForm':isEditable}" title="Click here"
-                    style="margin: 0px -5rem;">Sign
+                     style="pointer-events:none;">
+                    <button type="button" (click)="SignatureDesigner1()" title="Click here"
+                    >Sign
                     </button>
                 </div>
                   <!-- <input type="text" class="form-control" formControlName="signature" readonly
@@ -893,14 +893,15 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>Signature:</label>
+
                     <div (mouseover)="focusSigDesigner2(a)" class="signatureBtn">
                       <input type="image" formControlName="signature"
                       class="form-control" 
                       src={{service.signatureImg8}} [(ngModel)] ="service.signatureImg8"
                        [ngClass]="{ 'is-invalid': submitted && a.get('signature')?.errors }"
                        [readonly]="true" 
-                       style="width: 90%;pointer-events:none;">
-                      <button type="button" (click)="SignatureDesigner2()" title="Click here" style="margin: 0px -5rem;" [ngClass]="{'disableForm':isEditable}">Sign
+                       style="pointer-events:none;">
+                      <button type="button" (click)="SignatureDesigner2()" title="Click here">Sign
                       </button>
                   </div>
                     <!-- <input type="text" class="form-control" formControlName="signature" readonly
