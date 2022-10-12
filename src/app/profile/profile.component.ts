@@ -85,6 +85,9 @@ export class ProfileComponent implements OnInit {
   mobileSuccessMsg: string = '';
   changeContact = new ChangeContact;
 
+  // Spinner 
+  spinner: boolean=true;
+  spinnerMsg: String="";
 
   //otp page
   formInput = ['input1', 'input2', 'input3', 'input4', 'input5', 'input6'];
@@ -123,11 +126,18 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.countryCode = '91';
     this.mobileArr = [];
-    this.applicationService.retrieveApplicationTypesV2().subscribe(
-      data => {
-        this.dropdownList = data;
-      }     
-    );
+
+    this.spinner=true;
+    this.spinnerMsg="Please wait, Details are Loading";
+    setTimeout(() => {
+      this.applicationService.retrieveApplicationTypesV2().subscribe(
+        data => {
+          this.dropdownList = data;
+        }     
+      );
+      this.spinner=false;
+      this.spinnerMsg="";
+    }, 3000);
 
     this.profileService.getUser(this.register.username).subscribe(
       data =>{ this.register= JSON.parse(data);

@@ -1,4 +1,9 @@
-<div class="bg-image">
+<div class="animBox" *ngIf="spinner" style="overflow: inherit;margin: 0px auto;position: fixed;z-index: 1000;top: 50%;"></div>
+<div class="waviy">
+    <pre *ngIf="spinner" style="top: 52%;position: fixed;overflow: inherit;margin: 0px auto;z-index: 1000;margin-left: 54%;font-weight: bold;">{{spinnerMsg}}</pre>
+</div>
+
+<div class="bg-image" [ngStyle]="{'filter': (spinner ? 'blur(1px)' : 'blur(0px)') ,'pointer-events': (spinner ? 'none' : 'visible')}">
     <div class="card">
                 <div class="brand-logo">
                     <a href="#"><img src="assets/img/Original-green.png"></a>
