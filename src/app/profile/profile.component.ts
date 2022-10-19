@@ -107,6 +107,8 @@ export class ProfileComponent implements OnInit {
   pincodeErrorMsg: String='';
   selectedCodeName: any= [];
   appendCodeNameArr: any=[];
+  repoPermission: any;
+  selectedCodeNameCount:number=0
 
   constructor(
     private formBuilder: FormBuilder,
@@ -129,30 +131,41 @@ export class ProfileComponent implements OnInit {
 
     this.spinner=true;
     this.spinnerMsg="Please wait, Details are Loading";
-    setTimeout(() => {
+     
       this.applicationService.retrieveApplicationTypesV2().subscribe(
         data => {
           this.dropdownList = data;
         }     
       );
-      this.spinner=false;
-      this.spinnerMsg="";
-    }, 3000);
-
-    this.profileService.getUser(this.register.username).subscribe(
-      data =>{ this.register= JSON.parse(data);
-      if(this.register.applicationType != null) {
-        this.selectedItems = this.register.applicationType.split(',');
-        for(let i of this.selectedItems) {
-          this.appendCodeName(i);
+      setTimeout(() => {
+      this.profileService.getUser(this.register.username).subscribe(
+        data =>{ this.register= JSON.parse(data);
+        if(this.register.applicationType != null && this.register.permission !=null) {
+          this.selectedItems = this.register.applicationType.split(',');
+          for(let i of this.selectedItems) {
+            for(let permission of this.register.permission.split(',')) {
+            if(permission.split('-')[0] == i && permission.split('-')[1] != 'R' ){
+              this.appendCodeName(i);
+            }
+         
+          }
+        }
+      }else{
+        for(let application of this.register.applicationType.split(',')) { 
+            this.appendCodeName(application);
         }
       }
       //this.mobileArr= this.register.contactNumber.split('-');
-      setTimeout(()=>{
-        this.populateForm();
-      }, 1000);
-      }
-    )
+        setTimeout(()=>{
+          this.populateForm();
+          this.spinner=false;
+          this.spinnerMsg="";
+        }, 1000);
+        }
+      )
+      }, 3000);
+
+    
     // this.applicationService.retrieveApplicationTypesV2().subscribe(
     //   data => {
     //     this.dropdownList = data;
@@ -254,6 +267,7 @@ export class ProfileComponent implements OnInit {
       if(i.code == codeName) {
         this.appendCodeNameArr = {"applicationName": i.applicationName,"code": codeName,"id": i.id,"type": i.type}
         this.selectedCodeName.push(this.appendCodeNameArr);
+        this.selectedCodeNameCount = this.selectedCodeNameCount +1;
       }
     }  
   }
@@ -295,6 +309,7 @@ export class ProfileComponent implements OnInit {
       this.arr=[];
       this.arr.push(Validators.required);
     }
+   this.repoPermission = this.register.permission;
     return new FormGroup({
     name: new FormControl(this.register.name, Validators.required),
     email: new FormControl(this.register.username),
@@ -397,8 +412,15 @@ export class ProfileComponent implements OnInit {
       this.applicationTypeData = this.applicationTypeData.replace(/,\s*$/, "");
       this.register.applicationType = this.applicationTypeData;
     }
+    let adminApproveRequired = false;
+    if (this.selectedCodeNameCount != this.selectedCodeName.length) {
+      adminApproveRequired = true;
+    }
 
-    this.profileService.updateRegister(this.register).subscribe(
+
+     //  this.updateStatus();
+     
+     this.profileService.updateRegister(this.register,adminApproveRequired).subscribe(
       data=> {
         this.successMsgOTP=true;
         this.successMsg="You have successfully updated profile"
@@ -423,6 +445,67 @@ export class ProfileComponent implements OnInit {
     )
   
   }
+  
+  updateStatus(){
+    let addPermissionStatus = '';
+     let permissionStatus = [];
+    let removeApplicationFlag = true;
+    // let removeApplication = '';  
+    if(this.selectedCodeName.length !=0){
+      for(let i of this.selectedCodeName) {
+        if(i.code != "") {
+          this.applicationTypeData += i.code+",";
+        } 
+        let flag = false;
+        for(let permission of  this.repoPermission.split(',')){
+            if(permission.split('-')[0] == i.code){
+              addPermissionStatus = addPermissionStatus+permission;
+              flag = true;
+              break;
+            }
+        }
+        if(!flag){
+          addPermissionStatus = addPermissionStatus+i.code+"-A,";
+        }
+      }
+      
+      addPermissionStatus = addPermissionStatus.replace(/,\s*$/, "");
+    } 
+    else{
+      removeApplicationFlag  = false;
+      for(let value of  this.applicationTypeData.split(',')){ 
+          addPermissionStatus = addPermissionStatus+value+"-R,";   
+      }
+      
+    this.register.permission = addPermissionStatus.replace(/,\s*$/, "");
+    } 
+    
+    let updateStatus='';
+    if(removeApplicationFlag && this.repoPermission.split(',')[0] !=''){
+      for(let permission of  this.repoPermission.split(',')) {
+        let flag = false;
+        for(let item of addPermissionStatus.split(',')){
+          if(item.split('-')[0] == permission.split('-')[0] ){
+            flag = true;
+            updateStatus = updateStatus + item+",";
+            break ;
+          } 
+        }
+        if(!flag){
+          updateStatus = updateStatus + permission.split('-')[0]+'-R,';
+        }
+      }
+      this.register.permission = updateStatus.replace(/,\s*$/, ""); 
+    }
+    else{
+      this.register.permission = addPermissionStatus; 
+    }
+   
+      this.applicationTypeData = this.applicationTypeData.replace(/,\s*$/, ""); 
+      this.register.applicationType = this.applicationTypeData; 
+  }
+
+
   
   cancel(contentViewer: any) {
     this.modalService.dismissAll();
