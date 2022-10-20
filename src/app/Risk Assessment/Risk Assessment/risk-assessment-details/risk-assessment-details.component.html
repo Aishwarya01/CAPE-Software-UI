@@ -10,6 +10,10 @@
 <div *ngIf="validationErrorTab1" style="text-align: center;margin-top: 1rem;margin-bottom: 1rem;">
     <span class="alert alert-danger">{{validationErrorMsgTab1}}</span>
 </div>
+<!-- Form Dirty Check Update Message -->
+<div *ngIf="dirtyCheck" style="text-align: center;margin-top: 1rem;margin-bottom: 1rem;">
+    <span class="alert alert-info">{{dirtyMsg}}</span>
+</div>
 
 <!-- <div *ngIf="blurMode" class="spinner-grow" style="width: 50px;height: 50px;animation-duration: 1s;color: dark;overflow: inherit;left: 50%;margin: 0px auto;position: fixed;z-index: 1000;top: 50%;" role="status">
     <pre class="visually-hidden" style="top: 35%;left: 110%;position: fixed;top: 50%;">Please wait Loading...</pre>
@@ -61,7 +65,7 @@
                             <div class="col-md-4" >
                                 <div class="form-group">
                                     <label>Ground flash density :</label>
-                                    <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" [readonly]="showFlashDensity" formControlName="groundFlashDensity" placeholder="Please enter Ground flash density" 
+                                    <input onwheel="this.blur()" class="form-control" [readonly]="showFlashDensity" formControlName="groundFlashDensity" placeholder="Please enter Ground flash density" 
                                     [ngClass]="{ 'is-invalid': submitted && f.get('groundFlashDensity')?.errors }" (ngModelChange)="heightNearStruct($event,f);noOfDangerus($event,f);lengthOfTelecomLines($event,f)">
                                     <div *ngIf="submitted && f.get('groundFlashDensity')?.errors" class="invalid-feedback">
                                         <div *ngIf="f.get('groundFlashDensity')?.errors?.required">Ground flash density is required</div>

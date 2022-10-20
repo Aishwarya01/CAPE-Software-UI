@@ -36,6 +36,8 @@ export class RiskParentComponentComponent implements OnInit {
   selectedIndex: any;
   customerFlag: boolean=true;
   riskFlag: boolean=true;
+  gfdDirtyCheck: boolean=false;
+  step2FormClick: boolean=false;
 
   @ViewChild(RiskCustomerDetailsComponent)
   customerDetails!: RiskCustomerDetailsComponent;
@@ -49,7 +51,8 @@ export class RiskParentComponentComponent implements OnInit {
   @ViewChild('tabs') tabs!: MatTabGroup;
 
   migData: String='';
-  
+  index: any;
+  selectedIndexStepper!: number;
 
   constructor(
           private customerDetailsService: CustomerDetailsServiceService,
@@ -59,9 +62,12 @@ export class RiskParentComponentComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+
     this.riskGlobal.riskId=0;
     this.refresh();
     // this.tabs._handleClick = this.interceptTabChange.bind(this);
+    console.log(this.selectedIndexStepper);
+    
   }
 
   public doSomething1(next: any): void {
@@ -93,6 +99,7 @@ export class RiskParentComponentComponent implements OnInit {
   }
 
   continue(riskId: any): void {
+    // this.riskGlobal.step2FormClick=false;
     this.refresh();
     this.ngOnInit();
     this.riskStep2.updateButton=true;
@@ -192,9 +199,10 @@ export class RiskParentComponentComponent implements OnInit {
     this.riskGlobal.organisationName=this.customerDetails.customerDetailsModel.organisationName;
   }
 
-  triggerClickTab(){
+  triggerClickTab(event:any){
     this.customerDetails.gotoNextTab();
-    this.riskStep2.gotoNextTab();
+    this.riskStep2.step2DirtyCheck=true;
+    this.riskStep2.gotoNextTab(event);;
   }
 
   goBack(stepper: MatStepper) {

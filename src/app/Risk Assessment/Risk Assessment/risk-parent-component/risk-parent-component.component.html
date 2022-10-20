@@ -4,7 +4,7 @@
     <!-- Step-1 Customer Details -->
         <mat-step [completed]="service.isCompleted" [editable]="service.editable">
           <ng-template matStepLabel>
-               <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
+               <div class="stepper-header-overlay" (click)="triggerClickTab($event)"></div>
                Customer Details
               </ng-template>
           <app-risk-customer-details *ngIf="step1" (proceedNext)="doSomething1($event)"></app-risk-customer-details>
@@ -13,7 +13,7 @@
     <!-- Step-1 Risk Assessment Details -->
         <mat-step [completed]="service.isCompleted2" [editable]="service.editable">
           <ng-template matStepLabel>
-            <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
+            <div class="stepper-header-overlay" (click)="triggerClickTab($event)"></div>
             Risk Assessment Details
             </ng-template> 
           <app-risk-assessment-details *ngIf="step2" (proceedNext)="doSomething2($event)"></app-risk-assessment-details>

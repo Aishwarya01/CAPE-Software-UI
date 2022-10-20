@@ -1,17 +1,14 @@
-import { UpperCasePipe } from '@angular/common';
-import { Component, EventEmitter, Injectable, OnInit, Output, ViewChild } from '@angular/core';
-import { AbstractControl, Form, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { arrow90DegDown } from 'ngx-bootstrap-icons';
-import { from, Observable } from 'rxjs';
 import { GlobalsService } from 'src/app/globals.service';
 import { RiskAssessmentDetails } from '../../Risk Assesment Model/risk-assessment-details';
 import { RiskAssessmentDetailsServiceService } from '../../Risk Assessment Services/risk-assessment-details-service.service';
 import { RiskfinalpdfService } from '../../Risk Assessment Services/riskfinalpdf.service';
 import { RiskglobalserviceService } from '../../riskglobalservice.service';
-import { RiskCustomerDetailsComponent } from '../risk-customer-details/risk-customer-details.component';
 import { RiskParentComponentComponent } from '../risk-parent-component/risk-parent-component.component';
+import { RiskAssessmentConstants } from '../risk_assessment_constants/risk-assessment-constants';
 
 @Component({
   selector: 'app-risk-assessment-details',
@@ -54,6 +51,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   riskId: Number=0;
   locationRtr: String = "";
   getLocation: String='';
+  groundFlashDensityGet: any;
   tabError: boolean = false;
   tabErrorMsg: string = "";
   tabError1: boolean = false;
@@ -94,13 +92,24 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   successPdf: boolean=false;
   errorPdf: boolean=false;
 
+  // Risk assessment constants
+  riskAssessmentConstants = new RiskAssessmentConstants(); 
+  gfdValueArr: any=[];
+  valueGFD: any;
+  dirtyCheck: boolean=false;
+  dirtyMsg: String="";
+  gfdDirtyCheckSts: boolean=false;
+  step2DirtyCheck: boolean=false;
+  ste2present: boolean=false;
+
   constructor(private router: ActivatedRoute,
               private formBuilder: FormBuilder,
               private modalService: NgbModal,
               private riskAssessmentService: RiskAssessmentDetailsServiceService,
               public riskGlobal: RiskglobalserviceService, 
               public service: GlobalsService,
-              private riskfinalpdfService: RiskfinalpdfService
+              private riskfinalpdfService: RiskfinalpdfService,
+              private parentComponent: RiskParentComponentComponent
   ) { }
 
   ngOnInit(): void {
@@ -132,6 +141,41 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     // setTimeout(() => {
     //   this.migratedData('',this.step2Form);
     // }, 3000);
+  }
+
+  gdValueEvent(item:any,form:any){
+    this.gfdValueArr = this.riskAssessmentConstants.locationName;
+    for(let arr of this.gfdValueArr){
+
+      if(arr.location == this.getLocation && arr.gfdValue!=parseFloat(this.groundFlashDensityGet)){
+        this.dirtyCheck=true;
+        this.dirtyMsg="Your 'Ground flash density value' has been updated as per standards, Please click update button";
+        form.controls.structureCharacters.controls[0].controls.groundFlashDensity.setValue(arr.gfdValue);
+        this.gfdDirtyCheckSts=true;
+        this.gfdDirtyCheck(form);
+
+        setTimeout(() => {
+          this.dirtyCheck=false;
+          this.dirtyMsg="";
+        }, 20000);
+        }
+    }
+  } 
+
+  gfdDirtyCheck(form:any){
+    if(this.gfdDirtyCheckSts && this.step2DirtyCheck){
+      this.step2DirtyCheck=false;
+      this.gfdDirtyCheckSts=false;
+      this.step2Form.markAsDirty();
+      this.step2Form.markAllAsTouched();
+    }
+    else if(this.ste2present && this.parentComponent.stepper._stepHeader.last.index!=1){
+      this.ste2present=false;
+      this.gfdDirtyCheckSts=false;
+      this.step2DirtyCheck=false;
+      this.step2Form.markAsDirty();
+      this.step2Form.markAllAsTouched();
+    }
   }
 
   structureCharactersForm() {
@@ -347,6 +391,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   // Retrieve purpose
   structureCharactersFormRtr(item: any, form:any): FormGroup {
     this.getLocation=item.location;
+    this.groundFlashDensityGet=item.groundFlashDensity;
     return this.formBuilder.group({
       structureCharacteristicsId: new FormControl({ disabled: false, value: item.structureCharacteristicsId }),
       projectName: new FormControl({ disabled: false, value: item.projectName }),
@@ -653,7 +698,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
           this.locationDrop=false;
         }
         if(selectedValue == 'Others') {
-          form.controls.groundFlashDensity.setValue('');
+          form.controls.groundFlashDensity.setValue();
           this.showFlashDensity = false;
         }
       }
@@ -2151,6 +2196,13 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     this.popArray.push(this.structureCharactersFormRtr(item,this.step2Form));
     this.step2Form.setControl('structureCharacters', this.formBuilder.array(this.popArray || []));
     this.popArray = [];
+    this.gfdDirtyCheckSts=false;
+    this.ste2present=false;
+    if(this.getLocation != 'Others'){
+      this.ste2present=true;
+      this.gdValueEvent(item,this.step2Form);
+    }
+    
   }
 
   reloadFromBack(){
@@ -2257,6 +2309,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
               this.step2Form.markAsPristine();
               this.retriveRiskDetails();
               this.proceedNext.emit(true);
+              // this.parentComponent.step2FormClick=false;
             },
               // update failed msg
             error => {
@@ -2317,8 +2370,9 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     //  }
   }
 
-  gotoNextTab() {
+  gotoNextTab(form:any) {
     if ((this.step2Form.dirty && this.step2Form.invalid) || this.service.isCompleted == false) {
+      // this.parentComponent.step2FormClick=false;
       this.service.isCompleted = false;
       this.service.isLinear = true;
       this.service.editable = false;
@@ -2326,8 +2380,8 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       this.validationErrorMsgTab = 'Please check all the fields in Risk Assessement Details';
       setTimeout(() => {
         this.validationErrorTab = false;
-      }, 3000);
-      return;
+      }, 3000); 
+      return; 
     }
     else if (this.step2Form.dirty && this.step2Form.touched) {
       this.service.isCompleted = false;
@@ -2345,6 +2399,6 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       this.service.isLinear = false;
       this.service.editable = true;
     }
+    this.gfdDirtyCheck(form);
   }
-
 }
