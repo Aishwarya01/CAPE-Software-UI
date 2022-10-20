@@ -51,8 +51,8 @@ export class SuperAdminLocal {
   }
   email(){
     this.adminEmail[0] = 'thirumoorthy@capeindia.net';
-    this.adminEmail[1] = 'thirumoorthy@capeindia.net';
-    this.adminEmail[2] = 'thirumoorthy@capeindia.net';
+    this.adminEmail[1] = 'sd@capeindia.net';
+    this.adminEmail[2] = 'elangovan.m@capeindia.net';
   }       
   riskAdminEmailDetails(){
     this.riskAdminEmail[0] = 'awstesting@rushforsafety.com';
