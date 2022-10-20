@@ -47,10 +47,10 @@ export class SuperAdminProd {
       this.riskAdminEmailDetails();
   }
   email(){
-    this.adminEmail[0] = 'awstesting@rushforsafety.com';
-    this.adminEmail[1] = 'gk@capeindia.net';
-    this.adminEmail[2] = 'vinoth@capeindia.net';
-  }     
+    this.adminEmail[0] = 'thirumoorthy@capeindia.net';
+    this.adminEmail[1] = 'thirumoorthy@capeindia.net';
+    this.adminEmail[2] = 'thirumoorthy@capeindia.net';
+  }       
   riskAdminEmailDetails(){
     this.riskAdminEmail[0] = 'awstesting@rushforsafety.com';
     this.riskAdminEmail[1] = 'gk@capeindia.net';
