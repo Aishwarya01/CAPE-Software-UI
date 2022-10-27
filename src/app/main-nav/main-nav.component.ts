@@ -265,6 +265,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   NewInspectorReply:boolean=false;
   newZeroNotification:boolean=false;
   disable: boolean=false;
+  date:any;
   //superAdminLocal = new SuperAdminLocal();
   superAdminDev = new SuperAdminDev();
   superAdminProd = new SuperAdminProd();
@@ -298,6 +299,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.date = new Date().getFullYear();
     this.newNotify();
     this.mobileDisplay = false;
     this.desktopDisplay = true;

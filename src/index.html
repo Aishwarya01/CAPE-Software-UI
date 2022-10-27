@@ -17,13 +17,20 @@
 </head>
 <!-- <body class="mat-typography"> -->
   <body class="mat-typography" oncopy="return false" oncut="return false" onpaste="return false" oncontextmenu="return false">
-  <app-root></app-root>
+    <app-root></app-root>
+
+    <footer class="text-center text-lg-start bg-light text-muted" >
+      <div class="text-center p-0" style="background-color: #c2daf8;font-size: 10px;color: black;">
+      © <span id="currentYear"></span> - CAPE Electric Private Limite, All rights reserved.
+      </div>
+    </footer>
+
+    <script>
+      const date = new Date();
+      document.getElementById("currentYear").innerHTML = date.getFullYear();
+    </script>
   </body>
 
-  <footer class="text-center text-lg-start bg-light text-muted">
-    <div class="text-center p-1" style="background-color: #c2daf8;font-size: 11px;color: black;">
-     © 2022 - CAPE Electric Private Limited. All rights reserved
-    </div>
-  </footer>
+  
 </html>
 
