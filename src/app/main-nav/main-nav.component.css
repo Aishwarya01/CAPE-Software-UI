@@ -86,7 +86,7 @@
 }
 .example-container {
   /* height: 240vh; */
-  min-height: 100%;
+  min-height: 88.5%;
   display: block !important;
 }
 .example-sidenav-content {
@@ -146,3 +146,12 @@
 .fabric #logicCircuit .sb-mobile-diagram {
   border-left: 1px solid rgba(0, 0, 0, 0.12);
 }
+
+/* #footer{
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  height: 26px;
+  width: 100%;
+} */
+

@@ -36,6 +36,8 @@ export class RiskParentComponentComponent implements OnInit {
   selectedIndex: any;
   customerFlag: boolean=true;
   riskFlag: boolean=true;
+  gfdDirtyCheck: boolean=false;
+  step2FormClick: boolean=false;
 
   @ViewChild(RiskCustomerDetailsComponent)
   customerDetails!: RiskCustomerDetailsComponent;
@@ -49,20 +51,28 @@ export class RiskParentComponentComponent implements OnInit {
   @ViewChild('tabs') tabs!: MatTabGroup;
 
   migData: String='';
+  index: any;
+  selectedIndexStepper: number=0;
+  nextButtonClicked=false;
+  step1NxtClicked: boolean=false;
 
   constructor(
           private customerDetailsService: CustomerDetailsServiceService,
           public service: GlobalsService, private router: ActivatedRoute,
           private dialog: MatDialog,private ChangeDetectorRef: ChangeDetectorRef,
-          private riskGlobal: RiskglobalserviceService
+          private riskGlobal: RiskglobalserviceService,
     ) { }
 
   ngOnInit(): void {
+
+    this.riskGlobal.riskId=0;
     this.refresh();
+    this.presentSteppr(this.stepper);
     // this.tabs._handleClick = this.interceptTabChange.bind(this);
+    
   }
 
-  public doSomething1(next: any): void {
+  public doSomething1(next: any,event:any): void {
     this.service.isLinear=false;
     this.service.isCompleted = next;
 
@@ -74,6 +84,7 @@ export class RiskParentComponentComponent implements OnInit {
       this.isForm1Valid();
     }
     this.saved.ngOnInit();
+    this.triggerClickTab(event);
   }
 
   public doSomething2(next: any): void {
@@ -91,12 +102,13 @@ export class RiskParentComponentComponent implements OnInit {
   }
 
   continue(riskId: any): void {
+    // this.riskGlobal.step2FormClick=false;
     this.refresh();
     this.ngOnInit();
     this.riskStep2.updateButton=true;
     this.riskStep2.saveButton=false;
     this.selectedIndex=1;
-    this.changeTabRiskSavedReport(0,riskId,this.router.snapshot.paramMap.get('email') || '{}');
+    this.changeTabRiskSavedReport(0,riskId,this.router.snapshot.paramMap.get('email') || '{}','','');
     setTimeout(() => {
       this.saved.spinner=false;
       setTimeout(() => {
@@ -108,7 +120,7 @@ export class RiskParentComponentComponent implements OnInit {
   preview(riskId: any): void {
     this.ngOnInit();
     this.isEditable=true;
-    this.changeTabRiskSavedReport(0,riskId,this.router.snapshot.paramMap.get('email') || '{}');
+    this.changeTabRiskSavedReport(0,riskId,this.router.snapshot.paramMap.get('email') || '{}','','');
   }
 
   public onCallSavedMethod(e: any) {
@@ -122,8 +134,18 @@ export class RiskParentComponentComponent implements OnInit {
   refresh() {  
     this.ChangeDetectorRef.detectChanges();
   }
+  
+  presentSteppr(stepper: MatStepper){
+    // stepper._getFocusIndex() - refrence method
+    if(stepper._getFocusIndex()==1){
+      this.riskGlobal.presentedStep=1;
+    }
+    else{
+      this.riskGlobal.presentedStep=0;
+    }
+  }
 
-  public changeTabRiskSavedReport(index: number, riskId: any, userName: any) {
+  public changeTabRiskSavedReport(index: number, riskId: any, userName: any,event:any,form:any) {
     this.step1 = false;
     this.step2 = false;
     setTimeout(() => {
@@ -149,6 +171,11 @@ export class RiskParentComponentComponent implements OnInit {
           if (this.dataJSON.structureCharacteristics != null) {
             this.selectedIndex=index;
             this.riskStep2.updateRiskDetails(this.dataJSON.userName,this.dataJSON.riskId,this.dataJSON);
+            
+            // Migrated Data purpose
+            if(this.dataJSON.customerDetails.createdBy!=undefined && this.dataJSON.customerDetails.createdBy!=null && this.dataJSON.customerDetails.createdBy!="" && this.dataJSON.customerDetails.createdBy=="Migrated Data"){
+              this.riskStep2.migratedData(event,this.riskStep2.step2Form);
+            }
           }  
           else {
             this.riskStep2.enablePrint = false;
@@ -161,11 +188,11 @@ export class RiskParentComponentComponent implements OnInit {
    }
 
    isForm1Valid(){
-     if(this.customerDetails.CustomerDetailsForm.invalid && this.customerDetails.customerDetailsModel.contactNumber==null){
+     if(this.customerDetails.CustomerDetailsForm.invalid && this.customerDetails.customerDetailsModel.contactNumber==null && this.customerDetails.customerDetailsModel.contactNumber==undefined && this.customerDetails.customerDetailsModel.contactNumber==""){
       this.riskGlobal.isCustomerDetailsValid=true;
       this.customerDetails.isStep1Valid();
      }
-     else if(this.customerDetails.CustomerDetailsForm.invalid && this.customerDetails.customerDetailsModel.contactNumber!=null){
+     else if(this.customerDetails.CustomerDetailsForm.invalid && this.customerDetails.customerDetailsModel.contactNumber!=null && this.customerDetails.customerDetailsModel.contactNumber!=undefined && this.customerDetails.customerDetailsModel.contactNumber!=""){
       this.riskGlobal.isCustomerDetailsValid=true;
       this.customerDetails.isStep1Valid();
      }
@@ -181,13 +208,22 @@ export class RiskParentComponentComponent implements OnInit {
     this.riskStep2.projectName = this.customerDetails.customerDetailsModel.projectName;
     this.riskGlobal.riskId=this.customerDetails.customerDetailsModel.riskId;
     this.riskGlobal.projectName = this.customerDetails.customerDetailsModel.projectName;
-    this.riskGlobal.migData=this.customerDetails.customerDetailsModel.updatedBy;
+    this.riskGlobal.migData=this.customerDetails.customerDetailsModel.createdBy;
     this.riskGlobal.organisationName=this.customerDetails.customerDetailsModel.organisationName;
   }
 
-  triggerClickTab(){
+  triggerClickTab(event:any){
+
     this.customerDetails.gotoNextTab();
-    this.riskStep2.gotoNextTab();
+    this.riskStep2.step2DirtyCheck=true;
+    
+    if(this.riskGlobal.dirtyCheck==true && this.step1NxtClicked==true){
+      this.nextButtonClicked=true;
+    }else{
+      this.nextButtonClicked=false;
+    }
+
+    this.riskStep2.gotoNextTab(event);;
   }
 
   goBack(stepper: MatStepper) {
