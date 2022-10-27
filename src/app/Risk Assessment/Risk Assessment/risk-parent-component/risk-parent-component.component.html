@@ -7,7 +7,7 @@
                <div class="stepper-header-overlay" (click)="triggerClickTab($event)"></div>
                Customer Details
               </ng-template>
-          <app-risk-customer-details *ngIf="step1" (proceedNext)="doSomething1($event,event)"></app-risk-customer-details>
+          <app-risk-customer-details *ngIf="step1" (proceedNext)="doSomething1($event,'')"></app-risk-customer-details>
         </mat-step>
   
     <!-- Step-1 Risk Assessment Details -->
