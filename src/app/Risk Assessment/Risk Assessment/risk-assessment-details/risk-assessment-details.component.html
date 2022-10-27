@@ -11,8 +11,8 @@
     <span class="alert alert-danger">{{validationErrorMsgTab1}}</span>
 </div>
 <!-- Form Dirty Check Update Message -->
-<div *ngIf="dirtyCheck" style="text-align: center;margin-top: 1rem;margin-bottom: 1rem;">
-    <span class="alert alert-info">{{dirtyMsg}}</span>
+<div *ngIf="riskGlobal.dirtyCheck" style="text-align: center;margin-top: 1rem;margin-bottom: 1rem;">
+    <span class="alert alert-info">{{riskGlobal.dirtyMsg}}</span>
 </div>
 
 <!-- <div *ngIf="blurMode" class="spinner-grow" style="width: 50px;height: 50px;animation-duration: 1s;color: dark;overflow: inherit;left: 50%;margin: 0px auto;position: fixed;z-index: 1000;top: 50%;" role="status">

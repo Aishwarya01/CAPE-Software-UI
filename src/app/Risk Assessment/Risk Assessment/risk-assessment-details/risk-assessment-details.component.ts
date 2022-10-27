@@ -96,11 +96,12 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   riskAssessmentConstants = new RiskAssessmentConstants(); 
   gfdValueArr: any=[];
   valueGFD: any;
-  dirtyCheck: boolean=false;
-  dirtyMsg: String="";
+  // dirtyCheck: boolean=false;
+  // dirtyMsg: String="";
   gfdDirtyCheckSts: boolean=false;
   step2DirtyCheck: boolean=false;
   ste2present: boolean=false;
+  selectedIndex: number=0;
 
   constructor(private router: ActivatedRoute,
               private formBuilder: FormBuilder,
@@ -148,16 +149,16 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     for(let arr of this.gfdValueArr){
 
       if(arr.location == this.getLocation && arr.gfdValue!=parseFloat(this.groundFlashDensityGet)){
-        this.dirtyCheck=true;
-        this.dirtyMsg="Your 'Ground flash density value' has been updated as per standards, Please click update button";
+        this.riskGlobal.dirtyCheck=true;
+        this.riskGlobal.dirtyMsg="Your 'Ground flash density value' has been updated as per standards, Please click update button";
         form.controls.structureCharacters.controls[0].controls.groundFlashDensity.setValue(arr.gfdValue);
         this.gfdDirtyCheckSts=true;
         this.gfdDirtyCheck(form);
 
-        setTimeout(() => {
-          this.dirtyCheck=false;
-          this.dirtyMsg="";
-        }, 20000);
+        // setTimeout(() => {
+        //   this.dirtyCheck=false;
+        //   this.dirtyMsg="";
+        // }, 20000);
         }
     }
   } 
@@ -169,7 +170,14 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       this.step2Form.markAsDirty();
       this.step2Form.markAllAsTouched();
     }
-    else if(this.ste2present && this.parentComponent.stepper._stepHeader.last.index!=1){
+    else if(this.ste2present && this.riskGlobal.presentedStep==1){
+      this.ste2present=false;
+      this.gfdDirtyCheckSts=false;
+      this.step2DirtyCheck=false;
+      this.step2Form.markAsDirty();
+      this.step2Form.markAllAsTouched();
+    }
+    else if(this.parentComponent.nextButtonClicked==true){
       this.ste2present=false;
       this.gfdDirtyCheckSts=false;
       this.step2DirtyCheck=false;
@@ -2306,6 +2314,9 @@ export class RiskAssessmentDetailsComponent implements OnInit {
               this.success1 = false;
               this.success=true;
               this.successMsg=data;
+              this.riskGlobal.dirtyCheck=false;
+              this.riskGlobal.dirtyMsg="";
+              this.parentComponent.nextButtonClicked=false;
               this.step2Form.markAsPristine();
               this.retriveRiskDetails();
               this.proceedNext.emit(true);
@@ -2395,6 +2406,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       return;
     }
     else {
+      this.riskGlobal.presentedStep=0;
       this.service.isCompleted2 = true;
       this.service.isLinear = false;
       this.service.editable = true;

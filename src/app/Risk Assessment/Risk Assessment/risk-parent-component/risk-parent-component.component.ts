@@ -52,7 +52,9 @@ export class RiskParentComponentComponent implements OnInit {
 
   migData: String='';
   index: any;
-  selectedIndexStepper!: number;
+  selectedIndexStepper: number=0;
+  nextButtonClicked=false;
+  step1NxtClicked: boolean=false;
 
   constructor(
           private customerDetailsService: CustomerDetailsServiceService,
@@ -65,12 +67,12 @@ export class RiskParentComponentComponent implements OnInit {
 
     this.riskGlobal.riskId=0;
     this.refresh();
+    this.presentSteppr(this.stepper);
     // this.tabs._handleClick = this.interceptTabChange.bind(this);
-    console.log(this.selectedIndexStepper);
     
   }
 
-  public doSomething1(next: any): void {
+  public doSomething1(next: any,event:any): void {
     this.service.isLinear=false;
     this.service.isCompleted = next;
 
@@ -82,6 +84,7 @@ export class RiskParentComponentComponent implements OnInit {
       this.isForm1Valid();
     }
     this.saved.ngOnInit();
+    this.triggerClickTab(event);
   }
 
   public doSomething2(next: any): void {
@@ -130,6 +133,16 @@ export class RiskParentComponentComponent implements OnInit {
   
   refresh() {  
     this.ChangeDetectorRef.detectChanges();
+  }
+  
+  presentSteppr(stepper: MatStepper){
+    // stepper._getFocusIndex() - refrence method
+    if(stepper._getFocusIndex()==1){
+      this.riskGlobal.presentedStep=1;
+    }
+    else{
+      this.riskGlobal.presentedStep=0;
+    }
   }
 
   public changeTabRiskSavedReport(index: number, riskId: any, userName: any,event:any,form:any) {
@@ -200,8 +213,16 @@ export class RiskParentComponentComponent implements OnInit {
   }
 
   triggerClickTab(event:any){
+
     this.customerDetails.gotoNextTab();
     this.riskStep2.step2DirtyCheck=true;
+    
+    if(this.riskGlobal.dirtyCheck==true && this.step1NxtClicked==true){
+      this.nextButtonClicked=true;
+    }else{
+      this.nextButtonClicked=false;
+    }
+
     this.riskStep2.gotoNextTab(event);;
   }
 

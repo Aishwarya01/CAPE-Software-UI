@@ -4,8 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalsService } from 'src/app/globals.service';
 import { CustomerDetails } from '../../Risk Assesment Model/customer-details';
+import { RiskAssessmentDetails } from '../../Risk Assesment Model/risk-assessment-details';
 import { CustomerDetailsServiceService } from '../../Risk Assessment Services/customer-details-service.service';
 import { RiskglobalserviceService } from '../../riskglobalservice.service';
+import { RiskParentComponentComponent } from '../risk-parent-component/risk-parent-component.component';
 
 @Component({
   selector: 'app-risk-customer-details',
@@ -54,7 +56,8 @@ export class RiskCustomerDetailsComponent implements OnInit {
     private modalService: NgbModal,
     private customerDetailsService :CustomerDetailsServiceService,
     public service: GlobalsService,
-    public riskGlobal: RiskglobalserviceService
+    public riskGlobal: RiskglobalserviceService,
+    private parentComponent: RiskParentComponentComponent
   ) {}
 
   ngOnInit(): void {
@@ -204,7 +207,8 @@ export class RiskCustomerDetailsComponent implements OnInit {
     if (this.errorMsg != '') {
       this.Error = false;
       this.modalService.dismissAll((this.errorMsg = ''));
-    } else {
+    }
+    else {
       this.success = false;
       this.modalService.dismissAll((this.successMsg = ''));
     }
@@ -223,6 +227,10 @@ export class RiskCustomerDetailsComponent implements OnInit {
     //  Update and Success msg will be showing
     if(this.CustomerDetailsForm.dirty && this.CustomerDetailsForm.touched){
       this.modalService.open(content, { centered: true,backdrop: 'static' });
+    }
+    else if(this.riskGlobal.dirtyCheck==true){
+      this.parentComponent.step1NxtClicked=true;
+      this.modalService.open(contents, { centered: true,backdrop: 'static' });
     }
     //  For Dirty popup
     else{
