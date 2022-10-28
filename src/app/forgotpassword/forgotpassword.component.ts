@@ -12,7 +12,8 @@ import { ForgotpasswordService } from '../services/forgotpassword.service'
 export class ForgotpasswordComponent implements OnInit {
 
   forgotpassform = new FormGroup({
-    email: new FormControl('')
+    email: new FormControl(''),
+    mobileNumber: new FormControl('')
   });
 
   loading = false;
@@ -22,7 +23,9 @@ export class ForgotpasswordComponent implements OnInit {
   SuccessMsg: any;
   errorArr: any=[];
   ErrorMsg: any;
-
+  countryCode: String = '';
+  mobileNumber: String = '';
+  dataToBeSent: String = '';
   constructor(
     private formBuilder: FormBuilder,
     private router: ActivatedRoute,
@@ -32,14 +35,17 @@ export class ForgotpasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.forgotpassform = this.formBuilder.group({
-      email: ['', [
-        Validators.required,
-        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]]
+      email: ['', [Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+      mobileNumber: ['',[Validators.maxLength(10),Validators.minLength(10)]]
   });
   }
 
   get f() {
     return this.forgotpassform.controls;
+  }
+
+  countryChange(country: any) {
+    this.countryCode = country.dialCode;
   }
 
   onSubmit(){
@@ -49,9 +55,12 @@ export class ForgotpasswordComponent implements OnInit {
     if(this.forgotpassform.invalid) {
       return;
     }
-
+    if(this.user.email.length==0 || this.user.mobileNumber.length==0){
+      return;
+    }
+    this.dataToBeSent = this.user.email.length >0 ? this.user.email: this.user.mobileNumber;
     this.loading=true;
-    this.forgotpasswordservice.forgotPassword(this.user.email).subscribe(
+    this.forgotpasswordservice.forgotPassword(this.dataToBeSent).subscribe(
       data=> {
         this.route.navigate(['/updatepassword', {email: data}])
         this.SuccessMsg = data;
