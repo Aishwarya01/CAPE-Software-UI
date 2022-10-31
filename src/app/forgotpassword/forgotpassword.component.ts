@@ -34,6 +34,7 @@ export class ForgotpasswordComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.countryCode = '91';
     this.forgotpassform = this.formBuilder.group({
       email: ['', [Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       mobileNumber: ['',[Validators.maxLength(10),Validators.minLength(10)]]
@@ -55,14 +56,15 @@ export class ForgotpasswordComponent implements OnInit {
     if(this.forgotpassform.invalid) {
       return;
     }
-    if(this.user.email.length==0 || this.user.mobileNumber.length==0){
+    if(this.forgotpassform.value.email.length==0 && this.forgotpassform.value.mobileNumber.length==0){
       return;
     }
-    this.dataToBeSent = this.user.email.length >0 ? this.user.email: this.user.mobileNumber;
+    this.forgotpassform.value.mobileNumber = this.forgotpassform.value.mobileNumber.length > 0 ? "+"+this.countryCode+"-"+this.forgotpassform.value.mobileNumber : '';
+    this.dataToBeSent = this.forgotpassform.value.email.length >0 ? this.forgotpassform.value.email: this.forgotpassform.value.mobileNumber;
     this.loading=true;
     this.forgotpasswordservice.forgotPassword(this.dataToBeSent).subscribe(
       data=> {
-        this.route.navigate(['/updatepassword', {email: data}])
+        this.route.navigate(['/createPassword', {email: data}])
         this.SuccessMsg = data;
       },
       error => {
