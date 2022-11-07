@@ -1,15 +1,17 @@
-import { Component, OnInit, ViewChild, ViewContainerRef, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef, EventEmitter, Output, Input } from '@angular/core';
 import { MatInput } from '@angular/material/input';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalsService } from 'src/app/globals.service';
+import { LicenselistComponent } from 'src/app/licenselist/licenselist.component';
 import { BasicDetails } from 'src/app/LPS_model/basic-details';
 import { LPSBasicDetailsService } from 'src/app/LPS_services/lpsbasic-details.service';
 import { environment } from 'src/environments/environment';
 import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminProd } from 'src/environments/environment.prod';
+import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
 
 
 @Component({
@@ -33,6 +35,7 @@ export class LpsSavedReportComponent implements OnInit {
 
   // @Output("changeTab") changeTab: EventEmitter<any> = new EventEmitter();
   @Output() callSavedMethod: EventEmitter<any> = new EventEmitter();
+
   email: String ="";
   basicDetails = new BasicDetails();
   clientName: String="";
@@ -54,6 +57,7 @@ export class LpsSavedReportComponent implements OnInit {
   spinnerValue: String = '';
   enableDelete: boolean = false;
   lpsSummary: String="LpsSummary";
+  lpsParent: any;
  
  @ViewChild('input') input!: MatInput;
  lpsData: any=[];
@@ -71,6 +75,7 @@ completedFilterData: any=[];
   constructor(private router: ActivatedRoute,
               public service: GlobalsService,
               public lpsService: LPSBasicDetailsService,
+              public licenselist: LicenselistComponent
               
   ) { 
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
@@ -87,7 +92,7 @@ completedFilterData: any=[];
     // this.superAdminArr.push('awstesting@rushforsafety.com');
 
     this.retrieveLpsDetails();
-   
+
   }
 
   //filter for final reports
@@ -139,7 +144,7 @@ completedFilterData: any=[];
 
         this.superAdminFlag = false;
     }
-    else {
+    // else {
       this.lpsService.retrieveListOfBasicLps(this.email).subscribe(
         data => {
           this.lpsData=JSON.parse(data);
@@ -154,16 +159,25 @@ completedFilterData: any=[];
           this.savedReportLps_dataSource.paginator = this.savedReportLpsPaginator;
           this.savedReportLps_dataSource.sort = this.savedReportLpsSort;
         });
-    }
+    // }
       
   }
 
+
   continue(basicLpsId: any) {
-    this.spinner=true;
-    this.disablepage=false;
-    this.spinnerValue = "Please wait, the details are loading!";
-    this.callSavedMethod.emit(basicLpsId);
-    //this.lpsParent.continue(basicLpsId);
+    debugger
+    if(this.service.triggerMsgForLicense=='lpsPage'){
+      this.licenselist.editLpsData(basicLpsId);
+      setTimeout(() => {
+        this.service.triggerMsgForLicense="";
+      }, 2000);
+    }
+    else{
+      this.spinner=true;
+      this.disablepage=false;
+      this.spinnerValue = "Please wait, the details are loading!";
+      this.callSavedMethod.emit(basicLpsId);
+    }
   } 
 
   deleteBasicLps(basicLpsId: any) {  

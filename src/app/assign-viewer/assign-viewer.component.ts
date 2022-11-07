@@ -3,7 +3,7 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Valida
 import { MatDialog } from '@angular/material/dialog';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ViewerRegisterComponent } from '../viewer-register/viewer-register.component';
-import { Register } from '../model/register';
+import { License, Register } from '../model/register';
 import { ApplicationTypeService } from '../services/application.service';
 import { InspectorregisterService } from '../services/inspectorregister.service';
 import { SiteService } from '../services/site.service';
@@ -12,6 +12,7 @@ import { VerificationlvComponent } from '../verificationlv/verificationlv.compon
 import { InspectionVerificationBasicInformationComponent } from '../inspection-verification-basic-information/inspection-verification-basic-information.component';
 import { GlobalsService } from '../globals.service';
 import { SiteaddComponent } from '../site/siteadd/siteadd.component';
+import { LPSBasicDetailsService } from '../LPS_services/lpsbasic-details.service';
 
 @Component({
   selector: 'app-assign-viewer',
@@ -19,17 +20,21 @@ import { SiteaddComponent } from '../site/siteadd/siteadd.component';
   styleUrls: ['./assign-viewer.component.css']
 })
 export class AssignViewerComponent implements OnInit {
+  license = new License();
 
   assignViewerForm = new FormGroup({
     viewerEmail: new FormControl(''),
   });
+
   viewerRegisterForm = new FormGroup({
     siteName: new FormControl(''),
     name: new FormControl(''),
+    clientName: new FormControl(''),
+    projectName:new FormControl(''),
     companyName: new FormControl(''),
     email: new FormControl(''),
     contactNumber: new FormControl(''),
-    department: new FormControl(''),
+    department: new FormControl(''),  
     designation: new FormControl(''),
     address: new FormControl(''),
     district: new FormControl(''),
@@ -88,6 +93,16 @@ export class AssignViewerComponent implements OnInit {
   existSite: boolean = false;
   arr: any = [];
 
+  // license page purpose
+  viewerForLps: boolean=false;
+  viewerForLV: boolean=false;
+  lpsViewerForm!: FormGroup;
+
+  projectNameMsg: string="";
+  projectNameError: boolean=false;
+  projectNameSuccess: boolean=false;
+  projectNameMsg1: string="";
+
   constructor(private dialog: MatDialog,
               private formBuilder: FormBuilder, private modalService: NgbModal,
               private siteService: SiteService,
@@ -97,8 +112,10 @@ export class AssignViewerComponent implements OnInit {
               private componentFactoryResolver: ComponentFactoryResolver,
               private route: ActivatedRoute,
               private globalService: GlobalsService,
+              private lPSBasicDetailsService: LPSBasicDetailsService
               ) {
                 this.urlEmail = this.route.snapshot.paramMap.get('email') || '{}';
+                this.pageHeading(this.viewerRegisterForm);
                }
 
   ngOnInit(): void {
@@ -127,12 +144,18 @@ export class AssignViewerComponent implements OnInit {
         }
       )
   }
+
+  // getLpsViwer() : AbstractControl[] {
+  //   return (<FormArray> this.lpsViewerForm.get('lpsViewer')).controls;
+  // }
  
   createViewer(): FormGroup {
-    return new FormGroup({
+    return this.formBuilder.group({
     name: new FormControl('', Validators.required),
     companyName: new FormControl('', Validators.required),
     siteName: new FormControl('', [Validators.required, Validators.minLength(3),Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
+    clientName: new FormControl(''),
+    projectName:new FormControl(''),
     email: new FormControl('', Validators.required),
     designation: new FormControl('', Validators.required),
     contactNumber: new FormControl('', Validators.required),
@@ -148,6 +171,41 @@ export class AssignViewerComponent implements OnInit {
     })
     
     }
+
+  // Only Accept numbers
+  keyPressNumbers(event:any) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  projectValidation(event:any,form:any){
+    if(form.controls.clientName.value!=undefined && form.controls.projectName.value!=undefined && form.controls.clientName.value!=null && form.controls.projectName.value!=null && form.controls.clientName.value!="" && form.controls.projectName.value!=""){
+
+      this.lPSBasicDetailsService.validateProjectName(form.controls.clientName.value,form.controls.projectName.value).subscribe(
+        data =>{
+          var b=form.controls.projectName.value;
+          if(data != ''){
+            this.projectNameMsg="Project Name is already existing, Please give different Project Name";
+            this.projectNameMsg1="";
+            this.projectNameError=true;
+          }else {
+            this.projectNameMsg1="You can continue with this Project Name";
+            this.projectNameMsg="";
+            this.projectNameSuccess=true;
+            this.projectNameError=false;
+            setTimeout(() => {
+              this.projectNameSuccess=false;
+            }, 3000);
+          }
+      })
+    }
+  }
 
   populateData() {
     this.viewerRegisterForm.reset();
@@ -171,7 +229,7 @@ export class AssignViewerComponent implements OnInit {
   }
 
   getViewerControls() : AbstractControl[] {
-    return (<FormArray> this.viewerRegisterForm.get('viewerArr')).controls
+    return (<FormArray> this.viewerRegisterForm.get('viewerArr')).controls;
   }
 
   onFocusOutEvent(e: any,a: any) {
@@ -327,6 +385,8 @@ createGroup(item: any): FormGroup{
     name: new FormControl({value: item.name}),
     companyName: new FormControl({value: item.companyName}),
     siteName: new FormControl('',[Validators.required, Validators.minLength(3),Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
+    clientName: new FormControl('', Validators.required),
+    projectName:new FormControl('', Validators.required),
     email: new FormControl({value: item.username}),
     designation: new FormControl({value: item.designation}),
     contactNumber: new FormControl(item.contactNumber),
@@ -349,6 +409,8 @@ createNewGroup(item: any): FormGroup{
     name: new FormControl('',Validators.required),
     companyName: new FormControl('',Validators.required),
     siteName: new FormControl('',[Validators.required, Validators.minLength(3),Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
+    clientName: new FormControl(''),
+    projectName:new FormControl(''),
     email: new FormControl({value: item.username}),
     designation: new FormControl('',Validators.required),
     contactNumber: new FormControl('',Validators.required),
@@ -550,7 +612,7 @@ createNewGroup(item: any): FormGroup{
   }
 
   onSubmit(flag: any) {
-    
+  
   this.submitted = true;
   if(this.existSite) {
     return;
@@ -564,11 +626,23 @@ createNewGroup(item: any): FormGroup{
   this.register.role = 'Viewer';
   this.register.permission = 'Yes';
   this.register.assignedBy = this.email;
+  
+  // Here we are binding values for license Table
+  if(this.globalService.headerMsg=="lvPage"){
+    this.license.siteName=this.register.siteName;
+  }
+  else if(this.globalService.headerMsg=="lpsPage"){
+    this.license.lpsclientName=this.register.clientName;
+    this.license.lpsProjectName=this.register.projectName;
+  }
+  this.register.license=[];
+  this.register.license.push(this.license);
+  
   if(!flag) {
     this.contactNumber = "";
     this.contactNumber = "+"+this.countryCode+"-"+this.viewerRegisterForm.controls.viewerArr.value[0].contactNumber;
     this.register.contactNumber = this.contactNumber;
-    this.inspectorRegisterService.registerViewer(this.register).subscribe(
+    this.inspectorRegisterService.registerLicense(this.register).subscribe(
       data=> {
         this.successMsgOTP=true;
         this.successMsg="Viewer has been assigned successfully."
@@ -632,6 +706,38 @@ createNewGroup(item: any): FormGroup{
       }
     )
   }  
-
 }
+
+  pageHeading(form:any){
+    this.globalService.licensePageHeaging();
+    // LPS Page
+    if(this.globalService.triggerMsgForLicense=='lpsPage'){
+      this.viewerForLps=true;
+      this.viewerForLV=false;
+      form.controls.clientName.setValidators();
+      form.controls.clientName.updateValueAndValidity();
+      form.controls.projectName.setValidators();
+      form.controls.projectName.updateValueAndValidity();
+      // LV 
+      form.controls.siteName.clearValidators();
+      form.controls.siteName.updateValueAndValidity();
+      form.controls.name.clearValidators();
+      form.controls.name.updateValueAndValidity();
+    }
+    // LV Page
+    else if(this.globalService.triggerMsgForLicense=='lvPage'){
+      this.viewerForLV=true;
+      this.viewerForLps=false;
+      // lps
+      form.controls.clientName.clearValidators();
+      form.controls.clientName.updateValueAndValidity();
+      form.controls.projectName.clearValidators();
+      form.controls.projectName.updateValueAndValidity();
+      // lv
+      form.controls.siteName.setValidators();
+      form.controls.siteName.updateValueAndValidity();
+      form.controls.name.setValidators();
+      form.controls.name.updateValueAndValidity();
+    }
+  }
 }

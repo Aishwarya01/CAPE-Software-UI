@@ -1,5 +1,7 @@
+
 <ng-template #ref ></ng-template>
 <app-verificationlv *ngIf="value" #verify></app-verificationlv>
+<app-lps-matstepper *ngIf="value1" #verify1></app-lps-matstepper>
 <div class="card" *ngIf="!destroy">
     <div class="card-body" >
         <form [formGroup]="licenseForm" >
@@ -7,7 +9,8 @@
                 <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                     <mat-expansion-panel-header>
                       <mat-panel-title>
-                        <h3>Unused License</h3>
+                        <!-- <h3>Unused License</h3> -->
+                        <h3>{{licensePageHeading}}</h3>
                       </mat-panel-title>
                     </mat-expansion-panel-header>
     
@@ -32,7 +35,8 @@
                         </div>
                       </div>
                 </mat-expansion-panel>    
-    
+                
+              <ng-container *ngIf="lvData">
                 <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                     <mat-expansion-panel-header>
                       <mat-panel-title>
@@ -242,9 +246,34 @@
                   </div>
                      </div>
                 </mat-expansion-panel>
+              </ng-container>
+
+              <ng-container *ngIf="lpsData">
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        <h3>Ongoing Site</h3>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div>
+                      <app-lps-saved-report></app-lps-saved-report>
+                    </div>
+                </mat-expansion-panel>
+    
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        <h3>Completed License</h3>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div>
+                      <app-lps-final-report></app-lps-final-report>
+                    </div>
+                </mat-expansion-panel>
+              </ng-container>
+
             </mat-accordion>
     
         </form>
     </div>
 </div>
-

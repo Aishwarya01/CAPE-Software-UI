@@ -85,9 +85,9 @@ export class LpsBasicPageComponent implements OnInit {
   lpsBasic: any=[];
 
   // License Purpose
-  // currentUserName: String='';
-  // currentUsermail: String='';
-  // userDetails: any;
+  currentUserName: String='';
+  currentUsermail: String='';
+  userDetails: any;
 
   constructor(private formBuilder: FormBuilder, 
     private lPSBasicDetailsService: LPSBasicDetailsService,
@@ -107,11 +107,11 @@ export class LpsBasicPageComponent implements OnInit {
       lpsBasic: this.formBuilder.array([this.allBasicForm()])
     });
     // License Purpose
-    // this.userDetails = sessionStorage.getItem('authenticatedUser');
-    // if(JSON.parse(this.userDetails).role == "Inspector"){
-    //   this.currentUserName=JSON.parse(this.userDetails).name;
-    //   this.currentUsermail=JSON.parse(this.userDetails).username;
-    // }
+    this.userDetails = sessionStorage.getItem('authenticatedUser');
+    if(JSON.parse(this.userDetails).role == "Inspector"){
+      this.currentUserName=JSON.parse(this.userDetails).name;
+      this.currentUsermail=JSON.parse(this.userDetails).username;
+    }
   }
 
   allBasicForm() {
@@ -133,8 +133,8 @@ export class LpsBasicPageComponent implements OnInit {
       mailId:new FormControl('', [Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       availabilityOfPreviousReport:new FormControl('', Validators.required),
       // license purpose 
-      // email1:new FormControl(''),
-      // name1:new FormControl(''),
+      email1:new FormControl(''),
+      name1:new FormControl(''),
       fileName: new FormControl(''),
       basicLpsId: new FormControl(''),
       fileSize: new FormControl(''),
@@ -190,8 +190,8 @@ export class LpsBasicPageComponent implements OnInit {
          [Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       availabilityOfPreviousReport: new FormControl({disabled: false, value: item.availabilityOfPreviousReport}, Validators.required),
       // License Purpose
-      // email1:new FormControl(''),
-      // name1:new FormControl(''),
+      email1:new FormControl(''),
+      name1:new FormControl(''),
       basicLpsId: new FormControl({disabled: false, value: item.basicLpsId}),
       fileId: new FormControl({disabled: false, value: item.fileId}),
     });

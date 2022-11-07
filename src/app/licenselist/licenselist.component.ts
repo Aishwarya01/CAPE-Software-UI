@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, ViewChild,ViewContainerRef,EventEmitter} from '@angular/core';
+import { Component, OnInit, Output, ViewChild,ViewContainerRef,EventEmitter, Input} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -20,6 +20,9 @@ import { environment } from 'src/environments/environment';
 import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
 import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminProd } from 'src/environments/environment.prod';
+import { LpsMatstepperComponent } from '../LPS/lps-matstepper/lps-matstepper.component';
+import { RiskglobalserviceService } from '../Risk Assessment/riskglobalservice.service';
+import { LpsGlobalserviceService } from '../LPS/lps-globalservice.service';
 
 @Component({
   selector: 'app-licenselist',
@@ -28,7 +31,8 @@ import { SuperAdminProd } from 'src/environments/environment.prod';
 })
 
 export class LicenselistComponent implements OnInit {
-
+  // @Input() matStepper!: LpsMatstepperComponent;
+  
   licenseForm = new FormGroup({
     noOfAvailableLicense: new FormControl(''),
   })
@@ -71,6 +75,8 @@ export class LicenselistComponent implements OnInit {
   viewContainerRef!: ViewContainerRef;
   @ViewChild('verify')
   verification: any; 
+  @ViewChild('verify1')
+  matStepper:any;
   disableUse: boolean = false;
   email: String= '';
   destroy: boolean=false;
@@ -100,6 +106,10 @@ export class LicenselistComponent implements OnInit {
   superAdminArr: any = [];
   superAdminDev = new SuperAdminDev();
   superAdminProd = new SuperAdminProd();
+  licensePageHeading: String="";
+  lpsData: boolean=false;
+  lvData: boolean=false;
+  value1: boolean=false;
 
   constructor(private formBuilder: FormBuilder,
               private dialog: MatDialog,
@@ -110,6 +120,8 @@ export class LicenselistComponent implements OnInit {
                private inspectionService: InspectionVerificationService,
               private componentFactoryResolver: ComponentFactoryResolver,
               private modalService: NgbModal,
+              private lpsGlobal: LpsGlobalserviceService
+              
               
               ) {
                 this.email = this.router.snapshot.paramMap.get('email') || '{}';
@@ -125,6 +137,7 @@ export class LicenselistComponent implements OnInit {
     // this.superAdminArr.push('vinoth@capeindia.net');
     // this.superAdminArr.push('awstesting@rushforsafety.com');
     this.retrieveSiteDetails();
+    this.pageHeading();
   }
  
   retrieveUserDetail() {
@@ -206,6 +219,7 @@ export class LicenselistComponent implements OnInit {
   
  
   editSite(siteId:any,userName:any,site:any,departmentName:any,companyName:any){
+    debugger
     this.service.allStepsCompleted=true;
     this.service.disableSubmitSummary=false;
     this.service.allFieldsDisable = false;
@@ -219,7 +233,6 @@ export class LicenselistComponent implements OnInit {
     dialogRef.componentInstance.triggerModal = false;
     dialogRef.componentInstance.linkModal = false;
     dialogRef.componentInstance.summaryModal = false;
-
     dialogRef.componentInstance.confirmBox.subscribe(data=>{
       if(data) {
         this.viewContainerRef.clear();
@@ -227,7 +240,7 @@ export class LicenselistComponent implements OnInit {
         this.value=true;
         this.service.disableFields=false;
         setTimeout(()=>{
-          this.verification.changeTab(0,siteId,userName,companyName,departmentName,site);
+          this.verification.changeTabSavedReport(0,siteId,userName,companyName,departmentName,site);
         }, 1000);
       }
       else{
@@ -235,26 +248,38 @@ export class LicenselistComponent implements OnInit {
         this.value=false;
       }
     })
-    // if((confirm("Are you sure you want to view site details?"))){
-    //   this.viewContainerRef.clear();
-    //   this.destroy = true;
-    //   this.value=true;
-    //   this.service.disableFields=false;
-    //   setTimeout(()=>{
-    //     this.verification.changeTab(0,siteId,userName,companyName,departmentName,site);
-    //   }, 1000);
-      
-    // }
-    // else{
-    //   this.destroy = false;
-    // this.value=false;
-    // }
-    // this.viewContainerRef.clear();
-    // this.destroy = true;
-    // const verificationFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
-    // const verificationRef = this.viewContainerRef.createComponent(verificationFactory);
-    // verificationRef.changeDetectorRef.detectChanges();
-    // this.change.emit(siteId);
+  }
+
+  editLpsData(basicLpsId:any){
+    debugger
+    if(this.lpsData){
+      this.lpsGlobal.disableSubmitSummary=false;
+      this.service.allFieldsDisable = false;
+      const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+        width: '420px',
+        maxHeight: '90vh',
+        disableClose: true,
+      });
+      dialogRef.componentInstance.editModal = true;
+      dialogRef.componentInstance.viewModal1 = false;
+      dialogRef.componentInstance.triggerModal = false;
+      if(this.lpsData){
+        dialogRef.componentInstance.confirmBox.subscribe(data=>{
+          if(data) {
+            this.viewContainerRef.clear();
+            this.destroy = true;
+            this.value1=true;
+            setTimeout(() => {
+              this.matStepper.changeTabLpsSavedReport(0,basicLpsId,this.router.snapshot.paramMap.get('email') || '{}');
+            }, 3000);
+          }
+          else{
+            this.destroy = false;
+            this.value1=false;
+          }
+        })
+      }
+    }
   }
 
   viewSite(siteId: any,userName: any,site: any,departmentName:any,companyName:any){
@@ -382,4 +407,25 @@ export class LicenselistComponent implements OnInit {
     });
   }
 
+  pageHeading(){
+    this.service.licensePageHeaging();
+    // LPS Page
+    if(this.service.triggerMsgForLicense=='lpsPage'){
+      this.licensePageHeading="LPS License Page";
+      this.lpsData=true;
+    }
+    // LV Page
+    else if(this.service.triggerMsgForLicense=='lvPage'){
+      this.licensePageHeading="LV License Page";
+      this.lvData=true;
+    }
+    else{
+      this.licensePageHeading="";
+    }
+  }
+
 }
+function input() {
+  throw new Error('Function not implemented.');
+}
+

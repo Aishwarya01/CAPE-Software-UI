@@ -60,4 +60,10 @@ export class InspectorregisterService {
   public  retrieveRegisterName (userName: any): Observable<any> {
     return this.http.get<any>(this.apiUrl+'/retrieveUserNameFromRegister'+'/'+userName,  { responseType: 'text' as 'json' })
   }
+
+// License viwer registration
+
+  public  registerLicense (register: Register): Observable<any> {
+    return this.http.post<any>(this.apiUrl+'/addViewerRegistrationLicense', register, { responseType: 'text' as 'json' })
+  }
 }

@@ -82,6 +82,7 @@
           <div formArrayName="viewerArr" *ngFor="let a of getViewerControls(); let i = index">
             <div [formGroupName]="i">
               <div class="row">
+              <ng-container *ngIf="viewerForLV">
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="name">* Site Name</label>
@@ -150,9 +151,48 @@
                     </div>
                   </div>
                 </div>
-    
-               
-    
+              </ng-container>
+
+              <ng-container *ngIf="viewerForLps">
+                <div class="col-md-4">
+                  <label for="clientname">Client Name</label>
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text"> 
+                              <i class="bi bi-person-lines-fill"></i>
+                          </span>
+                      </div>
+                      <input type="text" class="form-control" placeholder="Enter clientname" formControlName="clientName"
+                          [ngClass]="{ 'is-invalid': submitted && a.get('clientName')?.errors }"/>
+                      <div *ngIf="submitted && a.get('clientName')?.errors" class="invalid-feedback">
+                              <div *ngIf="a.get('clientName')?.errors?.required">ClientName is required</div>
+                      </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="projectname">Project Name</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="bi bi-journal-plus"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Enter project name" (change)="projectValidation($event,a)" formControlName="projectName" [ngClass]="{ 'is-invalid': submitted && a.get('projectName')?.errors }"/>
+                            <div *ngIf="submitted && a.get('projectName')?.errors" class="invalid-feedback">
+                                <div *ngIf="a.get('projectName')?.errors?.required">ProjectName is required</div>
+                            </div>
+
+                            <div *ngIf="projectNameError" class="invalid-feedback">
+                                <div>{{projectNameMsg}}</div>
+                            </div>
+                            
+                            <div *ngIf="projectNameSuccess" class="invalid-feedback">
+                                <div style="color: #11a807;">{{projectNameMsg1}}</div>
+                            </div>
+                    </div>
+                </div>
+              </ng-container>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="email">* User Name: (email ID)</label>
@@ -586,6 +626,7 @@
       </div>
     </div>
   </div>
+
 </ng-template>
 
 

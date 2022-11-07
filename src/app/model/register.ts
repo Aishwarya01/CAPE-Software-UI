@@ -1,6 +1,8 @@
 export class Register {
     siteName!: String;
     registerId!: number;
+    clientName!: String;
+    projectName!: String;
     name!: String;
     companyName!: String;
     username!: String;
@@ -27,4 +29,24 @@ export class Register {
     assignedBy!: String;
     noOfLicence!: number;
     userType!: String;
+    
+    license!:License[];
+}
+
+export class License{
+    noOfLVLicence!: String;
+    siteName!: String;
+    lvStatus!: String;
+    noOfLPSLVLicence!: String;
+    lpsclientName!: String;
+    lpsProjectName!: String;
+    lpsStatus!: String;
+    noOfEMCLVLicence!: String;
+    emcClientName!: String;
+    emcStatus!: String;
+    noOfRISKLVLicence!: String;
+    riskStatus!: String;
+    organisationName!: String;
+    projectName!: String;
+    viewerRegister!: String;
 }
