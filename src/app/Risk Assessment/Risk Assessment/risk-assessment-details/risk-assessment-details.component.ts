@@ -2259,7 +2259,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     }
     else{
       this.blurMode=true;
-      this.blurMsg="Your PDF will be generating, Please wait a while";
+      this.blurMsg="Your PDF is getting generated, Please wait a while";
       this.riskfinalpdfService.printPDF(this.riskAssessmentDetails.riskId,this.riskAssessmentDetails.userName,this.projectName).subscribe(
         data =>{
           // Popup msg
