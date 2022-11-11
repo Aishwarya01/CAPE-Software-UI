@@ -110,6 +110,7 @@ export class LicenselistComponent implements OnInit {
   lpsData: boolean=false;
   lvData: boolean=false;
   value1: boolean=false;
+  onSubmitSite1 = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder,
               private dialog: MatDialog,
@@ -219,7 +220,6 @@ export class LicenselistComponent implements OnInit {
   
  
   editSite(siteId:any,userName:any,site:any,departmentName:any,companyName:any){
-    debugger
     this.service.allStepsCompleted=true;
     this.service.disableSubmitSummary=false;
     this.service.allFieldsDisable = false;
@@ -251,7 +251,6 @@ export class LicenselistComponent implements OnInit {
   }
 
   editLpsData(basicLpsId:any){
-    debugger
     if(this.lpsData){
       this.lpsGlobal.disableSubmitSummary=false;
       this.service.allFieldsDisable = false;
@@ -362,6 +361,7 @@ export class LicenselistComponent implements OnInit {
     }
       );
   }
+
   navigateToSite() {
     // this.viewContainerRef.clear();
     // this.destroy = true;
@@ -369,10 +369,17 @@ export class LicenselistComponent implements OnInit {
     // const verificationRef = this.viewContainerRef.createComponent(verificationFactory);
     // //const verification=this.verification.changeTab(1,siteId,userName,'clientName','departmentName',site);
     // verificationRef.changeDetectorRef.detectChanges();
-    this.viewContainerRef.clear();
-    this.destroy= true;
-    this.value = true;
-
+    if(this.lvData){
+      this.viewContainerRef.clear();
+      this.destroy= true;
+      this.value = true;
+    }
+    else if(this.lpsData){
+      this.viewContainerRef.clear();
+      this.dialog.closeAll();
+      this.destroy= true;
+      this.value1 = true;
+    }
   }
   
   decreaseLicense() {

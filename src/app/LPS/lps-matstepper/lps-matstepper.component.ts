@@ -88,6 +88,7 @@ export class LpsMatstepperComponent implements OnInit {
   @ViewChild(LpsSavedReportComponent)saved!: LpsSavedReportComponent;
   @ViewChild(LpsFinalReportComponent)final!: LpsFinalReportComponent;
   @ViewChild('tabs') tabs!: MatTabGroup;
+  onSubmitSite1 = new EventEmitter();
 
   isEditable:boolean=false;
 

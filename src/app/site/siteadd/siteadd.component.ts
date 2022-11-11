@@ -51,8 +51,6 @@ export class SiteaddComponent implements OnInit {
   validationError: boolean = false;
   validationErrorMsg: String = "";
   onSubmitSite = new EventEmitter();
-
-
   @Input()
   data: any = [];
   errorArr: any=[];

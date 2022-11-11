@@ -481,7 +481,6 @@ SignatureDesigner1(){
   }
 //for company site detail continue
   changeTab(index: number, sitedId: any, userName: any, clientName: any, departmentName: any, site: any): void {
-    debugger
     this.siteDetails1 = true;
     this.siteDetails = false;
     this.clearSiteValidator();

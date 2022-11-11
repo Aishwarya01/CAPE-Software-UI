@@ -39,7 +39,8 @@
               <ng-container *ngIf="lvData">
                 <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                     <mat-expansion-panel-header>
-                      <mat-panel-title>
+                      <!-- Lv Systems -->
+                      <mat-panel-title *ngIf="lvData">
                         <h3>Ongoing Site</h3>
                       </mat-panel-title>
                     </mat-expansion-panel-header>
@@ -251,8 +252,9 @@
               <ng-container *ngIf="lpsData">
                 <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                     <mat-expansion-panel-header>
-                      <mat-panel-title>
-                        <h3>Ongoing Site</h3>
+                      <!-- LPS -->
+                      <mat-panel-title *ngIf="lpsData">
+                        <h3>Ongoing LPS License Details</h3>
                       </mat-panel-title>
                     </mat-expansion-panel-header>
                     <div>

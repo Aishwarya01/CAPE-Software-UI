@@ -1,8 +1,8 @@
 export class Register {
     siteName!: String;
     registerId!: number;
-    clientName!: String;
-    projectName!: String;
+    clientName!: string;
+    projectName!: string;
     name!: String;
     companyName!: String;
     username!: String;
