@@ -127,6 +127,8 @@ import { ACBComponent } from './SLD/SLD components/Node Components/acb/acb.compo
 import { EquipotentialBondingComponent } from './SLD/SLD components/Node Components/equipotential-bonding/equipotential-bonding.component';
 import { ProtectiveEarthConductorComponent } from './SLD/SLD components/Node Components/protective-earth-conductor/protective-earth-conductor.component';
 import { TestingDialogBoxComponent } from './testing-dialog-box/testing-dialog-box.component';
+import { MatCarouselModule } from 'ng-mat-carousel';
+import { BuyMeterComponent } from './buy-meter/buy-meter.component';
 
 @NgModule({
   declarations: [
@@ -217,9 +219,11 @@ import { TestingDialogBoxComponent } from './testing-dialog-box/testing-dialog-b
     ACBComponent,
     EquipotentialBondingComponent,
     ProtectiveEarthConductorComponent,
-    TestingDialogBoxComponent
+    TestingDialogBoxComponent,
+    BuyMeterComponent
   ],
   imports: [
+    MatCarouselModule.forRoot(),
     SignaturePadModule,
     TruncateModule,
     NgbTooltipModule,

@@ -8,10 +8,10 @@
         <app-verificationlv *ngIf=false></app-verificationlv> -->
     </div>
     <div *ngIf="!destroy" style="padding: 20px; background: white;">
-    <button style="float: right;" type="submit"
-        class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+    <button style="float: right;background-color: #0f800c;color: white;" type="submit"
+        class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn"
         (click)="onNavigateToQuestionaire()" [disabled]="displayIconsBasedOnEmail()">Skip</button>
-    <button style="float: right;" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" 
+    <button style="float: right;background-color: #0f800c;color: white;" class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn" 
          printSectionId="printdiv" ngxPrint [disabled]="displayIconsBasedOnEmail()">Print</button>
     <h2>Testing, Inspection and Certification of Electrical installation to safety and reliability.</h2>
         <p>This safety audit (Testing Inspection & Certification) is based on IEC 60364-6.</p>
@@ -90,8 +90,8 @@
                 accidents from electricity.
             </p>
         </div> 
-        <button style="float: right;" type="submit"
-        class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn-continue"
+        <button style="float: right;background-color: #0f800c;color: white;" type="submit"
+        class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn-continue"
         (click)="onNavigateToQuestionaire()"[disabled]="displayIconsBasedOnEmail()">Continue
     </button>
     </div>
