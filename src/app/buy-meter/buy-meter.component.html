@@ -16,253 +16,67 @@
                 <h3>Meters:</h3>
               </mat-panel-title>
            </mat-expansion-panel-header>
-            <div class="row">
-              <div class="col-12">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th scope="col">S.No.</th>
-                      <th scope="col">Model No.</th>
-                      <th scope="col">Index No.</th>
-                      <th scope="col"></th>
-                      <th scope="col">Product</th>
-                      <th scope="col"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let item of meterData; let i= index">
-                      <th scope="row" style="vertical-align: middle;">{{i+1}}</th>
-                      <td>{{ item.model }}</td>
-                      <td>{{ item.index }}</td>
-                      <td>
-                        <button type="button" class="btn btn-info" title="₹{{ item.price }}">Price</button>
-                      </td>
-                      <td><img src="{{ item.image }}" height="80" width="100"/></td>
-                      <td>
-                        <button type="button" class="btn btn-info" (click)="compareProd(contentCompare,item)">Compare Products</button>
-                      </td>
-                    </tr>
-                    <!-- <tr>
-                      <th scope="row" style="vertical-align: middle;">2</th>
-                      <td>MZC-304 S.C. Loop Impedance Meter</td>
-                      <td>WMGBMZC304</td>
-                      <td>
-                        <button type="button" class="btn btn-info" title="₹89906">Price</button>
-                      </td>
-                      <td><img src="assets/img/Original-green.png" height="50" width="100"/></td>
-                      <td>
-                        <button type="button" class="btn btn-info" (click)="compareProd(contentCompare)">Compare Products</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row" style="vertical-align: middle;">3</th>
-                      <td>MZC-306 S.C. Loop Impedance Meter</td>
-                      <td>WMGBMZC306</td>
-                      <td>
-                        <button type="button" class="btn btn-info" title="₹255413">Price</button>
-                      </td>
-                      <td><img src="assets/img/Original-green.png" height="50" width="100"/></td>
-                      <td>
-                        <button type="button" class="btn btn-info" (click)="compareProd(contentCompare)">Compare Products</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row" style="vertical-align: middle;">4</th>
-                      <td>MZC-310S S.C. Loop Impedance Meter</td>
-                      <td>WMGBMZC310</td>
-                      <td>
-                        <button type="button" class="btn btn-info" title="₹315919">Price</button>
-                      </td>
-                      <td><img src="assets/img/Original-green.png" height="50" width="100"/></td>
-                      <td>
-                        <button type="button" class="btn btn-info" (click)="compareProd(contentCompare)">Compare Products</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row" style="vertical-align: middle;">5</th>
-                      <td>MZC-320S S.C. Loop Impedance Meter</td>
-                      <td>WMGBMZC320</td>
-                      <td>
-                        <button type="button" class="btn btn-info" title="₹381413">Price</button>
-                      </td>
-                      <td><img src="assets/img/Original-green.png" height="50" width="100"/></td>
-                      <td>
-                        <button type="button" class="btn btn-info" (click)="compareProd(contentCompare)">Compare Products</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row" style="vertical-align: middle;">6</th>
-                      <td>MZC-330S Short Circuit Loop Impedance Meter</td>
-                      <td>WMGBMZC330</td>
-                      <td>
-                        <button type="button" class="btn btn-info" title="₹578550">Price</button>
-                      </td>
-                      <td><img src="assets/img/Original-green.png" height="50" width="100"/></td>
-                      <td>
-                        <button type="button" class="btn btn-info" (click)="compareProd(contentCompare)">Compare Products</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row" style="vertical-align: middle;">7</th>
-                      <td>MRP-201 RCD Tester</td>
-                      <td>WMGBMRP201</td>
-                      <td>
-                        <button type="button" class="btn btn-info" title="₹98175">Price</button>
-                      </td>
-                      <td><img src="assets/img/Original-green.png" height="50" width="100"/></td>
-                      <td>
-                        <button type="button" class="btn btn-info" (click)="compareProd(contentCompare)">Compare Products</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row" style="vertical-align: middle;">8</th>
-                      <td>MPI-502 Multi-function Meter</td>
-                      <td>WMGBMPI502</td>
-                      <td>
-                        <button type="button" class="btn btn-info" title="₹111300">Price</button>
-                      </td>
-                      <td><img src="assets/img/Original-green.png" height="50" width="100"/></td>
-                      <td>
-                        <button type="button" class="btn btn-info" (click)="compareProd(contentCompare)">Compare Products</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row" style="vertical-align: middle;">9</th>
-                      <td>MPI-506 Multi-function Meter</td>
-                      <td>WMGBMPI506</td>
-                      <td>
-                        <button type="button" class="btn btn-info" title="₹124425">Price</button>
-                      </td>
-                      <td><img src="assets/img/Original-green.png" height="50" width="100"/></td>
-                      <td>
-                        <button type="button" class="btn btn-info" (click)="compareProd(contentCompare)">Compare Products</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row" style="vertical-align: middle;">10</th>
-                      <td>MPI-507Multi-function Meter</td>
-                      <td>WMGBMPI507</td>
-                      <td>
-                        <button type="button" class="btn btn-info" title="₹168525">Price</button>
-                      </td>
-                      <td><img src="assets/img/Original-green.png" height="50" width="100"/></td>
-                      <td>
-                        <button type="button" class="btn btn-info" (click)="compareProd(contentCompare)">Compare Products</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row" style="vertical-align: middle;">11</th>
-                      <td>MPI-520 Multi-function Meter</td>
-                      <td>WMGBMPI520</td>
-                      <td>
-                        <button type="button" class="btn btn-info" title="₹255281">Price</button>
-                      </td>
-                      <td><img src="assets/img/Original-green.png" height="50" width="100"/></td>
-                      <td>
-                        <button type="button" class="btn btn-info" (click)="compareProd(contentCompare)">Compare Products</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row" style="vertical-align: middle;">12</th>
-                      <td>MPI-525 Multi-function</td>
-                      <td>WMGBMPI525</td>
-                      <td>
-                        <button type="button" class="btn btn-info" title="₹284813">Price</button>
-                      </td>
-                      <td><img src="assets/img/Original-green.png" height="50" width="100"/></td>
-                      <td>
-                        <button type="button" class="btn btn-info" (click)="compareProd(contentCompare)">Compare Products</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row" style="vertical-align: middle;">13</th>
-                      <td>MPI-530 Multi-function Meter</td>
-                      <td>WMGBMPI530</td>
-                      <td>
-                        <button type="button" class="btn btn-info" title="₹312900">Price</button>
-                      </td>
-                      <td><img src="assets/img/Original-green.png" height="50" width="100"/></td>
-                      <td>
-                        <button type="button" class="btn btn-info" (click)="compareProd(contentCompare)">Compare Products</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row" style="vertical-align: middle;">14</th>
-                      <td>MPI-530-IT Multi-function Meter</td>
-                      <td>WMGBMPI530IT</td>
-                      <td>
-                        <button type="button" class="btn btn-info" title="₹334294">Price</button>
-                      </td>
-                      <td><img src="assets/img/Original-green.png" height="50" width="100"/></td>
-                      <td>
-                        <button type="button" class="btn btn-info" (click)="compareProd(contentCompare)">Compare Products</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row" style="vertical-align: middle;">15</th>
-                      <td>MPI-535 Multi-function Meter</td>
-                      <td>WMGBMPI535</td>
-                      <td>
-                        <button type="button" class="btn btn-info" title="₹366056">Price</button>
-                      </td>
-                      <td><img src="assets/img/Original-green.png" height="50" width="100"/></td>
-                      <td>
-                        <button type="button" class="btn btn-info" (click)="compareProd(contentCompare)">Compare Products</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row" style="vertical-align: middle;">16</th>
-                      <td>MPI-540 Multi-function Meter without clamps F-3A</td>
-                      <td>WMGBMPI540NC</td>
-                      <td>
-                        <button type="button" class="btn btn-info" title="₹373538">Price</button>
-                      </td>
-                      <td><img src="assets/img/Original-green.png" height="50" width="100"/></td>
-                      <td>
-                        <button type="button" class="btn btn-info" (click)="compareProd(contentCompare)">Compare Products</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row" style="vertical-align: middle;">17</th>
-                      <td>MPI-540 Multi-function Meter</td>
-                      <td>WMGBMPI540</td>
-                      <td>
-                        <button type="button" class="btn btn-info" title="₹583669">Price</button>
-                      </td>
-                      <td><img src="assets/img/Original-green.png" height="50" width="100"/></td>
-                      <td>
-                        <button type="button" class="btn btn-info" (click)="compareProd(contentCompare)">Compare Products</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row" style="vertical-align: middle;">18</th>
-                      <td>MPI-540 PV Multi-function Meter</td>
-                      <td>WMGBMPI540PV</td>
-                      <td>
-                        <button type="button" class="btn btn-info" title="₹653494">Price</button>
-                      </td>
-                      <td><img src="assets/img/Original-green.png" height="50" width="100"/></td>
-                      <td>
-                        <button type="button" class="btn btn-info" (click)="compareProd(contentCompare)">Compare Products</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row" style="vertical-align: middle;">19</th>
-                      <td>EVSE-01 Adapter for testing vehicle charging stations</td>
-                      <td>WMGBEVSE01</td>
-                      <td>
-                        <button type="button" class="btn btn-info" title="₹123375">Price</button>
-                      </td>
-                      <td><img src="assets/img/Original-green.png" height="50" width="100"/></td>
-                      <td>
-                        <button type="button" class="btn btn-info" (click)="compareProd(contentCompare)">Compare Products</button>
-                      </td>
-                    </tr> -->
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> 
+           <table mat-table [dataSource]="meter_dataSource" class="mat-elevation-z8 table" matSort
+           #meterSort="matSort">
+
+           <!--- Note that these columns can be defined in any order.
+                       The actual rendered columns are set as a property on the row definition" -->
+
+           <!-- Position Column -->
+           <ng-container matColumnDef="position">
+             <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
+               mat-sort-header> S.No. </th>
+             <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element"
+               class="mousechange"> {{element.position}} </td>
+           </ng-container>
+
+           <!-- Name Column -->
+           <ng-container matColumnDef="model">
+             <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
+               mat-sort-header> Model No. </th>
+             <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
+               {{element.model}} </td>
+           </ng-container>
+
+           <!-- Weight Column -->
+           <ng-container matColumnDef="index">
+             <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
+               mat-sort-header> Index No. </th>
+             <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
+               {{element.index}} </td>
+           </ng-container>
+
+           <!-- Symbol Column -->
+           <ng-container matColumnDef="price">
+             <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
+               mat-sort-header></th>
+             <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
+              <button type="button" class="btn btn-info" title="₹{{element.price}}">Price</button> </td>
+           </ng-container>
+
+           <!-- Symbol Column -->
+           <ng-container matColumnDef="image">
+             <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
+               mat-sort-header> Product </th>
+             <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
+              <img src="{{element.image}}" height="80" width="100"/>  </td>
+           </ng-container>
+
+           <ng-container matColumnDef="action">
+               <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef> 
+               </th>
+               <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
+                <button type="button" class="btn btn-info" (click)="compareProd(contentCompare,element)">Compare Products</button>
+               </td>
+             </ng-container>
+
+           <tr mat-header-row *matHeaderRowDef="meterColumns"></tr>
+           <tr mat-row *matRowDef="let row; columns: meterColumns;"
+             [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (mouseover)="row.hovered = true"
+             (mouseout)="row.hovered = false"></tr>
+
+         </table>
+         <mat-paginator #meterPaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 
           </mat-expansion-panel>
   </mat-accordion>
