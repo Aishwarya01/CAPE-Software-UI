@@ -238,98 +238,103 @@ export class LpsMatstepperComponent implements OnInit {
       this.summary = true;
     }, 50);
 
-    setTimeout(() => {
-      this.basicLpsService.retrieveFinalLps(userName, basicLpsId).subscribe(
-        (data) => {
-          this.final.finalReportSpinner = false;
-          this.final.finalReportBody = true;
-          this.dataJSON = JSON.parse(data);
-          
-          if (this.dataJSON.basicLps != null
-            && this.dataJSON.airTermination != null
-            && this.dataJSON.downConductorDesc != null
-            && this.dataJSON.earthingReport != null && this.dataJSON.spdReport != null
-            && this.dataJSON.seperationDistanceReport != null && this.dataJSON.earthStudReport != null
-            && this.dataJSON.summaryLps != null) {
-            this.service.allFieldsDisable = true;
-            this.service.disableSubmitSummary = true;
-          }
-          //basic
-          if (this.dataJSON.basicLps != null) {
-            this.selectedIndex = index;
-            this.basic.retrieveDetailsfromSavedReports(basicLpsId, this.dataJSON);
-            this.airTermination.appendBasicLpsId(basicLpsId);  
-            this.initializeLpsId();
-             
-          }
-
-          //airTermination
-          if (this.dataJSON.airTermination != null) {
-            this.airTermination.retrieveDetailsfromSavedReports(userName, basicLpsId, this.dataJSON);
-
-            //downConductor
-            this.downConductors.updateMethod();
-
-            //earthing
-            if (this.dataJSON.earthingReport != null) {
-              this.earthing.retrieveDetailsfromSavedReports(basicLpsId, this.dataJSON);
-              this.Completed4 = true;
+    if(basicLpsId!=null && basicLpsId!=""){
+      setTimeout(() => {
+        this.basicLpsService.retrieveFinalLps(userName, basicLpsId).subscribe(
+          (data) => {
+            this.final.finalReportSpinner = false;
+            this.final.finalReportBody = true;
+            this.dataJSON = JSON.parse(data);
+            
+            if (this.dataJSON.basicLps != null
+              && this.dataJSON.airTermination != null
+              && this.dataJSON.downConductorDesc != null
+              && this.dataJSON.earthingReport != null && this.dataJSON.spdReport != null
+              && this.dataJSON.seperationDistanceReport != null && this.dataJSON.earthStudReport != null
+              && this.dataJSON.summaryLps != null) {
+              this.service.allFieldsDisable = true;
+              this.service.disableSubmitSummary = true;
             }
-            else {
-              this.earthing.createEarthingForm(this.dataJSON.airTermination);
+            //basic
+            if (this.dataJSON.basicLps != null) {
+              this.selectedIndex = index;
+              this.basic.retrieveDetailsfromSavedReports(basicLpsId, this.dataJSON);
+              this.airTermination.appendBasicLpsId(basicLpsId);  
+              this.initializeLpsId();
+               
             }
-
-            //spdReport
-            if (this.dataJSON.spdReport != null) {
-              this.spd.retrieveDetailsfromSavedReports(this.dataJSON);
-              this.Completed5 = true;
-            }
-            else {
-              this.spd.createSpdForm(this.dataJSON.airTermination);
-            }
-
-            //seperationDistance
-            if (this.dataJSON.seperationDistanceReport != null) {
-              this.seperationDistance.retrieveDetailsfromSavedReports(this.dataJSON);
-              this.Completed6 = true;
-            }
-            else {
-              this.seperationDistance.createSeperationForm(this.dataJSON.airTermination);
-            }
-
-            //Equipotential Bonding
-            if (this.dataJSON.earthStudReport != null) {
-              this.earthStud.retrieveDetailsfromSavedReports(this.dataJSON);
-              this.Completed7 = true;
-            }
-            else {
-              this.earthStud.createearthStudForm(this.dataJSON.airTermination);
-            }
-             //summary
-            // this.lpsSummary.spinner1 = true;
-            // this.lpsSummary.spinnerValue = "Please wait, the details are loading!";
-            if (this.dataJSON.summaryLps == null) {
-              setTimeout(() => {
-                this.lpsSummary.ngOnInit();
+  
+            //airTermination
+            if (this.dataJSON.airTermination != null) {
+              this.airTermination.retrieveDetailsfromSavedReports(userName, basicLpsId, this.dataJSON);
+  
+              //downConductor
+              this.downConductors.updateMethod();
+  
+              //earthing
+              if (this.dataJSON.earthingReport != null) {
+                this.earthing.retrieveDetailsfromSavedReports(basicLpsId, this.dataJSON);
+                this.Completed4 = true;
+              }
+              else {
+                this.earthing.createEarthingForm(this.dataJSON.airTermination);
+              }
+  
+              //spdReport
+              if (this.dataJSON.spdReport != null) {
+                this.spd.retrieveDetailsfromSavedReports(this.dataJSON);
+                this.Completed5 = true;
+              }
+              else {
+                this.spd.createSpdForm(this.dataJSON.airTermination);
+              }
+  
+              //seperationDistance
+              if (this.dataJSON.seperationDistanceReport != null) {
+                this.seperationDistance.retrieveDetailsfromSavedReports(this.dataJSON);
+                this.Completed6 = true;
+              }
+              else {
+                this.seperationDistance.createSeperationForm(this.dataJSON.airTermination);
+              }
+  
+              //Equipotential Bonding
+              if (this.dataJSON.earthStudReport != null) {
+                this.earthStud.retrieveDetailsfromSavedReports(this.dataJSON);
+                this.Completed7 = true;
+              }
+              else {
+                this.earthStud.createearthStudForm(this.dataJSON.airTermination);
+              }
+               //summary
+              // this.lpsSummary.spinner1 = true;
+              // this.lpsSummary.spinnerValue = "Please wait, the details are loading!";
+              if (this.dataJSON.summaryLps == null) {
                 setTimeout(() => {
-                this.activateSummarySpinner();
-              }, 1000);
-           }, 1000);
-            }
-            else {
-              setTimeout(() => {
-                this.lpsSummary.retrieveDetailsfromSavedReports(userName, basicLpsId, this.dataJSON);
-                this.activateSummarySpinner();
-              }, 5000);
-            }
-          }  
-       },
-        (error) => {
-
-        }
-      )
-    }, 3000);
-   
+                  this.lpsSummary.ngOnInit();
+                  setTimeout(() => {
+                  this.activateSummarySpinner();
+                }, 1000);
+             }, 1000);
+              }
+              else {
+                setTimeout(() => {
+                  this.lpsSummary.retrieveDetailsfromSavedReports(userName, basicLpsId, this.dataJSON);
+                  this.activateSummarySpinner();
+                }, 5000);
+              }
+            }  
+         },
+          (error) => {
+  
+          }
+        )
+      }, 3000);
+    }
+    else if(this.basic!=undefined){
+      // this.changeTabLpsSavedReport(0,basicLpsId,this.router.snapshot.paramMap.get('email') || '{}');
+      this.selectedIndex = 0;
+    }
   }
 
   // Final Report 
@@ -339,10 +344,9 @@ export class LpsMatstepperComponent implements OnInit {
    // this.doSomething1(false);
     this.changeTabLpsSavedReport(index,this.earthStud.basicLpsId,userName);
     this.selectedIndex = index;
-    
   }
+
   refresh() {
-    
     this.ChangeDetectorRef.detectChanges();
   }
 

@@ -218,7 +218,6 @@ export class LicenselistComponent implements OnInit {
     }
   }
   
- 
   editSite(siteId:any,userName:any,site:any,departmentName:any,companyName:any){
     this.service.allStepsCompleted=true;
     this.service.disableSubmitSummary=false;
@@ -229,7 +228,6 @@ export class LicenselistComponent implements OnInit {
       disableClose: true,
     });
     dialogRef.componentInstance.editModal = true;
-    dialogRef.componentInstance.viewModal = false;
     dialogRef.componentInstance.triggerModal = false;
     dialogRef.componentInstance.linkModal = false;
     dialogRef.componentInstance.summaryModal = false;
@@ -259,8 +257,10 @@ export class LicenselistComponent implements OnInit {
         maxHeight: '90vh',
         disableClose: true,
       });
-      dialogRef.componentInstance.editModal = true;
-      dialogRef.componentInstance.viewModal1 = false;
+      if(this.service.triggerMsgForLicense=='lpsPage'){
+        dialogRef.componentInstance.viewModal1 = true;
+        dialogRef.componentInstance.viewModal=false;
+      }
       dialogRef.componentInstance.triggerModal = false;
       if(this.lpsData){
         dialogRef.componentInstance.confirmBox.subscribe(data=>{
@@ -291,7 +291,6 @@ export class LicenselistComponent implements OnInit {
       maxHeight: '90vh',
       disableClose: true,
     });
-    dialogRef.componentInstance.editModal = false;
     dialogRef.componentInstance.viewModal = true;
     dialogRef.componentInstance.triggerModal = false;
     dialogRef.componentInstance.linkModal = false;
@@ -431,8 +430,5 @@ export class LicenselistComponent implements OnInit {
     }
   }
 
-}
-function input() {
-  throw new Error('Function not implemented.');
 }
 

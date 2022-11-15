@@ -29,8 +29,8 @@ export class LPSBasicDetailsService {
     return this.http.get<BasicDetails>(this.apiUrl + '/retrieveListOfBasicLps' + '/' + userName , { responseType: 'text' as 'json' })
   }
 
-  public retrieveAllBasicLps(): Observable<any> { 
-    return this.http.get<BasicDetails>(this.apiUrl + '/retrieveAllBasicLps' , { responseType: 'text' as 'json' })
+  public retrieveAllBasicLps(userName:any): Observable<any> { 
+    return this.http.get<BasicDetails>(this.apiUrl + '/retrieveAllBasicLps' + '/' + userName , { responseType: 'text' as 'json' })
   }
   
   public retrieveFinalLps(userName: String,basicLpsId: any): Observable<any> {

@@ -61,6 +61,7 @@ export class LpsSavedReportComponent implements OnInit {
  
  @ViewChild('input') input!: MatInput;
  lpsData: any=[];
+ license: any=[];
 completedFilterData: any=[];
   filteredData: any = [];
   superAdminArr: any = [];
@@ -127,7 +128,7 @@ completedFilterData: any=[];
     }
 
     if(this.superAdminFlag) {
-      this.lpsService.retrieveAllBasicLps().subscribe(
+      this.lpsService.retrieveAllBasicLps(this.email).subscribe(
         data => {
           this.lpsData=JSON.parse(data);
           for(let i of this.lpsData){
@@ -144,7 +145,7 @@ completedFilterData: any=[];
 
         this.superAdminFlag = false;
     }
-    // else {
+    else {
       this.lpsService.retrieveListOfBasicLps(this.email).subscribe(
         data => {
           this.lpsData=JSON.parse(data);
@@ -158,8 +159,9 @@ completedFilterData: any=[];
           this.lpsData = [];
           this.savedReportLps_dataSource.paginator = this.savedReportLpsPaginator;
           this.savedReportLps_dataSource.sort = this.savedReportLpsSort;
+
         });
-    // }
+    }
       
   }
 

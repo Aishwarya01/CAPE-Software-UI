@@ -122,8 +122,8 @@ export class LpsBasicPageComponent implements OnInit {
 
   allBasicForm() {
     return this.formBuilder.group({
-      clientName: new FormControl(this.service.viewerData.clientName, Validators.required),
-      projectName:new FormControl(this.service.viewerData.projectName, Validators.required),
+      clientName: new FormControl('', Validators.required),
+      projectName:new FormControl('', Validators.required),
       pmcName:new FormControl(''),
       consultantName:new FormControl(''),
       contractorName:new FormControl(''),
@@ -135,8 +135,8 @@ export class LpsBasicPageComponent implements OnInit {
       // name:new FormControl('', Validators.required),
       // company:new FormControl('', Validators.required),
       // designation:new FormControl('', Validators.required),
-      contactNumber:new FormControl(this.service.viewerData.contactNumber),
-      mailId:new FormControl(this.service.viewerData.username, [Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+      contactNumber:new FormControl(''),
+      mailId:new FormControl('', [Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       availabilityOfPreviousReport:new FormControl('', Validators.required),
       // license purpose 
       email1:new FormControl(''),

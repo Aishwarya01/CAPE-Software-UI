@@ -49,4 +49,5 @@ export class License{
     organisationName!: String;
     projectName!: String;
     viewerRegister!: String;
+    project!: String;
 }

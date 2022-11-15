@@ -403,8 +403,6 @@ createGroup(item: any): FormGroup{
     pinCodeErrorMsg: new FormControl(''),
     userType: new FormControl({value: 'Viewer'}),
     terms: new FormControl(''),
-    
-
   });
 }
 
@@ -651,10 +649,12 @@ createNewGroup(item: any): FormGroup{
     // Here we are binding values for license Table
     if(this.globalService.headerMsg=="lvPage"){
       this.license.siteName=this.register.siteName;
+      this.license.project=this.globalService.headerMsg;
     }
     else if(this.globalService.headerMsg=="lpsPage"){
       this.license.lpsclientName=this.register.clientName;
       this.license.lpsProjectName=this.register.projectName;
+      this.license.project=this.globalService.headerMsg;
     }
     this.register.license=[];
     this.register.license.push(this.license);
