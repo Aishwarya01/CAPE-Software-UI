@@ -16,6 +16,7 @@ import { LPSBasicDetailsService } from '../LPS_services/lpsbasic-details.service
 import { LpsBasicPageComponent } from '../LPS/lps-basic-page/lps-basic-page.component';
 import { LpsMatstepperComponent } from '../LPS/lps-matstepper/lps-matstepper.component';
 import { LpsSavedReportComponent } from '../LPS/lps-saved-report/lps-saved-report.component';
+import { BasicDetails } from '../LPS_model/basic-details';
 
 @Component({
   selector: 'app-assign-viewer',
@@ -106,6 +107,7 @@ export class AssignViewerComponent implements OnInit {
   projectNameSuccess: boolean=false;
   projectNameMsg1: string="";
   onSubmitSite1 = new EventEmitter();
+   basic = new BasicDetails();
 
   constructor(private dialog: MatDialog,
               private formBuilder: FormBuilder, private modalService: NgbModal,
@@ -116,7 +118,8 @@ export class AssignViewerComponent implements OnInit {
               private componentFactoryResolver: ComponentFactoryResolver,
               private route: ActivatedRoute,
               private globalService: GlobalsService,
-              private lPSBasicDetailsService: LPSBasicDetailsService
+              private lPSBasicDetailsService: LPSBasicDetailsService,
+              
               ) {
                 this.urlEmail = this.route.snapshot.paramMap.get('email') || '{}';
                 this.pageHeading(this.viewerRegisterForm);
@@ -684,7 +687,18 @@ createNewGroup(item: any): FormGroup{
             this.navigateToSite(this.register);
           }
           else if(this.globalService.triggerMsgForLicense=="lpsPage"){
-            this.navigateToLpsBasivPage(this.register);
+
+            this.basic.clientName = this.register.clientName
+            this.basic.projectName = this.register.projectName
+            this.basic.address= this.register.address
+            this.basic.userName =  this.email;
+            this.basic.mailId = this.register.username;
+            this.lPSBasicDetailsService.saveLPSBasicDetails(this.basic).subscribe(
+              data=> {
+                this.navigateToLpsBasivPage(this.register);
+              });
+           
+
           }
 
 
