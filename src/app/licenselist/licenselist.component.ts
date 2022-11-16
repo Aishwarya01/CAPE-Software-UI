@@ -339,6 +339,7 @@ export class LicenselistComponent implements OnInit {
     this.disable=false;
     this.inspectionService.downloadPDF(siteId,userName, siteName)
   }
+  
   emailPDF(siteId: any,userName: any, siteName: any){
     this.disable=false;
     this.inspectionService.mailPDF(siteId,userName, siteName).subscribe(

@@ -131,7 +131,7 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter address name"
-                            [readonly]="isEditable" formControlName="address" [ngClass]="{ 'is-invalid': submitted && f.get('address')?.errors }"/>
+                            readonly formControlName="address" [ngClass]="{ 'is-invalid': submitted && f.get('address')?.errors }"/>
                             <div *ngIf="submitted && f.get('address')?.errors" class="invalid-feedback">
                                 <div *ngIf="f.get('address')?.errors?.required">Address is required</div>
                         </div>

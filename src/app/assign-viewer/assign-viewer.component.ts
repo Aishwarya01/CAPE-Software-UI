@@ -17,6 +17,7 @@ import { LpsBasicPageComponent } from '../LPS/lps-basic-page/lps-basic-page.comp
 import { LpsMatstepperComponent } from '../LPS/lps-matstepper/lps-matstepper.component';
 import { LpsSavedReportComponent } from '../LPS/lps-saved-report/lps-saved-report.component';
 import { BasicDetails } from '../LPS_model/basic-details';
+import { Site, SitePersons } from '../model/site';
 
 @Component({
   selector: 'app-assign-viewer',
@@ -25,7 +26,9 @@ import { BasicDetails } from '../LPS_model/basic-details';
 })
 export class AssignViewerComponent implements OnInit {
   license = new License();
-
+  site = new Site();
+  sitePerson=new SitePersons();
+  
   assignViewerForm = new FormGroup({
     viewerEmail: new FormControl(''),
   });
@@ -684,21 +687,34 @@ createNewGroup(item: any): FormGroup{
 
           // License Purpose
           if(this.globalService.triggerMsgForLicense=="lvPage"){
-            this.navigateToSite(this.register);
+            this.site.userName = this.email;
+            this.site.assignedTo = this.register.username;
+            this.site.departmentName = this.register.department;
+            this.site.site = this.register.siteName;
+            this.site.companyName = this.register.companyName;
+            this.site.landMark = this.register.companyName;
+            this.site.allStepsCompleted = "Register";
+            this.sitePerson.designation = this.register.designation;
+            this.site.zipCode = this.register.pinCode;
+            this.site.sitePersons.push(this.sitePerson);
+            this.siteService.addSIte(this.site).subscribe(
+              data=> {
+                this.navigateToSite(this.register);
+            })
           }
           else if(this.globalService.triggerMsgForLicense=="lpsPage"){
 
-            this.basic.clientName = this.register.clientName
-            this.basic.projectName = this.register.projectName
-            this.basic.address= this.register.address
+            this.basic.clientName = this.register.clientName;
+            this.basic.projectName = this.register.projectName;
+            this.basic.address= this.register.address;
             this.basic.userName =  this.email;
             this.basic.mailId = this.register.username;
+            this.basic.contactNumber = this.register.contactNumber;
             this.lPSBasicDetailsService.saveLPSBasicDetails(this.basic).subscribe(
               data=> {
+                this.globalService.basicLPSID = JSON.parse(data).basicLpsId;
                 this.navigateToLpsBasivPage(this.register);
               });
-           
-
           }
 
 

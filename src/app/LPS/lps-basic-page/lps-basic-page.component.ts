@@ -102,11 +102,10 @@ export class LpsBasicPageComponent implements OnInit {
 
   
   ngOnInit(): void {
-    // this.lpsBasic.clientName=this.data.clientName;
-    // this.lpsBasic.projectName=this.data.projectName;
-    // this.lpsBasic.clientName=this.service.viewerData.clientName;
-    // this.service.viewerData.projectName;
-    
+    // Here we are retreing data from DB
+    this.basicDetails.basicLpsId=this.service.basicLPSID;
+    this.retriveBasicDetails();
+
     this.countryCode = '91';
     this.LPSBasicForm = this.formBuilder.group({
       lpsBasic: this.formBuilder.array([this.allBasicForm()])

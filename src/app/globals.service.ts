@@ -112,6 +112,7 @@ autoLoginToken:number=0;
    // LPS License page
   triggerMsgForLicense: String="";
   headerMsg: String="";
+  basicLPSID: number=0;
 
  constructor(private _scrollToService: ScrollToService
   ) {}
