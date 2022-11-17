@@ -18,6 +18,7 @@ import { LpsMatstepperComponent } from '../LPS/lps-matstepper/lps-matstepper.com
 import { LpsSavedReportComponent } from '../LPS/lps-saved-report/lps-saved-report.component';
 import { BasicDetails } from '../LPS_model/basic-details';
 import { Site, SitePersons } from '../model/site';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-assign-viewer',
@@ -50,7 +51,8 @@ export class AssignViewerComponent implements OnInit {
     pinCode: new FormControl(''),
     pinCodeErrorMsg: new FormControl(''),
     userType: new FormControl(''),
-    terms: new FormControl('')
+    terms: new FormControl(''),
+    applicationType: new FormControl('')
   });
   modalReference: any;
 
@@ -104,6 +106,7 @@ export class AssignViewerComponent implements OnInit {
   viewerForLps: boolean=false;
   viewerForLV: boolean=false;
   lpsViewerForm!: FormGroup;
+  applicationName: String="";
 
   projectNameMsg: string="";
   projectNameError: boolean=false;
@@ -135,7 +138,6 @@ export class AssignViewerComponent implements OnInit {
         Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
     });
     this.countryCode = '91';
-
     this.viewerRegisterForm = this.formBuilder.group({
       viewerArr: this.formBuilder.array([
         this.createViewer(),
@@ -178,6 +180,7 @@ export class AssignViewerComponent implements OnInit {
     pinCodeErrorMsg: new FormControl(''),
     userType: new FormControl('', Validators.required),
     terms: new FormControl(''),
+    applicationType: new FormControl('')
     })
     
     }
@@ -236,6 +239,14 @@ export class AssignViewerComponent implements OnInit {
         this.state = '';
       }
     this.registerData = [];
+  
+    if(this.globalService.triggerMsgForLicense=='lpsPage'){
+      this.applicationName="LPS Systems";
+    }
+    // LV Page
+    else if(this.globalService.triggerMsgForLicense=='lvPage'){
+      this.applicationName="LV Systems";
+    }
   }
 
   getViewerControls() : AbstractControl[] {
@@ -367,7 +378,6 @@ createGroup(item: any): FormGroup{
   this.register.createdDate = item.createdDate
   this.register.password = item.password
   this.register.role = 'Viewer';
-
   
   this.selectCountry(item.country);
   this.state = this.registerData.state;
@@ -391,6 +401,8 @@ createGroup(item: any): FormGroup{
       this.arr=[];
       this.arr.push(Validators.required);
     }
+
+    
   return this.formBuilder.group({
     name: new FormControl({value: item.name}),
     companyName: new FormControl({value: item.companyName}),
@@ -409,6 +421,7 @@ createGroup(item: any): FormGroup{
     pinCodeErrorMsg: new FormControl(''),
     userType: new FormControl({value: 'Viewer'}),
     terms: new FormControl(''),
+    applicationType: new FormControl('')
   });
 }
 
@@ -431,6 +444,7 @@ createNewGroup(item: any): FormGroup{
     pinCodeErrorMsg: new FormControl(''),
     userType: new FormControl({value: 'Viewer'}),
     terms: new FormControl(''),
+    applicationType: new FormControl('')
   });
 }
 
@@ -656,11 +670,13 @@ createNewGroup(item: any): FormGroup{
     if(this.globalService.headerMsg=="lvPage"){
       this.license.siteName=this.register.siteName;
       this.license.project=this.globalService.headerMsg;
+      this.register.applicationType="LV Systems";
     }
     else if(this.globalService.headerMsg=="lpsPage"){
       this.license.lpsclientName=this.register.clientName;
       this.license.lpsProjectName=this.register.projectName;
       this.license.project=this.globalService.headerMsg;
+      this.register.applicationType="LPS Systems";
     }
     this.register.license=[];
     this.register.license.push(this.license);
@@ -674,7 +690,7 @@ createNewGroup(item: any): FormGroup{
           sessionStorage.setItem("clientName",this.register.clientName);
           sessionStorage.setItem("projectName",this.register.projectName)
           this.successMsgOTP=true;
-          this.successMsg="Viewer has been assigned successfully."
+          this.successMsg="Viewer has been assigned successfully.";
           setTimeout(()=>{
             this.successMsgOTP=false;
             this.successMsg="";
@@ -775,6 +791,8 @@ createNewGroup(item: any): FormGroup{
     this.globalService.licensePageHeaging();
     // LPS Page
     if(this.globalService.triggerMsgForLicense=='lpsPage'){
+      
+      this.applicationName="LPS Systems";
       this.viewerForLps=true;
       this.viewerForLV=false;
       form.controls.clientName.setValidators();
@@ -789,6 +807,8 @@ createNewGroup(item: any): FormGroup{
     }
     // LV Page
     else if(this.globalService.triggerMsgForLicense=='lvPage'){
+      
+      this.applicationName="LV Systems";
       this.viewerForLV=true;
       this.viewerForLps=false;
       // lps

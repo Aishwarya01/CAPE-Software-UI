@@ -130,6 +130,7 @@ autoLoginToken:number=0;
   licensePageHeaging(){
     if(this.headerMsg=="lpsPage"){
       this.triggerMsgForLicense="lpsPage";
+      
     }
     else if(this.headerMsg=="lvPage"){
       this.triggerMsgForLicense="lvPage";
