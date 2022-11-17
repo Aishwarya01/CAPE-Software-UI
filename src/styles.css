@@ -7,7 +7,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-.mat-expansion-panel-header.mat-expanded:focus, .mat-expansion-panel-header.mat-expanded:hover{
+.mat-expansion-panel-header.mat-expanded, .mat-expansion-panel-header.mat-expanded{
     background-color: #5fa05db0 !important;
     /* padding: 20px 23px 0px 23px !important; */
     padding: 35px 20px 15px 15px;

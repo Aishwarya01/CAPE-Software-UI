@@ -1,17 +1,17 @@
 <div class="card">
       <div class="card-body">
-        <div class="row">
+        <!-- <div class="row" *ngIf="service.observe">
           <div class="col-sm-12">
             <a  [ngClass]="{'glow':service.observationGlowTesting}"
             style="margin-top: -10px;margin-bottom: 5px;float: right;text-decoration: underline;">Observations</a>
           </div>
-          </div>
+          </div> -->
        <form>
          <div>
               <div>
           <mat-accordion>
-            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-              <mat-expansion-panel-header>
+            <mat-expansion-panel [expanded]="true">
+              <mat-expansion-panel-header class="disabled-pointer">
                <mat-panel-title>
                 <h3>Meters:</h3>
               </mat-panel-title>
@@ -19,10 +19,6 @@
            <table mat-table [dataSource]="meter_dataSource" class="mat-elevation-z8 table" matSort
            #meterSort="matSort">
 
-           <!--- Note that these columns can be defined in any order.
-                       The actual rendered columns are set as a property on the row definition" -->
-
-           <!-- Position Column -->
            <ng-container matColumnDef="position">
              <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
                mat-sort-header> S.No. </th>
@@ -30,15 +26,14 @@
                class="mousechange"> {{element.position}} </td>
            </ng-container>
 
-           <!-- Name Column -->
            <ng-container matColumnDef="model">
              <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
                mat-sort-header> Model No. </th>
              <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-               {{element.model}} </td>
+               <a href="{{element.pdf}}" title="" style="color: black;">{{element.model}}</a> 
+              </td>
            </ng-container>
 
-           <!-- Weight Column -->
            <ng-container matColumnDef="index">
              <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
                mat-sort-header> Index No. </th>
@@ -46,7 +41,6 @@
                {{element.index}} </td>
            </ng-container>
 
-           <!-- Symbol Column -->
            <ng-container matColumnDef="price">
              <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
                mat-sort-header></th>
@@ -54,7 +48,6 @@
               <button type="button" class="btn btn-info" title="₹{{element.price}}">Price</button> </td>
            </ng-container>
 
-           <!-- Symbol Column -->
            <ng-container matColumnDef="image">
              <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
                mat-sort-header> Product </th>
@@ -93,18 +86,17 @@
   <div class="modal-body">
 
   <select class="form-control" (change)="changeMeter($event)" 
-    style="width: 60%;float: right;">
+    style="width: 32%;float: right;">
     <option  value="0" selected>Select Option</option>
     <option *ngFor="let meter of meterDropdownList" [disabled]="disable(meter)">{{meter}}</option>
   </select>
 
     <!-- <div class="card" style="margin-top: 40px;">
       <div class="card-body"> -->
-        <div class="row" style="margin-top: 60px;">
-          <div class="column col-md-6" style="background-color:#bbb;overflow-x: scroll;
-          height: 500px;">
+        <div class="row" style="margin-top: 60px;overflow-x: scroll;height: 500px;">
+          <div class="column col-md-6" style="background-color:#bbb;">
+          <h4 style="color: #0f800c;font-weight: 600;">{{clickedMeter}}</h4>
           <h2>Specifications</h2>
-            <h4 style="color: #0f800c;font-weight: 600;">{{clickedMeter}}</h4>
             <table class="meterTable" style="width:100%" *ngIf="value=='WMGBMZC20E'">
               <tr>
                  <th>Measurement functions </th>
@@ -2664,7 +2656,7 @@
                  <th>Fault loop ZL-PE , ZL-N, ZL-L</th>
                  <td>0.13 Ω...1999 Ω
                   acc. to IEC 61557 </td>
-                 <td>0.00 Ω...1999 Ω </td>
+                 <td>0.000 Ω...1999 Ω </td>
                  <td>from 0.01 Ω</td>
                  <td>±(5% m.v. + 3 digits)</td>
                </tr>
@@ -2700,8 +2692,8 @@
                </tr>
                 <tr>
                  <th>for sinusoidal residual current (AC type)</th>
-             <td>3.0 mA...1000 mA </td>
-                 <td>3.0 mA...1000 mA </td>
+             <td>3.3 mA...1000 mA </td>
+                 <td>3.3 mA...1000 mA </td>
                  <td>from 0.1 mA</td>
                  <td>±5% IΔn</td>  </tr>
                 <tr>
@@ -2722,11 +2714,35 @@
                </tr>
                 <tr>
                  <th>3-pole method </th>
-             <td>from 0.5 Ω...1.99 kΩ
+             <td>from 0.50 Ω...1.99 kΩ
              acc. to IEC 61557-5</td>
                  <td>0.00 Ω...1.99 kΩ</td>
                  <td>from 0.01 Ω </td>
-                 <td>from ±(2% m.v. + 3 digits)</td>  </tr>
+                 <td>from ±(2% m.v. + 3 digits)</td>  
+                </tr>
+                <tr>
+                  <th>3-pole method + clamp method</th>
+              <td> 0.00 Ω...1.99 kΩ</td>
+                  <td>0.00 Ω...1.99 kΩ</td>
+                  <td>from 0.01 Ω </td>
+                  <td>from ±(2% m.v. + 4 digits)</td>  
+                 </tr>
+                 <tr>
+                  <th>2-clamp method </th>
+              <td> 0.00 Ω...99.9 kΩ</td>
+                  <td>0.00 Ω...99.9 kΩ</td>
+                  <td>from 0.01 Ω </td>
+                  <td>from ±(10% m.v. + 3 digits)</td>  
+                 </tr>
+
+                 <tr>
+                  <th>Resistance-to-earth</th>
+                  <td> 0.0 Ω...99.9 kΩ</td>
+                  <td>0.0 Ω...99.9 kΩ</td>
+                  <td>from 0.01 Ω </td>
+                  <td>Depending of accuracy of Re measurement</td>  
+                 </tr>
+
                 <tr>
                  <th style="border:unset;">Insulation resistance</th>
                </tr>
@@ -2764,7 +2780,7 @@
                  </tr>
                 <tr>
                  <th>Measuring voltage 1000 V </th>
-                 <td>1000 kΩ...3.00 GΩ
+                 <td>1000 kΩ...9.99 GΩ
              acc. to IEC 61557-2 </td>
               <td>0 kΩ...3.00 GΩ</td>
                  <td>from 1 kΩ </td>
@@ -2789,24 +2805,32 @@
                  <td>from 0.1 Ω</td>
                  <td>±(3% m.v. + 3 digits)</td>  </tr>
                 <tr>
+
+                  <tr>
+                    <th style="border:unset;" colspan="4">Light intensity</th>
+                  </tr>
+                   <tr>
+                    <th>Measurement in luxes(lx)</th>
+                <td>0 lx...399.9 klx</td>
+                <td>0 lx...399.9 klx</td>
+                    <td>from 0.001 lx </td>
+                    <td>±(2% m.v. + 5 digits)</td>  
+                  </tr>
+                   <tr>
+                    <th>Measurement in feet-candles(fc)</th>
+                <td>0 fc...39.99 kfc</td>
+                <td>0 fc...39.99 kfc</td>
+                    <td>from 0.001 fc</td>
+                    <td>±(2% m.v. + 5 digits)</td>  
+                  </tr>
+                   <tr>
                  <th>Phase sequence indication</th>
              <td>in the same direction (correct). </td>
                  <td>opposite direction (incorrect). </td>
                  <td>UL-L voltage: 95 V...</td>
-                 <td>500 V (45 Hz...65 Hz)</td>  </tr>
-                <tr>
-                 <th>Power measurement</th>
-                  <td>0.0 VA...200 000 
-                  VA 0.0 W...200 000 W
-                 0.0 var...200 000 var</td>
-                 <td>0.0 VA...200 000 VA
-             0.0 W...200 000 W
-             0.0 var...200 000 var</td>
-                 <td>from 0.1 VA
-             from 0.1 W
-             from 0.1 var</td>
-                 <td>from ±(7% m.v. + 3
-             digits)</td>  </tr>
+                 <td>500 V (45 Hz...65 Hz)</td>  
+                </tr>
+               
              </table>
              <table class="meterTable" style="width:100%" *ngIf="value=='WMGBMPI540PV'">
               <tr>
@@ -3128,8 +3152,7 @@
              </table>
           </div>
           <!-- <div class="verticalLine"></div> -->
-          <div class="column col-md-6" style="background-color:#aaaaaa4d;overflow-x: scroll;
-          height: 500px;">
+          <div class="column col-md-6" style="background-color:#aaaaaa4d;">
            <h2>Specifications</h2>
             <h4 style="color: #0f800c;font-weight: 600;">{{selectedMeter}}</h4>
             <table class="meterTable" style="width:100%" *ngIf="value1=='MZC-20E S.C. Loop Impedance Meter'">

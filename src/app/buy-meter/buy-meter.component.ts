@@ -57,7 +57,7 @@ export class BuyMeterComponent implements OnInit {
   clickedMeter: any;
   value: any;
   clcikeditem: any;
-  panelOpenState = false;
+//  panelOpenState = false;
   total2Ref: any;
   table1: any;
  
@@ -82,29 +82,29 @@ export class BuyMeterComponent implements OnInit {
     'EVSE-01 Adapter for testing vehicle charging stations'
     ];
   meterData: any =[
-    { position: 1, model: 'MZC-20E S.C. Loop Impedance Meter', index: 'WMGBMZC20E', price: '75863', image:'assets/img/mzc20e.png' },
-    { position: 2, model: 'MZC-304 S.C. Loop Impedance Meter', index: 'WMGBMZC304', price: '89906', image:'assets/img/mzc304.png' },
-    { position: 3, model: 'MZC-306 S.C. Loop Impedance Meter', index: 'WMGBMZC306', price: '255413', image:'assets/img/mzc306.png' },
-    { position: 4, model: 'MZC-310S S.C. Loop Impedance Meter', index: 'WMGBMZC310', price: '315919', image:'assets/img/Original-green.png' },
-    { position: 5, model: 'MZC-320S S.C. Loop Impedance Meter', index: 'WMGBMZC320', price: '381413', image:'assets/img/Original-green.png' },
-    { position: 6, model: 'MZC-330S Short Circuit Loop Impedance Meter', index: 'WMGBMZC330', price: '578550', image:'assets/img/Original-green.png' },
-    { position: 7, model: 'MRP-201 RCD Tester', index: 'WMGBMRP201', price: '98175', image:'assets/img/Original-green.png' },
-    { position: 8, model: 'MPI-502 Multi-function Meter', index: 'WMGBMPI502', price: '111300', image:'assets/img/Original-green.png' },
-    { position: 9, model: 'MPI-506 Multi-function Meter', index: 'WMGBMPI506', price: '124425', image:'assets/img/Original-green.png' },
-    { position: 10, model: 'MPI-507Multi-function Meter', index: 'WMGBMPI507', price: '168525', image:'assets/img/Original-green.png' },
-    { position: 11, model: 'MPI-520 Multi-function Meter', index: 'WMGBMPI520', price: '255281', image:'assets/img/Original-green.png' },
-    { position: 12, model: 'MPI-525 Multi-function', index: 'WMGBMPI525', price: '284813', image:'assets/img/Original-green.png' },
-    { position: 13, model: 'MPI-530 Multi-function Meter', index: 'WMGBMPI530', price: '312900', image:'assets/img/Original-green.png' },
-    { position: 14, model: 'MPI-530-IT Multi-function Meter', index: 'WMGBMPI530IT', price: '334294', image:'assets/img/Original-green.png' },
-    { position: 15, model: 'MPI-535 Multi-function Meter', index: 'WMGBMPI535', price: '366056', image:'assets/img/mp535.PNG' },
-    { position: 16, model: 'MPI-540 Multi-function Meter without clamps F-3A', index: 'WMGBMPI540NC', price: '373538', image:'assets/img/mpi540.PNG' },
-    { position: 17, model: 'MPI-540 Multi-function Meter', index: 'WMGBMPI540', price: '583669', image:'assets/img/mpi540.PNG' },
-    { position: 18, model: 'MPI-540 PV Multi-function Meter', index: 'WMGBMPI540PV', price: '653494', image:'assets/img/mpi540.PNG' },
-    { position: 19, model: 'EVSE-01 Adapter for testing vehicle charging stations', index: 'WMGBEVSE01', price: '123375', image:'assets/img/Original-green.png' },
+    { position: 1, model: 'MZC-20E S.C. Loop Impedance Meter', pdf:'assets/documents/MZC20E.pdf',index: 'WMGBMZC20E', price: '75863', image:'assets/img/mzc20e.png' },
+    { position: 2, model: 'MZC-304 S.C. Loop Impedance Meter', pdf:'assets/documents/MZC304.pdf', index: 'WMGBMZC304', price: '89906', image:'assets/img/mzc304.png' },
+    { position: 3, model: 'MZC-306 S.C. Loop Impedance Meter', pdf:'assets/documents/MZC306.pdf', index: 'WMGBMZC306', price: '255413', image:'assets/img/mzc306.png' },
+    { position: 4, model: 'MZC-310S S.C. Loop Impedance Meter', pdf:'assets/documents/MZC.pdf', index: 'WMGBMZC310', price: '315919', image:'assets/img/Original-green.png' },
+    { position: 5, model: 'MZC-320S S.C. Loop Impedance Meter', pdf:'assets/documents/MZC320S.pdf', index: 'WMGBMZC320', price: '381413', image:'assets/img/Original-green.png' },
+    { position: 6, model: 'MZC-330S Short Circuit Loop Impedance Meter', pdf:'assets/documents/MZC.pdf', index: 'WMGBMZC330', price: '578550', image:'assets/img/Original-green.png' },
+    { position: 7, model: 'MRP-201 RCD Tester', pdf:'assets/documents/MP540.pdf', index: 'WMGBMRP201', price: '98175', image:'assets/img/Original-green.png' },
+    { position: 8, model: 'MPI-502 Multi-function Meter', pdf:'assets/documents/MPI.pdf', index: 'WMGBMPI502', price: '111300', image:'assets/img/Original-green.png' },
+    { position: 9, model: 'MPI-506 Multi-function Meter', pdf:'assets/documents/MPI.pdf', index: 'WMGBMPI506', price: '124425', image:'assets/img/Original-green.png' },
+    { position: 10, model: 'MPI-507Multi-function Meter', pdf:'assets/documents/MPI.pdf', index: 'WMGBMPI507', price: '168525', image:'assets/img/Original-green.png' },
+    { position: 11, model: 'MPI-520 Multi-function Meter', pdf:'assets/documents/MPI.pdf', index: 'WMGBMPI520', price: '255281', image:'assets/img/Original-green.png' },
+    { position: 12, model: 'MPI-525 Multi-function', pdf:'assets/documents/MPI.pdf', index: 'WMGBMPI525', price: '284813', image:'assets/img/Original-green.png' },
+    { position: 13, model: 'MPI-530 Multi-function Meter', pdf:'assets/documents/MPI.pdf', index: 'WMGBMPI530', price: '312900', image:'assets/img/Original-green.png' },
+    { position: 14, model: 'MPI-530-IT Multi-function Meter', pdf:'assets/documents/MPI.pdf', index: 'WMGBMPI530IT', price: '334294', image:'assets/img/Original-green.png' },
+    { position: 15, model: 'MPI-535 Multi-function Meter', pdf:'assets/documents/MPI535.pdf', index: 'WMGBMPI535', price: '366056', image:'assets/img/mp535.PNG' },
+    { position: 16, model: 'MPI-540 Multi-function Meter without clamps F-3A', pdf:'assets/documents/MP540.pdf', index: 'WMGBMPI540NC', price: '373538', image:'assets/img/mpi540.PNG' },
+    { position: 17, model: 'MPI-540 Multi-function Meter', pdf:'assets/documents/MP540.pdf', index: 'WMGBMPI540', price: '583669', image:'assets/img/mpi540.PNG' },
+    { position: 18, model: 'MPI-540 PV Multi-function Meter', pdf:'assets/documents/MP540.pdf', index: 'WMGBMPI540PV', price: '653494', image:'assets/img/mpi540.PNG' },
+    { position: 19, model: 'EVSE-01 Adapter for testing vehicle charging stations', pdf:'assets/documents/MP540.pdf', index: 'WMGBEVSE01', price: '123375', image:'assets/img/Original-green.png' },
 ];
   value1: any;
   filteredData: any = [];
-  
+
   constructor(private changeDetectorRef: ChangeDetectorRef,
     public service: GlobalsService,
     private modalService: NgbModal,
@@ -117,11 +117,7 @@ export class BuyMeterComponent implements OnInit {
   ngOnInit(): void {
     this.setPagination();
   } 
-  // ngOnDestroy() {
-  //   if (this.dataSource) { 
-  //     this.dataSource.disconnect(); 
-  //   }
-  // }
+
   setPagination() {
     this.filteredData=this.meterData;
     this.meter_dataSource = new MatTableDataSource(this.filteredData);
