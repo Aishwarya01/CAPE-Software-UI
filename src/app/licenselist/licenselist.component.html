@@ -18,7 +18,7 @@
                         <div class="col-md-3">
                              <div class="form-group"> <!--//aish -->
                                 <label>No of available License:</label>
-                                <input type="text" class="form-control" ([ngModel])="service.noofLicense" formControlName="noOfAvailableLicense" readonly [value]="service.noofLicense">
+                                <input type="text" class="form-control" [(ngModel)]="service.noofLicense" formControlName="noOfAvailableLicense" readonly [value]="service.noofLicense">
                             </div>
                         </div>
     
@@ -122,7 +122,7 @@
 
                 <tr mat-header-row *matHeaderRowDef="ongoingSiteColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: ongoingSiteColumns;" title="Click here to edit Site details" 
-                (click)="editSite(row.siteId,row.userName,row.site,row.departmentName,row.companyName)" style="cursor: pointer;"
+                (click)="editSite(row.siteId,row.userName,row.site,row.departmentName,row.companyName,row.allStepsCompleted,row)" style="cursor: pointer;"
                   [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (mouseover)="row.hovered = true"
                   (mouseout)="row.hovered = false"></tr>
 

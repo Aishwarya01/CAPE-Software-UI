@@ -29,7 +29,8 @@ export class Register {
     assignedBy!: String;
     noOfLicence!: number;
     userType!: String;
-    
+    siteId!: Number;
+    personId!: Number;
     license!:License[];
 }
 

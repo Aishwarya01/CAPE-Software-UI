@@ -19,6 +19,7 @@ import { LpsSavedReportComponent } from '../LPS/lps-saved-report/lps-saved-repor
 import { BasicDetails } from '../LPS_model/basic-details';
 import { Site, SitePersons } from '../model/site';
 import { ThrowStmt } from '@angular/compiler';
+import { LicenselistComponent } from '../licenselist/licenselist.component';
 
 @Component({
   selector: 'app-assign-viewer',
@@ -125,6 +126,7 @@ export class AssignViewerComponent implements OnInit {
               private route: ActivatedRoute,
               private globalService: GlobalsService,
               private lPSBasicDetailsService: LPSBasicDetailsService,
+              public licenseList: LicenselistComponent
               
               ) {
                 this.urlEmail = this.route.snapshot.paramMap.get('email') || '{}';
@@ -712,10 +714,20 @@ createNewGroup(item: any): FormGroup{
             this.site.allStepsCompleted = "Register";
             this.sitePerson.designation = this.register.designation;
             this.site.zipCode = this.register.pinCode;
+
+            this.sitePerson.personIncharge = this.register.name;
+            this.sitePerson.designation = this.register.designation;
+            this.sitePerson.contactNo = this.register.contactNumber;
+            this.sitePerson.personInchargeEmail = this.register.username;
+            this.sitePerson.personId = this.register.personId;
+
+            this.site.sitePersons=[];
             this.site.sitePersons.push(this.sitePerson);
+
             this.siteService.addSIte(this.site).subscribe(
               data=> {
-                this.navigateToSite(this.register);
+                this.licenseList.retrieveSiteDetails();
+                this.navigateToSite(JSON.parse(data));
             })
           }
           else if(this.globalService.triggerMsgForLicense=="lpsPage"){
@@ -732,8 +744,6 @@ createNewGroup(item: any): FormGroup{
                 this.navigateToLpsBasivPage(this.register);
               });
           }
-
-
           // setTimeout(()=>{
           //   this.router.navigate(['/createPassword', {email: this.register.username}])
           // }, 5000);
@@ -768,7 +778,6 @@ createNewGroup(item: any): FormGroup{
 
           // this.onSave.emit(true);
           this.navigateToSite(this.register);
-          
           // setTimeout(()=>{
           //   this.router.navigate(['/createPassword', {email: this.register.username}])
           // }, 5000);

@@ -31,6 +31,6 @@ export class SitePersons {
   contactNo!: String;
   personInchargeEmail!: String;
   inActive: Boolean = true;
-  personId!: number;
+  personId!: Number;
   countryCode!: String;
 }

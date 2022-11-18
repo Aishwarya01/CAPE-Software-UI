@@ -23,6 +23,8 @@ import { SuperAdminProd } from 'src/environments/environment.prod';
 import { LpsMatstepperComponent } from '../LPS/lps-matstepper/lps-matstepper.component';
 import { RiskglobalserviceService } from '../Risk Assessment/riskglobalservice.service';
 import { LpsGlobalserviceService } from '../LPS/lps-globalservice.service';
+import { SiteaddComponent } from '../site/siteadd/siteadd.component';
+import { Register } from '../model/register';
 
 @Component({
   selector: 'app-licenselist',
@@ -111,6 +113,10 @@ export class LicenselistComponent implements OnInit {
   lvData: boolean=false;
   value1: boolean=false;
   onSubmitSite1 = new EventEmitter();
+  onSave = new EventEmitter();
+  @Input()
+
+  site = new Site;
 
   constructor(private formBuilder: FormBuilder,
               private dialog: MatDialog,
@@ -218,34 +224,57 @@ export class LicenselistComponent implements OnInit {
     }
   }
   
-  editSite(siteId:any,userName:any,site:any,departmentName:any,companyName:any){
-    this.service.allStepsCompleted=true;
-    this.service.disableSubmitSummary=false;
-    this.service.allFieldsDisable = false;
-    const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
-      width: '420px',
+  editSite(siteId:any,userName:any,site:any,departmentName:any,companyName:any,allStepsCompleted:any,data:any){
+    if(allStepsCompleted==null && allStepsCompleted==undefined){
+      this.service.allStepsCompleted=true;
+      this.service.disableSubmitSummary=false;
+      this.service.allFieldsDisable = false;
+      const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+        width: '420px',
+        maxHeight: '90vh',
+        disableClose: true,
+      });
+      dialogRef.componentInstance.editModal = true;
+      dialogRef.componentInstance.triggerModal = false;
+      dialogRef.componentInstance.linkModal = false;
+      dialogRef.componentInstance.summaryModal = false;
+      dialogRef.componentInstance.confirmBox.subscribe(data=>{
+        if(data) {
+          this.viewContainerRef.clear();
+          this.destroy = true;
+          this.value=true;
+          this.service.disableFields=false;
+          setTimeout(()=>{
+            this.verification.changeTabSavedReport(0,siteId,userName,companyName,departmentName,site);
+          }, 1000);
+        }
+        else{
+          this.destroy = false;
+          this.value=false;
+        }
+      })
+    }
+    else if(allStepsCompleted=="Register"){
+      this.navigateToSite1(data);
+    }
+  }
+
+  navigateToSite1(data: any) {
+    const dialogRef = this.dialog.open(SiteaddComponent, {
+      width: '1000px',
       maxHeight: '90vh',
       disableClose: true,
     });
-    dialogRef.componentInstance.editModal = true;
-    dialogRef.componentInstance.triggerModal = false;
-    dialogRef.componentInstance.linkModal = false;
-    dialogRef.componentInstance.summaryModal = false;
-    dialogRef.componentInstance.confirmBox.subscribe(data=>{
+    dialogRef.componentInstance.data = data;
+    dialogRef.componentInstance.onSubmitSite.subscribe(data=>{
       if(data) {
-        this.viewContainerRef.clear();
-        this.destroy = true;
-        this.value=true;
-        this.service.disableFields=false;
-        setTimeout(()=>{
-          this.verification.changeTabSavedReport(0,siteId,userName,companyName,departmentName,site);
-        }, 1000);
-      }
-      else{
-        this.destroy = false;
-        this.value=false;
+        this.onSave.emit(true);
+        this.ngOnInit();
+        this.navigateToSite();
       }
     })
+    // dialogRef.afterClosed().subscribe((result) => {
+    // });
   }
 
   editLpsData(basicLpsId:any){
