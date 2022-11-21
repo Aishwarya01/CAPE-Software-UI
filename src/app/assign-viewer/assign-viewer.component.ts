@@ -224,14 +224,18 @@ export class AssignViewerComponent implements OnInit {
 
   populateData() {
     this.viewerRegisterForm.reset();
-      if(this.registerData.siteId != null) {
-      this.demoArr = [];
-      this.viewerRegisterForm.reset();
-      this.demoArr.push(this.createGroup(this.registerData));
-      this.viewerRegisterForm.setControl('viewerArr', this.formBuilder.array(this.demoArr || []))
+      if(this.registerData !=null || this.registerData.siteId != null) {
+      // if( this.registerData.siteId != null) {
+        this.demoArr = [];
+        this.viewerRegisterForm.reset();
+        this.demoArr.push(this.createGroup(this.registerData));
+        this.viewerRegisterForm.setControl('viewerArr', this.formBuilder.array(this.demoArr || []));
       }
       else {
         this.register = new Register;
+        // if(this.registerData !=null){
+        //   this.register = this.registerData;
+        // }
         this.register.username = this.assignViewerForm.value.viewerEmail;
         this.register.role = 'Viewer';
         this.demoArr = [];
@@ -367,7 +371,7 @@ createGroup(item: any): FormGroup{
   this.register.name=item.name;
   this.register.companyName=item.companyName;
   this.register.username=item.username;
-  // this.register.contactNumber = item.contactNumber;
+  this.register.contactNumber = item.contactNumber;
   this.register.department=item.department;
   this.register.designation=item.designation;
   this.register.address=item.address;
@@ -379,6 +383,7 @@ createGroup(item: any): FormGroup{
   this.register.createdBy = item.createdBy
   this.register.createdDate = item.createdDate
   this.register.password = item.password
+  this.register.registerId = item.registerId
   this.register.role = 'Viewer';
   
   this.selectCountry(item.country);
@@ -499,8 +504,7 @@ createNewGroup(item: any): FormGroup{
                   }
                   else{
                     this.success = true;
-                    this.successMsg1 = "Already registered as Viewer for ["+ JSON.parse(data).site +"] site. You have to create new register for further option!"
-                   
+                    this.successMsg1 = "Already registered as Viewer for ["+ JSON.parse(data).site +"] site. You have to create new register for further option!";
                     this.flag = true;
                     return;
                   }
@@ -513,7 +517,6 @@ createNewGroup(item: any): FormGroup{
 
             }
             else if (this.globalService.triggerMsgForLicense == 'lpsPage') {
-             
               this.lPSBasicDetailsService.retriveLpsbasicIsActive(this.assignViewerForm.value.viewerEmail).subscribe(
                 (data) =>{
                   if(JSON.parse(data) == null){
@@ -529,8 +532,7 @@ createNewGroup(item: any): FormGroup{
                   }
                   else{
                     this.success = true;
-                    this.successMsg1 = "Already registered as Viewer . You have to create new register for further option!"
-                   
+                    this.successMsg1 = "Already registered as Viewer . You have to create new register for further option!";
                     this.flag = true;
                     return;
                   }
@@ -567,7 +569,7 @@ createNewGroup(item: any): FormGroup{
           setTimeout(() => {
             this.Error = false;
             this.errorMsg1 = "";
-            if("Email Id doesn't exist!" == JSON.parse(error.error).errorArr.message){
+            if("Email Id doesn't exist!" == JSON.parse(error.error).message){
               setTimeout(() => {
                 this.viewerFlag = true;
                 if (this.viewerFlag) {
@@ -717,7 +719,7 @@ createNewGroup(item: any): FormGroup{
     this.dialog.closeAll();
   }
 
-  onSubmit(flag: any) {
+  onSubmit(flag: any,form:any) {
     this.submitted = true;
     if(this.existSite) {
       return;
@@ -735,21 +737,33 @@ createNewGroup(item: any): FormGroup{
     // Here we are binding values for license Table
     if(this.globalService.headerMsg=="lvPage"){
      // this.license.siteName=this.register.siteName;
-      this.license.project=this.globalService.headerMsg;
+     if(this.register.applicationType==undefined && this.register.applicationType==null){
       this.register.applicationType="LV Systems";
-      this.register.selectedProject = "LV";
+     }
+     else if(this.register.applicationType!=undefined){
+      this.register.applicationType=this.register.applicationType+","+"LV Systems";
+     } 
+     this.license.project=this.globalService.headerMsg;
+     this.register.selectedProject = "LV";
     }
+
+    // Here we are binding the lps application name
     else if(this.globalService.headerMsg=="lpsPage"){
      // this.license.lpsclientName=this.register.clientName;
      // this.license.lpsProjectName=this.register.projectName;
-      this.license.project=this.globalService.headerMsg;
+     if(this.register.applicationType==undefined && this.register.applicationType==null){
       this.register.applicationType="LPS Systems";
-      this.register.selectedProject = "LPS";
+     }
+     else if(this.register.applicationType!=undefined){
+      this.register.applicationType=this.register.applicationType+","+"LPS Systems";
+     }
+     this.license.project=this.globalService.headerMsg;
+     this.register.selectedProject = "LPS";
     }
     //this.register.license=[];
     //this.register.license.push(this.license);
     
-    if(!flag) {
+    if(!flag && this.register.registerId !=null && this.register.registerId !=0) {
       this.contactNumber = "";
       this.contactNumber = "+"+this.countryCode+"-"+this.viewerRegisterForm.controls.viewerArr.value[0].contactNumber;
       this.register.contactNumber = this.contactNumber;
@@ -860,7 +874,7 @@ createNewGroup(item: any): FormGroup{
         }
       )
     }  
-}
+  }
 
   pageHeading(form:any){
     this.globalService.licensePageHeaging();
