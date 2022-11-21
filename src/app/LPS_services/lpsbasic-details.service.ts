@@ -41,6 +41,10 @@ export class LPSBasicDetailsService {
     return this.http.get<any>(this.apiUrl + '/retrieveBasicLps' + '/' +userName+ '/' +basicLpsId, { responseType: 'text' as 'json' })
   }
 
+  public retriveLpsbasicIsActive(userName: String): Observable<any>{
+    return this.http.get<any>(this.apiUrl + '/retrieveBasicLps' + '/' +userName, { responseType: 'text' as 'json' })
+  }
+
   public validateProjectName(clientName: String,projectName: String): Observable<any>{
     return this.http.get<any>(this.apiUrl + '/retrieveProjectName' + '/' +clientName+ '/' +projectName, { responseType: 'text' as 'json' })
   }

@@ -148,17 +148,38 @@ export class LicenselistComponent implements OnInit {
   }
  
   retrieveUserDetail() {
-    this.inspectorService.retrieveInspector(this.email).subscribe(
-      (data) => {
-        this.userData = JSON.parse(data);
-        if(this.userData.role == 'Inspector') {
-          this.service.noofLicense = this.userData.noOfLicence;
+    this.service.noofLicense = 0;
+    //LPS
+    if(this.service.triggerMsgForLicense=='lpsPage'){
+      this.inspectorService.retrieveInspectorLicense(this.email,'LPS').subscribe(
+        (data) => {
+          this.userData = JSON.parse(data);
+          // if(this.userData.role == 'Inspector') {
+            this.service.noofLicense = this.userData.lpsNoOfLicence;
+          // }
+        },
+        (error) => {
+  
         }
-      },
-      (error) => {
+      )
+     }
+    // LV Page
+    else if(this.service.triggerMsgForLicense=='lvPage'){
+      this.inspectorService.retrieveInspectorLicense(this.email,"LV").subscribe(
+        (data) => {
+          this.userData = JSON.parse(data);
+          // if(this.userData.role == 'Inspector') {
+            
+            this.service.noofLicense = this.userData.lvNoOfLicence;
+          // }
+        },
+        (error) => {
+  
+        }
+      )
+    }
 
-      }
-    )
+    
   }
 
   retrieveSiteDetails() {

@@ -126,7 +126,7 @@ export class AssignViewerComponent implements OnInit {
               private route: ActivatedRoute,
               private globalService: GlobalsService,
               private lPSBasicDetailsService: LPSBasicDetailsService,
-              public licenseList: LicenselistComponent
+              // public licenseList: LicenselistComponent
               
               ) {
                 this.urlEmail = this.route.snapshot.paramMap.get('email') || '{}';
@@ -224,7 +224,7 @@ export class AssignViewerComponent implements OnInit {
 
   populateData() {
     this.viewerRegisterForm.reset();
-      if((this.registerData.role == 'ROLE') || (this.registerData.role == 'Viewer')) {
+      if(this.registerData.siteId != null) {
       this.demoArr = [];
       this.viewerRegisterForm.reset();
       this.demoArr.push(this.createGroup(this.registerData));
@@ -459,65 +459,129 @@ createNewGroup(item: any): FormGroup{
   onCancel() {
     this.modalReference.close();
   }
-  continue(contentViewer:any) {
+  continue(contentViewer: any) {
 
     this.existSite = false;
     this.submitted1 = true;
-    if(this.assignViewerForm.invalid) {
+    if (this.assignViewerForm.invalid) {
       return;
     }
-    this.inspectorRegisterService.retrieveInspector(this.assignViewerForm.value.viewerEmail).subscribe(
-      (data) => {
-        this.registerData = JSON.parse(data);
-        this.showAssign = true;
-        this.showRegister = false;
-        
-        if((this.registerData.role == 'ROLE') || (this.registerData.role == 'Viewer')) {
-          this.success = true;
-          this.successMsg1 = "Already registered as Viewer. Please verify the details once!"
-          this.viewerFlag = true;
-          this.flag=true;
-        }
-        else {
-          this.success = true;
-          this.successMsg1 = "Given email is registered as Inspector"
-          this.viewerFlag = false;
-            // this.modalService.dismissAll();
-        }
-        // else{
-        //   this.success = true;
-        //   this.successMsg1 = "Kindly fill in the details to assign viewer!"
-        //   this.modalService.open(contentViewer,{size: 'xl'})
-        // }
-        setTimeout(()=>{
-          this.success = false;
-        this.successMsg1 = ""
-        }, 3000);
-      },
-      (error) => {
-        this.Error = true;
-         let errorArr = [];
-         errorArr = JSON.parse(error.error);
-          this.errorMsg1 = errorArr.message;
-        this.showAssign = false;
-        this.showRegister = true;
-        this.viewerFlag = true;
-        this.flag=false;
-        setTimeout(()=>{
-          this.Error = false;
-          this.errorMsg1 = "";
-        }, 3000);
-      }
-    )
+    // LV Page
+    // else if (this.globalService.triggerMsgForLicense == 'lvPage') {
+    //   this.applicationName = "LV Systems";
+    // }
+    // else if (this.globalService.triggerMsgForLicense == 'lpsPage') {
+    //   this.applicationName = "LPS Systems";
+    // }
+    // else {
+      this.inspectorRegisterService.retrieveInspector(this.assignViewerForm.value.viewerEmail).subscribe(
+        (data) => {
+          this.registerData = JSON.parse(data);
+          this.showAssign = true;
+          this.showRegister = false;
 
-    setTimeout(()=>{
-      if(this.viewerFlag) {
-        this.openModal(contentViewer);
-      }           
-    }, 2000);
-    setTimeout(()=>{
-        this.populateData();
-    }, 3000);
+          if ((this.registerData.role == 'ROLE') || (this.registerData.role == 'Viewer')) {       
+
+            if (this.globalService.triggerMsgForLicense == 'lvPage') {
+
+              this.inspectorRegisterService.retrieveSite(this.assignViewerForm.value.viewerEmail).subscribe(
+                (data) => {
+                  if(JSON.parse(data) == null){
+                    setTimeout(() => {
+                      this.viewerFlag = true;
+                      if (this.viewerFlag) {
+                        this.openModal(contentViewer);
+                      }
+                    }, 2000);
+                    setTimeout(() => {
+                      this.populateData();
+                    }, 3000);
+                  }
+                  else{
+                    this.success = true;
+                    this.successMsg1 = "Already registered as Viewer for ["+ JSON.parse(data).site +"] site. You have to create new register for further option!"
+                   
+                    this.flag = true;
+                    return;
+                  }
+                  
+                },
+                (error) =>{
+                  
+                }
+              );
+
+            }
+            else if (this.globalService.triggerMsgForLicense == 'lpsPage') {
+             
+              this.lPSBasicDetailsService.retriveLpsbasicIsActive(this.assignViewerForm.value.viewerEmail).subscribe(
+                (data) =>{
+                  if(JSON.parse(data) == null){
+                    setTimeout(() => {
+                      this.viewerFlag = true;
+                      if (this.viewerFlag) {
+                        this.openModal(contentViewer);
+                      }
+                    }, 2000);
+                    setTimeout(() => {
+                      this.populateData();
+                    }, 3000);
+                  }
+                  else{
+                    this.success = true;
+                    this.successMsg1 = "Already registered as Viewer . You have to create new register for further option!"
+                   
+                    this.flag = true;
+                    return;
+                  }
+                  
+                },
+                (error) =>{
+                  
+                }
+              )
+
+            }
+          }
+
+          else {
+            this.success = true;
+            this.successMsg1 = "Given email is registered as Inspector"
+            this.viewerFlag = false;
+          }
+         
+          setTimeout(() => {
+            this.success = false;
+            this.successMsg1 = ""
+          }, 3000);
+        },
+        (error) => {
+          this.Error = true;
+          let errorArr = [];
+          errorArr = JSON.parse(error.error);
+          this.errorMsg1 = errorArr.message;
+          this.showAssign = false;
+          this.showRegister = true;
+          this.viewerFlag = true;
+          this.flag = false;
+          setTimeout(() => {
+            this.Error = false;
+            this.errorMsg1 = "";
+            if("Email Id doesn't exist!" == JSON.parse(error.error).errorArr.message){
+              setTimeout(() => {
+                this.viewerFlag = true;
+                if (this.viewerFlag) {
+                  this.openModal(contentViewer);
+                }
+              }, 2000);
+              setTimeout(() => {
+                this.populateData();
+              }, 3000);
+            }
+          }, 3000);
+        }
+      )
+    // }   
   }
   closeModalDialog(contentViewer2:any){
    this.modalService.dismissAll(contentViewer2)
@@ -670,18 +734,20 @@ createNewGroup(item: any): FormGroup{
     
     // Here we are binding values for license Table
     if(this.globalService.headerMsg=="lvPage"){
-      this.license.siteName=this.register.siteName;
+     // this.license.siteName=this.register.siteName;
       this.license.project=this.globalService.headerMsg;
       this.register.applicationType="LV Systems";
+      this.register.selectedProject = "LV";
     }
     else if(this.globalService.headerMsg=="lpsPage"){
-      this.license.lpsclientName=this.register.clientName;
-      this.license.lpsProjectName=this.register.projectName;
+     // this.license.lpsclientName=this.register.clientName;
+     // this.license.lpsProjectName=this.register.projectName;
       this.license.project=this.globalService.headerMsg;
       this.register.applicationType="LPS Systems";
+      this.register.selectedProject = "LPS";
     }
-    this.register.license=[];
-    this.register.license.push(this.license);
+    //this.register.license=[];
+    //this.register.license.push(this.license);
     
     if(!flag) {
       this.contactNumber = "";
@@ -726,7 +792,7 @@ createNewGroup(item: any): FormGroup{
 
             this.siteService.addSIte(this.site).subscribe(
               data=> {
-                this.licenseList.retrieveSiteDetails();
+                // this.licenseList.retrieveSiteDetails();
                 this.navigateToSite(JSON.parse(data));
             })
           }

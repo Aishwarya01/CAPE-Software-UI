@@ -31,16 +31,18 @@ export class Register {
     userType!: String;
     siteId!: Number;
     personId!: Number;
-    license!:License[];
+   // license!:License[];
+    lpsclientName!: String;
+    lpsProjectName!: String;
+    selectedProject!:string;
 }
 
 export class License{
     noOfLVLicence!: String;
-    siteName!: String;
+    
     lvStatus!: String;
     noOfLPSLVLicence!: String;
-    lpsclientName!: String;
-    lpsProjectName!: String;
+ 
     lpsStatus!: String;
     noOfEMCLVLicence!: String;
     emcClientName!: String;
