@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, ViewChild,ViewContainerRef,EventEmitter, Input} from '@angular/core';
+import { Component, OnInit, Output, ViewChild,ViewContainerRef,EventEmitter} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -29,11 +29,10 @@ import { Register } from '../model/register';
 @Component({
   selector: 'app-licenselist',
   templateUrl: './licenselist.component.html',
-  styleUrls: ['./licenselist.component.css']
+  styleUrls: ['./licenselist.component.css'],
 })
 
 export class LicenselistComponent implements OnInit {
-  // @Input() matStepper!: LpsMatstepperComponent;
   
   licenseForm = new FormGroup({
     noOfAvailableLicense: new FormControl(''),
@@ -114,10 +113,7 @@ export class LicenselistComponent implements OnInit {
   value1: boolean=false;
   onSubmitSite1 = new EventEmitter();
   onSave = new EventEmitter();
-  @Input()
-
   site = new Site;
-  @Output() refreshForm: EventEmitter<any> = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder,
               private dialog: MatDialog,
@@ -184,10 +180,10 @@ export class LicenselistComponent implements OnInit {
   }
 
   retrieveSiteDetails() {
-    this.refreshForm.emit(true);
+    console.log("License List called");
+    
     this.ongoingFilterData=[];
     this.completedFilterData=[];
-      
 
     for(let i of this.superAdminDev.adminEmail) {
       if(this.email == i) {
@@ -202,8 +198,6 @@ export class LicenselistComponent implements OnInit {
       }
     }
     if(this.superAdminFlag) {
-   
-		
       this.siteService.retrieveAllSite(this.email).subscribe(
         data => {
           this.allData = JSON.parse(data);

@@ -1,4 +1,4 @@
-import { Component, OnInit,Input, ViewChild, ViewContainerRef, ComponentFactoryResolver, EventEmitter} from '@angular/core';
+import { Component, OnInit,Input, ViewChild, ViewContainerRef, ComponentFactoryResolver, EventEmitter, Output} from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -26,6 +26,7 @@ import { LicenselistComponent } from '../licenselist/licenselist.component';
   templateUrl: './assign-viewer.component.html',
   styleUrls: ['./assign-viewer.component.css']
 })
+
 export class AssignViewerComponent implements OnInit {
   license = new License();
   site = new Site();
@@ -114,7 +115,9 @@ export class AssignViewerComponent implements OnInit {
   projectNameSuccess: boolean=false;
   projectNameMsg1: string="";
   onSubmitSite1 = new EventEmitter();
-   basic = new BasicDetails();
+  basic = new BasicDetails();
+  // @Input() licenseList!: LicenselistComponent;
+  // @Output("retrieveSiteDetails") licenseList: EventEmitter<any> = new EventEmitter();
 
   constructor(private dialog: MatDialog,
               private formBuilder: FormBuilder, private modalService: NgbModal,
@@ -126,7 +129,6 @@ export class AssignViewerComponent implements OnInit {
               private route: ActivatedRoute,
               private globalService: GlobalsService,
               private lPSBasicDetailsService: LPSBasicDetailsService,
-              // public licenseList: LicenselistComponent
               
               ) {
                 this.urlEmail = this.route.snapshot.paramMap.get('email') || '{}';
@@ -159,7 +161,6 @@ export class AssignViewerComponent implements OnInit {
       )
     //  this.pageHeading(this.viewerRegisterForm);
   }
-
   // getLpsViwer() : AbstractControl[] {
   //   return (<FormArray> this.lpsViewerForm.get('lpsViewer')).controls;
   // }
@@ -382,8 +383,8 @@ export class AssignViewerComponent implements OnInit {
 createGroup(item: any): FormGroup{
 
   if(item !=null && item.country != undefined){
-    this.setReadOnly = true;
-    this.register.name=item.name;
+  this.setReadOnly = true;
+  this.register.name=item.name;
   this.register.companyName=item.companyName;
   this.register.username=item.username;
   this.register.contactNumber = item.contactNumber;
@@ -579,7 +580,7 @@ createNewGroup(item: any): FormGroup{
                   }
                   else{
                     this.success = true;
-                    this.successMsg1 = "Already registered as Viewer for ["+ JSON.parse(data).site +"] site. You have to create new register for further option!";
+                    this.successMsg1 = "Given Email-ID is already registered as Viewer for ["+ JSON.parse(data).site +"] site. Please try with new Email-ID for further";
                     this.flag = true;
                     return;
                   }
@@ -607,7 +608,7 @@ createNewGroup(item: any): FormGroup{
                   }
                   else{
                     this.success = true;
-                    this.successMsg1 = "Already registered as Viewer . You have to create new register for further option!";
+                    this.successMsg1 = "Given Email-ID is already registered as Viewer, Please try with new Email-ID for further";
                     this.flag = true;
                     return;
                   }
@@ -886,7 +887,7 @@ createNewGroup(item: any): FormGroup{
 
             this.siteService.addSIte(this.site).subscribe(
               data => {
-                // this.licenseList.retrieveSiteDetails();
+                // this.licenseList
                 this.navigateToSite(JSON.parse(data));
               })
           }

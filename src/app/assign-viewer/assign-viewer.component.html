@@ -321,9 +321,8 @@
                           <i class="bi bi-geo-alt-fill"></i>
                         </span>
                       </div>
-                      <select formControlName="country" class="form-control" 
-                        [ngClass]="{ 'is-invalid': submitted && a.get('country')?.errors }"
-                        [(ngModel)]="register.country" (change)="selectCountry($event)">
+                      <select formControlName="country" class="form-control" [attr.disabled]="setReadOnly ? '' : null"
+                        [ngClass]="{ 'is-invalid': submitted && a.get('country')?.errors }" [(ngModel)]="register.country" (change)="selectCountry($event)">
                         <option value="" selected>Select country</option>
                         <!-- <option value="IND" selected>India</option> -->
 
@@ -350,7 +349,7 @@
                           <i class="bi bi-geo-alt-fill"></i>
                         </span>
                       </div>
-                      <select formControlName="state" class="form-control"  
+                      <select formControlName="state" class="form-control" [attr.disabled]="setReadOnly ? '' : null"
                         [ngClass]="{ 'is-invalid': submitted && a.get('state')?.errors }" [(ngModel)]="register.state">
                         <option value="" selected>Select state</option>
                         <option *ngFor="let a of stateList" [selected]="a.name === state">
