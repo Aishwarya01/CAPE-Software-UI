@@ -179,7 +179,7 @@
                       </div>
                       <input type="email" formControlName="email" class="form-control"
                         placeholder="Enter your email address" maxlength="50"
-                        [ngClass]="{ 'is-invalid': submitted && a.get('email')?.errors }"
+                        [ngClass]="{ 'is-invalid': submitted && a.get('email')?.errors }" readonly
                         [ngStyle]="{ 'border-color': alert ? 'red' : '' }" [(ngModel)]="register.username" />
                       <div *ngIf="submitted && a.get('email')?.errors" class="invalid-feedback">
                         <div *ngIf="a.get('email')?.errors?.required">Email is required</div>
@@ -194,7 +194,7 @@
                 <div class="col-md-4">
                   <label for="contactNumber">* Contact Number</label>
 
-                  <input type="tel" ng2TelInput [ng2TelInputOptions]="{
+                  <input type="tel" [readonly]="setReadOnly" ng2TelInput [ng2TelInputOptions]="{
                       initialCountry: 'in',
                       separateDialCode: 'true'
                     }" (countryChange)="countryChange($event)" formControlName="contactNumber"
@@ -254,7 +254,7 @@
                           <i class="bi bi-building"></i>
                         </span>
                       </div>
-                      <input type="text" formControlName="companyName" class="form-control" 
+                      <input type="text" formControlName="companyName"  [readonly]="setReadOnly" class="form-control" 
                         placeholder="Enter your company name" [ngClass]="{
                           'is-invalid': submitted && a.get('companyName')?.errors
                         }" (focusout)="onFocusOutEventCompany($event,a)" [(ngModel)]="register.companyName" />
@@ -278,7 +278,7 @@
                           <i class="bi bi-card-heading"></i>
                         </span>
                       </div>
-                      <input type="text" formControlName="department" class="form-control" 
+                      <input type="text" [readonly]="setReadOnly" formControlName="department" class="form-control" 
                         placeholder="Enter your department" [ngClass]="{
                           'is-invalid': submitted && a.get('department')?.errors
                         }" [(ngModel)]="register.department" (focusout)="onFocusOutEventDepartment($event,a)" />
@@ -299,7 +299,7 @@
                           <i class="bi bi-person-lines-fill"></i>
                         </span>
                       </div>
-                      <input type="text" formControlName="designation" class="form-control" 
+                      <input type="text" [readonly]="setReadOnly" formControlName="designation" class="form-control" 
                         placeholder="Enter your designation" [ngClass]="{
                           'is-invalid': submitted && a.get('designation')?.errors
                         }" [(ngModel)]="register.designation" />
@@ -312,7 +312,7 @@
                   </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-4" >
                   <div class="form-group">
                     <label for="country">* Country</label>
                     <div class="input-group">
@@ -321,7 +321,7 @@
                           <i class="bi bi-geo-alt-fill"></i>
                         </span>
                       </div>
-                      <select formControlName="country" class="form-control"
+                      <select formControlName="country" class="form-control" 
                         [ngClass]="{ 'is-invalid': submitted && a.get('country')?.errors }"
                         [(ngModel)]="register.country" (change)="selectCountry($event)">
                         <option value="" selected>Select country</option>
@@ -350,7 +350,7 @@
                           <i class="bi bi-geo-alt-fill"></i>
                         </span>
                       </div>
-                      <select formControlName="state" class="form-control"
+                      <select formControlName="state" class="form-control"  
                         [ngClass]="{ 'is-invalid': submitted && a.get('state')?.errors }" [(ngModel)]="register.state">
                         <option value="" selected>Select state</option>
                         <option *ngFor="let a of stateList" [selected]="a.name === state">
@@ -374,7 +374,7 @@
                           <i class="bi bi-geo-alt-fill"></i>
                         </span>
                       </div>
-                      <input type="text" formControlName="district" class="form-control"
+                      <input type="text" [readonly]="setReadOnly" formControlName="district" class="form-control"
                         placeholder="Enter your District" [(ngModel)]="register.district" />
                     </div>
                   </div>
@@ -389,7 +389,7 @@
                           <i class="bi bi-geo-alt-fill"></i>
                         </span>
                       </div>
-                      <input type="text" formControlName="address" class="form-control" placeholder="Enter your address"
+                      <input type="text" formControlName="address" [readonly]="setReadOnly" class="form-control" placeholder="Enter your address"
                         [ngClass]="{ 'is-invalid': submitted && a.get('address')?.errors }"
                         [(ngModel)]="register.address" />
                       <div *ngIf="submitted && a.get('address')?.errors" class="invalid-feedback">
@@ -411,7 +411,7 @@
                           <i class="bi bi-geo-fill"></i>
                         </span>
                       </div>
-                      <input type="number" formControlName="pinCode" class="form-control"
+                      <input type="number" formControlName="pinCode"  [readonly]="setReadOnly" class="form-control"
                         placeholder="Enter your pinCode"
                         [ngClass]="{ 'is-invalid': submitted && a.get('pinCode')?.errors }"
                         [(ngModel)]="register.pinCode" />

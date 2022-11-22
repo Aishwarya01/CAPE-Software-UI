@@ -117,6 +117,7 @@ export class LicenselistComponent implements OnInit {
   @Input()
 
   site = new Site;
+  @Output() refreshForm: EventEmitter<any> = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder,
               private dialog: MatDialog,
@@ -179,70 +180,73 @@ export class LicenselistComponent implements OnInit {
       )
     }
 
-    
+	
   }
 
   retrieveSiteDetails() {
-  this.ongoingFilterData=[];
-  this.completedFilterData=[];
-    
+    this.refreshForm.emit(true);
+    this.ongoingFilterData=[];
+    this.completedFilterData=[];
+      
 
-  for(let i of this.superAdminDev.adminEmail) {
-    if(this.email == i) {
-      this.superAdminFlag = true;
+    for(let i of this.superAdminDev.adminEmail) {
+      if(this.email == i) {
+        this.superAdminFlag = true;
+      }
     }
-  }
+   
 
-  for(let i of this.superAdminProd.adminEmail) {
-    if(this.email == i) {
-      this.superAdminFlag = true;
+    for(let i of this.superAdminProd.adminEmail) {
+      if(this.email == i) {
+        this.superAdminFlag = true;
+      }
     }
-  }
-
-  if(this.superAdminFlag) {
-    this.siteService.retrieveAllSite(this.email).subscribe(
-      data => {
-        this.allData = JSON.parse(data);
-        for(let i of this.allData){
-          if(i.allStepsCompleted=="AllStepCompleted"){
-            this.completedFilterData.push(i);
-          }
-          else if(i.allStepsCompleted !="AllStepCompleted" && i.status != 'InActive'){
-            this.ongoingFilterData.push(i);
-          }
-        }
-        this.ongoingSite_dataSource = new MatTableDataSource(this.ongoingFilterData);
-        this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
-        this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
-
-        this.completedLicense_dataSource = new MatTableDataSource(this.completedFilterData);
-        this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
-        this.completedLicense_dataSource.sort = this.completedLicenseSort;
-      });
-
-    this.superAdminFlag = false;
-  }
-  else {
-      this.siteService.retrieveListOfSite(this.email).subscribe(
+    if(this.superAdminFlag) {
+   
+		
+      this.siteService.retrieveAllSite(this.email).subscribe(
         data => {
-          this.inspectorData=JSON.parse(data);
-        for(let i of this.inspectorData){
+          this.allData = JSON.parse(data);
+          for(let i of this.allData){
             if(i.allStepsCompleted=="AllStepCompleted"){
               this.completedFilterData.push(i);
             }
             else if(i.allStepsCompleted !="AllStepCompleted" && i.status != 'InActive'){
               this.ongoingFilterData.push(i);
             }
-        }
-        this.ongoingSite_dataSource = new MatTableDataSource(this.ongoingFilterData);
-        this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
-        this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
+          }
+          this.ongoingSite_dataSource = new MatTableDataSource(this.ongoingFilterData);
+          this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
+          this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
 
-        this.completedLicense_dataSource = new MatTableDataSource(this.completedFilterData);
-        this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
-        this.completedLicense_dataSource.sort = this.completedLicenseSort;
-      });
+          this.completedLicense_dataSource = new MatTableDataSource(this.completedFilterData);
+          this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
+          this.completedLicense_dataSource.sort = this.completedLicenseSort;
+        });
+
+      this.superAdminFlag = false;
     }
+    else {
+        this.siteService.retrieveListOfSite(this.email).subscribe(
+          data => {
+            this.inspectorData=JSON.parse(data);
+          for(let i of this.inspectorData){
+              if(i.allStepsCompleted=="AllStepCompleted"){
+                this.completedFilterData.push(i);
+              }
+              else if(i.allStepsCompleted !="AllStepCompleted" && i.status != 'InActive'){
+                this.ongoingFilterData.push(i);
+              }
+          }
+          this.ongoingSite_dataSource = new MatTableDataSource(this.ongoingFilterData);
+          this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
+          this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
+
+          this.completedLicense_dataSource = new MatTableDataSource(this.completedFilterData);
+          this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
+          this.completedLicense_dataSource.sort = this.completedLicenseSort;
+        });
+      }
   }
   
   editSite(siteId:any,userName:any,site:any,departmentName:any,companyName:any,allStepsCompleted:any,data:any){

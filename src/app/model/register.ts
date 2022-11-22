@@ -32,8 +32,8 @@ export class Register {
     siteId!: Number;
     personId!: Number;
    // license!:License[];
-    lpsclientName!: String;
-    lpsProjectName!: String;
+    // lpsclientName!: String;
+    // lpsProjectName!: String;
     selectedProject!:string;
 }
 
