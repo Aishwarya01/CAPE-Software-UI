@@ -46,7 +46,6 @@ private handleAuthErrors(req: HttpRequest<any>, next: HttpHandler) : Observable<
         this.refreshTokenSubject.next(null);
 
         return this.loginService.refreshTokenF().pipe(
-            debounceTime(500),
             switchMap((refreshTokenResponse: LoginResponse) => {
                 this.isTokenRefreshing = false;
                 this.loginService.token = refreshTokenResponse.token;
