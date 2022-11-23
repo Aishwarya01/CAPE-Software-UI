@@ -6,7 +6,7 @@
     <div class="card-body" >
         <form [formGroup]="licenseForm" >
             <mat-accordion>
-                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel (opened)="panelOpenState2(true)" (closed)="panelOpenState2(false)">
                     <mat-expansion-panel-header>
                       <mat-panel-title>
                         <!-- <h3>Unused License</h3> -->
@@ -37,7 +37,7 @@
                 </mat-expansion-panel>    
                 
               <ng-container *ngIf="lvData">
-                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel (opened)="panelOpenState1(true)" (closed)="panelOpenState1(false)">
                     <mat-expansion-panel-header>
                       <!-- Lv Systems -->
                       <mat-panel-title *ngIf="lvData">

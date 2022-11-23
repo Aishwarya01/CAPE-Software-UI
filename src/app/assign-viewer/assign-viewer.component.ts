@@ -103,7 +103,6 @@ export class AssignViewerComponent implements OnInit {
   demoArr: any = [];
   existSite: boolean = false;
   arr: any = [];
-
   // license page purpose
   viewerForLps: boolean=false;
   viewerForLV: boolean=false;
@@ -116,8 +115,6 @@ export class AssignViewerComponent implements OnInit {
   projectNameMsg1: string="";
   onSubmitSite1 = new EventEmitter();
   basic = new BasicDetails();
-  // @Input() licenseList!: LicenselistComponent;
-  // @Output("retrieveSiteDetails") licenseList: EventEmitter<any> = new EventEmitter();
 
   constructor(private dialog: MatDialog,
               private formBuilder: FormBuilder, private modalService: NgbModal,
@@ -754,6 +751,7 @@ createNewGroup(item: any): FormGroup{
 
 
   navigateToSite(data: any) {
+    debugger
     const dialogRef = this.dialog.open(SiteaddComponent, {
       width: '1000px',
       maxHeight: '90vh',
@@ -887,7 +885,6 @@ createNewGroup(item: any): FormGroup{
 
             this.siteService.addSIte(this.site).subscribe(
               data => {
-                // this.licenseList
                 this.navigateToSite(JSON.parse(data));
               })
           }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, ViewChild,ViewContainerRef,EventEmitter} from '@angular/core';
+import { Component, OnInit, Output, ViewChild,ViewContainerRef,EventEmitter, Input, ElementRef} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -37,9 +37,8 @@ export class LicenselistComponent implements OnInit {
   licenseForm = new FormGroup({
     noOfAvailableLicense: new FormControl(''),
   })
-  panelOpenState = false;
-  //noofLicense!: number;
 
+  panelOpenState = false;
   ongoingSiteColumns: string[] = [
     'siteCd',
     'site',
@@ -67,7 +66,6 @@ export class LicenselistComponent implements OnInit {
     'action',
   ];
 
-  
   completedLicense_dataSource!: MatTableDataSource<Company[]>;
   @ViewChild('completedLicensePaginator', { static: false }) completedLicensePaginator!: MatPaginator;
   @ViewChild('completedLicenseSort', { static: false }) completedLicenseSort!: MatSort;
@@ -114,6 +112,9 @@ export class LicenselistComponent implements OnInit {
   onSubmitSite1 = new EventEmitter();
   onSave = new EventEmitter();
   site = new Site;
+  @Input() refreshFlag: boolean=false;
+
+  emailSpinner:boolean=false;
 
   constructor(private formBuilder: FormBuilder,
               private dialog: MatDialog,
@@ -175,13 +176,24 @@ export class LicenselistComponent implements OnInit {
         }
       )
     }
-
-	
   }
 
+  panelOpenState1(panelOpenState1:boolean){
+    if(panelOpenState1){
+      this.retrieveSiteDetails();
+    }
+  }
+
+  panelOpenState2(panelOpenState2:boolean){
+    if(panelOpenState2){
+      this.retrieveUserDetail();
+    }
+    else if(!panelOpenState2){
+      return(false);
+    }
+  }
+  
   retrieveSiteDetails() {
-    console.log("License List called");
-    
     this.ongoingFilterData=[];
     this.completedFilterData=[];
 
@@ -411,6 +423,7 @@ export class LicenselistComponent implements OnInit {
   }
 
   navigateToSite() {
+    debugger
     // this.viewContainerRef.clear();
     // this.destroy = true;
     // const verificationFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
@@ -428,10 +441,12 @@ export class LicenselistComponent implements OnInit {
       this.destroy= true;
       this.value1 = true;
     }
+    this.retrieveSiteDetails();
   }
   
   decreaseLicense() {
     this.service.useClicked=true;
+    this.panelOpenState2(false);
     const dialogRef = this.dialog.open(AssignViewerComponent, {
       width: '720px',
     });
