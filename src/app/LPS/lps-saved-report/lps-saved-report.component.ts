@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ViewContainerRef, EventEmitter, Output, Input } from '@angular/core';
 import { MatInput } from '@angular/material/input';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalsService } from 'src/app/globals.service';
@@ -12,7 +12,6 @@ import { environment } from 'src/environments/environment';
 import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminProd } from 'src/environments/environment.prod';
 import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
-
 
 @Component({
   selector: 'app-lps-saved-report',
@@ -72,6 +71,8 @@ completedFilterData: any=[];
  // superAdminLocal = new SuperAdminLocal();
   superAdminDev = new SuperAdminDev();
   superAdminProd = new SuperAdminProd();
+  completedLicense_dataSource!: MatTableDataSource<any[]>;
+  // @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private router: ActivatedRoute,
               public service: GlobalsService,
@@ -91,9 +92,14 @@ completedFilterData: any=[];
     // this.superAdminArr.push('gk@capeindia.net');
     // this.superAdminArr.push('vinoth@capeindia.net');
     // this.superAdminArr.push('awstesting@rushforsafety.com');
-
+    
     this.retrieveLpsDetails();
+    // this.savedReportLps_dataSource.sort = this.sort;
 
+    // var sortState: Sort = {active: 'name', direction: 'desc'};
+    // this.sort.active = sortState.active;
+    // this.sort.direction = sortState.direction;
+    // this.sort.sortChange.emit(sortState);
   }
 
   //filter for final reports
@@ -159,12 +165,9 @@ completedFilterData: any=[];
           this.lpsData = [];
           this.savedReportLps_dataSource.paginator = this.savedReportLpsPaginator;
           this.savedReportLps_dataSource.sort = this.savedReportLpsSort;
-
         });
     }
-      
   }
-
 
   continue(basicLpsId: any) {
     if(this.service.triggerMsgForLicense=='lpsPage'){

@@ -133,7 +133,7 @@
                         </span>
                       </div>
                       <input type="text" class="form-control" placeholder="Enter clientname"
-                        formControlName="clientName"
+                        formControlName="clientName" (change)="projectValidation($event,a)"
                         [ngClass]="{ 'is-invalid': submitted && a.get('clientName')?.errors }"
                         [(ngModel)]="register.clientName" />
                       <div *ngIf="submitted && a.get('clientName')?.errors" class="invalid-feedback">
@@ -194,7 +194,7 @@
                 <div class="col-md-4">
                   <label for="contactNumber">* Contact Number</label>
 
-                  <input type="tel" [readonly]="setReadOnly" ng2TelInput [ng2TelInputOptions]="{
+                  <input type="tel" (keypress)="keyPressNumbers($event)" [readonly]="setReadOnly" ng2TelInput [ng2TelInputOptions]="{
                       initialCountry: 'in',
                       separateDialCode: 'true'
                     }" (countryChange)="countryChange($event)" formControlName="contactNumber"
@@ -449,10 +449,10 @@
               </div>
             </div>
           </div>
-          <div *ngIf="successMsgOTP" class="alert alert-success" style="margin: 55px auto 0px auto; width: 33%">
+          <div *ngIf="successMsgOTP" class="alert alert-success" style="margin: 55px auto 0px auto; width: 50%;text-align: center;">
             {{ successMsg }}
           </div>
-          <div *ngIf="errorMsgflag" class="alert alert-danger" style="margin: 55px auto 0px auto; width: 33%">
+          <div *ngIf="errorMsgflag" class="alert alert-danger" style="margin: 55px auto 0px auto; width: 50%;text-align: center;">
             {{ errorMsg }}
           </div>
           <br>

@@ -113,7 +113,7 @@ autoLoginToken:number=0;
   triggerMsgForLicense: String="";
   headerMsg: String="";
   basicLPSID: number=0;
-
+  toggle: boolean=false;
  constructor(private _scrollToService: ScrollToService
   ) {}
   

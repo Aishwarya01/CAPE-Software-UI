@@ -246,17 +246,18 @@ export class SiteaddComponent implements OnInit {
     this.siteService.updateSite(this.site).subscribe(
       data=> {
         this.success = true
-        this.successMsg =data;
+        this.successMsg ="Site "+ this.site.site +" Updated Successfully";
         this.service.allFieldsDisable = false;
         this.service.allStepsCompleted=true;
         setTimeout(() => {
           this.success = false;
         }, 3000);
         setTimeout(() => {
-          this.dialog.closeAll();
+          this.dialog.closeAll(); 
           this.onSubmitSite.emit(true);
         }, 2000);
         this.service.msgForStep1Flag=true;
+        this.service.toggle=false;
       },
       error => {
         this.Error = true;

@@ -6,7 +6,7 @@
     <div class="card-body" >
         <form [formGroup]="licenseForm" >
             <mat-accordion>
-                <mat-expansion-panel (opened)="panelOpenState2(true)" (closed)="panelOpenState2(false)">
+                <mat-expansion-panel (opened)="panelOpenState2(true)" (closed)="panelOpenState2(false)" [(expanded)]="service.toggle">
                     <mat-expansion-panel-header>
                       <mat-panel-title>
                         <!-- <h3>Unused License</h3> -->
@@ -130,7 +130,7 @@
               <mat-paginator #ongoingSitePaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
                 </mat-expansion-panel>
     
-                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel (opened)="panelOpenState3(true)" (closed)="panelOpenState3(false)">
                     <mat-expansion-panel-header>
                       <mat-panel-title>
                         <h3>Completed License</h3>

@@ -31,6 +31,7 @@ export class LpsWelcomePageComponent implements OnInit {
     this.viewContainerRef.clear();
     this.destroy = true;
     // this.showHome = true;
+    this.globalService.toggle=false;
     this.showLicence = true;
     this.globalService.headerMsg="lpsPage";
     this.globalService.licensePageHeaging();

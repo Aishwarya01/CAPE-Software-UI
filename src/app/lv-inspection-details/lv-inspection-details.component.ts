@@ -40,6 +40,7 @@ export class LvInspectionDetailsComponent {
       this.showLicence = true;
     }
     // this.showHome = false;
+    this.globalService.toggle=false;
     this.showLicence = true;
     this.globalService.headerMsg="lvPage"
     this.globalService.licensePageHeaging();

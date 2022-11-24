@@ -237,18 +237,19 @@ export class AssignViewerComponent implements OnInit {
 
       this.lPSBasicDetailsService.validateProjectName(form.controls.clientName.value,form.controls.projectName.value).subscribe(
         data =>{
-          var b=form.controls.projectName.value;
+          // var b=form.controls.projectName.value;
           if(data != ''){
             this.projectNameMsg="Project Name is already existing, Please give different Project Name";
             this.projectNameMsg1="";
             this.projectNameError=true;
           }else {
-            this.projectNameMsg1="You can continue with this Project Name";
+            this.projectNameMsg1="You can continue with this "+[form.controls.projectName.value]+" Project Name";
             this.projectNameMsg="";
             this.projectNameSuccess=true;
             this.projectNameError=false;
             setTimeout(() => {
               this.projectNameSuccess=false;
+              this.projectNameError=false;
             }, 3000);
           }
       })
@@ -581,13 +582,9 @@ createNewGroup(item: any): FormGroup{
                     this.flag = true;
                     return;
                   }
-                  
                 },
                 (error) =>{
-                  
-                }
-              );
-
+                });
             }
             else if (this.globalService.triggerMsgForLicense == 'lpsPage') {
               this.lPSBasicDetailsService.retriveLpsbasicIsActive(this.assignViewerForm.value.viewerEmail).subscribe(
@@ -609,13 +606,9 @@ createNewGroup(item: any): FormGroup{
                     this.flag = true;
                     return;
                   }
-                  
                 },
                 (error) =>{
-                  
-                }
-              )
-
+                })
             }
           }
 
@@ -812,15 +805,12 @@ createNewGroup(item: any): FormGroup{
     // Here we are binding values for license Table
     if (this.globalService.headerMsg == "lvPage") {
       applicationType = "LV Systems";
-      // this.license.project = this.globalService.headerMsg;
       this.register.selectedProject = "LV";
     }
 
     // Here we are binding the lps application name
     else if (this.globalService.headerMsg == "lpsPage") {
       applicationType = "LPS Systems";
-      // this.register.applicationType = this.register.applicationType + "," + "LPS Systems";
-      // this.license.project = this.globalService.headerMsg;
       this.register.selectedProject = "LPS";
     }
 
@@ -851,7 +841,12 @@ createNewGroup(item: any): FormGroup{
           sessionStorage.setItem("clientName", this.register.clientName);
           sessionStorage.setItem("projectName", this.register.projectName)
           this.successMsgOTP = true;
-          this.successMsg = "Viewer has been assigned successfully.";
+          if(this.globalService.triggerMsgForLicense=='lvPage'){
+            this.successMsg = "Viewer successfully assigned for this "+this.register.siteName+" in LV Systems";
+          }
+          else if(this.globalService.triggerMsgForLicense=='lpsPage'){
+            this.successMsg = "Viewer successfully assigned for this "+this.register.projectName+" in LPS Systems.";
+          }
           setTimeout(() => {
             this.successMsgOTP = false;
             this.successMsg = "";
@@ -885,6 +880,7 @@ createNewGroup(item: any): FormGroup{
 
             this.siteService.addSIte(this.site).subscribe(
               data => {
+                this.globalService.toggle=false;
                 this.navigateToSite(JSON.parse(data));
               })
           }

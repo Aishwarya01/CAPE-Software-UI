@@ -25,6 +25,8 @@ import { RiskglobalserviceService } from '../Risk Assessment/riskglobalservice.s
 import { LpsGlobalserviceService } from '../LPS/lps-globalservice.service';
 import { SiteaddComponent } from '../site/siteadd/siteadd.component';
 import { Register } from '../model/register';
+import { CdkAccordion, CdkAccordionItem } from '@angular/cdk/accordion';
+import { MatAccordion, MatExpansionPanel } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-licenselist',
@@ -112,9 +114,7 @@ export class LicenselistComponent implements OnInit {
   onSubmitSite1 = new EventEmitter();
   onSave = new EventEmitter();
   site = new Site;
-  @Input() refreshFlag: boolean=false;
-
-  emailSpinner:boolean=false;
+  // toggle: boolean=false;
 
   constructor(private formBuilder: FormBuilder,
               private dialog: MatDialog,
@@ -133,7 +133,7 @@ export class LicenselistComponent implements OnInit {
                }
 
   ngOnInit(): void {
-    this.retrieveUserDetail();
+    
     this.licenseForm = this.formBuilder.group({
       noOfAvailableLicense: [this.service.noofLicense],
     })
@@ -141,6 +141,7 @@ export class LicenselistComponent implements OnInit {
     // this.superAdminArr.push('gk@capeindia.net');
     // this.superAdminArr.push('vinoth@capeindia.net');
     // this.superAdminArr.push('awstesting@rushforsafety.com');
+    this.retrieveUserDetail();
     this.retrieveSiteDetails();
     this.pageHeading();
   }
@@ -178,6 +179,7 @@ export class LicenselistComponent implements OnInit {
     }
   }
 
+  // Below three events for LV Page Mat Expantion Panel
   panelOpenState1(panelOpenState1:boolean){
     if(panelOpenState1){
       this.retrieveSiteDetails();
@@ -189,7 +191,13 @@ export class LicenselistComponent implements OnInit {
       this.retrieveUserDetail();
     }
     else if(!panelOpenState2){
-      return(false);
+      this.service.toggle=false;
+    }
+  }
+
+  panelOpenState3(panelOpenState3:boolean){
+    if(panelOpenState3){
+      this.retrieveSiteDetails();
     }
   }
   
@@ -446,7 +454,8 @@ export class LicenselistComponent implements OnInit {
   
   decreaseLicense() {
     this.service.useClicked=true;
-    this.panelOpenState2(false);
+    // this.panelOpenState2(false);
+    this.service.toggle=false;
     const dialogRef = this.dialog.open(AssignViewerComponent, {
       width: '720px',
     });
