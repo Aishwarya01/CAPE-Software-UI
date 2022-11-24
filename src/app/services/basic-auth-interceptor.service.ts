@@ -15,7 +15,7 @@ export class BasicAuthHtppInterceptorService implements HttpInterceptor {
   constructor(private loginService: LoginserviceService) { }
 
   isTokenRefreshing = false;
-  refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject(null);
+  refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
   
@@ -40,7 +40,7 @@ export class BasicAuthHtppInterceptorService implements HttpInterceptor {
 
 }
 
-private handleAuthErrors(req: HttpRequest<any>, next: HttpHandler) : Observable<HttpEvent<any>>{
+private handleAuthErrors(req: HttpRequest<any>, next: HttpHandler){
     if (!this.isTokenRefreshing) {
         this.isTokenRefreshing = true;
         this.refreshTokenSubject.next(null);
@@ -48,7 +48,6 @@ private handleAuthErrors(req: HttpRequest<any>, next: HttpHandler) : Observable<
         return this.loginService.refreshTokenF().pipe(
             switchMap((refreshTokenResponse: LoginResponse) => {
                 this.isTokenRefreshing = false;
-                this.loginService.token = refreshTokenResponse.token;
                 this.refreshTokenSubject
                     .next(refreshTokenResponse.token);
                 return next.handle(this.addToken(req,
@@ -59,9 +58,9 @@ private handleAuthErrors(req: HttpRequest<any>, next: HttpHandler) : Observable<
         return this.refreshTokenSubject.pipe(
             filter(result => result !== null),
             take(1),
-            switchMap((res) => {
+            switchMap((jwtToken) => {
                 return next.handle(this.addToken(req,
-                    this.loginService.token))
+                    jwtToken))
             })
         );
     }
@@ -69,8 +68,9 @@ private handleAuthErrors(req: HttpRequest<any>, next: HttpHandler) : Observable<
 
   addToken(req: HttpRequest<any>, jwtToken: any) {
     return req.clone({
-        headers: req.headers.set('Authorization',
-            'Bearer ' + jwtToken)
+        headers: new HttpHeaders({
+            'Authorization': `Bearer ${jwtToken}`
+        })
     });
 }
 

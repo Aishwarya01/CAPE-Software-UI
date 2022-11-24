@@ -76,6 +76,7 @@ export class LoginserviceService {
 
         sessionStorage.setItem('token', data.token);
         sessionStorage.setItem('expiresAt', data.expiresAt);
+        this.token = data.token;
         return data;
       }));
 }
