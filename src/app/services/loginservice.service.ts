@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, tap } from 'rxjs/operators';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { User } from '../model/user';
 import { environment } from 'src/environments/environment';
 import { LoginResponse } from './LoginResponse';
@@ -40,6 +40,14 @@ export class LoginserviceService {
   }
 
   logout() {
+    let refreshToken = this.refToken;
+    let username = this.userName;
+    this.http.post<any>(this.apiUrl_v2 + '/logout', { refreshToken, username },{ responseType: 'text' as 'json' })
+    .subscribe(data => {
+      console.log(data);
+    }, error => {
+      throwError(error);
+    })
     sessionStorage.removeItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
     this.token = '';
     localStorage.removeItem('rememberMe');
@@ -80,7 +88,5 @@ export class LoginserviceService {
         return data;
       }));
 }
-
-
 
 }
