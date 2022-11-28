@@ -1,15 +1,10 @@
 <html>
-<ng-template #reference></ng-template>
 
 <body>
-    <div *ngIf="destroy">
-        <app-risk-parent-component *ngIf="showRiskHome"></app-risk-parent-component>
-    </div>
-    <div *ngIf="!destroy" style="padding: 20px; background: white;">
-        <button style="float: right;background-color: #0f800c;color: white;" type="submit"
-        class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn"
+    <button style="float: right;" type="submit"
+        class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn"
         (click)="onNavigateToQuestionaire()">Skip</button>
-    <button style="float: right;background-color: #0f800c;color: white;" class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn"
+    <button style="float: right;" class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn" 
         printSectionId="printdiv" ngxPrint>Print</button>
     <h2>Lightning protection conformity assessment, risk assessment, inspection and maintenance
         (IEC 62305-3 & 4).</h2>
@@ -90,10 +85,9 @@
                 can be used by the local electric supply authority (subject to acceptance) and form a base for electrical safety audits.</p>
         </div>
     </div>
-    <button style="float: right;" type="submit" style="background-color: #0f800c;color: white;"
-    class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn-continue"
+    <button style="float: right;" type="submit"
+        class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn"
         (click)="onNavigateToQuestionaire()">Continue</button>
-    </div>
 </body>
 
 </html>

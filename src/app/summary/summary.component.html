@@ -177,8 +177,8 @@
                             </td>
                             <td>
                               <textarea type="text" cols="30" rows="1" 
-                              [readonly]="a.get('mainsFurtherActions')?.value==='No remedial action required' || service.allFieldsDisable"
-                              placeholder="Enter comment" class="form-control"
+                              [readonly]="a.get('mainsFurtherActions')?.value==='No remedial action required'"
+                              placeholder="Enter comment" [readonly]="service.allFieldsDisable" class="form-control"
                               formControlName="mainsComment"
                               [ngClass]="{ 'is-invalid': submitted && a.get('mainsComment')?.errors }"></textarea>
                               <div *ngIf="submitted && a.get('mainsComment')?.errors" class="invalid-feedback">
@@ -211,8 +211,8 @@
                             </div>
                             </td>
                             <td>
-                              <textarea type="text" cols="30" rows="1" [readonly]="b.get('furtherActions')?.value==='No remedial action required' || service.allFieldsDisable"
-                              placeholder="Enter comment"  class="form-control"
+                              <textarea type="text" cols="30" rows="1" [readonly]="b.get('furtherActions')?.value==='No remedial action required'"
+                              placeholder="Enter comment" [readonly]="service.allFieldsDisable" class="form-control"
                               formControlName="comment"
                               [ngClass]="{ 'is-invalid': submitted && b.get('comment')?.errors }"></textarea>
                               <div *ngIf="submitted && b.get('comment')?.errors" class="invalid-feedback">
@@ -246,8 +246,8 @@
                             </div>
                             </td>
                             <td>
-                              <textarea type="text" cols="30" rows="1" [readonly]="a.get('electrodeFurtherActions')?.value==='No remedial action required' || service.allFieldsDisable"
-                              placeholder="Enter comment"  class="form-control"
+                              <textarea type="text" cols="30" rows="1" [readonly]="a.get('electrodeFurtherActions')?.value==='No remedial action required'"
+                              placeholder="Enter comment" [readonly]="service.allFieldsDisable" class="form-control"
                               formControlName="electrodeComment"
                               [ngClass]="{ 'is-invalid': submitted && a.get('electrodeComment')?.errors }"></textarea>
                               <div *ngIf="submitted && a.get('electrodeComment')?.errors" class="invalid-feedback">
@@ -268,11 +268,11 @@
                                 [tabindex]="service.allFieldsDisable ? -1 : 0" (change)="onChange4($event,a)"
                                 [ngClass]="{ 'is-invalid': submitted && a.get('bondingFurtherActions')?.errors }">
                                 <option value="" selected>Select Option</option>
-                                <option value="C1" [selected]="a.get('bondingFurtherActions')?.value === 'C1'">C1</option>
-                                <option value="C2" [selected]="a.get('bondingFurtherActions')?.value === 'C2'">C2</option>
-                                <option value="C3" [selected]="a.get('bondingFurtherActions')?.value === 'C3'">C3</option>
-                                <option value="R1" [selected]="a.get('bondingFurtherActions')?.value === 'R1'">R1</option>
-                                <option value="No remedial action required" [selected]="a.get('bondingFurtherActions')?.value === 'No remedial action required'">No remedial action required</option>
+                                <option value="C1">C1</option>
+                                <option value="C2">C2</option>
+                                <option value="C3">C3</option>
+                                <option value="R1">R1</option>
+                                <option value="No remedial action required">No remedial action required</option>
 
                                 </select>
                                 <div *ngIf="submitted && a.get('bondingFurtherActions')?.errors" class="invalid-feedback">
@@ -280,8 +280,8 @@
                               </div>
                               </td>
                               <td>
-                                <textarea type="text" cols="30" rows="1" [readonly]="a.get('bondingFurtherActions')?.value==='No remedial action required' || service.allFieldsDisable"
-                                placeholder="Enter comment"  class="form-control"
+                                <textarea type="text" cols="30" rows="1" [readonly]="a.get('bondingFurtherActions')?.value==='No remedial action required'"
+                                placeholder="Enter comment" [readonly]="service.allFieldsDisable" class="form-control"
                                 formControlName="bondingComment"
                                 [ngClass]="{ 'is-invalid': submitted && a.get('bondingComment')?.errors }"></textarea>
                                 <div *ngIf="submitted && a.get('bondingComment')?.errors" class="invalid-feedback">
@@ -314,8 +314,8 @@
                                 </div>
                                 </td>
                                 <td>
-                                  <textarea type="text" cols="30" rows="1" [readonly]="a.get('earthingFurtherActions')?.value==='No remedial action required' || service.allFieldsDisable"
-                                  placeholder="Enter comment"  class="form-control"
+                                  <textarea type="text" cols="30" rows="1" [readonly]="a.get('earthingFurtherActions')?.value==='No remedial action required'"
+                                  placeholder="Enter comment" [readonly]="service.allFieldsDisable" class="form-control"
                                   formControlName="earthingComment"
                                   [ngClass]="{ 'is-invalid': submitted && a.get('earthingComment')?.errors }"></textarea>
                                   <div *ngIf="submitted && a.get('earthingComment')?.errors" class="invalid-feedback">
@@ -445,7 +445,7 @@
                               <td>
                                 <textarea type="text" class="form-control" cols="30" rows="1"
                                 formControlName="observations"
-                                placeholder="Ex. Inspection Observations..." readonly style="background-color: #e9ecef;"
+                                placeholder="Ex. Supply Observations..." readonly style="background-color: #e9ecef;"
                                 ></textarea>
                               </td>
                             <td [ngClass]="{'disableForm':service.allFieldsDisable}">
@@ -465,8 +465,8 @@
                             </div>
                             </td>
                             <td>
-                              <textarea type="text" cols="30" rows="1" [readonly]="c.get('furtherActions')?.value==='No remedial action required' || service.allFieldsDisable"
-                              placeholder="Enter comment"  class="form-control"
+                              <textarea type="text" cols="30" rows="1" [readonly]="c.get('furtherActions')?.value==='No remedial action required'"
+                              placeholder="Enter comment" [readonly]="service.allFieldsDisable" class="form-control"
                               formControlName="comment"
                               [ngClass]="{ 'is-invalid': submitted && c.get('comment')?.errors }"></textarea>
                               <div *ngIf="submitted && c.get('comment')?.errors" class="invalid-feedback">
@@ -480,7 +480,7 @@
                               <td>
                                 <textarea type="text" class="form-control" cols="30" rows="1"
                                 formControlName="observations"
-                                placeholder="Ex. Consumer Observations..." readonly style="background-color: #e9ecef;"
+                                placeholder="Ex. Supply Observations..." readonly style="background-color: #e9ecef;"
                                 ></textarea>
                               </td>
                             <td [ngClass]="{'disableForm':service.allFieldsDisable}">
@@ -500,8 +500,8 @@
                             </div>
                             </td>
                             <td>
-                              <textarea type="text" cols="30" rows="1" [readonly]="d.get('furtherActions')?.value==='No remedial action required' || service.allFieldsDisable"
-                              placeholder="Enter comment" class="form-control"
+                              <textarea type="text" cols="30" rows="1" [readonly]="d.get('furtherActions')?.value==='No remedial action required'"
+                              placeholder="Enter comment" [readonly]="service.allFieldsDisable" class="form-control"
                               formControlName="comment"
                               [ngClass]="{ 'is-invalid': submitted && d.get('comment')?.errors }"></textarea>
                               <div *ngIf="submitted && d.get('comment')?.errors" class="invalid-feedback">
@@ -586,7 +586,7 @@
                             <td> 
                               <textarea cols="30" rows="1" type="text" class="form-control"
                               formControlName="observations"
-                              placeholder="Ex. Circuit Observations..." readonly style="background-color: #e9ecef;"
+                              placeholder="Ex. Supply Observations..." readonly style="background-color: #e9ecef;"
                               ></textarea>
                             </td>
                             <td [ngClass]="{'disableForm':service.allFieldsDisable}">
@@ -606,8 +606,8 @@
                             </div>
                             </td>
                             <td>
-                              <textarea type="text" cols="30" rows="1" [readonly]="c.get('furtherActions')?.value==='No remedial action required' || service.allFieldsDisable"
-                              placeholder="Enter comment"  class="form-control"
+                              <textarea type="text" cols="30" rows="1" [readonly]="c.get('furtherActions')?.value==='No remedial action required'"
+                              placeholder="Enter comment" [readonly]="service.allFieldsDisable" class="form-control"
                               formControlName="comment"
                               [ngClass]="{ 'is-invalid': submitted && c.get('comment')?.errors }"></textarea>
                               <div *ngIf="submitted && c.get('comment')?.errors" class="invalid-feedback">
@@ -1194,13 +1194,12 @@ style="margin-left: 10px;" >
         <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
       </div> -->
     
-      <div class="row" style="margin-top: 20px;margin-left: 200px;">
+      <div class="row" style="margin-top: 20px;">
         <div class="col-sm-12">
         <div style="text-align: center;"> 
-        <button type="submit" class="btn btn-info" [ngClass]="{'disableSubmit':service.disableSubmitSummary}"> Save</button>
-        <button type="button" style="width: auto;margin-left: 50px;background-color: #0f800c;color: white;" type="button"  *ngIf="submitButton" [disabled]="!flag"
-        class="btn btn-rounded btn-md font-weight-medium auth-form-btn next"
-        mat-button [ngClass]="{'disableSubmit':service.disableSubmitSummary}" (click)="adminSubmit(flag,content5)">
+        <button  style="width: auto;margin-left: 50px;" type="submit" 
+        class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn next"
+        mat-button [ngClass]="{'disableSubmit':service.disableSubmitSummary}">
           <i class="bi bi-journal-arrow-up icon"></i> Submit</button>
     </div>
         </div>
@@ -1242,18 +1241,10 @@ style="margin-left: 10px;" >
         </div>
     </div>
     <br>
-    <div *ngIf="popup">
-      <button type="button" *ngIf="success" class="close" style="background-color: #0f800c;color: white;"
-      class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn"
-      aria-label="Close"  (click)="closeModalDialog()" matStepperNext>
-       <span aria-hidden="true">Ok</span>
-     </button>
-     <button type="button" *ngIf="Error" class="close" style="background-color: #0f800c;color: white;"
-     class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn"
-       aria-label="Close"  (click)="closeModalDialog()">
-        <span aria-hidden="true">Ok</span>
-      </button>
-    </div>
+    <button type="button" class="col-md-6" class="close" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+   aria-label="Close" (click)="closeModalDialog()" *ngIf="popup">
+    <span aria-hidden="true">Ok</span>
+</button>
 
 </ng-template>
 
@@ -1270,8 +1261,7 @@ style="margin-left: 10px;" >
   </div>
   <br>
   <div class="row" *ngIf="Error">
-    <button type="button" class="col-md-6" style="text-align:center; width: auto;background-color: #0f800c;color: white;" 
-    class="btn btn-rounded btn-md font-weight-medium auth-form-btn"
+    <button type="button" class="col-md-6" style="text-align:center; width: auto;" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
     aria-label="Close" (click)="closeModalDialog()">
     <i class="bi bi-arrow-right-circle"></i>&nbsp;
      <span aria-hidden="true">Ok</span>
@@ -1281,7 +1271,7 @@ style="margin-left: 10px;" >
    </div>
   <br>
   <div class="row" *ngIf="ConfirmSuccess">
-     <button type="button" class="col-md-6" style="text-align:center; width: auto;background-color: #0f800c;color: white;" class="btn btn-rounded btn-md font-weight-medium auth-form-btn"
+     <button type="button" class="col-md-6" style="text-align:center; width: auto;" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
      aria-label="Close" (click)="OkModalDialog(content5)">
      <i class="bi bi-arrow-right-circle"></i>&nbsp;
       <span aria-hidden="true">Ok</span>

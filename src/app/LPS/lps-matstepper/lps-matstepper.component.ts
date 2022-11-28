@@ -23,7 +23,6 @@ import { tree } from 'ngx-bootstrap-icons';
 import { LpssummaryComponent } from '../lpssummary/lpssummary.component';
 import { MatStepper } from '@angular/material/stepper';
 import { LpsFileUploadService } from 'src/app/LPS_services/lps-file-upload.service';
-import { LpsGlobalserviceService } from '../lps-globalservice.service';
 
 @Component({
   selector: 'app-lps-matstepper',
@@ -97,8 +96,8 @@ export class LpsMatstepperComponent implements OnInit {
     private router: ActivatedRoute, public service: GlobalsService,
     private ChangeDetectorRef: ChangeDetectorRef,
     private airterminationServices: AirterminationService,
-    private fileUploadService:LpsFileUploadService,
-    private lpsGlobalservice:LpsGlobalserviceService,
+    private fileUploadService:LpsFileUploadService
+ 
     ) { 
     }
 
@@ -346,7 +345,11 @@ export class LpsMatstepperComponent implements OnInit {
   }
 
   interceptTabChange(tab: MatTab, tabHeader: MatTabHeader) {
-    if((this.service.lpsClick==1) && (this.service.allStepsCompleted==true) && !this.isEditable)
+    if ((this.airTermination.airTerminationForm.dirty && this.airTermination.airTerminationForm.touched) || 
+    (this.downConductors.downConductorForm.dirty && this.downConductors.downConductorForm.touched)) {
+      this.fileUploadService.removeUnusedFiles(this.airTermination.basicLpsId).subscribe();
+    }
+    if((this.service.lvClick==1) && (this.service.allStepsCompleted==true))
        {
         const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
           width: '420px',
@@ -355,43 +358,22 @@ export class LpsMatstepperComponent implements OnInit {
         });
         dialogRef.componentInstance.editModal = false;
         dialogRef.componentInstance.viewModal = false;
-
-        if(this.airTermination.fileFalg || this.downConductors.fileFlag){
-          dialogRef.componentInstance.triggerModal1 = true;
-        }
-
-        else{
-          dialogRef.componentInstance.triggerModal = true;
-        }
-
+        dialogRef.componentInstance.triggerModal = true;
         dialogRef.componentInstance.linkModal = false;
         dialogRef.componentInstance.summaryModal = false;
     
         dialogRef.componentInstance.confirmBox.subscribe(data=>{
           if(data) {
+           
             if(tab.textLabel == "Saved Reports"){
               this.selectedIndex=1; 
-              this.lpsGlobalservice.basiclpsId = 0;
-
-              // File Delete purpose
-              if ((this.airTermination.airTerminationForm.dirty && this.airTermination.airTerminationForm.touched) || 
-              (this.downConductors.downConductorForm.dirty && this.downConductors.downConductorForm.touched)) {
-                this.fileUploadService.removeUnusedFiles(this.airTermination.basicLpsId).subscribe();
-              }
             }
             else if(tab.textLabel == "Final Reports"){
               this.selectedIndex=2; 
-              this.lpsGlobalservice.basiclpsId = 0;
-
-              // File Delete purpose
-              if ((this.airTermination.airTerminationForm.dirty && this.airTermination.airTerminationForm.touched && !this.airTermination.fileFalg) || 
-              (this.downConductors.downConductorForm.dirty && this.downConductors.downConductorForm.touched && !this.downConductors.fileFlag)) {
-                this.fileUploadService.removeUnusedFiles(this.airTermination.basicLpsId).subscribe();
-              }
             }
             this.service.windowTabClick=0;
             this.service.logoutClick=0; 
-            this.service.lpsClick=0; 
+            this.service.lvClick=0; 
           }
           else{
             return;
@@ -401,16 +383,16 @@ export class LpsMatstepperComponent implements OnInit {
       //     this.selectedIndex=1; 
       //     this.service.windowTabClick=0;
       //     this.service.logoutClick=0; 
-      //     this.service.lpsClick=0; 
+      //     this.service.lvClick=0; 
       // }
       // else{
       //   return;
       // }
         }
-        else if((this.service.lpsClick==0) || (this.service.allStepsCompleted== true) && this.isEditable){
+        else if((this.service.lvClick==0) || (this.service.allStepsCompleted==false)){
         this.service.windowTabClick=0;
         this.service.logoutClick=0;
-        this.service.lpsClick=0; 
+        this.service.lvClick=0; 
         const tabs = tab.textLabel;
         if((tabs==="Lightning Protection System"))  {
              this.selectedIndex=0; 
@@ -463,7 +445,7 @@ export class LpsMatstepperComponent implements OnInit {
   }
 
   getAirterminationData(basicLpsId: any) {
-    this.airterminationServices.retriveAirTerminationDetails(basicLpsId).subscribe(
+    this.airterminationServices.retriveAirTerminationDetails(this.router.snapshot.paramMap.get('email') || '{}', basicLpsId).subscribe(
       data => {
         this.createFormForAirterminationBuilding(JSON.parse(data)[0]);
       }
@@ -488,7 +470,7 @@ export class LpsMatstepperComponent implements OnInit {
   initializeLpsId(){
     this.downConductors.availabilityOfPreviousReport = this.basic.availableReportNo;
     this.earthing.availabilityOfPreviousReport = this.basic.availableReportNo;
-    this.lpsGlobalservice.basiclpsId = this.basic.basicDetails.basicLpsId;
+    
     setTimeout(() => {
       if(this.basic.availableReportNo == 'No'){
         this.downConductors.validationTesting();
@@ -580,7 +562,7 @@ export class LpsMatstepperComponent implements OnInit {
       this.lpsSummary.spinner1 = false;
       this.lpsSummary.spinnerValue = "";
       this.summarySpinner = false;
-    }, 10000);
+    }, 5000);
   }
   
 }

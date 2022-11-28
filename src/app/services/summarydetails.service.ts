@@ -15,11 +15,6 @@ export class SummarydetailsService {
   public addSummary(summary: Summary): Observable<any> {
     return this.http.post<any>(this.apiUrl + '/addSummary', summary, { responseType: 'text' as 'json' })
   }
-
-  public retrieveSummary(siteId:any): Observable<any> {
-    return this.http.get<any>(this.apiUrl + '/retrieveSummary'+'/'+siteId, { responseType: 'text' as 'json' })
-  }
-
   public sendComments(comment: CommentsSection,siteId: any): Observable<any> {
     return this.http.post<any>(this.apiUrl + '/sendSummaryComments'+'/'+comment.userName+ '/' +siteId, comment, { responseType: 'text' as 'json' })
   }

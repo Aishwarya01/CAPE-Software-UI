@@ -73,21 +73,6 @@
       ::ng-deep .multiline-tooltip{
         white-space: pre-line;
         }
-        .next:disabled {
-          background-color: lightgrey;
-            color: black;
-            margin-left: 30px;
-            cursor: not-allowed;
-          }   
-          .disableForm{
-            pointer-events: none;
-          }
-          .disableSubmit{
-            pointer-events: none;
-            background-color: lightgrey;
-            color: black;
-            cursor: not-allowed !important;
-          }
 
         
       .long-value-input {

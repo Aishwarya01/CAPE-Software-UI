@@ -296,8 +296,8 @@
             <div class="row" style="display: block;">
                 <div class="col-xs-12">
                     <div class="text-align" style="text-align: center;">
-                <button [disabled]="loading" [ngStyle]="{'cursor': loading ? 'not-allowed' : 'pointer'}" style="background-color: #0f800c;color: white;"
-                type="submit" class="btn btn-rounded btn-md font-weight-medium auth-form-btn" id="login-btn"><i class="bi bi-person-plus-fill icon"></i> Register</button>
+                <button [disabled]="loading" [ngStyle]="{'cursor': loading ? 'not-allowed' : 'pointer'}" 
+                type="submit" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" id="login-btn"><i class="bi bi-person-plus-fill icon"></i> Register</button>
                 <div class="divider"> </div>
                 <button  [routerLink]="['/login']" class="btn btn-danger cancel" ><i class="bi bi-x icon"></i> Cancel</button>
             </div>
@@ -352,7 +352,7 @@
           <div class="row" style="display: block;">
             <div class="col-xs-12">
                 <div class="text-align" style="text-align: end;margin: 10px;">
-                  <button   type="button" style="background-color: #0f800c;color: white;" class="btn btn-rounded btn-md font-weight-medium auth-form-btn" 
+                  <button   type="button" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" 
                   printSectionId="printdiv" ngxPrint style="margin: 10px;">Print</button>
                   <!-- <button  type="button" class="btn btn-danger cancel">
                     <i class="bi bi-x icon"></i> Cancel</button> -->

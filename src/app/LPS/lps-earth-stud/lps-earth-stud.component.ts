@@ -204,7 +204,7 @@ export class LpsEarthStudComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports(data: any) {
-    // this.service.lpsClick=1;
+    // this.service.lvClick=1;
     if(data.basicLpsId != undefined && data.basicLpsId != 0){
       this.step7List = data;
     }
@@ -274,7 +274,7 @@ export class LpsEarthStudComponent implements OnInit {
             this.success = true;
             this.successMsg = data;
             this.EarthStudForm.markAsPristine();
-            this.service.lpsClick=0;
+            this.service.lvClick=0;
             this.service.logoutClick=0;
             this.service.windowTabClick=0;
             this.retriveStud();
@@ -323,7 +323,7 @@ export class LpsEarthStudComponent implements OnInit {
             // setTimeout(() => {
             //   this.lpsMatstepper.changeTab1(2);
             //  }, 3000);
-             this.service.lpsClick=0;
+             this.service.lvClick=0;
             this.service.logoutClick=0;
             this.service.windowTabClick=0;
           },
@@ -348,19 +348,19 @@ export class LpsEarthStudComponent implements OnInit {
     if(!this.EarthStudForm.invalid){
       if(this.EarthStudForm.dirty){
         this.validationError=false;
-        this.service.lpsClick=1;
+        this.service.lvClick=1;
         this.service.logoutClick=1;
         this.service.windowTabClick=1;
       }
       else{
         this.validationError=false;
-        this.service.lpsClick=0;
+        this.service.lvClick=0;
         this.service.logoutClick=0;
         this.service.windowTabClick=0;
       }
      }
      else {
-      this.service.lpsClick=1;
+      this.service.lvClick=1;
       this.service.logoutClick=1;
       this.service.windowTabClick=1;
      }
@@ -369,19 +369,19 @@ export class LpsEarthStudComponent implements OnInit {
    if(!this.EarthStudForm.invalid){ 
     if(this.EarthStudForm.dirty){
       this.validationError=false;
-      this.service.lpsClick=1;
+      this.service.lvClick=1;
       this.service.logoutClick=1;
       this.service.windowTabClick=1;
     }
     else{
       this.validationError=false;
-      this.service.lpsClick=0;
+      this.service.lvClick=0;
       this.service.logoutClick=0;
       this.service.windowTabClick=0;
     }
    }
    else {
-    this.service.lpsClick=1;
+    this.service.lvClick=1;
     this.service.logoutClick=1;
     this.service.windowTabClick=1;
    }
@@ -416,7 +416,7 @@ export class LpsEarthStudComponent implements OnInit {
      }, 3000);
       return;
     }
-    else if(this.EarthStudForm.value.earthStud[0].buildingNumber == undefined && this.EarthStudForm.value.earthStud[0].buildingNumber == '' && this.EarthStudForm.value.earthStud[0].buildingName=='' && this.EarthStudForm.value.earthStud[0].buildingName == undefined){
+    else if(this.EarthStudForm.value.earthStud[0].buildingNumber == undefined || this.EarthStudForm.value.earthStud[0].buildingNumber == ''){
       this.validationError = true;
       this.validationErrorMsg = 'Air Termination Form is Required, Please fill';
       setTimeout(() => {
@@ -434,6 +434,12 @@ export class LpsEarthStudComponent implements OnInit {
       this.modalService.open(contents, { centered: true,backdrop: 'static' });
       // this.modalReference.close();
      }
+  }
+
+  summaryEvent(content:any){
+    this.modalService.open(content, { centered: true, backdrop: 'static' });
+    this.onSubmit(this.flag);
+    this.summaryPopup=false;
   }
 
   retriveStud(){
@@ -573,7 +579,7 @@ export class LpsEarthStudComponent implements OnInit {
     }
   }
   getAirterminationData(){
-    this.airterminationServices.retriveAirTerminationDetails(this.basicLpsId).subscribe(
+    this.airterminationServices.retriveAirTerminationDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
       data => {
         this.createearthStudForm(JSON.parse(data)[0]);
       }       

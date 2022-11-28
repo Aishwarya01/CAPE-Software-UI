@@ -413,7 +413,7 @@ export class EmcFacilityDataComponent implements OnInit {
       this.service.isLinear=true;
       this.service.editable=false;
       this.validationErrorTab = true;
-      this.validationErrorMsgTab= 'Please check all the fields in facility section';
+      this.validationErrorMsgTab= 'Please check all the fields in supply characteristics';
       setTimeout(() => {
         this.validationErrorTab = false;
       }, 3000);
@@ -439,7 +439,7 @@ export class EmcFacilityDataComponent implements OnInit {
   gotoNextModal(content1: any, content2: any) {
     if (this.EMCFacilityForm.invalid) {
       this.validationError = true;
-      this.validationErrorMsg = "Please check all the fields in facility section";
+      this.validationErrorMsg = "Please check all the fields";
       //     setTimeout(()=>{
       //       this.validationError=false;
       //  }, 3000);

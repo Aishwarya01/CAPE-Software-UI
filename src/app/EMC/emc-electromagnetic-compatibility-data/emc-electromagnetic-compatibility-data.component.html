@@ -271,7 +271,7 @@
 
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
-                                    <h3>External RFI Sources</h3>
+                                    <h3>Extrenal RFI Sources</h3>
                                 </mat-panel-title>
 
                             </mat-expansion-panel-header>
@@ -664,9 +664,9 @@
                     <div class="col-sm-12">
                         <div style="text-align: center;">
                             <!-- <button class="previous"  mat-button matStepperPrevious>&laquo; Back</button> -->
-                            <button style="width: auto;margin-left: 50px;background-color: #0f800c;color: white;" (click)="gotoNextModal(content3)"
+                            <button style="width: auto;margin-left: 50px;" (click)="gotoNextModal(content3)"
                                 type="submit"  [ngClass]="{'disableSubmit':service.disableSubmitElectromagnetic}"
-                                class="btn btn-rounded btn-md font-weight-medium auth-form-btn next"
+                                class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn next"
                                 mat-button>
                                 <i class="bi bi-journal-arrow-up icon"></i> Submit</button>
                         </div>
@@ -699,8 +699,8 @@
     </div>
     <br>
     <div *ngIf="popup">
-        <button type="button" class="close" style="text-align: center;margin-left:180px;width:20%;background-color: #0f800c;color: white;"
-            class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
+        <button type="button" class="close" style="text-align: center;margin-left:180px;width:20%"
+            class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
             (click)="closeModalDialog()" matStepperNext>
             <span aria-hidden="true">Ok</span>
         </button>

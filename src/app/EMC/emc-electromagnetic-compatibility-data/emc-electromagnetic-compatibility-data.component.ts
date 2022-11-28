@@ -257,7 +257,7 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
   populateData(value: any) {
     this.arr2 = [];
     for (let item of value) {
-      //console.log(item.exter)
+      console.log(item.exter)
       this.arr2.push(this.createGroup(item));
     }
   }
@@ -363,7 +363,7 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
      this.service.isLinear=true;
      this.service.editable=false;
      this.validationErrorTab = true;
-     this.validationErrorMsgTab= 'Please check all the fields in electromagnetic compatibility section';
+     this.validationErrorMsgTab= 'Please check all the fields in testing';
      setTimeout(() => {
        this.validationErrorTab = false;
      }, 3000);
@@ -394,7 +394,7 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
       this.service.isLinear=true;
       this.service.editable=false;
       this.validationErrorTab = true;
-      this.validationErrorMsgTab= 'Please check all the fields in electromagnetic compatibility section';
+      this.validationErrorMsgTab= 'Please check all the fields in testing';
       setTimeout(() => {
         this.validationErrorTab = false;
       }, 3000);

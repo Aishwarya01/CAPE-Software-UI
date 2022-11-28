@@ -15,10 +15,6 @@ label {
   margin-bottom: 20px;
 }
 
-.disableForm{
-  pointer-events: none;
-}
-
 /* textarea.form-control{height: 30px !important} */
 
 .previous {

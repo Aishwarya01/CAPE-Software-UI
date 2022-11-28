@@ -1,12 +1,12 @@
 .bg-image {
-    background: url(../../assets/img/electrical-panel-testing_test.jpg);
+    background: url(../../assets/img/electrical-panel-testing1.jpg);
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: left;
     background-size: 100%;
     height: auto;
     width: 100%;
-    position: relative;
+    position: absolute;
     padding: 20px;
 }
 

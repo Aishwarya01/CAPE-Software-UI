@@ -100,37 +100,7 @@ import { LpssummaryComponent } from './LPS/lpssummary/lpssummary.component';
 
 import { UpdateLicenceComponent } from './update-licence/update-licence.component';
 import { SignaturePadModule } from 'angular2-signaturepad';
-import { SignatureComponent } from './signature/signature.component';
-import { RiskParentComponentComponent } from './Risk Assessment/Risk Assessment/risk-parent-component/risk-parent-component.component';
-import { RiskCustomerDetailsComponent } from './Risk Assessment/Risk Assessment/risk-customer-details/risk-customer-details.component';
-import { RiskSavedReportsComponent } from './Risk Assessment/Risk Assessment/risk-saved-reports/risk-saved-reports.component';
-import { RiskFinalReportsComponent } from './Risk Assessment/Risk Assessment/risk-final-reports/risk-final-reports.component';
-import { RiskAssessmentDetailsComponent } from './Risk Assessment/Risk Assessment/risk-assessment-details/risk-assessment-details.component'
-
-import { DiagramAllModule, SymbolPaletteAllModule, OverviewAllModule } from '@syncfusion/ej2-angular-diagrams';
-import { DiagramListComponent } from './SLD/SLD components/diagram-list/diagram-list.component';
-import { DiagramHomeComponent } from './SLD/SLD components/diagram-home/diagram-home.component';
-import { DiagramWelcomePageComponent } from './SLD/SLD components/diagram-welcome-page/diagram-welcome-page.component';
-import { NewFileComponent } from './new-file/new-file.component';
-import { MCBComponent } from './SLD/SLD components/Node Components/mcb/mcb.component';
-import { MCCBComponent } from './SLD/SLD components/Node Components/mccb/mccb.component';
-import { RCBOComponent } from './SLD/SLD components/Node Components/rcbo/rcbo.component';
-import { LightComponent } from './SLD/SLD components/Node Components/light/light.component';
-import { LTMotorComponent } from './SLD/SLD components/Node Components/ltmotor/ltmotor.component';
-import { PortableApplianceComponent } from './SLD/SLD components/Node Components/portable-appliance/portable-appliance.component';
-
-import { CablesComponent } from './SLD/SLD components/Node Components/cables/cables.component';
-import { FanComponent } from './SLD/SLD components/Node Components/fan/fan.component';
-import { CableConnectorComponent } from './SLD/SLD components/Node Components/cable-connector/cable-connector.component';
-import { TransformerComponent } from './SLD/SLD components/Node Components/transformer/transformer.component';
-import { DGComponent } from './SLD/SLD components/Node Components/dg/dg.component';
-import { SwitchBoardsComponent } from './SLD/SLD components/Node Components/switch-boards/switch-boards.component';
-import { ACBComponent } from './SLD/SLD components/Node Components/acb/acb.component';
-import { EquipotentialBondingComponent } from './SLD/SLD components/Node Components/equipotential-bonding/equipotential-bonding.component';
-import { ProtectiveEarthConductorComponent } from './SLD/SLD components/Node Components/protective-earth-conductor/protective-earth-conductor.component';
-import { TestingDialogBoxComponent } from './testing-dialog-box/testing-dialog-box.component';
-import { MatCarouselModule } from 'ng-mat-carousel';
-import { BuyMeterComponent } from './buy-meter/buy-meter.component';
+import { SignatureComponent } from './signature/signature.component'
 
 
 @NgModule({
@@ -197,40 +167,10 @@ import { BuyMeterComponent } from './buy-meter/buy-meter.component';
     LpsEarthStudComponent,
     LpsSavedReportComponent,
     LpsWelcomePageComponent, 
-
     LpsFinalReportComponent, LpssummaryComponent, UpdateLicenceComponent, 
-
-
-    SignatureComponent,
-    DiagramListComponent,
-    DiagramHomeComponent,
-    DiagramWelcomePageComponent,
-    NewFileComponent,
-    LpssummaryComponent,
-    MCBComponent,
-    MCCBComponent,
-    RCBOComponent,
-    LightComponent,
-    LTMotorComponent,
-    RiskParentComponentComponent,
-    RiskCustomerDetailsComponent,
-    RiskSavedReportsComponent,
-    RiskFinalReportsComponent,
-    RiskAssessmentDetailsComponent,  
-    FanComponent,
-    PortableApplianceComponent,
-    FanComponent, CablesComponent, CableConnectorComponent, TransformerComponent,
-    DGComponent,
-    SwitchBoardsComponent,
-    ACBComponent,
-    EquipotentialBondingComponent,
-    ProtectiveEarthConductorComponent,
-    TestingDialogBoxComponent,
-    BuyMeterComponent
 
   ],
   imports: [
-    MatCarouselModule.forRoot(),
     SignaturePadModule,
     TruncateModule,
     NgbTooltipModule,
@@ -260,9 +200,6 @@ import { BuyMeterComponent } from './buy-meter/buy-meter.component';
     MatBadgeModule,
     MatProgressSpinnerModule,
     MatTooltipModule,
-    DiagramAllModule,
-    SymbolPaletteAllModule,
-    OverviewAllModule,
     BackButtonDisableModule.forRoot({
       preserveScrollPosition: true
     }),

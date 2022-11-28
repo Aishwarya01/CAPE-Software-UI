@@ -5,7 +5,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalsService } from 'src/app/globals.service';
 
 import { BasicDetails} from 'src/app/LPS_model/basic-details';
-import { LpsFileUploadService } from 'src/app/LPS_services/lps-file-upload.service';
 import { LPSBasicDetailsService } from 'src/app/LPS_services/lpsbasic-details.service';
 
 @Component({
@@ -49,52 +48,12 @@ export class LpsBasicPageComponent implements OnInit {
   mode: any = 'indeterminate';
   nextButton: boolean = true;
   popup: boolean = false;
-  onSave: any;
-  email: any;
-  projectNameMsg: string="";
-  projectNameError: boolean=false;
-  projectNameSuccess: boolean=false;
-  projectNameMsg1: string="";
-  isEditable1: boolean=false;
-
-  // File Upload
-  fileName: String="";
-  fileSize: any;
-  spinnerUpload: boolean = false;
-  popupUpload: boolean = false;
-  finalSpinnerDelete: boolean = true;
-  uploadDisable: boolean = true;
-  popupDelete: boolean = false;
-  uploadDisable1: boolean = true;
-  uploadFlag: boolean=false;
-  filesuccess: boolean = false;
-  filesuccessMsg: string = "";
-  JSONdata: any = [];
-  fileDeleteSuccess: boolean = false;
-  fileDeletesuccessMsg: string = "";
-
-  file!: any;
-  uploadFlag1!: boolean;
-  uploadFlag2!: boolean;
-  basicLpsId: number=0;
-  formFile:any;
-  fileId: any;
-  retreveFileId: any;
-  data: any=[];
-
-  lpsBasic: any=[];
-
-  // License Purpose
-  // currentUserName: String='';
-  // currentUsermail: String='';
-  // userDetails: any;
 
   constructor(private formBuilder: FormBuilder, 
     private lPSBasicDetailsService: LPSBasicDetailsService,
     private modalService: NgbModal,
     private router: ActivatedRoute,
     public service: GlobalsService,
-    public fileUplaodService: LpsFileUploadService
 
     ) {
     // this.lPSBasicDetailsService = lPSBasicDetailsService;
@@ -106,22 +65,16 @@ export class LpsBasicPageComponent implements OnInit {
     this.LPSBasicForm = this.formBuilder.group({
       lpsBasic: this.formBuilder.array([this.allBasicForm()])
     });
-    // License Purpose
-    // this.userDetails = sessionStorage.getItem('authenticatedUser');
-    // if(JSON.parse(this.userDetails).role == "Inspector"){
-    //   this.currentUserName=JSON.parse(this.userDetails).name;
-    //   this.currentUsermail=JSON.parse(this.userDetails).username;
-    // }
   }
 
-  allBasicForm() {
-    return this.formBuilder.group({
+  allBasicForm(): FormGroup {
+    return new FormGroup({
       clientName: new FormControl('', Validators.required),
       projectName:new FormControl('', Validators.required),
-      pmcName:new FormControl(''),
-      consultantName:new FormControl(''),
-      contractorName:new FormControl(''),
-      dealerContractorName:new FormControl(''),
+      pmcName:new FormControl('', Validators.required),
+      consultantName:new FormControl('', Validators.required),
+      contractorName:new FormControl('', Validators.required),
+      dealerContractorName:new FormControl('', Validators.required),
       address:new FormControl('', Validators.required),
       location:new FormControl('', Validators.required),
       industryType:new FormControl('', Validators.required),
@@ -132,52 +85,19 @@ export class LpsBasicPageComponent implements OnInit {
       contactNumber:new FormControl('',[Validators.required ,Validators.maxLength(10),Validators.minLength(10)]),
       mailId:new FormControl('', [Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       availabilityOfPreviousReport:new FormControl('', Validators.required),
-      // license purpose 
-      // email1:new FormControl(''),
-      // name1:new FormControl(''),
-      fileName: new FormControl(''),
-      basicLpsId: new FormControl(''),
-      fileSize: new FormControl(''),
-      fileId: new FormControl(''),
     });
-  }
-
-  getFileDetails(fileId:any){
-    if(fileId!=undefined && fileId!=null && fileId!=""){
-      this.fileUplaodService.retriveBasicFile(fileId).subscribe(
-        (data) => {
-          this.fileName = JSON.parse(data).fileName;
-          this.fileSize = JSON.parse(data).fileSize;
-          this.fileId = JSON.parse(data).fileId;
-        },
-        (error) => {
-        },
-      )
-    }
-  }
-
-  dropDown1(event:any,form:any){
-    if(form.controls.availabilityOfPreviousReport.value=='No'){
-      form.controls.fileId.clearValidators();
-      form.controls.fileId.updateValueAndValidity();
-    }
-    else if(form.controls.availabilityOfPreviousReport.value=='Yes'){
-      form.controls.fileId.setValidators([Validators.required]);
-      form.controls.fileId.updateValueAndValidity();
-    }
   }
 
   createGroup(item: any): FormGroup {
     this.countryCode =item.contactNumber.split("-")[0]
-    this.getFileDetails(item.fileId);
     return this.formBuilder.group({
 
       clientName: new FormControl({disabled: false, value: item.clientName}, Validators.required),
       projectName: new FormControl({disabled: false, value: item.projectName}, Validators.required),
-      pmcName: new FormControl({disabled: false, value: item.pmcName}),
-      consultantName: new FormControl({disabled: false, value: item.consultantName}),
-      contractorName: new FormControl({disabled: false, value: item.contractorName}),
-      dealerContractorName: new FormControl({disabled: false, value: item.dealerContractorName}),
+      pmcName: new FormControl({disabled: false, value: item.pmcName}, Validators.required),
+      consultantName: new FormControl({disabled: false, value: item.consultantName}, Validators.required),
+      contractorName: new FormControl({disabled: false, value: item.contractorName}, Validators.required),
+      dealerContractorName: new FormControl({disabled: false, value: item.dealerContractorName}, Validators.required),
       address: new FormControl({disabled: false, value: item.address}, Validators.required),
       location: new FormControl({disabled: false, value: item.location}, Validators.required),
       industryType: new FormControl({disabled: false, value: item.industryType}, Validators.required),
@@ -189,17 +109,10 @@ export class LpsBasicPageComponent implements OnInit {
       mailId: new FormControl({disabled: false, value: item.mailId},
          [Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       availabilityOfPreviousReport: new FormControl({disabled: false, value: item.availabilityOfPreviousReport}, Validators.required),
-      // License Purpose
-      // email1:new FormControl(''),
-      // name1:new FormControl(''),
-      basicLpsId: new FormControl({disabled: false, value: item.basicLpsId}),
-      fileId: new FormControl({disabled: false, value: item.fileId}),
     });
-    
-
   }
 
-  overAllControl(): any {
+  overAllControl(): AbstractControl[] {
     return(<FormArray>this.LPSBasicForm.get('lpsBasic')).controls;
   }
 
@@ -236,8 +149,7 @@ export class LpsBasicPageComponent implements OnInit {
       this.LPSBasicForm = this.formBuilder.group({
         lpsBasic: this.formBuilder.array([this.createGroup(this.step1List)])
       });
-      
-      this.isEditable1=true;
+
     }
 
     reset(){
@@ -248,19 +160,19 @@ export class LpsBasicPageComponent implements OnInit {
     if(!this.LPSBasicForm.invalid){
       if(this.LPSBasicForm.dirty){
         this.validationError=false;
-        this.service.lpsClick=1;
+        this.service.lvClick=1;
         this.service.logoutClick=1;
          this.service.windowTabClick=1;
       }
       else{
         this.validationError=false;
-        this.service.lpsClick=0;
+        this.service.lvClick=0;
         this.service.logoutClick=0;
         this.service.windowTabClick=0;
       }
      }
      else {
-      this.service.lpsClick=1;
+      this.service.lvClick=1;
       this.service.logoutClick=1;
       this.service.windowTabClick=1;
      }
@@ -269,19 +181,19 @@ export class LpsBasicPageComponent implements OnInit {
    if(!this.LPSBasicForm.invalid){ 
     if(this.LPSBasicForm.dirty){
       this.validationError=false;
-      this.service.lpsClick=1;
+      this.service.lvClick=1;
       this.service.logoutClick=1;
       this.service.windowTabClick=1;
     }
     else{
       this.validationError=false;
-      this.service.lpsClick=0;
+      this.service.lvClick=0;
       this.service.logoutClick=0;
       this.service.windowTabClick=0;
     }
    }
    else {
-    this.service.lpsClick=1;
+    this.service.lvClick=1;
     this.service.logoutClick=1;
     this.service.windowTabClick=1;
    }
@@ -315,55 +227,31 @@ export class LpsBasicPageComponent implements OnInit {
       }
   }
 
-  closeModalDialog1(value:any) {
-    this.lpsBasic = this.LPSBasicForm.get('lpsBasic') as FormArray;
-    this.lpsBasic.controls[0].controls.availabilityOfPreviousReport.value;
-
-    if(this.lpsBasic.controls[0].controls.availabilityOfPreviousReport.value == value){
-      this.lpsBasic.controls[0].controls.availabilityOfPreviousReport.setValue("No");
-      this.closeModalDialogFile();
-    }
-    else{
-      this.lpsBasic.controls[0].controls.availabilityOfPreviousReport.setValue("Yes");
-      this.closeModalDialogFile();
-    }
-  }
-
-  closeModalDialogFile() {
-    this.modalService.dismissAll();
-  }
-
-  dropDownPopup(event:any,dropDown:any){
-    if(event!=null && event!=undefined && event!="" && event.target !=undefined && event.target !=null && event.target != "" && event.target.value !=undefined && event.target.value !='' && event.target.value == "No" && this.fileId!=undefined && this.fileId!=null && this.fileId!=0){
-      this.modalService.open(dropDown, { centered: true,backdrop: 'static' });
-    }
-  }
-
   gotoNextModal(content: any,contents: any) {
-    if(!this.projectNameError){
-      if (this.LPSBasicForm.invalid) {
-        this.validationError = true;
-        this.validationErrorMsg = 'Please check all the fields';
-        setTimeout(() => {
-         this.validationError = false;
-        }, 3000);
-        return;
-      }
+     if (this.LPSBasicForm.invalid) {
+       this.validationError = true;
+       this.validationErrorMsg = 'Please check all the fields';
+       setTimeout(() => {
+        this.validationError = false;
+       }, 3000);
+       return;
+     }
+     
+    //  Update and Success msg will be showing
+     if(this.LPSBasicForm.dirty && this.LPSBasicForm.touched){
+      this.modalService.open(content, { centered: true,backdrop: 'static' });
+     }
+    //  For Dirty popup
+     else{
+      this.modalService.open(contents, { centered: true,backdrop: 'static' });
+     }
       
-     //  Update and Success msg will be showing
-      if(this.LPSBasicForm.dirty && this.LPSBasicForm.touched){
-       this.modalService.open(content, { centered: true,backdrop: 'static' });
-      }
-     //  For Dirty popup
-      else{
-       this.modalService.open(contents, { centered: true,backdrop: 'static' });
-      }
-    }
   }
  
   onSubmit(flag: any) {
     this.submitted=true;
-     if (this.LPSBasicForm.invalid || this.projectNameError) {
+    
+     if (this.LPSBasicForm.invalid) {
        return;
      }
       this.spinner = true;
@@ -387,7 +275,7 @@ export class LpsBasicPageComponent implements OnInit {
           this.LPSBasicForm.markAsPristine();
           this.isBasicFormUpdated=true;
           this.proceedNext.emit(true);
-          this.service.lpsClick=0;
+          this.service.lvClick=0;
           this.service.logoutClick=0;
           this.service.windowTabClick=0;
           this.basicLpsIdRetrive=0;
@@ -426,6 +314,7 @@ export class LpsBasicPageComponent implements OnInit {
     }
     else {
       this.lPSBasicDetailsService.saveLPSBasicDetails(this.getBasicDetailsObject()).subscribe(
+    
         data => {
           setTimeout(() =>{
             this.popup=true;
@@ -441,7 +330,7 @@ export class LpsBasicPageComponent implements OnInit {
           this.LPSBasicForm.markAsPristine();
           this.isBasicFormUpdated=true;
           this.proceedNext.emit(true);
-          this.service.lpsClick=0;
+          this.service.lvClick=0;
           this.service.logoutClick=0;
           this.service.windowTabClick=0;
           
@@ -502,13 +391,9 @@ export class LpsBasicPageComponent implements OnInit {
     this.basicDetails.availabilityOfPreviousReport = this.LPSBasicForm.value.lpsBasic[0].availabilityOfPreviousReport;
     this.basicDetails.userName = this.router.snapshot.paramMap.get('email') || '{}';
 
-    this.basicDetails.fileName = this.fileName;
-    this.basicDetails.fileId = this.fileId;
-    this.basicDetails.fileSize = this.fileSize;
-    this.basicDetails.userName = this.router.snapshot.paramMap.get('email') || '{}';
-
     return this.basicDetails;
   }
+
 
   // getDescriptionControl(): AbstractControl[] {
   //   return (<FormArray>this.LPSBasicForm.get('basicLpsDescription')).controls;
@@ -578,110 +463,4 @@ export class LpsBasicPageComponent implements OnInit {
       this.service.editable = true;
     }
   }
-
-  projectValidation(event:any,form:any){
-    var a=event.target.value;
-
-    if(form.controls.clientName.value!=undefined && form.controls.projectName.value!=undefined && form.controls.clientName.value!=null && form.controls.projectName.value!=null && form.controls.clientName.value!="" && form.controls.projectName.value!=""){
-
-      this.lPSBasicDetailsService.validateProjectName(form.controls.clientName.value,form.controls.projectName.value).subscribe(
-        // this.lPSBasicDetailsService.validateProjectName(this.basicDetails.clientName,this.basicDetails.projectName).subscribe(
-        data =>{
-          var b=form.controls.projectName.value;
-          if(data != ''){
-            this.projectNameMsg="Project Name is already existing, Please give different Project Name";
-            this.projectNameMsg1="";
-            this.projectNameError=true;
-          }else {
-            this.projectNameMsg1="You can continue with this Project Name";
-            this.projectNameMsg="";
-            this.projectNameSuccess=true;
-            this.projectNameError=false;
-            setTimeout(() => {
-              this.projectNameSuccess=false;
-            }, 3000);
-          }
-      })
-    }
-  }
-
-  onChange(event: any,form:any) {
-    this.file = event.target.files;
-    if (this.file != null) {
-      this.uploadDisable = false;
-    }
-    // form.controls.fileSize.setValue(Math.round(this.file[0].size / 1024) + " KB");
-    this.fileSize = Math.round(this.file[0].size / 1024) + " KB";
-    // form.controls.fileSize = this.fileSize;
-    this.fileName = this.file[0].name;
-  }
-
-  onUpload(contentSpinner: any,form:any) {
-    this.LPSBasicForm.markAsDirty();
-    this.LPSBasicForm.markAsTouched();
-    if (this.file != undefined) {
-      this.modalService.open(contentSpinner, {
-        centered: true,
-        size: 'md',
-        backdrop: 'static'
-      });
-      
-      const formData = new FormData();
-      for (let f of this.file) {
-        formData.append('file', f, f.name);
-      }
-      
-      this.formFile = formData;
-      this.spinnerUpload = true;
-      this.popupUpload = false;
-
-      if(this.fileId!=null && this.fileId!=undefined && this.fileId!=""){
-        this.fileUplaodService.basicFileUpdate(this.fileId,formData,this.fileSize).subscribe(
-          (data) => {
-            setTimeout(() =>{
-              this.spinnerUpload = false;
-              this.popupUpload = true;
-            }, 3000);
-            this.uploadDisable = true;
-            this.filesuccess = true;
-            this.filesuccessMsg = "File Updated Successfully";
-          },
-          (error) => {
-            this.spinnerUpload = false;
-            this.popupUpload = true;
-            this.filesuccess = false;
-            this.filesuccessMsg = "";
-          },
-        )
-      }
-      else{
-        this.fileUplaodService.basicFileUpload(formData,this.fileSize).subscribe(
-          (data) => {
-            setTimeout(() =>{
-              this.spinnerUpload = false;
-              this.popupUpload = true;
-            }, 3000);
-            this.uploadDisable = true;
-            this.filesuccess=true;
-            this.filesuccessMsg="File Uploaded Successfully";
-            // Here we are capturing fileid, which is retreve from backend
-            this.retreveFileId=data;
-            this.fileId=parseInt(this.retreveFileId);
-            form.controls.fileId.setValue(this.fileId);
-          },
-          (error) => {
-            this.spinnerUpload = false;
-            this.popupUpload = true;
-            this.filesuccess = false;
-            this.filesuccessMsg = "";
-          },
-        )
-      }
-    }
-  }
-
-  onDownload() {
-   this.fileUplaodService.basicFileDownload(this.fileId);
-  }
-
 }

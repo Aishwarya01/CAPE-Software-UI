@@ -179,7 +179,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
   gotoNextModal(content2: any, content: any) {
     if (this.EMCPowerAndEarthForm.invalid) {
       this.validationError = true;
-      this.validationErrorMsg = "Please check all the fields in power and earthing section";
+      this.validationErrorMsg = "Please check all the fields";
       //     setTimeout(()=>{
       //       this.validationError=false;
       //  }, 3000);
@@ -226,8 +226,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
     this.emcPowerAndEarthingData.powerIncomingAmps = this.step1List2.powerIncomingAmps;
     this.emcPowerAndEarthingData.powerNeutral = this.step1List2.powerNeutral;
     this.emcPowerAndEarthingData.psEarthing = this.step1List2.psEarthing;
-    //this.emcPowerAndEarthingData.peAttachement = this.step1List2.peAttachement;
-    // this.fileName = this.step1List2.peAttachement;
+    this.emcPowerAndEarthingData.peAttachement = this.step1List2.peAttachement;
     // this.emcPowerAndEarthingData.fileName = this.step1List2.fileName;
     // this.emcPowerAndEarthingData.fileSize = this.step1List2.fileSize;
     //this.emcPowerAndEarthingData.peAttachement=this.fileName;
@@ -466,7 +465,6 @@ export class PowerAndEarthingDataComponent implements OnInit {
           this.EMCPowerAndEarthForm.controls['peAttachement'].updateValueAndValidity();
         } else {
           this.uploadFlag = true;
-          this.EMCPowerAndEarthForm.controls['peAttachement'].setValue('');
           this.EMCPowerAndEarthForm.controls['peAttachement'].setValidators([Validators.required]);
           this.EMCPowerAndEarthForm.controls['peAttachement'].updateValueAndValidity();
         }
@@ -547,7 +545,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
      this.service.isLinear=true;
      this.service.editable=false;
      this.validationErrorTab = true;
-     this.validationErrorMsgTab= 'Please check all the fields in power and earthing section';
+     this.validationErrorMsgTab= 'Please check all the fields in inspection';
      setTimeout(() => {
        this.validationErrorTab = false;
      }, 3000);
@@ -578,7 +576,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
       this.service.isLinear=true;      
       this.service.editable=false;
       this.validationErrorTab = true;
-      this.validationErrorMsgTab= 'Please check all the fields in power and earthing section';
+      this.validationErrorMsgTab= 'Please check all the fields in inspection';
       setTimeout(() => {
         this.validationErrorTab = false;
       }, 3000);
@@ -621,7 +619,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
           this.fileName = "";
           this.fileSize = "";
           this.fileId = "";
-           this.EMCPowerAndEarthForm.controls['peAttachement'].setValue('');
+          //  this.EMCPowerAndEarthForm.controls['peAttachement'].reset();
           this.retriveFIleName();
         },
         (error) => {

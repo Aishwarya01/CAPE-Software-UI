@@ -529,7 +529,7 @@ SignatureDesigner1(){
      // let signBase64 = this.step1List.reportDetails.signatorDetails[0].declarationSignature;
 
        this.populateData(this.step1List.reportDetails.signatorDetails);
-       this.populateDataComments(this.step1List.reportDetails.reportDetailsComment);
+       this.populateDataComments();
        //this.notification();
 
       for( let i of this.step1List.reportDetails.signatorDetails) {
@@ -693,7 +693,6 @@ retrieveAllDetailsforBasic(userName: any,siteId: any,site:any,data: any){
      this.step1List.state=this.step1List.state;
      this.setReadOnly = true;
      this.populateData(this.step1List.signatorDetails);
-     this.populateDataComments(this.step1List.reportDetailsComment);
 
     for( let i of this.step1List.signatorDetails) {
       if(i.signatorRole == "designer1"){
@@ -773,20 +772,20 @@ retrieveAllDetailsforBasic(userName: any,siteId: any,site:any,data: any){
    
 //comments section starts
 
-populateDataComments(retrievedCommentsData: any) {
+populateDataComments() {
   this.hideShowComment=true;
   this.reportViewerCommentArr = [];
   this.completedCommentArr3 = [];
   this.completedCommentArr4 = [];
   this.arrViewer = [];
   this.completedCommentArr1 = this.step1Form.get('completedCommentArr1') as FormArray;
- for(let value of retrievedCommentsData){
+ for(let value of this.step1List.reportDetails.reportDetailsComment){
   this.arrViewer = [];
    if(this.currentUser1.role == 'Inspector' ) { //Inspector
     if(value.approveOrReject == 'APPROVED') {
       this.completedComments = true;
       this.enabledViewer=true;
-      for(let j of retrievedCommentsData) {
+      for(let j of this.step1List.reportDetails.reportDetailsComment) {
         if(value.noOfComment == j.noOfComment) {
           this.completedCommentArr3.push(j);
         }
@@ -794,7 +793,7 @@ populateDataComments(retrievedCommentsData: any) {
        this.completedCommentArr4.push(this.addItem(this.completedCommentArr3));               
       this.completedCommentArr3 = [];
     }
-    for(let j of retrievedCommentsData) {
+    for(let j of this.step1List.reportDetails.reportDetailsComment) {
       if((j.approveOrReject == 'REJECT' || j.approveOrReject == '' || j.approveOrReject == null) && j.viewerFlag==1)
           {
           this.arrViewer.push(this.createCommentGroup(j));
@@ -850,7 +849,7 @@ populateDataComments(retrievedCommentsData: any) {
             
                this.completedComments = true;
                this.enabledViewer=true;
-               for(let j of retrievedCommentsData) {
+               for(let j of this.step1List.reportDetails.reportDetailsComment) {
                  if(value.noOfComment == j.noOfComment) {
                    this.completedCommentArr3.push(j);
                  }
@@ -869,7 +868,7 @@ populateDataComments(retrievedCommentsData: any) {
                  //this.basic.notification(1,value.viewerUserName,value.inspectorUserName,value.viewerDate,value.inspectorDate);
                  }
                }
-               if(retrievedCommentsData.length < 1) {
+               if(this.step1List.reportDetails.reportDetailsComment.length < 1) {
                  this.reportViewerCommentArr.push(this.addCommentViewer());
                  this.step1Form.setControl('viewerCommentArr', this._formBuilder.array(this.reportViewerCommentArr || []));
                }
@@ -924,7 +923,7 @@ populateDataComments(retrievedCommentsData: any) {
              this.hideReject=false;
              this.enabledViewer=true;
             }
-            for(let j of retrievedCommentsData) {
+            for(let j of this.step1List.reportDetails.reportDetailsComment) {
                  if(j.approveOrReject == 'REJECT' || j.approveOrReject == '' || j.approveOrReject == null) {
                   this.arrViewer.push(this.createCommentGroup(j));
                  }
@@ -1130,11 +1129,11 @@ showHideAccordion(index: number) {
   refreshCommentSection() {
     this.spinner=true;
     this.cardBodyComments=false;
-    this.siteService.retrieveFinal(this.reportDetails.siteId).subscribe(
+    this.siteService.retrieveFinal(this.savedUserName,this.reportDetails.siteId).subscribe(
       (data) => {
          this.commentDataArr = JSON.parse(data);
          this.step1List.reportDetails.reportDetailsComment = this.commentDataArr.reportDetails.reportDetailsComment;
-         this.populateDataComments(this.step1List.reportDetails.reportDetailsComment);
+         this.populateDataComments();
          setTimeout(()=>{
           this.spinner=false;
          this.cardBodyComments=true;
@@ -2402,7 +2401,7 @@ onPopState(event:any) {
        this.service.windowTabClick=0;
        this.service.logoutClick=0; 
        this.service.lvClick=0; 
-       this.reportDetailsService.retrieveBasic(this.reportDetails.siteId).subscribe(
+       this.reportDetailsService.retrieveBasic(this.reportDetails.siteId,this.reportDetails.userName).subscribe(
          data=>{
           this.retrieveAllDetailsforBasic(this.reportDetails.userName,this.reportDetails.siteId,this.siteValue,data);
          }

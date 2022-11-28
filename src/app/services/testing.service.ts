@@ -25,7 +25,7 @@ export class TestingService {
   public approveRejectComments(comment: CommentsSection,siteId: any): Observable<any> {
     return this.http.post<any>(this.apiUrl + '/approveTestingComments'+'/'+comment.userName+ '/' +siteId, comment, { responseType: 'text' as 'json' })
   }
-  public retrieveTesting(siteId: any): Observable<any> {
-    return this.http.get<any>(this.apiUrl + '/retrievePeriodicTesting' + '/' +siteId, { responseType: 'text' as 'json' })
+  public retrieveTesting(siteId: any,userName:any): Observable<any> {
+    return this.http.get<any>(this.apiUrl + '/retrievePeriodicTesting'+'/'+userName+ '/' +siteId, { responseType: 'text' as 'json' })
   }
 }

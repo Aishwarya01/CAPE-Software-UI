@@ -50,8 +50,7 @@
       </div>
       <br />
       <div style="text-align: center">
-        <button class="btn" (click)="continue(contentViewer)" id="login-btn"
-        style="background-color: #0f800c;color: white;font-size: 14px;">
+        <button class="btn btn-primary" (click)="continue(contentViewer)" id="login-btn" style="font-size: 14px;">
           Continue</button
         >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <button
@@ -110,9 +109,6 @@
                         </div>
                         <div *ngIf="a.get('siteName')?.errors?.minlength">
                           Site Name should be more than 2 characters
-                        </div>
-                        <div *ngIf="a.get('siteName')?.errors?.pattern">
-                          Site Name cannot contain special characters
                         </div>
                       </div>
 
@@ -545,9 +541,10 @@
               *ngIf="showAssign"
               [disabled]="loading"
               [ngStyle]="{ cursor: loading ? 'not-allowed' : 'pointer' }"
-              type="submit" style="background-color: #0f800c;color: white;float: left; margin-left: 400px"
+              style="float: left; margin-left: 400px"
+              type="submit"
               class="
-                btn btn-block btn-rounded btn-md
+                btn btn-block btn-primary btn-rounded btn-md
                 font-weight-medium
                 auth-form-btn
               "
@@ -559,10 +556,10 @@
               [disabled]="loading"
               *ngIf="showRegister"
               [ngStyle]="{ cursor: loading ? 'not-allowed' : 'pointer' }"
-              style="background-color: #0f800c;color: white;float: left; margin-left: 400px"
+              style="float: left; margin-left: 400px"
               type="submit"
               class="
-                btn btn-block btn-rounded btn-md
+                btn btn-block btn-primary btn-rounded btn-md
                 font-weight-medium
                 auth-form-btn
               "
@@ -608,8 +605,8 @@
         <div class="row" style="display: block;">
           <div class="col-xs-12">
               <div class="text-align" style="text-align: end;margin: 10px;">
-                <button   type="button" class="btn btn-rounded btn-md font-weight-medium auth-form-btn" 
-                printSectionId="printdiv" ngxPrint style="margin: 10px;background-color: #0f800c;color: white;">Print</button>
+                <button   type="button" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" 
+                printSectionId="printdiv" ngxPrint style="margin: 10px;">Print</button>
                 <!-- <button  type="button" class="btn btn-danger cancel">
                   <i class="bi bi-x icon"></i> Cancel</button> -->
 

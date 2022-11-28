@@ -137,7 +137,6 @@ export class SiteaddComponent implements OnInit {
   // }
 
   changeCountry(e: any) {
-    this.addSiteForm.controls.state.setValue('');
     let changedValue = e.target.value;
     this.stateList = [];
       for(let arr of this.countryList) {

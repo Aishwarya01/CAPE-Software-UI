@@ -11,7 +11,7 @@ export class User {
     role: String = '';
     authorisedUser: String = '';
     otp!: number;
-    mobileNumber: String = '';
+ 
     constructor () {
     }
 }

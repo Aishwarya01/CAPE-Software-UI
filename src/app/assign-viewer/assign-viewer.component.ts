@@ -132,7 +132,7 @@ export class AssignViewerComponent implements OnInit {
     return new FormGroup({
     name: new FormControl('', Validators.required),
     companyName: new FormControl('', Validators.required),
-    siteName: new FormControl('', [Validators.required, Validators.minLength(3),Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
+    siteName: new FormControl('', [Validators.required, Validators.minLength(3)]),
     email: new FormControl('', Validators.required),
     designation: new FormControl('', Validators.required),
     contactNumber: new FormControl('', Validators.required),
@@ -183,7 +183,7 @@ export class AssignViewerComponent implements OnInit {
       if(!a.get('siteName')?.errors?.minlength) {
         this.siteService.retrieveSiteName(companyName,departmentName,siteName).subscribe(
           data => {
-            
+            debugger
             if(data != '') {
               this.existSite = true;
             }
@@ -211,7 +211,7 @@ export class AssignViewerComponent implements OnInit {
       if(!a.get('siteName')?.errors?.minlength) {
         this.siteService.retrieveSiteName(companyName,departmentName,siteName).subscribe(
           data => {
-            
+            debugger
             if(data != '') {
               this.existSite = true;
             }
@@ -239,7 +239,7 @@ export class AssignViewerComponent implements OnInit {
       if(!a.get('siteName')?.errors?.minlength) {
         this.siteService.retrieveSiteName(companyName,departmentName,siteName).subscribe(
           data => {
-            
+            debugger
             if(data != '') {
               this.existSite = true;
             }
@@ -326,7 +326,7 @@ createGroup(item: any): FormGroup{
   return this.formBuilder.group({
     name: new FormControl({value: item.name}),
     companyName: new FormControl({value: item.companyName}),
-    siteName: new FormControl('',[Validators.required, Validators.minLength(3),Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
+    siteName: new FormControl('',[Validators.required, Validators.minLength(3)]),
     email: new FormControl({value: item.username}),
     designation: new FormControl({value: item.designation}),
     contactNumber: new FormControl(item.contactNumber),
@@ -348,7 +348,7 @@ createNewGroup(item: any): FormGroup{
   return this.formBuilder.group({
     name: new FormControl('',Validators.required),
     companyName: new FormControl('',Validators.required),
-    siteName: new FormControl('',[Validators.required, Validators.minLength(3),Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
+    siteName: new FormControl('',[Validators.required, Validators.minLength(3)]),
     email: new FormControl({value: item.username}),
     designation: new FormControl('',Validators.required),
     contactNumber: new FormControl('',Validators.required),
@@ -453,10 +453,10 @@ createNewGroup(item: any): FormGroup{
 //     this.modalService.dismissAll(id);
 // }
   onItemSelect(item: any) {
-    //console.log(item);
+    console.log(item);
   }
   onSelectAll(items: any) {
-    //console.log(items);
+    console.log(items);
   }
   get f() : any{
     return this.viewerRegisterForm.controls;

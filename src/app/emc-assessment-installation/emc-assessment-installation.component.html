@@ -6,10 +6,10 @@
         <app-emc-matstepper *ngIf="showEmcHome"></app-emc-matstepper>
     </div>
     <div *ngIf="!destroy" style="padding: 20px; background: white;">
-        <button style="float: right;" type="submit" style="background-color: #0f800c;color: white;"
-        class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn"
+        <button style="float: right;" type="submit"
+        class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
             (click)="onNavigateToQuestionaire()">Skip</button>
-        <button style="float: right;background-color: #0f800c;color: white;" class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn" 
+        <button style="float: right;" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" 
             printSectionId="printdiv" ngxPrint>Print</button>
         <h2>EMC assessment of an installation (IEC 61000-5-1).</h2>
         <div id="printdiv">
@@ -109,8 +109,8 @@
                     safety,
                     reliability and long life of electronic system.​</p>
             </div>
-            <button style="float: right;background-color: #0f800c;color: white;" type="submit" 
-                class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn"
+            <button style="float: right;" type="submit"
+                class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
                 (click)="onNavigateToQuestionaire()" [disabled]="displayIconsBasedOnEmail()">Continue
             </button>
         </div>

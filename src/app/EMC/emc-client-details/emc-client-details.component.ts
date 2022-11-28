@@ -312,7 +312,7 @@ export class EmcClientDetailsComponent implements OnInit {
       this.service.editable=false;
       //this.validationError=false;
       this.validationErrorTab = true;
-      this.validationErrorMsgTab = 'Please check all the fields in client details information';
+      this.validationErrorMsgTab = 'Please check all the fields in basic information';
       setTimeout(() => {
         this.validationErrorTab = false;
       }, 3000);
@@ -339,7 +339,7 @@ export class EmcClientDetailsComponent implements OnInit {
   gotoNextModal(content: any, content2: any) {
     if (this.EmcClientDetailsForm.invalid) {
       this.validationError = true;
-      this.validationErrorMsg = "Please check all the fields in client details information";
+      this.validationErrorMsg = "Please check all the fields";
       //     setTimeout(()=>{
       //       this.validationError=false;
       //  }, 3000);

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewChild, ViewContainerRef, OnInit, ElementRef } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild, ViewContainerRef, OnInit,ElementRef } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -39,35 +39,8 @@ import { LpsMatstepperComponent } from '../LPS/lps-matstepper/lps-matstepper.com
 import { LpsWelcomePageComponent } from '../LPS/lps-welcome-page/lps-welcome-page.component';
 import { wind } from 'ngx-bootstrap-icons';
 import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
-import { MatCarousel } from 'ng-mat-carousel';
-
-import { NewsService } from '../services/news.service';
-// import {
-//   DiagramComponent,Diagram, UndoRedo, ConnectorBridging, SnapConstraints,PointPortModel,PortVisibility,PortConstraints,
-//   NodeModel, ConnectorModel, PathAnnotationModel, DecoratorModel, PointModel,
-//  DiagramConstraints, SymbolInfo, PaletteModel, SymbolPreviewModel, SnapSettingsModel,
-
-// } from '@syncfusion/ej2-angular-diagrams';
-
-import {
-  DiagramComponent, NodeModel, ConnectorModel, PaletteModel,
-  SnapSettingsModel, SnapConstraints, SymbolPaletteComponent, PointPortModel, PortVisibility,
-  PortConstraints, ContextMenuSettingsModel, IDragEnterEventArgs, DiagramBeforeMenuOpenEventArgs,
-  SymbolPreviewModel,
-  SwimLaneModel, Node,
-  SymbolInfo,
-  LaneModel,
-  randomId,
-  cloneObject, ShapeStyleModel,
-  HeaderModel,
-} from '@syncfusion/ej2-angular-diagrams';
-import { DiagramModel } from '../SLD/SLD Models/diagram-component';
-import { DiagramListComponent } from '../SLD/SLD components/diagram-list/diagram-list.component';
-import { DiagramWelcomePageComponent } from '../SLD/SLD components/diagram-welcome-page/diagram-welcome-page.component';
 import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminProd } from 'src/environments/environment.prod';
-import { NewsApiService } from 'angular-news-api';
-import { BuyMeterComponent } from '../buy-meter/buy-meter.component';
 
 export interface PeriodicElement {
   siteCd: string;
@@ -80,14 +53,13 @@ export interface PeriodicElement {
   updatedBy: string;
 }
 
-
 const ELEMENT_DATA: PeriodicElement[] = [
-  { siteCd: 'CODE', site: 'Arun', country: 'India', city: 'chennai', createdDate: '1/1/2021', createdBy: 'Arun K', updatedDate: '1/1/2021', updatedBy: 'Arun K' },
-  { siteCd: 'CODE1', site: 'Arun1', country: 'India', city: 'chennai', createdDate: '2/1/2021', createdBy: 'Arun Kumar', updatedDate: '1/1/2021', updatedBy: 'Arun Kumar' },
-  { siteCd: 'CODE2', site: 'Arun2', country: 'India', city: 'chennai', createdDate: '3/1/2021', createdBy: 'Arun K', updatedDate: '1/1/2021', updatedBy: 'Arun K' },
-  { siteCd: 'CODE3', site: 'Arun3', country: 'India', city: 'chennai', createdDate: '4/1/2021', createdBy: 'Arun', updatedDate: '1/1/2021', updatedBy: 'Arun' },
-  { siteCd: 'CODE4', site: 'Arun4', country: 'India', city: 'chennai', createdDate: '5/1/2021', createdBy: 'AK', updatedDate: '1/1/2021', updatedBy: 'AK' },
-  { siteCd: 'CODE5', site: 'Arun5', country: 'India', city: 'chennai', createdDate: '6/1/2021', createdBy: 'Arun', updatedDate: '1/1/2021', updatedBy: 'Arun' },
+  {siteCd: 'CODE', site: 'Arun', country: 'India', city: 'chennai', createdDate: '1/1/2021', createdBy: 'Arun K', updatedDate: '1/1/2021', updatedBy: 'Arun K'},
+  {siteCd: 'CODE1', site: 'Arun1', country: 'India', city: 'chennai', createdDate: '2/1/2021', createdBy: 'Arun Kumar', updatedDate: '1/1/2021', updatedBy: 'Arun Kumar'},
+  {siteCd: 'CODE2', site: 'Arun2', country: 'India', city: 'chennai', createdDate: '3/1/2021', createdBy: 'Arun K', updatedDate: '1/1/2021', updatedBy: 'Arun K'},
+  {siteCd: 'CODE3', site: 'Arun3', country: 'India', city: 'chennai', createdDate: '4/1/2021', createdBy: 'Arun', updatedDate: '1/1/2021', updatedBy: 'Arun'},
+  {siteCd: 'CODE4', site: 'Arun4', country: 'India', city: 'chennai', createdDate: '5/1/2021', createdBy: 'AK', updatedDate: '1/1/2021', updatedBy: 'AK'},
+  {siteCd: 'CODE5', site: 'Arun5', country: 'India', city: 'chennai', createdDate: '6/1/2021', createdBy: 'Arun', updatedDate: '1/1/2021', updatedBy: 'Arun'},
 ];
 
 @Component({
@@ -96,6 +68,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./main-nav.component.css']
 })
 export class MainNavComponent implements OnInit, OnDestroy {
+
   ongoingSiteColumns: string[] = [
     'siteCd',
     'site',
@@ -105,7 +78,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
     'createdBy',
     'updatedDate',
     'updatedBy',
-    // 'action',
+   // 'action',
   ];
   ongoingSite_dataSource!: MatTableDataSource<Company[]>;
   //@ViewChild('ongoingSitePaginator', { static: false }) ongoingSitePaginator!: MatPaginator;
@@ -115,19 +88,18 @@ export class MainNavComponent implements OnInit, OnDestroy {
   superAdminFlag: boolean = false;
   allData: any = [];
   selectedIndex: any;
-  greet: string="";
-
+ 
 
   @ViewChild('ongoingSiteSort') set matSortOn(ms: MatSort) {
     this.ongoingSiteSort = ms;
     this.setOngoingDataSourceAttributes();
-  }
-
-  @ViewChild('ongoingSitePaginator') set matPaginatorOn(mp: MatPaginator) {
+   }
+ 
+   @ViewChild('ongoingSitePaginator') set matPaginatorOn(mp: MatPaginator) {
     this.ongoingSitePaginator = mp;
     this.setOngoingDataSourceAttributes();
-  }
-
+   }
+   
   completedLicenseColumns: string[] = [
     'siteCd',
     'site',
@@ -148,21 +120,21 @@ export class MainNavComponent implements OnInit, OnDestroy {
   private completedLicenseSort!: MatSort;
 
   @ViewChild('completedLicenseSort') set matSort(ms: MatSort) {
-    this.completedLicenseSort = ms;
-    this.setCompletedDataSourceAttributes();
+   this.completedLicenseSort = ms;
+   this.setCompletedDataSourceAttributes();
   }
 
   @ViewChild('completedLicensePaginator') set matPaginator(mp: MatPaginator) {
-    this.completedLicensePaginator = mp;
-    this.setCompletedDataSourceAttributes();
+   this.completedLicensePaginator = mp;
+   this.setCompletedDataSourceAttributes();
   }
+
   sidenavWidth: any;
   isExpanded: boolean = false;
   showSubmenu: boolean = false;
   isShowing = false;
   showSubSubMenu: boolean = false;
   showSubmenuRep: boolean = false;
-  showSubmenuMeter: boolean = false;
   showSubmenuOngoing: boolean = false;
   showSubmenuCompleted: boolean = false;
   showingh = false;
@@ -172,18 +144,18 @@ export class MainNavComponent implements OnInit, OnDestroy {
   ongoingSite: boolean = false;
   completedSite: boolean = false;
   public isCollapsed = false;
-  successMsg: string = "";
-  success: boolean = false;
-  Error: boolean = false;
-  errorMsg: string = "";
-  errorArr: any = [];
+  successMsg: string="";
+  success: boolean=false;
+  Error: boolean=false;
+  errorMsg: string="";
+  errorArr: any=[];
   superAdminArr: any = [];
   @ViewChild('ref', { read: ViewContainerRef })
   viewContainerRef!: ViewContainerRef;
-
+  
   @ViewChild('verify')
-  verification: any;
-
+  verification: any; 
+  
   @ViewChild(InspectionVerificationBasicInformationComponent)
   basic!: InspectionVerificationBasicInformationComponent;
 
@@ -192,7 +164,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
       map(result => result.matches),
       shareReplay()
     );
-
+  
   applicationTypes: ApplicationType[] = [];
   @Output() passEntry: EventEmitter<any> = new EventEmitter();
   fullName: String = '';
@@ -201,16 +173,14 @@ export class MainNavComponent implements OnInit, OnDestroy {
 
   id: number = 0;
   type: String = '';
-  typeMeter: String = '';
-
   code: String = '';
   register = new Register();
   style: any;
 
   itemValue1: String = 'IN';
   itemValue2: String = 'TIC';
-  itemValue3: String = 'MT';
-  // itemValue4: String = 'BM';
+  itemValue3: String = 'RM';
+  itemValue4: String = 'BM';
   itemValue5: String = 'REP';
   SubitemValue1: String = 'Ongoing TIC';
   SubitemValue2: String = 'Completed TIC';
@@ -232,48 +202,40 @@ export class MainNavComponent implements OnInit, OnDestroy {
   mobileDisplay: boolean = false;
   desktopDisplay: boolean = false;
   welcome: boolean = true;
-  youtube: boolean = true;
   //isExpanded: any;
-  selectedRowIndex: String = '';
+  selectedRowIndex : String = '';
   selectedRowIndexSub: String = '';
   selectedRowIndexType: String = '';
-  selectedRowIndexTypeMeter: String = '';
-  applicationTypesbasedonuser: string = "";
-  ApplicationTypesSplit: any = [];
-  ApplicationTypesMeter1: string = "";
-  ApplicationTypesMeter: any = ['Rent Meter','Buy Meter'];
+  applicationTypesbasedonuser: string="";
+  ApplicationTypesSplit: any=[];
   showTIC: boolean = false;
-  showMeter: boolean = false;
-
   showREP: boolean = false;
   currentUser: any = [];
   currentUser1: any = [];
   modalReference: any;
 
-  mainApplications: any = [{ 'name': 'Introduction', 'code': 'IN' },
-  { 'name': 'TIC', 'code': 'TIC' },
-  { 'name': 'Meter', 'code': 'MT' },
-  // { 'name': 'Buy Meter', 'code': 'BM' },
-  { 'name': 'Reports', 'code': 'REP' },
-  ]
-
-
+  mainApplications: any =   [{'name': 'Introduction', 'code': 'IN'},
+                            {'name': 'TIC', 'code': 'TIC'},
+                            {'name': 'RENT Meter', 'code': 'RM'},
+                            {'name': 'Buy Meter', 'code': 'BM'},
+                            {'name': 'Reports', 'code': 'REP'},
+                            ]
   count!: number;
   count1!: number;
   viewerComment: boolean = false;
   inspectorReply: boolean = false;
-  zeroNotification: boolean = false;
-  viewerName: String = '';
-  inspectorName: String = '';
-  viewerTime!: Date;
-  inspectorTime!: Date;
-  value: boolean = false;
-  userData: any = [];
-  // viewerFilterData:any=[];
-  ongoingFilterData: any = [];
-  completedFilterData: any = [];
-  notificationData: any = [];
-  activeNotificationData: any = [];
+  zeroNotification: boolean= false;
+  viewerName: String='';
+  inspectorName: String='';
+  viewerTime!:Date;
+  inspectorTime!:Date;
+  value: boolean= false;
+  userData: any=[];
+ // viewerFilterData:any=[];
+  ongoingFilterData:any=[];
+  completedFilterData:any=[];
+  notificationData: any =[];
+  activeNotificationData: any =[];
   newNotificationCount!: number;
   newNotificationFlag:boolean=true;
   oldNotification:boolean=false;
@@ -284,36 +246,28 @@ export class MainNavComponent implements OnInit, OnDestroy {
   //superAdminLocal = new SuperAdminLocal();
   superAdminDev = new SuperAdminDev();
   superAdminProd = new SuperAdminProd();
-  color = 'accent';
-  checked = false;
-  newsArticleDisplay: any = [];  
-  newsArticleDisplay0: any = [];  
-  newsArticleDisplay1: any = [];
-  newsArticleDisplay2: any = [];
 
-
-   
   constructor(private breakpointObserver: BreakpointObserver, changeDetectorRef: ChangeDetectorRef,
-    media: MediaMatcher,private newsService: NewsService,
+    media: MediaMatcher,
     private loginservice: LoginserviceService,
     private inspectorService: InspectorregisterService,
     private inspectionService: InspectionVerificationService,
     private router: ActivatedRoute,
     public service: GlobalsService,
-    private route: Router, private dialog: MatDialog,
+    private route: Router,private dialog: MatDialog,
     private componentFactoryResolver: ComponentFactoryResolver,
     private applicationService: ApplicationTypeService,
     private modalService: NgbModal, private bnIdle: BnNgIdleService,
     private siteService: SiteService
-  ) {
+   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
-    //  this.retrieveApplicationTypes();
+  //  this.retrieveApplicationTypes();
     this.retrieveApplicationTypesBasedOnUser(this.email);
     this.displayUserFullName(this.email);
     // set screenWidth on page load
     this.screenWidth = window.innerWidth;
     window.onresize = () => {
-      // set screenWidth on screen size change
+    // set screenWidth on screen size change
       this.screenWidth = window.innerWidth;
     };
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
@@ -322,80 +276,9 @@ export class MainNavComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    var myDate = new Date();
-    var hrs = myDate.getHours();
-  
-    if (hrs < 12)
-        this.greet = 'Good Morning!';
-    else if (hrs >= 12 && hrs < 17)
-        this.greet = 'Good Afternoon!';
-    else if (hrs >= 17 && hrs <= 24)
-        this.greet = 'Good Evening!';
-    this.newNotify();
+   this.newNotify();
     this.mobileDisplay = false;
     this.desktopDisplay = true;
-     //load articles
-    // this.newsService.initArticles().subscribe(data => this.mArticles = data['articles']);
-     //load news sources
-     this.newsService.topHeadlines().subscribe((result)=>{
-       console.log(result);
-     //  for(let articles=0; articles<16; articles++){
-      this.newsArticleDisplay=result.articles;
-      //   this.newsArticleDisplay=result.articles.slice(0, 1);
-      //   this.newsArticleDisplay1=result.articles.slice(1, 2);
-      //   this.newsArticleDisplay2=result.articles.slice(2,3);
-       //if image url
-        if(this.newsArticleDisplay[0].urlToImage==null){
-          this.newsArticleDisplay[0].urlToImage="https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png";
-        }
-      //  if(this.newsArticleDisplay[0].description.length > 25){
-      //    this.newsArticleDisplay[0].description = this.newsArticleDisplay[0].description.substring(0,25) + "..."; 
-      //  }
-       if(this.newsArticleDisplay[0].title==null){
-        this.newsArticleDisplay[0].title="https://google.com/news.html";
-      }
-        //if image url 1
-      //   if(this.newsArticleDisplay1[0].title.length > 25){
-      //     this.newsArticleDisplay[0].author = this.newsArticleDisplay1[0].title.substring(0,50) + "...";
-      //   }
-       
-      //   if(this.newsArticleDisplay1[0].urlToImage!=null){
-      //   this.newsArticleDisplay[0].content=this.newsArticleDisplay1[0].urlToImage; 
-      //   }
-      //   else
-      //   {
-      //     this.newsArticleDisplay[0].content="https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png";
-      //   }
-      //   if(this.newsArticleDisplay1[0].urlToImage!=null){
-      //     this.newsArticleDisplay[0].description=this.newsArticleDisplay1[0].url; 
-      //   }
-      //     else
-      //     {
-      //       this.newsArticleDisplay[0].description="https://google.com/news.html";
-      //     }
-        
-      // //if image url 2
-      //   if(this.newsArticleDisplay2[0].title.length > 25){
-      //     this.newsArticleDisplay[0].publishedAt = this.newsArticleDisplay2[0].title.substring(0,50) + "...";
-      //   }
-        
-      //   if(this.newsArticleDisplay1[0].urlToImage!=null){
-      //     this.newsArticleDisplay[0].source.id=this.newsArticleDisplay2[0].urlToImage; 
-      //   }
-      //     else
-      //     {
-      //       this.newsArticleDisplay[0].source.id="https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png";
-      //     }
-      //     if(this.newsArticleDisplay1[0].urlToImage!=null){
-      //       this.newsArticleDisplay[0].source.name=this.newsArticleDisplay2[0].url; 
-      //     }
-      //       else
-      //       {
-      //         this.newsArticleDisplay[0].description="https://google.com/news.html";
-      //       }
-      // }
-       
-     });  
     // this.bnIdle.startWatching(environment.sessionTimeOut).subscribe((isTimedOut: boolean) => {
     //   if (isTimedOut) {
     //     alert('Your session is timed out')
@@ -403,7 +286,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
     //     this.bnIdle.stopTimer();
     //   }
     // });
-    this.currentUser = sessionStorage.getItem('authenticatedUser');
+    this.currentUser=sessionStorage.getItem('authenticatedUser');
     this.currentUser1 = [];
     this.currentUser1=JSON.parse(this.currentUser);
     // this.superAdminArr = [];
@@ -412,257 +295,251 @@ export class MainNavComponent implements OnInit, OnDestroy {
     // this.superAdminArr.push('vinoth@capeindia.net');
     if(this.currentUser1.role == 'Inspector') {
       this.showTIC = true;
-      this.showMeter=true;
       this.showREP = false;
     }
     else {
       //uncomment this later...
       this.showTIC = false;
-      this.showMeter=false;
       this.showREP = false;
-      if (this.currentUser1.assignedBy != null) {
+      if(this.currentUser1.assignedBy != null) {
         this.showREP = true;
       }
       // this.showTIC = true;
       // this.showREP = true;
     }
-    if (this.showREP) {
+    if(this.showREP) {
       this.retrieveSiteDetails();
     }
   }
-
- 
   
   setCompletedDataSourceAttributes() {
-    if (this.completedLicense_dataSource !== undefined) {
-      this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
-      this.completedLicense_dataSource.sort = this.completedLicenseSort;
+    if(this.completedLicense_dataSource !== undefined){
+     this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
+     this.completedLicense_dataSource.sort = this.completedLicenseSort;
     }
-
-  }
-  setOngoingDataSourceAttributes() {
-    if (this.ongoingSite_dataSource !== undefined) {
+    
+   }
+   setOngoingDataSourceAttributes(){
+    if(this.ongoingSite_dataSource !== undefined){
       this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
       this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
+     }
+   }
+  newNotify(){
+  this.inspectionService.notificationRetrieveComments(this.email).subscribe(
+    (data)=>{
+      this.notificationData = JSON.parse(data);
+      this.newNotification(this.notificationData);
+    }
+  )
+  }
+  
+newNotification(value: any){
+  this.newNotificationFlag=true;
+  this.oldNotification=false;
+  this.activeNotificationData = [];
+  if(this.currentUser1.role == 'Inspector'){
+    if(value.reportDetailsComment != null) {
+      for(let a of value.reportDetailsComment) {
+        if(a.viewerFlag == 1 && a.inspectorFlag == 0 && (a.approveOrReject == '' || a.approveOrReject == null )) {
+        this.activeNotificationData.push(a);
+        }
+      }
+    }
+    if(value.supplyCharacteristicComment != null) {
+      for(let b of value.supplyCharacteristicComment) {
+        if(b.viewerFlag == 1 && b.inspectorFlag == 0 && (b.approveOrReject == '' || b.approveOrReject == null )) {
+        this.activeNotificationData.push(b);
+        }
+      }
+    }
+    if(value.periodicInspectionComment != null) {
+      for(let c of value.periodicInspectionComment) {
+        if(c.viewerFlag == 1 && c.inspectorFlag == 0 && (c.approveOrReject == '' || c.approveOrReject == null )) {
+          this.activeNotificationData.push(c);
+        }
+      }
+    }
+    if(value.testingReportComment != null) {
+      for(let d of value.testingReportComment) {
+        if(d.viewerFlag == 1 && d.inspectorFlag == 0 && (d.approveOrReject == '' || d.approveOrReject == null )) {
+        this.activeNotificationData.push(d);
+        }
+      }
+    }
+    if(value.summaryComment != null) {
+      for(let e of value.summaryComment) {
+        if(e.viewerFlag == 1 && e.inspectorFlag == 0 && (e.approveOrReject == '' || e.approveOrReject == null )) {
+        this.activeNotificationData.push(e);
+        }
+      }
+    }
+    if(this.activeNotificationData.length != 0) {
+      this.NewInspectorReply = false;
+      this.NewViewerComment = true;
+    }
+    else{
+      this.newZeroNotification = true
     }
   }
-  newNotify() {
-    this.inspectionService.notificationRetrieveComments(this.email).subscribe(
-      (data) => {
-        this.notificationData = JSON.parse(data);
-        this.newNotification(this.notificationData);
+  else{
+    if(value.reportDetailsComment != null) {
+      for(let a of value.reportDetailsComment) {
+        if(a.viewerFlag == 1 && a.inspectorFlag == 1 && (a.approveOrReject == '' || a.approveOrReject == null )) {
+        this.activeNotificationData.push(a);
+        }
       }
-    )
+    }
+    if(value.supplyCharacteristicComment != null) {
+      for(let b of value.supplyCharacteristicComment) {
+        if(b.viewerFlag == 1 && b.inspectorFlag == 1 && (b.approveOrReject == '' || b.approveOrReject == null )) {
+        this.activeNotificationData.push(b);
+        }
+      }
+    }
+    if(value.periodicInspectionComment != null) {
+      for(let c of value.periodicInspectionComment) {
+        if(c.viewerFlag == 1 && c.inspectorFlag == 1 && (c.approveOrReject == '' || c.approveOrReject == null )) {
+          this.activeNotificationData.push(c);
+        }
+      }
+    }
+    if(value.testingReportComment != null) {
+      for(let d of value.testingReportComment) {
+        if(d.viewerFlag == 1 && d.inspectorFlag == 1 && (d.approveOrReject == '' || d.approveOrReject == null )) {
+        this.activeNotificationData.push(d);
+        }
+      }
+    }
+    if(value.summaryComment != null) {
+      for(let e of value.summaryComment) {
+        if(e.viewerFlag == 1 && e.inspectorFlag == 1 && (e.approveOrReject == '' || e.approveOrReject == null )) {
+        this.activeNotificationData.push(e);
+        }
+      }
+    }
+    if(this.activeNotificationData.length != 0) {
+      this.NewInspectorReply = true;
+      this.NewViewerComment = false;
+    }
+    else{
+      this.newZeroNotification = true
+    }
   }
+  this.newNotificationCount=this.activeNotificationData.length;
+}
 
-  newNotification(value: any) {
-    this.newNotificationFlag = true;
-    this.oldNotification = false;
-    this.activeNotificationData = [];
-    if (this.currentUser1.role == 'Inspector') {
-      if (value.reportDetailsComment != null) {
-        for (let a of value.reportDetailsComment) {
-          if (a.viewerFlag == 1 && a.inspectorFlag == 0 && (a.approveOrReject == '' || a.approveOrReject == null)) {
-            this.activeNotificationData.push(a);
-          }
-        }
-      }
-      if (value.supplyCharacteristicComment != null) {
-        for (let b of value.supplyCharacteristicComment) {
-          if (b.viewerFlag == 1 && b.inspectorFlag == 0 && (b.approveOrReject == '' || b.approveOrReject == null)) {
-            this.activeNotificationData.push(b);
-          }
-        }
-      }
-      if (value.periodicInspectionComment != null) {
-        for (let c of value.periodicInspectionComment) {
-          if (c.viewerFlag == 1 && c.inspectorFlag == 0 && (c.approveOrReject == '' || c.approveOrReject == null)) {
-            this.activeNotificationData.push(c);
-          }
-        }
-      }
-      if (value.testingReportComment != null) {
-        for (let d of value.testingReportComment) {
-          if (d.viewerFlag == 1 && d.inspectorFlag == 0 && (d.approveOrReject == '' || d.approveOrReject == null)) {
-            this.activeNotificationData.push(d);
-          }
-        }
-      }
-      if (value.summaryComment != null) {
-        for (let e of value.summaryComment) {
-          if (e.viewerFlag == 1 && e.inspectorFlag == 0 && (e.approveOrReject == '' || e.approveOrReject == null)) {
-            this.activeNotificationData.push(e);
-          }
-        }
-      }
-      if (this.activeNotificationData.length != 0) {
-        this.NewInspectorReply = false;
-        this.NewViewerComment = true;
-      }
-      else {
-        this.newZeroNotification = true
-      }
+notification(number: any,viewerName: any,inspectorName: any,viewerDate: any,inspectorDate: any){
+  this.count = number;
+  this.newNotificationFlag=false;
+  this.oldNotification=true;
+  if(this.currentUser1.role == 'Inspector') {
+    if(number!=1){
+    this.zeroNotification=true;
+    this.viewerComment=false;
+    this.inspectorReply=false;
     }
-    else {
-      if (value.reportDetailsComment != null) {
-        for (let a of value.reportDetailsComment) {
-          if (a.viewerFlag == 1 && a.inspectorFlag == 1 && (a.approveOrReject == '' || a.approveOrReject == null)) {
-            this.activeNotificationData.push(a);
-          }
-        }
-      }
-      if (value.supplyCharacteristicComment != null) {
-        for (let b of value.supplyCharacteristicComment) {
-          if (b.viewerFlag == 1 && b.inspectorFlag == 1 && (b.approveOrReject == '' || b.approveOrReject == null)) {
-            this.activeNotificationData.push(b);
-          }
-        }
-      }
-      if (value.periodicInspectionComment != null) {
-        for (let c of value.periodicInspectionComment) {
-          if (c.viewerFlag == 1 && c.inspectorFlag == 1 && (c.approveOrReject == '' || c.approveOrReject == null)) {
-            this.activeNotificationData.push(c);
-          }
-        }
-      }
-      if (value.testingReportComment != null) {
-        for (let d of value.testingReportComment) {
-          if (d.viewerFlag == 1 && d.inspectorFlag == 1 && (d.approveOrReject == '' || d.approveOrReject == null)) {
-            this.activeNotificationData.push(d);
-          }
-        }
-      }
-      if (value.summaryComment != null) {
-        for (let e of value.summaryComment) {
-          if (e.viewerFlag == 1 && e.inspectorFlag == 1 && (e.approveOrReject == '' || e.approveOrReject == null)) {
-            this.activeNotificationData.push(e);
-          }
-        }
-      }
-      if (this.activeNotificationData.length != 0) {
-        this.NewInspectorReply = true;
-        this.NewViewerComment = false;
-      }
-      else {
-        this.newZeroNotification = true
-      }
+    else{
+      this.viewerName = viewerName;
+      this.inspectorName = inspectorName;
+      this.viewerTime = viewerDate;
+      this.inspectorTime = inspectorDate;
+      this.zeroNotification=false;
+      this.viewerComment=true;
+      this.inspectorReply=false;
     }
-    this.newNotificationCount = this.activeNotificationData.length;
   }
-
-  notification(number: any, viewerName: any, inspectorName: any, viewerDate: any, inspectorDate: any) {
-    this.count = number;
-    this.newNotificationFlag = false;
-    this.oldNotification = true;
-    if (this.currentUser1.role == 'Inspector') {
-      if (number != 1) {
-        this.zeroNotification = true;
-        this.viewerComment = false;
-        this.inspectorReply = false;
+  else {
+    if(number!=1){
+      this.zeroNotification=true;
+      this.viewerComment=false;
+      this.inspectorReply=false;
       }
-      else {
+      else{
         this.viewerName = viewerName;
         this.inspectorName = inspectorName;
         this.viewerTime = viewerDate;
         this.inspectorTime = inspectorDate;
-        this.zeroNotification = false;
-        this.viewerComment = true;
-        this.inspectorReply = false;
+        this.zeroNotification=false;
+        this.viewerComment=false;
+        this.inspectorReply=true;
       }
-    }
-    else {
-      if (number != 1) {
-        this.zeroNotification = true;
-        this.viewerComment = false;
-        this.inspectorReply = false;
-      }
-      else {
-        this.viewerName = viewerName;
-        this.inspectorName = inspectorName;
-        this.viewerTime = viewerDate;
-        this.inspectorTime = inspectorDate;
-        this.zeroNotification = false;
-        this.viewerComment = false;
-        this.inspectorReply = true;
-      }
-    }
   }
+}
 
-  triggerNavigateTo(siteName: any) {
-    if ((this.service.lvClick == 1) && (this.service.allStepsCompleted == true)) {
-      const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
-        width: '420px',
-        maxHeight: '90vh',
-        disableClose: true,
-      });
-      dialogRef.componentInstance.editModal = false;
-      dialogRef.componentInstance.viewModal = false;
-      dialogRef.componentInstance.triggerModal = true;
-      dialogRef.componentInstance.linkModal = false;
-      dialogRef.componentInstance.summaryModal = false;
+triggerNavigateTo(siteName:any){
+  if((this.service.lvClick==1) && (this.service.allStepsCompleted==true))
+  {
+    const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+      width: '420px',
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+    dialogRef.componentInstance.editModal = false;
+    dialogRef.componentInstance.viewModal = false;
+    dialogRef.componentInstance.triggerModal = true;
+    dialogRef.componentInstance.linkModal = false;
+    dialogRef.componentInstance.summaryModal = false;
 
-      dialogRef.componentInstance.confirmBox.subscribe(data => {
-        if (data) {
-          this.welcome = false;
-          this.youtube = false;
-          this.ongoingSite = false;
-          this.completedSite = false;
-          this.value = false;
-          this.service.mainNavToSaved = 1;
-          this.service.commentScrollToBottom = 1;
-          this.service.filterSiteName = siteName;
-          this.service.highlightText = true;
-          this.viewContainerRef.clear();
-          const VerificationlvFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
-          const lvInspectionRef = this.viewContainerRef.createComponent(VerificationlvFactory);
-          lvInspectionRef.changeDetectorRef.detectChanges();
-          this.service.windowTabClick = 0;
-          this.service.logoutClick = 0;
-        }
-        else {
-          return;
-        }
-      })
-      //    if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!")){
-      //      //this.service.triggerScrollTo();
-      //   this.welcome= false; 
-           //this.youtube = false;  
-      //   this.ongoingSite=false;
-      //   this.completedSite=false;
-      //   this.value= false;
-      //   this.service.mainNavToSaved=1;
-      //   this.service.commentScrollToBottom=1;
-      //   this.service.filterSiteName=siteName;
-      //   this.service.highlightText=true;
-      //   this.viewContainerRef.clear();
-      //   const VerificationlvFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
-      //   const lvInspectionRef = this.viewContainerRef.createComponent(VerificationlvFactory);
-      //   lvInspectionRef.changeDetectorRef.detectChanges();
-      //   this.service.windowTabClick=0;
-      //   this.service.logoutClick=0; 
-      //  }
-      //  else{
-      //    return;
-      //  }
-    }
-    else if ((this.service.lvClick == 0) || (this.service.allStepsCompleted == false)) {
-      this.welcome = false;
-      this.youtube = false;
-      this.ongoingSite = false;
-      this.completedSite = false;
-      this.value = false;
-      this.service.mainNavToSaved = 1;
-      this.service.commentScrollToBottom = 1;
-      this.service.filterSiteName = siteName;
-      this.service.highlightText = true;
-      this.viewContainerRef.clear();
-      const VerificationlvFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
-      const lvInspectionRef = this.viewContainerRef.createComponent(VerificationlvFactory);
-      lvInspectionRef.changeDetectorRef.detectChanges();
-      this.service.windowTabClick = 0;
-      this.service.logoutClick = 0;
-    }
-  }
+    dialogRef.componentInstance.confirmBox.subscribe(data=>{
+      if(data) {
+        this.welcome= false;  
+        this.ongoingSite=false;
+        this.completedSite=false;
+        this.value= false;
+        this.service.mainNavToSaved=1;
+        this.service.commentScrollToBottom=1;
+        this.service.filterSiteName=siteName;
+        this.service.highlightText=true;
+        this.viewContainerRef.clear();
+        const VerificationlvFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
+        const lvInspectionRef = this.viewContainerRef.createComponent(VerificationlvFactory);
+        lvInspectionRef.changeDetectorRef.detectChanges();
+        this.service.windowTabClick=0;
+        this.service.logoutClick=0; 
+      }
+      else{
+        return;
+      }
+    })
+//    if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!")){
+//      //this.service.triggerScrollTo();
+//   this.welcome= false;  
+//   this.ongoingSite=false;
+//   this.completedSite=false;
+//   this.value= false;
+//   this.service.mainNavToSaved=1;
+//   this.service.commentScrollToBottom=1;
+//   this.service.filterSiteName=siteName;
+//   this.service.highlightText=true;
+//   this.viewContainerRef.clear();
+//   const VerificationlvFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
+//   const lvInspectionRef = this.viewContainerRef.createComponent(VerificationlvFactory);
+//   lvInspectionRef.changeDetectorRef.detectChanges();
+//   this.service.windowTabClick=0;
+//   this.service.logoutClick=0; 
+//  }
+//  else{
+//    return;
+//  }
+   }
+   else if((this.service.lvClick==0) || (this.service.allStepsCompleted==false)){
+    this.welcome= false;  
+    this.ongoingSite=false;
+    this.completedSite=false;
+    this.value= false;
+    this.service.mainNavToSaved=1;
+    this.service.commentScrollToBottom=1;
+    this.service.filterSiteName=siteName;
+    this.service.highlightText=true;
+    this.viewContainerRef.clear();
+    const VerificationlvFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
+    const lvInspectionRef = this.viewContainerRef.createComponent(VerificationlvFactory);
+    lvInspectionRef.changeDetectorRef.detectChanges();
+   this.service.windowTabClick=0;
+   this.service.logoutClick=0;
+   }
+}
   retrieveSiteDetails() {
     this.completedFilterData = [];
     this.ongoingFilterData = [];
@@ -700,7 +577,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
           this.ongoingSite_dataSource = new MatTableDataSource(this.ongoingFilterData);
           this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
           this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
-
+    
           this.completedLicense_dataSource = new MatTableDataSource(this.completedFilterData);
           //this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
           //this.completedLicense_dataSource.sort = this.completedLicenseSort;
@@ -709,21 +586,21 @@ export class MainNavComponent implements OnInit, OnDestroy {
       this.superAdminFlag = false;
     }
     else {
-      if (this.currentUser1.role == 'Inspector') {
+      if(this.currentUser1.role == 'Inspector') {
         this.siteService.retrieveSite(this.email).subscribe((data) => {
           this.ongoingSite_dataSource = new MatTableDataSource(JSON.parse(data));
           this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
           this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
-
+    
           this.completedLicense_dataSource = new MatTableDataSource(JSON.parse(data));
           //this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
           //this.completedLicense_dataSource.sort = this.completedLicenseSort;
         });
       }
       else {
-        if (this.currentUser1.assignedBy != null) {
-          this.ongoingFilterData = [];
-          this.completedFilterData = [];
+        if(this.currentUser1.assignedBy!=null) {
+          this.ongoingFilterData=[];
+          this.completedFilterData=[];
           this.siteService.retrieveListOfSite(this.currentUser1.assignedBy).subscribe(
             data => {
               this.userData=JSON.parse(data);
@@ -748,7 +625,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
         }
       }
     }
-
+    
   }
 
   ngOnDestroy(): void {
@@ -783,17 +660,16 @@ export class MainNavComponent implements OnInit, OnDestroy {
   retrieveApplicationTypesBasedOnUser(email: String) {
     this.applicationService.retrieveApplicationTypesBasedOnUser(email).subscribe(
       data => {
-        this.applicationTypesbasedonuser = data.applicationType;
-        if (this.applicationTypesbasedonuser != null) {
-          this.ApplicationTypesSplit = this.applicationTypesbasedonuser.split(',');
-         
+         this.applicationTypesbasedonuser = data.applicationType;
+         if(this.applicationTypesbasedonuser != null) {
+          this.ApplicationTypesSplit=this.applicationTypesbasedonuser.split(',');
         }
       }
     );
-  } 
-
+  }
+ 
   logout() {
-    if ((this.service.logoutClick == 1) && (this.service.allStepsCompleted == true)) {
+    if((this.service.logoutClick==1) && (this.service.allStepsCompleted==true)){
       const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
         width: '420px',
         maxHeight: '90vh',
@@ -805,36 +681,36 @@ export class MainNavComponent implements OnInit, OnDestroy {
       dialogRef.componentInstance.linkModal = false;
       dialogRef.componentInstance.summaryModal = false;
 
-      dialogRef.componentInstance.confirmBox.subscribe(data => {
-        if (data) {
+      dialogRef.componentInstance.confirmBox.subscribe(data=>{
+        if(data) {
           this.loginservice.logout();
-          this.service.windowTabClick = 0;
+          this.service.windowTabClick=0;
           this.route.navigate(['login']);
           window.location.reload();
-          this.service.logoutClick = 0;
+          this.service.logoutClick=0;  
         }
-        else {
+        else{
           return;
         }
       })
-      //   if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!")){
-      //     this.loginservice.logout();
-      //     this.service.windowTabClick=0;
-      //     this.route.navigate(['login']);
-      //     window.location.reload();
-      //     this.service.logoutClick=0;  
-      // }
-      // else{
-      //   return;
-      // }
-    }
-    else if ((this.service.logoutClick == 0) || (this.service.allStepsCompleted == false)) {
+    //   if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!")){
+    //     this.loginservice.logout();
+    //     this.service.windowTabClick=0;
+    //     this.route.navigate(['login']);
+    //     window.location.reload();
+    //     this.service.logoutClick=0;  
+    // }
+    // else{
+    //   return;
+    // }
+  }
+    else if((this.service.logoutClick==0) || (this.service.allStepsCompleted==false)){
       this.loginservice.logout();
       this.route.navigate(['login']);
       window.location.reload();
     }
   }
-
+ 
   displayUserFullName(email: String) {
     this.inspectorService.retrieveInspector(email).subscribe(
       data => {
@@ -843,7 +719,6 @@ export class MainNavComponent implements OnInit, OnDestroy {
       }
     )
   }
-  
   highlight(type:any){
     this.selectedRowIndex = type;
     this.selectedRowIndexType="";
@@ -852,7 +727,6 @@ export class MainNavComponent implements OnInit, OnDestroy {
  highlightSub(type:any){
   //this.viewContainerRef.clear();
   this.welcome= false;
-  this.youtube = false;
   if(type== 'LV Systems') {
     this.selectedRowIndexSub = type;
     this.selectedRowIndexType="";
@@ -860,13 +734,9 @@ export class MainNavComponent implements OnInit, OnDestroy {
     this.completedSite=false;
     this.value= false;
   }
+  
  }
 
- highlightMeter(typeMeter:any){
-  this.selectedRowIndex = typeMeter;
-  this.selectedRowIndexTypeMeter="";
-  this.selectedRowIndexSub ="";
-}
  editSite(siteId: any,userName: any,site: any) {
   this.service.allStepsCompleted=true;
   this.service.disableSubmitSummary=false;
@@ -885,8 +755,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   dialogRef.componentInstance.confirmBox.subscribe(data=>{
     if(data) {
       this.value= true;
-    this.welcome= false;
-    this.youtube = false;
+    this.welcome= false;  
     this.ongoingSite=false;
     this.completedSite=false;
     this.service.mainNavToSaved=0;
@@ -897,8 +766,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
     }
     else{
       this.value= false;
-    this.welcome= false;
-    this.youtube = false;  
+    this.welcome= false;  
     this.ongoingSite=true;
     this.completedSite=false;
     }
@@ -906,8 +774,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   // if (confirm("Are you sure you want to edit site details?"))
   // {
   //   this.value= true;
-  //   this.welcome= false;
-  // this.youtube = false;  
+  //   this.welcome= false;  
   //   this.ongoingSite=false;
   //   this.completedSite=false;
   //   this.service.mainNavToSaved=0;
@@ -919,7 +786,6 @@ export class MainNavComponent implements OnInit, OnDestroy {
   // else {
   //   this.value= false;
   //   this.welcome= false;  
-  // this.youtube = false;
   //   this.ongoingSite=true;
   //   this.completedSite=false;
   // }
@@ -946,8 +812,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   dialogRef.componentInstance.confirmBox.subscribe(data=>{
     if(data) {
       this.value= true;
-      this.welcome= false;
-      this.youtube = false;
+      this.welcome= false;  
       this.ongoingSite=false;
       this.completedSite=false;
       this.service.mainNavToSaved=0;
@@ -958,8 +823,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
     }
     else{
       this.value= false;
-      this.welcome= false;
-      this.youtube = false;   
+      this.welcome= false;   
       this.ongoingSite=false;
       this.completedSite=true;
     }
@@ -967,8 +831,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   // if (confirm("Are you sure you want to view site details?"))
   // {
   //   this.value= true;
-  //   this.welcome= false;
-   //this.youtube = false;  
+  //   this.welcome= false;  
   //   this.ongoingSite=false;
   //   this.completedSite=false;
   //   this.service.mainNavToSaved=0;
@@ -979,13 +842,11 @@ export class MainNavComponent implements OnInit, OnDestroy {
   // } 
   // else {
   //   this.value= false;
-  //   this.welcome= false; 
-  //this.youtube = false;  
+  //   this.welcome= false;   
   //   this.ongoingSite=false;
   //   this.completedSite=true;
   // }
   // this.welcome= false;
-  //this.youtube = false;
   // this.ongoingSite=false;
   // this.completedSite=false;
   // this.viewContainerRef.clear();
@@ -1032,7 +893,6 @@ emailPDF(siteId: any,userName: any, siteName: any){
   this.viewContainerRef.clear();
   if(type == 'LV Systems') {
     this.welcome= false;
-    this.youtube = false;
     this.selectedRowIndexSub = type;
     this.selectedRowIndexType="";
     this.ongoingSite=false;
@@ -1045,10 +905,7 @@ emailPDF(siteId: any,userName: any, siteName: any){
   this.selectedRowIndexType = type;
   this.selectedRowIndexSub ="";
  }
- highlightTypeMeter(typeMeter:any){
-  this.selectedRowIndexTypeMeter = typeMeter;
-  this.selectedRowIndexSub ="";
- }
+ 
  changePassword(email: String) {
   if((this.service.lvClick==1) && (this.service.allStepsCompleted==true)){
     const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
@@ -1137,35 +994,11 @@ profileUpdate(email: String) {
       }
     });
   }
+ 
 
-  LVHome(){
-     this.welcome = false;
-     this.youtube = false;
-        this.viewContainerRef.clear();
-        const lvInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LvInspectionDetailsComponent);
-        const lvInspectionRef = this.viewContainerRef.createComponent(lvInspectionFactory);
-        lvInspectionRef.changeDetectorRef.detectChanges();
-  }
-  LPSHome(){
-    this.welcome = false;
-    this.youtube = false;
-    this.viewContainerRef.clear();
-    const LpsInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LpsWelcomePageComponent);
-    const LpsInspectionRef = this.viewContainerRef.createComponent(LpsInspectionFactory);
-    LpsInspectionRef.changeDetectorRef.detectChanges();
-  }
-  EMCHome(){
-    this.welcome = false;
-    this.youtube = false;
-    this.viewContainerRef.clear();
-    const emcAssessmentInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(EmcAssessmentInstallationComponent);
-    const emcAssessmentInspectionRef = this.viewContainerRef.createComponent(emcAssessmentInspectionFactory);
-    emcAssessmentInspectionRef.changeDetectorRef.detectChanges();
-  }
   showLinkDescription(id: any) {
-    this.welcome = false;
-    this.youtube = false;
-    if ((this.service.lvClick == 1) && (this.service.allStepsCompleted == true)) {
+    this.welcome= false;
+    if((this.service.lvClick==1) && (this.service.allStepsCompleted==true)){
       const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
         width: '420px',
         maxHeight: '90vh',
@@ -1176,15 +1009,10 @@ profileUpdate(email: String) {
       dialogRef.componentInstance.triggerModal = false;
       dialogRef.componentInstance.linkModal = true;
       dialogRef.componentInstance.summaryModal = false;
-      if(this.service.sldClick == 1) {
-        dialogRef.componentInstance.sldModal = true;
-        dialogRef.componentInstance.linkModal = false;
-      }
 
-      dialogRef.componentInstance.confirmBox.subscribe(data => {
-        if (data) {
-          this.service.lvClick = 0;
-          this.service.sldClick = 0;
+      dialogRef.componentInstance.confirmBox.subscribe(data=>{
+        if(data) {
+          this.service.lvClick=0;
           switch (id) {
             case 'LV Systems':
               this.viewContainerRef.clear();
@@ -1213,24 +1041,12 @@ profileUpdate(email: String) {
               const LpsInspectionRef = this.viewContainerRef.createComponent(LpsInspectionFactory);
               LpsInspectionRef.changeDetectorRef.detectChanges();
               break;
-            case 'SLD Diagram':
-              this.viewContainerRef.clear();
-              const SLDDiagramFactory = this.componentFactoryResolver.resolveComponentFactory(DiagramWelcomePageComponent);
-              const SLDDiagramRef = this.viewContainerRef.createComponent(SLDDiagramFactory);
-              SLDDiagramRef.changeDetectorRef.detectChanges();
-              break;  
-              case 'Buy Meter':
-                this.viewContainerRef.clear();
-                const butMeterFactory = this.componentFactoryResolver.resolveComponentFactory(BuyMeterComponent);
-                const buyMeterRef = this.viewContainerRef.createComponent(butMeterFactory);
-                buyMeterRef.changeDetectorRef.detectChanges();
-                break;
             case 6:
               this.viewContainerRef.clear();
               break;
           }
         }
-        else {
+        else{
           return;
         }
       })
@@ -1272,8 +1088,8 @@ profileUpdate(email: String) {
       // else{
       //   return;
       // }
-    }
-    else if ((this.service.lvClick == 0) || (this.service.allStepsCompleted == false)) {
+     }
+     else if((this.service.lvClick==0) || (this.service.allStepsCompleted==false)){
       switch (id) {
         case 'LV Systems':
           this.viewContainerRef.clear();
@@ -1297,31 +1113,18 @@ profileUpdate(email: String) {
           emcAssessmentInspectionRef.changeDetectorRef.detectChanges();
           break;
         case 'LPS Systems':
-          this.service.allStepsCompleted = true;
+          this.service.allStepsCompleted=true;
           this.viewContainerRef.clear();
           const LpsInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LpsWelcomePageComponent);
           const LpsInspectionRef = this.viewContainerRef.createComponent(LpsInspectionFactory);
           LpsInspectionRef.changeDetectorRef.detectChanges();
           break;
-
-        case 'SLD Diagram':
-          this.viewContainerRef.clear();
-          const SLDDiagramFactory = this.componentFactoryResolver.resolveComponentFactory(DiagramWelcomePageComponent);
-          const SLDDiagramRef = this.viewContainerRef.createComponent(SLDDiagramFactory);
-          SLDDiagramRef.changeDetectorRef.detectChanges();
-          break;  
-          case 'Buy Meter':
-            this.viewContainerRef.clear();
-            const butMeterFactory = this.componentFactoryResolver.resolveComponentFactory(BuyMeterComponent);
-            const buyMeterRef = this.viewContainerRef.createComponent(butMeterFactory);
-            buyMeterRef.changeDetectorRef.detectChanges();
-            break;
         case 6:
           this.viewContainerRef.clear();
           break;
       }
     }
-
+  
   }
 
   editApplicationType(id: any, type: String, code: String) {
@@ -1360,7 +1163,7 @@ profileUpdate(email: String) {
     this.isExpanded = false;
   }
 
-  displayIconsBasedOnEmail(): boolean {
+  displayIconsBasedOnEmail(): boolean{
     return !this.email.includes("@capeindia.net")
   }
 }

@@ -115,7 +115,7 @@ export class LpsFinalReportComponent implements OnInit {
     }
       
     if(this.superAdminFlag) {
-      this.lpsService.retrieveAllBasicLps(this.email).subscribe(
+      this.lpsService.retrieveAllBasicLps().subscribe(
         data => {
           // this.myfunction(data);
           this.lpsData=JSON.parse(data);

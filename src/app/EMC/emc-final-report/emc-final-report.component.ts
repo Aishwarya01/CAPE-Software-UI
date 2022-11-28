@@ -20,7 +20,7 @@ import { SuperAdminProd } from 'src/environments/environment.prod';
 })
 export class EmcFinalReportComponent implements OnInit {
 
-  finalReportsColumns: string[] = [ 'clientName', 'contactPerson', 'clientLocation', 'clientAddress', 'updatedDate', 'updatedBy','action'];
+  finalReportsColumns: string[] = [ 'clientName', 'contactPerson', 'clientLocation', 'clientAddress', 'createdDate', 'createdBy','action'];
   finalReport_dataSource!: MatTableDataSource<EmcClientDetails[]>;
 
   @ViewChild('finalReportPaginator', { static: true }) finalReportPaginator!: MatPaginator;

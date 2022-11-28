@@ -9,7 +9,7 @@
 </div>
 <div class="card">
     <div class="card-body">
-        <form [formGroup]="downConductorForm" (ngSubmit)="onSubmit(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
+        <form [formGroup]="downConductorForm" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
             <div formArrayName="downConductorDescription" *ngFor="let q of overAllDownControl(); let j = index">
                 <div class="form-group" [formGroupName]="j">
                     <div class="search-bar">
@@ -23,7 +23,7 @@
                                                 <i class="bi bi-align-start"></i>
                                             </span>
                                         </div>
-                                        <input onwheel="this.blur()" class="form-control" formControlName="buildingNumber" readonly/>
+                                        <input type="number" class="form-control" formControlName="buildingNumber" readonly/>
                                     </div>
                                 </div>
                 
@@ -57,7 +57,7 @@
                                             <th>Sl.No</th>
                                             <th>Description</th>
                                             <th>Observation</th>
-                                            <th>Remarks</th>
+                                            <th>Remarks(Optional)</th>
                                         </thead>
                                         <tbody>
                                             <tr>
@@ -328,12 +328,12 @@
                             <table class="table TableBorder">
                                 <thead>
                                     <th>Availability of Down Conductors</th>
-                                    <th>Remarks</th>
+                                    <th>Remarks(Optional)</th>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td class="col-md-6">
-                                            <select class="form-control" (change)="onChangeDownCon($event,downConductorControls(q))" formControlName="downConductorAvailabilityOb" [attr.disabled]="isEditable ? '' : null"
+                                            <select class="form-control"  (change)="onChangeDownCon($event,downConductorControls(q))" formControlName="downConductorAvailabilityOb" [attr.disabled]="isEditable ? '' : null"
                                             [ngClass]="{ 'is-invalid': submitted && q.get('downConductorAvailabilityOb')?.errors }" style="height: 3rem;" >
                                                 <option value="" selected>Select Option</option>
                                                 <option value="Applicable">Applicable </option>
@@ -364,7 +364,7 @@
                                     <th>Sl.No</th>
                                     <th>Description</th>
                                     <th>Observation</th>
-                                    <th>Remarks</th>
+                                    <th>Remarks(Optional)</th>
                                 </thead> 
                                 <tbody [formGroupName]="l">                                        
                                         <tr *ngIf="q.get('downConductorAvailabilityOb')?.value == 'Applicable'">
@@ -445,7 +445,7 @@
                                                             <td nowrap style="text-align: center;">
                                                                 <button type="button" class="btn btn-secondary btn-xs mr-4" [disabled]="uploadDisable"
                                                                 (click)="onUpload(contentSpinner,q.get('buildingCount')?.value,a,j)" title="Upload">
-                                                                    <i class="fa fa-upload" style="color: white;"></i> 
+                                                                    <i class="fa fa-upload" style="color: white;"></i> Upload
                                                                 </button>
                                                                 <div *ngIf="submitted && a.get('fileId')?.errors"class="invalid-feedback">
                                                                     <div *ngIf="a.get('fileId')?.errors?.required">File upload is required</div>
@@ -458,7 +458,7 @@
                                                                 </button> -->
                                                                 <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="a.get('fileId')?.value" (click)="onDownload(a.get('fileName')?.value,a.get('fileId')?.value)" 
                                                                 href='javascript:void(0)' [ngClass]="{'disableForm':isEditable}" title="Download">
-                                                                    <i class="fa fa-download" style="color: white;"></i> 
+                                                                    <i class="fa fa-download" style="color: white;"></i> Download
                                                                 </button>
                                                                 <!-- <button type="button" class="btn btn-danger btn-xs mr-4">
                                                                     <i class="fa fa-trash-o" style="color: white;"></i> Delete
@@ -469,7 +469,6 @@
                                                     </tbody>
                                                 </table>
                                                 </div>
-                                                <p class="col-md-12" *ngIf="q.get('downConductorAvailabilityOb')?.value == 'Applicable'" style="font-weight: bold">Note :  If you are attaching multiple photos or files, Please create single PDF or Word document with photos and upload</p>
                                             </Td>
                                         </tr>
                                         
@@ -763,7 +762,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" [readonly]="isEditable" formControlName="maximumDownConductOb" (keypress)="keyPressNumbers1($event)" (change)="decimalConversion($event,a)" class="form-control" placeholder="Please enter Maximum distance between down conductors here in number"
+                                                    <input type="number" [readonly]="isEditable" formControlName="maximumDownConductOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Maximum distance between down conductors here in number"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('maximumDownConductOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('maximumDownConductOb')?.errors" class="invalid-feedback">
                                                         <div *ngIf="a.get('maximumDownConductOb')?.errors?.required">Maximum distance between down conductors observation is required</div>
@@ -792,7 +791,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" [readonly]="isEditable" formControlName="manimumDownConductOb" (keypress)="keyPressNumbers1($event)" (change)="decimalConversion($event,a)" class="form-control" placeholder="Please enter Minimum distance between down conductors here in numbers"
+                                                    <input type="number" [readonly]="isEditable" formControlName="manimumDownConductOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Minimum distance between down conductors here in numbers"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('manimumDownConductOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('manimumDownConductOb')?.errors" class="invalid-feedback">
                                                         <div *ngIf="a.get('manimumDownConductOb')?.errors?.required">Minimum distance between down conductors observation is required</div>
@@ -821,7 +820,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" [readonly]="isEditable" formControlName="totalNoDownConductOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Total number of down conductors here in numbers"
+                                                    <input type="number" [readonly]="isEditable" formControlName="totalNoDownConductOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Total number of down conductors here in numbers"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('totalNoDownConductOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('totalNoDownConductOb')?.errors" class="invalid-feedback">
                                                         <div *ngIf="a.get('totalNoDownConductOb')?.errors?.required">Total number of down conductors observation is required</div>
@@ -850,7 +849,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" [readonly]="isEditable" formControlName="inspectedNoOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Number of down conductors inspected here in numbers"
+                                                    <input type="number" [readonly]="isEditable" formControlName="inspectedNoOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Number of down conductors inspected here in numbers"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('inspectedNoOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('inspectedNoOb')?.errors" class="invalid-feedback">
                                                         <div *ngIf="a.get('inspectedNoOb')?.errors?.required">Number of down conductors inspected observation is required</div>
@@ -879,7 +878,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" [readonly]="isEditable" formControlName="inspectionPassedNoOb" (keypress)="keyPressNumbers($event)"class="form-control" placeholder="Please enter Number of inspections passed here in numbers"
+                                                    <input type="number" [readonly]="isEditable" formControlName="inspectionPassedNoOb" (keypress)="keyPressNumbers($event)"class="form-control" placeholder="Please enter Number of inspections passed here in numbers"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('inspectionPassedNoOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('inspectionPassedNoOb')?.errors" class="invalid-feedback">
                                                         <div *ngIf="a.get('inspectionPassedNoOb')?.errors?.required">Number of inspections passed observation is required</div>
@@ -908,7 +907,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" [readonly]="isEditable" formControlName="inspectionFailedNoOb" 
+                                                    <input type="number" [readonly]="isEditable" formControlName="inspectionFailedNoOb" 
                                                     (keyup)="validationChangeDownConductorKey($event,q,'inspectionFailedNoRem')" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Number of inspections failed here in numbers"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedNoOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('inspectionFailedNoOb')?.errors"
@@ -944,7 +943,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="averageBendsOb" [readonly]="isEditable" placeholder="Please enter Average number of dangerous bends here in numbers" 
+                                                    <input type="number" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="averageBendsOb" [readonly]="isEditable" placeholder="Please enter Average number of dangerous bends here in numbers" 
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('averageBendsOb')?.errors}" (keyup)="validationChangeDownConductorKey($event,q,'averageBendsRem')" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('averageBendsOb')?.errors" class="invalid-feedback">
                                                         <div *ngIf="a.get('averageBendsOb')?.errors?.required">Average number of dangerous bends observation is required</div>
@@ -1030,73 +1029,67 @@
                             </table>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <!-- File Upload -->
-                                <table class="table TableBorder" style="margin-top: 1rem;">
-                                    <thead>
-                                        <tr>
-                                            <th width="25%">Attach The File Here</th>
-                                            <th width="27%">Name</th>
-                                            <th width="6%" ng-show="uploader.isHTML5">Size</th>
-                                            <!-- <th ng-show="uploader.isHTML5">Progress</th> -->
-                                            <!-- <th>Status</th> -->
-                                            <th width="25%">Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="item in uploader.queue">
-                                            <td>
-                                                <input style="height: 3rem;" type="file" class="form-control" (change)="onChange1($event,q)" [attr.disabled]="isEditable ? '' : null"
-                                                accept=".txt,.jpeg,.png,.jpg,.pdf">
-                                                <div *ngIf="submitted && q.get('fileName1')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="q.get('fileName1')?.errors?.required">Field is required</div>
-                                                </div>
-                                            </td>
-                                            <td style="text-align: center;">{{q.get('fileName1')?.value}}</td>
-                                            <td ng-show="uploader.isHTML5" nowrap style="text-align: center;">{{q.get('fileSize')?.value}}</td>
+                        <!-- File Upload -->
+                        <table class="table TableBorder" style="margin-top: 1rem;">
+                            <thead>
+                                <tr>
+                                    <th width="25%">Attach The File Here</th>
+                                    <th width="27%">Name</th>
+                                    <th width="6%" ng-show="uploader.isHTML5">Size</th>
+                                    <!-- <th ng-show="uploader.isHTML5">Progress</th> -->
+                                    <!-- <th>Status</th> -->
+                                    <th width="25%">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in uploader.queue">
+                                    <td>
+                                        <input style="height: 3rem;" type="file" class="form-control" (change)="onChange1($event,q)" [attr.disabled]="isEditable ? '' : null"
+                                        accept=".txt,.jpeg,.png,.jpg,.pdf">
+                                        <div *ngIf="submitted && q.get('fileName1')?.errors" class="invalid-feedback">
+                                            <div *ngIf="q.get('fileName1')?.errors?.required">Field is required</div>
+                                        </div>
+                                    </td>
+                                    <td style="text-align: center;">{{q.get('fileName1')?.value}}</td>
+                                    <td ng-show="uploader.isHTML5" nowrap style="text-align: center;">{{q.get('fileSize')?.value}}</td>
 
-                                            <!-- <td ng-show="uploader.isHTML5">
-                                                <div class="progress" style="margin-bottom: 0;">
-                                                    <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
-                                                </div>
-                                            </td> -->
-                                            <!-- <td class="text-center">
-                                                <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
-                                                <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
-                                                <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
-                                            </td> -->
+                                    <!-- <td ng-show="uploader.isHTML5">
+                                        <div class="progress" style="margin-bottom: 0;">
+                                            <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                                        </div>
+                                    </td> -->
+                                    <!-- <td class="text-center">
+                                        <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                                        <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                                        <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                                    </td> -->
 
-                                            <td nowrap style="text-align: center;">
-                                                <button type="button" class="btn btn-secondary btn-xs mr-4" [disabled]="uploadDisable1"
-                                                (click)="onUpload1(contentSpinner,q.get('buildingCount')?.value,q,j)" title="Upload">
-                                                    <i class="fa fa-upload" style="color: white;"></i> 
-                                                </button>
-                                                <div *ngIf="submitted && q.get('fileId1')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="q.get('fileId1')?.errors?.required">File upload is required</div>
-                                                </div>
-                                                <div *ngIf="fileError" style="text-align: center;">
-                                                    <span class="errorshow">{{fileErrorMsg}}</span>
-                                                </div>
-                                                <!-- <button type="button" class="btn btn-warning btn-xs mr-4">
-                                                    <i class="fa fa-ban" style="color: white;"></i> Cancel
-                                                </button> -->
-                                                <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="q.get('fileId1')?.value" (click)="onDownload1(q.get('fileName1')?.value,q.get('fileId1')?.value)"
-                                                href='javascript:void(0)' [ngClass]="{'disableForm':isEditable}" title="Download">
-                                                    <i class="fa fa-download" style="color: white;"></i> 
-                                                </button>
-                                                <!-- <button type="button" class="btn btn-danger btn-xs mr-4">
-                                                    <i class="fa fa-trash-o" style="color: white;"></i> Delete
-                                                </button> -->
-                                                
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <p class="col-md-12"style="font-weight: bold">Note :  If you are attaching multiple photos or files, Please create single PDF or Word document with photos and upload</p>
-                        </div>
-                        
+                                    <td nowrap style="text-align: center;">
+                                        <button type="button" class="btn btn-secondary btn-xs mr-4" [disabled]="uploadDisable1"
+                                        (click)="onUpload1(contentSpinner,q.get('buildingCount')?.value,q,j)" title="Upload">
+                                            <i class="fa fa-upload" style="color: white;"></i> Upload
+                                        </button>
+                                        <div *ngIf="submitted && q.get('fileId1')?.errors" class="invalid-feedback">
+                                            <div *ngIf="q.get('fileId1')?.errors?.required">File upload is required</div>
+                                        </div>
+                                        <div *ngIf="fileError" style="text-align: center;">
+                                            <span class="errorshow">{{fileErrorMsg}}</span>
+                                        </div>
+                                        <!-- <button type="button" class="btn btn-warning btn-xs mr-4">
+                                            <i class="fa fa-ban" style="color: white;"></i> Cancel
+                                        </button> -->
+                                        <button type="button" class="btn btn-success btn-xs mr-4" *ngIf="q.get('fileId1')?.value" (click)="onDownload1(q.get('fileName1')?.value,q.get('fileId1')?.value)"
+                                        href='javascript:void(0)' [ngClass]="{'disableForm':isEditable}" title="Download">
+                                            <i class="fa fa-download" style="color: white;"></i> Download
+                                        </button>
+                                        <!-- <button type="button" class="btn btn-danger btn-xs mr-4">
+                                            <i class="fa fa-trash-o" style="color: white;"></i> Delete
+                                        </button> -->
+                                        
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                         <!-- <br>
                         <div style="margin-left: 3rem;">
                             <label class="form-label">Attach The File Here:</label>
@@ -1136,7 +1129,7 @@
                             <table class="table TableBorder">
                                 <thead>
                                     <th>Availability of Bridging Cables</th>
-                                    <th>Remarks</th>
+                                    <th>Remarks(Optional)</th>
                                 </thead>
                                 <tbody>
                                     <tr>
@@ -1171,7 +1164,7 @@
                                             <th>Sl.No</th>
                                             <th>Description</th>
                                             <th>Observation</th>
-                                            <th>Remarks</th>
+                                            <th>Remarks(Optional)</th>
                                         </thead>
                                         <tr>
                                             <td style="width: 1rem; text-align: center;">8(a)</td>
@@ -1355,7 +1348,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" [readonly]="isEditable" formControlName="totalNoBridgingCableOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Total number of bridging cables here"
+                                                    <input type="number" [readonly]="isEditable" formControlName="totalNoBridgingCableOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Total number of bridging cables here"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('totalNoBridgingCableOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('totalNoBridgingCableOb')?.errors" class="invalid-feedback">
                                                         <div *ngIf="a.get('totalNoBridgingCableOb')?.errors?.required">Total number of bridging cables observation is required</div>
@@ -1385,7 +1378,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" [readonly]="isEditable" formControlName="inspectedNoOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Number of bridging cables inspected here"
+                                                    <input type="number" [readonly]="isEditable" formControlName="inspectedNoOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Number of bridging cables inspected here"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('inspectedNoOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('inspectedNoOb')?.errors"
                                                         class="invalid-feedback">
@@ -1416,7 +1409,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" [readonly]="isEditable" formControlName="inspectionPassedNoOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Number of inspections passed here"
+                                                    <input type="number" [readonly]="isEditable" formControlName="inspectionPassedNoOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Number of inspections passed here"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('inspectionPassedNoOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('inspectionPassedNoOb')?.errors"
                                                         class="invalid-feedback">
@@ -1447,7 +1440,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" [readonly]="isEditable" formControlName="inspectionFailedNoOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Number of inspections failed here"
+                                                    <input type="number" [readonly]="isEditable" formControlName="inspectionFailedNoOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Number of inspections failed here"
                                                     (keyup)="validationChangeDownBridgeKey($event,q,'inspectionFailedNoRem')" [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedNoOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('inspectionFailedNoOb')?.errors"
                                                         class="invalid-feedback">
@@ -1494,7 +1487,7 @@
                             <table class="table TableBorder">
                                 <thead>
                                     <th>Availability of Holders</th>
-                                    <th>Remarks</th>
+                                    <th>Remarks(Optional)</th>
                                 </thead>
                                 <tbody>
                                     <tr>
@@ -1528,7 +1521,7 @@
                                             <th>Sl.No</th>
                                             <th>Description</th>
                                             <th>Observation</th>
-                                            <th>Remarks</th>
+                                            <th>Remarks(Optional)</th>
                                         </thead>
                                         <tr>
                                             <td style="width: 1rem; text-align: center;">9(a)</td>
@@ -1648,7 +1641,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" (keypress)="keyPressNumbers1($event)" (change)="decimalConversion1($event,a)" class="form-control" formControlName="successiveDistanceOb" [attr.disabled]="isEditable ? '' : null"
+                                                    <input type="number" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="successiveDistanceOb" [attr.disabled]="isEditable ? '' : null"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('successiveDistanceOb')?.errors}" placeholder="Please enter Distance between two successive holder in meters here" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('successiveDistanceOb')?.errors"class="invalid-feedback">
                                                         <div *ngIf="a.get('successiveDistanceOb')?.errors?.required">Distance between two successive holder in meters observation is required</div>
@@ -1718,7 +1711,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" [readonly]="isEditable" formControlName="totalNoHolderOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Total number of holders here"
+                                                    <input type="number" [readonly]="isEditable" formControlName="totalNoHolderOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Total number of holders here"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('totalNoHolderOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('totalNoHolderOb')?.errors" class="invalid-feedback">
                                                         <div *ngIf="a.get('totalNoHolderOb')?.errors?.required">Total number of holders observation is required</div>
@@ -1747,7 +1740,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" [readonly]="isEditable" formControlName="inspectedNoOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Number of holders inspected here"
+                                                    <input type="number" [readonly]="isEditable" formControlName="inspectedNoOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Number of holders inspected here"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('inspectedNoOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('inspectedNoOb')?.errors" class="invalid-feedback">
                                                         <div *ngIf="a.get('inspectedNoOb')?.errors?.required">Number of holders inspected observation is required</div>
@@ -1776,7 +1769,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" [readonly]="isEditable" formControlName="inspectionPassedNoOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Number of inspection passed here"
+                                                    <input type="number" [readonly]="isEditable" formControlName="inspectionPassedNoOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Number of inspection passed here"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('inspectionPassedNoOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('inspectionPassedNoOb')?.errors" class="invalid-feedback">
                                                         <div *ngIf="a.get('inspectionPassedNoOb')?.errors?.required">Number of inspection passed observation is required</div>
@@ -1805,7 +1798,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" [readonly]="isEditable" formControlName="inspectionFailedNoOb" 
+                                                    <input type="number" [readonly]="isEditable" formControlName="inspectionFailedNoOb" 
                                                     (keyup)="validationChangeDownHoldersKey($event,q,'inspectionFailedNoRem')" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Number of inspection failed here"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedNoOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('inspectionFailedNoOb')?.errors"class="invalid-feedback">
@@ -1851,7 +1844,7 @@
                             <table class="table TableBorder">
                                 <thead>
                                     <th>Availability of Connectors</th>
-                                    <th>Remarks</th>
+                                    <th>Remarks(Optional)</th>
                                 </thead>
                                 <tbody>
                                     <tr>
@@ -1885,7 +1878,7 @@
                                             <th>Sl.No</th>
                                             <th>Description</th>
                                             <th>Observation</th>
-                                            <th>Remarks</th>
+                                            <th>Remarks(Optional)</th>
                                         </thead>
                                         <tr>
                                             <td style="width: 1rem; text-align: center;">10(a)</td>
@@ -2011,7 +2004,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" [readonly]="isEditable" formControlName="maxConnectorsDownConductorOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Max number of connector in a down conductor here"
+                                                    <input type="number" [readonly]="isEditable" formControlName="maxConnectorsDownConductorOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Max number of connector in a down conductor here"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('maxConnectorsDownConductorOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('maxConnectorsDownConductorOb')?.errors" class="invalid-feedback">
                                                         <div *ngIf="a.get('maxConnectorsDownConductorOb')?.errors?.required">Max number of connector in a down conductor observation is required</div>
@@ -2040,7 +2033,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" [readonly]="isEditable" formControlName="totalNoConnectorsOb" class="form-control" placeholder="Please enter Total number of connectors here"
+                                                    <input type="number" (keypress)="keyPressNumbers($event)" [readonly]="isEditable" formControlName="totalNoConnectorsOb" class="form-control" placeholder="Please enter Total number of connectors here"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('totalNoConnectorsOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('totalNoConnectorsOb')?.errors" class="invalid-feedback">
                                                         <div *ngIf="a.get('totalNoConnectorsOb')?.errors?.required">Total number of connectors observation is required</div>
@@ -2069,7 +2062,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" [readonly]="isEditable" formControlName="inspectedNoOb" class="form-control" placeholder="Please enter Number of connectors inspected here"
+                                                    <input type="number" (keypress)="keyPressNumbers($event)" [readonly]="isEditable" formControlName="inspectedNoOb" class="form-control" placeholder="Please enter Number of connectors inspected here"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('inspectedNoOb')?.errors}">
                                                     <div *ngIf="submitted && a.get('inspectedNoOb')?.errors"
                                                         class="invalid-feedback">
@@ -2100,7 +2093,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" [readonly]="isEditable" formControlName="inspectionPassedNoOb" class="form-control" placeholder="Please enter Number of inspection passed here"
+                                                    <input type="number" (keypress)="keyPressNumbers($event)" [readonly]="isEditable" formControlName="inspectionPassedNoOb" class="form-control" placeholder="Please enter Number of inspection passed here"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('inspectionPassedNoOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('inspectionPassedNoOb')?.errors" class="invalid-feedback">
                                                         <div *ngIf="a.get('inspectionPassedNoOb')?.errors?.required">Number of inspection passed observation is required</div>
@@ -2129,7 +2122,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" [readonly]="isEditable" formControlName="inspectionFailedNoOb" class="form-control" 
+                                                    <input type="number" (keypress)="keyPressNumbers($event)" [readonly]="isEditable" formControlName="inspectionFailedNoOb" class="form-control" 
                                                     (keyup)="validationChangeDownConnectorsKey($event,q,'inspectionFailedNoRem')" placeholder="Please enter Number of inspection failed here"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedNoOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('inspectionFailedNoOb')?.errors"
@@ -2176,7 +2169,7 @@
                             <table class="table TableBorder">
                                 <thead>
                                     <th>Availability of Lightning Counter</th>
-                                    <th>Remarks</th>
+                                    <th>Remarks(Optional)</th>
                                 </thead>
                                 <tbody>
                                     <tr>
@@ -2184,26 +2177,26 @@
                                             <select class="form-control"  (change)="onChangeCounters($event,q)" formControlName="lightningCounterAvailabilityOb" [attr.disabled]="isEditable ? '' : null"
                                             [ngClass]="{ 'is-invalid': submitted && q.get('lightningCounterAvailabilityOb')?.errors }" style="height: 3rem;">
                                                 <option value="" selected>Select Option</option>
-                                                <option value="Available">Available </option>
-                                                <option value="Not available">Not available</option>
+                                                <option value="Applicable">Applicable </option>
+                                                <option value="Not applicable">Not applicable</option>
                                             </select>
                                             <div *ngIf="submitted && q.get('lightningCounterAvailabilityOb')?.errors" class="invalid-feedback">
                                                 <div *ngIf="q.get('lightningCounterAvailabilityOb')?.errors?.required">Please select the field</div>
                                             </div>
                                         </td>
                                         <td class="col-md-6">
-                                            <textarea [readonly]="isEditable || q.get('lightningCounterAvailabilityOb')?.value ==='Not available'" formControlName="lightningCounterAvailabilityRem" type="text"
+                                            <textarea [readonly]="isEditable || q.get('lightningCounterAvailabilityOb')?.value ==='Not applicable'" formControlName="lightningCounterAvailabilityRem" type="text"
                                             placeholder="Please enter Remarks here" class="form-control"></textarea>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>                                                                               
-                        <div style="margin-top: 10px;" *ngIf="q.get('lightningCounterAvailabilityOb')?.value != 'Available'"><b>Note:</b> &nbsp; Select applicable if you intend to fill details for Lightning Counters</div>
-                        <h2 *ngIf="q.get('lightningCounterAvailabilityOb')?.value === 'Available'"><u>Lightning Counter:</u></h2>
+                        <div style="margin-top: 10px;" *ngIf="q.get('lightningCounterAvailabilityOb')?.value != 'Applicable'"><b>Note:</b> &nbsp; Select applicable if you intend to fill details for Lightning Counters</div>
+                        <h2 *ngIf="q.get('lightningCounterAvailabilityOb')?.value === 'Applicable'"><u>Lightning Counter:</u></h2>
                         <br>
                         
-                        <div class="table-responsive" style="overflow-x: unset;" *ngIf="q.get('lightningCounterAvailabilityOb')?.value === 'Available'">
+                        <div class="table-responsive" style="overflow-x: unset;" *ngIf="q.get('lightningCounterAvailabilityOb')?.value === 'Applicable'">
                             <table class="table TableBorder">
                                 <tbody formArrayName="lightningCounter" *ngFor="let a of lightControls(q); let f = index">
                                     <div class="form-group" [formGroupName]="f">
@@ -2211,7 +2204,7 @@
                                             <th>Sl.No</th>
                                             <th>Description</th>
                                             <th>Observation</th>
-                                            <th>Remarks</th>
+                                            <th>Remarks(Optional)</th>
                                         </thead>
                                         <tr>
                                             <td style="width: 1rem; text-align: center;">11(a)</td>
@@ -2223,7 +2216,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" [readonly]="isEditable" formControlName="threadHoldCurrentOb" (keypress)="keyPressNumbers1($event)" (change)="decimalConversion2($event,a)" class="form-control" placeholder="Please enter hreshold current in kA here in numbers"
+                                                    <input type="number" [readonly]="isEditable" formControlName="threadHoldCurrentOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter hreshold current in kA here in numbers"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('threadHoldCurrentOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('threadHoldCurrentOb')?.errors" class="invalid-feedback">
                                                         <div *ngIf="a.get('threadHoldCurrentOb')?.errors?.required">Threshold current observation is required</div>
@@ -2252,7 +2245,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" [readonly]="isEditable" formControlName="maximumWithStandCurrentOb" (keypress)="keyPressNumbers1($event)" (change)="decimalConversion2($event,a)" class="form-control" placeholder="Please enter Maximum withstand current in kA here in numbers"
+                                                    <input type="number" [readonly]="isEditable" formControlName="maximumWithStandCurrentOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Maximum withstand current in kA here in numbers"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('maximumWithStandCurrentOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('maximumWithStandCurrentOb')?.errors"
                                                         class="invalid-feedback">
@@ -2283,7 +2276,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" [readonly]="isEditable" formControlName="countsOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Counts here in numbers"
+                                                    <input type="number" [readonly]="isEditable" formControlName="countsOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Counts here in numbers"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('countsOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('countsOb')?.errors" class="invalid-feedback">
                                                         <div *ngIf="a.get('countsOb')?.errors?.required">Counts observation is required</div>
@@ -2312,7 +2305,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" [readonly]="isEditable" formControlName="batteryLifeTimeOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Battery life time in years here in numbers"
+                                                    <input type="number" [readonly]="isEditable" formControlName="batteryLifeTimeOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Battery life time in years here in numbers"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('batteryLifeTimeOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('batteryLifeTimeOb')?.errors"
                                                         class="invalid-feedback">
@@ -2449,7 +2442,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" [readonly]="isEditable" formControlName="totalNoLightingCounterOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Total number of lightning counter here"
+                                                    <input type="number" [readonly]="isEditable" formControlName="totalNoLightingCounterOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Total number of lightning counter here"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('totalNoLightingCounterOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('totalNoLightingCounterOb')?.errors" class="invalid-feedback">
                                                         <div *ngIf="a.get('totalNoLightingCounterOb')?.errors?.required">
@@ -2479,7 +2472,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" [readonly]="isEditable" formControlName="inspectedNoOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Number of lightning counter inspected here"
+                                                    <input type="number" [readonly]="isEditable" formControlName="inspectedNoOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Number of lightning counter inspected here"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('inspectedNoOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('inspectedNoOb')?.errors"
                                                         class="invalid-feedback">
@@ -2510,7 +2503,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" [readonly]="isEditable" formControlName="inspectionPassedNoOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Number of inspections passed here"
+                                                    <input type="number" [readonly]="isEditable" formControlName="inspectionPassedNoOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Number of inspections passed here"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('inspectionPassedNoOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('inspectionPassedNoOb')?.errors"
                                                         class="invalid-feedback">
@@ -2540,7 +2533,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" [readonly]="isEditable" formControlName="inspectionFailedNoOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Number of inspections failed here"
+                                                    <input type="number" [readonly]="isEditable" formControlName="inspectionFailedNoOb" (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Please enter Number of inspections failed here"
                                                     (keyup)="validationChangeDownLightningKey($event,q,'inspectionFailedNoRem')" [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedNoOb')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('inspectionFailedNoOb')?.errors"
                                                         class="invalid-feedback">
@@ -2587,7 +2580,7 @@
                             <table class="table TableBorder">
                                 <thead>
                                     <th>Availability of Test Joints</th>
-                                    <th>Remarks</th>
+                                    <th>Remarks(Optional)</th>
                                 </thead>
                                 <tbody>
                                     <tr>
@@ -2623,7 +2616,7 @@
                                             <th>Sl.No</th>
                                             <th>Description</th>
                                             <th>Observation</th>
-                                            <th>Remarks</th>
+                                            <th>Remarks(Optional)</th>
                                         </thead>
                                         <tr>
                                             <td style="text-align: center; width: 1rem;">12(a)</td>
@@ -2788,7 +2781,8 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                        <select class="form-control" formControlName="bimetallicIssueCheckOb" placeholder="Please enter Presence of Bi-metalllic corrosion issue here" [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && a.get('bimetallicIssueCheckOb')?.errors}" style="height: 3rem;">
+                                                        <select class="form-control" formControlName="bimetallicIssueCheckOb" placeholder="Please enter Presence of Bi-metalllic corrosion issue here" [attr.disabled]="isEditable ? '' : null"
+                                                        (change)="validationChangeDownTestJoint($event,q,'bimetallicIssueCheckRem')" [ngClass]="{ 'is-invalid': submitted && a.get('bimetallicIssueCheckOb')?.errors}" style="height: 3rem;">
                                                             <option  value="" selected>Select Option</option>
                                                             <option value="Yes" >Yes</option>
                                                             <option value="No" >No</option>
@@ -2861,7 +2855,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control"
+                                                    <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
                                                         [readonly]="isEditable" formControlName="totalNoOfTestJointOB"
                                                         placeholder="Please enter Total number of test joints here"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('totalNoOfTestJointOB')?.errors}" style="height: 3rem;">
@@ -2895,7 +2889,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control"
+                                                    <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
                                                         [readonly]="isEditable" formControlName="inspectedNoOb"
                                                         placeholder="Please enter Number of test joints inspected here"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('inspectedNoOb')?.errors}" style="height: 3rem;">
@@ -2928,7 +2922,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control"
+                                                    <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
                                                        [readonly]="isEditable" formControlName="inspectionPassedNoOb"
                                                         placeholder="Please enter Number of inspections passed here"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('inspectionPassedNoOb')?.errors}" style="height: 3rem;">
@@ -2962,7 +2956,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control"
+                                                    <input type="number" (keypress)="keyPressNumbers($event)" class="form-control"
                                                         [readonly]="isEditable" formControlName="inspectionFailedNoOb"
                                                         placeholder="Please enter Number of inspections failed here" (keyup)="validationChangeDownTestJointKey($event,q,'inspectionFailedNoRem')"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedNoOb')?.errors}" style="height: 3rem;">
@@ -3011,7 +3005,7 @@
                             <table class="table TableBorder">
                                 <thead>
                                     <th>Availability of Testing of down conductors</th>
-                                    <th>Remarks</th>
+                                    <th>Remarks(Optional)</th>
                                 </thead>
                                 <tbody>
                                     <tr>
@@ -3019,8 +3013,8 @@
                                             <select class="form-control" (change)="onChangeDownConductorTesting($event,q)"  formControlName="downConductorTestingAvailabilityOb" [attr.disabled]="isEditable ? '' : null"
                                             [ngClass]="{ 'is-invalid': submitted && q.get('downConductorTestingAvailabilityOb')?.errors }" style="height: 3rem;">
                                                 <option value="" selected>Select Option</option>
-                                                <option value="In scope">In scope </option>
-                                                <option value="Not in scope">Not in scope</option>
+                                                <option value="In Scope">In Scope </option>
+                                                <option value="Not in Scope">Not in Scope</option>
                                             </select>
                                             <div *ngIf="submitted && q.get('downConductorTestingAvailabilityOb')?.errors" class="invalid-feedback">
                                                 <div *ngIf="q.get('downConductorTestingAvailabilityOb')?.errors?.required">Please select the field</div>
@@ -3034,15 +3028,15 @@
                                 </tbody>
                             </table>
                         </div>                                                                              
-                        <div style="margin-top: 10px;" *ngIf="q.get('downConductorTestingAvailabilityOb')?.value != 'In scope'"><b>Note:</b> &nbsp; Select In scope if you intend to fill details for Testing of earth electrodes</div>
-                        <h2 *ngIf="q.get('downConductorTestingAvailabilityOb')?.value === 'In scope'"><u>Testing of earth electrodes:</u></h2>
+                        <div style="margin-top: 10px;" *ngIf="q.get('downConductorTestingAvailabilityOb')?.value != 'In Scope'"><b>Note:</b> &nbsp; Select In Scope if you intend to fill details for Testing of earth electrodes</div>
+                        <h2 *ngIf="q.get('downConductorTestingAvailabilityOb')?.value === 'In Scope'"><u>Testing of earth electrodes:</u></h2>
                         <br>
-                        <div class="row" *ngIf="q.get('downConductorTestingAvailabilityOb')?.value === 'In scope'">
+                        <div class="row" *ngIf="q.get('downConductorTestingAvailabilityOb')?.value === 'In Scope'">
                             <div class="col-md-6">
                                 <label>13(a). Down conductors resistance value (Table heading)</label>
                             </div>
                         </div>
-                        <div class="row" style="margin-top: 10px;" *ngIf="q.get('downConductorTestingAvailabilityOb')?.value === 'In scope'">
+                        <div class="row" style="margin-top: 10px;" *ngIf="q.get('downConductorTestingAvailabilityOb')?.value === 'In Scope'">
                             <div class="col-sm-12">
                             <div class="table-responsive" style="overflow-x: unset;">
                                 <table class="table TableBorder">
@@ -3051,7 +3045,7 @@
                                                 <th style="width: 7rem;">SI.No</th>
                                                 <th style="width: 27.5rem;">Reference</th>
                                                 <th style="width: 14.5rem;">Length in m</th>
-                                                <th style="width: 15rem;">Resistance in Ω</th>
+                                                <th style="width: 15rem;">Resistance in mΩ</th>
                                                 <th style="width: 35rem;">Remarks</th>
                                             </thead>
                                             <!-- <div formArrayName="downConductorTesting" *ngFor="let a of downConductorTestingControls(q); let i = index">
@@ -3065,7 +3059,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                    <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="serialNo" placeholder="Enter Serial Number here"
+                                                    <input type="number" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="serialNo" placeholder="Enter Serial Number here"
                                                     [readonly]="isEditable" [ngClass]="{ 'is-invalid': submitted && a.get('serialNo')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('serialNo')?.errors"
                                                         class="invalid-feedback">
@@ -3099,7 +3093,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                    <input onwheel="this.blur()" (keypress)="keyPressNumbers1($event)" (change)="decimalConversion3($event,a)" class="form-control" formControlName="length" placeholder="Length in Meters"
+                                                    <input type="number" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="length" placeholder="Length in Meters"
                                                     [readonly]="isEditable" [ngClass]="{ 'is-invalid': submitted && a.get('length')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('length')?.errors"
                                                         class="invalid-feedback">
@@ -3116,7 +3110,7 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                    <input onwheel="this.blur()" class="form-control" (keypress)="keyPressNumbers1($event)" (change)="decimalConversion3($event,a)" formControlName="resistance" placeholder="Resistance in Ω"
+                                                    <input type="number" class="form-control" (keypress)="keyPressNumbers($event)" formControlName="resistance" placeholder="Resistance in mΩ"
                                                     [readonly]="isEditable" (keyup)="populateDownConductorTesting($event,a)" [ngClass]="{ 'is-invalid': submitted && a.get('resistance')?.errors}" style="height: 3rem;">
                                                     <div *ngIf="submitted && a.get('resistance')?.errors"
                                                         class="invalid-feedback">
@@ -3134,7 +3128,7 @@
                                                             </span>
                                                         </div>
                                                     <textarea type="text" class="form-control" formControlName="remarks" placeholder="Remarks" 
-                                                    readonly [ngClass]="{ 'is-invalid': submitted && a.get('remarks')?.errors}"></textarea>
+                                                    [readonly]="isEditable || a.get('remarks')?.value === 'As per latest standard IS/IEC 62305 the value should be less than 0.2Ω'" [ngClass]="{ 'is-invalid': submitted && a.get('remarks')?.errors}"></textarea>
                                                     <div *ngIf="submitted && a.get('remarks')?.errors"
                                                         class="invalid-feedback">
                                                         <div *ngIf="a.get('remarks')?.errors?.required">
@@ -3168,20 +3162,46 @@
             </div>
             <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
                 <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
-                <button class="next"  (click)="gotoNextModal(content1,contents)" mat-button [ngClass]="{'disableForm':isEditable}" >Next &raquo;</button>
+                <button class="next"  (click)="gotoNextModal(content1,contents)"  mat-button >Next &raquo;</button>
            </div>
         </form>
     </div>
+
 </div>
 
-
+<!-- This will be modified later -->
 <ng-template #content1 let-modal>
+    <div *ngIf="summaryPopup">
+        <div class="modal-body">
+            <div class="centre-text m-btm30">
+                <div style="text-align: center;">
+                    <span style="font-size: 15px;"><b>Note:</b> Since you are updating the remarks section, your content in summary recommendation will be reset..! </span>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <button type="button" class="col-md-6" style="width: 5rem;position: relative;margin-left: 30%;"
+                class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close" (click)="summaryEvent(content)">
+                <i class="bi bi-arrow-right-circle"></i>&nbsp;
+                <span aria-hidden="true" *ngIf="summaryPopup">Ok</span>
+            </button>
+            <button type="button" class="col-md-6" style="text-align: center;width: auto;position: relative;margin-right: 30%;"
+                class="btn btn-danger btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close" (click)="closeModalDialog()">
+                <i class="bi bi-x icon"></i>
+                <span aria-hidden="true">Cancel</span>
+            </button>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #content let-modal>
     <!-- Spinner -->
     <mat-progress-spinner style="margin: 0 auto;" *ngIf="spinner" color="primary" [mode]="mode" value="50" diameter="50">
     </mat-progress-spinner>
     <br>
     <div *ngIf="spinner" style="text-align: center;">
-        Please wait, Down Conductors details are loading!
+        Please wait, the details are loading!
     </div>
 
     <div class="modal-body" *ngIf="popup">
@@ -3197,13 +3217,11 @@
     </div>
     <br>
     <div *ngIf="popup" style="text-align: center;">
-        <button type="button" *ngIf="success" class="close" style="background-color: #0f800c;color: white;"
-        class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn"
+        <button type="button" *ngIf="success" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
         aria-label="Close"  (click)="closeModalDialog()" matStepperNext>
         <span aria-hidden="true">Ok</span>
         </button>
-        <button type="button" *ngIf="Error" class="close" style="background-color: #0f800c;color: white;"
-        class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn"
+        <button type="button" *ngIf="Error" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
         aria-label="Close"  (click)="closeModalDialog()">
         <span aria-hidden="true">Ok</span>
         </button>
@@ -3221,8 +3239,7 @@
      </div>
     <br>
     <div class="row">
-       <button type="button" class="col-md-6" style="width: 5rem;position: relative;margin-left: 30%;background-color: #0f800c;color: white;" 
-       class="btn btn-rounded btn-md font-weight-medium auth-form-btn"
+       <button type="button" class="col-md-6" style="width: 5rem;position: relative;margin-left: 30%;" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
        aria-label="Close" (click)="closeModalDialog()" matStepperNext>
        <i class="bi bi-arrow-right-circle"></i>&nbsp;
         <span aria-hidden="true">Ok</span>
@@ -3255,9 +3272,8 @@
         <div *ngIf="filesuccess" style="text-align: center;">
             <b>Note:</b> Please click Next Button, Then only the file changes will reflect!
         </div>
-        <button type="button" (click)="closeModalDialogFile()" *ngIf="popup" 
-        style="text-align: center;margin-left:180px;width:20%;margin-top: 20px;background-color: #0f800c;color: white;" class="close"
-            class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
+        <button type="button" (click)="closeModalDialogFile()" *ngIf="popup" style="text-align: center;margin-left:180px;width:20%;margin-top: 20px;" class="close"
+            class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
              >
             <span >Ok</span>
         </button>
@@ -3281,8 +3297,8 @@
         </div>
         <br>
     
-        <button type="button" *ngIf="popupDelete" (click)="closeModalDialogFile()" style="text-align: center;margin-left:180px;width:20%;background-color: #0f800c;color: white;" class="close"
-            class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
+        <button type="button" *ngIf="popupDelete" (click)="closeModalDialogFile()" style="text-align: center;margin-left:180px;width:20%" class="close"
+            class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
              >
             <span>Ok</span>
         </button>

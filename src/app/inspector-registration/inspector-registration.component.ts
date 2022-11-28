@@ -126,10 +126,10 @@ export class InspectorRegistrationComponent implements OnInit {
   }
   
   onItemSelect(item: any) {
-    //console.log(item);
+    console.log(item);
   }
   onSelectAll(items: any) {
-    //console.log(items);
+    console.log(items);
   }
   get f() {
     return this.InspectorRegisterForm.controls;
@@ -186,7 +186,7 @@ export class InspectorRegistrationComponent implements OnInit {
         let changedValue = a.target.value;
         this.inspectorRegisterService.retrieveRegisterName(changedValue).subscribe(
           data => {
-            
+            debugger;
             if(data != '') {
               this.notExistFlag = false;
               this.existFlag = true;

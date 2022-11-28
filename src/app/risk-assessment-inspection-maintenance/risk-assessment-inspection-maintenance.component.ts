@@ -1,6 +1,4 @@
-import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-risk-assessment-inspection-maintenance',
@@ -8,24 +6,14 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./risk-assessment-inspection-maintenance.component.css']
 })
 export class RiskAssessmentInspectionMaintenanceComponent implements OnInit {
-  @ViewChild('reference', { read: ViewContainerRef })
-  viewContainerRef!: ViewContainerRef;
-  destroy: boolean = false;
-  email: String = '';
-  showRiskHome: boolean = false;
 
-  constructor(private router: ActivatedRoute,
-              private dialog: MatDialog,) { 
-    this.email = this.router.snapshot.paramMap.get('email') || '{}'
-  }
+  constructor() { }
 
   ngOnInit(): void {
   }
 
   onNavigateToQuestionaire(){
-    this.viewContainerRef.clear();
-    this.destroy = true;   
-    this.showRiskHome = true;
+    
   }
 
 }
