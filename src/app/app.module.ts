@@ -97,6 +97,8 @@ import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 //import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 import { ConfirmationBoxComponent } from './confirmation-box/confirmation-box.component';
 import { LpssummaryComponent } from './LPS/lpssummary/lpssummary.component';
+
+import { UpdateLicenceComponent } from './update-licence/update-licence.component';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import { SignatureComponent } from './signature/signature.component';
 import { RiskParentComponentComponent } from './Risk Assessment/Risk Assessment/risk-parent-component/risk-parent-component.component';
@@ -129,6 +131,7 @@ import { ProtectiveEarthConductorComponent } from './SLD/SLD components/Node Com
 import { TestingDialogBoxComponent } from './testing-dialog-box/testing-dialog-box.component';
 import { MatCarouselModule } from 'ng-mat-carousel';
 import { BuyMeterComponent } from './buy-meter/buy-meter.component';
+
 
 @NgModule({
   declarations: [
@@ -194,7 +197,10 @@ import { BuyMeterComponent } from './buy-meter/buy-meter.component';
     LpsEarthStudComponent,
     LpsSavedReportComponent,
     LpsWelcomePageComponent, 
-    LpsFinalReportComponent,
+
+    LpsFinalReportComponent, LpssummaryComponent, UpdateLicenceComponent, 
+
+
     SignatureComponent,
     DiagramListComponent,
     DiagramHomeComponent,
@@ -221,6 +227,7 @@ import { BuyMeterComponent } from './buy-meter/buy-meter.component';
     ProtectiveEarthConductorComponent,
     TestingDialogBoxComponent,
     BuyMeterComponent
+
   ],
   imports: [
     MatCarouselModule.forRoot(),
