@@ -175,7 +175,7 @@
           <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
           Supply Characteristics
           </ng-template> 
-        <app-inspection-verification-supply-characteristics *ngIf="supplyValue" (proceedNext)="NextStep2($event)"></app-inspection-verification-supply-characteristics>
+        <app-inspection-verification-supply-characteristics *ngIf="supplyValue" (proceedNext)="NextStep2($event)" (summaryNext)="summaryFunctionCall2($event)"></app-inspection-verification-supply-characteristics>
         <button class="previousSupply" mat-button (click)="goBack2(stepper)">&laquo; Back</button> 
       </mat-step>
 
@@ -186,7 +186,7 @@
            <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
            Inspection
           </ng-template>
-        <app-inspection-verification-incoming-equipment *ngIf="incomingValue" (proceedNext)="NextStep3($event)"></app-inspection-verification-incoming-equipment>
+        <app-inspection-verification-incoming-equipment *ngIf="incomingValue" (proceedNext)="NextStep3($event)" (summaryNext)="summaryFunctionCall3($event)"></app-inspection-verification-incoming-equipment>
         <button class="previousIncoming" mat-button (click)="goBack3(stepper)">&laquo; Back</button> 
       </mat-step>
 
@@ -196,7 +196,7 @@
           <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
           Testing
         </ng-template>
-        <app-inspection-verification-testing *ngIf="testingValue" (proceedNext)="NextStep4($event)"></app-inspection-verification-testing>
+        <app-inspection-verification-testing *ngIf="testingValue" (proceedNext)="NextStep4($event)" (summaryNext)="summaryFunctionCall4($event)"></app-inspection-verification-testing>
         <button class="previousSupply" mat-button (click)="goBack4(stepper)">&laquo; Back</button> 
       </mat-step>
 
@@ -257,7 +257,8 @@
     </div>
    </div>
   <br>
-  <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"  (click)="closeModalDialog()">
+  <button type="button" class="close" style="background-color: #0f800c;color: white;"
+   class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"  (click)="closeModalDialog()">
     <span aria-hidden="true">Ok</span>
   </button>
 </ng-template>
@@ -276,7 +277,8 @@
     </div>
    </div>
   <br>
-  <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"  (click)="closeModalDialog()">
+  <button type="button" class="close" style="background-color: #0f800c;color: white;"
+  class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"  (click)="closeModalDialog()">
     <span aria-hidden="true">Ok</span>
   </button>
 </ng-template>
@@ -294,7 +296,8 @@
     </div>
    </div>
   <br>
-  <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" 
+  <button type="button" class="close" style="background-color: #0f800c;color: white;"
+  class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn" 
   aria-label="Close"  (click)="closeModalDialog()">
     <span aria-hidden="true">Ok</span>
   </button>
@@ -311,7 +314,8 @@
           </div>
       </div>
   </div>
-  <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+  <button type="button" class="close" style="background-color: #0f800c;color: white;"
+  class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn"
   aria-label="Close" (click)="closeModalDialog()">
    <span aria-hidden="true">Ok</span>
 </button>

@@ -48,7 +48,7 @@
 
 /* aish changes*/
 .welcome-text{
-  margin: 185px 0px 185px 0px;
+  margin: 80px 0px 185px 0px;
 }
 /* .example-container {
   width: 500px;
@@ -77,16 +77,16 @@
   flex-direction: column;
 }
 .appName{
-  text-align: center;
+  /* text-align: center; */
     display: initial;
     width: inherit;
     /* margin: 0 auto; */
-    font-size: 24px;
+    font-size: 18px;
     /* margin-left: -100px; */
 }
 .example-container {
   /* height: 240vh; */
-  min-height: 100%;
+  min-height: 88.5%;
   display: block !important;
 }
 .example-sidenav-content {
@@ -118,4 +118,53 @@
 }
 .submenu.expanded {
   transform: scaleY(1);
+}
+
+#logicCircuit .sb-mobile-diagram {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-left: none;
+}
+.e-symbolpalette {
+  display: block;
+}
+
+.material #logicCircuit #palette-space .e-accordion {
+  border: none;
+}
+
+.material #logicCircuit #palette-space {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.bootstrap #logicCircuit .sb-mobile-diagram {
+  height: calc(100% - 5px);
+  margin-top: 5px;
+  border-radius: 4px;
+  border-left: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.fabric #logicCircuit .sb-mobile-diagram {
+  border-left: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+/* #footer{
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  height: 26px;
+  width: 100%;
+} */
+
+
+.videoTextEx{
+  margin-left: 75px;
+}
+.videoText{
+  margin-left: 95px;
+}
+.followUs{
+  margin-left: 70px; 
+}
+.followUsEx{
+  margin-left: 34px;
 }

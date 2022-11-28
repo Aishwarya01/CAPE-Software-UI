@@ -74,7 +74,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>No. of floors: </label>
-                                <input type="number" class="form-control" formControlName="bcNoOfFloors"
+                                <input onwheel="this.blur()" class="form-control" formControlName="bcNoOfFloors"
                                     [(ngModel)]="emcFacilityData.bcNoOfFloors" [readonly]="isEditableEmc"
                                     [ngClass]="{'is-invalid':submitted && f.bcNoOfFloors?.errors}"
                                     placeholder="Enter No. of floors">
@@ -268,7 +268,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Height (false floor to drop ceiling):</label>
-                                <input type="number" class="form-control" formControlName="rmHeightFalseFloor"
+                                <input onwheel="this.blur()" class="form-control" formControlName="rmHeightFalseFloor"
                                     [(ngModel)]="emcFacilityData.rmHeightFalseFloor" [readonly]="isEditableEmc"
                                     [ngClass]="{'is-invalid':submitted && f.rmHeightFalseFloor?.errors}"
                                     placeholder="Enter Height (false floor to drop ceiling)">
@@ -281,7 +281,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Width:</label>
-                                <input type="number" class="form-control" formControlName="rmWidth"
+                                <input onwheel="this.blur()" class="form-control" formControlName="rmWidth"
                                     [ngClass]="{'is-invalid':submitted && f.rmWidth?.errors}" [readonly]="isEditableEmc"
                                     [(ngModel)]="emcFacilityData.rmWidth" placeholder="Enter Width">
                                 <div *ngIf="submitted &&f.rmWidth?.errors" class="invalid-feedback">
@@ -292,7 +292,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Length:</label>
-                                <input type="number" class="form-control" formControlName="rmLength"
+                                <input onwheel="this.blur()" class="form-control" formControlName="rmLength"
                                     [ngClass]="{'is-invalid':submitted && f.rmLength?.errors}" [readonly]="isEditableEmc"
                                     [(ngModel)]="emcFacilityData.rmLength" placeholder="Enter Length">
                                 <div *ngIf="submitted &&f.rmLength?.errors" class="invalid-feedback">
@@ -303,7 +303,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Maximum allowable floor loading (Kg/m2):</label>
-                                <input type="number" class="form-control" formControlName="rmMaxFloor"
+                                <input onwheel="this.blur()" class="form-control" formControlName="rmMaxFloor"
                                     [(ngModel)]="emcFacilityData.rmMaxFloor" [readonly]="isEditableEmc"
                                     [ngClass]="{'is-invalid':submitted && f.rmMaxFloor?.errors}"
                                     placeholder="Enter Maximum allowable floor loading (Kg/m2)">
@@ -350,7 +350,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Height:</label>
-                                <input type="number" class="form-control" formControlName="ftHeight"
+                                <input onwheel="this.blur()" class="form-control" formControlName="ftHeight"
                                     [ngClass]="{'is-invalid':submitted && f.ftHeight?.errors}" [readonly]="isEditableEmc"
                                     [(ngModel)]="emcFacilityData.ftHeight" placeholder="Enter Height">
                                 <div *ngIf="submitted &&f.ftHeight?.errors" class="invalid-feedback">
@@ -942,7 +942,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Number:</label>
-                                        <input type="number" class="form-control" formControlName="doorsNumber" [readonly]="isEditableEmc"
+                                        <input onwheel="this.blur()" class="form-control" formControlName="doorsNumber" [readonly]="isEditableEmc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('doorsNumber')?.errors }"
                                             placeholder="Enter Number">
                                         <div *ngIf="submitted && a.get('doorsNumber')?.errors" class="invalid-feedback">
@@ -1085,8 +1085,8 @@
     </div>
     <br>
     <div *ngIf="popup">
-        <button type="button" style="text-align: center;margin-left:180px;width:20%" class="close"
-            class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
+        <button type="button" style="text-align: center;margin-left:180px;width:20%;background-color: #0f800c;color: white;" class="close"
+            class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
             (click)="closeModalDialog()" matStepperNext>
             <span aria-hidden="true">Ok</span>
         </button>
@@ -1105,7 +1105,8 @@
      </div>
     <br>
     <div class="row">
-       <button type="button" class="col-md-4" style="text-align: center;margin-left:100px;width:20%" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+       <button type="button" class="col-md-4" style="text-align: center;margin-left:100px;width:20%;background-color: #0f800c;color: white;" 
+       class="btn btn-rounded btn-md font-weight-medium auth-form-btn"
        aria-label="Close" (click)="closeModalDialog()" matStepperNext>
        <i class="bi bi-arrow-right-circle"></i>&nbsp;
         <span aria-hidden="true">Ok</span>

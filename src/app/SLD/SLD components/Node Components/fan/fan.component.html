@@ -1,0 +1,532 @@
+<div class="card">
+    <div class="card-header" style="text-align: center; display: block">
+      <h2 class="modal-title" style="display: contents">Fan</h2>
+    </div>
+    <div class="card-body">
+    <form [formGroup]="fanForm" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
+    <div class="row">
+      <div class="col-md-4">
+        <label>Reference Name</label>
+        <input type="text" class="form-control" formControlName="referenceName" [(ngModel)]="fan.referenceName"
+        [ngClass]="{ 'is-invalid': submittedFan && f.referenceName?.errors }">
+        <div *ngIf="submittedFan && f.referenceName?.errors" class="invalid-feedback">
+          <div *ngIf="f.referenceName?.errors?.required">Reference name is required</div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <label>Manfacturer Name</label>
+        <input type="text" class="form-control" formControlName="manufacturerName" [(ngModel)]="fan.manufacturerName"
+        [ngClass]="{ 'is-invalid': submittedFan && f.manufacturerName?.errors }">
+        <div *ngIf="submittedFan && f.manufacturerName?.errors" class="invalid-feedback">
+          <div *ngIf="f.manufacturerName?.errors?.required">Manfacturer name is required</div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <label>Power Capacity(W)</label>
+        <input type="number" class="form-control" formControlName="powerCapacity" [(ngModel)]="fan.powerCapacity"
+        [ngClass]="{ 'is-invalid': submittedFan && f.powerCapacity?.errors }">
+        <div *ngIf="submittedFan && f.powerCapacity?.errors" class="invalid-feedback">
+          <div *ngIf="f.powerCapacity?.errors?.required">Power Capacity is required</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <label>Current Rating(A)</label>
+        <input type="number" class="form-control" formControlName="rating" [(ngModel)]="fan.currentRating"
+        [ngClass]="{ 'is-invalid': submittedFan && f.rating?.errors }">
+        <div *ngIf="submittedFan && f.rating?.errors" class="invalid-feedback">
+          <div *ngIf="f.rating?.errors?.required">Current Rating is required</div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <label>Voltage(V)</label>
+        <input type="number" class="form-control" formControlName="voltage" [(ngModel)]="fan.voltage"
+        [ngClass]="{ 'is-invalid': submittedFan && f.voltage?.errors }">
+        <div *ngIf="submittedFan && f.voltage?.errors" class="invalid-feedback">
+          <div *ngIf="f.voltage?.errors?.required">Voltage is required</div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <label>Model/Type</label>
+        <input type="text" class="form-control" formControlName="model" [(ngModel)]="fan.model"
+        [ngClass]="{ 'is-invalid': submittedFan && f.model?.errors }">
+        <div *ngIf="submittedFan && f.model?.errors" class="invalid-feedback">
+          <div *ngIf="f.model?.errors?.required">Model/Type is required</div>
+        </div>
+      </div>
+    
+    </div>
+    <!-- <br>
+    <h3 style="text-align: center">Incoming Cable Size(sq.mm.)</h3>
+    <br>
+    <div class="row">
+      <div class="col-md-4">
+        <label>Phase</label>
+        <input type="text" class="form-control" formControlName="incomingSizePhase" [(ngModel)]="fan.incomingSizePhase"
+        [ngClass]="{ 'is-invalid': submittedFan && f.incomingSizePhase?.errors }">
+        <div *ngIf="submittedFan && f.incomingSizePhase?.errors" class="invalid-feedback">
+          <div *ngIf="f.incomingSizePhase?.errors?.required">Phase is required</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <label>Neutral</label>
+        <input type="text" class="form-control" formControlName="incomingSizeNeutral" [(ngModel)]="fan.incomingSizeNeutral"
+        [ngClass]="{ 'is-invalid': submittedFan && f.incomingSizeNeutral?.errors }">
+        <div *ngIf="submittedFan && f.incomingSizeNeutral?.errors" class="invalid-feedback">
+          <div *ngIf="f.incomingSizeNeutral?.errors?.required">Neutral is required</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <label>Protective Conductor</label>
+        <input type="text" class="form-control" formControlName="incomingSizeProtective" [(ngModel)]="fan.incomingSizeProtective"
+        [ngClass]="{ 'is-invalid': submittedFan && f.incomingSizeProtective?.errors }">
+        <div *ngIf="submittedFan && f.incomingSizeProtective?.errors" class="invalid-feedback">
+          <div *ngIf="f.incomingSizeProtective?.errors?.required">Protective Conductor is required</div>
+        </div>
+      </div>
+    </div>
+
+    <br>
+    <h3 style="text-align: center">Incoming Cable Length(m)</h3>
+    <br>
+    <div class="row">
+      <div class="col-md-4">
+        <label>Phase</label>
+        <input type="text" class="form-control" formControlName="incomingLengthPhase" [(ngModel)]="fan.incomingLengthPhase"
+        [ngClass]="{ 'is-invalid': submittedFan && f.incomingLengthPhase?.errors }">
+        <div *ngIf="submittedFan && f.incomingLengthPhase?.errors" class="invalid-feedback">
+          <div *ngIf="f.incomingLengthPhase?.errors?.required">Phase is required</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <label>Neutral</label>
+        <input type="text" class="form-control" formControlName="incomingLengthNeutral" [(ngModel)]="fan.incomingLengthNeutral"
+        [ngClass]="{ 'is-invalid': submittedFan && f.incomingLengthNeutral?.errors }">
+        <div *ngIf="submittedFan && f.incomingLengthNeutral?.errors" class="invalid-feedback">
+          <div *ngIf="f.incomingLengthNeutral?.errors?.required">Neutral is required</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <label>Protective Conductor</label>
+        <input type="text" class="form-control" formControlName="incomingLengthProtective" [(ngModel)]="fan.incomingLengthProtective"
+        [ngClass]="{ 'is-invalid': submittedFan && f.incomingLengthProtective?.errors }">
+        <div *ngIf="submittedFan && f.incomingLengthProtective?.errors" class="invalid-feedback">
+          <div *ngIf="f.incomingLengthProtective?.errors?.required">Protective Conductor is required</div>
+        </div>
+      </div>
+    </div> -->
+
+    <br>
+      <h2><b><u>Testing</u></b></h2>
+
+      <!-- <mat-icon class="mousechange" (click)="addFanTesting()" 
+          style="float:right; padding-right: 37px; padding-top: 10px;cursor:pointer;">add_box</mat-icon> -->
+      <br>
+      <ng-container formArrayName="generalTestingFan" *ngFor="let a of getGeneralTestingFanControls(); let i = index">
+        <ng-container [formGroupName]="i">
+          <h2>General Testing</h2>
+          <div class="table-responsive">
+            <table class="table" style="width: 70%; border: 1px solid black">
+              <thead>
+                <tr>
+                  <th>
+                    Reference
+                  </th>
+  
+                  <th>
+                    Voltage(V)
+                  </th>
+  
+                  <th>
+                    Insulation Resistance(MΩ)
+                  </th>
+
+                  <th>
+                    Continuity Resistance(Ω)
+                  </th>
+                </tr>
+              </thead>    
+              
+              <tbody>
+                <tr>
+                  <td>
+                    Ph-N
+                  </td>
+  
+                  <td>
+                    <input type="text" formControlName="phNVoltage" [ngClass]="{ 'is-invalid': submittedFan && a.get('phNVoltage')?.errors }">
+                    <div *ngIf="submittedFan && a.get('phNVoltage')?.errors" class="invalid-feedback">
+                      <div *ngIf="a.get('phNVoltage')?.errors?.required">phNVoltage is required</div>
+                    </div>
+                  </td>
+  
+                  <td>
+                    <input type="text" formControlName="phNIResistance" [ngClass]="{ 'is-invalid': submittedFan && a.get('phIResistance')?.errors }">
+                    <div *ngIf="submittedFan && a.get('phIResistance')?.errors" class="invalid-feedback">
+                      <div *ngIf="a.get('phIResistance')?.errors?.required">phNIResistance is required</div>
+                    </div>
+                  </td>
+
+                  <td>
+                    <input type="text" formControlName="phNCResistance" [ngClass]="{ 'is-invalid': submittedFan && a.get('phNCResistance')?.errors }">
+                    <div *ngIf="submittedFan && a.get('phNCResistance')?.errors" class="invalid-feedback">
+                      <div *ngIf="a.get('phNCResistance')?.errors?.required">phNCResistance is required</div>
+                    </div>
+                  </td>
+                </tr>
+  
+                <tr>
+                  <td>
+                    Ph-E
+                  </td>
+  
+                  <td>
+                    <input type="text" formControlName="phEVoltage" [ngClass]="{ 'is-invalid': submittedFan && a.get('phEVoltage')?.errors }">
+                    <div *ngIf="submittedFan && a.get('phEVoltage')?.errors" class="invalid-feedback">
+                      <div *ngIf="a.get('phEVoltage')?.errors?.required">phEVoltage is required</div>
+                    </div>
+                  </td>
+  
+                  <td>
+                    <input type="text" formControlName="phEIResistance" [ngClass]="{ 'is-invalid': submittedFan && a.get('phEIResistance')?.errors }">
+                    <div *ngIf="submittedFan && a.get('phEIResistance')?.errors" class="invalid-feedback">
+                      <div *ngIf="a.get('phEIResistance')?.errors?.required">phEVoltage is required</div>
+                    </div>
+                  </td>
+
+                  <td>
+                    <input type="text" formControlName="phECResistance" [ngClass]="{ 'is-invalid': submittedFan && a.get('phECResistance')?.errors }">
+                    <div *ngIf="submittedFan && a.get('phECResistance')?.errors" class="invalid-feedback">
+                      <div *ngIf="a.get('phECResistance')?.errors?.required">phECResistance is required</div>
+                    </div>
+                  </td>
+                </tr>
+  
+                <tr>
+                  <td>
+                    N-E
+                  </td>
+  
+                  <td>
+                    <input type="text"  formControlName="nEVoltage" [ngClass]="{ 'is-invalid': submittedFan && a.get('nEVoltage')?.errors }">
+                    <div *ngIf="submittedFan && a.get('nEVoltage')?.errors" class="invalid-feedback">
+                      <div *ngIf="a.get('nEVoltage')?.errors?.required">nEVoltage is required</div>
+                    </div>
+                  </td>
+  
+                  <td>
+                    <input type="text"  formControlName="nEIResistance" [ngClass]="{ 'is-invalid': submittedFan && a.get('nEIResistance')?.errors }">
+                    <div *ngIf="submittedFan && a.get('nEIResistance')?.errors" class="invalid-feedback">
+                      <div *ngIf="a.get('nEIResistance')?.errors?.required">nEIResistance is required</div>
+                    </div>
+                  </td>
+
+                  <td>
+                    <input type="text"  formControlName="nECResistance" [ngClass]="{ 'is-invalid': submittedFan && a.get('nECResistance')?.errors }">
+                    <div *ngIf="submittedFan && a.get('nECResistance')?.errors" class="invalid-feedback">
+                      <div *ngIf="a.get('nECResistance')?.errors?.required">nECResistance is required</div>
+                    </div>
+                  </td>
+                </tr>
+  
+               </tbody>
+            </table>
+          </div>
+         
+          <br>
+
+          <div class="table-responsive">
+            <table class="table" style="width: 35%; border: 1px solid black">
+              <thead>
+                <tr>
+                  <th>
+                    Reference
+                  </th>
+
+                  <th>
+                    Load Current(A)
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td>
+                    IR
+                  </td>
+
+                  <td>
+                    <input type="text" formControlName="iRCurrent" [ngClass]="{ 'is-invalid': submittedFan && a.get('iRCurrent')?.errors }">
+                    <div *ngIf="submittedFan && a.get('iRCurrent')?.errors" class="invalid-feedback">
+                      <div *ngIf="a.get('iRCurrent')?.errors?.required">iRCurrent is required</div>
+                    </div>
+                  </td>
+                </tr>
+                 
+                <tr>
+                  <td>
+                    IN
+                  </td>
+
+                  <td>
+                    <input type="text" formControlName="iNCurrent" [ngClass]="{ 'is-invalid': submittedFan && a.get('iNCurrent')?.errors }">
+                    <div *ngIf="submittedFan && a.get('iNCurrent')?.errors" class="invalid-feedback">
+                      <div *ngIf="a.get('iNCurrent')?.errors?.required">iNCurrent is required</div>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    IPE
+                  </td>
+
+                  <td>
+                    <input type="text" formControlName="iPECurrent" [ngClass]="{ 'is-invalid': submittedFan && a.get('iPECurrent')?.errors }">
+                    <div *ngIf="submittedFan && a.get('iPECurrent')?.errors" class="invalid-feedback">
+                      <div *ngIf="a.get('iPECurrent')?.errors?.required">iPECurrent is required</div>
+                    </div>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+
+          <br>
+          
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Power Factor</label>
+                <input type="number" class="form-control" formControlName="powerFactor" [ngClass]="{ 'is-invalid': submittedFan && a.get('powerFactor')?.errors }">
+                <div *ngIf="submittedFan && a.get('powerFactor')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('powerFactor')?.errors?.required">Power Factor is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Frequency(Hz)</label>
+                <input type="number" class="form-control" formControlName="frequency" [ngClass]="{ 'is-invalid': submittedFan && a.get('frequency')?.errors }">
+                <div *ngIf="submittedFan && a.get('frequency')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('frequency')?.errors?.required">Frequency is required</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- <mat-icon class="mousechange" *ngIf="getGeneralTestingFanControls().length>1" class="dlt" type="button" title="Delete"  (click)="removeFantesting(a,i)" style="float: right">remove_circle_outline</mat-icon> -->
+          <br>
+        </ng-container>
+      </ng-container>
+
+      <br>
+      <ng-container formArrayName="safetyTestingFan" *ngFor="let a of getSafetyTestingFanControls(); let i = index">
+        <ng-container [formGroupName]="i">
+          <h2>Testing related to safety</h2> 
+
+          <div class="table-responsive">
+            <table class="table" style="width: 100%; border: 1px solid black">
+              <thead>
+                <tr>
+                  <th>
+                    Reference
+                  </th>
+
+                  <th>
+                    Fault Loop Impedence(mΩ)
+                  </th>
+
+                  <th>
+                    Prospective fault current (kA)
+                  </th>
+
+                  <th>
+                    Disconnection time (mS)
+                  </th>
+
+                  <th>
+                    Remarks
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td>
+                    Ph-N
+                  </td>
+
+                  <td>
+                    <input type="text" formControlName="phNImpedence" [ngClass]="{ 'is-invalid': submittedFan && a.get('phNImpedence')?.errors }">
+                    <div *ngIf="submittedFan && a.get('phNImpedence')?.errors" class="invalid-feedback">
+                      <div *ngIf="a.get('phNImpedence')?.errors?.required">phNImpedence is required</div>
+                    </div>
+                  </td>
+
+                  <td>
+                    <input type="text" formControlName="phNCurrent" [ngClass]="{ 'is-invalid': submittedFan && a.get('phNCurrent')?.errors }">
+                    <div *ngIf="submittedFan && a.get('phNCurrent')?.errors" class="invalid-feedback">
+                      <div *ngIf="a.get('phNCurrent')?.errors?.required">phNCurrent is required</div>
+                    </div>
+                  </td>
+
+                  <td>
+                    <input type="text" formControlName="phNTime" [ngClass]="{ 'is-invalid': submittedFan && a.get('phNTime')?.errors }">
+                    <div *ngIf="submittedFan && a.get('phNTime')?.errors" class="invalid-feedback">
+                      <div *ngIf="a.get('phNTime')?.errors?.required">phNTime is required</div>
+                    </div>
+                  </td>
+
+                  <td>
+                    <input type="text" formControlName="phNRemarks">
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    Ph-E
+                  </td>
+
+                  <td>
+                    <input type="text" formControlName="phEImpedence" [ngClass]="{ 'is-invalid': submittedFan && a.get('phEImpedence')?.errors }">
+                    <div *ngIf="submittedFan && a.get('phEImpedence')?.errors" class="invalid-feedback">
+                      <div *ngIf="a.get('phEImpedence')?.errors?.required">phEImpedence is required</div>
+                    </div>
+                  </td>
+
+                  <td>
+                    <input type="text" formControlName="phECurrent" [ngClass]="{ 'is-invalid': submittedFan && a.get('phECurrent')?.errors }">
+                    <div *ngIf="submittedFan && a.get('phECurrent')?.errors" class="invalid-feedback">
+                      <div *ngIf="a.get('phECurrent')?.errors?.required">phECurrent is required</div>
+                    </div>
+                  </td>
+
+                  <td>
+                    <input type="text" formControlName="phETime" [ngClass]="{ 'is-invalid': submittedFan && a.get('phETime')?.errors }">
+                    <div *ngIf="submittedFan && a.get('phETime')?.errors" class="invalid-feedback">
+                      <div *ngIf="a.get('phETime')?.errors?.required">phETime is required</div>
+                    </div>
+                  </td>
+
+                  <td>
+                    <input type="text" formControlName="phERemarks">
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    N-E
+                  </td>
+
+                  <td>
+                    <input type="text" formControlName="nEImpedence" [ngClass]="{ 'is-invalid': submittedFan && a.get('nEImpedence')?.errors }">
+                    <div *ngIf="submittedFan && a.get('nEImpedence')?.errors" class="invalid-feedback">
+                      <div *ngIf="a.get('nEImpedence')?.errors?.required">nEImpedence is required</div>
+                    </div>
+                  </td>
+
+                  <td>
+                    <input type="text" formControlName="nECurrent" [ngClass]="{ 'is-invalid': submittedFan && a.get('nECurrent')?.errors }">
+                    <div *ngIf="submittedFan && a.get('nECurrent')?.errors" class="invalid-feedback">
+                      <div *ngIf="a.get('nECurrent')?.errors?.required">nECurrent is required</div>
+                    </div>
+                  </td>
+
+                  <td>
+                    <input type="text" formControlName="nETime" [ngClass]="{ 'is-invalid': submittedFan && a.get('nETime')?.errors }">
+                    <div *ngIf="submittedFan && a.get('nETime')?.errors" class="invalid-feedback">
+                      <div *ngIf="a.get('nETime')?.errors?.required">nETime is required</div>
+                    </div>
+                  </td>
+
+                  <td>
+                    <input type="text" formControlName="nERemarks">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <br>
+
+          <!-- Commented by Arun because as we don't need the following as per our current requirement  -->
+          <!-- <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Touch/Shock Voltage (V)</label>
+                <input type="number" class="form-control" formControlName="shockVoltage" 
+                [ngClass]="{ 'is-invalid': submittedFan && a.get('shockVoltage')?.errors }">
+                <div *ngIf="submittedFan && a.get('shockVoltage')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('shockVoltage')?.errors?.required">Touch/Shock is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Floor Resistance (MΩ)</label>
+                <input type="number" class="form-control" formControlName="floorResistance" 
+                [ngClass]="{ 'is-invalid': submittedFan && a.get('floorResistance')?.errors }">
+                <div *ngIf="submittedFan && a.get('floorResistance')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('floorResistance')?.errors?.required">Floor Resistance is required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Wall Resistance (MΩ)</label>
+                <input type="number" class="form-control" formControlName="wallResistance" 
+                [ngClass]="{ 'is-invalid': submittedFan && a.get('wallResistance')?.errors }">
+                <div *ngIf="submittedFan && a.get('wallResistance')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('wallResistance')?.errors?.required">Wall Resistance is required</div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+
+          <!-- <mat-icon class="mousechange" *ngIf="getGeneralTestingFanControls().length>1" class="dlt" type="button" title="Delete"  (click)="removeFantesting(a,i)" style="float: right">remove_circle_outline</mat-icon> -->
+
+        </ng-container>
+      </ng-container>
+    </form>
+    </div>
+
+    <div *ngIf="validationError" style="text-align: center;margin-top: 20px;">
+      <span class="alert alert-danger">{{validationErrorMsg}}</span>
+    </div>
+
+    <div class="centre-text m-btm30">
+      <div *ngIf="success" style="text-align: center;margin-top: 5px;margin-bottom: 40px">
+        <span class="successshow">{{ successMsg }}</span>
+      </div>
+      <div *ngIf="error" style="text-align: center;margin-top: 5px;margin-bottom: 40px">
+        <span class="errorshow">{{ errorMsg }}</span>
+      </div>
+    </div>
+
+    <div style="display: inline;margin-top: 30px;">    
+      <button type="button"  style="float: left; margin-left: 400px"
+        class="btn btn-info" (click)="saveFan(fanFlag)">
+        <i class="bi bi-person-plus-fill icon"></i> Save
+      </button>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="button"  class="btn btn-danger" aria-label="Close"  (click)="close()"
+        style="float: right; margin-right: 400px" >
+        <span aria-hidden="true">Cancel</span>
+      </button>
+    </div>
+    <br>
+  </div>
+
+  

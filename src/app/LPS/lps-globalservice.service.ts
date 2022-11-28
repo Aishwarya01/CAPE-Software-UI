@@ -7,12 +7,13 @@ import { Injectable } from '@angular/core';
 export class LpsGlobalserviceService {
 
   //stepper:any;
-  lvClick: number=0;  
+  lpsClick: number=0;  
   //completed-saved-final
   disableFields:boolean=false;
   allStepsCompleted:boolean=false;
   allFieldsDisable:boolean=false; //after submiting all 5 steps
   disableSubmitSummary:boolean=false; //after submiting all 5 steps
+  basiclpsId:number=0;
   
   constructor(
     //public matstepper: LpsMatstepperComponent,

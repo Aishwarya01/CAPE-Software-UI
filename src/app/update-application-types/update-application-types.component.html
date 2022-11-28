@@ -40,7 +40,8 @@
                 </div>                
             </div>
             <div style="display: flex;justify-content: space-evenly;">
-                <button [disabled]="loading" type="submit" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"><i class="bi icon"></i> Update</button>
+                <button [disabled]="loading" type="submit" style="background-color: #0f800c;color: white;"
+                class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn"><i class="bi icon"></i> Update</button>
                 <button [disabled]="loading" (click)="cancel()" style="display: flex;"  class="btn btn-outline-danger cancel" ><i class="bi bi-x icon"></i> Cancel</button>
             </div> 
             </form>

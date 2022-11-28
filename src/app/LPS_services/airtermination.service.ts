@@ -27,8 +27,8 @@ export class AirterminationService {
     return this.http.put<any>(this.apiUrl + '/updateAirTerminationLps', airTermination,{ responseType: 'text' as 'json' });
   }
 
-  public retriveAirTerminationDetails(userName: String,basicLpsId: any): Observable<any>{
-    return this.http.get<any>(this.apiUrl + '/retrieveAirTerminationLps' + '/' +userName+ '/' +basicLpsId, { responseType: 'text' as 'json' })
+  public retriveAirTerminationDetails(basicLpsId: any): Observable<any>{
+    return this.http.get<any>(this.apiUrl + '/retrieveAirTerminationLps' + '/' +basicLpsId, { responseType: 'text' as 'json' })
   }
 
   // public updateFileIdAirTerminationDetails(basicLpsId: any,index: any): Observable<any>{

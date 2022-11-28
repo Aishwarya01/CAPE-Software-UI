@@ -1,0 +1,49 @@
+<form [formGroup]="newFileNameForm">
+    <div class="centre-text m-btm30">
+        <div *ngIf="successFlag" style="text-align: center">
+          <span class="successshow">{{ successMsg }}</span>
+        </div>
+        <div *ngIf="errorFlag" style="text-align: center">
+          <span class="errorshow">{{ errorMsg }}</span>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">   
+            <div class="row">
+                <div class="col-sm-12">
+                    <p style="text-align: center;">Create New File Name</p>
+                </div>
+            </div>           
+            <div class="row">
+                <label style="margin-left: 10px">File Name :</label> 
+                <div class="col-md-8" style="margin-left: 15px">
+                    <input type="text" class="form-control"  (keyup)="changeInput($event)" formControlName="fileName">
+                    <div *ngIf="submitted && newFileNameForm.controls.fileName.errors" class="invalid-feedback">
+                        <div *ngIf="newFileNameForm.controls.fileName.errors.required">
+                            File Name is required
+                        </div>
+                    </div>
+                </div>
+                <button type="button" (click)="onFocusOut()" title="check filename" class="btn btn-info mousechange" style="height: 38px;">
+                    <span class="material-icons">published_with_changes</span>
+                </button>
+            </div>
+            <br>
+            <div  style="text-align: center">
+                <button type="button" [disabled] = "!validationFlag" (click) = "submit()"
+                class="btn"  style="font-size: 14px;background-color: #0f800c;color: white;">
+                    Continue</button
+                >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button
+                    type="button" (click) = "cancel()"
+                    aria-label="Close"
+                    
+                    class="btn btn-danger" style="font-size: 14px;"
+                >
+                    <i class="bi bi-x icon"></i>
+                    <span aria-hidden="true">Cancel</span>
+                </button>
+                </div>
+        </div>
+    </div>
+</form>

@@ -86,7 +86,16 @@ mat-header-cell.mat-header-cell {
     color: black;
     margin-left: 30px;
     cursor: not-allowed;
-  }  
+  }   
+  .disableForm{
+    pointer-events: none;
+  }
+  .disableSubmit{
+    pointer-events: none;
+    background-color: lightgrey;
+    color: black;
+    cursor: not-allowed !important;
+  }
   .save{
     color: black;
     line-height: 32px !important;

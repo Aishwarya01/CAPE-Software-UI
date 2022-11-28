@@ -83,7 +83,7 @@ export class LpsSpdComponent implements OnInit {
     }
   }
 
-    // Only Accept numbers
+  // Only Accept numbers
     keyPressNumbers(event:any) {
       var charCode = (event.which) ? event.which : event.keyCode;
           // Only Numbers 0-9
@@ -94,6 +94,18 @@ export class LpsSpdComponent implements OnInit {
             return true;
       }
     }
+
+  // Only Accept numbers and allow .(dot)
+  keyPressNumbers1(event: any) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 46 || charCode > 46) && (charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+  }
 
   allSPD(buildingNumber:any,buildingName:any,buildingCount:any):FormGroup {
     return new FormGroup({
@@ -121,7 +133,7 @@ export class LpsSpdComponent implements OnInit {
   }
 
    retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
-//     // this.service.lvClick=1;
+//     // this.service.lpsClick=1;
 //     
 //     this.step5List = data.earthStudReport;
 //     this.spdReport.basicLpsId = this.step7List.basicLpsId;
@@ -137,7 +149,7 @@ export class LpsSpdComponent implements OnInit {
  }
 
   retrieveDetailsfromSavedReports(data: any) {
-    this.service.lvClick = 1;
+    this.service.lpsClick = 1;
 
     if (data.basicLpsId != undefined && data.basicLpsId != 0) {
       this.step5List = data; 
@@ -379,7 +391,7 @@ export class LpsSpdComponent implements OnInit {
               this.successMsg = data;
               this.spdForm.markAsPristine();
               this.proceedNext.emit(true);
-              this.service.lvClick = 0;
+              this.service.lpsClick = 0;
               this.service.logoutClick = 0;
               this.service.windowTabClick = 0;
             },
@@ -423,7 +435,7 @@ export class LpsSpdComponent implements OnInit {
               this.getAirterminationData();
              }, 300);
             this.proceedNext.emit(true);
-            this.service.lvClick = 0;
+            this.service.lpsClick = 0;
             this.service.logoutClick = 0;
             this.service.windowTabClick = 0;
           },
@@ -443,19 +455,19 @@ export class LpsSpdComponent implements OnInit {
     if (!this.spdForm.invalid) {
       if (this.spdForm.dirty) {
         this.validationError = false;
-        this.service.lvClick = 1;
+        this.service.lpsClick = 1;
         this.service.logoutClick = 1;
         this.service.windowTabClick = 1;
       }
       else {
         this.validationError = false;
-        this.service.lvClick = 0;
+        this.service.lpsClick = 0;
         this.service.logoutClick = 0;
         this.service.windowTabClick = 0;
       }
     }
     else {
-      this.service.lvClick = 1;
+      this.service.lpsClick = 1;
       this.service.logoutClick = 1;
       this.service.windowTabClick = 1;
     }
@@ -464,19 +476,19 @@ export class LpsSpdComponent implements OnInit {
     if (!this.spdForm.invalid) {
       if (this.spdForm.dirty) {
         this.validationError = false;
-        this.service.lvClick = 1;
+        this.service.lpsClick = 1;
         this.service.logoutClick = 1;
         this.service.windowTabClick = 1;
       }
       else {
         this.validationError = false;
-        this.service.lvClick = 0;
+        this.service.lpsClick = 0;
         this.service.logoutClick = 0;
         this.service.windowTabClick = 0;
       }
     }
     else {
-      this.service.lvClick = 1;
+      this.service.lpsClick = 1;
       this.service.logoutClick = 1;
       this.service.windowTabClick = 1;
     }
@@ -510,7 +522,7 @@ export class LpsSpdComponent implements OnInit {
       }, 3000);
       return;
     }
-    else if(this.spdForm.value.spd[0].buildingNumber == undefined || this.spdForm.value.spd[0].buildingNumber == ''){
+    else if(this.spdForm.value.spd[0].buildingNumber == undefined && this.spdForm.value.spd[0].buildingNumber == '' && this.spdForm.value.spd[0].buildingName=='' && this.spdForm.value.spd[0].buildingName == undefined){
       this.validationError = true;
       this.validationErrorMsg = 'Air Termination Form is Required, Please fill';
       setTimeout(() => {
@@ -527,12 +539,6 @@ export class LpsSpdComponent implements OnInit {
       this.modalService.open(contents, { centered: true, backdrop: 'static' });
     }
   }
-
-  summaryEvent(content:any){
-    this.modalService.open(content, { centered: true, backdrop: 'static' });
-    this.onSubmit(this.flag);
-    this.summaryPopup=false;
-  }
   
   retriveSPD() {
     this.lpsSpd_Services.retrieveSPDDetails(this.router.snapshot.paramMap.get('email') || '{}', this.basicLpsId).subscribe(
@@ -548,7 +554,7 @@ export class LpsSpdComponent implements OnInit {
   }
 
   getAirterminationData() {
-    this.airterminationServices.retriveAirTerminationDetails(this.router.snapshot.paramMap.get('email') || '{}', this.basicLpsId).subscribe(
+    this.airterminationServices.retriveAirTerminationDetails(this.basicLpsId).subscribe(
       data => {
         let spd_air=JSON.parse(data)[0];
         if(spd_air !=undefined && spd_air.basicLpsId !=null){
@@ -659,4 +665,30 @@ export class LpsSpdComponent implements OnInit {
     }
   }
 
+  decimalConversion(event:any,form:any){
+    if(form.controls.lengthOfConnectingWirePhaseOb.value!="" && form.controls.lengthOfConnectingWirePhaseOb.value!=undefined && form.controls.lengthOfConnectingWirePhaseOb.value!=null){
+      var conversionValue=form.controls.lengthOfConnectingWirePhaseOb.value;
+      form.controls.lengthOfConnectingWirePhaseOb.setValue(parseFloat(parseFloat(conversionValue).toFixed(1)));
+    }else{
+      form.controls.lengthOfConnectingWirePhaseOb.setValue("");
+    }
+    if(form.controls.lengthOfConnectingWireProtectiveOb.value!="" && form.controls.lengthOfConnectingWireProtectiveOb.value!=undefined && form.controls.lengthOfConnectingWireProtectiveOb.value!=null){
+      var conversionValue1=form.controls.lengthOfConnectingWireProtectiveOb.value;
+      form.controls.lengthOfConnectingWireProtectiveOb.setValue(parseFloat(parseFloat(conversionValue1).toFixed(1)));
+    }else{
+      form.controls.lengthOfConnectingWireProtectiveOb.setValue("");
+    }
+    if(form.controls.sizeOfConnectingWirePhaseOb.value!="" && form.controls.sizeOfConnectingWirePhaseOb.value!=undefined && form.controls.sizeOfConnectingWirePhaseOb.value!=null){
+      var conversionValue2=form.controls.sizeOfConnectingWirePhaseOb.value;
+      form.controls.sizeOfConnectingWirePhaseOb.setValue(parseFloat(parseFloat(conversionValue2).toFixed(1)));
+    }else{
+      form.controls.sizeOfConnectingWirePhaseOb.setValue("");
+    }
+    if(form.controls.sizeOfConnectingWireProtectiveOb.value!="" && form.controls.sizeOfConnectingWireProtectiveOb.value!=undefined && form.controls.sizeOfConnectingWireProtectiveOb.value!=null){
+      var conversionValue3=form.controls.sizeOfConnectingWireProtectiveOb.value;
+      form.controls.sizeOfConnectingWireProtectiveOb.setValue(parseFloat(parseFloat(conversionValue3).toFixed(1)));
+    }else{
+      form.controls.sizeOfConnectingWireProtectiveOb.setValue("");
+    }
+  }
 }

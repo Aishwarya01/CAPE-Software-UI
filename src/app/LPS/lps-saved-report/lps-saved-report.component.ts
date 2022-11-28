@@ -122,7 +122,7 @@ completedFilterData: any=[];
     }
 
     if(this.superAdminFlag) {
-      this.lpsService.retrieveAllBasicLps().subscribe(
+      this.lpsService.retrieveAllBasicLps(this.email).subscribe(
         data => {
           this.lpsData=JSON.parse(data);
           for(let i of this.lpsData){

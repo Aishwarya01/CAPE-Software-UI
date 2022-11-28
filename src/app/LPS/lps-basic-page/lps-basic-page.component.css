@@ -19,6 +19,10 @@ td {
     font-size: 16px;
 } */
 
+.disableForm{
+  pointer-events: none;
+}
+
 .previous {
     background-color: #f1f1f1;
     color: black;
@@ -30,12 +34,13 @@ td {
   .next{
     background-color: #f1f1f1;
     color: black;
-    margin-left: 30px;
+    margin-left: 0%;
+    margin-bottom: 2rem;
   }
   .next:hover{
     background-color: #04AA6D;
     color: white;
-    margin-left: 30px;
+    margin-left: 0%;
   }
 
   .auth-form-btn {
@@ -66,4 +71,15 @@ textarea{
 
 .hidedate{
   pointer-events: none;
+}
+
+.warningMsg {
+  padding: 5px 8px;
+  text-align: center;
+  font-size: 14px;
+  color: #721c24;
+  background-color: #ffdcde;
+  border-color: #ffdcde;
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
 }

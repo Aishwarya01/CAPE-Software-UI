@@ -91,7 +91,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
       }, 3000);
       return;
     }
-    else if(this.separeteDistanceForm.value.seperationDistanceDescription[0].buildingNumber == undefined || this.separeteDistanceForm.value.seperationDistanceDescription[0].buildingNumber == ''){
+    else if(this.separeteDistanceForm.value.seperationDistanceDescription[0].buildingNumber == undefined && this.separeteDistanceForm.value.seperationDistanceDescription[0].buildingNumber == '' && this.separeteDistanceForm.value.seperationDistanceDescription[0].buildingName=='' && this.separeteDistanceForm.value.seperationDistanceDescription[0].buildingName == undefined){
       this.validationError = true;
       this.validationErrorMsg = 'Air Termination Form is Required, Please fill';
       setTimeout(() => {
@@ -107,12 +107,6 @@ export class LpsSeperationDistanceComponent implements OnInit {
    else{
     this.modalService.open(contents, { centered: true,backdrop: 'static' });
    }
-  }
-
-  summaryEvent(content:any){
-    this.modalService.open(content, { centered: true, backdrop: 'static' });
-    this.onSubmit(this.flag);
-    this.summaryPopup=false;
   }
 
   ngOnInit(): void {
@@ -145,20 +139,32 @@ export class LpsSeperationDistanceComponent implements OnInit {
     this.separeteDistanceForm.reset();
   }
 
-      // Only Accept numbers
-      keyPressNumbers(event:any) {
-        var charCode = (event.which) ? event.which : event.keyCode;
-            // Only Numbers 0-9
-        if ((charCode < 48 || charCode > 57)) {
-          event.preventDefault();
-          return false;
-          } else {
-              return true;
-        }
-      }
+  // Only Accept numbers
+  keyPressNumbers(event:any) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+        // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+      } else {
+          return true;
+    }
+  }
+
+  // Only Accept numbers and allow .(dot)
+  keyPressNumbers1(event: any) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 46 || charCode > 46) && (charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+  }
 
   retrieveDetailsfromSavedReports(data: any){
-      // this.service.lvClick=1;
+      // this.service.lpsClick=1;
       if(data.basicLpsId != undefined && data.basicLpsId != 0){
         this.step6List = data;
       } 
@@ -317,19 +323,19 @@ export class LpsSeperationDistanceComponent implements OnInit {
     if(!this.separeteDistanceForm.invalid){
       if(this.separeteDistanceForm.dirty){
         this.validationError=false;
-        this.service.lvClick=1;
+        this.service.lpsClick=1;
         this.service.logoutClick=1;
         this.service.windowTabClick=1;
       }
       else{
         this.validationError=false;
-        this.service.lvClick=0;
+        this.service.lpsClick=0;
         this.service.logoutClick=0;
         this.service.windowTabClick=0;
       }
      }
      else {
-      this.service.lvClick=1;
+      this.service.lpsClick=1;
       this.service.logoutClick=1;
       this.service.windowTabClick=1;
      }
@@ -338,19 +344,19 @@ export class LpsSeperationDistanceComponent implements OnInit {
    if(!this.separeteDistanceForm.invalid){ 
     if(this.separeteDistanceForm.dirty){
       this.validationError=false;
-      this.service.lvClick=1;
+      this.service.lpsClick=1;
       this.service.logoutClick=1;
       this.service.windowTabClick=1;
     }
     else{
       this.validationError=false;
-      this.service.lvClick=0;
+      this.service.lpsClick=0;
       this.service.logoutClick=0;
       this.service.windowTabClick=0;
     }
    }
    else {
-    this.service.lvClick=1;
+    this.service.lpsClick=1;
     this.service.logoutClick=1;
     this.service.windowTabClick=1;
    }
@@ -414,7 +420,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
             this.success = true;
             this.successMsg = data;
             this.separeteDistanceForm.markAsPristine();
-            this.service.lvClick=0;
+            this.service.lpsClick=0;
             this.service.logoutClick=0;
             this.service.windowTabClick=0;
             this.proceedNext.emit(true);
@@ -459,7 +465,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
               this.getAirterminationData();
              }, 300);
             this.proceedNext.emit(true);
-            this.service.lvClick=0;
+            this.service.lpsClick=0;
             this.service.logoutClick=0;
             this.service.windowTabClick=0;
             // setTimeout(() => {
@@ -493,7 +499,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
   }
 
   getAirterminationData(){
-    this.airterminationServices.retriveAirTerminationDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
+    this.airterminationServices.retriveAirTerminationDetails(this.basicLpsId).subscribe(
       data => {
         let seprationDistance_air=JSON.parse(data)[0];
         if(seprationDistance_air !=undefined && seprationDistance_air.basicLpsId !=null){
@@ -600,6 +606,24 @@ export class LpsSeperationDistanceComponent implements OnInit {
       this.service.editable=true;
       this.separeteDistanceForm.markAsPristine();
    return true;
+    }
+  }
+
+  decimalConversion(event:any,form:any){
+    if(form.controls.seperationDistanceOb.value!="" && form.controls.seperationDistanceOb.value!=undefined && form.controls.seperationDistanceOb.value!=null){
+      var conversionValue = form.controls.seperationDistanceOb.value;
+      form.controls.seperationDistanceOb.setValue(parseFloat(parseFloat(conversionValue).toFixed(1)));
+    }else{
+      form.controls.seperationDistanceOb.setValue("");
+    }
+  }
+
+  decimalConversion1(event:any,form:any){
+    if(form.controls.seperationDistanceOb.value!="" && form.controls.seperationDistanceOb.value!=undefined && form.controls.seperationDistanceOb.value!=null){
+      var conversionValue = form.controls.seperationDistanceOb.value;
+      form.controls.seperationDistanceOb.setValue(parseFloat(parseFloat(conversionValue).toFixed(1)));
+    }else{
+      form.controls.seperationDistanceOb.setValue("");
     }
   }
 
