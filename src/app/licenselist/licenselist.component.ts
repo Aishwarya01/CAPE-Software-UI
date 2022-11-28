@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AddlicenseComponent } from '../addlicense/addlicense.component';
 import { AssignViewerComponent } from '../assign-viewer/assign-viewer.component';
 import { Company } from '../model/company';
@@ -18,11 +18,8 @@ import { InspectorregisterService } from '../services/inspectorregister.service'
 import { InspectionVerificationService } from '../services/inspection-verification.service';
 import { environment } from 'src/environments/environment';
 import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
-
-import { UpdateLicenceComponent } from '../update-licence/update-licence.component';
 import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminProd } from 'src/environments/environment.prod';
-
 
 @Component({
   selector: 'app-licenselist',
@@ -101,14 +98,8 @@ export class LicenselistComponent implements OnInit {
   //confirmBox: boolean = false;
   urlEmail:any='';
   superAdminArr: any = [];
-
-
-  onSave = new EventEmitter();
-  capeIndiaMail: boolean = false;
-
   superAdminDev = new SuperAdminDev();
   superAdminProd = new SuperAdminProd();
-
 
   constructor(private formBuilder: FormBuilder,
               private dialog: MatDialog,
@@ -119,14 +110,9 @@ export class LicenselistComponent implements OnInit {
                private inspectionService: InspectionVerificationService,
               private componentFactoryResolver: ComponentFactoryResolver,
               private modalService: NgbModal,
-              private route: Router
               
               ) {
                 this.email = this.router.snapshot.paramMap.get('email') || '{}';
-                
-                if(this.email.split('@')[1] == 'thirumoorthy@capeindia.net'){
-                     this.capeIndiaMail=true;
-                }
                }
 
   ngOnInit(): void {
@@ -394,25 +380,6 @@ export class LicenselistComponent implements OnInit {
     })
     dialogRef.afterClosed().subscribe((result) => {
     });
-  } 
-
-  createPayment() {
-
-    const dialogRef = this.dialog.open(UpdateLicenceComponent, {
-      width: '720px',
-      disableClose: true,
-    }
-    );
-    dialogRef.componentInstance.email = this.email;
-    dialogRef.componentInstance.updateLicense.subscribe(data=>{
-      if(data) {
-        this.navigateToSite();
-      }
-    })
-    dialogRef.afterClosed().subscribe((result) => {
-    });
-
-     
-     
   }
+
 }

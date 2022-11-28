@@ -97,11 +97,8 @@ import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 //import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 import { ConfirmationBoxComponent } from './confirmation-box/confirmation-box.component';
 import { LpssummaryComponent } from './LPS/lpssummary/lpssummary.component';
-
-import { UpdateLicenceComponent } from './update-licence/update-licence.component';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import { SignatureComponent } from './signature/signature.component'
-
 
 @NgModule({
   declarations: [
@@ -167,8 +164,38 @@ import { SignatureComponent } from './signature/signature.component'
     LpsEarthStudComponent,
     LpsSavedReportComponent,
     LpsWelcomePageComponent, 
+<<<<<<< HEAD
     LpsFinalReportComponent, LpssummaryComponent, UpdateLicenceComponent, 
 
+=======
+    LpsFinalReportComponent,
+    SignatureComponent,
+    DiagramListComponent,
+    DiagramHomeComponent,
+    DiagramWelcomePageComponent,
+    NewFileComponent,
+    LpssummaryComponent,
+    MCBComponent,
+    MCCBComponent,
+    RCBOComponent,
+    LightComponent,
+    LTMotorComponent,
+    RiskParentComponentComponent,
+    RiskCustomerDetailsComponent,
+    RiskSavedReportsComponent,
+    RiskFinalReportsComponent,
+    RiskAssessmentDetailsComponent,  
+    FanComponent,
+    PortableApplianceComponent,
+    FanComponent, CablesComponent, CableConnectorComponent, TransformerComponent,
+    DGComponent,
+    SwitchBoardsComponent,
+    ACBComponent,
+    EquipotentialBondingComponent,
+    ProtectiveEarthConductorComponent,
+    TestingDialogBoxComponent,
+    BuyMeterComponent
+>>>>>>> parent of f61133878 (Merge pull request #143 from CapeSoftwareTeam/Predev_Payment_Changes)
   ],
   imports: [
     SignaturePadModule,

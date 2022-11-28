@@ -29,7 +29,11 @@ import { LpsEarthingComponent } from './LPS/lps-earthing/lps-earthing.component'
 import { LpsSpdComponent } from './LPS/lps-spd/lps-spd.component';
 import { LpsMatstepperComponent } from './LPS/lps-matstepper/lps-matstepper.component';
 import { LpsWelcomePageComponent } from './LPS/lps-welcome-page/lps-welcome-page.component';
+<<<<<<< HEAD
 import { UpdateLicenceComponent } from './update-licence/update-licence.component';
+=======
+import { BuyMeterComponent } from './buy-meter/buy-meter.component';
+>>>>>>> parent of f61133878 (Merge pull request #143 from CapeSoftwareTeam/Predev_Payment_Changes)
 
 const routes: Routes = [
   {path: '', redirectTo: "/SignIn", pathMatch: 'full' },
@@ -64,7 +68,12 @@ const routes: Routes = [
   
   {path: 'LpsEarthingComponent',component:LpsEarthingComponent},
   {path: 'LpsSpdComponent',component:LpsSpdComponent},
+<<<<<<< HEAD
   {path: 'updateLicence',component:UpdateLicenceComponent},
+=======
+  {path: 'buyMeter',component:BuyMeterComponent},
+
+>>>>>>> parent of f61133878 (Merge pull request #143 from CapeSoftwareTeam/Predev_Payment_Changes)
 ];
 
 @NgModule({
