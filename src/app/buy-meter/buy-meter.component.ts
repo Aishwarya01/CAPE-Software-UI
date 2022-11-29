@@ -60,7 +60,10 @@ export class BuyMeterComponent implements OnInit {
 //  panelOpenState = false;
   total2Ref: any;
   table1: any;
- 
+  value1: any;
+  filteredData: any = [];
+  clickedImage: any;
+  
   meterDropdownList: any = ['MZC-20E S.C. Loop Impedance Meter',
     'MZC-304 S.C. Loop Impedance Meter',
     'MZC-306 S.C. Loop Impedance Meter',
@@ -102,8 +105,7 @@ export class BuyMeterComponent implements OnInit {
     { position: 18, model: 'MPI-540 PV Multi-function Meter', pdf:'assets/documents/MP540.pdf', index: 'WMGBMPI540PV', price: '653494', image:'assets/img/mpi540.PNG' },
     { position: 19, model: 'EVSE-01 Adapter for testing vehicle charging stations', pdf:'assets/documents/MP540.pdf', index: 'WMGBEVSE01', price: '123375', image:'assets/img/Original-green.png' },
 ];
-  value1: any;
-  filteredData: any = [];
+ 
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
     public service: GlobalsService,
@@ -124,16 +126,23 @@ export class BuyMeterComponent implements OnInit {
     this.meter_dataSource.paginator = this.meterPaginator;
     this.meter_dataSource.sort = this.meterSort;
   }
-  compareProd(contentCompare:any,element:any) {
+  compareProd(contentCompare:any,a:any) {
    this.modalService.open(contentCompare, {
        centered: true, 
        size: 'lg',
       });
-     this.clickedMeter = element.model;
-     this.clcikeditem=element.index;
+     this.clickedMeter = a.model;
+     this.clcikeditem=a.index;
      this.value = this.clcikeditem;
     }
 
+    zoomImage(contentImage:any,a:any){
+      this.modalService.open(contentImage, {
+        centered: true, 
+        size: 'lg',
+       });
+       this.clickedImage = a.image;
+    }
     changeMeter(e: any) {
       let changedValue = '';
       if (e.target != undefined) {

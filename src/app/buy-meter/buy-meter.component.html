@@ -7,78 +7,39 @@
           </div>
           </div> -->
        <form>
-         <div>
-              <div>
-          <mat-accordion>
-            <mat-expansion-panel [expanded]="true">
-              <mat-expansion-panel-header class="disabled-pointer">
-               <mat-panel-title>
-                <h3>Meters:</h3>
-              </mat-panel-title>
-           </mat-expansion-panel-header>
-           <table mat-table [dataSource]="meter_dataSource" class="mat-elevation-z8 table" matSort
-           #meterSort="matSort">
-
-           <ng-container matColumnDef="position">
-             <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-               mat-sort-header> S.No. </th>
-             <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element"
-               class="mousechange"> {{element.position}} </td>
-           </ng-container>
-
-           <ng-container matColumnDef="model">
-             <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-               mat-sort-header> Model No. </th>
-             <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-               <a href="{{element.pdf}}" title="" style="color: black;">{{element.model}}</a> 
-              </td>
-           </ng-container>
-
-           <ng-container matColumnDef="index">
-             <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-               mat-sort-header> Index No. </th>
-             <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-               {{element.index}} </td>
-           </ng-container>
-
-           <ng-container matColumnDef="price">
-             <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-               mat-sort-header></th>
-             <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-              <button type="button" class="btn btn-info" title="₹{{element.price}}">Price</button> </td>
-           </ng-container>
-
-           <ng-container matColumnDef="image">
-             <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-               mat-sort-header> Product </th>
-             <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-              <img src="{{element.image}}" height="80" width="100"/>  </td>
-           </ng-container>
-
-           <ng-container matColumnDef="action">
-               <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef> 
-               </th>
-               <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-                <button type="button" class="btn btn-info" (click)="compareProd(contentCompare,element)">Compare Products</button>
-               </td>
-             </ng-container>
-
-           <tr mat-header-row *matHeaderRowDef="meterColumns"></tr>
-           <tr mat-row *matRowDef="let row; columns: meterColumns;"
-             [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (mouseover)="row.hovered = true"
-             (mouseout)="row.hovered = false"></tr>
-
-         </table>
-         <mat-paginator #meterPaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-
-          </mat-expansion-panel>
-  </mat-accordion>
-  </div>
-  </div>
+      
+        <div class="card1" *ngFor="let a of meterData">
+          <img src="{{a.image}}" height="200" width="150" title="Click here" (click)="zoomImage(contentImage,a)" style="cursor:pointer;"/>
+          <h3><a href="{{a.pdf}}" title="" style="color: black;">{{a.model}}</a></h3>      
+          <div class="rate">
+            <input type="radio" id="star5" name="rate" value="5" />
+            <label for="star5">5 stars</label>
+            <input type="radio" id="star4" name="rate" value="4" />
+            <label for="star4">4 stars</label>
+            <input type="radio" id="star3" name="rate" value="3" />
+            <label for="star3">3 stars</label>
+            <input type="radio" id="star2" name="rate" value="2" />
+            <label for="star2">2 stars</label>
+            <input type="radio" id="star1" name="rate" value="1" />
+            <label for="star1">1 star</label>
+          </div>
+          <p class="price">₹{{a.price}}</p>
+          <p>{{a.index}}</p>
+          <button type="button" class="btn btn-info" (click)="compareProd(contentCompare,a)">Compare Products</button>
+          <button type="button" class="btn btn-primary">Buy now</button>
+        </div>
+<!--         
+        <ng-container matColumnDef="image">
+          <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
+            mat-sort-header> Product </th>
+          <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
+           <img src="{{element.image}}" height="80" width="100"/>  </td>
+        </ng-container> -->
+      
        </form>
     </div>
 </div>
-  
+
 <ng-template #contentCompare let-modal>
   <div class="modal-header" style="text-align: center; display: block">
     <h1 class="modal-title" style="display: contents">Which meter is right for you?</h1>
@@ -6215,5 +6176,12 @@
       <span aria-hidden="true">Cancel</span>
   </button>
 </div> -->
+  </ng-template> 
+
+
+  <ng-template #contentImage let-modal>
+    <div class="modal-body">
+     <img src="{{clickedImage}}" style="width: 50%;height: 60%;margin-left: 25%;margin-top: 10%;"/>
+      </div>
   </ng-template> 
         
