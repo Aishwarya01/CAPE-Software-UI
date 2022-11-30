@@ -318,7 +318,7 @@ export class LpsEarthingComponent implements OnInit {
       earthingElectrodeSize: new FormControl(null, Validators.required),
       earthingElectrodeDepth: new FormControl(null, Validators.required),
       earthingElectrodeResistance: new FormControl(null, Validators.required),
-      earthingElectrodeRemarks!: new FormControl(''),
+      earthingElectrodeRemarks: new FormControl(''),
 
     });
   }
@@ -750,11 +750,11 @@ export class LpsEarthingComponent implements OnInit {
         }
       }
        //deleted earthingClamps
-      if(this.clampsDeleted !=[] && this.clampsDeleted.length > index && this.earthingReport.earthingLpsDescription[index].buildingCount == this.clampsDeleted[index].buildingCount){
+      if(this.clampsDeleted.length!=0 && this.clampsDeleted.length > index && this.earthingReport.earthingLpsDescription[index].buildingCount == this.clampsDeleted[index].buildingCount){
         this.earthingReport.earthingLpsDescription[index].earthingClamps.push(this.clampsDeleted[index]);
       }
        //deleted chamber
-      if(this.earthingElectrodeChamberDeleted !=[] && this.earthingElectrodeChamberDeleted.length > index && this.earthingElectrodeChamberDeleted.length > index && this.earthingReport.earthingLpsDescription[index].buildingCount == this.earthingElectrodeChamberDeleted[index].buildingCount){
+      if(this.earthingElectrodeChamberDeleted.length!=0 && this.earthingElectrodeChamberDeleted.length > index && this.earthingElectrodeChamberDeleted.length > index && this.earthingReport.earthingLpsDescription[index].buildingCount == this.earthingElectrodeChamberDeleted[index].buildingCount){
         this.earthingReport.earthingLpsDescription[index].earthingElectrodeChamber.push(this.earthingElectrodeChamberDeleted[index]);
       }
     }

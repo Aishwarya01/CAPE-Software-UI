@@ -115,6 +115,10 @@ export class AssignViewerComponent implements OnInit {
   projectNameMsg1: string="";
   onSubmitSite1 = new EventEmitter();
   basic = new BasicDetails();
+  // Spinner Purpose
+  spinner: boolean=false;
+  spinnerValue: String = '';
+  mode: any = 'indeterminate';
 
   constructor(private dialog: MatDialog,
               private formBuilder: FormBuilder, private modalService: NgbModal,
@@ -124,7 +128,7 @@ export class AssignViewerComponent implements OnInit {
               private router: Router,
               private componentFactoryResolver: ComponentFactoryResolver,
               private route: ActivatedRoute,
-              private globalService: GlobalsService,
+              public globalService: GlobalsService,
               private lPSBasicDetailsService: LPSBasicDetailsService,
               
               ) {
@@ -530,7 +534,8 @@ createNewGroup(item: any): FormGroup{
 }
 
   openModal(contentViewer: any) {
-    this.modalService.open(contentViewer,{size: 'xl', backdrop: 'static' })
+    this.modalService.open(contentViewer,{size: 'xl', backdrop: 'static' });
+    this.globalService.emailCheck=false;
   }
   termsCondition(termsContent:any){
     this.modalReference = this.modalService.open(termsContent,{size: 'xl'})
@@ -566,15 +571,19 @@ createNewGroup(item: any): FormGroup{
               this.inspectorRegisterService.retrieveSite(this.assignViewerForm.value.viewerEmail).subscribe(
                 (data) => {
                   if(JSON.parse(data) == null){
+                    this.spinner=true;
+                    this.spinnerValue = "Please wait, the details are loading!";
                     setTimeout(() => {
                       this.viewerFlag = true;
                       if (this.viewerFlag) {
                         this.openModal(contentViewer);
                       }
-                    }, 2000);
-                    setTimeout(() => {
-                      this.populateData();
                     }, 3000);
+                    setTimeout(() => {
+                      this.spinner=false;
+                      this.spinnerValue="";
+                      this.populateData();
+                    }, 2000);
                   }
                   else{
                     this.success = true;
@@ -590,15 +599,19 @@ createNewGroup(item: any): FormGroup{
               this.lPSBasicDetailsService.retriveLpsbasicIsActive(this.assignViewerForm.value.viewerEmail).subscribe(
                 (data) =>{
                   if(JSON.parse(data) == null){
+                    this.spinner=true;
+                    this.spinnerValue = "Please wait, the details are loading!";
                     setTimeout(() => {
                       this.viewerFlag = true;
                       if (this.viewerFlag) {
                         this.openModal(contentViewer);
                       }
-                    }, 2000);
-                    setTimeout(() => {
-                      this.populateData();
                     }, 3000);
+                    setTimeout(() => {
+                      this.spinner=false;
+                      this.spinnerValue="";
+                      this.populateData();
+                    }, 2000);
                   }
                   else{
                     this.success = true;
@@ -614,7 +627,7 @@ createNewGroup(item: any): FormGroup{
 
           else {
             this.success = true;
-            this.successMsg1 = "Given email is registered as Inspector"
+            this.successMsg1 = "Given email is registered as Inspector";
             this.viewerFlag = false;
           }
          
@@ -632,16 +645,23 @@ createNewGroup(item: any): FormGroup{
           this.showRegister = true;
           this.viewerFlag = true;
           this.flag = false;
+          this.success=false;
+          this.successMsg1="";
           setTimeout(() => {
             this.Error = false;
             this.errorMsg1 = "";
+            this.spinner=true;
+            this.spinnerValue = "Please wait, the details are loading!";
             if("Email Id doesn't exist!" == JSON.parse(error.error).message){
               setTimeout(() => {
                 this.viewerFlag = true;
+                this.spinner=false;
+                this.spinnerValue="";
+                this.globalService.emailCheck=false;
                 if (this.viewerFlag) {
                   this.openModal(contentViewer);
                 }
-              }, 2000);
+              }, 3000);
               setTimeout(() => {
                 this.populateData();
               }, 3000);
@@ -652,7 +672,9 @@ createNewGroup(item: any): FormGroup{
     // }   
   }
   closeModalDialog(contentViewer2:any){
-   this.modalService.dismissAll(contentViewer2)
+   this.modalService.dismissAll(contentViewer2);
+   this.globalService.emailCheck=false;
+   this.dialog.closeAll();
   }
   // closeModalDialogTerms(termsContent:any){
   //   this.modalService.dismissAll(termsContent)
@@ -881,7 +903,13 @@ createNewGroup(item: any): FormGroup{
             this.siteService.addSIte(this.site).subscribe(
               data => {
                 this.globalService.toggle=false;
-                this.navigateToSite(JSON.parse(data));
+                this.spinner=true;
+                this.spinnerValue = "Please wait, the details are loading!";
+                setTimeout(() => {
+                  this.spinner=false;
+                  this.spinnerValue="";
+                  this.navigateToSite(JSON.parse(data));
+                }, 2000);
               })
           }
           else if (this.globalService.triggerMsgForLicense == "lpsPage") {

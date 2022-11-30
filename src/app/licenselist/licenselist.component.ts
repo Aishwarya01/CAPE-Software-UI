@@ -456,10 +456,14 @@ export class LicenselistComponent implements OnInit {
     this.service.useClicked=true;
     // this.panelOpenState2(false);
     this.service.toggle=false;
+    this.service.emailCheck=true;
     const dialogRef = this.dialog.open(AssignViewerComponent, {
       width: '720px',
     });
-    dialogRef.componentInstance.email = this.email;
+    if(this.service.emailCheck==true){
+      dialogRef.componentInstance.email = this.email;
+    }
+    
     dialogRef.componentInstance.onSave.subscribe(data=>{
       if(data) {
         this.navigateToSite();

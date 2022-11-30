@@ -109,6 +109,7 @@ autoLoginToken:number=0;
 
   bytestring7: String="";
   bytestring8: String="";
+  emailCheck: boolean=false;
    // LPS License page
   triggerMsgForLicense: String="";
   headerMsg: String="";
