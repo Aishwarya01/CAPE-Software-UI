@@ -6,9 +6,13 @@
             style="margin-top: -10px;margin-bottom: 5px;float: right;text-decoration: underline;">Observations</a>
           </div>
           </div> -->
-       <form>
-      
-        <div class="card1" *ngFor="let a of meterData">
+           <form>
+      <mat-carousel 
+          timings="250ms ease-in"
+            [hideArrows]="true"
+            [hideIndicators]="false"> 
+      <mat-carousel-slide #matCarouselSlide  overlayColor="#00000040" [hideOverlay]="false">
+        <div class="card1" *ngFor="let a of meterData1">
           <img src="{{a.image}}" height="200" width="150" title="Click here" (click)="zoomImage(contentImage,a)" style="cursor:pointer;"/>
           <h3><a href="{{a.pdf}}" title="" style="color: black;">{{a.model}}</a></h3>      
           <div class="rate">
@@ -26,8 +30,34 @@
           <p class="price">₹{{a.price}}</p>
           <p>{{a.index}}</p>
           <button type="button" class="btn btn-info" (click)="compareProd(contentCompare,a)">Compare Products</button>
-          <button type="button" class="btn btn-primary">Buy now</button>
+          <button type="button" class="btn btn-primary" (click)="addToCart()">Add to Cart</button>
         </div>
+       </mat-carousel-slide>
+
+       <mat-carousel-slide #matCarouselSlide  overlayColor="#00000040" [hideOverlay]="false">
+        <div class="card1" *ngFor="let a of meterData2">
+          <img src="{{a.image}}" height="200" width="150" title="Click here" (click)="zoomImage(contentImage,a)" style="cursor:pointer;"/>
+          <h3><a href="{{a.pdf}}" title="" style="color: black;">{{a.model}}</a></h3>      
+          <div class="rate">
+            <input type="radio" id="star5" name="rate" value="5" />
+            <label for="star5">5 stars</label>
+            <input type="radio" id="star4" name="rate" value="4" />
+            <label for="star4">4 stars</label>
+            <input type="radio" id="star3" name="rate" value="3" />
+            <label for="star3">3 stars</label>
+            <input type="radio" id="star2" name="rate" value="2" />
+            <label for="star2">2 stars</label>
+            <input type="radio" id="star1" name="rate" value="1" />
+            <label for="star1">1 star</label>
+          </div>
+          <p class="price">₹{{a.price}}</p>
+          <p>{{a.index}}</p>
+          <button type="button" class="btn btn-info" (click)="compareProd(contentCompare,a)">Compare Products</button>
+          <button type="button" class="btn btn-primary" (click)="addToCart()">Add to Cart</button>
+        </div>
+       </mat-carousel-slide>
+      </mat-carousel>
+  </form>
 <!--         
         <ng-container matColumnDef="image">
           <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
@@ -36,7 +66,6 @@
            <img src="{{element.image}}" height="80" width="100"/>  </td>
         </ng-container> -->
       
-       </form>
     </div>
 </div>
 
@@ -58,7 +87,1281 @@
           <div class="column col-md-6" style="background-color:#bbb;">
           <h4 style="color: #0f800c;font-weight: 600;">{{clickedMeter}}</h4>
           <h2>Specifications</h2>
-            <table class="meterTable" style="width:100%" *ngIf="value=='WMGBMZC20E'">
+          <table class="meterTable" style="width:100%" *ngIf="value=='WMGBMZC304'">
+            <tr>
+               <th>Measurement functions </th>
+               <th>Measurement range</th>
+               <th>Display range</th>
+               <th>Resolutione</th>
+               <th>Accuracy±(% m.v. + digits)</th>
+             </tr>
+              <tr>
+               <th style="border:unset;">Fault loop impedance</th>
+             </tr>
+             <tr>
+               <th>Fault loop ZL-PE , ZL-N, ZL-L</th>
+               <td>0.13 Ω...1999 Ω
+                acc. to IEC 61557 </td>                 
+                <td>0.00 Ω...1999 Ω </td>
+               <td>from 0.01 Ω</td>
+               <td>±(5% m.v. + 3 digits)</td>
+             </tr>
+             <tr>
+               <th>Fault loop ZL-PE in RCD mode</th>
+           <td>from 0.50 Ω...1999 Ω
+           acc. to IEC 61557</td>
+               <td>0.00 Ω...1999 Ω </td>
+               <td>from 0.01 Ω</td>
+               <td>from ±(6% m.v. + 5 digits)</td>  </tr>
+              <tr>
+               <th style="border:unset;" colspan="4">Measurements of RCD parameters</th>
+             </tr>
+              <tr>
+               <th style="border:unset;" colspan="6">RCD tripping test and measurement of tripping time tA
+           measuring current 0.5 IΔn, 1 IΔn, 2 IΔn, 5 IΔn</th>
+             </tr>
+             <tr>
+               <th>general and short-time delay RCD </th>
+           <td>0 ms...300 ms</td>
+               <td>0 ms...300 ms</td>
+               <td>1 ms </td>
+               <td>±(2% m.v. + 2 digits)</td>  </tr>
+              <tr>
+               <th>selective RCD </th>
+           <td>0 ms...500 ms </td>
+               <td>0 ms...500 ms </td>
+               <td>1 ms </td>
+               <td>±(2% m.v. + 2 digits)</td>  </tr>
+             <tr>
+               <th style="border:unset;" colspan="4">Measurement of RCD tripping current I A
+           measuring current 0.2 IΔn...2.0 IΔn</th>
+             </tr>
+              <tr>
+               <th>for sinusoidal residual current (AC type)</th>
+           <td>3.0 mA...1000 mA </td>
+               <td>3.0 mA...1000 mA </td>
+               <td>from 0.1 mA</td>
+               <td>±5% IΔn</td>  </tr>
+              <tr>
+               <th>for unidirectional residual current and
+           unidirectional with the 6 mA DC bias (type A) </th>
+           <td>3.5 mA...700 mA</td>
+               <td>3.5 mA...700 mA</td>
+               <td>from 0.1 mA</td>
+               <td>±10% IΔn</td>  </tr>
+              <tr>
+               <th>for direct residual current (type B) </th>
+           <td>2.0 mA...1000 mA</td>
+               <td>2.0 mA...1000 mA</td>
+               <td>from 0.1 mA</td>
+               <td>±10% IΔn</td>  </tr>
+              <tr>
+               <th style="border:unset;">Earth resistance</th>
+             </tr>
+              <tr>
+               <th>3-pole method </th>
+           <td>from 0.5 Ω...1.99 kΩ
+           acc. to IEC 61557-5</td>
+               <td>0.00 Ω...1.99 kΩ</td>
+               <td>from 0.01 Ω </td>
+               <td>from ±(2% m.v. + 3 digits)</td>  </tr>
+              <tr>
+               <th style="border:unset;">Insulation resistance</th>
+             </tr>
+              <tr>
+               <th>Measuring voltage 50 V </th>
+           <td>50 kΩ...250 MΩ
+           acc. to IEC 61557-2</td>
+               <td>0 kΩ...250 MΩ</td>
+                 <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td> 
+               </tr>
+              <tr>
+               <th>Measuring voltage 100 V  </th>
+           <td>100 kΩ...500 MΩ
+           acc. to IEC 61557-2</td>
+               <td>0 kΩ...500 MΩ</td>
+                <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td> 
+               </tr>
+              <tr>
+               <th>Measuring voltage 250 V </th>
+           <td>250 kΩ...999 MΩ
+           acc. to IEC 61557-2 </td>
+               <td>0 kΩ...999 MΩ </td>
+                <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td>  
+               </tr>
+              <tr>
+               <th>Measuring voltage 500 V </th>
+           <td>500 kΩ...2.00 GΩ
+           acc. to IEC 61557-2</td>
+               <td>0 kΩ...2.00 GΩ</td>
+                <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td> 
+               </tr>
+              <tr>
+               <th>Measuring voltage 1000 V </th>
+               <td>1000 kΩ...3.00 GΩ
+           acc. to IEC 61557-2 </td>
+            <td>0 kΩ...3.00 GΩ</td>
+               <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td>
+             </tr>
+              <tr>
+               <th style="border:unset;" colspan="4">Resistance of protective conductors and equipotential bondings</th>
+             </tr>
+              <tr>
+               <th>Measurement of resistance of protective
+           conductors and equipotential bondings with
+           ±200 mA current</th>
+           <td>0.12 Ω...400 Ω
+           acc. to IEC 61557-4 </td>
+               <td>0.00 Ω...400 Ω</td>
+               <td>from 0.01 Ω </td>
+               <td>±(2% m.v. + 3 digits)</td>  </tr>
+              <tr>
+               <th>Measurement of resistance with low current</th>
+           <td>0.0 Ω...1999 Ω</td>
+               <td>0.0 Ω...1999 Ω </td>
+               <td>from 0.1 Ω</td>
+               <td>±(3% m.v. + 3 digits)</td>  </tr>
+              <tr>
+               <th>Phase sequence indication</th>
+           <td>in the same direction (correct). </td>
+               <td>opposite direction (incorrect). </td>
+               <td>UL-L voltage: 95 V...</td>
+               <td>500 V (45 Hz...65 Hz)</td>  </tr>
+              <tr>
+               <th>Power measurement</th>
+                <td>0.0 VA...200 000 
+                VA 0.0 W...200 000 W
+               0.0 var...200 000 var</td>
+               <td>0.0 VA...200 000 VA
+           0.0 W...200 000 W
+           0.0 var...200 000 var</td>
+               <td>from 0.1 VA
+           from 0.1 W
+           from 0.1 var</td>
+               <td>from ±(7% m.v. + 3
+           digits)</td>  </tr>
+           </table>
+           <table class="meterTable" style="width:100%" *ngIf="value=='WMGBMZC330'">
+            <tr>
+               <th>Measurement functions </th>
+               <th>Measurement range</th>
+               <th>Display range</th>
+               <th>Resolutione</th>
+               <th>Accuracy±(% m.v. + digits)</th>
+             </tr>
+              <tr>
+               <th style="border:unset;">Fault loop impedance</th>
+             </tr>
+             <tr>
+               <th>Fault loop ZL-PE , ZL-N, ZL-L</th>
+               <td>0.13 Ω...1999 Ω
+                acc. to IEC 61557 </td>
+               <td>0.00 Ω...1999 Ω </td>
+               <td>from 0.01 Ω</td>
+               <td>±(5% m.v. + 3 digits)</td>
+             </tr>
+             <tr>
+               <th>Fault loop ZL-PE in RCD mode</th>
+           <td>from 0.50 Ω...1999 Ω
+           acc. to IEC 61557</td>
+               <td>0.00 Ω...1999 Ω </td>
+               <td>from 0.01 Ω</td>
+               <td>from ±(6% m.v. + 5 digits)</td>  </tr>
+              <tr>
+               <th style="border:unset;" colspan="4">Measurements of RCD parameters</th>
+             </tr>
+              <tr>
+               <th style="border:unset;" colspan="6">RCD tripping test and measurement of tripping time tA
+           measuring current 0.5 IΔn, 1 IΔn, 2 IΔn, 5 IΔn</th>
+             </tr>
+             <tr>
+               <th>general and short-time delay RCD </th>
+           <td>0 ms...300 ms</td>
+               <td>0 ms...300 ms</td>
+               <td>1 ms </td>
+               <td>±(2% m.v. + 2 digits)</td>  </tr>
+              <tr>
+               <th>selective RCD </th>
+           <td>0 ms...500 ms </td>
+               <td>0 ms...500 ms </td>
+               <td>1 ms </td>
+               <td>±(2% m.v. + 2 digits)</td>  </tr>
+             <tr>
+               <th style="border:unset;" colspan="4">Measurement of RCD tripping current I A
+           measuring current 0.2 IΔn...2.0 IΔn</th>
+             </tr>
+              <tr>
+               <th>for sinusoidal residual current (AC type)</th>
+           <td>3.0 mA...1000 mA </td>
+               <td>3.0 mA...1000 mA </td>
+               <td>from 0.1 mA</td>
+               <td>±5% IΔn</td>  </tr>
+              <tr>
+               <th>for unidirectional residual current and
+           unidirectional with the 6 mA DC bias (type A) </th>
+           <td>3.5 mA...700 mA</td>
+               <td>3.5 mA...700 mA</td>
+               <td>from 0.1 mA</td>
+               <td>±10% IΔn</td>  </tr>
+              <tr>
+               <th>for direct residual current (type B) </th>
+           <td>2.0 mA...1000 mA</td>
+               <td>2.0 mA...1000 mA</td>
+               <td>from 0.1 mA</td>
+               <td>±10% IΔn</td>  </tr>
+              <tr>
+               <th style="border:unset;">Earth resistance</th>
+             </tr>
+              <tr>
+               <th>3-pole method </th>
+           <td>from 0.5 Ω...1.99 kΩ
+           acc. to IEC 61557-5</td>
+               <td>0.00 Ω...1.99 kΩ</td>
+               <td>from 0.01 Ω </td>
+               <td>from ±(2% m.v. + 3 digits)</td>  </tr>
+              <tr>
+               <th style="border:unset;">Insulation resistance</th>
+             </tr>
+              <tr>
+               <th>Measuring voltage 50 V </th>
+           <td>50 kΩ...250 MΩ
+           acc. to IEC 61557-2</td>
+               <td>0 kΩ...250 MΩ</td>
+                 <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td> 
+               </tr>
+              <tr>
+               <th>Measuring voltage 100 V  </th>
+           <td>100 kΩ...500 MΩ
+           acc. to IEC 61557-2</td>
+               <td>0 kΩ...500 MΩ</td>
+                <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td> 
+               </tr>
+              <tr>
+               <th>Measuring voltage 250 V </th>
+           <td>250 kΩ...999 MΩ
+           acc. to IEC 61557-2 </td>
+               <td>0 kΩ...999 MΩ </td>
+                <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td>  
+               </tr>
+              <tr>
+               <th>Measuring voltage 500 V </th>
+           <td>500 kΩ...2.00 GΩ
+           acc. to IEC 61557-2</td>
+               <td>0 kΩ...2.00 GΩ</td>
+                <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td> 
+               </tr>
+              <tr>
+               <th>Measuring voltage 1000 V </th>
+               <td>1000 kΩ...3.00 GΩ
+           acc. to IEC 61557-2 </td>
+            <td>0 kΩ...3.00 GΩ</td>
+               <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td>
+             </tr>
+              <tr>
+               <th style="border:unset;" colspan="4">Resistance of protective conductors and equipotential bondings</th>
+             </tr>
+              <tr>
+               <th>Measurement of resistance of protective
+           conductors and equipotential bondings with
+           ±200 mA current</th>
+           <td>0.12 Ω...400 Ω
+           acc. to IEC 61557-4 </td>
+               <td>0.00 Ω...400 Ω</td>
+               <td>from 0.01 Ω </td>
+               <td>±(2% m.v. + 3 digits)</td>  </tr>
+              <tr>
+               <th>Measurement of resistance with low current</th>
+           <td>0.0 Ω...1999 Ω</td>
+               <td>0.0 Ω...1999 Ω </td>
+               <td>from 0.1 Ω</td>
+               <td>±(3% m.v. + 3 digits)</td>  </tr>
+              <tr>
+               <th>Phase sequence indication</th>
+           <td>in the same direction (correct). </td>
+               <td>opposite direction (incorrect). </td>
+               <td>UL-L voltage: 95 V...</td>
+               <td>500 V (45 Hz...65 Hz)</td>  </tr>
+              <tr>
+               <th>Power measurement</th>
+                <td>0.0 VA...200 000 
+                VA 0.0 W...200 000 W
+               0.0 var...200 000 var</td>
+               <td>0.0 VA...200 000 VA
+           0.0 W...200 000 W
+           0.0 var...200 000 var</td>
+               <td>from 0.1 VA
+           from 0.1 W
+           from 0.1 var</td>
+               <td>from ±(7% m.v. + 3
+           digits)</td>  </tr>
+           </table>
+           <table class="meterTable" style="width:100%" *ngIf="value=='WMGBMRP201'">
+            <tr>
+               <th>Measurement functions </th>
+               <th>Measurement range</th>
+               <th>Display range</th>
+               <th>Resolutione</th>
+               <th>Accuracy±(% m.v. + digits)</th>
+             </tr>
+              <tr>
+               <th style="border:unset;">Fault loop impedance</th>
+             </tr>
+             <tr>
+               <th>Fault loop ZL-PE , ZL-N, ZL-L</th>
+               <td>0.13 Ω...1999 Ω
+                acc. to IEC 61557 </td>
+               <td>0.00 Ω...1999 Ω </td>
+               <td>from 0.01 Ω</td>
+               <td>±(5% m.v. + 3 digits)</td>
+             </tr>
+             <tr>
+               <th>Fault loop ZL-PE in RCD mode</th>
+           <td>from 0.50 Ω...1999 Ω
+           acc. to IEC 61557</td>
+               <td>0.00 Ω...1999 Ω </td>
+               <td>from 0.01 Ω</td>
+               <td>from ±(6% m.v. + 5 digits)</td>  </tr>
+              <tr>
+               <th style="border:unset;" colspan="4">Measurements of RCD parameters</th>
+             </tr>
+              <tr>
+               <th style="border:unset;" colspan="6">RCD tripping test and measurement of tripping time tA
+           measuring current 0.5 IΔn, 1 IΔn, 2 IΔn, 5 IΔn</th>
+             </tr>
+             <tr>
+               <th>general and short-time delay RCD </th>
+           <td>0 ms...300 ms</td>
+               <td>0 ms...300 ms</td>
+               <td>1 ms </td>
+               <td>±(2% m.v. + 2 digits)</td>  </tr>
+              <tr>
+               <th>selective RCD </th>
+           <td>0 ms...500 ms </td>
+               <td>0 ms...500 ms </td>
+               <td>1 ms </td>
+               <td>±(2% m.v. + 2 digits)</td>  </tr>
+             <tr>
+               <th style="border:unset;" colspan="4">Measurement of RCD tripping current I A
+           measuring current 0.2 IΔn...2.0 IΔn</th>
+             </tr>
+              <tr>
+               <th>for sinusoidal residual current (AC type)</th>
+           <td>3.0 mA...1000 mA </td>
+               <td>3.0 mA...1000 mA </td>
+               <td>from 0.1 mA</td>
+               <td>±5% IΔn</td>  </tr>
+              <tr>
+               <th>for unidirectional residual current and
+           unidirectional with the 6 mA DC bias (type A) </th>
+           <td>3.5 mA...700 mA</td>
+               <td>3.5 mA...700 mA</td>
+               <td>from 0.1 mA</td>
+               <td>±10% IΔn</td>  </tr>
+              <tr>
+               <th>for direct residual current (type B) </th>
+           <td>2.0 mA...1000 mA</td>
+               <td>2.0 mA...1000 mA</td>
+               <td>from 0.1 mA</td>
+               <td>±10% IΔn</td>  </tr>
+              <tr>
+               <th style="border:unset;">Earth resistance</th>
+             </tr>
+              <tr>
+               <th>3-pole method </th>
+           <td>from 0.5 Ω...1.99 kΩ
+           acc. to IEC 61557-5</td>
+               <td>0.00 Ω...1.99 kΩ</td>
+               <td>from 0.01 Ω </td>
+               <td>from ±(2% m.v. + 3 digits)</td>  </tr>
+              <tr>
+               <th style="border:unset;">Insulation resistance</th>
+             </tr>
+              <tr>
+               <th>Measuring voltage 50 V </th>
+           <td>50 kΩ...250 MΩ
+           acc. to IEC 61557-2</td>
+               <td>0 kΩ...250 MΩ</td>
+                 <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td> 
+               </tr>
+              <tr>
+               <th>Measuring voltage 100 V  </th>
+           <td>100 kΩ...500 MΩ
+           acc. to IEC 61557-2</td>
+               <td>0 kΩ...500 MΩ</td>
+                <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td> 
+               </tr>
+              <tr>
+               <th>Measuring voltage 250 V </th>
+           <td>250 kΩ...999 MΩ
+           acc. to IEC 61557-2 </td>
+               <td>0 kΩ...999 MΩ </td>
+                <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td>  
+               </tr>
+              <tr>
+               <th>Measuring voltage 500 V </th>
+           <td>500 kΩ...2.00 GΩ
+           acc. to IEC 61557-2</td>
+               <td>0 kΩ...2.00 GΩ</td>
+                <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td> 
+               </tr>
+              <tr>
+               <th>Measuring voltage 1000 V </th>
+               <td>1000 kΩ...3.00 GΩ
+           acc. to IEC 61557-2 </td>
+            <td>0 kΩ...3.00 GΩ</td>
+               <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td>
+             </tr>
+              <tr>
+               <th style="border:unset;" colspan="4">Resistance of protective conductors and equipotential bondings</th>
+             </tr>
+              <tr>
+               <th>Measurement of resistance of protective
+           conductors and equipotential bondings with
+           ±200 mA current</th>
+           <td>0.12 Ω...400 Ω
+           acc. to IEC 61557-4 </td>
+               <td>0.00 Ω...400 Ω</td>
+               <td>from 0.01 Ω </td>
+               <td>±(2% m.v. + 3 digits)</td>  </tr>
+              <tr>
+               <th>Measurement of resistance with low current</th>
+           <td>0.0 Ω...1999 Ω</td>
+               <td>0.0 Ω...1999 Ω </td>
+               <td>from 0.1 Ω</td>
+               <td>±(3% m.v. + 3 digits)</td>  </tr>
+              <tr>
+               <th>Phase sequence indication</th>
+           <td>in the same direction (correct). </td>
+               <td>opposite direction (incorrect). </td>
+               <td>UL-L voltage: 95 V...</td>
+               <td>500 V (45 Hz...65 Hz)</td>  </tr>
+              <tr>
+               <th>Power measurement</th>
+                <td>0.0 VA...200 000 
+                VA 0.0 W...200 000 W
+               0.0 var...200 000 var</td>
+               <td>0.0 VA...200 000 VA
+           0.0 W...200 000 W
+           0.0 var...200 000 var</td>
+               <td>from 0.1 VA
+           from 0.1 W
+           from 0.1 var</td>
+               <td>from ±(7% m.v. + 3
+           digits)</td>  </tr>
+           </table>
+           <table class="meterTable" style="width:100%" *ngIf="value=='WMGBMPI530'">
+            <tr>
+               <th>Measurement functions </th>
+               <th>Measurement range</th>
+               <th>Display range</th>
+               <th>Resolutione</th>
+               <th>Accuracy±(% m.v. + digits)</th>
+             </tr>
+              <tr>
+               <th style="border:unset;">Fault loop impedance</th>
+             </tr>
+             <tr>
+               <th>Fault loop ZL-PE , ZL-N, ZL-L</th>
+               <td>0.13 Ω...1999 Ω
+                acc. to IEC 61557 </td>
+               <td>0.00 Ω...1999 Ω </td>
+               <td>from 0.01 Ω</td>
+               <td>±(5% m.v. + 3 digits)</td>
+             </tr>
+             <tr>
+               <th>Fault loop ZL-PE in RCD mode</th>
+           <td>from 0.50 Ω...1999 Ω
+           acc. to IEC 61557</td>
+               <td>0.00 Ω...1999 Ω </td>
+               <td>from 0.01 Ω</td>
+               <td>from ±(6% m.v. + 5 digits)</td>  </tr>
+              <tr>
+               <th style="border:unset;" colspan="4">Measurements of RCD parameters</th>
+             </tr>
+              <tr>
+               <th style="border:unset;" colspan="6">RCD tripping test and measurement of tripping time tA
+           measuring current 0.5 IΔn, 1 IΔn, 2 IΔn, 5 IΔn</th>
+             </tr>
+             <tr>
+               <th>general and short-time delay RCD </th>
+           <td>0 ms...300 ms</td>
+               <td>0 ms...300 ms</td>
+               <td>1 ms </td>
+               <td>±(2% m.v. + 2 digits)</td>  </tr>
+              <tr>
+               <th>selective RCD </th>
+           <td>0 ms...500 ms </td>
+               <td>0 ms...500 ms </td>
+               <td>1 ms </td>
+               <td>±(2% m.v. + 2 digits)</td>  </tr>
+             <tr>
+               <th style="border:unset;" colspan="4">Measurement of RCD tripping current I A
+           measuring current 0.2 IΔn...2.0 IΔn</th>
+             </tr>
+              <tr>
+               <th>for sinusoidal residual current (AC type)</th>
+           <td>3.0 mA...1000 mA </td>
+               <td>3.0 mA...1000 mA </td>
+               <td>from 0.1 mA</td>
+               <td>±5% IΔn</td>  </tr>
+              <tr>
+               <th>for unidirectional residual current and
+           unidirectional with the 6 mA DC bias (type A) </th>
+           <td>3.5 mA...700 mA</td>
+               <td>3.5 mA...700 mA</td>
+               <td>from 0.1 mA</td>
+               <td>±10% IΔn</td>  </tr>
+              <tr>
+               <th>for direct residual current (type B) </th>
+           <td>2.0 mA...1000 mA</td>
+               <td>2.0 mA...1000 mA</td>
+               <td>from 0.1 mA</td>
+               <td>±10% IΔn</td>  </tr>
+              <tr>
+               <th style="border:unset;">Earth resistance</th>
+             </tr>
+              <tr>
+               <th>3-pole method </th>
+           <td>from 0.5 Ω...1.99 kΩ
+           acc. to IEC 61557-5</td>
+               <td>0.00 Ω...1.99 kΩ</td>
+               <td>from 0.01 Ω </td>
+               <td>from ±(2% m.v. + 3 digits)</td>  </tr>
+              <tr>
+               <th style="border:unset;">Insulation resistance</th>
+             </tr>
+              <tr>
+               <th>Measuring voltage 50 V </th>
+           <td>50 kΩ...250 MΩ
+           acc. to IEC 61557-2</td>
+               <td>0 kΩ...250 MΩ</td>
+                 <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td> 
+               </tr>
+              <tr>
+               <th>Measuring voltage 100 V  </th>
+           <td>100 kΩ...500 MΩ
+           acc. to IEC 61557-2</td>
+               <td>0 kΩ...500 MΩ</td>
+                <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td> 
+               </tr>
+              <tr>
+               <th>Measuring voltage 250 V </th>
+           <td>250 kΩ...999 MΩ
+           acc. to IEC 61557-2 </td>
+               <td>0 kΩ...999 MΩ </td>
+                <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td>  
+               </tr>
+              <tr>
+               <th>Measuring voltage 500 V </th>
+           <td>500 kΩ...2.00 GΩ
+           acc. to IEC 61557-2</td>
+               <td>0 kΩ...2.00 GΩ</td>
+                <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td> 
+               </tr>
+              <tr>
+               <th>Measuring voltage 1000 V </th>
+               <td>1000 kΩ...3.00 GΩ
+           acc. to IEC 61557-2 </td>
+            <td>0 kΩ...3.00 GΩ</td>
+               <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td>
+             </tr>
+              <tr>
+               <th style="border:unset;" colspan="4">Resistance of protective conductors and equipotential bondings</th>
+             </tr>
+              <tr>
+               <th>Measurement of resistance of protective
+           conductors and equipotential bondings with
+           ±200 mA current</th>
+           <td>0.12 Ω...400 Ω
+           acc. to IEC 61557-4 </td>
+               <td>0.00 Ω...400 Ω</td>
+               <td>from 0.01 Ω </td>
+               <td>±(2% m.v. + 3 digits)</td>  </tr>
+              <tr>
+               <th>Measurement of resistance with low current</th>
+           <td>0.0 Ω...1999 Ω</td>
+               <td>0.0 Ω...1999 Ω </td>
+               <td>from 0.1 Ω</td>
+               <td>±(3% m.v. + 3 digits)</td>  </tr>
+              <tr>
+               <th>Phase sequence indication</th>
+           <td>in the same direction (correct). </td>
+               <td>opposite direction (incorrect). </td>
+               <td>UL-L voltage: 95 V...</td>
+               <td>500 V (45 Hz...65 Hz)</td>  </tr>
+              <tr>
+               <th>Power measurement</th>
+                <td>0.0 VA...200 000 
+                VA 0.0 W...200 000 W
+               0.0 var...200 000 var</td>
+               <td>0.0 VA...200 000 VA
+           0.0 W...200 000 W
+           0.0 var...200 000 var</td>
+               <td>from 0.1 VA
+           from 0.1 W
+           from 0.1 var</td>
+               <td>from ±(7% m.v. + 3
+           digits)</td>  </tr>
+           </table>
+           <table class="meterTable" style="width:100%" *ngIf="value=='WMGBMPI530IT'">
+            <tr>
+               <th>Measurement functions </th>
+               <th>Measurement range</th>
+               <th>Display range</th>
+               <th>Resolutione</th>
+               <th>Accuracy±(% m.v. + digits)</th>
+             </tr>
+              <tr>
+               <th style="border:unset;">Fault loop impedance</th>
+             </tr>
+             <tr>
+               <th>Fault loop ZL-PE , ZL-N, ZL-L</th>
+               <td>0.13 Ω...1999 Ω
+                acc. to IEC 61557 </td>
+               <td>0.00 Ω...1999 Ω </td>
+               <td>from 0.01 Ω</td>
+               <td>±(5% m.v. + 3 digits)</td>
+             </tr>
+             <tr>
+               <th>Fault loop ZL-PE in RCD mode</th>
+           <td>from 0.50 Ω...1999 Ω
+           acc. to IEC 61557</td>
+               <td>0.00 Ω...1999 Ω </td>
+               <td>from 0.01 Ω</td>
+               <td>from ±(6% m.v. + 5 digits)</td>  </tr>
+              <tr>
+               <th style="border:unset;" colspan="4">Measurements of RCD parameters</th>
+             </tr>
+              <tr>
+               <th style="border:unset;" colspan="6">RCD tripping test and measurement of tripping time tA
+           measuring current 0.5 IΔn, 1 IΔn, 2 IΔn, 5 IΔn</th>
+             </tr>
+             <tr>
+               <th>general and short-time delay RCD </th>
+           <td>0 ms...300 ms</td>
+               <td>0 ms...300 ms</td>
+               <td>1 ms </td>
+               <td>±(2% m.v. + 2 digits)</td>  </tr>
+              <tr>
+               <th>selective RCD </th>
+           <td>0 ms...500 ms </td>
+               <td>0 ms...500 ms </td>
+               <td>1 ms </td>
+               <td>±(2% m.v. + 2 digits)</td>  </tr>
+             <tr>
+               <th style="border:unset;" colspan="4">Measurement of RCD tripping current I A
+           measuring current 0.2 IΔn...2.0 IΔn</th>
+             </tr>
+              <tr>
+               <th>for sinusoidal residual current (AC type)</th>
+           <td>3.0 mA...1000 mA </td>
+               <td>3.0 mA...1000 mA </td>
+               <td>from 0.1 mA</td>
+               <td>±5% IΔn</td>  </tr>
+              <tr>
+               <th>for unidirectional residual current and
+           unidirectional with the 6 mA DC bias (type A) </th>
+           <td>3.5 mA...700 mA</td>
+               <td>3.5 mA...700 mA</td>
+               <td>from 0.1 mA</td>
+               <td>±10% IΔn</td>  </tr>
+              <tr>
+               <th>for direct residual current (type B) </th>
+           <td>2.0 mA...1000 mA</td>
+               <td>2.0 mA...1000 mA</td>
+               <td>from 0.1 mA</td>
+               <td>±10% IΔn</td>  </tr>
+              <tr>
+               <th style="border:unset;">Earth resistance</th>
+             </tr>
+              <tr>
+               <th>3-pole method </th>
+           <td>from 0.5 Ω...1.99 kΩ
+           acc. to IEC 61557-5</td>
+               <td>0.00 Ω...1.99 kΩ</td>
+               <td>from 0.01 Ω </td>
+               <td>from ±(2% m.v. + 3 digits)</td>  </tr>
+              <tr>
+               <th style="border:unset;">Insulation resistance</th>
+             </tr>
+              <tr>
+               <th>Measuring voltage 50 V </th>
+           <td>50 kΩ...250 MΩ
+           acc. to IEC 61557-2</td>
+               <td>0 kΩ...250 MΩ</td>
+                 <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td> 
+               </tr>
+              <tr>
+               <th>Measuring voltage 100 V  </th>
+           <td>100 kΩ...500 MΩ
+           acc. to IEC 61557-2</td>
+               <td>0 kΩ...500 MΩ</td>
+                <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td> 
+               </tr>
+              <tr>
+               <th>Measuring voltage 250 V </th>
+           <td>250 kΩ...999 MΩ
+           acc. to IEC 61557-2 </td>
+               <td>0 kΩ...999 MΩ </td>
+                <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td>  
+               </tr>
+              <tr>
+               <th>Measuring voltage 500 V </th>
+           <td>500 kΩ...2.00 GΩ
+           acc. to IEC 61557-2</td>
+               <td>0 kΩ...2.00 GΩ</td>
+                <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td> 
+               </tr>
+              <tr>
+               <th>Measuring voltage 1000 V </th>
+               <td>1000 kΩ...3.00 GΩ
+           acc. to IEC 61557-2 </td>
+            <td>0 kΩ...3.00 GΩ</td>
+               <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td>
+             </tr>
+              <tr>
+               <th style="border:unset;" colspan="4">Resistance of protective conductors and equipotential bondings</th>
+             </tr>
+              <tr>
+               <th>Measurement of resistance of protective
+           conductors and equipotential bondings with
+           ±200 mA current</th>
+           <td>0.12 Ω...400 Ω
+           acc. to IEC 61557-4 </td>
+               <td>0.00 Ω...400 Ω</td>
+               <td>from 0.01 Ω </td>
+               <td>±(2% m.v. + 3 digits)</td>  </tr>
+              <tr>
+               <th>Measurement of resistance with low current</th>
+           <td>0.0 Ω...1999 Ω</td>
+               <td>0.0 Ω...1999 Ω </td>
+               <td>from 0.1 Ω</td>
+               <td>±(3% m.v. + 3 digits)</td>  </tr>
+              <tr>
+               <th>Phase sequence indication</th>
+           <td>in the same direction (correct). </td>
+               <td>opposite direction (incorrect). </td>
+               <td>UL-L voltage: 95 V...</td>
+               <td>500 V (45 Hz...65 Hz)</td>  </tr>
+              <tr>
+               <th>Power measurement</th>
+                <td>0.0 VA...200 000 
+                VA 0.0 W...200 000 W
+               0.0 var...200 000 var</td>
+               <td>0.0 VA...200 000 VA
+           0.0 W...200 000 W
+           0.0 var...200 000 var</td>
+               <td>from 0.1 VA
+           from 0.1 W
+           from 0.1 var</td>
+               <td>from ±(7% m.v. + 3
+           digits)</td>  </tr>
+           </table>
+           <table class="meterTable" style="width:100%" *ngIf="value=='WMGBMPI540PV'">
+            <tr>
+               <th>Measurement functions </th>
+               <th>Measurement range</th>
+               <th>Display range</th>
+               <th>Resolutione</th>
+               <th>Accuracy±(% m.v. + digits)</th>
+             </tr>
+              <tr>
+               <th style="border:unset;">Fault loop impedance</th>
+             </tr>
+             <tr>
+               <th>Fault loop ZL-PE , ZL-N, ZL-L</th>
+               <td>0.13 Ω...1999 Ω
+                acc. to IEC 61557 </td>
+               <td>0.00 Ω...1999 Ω </td>
+               <td>from 0.01 Ω</td>
+               <td>±(5% m.v. + 3 digits)</td>
+             </tr>
+             <tr>
+               <th>Fault loop ZL-PE in RCD mode</th>
+           <td>from 0.50 Ω...1999 Ω
+           acc. to IEC 61557</td>
+               <td>0.00 Ω...1999 Ω </td>
+               <td>from 0.01 Ω</td>
+               <td>from ±(6% m.v. + 5 digits)</td>  </tr>
+              <tr>
+               <th style="border:unset;" colspan="4">Measurements of RCD parameters</th>
+             </tr>
+              <tr>
+               <th style="border:unset;" colspan="6">RCD tripping test and measurement of tripping time tA
+           measuring current 0.5 IΔn, 1 IΔn, 2 IΔn, 5 IΔn</th>
+             </tr>
+             <tr>
+               <th>general and short-time delay RCD </th>
+           <td>0 ms...300 ms</td>
+               <td>0 ms...300 ms</td>
+               <td>1 ms </td>
+               <td>±(2% m.v. + 2 digits)</td>  </tr>
+              <tr>
+               <th>selective RCD </th>
+           <td>0 ms...500 ms </td>
+               <td>0 ms...500 ms </td>
+               <td>1 ms </td>
+               <td>±(2% m.v. + 2 digits)</td>  </tr>
+             <tr>
+               <th style="border:unset;" colspan="4">Measurement of RCD tripping current I A
+           measuring current 0.2 IΔn...2.0 IΔn</th>
+             </tr>
+              <tr>
+               <th>for sinusoidal residual current (AC type)</th>
+           <td>3.0 mA...1000 mA </td>
+               <td>3.0 mA...1000 mA </td>
+               <td>from 0.1 mA</td>
+               <td>±5% IΔn</td>  </tr>
+              <tr>
+               <th>for unidirectional residual current and
+           unidirectional with the 6 mA DC bias (type A) </th>
+           <td>3.5 mA...700 mA</td>
+               <td>3.5 mA...700 mA</td>
+               <td>from 0.1 mA</td>
+               <td>±10% IΔn</td>  </tr>
+              <tr>
+               <th>for direct residual current (type B) </th>
+           <td>2.0 mA...1000 mA</td>
+               <td>2.0 mA...1000 mA</td>
+               <td>from 0.1 mA</td>
+               <td>±10% IΔn</td>  </tr>
+              <tr>
+               <th style="border:unset;">Earth resistance</th>
+             </tr>
+              <tr>
+               <th>3-pole method </th>
+           <td>from 0.5 Ω...1.99 kΩ
+           acc. to IEC 61557-5</td>
+               <td>0.00 Ω...1.99 kΩ</td>
+               <td>from 0.01 Ω </td>
+               <td>from ±(2% m.v. + 3 digits)</td>  </tr>
+              <tr>
+               <th style="border:unset;">Insulation resistance</th>
+             </tr>
+              <tr>
+               <th>Measuring voltage 50 V </th>
+           <td>50 kΩ...250 MΩ
+           acc. to IEC 61557-2</td>
+               <td>0 kΩ...250 MΩ</td>
+                 <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td> 
+               </tr>
+              <tr>
+               <th>Measuring voltage 100 V  </th>
+           <td>100 kΩ...500 MΩ
+           acc. to IEC 61557-2</td>
+               <td>0 kΩ...500 MΩ</td>
+                <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td> 
+               </tr>
+              <tr>
+               <th>Measuring voltage 250 V </th>
+           <td>250 kΩ...999 MΩ
+           acc. to IEC 61557-2 </td>
+               <td>0 kΩ...999 MΩ </td>
+                <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td>  
+               </tr>
+              <tr>
+               <th>Measuring voltage 500 V </th>
+           <td>500 kΩ...2.00 GΩ
+           acc. to IEC 61557-2</td>
+               <td>0 kΩ...2.00 GΩ</td>
+                <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td> 
+               </tr>
+              <tr>
+               <th>Measuring voltage 1000 V </th>
+               <td>1000 kΩ...3.00 GΩ
+           acc. to IEC 61557-2 </td>
+            <td>0 kΩ...3.00 GΩ</td>
+               <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td>
+             </tr>
+              <tr>
+               <th style="border:unset;" colspan="4">Resistance of protective conductors and equipotential bondings</th>
+             </tr>
+              <tr>
+               <th>Measurement of resistance of protective
+           conductors and equipotential bondings with
+           ±200 mA current</th>
+           <td>0.12 Ω...400 Ω
+           acc. to IEC 61557-4 </td>
+               <td>0.00 Ω...400 Ω</td>
+               <td>from 0.01 Ω </td>
+               <td>±(2% m.v. + 3 digits)</td>  </tr>
+              <tr>
+               <th>Measurement of resistance with low current</th>
+           <td>0.0 Ω...1999 Ω</td>
+               <td>0.0 Ω...1999 Ω </td>
+               <td>from 0.1 Ω</td>
+               <td>±(3% m.v. + 3 digits)</td>  </tr>
+              <tr>
+               <th>Phase sequence indication</th>
+           <td>in the same direction (correct). </td>
+               <td>opposite direction (incorrect). </td>
+               <td>UL-L voltage: 95 V...</td>
+               <td>500 V (45 Hz...65 Hz)</td>  </tr>
+              <tr>
+               <th>Power measurement</th>
+                <td>0.0 VA...200 000 
+                VA 0.0 W...200 000 W
+               0.0 var...200 000 var</td>
+               <td>0.0 VA...200 000 VA
+           0.0 W...200 000 W
+           0.0 var...200 000 var</td>
+               <td>from 0.1 VA
+           from 0.1 W
+           from 0.1 var</td>
+               <td>from ±(7% m.v. + 3
+           digits)</td>  </tr>
+           </table>
+           <table class="meterTable" style="width:100%" *ngIf="value=='WMGBEVSE01'">
+            <tr>
+               <th>Measurement functions </th>
+               <th>Measurement range</th>
+               <th>Display range</th>
+               <th>Resolutione</th>
+               <th>Accuracy±(% m.v. + digits)</th>
+             </tr>
+              <tr>
+               <th style="border:unset;">Fault loop impedance</th>
+             </tr>
+             <tr>
+               <th>Fault loop ZL-PE , ZL-N, ZL-L</th>
+               <td>0.13 Ω...1999 Ω
+                acc. to IEC 61557 </td>
+               <td>0.00 Ω...1999 Ω </td>
+               <td>from 0.01 Ω</td>
+               <td>±(5% m.v. + 3 digits)</td>
+             </tr>
+             <tr>
+               <th>Fault loop ZL-PE in RCD mode</th>
+           <td>from 0.50 Ω...1999 Ω
+           acc. to IEC 61557</td>
+               <td>0.00 Ω...1999 Ω </td>
+               <td>from 0.01 Ω</td>
+               <td>from ±(6% m.v. + 5 digits)</td>  </tr>
+              <tr>
+               <th style="border:unset;" colspan="4">Measurements of RCD parameters</th>
+             </tr>
+              <tr>
+               <th style="border:unset;" colspan="6">RCD tripping test and measurement of tripping time tA
+           measuring current 0.5 IΔn, 1 IΔn, 2 IΔn, 5 IΔn</th>
+             </tr>
+             <tr>
+               <th>general and short-time delay RCD </th>
+           <td>0 ms...300 ms</td>
+               <td>0 ms...300 ms</td>
+               <td>1 ms </td>
+               <td>±(2% m.v. + 2 digits)</td>  </tr>
+              <tr>
+               <th>selective RCD </th>
+           <td>0 ms...500 ms </td>
+               <td>0 ms...500 ms </td>
+               <td>1 ms </td>
+               <td>±(2% m.v. + 2 digits)</td>  </tr>
+             <tr>
+               <th style="border:unset;" colspan="4">Measurement of RCD tripping current I A
+           measuring current 0.2 IΔn...2.0 IΔn</th>
+             </tr>
+              <tr>
+               <th>for sinusoidal residual current (AC type)</th>
+           <td>3.0 mA...1000 mA </td>
+               <td>3.0 mA...1000 mA </td>
+               <td>from 0.1 mA</td>
+               <td>±5% IΔn</td>  </tr>
+              <tr>
+               <th>for unidirectional residual current and
+           unidirectional with the 6 mA DC bias (type A) </th>
+           <td>3.5 mA...700 mA</td>
+               <td>3.5 mA...700 mA</td>
+               <td>from 0.1 mA</td>
+               <td>±10% IΔn</td>  </tr>
+              <tr>
+               <th>for direct residual current (type B) </th>
+           <td>2.0 mA...1000 mA</td>
+               <td>2.0 mA...1000 mA</td>
+               <td>from 0.1 mA</td>
+               <td>±10% IΔn</td>  </tr>
+              <tr>
+               <th style="border:unset;">Earth resistance</th>
+             </tr>
+              <tr>
+               <th>3-pole method </th>
+           <td>from 0.5 Ω...1.99 kΩ
+           acc. to IEC 61557-5</td>
+               <td>0.00 Ω...1.99 kΩ</td>
+               <td>from 0.01 Ω </td>
+               <td>from ±(2% m.v. + 3 digits)</td>  </tr>
+              <tr>
+               <th style="border:unset;">Insulation resistance</th>
+             </tr>
+              <tr>
+               <th>Measuring voltage 50 V </th>
+           <td>50 kΩ...250 MΩ
+           acc. to IEC 61557-2</td>
+               <td>0 kΩ...250 MΩ</td>
+                 <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td> 
+               </tr>
+              <tr>
+               <th>Measuring voltage 100 V  </th>
+           <td>100 kΩ...500 MΩ
+           acc. to IEC 61557-2</td>
+               <td>0 kΩ...500 MΩ</td>
+                <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td> 
+               </tr>
+              <tr>
+               <th>Measuring voltage 250 V </th>
+           <td>250 kΩ...999 MΩ
+           acc. to IEC 61557-2 </td>
+               <td>0 kΩ...999 MΩ </td>
+                <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td>  
+               </tr>
+              <tr>
+               <th>Measuring voltage 500 V </th>
+           <td>500 kΩ...2.00 GΩ
+           acc. to IEC 61557-2</td>
+               <td>0 kΩ...2.00 GΩ</td>
+                <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td> 
+               </tr>
+              <tr>
+               <th>Measuring voltage 1000 V </th>
+               <td>1000 kΩ...3.00 GΩ
+           acc. to IEC 61557-2 </td>
+            <td>0 kΩ...3.00 GΩ</td>
+               <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td>
+             </tr>
+              <tr>
+               <th style="border:unset;" colspan="4">Resistance of protective conductors and equipotential bondings</th>
+             </tr>
+              <tr>
+               <th>Measurement of resistance of protective
+           conductors and equipotential bondings with
+           ±200 mA current</th>
+           <td>0.12 Ω...400 Ω
+           acc. to IEC 61557-4 </td>
+               <td>0.00 Ω...400 Ω</td>
+               <td>from 0.01 Ω </td>
+               <td>±(2% m.v. + 3 digits)</td>  </tr>
+              <tr>
+               <th>Measurement of resistance with low current</th>
+           <td>0.0 Ω...1999 Ω</td>
+               <td>0.0 Ω...1999 Ω </td>
+               <td>from 0.1 Ω</td>
+               <td>±(3% m.v. + 3 digits)</td>  </tr>
+              <tr>
+               <th>Phase sequence indication</th>
+           <td>in the same direction (correct). </td>
+               <td>opposite direction (incorrect). </td>
+               <td>UL-L voltage: 95 V...</td>
+               <td>500 V (45 Hz...65 Hz)</td>  </tr>
+              <tr>
+               <th>Power measurement</th>
+                <td>0.0 VA...200 000 
+                VA 0.0 W...200 000 W
+               0.0 var...200 000 var</td>
+               <td>0.0 VA...200 000 VA
+           0.0 W...200 000 W
+           0.0 var...200 000 var</td>
+               <td>from 0.1 VA
+           from 0.1 W
+           from 0.1 var</td>
+               <td>from ±(7% m.v. + 3
+           digits)</td>  </tr>
+           </table>
+           <table class="meterTable" style="width:100%" *ngIf="value=='WMGBPAT820'">
+            <tr>
+               <th>Measurement functions </th>
+               <th>Measurement range</th>
+               <th>Display range</th>
+               <th>Resolutione</th>
+               <th>Accuracy±(% m.v. + digits)</th>
+             </tr>
+              <tr>
+               <th style="border:unset;">Fault loop impedance</th>
+             </tr>
+             <tr>
+               <th>Fault loop ZL-PE , ZL-N, ZL-L</th>
+               <td>0.13 Ω...1999 Ω
+           acc. to IEC 61557 </td>
+               <td>0.00 Ω...1999 Ω </td>
+               <td>from 0.01 Ω</td>
+               <td>±(5% m.v. + 3 digits)</td>
+             </tr>
+             <tr>
+               <th>Fault loop ZL-PE in RCD mode</th>
+           <td>from 0.50 Ω...1999 Ω
+           acc. to IEC 61557</td>
+               <td>0.00 Ω...1999 Ω </td>
+               <td>from 0.01 Ω</td>
+               <td>from ±(6% m.v. + 5 digits)</td>  </tr>
+              <tr>
+               <th style="border:unset;" colspan="4">Measurements of RCD parameters</th>
+             </tr>
+              <tr>
+               <th style="border:unset;" colspan="6">RCD tripping test and measurement of tripping time tA
+           measuring current 0.5 IΔn, 1 IΔn, 2 IΔn, 5 IΔn</th>
+             </tr>
+             <tr>
+               <th>general and short-time delay RCD </th>
+           <td>0 ms...300 ms</td>
+               <td>0 ms...300 ms</td>
+               <td>1 ms </td>
+               <td>±(2% m.v. + 2 digits)</td>  </tr>
+              <tr>
+               <th>selective RCD </th>
+           <td>0 ms...500 ms </td>
+               <td>0 ms...500 ms </td>
+               <td>1 ms </td>
+               <td>±(2% m.v. + 2 digits)</td>  </tr>
+             <tr>
+               <th style="border:unset;" colspan="4">Measurement of RCD tripping current I A
+           measuring current 0.2 IΔn...2.0 IΔn</th>
+             </tr>
+              <tr>
+               <th>for sinusoidal residual current (AC type)</th>
+           <td>3.0 mA...1000 mA </td>
+               <td>3.0 mA...1000 mA </td>
+               <td>from 0.1 mA</td>
+               <td>±5% IΔn</td>  </tr>
+              <tr>
+               <th>for unidirectional residual current and
+           unidirectional with the 6 mA DC bias (type A) </th>
+           <td>3.5 mA...700 mA</td>
+               <td>3.5 mA...700 mA</td>
+               <td>from 0.1 mA</td>
+               <td>±10% IΔn</td>  </tr>
+              <tr>
+               <th>for direct residual current (type B) </th>
+           <td>2.0 mA...1000 mA</td>
+               <td>2.0 mA...1000 mA</td>
+               <td>from 0.1 mA</td>
+               <td>±10% IΔn</td>  </tr>
+              <tr>
+               <th style="border:unset;">Earth resistance</th>
+             </tr>
+              <tr>
+               <th>3-pole method </th>
+           <td>from 0.5 Ω...1.99 kΩ
+           acc. to IEC 61557-5</td>
+               <td>0.00 Ω...1.99 kΩ</td>
+               <td>from 0.01 Ω </td>
+               <td>from ±(2% m.v. + 3 digits)</td>  </tr>
+              <tr>
+               <th style="border:unset;">Insulation resistance</th>
+             </tr>
+              <tr>
+               <th>Measuring voltage 50 V </th>
+           <td>50 kΩ...250 MΩ
+           acc. to IEC 61557-2</td>
+               <td>0 kΩ...250 MΩ</td>
+                 <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td> 
+               </tr>
+              <tr>
+               <th>Measuring voltage 100 V  </th>
+           <td>100 kΩ...500 MΩ
+           acc. to IEC 61557-2</td>
+               <td>0 kΩ...500 MΩ</td>
+                <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td> 
+               </tr>
+              <tr>
+               <th>Measuring voltage 250 V </th>
+           <td>250 kΩ...999 MΩ
+           acc. to IEC 61557-2 </td>
+               <td>0 kΩ...999 MΩ </td>
+                <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td>  
+               </tr>
+              <tr>
+               <th>Measuring voltage 500 V </th>
+           <td>500 kΩ...2.00 GΩ
+           acc. to IEC 61557-2</td>
+               <td>0 kΩ...2.00 GΩ</td>
+                <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td> 
+               </tr>
+              <tr>
+               <th>Measuring voltage 1000 V </th>
+               <td>1000 kΩ...3.00 GΩ
+           acc. to IEC 61557-2 </td>
+            <td>0 kΩ...3.00 GΩ</td>
+               <td>from 1 kΩ </td>
+               <td>from ±(3% m.v. + 8 digits)</td>
+             </tr>
+              <tr>
+               <th style="border:unset;" colspan="4">Resistance of protective conductors and equipotential bondings</th>
+             </tr>
+              <tr>
+               <th>Measurement of resistance of protective
+           conductors and equipotential bondings with
+           ±200 mA current</th>
+           <td>0.12 Ω...400 Ω
+           acc. to IEC 61557-4 </td>
+               <td>0.00 Ω...400 Ω</td>
+               <td>from 0.01 Ω </td>
+               <td>±(2% m.v. + 3 digits)</td>  </tr>
+              <tr>
+               <th>Measurement of resistance with low current</th>
+           <td>0.0 Ω...1999 Ω</td>
+               <td>0.0 Ω...1999 Ω </td>
+               <td>from 0.1 Ω</td>
+               <td>±(3% m.v. + 3 digits)</td>  </tr>
+              <tr>
+               <th>Phase sequence indication</th>
+           <td>in the same direction (correct). </td>
+               <td>opposite direction (incorrect). </td>
+               <td>UL-L voltage: 95 V...</td>
+               <td>500 V (45 Hz...65 Hz)</td>  </tr>
+              <tr>
+               <th>Power measurement</th>
+                <td>0.0 VA...200 000 
+                VA 0.0 W...200 000 W
+               0.0 var...200 000 var</td>
+               <td>0.0 VA...200 000 VA
+           0.0 W...200 000 W
+           0.0 var...200 000 var</td>
+               <td>from 0.1 VA
+           from 0.1 W
+           from 0.1 var</td>
+               <td>from ±(7% m.v. + 3
+           digits)</td>  </tr>
+           </table>
+
+
+            <!-- <table class="meterTable" style="width:100%" *ngIf="value=='WMGBMZC20E'">
               <tr>
                  <th>Measurement functions </th>
                  <th>Measurement range</th>
@@ -74,165 +1377,6 @@
                  <td>0.13 Ω...1999 Ω
              acc. to IEC 61557 </td>
                  <td>0.00 Ω...1999 Ω </td>
-                 <td>from 0.01 Ω</td>
-                 <td>±(5% m.v. + 3 digits)</td>
-               </tr>
-               <tr>
-                 <th>Fault loop ZL-PE in RCD mode</th>
-             <td>from 0.50 Ω...1999 Ω
-             acc. to IEC 61557</td>
-                 <td>0.00 Ω...1999 Ω </td>
-                 <td>from 0.01 Ω</td>
-                 <td>from ±(6% m.v. + 5 digits)</td>  </tr>
-                <tr>
-                 <th style="border:unset;" colspan="4">Measurements of RCD parameters</th>
-               </tr>
-                <tr>
-                 <th style="border:unset;" colspan="6">RCD tripping test and measurement of tripping time tA
-             measuring current 0.5 IΔn, 1 IΔn, 2 IΔn, 5 IΔn</th>
-               </tr>
-               <tr>
-                 <th>general and short-time delay RCD </th>
-             <td>0 ms...300 ms</td>
-                 <td>0 ms...300 ms</td>
-                 <td>1 ms </td>
-                 <td>±(2% m.v. + 2 digits)</td>  </tr>
-                <tr>
-                 <th>selective RCD </th>
-             <td>0 ms...500 ms </td>
-                 <td>0 ms...500 ms </td>
-                 <td>1 ms </td>
-                 <td>±(2% m.v. + 2 digits)</td>  </tr>
-               <tr>
-                 <th style="border:unset;" colspan="4">Measurement of RCD tripping current I A
-             measuring current 0.2 IΔn...2.0 IΔn</th>
-               </tr>
-                <tr>
-                 <th>for sinusoidal residual current (AC type)</th>
-             <td>3.0 mA...1000 mA </td>
-                 <td>3.0 mA...1000 mA </td>
-                 <td>from 0.1 mA</td>
-                 <td>±5% IΔn</td>  </tr>
-                <tr>
-                 <th>for unidirectional residual current and
-             unidirectional with the 6 mA DC bias (type A) </th>
-             <td>3.5 mA...700 mA</td>
-                 <td>3.5 mA...700 mA</td>
-                 <td>from 0.1 mA</td>
-                 <td>±10% IΔn</td>  </tr>
-                <tr>
-                 <th>for direct residual current (type B) </th>
-             <td>2.0 mA...1000 mA</td>
-                 <td>2.0 mA...1000 mA</td>
-                 <td>from 0.1 mA</td>
-                 <td>±10% IΔn</td>  </tr>
-                <tr>
-                 <th style="border:unset;">Earth resistance</th>
-               </tr>
-                <tr>
-                 <th>3-pole method </th>
-             <td>from 0.5 Ω...1.99 kΩ
-             acc. to IEC 61557-5</td>
-                 <td>0.00 Ω...1.99 kΩ</td>
-                 <td>from 0.01 Ω </td>
-                 <td>from ±(2% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th style="border:unset;">Insulation resistance</th>
-               </tr>
-                <tr>
-                 <th>Measuring voltage 50 V </th>
-             <td>50 kΩ...250 MΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...250 MΩ</td>
-                   <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 100 V  </th>
-             <td>100 kΩ...500 MΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...500 MΩ</td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 250 V </th>
-             <td>250 kΩ...999 MΩ
-             acc. to IEC 61557-2 </td>
-                 <td>0 kΩ...999 MΩ </td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td>  
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 500 V </th>
-             <td>500 kΩ...2.00 GΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...2.00 GΩ</td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 1000 V </th>
-                 <td>1000 kΩ...3.00 GΩ
-             acc. to IEC 61557-2 </td>
-              <td>0 kΩ...3.00 GΩ</td>
-                 <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td>
-               </tr>
-                <tr>
-                 <th style="border:unset;" colspan="4">Resistance of protective conductors and equipotential bondings</th>
-               </tr>
-                <tr>
-                 <th>Measurement of resistance of protective
-             conductors and equipotential bondings with
-             ±200 mA current</th>
-             <td>0.12 Ω...400 Ω
-             acc. to IEC 61557-4 </td>
-                 <td>0.00 Ω...400 Ω</td>
-                 <td>from 0.01 Ω </td>
-                 <td>±(2% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th>Measurement of resistance with low current</th>
-             <td>0.0 Ω...1999 Ω</td>
-                 <td>0.0 Ω...1999 Ω </td>
-                 <td>from 0.1 Ω</td>
-                 <td>±(3% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th>Phase sequence indication</th>
-             <td>in the same direction (correct). </td>
-                 <td>opposite direction (incorrect). </td>
-                 <td>UL-L voltage: 95 V...</td>
-                 <td>500 V (45 Hz...65 Hz)</td>  </tr>
-                <tr>
-                 <th>Power measurement</th>
-                  <td>0.0 VA...200 000 
-                  VA 0.0 W...200 000 W
-                 0.0 var...200 000 var</td>
-                 <td>0.0 VA...200 000 VA
-             0.0 W...200 000 W
-             0.0 var...200 000 var</td>
-                 <td>from 0.1 VA
-             from 0.1 W
-             from 0.1 var</td>
-                 <td>from ±(7% m.v. + 3
-             digits)</td>  </tr>
-             </table>
-             <table class="meterTable" style="width:100%" *ngIf="value=='WMGBMZC304'">
-              <tr>
-                 <th>Measurement functions </th>
-                 <th>Measurement range</th>
-                 <th>Display range</th>
-                 <th>Resolutione</th>
-                 <th>Accuracy±(% m.v. + digits)</th>
-               </tr>
-                <tr>
-                 <th style="border:unset;">Fault loop impedance</th>
-               </tr>
-               <tr>
-                 <th>Fault loop ZL-PE , ZL-N, ZL-L</th>
-                 <td>0.13 Ω...1999 Ω
-                  acc. to IEC 61557 </td>                 
-                  <td>0.00 Ω...1999 Ω </td>
                  <td>from 0.01 Ω</td>
                  <td>±(5% m.v. + 3 digits)</td>
                </tr>
@@ -695,324 +1839,6 @@
              digits)</td>  </tr>
              </table>
              <table class="meterTable" style="width:100%" *ngIf="value=='WMGBMZC320'">
-              <tr>
-                 <th>Measurement functions </th>
-                 <th>Measurement range</th>
-                 <th>Display range</th>
-                 <th>Resolutione</th>
-                 <th>Accuracy±(% m.v. + digits)</th>
-               </tr>
-                <tr>
-                 <th style="border:unset;">Fault loop impedance</th>
-               </tr>
-               <tr>
-                 <th>Fault loop ZL-PE , ZL-N, ZL-L</th>
-                 <td>0.13 Ω...1999 Ω
-                  acc. to IEC 61557 </td>
-                 <td>0.00 Ω...1999 Ω </td>
-                 <td>from 0.01 Ω</td>
-                 <td>±(5% m.v. + 3 digits)</td>
-               </tr>
-               <tr>
-                 <th>Fault loop ZL-PE in RCD mode</th>
-             <td>from 0.50 Ω...1999 Ω
-             acc. to IEC 61557</td>
-                 <td>0.00 Ω...1999 Ω </td>
-                 <td>from 0.01 Ω</td>
-                 <td>from ±(6% m.v. + 5 digits)</td>  </tr>
-                <tr>
-                 <th style="border:unset;" colspan="4">Measurements of RCD parameters</th>
-               </tr>
-                <tr>
-                 <th style="border:unset;" colspan="6">RCD tripping test and measurement of tripping time tA
-             measuring current 0.5 IΔn, 1 IΔn, 2 IΔn, 5 IΔn</th>
-               </tr>
-               <tr>
-                 <th>general and short-time delay RCD </th>
-             <td>0 ms...300 ms</td>
-                 <td>0 ms...300 ms</td>
-                 <td>1 ms </td>
-                 <td>±(2% m.v. + 2 digits)</td>  </tr>
-                <tr>
-                 <th>selective RCD </th>
-             <td>0 ms...500 ms </td>
-                 <td>0 ms...500 ms </td>
-                 <td>1 ms </td>
-                 <td>±(2% m.v. + 2 digits)</td>  </tr>
-               <tr>
-                 <th style="border:unset;" colspan="4">Measurement of RCD tripping current I A
-             measuring current 0.2 IΔn...2.0 IΔn</th>
-               </tr>
-                <tr>
-                 <th>for sinusoidal residual current (AC type)</th>
-             <td>3.0 mA...1000 mA </td>
-                 <td>3.0 mA...1000 mA </td>
-                 <td>from 0.1 mA</td>
-                 <td>±5% IΔn</td>  </tr>
-                <tr>
-                 <th>for unidirectional residual current and
-             unidirectional with the 6 mA DC bias (type A) </th>
-             <td>3.5 mA...700 mA</td>
-                 <td>3.5 mA...700 mA</td>
-                 <td>from 0.1 mA</td>
-                 <td>±10% IΔn</td>  </tr>
-                <tr>
-                 <th>for direct residual current (type B) </th>
-             <td>2.0 mA...1000 mA</td>
-                 <td>2.0 mA...1000 mA</td>
-                 <td>from 0.1 mA</td>
-                 <td>±10% IΔn</td>  </tr>
-                <tr>
-                 <th style="border:unset;">Earth resistance</th>
-               </tr>
-                <tr>
-                 <th>3-pole method </th>
-             <td>from 0.5 Ω...1.99 kΩ
-             acc. to IEC 61557-5</td>
-                 <td>0.00 Ω...1.99 kΩ</td>
-                 <td>from 0.01 Ω </td>
-                 <td>from ±(2% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th style="border:unset;">Insulation resistance</th>
-               </tr>
-                <tr>
-                 <th>Measuring voltage 50 V </th>
-             <td>50 kΩ...250 MΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...250 MΩ</td>
-                   <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 100 V  </th>
-             <td>100 kΩ...500 MΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...500 MΩ</td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 250 V </th>
-             <td>250 kΩ...999 MΩ
-             acc. to IEC 61557-2 </td>
-                 <td>0 kΩ...999 MΩ </td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td>  
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 500 V </th>
-             <td>500 kΩ...2.00 GΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...2.00 GΩ</td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 1000 V </th>
-                 <td>1000 kΩ...3.00 GΩ
-             acc. to IEC 61557-2 </td>
-              <td>0 kΩ...3.00 GΩ</td>
-                 <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td>
-               </tr>
-                <tr>
-                 <th style="border:unset;" colspan="4">Resistance of protective conductors and equipotential bondings</th>
-               </tr>
-                <tr>
-                 <th>Measurement of resistance of protective
-             conductors and equipotential bondings with
-             ±200 mA current</th>
-             <td>0.12 Ω...400 Ω
-             acc. to IEC 61557-4 </td>
-                 <td>0.00 Ω...400 Ω</td>
-                 <td>from 0.01 Ω </td>
-                 <td>±(2% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th>Measurement of resistance with low current</th>
-             <td>0.0 Ω...1999 Ω</td>
-                 <td>0.0 Ω...1999 Ω </td>
-                 <td>from 0.1 Ω</td>
-                 <td>±(3% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th>Phase sequence indication</th>
-             <td>in the same direction (correct). </td>
-                 <td>opposite direction (incorrect). </td>
-                 <td>UL-L voltage: 95 V...</td>
-                 <td>500 V (45 Hz...65 Hz)</td>  </tr>
-                <tr>
-                 <th>Power measurement</th>
-                  <td>0.0 VA...200 000 
-                  VA 0.0 W...200 000 W
-                 0.0 var...200 000 var</td>
-                 <td>0.0 VA...200 000 VA
-             0.0 W...200 000 W
-             0.0 var...200 000 var</td>
-                 <td>from 0.1 VA
-             from 0.1 W
-             from 0.1 var</td>
-                 <td>from ±(7% m.v. + 3
-             digits)</td>  </tr>
-             </table>
-             <table class="meterTable" style="width:100%" *ngIf="value=='WMGBMZC330'">
-              <tr>
-                 <th>Measurement functions </th>
-                 <th>Measurement range</th>
-                 <th>Display range</th>
-                 <th>Resolutione</th>
-                 <th>Accuracy±(% m.v. + digits)</th>
-               </tr>
-                <tr>
-                 <th style="border:unset;">Fault loop impedance</th>
-               </tr>
-               <tr>
-                 <th>Fault loop ZL-PE , ZL-N, ZL-L</th>
-                 <td>0.13 Ω...1999 Ω
-                  acc. to IEC 61557 </td>
-                 <td>0.00 Ω...1999 Ω </td>
-                 <td>from 0.01 Ω</td>
-                 <td>±(5% m.v. + 3 digits)</td>
-               </tr>
-               <tr>
-                 <th>Fault loop ZL-PE in RCD mode</th>
-             <td>from 0.50 Ω...1999 Ω
-             acc. to IEC 61557</td>
-                 <td>0.00 Ω...1999 Ω </td>
-                 <td>from 0.01 Ω</td>
-                 <td>from ±(6% m.v. + 5 digits)</td>  </tr>
-                <tr>
-                 <th style="border:unset;" colspan="4">Measurements of RCD parameters</th>
-               </tr>
-                <tr>
-                 <th style="border:unset;" colspan="6">RCD tripping test and measurement of tripping time tA
-             measuring current 0.5 IΔn, 1 IΔn, 2 IΔn, 5 IΔn</th>
-               </tr>
-               <tr>
-                 <th>general and short-time delay RCD </th>
-             <td>0 ms...300 ms</td>
-                 <td>0 ms...300 ms</td>
-                 <td>1 ms </td>
-                 <td>±(2% m.v. + 2 digits)</td>  </tr>
-                <tr>
-                 <th>selective RCD </th>
-             <td>0 ms...500 ms </td>
-                 <td>0 ms...500 ms </td>
-                 <td>1 ms </td>
-                 <td>±(2% m.v. + 2 digits)</td>  </tr>
-               <tr>
-                 <th style="border:unset;" colspan="4">Measurement of RCD tripping current I A
-             measuring current 0.2 IΔn...2.0 IΔn</th>
-               </tr>
-                <tr>
-                 <th>for sinusoidal residual current (AC type)</th>
-             <td>3.0 mA...1000 mA </td>
-                 <td>3.0 mA...1000 mA </td>
-                 <td>from 0.1 mA</td>
-                 <td>±5% IΔn</td>  </tr>
-                <tr>
-                 <th>for unidirectional residual current and
-             unidirectional with the 6 mA DC bias (type A) </th>
-             <td>3.5 mA...700 mA</td>
-                 <td>3.5 mA...700 mA</td>
-                 <td>from 0.1 mA</td>
-                 <td>±10% IΔn</td>  </tr>
-                <tr>
-                 <th>for direct residual current (type B) </th>
-             <td>2.0 mA...1000 mA</td>
-                 <td>2.0 mA...1000 mA</td>
-                 <td>from 0.1 mA</td>
-                 <td>±10% IΔn</td>  </tr>
-                <tr>
-                 <th style="border:unset;">Earth resistance</th>
-               </tr>
-                <tr>
-                 <th>3-pole method </th>
-             <td>from 0.5 Ω...1.99 kΩ
-             acc. to IEC 61557-5</td>
-                 <td>0.00 Ω...1.99 kΩ</td>
-                 <td>from 0.01 Ω </td>
-                 <td>from ±(2% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th style="border:unset;">Insulation resistance</th>
-               </tr>
-                <tr>
-                 <th>Measuring voltage 50 V </th>
-             <td>50 kΩ...250 MΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...250 MΩ</td>
-                   <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 100 V  </th>
-             <td>100 kΩ...500 MΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...500 MΩ</td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 250 V </th>
-             <td>250 kΩ...999 MΩ
-             acc. to IEC 61557-2 </td>
-                 <td>0 kΩ...999 MΩ </td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td>  
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 500 V </th>
-             <td>500 kΩ...2.00 GΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...2.00 GΩ</td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 1000 V </th>
-                 <td>1000 kΩ...3.00 GΩ
-             acc. to IEC 61557-2 </td>
-              <td>0 kΩ...3.00 GΩ</td>
-                 <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td>
-               </tr>
-                <tr>
-                 <th style="border:unset;" colspan="4">Resistance of protective conductors and equipotential bondings</th>
-               </tr>
-                <tr>
-                 <th>Measurement of resistance of protective
-             conductors and equipotential bondings with
-             ±200 mA current</th>
-             <td>0.12 Ω...400 Ω
-             acc. to IEC 61557-4 </td>
-                 <td>0.00 Ω...400 Ω</td>
-                 <td>from 0.01 Ω </td>
-                 <td>±(2% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th>Measurement of resistance with low current</th>
-             <td>0.0 Ω...1999 Ω</td>
-                 <td>0.0 Ω...1999 Ω </td>
-                 <td>from 0.1 Ω</td>
-                 <td>±(3% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th>Phase sequence indication</th>
-             <td>in the same direction (correct). </td>
-                 <td>opposite direction (incorrect). </td>
-                 <td>UL-L voltage: 95 V...</td>
-                 <td>500 V (45 Hz...65 Hz)</td>  </tr>
-                <tr>
-                 <th>Power measurement</th>
-                  <td>0.0 VA...200 000 
-                  VA 0.0 W...200 000 W
-                 0.0 var...200 000 var</td>
-                 <td>0.0 VA...200 000 VA
-             0.0 W...200 000 W
-             0.0 var...200 000 var</td>
-                 <td>from 0.1 VA
-             from 0.1 W
-             from 0.1 var</td>
-                 <td>from ±(7% m.v. + 3
-             digits)</td>  </tr>
-             </table>
-             <table class="meterTable" style="width:100%" *ngIf="value=='WMGBMRP201'">
               <tr>
                  <th>Measurement functions </th>
                  <th>Measurement range</th>
@@ -1966,324 +2792,6 @@
                  <td>from ±(7% m.v. + 3
              digits)</td>  </tr>
              </table>
-             <table class="meterTable" style="width:100%" *ngIf="value=='WMGBMPI530'">
-              <tr>
-                 <th>Measurement functions </th>
-                 <th>Measurement range</th>
-                 <th>Display range</th>
-                 <th>Resolutione</th>
-                 <th>Accuracy±(% m.v. + digits)</th>
-               </tr>
-                <tr>
-                 <th style="border:unset;">Fault loop impedance</th>
-               </tr>
-               <tr>
-                 <th>Fault loop ZL-PE , ZL-N, ZL-L</th>
-                 <td>0.13 Ω...1999 Ω
-                  acc. to IEC 61557 </td>
-                 <td>0.00 Ω...1999 Ω </td>
-                 <td>from 0.01 Ω</td>
-                 <td>±(5% m.v. + 3 digits)</td>
-               </tr>
-               <tr>
-                 <th>Fault loop ZL-PE in RCD mode</th>
-             <td>from 0.50 Ω...1999 Ω
-             acc. to IEC 61557</td>
-                 <td>0.00 Ω...1999 Ω </td>
-                 <td>from 0.01 Ω</td>
-                 <td>from ±(6% m.v. + 5 digits)</td>  </tr>
-                <tr>
-                 <th style="border:unset;" colspan="4">Measurements of RCD parameters</th>
-               </tr>
-                <tr>
-                 <th style="border:unset;" colspan="6">RCD tripping test and measurement of tripping time tA
-             measuring current 0.5 IΔn, 1 IΔn, 2 IΔn, 5 IΔn</th>
-               </tr>
-               <tr>
-                 <th>general and short-time delay RCD </th>
-             <td>0 ms...300 ms</td>
-                 <td>0 ms...300 ms</td>
-                 <td>1 ms </td>
-                 <td>±(2% m.v. + 2 digits)</td>  </tr>
-                <tr>
-                 <th>selective RCD </th>
-             <td>0 ms...500 ms </td>
-                 <td>0 ms...500 ms </td>
-                 <td>1 ms </td>
-                 <td>±(2% m.v. + 2 digits)</td>  </tr>
-               <tr>
-                 <th style="border:unset;" colspan="4">Measurement of RCD tripping current I A
-             measuring current 0.2 IΔn...2.0 IΔn</th>
-               </tr>
-                <tr>
-                 <th>for sinusoidal residual current (AC type)</th>
-             <td>3.0 mA...1000 mA </td>
-                 <td>3.0 mA...1000 mA </td>
-                 <td>from 0.1 mA</td>
-                 <td>±5% IΔn</td>  </tr>
-                <tr>
-                 <th>for unidirectional residual current and
-             unidirectional with the 6 mA DC bias (type A) </th>
-             <td>3.5 mA...700 mA</td>
-                 <td>3.5 mA...700 mA</td>
-                 <td>from 0.1 mA</td>
-                 <td>±10% IΔn</td>  </tr>
-                <tr>
-                 <th>for direct residual current (type B) </th>
-             <td>2.0 mA...1000 mA</td>
-                 <td>2.0 mA...1000 mA</td>
-                 <td>from 0.1 mA</td>
-                 <td>±10% IΔn</td>  </tr>
-                <tr>
-                 <th style="border:unset;">Earth resistance</th>
-               </tr>
-                <tr>
-                 <th>3-pole method </th>
-             <td>from 0.5 Ω...1.99 kΩ
-             acc. to IEC 61557-5</td>
-                 <td>0.00 Ω...1.99 kΩ</td>
-                 <td>from 0.01 Ω </td>
-                 <td>from ±(2% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th style="border:unset;">Insulation resistance</th>
-               </tr>
-                <tr>
-                 <th>Measuring voltage 50 V </th>
-             <td>50 kΩ...250 MΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...250 MΩ</td>
-                   <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 100 V  </th>
-             <td>100 kΩ...500 MΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...500 MΩ</td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 250 V </th>
-             <td>250 kΩ...999 MΩ
-             acc. to IEC 61557-2 </td>
-                 <td>0 kΩ...999 MΩ </td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td>  
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 500 V </th>
-             <td>500 kΩ...2.00 GΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...2.00 GΩ</td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 1000 V </th>
-                 <td>1000 kΩ...3.00 GΩ
-             acc. to IEC 61557-2 </td>
-              <td>0 kΩ...3.00 GΩ</td>
-                 <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td>
-               </tr>
-                <tr>
-                 <th style="border:unset;" colspan="4">Resistance of protective conductors and equipotential bondings</th>
-               </tr>
-                <tr>
-                 <th>Measurement of resistance of protective
-             conductors and equipotential bondings with
-             ±200 mA current</th>
-             <td>0.12 Ω...400 Ω
-             acc. to IEC 61557-4 </td>
-                 <td>0.00 Ω...400 Ω</td>
-                 <td>from 0.01 Ω </td>
-                 <td>±(2% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th>Measurement of resistance with low current</th>
-             <td>0.0 Ω...1999 Ω</td>
-                 <td>0.0 Ω...1999 Ω </td>
-                 <td>from 0.1 Ω</td>
-                 <td>±(3% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th>Phase sequence indication</th>
-             <td>in the same direction (correct). </td>
-                 <td>opposite direction (incorrect). </td>
-                 <td>UL-L voltage: 95 V...</td>
-                 <td>500 V (45 Hz...65 Hz)</td>  </tr>
-                <tr>
-                 <th>Power measurement</th>
-                  <td>0.0 VA...200 000 
-                  VA 0.0 W...200 000 W
-                 0.0 var...200 000 var</td>
-                 <td>0.0 VA...200 000 VA
-             0.0 W...200 000 W
-             0.0 var...200 000 var</td>
-                 <td>from 0.1 VA
-             from 0.1 W
-             from 0.1 var</td>
-                 <td>from ±(7% m.v. + 3
-             digits)</td>  </tr>
-             </table>
-             <table class="meterTable" style="width:100%" *ngIf="value=='WMGBMPI530IT'">
-              <tr>
-                 <th>Measurement functions </th>
-                 <th>Measurement range</th>
-                 <th>Display range</th>
-                 <th>Resolutione</th>
-                 <th>Accuracy±(% m.v. + digits)</th>
-               </tr>
-                <tr>
-                 <th style="border:unset;">Fault loop impedance</th>
-               </tr>
-               <tr>
-                 <th>Fault loop ZL-PE , ZL-N, ZL-L</th>
-                 <td>0.13 Ω...1999 Ω
-                  acc. to IEC 61557 </td>
-                 <td>0.00 Ω...1999 Ω </td>
-                 <td>from 0.01 Ω</td>
-                 <td>±(5% m.v. + 3 digits)</td>
-               </tr>
-               <tr>
-                 <th>Fault loop ZL-PE in RCD mode</th>
-             <td>from 0.50 Ω...1999 Ω
-             acc. to IEC 61557</td>
-                 <td>0.00 Ω...1999 Ω </td>
-                 <td>from 0.01 Ω</td>
-                 <td>from ±(6% m.v. + 5 digits)</td>  </tr>
-                <tr>
-                 <th style="border:unset;" colspan="4">Measurements of RCD parameters</th>
-               </tr>
-                <tr>
-                 <th style="border:unset;" colspan="6">RCD tripping test and measurement of tripping time tA
-             measuring current 0.5 IΔn, 1 IΔn, 2 IΔn, 5 IΔn</th>
-               </tr>
-               <tr>
-                 <th>general and short-time delay RCD </th>
-             <td>0 ms...300 ms</td>
-                 <td>0 ms...300 ms</td>
-                 <td>1 ms </td>
-                 <td>±(2% m.v. + 2 digits)</td>  </tr>
-                <tr>
-                 <th>selective RCD </th>
-             <td>0 ms...500 ms </td>
-                 <td>0 ms...500 ms </td>
-                 <td>1 ms </td>
-                 <td>±(2% m.v. + 2 digits)</td>  </tr>
-               <tr>
-                 <th style="border:unset;" colspan="4">Measurement of RCD tripping current I A
-             measuring current 0.2 IΔn...2.0 IΔn</th>
-               </tr>
-                <tr>
-                 <th>for sinusoidal residual current (AC type)</th>
-             <td>3.0 mA...1000 mA </td>
-                 <td>3.0 mA...1000 mA </td>
-                 <td>from 0.1 mA</td>
-                 <td>±5% IΔn</td>  </tr>
-                <tr>
-                 <th>for unidirectional residual current and
-             unidirectional with the 6 mA DC bias (type A) </th>
-             <td>3.5 mA...700 mA</td>
-                 <td>3.5 mA...700 mA</td>
-                 <td>from 0.1 mA</td>
-                 <td>±10% IΔn</td>  </tr>
-                <tr>
-                 <th>for direct residual current (type B) </th>
-             <td>2.0 mA...1000 mA</td>
-                 <td>2.0 mA...1000 mA</td>
-                 <td>from 0.1 mA</td>
-                 <td>±10% IΔn</td>  </tr>
-                <tr>
-                 <th style="border:unset;">Earth resistance</th>
-               </tr>
-                <tr>
-                 <th>3-pole method </th>
-             <td>from 0.5 Ω...1.99 kΩ
-             acc. to IEC 61557-5</td>
-                 <td>0.00 Ω...1.99 kΩ</td>
-                 <td>from 0.01 Ω </td>
-                 <td>from ±(2% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th style="border:unset;">Insulation resistance</th>
-               </tr>
-                <tr>
-                 <th>Measuring voltage 50 V </th>
-             <td>50 kΩ...250 MΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...250 MΩ</td>
-                   <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 100 V  </th>
-             <td>100 kΩ...500 MΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...500 MΩ</td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 250 V </th>
-             <td>250 kΩ...999 MΩ
-             acc. to IEC 61557-2 </td>
-                 <td>0 kΩ...999 MΩ </td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td>  
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 500 V </th>
-             <td>500 kΩ...2.00 GΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...2.00 GΩ</td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 1000 V </th>
-                 <td>1000 kΩ...3.00 GΩ
-             acc. to IEC 61557-2 </td>
-              <td>0 kΩ...3.00 GΩ</td>
-                 <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td>
-               </tr>
-                <tr>
-                 <th style="border:unset;" colspan="4">Resistance of protective conductors and equipotential bondings</th>
-               </tr>
-                <tr>
-                 <th>Measurement of resistance of protective
-             conductors and equipotential bondings with
-             ±200 mA current</th>
-             <td>0.12 Ω...400 Ω
-             acc. to IEC 61557-4 </td>
-                 <td>0.00 Ω...400 Ω</td>
-                 <td>from 0.01 Ω </td>
-                 <td>±(2% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th>Measurement of resistance with low current</th>
-             <td>0.0 Ω...1999 Ω</td>
-                 <td>0.0 Ω...1999 Ω </td>
-                 <td>from 0.1 Ω</td>
-                 <td>±(3% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th>Phase sequence indication</th>
-             <td>in the same direction (correct). </td>
-                 <td>opposite direction (incorrect). </td>
-                 <td>UL-L voltage: 95 V...</td>
-                 <td>500 V (45 Hz...65 Hz)</td>  </tr>
-                <tr>
-                 <th>Power measurement</th>
-                  <td>0.0 VA...200 000 
-                  VA 0.0 W...200 000 W
-                 0.0 var...200 000 var</td>
-                 <td>0.0 VA...200 000 VA
-             0.0 W...200 000 W
-             0.0 var...200 000 var</td>
-                 <td>from 0.1 VA
-             from 0.1 W
-             from 0.1 var</td>
-                 <td>from ±(7% m.v. + 3
-             digits)</td>  </tr>
-             </table>
              <table class="meterTable" style="width:100%" *ngIf="value=='WMGBMPI535'">
               <tr>
                  <th>Measurement functions </th>
@@ -2792,331 +3300,1128 @@
                  <td>500 V (45 Hz...65 Hz)</td>  
                 </tr>
                
-             </table>
-             <table class="meterTable" style="width:100%" *ngIf="value=='WMGBMPI540PV'">
-              <tr>
-                 <th>Measurement functions </th>
-                 <th>Measurement range</th>
-                 <th>Display range</th>
-                 <th>Resolutione</th>
-                 <th>Accuracy±(% m.v. + digits)</th>
-               </tr>
-                <tr>
-                 <th style="border:unset;">Fault loop impedance</th>
-               </tr>
-               <tr>
-                 <th>Fault loop ZL-PE , ZL-N, ZL-L</th>
-                 <td>0.13 Ω...1999 Ω
-                  acc. to IEC 61557 </td>
-                 <td>0.00 Ω...1999 Ω </td>
-                 <td>from 0.01 Ω</td>
-                 <td>±(5% m.v. + 3 digits)</td>
-               </tr>
-               <tr>
-                 <th>Fault loop ZL-PE in RCD mode</th>
-             <td>from 0.50 Ω...1999 Ω
-             acc. to IEC 61557</td>
-                 <td>0.00 Ω...1999 Ω </td>
-                 <td>from 0.01 Ω</td>
-                 <td>from ±(6% m.v. + 5 digits)</td>  </tr>
-                <tr>
-                 <th style="border:unset;" colspan="4">Measurements of RCD parameters</th>
-               </tr>
-                <tr>
-                 <th style="border:unset;" colspan="6">RCD tripping test and measurement of tripping time tA
-             measuring current 0.5 IΔn, 1 IΔn, 2 IΔn, 5 IΔn</th>
-               </tr>
-               <tr>
-                 <th>general and short-time delay RCD </th>
-             <td>0 ms...300 ms</td>
-                 <td>0 ms...300 ms</td>
-                 <td>1 ms </td>
-                 <td>±(2% m.v. + 2 digits)</td>  </tr>
-                <tr>
-                 <th>selective RCD </th>
-             <td>0 ms...500 ms </td>
-                 <td>0 ms...500 ms </td>
-                 <td>1 ms </td>
-                 <td>±(2% m.v. + 2 digits)</td>  </tr>
-               <tr>
-                 <th style="border:unset;" colspan="4">Measurement of RCD tripping current I A
-             measuring current 0.2 IΔn...2.0 IΔn</th>
-               </tr>
-                <tr>
-                 <th>for sinusoidal residual current (AC type)</th>
-             <td>3.0 mA...1000 mA </td>
-                 <td>3.0 mA...1000 mA </td>
-                 <td>from 0.1 mA</td>
-                 <td>±5% IΔn</td>  </tr>
-                <tr>
-                 <th>for unidirectional residual current and
-             unidirectional with the 6 mA DC bias (type A) </th>
-             <td>3.5 mA...700 mA</td>
-                 <td>3.5 mA...700 mA</td>
-                 <td>from 0.1 mA</td>
-                 <td>±10% IΔn</td>  </tr>
-                <tr>
-                 <th>for direct residual current (type B) </th>
-             <td>2.0 mA...1000 mA</td>
-                 <td>2.0 mA...1000 mA</td>
-                 <td>from 0.1 mA</td>
-                 <td>±10% IΔn</td>  </tr>
-                <tr>
-                 <th style="border:unset;">Earth resistance</th>
-               </tr>
-                <tr>
-                 <th>3-pole method </th>
-             <td>from 0.5 Ω...1.99 kΩ
-             acc. to IEC 61557-5</td>
-                 <td>0.00 Ω...1.99 kΩ</td>
-                 <td>from 0.01 Ω </td>
-                 <td>from ±(2% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th style="border:unset;">Insulation resistance</th>
-               </tr>
-                <tr>
-                 <th>Measuring voltage 50 V </th>
-             <td>50 kΩ...250 MΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...250 MΩ</td>
-                   <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 100 V  </th>
-             <td>100 kΩ...500 MΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...500 MΩ</td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 250 V </th>
-             <td>250 kΩ...999 MΩ
-             acc. to IEC 61557-2 </td>
-                 <td>0 kΩ...999 MΩ </td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td>  
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 500 V </th>
-             <td>500 kΩ...2.00 GΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...2.00 GΩ</td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 1000 V </th>
-                 <td>1000 kΩ...3.00 GΩ
-             acc. to IEC 61557-2 </td>
-              <td>0 kΩ...3.00 GΩ</td>
-                 <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td>
-               </tr>
-                <tr>
-                 <th style="border:unset;" colspan="4">Resistance of protective conductors and equipotential bondings</th>
-               </tr>
-                <tr>
-                 <th>Measurement of resistance of protective
-             conductors and equipotential bondings with
-             ±200 mA current</th>
-             <td>0.12 Ω...400 Ω
-             acc. to IEC 61557-4 </td>
-                 <td>0.00 Ω...400 Ω</td>
-                 <td>from 0.01 Ω </td>
-                 <td>±(2% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th>Measurement of resistance with low current</th>
-             <td>0.0 Ω...1999 Ω</td>
-                 <td>0.0 Ω...1999 Ω </td>
-                 <td>from 0.1 Ω</td>
-                 <td>±(3% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th>Phase sequence indication</th>
-             <td>in the same direction (correct). </td>
-                 <td>opposite direction (incorrect). </td>
-                 <td>UL-L voltage: 95 V...</td>
-                 <td>500 V (45 Hz...65 Hz)</td>  </tr>
-                <tr>
-                 <th>Power measurement</th>
-                  <td>0.0 VA...200 000 
-                  VA 0.0 W...200 000 W
-                 0.0 var...200 000 var</td>
-                 <td>0.0 VA...200 000 VA
-             0.0 W...200 000 W
-             0.0 var...200 000 var</td>
-                 <td>from 0.1 VA
-             from 0.1 W
-             from 0.1 var</td>
-                 <td>from ±(7% m.v. + 3
-             digits)</td>  </tr>
-             </table>
-             <table class="meterTable" style="width:100%" *ngIf="value=='WMGBEVSE01'">
-              <tr>
-                 <th>Measurement functions </th>
-                 <th>Measurement range</th>
-                 <th>Display range</th>
-                 <th>Resolutione</th>
-                 <th>Accuracy±(% m.v. + digits)</th>
-               </tr>
-                <tr>
-                 <th style="border:unset;">Fault loop impedance</th>
-               </tr>
-               <tr>
-                 <th>Fault loop ZL-PE , ZL-N, ZL-L</th>
-                 <td>0.13 Ω...1999 Ω
-                  acc. to IEC 61557 </td>
-                 <td>0.00 Ω...1999 Ω </td>
-                 <td>from 0.01 Ω</td>
-                 <td>±(5% m.v. + 3 digits)</td>
-               </tr>
-               <tr>
-                 <th>Fault loop ZL-PE in RCD mode</th>
-             <td>from 0.50 Ω...1999 Ω
-             acc. to IEC 61557</td>
-                 <td>0.00 Ω...1999 Ω </td>
-                 <td>from 0.01 Ω</td>
-                 <td>from ±(6% m.v. + 5 digits)</td>  </tr>
-                <tr>
-                 <th style="border:unset;" colspan="4">Measurements of RCD parameters</th>
-               </tr>
-                <tr>
-                 <th style="border:unset;" colspan="6">RCD tripping test and measurement of tripping time tA
-             measuring current 0.5 IΔn, 1 IΔn, 2 IΔn, 5 IΔn</th>
-               </tr>
-               <tr>
-                 <th>general and short-time delay RCD </th>
-             <td>0 ms...300 ms</td>
-                 <td>0 ms...300 ms</td>
-                 <td>1 ms </td>
-                 <td>±(2% m.v. + 2 digits)</td>  </tr>
-                <tr>
-                 <th>selective RCD </th>
-             <td>0 ms...500 ms </td>
-                 <td>0 ms...500 ms </td>
-                 <td>1 ms </td>
-                 <td>±(2% m.v. + 2 digits)</td>  </tr>
-               <tr>
-                 <th style="border:unset;" colspan="4">Measurement of RCD tripping current I A
-             measuring current 0.2 IΔn...2.0 IΔn</th>
-               </tr>
-                <tr>
-                 <th>for sinusoidal residual current (AC type)</th>
-             <td>3.0 mA...1000 mA </td>
-                 <td>3.0 mA...1000 mA </td>
-                 <td>from 0.1 mA</td>
-                 <td>±5% IΔn</td>  </tr>
-                <tr>
-                 <th>for unidirectional residual current and
-             unidirectional with the 6 mA DC bias (type A) </th>
-             <td>3.5 mA...700 mA</td>
-                 <td>3.5 mA...700 mA</td>
-                 <td>from 0.1 mA</td>
-                 <td>±10% IΔn</td>  </tr>
-                <tr>
-                 <th>for direct residual current (type B) </th>
-             <td>2.0 mA...1000 mA</td>
-                 <td>2.0 mA...1000 mA</td>
-                 <td>from 0.1 mA</td>
-                 <td>±10% IΔn</td>  </tr>
-                <tr>
-                 <th style="border:unset;">Earth resistance</th>
-               </tr>
-                <tr>
-                 <th>3-pole method </th>
-             <td>from 0.5 Ω...1.99 kΩ
-             acc. to IEC 61557-5</td>
-                 <td>0.00 Ω...1.99 kΩ</td>
-                 <td>from 0.01 Ω </td>
-                 <td>from ±(2% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th style="border:unset;">Insulation resistance</th>
-               </tr>
-                <tr>
-                 <th>Measuring voltage 50 V </th>
-             <td>50 kΩ...250 MΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...250 MΩ</td>
-                   <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 100 V  </th>
-             <td>100 kΩ...500 MΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...500 MΩ</td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 250 V </th>
-             <td>250 kΩ...999 MΩ
-             acc. to IEC 61557-2 </td>
-                 <td>0 kΩ...999 MΩ </td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td>  
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 500 V </th>
-             <td>500 kΩ...2.00 GΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...2.00 GΩ</td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 1000 V </th>
-                 <td>1000 kΩ...3.00 GΩ
-             acc. to IEC 61557-2 </td>
-              <td>0 kΩ...3.00 GΩ</td>
-                 <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td>
-               </tr>
-                <tr>
-                 <th style="border:unset;" colspan="4">Resistance of protective conductors and equipotential bondings</th>
-               </tr>
-                <tr>
-                 <th>Measurement of resistance of protective
-             conductors and equipotential bondings with
-             ±200 mA current</th>
-             <td>0.12 Ω...400 Ω
-             acc. to IEC 61557-4 </td>
-                 <td>0.00 Ω...400 Ω</td>
-                 <td>from 0.01 Ω </td>
-                 <td>±(2% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th>Measurement of resistance with low current</th>
-             <td>0.0 Ω...1999 Ω</td>
-                 <td>0.0 Ω...1999 Ω </td>
-                 <td>from 0.1 Ω</td>
-                 <td>±(3% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th>Phase sequence indication</th>
-             <td>in the same direction (correct). </td>
-                 <td>opposite direction (incorrect). </td>
-                 <td>UL-L voltage: 95 V...</td>
-                 <td>500 V (45 Hz...65 Hz)</td>  </tr>
-                <tr>
-                 <th>Power measurement</th>
-                  <td>0.0 VA...200 000 
-                  VA 0.0 W...200 000 W
-                 0.0 var...200 000 var</td>
-                 <td>0.0 VA...200 000 VA
-             0.0 W...200 000 W
-             0.0 var...200 000 var</td>
-                 <td>from 0.1 VA
-             from 0.1 W
-             from 0.1 var</td>
-                 <td>from ±(7% m.v. + 3
-             digits)</td>  </tr>
-             </table>
+             </table> -->
+            
+            
           </div>
           <!-- <div class="verticalLine"></div> -->
           <div class="column col-md-6" style="background-color:#aaaaaa4d;">
            <h2>Specifications</h2>
             <h4 style="color: #0f800c;font-weight: 600;">{{selectedMeter}}</h4>
-            <table class="meterTable" style="width:100%" *ngIf="value1=='MZC-20E S.C. Loop Impedance Meter'">
+            <table class="meterTable" style="width:100%" *ngIf="value1=='MZC-304 S.C. Loop Impedance Meter-1'">
+              <tr>
+                 <th>Measurement functions </th>
+                 <th>Measurement range</th>
+                 <th>Display range</th>
+                 <th>Resolutione</th>
+                 <th>Accuracy±(% m.v. + digits)</th>
+               </tr>
+                <tr>
+                 <th style="border:unset;">Fault loop impedance</th>
+               </tr>
+               <tr>
+                 <th>Fault loop ZL-PE , ZL-N, ZL-L</th>
+                 <td>0.13 Ω...1999 Ω
+                  acc. to IEC 61557 </td>                 
+                  <td>0.00 Ω...1999 Ω </td>
+                 <td>from 0.01 Ω</td>
+                 <td>±(5% m.v. + 3 digits)</td>
+               </tr>
+               <tr>
+                 <th>Fault loop ZL-PE in RCD mode</th>
+             <td>from 0.50 Ω...1999 Ω
+             acc. to IEC 61557</td>
+                 <td>0.00 Ω...1999 Ω </td>
+                 <td>from 0.01 Ω</td>
+                 <td>from ±(6% m.v. + 5 digits)</td>  </tr>
+                <tr>
+                 <th style="border:unset;" colspan="4">Measurements of RCD parameters</th>
+               </tr>
+                <tr>
+                 <th style="border:unset;" colspan="6">RCD tripping test and measurement of tripping time tA
+             measuring current 0.5 IΔn, 1 IΔn, 2 IΔn, 5 IΔn</th>
+               </tr>
+               <tr>
+                 <th>general and short-time delay RCD </th>
+             <td>0 ms...300 ms</td>
+                 <td>0 ms...300 ms</td>
+                 <td>1 ms </td>
+                 <td>±(2% m.v. + 2 digits)</td>  </tr>
+                <tr>
+                 <th>selective RCD </th>
+             <td>0 ms...500 ms </td>
+                 <td>0 ms...500 ms </td>
+                 <td>1 ms </td>
+                 <td>±(2% m.v. + 2 digits)</td>  </tr>
+               <tr>
+                 <th style="border:unset;" colspan="4">Measurement of RCD tripping current I A
+             measuring current 0.2 IΔn...2.0 IΔn</th>
+               </tr>
+                <tr>
+                 <th>for sinusoidal residual current (AC type)</th>
+             <td>3.0 mA...1000 mA </td>
+                 <td>3.0 mA...1000 mA </td>
+                 <td>from 0.1 mA</td>
+                 <td>±5% IΔn</td>  </tr>
+                <tr>
+                 <th>for unidirectional residual current and
+             unidirectional with the 6 mA DC bias (type A) </th>
+             <td>3.5 mA...700 mA</td>
+                 <td>3.5 mA...700 mA</td>
+                 <td>from 0.1 mA</td>
+                 <td>±10% IΔn</td>  </tr>
+                <tr>
+                 <th>for direct residual current (type B) </th>
+             <td>2.0 mA...1000 mA</td>
+                 <td>2.0 mA...1000 mA</td>
+                 <td>from 0.1 mA</td>
+                 <td>±10% IΔn</td>  </tr>
+                <tr>
+                 <th style="border:unset;">Earth resistance</th>
+               </tr>
+                <tr>
+                 <th>3-pole method </th>
+             <td>from 0.5 Ω...1.99 kΩ
+             acc. to IEC 61557-5</td>
+                 <td>0.00 Ω...1.99 kΩ</td>
+                 <td>from 0.01 Ω </td>
+                 <td>from ±(2% m.v. + 3 digits)</td>  </tr>
+                <tr>
+                 <th style="border:unset;">Insulation resistance</th>
+               </tr>
+                <tr>
+                 <th>Measuring voltage 50 V </th>
+             <td>50 kΩ...250 MΩ
+             acc. to IEC 61557-2</td>
+                 <td>0 kΩ...250 MΩ</td>
+                   <td>from 1 kΩ </td>
+                 <td>from ±(3% m.v. + 8 digits)</td> 
+                 </tr>
+                <tr>
+                 <th>Measuring voltage 100 V  </th>
+             <td>100 kΩ...500 MΩ
+             acc. to IEC 61557-2</td>
+                 <td>0 kΩ...500 MΩ</td>
+                  <td>from 1 kΩ </td>
+                 <td>from ±(3% m.v. + 8 digits)</td> 
+                 </tr>
+                <tr>
+                 <th>Measuring voltage 250 V </th>
+             <td>250 kΩ...999 MΩ
+             acc. to IEC 61557-2 </td>
+                 <td>0 kΩ...999 MΩ </td>
+                  <td>from 1 kΩ </td>
+                 <td>from ±(3% m.v. + 8 digits)</td>  
+                 </tr>
+                <tr>
+                 <th>Measuring voltage 500 V </th>
+             <td>500 kΩ...2.00 GΩ
+             acc. to IEC 61557-2</td>
+                 <td>0 kΩ...2.00 GΩ</td>
+                  <td>from 1 kΩ </td>
+                 <td>from ±(3% m.v. + 8 digits)</td> 
+                 </tr>
+                <tr>
+                 <th>Measuring voltage 1000 V </th>
+                 <td>1000 kΩ...3.00 GΩ
+             acc. to IEC 61557-2 </td>
+              <td>0 kΩ...3.00 GΩ</td>
+                 <td>from 1 kΩ </td>
+                 <td>from ±(3% m.v. + 8 digits)</td>
+               </tr>
+                <tr>
+                 <th style="border:unset;" colspan="4">Resistance of protective conductors and equipotential bondings</th>
+               </tr>
+                <tr>
+                 <th>Measurement of resistance of protective
+             conductors and equipotential bondings with
+             ±200 mA current</th>
+             <td>0.12 Ω...400 Ω
+             acc. to IEC 61557-4 </td>
+                 <td>0.00 Ω...400 Ω</td>
+                 <td>from 0.01 Ω </td>
+                 <td>±(2% m.v. + 3 digits)</td>  </tr>
+                <tr>
+                 <th>Measurement of resistance with low current</th>
+             <td>0.0 Ω...1999 Ω</td>
+                 <td>0.0 Ω...1999 Ω </td>
+                 <td>from 0.1 Ω</td>
+                 <td>±(3% m.v. + 3 digits)</td>  </tr>
+                <tr>
+                 <th>Phase sequence indication</th>
+             <td>in the same direction (correct). </td>
+                 <td>opposite direction (incorrect). </td>
+                 <td>UL-L voltage: 95 V...</td>
+                 <td>500 V (45 Hz...65 Hz)</td>  </tr>
+                <tr>
+                 <th>Power measurement</th>
+                  <td>0.0 VA...200 000 
+                  VA 0.0 W...200 000 W
+                 0.0 var...200 000 var</td>
+                 <td>0.0 VA...200 000 VA
+             0.0 W...200 000 W
+             0.0 var...200 000 var</td>
+                 <td>from 0.1 VA
+             from 0.1 W
+             from 0.1 var</td>
+                 <td>from ±(7% m.v. + 3
+             digits)</td>  </tr>
+             </table>
+             <table class="meterTable" style="width:100%" *ngIf="value1=='MZC-330S Short Circuit Loop Impedance Meter'">
+              <tr>
+                 <th>Measurement functions </th>
+                 <th>Measurement range</th>
+                 <th>Display range</th>
+                 <th>Resolutione</th>
+                 <th>Accuracy±(% m.v. + digits)</th>
+               </tr>
+                <tr>
+                 <th style="border:unset;">Fault loop impedance</th>
+               </tr>
+               <tr>
+                 <th>Fault loop ZL-PE , ZL-N, ZL-L</th>
+                 <td>0.13 Ω...1999 Ω
+                  acc. to IEC 61557 </td>
+                 <td>0.00 Ω...1999 Ω </td>
+                 <td>from 0.01 Ω</td>
+                 <td>±(5% m.v. + 3 digits)</td>
+               </tr>
+               <tr>
+                 <th>Fault loop ZL-PE in RCD mode</th>
+             <td>from 0.50 Ω...1999 Ω
+             acc. to IEC 61557</td>
+                 <td>0.00 Ω...1999 Ω </td>
+                 <td>from 0.01 Ω</td>
+                 <td>from ±(6% m.v. + 5 digits)</td>  </tr>
+                <tr>
+                 <th style="border:unset;" colspan="4">Measurements of RCD parameters</th>
+               </tr>
+                <tr>
+                 <th style="border:unset;" colspan="6">RCD tripping test and measurement of tripping time tA
+             measuring current 0.5 IΔn, 1 IΔn, 2 IΔn, 5 IΔn</th>
+               </tr>
+               <tr>
+                 <th>general and short-time delay RCD </th>
+             <td>0 ms...300 ms</td>
+                 <td>0 ms...300 ms</td>
+                 <td>1 ms </td>
+                 <td>±(2% m.v. + 2 digits)</td>  </tr>
+                <tr>
+                 <th>selective RCD </th>
+             <td>0 ms...500 ms </td>
+                 <td>0 ms...500 ms </td>
+                 <td>1 ms </td>
+                 <td>±(2% m.v. + 2 digits)</td>  </tr>
+               <tr>
+                 <th style="border:unset;" colspan="4">Measurement of RCD tripping current I A
+             measuring current 0.2 IΔn...2.0 IΔn</th>
+               </tr>
+                <tr>
+                 <th>for sinusoidal residual current (AC type)</th>
+             <td>3.0 mA...1000 mA </td>
+                 <td>3.0 mA...1000 mA </td>
+                 <td>from 0.1 mA</td>
+                 <td>±5% IΔn</td>  </tr>
+                <tr>
+                 <th>for unidirectional residual current and
+             unidirectional with the 6 mA DC bias (type A) </th>
+             <td>3.5 mA...700 mA</td>
+                 <td>3.5 mA...700 mA</td>
+                 <td>from 0.1 mA</td>
+                 <td>±10% IΔn</td>  </tr>
+                <tr>
+                 <th>for direct residual current (type B) </th>
+             <td>2.0 mA...1000 mA</td>
+                 <td>2.0 mA...1000 mA</td>
+                 <td>from 0.1 mA</td>
+                 <td>±10% IΔn</td>  </tr>
+                <tr>
+                 <th style="border:unset;">Earth resistance</th>
+               </tr>
+                <tr>
+                 <th>3-pole method </th>
+             <td>from 0.5 Ω...1.99 kΩ
+             acc. to IEC 61557-5</td>
+                 <td>0.00 Ω...1.99 kΩ</td>
+                 <td>from 0.01 Ω </td>
+                 <td>from ±(2% m.v. + 3 digits)</td>  </tr>
+                <tr>
+                 <th style="border:unset;">Insulation resistance</th>
+               </tr>
+                <tr>
+                 <th>Measuring voltage 50 V </th>
+             <td>50 kΩ...250 MΩ
+             acc. to IEC 61557-2</td>
+                 <td>0 kΩ...250 MΩ</td>
+                   <td>from 1 kΩ </td>
+                 <td>from ±(3% m.v. + 8 digits)</td> 
+                 </tr>
+                <tr>
+                 <th>Measuring voltage 100 V  </th>
+             <td>100 kΩ...500 MΩ
+             acc. to IEC 61557-2</td>
+                 <td>0 kΩ...500 MΩ</td>
+                  <td>from 1 kΩ </td>
+                 <td>from ±(3% m.v. + 8 digits)</td> 
+                 </tr>
+                <tr>
+                 <th>Measuring voltage 250 V </th>
+             <td>250 kΩ...999 MΩ
+             acc. to IEC 61557-2 </td>
+                 <td>0 kΩ...999 MΩ </td>
+                  <td>from 1 kΩ </td>
+                 <td>from ±(3% m.v. + 8 digits)</td>  
+                 </tr>
+                <tr>
+                 <th>Measuring voltage 500 V </th>
+             <td>500 kΩ...2.00 GΩ
+             acc. to IEC 61557-2</td>
+                 <td>0 kΩ...2.00 GΩ</td>
+                  <td>from 1 kΩ </td>
+                 <td>from ±(3% m.v. + 8 digits)</td> 
+                 </tr>
+                <tr>
+                 <th>Measuring voltage 1000 V </th>
+                 <td>1000 kΩ...3.00 GΩ
+             acc. to IEC 61557-2 </td>
+              <td>0 kΩ...3.00 GΩ</td>
+                 <td>from 1 kΩ </td>
+                 <td>from ±(3% m.v. + 8 digits)</td>
+               </tr>
+                <tr>
+                 <th style="border:unset;" colspan="4">Resistance of protective conductors and equipotential bondings</th>
+               </tr>
+                <tr>
+                 <th>Measurement of resistance of protective
+             conductors and equipotential bondings with
+             ±200 mA current</th>
+             <td>0.12 Ω...400 Ω
+             acc. to IEC 61557-4 </td>
+                 <td>0.00 Ω...400 Ω</td>
+                 <td>from 0.01 Ω </td>
+                 <td>±(2% m.v. + 3 digits)</td>  </tr>
+                <tr>
+                 <th>Measurement of resistance with low current</th>
+             <td>0.0 Ω...1999 Ω</td>
+                 <td>0.0 Ω...1999 Ω </td>
+                 <td>from 0.1 Ω</td>
+                 <td>±(3% m.v. + 3 digits)</td>  </tr>
+                <tr>
+                 <th>Phase sequence indication</th>
+             <td>in the same direction (correct). </td>
+                 <td>opposite direction (incorrect). </td>
+                 <td>UL-L voltage: 95 V...</td>
+                 <td>500 V (45 Hz...65 Hz)</td>  </tr>
+                <tr>
+                 <th>Power measurement</th>
+                  <td>0.0 VA...200 000 
+                  VA 0.0 W...200 000 W
+                 0.0 var...200 000 var</td>
+                 <td>0.0 VA...200 000 VA
+             0.0 W...200 000 W
+             0.0 var...200 000 var</td>
+                 <td>from 0.1 VA
+             from 0.1 W
+             from 0.1 var</td>
+                 <td>from ±(7% m.v. + 3
+             digits)</td>  </tr>
+             </table>
+             <table class="meterTable" style="width:100%" *ngIf="value1=='MRP-201 RCD Tester'">
+              <tr>
+                 <th>Measurement functions </th>
+                 <th>Measurement range</th>
+                 <th>Display range</th>
+                 <th>Resolutione</th>
+                 <th>Accuracy±(% m.v. + digits)</th>
+               </tr>
+                <tr>
+                 <th style="border:unset;">Fault loop impedance</th>
+               </tr>
+               <tr>
+                 <th>Fault loop ZL-PE , ZL-N, ZL-L</th>
+                 <td>0.13 Ω...1999 Ω
+                  acc. to IEC 61557 </td>
+                 <td>0.00 Ω...1999 Ω </td>
+                 <td>from 0.01 Ω</td>
+                 <td>±(5% m.v. + 3 digits)</td>
+               </tr>
+               <tr>
+                 <th>Fault loop ZL-PE in RCD mode</th>
+             <td>from 0.50 Ω...1999 Ω
+             acc. to IEC 61557</td>
+                 <td>0.00 Ω...1999 Ω </td>
+                 <td>from 0.01 Ω</td>
+                 <td>from ±(6% m.v. + 5 digits)</td>  </tr>
+                <tr>
+                 <th style="border:unset;" colspan="4">Measurements of RCD parameters</th>
+               </tr>
+                <tr>
+                 <th style="border:unset;" colspan="6">RCD tripping test and measurement of tripping time tA
+             measuring current 0.5 IΔn, 1 IΔn, 2 IΔn, 5 IΔn</th>
+               </tr>
+               <tr>
+                 <th>general and short-time delay RCD </th>
+             <td>0 ms...300 ms</td>
+                 <td>0 ms...300 ms</td>
+                 <td>1 ms </td>
+                 <td>±(2% m.v. + 2 digits)</td>  </tr>
+                <tr>
+                 <th>selective RCD </th>
+             <td>0 ms...500 ms </td>
+                 <td>0 ms...500 ms </td>
+                 <td>1 ms </td>
+                 <td>±(2% m.v. + 2 digits)</td>  </tr>
+               <tr>
+                 <th style="border:unset;" colspan="4">Measurement of RCD tripping current I A
+             measuring current 0.2 IΔn...2.0 IΔn</th>
+               </tr>
+                <tr>
+                 <th>for sinusoidal residual current (AC type)</th>
+             <td>3.0 mA...1000 mA </td>
+                 <td>3.0 mA...1000 mA </td>
+                 <td>from 0.1 mA</td>
+                 <td>±5% IΔn</td>  </tr>
+                <tr>
+                 <th>for unidirectional residual current and
+             unidirectional with the 6 mA DC bias (type A) </th>
+             <td>3.5 mA...700 mA</td>
+                 <td>3.5 mA...700 mA</td>
+                 <td>from 0.1 mA</td>
+                 <td>±10% IΔn</td>  </tr>
+                <tr>
+                 <th>for direct residual current (type B) </th>
+             <td>2.0 mA...1000 mA</td>
+                 <td>2.0 mA...1000 mA</td>
+                 <td>from 0.1 mA</td>
+                 <td>±10% IΔn</td>  </tr>
+                <tr>
+                 <th style="border:unset;">Earth resistance</th>
+               </tr>
+                <tr>
+                 <th>3-pole method </th>
+             <td>from 0.5 Ω...1.99 kΩ
+             acc. to IEC 61557-5</td>
+                 <td>0.00 Ω...1.99 kΩ</td>
+                 <td>from 0.01 Ω </td>
+                 <td>from ±(2% m.v. + 3 digits)</td>  </tr>
+                <tr>
+                 <th style="border:unset;">Insulation resistance</th>
+               </tr>
+                <tr>
+                 <th>Measuring voltage 50 V </th>
+             <td>50 kΩ...250 MΩ
+             acc. to IEC 61557-2</td>
+                 <td>0 kΩ...250 MΩ</td>
+                   <td>from 1 kΩ </td>
+                 <td>from ±(3% m.v. + 8 digits)</td> 
+                 </tr>
+                <tr>
+                 <th>Measuring voltage 100 V  </th>
+             <td>100 kΩ...500 MΩ
+             acc. to IEC 61557-2</td>
+                 <td>0 kΩ...500 MΩ</td>
+                  <td>from 1 kΩ </td>
+                 <td>from ±(3% m.v. + 8 digits)</td> 
+                 </tr>
+                <tr>
+                 <th>Measuring voltage 250 V </th>
+             <td>250 kΩ...999 MΩ
+             acc. to IEC 61557-2 </td>
+                 <td>0 kΩ...999 MΩ </td>
+                  <td>from 1 kΩ </td>
+                 <td>from ±(3% m.v. + 8 digits)</td>  
+                 </tr>
+                <tr>
+                 <th>Measuring voltage 500 V </th>
+             <td>500 kΩ...2.00 GΩ
+             acc. to IEC 61557-2</td>
+                 <td>0 kΩ...2.00 GΩ</td>
+                  <td>from 1 kΩ </td>
+                 <td>from ±(3% m.v. + 8 digits)</td> 
+                 </tr>
+                <tr>
+                 <th>Measuring voltage 1000 V </th>
+                 <td>1000 kΩ...3.00 GΩ
+             acc. to IEC 61557-2 </td>
+              <td>0 kΩ...3.00 GΩ</td>
+                 <td>from 1 kΩ </td>
+                 <td>from ±(3% m.v. + 8 digits)</td>
+               </tr>
+                <tr>
+                 <th style="border:unset;" colspan="4">Resistance of protective conductors and equipotential bondings</th>
+               </tr>
+                <tr>
+                 <th>Measurement of resistance of protective
+             conductors and equipotential bondings with
+             ±200 mA current</th>
+             <td>0.12 Ω...400 Ω
+             acc. to IEC 61557-4 </td>
+                 <td>0.00 Ω...400 Ω</td>
+                 <td>from 0.01 Ω </td>
+                 <td>±(2% m.v. + 3 digits)</td>  </tr>
+                <tr>
+                 <th>Measurement of resistance with low current</th>
+             <td>0.0 Ω...1999 Ω</td>
+                 <td>0.0 Ω...1999 Ω </td>
+                 <td>from 0.1 Ω</td>
+                 <td>±(3% m.v. + 3 digits)</td>  </tr>
+                <tr>
+                 <th>Phase sequence indication</th>
+             <td>in the same direction (correct). </td>
+                 <td>opposite direction (incorrect). </td>
+                 <td>UL-L voltage: 95 V...</td>
+                 <td>500 V (45 Hz...65 Hz)</td>  </tr>
+                <tr>
+                 <th>Power measurement</th>
+                  <td>0.0 VA...200 000 
+                  VA 0.0 W...200 000 W
+                 0.0 var...200 000 var</td>
+                 <td>0.0 VA...200 000 VA
+             0.0 W...200 000 W
+             0.0 var...200 000 var</td>
+                 <td>from 0.1 VA
+             from 0.1 W
+             from 0.1 var</td>
+                 <td>from ±(7% m.v. + 3
+             digits)</td>  </tr>
+             </table>
+             <table class="meterTable" style="width:100%" *ngIf="value1=='MPI-530 Multi-function Meter'">
+              <tr>
+                 <th>Measurement functions </th>
+                 <th>Measurement range</th>
+                 <th>Display range</th>
+                 <th>Resolutione</th>
+                 <th>Accuracy±(% m.v. + digits)</th>
+               </tr>
+                <tr>
+                 <th style="border:unset;">Fault loop impedance</th>
+               </tr>
+               <tr>
+                 <th>Fault loop ZL-PE , ZL-N, ZL-L</th>
+                 <td>0.13 Ω...1999 Ω
+                  acc. to IEC 61557 </td>
+                 <td>0.00 Ω...1999 Ω </td>
+                 <td>from 0.01 Ω</td>
+                 <td>±(5% m.v. + 3 digits)</td>
+               </tr>
+               <tr>
+                 <th>Fault loop ZL-PE in RCD mode</th>
+             <td>from 0.50 Ω...1999 Ω
+             acc. to IEC 61557</td>
+                 <td>0.00 Ω...1999 Ω </td>
+                 <td>from 0.01 Ω</td>
+                 <td>from ±(6% m.v. + 5 digits)</td>  </tr>
+                <tr>
+                 <th style="border:unset;" colspan="4">Measurements of RCD parameters</th>
+               </tr>
+                <tr>
+                 <th style="border:unset;" colspan="6">RCD tripping test and measurement of tripping time tA
+             measuring current 0.5 IΔn, 1 IΔn, 2 IΔn, 5 IΔn</th>
+               </tr>
+               <tr>
+                 <th>general and short-time delay RCD </th>
+             <td>0 ms...300 ms</td>
+                 <td>0 ms...300 ms</td>
+                 <td>1 ms </td>
+                 <td>±(2% m.v. + 2 digits)</td>  </tr>
+                <tr>
+                 <th>selective RCD </th>
+             <td>0 ms...500 ms </td>
+                 <td>0 ms...500 ms </td>
+                 <td>1 ms </td>
+                 <td>±(2% m.v. + 2 digits)</td>  </tr>
+               <tr>
+                 <th style="border:unset;" colspan="4">Measurement of RCD tripping current I A
+             measuring current 0.2 IΔn...2.0 IΔn</th>
+               </tr>
+                <tr>
+                 <th>for sinusoidal residual current (AC type)</th>
+             <td>3.0 mA...1000 mA </td>
+                 <td>3.0 mA...1000 mA </td>
+                 <td>from 0.1 mA</td>
+                 <td>±5% IΔn</td>  </tr>
+                <tr>
+                 <th>for unidirectional residual current and
+             unidirectional with the 6 mA DC bias (type A) </th>
+             <td>3.5 mA...700 mA</td>
+                 <td>3.5 mA...700 mA</td>
+                 <td>from 0.1 mA</td>
+                 <td>±10% IΔn</td>  </tr>
+                <tr>
+                 <th>for direct residual current (type B) </th>
+             <td>2.0 mA...1000 mA</td>
+                 <td>2.0 mA...1000 mA</td>
+                 <td>from 0.1 mA</td>
+                 <td>±10% IΔn</td>  </tr>
+                <tr>
+                 <th style="border:unset;">Earth resistance</th>
+               </tr>
+                <tr>
+                 <th>3-pole method </th>
+             <td>from 0.5 Ω...1.99 kΩ
+             acc. to IEC 61557-5</td>
+                 <td>0.00 Ω...1.99 kΩ</td>
+                 <td>from 0.01 Ω </td>
+                 <td>from ±(2% m.v. + 3 digits)</td>  </tr>
+                <tr>
+                 <th style="border:unset;">Insulation resistance</th>
+               </tr>
+                <tr>
+                 <th>Measuring voltage 50 V </th>
+             <td>50 kΩ...250 MΩ
+             acc. to IEC 61557-2</td>
+                 <td>0 kΩ...250 MΩ</td>
+                   <td>from 1 kΩ </td>
+                 <td>from ±(3% m.v. + 8 digits)</td> 
+                 </tr>
+                <tr>
+                 <th>Measuring voltage 100 V  </th>
+             <td>100 kΩ...500 MΩ
+             acc. to IEC 61557-2</td>
+                 <td>0 kΩ...500 MΩ</td>
+                  <td>from 1 kΩ </td>
+                 <td>from ±(3% m.v. + 8 digits)</td> 
+                 </tr>
+                <tr>
+                 <th>Measuring voltage 250 V </th>
+             <td>250 kΩ...999 MΩ
+             acc. to IEC 61557-2 </td>
+                 <td>0 kΩ...999 MΩ </td>
+                  <td>from 1 kΩ </td>
+                 <td>from ±(3% m.v. + 8 digits)</td>  
+                 </tr>
+                <tr>
+                 <th>Measuring voltage 500 V </th>
+             <td>500 kΩ...2.00 GΩ
+             acc. to IEC 61557-2</td>
+                 <td>0 kΩ...2.00 GΩ</td>
+                  <td>from 1 kΩ </td>
+                 <td>from ±(3% m.v. + 8 digits)</td> 
+                 </tr>
+                <tr>
+                 <th>Measuring voltage 1000 V </th>
+                 <td>1000 kΩ...3.00 GΩ
+             acc. to IEC 61557-2 </td>
+              <td>0 kΩ...3.00 GΩ</td>
+                 <td>from 1 kΩ </td>
+                 <td>from ±(3% m.v. + 8 digits)</td>
+               </tr>
+                <tr>
+                 <th style="border:unset;" colspan="4">Resistance of protective conductors and equipotential bondings</th>
+               </tr>
+                <tr>
+                 <th>Measurement of resistance of protective
+             conductors and equipotential bondings with
+             ±200 mA current</th>
+             <td>0.12 Ω...400 Ω
+             acc. to IEC 61557-4 </td>
+                 <td>0.00 Ω...400 Ω</td>
+                 <td>from 0.01 Ω </td>
+                 <td>±(2% m.v. + 3 digits)</td>  </tr>
+                <tr>
+                 <th>Measurement of resistance with low current</th>
+             <td>0.0 Ω...1999 Ω</td>
+                 <td>0.0 Ω...1999 Ω </td>
+                 <td>from 0.1 Ω</td>
+                 <td>±(3% m.v. + 3 digits)</td>  </tr>
+                <tr>
+                 <th>Phase sequence indication</th>
+             <td>in the same direction (correct). </td>
+                 <td>opposite direction (incorrect). </td>
+                 <td>UL-L voltage: 95 V...</td>
+                 <td>500 V (45 Hz...65 Hz)</td>  </tr>
+                <tr>
+                 <th>Power measurement</th>
+                  <td>0.0 VA...200 000 
+                  VA 0.0 W...200 000 W
+                 0.0 var...200 000 var</td>
+                 <td>0.0 VA...200 000 VA
+             0.0 W...200 000 W
+             0.0 var...200 000 var</td>
+                 <td>from 0.1 VA
+             from 0.1 W
+             from 0.1 var</td>
+                 <td>from ±(7% m.v. + 3
+             digits)</td>  </tr>
+             </table>
+             <table class="meterTable" style="width:100%" *ngIf="value1=='MPI-530-IT Multi-function Meter'">
+              <tr>
+                 <th>Measurement functions </th>
+                 <th>Measurement range</th>
+                 <th>Display range</th>
+                 <th>Resolutione</th>
+                 <th>Accuracy±(% m.v. + digits)</th>
+               </tr>
+                <tr>
+                 <th style="border:unset;">Fault loop impedance</th>
+               </tr>
+               <tr>
+                 <th>Fault loop ZL-PE , ZL-N, ZL-L</th>
+                 <td>0.13 Ω...1999 Ω
+                  acc. to IEC 61557 </td>
+                 <td>0.00 Ω...1999 Ω </td>
+                 <td>from 0.01 Ω</td>
+                 <td>±(5% m.v. + 3 digits)</td>
+               </tr>
+               <tr>
+                 <th>Fault loop ZL-PE in RCD mode</th>
+             <td>from 0.50 Ω...1999 Ω
+             acc. to IEC 61557</td>
+                 <td>0.00 Ω...1999 Ω </td>
+                 <td>from 0.01 Ω</td>
+                 <td>from ±(6% m.v. + 5 digits)</td>  </tr>
+                <tr>
+                 <th style="border:unset;" colspan="4">Measurements of RCD parameters</th>
+               </tr>
+                <tr>
+                 <th style="border:unset;" colspan="6">RCD tripping test and measurement of tripping time tA
+             measuring current 0.5 IΔn, 1 IΔn, 2 IΔn, 5 IΔn</th>
+               </tr>
+               <tr>
+                 <th>general and short-time delay RCD </th>
+             <td>0 ms...300 ms</td>
+                 <td>0 ms...300 ms</td>
+                 <td>1 ms </td>
+                 <td>±(2% m.v. + 2 digits)</td>  </tr>
+                <tr>
+                 <th>selective RCD </th>
+             <td>0 ms...500 ms </td>
+                 <td>0 ms...500 ms </td>
+                 <td>1 ms </td>
+                 <td>±(2% m.v. + 2 digits)</td>  </tr>
+               <tr>
+                 <th style="border:unset;" colspan="4">Measurement of RCD tripping current I A
+             measuring current 0.2 IΔn...2.0 IΔn</th>
+               </tr>
+                <tr>
+                 <th>for sinusoidal residual current (AC type)</th>
+             <td>3.0 mA...1000 mA </td>
+                 <td>3.0 mA...1000 mA </td>
+                 <td>from 0.1 mA</td>
+                 <td>±5% IΔn</td>  </tr>
+                <tr>
+                 <th>for unidirectional residual current and
+             unidirectional with the 6 mA DC bias (type A) </th>
+             <td>3.5 mA...700 mA</td>
+                 <td>3.5 mA...700 mA</td>
+                 <td>from 0.1 mA</td>
+                 <td>±10% IΔn</td>  </tr>
+                <tr>
+                 <th>for direct residual current (type B) </th>
+             <td>2.0 mA...1000 mA</td>
+                 <td>2.0 mA...1000 mA</td>
+                 <td>from 0.1 mA</td>
+                 <td>±10% IΔn</td>  </tr>
+                <tr>
+                 <th style="border:unset;">Earth resistance</th>
+               </tr>
+                <tr>
+                 <th>3-pole method </th>
+             <td>from 0.5 Ω...1.99 kΩ
+             acc. to IEC 61557-5</td>
+                 <td>0.00 Ω...1.99 kΩ</td>
+                 <td>from 0.01 Ω </td>
+                 <td>from ±(2% m.v. + 3 digits)</td>  </tr>
+                <tr>
+                 <th style="border:unset;">Insulation resistance</th>
+               </tr>
+                <tr>
+                 <th>Measuring voltage 50 V </th>
+             <td>50 kΩ...250 MΩ
+             acc. to IEC 61557-2</td>
+                 <td>0 kΩ...250 MΩ</td>
+                   <td>from 1 kΩ </td>
+                 <td>from ±(3% m.v. + 8 digits)</td> 
+                 </tr>
+                <tr>
+                 <th>Measuring voltage 100 V  </th>
+             <td>100 kΩ...500 MΩ
+             acc. to IEC 61557-2</td>
+                 <td>0 kΩ...500 MΩ</td>
+                  <td>from 1 kΩ </td>
+                 <td>from ±(3% m.v. + 8 digits)</td> 
+                 </tr>
+                <tr>
+                 <th>Measuring voltage 250 V </th>
+             <td>250 kΩ...999 MΩ
+             acc. to IEC 61557-2 </td>
+                 <td>0 kΩ...999 MΩ </td>
+                  <td>from 1 kΩ </td>
+                 <td>from ±(3% m.v. + 8 digits)</td>  
+                 </tr>
+                <tr>
+                 <th>Measuring voltage 500 V </th>
+             <td>500 kΩ...2.00 GΩ
+             acc. to IEC 61557-2</td>
+                 <td>0 kΩ...2.00 GΩ</td>
+                  <td>from 1 kΩ </td>
+                 <td>from ±(3% m.v. + 8 digits)</td> 
+                 </tr>
+                <tr>
+                 <th>Measuring voltage 1000 V </th>
+                 <td>1000 kΩ...3.00 GΩ
+             acc. to IEC 61557-2 </td>
+              <td>0 kΩ...3.00 GΩ</td>
+                 <td>from 1 kΩ </td>
+                 <td>from ±(3% m.v. + 8 digits)</td>
+               </tr>
+                <tr>
+                 <th style="border:unset;" colspan="4">Resistance of protective conductors and equipotential bondings</th>
+               </tr>
+                <tr>
+                 <th>Measurement of resistance of protective
+             conductors and equipotential bondings with
+             ±200 mA current</th>
+             <td>0.12 Ω...400 Ω
+             acc. to IEC 61557-4 </td>
+                 <td>0.00 Ω...400 Ω</td>
+                 <td>from 0.01 Ω </td>
+                 <td>±(2% m.v. + 3 digits)</td>  </tr>
+                <tr>
+                 <th>Measurement of resistance with low current</th>
+             <td>0.0 Ω...1999 Ω</td>
+                 <td>0.0 Ω...1999 Ω </td>
+                 <td>from 0.1 Ω</td>
+                 <td>±(3% m.v. + 3 digits)</td>  </tr>
+                <tr>
+                 <th>Phase sequence indication</th>
+             <td>in the same direction (correct). </td>
+                 <td>opposite direction (incorrect). </td>
+                 <td>UL-L voltage: 95 V...</td>
+                 <td>500 V (45 Hz...65 Hz)</td>  </tr>
+                <tr>
+                 <th>Power measurement</th>
+                  <td>0.0 VA...200 000 
+                  VA 0.0 W...200 000 W
+                 0.0 var...200 000 var</td>
+                 <td>0.0 VA...200 000 VA
+             0.0 W...200 000 W
+             0.0 var...200 000 var</td>
+                 <td>from 0.1 VA
+             from 0.1 W
+             from 0.1 var</td>
+                 <td>from ±(7% m.v. + 3
+             digits)</td>  </tr>
+             </table>
+             <table class="meterTable" style="width:100%" *ngIf="value1=='MPI-540 PV Multi-function Meter-1'">
+              <tr>
+                 <th>Measurement functions </th>
+                 <th>Measurement range</th>
+                 <th>Display range</th>
+                 <th>Resolutione</th>
+                 <th>Accuracy±(% m.v. + digits)</th>
+               </tr>
+                <tr>
+                 <th style="border:unset;">Fault loop impedance</th>
+               </tr>
+               <tr>
+                 <th>Fault loop ZL-PE , ZL-N, ZL-L</th>
+                 <td>0.13 Ω...1999 Ω
+                  acc. to IEC 61557 </td>
+                 <td>0.00 Ω...1999 Ω </td>
+                 <td>from 0.01 Ω</td>
+                 <td>±(5% m.v. + 3 digits)</td>
+               </tr>
+               <tr>
+                 <th>Fault loop ZL-PE in RCD mode</th>
+             <td>from 0.50 Ω...1999 Ω
+             acc. to IEC 61557</td>
+                 <td>0.00 Ω...1999 Ω </td>
+                 <td>from 0.01 Ω</td>
+                 <td>from ±(6% m.v. + 5 digits)</td>  </tr>
+                <tr>
+                 <th style="border:unset;" colspan="4">Measurements of RCD parameters</th>
+               </tr>
+                <tr>
+                 <th style="border:unset;" colspan="6">RCD tripping test and measurement of tripping time tA
+             measuring current 0.5 IΔn, 1 IΔn, 2 IΔn, 5 IΔn</th>
+               </tr>
+               <tr>
+                 <th>general and short-time delay RCD </th>
+             <td>0 ms...300 ms</td>
+                 <td>0 ms...300 ms</td>
+                 <td>1 ms </td>
+                 <td>±(2% m.v. + 2 digits)</td>  </tr>
+                <tr>
+                 <th>selective RCD </th>
+             <td>0 ms...500 ms </td>
+                 <td>0 ms...500 ms </td>
+                 <td>1 ms </td>
+                 <td>±(2% m.v. + 2 digits)</td>  </tr>
+               <tr>
+                 <th style="border:unset;" colspan="4">Measurement of RCD tripping current I A
+             measuring current 0.2 IΔn...2.0 IΔn</th>
+               </tr>
+                <tr>
+                 <th>for sinusoidal residual current (AC type)</th>
+             <td>3.0 mA...1000 mA </td>
+                 <td>3.0 mA...1000 mA </td>
+                 <td>from 0.1 mA</td>
+                 <td>±5% IΔn</td>  </tr>
+                <tr>
+                 <th>for unidirectional residual current and
+             unidirectional with the 6 mA DC bias (type A) </th>
+             <td>3.5 mA...700 mA</td>
+                 <td>3.5 mA...700 mA</td>
+                 <td>from 0.1 mA</td>
+                 <td>±10% IΔn</td>  </tr>
+                <tr>
+                 <th>for direct residual current (type B) </th>
+             <td>2.0 mA...1000 mA</td>
+                 <td>2.0 mA...1000 mA</td>
+                 <td>from 0.1 mA</td>
+                 <td>±10% IΔn</td>  </tr>
+                <tr>
+                 <th style="border:unset;">Earth resistance</th>
+               </tr>
+                <tr>
+                 <th>3-pole method </th>
+             <td>from 0.5 Ω...1.99 kΩ
+             acc. to IEC 61557-5</td>
+                 <td>0.00 Ω...1.99 kΩ</td>
+                 <td>from 0.01 Ω </td>
+                 <td>from ±(2% m.v. + 3 digits)</td>  </tr>
+                <tr>
+                 <th style="border:unset;">Insulation resistance</th>
+               </tr>
+                <tr>
+                 <th>Measuring voltage 50 V </th>
+             <td>50 kΩ...250 MΩ
+             acc. to IEC 61557-2</td>
+                 <td>0 kΩ...250 MΩ</td>
+                   <td>from 1 kΩ </td>
+                 <td>from ±(3% m.v. + 8 digits)</td> 
+                 </tr>
+                <tr>
+                 <th>Measuring voltage 100 V  </th>
+             <td>100 kΩ...500 MΩ
+             acc. to IEC 61557-2</td>
+                 <td>0 kΩ...500 MΩ</td>
+                  <td>from 1 kΩ </td>
+                 <td>from ±(3% m.v. + 8 digits)</td> 
+                 </tr>
+                <tr>
+                 <th>Measuring voltage 250 V </th>
+             <td>250 kΩ...999 MΩ
+             acc. to IEC 61557-2 </td>
+                 <td>0 kΩ...999 MΩ </td>
+                  <td>from 1 kΩ </td>
+                 <td>from ±(3% m.v. + 8 digits)</td>  
+                 </tr>
+                <tr>
+                 <th>Measuring voltage 500 V </th>
+             <td>500 kΩ...2.00 GΩ
+             acc. to IEC 61557-2</td>
+                 <td>0 kΩ...2.00 GΩ</td>
+                  <td>from 1 kΩ </td>
+                 <td>from ±(3% m.v. + 8 digits)</td> 
+                 </tr>
+                <tr>
+                 <th>Measuring voltage 1000 V </th>
+                 <td>1000 kΩ...3.00 GΩ
+             acc. to IEC 61557-2 </td>
+              <td>0 kΩ...3.00 GΩ</td>
+                 <td>from 1 kΩ </td>
+                 <td>from ±(3% m.v. + 8 digits)</td>
+               </tr>
+                <tr>
+                 <th style="border:unset;" colspan="4">Resistance of protective conductors and equipotential bondings</th>
+               </tr>
+                <tr>
+                 <th>Measurement of resistance of protective
+             conductors and equipotential bondings with
+             ±200 mA current</th>
+             <td>0.12 Ω...400 Ω
+             acc. to IEC 61557-4 </td>
+                 <td>0.00 Ω...400 Ω</td>
+                 <td>from 0.01 Ω </td>
+                 <td>±(2% m.v. + 3 digits)</td>  </tr>
+                <tr>
+                 <th>Measurement of resistance with low current</th>
+             <td>0.0 Ω...1999 Ω</td>
+                 <td>0.0 Ω...1999 Ω </td>
+                 <td>from 0.1 Ω</td>
+                 <td>±(3% m.v. + 3 digits)</td>  </tr>
+                <tr>
+                 <th>Phase sequence indication</th>
+             <td>in the same direction (correct). </td>
+                 <td>opposite direction (incorrect). </td>
+                 <td>UL-L voltage: 95 V...</td>
+                 <td>500 V (45 Hz...65 Hz)</td>  </tr>
+                <tr>
+                 <th>Power measurement</th>
+                  <td>0.0 VA...200 000 
+                  VA 0.0 W...200 000 W
+                 0.0 var...200 000 var</td>
+                 <td>0.0 VA...200 000 VA
+             0.0 W...200 000 W
+             0.0 var...200 000 var</td>
+                 <td>from 0.1 VA
+             from 0.1 W
+             from 0.1 var</td>
+                 <td>from ±(7% m.v. + 3
+             digits)</td>  </tr>
+             </table>
+             <table class="meterTable" style="width:100%" *ngIf="value1=='EVSE-01 Adapter for testing vehicle charging stations'">
+              <tr>
+                 <th>Measurement functions </th>
+                 <th>Measurement range</th>
+                 <th>Display range</th>
+                 <th>Resolutione</th>
+                 <th>Accuracy±(% m.v. + digits)</th>
+               </tr>
+                <tr>
+                 <th style="border:unset;">Fault loop impedance</th>
+               </tr>
+               <tr>
+                 <th>Fault loop ZL-PE , ZL-N, ZL-L</th>
+                 <td>0.13 Ω...1999 Ω
+                  acc. to IEC 61557 </td>
+                 <td>0.00 Ω...1999 Ω </td>
+                 <td>from 0.01 Ω</td>
+                 <td>±(5% m.v. + 3 digits)</td>
+               </tr>
+               <tr>
+                 <th>Fault loop ZL-PE in RCD mode</th>
+             <td>from 0.50 Ω...1999 Ω
+             acc. to IEC 61557</td>
+                 <td>0.00 Ω...1999 Ω </td>
+                 <td>from 0.01 Ω</td>
+                 <td>from ±(6% m.v. + 5 digits)</td>  </tr>
+                <tr>
+                 <th style="border:unset;" colspan="4">Measurements of RCD parameters</th>
+               </tr>
+                <tr>
+                 <th style="border:unset;" colspan="6">RCD tripping test and measurement of tripping time tA
+             measuring current 0.5 IΔn, 1 IΔn, 2 IΔn, 5 IΔn</th>
+               </tr>
+               <tr>
+                 <th>general and short-time delay RCD </th>
+             <td>0 ms...300 ms</td>
+                 <td>0 ms...300 ms</td>
+                 <td>1 ms </td>
+                 <td>±(2% m.v. + 2 digits)</td>  </tr>
+                <tr>
+                 <th>selective RCD </th>
+             <td>0 ms...500 ms </td>
+                 <td>0 ms...500 ms </td>
+                 <td>1 ms </td>
+                 <td>±(2% m.v. + 2 digits)</td>  </tr>
+               <tr>
+                 <th style="border:unset;" colspan="4">Measurement of RCD tripping current I A
+             measuring current 0.2 IΔn...2.0 IΔn</th>
+               </tr>
+                <tr>
+                 <th>for sinusoidal residual current (AC type)</th>
+             <td>3.0 mA...1000 mA </td>
+                 <td>3.0 mA...1000 mA </td>
+                 <td>from 0.1 mA</td>
+                 <td>±5% IΔn</td>  </tr>
+                <tr>
+                 <th>for unidirectional residual current and
+             unidirectional with the 6 mA DC bias (type A) </th>
+             <td>3.5 mA...700 mA</td>
+                 <td>3.5 mA...700 mA</td>
+                 <td>from 0.1 mA</td>
+                 <td>±10% IΔn</td>  </tr>
+                <tr>
+                 <th>for direct residual current (type B) </th>
+             <td>2.0 mA...1000 mA</td>
+                 <td>2.0 mA...1000 mA</td>
+                 <td>from 0.1 mA</td>
+                 <td>±10% IΔn</td>  </tr>
+                <tr>
+                 <th style="border:unset;">Earth resistance</th>
+               </tr>
+                <tr>
+                 <th>3-pole method </th>
+             <td>from 0.5 Ω...1.99 kΩ
+             acc. to IEC 61557-5</td>
+                 <td>0.00 Ω...1.99 kΩ</td>
+                 <td>from 0.01 Ω </td>
+                 <td>from ±(2% m.v. + 3 digits)</td>  </tr>
+                <tr>
+                 <th style="border:unset;">Insulation resistance</th>
+               </tr>
+                <tr>
+                 <th>Measuring voltage 50 V </th>
+             <td>50 kΩ...250 MΩ
+             acc. to IEC 61557-2</td>
+                 <td>0 kΩ...250 MΩ</td>
+                   <td>from 1 kΩ </td>
+                 <td>from ±(3% m.v. + 8 digits)</td> 
+                 </tr>
+                <tr>
+                 <th>Measuring voltage 100 V  </th>
+             <td>100 kΩ...500 MΩ
+             acc. to IEC 61557-2</td>
+                 <td>0 kΩ...500 MΩ</td>
+                  <td>from 1 kΩ </td>
+                 <td>from ±(3% m.v. + 8 digits)</td> 
+                 </tr>
+                <tr>
+                 <th>Measuring voltage 250 V </th>
+             <td>250 kΩ...999 MΩ
+             acc. to IEC 61557-2 </td>
+                 <td>0 kΩ...999 MΩ </td>
+                  <td>from 1 kΩ </td>
+                 <td>from ±(3% m.v. + 8 digits)</td>  
+                 </tr>
+                <tr>
+                 <th>Measuring voltage 500 V </th>
+             <td>500 kΩ...2.00 GΩ
+             acc. to IEC 61557-2</td>
+                 <td>0 kΩ...2.00 GΩ</td>
+                  <td>from 1 kΩ </td>
+                 <td>from ±(3% m.v. + 8 digits)</td> 
+                 </tr>
+                <tr>
+                 <th>Measuring voltage 1000 V </th>
+                 <td>1000 kΩ...3.00 GΩ
+             acc. to IEC 61557-2 </td>
+              <td>0 kΩ...3.00 GΩ</td>
+                 <td>from 1 kΩ </td>
+                 <td>from ±(3% m.v. + 8 digits)</td>
+               </tr>
+                <tr>
+                 <th style="border:unset;" colspan="4">Resistance of protective conductors and equipotential bondings</th>
+               </tr>
+                <tr>
+                 <th>Measurement of resistance of protective
+             conductors and equipotential bondings with
+             ±200 mA current</th>
+             <td>0.12 Ω...400 Ω
+             acc. to IEC 61557-4 </td>
+                 <td>0.00 Ω...400 Ω</td>
+                 <td>from 0.01 Ω </td>
+                 <td>±(2% m.v. + 3 digits)</td>  </tr>
+                <tr>
+                 <th>Measurement of resistance with low current</th>
+             <td>0.0 Ω...1999 Ω</td>
+                 <td>0.0 Ω...1999 Ω </td>
+                 <td>from 0.1 Ω</td>
+                 <td>±(3% m.v. + 3 digits)</td>  </tr>
+                <tr>
+                 <th>Phase sequence indication</th>
+             <td>in the same direction (correct). </td>
+                 <td>opposite direction (incorrect). </td>
+                 <td>UL-L voltage: 95 V...</td>
+                 <td>500 V (45 Hz...65 Hz)</td>  </tr>
+                <tr>
+                 <th>Power measurement</th>
+                  <td>0.0 VA...200 000 
+                  VA 0.0 W...200 000 W
+                 0.0 var...200 000 var</td>
+                 <td>0.0 VA...200 000 VA
+             0.0 W...200 000 W
+             0.0 var...200 000 var</td>
+                 <td>from 0.1 VA
+             from 0.1 W
+             from 0.1 var</td>
+                 <td>from ±(7% m.v. + 3
+             digits)</td>  </tr>
+             </table> 
+             <table class="meterTable" style="width:100%" *ngIf="value1=='PAT-820(PORTABLE APPLIANCE TESTER)'">
               <tr>
                  <th>Measurement functions </th>
                  <th>Measurement range</th>
@@ -3275,7 +4580,8 @@
                  <td>from ±(7% m.v. + 3
              digits)</td>  </tr>
              </table>
-             <table class="meterTable" style="width:100%" *ngIf="value1=='MZC-304 S.C. Loop Impedance Meter'">
+
+            <!-- <table class="meterTable" style="width:100%" *ngIf="value1=='MZC-20E S.C. Loop Impedance Meter'">
               <tr>
                  <th>Measurement functions </th>
                  <th>Measurement range</th>
@@ -3289,8 +4595,8 @@
                <tr>
                  <th>Fault loop ZL-PE , ZL-N, ZL-L</th>
                  <td>0.13 Ω...1999 Ω
-                  acc. to IEC 61557 </td>                 
-                  <td>0.00 Ω...1999 Ω </td>
+             acc. to IEC 61557 </td>
+                 <td>0.00 Ω...1999 Ω </td>
                  <td>from 0.01 Ω</td>
                  <td>±(5% m.v. + 3 digits)</td>
                </tr>
@@ -3753,324 +5059,6 @@
              digits)</td>  </tr>
              </table>
              <table class="meterTable" style="width:100%" *ngIf="value1=='MZC-320S S.C. Loop Impedance Meter'">
-              <tr>
-                 <th>Measurement functions </th>
-                 <th>Measurement range</th>
-                 <th>Display range</th>
-                 <th>Resolutione</th>
-                 <th>Accuracy±(% m.v. + digits)</th>
-               </tr>
-                <tr>
-                 <th style="border:unset;">Fault loop impedance</th>
-               </tr>
-               <tr>
-                 <th>Fault loop ZL-PE , ZL-N, ZL-L</th>
-                 <td>0.13 Ω...1999 Ω
-                  acc. to IEC 61557 </td>
-                 <td>0.00 Ω...1999 Ω </td>
-                 <td>from 0.01 Ω</td>
-                 <td>±(5% m.v. + 3 digits)</td>
-               </tr>
-               <tr>
-                 <th>Fault loop ZL-PE in RCD mode</th>
-             <td>from 0.50 Ω...1999 Ω
-             acc. to IEC 61557</td>
-                 <td>0.00 Ω...1999 Ω </td>
-                 <td>from 0.01 Ω</td>
-                 <td>from ±(6% m.v. + 5 digits)</td>  </tr>
-                <tr>
-                 <th style="border:unset;" colspan="4">Measurements of RCD parameters</th>
-               </tr>
-                <tr>
-                 <th style="border:unset;" colspan="6">RCD tripping test and measurement of tripping time tA
-             measuring current 0.5 IΔn, 1 IΔn, 2 IΔn, 5 IΔn</th>
-               </tr>
-               <tr>
-                 <th>general and short-time delay RCD </th>
-             <td>0 ms...300 ms</td>
-                 <td>0 ms...300 ms</td>
-                 <td>1 ms </td>
-                 <td>±(2% m.v. + 2 digits)</td>  </tr>
-                <tr>
-                 <th>selective RCD </th>
-             <td>0 ms...500 ms </td>
-                 <td>0 ms...500 ms </td>
-                 <td>1 ms </td>
-                 <td>±(2% m.v. + 2 digits)</td>  </tr>
-               <tr>
-                 <th style="border:unset;" colspan="4">Measurement of RCD tripping current I A
-             measuring current 0.2 IΔn...2.0 IΔn</th>
-               </tr>
-                <tr>
-                 <th>for sinusoidal residual current (AC type)</th>
-             <td>3.0 mA...1000 mA </td>
-                 <td>3.0 mA...1000 mA </td>
-                 <td>from 0.1 mA</td>
-                 <td>±5% IΔn</td>  </tr>
-                <tr>
-                 <th>for unidirectional residual current and
-             unidirectional with the 6 mA DC bias (type A) </th>
-             <td>3.5 mA...700 mA</td>
-                 <td>3.5 mA...700 mA</td>
-                 <td>from 0.1 mA</td>
-                 <td>±10% IΔn</td>  </tr>
-                <tr>
-                 <th>for direct residual current (type B) </th>
-             <td>2.0 mA...1000 mA</td>
-                 <td>2.0 mA...1000 mA</td>
-                 <td>from 0.1 mA</td>
-                 <td>±10% IΔn</td>  </tr>
-                <tr>
-                 <th style="border:unset;">Earth resistance</th>
-               </tr>
-                <tr>
-                 <th>3-pole method </th>
-             <td>from 0.5 Ω...1.99 kΩ
-             acc. to IEC 61557-5</td>
-                 <td>0.00 Ω...1.99 kΩ</td>
-                 <td>from 0.01 Ω </td>
-                 <td>from ±(2% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th style="border:unset;">Insulation resistance</th>
-               </tr>
-                <tr>
-                 <th>Measuring voltage 50 V </th>
-             <td>50 kΩ...250 MΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...250 MΩ</td>
-                   <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 100 V  </th>
-             <td>100 kΩ...500 MΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...500 MΩ</td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 250 V </th>
-             <td>250 kΩ...999 MΩ
-             acc. to IEC 61557-2 </td>
-                 <td>0 kΩ...999 MΩ </td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td>  
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 500 V </th>
-             <td>500 kΩ...2.00 GΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...2.00 GΩ</td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 1000 V </th>
-                 <td>1000 kΩ...3.00 GΩ
-             acc. to IEC 61557-2 </td>
-              <td>0 kΩ...3.00 GΩ</td>
-                 <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td>
-               </tr>
-                <tr>
-                 <th style="border:unset;" colspan="4">Resistance of protective conductors and equipotential bondings</th>
-               </tr>
-                <tr>
-                 <th>Measurement of resistance of protective
-             conductors and equipotential bondings with
-             ±200 mA current</th>
-             <td>0.12 Ω...400 Ω
-             acc. to IEC 61557-4 </td>
-                 <td>0.00 Ω...400 Ω</td>
-                 <td>from 0.01 Ω </td>
-                 <td>±(2% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th>Measurement of resistance with low current</th>
-             <td>0.0 Ω...1999 Ω</td>
-                 <td>0.0 Ω...1999 Ω </td>
-                 <td>from 0.1 Ω</td>
-                 <td>±(3% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th>Phase sequence indication</th>
-             <td>in the same direction (correct). </td>
-                 <td>opposite direction (incorrect). </td>
-                 <td>UL-L voltage: 95 V...</td>
-                 <td>500 V (45 Hz...65 Hz)</td>  </tr>
-                <tr>
-                 <th>Power measurement</th>
-                  <td>0.0 VA...200 000 
-                  VA 0.0 W...200 000 W
-                 0.0 var...200 000 var</td>
-                 <td>0.0 VA...200 000 VA
-             0.0 W...200 000 W
-             0.0 var...200 000 var</td>
-                 <td>from 0.1 VA
-             from 0.1 W
-             from 0.1 var</td>
-                 <td>from ±(7% m.v. + 3
-             digits)</td>  </tr>
-             </table>
-             <table class="meterTable" style="width:100%" *ngIf="value1=='MZC-330S Short Circuit Loop Impedance Meter'">
-              <tr>
-                 <th>Measurement functions </th>
-                 <th>Measurement range</th>
-                 <th>Display range</th>
-                 <th>Resolutione</th>
-                 <th>Accuracy±(% m.v. + digits)</th>
-               </tr>
-                <tr>
-                 <th style="border:unset;">Fault loop impedance</th>
-               </tr>
-               <tr>
-                 <th>Fault loop ZL-PE , ZL-N, ZL-L</th>
-                 <td>0.13 Ω...1999 Ω
-                  acc. to IEC 61557 </td>
-                 <td>0.00 Ω...1999 Ω </td>
-                 <td>from 0.01 Ω</td>
-                 <td>±(5% m.v. + 3 digits)</td>
-               </tr>
-               <tr>
-                 <th>Fault loop ZL-PE in RCD mode</th>
-             <td>from 0.50 Ω...1999 Ω
-             acc. to IEC 61557</td>
-                 <td>0.00 Ω...1999 Ω </td>
-                 <td>from 0.01 Ω</td>
-                 <td>from ±(6% m.v. + 5 digits)</td>  </tr>
-                <tr>
-                 <th style="border:unset;" colspan="4">Measurements of RCD parameters</th>
-               </tr>
-                <tr>
-                 <th style="border:unset;" colspan="6">RCD tripping test and measurement of tripping time tA
-             measuring current 0.5 IΔn, 1 IΔn, 2 IΔn, 5 IΔn</th>
-               </tr>
-               <tr>
-                 <th>general and short-time delay RCD </th>
-             <td>0 ms...300 ms</td>
-                 <td>0 ms...300 ms</td>
-                 <td>1 ms </td>
-                 <td>±(2% m.v. + 2 digits)</td>  </tr>
-                <tr>
-                 <th>selective RCD </th>
-             <td>0 ms...500 ms </td>
-                 <td>0 ms...500 ms </td>
-                 <td>1 ms </td>
-                 <td>±(2% m.v. + 2 digits)</td>  </tr>
-               <tr>
-                 <th style="border:unset;" colspan="4">Measurement of RCD tripping current I A
-             measuring current 0.2 IΔn...2.0 IΔn</th>
-               </tr>
-                <tr>
-                 <th>for sinusoidal residual current (AC type)</th>
-             <td>3.0 mA...1000 mA </td>
-                 <td>3.0 mA...1000 mA </td>
-                 <td>from 0.1 mA</td>
-                 <td>±5% IΔn</td>  </tr>
-                <tr>
-                 <th>for unidirectional residual current and
-             unidirectional with the 6 mA DC bias (type A) </th>
-             <td>3.5 mA...700 mA</td>
-                 <td>3.5 mA...700 mA</td>
-                 <td>from 0.1 mA</td>
-                 <td>±10% IΔn</td>  </tr>
-                <tr>
-                 <th>for direct residual current (type B) </th>
-             <td>2.0 mA...1000 mA</td>
-                 <td>2.0 mA...1000 mA</td>
-                 <td>from 0.1 mA</td>
-                 <td>±10% IΔn</td>  </tr>
-                <tr>
-                 <th style="border:unset;">Earth resistance</th>
-               </tr>
-                <tr>
-                 <th>3-pole method </th>
-             <td>from 0.5 Ω...1.99 kΩ
-             acc. to IEC 61557-5</td>
-                 <td>0.00 Ω...1.99 kΩ</td>
-                 <td>from 0.01 Ω </td>
-                 <td>from ±(2% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th style="border:unset;">Insulation resistance</th>
-               </tr>
-                <tr>
-                 <th>Measuring voltage 50 V </th>
-             <td>50 kΩ...250 MΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...250 MΩ</td>
-                   <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 100 V  </th>
-             <td>100 kΩ...500 MΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...500 MΩ</td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 250 V </th>
-             <td>250 kΩ...999 MΩ
-             acc. to IEC 61557-2 </td>
-                 <td>0 kΩ...999 MΩ </td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td>  
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 500 V </th>
-             <td>500 kΩ...2.00 GΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...2.00 GΩ</td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 1000 V </th>
-                 <td>1000 kΩ...3.00 GΩ
-             acc. to IEC 61557-2 </td>
-              <td>0 kΩ...3.00 GΩ</td>
-                 <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td>
-               </tr>
-                <tr>
-                 <th style="border:unset;" colspan="4">Resistance of protective conductors and equipotential bondings</th>
-               </tr>
-                <tr>
-                 <th>Measurement of resistance of protective
-             conductors and equipotential bondings with
-             ±200 mA current</th>
-             <td>0.12 Ω...400 Ω
-             acc. to IEC 61557-4 </td>
-                 <td>0.00 Ω...400 Ω</td>
-                 <td>from 0.01 Ω </td>
-                 <td>±(2% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th>Measurement of resistance with low current</th>
-             <td>0.0 Ω...1999 Ω</td>
-                 <td>0.0 Ω...1999 Ω </td>
-                 <td>from 0.1 Ω</td>
-                 <td>±(3% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th>Phase sequence indication</th>
-             <td>in the same direction (correct). </td>
-                 <td>opposite direction (incorrect). </td>
-                 <td>UL-L voltage: 95 V...</td>
-                 <td>500 V (45 Hz...65 Hz)</td>  </tr>
-                <tr>
-                 <th>Power measurement</th>
-                  <td>0.0 VA...200 000 
-                  VA 0.0 W...200 000 W
-                 0.0 var...200 000 var</td>
-                 <td>0.0 VA...200 000 VA
-             0.0 W...200 000 W
-             0.0 var...200 000 var</td>
-                 <td>from 0.1 VA
-             from 0.1 W
-             from 0.1 var</td>
-                 <td>from ±(7% m.v. + 3
-             digits)</td>  </tr>
-             </table>
-             <table class="meterTable" style="width:100%" *ngIf="value1=='MRP-201 RCD Tester'">
               <tr>
                  <th>Measurement functions </th>
                  <th>Measurement range</th>
@@ -5024,324 +6012,6 @@
                  <td>from ±(7% m.v. + 3
              digits)</td>  </tr>
              </table>
-             <table class="meterTable" style="width:100%" *ngIf="value1=='MPI-530 Multi-function Meter'">
-              <tr>
-                 <th>Measurement functions </th>
-                 <th>Measurement range</th>
-                 <th>Display range</th>
-                 <th>Resolutione</th>
-                 <th>Accuracy±(% m.v. + digits)</th>
-               </tr>
-                <tr>
-                 <th style="border:unset;">Fault loop impedance</th>
-               </tr>
-               <tr>
-                 <th>Fault loop ZL-PE , ZL-N, ZL-L</th>
-                 <td>0.13 Ω...1999 Ω
-                  acc. to IEC 61557 </td>
-                 <td>0.00 Ω...1999 Ω </td>
-                 <td>from 0.01 Ω</td>
-                 <td>±(5% m.v. + 3 digits)</td>
-               </tr>
-               <tr>
-                 <th>Fault loop ZL-PE in RCD mode</th>
-             <td>from 0.50 Ω...1999 Ω
-             acc. to IEC 61557</td>
-                 <td>0.00 Ω...1999 Ω </td>
-                 <td>from 0.01 Ω</td>
-                 <td>from ±(6% m.v. + 5 digits)</td>  </tr>
-                <tr>
-                 <th style="border:unset;" colspan="4">Measurements of RCD parameters</th>
-               </tr>
-                <tr>
-                 <th style="border:unset;" colspan="6">RCD tripping test and measurement of tripping time tA
-             measuring current 0.5 IΔn, 1 IΔn, 2 IΔn, 5 IΔn</th>
-               </tr>
-               <tr>
-                 <th>general and short-time delay RCD </th>
-             <td>0 ms...300 ms</td>
-                 <td>0 ms...300 ms</td>
-                 <td>1 ms </td>
-                 <td>±(2% m.v. + 2 digits)</td>  </tr>
-                <tr>
-                 <th>selective RCD </th>
-             <td>0 ms...500 ms </td>
-                 <td>0 ms...500 ms </td>
-                 <td>1 ms </td>
-                 <td>±(2% m.v. + 2 digits)</td>  </tr>
-               <tr>
-                 <th style="border:unset;" colspan="4">Measurement of RCD tripping current I A
-             measuring current 0.2 IΔn...2.0 IΔn</th>
-               </tr>
-                <tr>
-                 <th>for sinusoidal residual current (AC type)</th>
-             <td>3.0 mA...1000 mA </td>
-                 <td>3.0 mA...1000 mA </td>
-                 <td>from 0.1 mA</td>
-                 <td>±5% IΔn</td>  </tr>
-                <tr>
-                 <th>for unidirectional residual current and
-             unidirectional with the 6 mA DC bias (type A) </th>
-             <td>3.5 mA...700 mA</td>
-                 <td>3.5 mA...700 mA</td>
-                 <td>from 0.1 mA</td>
-                 <td>±10% IΔn</td>  </tr>
-                <tr>
-                 <th>for direct residual current (type B) </th>
-             <td>2.0 mA...1000 mA</td>
-                 <td>2.0 mA...1000 mA</td>
-                 <td>from 0.1 mA</td>
-                 <td>±10% IΔn</td>  </tr>
-                <tr>
-                 <th style="border:unset;">Earth resistance</th>
-               </tr>
-                <tr>
-                 <th>3-pole method </th>
-             <td>from 0.5 Ω...1.99 kΩ
-             acc. to IEC 61557-5</td>
-                 <td>0.00 Ω...1.99 kΩ</td>
-                 <td>from 0.01 Ω </td>
-                 <td>from ±(2% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th style="border:unset;">Insulation resistance</th>
-               </tr>
-                <tr>
-                 <th>Measuring voltage 50 V </th>
-             <td>50 kΩ...250 MΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...250 MΩ</td>
-                   <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 100 V  </th>
-             <td>100 kΩ...500 MΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...500 MΩ</td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 250 V </th>
-             <td>250 kΩ...999 MΩ
-             acc. to IEC 61557-2 </td>
-                 <td>0 kΩ...999 MΩ </td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td>  
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 500 V </th>
-             <td>500 kΩ...2.00 GΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...2.00 GΩ</td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 1000 V </th>
-                 <td>1000 kΩ...3.00 GΩ
-             acc. to IEC 61557-2 </td>
-              <td>0 kΩ...3.00 GΩ</td>
-                 <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td>
-               </tr>
-                <tr>
-                 <th style="border:unset;" colspan="4">Resistance of protective conductors and equipotential bondings</th>
-               </tr>
-                <tr>
-                 <th>Measurement of resistance of protective
-             conductors and equipotential bondings with
-             ±200 mA current</th>
-             <td>0.12 Ω...400 Ω
-             acc. to IEC 61557-4 </td>
-                 <td>0.00 Ω...400 Ω</td>
-                 <td>from 0.01 Ω </td>
-                 <td>±(2% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th>Measurement of resistance with low current</th>
-             <td>0.0 Ω...1999 Ω</td>
-                 <td>0.0 Ω...1999 Ω </td>
-                 <td>from 0.1 Ω</td>
-                 <td>±(3% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th>Phase sequence indication</th>
-             <td>in the same direction (correct). </td>
-                 <td>opposite direction (incorrect). </td>
-                 <td>UL-L voltage: 95 V...</td>
-                 <td>500 V (45 Hz...65 Hz)</td>  </tr>
-                <tr>
-                 <th>Power measurement</th>
-                  <td>0.0 VA...200 000 
-                  VA 0.0 W...200 000 W
-                 0.0 var...200 000 var</td>
-                 <td>0.0 VA...200 000 VA
-             0.0 W...200 000 W
-             0.0 var...200 000 var</td>
-                 <td>from 0.1 VA
-             from 0.1 W
-             from 0.1 var</td>
-                 <td>from ±(7% m.v. + 3
-             digits)</td>  </tr>
-             </table>
-             <table class="meterTable" style="width:100%" *ngIf="value1=='MPI-530-IT Multi-function Meter'">
-              <tr>
-                 <th>Measurement functions </th>
-                 <th>Measurement range</th>
-                 <th>Display range</th>
-                 <th>Resolutione</th>
-                 <th>Accuracy±(% m.v. + digits)</th>
-               </tr>
-                <tr>
-                 <th style="border:unset;">Fault loop impedance</th>
-               </tr>
-               <tr>
-                 <th>Fault loop ZL-PE , ZL-N, ZL-L</th>
-                 <td>0.13 Ω...1999 Ω
-                  acc. to IEC 61557 </td>
-                 <td>0.00 Ω...1999 Ω </td>
-                 <td>from 0.01 Ω</td>
-                 <td>±(5% m.v. + 3 digits)</td>
-               </tr>
-               <tr>
-                 <th>Fault loop ZL-PE in RCD mode</th>
-             <td>from 0.50 Ω...1999 Ω
-             acc. to IEC 61557</td>
-                 <td>0.00 Ω...1999 Ω </td>
-                 <td>from 0.01 Ω</td>
-                 <td>from ±(6% m.v. + 5 digits)</td>  </tr>
-                <tr>
-                 <th style="border:unset;" colspan="4">Measurements of RCD parameters</th>
-               </tr>
-                <tr>
-                 <th style="border:unset;" colspan="6">RCD tripping test and measurement of tripping time tA
-             measuring current 0.5 IΔn, 1 IΔn, 2 IΔn, 5 IΔn</th>
-               </tr>
-               <tr>
-                 <th>general and short-time delay RCD </th>
-             <td>0 ms...300 ms</td>
-                 <td>0 ms...300 ms</td>
-                 <td>1 ms </td>
-                 <td>±(2% m.v. + 2 digits)</td>  </tr>
-                <tr>
-                 <th>selective RCD </th>
-             <td>0 ms...500 ms </td>
-                 <td>0 ms...500 ms </td>
-                 <td>1 ms </td>
-                 <td>±(2% m.v. + 2 digits)</td>  </tr>
-               <tr>
-                 <th style="border:unset;" colspan="4">Measurement of RCD tripping current I A
-             measuring current 0.2 IΔn...2.0 IΔn</th>
-               </tr>
-                <tr>
-                 <th>for sinusoidal residual current (AC type)</th>
-             <td>3.0 mA...1000 mA </td>
-                 <td>3.0 mA...1000 mA </td>
-                 <td>from 0.1 mA</td>
-                 <td>±5% IΔn</td>  </tr>
-                <tr>
-                 <th>for unidirectional residual current and
-             unidirectional with the 6 mA DC bias (type A) </th>
-             <td>3.5 mA...700 mA</td>
-                 <td>3.5 mA...700 mA</td>
-                 <td>from 0.1 mA</td>
-                 <td>±10% IΔn</td>  </tr>
-                <tr>
-                 <th>for direct residual current (type B) </th>
-             <td>2.0 mA...1000 mA</td>
-                 <td>2.0 mA...1000 mA</td>
-                 <td>from 0.1 mA</td>
-                 <td>±10% IΔn</td>  </tr>
-                <tr>
-                 <th style="border:unset;">Earth resistance</th>
-               </tr>
-                <tr>
-                 <th>3-pole method </th>
-             <td>from 0.5 Ω...1.99 kΩ
-             acc. to IEC 61557-5</td>
-                 <td>0.00 Ω...1.99 kΩ</td>
-                 <td>from 0.01 Ω </td>
-                 <td>from ±(2% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th style="border:unset;">Insulation resistance</th>
-               </tr>
-                <tr>
-                 <th>Measuring voltage 50 V </th>
-             <td>50 kΩ...250 MΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...250 MΩ</td>
-                   <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 100 V  </th>
-             <td>100 kΩ...500 MΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...500 MΩ</td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 250 V </th>
-             <td>250 kΩ...999 MΩ
-             acc. to IEC 61557-2 </td>
-                 <td>0 kΩ...999 MΩ </td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td>  
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 500 V </th>
-             <td>500 kΩ...2.00 GΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...2.00 GΩ</td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 1000 V </th>
-                 <td>1000 kΩ...3.00 GΩ
-             acc. to IEC 61557-2 </td>
-              <td>0 kΩ...3.00 GΩ</td>
-                 <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td>
-               </tr>
-                <tr>
-                 <th style="border:unset;" colspan="4">Resistance of protective conductors and equipotential bondings</th>
-               </tr>
-                <tr>
-                 <th>Measurement of resistance of protective
-             conductors and equipotential bondings with
-             ±200 mA current</th>
-             <td>0.12 Ω...400 Ω
-             acc. to IEC 61557-4 </td>
-                 <td>0.00 Ω...400 Ω</td>
-                 <td>from 0.01 Ω </td>
-                 <td>±(2% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th>Measurement of resistance with low current</th>
-             <td>0.0 Ω...1999 Ω</td>
-                 <td>0.0 Ω...1999 Ω </td>
-                 <td>from 0.1 Ω</td>
-                 <td>±(3% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th>Phase sequence indication</th>
-             <td>in the same direction (correct). </td>
-                 <td>opposite direction (incorrect). </td>
-                 <td>UL-L voltage: 95 V...</td>
-                 <td>500 V (45 Hz...65 Hz)</td>  </tr>
-                <tr>
-                 <th>Power measurement</th>
-                  <td>0.0 VA...200 000 
-                  VA 0.0 W...200 000 W
-                 0.0 var...200 000 var</td>
-                 <td>0.0 VA...200 000 VA
-             0.0 W...200 000 W
-             0.0 var...200 000 var</td>
-                 <td>from 0.1 VA
-             from 0.1 W
-             from 0.1 var</td>
-                 <td>from ±(7% m.v. + 3
-             digits)</td>  </tr>
-             </table>
              <table class="meterTable" style="width:100%" *ngIf="value1=='MPI-535 Multi-function Meter'">
               <tr>
                  <th>Measurement functions </th>
@@ -5818,326 +6488,8 @@
              from 0.1 var</td>
                  <td>from ±(7% m.v. + 3
              digits)</td>  </tr>
-             </table>
-             <table class="meterTable" style="width:100%" *ngIf="value1=='MPI-540 PV Multi-function Meter'">
-              <tr>
-                 <th>Measurement functions </th>
-                 <th>Measurement range</th>
-                 <th>Display range</th>
-                 <th>Resolutione</th>
-                 <th>Accuracy±(% m.v. + digits)</th>
-               </tr>
-                <tr>
-                 <th style="border:unset;">Fault loop impedance</th>
-               </tr>
-               <tr>
-                 <th>Fault loop ZL-PE , ZL-N, ZL-L</th>
-                 <td>0.13 Ω...1999 Ω
-                  acc. to IEC 61557 </td>
-                 <td>0.00 Ω...1999 Ω </td>
-                 <td>from 0.01 Ω</td>
-                 <td>±(5% m.v. + 3 digits)</td>
-               </tr>
-               <tr>
-                 <th>Fault loop ZL-PE in RCD mode</th>
-             <td>from 0.50 Ω...1999 Ω
-             acc. to IEC 61557</td>
-                 <td>0.00 Ω...1999 Ω </td>
-                 <td>from 0.01 Ω</td>
-                 <td>from ±(6% m.v. + 5 digits)</td>  </tr>
-                <tr>
-                 <th style="border:unset;" colspan="4">Measurements of RCD parameters</th>
-               </tr>
-                <tr>
-                 <th style="border:unset;" colspan="6">RCD tripping test and measurement of tripping time tA
-             measuring current 0.5 IΔn, 1 IΔn, 2 IΔn, 5 IΔn</th>
-               </tr>
-               <tr>
-                 <th>general and short-time delay RCD </th>
-             <td>0 ms...300 ms</td>
-                 <td>0 ms...300 ms</td>
-                 <td>1 ms </td>
-                 <td>±(2% m.v. + 2 digits)</td>  </tr>
-                <tr>
-                 <th>selective RCD </th>
-             <td>0 ms...500 ms </td>
-                 <td>0 ms...500 ms </td>
-                 <td>1 ms </td>
-                 <td>±(2% m.v. + 2 digits)</td>  </tr>
-               <tr>
-                 <th style="border:unset;" colspan="4">Measurement of RCD tripping current I A
-             measuring current 0.2 IΔn...2.0 IΔn</th>
-               </tr>
-                <tr>
-                 <th>for sinusoidal residual current (AC type)</th>
-             <td>3.0 mA...1000 mA </td>
-                 <td>3.0 mA...1000 mA </td>
-                 <td>from 0.1 mA</td>
-                 <td>±5% IΔn</td>  </tr>
-                <tr>
-                 <th>for unidirectional residual current and
-             unidirectional with the 6 mA DC bias (type A) </th>
-             <td>3.5 mA...700 mA</td>
-                 <td>3.5 mA...700 mA</td>
-                 <td>from 0.1 mA</td>
-                 <td>±10% IΔn</td>  </tr>
-                <tr>
-                 <th>for direct residual current (type B) </th>
-             <td>2.0 mA...1000 mA</td>
-                 <td>2.0 mA...1000 mA</td>
-                 <td>from 0.1 mA</td>
-                 <td>±10% IΔn</td>  </tr>
-                <tr>
-                 <th style="border:unset;">Earth resistance</th>
-               </tr>
-                <tr>
-                 <th>3-pole method </th>
-             <td>from 0.5 Ω...1.99 kΩ
-             acc. to IEC 61557-5</td>
-                 <td>0.00 Ω...1.99 kΩ</td>
-                 <td>from 0.01 Ω </td>
-                 <td>from ±(2% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th style="border:unset;">Insulation resistance</th>
-               </tr>
-                <tr>
-                 <th>Measuring voltage 50 V </th>
-             <td>50 kΩ...250 MΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...250 MΩ</td>
-                   <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 100 V  </th>
-             <td>100 kΩ...500 MΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...500 MΩ</td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 250 V </th>
-             <td>250 kΩ...999 MΩ
-             acc. to IEC 61557-2 </td>
-                 <td>0 kΩ...999 MΩ </td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td>  
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 500 V </th>
-             <td>500 kΩ...2.00 GΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...2.00 GΩ</td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 1000 V </th>
-                 <td>1000 kΩ...3.00 GΩ
-             acc. to IEC 61557-2 </td>
-              <td>0 kΩ...3.00 GΩ</td>
-                 <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td>
-               </tr>
-                <tr>
-                 <th style="border:unset;" colspan="4">Resistance of protective conductors and equipotential bondings</th>
-               </tr>
-                <tr>
-                 <th>Measurement of resistance of protective
-             conductors and equipotential bondings with
-             ±200 mA current</th>
-             <td>0.12 Ω...400 Ω
-             acc. to IEC 61557-4 </td>
-                 <td>0.00 Ω...400 Ω</td>
-                 <td>from 0.01 Ω </td>
-                 <td>±(2% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th>Measurement of resistance with low current</th>
-             <td>0.0 Ω...1999 Ω</td>
-                 <td>0.0 Ω...1999 Ω </td>
-                 <td>from 0.1 Ω</td>
-                 <td>±(3% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th>Phase sequence indication</th>
-             <td>in the same direction (correct). </td>
-                 <td>opposite direction (incorrect). </td>
-                 <td>UL-L voltage: 95 V...</td>
-                 <td>500 V (45 Hz...65 Hz)</td>  </tr>
-                <tr>
-                 <th>Power measurement</th>
-                  <td>0.0 VA...200 000 
-                  VA 0.0 W...200 000 W
-                 0.0 var...200 000 var</td>
-                 <td>0.0 VA...200 000 VA
-             0.0 W...200 000 W
-             0.0 var...200 000 var</td>
-                 <td>from 0.1 VA
-             from 0.1 W
-             from 0.1 var</td>
-                 <td>from ±(7% m.v. + 3
-             digits)</td>  </tr>
-             </table>
-             <table class="meterTable" style="width:100%" *ngIf="value1=='EVSE-01 Adapter for testing vehicle charging stations'">
-              <tr>
-                 <th>Measurement functions </th>
-                 <th>Measurement range</th>
-                 <th>Display range</th>
-                 <th>Resolutione</th>
-                 <th>Accuracy±(% m.v. + digits)</th>
-               </tr>
-                <tr>
-                 <th style="border:unset;">Fault loop impedance</th>
-               </tr>
-               <tr>
-                 <th>Fault loop ZL-PE , ZL-N, ZL-L</th>
-                 <td>0.13 Ω...1999 Ω
-                  acc. to IEC 61557 </td>
-                 <td>0.00 Ω...1999 Ω </td>
-                 <td>from 0.01 Ω</td>
-                 <td>±(5% m.v. + 3 digits)</td>
-               </tr>
-               <tr>
-                 <th>Fault loop ZL-PE in RCD mode</th>
-             <td>from 0.50 Ω...1999 Ω
-             acc. to IEC 61557</td>
-                 <td>0.00 Ω...1999 Ω </td>
-                 <td>from 0.01 Ω</td>
-                 <td>from ±(6% m.v. + 5 digits)</td>  </tr>
-                <tr>
-                 <th style="border:unset;" colspan="4">Measurements of RCD parameters</th>
-               </tr>
-                <tr>
-                 <th style="border:unset;" colspan="6">RCD tripping test and measurement of tripping time tA
-             measuring current 0.5 IΔn, 1 IΔn, 2 IΔn, 5 IΔn</th>
-               </tr>
-               <tr>
-                 <th>general and short-time delay RCD </th>
-             <td>0 ms...300 ms</td>
-                 <td>0 ms...300 ms</td>
-                 <td>1 ms </td>
-                 <td>±(2% m.v. + 2 digits)</td>  </tr>
-                <tr>
-                 <th>selective RCD </th>
-             <td>0 ms...500 ms </td>
-                 <td>0 ms...500 ms </td>
-                 <td>1 ms </td>
-                 <td>±(2% m.v. + 2 digits)</td>  </tr>
-               <tr>
-                 <th style="border:unset;" colspan="4">Measurement of RCD tripping current I A
-             measuring current 0.2 IΔn...2.0 IΔn</th>
-               </tr>
-                <tr>
-                 <th>for sinusoidal residual current (AC type)</th>
-             <td>3.0 mA...1000 mA </td>
-                 <td>3.0 mA...1000 mA </td>
-                 <td>from 0.1 mA</td>
-                 <td>±5% IΔn</td>  </tr>
-                <tr>
-                 <th>for unidirectional residual current and
-             unidirectional with the 6 mA DC bias (type A) </th>
-             <td>3.5 mA...700 mA</td>
-                 <td>3.5 mA...700 mA</td>
-                 <td>from 0.1 mA</td>
-                 <td>±10% IΔn</td>  </tr>
-                <tr>
-                 <th>for direct residual current (type B) </th>
-             <td>2.0 mA...1000 mA</td>
-                 <td>2.0 mA...1000 mA</td>
-                 <td>from 0.1 mA</td>
-                 <td>±10% IΔn</td>  </tr>
-                <tr>
-                 <th style="border:unset;">Earth resistance</th>
-               </tr>
-                <tr>
-                 <th>3-pole method </th>
-             <td>from 0.5 Ω...1.99 kΩ
-             acc. to IEC 61557-5</td>
-                 <td>0.00 Ω...1.99 kΩ</td>
-                 <td>from 0.01 Ω </td>
-                 <td>from ±(2% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th style="border:unset;">Insulation resistance</th>
-               </tr>
-                <tr>
-                 <th>Measuring voltage 50 V </th>
-             <td>50 kΩ...250 MΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...250 MΩ</td>
-                   <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 100 V  </th>
-             <td>100 kΩ...500 MΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...500 MΩ</td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 250 V </th>
-             <td>250 kΩ...999 MΩ
-             acc. to IEC 61557-2 </td>
-                 <td>0 kΩ...999 MΩ </td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td>  
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 500 V </th>
-             <td>500 kΩ...2.00 GΩ
-             acc. to IEC 61557-2</td>
-                 <td>0 kΩ...2.00 GΩ</td>
-                  <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td> 
-                 </tr>
-                <tr>
-                 <th>Measuring voltage 1000 V </th>
-                 <td>1000 kΩ...3.00 GΩ
-             acc. to IEC 61557-2 </td>
-              <td>0 kΩ...3.00 GΩ</td>
-                 <td>from 1 kΩ </td>
-                 <td>from ±(3% m.v. + 8 digits)</td>
-               </tr>
-                <tr>
-                 <th style="border:unset;" colspan="4">Resistance of protective conductors and equipotential bondings</th>
-               </tr>
-                <tr>
-                 <th>Measurement of resistance of protective
-             conductors and equipotential bondings with
-             ±200 mA current</th>
-             <td>0.12 Ω...400 Ω
-             acc. to IEC 61557-4 </td>
-                 <td>0.00 Ω...400 Ω</td>
-                 <td>from 0.01 Ω </td>
-                 <td>±(2% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th>Measurement of resistance with low current</th>
-             <td>0.0 Ω...1999 Ω</td>
-                 <td>0.0 Ω...1999 Ω </td>
-                 <td>from 0.1 Ω</td>
-                 <td>±(3% m.v. + 3 digits)</td>  </tr>
-                <tr>
-                 <th>Phase sequence indication</th>
-             <td>in the same direction (correct). </td>
-                 <td>opposite direction (incorrect). </td>
-                 <td>UL-L voltage: 95 V...</td>
-                 <td>500 V (45 Hz...65 Hz)</td>  </tr>
-                <tr>
-                 <th>Power measurement</th>
-                  <td>0.0 VA...200 000 
-                  VA 0.0 W...200 000 W
-                 0.0 var...200 000 var</td>
-                 <td>0.0 VA...200 000 VA
-             0.0 W...200 000 W
-             0.0 var...200 000 var</td>
-                 <td>from 0.1 VA
-             from 0.1 W
-             from 0.1 var</td>
-                 <td>from ±(7% m.v. + 3
-             digits)</td>  </tr>
-             </table> 
-            
+             </table> -->
+
             </div>
         </div>
     <!-- <table class="table table-bordered">

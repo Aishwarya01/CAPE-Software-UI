@@ -27,6 +27,7 @@
     margin: 25px;
     text-align: center;
     font-family: arial;
+    background: white;
   }
   
   .price {
@@ -38,7 +39,7 @@
   .card1 button {
     border: none;
     outline: 0;
-    margin-right: 20px;
+    margin-right: 10px;
     color: white;
     background-color: #000;
     text-align: center;
@@ -87,3 +88,4 @@
 .rate > label:hover ~ input:checked ~ label {
     color: #c59b08;
 }
+
