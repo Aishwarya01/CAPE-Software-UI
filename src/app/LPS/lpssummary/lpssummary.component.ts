@@ -527,7 +527,10 @@ export class LpssummaryComponent implements OnInit {
   seperationFlag:any=[]
   earthStudFlag:any=[]
   deleteSummaryLpsObservationArr: any=[];
-  
+  lpsSummaryList: any = [];
+  signarr: any;
+  signarr1: any;
+
   constructor(private summaryService:SummaryServiceService,private formBuilder: FormBuilder,
     private airterminationServices: AirterminationService, private router: ActivatedRoute,
     private dialog: MatDialog,private modalService: NgbModal,public service: GlobalsService,
@@ -561,6 +564,8 @@ export class LpssummaryComponent implements OnInit {
   ngOnDestroy(): void {
     this.service.signatureImg7="";
     this.service.signatureImg8="";
+    this.service.bytestring7="";
+    this.service.bytestring8="";
   }
 
     ngOnInit(): void {
@@ -1310,7 +1315,8 @@ SignatureDesigner1(){
 
     retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,data: any){
       this.service.lpsClick = 1;
-      this.jsonData=[]
+      this.jsonData=[];
+    //  this.lpsSummaryList = JSON.parse(data);
       if( data.summaryLpsBuildings!=undefined && data.summaryLpsBuildings!=null){
         this.jsonData=data;
       }
@@ -1324,6 +1330,24 @@ SignatureDesigner1(){
       
       this.lpsSummary.basicLpsId = basicLpsId;
       this.basicLpsId = basicLpsId;
+     //SIGNATURE LATEST CHANGES
+      for(let i of   this.jsonData.summaryLpsDeclaration) {
+        if(i.declarationRole == "Inspector") {
+          this.signarr=[i];
+          this.signarr[0].signature=atob(i.signature);
+          this.summaryForm.patchValue({
+            Declaration1Arr: this.signarr
+          })
+        }
+        else{
+          this.signarr1=[i];
+          this.signarr1[0].signature=atob(i.signature);
+          this.summaryForm.patchValue({
+            Declaration2Arr: this.signarr1
+          })
+        }
+      }
+
       if(this.jsonData!=null){
          setTimeout(() => {
           this.populateFormData(this.jsonData);
@@ -1333,6 +1357,7 @@ SignatureDesigner1(){
           this.lpsSummary.updatedBy=this.jsonData.updatedBy;
           this.lpsSummary.updatedDate=this.jsonData.updatedDate;
           this.lpsSummary.inspectedYear=this.jsonData.inspectedYear;
+         
           this.lpsSummary.summaryDate=this.jsonData.summaryDate;
           this.lpsSummary.summaryLpsId=this.jsonData.summaryLpsId;
           this.lpsSummary.flag=this.jsonData.flag;
@@ -1347,6 +1372,7 @@ SignatureDesigner1(){
     }, 3000);
       }
       }
+
       populateFormData(data:any){
         this.arr=[];
        this.arr1=[];
@@ -1402,22 +1428,19 @@ SignatureDesigner1(){
         this.numberOfBuildingCount.push(item.buildingCount);
         this.arr.push(this.createGroup(item));
        }
-      
+       
       // if(data.summaryLpsDeclaration.length !=0){
-        this.arr1.push(this.createGroupDeclaration1( data.summaryLpsDeclaration[0]));
-        this.arr2.push(this.createGroupDeclaration1( data.summaryLpsDeclaration[1]));
-        
-        this.service.signatureImg7=atob(data.summaryLpsDeclaration[0].signature);
-        this.service.signatureImg8=atob(data.summaryLpsDeclaration[1].signature);
- 
+      //  this.arr1.push(this.createGroupDeclaration1( data.summaryLpsDeclaration[0]));
+       // this.arr2.push(this.createGroupDeclaration1( data.summaryLpsDeclaration[1]));
+     
         this.summaryForm.controls.recommendYears.setValue(data.inspectedYear);
         this.summaryForm.controls.declarationDate.setValue(data.summaryDate);
          this.summaryForm.controls.declarationDate.setValue(data.summaryDate);
       // }
        
        this.summaryForm.setControl('summaryLpsBuildings', this.formBuilder.array(this.arr || []));
-       this.summaryForm.setControl('Declaration1Arr', this.formBuilder.array(this.arr1 || []));
-       this.summaryForm.setControl('Declaration2Arr', this.formBuilder.array(this.arr2 || []));
+      // this.summaryForm.setControl('Declaration1Arr', this.formBuilder.array(this.ar//r1 || []));
+      // this.summaryForm.setControl('Declaration2Arr', this.formBuilder.array(this.arr2 || []));
        //.retrieveFromAirTermination();
      
       }
@@ -4755,6 +4778,22 @@ SignatureDesigner1(){
 
   onSubmit(flag1:any,content:any,contents:any){
     this.submitted = true;
+   //SIGNATURE LATEST CHANGES
+    if (this.service.bytestring7 != '' && this.service.bytestring7 != undefined) {
+      this.summaryForm.value.Declaration1Arr[0].signature=this.service.bytestring7;
+      }  
+      else {
+      this.service.bytestring7 = btoa(this.signarr[0].signature)
+      this.summaryForm.value.Declaration1Arr[0].signature=this.service.bytestring7;
+      }
+      if (this.service.bytestring8 != '' && this.service.bytestring8 != undefined) {
+        this.summaryForm.value.Declaration2Arr[0].signature=this.service.bytestring8;
+        }  
+        else {
+        this.service.bytestring8 = btoa(this.signarr1[0].signature)
+        this.summaryForm.value.Declaration2Arr[0].signature=this.service.bytestring8;
+        }
+  
     if (this.summaryForm.invalid && (this.summaryForm.value.summaryLpsBuildings[0].buildingNumber != undefined || this.summaryForm.value.summaryLpsBuildings[0].buildingNumber != '')) 
     {
       this.validationError = true;
@@ -5032,6 +5071,7 @@ SignatureDesigner1(){
 
     retriveSummaryWhileUpdateSave(){
       this.service.lpsClick = 1;
+     
       this.summaryService.retrieveWhileSaveUpdate(this.email, this.lpsGlobalservice.basiclpsId).subscribe(
         data => {
           let summary = JSON.parse(data)[0];

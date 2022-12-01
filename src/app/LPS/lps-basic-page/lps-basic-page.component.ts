@@ -644,7 +644,7 @@ export class LpsBasicPageComponent implements OnInit {
             setTimeout(() =>{
               this.spinnerUpload = false;
               this.popupUpload = true;
-            }, 1000);
+            }, 3000);
             this.uploadDisable = true;
             this.filesuccess = true;
             this.filesuccessMsg = "File Updated Successfully";
@@ -663,15 +663,14 @@ export class LpsBasicPageComponent implements OnInit {
             setTimeout(() =>{
               this.spinnerUpload = false;
               this.popupUpload = true;
-            }, 1000);
+            }, 3000);
             this.uploadDisable = true;
-            this.filesuccess = true;
+            this.filesuccess=true;
+            this.filesuccessMsg="File Uploaded Successfully";
             // Here we are capturing fileid, which is retreve from backend
             this.retreveFileId=data;
             this.fileId=parseInt(this.retreveFileId);
             form.controls.fileId.setValue(this.fileId);
-            this.filesuccess=true;
-            this.filesuccessMsg="File Uploaded Successfully";
           },
           (error) => {
             this.spinnerUpload = false;

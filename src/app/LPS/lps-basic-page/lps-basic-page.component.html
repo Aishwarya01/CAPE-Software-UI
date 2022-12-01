@@ -340,7 +340,7 @@
                         <tbody>
                           <tr>
                             <td>
-                              <input style="height: 3rem;" type="file" class="form-control" (change)="onChange($event,f)" [attr.disabled]="isEditable ? '' : null" accept=".txt,.jpeg,.png,.jpg,.pdf" formControlName="fileId">
+                              <input style="height: 3rem;" type="file" class="form-control" (change)="onChange($event,f)" [attr.disabled]="isEditable ? '' : null" accept=".txt,.jpeg,.png,.jpg,.pdf">
                               <div *ngIf="submitted && f.get('fileId')?.errors" class="invalid-feedback">
                                 <div *ngIf="f.get('fileId')?.errors?.required">Field is required</div>
                               </div>
@@ -398,13 +398,14 @@
     </div>
     <br>
     <div *ngIf="popup" style="text-align: center;">
-        <button type="button" *ngIf="!Error"  class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
-        aria-label="Close"  (click)="closeModalDialog()" style="margin-left: 195px;width: 16%;" matStepperNext>
+        <button type="button" *ngIf="!Error"  class="close" 
+        class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn"
+        aria-label="Close"  (click)="closeModalDialog()" style="margin-left: 195px;width: 16%;background-color: #0f800c;color: white;" matStepperNext>
          <span aria-hidden="true">Ok</span>
         </button>
     
-        <button type="button" *ngIf="Error" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
-        aria-label="Close"  (click)="closeModalDialog()" style="margin-left: 195px;width: 16%;" >
+        <button type="button" *ngIf="Error" class="close" class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn"
+        aria-label="Close"  (click)="closeModalDialog()" style="margin-left: 195px;width: 16%;background-color: #0f800c;color: white;" >
         <span aria-hidden="true">Ok</span>
         </button>
     </div>
@@ -422,7 +423,8 @@
      </div>
     <br>
     <div class="row">
-       <button type="button" class="col-md-6" style="width: 5rem;position: relative;margin-left: 30%;" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+       <button type="button" class="col-md-6" style="width: 5rem;position: relative;margin-left: 30%;background-color: #0f800c;color: white;" 
+       class="btn btn-rounded btn-md font-weight-medium auth-form-btn"
        aria-label="Close" (click)="closeModalDialog()" matStepperNext>
        <i class="bi bi-arrow-right-circle"></i>&nbsp;
         <span aria-hidden="true">Ok</span>
@@ -445,7 +447,8 @@
      </div>
     <br>
     <div class="row">
-       <button type="button" class="col-md-6" style="position: relative;margin-left: 20%;width: auto;" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+       <button type="button" class="col-md-6" style="position: relative;margin-left: 20%;width: auto;background-color: #0f800c;color: white;" 
+       class="btn btn-rounded btn-md font-weight-medium auth-form-btn"
        aria-label="Close" (click)="closeModalDialog1('No')">
        <i class="bi bi-arrow-right-circle"></i>&nbsp;
         <span aria-hidden="true">Confirm</span>
@@ -476,8 +479,8 @@
         <b>Note:</b> Please click Next Button, Then only the file changes will reflect!
       </div>
     <div *ngIf="popupUpload">
-        <button type="button" style="text-align: center;margin-left:180px;width:20%" class="close" (click)="closeModalDialogFile()"
-            class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close">
+        <button type="button" style="text-align: center;margin-left:180px;width:20%;background-color: #0f800c;color: white;" class="close" (click)="closeModalDialogFile()"
+            class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close">
             <span >Ok</span>
         </button>
     </div>

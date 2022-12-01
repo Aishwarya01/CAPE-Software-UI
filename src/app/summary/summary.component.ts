@@ -46,7 +46,7 @@ import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.c
 import { SignatureComponent } from '../signature/signature.component';
 import { SuperAdminProd } from 'src/environments/environment.prod';
 import { SuperAdminDev } from 'src/environments/environment.dev';
-import { SuperAdminLocal } from 'src/environments/environment';
+
 import { element } from 'protractor';
 
 @Component({
@@ -249,7 +249,7 @@ export class SummaryComponent implements OnInit,OnDestroy {
   //superAdmin 
   prodAdmin = new SuperAdminProd();
   devAdmin = new SuperAdminDev();
-  localAdmin = new SuperAdminLocal();
+  //localAdmin = new SuperAdminLocal();
   submitButton: boolean = false;
   summaryData: any;
   constructor(
@@ -301,6 +301,8 @@ export class SummaryComponent implements OnInit,OnDestroy {
     this.service.windowTabClick=0;
     this.service.signatureImg5="";
     this.service.signatureImg6="";
+    this.service.bytestring5="";
+    this.service.bytestring6="";
   }
 
   ngOnInit(): void {
@@ -2458,6 +2460,22 @@ showHideAccordion(index: number) {
         // }, 3000);
         return;
       }
+       //SIGNATURE LATEST CHANGES
+    if (this.service.bytestring5 != '' && this.service.bytestring5 != undefined) {
+      this.addsummary.value.Declaration1Arr[0].signature=this.service.bytestring5;
+      }  
+      else {
+      this.service.bytestring5 = btoa(this.signarr[0].signature)
+      this.addsummary.value.Declaration1Arr[0].signature=this.service.bytestring5;
+      }
+      if (this.service.bytestring6 != '' && this.service.bytestring6 != undefined) {
+        this.addsummary.value.Declaration2Arr[0].signature=this.service.bytestring6;
+        }  
+        else {
+        this.service.bytestring6 = btoa(this.signarr1[0].signature)
+        this.addsummary.value.Declaration2Arr[0].signature=this.service.bytestring6;
+        }
+
       const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
         width: '420px',
         maxHeight: '90vh',
@@ -2573,6 +2591,21 @@ showHideAccordion(index: number) {
       // }, 3000);
       return;
     }
+      //SIGNATURE LATEST CHANGES
+      if (this.service.bytestring5 != '' && this.service.bytestring5 != undefined) {
+        this.addsummary.value.Declaration1Arr[0].signature=this.service.bytestring5;
+        }  
+        else {
+        this.service.bytestring5 = btoa(this.signarr[0].signature)
+        this.addsummary.value.Declaration1Arr[0].signature=this.service.bytestring5;
+        }
+        if (this.service.bytestring6 != '' && this.service.bytestring6 != undefined) {
+          this.addsummary.value.Declaration2Arr[0].signature=this.service.bytestring6;
+          }  
+          else {
+          this.service.bytestring6 = btoa(this.signarr1[0].signature)
+          this.addsummary.value.Declaration2Arr[0].signature=this.service.bytestring6;
+          }
         if(this.addsummary.dirty) {
           this.modalService.open(content5, { centered: true, backdrop: 'static'});
         }

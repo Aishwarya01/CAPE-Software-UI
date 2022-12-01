@@ -39,8 +39,9 @@ import { ValueTransformer } from '@angular/compiler/src/util';
 import { MatDialog } from '@angular/material/dialog';
 import { ObservationService } from '../services/observation.service';
 import { SummaryServiceService } from '../LPS_services/summary-service.service';
-import { SummarydetailsService } from '../services/summarydetails.service';
+import { SummarydetailsService } from '../services/summarydetails.service'; 
 // import { ObservationTesting } from '../model/observation-testing';
+import { TestingDialogBoxComponent } from '../testing-dialog-box/testing-dialog-box.component';
 
 @Component({
   selector: 'app-inspection-verification-testing',
@@ -210,6 +211,8 @@ export class InspectionVerificationTestingComponent implements OnInit, OnDestroy
   arrViewer: any = [];
   @ViewChild('target') private myScrollContainer!: ElementRef;
  
+  @ViewChild('testingDialog')
+  testingDialog: any;
 
   expandedIndexx!: number;
   inspectorName: String = '';
@@ -2470,7 +2473,28 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any,testing
   // clickAcc(){
   //   this.gotoNextTab();
   // }
+  siteNameMethod(f: any){
+    if(f.value.testingRecordId != "") {
+      const dialogRef = this.dialog.open(TestingDialogBoxComponent, {
+        width: '100%',
+        maxHeight: '90vh',
+      });
+     dialogRef.componentInstance.circuitArr = f.value;
+    // dialogRef.componentInstance.circuitArr1 = f.value.testingRecordsSourceSupply[0];
 
+     dialogRef.componentInstance.confirmBox.subscribe(data=>{
+      if(data) {
+      setTimeout(()=>{
+        this.testingDialog.showDialog(f.value);
+       // this.testingDialog.showDialog1(f.value.testingRecordsSourceSupply[0]);
+      }, 1000);
+      }
+      else{
+      return;
+      }
+    })
+    }
+  }
   onFocusOut(e: any,a: any) {
     if(a.controls.conductorPhase.value != '' && a.controls.conductorPhase.value != undefined
     && a.controls.continutiyApproximateLength.value != '' && a.controls.continutiyApproximateLength.value != undefined && a.controls.continutiyApproximateLength.value != 'NA') {

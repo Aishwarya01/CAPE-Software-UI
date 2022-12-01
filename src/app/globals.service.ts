@@ -70,7 +70,7 @@ export class GlobalsService {
  noOfjoint: any; 
  msgForStep1:boolean=false;
  msgForStep1Flag:boolean=false;
- lvClick: number=0;  
+ lvClick: number=0;
  lpsClick: number=0;
  sldClick: number=0;  
  windowTabClick: number=0; 
