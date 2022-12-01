@@ -82,7 +82,7 @@ export class SiteupdateComponent implements OnInit {
   @Input()
   phoneNumber: number = 0;
   @Input()
-  zipCode: number = 0;
+  zipCode: String = "";
   @Input()
   createdBy: String = '';
   @Input()

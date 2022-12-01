@@ -57,7 +57,21 @@ export class InspectorregisterService {
     return this.http.get<any>(this.apiUrl+'/retrieveRegistration'+'/'+userName,  { responseType: 'text' as 'json' })
   }
 
+  public  retrieveInspectorLicense (userName: any,projectName:any): Observable<any> {
+    return this.http.get<any>(this.apiUrl+'/retrieveRegistration'+'/'+userName+"/"+projectName,  { responseType: 'text' as 'json' })
+  }
+
+  public  retrieveSite (userName: any): Observable<any> {
+    return this.http.get<any>(this.apiUrl+'/isSiteActive'+'/'+userName,  { responseType: 'text' as 'json' })
+  }
+
   public  retrieveRegisterName (userName: any): Observable<any> {
     return this.http.get<any>(this.apiUrl+'/retrieveUserNameFromRegister'+'/'+userName,  { responseType: 'text' as 'json' })
+  }
+
+// License viwer registration
+
+  public  registerLicense (register: Register): Observable<any> {
+    return this.http.post<any>(this.apiUrl+'/addViewerRegistrationLicense', register, { responseType: 'text' as 'json' })
   }
 }

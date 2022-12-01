@@ -30,7 +30,7 @@ export class LPSBasicDetailsService {
   }
 
   public retrieveAllBasicLps(userName:any): Observable<any> { 
-    return this.http.get<BasicDetails>(this.apiUrl + '/retrieveAllBasicLps'+'/'+ userName , { responseType: 'text' as 'json' })
+    return this.http.get<BasicDetails>(this.apiUrl + '/retrieveAllBasicLps' + '/' + userName , { responseType: 'text' as 'json' })
   }
   
   public retrieveFinalLps(userName: String,basicLpsId: any): Observable<any> {
@@ -39,6 +39,10 @@ export class LPSBasicDetailsService {
 
   public retriveLpsbasicDetails(userName: String,basicLpsId: any): Observable<any>{
     return this.http.get<any>(this.apiUrl + '/retrieveBasicLps' + '/' +userName+ '/' +basicLpsId, { responseType: 'text' as 'json' })
+  }
+
+  public retriveLpsbasicIsActive(userName: String): Observable<any>{
+    return this.http.get<any>(this.apiUrl + '/retrieveBasicLps' + '/' +userName, { responseType: 'text' as 'json' })
   }
 
   public validateProjectName(clientName: String,projectName: String): Observable<any>{

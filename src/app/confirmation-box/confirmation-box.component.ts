@@ -13,6 +13,7 @@ export class ConfirmationBoxComponent implements OnInit {
  // confirmBoxView= new EventEmitter();
   editModal:boolean=false;
   viewModal:boolean=false;
+  viewModal1:boolean=false;
   triggerModal:boolean=false;
   triggerModal1:boolean=false;
   linkModal:boolean=false;
