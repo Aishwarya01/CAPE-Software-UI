@@ -74,7 +74,9 @@ export class LoginComponent implements OnInit {
       data=> {
       localStorage.setItem('email', this.user.email);
       localStorage.setItem('password', this.user.password);
-     sessionStorage.setItem('token', data['token']);
+      localStorage.setItem('username', data['register'].username);
+      sessionStorage.setItem('token', data['token']);
+      
       // Save value to local storage
       if(this.rememberMeChecked==true) {
         localStorage.setItem('rememberMe', 'yes');
@@ -100,23 +102,6 @@ export class LoginComponent implements OnInit {
   }
  
   AutoLogin(){
-  //   this.service.autoLoginToken=1;
-  //   //this.loginservice.login(this.user.email, this.user.password);
-  //  this.loginservice.login(localStorage.email, localStorage.password);
-  //    //const accessToken = localStorage.getItem("token");
-    
-  //    // Retrieve rememberMe value from local storage
-  //    const rememberMe = localStorage.getItem('rememberMe');
-  //    //console.log(accessTokenObj);
-  //   // console.log(accessToken);
-  //    if (rememberMe == 'yes') {
-  //      this.router.navigate(['/home', {email: localStorage.email}]);
-
-  //    } 
-  //    else {
-  //      console.log("You need to login")
-  //    }
-
   this.loginservice.login(localStorage.email, localStorage.password).subscribe(
       data=> {
       sessionStorage.setItem('token', data['token']);
