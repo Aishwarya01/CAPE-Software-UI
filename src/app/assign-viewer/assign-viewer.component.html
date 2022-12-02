@@ -34,10 +34,7 @@
       <div class="row">
         <div class="col-sm-12">
           <label>Enter Viewer Email:</label>
-          <input type="text" class="form-control" formControlName="viewerEmail" placeholder="Enter Email" [ngClass]="{
-              'is-invalid':
-                submitted1 && assignViewerForm.controls.viewerEmail.errors
-            }" />
+          <input type="text" class="form-control" formControlName="viewerEmail" placeholder="Enter Email" [ngClass]="{'is-invalid':submitted1 && assignViewerForm.controls.viewerEmail.errors}" />
           <div *ngIf="submitted1 && assignViewerForm.controls.viewerEmail.errors" class="invalid-feedback">
             <div *ngIf="assignViewerForm.controls.viewerEmail.errors.required">
               Email is required

@@ -431,7 +431,6 @@ export class LicenselistComponent implements OnInit {
   }
 
   navigateToSite() {
-    debugger
     // this.viewContainerRef.clear();
     // this.destroy = true;
     // const verificationFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
