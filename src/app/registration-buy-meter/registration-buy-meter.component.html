@@ -1,0 +1,118 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 bg-image">
+            <div class="col-md-12">
+                <div class="card col-md-5">
+                        <div class="brand-logo">
+                            <a href="#"><img src="assets/img/Original-green.png"></a>
+                        </div>
+                        <div class="login-header">
+                            <h3 class="login-title">Register</h3>
+                        </div>
+                    <div class="loginMargin"></div>
+                    <div class="card-body">
+                        <form>
+                          <!-- <p class="successshow" *ngIf="successMsg">{{successMsg}}</p> -->
+                            <span class="invalid-feedback"></span>
+                            <div class="form-group">
+                                <label for="firstname">* Firstname</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-person-lines-fill"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Enter your firstname"
+                                    />
+                                    <!-- <div *ngIf="submitted && f.firstname.errors" class="invalid-feedback">
+                                        <div *ngIf="f.firstname.errors?.required">Firstname is required</div>
+                                    </div> -->
+                                </div>
+                            </div>
+                          
+                            <div class="form-group">
+                                <label for="contactNumber">* Contact Number</label>
+                                    <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" 
+                                    (countryChange)="countryChange($event)" class="form-control"   
+                                    placeholder="Enter your contact number"
+                                   />
+                                    <!-- <div *ngIf="submitted && f.contactNumber.errors" class="invalid-feedback">
+                                        <div *ngIf="f.contactNumber?.errors?.required">Mobile Number Is Required</div>
+                                        <div *ngIf="f.contactNumber?.errors?.maxlength">Enter 10 Digit Number</div>
+                                    </div> -->
+                        </div>
+
+                            <div class="form-group">
+                                <label for="username">* Email</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-envelope-fill"></i>
+                                        </span>
+                                    </div>
+                                    <input type="email" class="form-control" placeholder="Enter your email address" maxlength="50"
+                                    />
+                                    <!-- <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                        <div *ngIf="f.email.errors.required">Email is required</div>
+                                        <div *ngIf="f.email.errors.pattern">Enter valid email</div>
+                                    </div> -->
+                                </div>
+                            </div>
+  
+                            <!-- <div class="errorshow" *ngIf="alert">{{alert}}</div> -->
+  
+                            <div class="form-group posrelative">
+                                <label for="password">* Password</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-lock-fill"></i>
+                                        </span>
+                                    </div>
+                                    <input type="password" class="form-control" placeholder="Enter your password" minlength="8" 
+                                    maxlength="15"/>
+                                    <!-- <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                                        <div *ngIf="f.password.errors.required">Password is required</div>
+                                        <div *ngIf="f.password.errors.minlength">Password must contain at least 8 characters</div>
+                                        <div style="color: #f2c716;" *ngIf="f.password.errors.pattern">Password Suggestion - "Qwerty@123'</div>
+                                    </div> -->
+                                </div>
+  
+                            </div>
+  
+                            <!-- <div class="form-group">
+                                <label for="password">* Confirm Password</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-lock-fill"></i>
+                                        </span>
+                                    </div>
+                                    <input type="password" formControlName="confirmpassword" class="form-control" placeholder="Enter your password again" pattern="{{ user.password }}" minlength="8" maxlength="15" (keydown.space)="$event.preventDefault()"
+                                    [ngClass]="{ 'is-invalid': submitted && f.confirmpassword.errors }"/>
+                                    <div *ngIf="submitted && f.confirmpassword.errors" class="invalid-feedback">
+                                        <div *ngIf="f.confirmpassword.errors.required">Confirm Password is required</div>
+                                        <div *ngIf="f.confirmpassword.errors.pattern">Password and Confirm password must be same</div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <!-- <div class="form-check">
+                                <input type="checkbox" formControlName="isActive" [(ngModel)]="user.active"/>
+                                Active
+                            </div> -->
+                            <!-- Register Succesfull Message -->
+                            <!-- <div class="successshow1" *ngIf="successMsg">{{successMsg}}</div> -->
+  
+                            <div style="display: inline;">
+                                <button style="float: left;background-color: #0f800c;color: white;" type="submit" [routerLink]="['/addtocart']"
+                                class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn" id="login-btn"><i class="bi bi-person-plus-fill icon"></i> Register</button>
+                                <button [routerLink]="['/signIn-buyMeter']" style="float:right;" class="btn btn-danger cancel"><i class="bi bi-x icon"></i> Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  

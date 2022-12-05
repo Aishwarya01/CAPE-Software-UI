@@ -34,15 +34,13 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatCarousel } from 'ng-mat-carousel';
 import { Router } from '@angular/router';
-import { AddCartBuyMeterComponent } from '../add-cart-buy-meter/add-cart-buy-meter.component';
 
 @Component({
-  selector: 'app-buy-meter',
-  templateUrl: './buy-meter.component.html',
-  styleUrls: ['./buy-meter.component.css']
+  selector: 'app-add-cart-buy-meter',
+  templateUrl: './add-cart-buy-meter.component.html',
+  styleUrls: ['./add-cart-buy-meter.component.css']
 })
-export class BuyMeterComponent implements OnInit {
-
+export class AddCartBuyMeterComponent implements OnInit {
   meterColumns: string[] = [
     'position',
     'model',
@@ -54,8 +52,6 @@ export class BuyMeterComponent implements OnInit {
   meter_dataSource!: MatTableDataSource<any>;
   @ViewChild('meterPaginator', { static: true }) meterPaginator!: MatPaginator;
   @ViewChild('meterSort', {static: true}) meterSort!: MatSort;
-  @ViewChild(AddCartBuyMeterComponent) 
-  addcart!: AddCartBuyMeterComponent;
 
   meterName: String = '';
   email: String = '';
@@ -69,7 +65,10 @@ export class BuyMeterComponent implements OnInit {
   value1: any;
   filteredData: any = [];
   clickedImage: any;
-  
+  amt:any;
+  grandtotal: any;
+  subtotal:any;
+
   meterDropdownList: any = [,
     'MZC-304 S.C. Loop Impedance Meter-1',
     'MZC-330S Short Circuit Loop Impedance Meter',
@@ -94,10 +93,10 @@ export class BuyMeterComponent implements OnInit {
     // 'MPI-540 Multi-function Meter',
     ];
   meterData1: any =[
-    { position: 2, model: 'MZC-304 S.C. Loop Impedance Meter-1', pdf:'assets/documents/MZC304.pdf', index: 'WMGBMZC304', price: '89,906', image:'assets/img/mzc304.png' },
-    { position: 6, model: 'MZC-330S Short Circuit Loop Impedance Meter', pdf:'assets/documents/MZC.pdf', index: 'WMGBMZC330', price: '5,78,550', image:'assets/img/mzc_updated.png' },
-    { position: 7, model: 'MRP-201 RCD Tester', pdf:'assets/documents/MP540.pdf', index: 'WMGBMRP201', price: '98,175', image:'assets/img/mpi_updated.png' },
-    { position: 13, model: 'MPI-530 Multi-function Meter', pdf:'assets/documents/MPI.pdf', index: 'WMGBMPI530', price: '3,12,900', image:'assets/img/mpi_530I_updated.png' },
+    { quantity: 0,model: 'MZC-304 S.C. Loop Impedance Meter-1', pdf:'assets/documents/MZC304.pdf', index: 'WMGBMZC304', price: '89,906', image:'assets/img/mzc304.png' },
+    { quantity: 0,model: 'MZC-330S Short Circuit Loop Impedance Meter', pdf:'assets/documents/MZC.pdf', index: 'WMGBMZC330', price: '5,78,550', image:'assets/img/mzc_updated.png' },
+    { quantity: 0,model: 'MRP-201 RCD Tester', pdf:'assets/documents/MP540.pdf', index: 'WMGBMRP201', price: '98,175', image:'assets/img/mpi_updated.png' },
+    { quantity: 0,model: 'MPI-530 Multi-function Meter', pdf:'assets/documents/MPI.pdf', index: 'WMGBMPI530', price: '3,12,900', image:'assets/img/mpi_530I_updated.png' },
     
     // { position: 1, model: 'MZC-20E S.C. Loop Impedance Meter', pdf:'assets/documents/MZC20E.pdf',index: 'WMGBMZC20E', price: '75863', image:'assets/img/mzc20e.png' },
     // { position: 3, model: 'MZC-306 S.C. Loop Impedance Meter', pdf:'assets/documents/MZC306.pdf', index: 'WMGBMZC306', price: '255413', image:'assets/img/mzc306.png' },
@@ -142,14 +141,15 @@ meterData2: any =[
   }
  
   ngOnInit(): void {
-    this.setPagination();
+   this.setPagination(0,0);
   } 
 
-  setPagination() {
-    this.filteredData=this.meterData1;
-    this.meter_dataSource = new MatTableDataSource(this.filteredData);
-    this.meter_dataSource.paginator = this.meterPaginator;
-    this.meter_dataSource.sort = this.meterSort;
+  setPagination(a:any,b:any) {
+    this.findsum(a);  
+    // this.filteredData=this.meterData1;
+    // this.meter_dataSource = new MatTableDataSource(this.filteredData);
+    // this.meter_dataSource.paginator = this.meterPaginator;
+    // this.meter_dataSource.sort = this.meterSort;
   }
   compareProd(contentCompare:any,a:any) {
    this.modalService.open(contentCompare, {
@@ -160,10 +160,13 @@ meterData2: any =[
      this.clcikeditem=a.index;
      this.value = this.clcikeditem;
     }
-    addToCart(b:any){
-      this.router.navigate(['/signIn-buyMeter']);
-      this.addcart.addtoCartIndex(b);
-    }
+    findsum(a:any){    
+        for(let j=0; j<this.meterData1.length; j++){   
+        let temp_price=(+this.meterData1[j].price.replaceAll(',', '') * +this.meterData1[j].Quantity);
+             this.subtotal+= temp_price; 
+             console.log(this.subtotal)  
+        }  
+      }  
     zoomImage(contentImage:any,a:any){
       this.modalService.open(contentImage, {
         centered: true, 
@@ -189,4 +192,15 @@ meterData2: any =[
       return meter === this.clickedMeter;
     }
 
+    quantityChange(event:any, a:any) {
+      // let temp_price = parseFloat(a.price.replace(',', ''));
+      // a.price=temp_price;
+      
+      // console.log(+a.price * +a.Quantity);
+      console.log(event, a);
+    }
+
+    addtoCartIndex(b:any){
+      console.log(b);
+    }
 }

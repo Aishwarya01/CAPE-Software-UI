@@ -30,6 +30,9 @@ import { LpsSpdComponent } from './LPS/lps-spd/lps-spd.component';
 import { LpsMatstepperComponent } from './LPS/lps-matstepper/lps-matstepper.component';
 import { LpsWelcomePageComponent } from './LPS/lps-welcome-page/lps-welcome-page.component';
 import { BuyMeterComponent } from './buy-meter/buy-meter.component';
+import { SignInBuyMeterComponent } from './sign-in-buy-meter/sign-in-buy-meter.component';
+import { RegistrationBuyMeterComponent } from './registration-buy-meter/registration-buy-meter.component';
+import { AddCartBuyMeterComponent } from './add-cart-buy-meter/add-cart-buy-meter.component';
 
 const routes: Routes = [
   {path: '', redirectTo: "/SignIn", pathMatch: 'full' },
@@ -65,6 +68,9 @@ const routes: Routes = [
   {path: 'LpsEarthingComponent',component:LpsEarthingComponent},
   {path: 'LpsSpdComponent',component:LpsSpdComponent},
   {path: 'buyMeter',component:BuyMeterComponent},
+  {path: 'signIn-buyMeter',component:SignInBuyMeterComponent},
+  {path: 'register-buyMeter',component:RegistrationBuyMeterComponent},
+  {path: 'addtocart',component:AddCartBuyMeterComponent},
 
 ];
 
