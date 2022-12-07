@@ -889,13 +889,16 @@ createNewGroup(item: any): FormGroup{
             this.site.allStepsCompleted = "Register";
             this.sitePerson.designation = this.register.designation;
             this.site.zipCode = this.register.pinCode;
-
+            this.site.addressLine_1 = this.register.address;
+            this.site.country = this.register.country;
+            this.site.state = this.register.state;
+            this.site.landMark=this.register.address;
             this.sitePerson.personIncharge = this.register.name;
             this.sitePerson.designation = this.register.designation;
             this.sitePerson.contactNo = this.register.contactNumber;
             this.sitePerson.personInchargeEmail = this.register.username;
             this.sitePerson.personId = this.register.personId;
-
+            
             this.site.sitePersons = [];
             this.site.sitePersons.push(this.sitePerson);
 
