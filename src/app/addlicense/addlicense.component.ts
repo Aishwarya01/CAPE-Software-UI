@@ -35,6 +35,11 @@ export class AddlicenseComponent implements OnInit {
     this.service.noofLicense=this.service.noofLicense + 5;
     this.register.noOfLicence = 5;
     this.register.username = this.email;
+    if(this.service.triggerMsgForLicense=='lvPage'){
+      this.register.selectedProject = "LV"
+    } else if(this.service.triggerMsgForLicense=='lpsPage'){
+      this.register.selectedProject = "LPS"
+    }
     this.inspectorService.updateLicense(this.register).subscribe(
       data => {
         //console.log("success");

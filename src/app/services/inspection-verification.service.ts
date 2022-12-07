@@ -15,28 +15,28 @@ const FileSaver = require('file-saver');
 })
 export class InspectionVerificationService {
 
-  apiUrl = environment.apiUrl_v2;
-  apiUrl2= environment.apiUrl_v2;
-  apiUrl5 = environment.apiUrl_Diagram;
+  apiUrl = environment.apiUrl_EMC_LV;
+ 
+  
   constructor(private http: HttpClient) { }
 
   public updateBasic(reportDetails: Reportdetails): Observable<any> {
-    return this.http.put<any>(this.apiUrl + '/updateInstalReport', reportDetails, { responseType: 'text' as 'json' })
+    return this.http.put<any>(this.apiUrl + '/lv/updateInstalReport', reportDetails, { responseType: 'text' as 'json' })
   }
   public updateSupply(supply: Supplycharacteristics): Observable<any> {
-    return this.http.put<any>(this.apiUrl + '/updateCharacteristics', supply, { responseType: 'text' as 'json' })
+    return this.http.put<any>(this.apiUrl + '/lv/updateCharacteristics', supply, { responseType: 'text' as 'json' })
   }
   public updateIncoming(incoming: InspectionDetails): Observable<any> {
-    return this.http.put<any>(this.apiUrl + '/updateInspectionDetails', incoming, { responseType: 'text' as 'json' })
+    return this.http.put<any>(this.apiUrl + '/lv/updateInspectionDetails', incoming, { responseType: 'text' as 'json' })
   }
   public updateTesting(testing: TestingDetails): Observable<any> {
-    return this.http.put<any>(this.apiUrl + '/updatePeriodicTesting', testing, { responseType: 'text' as 'json' })
+    return this.http.put<any>(this.apiUrl + '/lv/updatePeriodicTesting', testing, { responseType: 'text' as 'json' })
   }
   public updateSummary(summary: Summary,superAdminFlag: any): Observable<any> {
-    return this.http.put<any>(this.apiUrl + '/updateSummary' + '/' +superAdminFlag, summary, { responseType: 'text' as 'json' })
+    return this.http.put<any>(this.apiUrl + '/lv/updateSummary' + '/' +superAdminFlag, summary, { responseType: 'text' as 'json' })
   }
   public downloadPDF(siteId: any,userName: any, siteName: any) {
-  return   this.http.get(this.apiUrl2 + '/printFinalPDF'+'/'+userName+ '/' +siteId +'/' +siteName, { responseType: 'blob' }).subscribe(
+  return   this.http.get(this.apiUrl + '/lv/printFinalPDF'+'/'+userName+ '/' +siteId +'/' +siteName, { responseType: 'blob' }).subscribe(
        data =>{
          const fileName = siteName+'.pdf';
          FileSaver.saveAs(data, fileName);
@@ -47,7 +47,7 @@ export class InspectionVerificationService {
      )
   }
   public printPDF(siteId: any,userName: any, siteName: any) {
-    return   this.http.get(this.apiUrl2 + '/printFinalPDF'+'/'+userName+ '/' +siteId +'/' +siteName, { responseType: 'blob' }).subscribe(
+    return   this.http.get(this.apiUrl + '/lv/printFinalPDF'+'/'+userName+ '/' +siteId +'/' +siteName, { responseType: 'blob' }).subscribe(
          data =>{
            //const fileName = 'finalreport.pdf';
            var fileURL: any = URL.createObjectURL(data);
@@ -64,11 +64,11 @@ export class InspectionVerificationService {
        )
     }
     public mailPDF(siteId: any,userName: any, siteName: any): Observable<any> {
-      return this.http.get(this.apiUrl2 + '/sendPDFinMail'+'/'+userName+ '/' +siteId+ '/'+siteName , { responseType: 'text' as 'json' })
+      return this.http.get(this.apiUrl + '/lv/sendPDFinMail'+'/'+userName+ '/' +siteId+ '/'+siteName , { responseType: 'text' as 'json' })
       }
 
   public notificationRetrieveComments(userName: any): Observable<any> {
-    return this.http.get<any>(this.apiUrl2 + '/retrieveComments'+'/'+userName, { responseType: 'text' as 'json' })
+    return this.http.get<any>(this.apiUrl + '/lv/retrieveComments'+'/'+userName, { responseType: 'text' as 'json' })
   }
 
 }

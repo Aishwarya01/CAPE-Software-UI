@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class UpdatepasswordService {
 
-  apiUrl = environment.apiUrl_v2;
+  apiUrl = environment.apiUrl_EMC_LV;
 
   constructor(private http: HttpClient) {
 

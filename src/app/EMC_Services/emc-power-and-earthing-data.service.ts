@@ -9,16 +9,16 @@ import { EmcPowerAndEarthingData } from '../EMC_Model/emc-power-and-earthing-dat
 })
 export class EmcPowerAndEarthingDataService {
 
-  apiUrl_EMC = environment.apiUrl_EMC;
+  apiUrl_EMC = environment.apiUrl_EMC_LV;
   constructor(private http: HttpClient) { }
 
   public savePowerEarthingData(emcPowerAndEarthingData: EmcPowerAndEarthingData): Observable<any> {
-    return this.http.post<any>(this.apiUrl_EMC + '/savePowerEarthingData', emcPowerAndEarthingData, { responseType: 'text' as 'json' })
+    return this.http.post<any>(this.apiUrl_EMC + '/emc/savePowerEarthingData', emcPowerAndEarthingData, { responseType: 'text' as 'json' })
   }
   public retrievePowerEarthingData(userName:any, emcId:any): Observable<any> {
-    return this.http.get<any>(this.apiUrl_EMC + '/retrievePowerEarthingData'+'/'+userName+ '/' +emcId, { responseType: 'text' as 'json' })
+    return this.http.get<any>(this.apiUrl_EMC + '/emc/retrievePowerEarthingData'+'/'+userName+ '/' +emcId, { responseType: 'text' as 'json' })
   }
   public updatePowerEarthingData(emcPowerAndEarthingData: EmcPowerAndEarthingData): Observable<any> {
-    return this.http.put<any>(this.apiUrl_EMC + '/updatePowerEarthingData', emcPowerAndEarthingData, { responseType: 'text' as 'json' })
+    return this.http.put<any>(this.apiUrl_EMC + '/emc/updatePowerEarthingData', emcPowerAndEarthingData, { responseType: 'text' as 'json' })
   }
 }

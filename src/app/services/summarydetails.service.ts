@@ -9,11 +9,11 @@ import { CommentsSection } from '../model/comments-section';
   providedIn: 'root'
 })
 export class SummarydetailsService {
-  apiUrl = environment.apiUrl_v2;
+  apiUrl = environment.apiUrl_EMC_LV;
   constructor(private http: HttpClient) { }
 
   public addSummary(summary: Summary): Observable<any> {
-    return this.http.post<any>(this.apiUrl + '/addSummary', summary, { responseType: 'text' as 'json' })
+    return this.http.post<any>(this.apiUrl + '/lv/addSummary', summary, { responseType: 'text' as 'json' })
   }
 
   public retrieveSummary(siteId:any): Observable<any> {

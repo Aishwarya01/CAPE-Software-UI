@@ -10,7 +10,7 @@ import { UpdatePasswordInspector } from '../model/update-password-inspector';
   providedIn: 'root'
 })
 export class InspectorregisterService {
-  apiUrl = environment.apiUrl_v2;
+  apiUrl = environment.apiUrl_EMC_LV;
   constructor ( private http: HttpClient) { }
   
   public  registerInspector (register: Register): Observable<any> {
@@ -26,7 +26,7 @@ export class InspectorregisterService {
   }
 
   public  updateLicense (register: Register): Observable<any> {
-    return this.http.put<any>(this.apiUrl+'/updateLicence' +'/'+ register.username +'/'+ register.noOfLicence, { responseType: 'text' as 'json' })
+    return this.http.put<any>(this.apiUrl+'/updateLicence' +'/'+ register.username +'/'+ register.noOfLicence +'/'+register.selectedProject, { responseType: 'text' as 'json' })
   }
 
   public  updateInspector (register: Register): Observable<any> {
