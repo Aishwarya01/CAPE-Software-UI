@@ -24,6 +24,7 @@ import { LpssummaryComponent } from '../lpssummary/lpssummary.component';
 import { MatStepper } from '@angular/material/stepper';
 import { LpsFileUploadService } from 'src/app/LPS_services/lps-file-upload.service';
 import { LpsGlobalserviceService } from '../lps-globalservice.service';
+import { invalid } from '@angular/compiler/src/render3/view/util';
 
 @Component({
   selector: 'app-lps-matstepper',
@@ -360,7 +361,7 @@ export class LpsMatstepperComponent implements OnInit {
 
   interceptTabChange(tab: MatTab, tabHeader: MatTabHeader) {
 
-    if((this.service.lpsClick==1 && this.service.allStepsCompleted==true && !this.isEditable) || (this.basic.LPSBasicForm.dirty || this.airTermination.airTerminationForm.dirty))
+    if((this.service.lpsClick==1 && !this.isEditable) || (this.basic.LPSBasicForm.dirty || this.airTermination.airTerminationForm.dirty || this.downConductors.downConductorForm.dirty || this.earthing.earthingForm.dirty || this.earthStud.EarthStudForm.dirty || this.spd.spdForm.dirty || this.seperationDistance.separeteDistanceForm.dirty || this.lpsSummary.summaryForm.dirty))
        {
         const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
           width: '420px',
@@ -471,16 +472,16 @@ export class LpsMatstepperComponent implements OnInit {
               this.lpsGlobalservice.basiclpsId = 0;
 
               // Making all forms as untouched or printine state
-              this.basic.LPSBasicForm.markAsPristine();
-              this.airTermination.airTerminationForm.markAsPristine();
-              this.downConductors.downConductorForm.markAsPristine();
-              this.earthing.earthingForm.markAsPristine();
-              this.earthStud.EarthStudForm.markAsPristine();
-              this.seperationDistance.separeteDistanceForm.markAsPristine();
-              this.spd.spdForm.markAsPristine();
-              this.lpsSummary.summaryForm.markAsPristine();
+              // this.basic.LPSBasicForm.markAsPristine();
+              // this.airTermination.airTerminationForm.markAsPristine();
+              // this.downConductors.downConductorForm.markAsPristine();
+              // this.earthing.earthingForm.markAsPristine();
+              // this.earthStud.EarthStudForm.markAsPristine();
+              // this.seperationDistance.separeteDistanceForm.markAsPristine();
+              // this.spd.spdForm.markAsPristine();
+              // this.lpsSummary.summaryForm.markAsPristine();
               
-              this.isEditable;
+              // this.isEditable;
             }
             this.service.windowTabClick=0;
             this.service.logoutClick=0; 
@@ -500,7 +501,7 @@ export class LpsMatstepperComponent implements OnInit {
           //   return;
           // }
       }
-    else if((this.service.lpsClick==0) || (this.service.allStepsCompleted== true) && this.isEditable){
+    else if(((this.service.lpsClick==0) || (this.service.allStepsCompleted== true) && this.isEditable) || this.basic){
         this.service.windowTabClick=0;
         this.service.logoutClick=0;
         this.service.lpsClick=0; 
@@ -508,10 +509,10 @@ export class LpsMatstepperComponent implements OnInit {
         if((tabs==="Lightning Protection System"))  {
              this.selectedIndex=0; 
             //  Removing form data {Might be usefull in some situation}
-            this.basicDetails = false;
-            setTimeout(() => {
-              this.basicDetails = true;
-            }, 1000);
+            // this.basicDetails = false;
+            // setTimeout(() => {
+            //   this.basicDetails = true;
+            // }, 1000);
               // this.basic.reset();
               // this.airTermination.reset();
               // this.downConductors.reset();
@@ -547,7 +548,6 @@ export class LpsMatstepperComponent implements OnInit {
   }
 
   continue(basicLpsId: any): void {
-    debugger
     this.refresh();
     // this.ngOnInit();
     this.isEditable=false;
@@ -597,8 +597,8 @@ export class LpsMatstepperComponent implements OnInit {
     }, 3000);
 
     this.basic.isEditable=this.isEditable;
-    // this.basic.LPSBasicForm.markAsPristine();
-    // this.basic.LPSBasicForm.markAsUntouched();
+    this.basic.LPSBasicForm.markAsPristine();
+    this.basic.LPSBasicForm.markAsUntouched();
     // AirTermination
     this.airTermination.appendBasicLpsId(this.basic.basicDetails.basicLpsId);   
     this.airTermination.basicLpsId=this.basic.basicDetails.basicLpsId;   
