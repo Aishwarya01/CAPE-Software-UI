@@ -2142,9 +2142,9 @@ for(let i of this.deletedInnerObservation) {
           this.Error = true;
           this.service.isCompleted3= false;
           this.service.isLinear=true;
-          this.errorArr = [];
-          this.errorArr = JSON.parse(error.error);
-          this.errorMsg = this.errorArr.message;
+          // this.errorArr = [];
+          // this.errorArr = JSON.parse(error.error);
+          this.errorMsg = this.service.globalErrorMsg;
          });
         }
     }
@@ -2223,9 +2223,9 @@ for(let i of this.deletedInnerObservation) {
           this.popup=true;
           this.finalSpinner=false;
           this.Error = true;
-          this.errorArr = [];
-          this.errorArr = JSON.parse(error.error);
-          this.errorMsg = this.errorArr.message;
+          // this.errorArr = [];
+          // this.errorArr = JSON.parse(error.error);
+          this.errorMsg = this.service.globalErrorMsg;
           this.service.isCompleted3= false;
           this.service.isLinear=true;
         });

@@ -72,7 +72,9 @@ export class LpsFinalReportComponent implements OnInit {
   superAdminFlag: boolean = false;
   superAdminDev = new SuperAdminDev();
   superAdminProd = new SuperAdminProd();
-
+  globalError: boolean=false;
+  globalErrorMsg: String="";
+  
   constructor(private router: ActivatedRoute,
               private lpsService: LPSBasicDetailsService,
               private ChangeDetectorRef: ChangeDetectorRef,
@@ -129,6 +131,14 @@ export class LpsFinalReportComponent implements OnInit {
           this.lpsData = [];
           this.finalReport_dataSource.paginator = this.finalReportPaginator;
           this.finalReport_dataSource.sort = this.finalReportSort;
+        },
+        error =>{
+          this.globalError=true;
+          this.globalErrorMsg=this.service.globalErrorMsg;
+          setTimeout(() => {
+            this.globalError=false;
+            this.globalErrorMsg="";
+          }, 20000);
         });
       this.superAdminFlag = false;
     }
@@ -147,6 +157,14 @@ export class LpsFinalReportComponent implements OnInit {
           this.lpsData = [];
           this.finalReport_dataSource.paginator = this.finalReportPaginator;
           this.finalReport_dataSource.sort = this.finalReportSort;
+        },
+        error =>{
+          this.globalError=true;
+          this.globalErrorMsg=this.service.globalErrorMsg;
+          setTimeout(() => {
+            this.globalError=false;
+            this.globalErrorMsg="";
+          }, 20000);
         });
     }
       

@@ -114,6 +114,10 @@ export class LicenselistComponent implements OnInit {
   onSubmitSite1 = new EventEmitter();
   onSave = new EventEmitter();
   site = new Site;
+  ErrorLic: boolean=false;
+  ErrorLPS: boolean=false;
+  ErrorLV: boolean=false;
+  errorSite: boolean=false;
   // toggle: boolean=false;
 
   constructor(private formBuilder: FormBuilder,
@@ -158,7 +162,11 @@ export class LicenselistComponent implements OnInit {
           // }
         },
         (error) => {
-  
+          this.ErrorLPS = true;
+          this.errorMsg = this.service.globalErrorMsg;
+          setTimeout(()=>{
+            this.ErrorLPS = false;
+          }, 10000);
         }
       )
      }
@@ -173,7 +181,11 @@ export class LicenselistComponent implements OnInit {
           // }
         },
         (error) => {
-  
+          this.ErrorLV = true;
+          this.errorMsg = this.service.globalErrorMsg;
+          setTimeout(()=>{
+            this.ErrorLV = false;
+          }, 10000);
         }
       )
     }
@@ -236,6 +248,13 @@ export class LicenselistComponent implements OnInit {
           this.completedLicense_dataSource = new MatTableDataSource(this.completedFilterData);
           this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
           this.completedLicense_dataSource.sort = this.completedLicenseSort;
+        },
+        error =>{
+          this.errorSite = true;
+          this.errorMsg = this.service.globalErrorMsg;
+          setTimeout(()=>{
+            this.errorSite = false;
+          }, 10000);
         });
 
       this.superAdminFlag = false;
@@ -259,6 +278,13 @@ export class LicenselistComponent implements OnInit {
           this.completedLicense_dataSource = new MatTableDataSource(this.completedFilterData);
           this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
           this.completedLicense_dataSource.sort = this.completedLicenseSort;
+        },
+        error =>{
+          this.errorSite = true;
+          this.errorMsg = this.service.globalErrorMsg;
+          setTimeout(()=>{
+            this.errorSite = false;
+          }, 10000);
         });
       }
   }
@@ -376,7 +402,6 @@ export class LicenselistComponent implements OnInit {
       else{
         this.destroy = false;
         this.value=false;
-        +3
       }
     })
   //   if (confirm("Are you sure you want to view site details?"))
@@ -420,12 +445,12 @@ export class LicenselistComponent implements OnInit {
     },
     error => {
       this.Error = true;
-      this.errorArr = [];
-      this.errorArr = JSON.parse(error.error);
-      this.errorMsg = this.errorArr.message;
+      // this.errorArr = [];
+      // this.errorArr = JSON.parse(error.error);
+      this.errorMsg = this.service.globalErrorMsg;
       setTimeout(()=>{
         this.Error = false;
-    }, 3000);
+      }, 3000);
     }
       );
   }

@@ -115,6 +115,7 @@ autoLoginToken:number=0;
   headerMsg: String="";
   basicLPSID: number=0;
   toggle: boolean=false;
+  globalErrorMsg: string="";
  constructor(private _scrollToService: ScrollToService
   ) {}
   

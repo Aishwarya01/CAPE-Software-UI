@@ -23,7 +23,7 @@ export class LpsBasicPageComponent implements OnInit {
   disable: boolean=false;
   Error: boolean=false;
   errorArr: any=[];
-  errorMsg: string="";
+  errorMsg: String="";
   validationError: boolean = false;
   validationErrorMsg: String = '';
   @Output() proceedNext = new EventEmitter<any>();
@@ -402,9 +402,7 @@ export class LpsBasicPageComponent implements OnInit {
           this.spinner=false;
           // this.success1 = false;
           this.Error = true;
-          this.errorArr = [];
-          this.errorArr = JSON.parse(error.error);
-          this.errorMsg = this.errorArr.message;
+          this.errorMsg = this.service.globalErrorMsg;
           this.proceedNext.emit(false);
         }
       )}
@@ -453,10 +451,8 @@ export class LpsBasicPageComponent implements OnInit {
           this.popup=true;
           this.spinner=false;
           this.Error = true;
-          this.errorArr = [];
           this.proceedFlag = true;
-          this.errorArr = JSON.parse(error.error);
-          this.errorMsg = this.errorArr.message;
+          this.errorMsg = this.service.globalErrorMsg;
           this.proceedNext.emit(false); 
         }
       )

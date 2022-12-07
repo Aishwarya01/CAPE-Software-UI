@@ -1529,6 +1529,7 @@ showHideAccordion(index: number) {
        this.hideDelete=false;
         },
         (error) => {
+          
         }
       )  
   }
@@ -3889,13 +3890,13 @@ showHideAccordion(index: number) {
           this.finalSpinner=false;
           this.Error = true;
           this.service.isCompleted2= false;
-        this.service.isLinear=true;
-          this.errorArr = [];
-          this.errorArr = JSON.parse(error.error);
-          if(this.errorArr.message =='multiple points'){
+          this.service.isLinear=true;
+          // this.errorArr = [];
+          // this.errorArr = JSON.parse(error.error);
+          if(this.service.globalErrorMsg =='multiple points'){
             this.errorMsg = 'Please fill valid values for AC Table'
           } else{
-            this.errorMsg = this.errorArr.message;
+            this.errorMsg = this.service.globalErrorMsg;
           }
         });
         }
@@ -3969,12 +3970,12 @@ else{
           this.finalSpinner=false;
           this.Error = true;
           this.proceedNext.emit(false);
-          this.errorArr = [];
-          this.errorArr = JSON.parse(error.error);
-          if(this.errorArr.message =='multiple points'){
+          // this.errorArr = [];
+          // this.errorArr = JSON.parse(error.error);
+          if(this.service.globalErrorMsg =='multiple points'){
             this.errorMsg = 'Please fill valid values for AC Table'
           } else{
-            this.errorMsg = this.errorArr.message;
+            this.errorMsg = this.service.globalErrorMsg;
           }
           this.service.isCompleted2= false;
           this.service.isLinear=true;

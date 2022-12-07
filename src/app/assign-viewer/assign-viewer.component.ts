@@ -638,9 +638,9 @@ createNewGroup(item: any): FormGroup{
         },
         (error) => {
           this.Error = true;
-          let errorArr = [];
-          errorArr = JSON.parse(error.error);
-          this.errorMsg1 = errorArr.message;
+          // let errorArr = [];
+          // errorArr = JSON.parse(error.error);
+          this.errorMsg1 = this.globalService.globalErrorMsg;
           this.showAssign = false;
           this.showRegister = true;
           this.viewerFlag = true;
@@ -652,7 +652,7 @@ createNewGroup(item: any): FormGroup{
             this.errorMsg1 = "";
             this.spinner=true;
             this.spinnerValue = "Please wait, the details are loading!";
-            if("Email Id doesn't exist!" == JSON.parse(error.error).message){
+            if("Email Id doesn't exist!" == this.globalService.globalErrorMsg){
               setTimeout(() => {
                 this.viewerFlag = true;
                 this.spinner=false;
@@ -932,7 +932,7 @@ createNewGroup(item: any): FormGroup{
         error => {
           this.loading = false;
           this.errorMsgflag = true;
-          this.errorMsg = error.error.message;
+          this.errorMsg = this.globalService.globalErrorMsg;
           this.onSubmitSite1.emit(false);
           setTimeout(() => {
             this.errorMsgflag = false;

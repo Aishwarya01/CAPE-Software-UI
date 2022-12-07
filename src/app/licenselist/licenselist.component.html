@@ -13,6 +13,15 @@
                         <h3>{{licensePageHeading}}</h3>
                       </mat-panel-title>
                     </mat-expansion-panel-header>
+                    <!-- ErrorMsg -->
+                    <div class="centre-text m-btm30">
+                      <div *ngIf="ErrorLPS" style="text-align: center;">
+                         <span class="alert alert-danger">{{errorMsg}}</span>
+                      </div>
+                      <div *ngIf="ErrorLV" style="text-align: center;">
+                        <span class="alert alert-danger">{{errorMsg}}</span>
+                     </div>
+                    </div>
     
                       <div class="row">
                         <div class="col-md-3">
@@ -46,9 +55,16 @@
                         <h3>Ongoing Site</h3>
                       </mat-panel-title>
                     </mat-expansion-panel-header>
-
+                  <!-- Error Msg -->
+                  <div class="centre-text m-btm30" style="margin-bottom: 2rem;">
+                    <div *ngIf="errorSite" style="text-align: center;">
+                      <span class="alert alert-danger">{{errorMsg}}</span>
+                  </div>
+                  </div>
                     <table mat-table [dataSource]="ongoingSite_dataSource" class="mat-elevation-z8 table" matSort
                 #ongoingSiteSort="matSort">
+
+
 
                 <!--- Note that these columns can be defined in any order.
                             The actual rendered columns are set as a property on the row definition" -->
@@ -139,13 +155,18 @@
                       </mat-panel-title>
         
                     </mat-expansion-panel-header>
-
+                  <!-- Error Msg -->
+                  <div class="centre-text m-btm30" style="margin-bottom: 2rem;">
+                    <div *ngIf="errorSite" style="text-align: center;">
+                      <span class="alert alert-danger">{{errorMsg}}</span>
+                    </div>
+                  </div>
                     <table mat-table [dataSource]="completedLicense_dataSource" class="mat-elevation-z8 table" matSort
                 #completedLicenseSort="matSort">
 
                 <!--- Note that these columns can be defined in any order.
                             The actual rendered columns are set as a property on the row definition" -->
-
+                  
                 <!-- Position Column -->
                 
                 <ng-container matColumnDef="siteCd">
@@ -240,6 +261,7 @@
               </table>
 
               <mat-paginator #completedLicensePaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
               <div class="centre-text m-btm30">
                 <div *ngIf="success" style="text-align: center;">
                   <span class="successshow">{{successMsg}}</span>
@@ -247,9 +269,9 @@
                  <div *ngIf="Error" style="text-align: center;">
                    <span class="errorshow">{{errorMsg}}</span>
                   </div>
-                     </div>
-                </mat-expansion-panel>
-              </ng-container>
+              </div>
+            </mat-expansion-panel>
+          </ng-container>
 
               <ng-container *ngIf="lpsData">
                 <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
