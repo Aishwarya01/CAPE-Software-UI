@@ -116,8 +116,8 @@ export class AssignViewerComponent implements OnInit {
   onSubmitSite1 = new EventEmitter();
   basic = new BasicDetails();
   // Spinner Purpose
-  spinner: boolean=false;
-  spinnerValue: String = '';
+  // spinner: boolean=false;
+  // spinnerValue: String = '';
   mode: any = 'indeterminate';
 
   constructor(private dialog: MatDialog,
@@ -564,8 +564,8 @@ createNewGroup(item: any): FormGroup{
               this.inspectorRegisterService.retrieveSite(this.assignViewerForm.value.viewerEmail).subscribe(
                 (data) => {
                   if(JSON.parse(data) == null){
-                    this.spinner=true;
-                    this.spinnerValue = "Please wait, the details are loading!";
+                    // this.spinner=true;
+                    // this.spinnerValue = "Please wait, the details are loading!";
                     setTimeout(() => {
                       this.viewerFlag = true;
                       if (this.viewerFlag) {
@@ -573,8 +573,8 @@ createNewGroup(item: any): FormGroup{
                       }
                     }, 2000);
                     setTimeout(() => {
-                      this.spinner=false;
-                      this.spinnerValue="";
+                      // this.spinner=false;
+                      // this.spinnerValue="";
                       this.populateData();
                     }, 1000);
                   }
@@ -602,7 +602,7 @@ createNewGroup(item: any): FormGroup{
                     }, 3000);
                     // setTimeout(() => {
                     //   this.spinner=false;
-                      this.spinnerValue="";
+                      // this.spinnerValue="";
                       this.populateData();
                     // }, 2000);
                   }
@@ -643,13 +643,13 @@ createNewGroup(item: any): FormGroup{
           setTimeout(() => {
             this.Error = false;
             this.errorMsg1 = "";
-            this.spinner=true;
-            this.spinnerValue = "Please wait, the details are loading!";
+            // this.spinner=true;
+            // this.spinnerValue = "Please wait, the details are loading!";
             if("Email Id doesn't exist!" == JSON.parse(error.error).message){
               setTimeout(() => {
                 this.viewerFlag = true;
-                this.spinner=false;
-                this.spinnerValue="";
+                // this.spinner=false;
+                // this.spinnerValue="";
                 this.globalService.emailCheck=false;
                 if (this.viewerFlag) {
                   this.openModal(contentViewer);
@@ -899,11 +899,11 @@ createNewGroup(item: any): FormGroup{
             this.siteService.addSIte(this.site).subscribe(
               data => {
                 this.globalService.toggle=false;
-                this.spinner=true;
-                this.spinnerValue = "Please wait, the details are loading!";
+                // this.spinner=true;
+                // this.spinnerValue = "Please wait, the details are loading!";
                 setTimeout(() => {
-                  this.spinner=false;
-                  this.spinnerValue="";
+                  // this.spinner=false;
+                  // this.spinnerValue="";
                   this.navigateToSite(JSON.parse(data));
                 }, 2000);
               },
