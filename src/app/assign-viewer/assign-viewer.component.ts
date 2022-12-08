@@ -550,13 +550,6 @@ createNewGroup(item: any): FormGroup{
     if (this.assignViewerForm.invalid) {
       return;
     }
-    // LV Page
-    // else if (this.globalService.triggerMsgForLicense == 'lvPage') {
-    //   this.applicationName = "LV Systems";
-    // }
-    // else if (this.globalService.triggerMsgForLicense == 'lpsPage') {
-    //   this.applicationName = "LPS Systems";
-    // }
     // else {
       this.inspectorRegisterService.retrieveInspector(this.assignViewerForm.value.viewerEmail).subscribe(
         (data) => {
@@ -578,12 +571,12 @@ createNewGroup(item: any): FormGroup{
                       if (this.viewerFlag) {
                         this.openModal(contentViewer);
                       }
-                    }, 3000);
+                    }, 2000);
                     setTimeout(() => {
                       this.spinner=false;
                       this.spinnerValue="";
                       this.populateData();
-                    }, 2000);
+                    }, 1000);
                   }
                   else{
                     this.success = true;
@@ -599,19 +592,19 @@ createNewGroup(item: any): FormGroup{
               this.lPSBasicDetailsService.retriveLpsbasicIsActive(this.assignViewerForm.value.viewerEmail).subscribe(
                 (data) =>{
                   if(JSON.parse(data) == null){
-                    this.spinner=true;
-                    this.spinnerValue = "Please wait, the details are loading!";
+                    // this.spinner=true;
+                    // this.spinnerValue = "Please wait, the details are loading!";
                     setTimeout(() => {
                       this.viewerFlag = true;
                       if (this.viewerFlag) {
                         this.openModal(contentViewer);
                       }
                     }, 3000);
-                    setTimeout(() => {
-                      this.spinner=false;
+                    // setTimeout(() => {
+                    //   this.spinner=false;
                       this.spinnerValue="";
                       this.populateData();
-                    }, 2000);
+                    // }, 2000);
                   }
                   else{
                     this.success = true;
@@ -859,6 +852,7 @@ createNewGroup(item: any): FormGroup{
       this.register.contactNumber = this.contactNumber;
       this.inspectorRegisterService.registerLicense(this.register).subscribe(
         data => {
+          // console.log(data);
           sessionStorage.setItem("clientName", this.register.clientName);
           sessionStorage.setItem("projectName", this.register.projectName)
           this.successMsgOTP = true;
@@ -879,7 +873,7 @@ createNewGroup(item: any): FormGroup{
           // this.onSave.emit(true);
 
           // License Purpose
-          if (this.globalService.triggerMsgForLicense == "lvPage") {
+          if(this.globalService.triggerMsgForLicense == "lvPage") {
             this.site.userName = this.email;
             this.site.assignedTo = this.register.username;
             this.site.departmentName = this.register.department;
@@ -890,7 +884,7 @@ createNewGroup(item: any): FormGroup{
             this.sitePerson.designation = this.register.designation;
             this.site.zipCode = this.register.pinCode;
             this.site.addressLine_1 = this.register.address;
-            this.site.country = this.register.country;
+            this.site.country = this.register.country; 
             this.site.state = this.register.state;
             this.site.landMark=this.register.address;
             this.sitePerson.personIncharge = this.register.name;
@@ -912,9 +906,12 @@ createNewGroup(item: any): FormGroup{
                   this.spinnerValue="";
                   this.navigateToSite(JSON.parse(data));
                 }, 2000);
-              })
+              },
+              error => {
+                // console.log(error);
+              });
           }
-          else if (this.globalService.triggerMsgForLicense == "lpsPage") {
+          else if(this.globalService.triggerMsgForLicense == "lpsPage") {
 
             this.basic.clientName = this.register.clientName;
             this.basic.projectName = this.register.projectName;
@@ -926,6 +923,9 @@ createNewGroup(item: any): FormGroup{
               data => {
                 this.globalService.basicLPSID = JSON.parse(data).basicLpsId;
                 this.navigateToLpsBasivPage(this.register);
+              },
+              error => {
+                // console.log(error);
               });
           }
           // setTimeout(()=>{
