@@ -674,7 +674,7 @@ createNewGroup(item: any): FormGroup{
   //  }
   closeModalDialogContinue(){
     if(!this.globalService.useClicked){
-      this.globalService.noofLicense=0; //aish
+      // this.globalService.noofLicense=0;
     }
     this.dialog.closeAll();
    }
