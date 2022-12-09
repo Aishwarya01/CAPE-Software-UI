@@ -26,12 +26,12 @@
   border-top: 1px solid rgba(0, 0, 0, 0.125) !important;
 }
 .brand-logo img{
-  width: 100%;
-  margin: 50px auto 20px 0px;
+  width: 50%;
+  margin: 20px auto 10px 0px;
 }
 
 .login-title {
-    margin-top: 2rem;
+    margin-top: 1rem;
     color: #9e97aa;
     text-align: center;
     font-weight: bold;
