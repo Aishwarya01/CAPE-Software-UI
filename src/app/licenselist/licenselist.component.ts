@@ -273,7 +273,7 @@ export class LicenselistComponent implements OnInit {
   }
   
   editSite(siteId:any,userName:any,site:any,departmentName:any,companyName:any,allStepsCompleted:any,data:any){
-    if(allStepsCompleted==null && allStepsCompleted==undefined){
+    if((allStepsCompleted!=null && allStepsCompleted!=undefined) || (allStepsCompleted==null && allStepsCompleted==undefined)){
       this.service.allStepsCompleted=true;
       this.service.disableSubmitSummary=false;
       this.service.allFieldsDisable = false;
@@ -293,7 +293,7 @@ export class LicenselistComponent implements OnInit {
           this.value=true;
           this.service.disableFields=false;
           setTimeout(()=>{
-            this.verification.changeTabSavedReport(0,siteId,userName,companyName,departmentName,site);
+            this.verification.changeTab(0,siteId,userName,companyName,departmentName,site);
           }, 1000);
         }
         else{
