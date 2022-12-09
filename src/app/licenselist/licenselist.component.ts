@@ -154,7 +154,12 @@ export class LicenselistComponent implements OnInit {
         (data) => {
           this.userData = JSON.parse(data);
           // if(this.userData.role == 'Inspector') {
-            this.service.noofLicense = this.userData.lpsNoOfLicence;
+            if((this.userData.lpsNoOfLicence==undefined && this.userData.lpsNoOfLicence==null) || (this.userData.lpsNoOfLicence=="") || (this.userData.lpsNoOfLicence==0)){
+              this.service.noofLicense=0;
+            }
+            else if(this.userData.lpsNoOfLicence!="" && this.userData.lpsNoOfLicence!=0 && this.userData.lpsNoOfLicence!=null && this.userData.lpsNoOfLicence!=undefined){
+              this.service.noofLicense=this.userData.lpsNoOfLicence;
+            }
           // }
         },
         (error) => {
@@ -168,8 +173,12 @@ export class LicenselistComponent implements OnInit {
         (data) => {
           this.userData = JSON.parse(data);
           // if(this.userData.role == 'Inspector') {
-            
-            this.service.noofLicense = this.userData.lvNoOfLicence;
+            if((this.userData.lvNoOfLicence==undefined && this.userData.lvNoOfLicence==null) ||( this.userData.lvNoOfLicence=="") || (this.userData.lvNoOfLicence==0)){
+              this.service.noofLicense=0;
+            }
+            else if(this.userData.lvNoOfLicence!="" && this.userData.lvNoOfLicence!=0 && this.userData.lvNoOfLicence!=null && this.userData.lvNoOfLicence!=undefined){
+            this.service.noofLicense=this.userData.lvNoOfLicence;
+            }
           // }
         },
         (error) => {
