@@ -1,76 +1,113 @@
-<div class="Cart-Container">
+<div class="Cart-Container" *ngIf="filledCart">
     <div class="Header">
         <h3 class="Heading">Shopping Cart</h3>
-        <h3 class="Heading" style="margin-left: 47%;">Price</h3>
-        <h3 class="Heading">Quantity</h3>
-        <h3 class="Heading">Total</h3>
+        <span class="Heading" style="margin-left: 45%;">Price</span>
+        <span class="Heading" style="margin-left: -2%;">Quantity</span>
+        <span class="Heading" style="margin-right: -5%;">Total</span>
 
-        <h5 class="Action">Remove all</h5>
- </div>
- <hr class="divider1"> 
-        <div class="row" *ngFor="let a of meterData1" style="padding-bottom: 30px;">
-            <div class="col-md-3" style="padding-left: 80px;">
-                <img src="{{a.image}}" height="80" width="100"/>
+        <span class="Action" (click)="removeAllItem()">Remove all</span>
     </div>
-   <div class="col-md-5">
-    <h3><a href="{{a.pdf}}" title="" style="color: black;">{{a.model}}</a></h3>      
-    <div class="rate">
-        <input type="radio" id="star5" name="rate" value="5" />
-        <label for="star5">5 stars</label>
-        <input type="radio" id="star4" name="rate" value="4" />
-        <label for="star4">4 stars</label>
-        <input type="radio" id="star3" name="rate" value="3" />
-        <label for="star3">3 stars</label>
-        <input type="radio" id="star2" name="rate" value="2" />
-
-        <label for="star2">2 stars</label>
-        <input type="radio" id="star1" name="rate" value="1" />
-        <label for="star1">1 star</label> 
-      </div>
-      <p>{{a.index}}</p>
-    </div>
-    <div class="col-md-4">
-        <div class="product-price">₹{{a.price}}</div>
-        <div class="product-quantity">
-            <!-- <input type="number" min="1" [(ngModel)]="a.Quantity" (keyup)="quantityChange($event, a)"> -->
-            <input
-            type="number"
-            [(ngModel)]="a.quantity"
-            (keyup)="quantityChange($event, a)"
-          />
-          </div>
-          <div class="product-removal">
-            <button class="remove-product">
-              Remove
-            </button>
-          </div>
-          <div class="product-line-price">{{ +a.price.replaceAll(',', '') * +a.quantity}}</div>           
+    <hr class="divider1">
+    <div class="row" *ngFor="let a of meterData1; let i = index;" style="padding-bottom: 30px;">
+        <div class="col-md-3" style="padding-left: 80px;">
+            <img src="{{a.image}}" height="80" width="100" />
         </div>
-  </div>
-  <hr>
-  <div class="totals">
-    <div class="totals-item">
-      <label>Subtotal</label>
-      <div class="totals-value" id="cart-subtotal">₹{{subtotal}}</div>
-    </div>
-    <div class="totals-item">
-      <label>GST (5%)</label>
-      <div class="totals-value" id="cart-tax">3.60</div>
-    </div>
-    <div class="totals-item">
-      <label>Shipping</label>
-      <div class="totals-value" id="cart-shipping">15.00</div>
-    </div>
-    <div class="totals-item totals-item-total">
-      <label>Grand Total</label>
-      <div class="totals-value" id="cart-total">{{grandtotal}}</div>
-    </div>
-    <button class="checkout">Checkout</button>
+        <div class="col-md-5">
+            <h3><a href="{{a.pdf}}" title="" style="color: black;">{{a.model}}</a></h3>
+            <div class="rate">
+                <input type="radio" id="star5" name="rate" value="5" />
+                <label for="star5">5 stars</label>
+                <input type="radio" id="star4" name="rate" value="4" />
+                <label for="star4">4 stars</label>
+                <input type="radio" id="star3" name="rate" value="3" />
+                <label for="star3">3 stars</label>
+                <input type="radio" id="star2" name="rate" value="2" />
 
-  </div>
+                <label for="star2">2 stars</label>
+                <input type="radio" id="star1" name="rate" value="1" />
+                <label for="star1">1 star</label>
+            </div>
+            <p>{{a.index}}</p>
+        </div>
+        <div class="col-md-4">
+            <div class="product-price">₹{{a.price}}</div>
+            <div class="product-quantity">
+                <input type="number" min="1" [(ngModel)]="meterData1[i].quantity" (keyup)="quantityChange($event, a,i)" />
+            </div>
+            <div class="product-removal">
+                <button class="remove-product" (click)="removeItem(a)" title="Delete">
+                    Remove
+                </button>
+            </div> 
+            <div class="product-line-price">{{meterData1[i].total}}</div>
+        </div>
+        <!-- <div *ngIf="meterData1.length > 1">
+            <h1>Your cart is empty!</h1>
+        </div> -->
+    </div>
 
+    <!-- <div class="row" *ngFor="let a of meterData2; let i = index" style="padding-bottom: 30px;">
+        <div class="col-md-3" style="padding-left: 80px;">
+            <img src="{{a.image}}" height="80" width="100" />
+        </div>
+        <div class="col-md-5">
+            <h3><a href="{{a.pdf}}" title="" style="color: black;">{{a.model}}</a></h3>
+            <div class="rate">
+                <input type="radio" id="star5" name="rate" value="5" />
+                <label for="star5">5 stars</label>
+                <input type="radio" id="star4" name="rate" value="4" />
+                <label for="star4">4 stars</label>
+                <input type="radio" id="star3" name="rate" value="3" />
+                <label for="star3">3 stars</label>
+                <input type="radio" id="star2" name="rate" value="2" />
+
+                <label for="star2">2 stars</label>
+                <input type="radio" id="star1" name="rate" value="1" />
+                <label for="star1">1 star</label>
+            </div>
+            <p>{{a.index}}</p>
+        </div>
+        <div class="col-md-4">
+            <div class="product-price">₹{{a.price}}</div>
+            <div class="product-quantity">
+                <input type="number" min="0" [(ngModel)]="a.quantity" (keyup)="quantityChange($event, a)" />
+            </div>
+            <div class="product-removal">
+                <button class="remove-product" (click)="removeItem(a)" title="Delete">
+                    Remove
+                </button>
+            </div>
+            <div class="product-line-price">{{ +a.price.replaceAll(',', '') * +a.quantity}}</div>
+        </div>
+    </div> -->
+    <hr>
+    <div class="totals">
+        <div class="totals-item">
+            <label>Subtotal</label>
+            <div class="totals-value" id="cart-subtotal">₹{{subtotal}}</div>
+        </div>
+        <div class="totals-item">
+            <label>GST (5%)</label>
+            <div class="totals-value" id="cart-tax">3.60</div>
+        </div>
+        <div class="totals-item">
+            <label>Shipping</label>
+            <div class="totals-value" id="cart-shipping">15.00</div>
+        </div>
+        <div class="totals-item totals-item-total">
+            <label>Grand Total</label>
+            <div class="totals-value" id="cart-total">{{grandtotal}}</div>
+        </div>
+        <button class="checkout">Checkout</button>
+
+    </div>
+    
 </div>
 
+<div class="Cart-Container" *ngIf="emptyCart">
+    <h1 style="text-align: center; margin: 15% auto; display: block;">Your cart is empty!</h1>
+    <button class="checkout" (click)="backBUtton();">Back</button>
+</div>
 
 <!-- <h1>Shopping Cart</h1>
 
