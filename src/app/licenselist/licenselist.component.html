@@ -24,14 +24,14 @@
     
                         <div class="col-md-3">
                             <div class="form-group">
-                                <button class="btn" [disabled]="service.noofLicense<=0" (click)=decreaseLicense() 
+                                <button class="btn" [hidden]="service.noofLicense<=0" (click)=decreaseLicense() 
                                 style="margin-top: 28px;background-color: #0f800c;color: white;">Use</button>
                             </div>
                         </div>
     
                         <div class="col-md-6">
                             <div class="form-group">
-                                <button class="btn" [disabled]="service.noofLicense!=0" (click)=purchaseLicense() 
+                                <button class="btn" [hidden]="service.noofLicense!=0" (click)=purchaseLicense() 
                                 style="margin-top: 28px;background-color: #0f800c;color: white;">Get Complimentary Licenses</button>
                             </div>
                         </div>
