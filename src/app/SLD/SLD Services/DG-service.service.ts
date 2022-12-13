@@ -8,21 +8,21 @@ import { environment } from 'src/environments/environment';
 })
 export class DGServicesService {
 
-  apiUrl5 = environment.apiUrl_Diagram;
+  apiUrl5 = environment.apiUrl_EMC_LV;
 
   constructor(private http: HttpClient) { }
 
   //DG
 
   public addDieselGenerator(DieselGenerator: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl5 + '/saveDieselGenerator', DieselGenerator, { responseType: 'text' as 'json' })
+    return this.http.post<any>(this.apiUrl5 + '/diagram/saveDieselGenerator', DieselGenerator, { responseType: 'text' as 'json' })
   }
 
   public retrieveDieselGenerator(fileName: any,nodeId: any): Observable<any> {
-    return this.http.get<any>(this.apiUrl5 + '/retrieveDieselGenerator'+'/'+fileName+'/'+nodeId, { responseType: 'text' as 'json' })
+    return this.http.get<any>(this.apiUrl5 + '/diagram/retrieveDieselGenerator'+'/'+fileName+'/'+nodeId, { responseType: 'text' as 'json' })
   }
 
   public updateDieselGenerator(DieselGenerator: any): Observable<any> {
-    return this.http.put<any>(this.apiUrl5 + '/updateDieselGenerator', DieselGenerator, { responseType: 'text' as 'json' })
+    return this.http.put<any>(this.apiUrl5 + '/diagram/updateDieselGenerator', DieselGenerator, { responseType: 'text' as 'json' })
   }
 }

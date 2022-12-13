@@ -13,11 +13,11 @@ const FileSaver = require('file-saver');
   providedIn: 'root'
 })
 export class TransformerFileUploadServiceService {
-  apiUrl5 = environment.apiUrl_Diagram;
+  apiUrl5 = environment.apiUrl_EMC_LV;
 
   constructor(private http: HttpClient) { }
   public uploadFile(formData: FormData,nodeId: number,fileSize:any): Observable<HttpEvent<any>> {
-    return this.http.post<any>(this.apiUrl5 + '/uploadNodeFile'+ '/'+nodeId + '/'+fileSize,formData, {
+    return this.http.post<any>(this.apiUrl5 + '/diagram/uploadNodeFile'+ '/'+nodeId + '/'+fileSize,formData, {
       headers: new HttpHeaders(
         {
           'Content-Type': 'multipart/form-data'
@@ -27,7 +27,7 @@ export class TransformerFileUploadServiceService {
   }
 
   public updateFile(formData: FormData,fileId: number, fileSize:any): Observable<HttpEvent<any>> {
-    return this.http.put<any>(this.apiUrl5 + '/updateNodeFile'+ '/'+fileId + '/'+fileSize,formData, {
+    return this.http.put<any>(this.apiUrl5 + '/diagram/updateNodeFile'+ '/'+fileId + '/'+fileSize,formData, {
       headers: new HttpHeaders(
         {
           'Content-Type': 'multipart/form-data'
@@ -37,12 +37,12 @@ export class TransformerFileUploadServiceService {
   }
 
   public retriveFile(nodeId:any) {
-    return this.http.get<any>(this.apiUrl5 + '/retrieveNodeFileName'+'/Transformer'+'/'+nodeId, { responseType:'text' as 'json'})
+    return this.http.get<any>(this.apiUrl5 + '/diagram/retrieveNodeFileName'+'/Transformer'+'/'+nodeId, { responseType:'text' as 'json'})
   }
 
 
   public downloadFile(nodeId:any) {
-    return this.http.get(this.apiUrl5 + '/downloadNodeFile'+'/Transformer'+'/'+nodeId, { responseType:'blob'}).subscribe(
+    return this.http.get(this.apiUrl5 + '/diagram/downloadNodeFile'+'/Transformer'+'/'+nodeId, { responseType:'blob'}).subscribe(
       data =>{
         const fileName = data.type;
         FileSaver.saveAs(data,fileName);
@@ -54,6 +54,6 @@ export class TransformerFileUploadServiceService {
 
     }
     public deleteFile(nodeId:any): Observable<any> {
-      return this.http.delete(this.apiUrl5 + '/removeNodeFile'+'/Transformer'+'/'+nodeId, { responseType: 'text' as 'json'})
+      return this.http.delete(this.apiUrl5 + '/diagram/removeNodeFile'+'/Transformer'+'/'+nodeId, { responseType: 'text' as 'json'})
     }
 }
