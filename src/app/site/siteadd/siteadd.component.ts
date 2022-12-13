@@ -245,7 +245,8 @@ export class SiteaddComponent implements OnInit {
     // this.site.assignedTo = this.data.username;
     this.siteService.updateSite(this.site).subscribe(
       data=> {
-        this.success = true
+        this.service.siteData=JSON.parse(data);
+        this.success = true;
         this.successMsg ="Site "+ this.site.site +" Updated Successfully";
         this.service.allFieldsDisable = false;
         this.service.allStepsCompleted=true;

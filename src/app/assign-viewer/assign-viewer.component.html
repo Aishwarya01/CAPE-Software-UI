@@ -380,8 +380,13 @@
                           <i class="bi bi-geo-alt-fill"></i>
                         </span>
                       </div>
-                      <input type="text" [readonly]="setReadOnly" formControlName="district" class="form-control"
+                      <input type="text" [readonly]="setReadOnly" formControlName="district" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('district')?.errors }"
                         placeholder="Enter your District" [(ngModel)]="register.district" />
+                        <div *ngIf="submitted && a.get('district')?.errors" class="invalid-feedback">
+                          <div *ngIf="a.get('district')?.errors?.required">
+                            District is required
+                          </div>
+                        </div>
                     </div>
                   </div>
                 </div>

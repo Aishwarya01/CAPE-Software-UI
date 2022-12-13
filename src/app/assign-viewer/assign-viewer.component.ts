@@ -175,9 +175,9 @@ export class AssignViewerComponent implements OnInit {
       this.viewerForLps=false;
 
         form = this.formBuilder.group({
-        name: new FormControl(''),
+        name: new FormControl('',Validators.required),
         companyName: new FormControl('', Validators.required),
-        siteName: new FormControl('', [Validators.minLength(3),Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
+        siteName: new FormControl('', [Validators.required,Validators.minLength(3),Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
         clientName: new FormControl(''),
         projectName:new FormControl(''),
         email: new FormControl('', Validators.required),
@@ -203,9 +203,9 @@ export class AssignViewerComponent implements OnInit {
       form = this.formBuilder.group({
         name: new FormControl(''),
         companyName: new FormControl('', Validators.required),
-        siteName: new FormControl('',),
+        siteName: new FormControl(''),
         clientName: new FormControl('', Validators.required),
-        projectName:new FormControl('', Validators.required),
+        projectName:new FormControl('',Validators.required),
         email: new FormControl('', Validators.required),
         designation: new FormControl('', Validators.required),
         contactNumber: new FormControl('', Validators.required),
@@ -461,8 +461,8 @@ createGroup(item: any): FormGroup{
 
     form = this.formBuilder.group({
 
-      siteName: new FormControl('', [Validators.minLength(3), Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
-      name: new FormControl(item.name),
+      siteName: new FormControl('', [Validators.required,Validators.minLength(3), Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
+      name: new FormControl(item.name, Validators.required),
       companyName: new FormControl(item.companyName, Validators.required),
       clientName: new FormControl(''),
       projectName: new FormControl(''),
@@ -489,7 +489,7 @@ createGroup(item: any): FormGroup{
     form = this.formBuilder.group({
       name: new FormControl(item.name),
       companyName: new FormControl(item.companyName, Validators.required),
-      siteName: new FormControl('',),
+      siteName: new FormControl(''),
       clientName: new FormControl('', Validators.required),
       projectName: new FormControl('', Validators.required),
       email: new FormControl(item.username, Validators.required),
@@ -1004,16 +1004,17 @@ createNewGroup(item: any): FormGroup{
       this.applicationName="LV Systems";
       this.viewerForLV=true;
       this.viewerForLps=false;
-      // lps
-      form.controls.clientName.clearValidators();
-      form.controls.clientName.updateValueAndValidity();
-      form.controls.projectName.clearValidators();
-      form.controls.projectName.updateValueAndValidity();
       // lv
       form.controls.siteName.setValidators();
       form.controls.siteName.updateValueAndValidity();
       form.controls.name.setValidators();
       form.controls.name.updateValueAndValidity();
+      // lps
+      form.controls.clientName.clearValidators();
+      form.controls.clientName.updateValueAndValidity();
+      form.controls.projectName.clearValidators();
+      form.controls.projectName.updateValueAndValidity();
+      
     }
   }
 }
