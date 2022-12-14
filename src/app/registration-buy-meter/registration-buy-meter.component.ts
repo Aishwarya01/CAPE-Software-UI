@@ -30,7 +30,13 @@ export class RegistrationBuyMeterComponent implements OnInit {
       email:new FormControl('',Validators.required),
       password:new FormControl('',Validators.required),
       companyName:new FormControl('',Validators.required),
-      confirmpassword:new FormControl('',Validators.required)
+      confirmpassword:new FormControl('',Validators.required),
+      address: new FormControl('',Validators.required),
+      shippingAddress: new FormControl('',Validators.required),
+      country: new FormControl('',Validators.required),
+      state: new FormControl('',Validators.required),
+      city: new FormControl('',Validators.required)
+
      })
 
   }

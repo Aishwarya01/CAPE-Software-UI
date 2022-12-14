@@ -1,7 +1,7 @@
 export class RegistrationBuyMeter {
-    username!:String;
+    username!:string;
     firstName!:String;
-    password!:String;
+    password!:string;
     contactNumber!:String;
     customerCompany!:String;
     createdDate!:Date;
@@ -10,4 +10,12 @@ export class RegistrationBuyMeter {
     updatedBy!:String;
      otp!:string;
     otpSession!:string;
+    address!: string;
+    shippingAddress!: string;
+    district!: string;
+    country!: string;
+    pinCode!: string;
+    state!: string;
+    lastName!:string;
+
 }

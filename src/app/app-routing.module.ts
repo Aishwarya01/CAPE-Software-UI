@@ -73,6 +73,7 @@ const routes: Routes = [
   {path: 'register-buyMeter',component:RegistrationBuyMeterComponent},
   {path: 'addtocart',component:AddCartBuyMeterComponent},
   {path: 'profile-buy-meter',component:ProfieBuyMeterComponent},
+  
   {path: 'aboutus',component:AboutusComponent}
 ];
 

@@ -18,7 +18,7 @@ export class SignInBuyMeterComponent implements OnInit {
   showOtp:boolean = false;
   showBtn:boolean = true;
   hideRegister:boolean = true;
-  registerBuyMeterModel = new RegistrationBuyMeter;
+  registerBuyMeterModel = new RegistrationBuyMeter();
   formInput = ['input1', 'input2', 'input3', 'input4', 'input5', 'input6'];
   @ViewChildren('formRow') rows: any;
   OTPerrorMsgflag: boolean=false;
@@ -32,6 +32,7 @@ export class SignInBuyMeterComponent implements OnInit {
   showErrMsg1:string='';
   wrongPassword:boolean = false;
   userName:any;
+
   OtpSession:any;
    SignIn  = new FormGroup({
     username: new FormControl(''),
@@ -94,7 +95,7 @@ export class SignInBuyMeterComponent implements OnInit {
   continue(){
    this.userName = this.SignIn.controls.username.value;
    if(this.userName==null){
-    this.showErrMsg1 ="Please enter username";
+    this.showErrMsg1 ="Please Enter Username";
     this.showErrorMsg1 = true;
     this.showErrorMsg = false;
     setTimeout(() => {
@@ -123,7 +124,12 @@ export class SignInBuyMeterComponent implements OnInit {
 
   // Account Validation
   submit(){
-    this.regiterationBuymeterService.authenticate(this.registerBuyMeterModel).subscribe(data=>{
+    this.regiterationBuymeterService.authenticate(this.registerBuyMeterModel).subscribe(
+      data=>{
+      localStorage.setItem('password', this.registerBuyMeterModel.password );
+      localStorage.setItem('username',this.registerBuyMeterModel.username);
+      sessionStorage.setItem('token', data['token']);
+      
       this.router.navigate(['/addtocart']);
     },error=>{
       this.wrongPassword = true;
