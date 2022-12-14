@@ -132,6 +132,8 @@ import { BuyMeterComponent } from './buy-meter/buy-meter.component';
 import { SignInBuyMeterComponent } from './sign-in-buy-meter/sign-in-buy-meter.component';
 import { RegistrationBuyMeterComponent } from './registration-buy-meter/registration-buy-meter.component';
 import { AddCartBuyMeterComponent } from './add-cart-buy-meter/add-cart-buy-meter.component';
+import { ProfieBuyMeterComponent } from './profie-buy-meter/profie-buy-meter.component';
+import { AboutusComponent } from './aboutus/aboutus.component';
 
 @NgModule({
   declarations: [
@@ -226,7 +228,9 @@ import { AddCartBuyMeterComponent } from './add-cart-buy-meter/add-cart-buy-mete
     BuyMeterComponent,
     SignInBuyMeterComponent,
     RegistrationBuyMeterComponent,
-    AddCartBuyMeterComponent
+    AddCartBuyMeterComponent,
+    ProfieBuyMeterComponent,
+    AboutusComponent
   ],
   imports: [
     MatCarouselModule.forRoot(),
