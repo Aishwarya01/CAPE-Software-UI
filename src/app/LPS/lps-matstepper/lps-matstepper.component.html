@@ -1,7 +1,15 @@
-<mat-tab-group [selectedIndex]="selectedIndex" style="background-color:white;" #tabs>
+<!-- Spinner Code -->
+  <div class="loader" *ngIf="spinner">
+  </div>
+  
+  <div class="text-align" *ngIf="spinner">
+    <p style="margin: 14px auto 0px 0%;">Please wait, The datails are loading</p>
+  </div>
+
+<mat-tab-group [selectedIndex]="selectedIndex" style="background-color:white;" #tabs [ngStyle]="{'filter': (spinner ? 'blur(1px)' : 'blur(0px)') ,'pointer-events': (spinner ? 'none' : 'visible')}">
     <mat-tab label="Lightning Protection System" >
       <mat-horizontal-stepper  [linear]="service.isLinear" #stepper>
-     <!-- step_1 Basics-->
+    <!-- step_1 Basics-->
         <mat-step [completed]="service.isCompleted" [editable]="service.editable" >
           <ng-template matStepLabel >
             <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
@@ -9,8 +17,8 @@
           </ng-template>
           <app-lps-basic-page *ngIf="basicDetails" (proceedNext)="doSomething1($event)"></app-lps-basic-page>
         </mat-step>
-     
- <!-- step_2 Air Termination-->
+    
+<!-- step_2 Air Termination-->
         <mat-step  [completed]="service.isCompleted2" [editable]="service.editable">
           <ng-template matStepLabel>
             <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
@@ -19,7 +27,7 @@
           <button class="previousAirtermination" mat-button (click)="goBack2(stepper)">&laquo; Back</button> 
         </mat-step>
 
- <!-- step_3 Down Conductors-->
+<!-- step_3 Down Conductors-->
         <mat-step [completed]="service.isCompleted3" [editable]="service.editable">
           <ng-template matStepLabel>
             <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
@@ -82,4 +90,4 @@
     <mat-tab label="Final Reports">
       <app-lps-final-report  (callFinalMethod) = "onCallFinalMethod($event)" ></app-lps-final-report>
     </mat-tab>
-  </mat-tab-group>
+</mat-tab-group>

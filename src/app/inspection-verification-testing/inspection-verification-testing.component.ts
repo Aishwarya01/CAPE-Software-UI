@@ -39,7 +39,7 @@ import { ValueTransformer } from '@angular/compiler/src/util';
 import { MatDialog } from '@angular/material/dialog';
 import { ObservationService } from '../services/observation.service';
 import { SummaryServiceService } from '../LPS_services/summary-service.service';
-import { SummarydetailsService } from '../services/summarydetails.service';
+import { SummarydetailsService } from '../services/summarydetails.service'; 
 // import { ObservationTesting } from '../model/observation-testing';
 import { TestingDialogBoxComponent } from '../testing-dialog-box/testing-dialog-box.component';
 

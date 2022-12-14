@@ -1,4 +1,4 @@
-import { Component, OnInit, Output,EventEmitter } from '@angular/core';
+import { Component, OnInit, Output,EventEmitter,Input } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -85,9 +85,9 @@ export class LpsBasicPageComponent implements OnInit {
   lpsBasic: any=[];
 
   // License Purpose
-  // currentUserName: String='';
-  // currentUsermail: String='';
-  // userDetails: any;
+  currentUserName: String='';
+  currentUsermail: String='';
+  userDetails: any;
 
   constructor(private formBuilder: FormBuilder, 
     private lPSBasicDetailsService: LPSBasicDetailsService,
@@ -102,16 +102,21 @@ export class LpsBasicPageComponent implements OnInit {
 
   
   ngOnInit(): void {
+    // Here we are retreing data from DB
+    this.basicDetails.basicLpsId=this.service.basicLPSID;
+    this.retriveBasicDetails();
+
     this.countryCode = '91';
     this.LPSBasicForm = this.formBuilder.group({
       lpsBasic: this.formBuilder.array([this.allBasicForm()])
     });
     // License Purpose
-    // this.userDetails = sessionStorage.getItem('authenticatedUser');
-    // if(JSON.parse(this.userDetails).role == "Inspector"){
-    //   this.currentUserName=JSON.parse(this.userDetails).name;
-    //   this.currentUsermail=JSON.parse(this.userDetails).username;
-    // }
+    this.userDetails = sessionStorage.getItem('authenticatedUser');
+    if(JSON.parse(this.userDetails).role == "Inspector"){
+      this.currentUserName=JSON.parse(this.userDetails).name;
+      this.currentUsermail=JSON.parse(this.userDetails).username;
+      
+    }
   }
 
   allBasicForm() {
@@ -126,15 +131,15 @@ export class LpsBasicPageComponent implements OnInit {
       location:new FormControl('', Validators.required),
       industryType:new FormControl('', Validators.required),
       soilResistivity:new FormControl(''),
-      name:new FormControl('', Validators.required),
-      company:new FormControl('', Validators.required),
-      designation:new FormControl('', Validators.required),
-      contactNumber:new FormControl('',[Validators.required ,Validators.maxLength(10),Validators.minLength(10)]),
+      // name:new FormControl('', Validators.required),
+      // company:new FormControl('', Validators.required),
+      // designation:new FormControl('', Validators.required),
+      contactNumber:new FormControl(''),
       mailId:new FormControl('', [Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       availabilityOfPreviousReport:new FormControl('', Validators.required),
       // license purpose 
-      // email1:new FormControl(''),
-      // name1:new FormControl(''),
+      email1:new FormControl(''),
+      name1:new FormControl(''),
       fileName: new FormControl(''),
       basicLpsId: new FormControl(''),
       fileSize: new FormControl(''),
@@ -182,21 +187,19 @@ export class LpsBasicPageComponent implements OnInit {
       location: new FormControl({disabled: false, value: item.location}, Validators.required),
       industryType: new FormControl({disabled: false, value: item.industryType}, Validators.required),
       soilResistivity: new FormControl({disabled: false, value: item.soilResistivity}),
-      name: new FormControl({disabled: false, value: item.name}, Validators.required),
-      company: new FormControl({disabled: false, value: item.company}, Validators.required),
-      designation: new FormControl({disabled: false, value: item.designation}, Validators.required),
-      contactNumber: new FormControl({disabled: false, value: item.contactNumber}, [Validators.required,Validators.maxLength(15),Validators.minLength(10)]),
+      // name: new FormControl({disabled: false, value: item.name}, Validators.required),
+      // company: new FormControl({disabled: false, value: item.company}, Validators.required),
+      // designation: new FormControl({disabled: false, value: item.designation}, Validators.required),
+      contactNumber: new FormControl({disabled: false, value: item.contactNumber}),
       mailId: new FormControl({disabled: false, value: item.mailId},
          [Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       availabilityOfPreviousReport: new FormControl({disabled: false, value: item.availabilityOfPreviousReport}, Validators.required),
       // License Purpose
-      // email1:new FormControl(''),
-      // name1:new FormControl(''),
+      email1:new FormControl(''),
+      name1:new FormControl(''),
       basicLpsId: new FormControl({disabled: false, value: item.basicLpsId}),
       fileId: new FormControl({disabled: false, value: item.fileId}),
     });
-    
-
   }
 
   overAllControl(): any {
@@ -494,9 +497,9 @@ export class LpsBasicPageComponent implements OnInit {
     this.basicDetails.location = this.LPSBasicForm.value.lpsBasic[0].location;
     this.basicDetails.industryType = this.LPSBasicForm.value.lpsBasic[0].industryType;
     this.basicDetails.soilResistivity = this.LPSBasicForm.value.lpsBasic[0].soilResistivity;
-    this.basicDetails.name = this.LPSBasicForm.value.lpsBasic[0].name;
-    this.basicDetails.company = this.LPSBasicForm.value.lpsBasic[0].company;
-    this.basicDetails.designation = this.LPSBasicForm.value.lpsBasic[0].designation;
+    // this.basicDetails.name = this.LPSBasicForm.value.lpsBasic[0].name;
+    // this.basicDetails.company = this.LPSBasicForm.value.lpsBasic[0].company;
+    // this.basicDetails.designation = this.LPSBasicForm.value.lpsBasic[0].designation;
     this.basicDetails.contactNumber = contactNum;
     this.basicDetails.mailId = this.LPSBasicForm.value.lpsBasic[0].mailId;
     this.basicDetails.availabilityOfPreviousReport = this.LPSBasicForm.value.lpsBasic[0].availabilityOfPreviousReport;

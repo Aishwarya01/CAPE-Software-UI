@@ -5,6 +5,8 @@
 
         <h4 class="successshow" *ngIf="viewModal">Are you sure you want to view site details? </h4>
 
+        <h4 class="successshow" *ngIf="viewModal1">Are you sure you want to edit this LPS Data details? </h4>
+
         <h4 class="successshow" *ngIf="lpsAirTModal">Confirm if two or more different height air VAT are available? </h4>
         <h4 class="successshow" *ngIf="lpsAirHModal">Confirm if two or more different holders are available? </h4>
         <h4 class="successshow" *ngIf="lpsTypeEModal">Confirm if two or more different earth electrodes are available? </h4>
@@ -32,7 +34,8 @@
      </div>
     <div class="row">
       <div class="col-sm-12" style="text-align: center;">
-       <button type="button" class="col-md-6" style="text-align:center; width: auto;" class="btn btn-primary btn-rounded btn-sm font-weight-medium auth-form-btn"
+       <button type="button" class="col-md-6" style="text-align:center; width: auto;background-color: #0f800c;color: white;"
+       class="btn btn-rounded btn-sm font-weight-medium auth-form-btn"
        aria-label="Close" (click)="OkModalDialog()">
        <i class="bi bi-arrow-right-circle"></i>&nbsp;
         <span aria-hidden="true">Ok</span>

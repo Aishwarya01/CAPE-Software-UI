@@ -1,13 +1,16 @@
+
 <ng-template #ref ></ng-template>
 <app-verificationlv *ngIf="value" #verify></app-verificationlv>
+<app-lps-matstepper *ngIf="value1" #verify1></app-lps-matstepper>
 <div class="card" *ngIf="!destroy">
     <div class="card-body" >
         <form [formGroup]="licenseForm" >
             <mat-accordion>
-                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel (opened)="panelOpenState2(true)" (closed)="panelOpenState2(false)" [(expanded)]="service.toggle">
                     <mat-expansion-panel-header>
                       <mat-panel-title>
-                        <h3>Unused License</h3>
+                        <!-- <h3>Unused License</h3> -->
+                        <h3>{{licensePageHeading}}</h3>
                       </mat-panel-title>
                     </mat-expansion-panel-header>
     
@@ -15,27 +18,31 @@
                         <div class="col-md-3">
                              <div class="form-group"> <!--//aish -->
                                 <label>No of available License:</label>
-                                <input type="text" class="form-control" ([ngModel])="service.noofLicense" formControlName="noOfAvailableLicense" readonly [value]="service.noofLicense">
+                                <input type="text" class="form-control" [(ngModel)]="service.noofLicense" formControlName="noOfAvailableLicense" readonly [value]="service.noofLicense">
                             </div>
                         </div>
     
                         <div class="col-md-3">
                             <div class="form-group">
-                                <button class="btn btn-primary" [disabled]="service.noofLicense<=0" (click)=decreaseLicense() style="margin-top: 28px;">Use</button>
+                                <button class="btn" [disabled]="service.noofLicense<=0" (click)=decreaseLicense() 
+                                style="margin-top: 28px;background-color: #0f800c;color: white;">Use</button>
                             </div>
                         </div>
     
                         <div class="col-md-6">
                             <div class="form-group">
-                                <button class="btn btn-primary" [disabled]="service.noofLicense!=0" (click)=purchaseLicense() style="margin-top: 28px;">Get Complimentary Licenses</button>
+                                <button class="btn" [disabled]="service.noofLicense!=0" (click)=purchaseLicense() 
+                                style="margin-top: 28px;background-color: #0f800c;color: white;">Get Complimentary Licenses</button>
                             </div>
                         </div>
                       </div>
                 </mat-expansion-panel>    
-    
-                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                
+              <ng-container *ngIf="lvData">
+                <mat-expansion-panel (opened)="panelOpenState1(true)" (closed)="panelOpenState1(false)">
                     <mat-expansion-panel-header>
-                      <mat-panel-title>
+                      <!-- Lv Systems -->
+                      <mat-panel-title *ngIf="lvData">
                         <h3>Ongoing Site</h3>
                       </mat-panel-title>
                     </mat-expansion-panel-header>
@@ -117,7 +124,7 @@
 
                 <tr mat-header-row *matHeaderRowDef="ongoingSiteColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: ongoingSiteColumns;" title="Click here to edit Site details" 
-                (click)="editSite(row.siteId,row.userName,row.site,row.departmentName,row.companyName)" style="cursor: pointer;"
+                (click)="editSite(row.siteId,row.userName,row.site,row.departmentName,row.companyName,row.allStepsCompleted,row)" style="cursor: pointer;"
                   [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (mouseover)="row.hovered = true"
                   (mouseout)="row.hovered = false"></tr>
 
@@ -125,7 +132,7 @@
               <mat-paginator #ongoingSitePaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
                 </mat-expansion-panel>
     
-                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel (opened)="panelOpenState3(true)" (closed)="panelOpenState3(false)">
                     <mat-expansion-panel-header>
                       <mat-panel-title>
                         <h3>Completed License</h3>
@@ -242,9 +249,35 @@
                   </div>
                      </div>
                 </mat-expansion-panel>
+              </ng-container>
+
+              <ng-container *ngIf="lpsData">
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header>
+                      <!-- LPS -->
+                      <mat-panel-title *ngIf="lpsData">
+                        <h3>Ongoing LPS License Details</h3>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div>
+                      <app-lps-saved-report></app-lps-saved-report>
+                    </div>
+                </mat-expansion-panel>
+    
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        <h3>Completed License</h3>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div>
+                      <app-lps-final-report></app-lps-final-report>
+                    </div>
+                </mat-expansion-panel>
+              </ng-container>
+
             </mat-accordion>
     
         </form>
     </div>
 </div>
-

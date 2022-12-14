@@ -13,6 +13,12 @@ migDataFlag: boolean=false;
 isCustomerDetailsValid: boolean=false;
 step1: any;  
 
+// Ground Flash Density Value Changes
+presentedStep: number=0;
+// nextButtonClicked=false;
+dirtyCheck=false;
+dirtyMsg: String="";
+
   constructor() {}
 
   migDataCheck(){

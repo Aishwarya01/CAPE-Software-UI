@@ -1607,11 +1607,13 @@
       </div>
       <br>
       <div *ngIf="popup">
-        <button type="button" *ngIf="success" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+        <button type="button" *ngIf="success" class="close" style="background-color: #0f800c;color: white;"
+        class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn"
         aria-label="Close"  (click)="closeModalDialog()" matStepperNext>
         <span aria-hidden="true">Ok</span>
       </button>
-      <button type="button" *ngIf="Error" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+      <button type="button" *ngIf="Error" class="close" style="background-color: #0f800c;color: white;"
+      class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn"
         aria-label="Close"  (click)="closeModalDialog()">
           <span aria-hidden="true">Ok</span>
         </button>
@@ -1630,7 +1632,8 @@
      </div>
     <br>
     <div class="row">
-       <button type="button" class="col-md-6" style="text-align:center; width: auto;" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+       <button type="button" class="col-md-6" style="text-align:center; width: auto;background-color: #0f800c;color: white;" 
+       class="btn btn-rounded btn-md font-weight-medium auth-form-btn"
        aria-label="Close" (click)="closeModalDialog()" matStepperNext>
        <i class="bi bi-arrow-right-circle"></i>&nbsp;
         <span aria-hidden="true">Ok</span>

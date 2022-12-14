@@ -36,7 +36,6 @@
           <td mat-cell *matCellDef="let element"> {{element.consultantName | slice:0:18}} </td>
         </ng-container>
 
-        <!-- Weight Column -->
         <ng-container matColumnDef="contractorName">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Contractor Name </th>
           <td mat-cell *matCellDef="let element"> {{element.contractorName | slice:0:18}} </td>
@@ -45,7 +44,7 @@
         <ng-container matColumnDef="dealerContractorName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Dealer Name </th>
             <td mat-cell *matCellDef="let element"> {{element.dealerContractorName | slice:0:18}} </td>
-          </ng-container>
+        </ng-container>
 
         <!-- Weight Column -->
         <ng-container matColumnDef="address">

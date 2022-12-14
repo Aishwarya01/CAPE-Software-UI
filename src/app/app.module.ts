@@ -127,6 +127,13 @@ import { ACBComponent } from './SLD/SLD components/Node Components/acb/acb.compo
 import { EquipotentialBondingComponent } from './SLD/SLD components/Node Components/equipotential-bonding/equipotential-bonding.component';
 import { ProtectiveEarthConductorComponent } from './SLD/SLD components/Node Components/protective-earth-conductor/protective-earth-conductor.component';
 import { TestingDialogBoxComponent } from './testing-dialog-box/testing-dialog-box.component';
+import { MatCarouselModule } from 'ng-mat-carousel';
+import { BuyMeterComponent } from './buy-meter/buy-meter.component';
+import { SignInBuyMeterComponent } from './sign-in-buy-meter/sign-in-buy-meter.component';
+import { RegistrationBuyMeterComponent } from './registration-buy-meter/registration-buy-meter.component';
+import { AddCartBuyMeterComponent } from './add-cart-buy-meter/add-cart-buy-meter.component';
+import { ProfieBuyMeterComponent } from './profie-buy-meter/profie-buy-meter.component';
+import { AboutusComponent } from './aboutus/aboutus.component';
 
 @NgModule({
   declarations: [
@@ -181,7 +188,6 @@ import { TestingDialogBoxComponent } from './testing-dialog-box/testing-dialog-b
     EmcFinalReportComponent,
     EmcClientDetailsComponent,
     SignatureComponent,
-    
     LpsSpdComponent,
     LpsSeperationDistanceComponent,
     LpsMatstepperComponent,
@@ -217,9 +223,16 @@ import { TestingDialogBoxComponent } from './testing-dialog-box/testing-dialog-b
     ACBComponent,
     EquipotentialBondingComponent,
     ProtectiveEarthConductorComponent,
-    TestingDialogBoxComponent
+    TestingDialogBoxComponent,
+    BuyMeterComponent,
+    SignInBuyMeterComponent,
+    RegistrationBuyMeterComponent,
+    AddCartBuyMeterComponent,
+    ProfieBuyMeterComponent,
+    AboutusComponent
   ],
   imports: [
+    MatCarouselModule.forRoot(),
     SignaturePadModule,
     TruncateModule,
     NgbTooltipModule,

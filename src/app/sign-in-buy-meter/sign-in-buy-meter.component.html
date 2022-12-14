@@ -1,0 +1,126 @@
+<div class="bg-image">
+    <div class="card">
+                <div class="brand-logo">
+                    <a href="#"><img src="assets/img/Original-green.png"></a>
+                </div>
+                <!-- <div class="login-header">
+                    <h3 class="login-title">Welcome to SOLVE App Online Services</h3>
+                </div> -->
+        <div class="loginMargin"></div>
+        <div class="card-body">
+            <h1 style="text-align: center;">Sign in</h1>
+            <form style="margin-left: 6%;" [formGroup]="SignIn">
+                <p *ngIf="showErrorMsg1" class="alert alert-danger" style="text-align:center;font-size: large;">{{showErrMsg1}}</p>
+                <p *ngIf="showErrorMsg" class="alert alert-danger" style="text-align:center;font-size: large;">{{showErrMsg}}</p>
+                <p *ngIf="showOtpMsg" class="alert alert-success" style="text-align:center;font-size: large;" > OTP has send Successfully</p>
+                <p *ngIf="wrongPassword" class="alert alert-danger" style="text-align:center;font-size: large;" >Please enter correct password!</p>
+                <p *ngIf="showOtpValidation" class="errorshow">Please enter verification code (OTP)</p>
+                <p *ngIf="SubmitSuccessMsg" class="alert alert-success">Mobile number added successfully</p>
+
+                <!-- <p class="successshow" *ngIf="successMsg">{{successMsg}}</p> -->
+                  <span class="invalid-feedback"></span>
+                  <div class="form-group">
+                      <label for="username">* Email or MobileNumber</label>
+                      <div class="input-group">
+                          <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                  <i class="bi bi-envelope-fill"></i>
+                              </span>
+                          </div>
+                          <input type="email" class="form-control" formControlName="username" placeholder="Enter your email address" maxlength="50"
+                           [(ngModel)]="registerBuyMeterModel.username">
+                          <div *ngIf="submitted && f.usernameerrors" class="invalid-feedback">
+                              <div *ngIf="f.username.errors.required">Email is required</div>
+                              <!-- <div *ngIf="f.email.errors.pattern">Enter valid email</div> -->
+                          </div>
+                      </div>
+                  </div>
+                  
+                  <div *ngIf="showPassword">
+                    <div class="form-group">
+                        <label for="password">* Password</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-envelope-fill"></i>
+                                </span>
+                            </div>
+                            <input type="password" class="form-control" formControlName="password" placeholder="Enter your password" maxlength="50"
+                             [(ngModel)]="registerBuyMeterModel.password">
+                            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                                <div *ngIf="f.password.errors.required">password is required</div>
+                                <!-- <div *ngIf="f.email.errors.pattern">Enter valid email</div> -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div >
+                        <button  style="width:auto;" *ngIf="showBtn" class="btn btn-success cancel" (click)="sendOtp()"> <i class="bi bi-check-lg"></i> Login using OTP</button>
+                        <button  style="width:auto;margin-left:30px;" class="btn btn-success cancel" (click)="submit()">Submit</button>
+                    </div>
+                    
+                </div>
+                <div *ngIf="showOtp">
+                    <div class="form-group">
+                        <p class="a-o-i">Enter verification code(OTP):</p>
+                            <a (click)="resendOTP()" style="text-decoration: underline;float: right; cursor: pointer;
+                            margin-top: -30px;color: #007bff;">Resend OTP Link</a>
+                      </div>
+                    <div class="row">
+                      <div class="form-group col-sm-2" *ngFor="let input of formInput;  index as i">
+                        <input #formRow type="password" formControlName="{{input}}" class="form-control" 
+                        maxlength="1" (keyup)="keyUpEvent($event, i)" name="password" style="-webkit-text-security: square;">
+                      </div>
+                      <div *ngIf="OTPerrorMsgflag" class="errorshow">{{OTPerrorMsg}}</div>
+                    </div>
+                    <button style="margin-left:140px;margin-top:30px;" (click)="onSubmit()" class="btn btn-success">Validate OTP</button>
+                </div>
+
+                 
+                 
+
+
+                  <!-- <div class="form-group">
+                    <label for="mobileNumber">* Mobile Number</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="bi bi-envelope-fill"></i>
+                            </span>
+                        </div>
+                        <input type="password" class="form-control" placeholder="Enter your email address" maxlength="50"
+                        />
+                         <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                            <div *ngIf="f.email.errors.required">Email is required</div>
+                            <div *ngIf="f.email.errors.pattern">Enter valid email</div>
+                        </div> 
+                    </div>
+                </div> -->
+               
+                <div *ngIf="hideRegister">
+                    <div style="margin-right: 48%;"><h5>Are you new User?</h5></div>
+
+                    <div class="row" style="display: block;">
+                        <div class="col-xs-12">
+                            <div class="text-align" style="text-align: center;">
+                        <button type="submit" [routerLink]="['/register-buyMeter']" style="background-color: #0f800c;color: white;"
+                        class="btn newUserBtn btn-rounded btn-md font-weight-medium auth-form-btn" id="login-btn">
+                        <i class="bi bi-person-plus-fill icon"></i> New User/Register</button>
+                        <div class="divider"> </div>
+                        <!-- <button style="width: auto;position: relative;
+                        left: -9%;" class="btn btn-success cancel" (click)="buyMeter();">Meter</button>-->
+                        <button style="width:auto;" class="btn btn-success cancel" (click)="continue()"> <i class="bi bi-check-lg"></i> Continue</button>
+                        <!-- <button [routerLink]="['/login']" style="width: auto;" class="btn btn-success cancel" >
+                            <i class="bi bi-x icon"></i> SignIn/Login</button>  -->
+                    </div>
+                        </div>
+                    </div>
+                </div>
+          
+              </form>
+    
+
+        </div>
+    </div>
+</div> 
+

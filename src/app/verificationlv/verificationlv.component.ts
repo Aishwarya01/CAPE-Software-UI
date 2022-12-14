@@ -495,7 +495,7 @@ export class VerificationlvComponent implements OnInit {
     sitePersons: any[],
     addressLine_1: String,
     addressLine_2: String,
-    zipCode: number,
+    zipCode: String,
     createdDate: Date,
     createdBy: String
   ) {

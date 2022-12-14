@@ -1,16 +1,17 @@
-import { Component, OnInit, ViewChild, ViewContainerRef, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef, EventEmitter, Output, Input } from '@angular/core';
 import { MatInput } from '@angular/material/input';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalsService } from 'src/app/globals.service';
+import { LicenselistComponent } from 'src/app/licenselist/licenselist.component';
 import { BasicDetails } from 'src/app/LPS_model/basic-details';
 import { LPSBasicDetailsService } from 'src/app/LPS_services/lpsbasic-details.service';
 import { environment } from 'src/environments/environment';
 import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminProd } from 'src/environments/environment.prod';
-
+import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
 
 @Component({
   selector: 'app-lps-saved-report',
@@ -33,6 +34,7 @@ export class LpsSavedReportComponent implements OnInit {
 
   // @Output("changeTab") changeTab: EventEmitter<any> = new EventEmitter();
   @Output() callSavedMethod: EventEmitter<any> = new EventEmitter();
+
   email: String ="";
   basicDetails = new BasicDetails();
   clientName: String="";
@@ -54,9 +56,11 @@ export class LpsSavedReportComponent implements OnInit {
   spinnerValue: String = '';
   enableDelete: boolean = false;
   lpsSummary: String="LpsSummary";
+  lpsParent: any;
  
  @ViewChild('input') input!: MatInput;
  lpsData: any=[];
+ license: any=[];
 completedFilterData: any=[];
   filteredData: any = [];
   superAdminArr: any = [];
@@ -67,10 +71,13 @@ completedFilterData: any=[];
  // superAdminLocal = new SuperAdminLocal();
   superAdminDev = new SuperAdminDev();
   superAdminProd = new SuperAdminProd();
+  completedLicense_dataSource!: MatTableDataSource<any[]>;
+  // @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private router: ActivatedRoute,
               public service: GlobalsService,
               public lpsService: LPSBasicDetailsService,
+              public licenselist: LicenselistComponent
               
   ) { 
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
@@ -85,9 +92,14 @@ completedFilterData: any=[];
     // this.superAdminArr.push('gk@capeindia.net');
     // this.superAdminArr.push('vinoth@capeindia.net');
     // this.superAdminArr.push('awstesting@rushforsafety.com');
-
+    
     this.retrieveLpsDetails();
-   
+    // this.savedReportLps_dataSource.sort = this.sort;
+
+    // var sortState: Sort = {active: 'name', direction: 'desc'};
+    // this.sort.active = sortState.active;
+    // this.sort.direction = sortState.direction;
+    // this.sort.sortChange.emit(sortState);
   }
 
   //filter for final reports
@@ -122,7 +134,7 @@ completedFilterData: any=[];
     }
 
     if(this.superAdminFlag) {
-      this.lpsService.retrieveAllBasicLps().subscribe(
+      this.lpsService.retrieveAllBasicLps(this.email).subscribe(
         data => {
           this.lpsData=JSON.parse(data);
           for(let i of this.lpsData){
@@ -155,15 +167,22 @@ completedFilterData: any=[];
           this.savedReportLps_dataSource.sort = this.savedReportLpsSort;
         });
     }
-      
   }
 
   continue(basicLpsId: any) {
-    this.spinner=true;
-    this.disablepage=false;
-    this.spinnerValue = "Please wait, the details are loading!";
-    this.callSavedMethod.emit(basicLpsId);
-    //this.lpsParent.continue(basicLpsId);
+    debugger
+    if(this.service.triggerMsgForLicense=='lpsPage'){
+      this.licenselist.editLpsData(basicLpsId);
+      // setTimeout(() => {
+      //   this.service.triggerMsgForLicense="";
+      // }, 2000);
+    }
+    else{
+      this.spinner=true;
+      this.disablepage=false;
+      this.spinnerValue = "Please wait, the details are loading!";
+      this.callSavedMethod.emit(basicLpsId);
+    }
   } 
 
   deleteBasicLps(basicLpsId: any) {  

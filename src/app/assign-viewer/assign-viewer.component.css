@@ -123,3 +123,44 @@ mat-header-cell.mat-header-cell {
 .modal-xl{
   height: 1px;
 }
+
+.center{
+  margin: auto;
+  overflow: inherit;
+  z-index: 1;
+}
+
+.loader {
+  width: 40px;
+  aspect-ratio: 1;
+  --c: no-repeat linear-gradient(#02348f 0 0);
+  background: var(--c) 0% 50%, var(--c) 50% 50%, var(--c) 100% 50%;
+  background-size: 20% 100%;
+  animation: load 1s infinite linear;
+  margin-left: 12%;
+  display: grid;
+  place-items: center;
+  position: fixed;
+  overflow: inherit;
+  z-index: 1;
+  top: 50%;
+}
+@keyframes load {
+  0%  {background-size: 20% 100%,20% 100%,20% 100%}
+  33% {background-size: 20% 10% ,20% 100%,20% 100%}
+  33% {background-size: 20% 10% ,20% 100%,20% 100%}
+  50% {background-size: 20% 100%,20% 10% ,20% 100%}
+  66% {background-size: 20% 100%,20% 100%,20% 10% }
+  100%{background-size: 20% 100%,20% 100%,20% 100%}
+}
+
+.text-align{
+  margin-left: 15%;
+  display: grid;
+  place-items: center;
+  position: fixed;
+  overflow: inherit;
+  z-index: 1000;
+  top: 50%;
+  font-weight: bold;
+}

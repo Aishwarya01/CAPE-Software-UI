@@ -1,0 +1,144 @@
+<div class="col-md-12 bg-image">
+
+<div class="container">
+    <h2>Account Details</h2>
+<form [formGroup]="profileForm">
+    <div class="row"> 
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="firstname">Name</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="bi bi-file-person"></i>
+                        </span>
+                    </div>
+                    <input class="form-control" type="text" formControlName="firstName"
+                     [ngClass]="{'is-invalid': submitted && f.firstName.errors}" [(ngModel)]="registerBuyMeter.firstName">
+                     <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                        <div *ngIf="f.firstName.errors">Name field is required</div>
+                     </div>
+
+                </div>
+                
+                </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="form-group">
+             <label for="contactNumber">Contact Number</label>
+             <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="bi bi-telephone-fill"></i>
+                    </span>
+                </div>
+                <input type="text" formControlName="contactNumber" class="form-control" 
+                [ngClass]="{'is-invalid': submitted && f.contactNumber.errors}" [(ngModel)]="registerBuyMeter.contactNumber">
+                <div *ngIf="submitted && f.contactNumber.errors" class="invalid-feedback">
+                    <div *ngIf="submitted && f.contactNumber.errors">Contact Number is Required</div>
+
+                </div>
+             </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+               <label for="email">Email</label>
+               <div class="input-group">
+                      <div class="input-group-prepend">   
+                               <span class="input-group-text">
+                                   <i class="bi bi-envelope-fill"></i>
+                               </span>
+                           </div>
+                  <input type="email" formControlName="email" class="form-control" 
+                  [ngClass]="{'is-invalid}':submitted && f.email.erorrs}" [(ngModel)]="registerBuyMeter.username" readonly>
+                  <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                    <div *ngIf="submitted && f.email.errors"> Email is Required </div>
+                  </div>
+
+  
+            </div>
+       </div>
+      </div>
+
+      <div class="col-md-6">                    
+         <div class="form-group">
+             <label for="companyNae"> Company Name</label>
+             <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="bi bi-building"></i>
+                    </span>
+                </div>
+                <input type="text" formControlName="companyName" class="form-control" [(ngModel)]="registerBuyMeter.customerCompany" readonly>
+             </div>
+         </div>
+      </div>
+    </div>
+            <div class="row">
+                <div class="col-md-12 text-center justify-content-center">
+                  <button type="button" class="btn btn-primary" (click)="updateProfile()">Update</button>
+                  <button type="button" class="btn btn-danger" style="margin-left:15px"  (click)="backToAddtocart()">Back</button>
+                </div>
+
+            </div>
+     
+</form>
+<div style="margin-top: 20px;">
+    <h2>Previous Order Details</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>OrderID</th>
+                <th>Purchage date</th>
+                <th>Product details</th>
+                <th>Total amount</th>
+                <th>Payment mode</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>001</td>
+                <td>01/12/2022</td>
+                <td>Iphone 14 pro max</td>
+                <td>156000</td>
+                <td>Gpay</td>
+            </tr>
+            <tr>
+                <td>002</td>
+                <td>04/12/2022</td>
+                <td>Mac Pro</td>
+                <td>256000</td>
+                <td>Credit card</td>
+            </tr>
+            <tr>
+                <td>003</td>
+                <td>06/12/2022</td>
+                <td>Ipad</td>
+                <td>56000</td>
+                <td>Credit card</td>
+            </tr>
+            <tr>
+                <td>004</td>
+                <td>10/12/2022</td>
+                <td>Iphone 13</td>
+                <td>66000</td>
+                <td>COD</td>
+            </tr>
+            <tr>
+                <td>005</td>
+                <td>12/12/2022</td>
+                <td>Airpods pro</td>
+                <td>26000</td>
+                <td>Credit card</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</div>
+</div>

@@ -4,8 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalsService } from 'src/app/globals.service';
 import { CustomerDetails } from '../../Risk Assesment Model/customer-details';
+import { RiskAssessmentDetails } from '../../Risk Assesment Model/risk-assessment-details';
 import { CustomerDetailsServiceService } from '../../Risk Assessment Services/customer-details-service.service';
 import { RiskglobalserviceService } from '../../riskglobalservice.service';
+import { RiskParentComponentComponent } from '../risk-parent-component/risk-parent-component.component';
 
 @Component({
   selector: 'app-risk-customer-details',
@@ -54,7 +56,8 @@ export class RiskCustomerDetailsComponent implements OnInit {
     private modalService: NgbModal,
     private customerDetailsService :CustomerDetailsServiceService,
     public service: GlobalsService,
-    public riskGlobal: RiskglobalserviceService
+    public riskGlobal: RiskglobalserviceService,
+    private parentComponent: RiskParentComponentComponent
   ) {}
 
   ngOnInit(): void {
@@ -71,7 +74,7 @@ export class RiskCustomerDetailsComponent implements OnInit {
       projectName:new FormControl('', Validators.required),
       projectDescription:new FormControl('', Validators.required),
       contactPersonName:new FormControl('', Validators.required),
-      contactNumber:new FormControl(),
+      contactNumber:new FormControl('',[Validators.maxLength(15),Validators.minLength(10)]),
       email:new FormControl('',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       preparedBy:new FormControl('', Validators.required),
       verifiedBy:new FormControl('', Validators.required),
@@ -85,7 +88,7 @@ export class RiskCustomerDetailsComponent implements OnInit {
       projectName:new FormControl({disabled: false, value: item.projectName}, Validators.required),
       projectDescription:new FormControl({disabled: false, value: item.projectDescription}, Validators.required),
       contactPersonName:new FormControl({disabled: false, value: item.contactPersonName}, Validators.required),
-      contactNumber:new FormControl({disabled: false, value: item.contactNumber}),
+      contactNumber:new FormControl({disabled: false, value: item.contactNumber}, [Validators.maxLength(15),Validators.minLength(10)]),
       email:new FormControl({disabled: false, value: item.email},[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       preparedBy:new FormControl({disabled: false, value: item.preparedBy}, Validators.required),
       verifiedBy:new FormControl({disabled: false, value: item.verifiedBy}, Validators.required),
@@ -204,7 +207,8 @@ export class RiskCustomerDetailsComponent implements OnInit {
     if (this.errorMsg != '') {
       this.Error = false;
       this.modalService.dismissAll((this.errorMsg = ''));
-    } else {
+    }
+    else {
       this.success = false;
       this.modalService.dismissAll((this.successMsg = ''));
     }
@@ -223,6 +227,10 @@ export class RiskCustomerDetailsComponent implements OnInit {
     //  Update and Success msg will be showing
     if(this.CustomerDetailsForm.dirty && this.CustomerDetailsForm.touched){
       this.modalService.open(content, { centered: true,backdrop: 'static' });
+    }
+    else if(this.riskGlobal.dirtyCheck==true){
+      this.parentComponent.step1NxtClicked=true;
+      this.modalService.open(contents, { centered: true,backdrop: 'static' });
     }
     //  For Dirty popup
     else{
