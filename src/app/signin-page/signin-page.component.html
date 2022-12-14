@@ -1,10 +1,19 @@
 <div class="bg-image">
     <div class="card">
+        <div style="position: absolute;right: 20px;margin-top: 10px;">
+        <h4 class="hover-underline-animation"  style=" cursor:pointer; "(click)="onMove()" >About us</h4>
+        <h4 class="hover-underline-animation" style="cursor:pointer;margin-left: 10px;" (click)="onMoveTerms(termsContent)">Terms&Condition</h4>
+                </div>
                 <div class="brand-logo">
                     <a href="#"><img src="assets/img/Original-green.png"></a>
+                    
                 </div>
+                
+                
+                
                 <div class="login-header">
                     <h3 class="login-title">Welcome to SOLVE App Online Services</h3>
+                    
                 </div>
         <div class="loginMargin"></div>
         <div class="card-body">
@@ -47,4 +56,69 @@
         </div>
     </div>
 </div> 
-
+<ng-template #termsContent let-modal>
+    
+    <div class="modal-body" modal-xl style="height: 700px;;
+            overflow-y: scroll;">
+    <div class="card">
+    <div class="card-body">
+    <div class="row" style="display: block;">
+    
+     
+        <h4 class="fs-3 fw-bolder lh-lg font-monospace text-center" style="font-size: large;">Terms & Conditions</h4><br>
+            </div>
+    
+    
+     
+    
+            <p>
+              Leave Policy aims at providing the employees an opportunity to take a planned break from the stress ofbusiness
+              so as
+              to re-energize him/her and achieve a better balance between work and another social familyresponsibilities.
+    </p>
+    <p>
+              The annual cycle is normally the calendar year –1st January to 31st December. The Employees, who are on
+              probation,will be able to take one day of leave per month.
+              All confirmed employees are entitled to leave,according to the rules and regulations stated below.
+    </p>
+   
+    
+          </div>
+    </div>
+    
+    <div class="card" style="margin-top:25px;">
+        <div class="card-body">
+        <div class="row" style="display: block;">
+        
+         
+            <h4 class="fs-3 fw-bolder lh-lg font-monospace text-center" style="font-size: large;">Privacy Policy</h4><br>
+                </div>
+        
+        
+         
+        
+                <p>
+                  Leave Policy aims at providing the employees an opportunity to take a planned break from the stress ofbusiness
+                  so as
+                  to re-energize him/her and achieve a better balance between work and another social familyresponsibilities.
+        </p>
+        <p>
+                  The annual cycle is normally the calendar year –1st January to 31st December. The Employees, who are on
+                  probation,will be able to take one day of leave per month.
+                  All confirmed employees are entitled to leave,according to the rules and regulations stated below.
+        </p>
+       
+        <div class="col-xs-12">
+        <div class="text-align" style="text-align: end;margin: 10px;">
+        <button type="button" class="btn btn-danger" id="closeModal" (click)="onCancel()">Cancel</button>
+        
+        </div>
+        </div>
+        
+         
+        
+              </div>
+        </div>
+    </div>
+   
+    </ng-template>

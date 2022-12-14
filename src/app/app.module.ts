@@ -135,6 +135,7 @@ import { AddCartBuyMeterComponent } from './add-cart-buy-meter/add-cart-buy-mete
 import { ProfieBuyMeterComponent } from './profie-buy-meter/profie-buy-meter.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -229,7 +230,8 @@ import { AboutusComponent } from './aboutus/aboutus.component';
     RegistrationBuyMeterComponent,
     AddCartBuyMeterComponent,
     ProfieBuyMeterComponent,
-    AboutusComponent
+    AboutusComponent,
+   
   ],
   imports: [
     MatCarouselModule.forRoot(),
