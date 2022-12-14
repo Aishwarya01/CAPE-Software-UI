@@ -34,6 +34,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatCarousel } from 'ng-mat-carousel';
 import { Router } from '@angular/router';
+import { AddCartBuyMeterComponent } from '../add-cart-buy-meter/add-cart-buy-meter.component';
 
 @Component({
   selector: 'app-buy-meter',
@@ -53,6 +54,8 @@ export class BuyMeterComponent implements OnInit {
   meter_dataSource!: MatTableDataSource<any>;
   @ViewChild('meterPaginator', { static: true }) meterPaginator!: MatPaginator;
   @ViewChild('meterSort', {static: true}) meterSort!: MatSort;
+  @ViewChild(AddCartBuyMeterComponent) 
+  addcart!: AddCartBuyMeterComponent;
 
   meterName: String = '';
   email: String = '';
@@ -157,8 +160,9 @@ meterData2: any =[
      this.clcikeditem=a.index;
      this.value = this.clcikeditem;
     }
-    addToCart(){
+    addToCart(b:any){
       this.router.navigate(['/signIn-buyMeter']);
+      this.addcart.addtoCartIndex(b);
     }
     zoomImage(contentImage:any,a:any){
       this.modalService.open(contentImage, {

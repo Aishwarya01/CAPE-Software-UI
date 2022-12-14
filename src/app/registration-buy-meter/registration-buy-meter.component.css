@@ -1,0 +1,102 @@
+.bg-image {
+    background: url(../../assets/img/electrical-panel-testing_test.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: left;
+    background-size: 100%;
+    height: auto;
+    width: 100%;
+    position: relative;
+    padding: 20px;
+}
+
+.card {
+    float: left;
+    max-width: 500px;
+    width:100%;
+    /* margin-top: 40px; */
+}
+
+.brand-logo {
+    text-align: center;
+    /* margin-top: 2rem; */
+}
+
+.loginMargin {
+  border-top: 1px solid rgba(0, 0, 0, 0.125) !important;
+}
+.brand-logo img{
+  width: 100%;
+  margin: 50px auto 20px 0px;
+}
+
+.login-title {
+    margin-top: 2rem;
+    color: #9e97aa;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+
+.auth-form-btn {
+    margin-top: 25px;
+    width: 25%;
+}
+
+.auth-form-btn .icon {
+    float: left;
+    margin-top: -2px;
+}
+
+.cancel {
+    margin-top: 25px;
+    width: 25%;
+    /* height: 47px; */
+}
+
+.form-check{
+    padding-left: 0.3rem !important;
+}
+
+.password-feedback {
+  display: none;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 80%;
+  color: #a199ad;
+}
+.posrelative{
+  position: relative;
+}
+.pass_group {
+  position: absolute;
+  background: #fff;
+  right: -286px;
+  top: 0;
+  padding: 20px;
+  border-radius: 15px;
+  min-width: 250px;
+  box-shadow: 0 0 6px #717171;
+}
+.diag-left {
+  width: 30px;
+  height: 30px;
+  border-top: 15px solid transparent;
+  border-right: 30px solid #e9ecef;
+  border-bottom: 15px solid transparent;
+  position: absolute;
+  left: -30px;
+  top: 25px;
+}
+
+.successshow1 {
+  padding: 5px 8px;
+  text-align: center;
+  font-size: 14px;
+  color: hsl(120deg 34% 27%);
+  background-color: hsl(101deg 45% 88%);
+  border-color: hsl(101deg 45% 100%);
+  border-radius: 0.25rem;
+  margin: 13px 0px;
+}

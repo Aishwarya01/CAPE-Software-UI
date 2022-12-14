@@ -7,21 +7,21 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class MCBServicesService {
-  apiUrl5 = environment.apiUrl_Diagram;
+  apiUrl5 = environment.apiUrl_EMC_LV;
 
 
   constructor(private http: HttpClient) { }
 
   //MCB
   public addMCB(MCB: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl5 + '/saveMCB', MCB, { responseType: 'text' as 'json' })
+    return this.http.post<any>(this.apiUrl5 + '/diagram/saveMCB', MCB, { responseType: 'text' as 'json' })
   }
 
   public retriveMCB(fileName: any,nodeId: any): Observable<any> {
-    return this.http.get<any>(this.apiUrl5 + '/retrieveMCB'+'/'+fileName+'/'+nodeId, { responseType: 'text' as 'json' })
+    return this.http.get<any>(this.apiUrl5 + '/diagram/retrieveMCB'+'/'+fileName+'/'+nodeId, { responseType: 'text' as 'json' })
   }
 
   public updateMCB(MCB: any): Observable<any> {
-    return this.http.put<any>(this.apiUrl5 + '/updateMCB', MCB, { responseType: 'text' as 'json' })
+    return this.http.put<any>(this.apiUrl5 + '/diagram/updateMCB', MCB, { responseType: 'text' as 'json' })
   }
 }

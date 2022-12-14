@@ -10,7 +10,7 @@ import { User } from '../model/user';
 })
 export class ProfileService {
 
-  apiUrl = environment.apiUrl_v2;
+  apiUrl = environment.apiUrl_EMC_LV;
   constructor ( private http: HttpClient) { }
   
   public  updateRegister (register: Register): Observable<any> {

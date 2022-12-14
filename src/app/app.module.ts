@@ -129,6 +129,9 @@ import { ProtectiveEarthConductorComponent } from './SLD/SLD components/Node Com
 import { TestingDialogBoxComponent } from './testing-dialog-box/testing-dialog-box.component';
 import { MatCarouselModule } from 'ng-mat-carousel';
 import { BuyMeterComponent } from './buy-meter/buy-meter.component';
+import { SignInBuyMeterComponent } from './sign-in-buy-meter/sign-in-buy-meter.component';
+import { RegistrationBuyMeterComponent } from './registration-buy-meter/registration-buy-meter.component';
+import { AddCartBuyMeterComponent } from './add-cart-buy-meter/add-cart-buy-meter.component';
 
 @NgModule({
   declarations: [
@@ -220,7 +223,10 @@ import { BuyMeterComponent } from './buy-meter/buy-meter.component';
     EquipotentialBondingComponent,
     ProtectiveEarthConductorComponent,
     TestingDialogBoxComponent,
-    BuyMeterComponent
+    BuyMeterComponent,
+    SignInBuyMeterComponent,
+    RegistrationBuyMeterComponent,
+    AddCartBuyMeterComponent
   ],
   imports: [
     MatCarouselModule.forRoot(),

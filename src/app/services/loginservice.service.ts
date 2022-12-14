@@ -17,7 +17,7 @@ export class LoginserviceService {
   public token: String = '';
   public refToken: String = '';
   public userName: String = '';
-  apiUrl_v2 = environment.apiUrl_v2;
+  apiUrl_v2 = environment.apiUrl_EMC_LV;
   
   
   constructor(private http: HttpClient) {

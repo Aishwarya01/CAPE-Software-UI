@@ -10,22 +10,22 @@ import { CommentsSection } from '../model/comments-section';
 })
 export class SupplyCharacteristicsService {
 
-  apiUrl = environment.apiUrl_v2;
+  apiUrl = environment.apiUrl_EMC_LV;
   constructor(private http: HttpClient) { }
 
   public addSupplyCharacteristics(supplycharacteristics: Supplycharacteristics): Observable<any> {
-    return this.http.post<any>(this.apiUrl + '/addCharacteristics', supplycharacteristics, { responseType: 'text' as 'json' })
+    return this.http.post<any>(this.apiUrl + '/lv/addCharacteristics', supplycharacteristics, { responseType: 'text' as 'json' })
   }
   public retrieveSupplyCharacteristics(siteId:any): Observable<any> {
-    return this.http.get<any>(this.apiUrl + '/retrieveCharacteristics'+'/'+siteId, { responseType: 'text' as 'json' })
+    return this.http.get<any>(this.apiUrl + '/lv/retrieveCharacteristics'+'/'+siteId, { responseType: 'text' as 'json' })
   }
   public sendComments(comment: CommentsSection,siteId: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl + '/sendCharacteristicsComments'+'/'+comment.userName+ '/' +siteId, comment, { responseType: 'text' as 'json' })
+    return this.http.post<any>(this.apiUrl + '/lv/sendCharacteristicsComments'+'/'+comment.userName+ '/' +siteId, comment, { responseType: 'text' as 'json' })
   }
   public replyComments(comment: CommentsSection,siteId: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl + '/replyCharacteristicsComments'+'/'+comment.userName+ '/' +siteId, comment, { responseType: 'text' as 'json' })
+    return this.http.post<any>(this.apiUrl + '/lv/replyCharacteristicsComments'+'/'+comment.userName+ '/' +siteId, comment, { responseType: 'text' as 'json' })
   }
   public approveRejectComments(comment: CommentsSection,siteId: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl + '/approveCharacteristicsComments'+'/'+comment.userName+ '/' +siteId, comment, { responseType: 'text' as 'json' })
+    return this.http.post<any>(this.apiUrl + '/lv/approveCharacteristicsComments'+'/'+comment.userName+ '/' +siteId, comment, { responseType: 'text' as 'json' })
   }
 }

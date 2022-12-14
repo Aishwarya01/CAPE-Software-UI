@@ -101,7 +101,7 @@
             <td mat-cell *matCellDef="let element"> 
                 <!-- <button class="btn btn-info" (click)="continue(element.siteId,element.userName,element.site, element.departmentName,element.companyName)"
                 >continue</button> -->
-                <mat-icon class="material-icons-outlined-info info"  title="Edit this Record" (click)="continue(element.siteId,element.userName,element.site, element.departmentName,element.companyName)"
+                <mat-icon class="material-icons-outlined-info info"  title="Edit this Record" (click)="continue(element.siteId,element.userName,element.site, element.departmentName,element.companyName,element.allStepsCompleted,element)"
                 style="color: #17a2b8;cursor: pointer;">edit</mat-icon>
 
                 <mat-icon class="material-icons-outlined-danger delete" (click)="deleteSite1(element.siteId)" *ngIf="enableDelete" title="Delete this Record"

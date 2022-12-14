@@ -16,18 +16,18 @@ export class EmcClientDetailsService {
 
   
   
-  apiUrl_EMC = environment.apiUrl_EMC;
+  apiUrl_EMC = environment.apiUrl_EMC_LV;
   constructor(private http: HttpClient) { }
 
 
   public addClientDetailsData(emcClientDetails: EmcClientDetails): Observable<any> {
-    return this.http.post<any>(this.apiUrl_EMC + '/saveClientDetails', emcClientDetails, { responseType: 'text' as 'json' })
+    return this.http.post<any>(this.apiUrl_EMC + '/emc/saveClientDetails', emcClientDetails, { responseType: 'text' as 'json' })
   }
   public retrieveClientDetailsData(userName:any, emcId:any): Observable<any> {
-    return this.http.get<any>(this.apiUrl_EMC + '/retrieveClientDetails'+'/'+userName+ '/' +emcId, { responseType: 'text' as 'json' })
+    return this.http.get<any>(this.apiUrl_EMC + '/emc/retrieveClientDetails'+'/'+userName+ '/' +emcId, { responseType: 'text' as 'json' })
   }
   public upDateClientDetailsData(emcClientDetails: EmcClientDetails): Observable<any> {
-    return this.http.put<any>(this.apiUrl_EMC + '/updateClientDetails', emcClientDetails, { responseType: 'text' as 'json' })
+    return this.http.put<any>(this.apiUrl_EMC + '/emc/updateClientDetails', emcClientDetails, { responseType: 'text' as 'json' })
   }
 
   public retrieveCountry(): Observable<any> {
@@ -43,7 +43,7 @@ export class EmcClientDetailsService {
   // }
 
   public downloadPDF(emcId: any,userName: any, clientName: any) {
-    return   this.http.get(this.apiUrl_EMC + '/printFinalPDF'+'/'+userName+ '/' +emcId +'/' +clientName, { responseType: 'blob' }).subscribe(
+    return   this.http.get(this.apiUrl_EMC + '/emc/printFinalPDF'+'/'+userName+ '/' +emcId +'/' +clientName, { responseType: 'blob' }).subscribe(
          data =>{
            const fileName = "EMC_"+clientName+'.pdf';
            FileSaver.saveAs(data, fileName);
@@ -54,7 +54,7 @@ export class EmcClientDetailsService {
        )
     }
   public printPDF(emcId: any,userName: any, clientName: any) {
-    return   this.http.get(this.apiUrl_EMC + '/printFinalPDF'+'/'+userName+ '/' +emcId +'/' +clientName, { responseType: 'blob' }).subscribe(
+    return   this.http.get(this.apiUrl_EMC + '/emc/printFinalPDF'+'/'+userName+ '/' +emcId +'/' +clientName, { responseType: 'blob' }).subscribe(
          data =>{
            //const fileName = 'finalreport.pdf';
            var fileURL: any = URL.createObjectURL(data);
@@ -71,7 +71,7 @@ export class EmcClientDetailsService {
        )
     }
     public mailPDF(emcId: any,userName: any, clientName: any): Observable<any> {
-      return this.http.get(this.apiUrl_EMC + '/sendPDFinMail'+'/'+userName+ '/' +emcId+ '/'+clientName , { responseType: 'text' as 'json' })
+      return this.http.get(this.apiUrl_EMC + '/emc/sendPDFinMail'+'/'+userName+ '/' +emcId+ '/'+clientName , { responseType: 'text' as 'json' })
       }
 
 }

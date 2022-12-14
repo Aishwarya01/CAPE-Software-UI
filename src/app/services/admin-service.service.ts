@@ -8,7 +8,7 @@ import { Admin } from '../model/admin';
   providedIn: 'root'
 })
 export class AdminServiceService {
-  apiUrl = environment.apiUrl_v2;
+  apiUrl = environment.apiUrl_EMC_LV;
 
   constructor(private http: HttpClient) {
 
