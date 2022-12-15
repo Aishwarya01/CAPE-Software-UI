@@ -133,6 +133,7 @@ import { SignInBuyMeterComponent } from './sign-in-buy-meter/sign-in-buy-meter.c
 import { RegistrationBuyMeterComponent } from './registration-buy-meter/registration-buy-meter.component';
 import { AddCartBuyMeterComponent } from './add-cart-buy-meter/add-cart-buy-meter.component';
 import { ProfieBuyMeterComponent } from './profie-buy-meter/profie-buy-meter.component';
+import { CheckoutBuyMeterComponent } from './checkout-buy-meter/checkout-buy-meter.component';
 
 
 
@@ -230,7 +231,7 @@ import { ProfieBuyMeterComponent } from './profie-buy-meter/profie-buy-meter.com
     RegistrationBuyMeterComponent,
     AddCartBuyMeterComponent,
     ProfieBuyMeterComponent,
-   
+    CheckoutBuyMeterComponent
    
   ],
   imports: [

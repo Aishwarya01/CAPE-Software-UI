@@ -26,7 +26,7 @@ export class RegistrationBuyMeterService {
     return this.http.get<any>(this.apiurl + '/retrieveRegistration' + '/' + userName, { responseType: 'text' as 'json' })
   }
 
-  authenticate(registerAuthenticate: RegistrationBuyMeter) {
+  authenticate(registerAuthenticate: any) {
     return this.http.post<any>(this.apiurl + '/authenticate', registerAuthenticate, { responseType: 'text' as 'json' })
     .pipe(
       map(userData => {

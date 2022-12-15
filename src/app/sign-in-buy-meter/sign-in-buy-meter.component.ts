@@ -194,6 +194,12 @@ export class SignInBuyMeterComponent implements OnInit {
     
     this.regiterationBuymeterService.verifyOtp(this.registerBuyMeterModel).subscribe(data=>{
       this.router.navigate(['/addtocart']);
+     let registrationBuyMeter = new  RegistrationBuyMeter();
+     registrationBuyMeter.mobileNumber = this.registerBuyMeterModel.username; //Here  username is contactNumber
+      this.regiterationBuymeterService.authenticate(registrationBuyMeter).subscribe(data=>{
+
+      })
+      
     })
     
 

@@ -34,6 +34,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatCarousel } from 'ng-mat-carousel';
 import { Router } from '@angular/router';
+import { LoginBuyMeterService } from '../services/login-buy-meter.service';
 
 @Component({
   selector: 'app-add-cart-buy-meter',
@@ -138,11 +139,12 @@ export class AddCartBuyMeterComponent implements OnInit {
   // { position: 16, model: 'MPI-540 Multi-function Meter without clamps F-3A', pdf:'assets/documents/MP540.pdf', index: 'WMGBMPI540NC', price: '373538', image:'assets/img/mpi540.PNG' },
   // { position: 17, model: 'MPI-540 Multi-function Meter', pdf:'assets/documents/MP540.pdf', index: 'WMGBMPI540', price: '583669', image:'assets/img/mpi540.PNG' },
   ];
+  modalReference: any;
   constructor(private changeDetectorRef: ChangeDetectorRef,
     public service: GlobalsService,
     private modalService: NgbModal,
     private router1: ActivatedRoute,
-   public datepipe: DatePipe,private router: Router
+   public datepipe: DatePipe,private router: Router,private loginBuyMeterService : LoginBuyMeterService
   ) {
     this.email = this.router1.snapshot.paramMap.get('email') || '{}';
   }
@@ -239,5 +241,26 @@ export class AddCartBuyMeterComponent implements OnInit {
 
     addtoCartIndex(b:any){
       console.log(b);
+    }
+
+
+    meterLogout(){
+        this.loginBuyMeterService.Signout();
+        this.router.navigate(['/signIn-buyMeter']);
+    }
+  
+    profile(){
+      this.router.navigate(['/profile-buyMeter']);
+    }
+    checkoutConfirm(checkOutConfirm: any){
+      this.modalReference = this.modalService.open(checkOutConfirm, {centered:true, size: 'sm' })
+    }
+
+    onCancel() {
+      this.modalReference.close();
+    }
+    checkoutNavigation(){
+         this.router.navigate(['checkout-buyMeter']);
+         this.modalReference.close();
     }
 }

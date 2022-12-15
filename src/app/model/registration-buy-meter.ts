@@ -2,7 +2,8 @@ export class RegistrationBuyMeter {
     username!:string;
     firstName!:String;
     password!:string;
-    contactNumber!:String;
+    contactNumber!:string;
+    mobileNumber!:string;
     customerCompany!:String;
     createdDate!:Date;
     updatedDate!:Date;

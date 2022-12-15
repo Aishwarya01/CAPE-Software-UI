@@ -40,7 +40,7 @@
                                               <i class="bi bi-person-lines-fill"></i>
                                              </span>
                                           </div>
-                                        <input class="form-control" type="text" formControlName="shippingAddress"
+                                        <input placeholder="Enter your lastname" class="form-control" type="text" formControlName="shippingAddress"
                                             [(ngModel)]="registrationBuyMeter.lastName">
                                     </div>
                                 </div>
@@ -114,7 +114,7 @@
                                                     <i class="bi bi-building"></i>
                                                 </span>
                                             </div>
-                                            <input class="form-control" type="text" formControlName="address"
+                                            <input placeholder="Enter your address" class="form-control" type="text" formControlName="address"
                                                 [(ngModel)]="registrationBuyMeter.address">
                                         </div>
                                     </div>
@@ -137,8 +137,12 @@
                                                     <i class="bi bi-globe"></i>
                                                 </span>
                                             </div>
-                                            <input class="form-control" type="text" formControlName="country"
-                                                [(ngModel)]="registrationBuyMeter.country">
+                                            <select  formControlName="country" class="form-control"
+                                            [ngClass]="{ 'is-invalid': submitted && f.country.errors }" [(ngModel)]="registrationBuyMeter.country" (change)=selectCountry($event)>
+                                                <option value="" selected>Select country</option>
+                                                <!-- <option value="IND" selected>India</option> -->
+                                                <option *ngFor="let a of countryList">{{a.name}}</option>
+                                        </select>
                                         </div>
                                     </div>
                                    </div>
@@ -152,8 +156,11 @@
                                                     <i class="bi bi-geo-alt-fill"></i>
                                                 </span>
                                             </div>
-                                            <input class="form-control" type="text" formControlName="state"
-                                                [(ngModel)]="registrationBuyMeter.state">
+                                            <select  formControlName="state" class="form-control"
+                                            [ngClass]="{ 'is-invalid': submitted && f.state.errors }" [(ngModel)]="registrationBuyMeter.state" >
+                                                <option value="" selected>Select state</option>
+                                                <option *ngFor="let a of stateList">{{a.name}}</option>
+                                            </select>
                                         </div>
                                     </div>
 
@@ -169,7 +176,7 @@
                                                 </span>
                                             </div>
                                             <input class="form-control" type="text" formControlName="city"
-                                                [(ngModel)]="registrationBuyMeter.district">
+                                                [(ngModel)]="registrationBuyMeter.district" placeholder="Enter your District">
                                         </div>
                                     </div>
                                    </div>
@@ -188,7 +195,7 @@
                                                     <i class="bi bi-geo-alt-fill"></i>
                                                 </span>
                                             </div>
-                                            <input class="form-control" type="text" formControlName="pincode"
+                                            <input placeholder="Enter your pincode" class="form-control" type="text" formControlName="pincode"
                                                 [(ngModel)]="registrationBuyMeter.pinCode">
                                         </div>
                                     </div>

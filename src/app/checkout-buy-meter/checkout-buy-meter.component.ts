@@ -1,37 +1,42 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { RegistrationBuyMeter } from '../model/registration-buy-meter';
 import { Router } from '@angular/router';
 import { RegistrationBuyMeterService } from '../services/registration-buy-meter.service';
+import { RegistrationBuyMeter } from '../model/registration-buy-meter';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
-  selector: 'app-profie-buy-meter',
-  templateUrl: './profie-buy-meter.component.html',
-  styleUrls: ['./profie-buy-meter.component.css']
+  selector: 'app-checkout-buy-meter',
+  templateUrl: './checkout-buy-meter.component.html',
+  styleUrls: ['./checkout-buy-meter.component.css']
 })
-export class ProfieBuyMeterComponent implements OnInit {
+export class CheckoutBuyMeterComponent implements OnInit {
 
-  submitted:boolean = false;
-  registerBuyMeter = new RegistrationBuyMeter();
-  profileForm!: FormGroup;
-  viewEmployee:boolean = false;
-  userName: any; 
+  checkOutForm!:FormGroup;
+  registerBuyMeter = new RegistrationBuyMeter(); 
+  viewEmployee: boolean = false;
+  userName: any;
+  modelReference: any;
 
-  constructor(private route:Router,private registerBuyMeterService : RegistrationBuyMeterService,private fb : FormBuilder ) { }
+
+
+  constructor(private route : Router,
+    private registerBuyMeterService : RegistrationBuyMeterService,
+    private fb : FormBuilder,
+    private modalService: NgbModal) { }
 
   ngOnInit(): void {
-   this.profileForm = new FormGroup({
+    this.checkOutForm = new FormGroup({
       firstName: new FormControl('',Validators.required),
       contactNumber: new FormControl('',Validators.required),
       email: new FormControl('',Validators.required),
-      lastName: new FormControl('',Validators.required),
       companyName: new FormControl('',Validators.required),
       address: new FormControl('',Validators.required),
       country: new FormControl('',Validators.required),
       state: new FormControl('',Validators.required),
       city: new FormControl('',Validators.required),
       pincode: new FormControl('',Validators.required)
-  
     })
+
     if (!this.viewEmployee) {
       this.userName = JSON.parse(sessionStorage.authenticatedUserForMeter).username
     }
@@ -43,8 +48,7 @@ export class ProfieBuyMeterComponent implements OnInit {
       })
     console.log(this.profileDetails);
   }
-
-   profileDetails(value:any){
+  profileDetails(value:any){
     return this.fb.group({
       firstName: new FormControl(value.firstName),
       lastName: new FormControl(value.lastName),
@@ -58,28 +62,15 @@ export class ProfieBuyMeterComponent implements OnInit {
       pincode: new FormControl('',value.pincode)
     })
    }
-
-
-
-  otp(){
-
+  cancelCheckout(checkOutCancel: any){
+    this.modelReference = this.modalService.open(checkOutCancel, { centered:true,size: 'sm' })
+    
   }
-
-  get f() : any{
-    return this.profileForm.controls
+  checkoutNavigation(){
+     this.route.navigate(['/addtocart']);
+     this.modelReference.close();
   }
-
-  updateProfile(){
-    this.submitted = true;
-    if(this.profileForm.invalid){
-      return
-    }
-
+  onCancel(){
+    this.modelReference.close();
   }
-
-  backToAddtocart(){
-    this.route.navigate(['/addtocart'])
-  }
-
-
 }

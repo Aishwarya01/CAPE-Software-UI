@@ -34,6 +34,7 @@ import { SignInBuyMeterComponent } from './sign-in-buy-meter/sign-in-buy-meter.c
 import { RegistrationBuyMeterComponent } from './registration-buy-meter/registration-buy-meter.component';
 import { AddCartBuyMeterComponent } from './add-cart-buy-meter/add-cart-buy-meter.component';
 import { ProfieBuyMeterComponent } from './profie-buy-meter/profie-buy-meter.component';
+import { CheckoutBuyMeterComponent } from './checkout-buy-meter/checkout-buy-meter.component';
 
 
 
@@ -73,7 +74,8 @@ const routes: Routes = [
   {path: 'signIn-buyMeter',component:SignInBuyMeterComponent},
   {path: 'register-buyMeter',component:RegistrationBuyMeterComponent},
   {path: 'addtocart',component:AddCartBuyMeterComponent},
-  {path: 'profile-buy-meter',component:ProfieBuyMeterComponent},
+  {path: 'profile-buyMeter',component:ProfieBuyMeterComponent},
+  {path: 'checkout-buyMeter',component:CheckoutBuyMeterComponent}
   
  
 ];

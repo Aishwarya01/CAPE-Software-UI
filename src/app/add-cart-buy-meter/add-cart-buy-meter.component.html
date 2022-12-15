@@ -1,5 +1,18 @@
 <div class="Cart-Container" *ngIf="filledCart">
+    
     <div class="Header">
+        <div class="dropdown" style="position: absolute;right:40px;">
+            <button mat-button style='color:rgb(0, 0, 7);margin-right:auto;' data-toggle="dropdown" class="btn btn-default dropdown-toggle"
+            [matMenuTriggerFor]="menu">
+              <mat-icon style='font-size:30px;color:rgb(1, 1, 20);'>person</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">    
+              <button mat-menu-item (click)="profile()">Profile</button> 
+              <!-- <button mat-menu-item (click)="changePassword()">Change Password</button>    -->
+              <button mat-menu-item (click)="meterLogout()">Log out</button> 
+            </mat-menu>
+      
+        </div>
         <h3 class="Heading">Shopping Cart</h3>
         <span class="Heading" style="margin-left: 45%;">Price</span>
         <span class="Heading" style="margin-left: -2%;">Quantity</span>
@@ -98,7 +111,7 @@
             <label>Grand Total</label>
             <div class="totals-value" id="cart-total">{{grandtotal}}</div>
         </div>
-        <button class="checkout">Checkout</button>
+        <button class="checkout" (click)="checkoutConfirm(checkOutConfirm)">Checkout</button>
 
     </div>
     
@@ -108,6 +121,22 @@
     <h1 style="text-align: center; margin: 15% auto; display: block;">Your cart is empty!</h1>
     <button class="checkout" (click)="backBUtton();">Back</button>
 </div>
+
+<!-- <ng-template #checkOutConfirm let-modal style="justify-content: center;">
+<div class="model-body">
+    <div class="row">
+        <div class="col-md-12 justify-content-center text-center">
+            <p>Are you sure want Checkout?</p>
+            <button type="button" class="btn btn-primary" (click)="checkoutNavigation()"> Yes</button>
+            <button type="button" class="btn btn-danger" style="margin-left: 10px;" (click)="onCancel()">No</button>
+        </div>
+        
+    </div>
+</div>
+</ng-template> -->
+
+<!-- Popup -->
+
 
 <!-- <h1>Shopping Cart</h1>
 
@@ -176,3 +205,22 @@
       <button class="checkout">Proceed to Buy</button>
 
 </div> -->
+
+
+<ng-template #checkOutConfirm let-modal>
+    <div class="modal-body">
+        <div class="centre-text m-btm30">
+        <div style="text-align: center;">
+            <span class="successshow">Are you sure want to Checkout? </span>
+        </div>
+        </div>
+        </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12 text-center justify-content-center">
+            <button type="button" class="btn btn-primary" (click)="checkoutNavigation()"> Yes</button>
+            <button type="button" class="btn btn-danger" style="margin-left: 10px;" (click)="onCancel()">No</button>
+        </div>
+       
+  </div>
+</ng-template>
