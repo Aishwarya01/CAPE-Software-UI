@@ -115,6 +115,9 @@ autoLoginToken:number=0;
   headerMsg: String="";
   basicLPSID: number=0;
   toggle: boolean=false;
+
+  cartIndex: any=[];
+  
  constructor(private _scrollToService: ScrollToService
   ) {}
   

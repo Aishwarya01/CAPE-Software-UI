@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card bg-image">
       <div class="card-body">
         <!-- <div class="row" *ngIf="service.observe">
           <div class="col-sm-12">
@@ -6,11 +6,15 @@
             style="margin-top: -10px;margin-bottom: 5px;float: right;text-decoration: underline;">Observations</a>
           </div>
           </div> -->
-           <form>
+           <form style="background-color: white;height: 64%;">
+            <button mat-button style="float: right;" (click)="movetoCart();">
+              <mat-icon matBadge="{{cartCount}}" style="font-size: 26px;">shopping_cart</mat-icon>
+            </button>
       <mat-carousel 
           timings="250ms ease-in"
             [hideArrows]="true"
             [hideIndicators]="false"> 
+      
       <mat-carousel-slide #matCarouselSlide  overlayColor="#00000040" [hideOverlay]="false">
         <div class="card1" *ngFor="let a of meterData1">
           <img src="{{a.image}}" height="200" width="150" title="Click here" (click)="zoomImage(contentImage,a)" style="cursor:pointer;"/>
@@ -34,7 +38,7 @@
         </div>
        </mat-carousel-slide>
 
-       <!-- <mat-carousel-slide #matCarouselSlide  overlayColor="#00000040" [hideOverlay]="false">
+       <mat-carousel-slide #matCarouselSlide  overlayColor="#00000040" [hideOverlay]="false">
         <div class="card1" *ngFor="let a of meterData2">
           <img src="{{a.image}}" height="200" width="150" title="Click here" (click)="zoomImage(contentImage,a)" style="cursor:pointer;"/>
           <h3><a href="{{a.pdf}}" title="" style="color: black;">{{a.model}}</a></h3>      
@@ -53,9 +57,9 @@
           <p class="price">₹{{a.price}}</p>
           <p>{{a.index}}</p>
           <button type="button" class="btn btn-info" (click)="compareProd(contentCompare,a)">Compare Products</button>
-          <button type="button" class="btn btn-primary" (click)="addToCart1()">Add to Cart</button>
+          <button type="button" class="btn btn-primary" (click)="addToCart(a.index)">Add to Cart</button>
         </div>
-       </mat-carousel-slide> -->
+       </mat-carousel-slide>
       </mat-carousel>
   </form>
 <!--         

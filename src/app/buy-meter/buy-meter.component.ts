@@ -54,9 +54,11 @@ export class BuyMeterComponent implements OnInit {
   meter_dataSource!: MatTableDataSource<any>;
   @ViewChild('meterPaginator', { static: true }) meterPaginator!: MatPaginator;
   @ViewChild('meterSort', {static: true}) meterSort!: MatSort;
-  @ViewChild(AddCartBuyMeterComponent) 
-  addcart!: AddCartBuyMeterComponent;
 
+  @ViewChild(AddCartBuyMeterComponent) 
+  cart!: AddCartBuyMeterComponent;
+
+  
   meterName: String = '';
   email: String = '';
   selectedMeter: any;
@@ -69,7 +71,8 @@ export class BuyMeterComponent implements OnInit {
   value1: any;
   filteredData: any = [];
   clickedImage: any;
-  
+  cartCount!: number;
+
   meterDropdownList: any = [,
     'MZC-304 S.C. Loop Impedance Meter-1',
     'MZC-330S Short Circuit Loop Impedance Meter',
@@ -140,9 +143,12 @@ meterData2: any =[
   ) {
     this.email = this.router1.snapshot.paramMap.get('email') || '{}';
   }
- 
+
+  //ngOnDestroy(): void {
+    //this.service.cartIndex="";
+   // }
+
   ngOnInit(): void {
-    this.setPagination();
   } 
 
   setPagination() {
@@ -161,8 +167,19 @@ meterData2: any =[
      this.value = this.clcikeditem;
     }
     addToCart(b:any){
-      this.router.navigate(['/signIn-buyMeter']);
-      this.addcart.addtoCartIndex(b);
+      this.service.cartIndex.push(b);
+      this.cartCount=this.service.cartIndex.length;
+    //  this.cart.addtoCartIndex(b);
+     // this.router.navigate(['/signIn-buyMeter']);
+    }
+    // addToCart1(b:any){
+    //   this.service.cartIndex.push(b);
+    //   this.cartCount=this.service.cartIndex.length;
+    // //  this.cart.addtoCartIndex(b); 
+    //  // this.router.navigate(['/signIn-buyMeter']);
+    // }
+     movetoCart(){
+      this.router.navigate(['/addtocart']);
     }
     zoomImage(contentImage:any,a:any){
       this.modalService.open(contentImage, {
@@ -188,5 +205,5 @@ meterData2: any =[
     disable(meter: any): boolean {
       return meter === this.clickedMeter;
     }
-
+   
 }

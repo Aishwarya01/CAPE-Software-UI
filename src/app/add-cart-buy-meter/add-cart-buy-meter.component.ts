@@ -76,6 +76,7 @@ export class AddCartBuyMeterComponent implements OnInit {
   emptyCart: boolean=false;
   value2: string="";
   total:any;
+  b: any =[];
 
   meterDropdownList: any = [,
     'MZC-304 S.C. Loop Impedance Meter-1',
@@ -121,10 +122,10 @@ export class AddCartBuyMeterComponent implements OnInit {
   ];
  
   meterData2: any =[
-  { position: 14, model: 'MPI-530-IT Multi-function Meter', pdf:'assets/documents/MPI.pdf', index: 'WMGBMPI530IT', price: '3,34,294', image:'assets/img/mpi_530I_updated.png' },
-  { position: 18, model: 'MPI-540 PV Multi-function Meter-1', pdf:'assets/documents/MP540.pdf', index: 'WMGBMPI540PV', price: '6,53,494', image:'assets/img/mpi540.PNG' },
-  { position: 19, model: 'EVSE-01 Adapter for testing vehicle charging stations', pdf:'assets/documents/EVSE-01_EN_v1.03.pdf', index: 'WMGBEVSE01', price: '1,23,375', image:'assets/img/evse_updated.png' },
-  { position: 20, model: 'PAT-820(PORTABLE APPLIANCE TESTER)', pdf:'assets/documents/EVSE-01_EN_v1.03.pdf', index: 'WMGBPAT820', price: '1,23,375', image:'assets/img/pat_updated.png' },
+  { quantity: 1, model: 'MPI-530-IT Multi-function Meter', pdf:'assets/documents/MPI.pdf', index: 'WMGBMPI530IT', price: '3,34,294', image:'assets/img/mpi_530I_updated.png',total: '3,34,294' },
+  { quantity: 1, model: 'MPI-540 PV Multi-function Meter-1', pdf:'assets/documents/MP540.pdf', index: 'WMGBMPI540PV', price: '6,53,494', image:'assets/img/mpi540.PNG',total: '6,53,494' },
+  { quantity: 1, model: 'EVSE-01 Adapter for testing vehicle charging stations', pdf:'assets/documents/EVSE-01_EN_v1.03.pdf', index: 'WMGBEVSE01', price: '1,23,375', image:'assets/img/evse_updated.png',total: '1,23,375' },
+  { quantity: 1, model: 'PAT-820(PORTABLE APPLIANCE TESTER)', pdf:'assets/documents/EVSE-01_EN_v1.03.pdf', index: 'WMGBPAT820', price: '1,23,375', image:'assets/img/pat_updated.png',total: '1,23,375' },
 
   // { position: 1, model: 'MZC-20E S.C. Loop Impedance Meter', pdf:'assets/documents/MZC20E.pdf',index: 'WMGBMZC20E', price: '75863', image:'assets/img/mzc20e.png' },
   // { position: 3, model: 'MZC-306 S.C. Loop Impedance Meter', pdf:'assets/documents/MZC306.pdf', index: 'WMGBMZC306', price: '255413', image:'assets/img/mzc306.png' },
@@ -140,6 +141,9 @@ export class AddCartBuyMeterComponent implements OnInit {
   // { position: 17, model: 'MPI-540 Multi-function Meter', pdf:'assets/documents/MP540.pdf', index: 'WMGBMPI540', price: '583669', image:'assets/img/mpi540.PNG' },
   ];
   modalReference: any;
+
+  meterData3: any =[];
+
   constructor(private changeDetectorRef: ChangeDetectorRef,
     public service: GlobalsService,
     private modalService: NgbModal,
@@ -150,18 +154,29 @@ export class AddCartBuyMeterComponent implements OnInit {
   }
  
   ngOnInit(): void {
-   // for(let j=0; j<this.meterData1.length; j++){   
-     // let temp_price=+this.meterData1[0].price.replaceAll(',', '');
-      //this.amt=temp_price;
-    //  }  
-
-    this.setPagination(0,0);
+    //this.b="WMGBMZC304";
+    this.service.cartIndex;
+    for(let j=0; j<this.meterData1.length; j++){
+      for(let i=0; i<this.service.cartIndex.length; i++ ){
+        if(this.meterData1[j].index==this.service.cartIndex[i]){
+          this.meterData3.push(this.meterData1[j]);
+      }
+    }
+  }
+  for(let j=0; j<this.meterData2.length; j++){
+    for(let i=0; i<this.service.cartIndex.length; i++ ){
+      if(this.meterData2[j].index==this.service.cartIndex[i]){
+        this.meterData3.push(this.meterData2[j]);
+    }
+  }
+}
+    this.setPagination();
   } 
 
-  setPagination(a:any,b:any) {
+  setPagination() {
     this.findsum();  
     this.grandTotalSum();
-    // this.filteredData=this.meterData1;
+    // this.filteredData=this.meterData3;
     // this.meter_dataSource = new MatTableDataSource(this.filteredData);
     // this.meter_dataSource.paginator = this.meterPaginator;
     // this.meter_dataSource.sort = this.meterSort;
@@ -176,32 +191,41 @@ export class AddCartBuyMeterComponent implements OnInit {
      this.value = this.clcikeditem;
     } 
 
-    findsum(){    
+    findsum(){
       this.subtotal=0;
-        for(let j=0; j<this.meterData1.length; j++){   
-        //let temp_price=(+this.meterData1[j].price.replaceAll(',', '') * +this.meterData1[j].quantity);
-       
-             this.subtotal+= +this.meterData1[j].total.replaceAll(',', ''); 
-             console.log(this.subtotal);  
-        }  
-      }  
+      for(let j=0; j<this.meterData3.length; j++){
+      //let temp_price=(+this.meterData3[j].price.replaceAll(',', '') * +this.meterData3[j].quantity);
+      this.subtotal+= +this.meterData3[j].total.replaceAll(',', '');
+      console.log(this.subtotal);
+      }
+      }
 
       grandTotalSum(){
         this.grandtotal= this.subtotal + this.gst + this.shipping;
-        console.log(this.grandtotal);  
+        console.log(this.grandtotal);
       }
 
       removeItem(index: any) {
-        this.meterData1.splice(index, 1);
+        if(this.meterData3.length>1){
+          this.meterData3.splice(index, 1);
+          this.findsum();
+          this.grandTotalSum();
+        }
+        else{
+          this.meterData3 =[];  
+          this.filledCart= false;
+          this.emptyCart=true;  
+        }
       }
       removeAllItem(){
-        this.meterData1 =[];  
+        this.meterData3 =[];  
         this.filledCart= false;
         this.emptyCart=true;
       }
       backBUtton(){
         this.router.navigate(['/buyMeter']);
       }
+      
     zoomImage(contentImage:any,a:any){
       this.modalService.open(contentImage, {
         centered: true, 
@@ -229,18 +253,18 @@ export class AddCartBuyMeterComponent implements OnInit {
 
     quantityChange(event:any, a:any,i:any) {  //i=3
       console.log(i);
-      let temp_price=this.meterData1[i].price.replaceAll(',', '');
+      let temp_price=this.meterData3[i].price.replaceAll(',', '');
       this.amt=temp_price;
       //this.total=this.amt * a.quantity;
-      this.meterData1[i].total =this.amt * a.quantity;
+      this.meterData3[i].total =this.amt * a.quantity;
      //this.total=this.total.replace(",", "").replace(/(\d+)(\d{3})/, "$1,$2");
-     this.meterData1[i].total=this.meterData1[i].total.toString().replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+     this.meterData3[i].total=this.meterData3[i].total.toString().replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
       console.log(event, a);
       this.findsum();
     }
 
-    addtoCartIndex(b:any){
-      console.log(b);
+    addtoCartIndex(){
+      console.log();
     }
 
 

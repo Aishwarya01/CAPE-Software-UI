@@ -1,33 +1,37 @@
+<div class="bg-image">
 <div class="Cart-Container" *ngIf="filledCart">
-    
     <div class="Header">
+        <mat-icon (click)="backBUtton();" title="back" style="cursor: pointer;margin-top: -10px;
+        margin-left: -50px;">arrow_back</mat-icon>
+
+        <h3 class="Heading" style="margin-top: 10px;">Shopping Cart</h3>
+        <span class="Heading" style="margin-left: 45%;">Price</span>
+        <span class="Heading" style="margin-left: -2%;">Quantity</span>
+        <span class="Heading" style="margin-right: 2%;">Total</span>
+
+        <span class="Action" (click)="removeAllItem()">Remove all</span>
         <div class="dropdown" style="position: absolute;right:40px;">
             <button mat-button style='color:rgb(0, 0, 7);margin-right:auto;' data-toggle="dropdown" class="btn btn-default dropdown-toggle"
-            [matMenuTriggerFor]="menu">
-              <mat-icon style='font-size:30px;color:rgb(1, 1, 20);'>person</mat-icon>
+            [matMenuTriggerFor]="cartMenu">
+              <mat-icon style='font-size:25px;color:rgb(1, 1, 20);'>person</mat-icon>
             </button>
-            <mat-menu #menu="matMenu">    
+            <mat-menu #cartMenu="matMenu">    
               <button mat-menu-item (click)="profile()">Profile</button> 
               <!-- <button mat-menu-item (click)="changePassword()">Change Password</button>    -->
               <button mat-menu-item (click)="meterLogout()">Log out</button> 
             </mat-menu>
       
         </div>
-        <h3 class="Heading">Shopping Cart</h3>
-        <span class="Heading" style="margin-left: 45%;">Price</span>
-        <span class="Heading" style="margin-left: -2%;">Quantity</span>
-        <span class="Heading" style="margin-right: -5%;">Total</span>
-
-        <span class="Action" (click)="removeAllItem()">Remove all</span>
     </div>
     <hr class="divider1">
-    <div class="row" *ngFor="let a of meterData1; let i = index;" style="padding-bottom: 30px;">
+    <div *ngIf="filledCart">
+    <div class="row" *ngFor="let a of meterData3; let i = index;" style="padding-bottom: 30px;">
         <div class="col-md-3" style="padding-left: 80px;">
             <img src="{{a.image}}" height="80" width="100" />
         </div>
         <div class="col-md-5">
             <h3><a href="{{a.pdf}}" title="" style="color: black;">{{a.model}}</a></h3>
-            <div class="rate">
+            <!-- <div class="rate">
                 <input type="radio" id="star5" name="rate" value="5" />
                 <label for="star5">5 stars</label>
                 <input type="radio" id="star4" name="rate" value="4" />
@@ -39,7 +43,7 @@
                 <label for="star2">2 stars</label>
                 <input type="radio" id="star1" name="rate" value="1" />
                 <label for="star1">1 star</label>
-            </div>
+            </div> -->
             <p>{{a.index}}</p>
         </div>
         <div class="col-md-4">
@@ -54,18 +58,15 @@
             </div> 
             <div class="product-line-price">{{meterData1[i].total}}</div>
         </div>
-        <!-- <div *ngIf="meterData1.length > 1">
-            <h1>Your cart is empty!</h1>
-        </div> -->
+        
     </div>
-
-    <!-- <div class="row" *ngFor="let a of meterData2; let i = index" style="padding-bottom: 30px;">
+    <div class="row" *ngFor="let a of meterData3; let i = index" style="padding-bottom: 30px;">
         <div class="col-md-3" style="padding-left: 80px;">
             <img src="{{a.image}}" height="80" width="100" />
         </div>
         <div class="col-md-5">
             <h3><a href="{{a.pdf}}" title="" style="color: black;">{{a.model}}</a></h3>
-            <div class="rate">
+            <!-- <div class="rate">
                 <input type="radio" id="star5" name="rate" value="5" />
                 <label for="star5">5 stars</label>
                 <input type="radio" id="star4" name="rate" value="4" />
@@ -77,24 +78,32 @@
                 <label for="star2">2 stars</label>
                 <input type="radio" id="star1" name="rate" value="1" />
                 <label for="star1">1 star</label>
-            </div>
+            </div> -->
             <p>{{a.index}}</p>
         </div>
         <div class="col-md-4">
             <div class="product-price">₹{{a.price}}</div>
             <div class="product-quantity">
-                <input type="number" min="0" [(ngModel)]="a.quantity" (keyup)="quantityChange($event, a)" />
+                <input type="number" min="1" [(ngModel)]="meterData2[i].quantity" (keyup)="quantityChange($event, a,i)" />
             </div>
             <div class="product-removal">
                 <button class="remove-product" (click)="removeItem(a)" title="Delete">
                     Remove
                 </button>
-            </div>
-            <div class="product-line-price">{{ +a.price.replaceAll(',', '') * +a.quantity}}</div>
+            </div> 
+            <div class="product-line-price">{{meterData2[i].total}}</div>
         </div>
-    </div> -->
+    </div>
+
+</div>
+<div *ngIf="emptyCart">
+    <img src="assets/img/emptyCart.png" height="250" width="300" style="margin: 0 auto; display: block;"/>
+    <h1 style="text-align: center;">Your Buy Meter Cart is empty.</h1>
+</div>
+
+    
     <hr>
-    <div class="totals">
+    <div class="totals" *ngIf="filledCart">
         <div class="totals-item">
             <label>Subtotal</label>
             <div class="totals-value" id="cart-subtotal">₹{{subtotal}}</div>
@@ -113,15 +122,17 @@
         </div>
         <button class="checkout" (click)="checkoutConfirm(checkOutConfirm)">Checkout</button>
 
+    <div class="totals" *ngIf="emptyCart">
+        <div class="totals-item">
+            <label style="width: 98%; text-align: right;">Subtotal (0 items):</label>
+            <div id="cart-subtotal" style="float: right;">0</div>
+        </div>
+        <button class="checkout" (click)="backBUtton();">Back</button>
     </div>
-    
 </div>
 
-<div class="Cart-Container" *ngIf="emptyCart">
-    <h1 style="text-align: center; margin: 15% auto; display: block;">Your cart is empty!</h1>
-    <button class="checkout" (click)="backBUtton();">Back</button>
 </div>
-
+</div>
 <!-- <ng-template #checkOutConfirm let-modal style="justify-content: center;">
 <div class="model-body">
     <div class="row">
