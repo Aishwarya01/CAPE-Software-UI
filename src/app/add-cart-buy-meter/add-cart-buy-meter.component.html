@@ -1,5 +1,5 @@
 <div class="bg-image">
-<div class="Cart-Container" *ngIf="filledCart">
+<div class="Cart-Container">
     <div class="Header">
         <mat-icon (click)="backBUtton();" title="back" style="cursor: pointer;margin-top: -10px;
         margin-left: -50px;">arrow_back</mat-icon>
@@ -60,13 +60,13 @@
         </div>
         
     </div>
-    <div class="row" *ngFor="let a of meterData3; let i = index" style="padding-bottom: 30px;">
+    <!-- <div class="row" *ngFor="let a of meterData3; let i = index" style="padding-bottom: 30px;">
         <div class="col-md-3" style="padding-left: 80px;">
             <img src="{{a.image}}" height="80" width="100" />
         </div>
         <div class="col-md-5">
             <h3><a href="{{a.pdf}}" title="" style="color: black;">{{a.model}}</a></h3>
-            <!-- <div class="rate">
+            <div class="rate">
                 <input type="radio" id="star5" name="rate" value="5" />
                 <label for="star5">5 stars</label>
                 <input type="radio" id="star4" name="rate" value="4" />
@@ -78,7 +78,7 @@
                 <label for="star2">2 stars</label>
                 <input type="radio" id="star1" name="rate" value="1" />
                 <label for="star1">1 star</label>
-            </div> -->
+            </div>
             <p>{{a.index}}</p>
         </div>
         <div class="col-md-4">
@@ -93,7 +93,7 @@
             </div> 
             <div class="product-line-price">{{meterData2[i].total}}</div>
         </div>
-    </div>
+    </div> -->
 
 </div>
 <div *ngIf="emptyCart">
@@ -121,16 +121,14 @@
             <div class="totals-value" id="cart-total">{{grandtotal}}</div>
         </div>
         <button class="checkout" (click)="checkoutConfirm(checkOutConfirm)">Checkout</button>
-
-    <div class="totals" *ngIf="emptyCart">
-        <div class="totals-item">
-            <label style="width: 98%; text-align: right;">Subtotal (0 items):</label>
-            <div id="cart-subtotal" style="float: right;">0</div>
-        </div>
-        <button class="checkout" (click)="backBUtton();">Back</button>
-    </div>
 </div>
-
+<div class="totals" *ngIf="emptyCart">
+    <div class="totals-item">
+        <label style="width: 98%; text-align: right;">Subtotal (0 items):</label>
+        <div id="cart-subtotal" style="float: right;">0</div>
+    </div>
+    <button class="checkout" (click)="backBUtton();">Back</button>
+</div>
 </div>
 </div>
 <!-- <ng-template #checkOutConfirm let-modal style="justify-content: center;">

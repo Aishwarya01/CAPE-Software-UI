@@ -106,7 +106,11 @@ export class AddCartBuyMeterComponent implements OnInit {
     { quantity: 1,model: 'MZC-330S Short Circuit Loop Impedance Meter', pdf:'assets/documents/MZC.pdf', index: 'WMGBMZC330', price: '5,78,550', image:'assets/img/mzc_updated.png', total: '5,78,550' },
     { quantity: 1,model: 'MRP-201 RCD Tester', pdf:'assets/documents/MP540.pdf', index: 'WMGBMRP201', price: '98,175', image:'assets/img/mpi_updated.png', total: '98,175' },
     { quantity: 1,model: 'MPI-530 Multi-function Meter', pdf:'assets/documents/MPI.pdf', index: 'WMGBMPI530', price: '3,12,900', image:'assets/img/mpi_530I_updated.png', total: '3,12,900' },
-    
+    { quantity: 1, model: 'MPI-530-IT Multi-function Meter', pdf:'assets/documents/MPI.pdf', index: 'WMGBMPI530IT', price: '3,34,294', image:'assets/img/mpi_530I_updated.png',total: '3,34,294' },
+    { quantity: 1, model: 'MPI-540 PV Multi-function Meter-1', pdf:'assets/documents/MP540.pdf', index: 'WMGBMPI540PV', price: '6,53,494', image:'assets/img/mpi540.PNG',total: '6,53,494' },
+    { quantity: 1, model: 'EVSE-01 Adapter for testing vehicle charging stations', pdf:'assets/documents/EVSE-01_EN_v1.03.pdf', index: 'WMGBEVSE01', price: '1,23,375', image:'assets/img/evse_updated.png',total: '1,23,375' },
+    { quantity: 1, model: 'PAT-820(PORTABLE APPLIANCE TESTER)', pdf:'assets/documents/EVSE-01_EN_v1.03.pdf', index: 'WMGBPAT820', price: '1,23,375', image:'assets/img/pat_updated.png',total: '1,23,375' },
+  
     // { position: 1, model: 'MZC-20E S.C. Loop Impedance Meter', pdf:'assets/documents/MZC20E.pdf',index: 'WMGBMZC20E', price: '75863', image:'assets/img/mzc20e.png' },
     // { position: 3, model: 'MZC-306 S.C. Loop Impedance Meter', pdf:'assets/documents/MZC306.pdf', index: 'WMGBMZC306', price: '255413', image:'assets/img/mzc306.png' },
     // { position: 4, model: 'MZC-310S S.C. Loop Impedance Meter', pdf:'assets/documents/MZC.pdf', index: 'WMGBMZC310', price: '315919', image:'assets/img/mzc_new.png' },
@@ -163,13 +167,13 @@ export class AddCartBuyMeterComponent implements OnInit {
       }
     }
   }
-  for(let j=0; j<this.meterData2.length; j++){
-    for(let i=0; i<this.service.cartIndex.length; i++ ){
-      if(this.meterData2[j].index==this.service.cartIndex[i]){
-        this.meterData3.push(this.meterData2[j]);
-    }
-  }
-}
+//   for(let j=0; j<this.meterData2.length; j++){
+//     for(let i=0; i<this.service.cartIndex.length; i++ ){
+//       if(this.meterData2[j].index==this.service.cartIndex[i]){
+//         this.meterData3.push(this.meterData2[j]);
+//     }
+//   }
+// }
     this.setPagination();
   } 
 
