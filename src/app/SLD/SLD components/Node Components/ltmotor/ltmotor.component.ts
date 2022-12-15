@@ -3,6 +3,7 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Valida
 import { MatDialog } from '@angular/material/dialog';
 import { LTMotor } from '../../../SLD Models/LTMotor';
 import { LTMotorServicesService } from '../../../../SLD/SLD Services/LTMotor-services.service';
+import { GlobalsService } from 'src/app/globals.service';
 
 @Component({
   selector: 'app-ltmotor',
@@ -39,6 +40,7 @@ export class LTMotorComponent implements OnInit {
   constructor(private LTMotorService: LTMotorServicesService,
     private formBuilder: FormBuilder,
     private dialog: MatDialog,
+    private service: GlobalsService
   ) { }
 
   ngOnInit(): void {
@@ -760,8 +762,8 @@ export class LTMotorComponent implements OnInit {
         },
         error => {
           this.error = true;
-          this.errorData = JSON.parse(error.error);
-          this.errorMsg = this.errorData.message;
+          // this.errorData = JSON.parse(error.error);
+          this.errorMsg = this.service.globalErrorMsg;
           setTimeout(()=>{
             this.error = false;
             this.errorMsg = ""
@@ -790,8 +792,8 @@ export class LTMotorComponent implements OnInit {
         },
         error => {
           this.error = true;
-          this.errorData = JSON.parse(error.error);
-          this.errorMsg = this.errorData.message;
+          // this.errorData = JSON.parse(error.error);
+          this.errorMsg = this.service.globalErrorMsg;
           setTimeout(()=>{
             this.error = false;
             this.errorMsg = "";

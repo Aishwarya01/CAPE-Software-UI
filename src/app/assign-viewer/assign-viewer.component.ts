@@ -586,6 +586,13 @@ createNewGroup(item: any): FormGroup{
                   }
                 },
                 (error) =>{
+                  this.errorMsgflag = true;
+                  this.errorMsg = this.globalService.globalErrorMsg;
+                  this.onSubmitSite1.emit(false);
+                  setTimeout(() => {
+                    this.errorMsgflag = false;
+                    this.errorMsg = " ";
+                  }, 3000);
                 });
             }
             else if (this.globalService.triggerMsgForLicense == 'lpsPage') {
@@ -614,6 +621,13 @@ createNewGroup(item: any): FormGroup{
                   }
                 },
                 (error) =>{
+                  this.errorMsgflag = true;
+                  this.errorMsg = this.globalService.globalErrorMsg;
+                  this.onSubmitSite1.emit(false);
+                  setTimeout(() => {
+                    this.errorMsgflag = false;
+                    this.errorMsg = " ";
+                  }, 3000);
                 })
             }
           }
@@ -908,7 +922,13 @@ createNewGroup(item: any): FormGroup{
                 }, 2000);
               },
               error => {
-                // console.log(error);
+                this.errorMsgflag = true;
+                this.errorMsg = this.globalService.globalErrorMsg;
+                this.onSubmitSite1.emit(false);
+                setTimeout(() => {
+                  this.errorMsgflag = false;
+                  this.errorMsg = " ";
+                }, 3000);
               });
           }
           else if(this.globalService.triggerMsgForLicense == "lpsPage") {
@@ -925,7 +945,13 @@ createNewGroup(item: any): FormGroup{
                 this.navigateToLpsBasivPage(this.register);
               },
               error => {
-                // console.log(error);
+                this.errorMsgflag = true;
+                this.errorMsg = this.globalService.globalErrorMsg;
+                this.onSubmitSite1.emit(false);
+                setTimeout(() => {
+                  this.errorMsgflag = false;
+                  this.errorMsg = " ";  
+                }, 3000);
               });
           }
           // setTimeout(()=>{

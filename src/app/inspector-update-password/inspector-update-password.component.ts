@@ -6,6 +6,7 @@ import { SessionStorageService, SessionStorage } from 'angular-web-storage';
 import { InspectorregisterService } from '../services/inspectorregister.service';
 import { UpdatePasswordInspector } from '../model/update-password-inspector';
 import { Register } from '../model/register';
+import { GlobalsService } from '../globals.service';
 
 @Component({
   selector: 'app-inspector-update-password',
@@ -39,6 +40,7 @@ export class InspectorUpdatePasswordComponent implements OnInit {
     private route: Router,
     private router: ActivatedRoute,
     public sessionStorage: SessionStorageService,
+    private serviec: GlobalsService,
     public updateInspectorService: InspectorregisterService,
 
   ) {
@@ -174,9 +176,9 @@ clear() {
         }, 3000);
       },
       error => {
-        let errorJSON= JSON.parse(error.error);
+        // let errorJSON= JSON.parse(error.error);
         this.showErrorMessage=true;
-        this.OTPerrorMsg=errorJSON.message;
+        this.OTPerrorMsg=this.serviec.globalErrorMsg;
         this.OTPerrorMsgflag=true;
         setTimeout(()=>{
           this.showErrorMessage=false;

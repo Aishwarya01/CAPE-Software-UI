@@ -55,6 +55,8 @@ export class RiskParentComponentComponent implements OnInit {
   selectedIndexStepper: number=0;
   nextButtonClicked=false;
   step1NxtClicked: boolean=false;
+  globalError: boolean=false;
+  globalErrorMsg: string="";
 
   constructor(
           private customerDetailsService: CustomerDetailsServiceService,
@@ -182,7 +184,12 @@ export class RiskParentComponentComponent implements OnInit {
           }
         },
         (error) => {
-
+          this.globalError=true;
+          this.globalErrorMsg=this.service.globalErrorMsg;
+          setTimeout(() => {
+            this.globalError=false;
+            this.globalErrorMsg="";
+          }, 10000);
         })
       }, 3000);
    }

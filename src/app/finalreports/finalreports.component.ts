@@ -219,9 +219,9 @@ applyFilter(event: Event) {
      },
      error => {
        this.Error = true;
-       this.errorArr = [];
-       this.errorArr = JSON.parse(error.error);
-       this.errorMsg = this.errorArr.message;
+      //  this.errorArr = [];
+      //  this.errorArr = JSON.parse(error.error);
+       this.errorMsg = this.service.globalErrorMsg
        setTimeout(()=>{
          this.Error = false;
      }, 3000);

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { GlobalsService } from 'src/app/globals.service';
 import { ProtectiveEarthConductor } from 'src/app/SLD/SLD Models/protective-earth-conductor';
 import { ProtectiveEarthConductorServicesService } from 'src/app/SLD/SLD Services/protective-earth-conductor-service.service';
 
@@ -41,7 +42,8 @@ export class ProtectiveEarthConductorComponent implements OnInit {
   
   constructor(private formBuilder: FormBuilder,
               private protectiveEarthConductorService: ProtectiveEarthConductorServicesService,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog,
+              private service: GlobalsService) { }
 
   ngOnInit(): void {
     this.protectiveEarthConductorForm = this.formBuilder.group({
@@ -189,8 +191,8 @@ export class ProtectiveEarthConductorComponent implements OnInit {
       },
       error => {
         this.error = true;
-        this.errorData = JSON.parse(error.error);
-        this.errorMsg = this.errorData.message;
+        // this.errorData = JSON.parse(error.error);
+        this.errorMsg = this.service.globalErrorMsg;
         setTimeout(()=>{
           this.error = false;
           this.errorMsg = "";
@@ -219,8 +221,8 @@ export class ProtectiveEarthConductorComponent implements OnInit {
       },
       error => {
         this.error = true;
-        this.errorData = JSON.parse(error.error);
-        this.errorMsg = this.errorData.message;
+        // this.errorData = JSON.parse(error.error);
+        this.errorMsg = this.service.globalErrorMsg;
         setTimeout(()=>{
           this.error = false;
           this.errorMsg = "";

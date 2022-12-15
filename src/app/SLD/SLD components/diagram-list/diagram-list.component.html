@@ -9,6 +9,12 @@
         
     </div>
     <div class="card-body" >
+      <!-- Error Msg -->
+      <div class="centre-text m-btm30" style="margin-bottom: 2rem;">
+        <div *ngIf="errorSld" style="text-align: center;">
+          <span class="alert alert-danger">{{errorMsg}}</span>
+        </div>
+      </div>
             <mat-accordion>   
                 <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                     <mat-expansion-panel-header>

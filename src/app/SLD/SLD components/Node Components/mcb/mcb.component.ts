@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { GlobalsService } from 'src/app/globals.service';
 import { MCB } from '../../../SLD Models/mcb';
 import { MCBServicesService } from '../../../SLD Services/mcb-services.service';
 
@@ -33,7 +34,7 @@ export class MCBComponent implements OnInit {
   constructor(private mcbService: MCBServicesService,
               private formBuilder: FormBuilder,
               private dialog: MatDialog,
-            ) { }
+              private service: GlobalsService) { }
 
   ngOnInit(): void {
     this.mcbForm = this.formBuilder.group({
@@ -791,8 +792,8 @@ export class MCBComponent implements OnInit {
         },
         error => {
           this.error = true;
-          this.errorData = JSON.parse(error.error);
-          this.errorMsg = this.errorData.message;
+          // this.errorData = JSON.parse(error.error);
+          this.errorMsg = this.service.globalErrorMsg;
           setTimeout(()=>{
             this.error = false;
             this.errorMsg = ""
@@ -821,8 +822,8 @@ export class MCBComponent implements OnInit {
       },
       error => {
         this.error = true;
-        this.errorData = JSON.parse(error.error);
-        this.errorMsg = this.errorData.message;
+        // this.errorData = JSON.parse(error.error);
+        this.errorMsg = this.service.globalErrorMsg;
         setTimeout(()=>{
           this.error = false;
           this.errorMsg = "";

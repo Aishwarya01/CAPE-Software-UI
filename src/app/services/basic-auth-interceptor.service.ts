@@ -29,7 +29,6 @@ export class BasicAuthHtppInterceptorService implements HttpInterceptor {
                         return this.handleAuthErrors(req, next);
                     } else{
                         const errorMessage=this.globalErrorHandler(error);
-                        console.log(errorMessage);
                         this.globalService.globalErrorMsg=errorMessage;
                         return throwError(error.errorMessage);
                     }
@@ -94,29 +93,54 @@ export class BasicAuthHtppInterceptorService implements HttpInterceptor {
     globalErrorHandler(error:HttpErrorResponse):string{
         let errorMessage="";
     
-        if(error.error instanceof ErrorEvent){
-        // client side error
-            errorMessage=error.error.message;
-        }
-        else if(error.status==404){
-            errorMessage="Something went wrong, Please try again later";
-        }
-        else if(error.status==500){
-            errorMessage="Internal Server Error, Please try again later";
+    // client side error {Status:400}
+        if(error.status==400){
+            errorMessage="Due to some bad request, Connection got disconnected";
         }
         else if(error.status==401){
             errorMessage="Unauthorized";
         }
+        else if(error.status==402){
+            errorMessage="Payment Required";
+        }
+        else if(error.status==403){
+            errorMessage="The requested page not found, Please try again later";
+        }
+        else if(error.status==404){
+            errorMessage="Something went wrong, Please try again later";
+        }
+        else if(error.status==404){
+            errorMessage="Something went wrong, Please try again later";
+        }
         else if(error.status==406){
             errorMessage=JSON.parse(error.error).message;
         }
+
+    // Server side error {Status:500}
+    
+        else if(error.status==500){
+            errorMessage="Internal Server Error, Please try again later";
+        }
+        else if(error.status==503){
+            errorMessage="Internal server is currently unavailable, Please try again later";
+        }
+        else if(error.status==504){
+            errorMessage="Internal server timeout, Please try again later";
+        }
+        else if(error.status==0){
+            errorMessage="Internal Server Error, Please try again later";
+        }
         else{
-        // server side error
             if(error.status!=0){
                 errorMessage=JSON.parse(error.error).message;
             }
         }
+        console.log(error.status)
+        console.log(errorMessage);
         return errorMessage; 
+        // if(error.error instanceof ErrorEvent){
+        //     errorMessage=error.error.message;
+        // }
     }
- 
+
 }

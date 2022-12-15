@@ -29,6 +29,13 @@
      
 
     <div class="card-body" >
+      <!-- Error Msg -->
+      <div class="centre-text m-btm30" style="margin-bottom: 2rem;">
+        <div *ngIf="errorSite" style="text-align: center;">
+          <span class="alert alert-danger">{{errorMsg}}</span>
+        </div>
+      </div>
+      
       <mat-form-field appearance="standard" style=" font-size: 14px;width: 30%;">
         <mat-label>Filter Sites</mat-label>
         <input matInput (keyup)="applyFilter1($event)" (focus)="applyFilter(siteName)"

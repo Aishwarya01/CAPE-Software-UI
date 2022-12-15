@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { GlobalsService } from 'src/app/globals.service';
 import { PortableAppliance } from 'src/app/SLD/SLD Models/portable-appliance';
 import { PortableApplianceServicesService } from 'src/app/SLD/SLD Services/portable-appliance-services.service';
 
@@ -38,7 +39,8 @@ deletedArr: any = [];
 
 constructor(private formBuilder: FormBuilder,
             private patService: PortableApplianceServicesService,
-            private dialog: MatDialog) { }
+            private dialog: MatDialog,
+            private service: GlobalsService) { }
 
 ngOnInit(): void {
   this.patForm = this.formBuilder.group({
@@ -245,8 +247,8 @@ savePAT(patFlag: any) {
       },
       error => {
         this.error = true;
-        this.errorData = JSON.parse(error.error);
-        this.errorMsg = this.errorData.message;
+        // this.errorData = JSON.parse(error.error);
+        this.errorMsg = this.service.globalErrorMsg;
         setTimeout(()=>{
           this.error = false;
           this.errorMsg = ""
@@ -275,8 +277,8 @@ savePAT(patFlag: any) {
       },
       error => {
         this.error = true;
-        this.errorData = JSON.parse(error.error);
-        this.errorMsg = this.errorData.message;
+        // this.errorData = JSON.parse(error.error);
+        this.errorMsg = this.service.globalErrorMsg;
         setTimeout(()=>{
           this.error = false;
           this.errorMsg = ""

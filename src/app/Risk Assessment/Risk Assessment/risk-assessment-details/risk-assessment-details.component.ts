@@ -2328,9 +2328,9 @@ export class RiskAssessmentDetailsComponent implements OnInit {
               //  this.spinner=false;
               this.success1 = false;
               this.Error = true;
-              this.errorArr = [];
-              this.errorArr = JSON.parse(error.error);
-              this.errorMsg = this.errorArr.message;
+              // this.errorArr = [];
+              // this.errorArr = JSON.parse(error.error);
+              this.errorMsg = this.service.globalErrorMsg;
               this.proceedNext.emit(false);
             }
           )}
@@ -2369,12 +2369,8 @@ export class RiskAssessmentDetailsComponent implements OnInit {
           },
           error => {
              this.popup=true;
-            //  this.spinner=false;
             this.Error = true;
-            this.errorArr = [];
-            this.proceedFlag = true;
-            this.errorArr = JSON.parse(error.error);
-            this.errorMsg = this.errorArr.message;
+            this.errorMsg = this.service.globalErrorMsg;
             this.proceedNext.emit(false); 
           })
         }
