@@ -34,7 +34,7 @@ import { SignInBuyMeterComponent } from './sign-in-buy-meter/sign-in-buy-meter.c
 import { RegistrationBuyMeterComponent } from './registration-buy-meter/registration-buy-meter.component';
 import { AddCartBuyMeterComponent } from './add-cart-buy-meter/add-cart-buy-meter.component';
 import { ProfieBuyMeterComponent } from './profie-buy-meter/profie-buy-meter.component';
-import { AboutusComponent } from './aboutus/aboutus.component';
+
 
 
 const routes: Routes = [
@@ -75,7 +75,7 @@ const routes: Routes = [
   {path: 'addtocart',component:AddCartBuyMeterComponent},
   {path: 'profile-buy-meter',component:ProfieBuyMeterComponent},
   
-  {path: 'aboutus',component:AboutusComponent}
+ 
 ];
 
 @NgModule({

@@ -30,8 +30,8 @@ export class SingInPageComponent implements OnInit {
     this.router.navigate(['/buyMeter']);
    // this.service.observe=false;
      }
-     onMove(){
-      this.router.navigate(['/aboutus']);
+     onMove(about:any){
+     this.modalReference = this.model.open(about,{size:'xl'})
      }
      onMoveTerms(termsContent:any ){
       this.modalReference = this.model.open (termsContent, { size: 'xl' });
@@ -40,6 +40,11 @@ export class SingInPageComponent implements OnInit {
      onCancel(termsContent:any){
       this.modalReference.close();
      }
+     oncancel(about:any){
+      this.modalReference.close();
+
+     }
+        
   
 }
 

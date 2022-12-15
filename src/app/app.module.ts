@@ -133,7 +133,7 @@ import { SignInBuyMeterComponent } from './sign-in-buy-meter/sign-in-buy-meter.c
 import { RegistrationBuyMeterComponent } from './registration-buy-meter/registration-buy-meter.component';
 import { AddCartBuyMeterComponent } from './add-cart-buy-meter/add-cart-buy-meter.component';
 import { ProfieBuyMeterComponent } from './profie-buy-meter/profie-buy-meter.component';
-import { AboutusComponent } from './aboutus/aboutus.component';
+
 
 
 @NgModule({
@@ -230,7 +230,7 @@ import { AboutusComponent } from './aboutus/aboutus.component';
     RegistrationBuyMeterComponent,
     AddCartBuyMeterComponent,
     ProfieBuyMeterComponent,
-    AboutusComponent,
+   
    
   ],
   imports: [

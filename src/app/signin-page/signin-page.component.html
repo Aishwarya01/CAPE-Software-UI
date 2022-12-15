@@ -1,7 +1,7 @@
 <div class="bg-image">
     <div class="card">
         <div style="position: absolute;right: 20px;margin-top: 10px;">
-        <h4 class="hover-underline-animation"  style=" cursor:pointer; "(click)="onMove()" >About us</h4>
+        <h4 class="hover-underline-animation"  style=" cursor:pointer; "(click)="onMove(about)" >About us</h4>
         <h4 class="hover-underline-animation" style="cursor:pointer;margin-left: 10px;" (click)="onMoveTerms(termsContent)">Terms&Condition</h4>
                 </div>
                 <div class="brand-logo">
@@ -56,7 +56,7 @@
         </div>
     </div>
 </div> 
-<ng-template #termsContent let-modal>
+<ng-template #about let-modal>
     
     <div class="modal-body" modal-xl style="height: 700px;;
             overflow-y: scroll;">
@@ -65,22 +65,25 @@
     <div class="row" style="display: block;">
     
      
-        <h4 class="fs-3 fw-bolder lh-lg font-monospace text-center" style="font-size: large;">Terms & Conditions</h4><br>
+        <h4 class="fs-3 fw-bolder lh-lg font-monospace text-center" style="font-size: large;">About</h4><br>
             </div>
     
     
      
     
-            <p>
-              Leave Policy aims at providing the employees an opportunity to take a planned break from the stress ofbusiness
-              so as
-              to re-energize him/her and achieve a better balance between work and another social familyresponsibilities.
-    </p>
-    <p>
-              The annual cycle is normally the calendar year –1st January to 31st December. The Employees, who are on
-              probation,will be able to take one day of leave per month.
-              All confirmed employees are entitled to leave,according to the rules and regulations stated below.
-    </p>
+            <p><b>
+                Established in 1996 at Kanyakumari. Started to provide reactive power compensation for wind turbines which is a challenging application 
+                due to high temperature, harmonics etc. During 1998 we started establishing our business all over India starting with branch offices in 
+                Chennai, Delhi and Mumbai. Our international collaborations helped us to establish ourselves as a leader in providing solutions against 
+                failure due to transient surges. We have conducted more than 500 seminars all over India for various industries and as a result the subject
+                 of Surge Protection became known to the industry. Another industry’s first from CAPE was DC combiner solutions for Solar during 2002.
+                  In association with leading German and Spanish manufacturers we specialize in the area of double Insulated electricity distribution 
+                  solutions for Industries. Our UV resistant and high IP protected panels are accepted and appreciated in the industry due to its advantages 
+                  of non-corrosive behavior and long life. “SMART BUILDING INFRASTRUCTURE SOLUTIONS” of CAPE and unique in which helps in reducing electrical
+                   accidents. Our END to END solution offers, design, product development, manufacturing & supply, installation and testing commissioning and
+                    periodic maintenance in the field of electrical safety.</b> </p>
+    
+   
    
     
           </div>
@@ -91,26 +94,59 @@
         <div class="row" style="display: block;">
         
          
-            <h4 class="fs-3 fw-bolder lh-lg font-monospace text-center" style="font-size: large;">Privacy Policy</h4><br>
+            <h4 class="fs-3 fw-bolder lh-lg font-monospace text-center" style="font-size: large;">Contact</h4><br>
                 </div>
         
         
          
         
-                <p>
-                  Leave Policy aims at providing the employees an opportunity to take a planned break from the stress ofbusiness
-                  so as
-                  to re-energize him/her and achieve a better balance between work and another social familyresponsibilities.
-        </p>
-        <p>
-                  The annual cycle is normally the calendar year –1st January to 31st December. The Employees, who are on
-                  probation,will be able to take one day of leave per month.
-                  All confirmed employees are entitled to leave,according to the rules and regulations stated below.
-        </p>
+                <div class="row" >
+                    <div class="col">
+                      <div class="card border-secondary mb-3" id="contact"  style="max-width: 30rem; margin-right:-8px;">
+                          <div class="card-header" ><b>Corporate Office</b></div>
+                          <div class="card-body">
+                            <p class="card-text"style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-weight:700" >CAPE electric pvt ltd
+                               Plot No.A-41 (B), SIPCOT Industrial Growth Centre,
+                              Oragadam, Kancheepuram Dist – 602 105,
+                              Tamil Nadu.</p>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                      <div class="card border-secondary mb-3" style="max-width: 20rem; margin-right:-15px; ">
+                          <div class="card-header"><b>Wind Division</b></div>
+                          <div class="card-body">
+                            <p class="card-text" style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-weight:700">CAPE electric pvt ltd
+                              Door no.6/29, Kanyakumari road,
+                              Kumarapuram, Aralvaimozhi,
+                              Kanyakumari Dist – 629 301
+                              Tamilnadu.</p>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                      <div class="card border-secondary mb-3" style="max-width: 20rem; ">
+                          <div class="card-header" ><b>Email Services</b></div>
+                          <div class="card-body" >
+                            <p class="card-text" style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-weight:700">cecngl@capeindia.net
+                              sales@capeindia.net    marketing@capeindia.net<br><br>
+                            </p>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                      <div class="card border-secondary mb-3" style="max-width: 20rem;">
+                          <div class="card-header" ><b>Phone Number</b></div>
+                          <div class="card-body">
+                            <p class="card-text" style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-weight:700">+91 44 7101 8121 / 125</p><br><br>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
        
         <div class="col-xs-12">
         <div class="text-align" style="text-align: end;margin: 10px;">
-        <button type="button" class="btn btn-danger" id="closeModal" (click)="onCancel()">Cancel</button>
+        <button type="button" class="btn btn-danger" id="closeModal" (click)="oncancel(about)">Cancel</button>
         
         </div>
         </div>
@@ -122,3 +158,67 @@
     </div>
    
     </ng-template>
+
+    <ng-template #termsContent let-modal>
+    
+        <div class="modal-body" modal-xl style="height: 700px;;
+                overflow-y: scroll;">
+        <div class="card">
+        <div class="card-body">
+        <div class="row" style="display: block;">
+        
+         
+            <h4 class="fs-3 fw-bolder lh-lg font-monospace text-center" style="font-size: large;">Terms & Conditions</h4><br>
+                </div>
+        
+        
+         
+        
+                <p>
+                  Leave Policy aims at providing the employees an opportunity to take a planned break from the stress ofbusiness
+                  so as
+                  to re-energize him/her and achieve a better balance between work and another social familyresponsibilities.
+        </p>
+       
+       
+        
+              </div>
+        </div>
+        
+        <div class="card" style="margin-top:25px;">
+            <div class="card-body">
+            <div class="row" style="display: block;">
+            
+             
+                <h4 class="fs-3 fw-bolder lh-lg font-monospace text-center" style="font-size: large;">Privacy Policy</h4><br>
+                    </div>
+            
+            
+             
+            
+                    <p>
+                      Leave Policy aims at providing the employees an opportunity to take a planned break from the stress ofbusiness
+                      so as
+                      to re-energize him/her and achieve a better balance between work and another social familyresponsibilities.
+            </p>
+            <p>
+                      The annual cycle is normally the calendar year –1st January to 31st December. The Employees, who are on
+                      probation,will be able to take one day of leave per month.
+                      All confirmed employees are entitled to leave,according to the rules and regulations stated below.
+            </p>
+           
+            <div class="col-xs-12">
+            <div class="text-align" style="text-align: end;margin: 10px;">
+            <button type="button" class="btn btn-danger" id="closeModal" (click)="onCancel(termsContent)">Cancel</button>
+            
+            </div>
+            </div>
+            
+             
+            
+                  </div>
+            </div>
+        </div>
+       
+        </ng-template>
+    
