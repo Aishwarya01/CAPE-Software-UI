@@ -9,14 +9,14 @@ const FileSaver = require('file-saver');
 })
 export class RiskfinalpdfService {
   apiUrl = environment.apiUrl_RISK;
-  apiUrl1 = environment.apiUrl;
+  apiUrl1 = environment.apiUrl_LPS_RISK;
 
 
   constructor(private http: HttpClient) { }
 
   public downloadPDF(riskId: any,userName: any,projectName: any) {
     
-    return   this.http.get(this.apiUrl + '/printFinalPDF'+'/'+userName+ '/' +riskId+ '/' +projectName, { responseType: 'blob' }).subscribe(
+    return   this.http.get(this.apiUrl1 + '/risk/printFinalPDF'+'/'+userName+ '/' +riskId+ '/' +projectName, { responseType: 'blob' }).subscribe(
          data =>{
            
            const fileName = projectName+'.pdf';
@@ -55,11 +55,11 @@ export class RiskfinalpdfService {
     //   }
 
   public printPDF(riskId: any,userName: any, projectName: any) {
-     return this.http.get(this.apiUrl + '/printFinalPDF'+'/'+userName+ '/' +riskId+ '/' +projectName, { responseType: 'blob' })
+     return this.http.get(this.apiUrl1 + '/risk/printFinalPDF'+'/'+userName+ '/' +riskId+ '/' +projectName, { responseType: 'blob' })
     }
 
     public mailPDF(riskId: any,userName: any, projectName: any): Observable<any> {
       
-      return this.http.get(this.apiUrl + '/sendPDFinMail'+'/'+userName+ '/' +riskId+ '/' +projectName, { responseType: 'text' as 'json' })
+      return this.http.get(this.apiUrl1 + '/risk/sendPDFinMail'+'/'+userName+ '/' +riskId+ '/' +projectName, { responseType: 'text' as 'json' })
     }
 }

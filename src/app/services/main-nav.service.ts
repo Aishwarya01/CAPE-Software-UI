@@ -9,7 +9,7 @@ import { ApplicationType } from '../model/applicationtype';
 })
 export class MainNavService {
 
-  apiUrl = environment.apiUrl;
+  //apiUrl = environment.apiUrl;
   constructor(private http: HttpClient) { }
 
   
