@@ -140,7 +140,7 @@ export class ProfileComponent implements OnInit {
       setTimeout(() => {
       this.profileService.getUser(this.register.username).subscribe(
         data =>{ this.register= JSON.parse(data);
-        if(this.register.applicationType != null && this.register.permission !=null) {
+        if(this.register.applicationType != null && this.register.permission !=null && this.register.permission !='yes') {
           this.selectedItems = this.register.applicationType.split(',');
           for(let i of this.selectedItems) {
             for(let permission of this.register.permission.split(',')) {
