@@ -7,6 +7,7 @@ import { DepartmentService } from 'src/app/services/department.service';
 import { SiteService } from 'src/app/services/site.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalsService } from 'src/app/globals.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -51,31 +52,39 @@ export class SiteaddComponent implements OnInit {
   validationError: boolean = false;
   validationErrorMsg: String = "";
   onSubmitSite = new EventEmitter();
-
-
   @Input()
   data: any = [];
+  onGoing:any=[];
   errorArr: any=[];
   pinCodeErrorMsg: String = '';
+ // email : String = "";
   constructor(public dialog: MatDialog,
               public clientService: ClientService,
               public departmentService: DepartmentService,
               public siteService: SiteService,
               public formBuilder: FormBuilder,
               private modalService: NgbModal,
-              private service: GlobalsService
+              private service: GlobalsService,
+              private router: ActivatedRoute
               ) {
               }
 
   ngOnInit(): void {
-    this.site.site = this.data.siteName;
+
+    this.site.site = this.data.sitePersons[0].siteName;
     this.site.companyName = this.data.companyName;
-    this.site.departmentName = this.data.department
+    this.site.departmentName = this.data.departmentName;
+    this.site.siteId = this.data.siteId;
+    this.site.userName =  this.data.userName;
+    this.site.createdBy =  this.data.createdBy;
+    this.site.createdDate =  this.data.createdDate;
+    this.site.status =  this.data.status;
+    this.site.assignedTo =  this.data.assignedTo;
     this.addSiteForm = this.formBuilder.group({
       companyName: [''],
       departmentName: [''],
       siteName: [''],
-      arr: this.formBuilder.array([this.createItem(this.data)]),
+      arr: this.formBuilder.array([this.createItem(this.data.sitePersons[0])]),
       siteLocation: ['', Validators.required],
       AddressLine1: ['', Validators.required],
       AddressLine2: [''],
@@ -83,9 +92,10 @@ export class SiteaddComponent implements OnInit {
       country: ['', Validators.required],
       state: ['', Validators.required],
       pincode: ['', Validators.required],
+      siteId: [this.data.siteId],
+      userName: [this.data.userName]
       });
     
-
     this.siteService.retrieveCountry().subscribe(
       data => {
         this.countryList = JSON.parse(data);
@@ -172,13 +182,14 @@ export class SiteaddComponent implements OnInit {
 
   createItem(value: any) {
     return this.formBuilder.group({
-      personIncharge: [value.name, Validators.required],
+      personIncharge: [value.personIncharge, Validators.required],
       designation: [value.designation, Validators.required],
-      contactNo: [value.contactNumber],
-      personInchargeEmail: [value.username, [
+      contactNo: [value.contactNo],
+      personInchargeEmail: [value.personInchargeEmail, [
         Validators.required,
         Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-      countryCode: ['91']
+      countryCode: ['91'],
+      personId: [value.personId]
     })
   }
 
@@ -230,22 +241,24 @@ export class SiteaddComponent implements OnInit {
       i.inActive=true;
     }
 
-    this.site.userName = this.data.assignedBy;
-    this.site.assignedTo = this.data.username;
-    this.siteService.addSIte(this.site).subscribe(
+    // this.site.userName = this.data.assignedBy;
+    // this.site.assignedTo = this.data.username;
+    this.siteService.updateSite(this.site).subscribe(
       data=> {
-        this.success = true
-        this.successMsg =data;
+        this.service.siteData=JSON.parse(data);
+        this.success = true;
+        this.successMsg ="Site "+ this.site.site +" Updated Successfully";
         this.service.allFieldsDisable = false;
         this.service.allStepsCompleted=true;
         setTimeout(() => {
           this.success = false;
         }, 3000);
         setTimeout(() => {
-          this.dialog.closeAll();
+          this.dialog.closeAll(); 
           this.onSubmitSite.emit(true);
         }, 2000);
         this.service.msgForStep1Flag=true;
+        this.service.toggle=false;
       },
       error => {
         this.Error = true;

@@ -496,7 +496,8 @@
             <div *ngIf="sources">
               <div formArrayName="alternateArr" *ngFor="let a of getLocation4Controls(); let i = index">
                     <h2>Alternate Form :</h2>
-                  <mat-icon  class="mousechange" class="dlt" type="button" title="Delete" (click)="removeItem3(a,i)" style="margin-inline: 4rem;float: right;position: relative;margin-top: -4rem;" [ngClass]="{'disableForm':service.allFieldsDisable}">remove_circle_outline</mat-icon>
+                  <mat-icon  class="mousechange" class="dlt" type="button" title="Delete" (click)="removeItem3(a,i)" style="margin-inline: 4rem;float: right;position: relative;margin-top: -4rem;" 
+                  [ngClass]="{'disableForm': f.supplyNumber.value == '' || f.supplyNumber.value == '0' || service.allFieldsDisable}">remove_circle_outline</mat-icon>
                 <div class="form-group" [formGroupName]="i">
                   <!-- <div class="row">
                     <div class="col-md-4">
@@ -2011,11 +2012,13 @@ style="margin-left: 10px;" >
    </div>
 <br>
 <div *ngIf="popup">
-  <button type="button" *ngIf="success" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+  <button type="button" *ngIf="success" class="close" style="background-color: #0f800c;color: white;"
+  class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn"
   aria-label="Close"  (click)="closeModalDialog()" matStepperNext>
    <span aria-hidden="true">Ok</span>
  </button>
- <button type="button" *ngIf="Error" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+ <button type="button" *ngIf="Error" class="close" style="background-color: #0f800c;color: white;"
+ class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn"
    aria-label="Close"  (click)="closeModalDialog()">
     <span aria-hidden="true">Ok</span>
   </button>
@@ -2034,7 +2037,8 @@ style="margin-left: 10px;" >
    </div>
   <br>
   <div class="row">
-     <button type="button" class="col-md-6" style="text-align:center; width: auto;" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+     <button type="button" class="col-md-6" style="text-align:center; width: auto;background-color: #0f800c;color: white;" 
+     class="btn btn-rounded btn-md font-weight-medium auth-form-btn"
      aria-label="Close" (click)="closeModalDialog()" matStepperNext>
      <i class="bi bi-arrow-right-circle"></i>&nbsp;
       <span aria-hidden="true">Ok</span>

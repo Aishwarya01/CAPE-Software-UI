@@ -4974,57 +4974,55 @@ SignatureDesigner1(){
 
     if (!this.validationError) {
       if (this.lpsSummary !=null && this.lpsSummary.summaryLpsId !=undefined && this.lpsSummary.summaryLpsId !=null) {
-        if (this.summaryForm.dirty && this.summaryForm.touched) {
-          this.summaryService.updateSummaryLps(this.lpsSummary,typeOfButton).subscribe(
-            (data)=> {
-              setTimeout(() =>{
-                this.popup=true;
-                this.popup1=true;
-                this.spinner=false;
-                this.finalSpinner=false;
-              }, 3000)
-              this.success = true;
-              // this.summaryForm.markAsPristine();
-              this.successMsg = data;
-              this.service.allFieldsDisable = true;
-              if(this.saveButton){
-                this.retriveSummaryWhileUpdateSave();
-                this.finalSpinner=false;
-                this.saveButton = false;
-                this.summaryForm.markAsPristine();
-                this.proceedNext.emit(true);
-                this.service.lpsClick = 0;
-                this.service.logoutClick = 0;
-                this.service.windowTabClick = 0;
-              }
-              else {
-                this.popup=true;
-                this.spinner=false;
-                this.finalSpinner=false;
-                this.popup1=true;
-                if (this.isEditable) {
-                  this.success = true;
-                  this.proceedNext.emit(true);
-                } else {
-                  this.popup=true;
-                  this.spinner=false;
-                  this.success = true;
-                  this.proceedNext.emit(true);
-                }
-              }
-            },
-            (error)=> {
+        this.summaryService.updateSummaryLps(this.lpsSummary,typeOfButton).subscribe(
+          (data)=> {
+            setTimeout(() =>{
+              this.popup=true;
+              this.popup1=true;
+              this.spinner=false;
+              this.finalSpinner=false;
+            }, 3000)
+            this.success = true;
+            // this.summaryForm.markAsPristine();
+            this.successMsg = data;
+            this.service.allFieldsDisable = true;
+            if(this.saveButton){
+              this.retriveSummaryWhileUpdateSave();
+              this.finalSpinner=false;
+              this.saveButton = false;
+              this.summaryForm.markAsPristine();
+              this.proceedNext.emit(true);
+              this.service.lpsClick = 0;
+              this.service.logoutClick = 0;
+              this.service.windowTabClick = 0;
+            }
+            else {
               this.popup=true;
               this.spinner=false;
               this.finalSpinner=false;
               this.popup1=true;
-              this.finalSpinner=false;
-              this.Error = true;
-              this.errorArr = [];
-              this.errorArr = JSON.parse(error.error);
-              this.errorMsg = this.errorArr.message;
-          })
-        }
+              if (this.isEditable) {
+                this.success = true;
+                this.proceedNext.emit(true);
+              } else {
+                this.popup=true;
+                this.spinner=false;
+                this.success = true;
+                this.proceedNext.emit(true);
+              }
+            }
+          },
+          (error)=> {
+            this.popup=true;
+            this.spinner=false;
+            this.finalSpinner=false;
+            this.popup1=true;
+            this.finalSpinner=false;
+            this.Error = true;
+            this.errorArr = [];
+            this.errorArr = JSON.parse(error.error);
+            this.errorMsg = this.errorArr.message;
+        })
       }
 
       else{
@@ -5100,14 +5098,21 @@ SignatureDesigner1(){
       return;
     }
     else if (this.summaryForm.dirty && this.summaryForm.touched) {
-      this.service.isCompleted8 = false;
-      this.service.isLinear = true;
-      this.service.editable = false;
-      this.tabError = true;
-      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
-      setTimeout(() => {
-        this.tabError = false;
-      }, 3000);
+      if(this.isEditable==true){
+        this.service.isCompleted8 = true;
+        this.service.isLinear = false;
+        this.service.editable = true;
+      }
+      else{
+        this.service.isCompleted8 = false;
+        this.service.isLinear = true;
+        this.service.editable = false;
+        this.tabError = true;
+        this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+        setTimeout(() => {
+          this.tabError = false;
+        }, 3000);
+      }
     }
     else {
       this.service.isCompleted8 = true;
@@ -5129,15 +5134,24 @@ SignatureDesigner1(){
     return false;
     }
     else if(this.summaryForm.dirty && this.summaryForm.touched){
-      this.service.isCompleted8= false;
-      this.service.isLinear=true;
-      this.service.editable=false;
-      this.tabError = true;
-      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
-      setTimeout(() => {
-        this.tabError = false;
-      }, 3000);
-      return false;
+      if(this.isEditable==true){
+        this.service.isCompleted8= true;
+        this.service.isLinear=false;
+        this.service.editable=true;
+        this.summaryForm.markAsPristine();
+        return true; 
+      }
+      else{
+        this.service.isCompleted8= false;
+        this.service.isLinear=true;
+        this.service.editable=false;
+        this.tabError = true;
+        this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+        setTimeout(() => {
+          this.tabError = false;
+        }, 3000);
+        return false;
+      }
     } 
     else {
       this.service.isCompleted8= true;

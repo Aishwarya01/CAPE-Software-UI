@@ -1,0 +1,289 @@
+<div class="col-md-12 bg-image">
+
+<div class="container">
+    <h2>Account Details</h2>
+<form [formGroup]="profileForm">
+    <div class="row"> 
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="firstname"> FirstName</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="bi bi-file-person"></i>
+                        </span>
+                    </div>
+                    <input class="form-control" type="text" formControlName="firstName"
+                     [ngClass]="{'is-invalid': submitted && f.firstName.errors}" [(ngModel)]="registerBuyMeterModel.firstName" readonly>
+                     <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                        <div *ngIf="f.firstName.errors">Name field is required</div>
+                     </div>
+
+                </div>
+                
+                </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="lastname"> LastName</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="bi bi-file-person"></i>
+                        </span>
+                    </div>
+                    <input class="form-control" type="text" formControlName="lastName"
+                     [ngClass]="{'is-invalid': submitted && f.firstName.errors}" [(ngModel)]="registerBuyMeterModel.lastName" readonly>
+                     <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                        <div *ngIf="f.firstName.errors">Name field is required</div>
+                     </div>
+
+                </div>
+                
+                </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="form-group">
+             <label for="contactNumber">Contact Number</label>
+             <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="bi bi-telephone-fill"></i>
+                    </span>
+                </div>
+                <input type="text" formControlName="contactNumber" class="form-control" 
+                [ngClass]="{'is-invalid': submitted && f.contactNumber.errors}" [(ngModel)]="registerBuyMeterModel.contactNumber" readonly>
+                <div *ngIf="submitted && f.contactNumber.errors" class="invalid-feedback">
+                    <div *ngIf="submitted && f.contactNumber.errors">Contact Number is Required</div>
+                </div>
+             </div>
+             <mat-icon class="changeNumber" style="cursor: pointer;"  (click)=" mobileNumber(changeNumberTemplate)" title="Change Contact Number">
+                published_with_changes
+            </mat-icon>
+          </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+               <label for="email">Email</label>
+               <div class="input-group">
+                      <div class="input-group-prepend">   
+                               <span class="input-group-text">
+                                   <i class="bi bi-envelope-fill"></i>
+                               </span>
+                           </div>
+                  <input type="email" formControlName="email" class="form-control" 
+                  [ngClass]="{'is-invalid}':submitted && f.email.erorrs}" [(ngModel)]="registerBuyMeterModel.username" readonly>
+                  <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                    <div *ngIf="submitted && f.email.errors"> Email is Required </div>
+                  </div>
+
+  
+            </div>
+       </div>
+      </div>
+
+      <div class="col-md-4">                    
+         <div class="form-group">
+             <label for="companyNae"> Company Name</label>
+             <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="bi bi-building"></i>
+                    </span>
+                </div>
+                <input type="text" formControlName="companyName" class="form-control" [(ngModel)]="registerBuyMeterModel.customerCompany" readonly>
+             </div>
+         </div>
+      </div>
+
+      <div class="col-md-4">                    
+        <div class="form-group">
+            <label for="address"> Address</label>
+            <div class="input-group">
+               <div class="input-group-prepend">
+                   <span class="input-group-text">
+                       <i class="bi bi-building"></i>
+                   </span>
+               </div>
+               <input type="text" formControlName="address" class="form-control" [(ngModel)]="registerBuyMeterModel.address" readonly>
+            </div>
+        </div>
+     </div>
+
+    </div>
+     
+    <div class="row">
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="country"> Country</label>
+                <div class="input-group">
+                   <div class="input-group-prepend">
+                       <span class="input-group-text">
+                           <i class="bi bi-building"></i>
+                       </span>
+                   </div>
+                   <input type="text" formControlName="country" class="form-control" [(ngModel)]="registerBuyMeterModel.country" readonly>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="state"> State</label>
+                <div class="input-group">
+                   <div class="input-group-prepend">
+                       <span class="input-group-text">
+                           <i class="bi bi-building"></i>
+                       </span>
+                   </div>
+                   <input type="text" formControlName="state" class="form-control" [(ngModel)]="registerBuyMeterModel.state" readonly>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="city"> City</label>
+                <div class="input-group">
+                   <div class="input-group-prepend">
+                       <span class="input-group-text">
+                           <i class="bi bi-building"></i>
+                       </span>
+                   </div>
+                   <input type="text" formControlName="city" class="form-control" [(ngModel)]="registerBuyMeterModel.district" readonly>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="pincode"> Pincode</label>
+                <div class="input-group">
+                   <div class="input-group-prepend">
+                       <span class="input-group-text">
+                           <i class="bi bi-building"></i>
+                       </span>
+                   </div>
+                   <input type="text" formControlName="pincode" class="form-control" [(ngModel)]="registerBuyMeterModel.pinCode" readonly>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+            <div class="row" style="margin-top: 20px;">
+                <div class="col-md-12 text-center justify-content-center">
+                  <button type="button" class="btn btn-danger" style="margin-left:15px"  (click)="backToAddtocart()">Back</button>
+                </div>
+
+            </div>
+     
+</form>
+<div style="margin-top: 20px;">
+    <h2>Previous Order Details</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>OrderID</th>
+                <th>Purchage date</th>
+                <th>Product details</th>
+                <th>Total amount</th>
+                <th>Payment mode</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>001</td>
+                <td>01/12/2022</td>
+                <td>Iphone 14 pro max</td>
+                <td>156000</td>
+                <td>Gpay</td>
+            </tr>
+            <tr>
+                <td>002</td>
+                <td>04/12/2022</td>
+                <td>Mac Pro</td>
+                <td>256000</td>
+                <td>Credit card</td>
+            </tr>
+            <tr>
+                <td>003</td>
+                <td>06/12/2022</td>
+                <td>Ipad</td>
+                <td>56000</td>
+                <td>Credit card</td>
+            </tr>
+            <tr>
+                <td>004</td>
+                <td>10/12/2022</td>
+                <td>Iphone 13</td>
+                <td>66000</td>
+                <td>COD</td>
+            </tr>
+            <tr>
+                <td>005</td>
+                <td>12/12/2022</td>
+                <td>Airpods pro</td>
+                <td>26000</td>
+                <td>Credit card</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</div>
+</div>
+
+<ng-template #changeNumberTemplate let-modal>
+    <div>
+        <form action="" [formGroup]="changeNumberForm">
+            <p *ngIf="showOtpMsg" class="alert alert-success" style="text-align:center;font-size: large;" > OTP has send Successfully</p>
+            <p *ngIf="showOtpValidation" class="errorshow">Please enter verification code (OTP)</p>
+            <p *ngIf="SubmitSuccessMsg" class="alert alert-success">Mobile number added successfully</p>
+            <h2>Change Number</h2>
+            <div class="form-group">
+                <label for="">* Contact Number</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="bi bi-telephone-fill"></i>
+                        </span>
+                    </div>
+                    <input type="text" formControlName="mobileNumber" class="form-control" [ngClass]="{'is-invalid': submitted && g.mobileNumber.errors}">
+                    <div *ngIf="submitted && g.mobileNumber.errors" class="invalid-feedback">
+                        <div *ngIf="submitted && g.mobileNumber.errors">Contact Number is Required</div>
+                    </div>
+                </div>
+            </div>
+            <div >
+                <div class="form-group">
+                    <p class="a-o-i">Enter verification code(OTP):</p>
+                        <a (click)="resendOTP()" style="text-decoration: underline;float: right; cursor: pointer;
+                        margin-top: -30px;color: #007bff;">Resend OTP Link</a>
+                  </div>
+                <div class="row">
+                    <div class="form-group col-sm-2" *ngFor="let input of formInput;  index as i">
+                        <input #formRow type="password" formControlName="{{input}}" class="form-control" 
+                        maxlength="1" (keyup)="onkeyUpEvent($event, i)" name="password" style="-webkit-text-security: square;">
+                      </div>
+                  <div *ngIf="OTPerrorMsgflag" class="errorshow">{{OTPerrorMsg}}</div>
+                </div>
+             
+            </div>
+               <div class="row">
+                        <div class="col-md-12 text-center justify-content-center">
+                            <button type="button" class="btn btn-primary"  *ngIf="showOtpBtn" style="margin: 10px;" (click)="sendOtp()">Generate OTP</button>
+                            <button (click)="onSubmit()" *ngIf="showValidate" class="btn btn-success"  style="margin: 10px;">Validate OTP</button>
+                            <button type="button" class="btn btn-danger"  style="margin: 10px;" (click)="cancelChangeNumber()">Cancel</button>
+                        </div>
+               </div>
+        </form>
+    </div>
+</ng-template>

@@ -1,17 +1,21 @@
 <div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
   <mat-toolbar role="toolbar" class="main-header mat-elevation-z1 sticky-header example-toolbar">
     <mat-toolbar-row>
-      <button mat-button (click)="isExpanded = !isExpanded" *ngIf="desktopDisplay">
-        <mat-icon>menu</mat-icon>
+      <button mat-button (click)="isExpanded = !isExpanded" *ngIf="desktopDisplay" style="background-color: black;height: 40px;
+      border-radius: 50%;min-width: 0%;">
+        <mat-icon style="display: flex;
+        align-items: center;
+        text-align: center;font-size: 30px;margin-left: -10px;">menu</mat-icon>
       </button>
       <!-- <button mat-button (click)="onToggleSidenav()" *ngIf="mobileDisplay">
         <mat-icon>menu</mat-icon>
       </button> -->
       <div class="col-md-2 brand-logo">
-        <a href="#"><img src="assets/img/Original-green.png"></a>
+        <a href="#"><img src="assets/img/new_logo.png"></a>
       </div>
       <div class="appName">
-      <span>SOLVE: Intelligent-Interactive-Modern</span>
+      <!-- <span>SOLVE: Intelligent-Interactive-Modern</span> -->
+      <span>Hi {{fullName}}, {{greet}}</span>
     </div>
       <span class="spacer"></span>
       <!-- <button mat-button [matMenuTriggerFor]="notify" *ngIf="oldNotification">
@@ -19,12 +23,15 @@
       </button> -->
 
       <!-- new notification -->
-      <button mat-button [matMenuTriggerFor]="Newnotify">
-        <mat-icon matBadge="{{newNotificationCount}}">notifications</mat-icon>
+      <!-- <mat-slide-toggle style="margin: 10px;" [color]="color">
+    Slide me!
+  </mat-slide-toggle>       -->
+  <button mat-button [matMenuTriggerFor]="Newnotify" style="color: #0f800c;">
+        <mat-icon matBadge="{{newNotificationCount}}" style="font-size: 26px;">notifications</mat-icon>
       </button>
 
-      <button mat-button [matMenuTriggerFor]="menu" style="min-width: unset;">
-        <mat-icon>person</mat-icon>{{fullName}}
+      <button mat-button [matMenuTriggerFor]="menu" style="min-width: unset;color: #0f800c;">
+        <mat-icon style="font-size: 26px;">account_circle</mat-icon>
       </button>
 
       <!-- <mat-menu #notify="matMenu">
@@ -104,6 +111,17 @@
       </mat-menu>
     </mat-toolbar-row>
   </mat-toolbar>
+<!-- empty header -->
+  <!-- <mat-toolbar role="toolbar" class="main-header mat-elevation-z1 sticky-header example-toolbar">
+    <mat-toolbar-row style="background: lightcyan;height:8%">
+     
+    </mat-toolbar-row>
+  </mat-toolbar> -->
+  <div style="background: #d9e6e6;height: 8%;"> 
+
+  </div>
+<!-- empty header ends-->
+
     <mat-sidenav-container class="example-container" [autosize]="autosize" fxFlexFill>
     <mat-sidenav mode="side" opened="true" class="desktopDisplay"
     [ngStyle]="{'width': isExpanded ? '295px' : (!isExpanded && isShowing ? '295px' : '60px')}"
@@ -150,7 +168,29 @@
           </a>   
         </div>     
         </div>
-      <mat-list-item [ngClass]="{'highlight': selectedRowIndex == itemValue3}" (click)="highlight('RM')" style="padding: 5px;">
+
+        <mat-list-item *ngIf="showMeter" (click)="showSubmenuMeter = !showSubmenuMeter" [ngClass]="{'highlight': selectedRowIndex == itemValue3}" 
+        (click)="highlightMeter('MT')" style="padding: 5px;">
+          <div class="col-md-2" style="position: sticky;">
+            <button class="btn btn-info"
+            style="float: left;padding: 3px 5px 3px 5px; 
+            margin: 5px 4px 5px -8px;">
+            <span>MT</span>
+            </button>
+            </div>
+          <span class="full-width" *ngIf="isExpanded || isShowing">Meter</span>
+          <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenuMeter}" *ngIf="isExpanded || isShowing">expand_more</mat-icon>
+        </mat-list-item>
+        <div class="submenu" [ngClass]="{'expanded' : showSubmenuMeter}" *ngIf="isShowing || isExpanded"  
+        [ngStyle]="{'display': showSubmenuMeter ? 'block' : 'none'}">
+        <div *ngFor="let typeMeter of ApplicationTypesMeter">
+          <a>
+            <mat-list-item (click)="showLinkDescription(typeMeter)" class="leftAlignSub" 
+            [ngClass]="{'highlightTypeMeter': selectedRowIndexTypeMeter == typeMeter}" (click)="highlightTypeMeter(typeMeter)">{{ typeMeter }}</mat-list-item>
+          </a>   
+        </div>     
+        </div>
+      <!-- <mat-list-item [ngClass]="{'highlight': selectedRowIndex == itemValue3}" (click)="highlight('RM')" style="padding: 5px;">
         <div class="col-md-2" style="position: sticky;">
         <button class="btn btn-info"
         style="float: left;padding: 3px 5px 3px 5px;
@@ -162,9 +202,9 @@
           <span *ngIf="isExpanded || isShowing" style="margin-left: -14px;"
           (click)="showLinkDescription('RM')" title="Rent Meter">Rent Meter</span>
         </a>
-      </mat-list-item>
+      </mat-list-item> -->
 
-      <mat-list-item [ngClass]="{'highlight': selectedRowIndex == itemValue4}" (click)="highlight('BM')" style="padding: 5px;">
+      <!-- <mat-list-item [ngClass]="{'highlight': selectedRowIndex == itemValue4}" (click)="highlight('BM')" style="padding: 5px;">
         <div class="col-md-2" style="position: sticky;">
         <button class="btn btn-info"
         style="float: left;padding: 3px 5px 3px 5px;
@@ -176,7 +216,7 @@
           <span *ngIf="isExpanded || isShowing" style="margin-left: -14px;"
           (click)="showLinkDescription('BM')" title="Buy Meter">Buy Meter</span>
         </a>
-      </mat-list-item>
+      </mat-list-item> -->
 
         <mat-list-item  *ngIf="showREP" (click)="showSubmenuRep = !showSubmenuRep" [ngClass]="{'highlight': selectedRowIndex == itemValue5}" 
         (click)="highlight('REP')" style="padding: 5px;">
@@ -273,8 +313,89 @@
   <mat-sidenav-content fullscreen fxFlexFill id="destination" class="pagePadding" [ngStyle]="{'padding': currentUser1.role == 'Viewer' ? '20px' : 'unset'}">
     <div class="col-sm-12 welcome-text" style="text-align: center;" *ngIf="welcome">
       <h1 style="font-size: 35px;">Welcome to SOLVE Applications</h1>
+      <h2>Intelligent-Interactive-Modern</h2>
       <p>Note: Kindly go through the sub-menus on the left side panel.</p>
     </div>
+<!-- youtube implementation -->
+<div clas="container" *ngIf="youtube">
+  <div class="row">
+    <div class="col-md-6">
+  <div clas="row">  
+  <div class="col-md-6" [ngClass]="{'videoTextEx' : isExpanded || (!isExpanded && isShowing) , 'videoText' : !isExpanded }">
+    <h2 style="font-weight: 500;">Videos</h2>
+  </div> 
+  </div>
+  <mat-carousel 
+  timings="250ms ease-in"
+    [hideArrows]="true"
+    [hideIndicators]="false">  
+    <mat-carousel-slide #matCarouselSlide  overlayColor="#00000040" [hideOverlay]="false">
+      <iframe height="345" src="https://www.youtube.com/embed/pqUchmjI6vE" title="YouTube video player" 
+      [ngStyle]="{'width': isExpanded ? '350px' : (!isExpanded && isShowing ? '350px' : '420px')}"
+      frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+     
+      <div style="display: flex;" [ngClass]="{'followUsEx' : isExpanded || (!isExpanded && isShowing) , 'followUs' : !isExpanded }"> 
+        <h4 style="float: left;">For more videos, follow us at</h4>
+        <span style="padding: 2px 8px 2px 8px;"><a href="https://www.youtube.com/channel/UCmbzuzIak3ICQl5Dd4xIQeg"
+          style="text-decoration: underline;">Cape Electric Pvt Ltd</a></span>
+      </div>
+  
+    </mat-carousel-slide>
+    <mat-carousel-slide 
+    overlayColor="#00000040"
+    [hideOverlay]="false">
+    <iframe height="345" src="https://www.youtube.com/embed/OHLRtn8gfSg" title="YouTube video player" 
+    [ngStyle]="{'width': isExpanded ? '350px' : (!isExpanded && isShowing ? '350px' : '420px')}"
+    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <div style="display: flex;" [ngClass]="{'followUsEx' : isExpanded || (!isExpanded && isShowing) , 'followUs' : !isExpanded }"> 
+      <h4 style="float: left;">For more videos, follow us at</h4>
+      <span style="padding: 2px 8px 2px 8px;"><a href="https://www.youtube.com/channel/UCmbzuzIak3ICQl5Dd4xIQeg"
+        style="text-decoration: underline;">Cape Electric Pvt Ltd</a></span>
+    </div>
+  </mat-carousel-slide>
+  <mat-carousel-slide 
+  #matCarouselSlide
+  overlayColor="#00000040"
+  [hideOverlay]="false">
+  <iframe height="345" src="https://www.youtube.com/embed/VDji_svkaG8" title="YouTube video player" 
+  [ngStyle]="{'width': isExpanded ? '350px' : (!isExpanded && isShowing ? '350px' : '420px')}"
+  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <div style="display: flex;" [ngClass]="{'followUsEx' : isExpanded || (!isExpanded && isShowing) , 'followUs' : !isExpanded }"> 
+    <h4 style="float: left;">For more videos, follow us at</h4>
+    <span style="padding: 2px 8px 2px 8px;"><a href="https://www.youtube.com/channel/UCmbzuzIak3ICQl5Dd4xIQeg"
+      style="text-decoration: underline;">Cape Electric Pvt Ltd</a></span>
+  </div>
+  </mat-carousel-slide>
+  </mat-carousel>
+  </div>
+  <!-- youtube implementation ends-->
+  
+ <!-- google implementation -->
+ <div class="col-md-6">
+  <div clas="row">  
+    <div class="col-md-6" [ngClass]="{'videoTextEx' : isExpanded || (!isExpanded && isShowing) , 'videoText' : !isExpanded }">
+      <h2 style="font-weight: 500;">Google News</h2>
+    </div> 
+    </div>
+    <mat-carousel [hideArrows]="true" class="scrollNews"
+    [hideIndicators]="true" timings="250ms ease-in">
+    <mat-carousel-slide #matCarouselSlide  overlayColor="#00000040" [hideOverlay]="false">
+      <div class="row" *ngFor="let d of newsArticleDisplay;" style="padding: 15px;">
+        <div class="col-md-3">
+          <img src="{{d.urlToImage}}" [ngStyle]="{'width': isExpanded ? '90px' : (!isExpanded && isShowing ? '90px' : '100px')}" height="65">
+        </div>
+       <div class="col-md-9">
+        <a href="{{d.url}}" style="text-decoration: underline;" title="Read More">{{d.title}}</a>
+        <h5>{{d.description}}</h5>
+       </div>
+      </div>
+    </mat-carousel-slide>
+    </mat-carousel>
+  </div>
+  <!-- google implementation ends-->
+  </div>
+  </div>
+
     <ng-template #ref></ng-template>
     <app-verificationlv *ngIf="value" #verify></app-verificationlv>
     <!-- (proceedNext)="onGoingEditSite($event)" -->
@@ -483,7 +604,9 @@
 </mat-sidenav-container>
 <!-- Footer -->
   <footer class="text-center text-lg-start bg-light text-muted">
-    <div class="text-center p-1" style="background-color: #c2daf8;font-size: 11px;color: black;">
+    <div class="text-center p-1" style="background-color: #000;
+    font-size: 11px;
+    color: white;">
     © 2022 - CAPE Electric Private Limited. All rights reserved
     </div>
   </footer>

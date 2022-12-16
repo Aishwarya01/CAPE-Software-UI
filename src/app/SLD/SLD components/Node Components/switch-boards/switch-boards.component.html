@@ -274,7 +274,7 @@
      <div class="form-group">
        <label>Over voltage  protection type</label>
        <select  class="form-control" formControlName="protectionType" [(ngModel)]="switchBoard.protectionType"
-       [ngClass]="{ 'is-invalid': submittedSwitchBoard && h.protectionType?.errors }">
+       [ngClass]="{ 'is-invalid': submittedSwitchBoard && h.protectionType?.errors }" style="margin-top: 20px;">
          <option value="" disabled>Select Option</option>
          <option value="CAT I">CAT I</option>
          <option value="CAT II">CAT II</option>
@@ -282,7 +282,7 @@
          <option value="CAT IV">CAT IV</option>
        </select>     
        <div *ngIf="submittedSwitchBoard && h.protectionType?.errors" class="invalid-feedback">
-         <div *ngIf="h.protectionType?.errors?.required">Protection type is required</div>
+         <div *ngIf="h.protectionType?.errors?.required">Over Protection type is required</div>
        </div>
      </div>
    </div>
@@ -291,7 +291,7 @@
      <div class="form-group">
        <label>Verified TOV due to fault in HV system</label>
        <select  class="form-control" formControlName="hvSystem" [(ngModel)]="switchBoard.hvSystem"
-       [ngClass]="{ 'is-invalid': submittedSwitchBoard && h.hvSystem?.errors }">
+       [ngClass]="{ 'is-invalid': submittedSwitchBoard && h.hvSystem?.errors }" style="margin-top: 20px;">
          <option value="" >Select Option</option>
          <option value="Yes">Yes</option>
          <option value="No">No</option>
@@ -352,7 +352,7 @@
   </div>
 
   <br>
-  <h3 style="text-align: center">Basic fault protection</h3>
+  <h3 style="text-align: center" >Basic Fault Protection</h3>
   <br>
   <div class="row">
     <div class="col-md-4">

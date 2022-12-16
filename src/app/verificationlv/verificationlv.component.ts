@@ -495,7 +495,7 @@ export class VerificationlvComponent implements OnInit {
     sitePersons: any[],
     addressLine_1: String,
     addressLine_2: String,
-    zipCode: number,
+    zipCode: String,
     createdDate: Date,
     createdBy: String
   ) {
@@ -1100,27 +1100,29 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
 
 //retrieve site after adding new site in modal
   retrieveSite(companyName:any,departmentName:any,site:any){
-  this.siteService.retrieveSiteForInspection(companyName,departmentName,site).subscribe(
-    data=>{
-      this.siteData=JSON.parse(data);
-      this.inspectorRegisterService.retrieveInspector(this.siteData.assignedTo).subscribe(
+    if(companyName!=undefined && companyName!="" && companyName!=null && departmentName!=undefined && departmentName!="" && departmentName!=null && site!=undefined && site!="" && site!=null){
+      this.siteService.retrieveSiteForInspection(companyName,departmentName,site).subscribe(
         data=>{
-          this.service.viewerData=JSON.parse(data);
-          this.inspectorRegisterService.retrieveInspector(this.service.viewerData.assignedBy).subscribe(
+          this.siteData=JSON.parse(data);
+          this.inspectorRegisterService.retrieveInspector(this.siteData.assignedTo).subscribe(
             data=>{
-              this.inspectorData = JSON.parse(data);
-              this.service.inspectorData=this.inspectorData;
-              this.basic.ngOnInit();
-              // setTimeout(() => {
-              //   this.basic.ngOnInit();
-              // }, 1000);
-            }
-          )
-        }
-      )
+              this.service.viewerData=JSON.parse(data);
+              this.service.viewerData.siteName=site;
+              this.inspectorRegisterService.retrieveInspector(this.service.viewerData.assignedBy).subscribe(
+                data=>{
+                  this.inspectorData = JSON.parse(data);
+                  this.service.inspectorData=this.inspectorData;
+                  this.basic.ngOnInit();
+                  // setTimeout(() => {
+                  //   this.basic.ngOnInit();
+                  // }, 1000);
+                }
+              )
+            })
+        })
     }
-  )
   }
+
 //for final reports tab
   changeTab1(index: number): void {
     this.selectedIndex = index;

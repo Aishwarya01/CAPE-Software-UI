@@ -816,7 +816,7 @@
                      [ngClass]="{ 'is-invalid': submitted && a.get('signature')?.errors }"
                      [readonly]="true" 
                      style="pointer-events:none;">
-                    <button type="button" (click)="SignatureDesigner1()" title="Click here"
+                    <button type="button" (click)="SignatureDesigner1()" title="Click here" [ngClass]="{'disableForm':isEditable}"
                     >Sign
                     </button>
                 </div>
@@ -901,7 +901,7 @@
                        [ngClass]="{ 'is-invalid': submitted && a.get('signature')?.errors }"
                        [readonly]="true" 
                        style="pointer-events:none;">
-                      <button type="button" (click)="SignatureDesigner2()" title="Click here">Sign
+                      <button type="button" (click)="SignatureDesigner2()" title="Click here" [ngClass]="{'disableForm':isEditable}">Sign
                       </button>
                   </div>
                     <!-- <input type="text" class="form-control" formControlName="signature" readonly
@@ -971,11 +971,11 @@
       <div class="col-sm-12">
       <div style="text-align: center;"> 
 
-        <button class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn next save-Button"
+        <button class="btn btn-rounded btn-md font-weight-medium auth-form-btn next save-Button" style="background-color: #0f800c;color: white;"
           mat-button type="submit" (click)="typeButton('save')" [ngClass]="{'disableForm':isEditable}" [ngStyle]="{'background-color': isEditable ? 'lightgrey' : ''}">
         <i class="bi bi-journal-arrow-up icon"></i>Save</button>                                                  
 
-        <button style="width: auto;margin-left: 50px;" type="submit" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn next"
+        <button style="width: auto;margin-left: 50px;background-color: #0f800c;color: white;" type="submit" class="btn btn-rounded btn-md font-weight-medium auth-form-btn next"
           mat-button [disabled]="submittedButton" (click)="typeButton('submit')" [ngClass]="{'disableForm':isEditable}">
         <i class="bi bi-journal-arrow-up icon"></i>Submit</button>
     </div>
@@ -1005,12 +1005,13 @@
         </div>
         
         <div *ngIf="popup" style="text-align: center;">
-          <button type="button" *ngIf="success" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
-            aria-label="Close" (click)="closeModalDialog()" style="width: 18%;margin: 0 auto;">
+          <button type="button" *ngIf="success" 
+          class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn"
+            aria-label="Close" (click)="closeModalDialog()" style="width: 18%;margin: 0 auto;background-color: #0f800c;color: white;">
             <span aria-hidden="true">Ok</span>
           </button>
-          <button type="button" *ngIf="Error" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
-            aria-label="Close" (click)="closeModalDialog()" style="width: 18%;margin: 0 auto;">
+          <button type="button" *ngIf="Error" class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn"
+            aria-label="Close" (click)="closeModalDialog()" style="width: 18%;margin: 0 auto;background-color: #0f800c;color: white;">
             <span aria-hidden="true" >Ok</span>
           </button>
         </div>
@@ -1040,12 +1041,12 @@
       </div>
       <br>
       <div *ngIf="popup1" style="text-align: center;">
-        <button type="button" *ngIf="success" class="col-md-6" class="close" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
-          aria-label="Close" (click)="closeModalDialog()" style="width: 18%;margin: 0 auto;">
+        <button type="button" *ngIf="success" class="col-md-6" class="close" class="btn btn-rounded btn-md font-weight-medium auth-form-btn"
+          aria-label="Close" (click)="closeModalDialog()" style="width: 18%;margin: 0 auto;background-color: #0f800c;color: white;">
           <span aria-hidden="true">Ok</span>
         </button>
-        <button type="button" *ngIf="Error" class="col-md-6" class="close" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
-          aria-label="Close" (click)="closeModalDialog()" style="width: 18%;margin: 0 auto;">
+        <button type="button" *ngIf="Error" class="col-md-6" class="close" class="btn btn-rounded btn-md font-weight-medium auth-form-btn"
+          aria-label="Close" (click)="closeModalDialog()" style="width: 18%;margin: 0 auto;background-color: #0f800c;color: white;">
           <span aria-hidden="true">Ok</span>
         </button>
       </div>

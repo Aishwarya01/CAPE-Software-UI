@@ -1,0 +1,211 @@
+.bg-image {
+  background: url(../../assets/img/electrical-panel-testing_test.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: left;
+  background-size: 100%;
+  height: auto;
+  width: 100%;
+  position: relative;
+  padding: 20px;
+}
+
+.Cart-Container{
+  width: 100%;
+  height: 95%;
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 20px;
+  margin: 30px 0 0 0;
+  overflow-y: scroll;
+   }
+
+   .bg-image {
+    background: url(../../assets/img/electrical-panel-testing_test.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: left;
+    background-size: 100%;
+    height: 143.7vh;
+    width: 100%;
+    position: relative;
+    /* padding: 20px; */
+    padding: 20px 40px 20px 40px;
+}
+   .Header{
+    margin: auto;
+    width: 90%;
+    height: 9%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   }
+   .Heading{
+    margin-right: 7%;
+    font-size: 20px;
+    font-family: ‘Open Sans’;
+    font-weight: 700;
+    color: #2F3841;
+   }
+   .Action{
+    font-size: 14px;
+    font-family: ‘Open Sans’;
+    font-weight: 600;
+    color: #E44C4C;
+    cursor: pointer;
+    border-bottom: 1px solid #E44C4C;
+   }
+
+   .divider1{
+    margin-top: -23px;
+    padding: 15px;
+   }
+   .product-quantity { float: left; width: 10%; margin-left: 60px;}
+   .product-price { float: left; width: 12%; margin-left: -94px;}
+   .product-quantity input {
+      width: 40px;
+      
+    }
+    .product-removal { float: left; width: 13%; }
+    .product-line-price { float: left; width: 12%; text-align: right; margin-left: 60px;}
+
+   
+      .remove-product {
+        border: 0;
+        padding: 4px 8px;
+        background-color: #c66;
+        color: #fff;
+        font-family: 500;
+        font-size: 12px;
+        border-radius: 3px;
+        margin-left: 35px;
+      }
+      
+      .remove-product:hover {
+        background-color: #a44;
+      }
+      .totals .totals-item {
+          float: right;
+          clear: both;
+          width: 100%;
+          margin-bottom: 10px;
+      }
+      .totals label {
+            float: left;
+            clear: both;
+            width: 79%;
+            text-align: right;
+          }
+          
+          .totals .totals-value {
+            float: right;
+            width: 21%;
+            text-align: right;
+          }
+        
+        
+          .totals .totals-item-total {
+          font-family: 500;
+        }
+      
+      .checkout {
+        float: right;
+        border: 0;
+        margin-top: 20px;
+        padding: 6px 25px;
+        background-color: #6b6;
+        color: #fff;
+        font-size: 18px;
+        border-radius: 3px;
+      }
+      
+      .checkout:hover {
+        background-color: #494;
+      }
+
+  .verticalLine {
+    border-left: 1px solid black;
+    height: 100px;
+  }
+  .meterTable th, .meterTable td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  .meterTable th, .meterTable td {
+    padding: 5px;
+    text-align: left; 
+  }
+  .disabled-pointer {
+    pointer-events: none;
+  }
+
+  .card1 {
+    display: inline-block;
+    padding: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    margin: 25px;
+    text-align: center;
+    font-family: arial;
+    background: white;
+  }
+  
+  .price {
+    color: black;
+    font-size: 22px;
+    font-weight: 500;
+  }
+  
+  .card1 button {
+    border: none;
+    outline: 0;
+    margin-right: 10px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .card1 button:hover {
+    opacity: 0.7;
+  }
+
+  .rate {
+    height: 30px;
+    padding: 0 20px;
+    width: 100%;
+    display: flex;
+    margin-left: -22px;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:25px;
+    color:#ccc;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: #ffc700;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
+

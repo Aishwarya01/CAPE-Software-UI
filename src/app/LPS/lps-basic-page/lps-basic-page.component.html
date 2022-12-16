@@ -26,7 +26,7 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter clientname"
-                            [readonly]="isEditable1" formControlName="clientName"
+                            readonly formControlName="clientName"
                             [ngClass]="{ 'is-invalid': submitted && f.get('clientName')?.errors }"/>
                         <div *ngIf="submitted && f.get('clientName')?.errors" class="invalid-feedback">
                                 <div *ngIf="f.get('clientName')?.errors?.required">ClientName is required</div>
@@ -43,7 +43,7 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter project name" (change)="projectValidation($event,f)"
-                            [readonly]="isEditable1" formControlName="projectName" [ngClass]="{ 'is-invalid': submitted && f.get('projectName')?.errors }"/>
+                            readonly formControlName="projectName" [ngClass]="{ 'is-invalid': submitted && f.get('projectName')?.errors }"/>
                             <div *ngIf="submitted && f.get('projectName')?.errors" class="invalid-feedback">
                                 <div *ngIf="f.get('projectName')?.errors?.required">ProjectName is required</div>
                             </div>
@@ -131,7 +131,7 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter address name"
-                            [readonly]="isEditable" formControlName="address" [ngClass]="{ 'is-invalid': submitted && f.get('address')?.errors }"/>
+                            readonly formControlName="address" [ngClass]="{ 'is-invalid': submitted && f.get('address')?.errors }"/>
                             <div *ngIf="submitted && f.get('address')?.errors" class="invalid-feedback">
                                 <div *ngIf="f.get('address')?.errors?.required">Address is required</div>
                         </div>
@@ -185,11 +185,11 @@
                 </div>                
             </div>
 
-            <!-- <div class="row" style="font-weight: bold;">
+            <div class="row" style="font-weight: bold;">
                 <label for="Basicdetails" style="font-weight: bold;margin: 10px; font-size: 16px;">Person who preparing the report</label>
-            </div> -->
+            </div>
             
-            <!-- <div class="row">
+            <div class="row">
                 <div class="col-md-4">
                     <label for="email1">Email</label>
                     <div class="input-group">
@@ -212,16 +212,15 @@
                         <input type="text" class="form-control" formControlName="name1" [ngModel]="currentUserName" readonly/>
                     </div>
                 </div>
-            </div> -->
+            </div>
 
             <div class="row" style="font-weight: bold;">
                 <label for="Basicdetails" style="font-weight: bold;margin: 10px; font-size: 16px;">Person who ordering the report</label>
             </div>
 
             <div class="row">
-                <div class="col-md-4">
+                <!-- <div class="col-md-4">
                     <label for="clientname">Name</label>
-                    <!-- icon code -->
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"> 
@@ -238,7 +237,6 @@
 
                 <div class="col-md-4">
                     <label for="clientname">Company</label>
-                    <!-- icon code -->
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"> 
@@ -255,7 +253,6 @@
 
                 <div class="col-md-4">
                     <label for="clientname">Designation</label>
-                    <!-- icon code -->
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"> 
@@ -268,13 +265,13 @@
                             <div *ngIf="f.get('designation')?.errors?.required">Designation is required</div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="col-md-4">
                     <label for="contactNumber">Contact Number</label>
                     <input type="tel" class="form-control" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
                        (keypress)="keyPressNumbers($event)" (countryChange)="countryChange($event,f)" placeholder="Enter Contact Number" 
-                       [readonly]="isEditable" formControlName="contactNumber"  [ngClass]="{ 'is-invalid': submitted && f.get('contactNumber')?.errors }"/>
+                       readonly formControlName="contactNumber"  [ngClass]="{ 'is-invalid': submitted && f.get('contactNumber')?.errors }"/>
                        <div *ngIf="submitted && f.get('contactNumber')?.errors" class="invalid-feedback">
                            <div *ngIf="f.get('contactNumber')?.errors?.required">Contact Number is required</div>
                            <div *ngIf="f.get('contactNumber')?.errors?.minlength">Enter 10 Digit Number</div> 
@@ -291,7 +288,7 @@
                                 <i class="bi bi-envelope-fill"></i>
                             </span>
                         </div>
-                        <input type="text" [readonly]="isEditable" formControlName="mailId" 
+                        <input type="text" readonly formControlName="mailId" 
                          class="form-control" placeholder="Enter Email Id"  [ngClass]="{ 'is-invalid': submitted && f.get('mailId')?.errors }"/>
                          <div *ngIf="submitted && f.get('mailId')?.errors" class="invalid-feedback">
                              <div *ngIf="f.get('mailId')?.errors?.required">Email Id is required</div>
@@ -401,13 +398,14 @@
     </div>
     <br>
     <div *ngIf="popup" style="text-align: center;">
-        <button type="button" *ngIf="!Error"  class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
-        aria-label="Close"  (click)="closeModalDialog()" style="margin-left: 195px;width: 16%;" matStepperNext>
+        <button type="button" *ngIf="!Error"  class="close" 
+        class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn"
+        aria-label="Close"  (click)="closeModalDialog()" style="margin-left: 195px;width: 16%;background-color: #0f800c;color: white;" matStepperNext>
          <span aria-hidden="true">Ok</span>
         </button>
     
-        <button type="button" *ngIf="Error" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
-        aria-label="Close"  (click)="closeModalDialog()" style="margin-left: 195px;width: 16%;" >
+        <button type="button" *ngIf="Error" class="close" class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn"
+        aria-label="Close"  (click)="closeModalDialog()" style="margin-left: 195px;width: 16%;background-color: #0f800c;color: white;" >
         <span aria-hidden="true">Ok</span>
         </button>
     </div>
@@ -425,7 +423,8 @@
      </div>
     <br>
     <div class="row">
-       <button type="button" class="col-md-6" style="width: 5rem;position: relative;margin-left: 30%;" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+       <button type="button" class="col-md-6" style="width: 5rem;position: relative;margin-left: 30%;background-color: #0f800c;color: white;" 
+       class="btn btn-rounded btn-md font-weight-medium auth-form-btn"
        aria-label="Close" (click)="closeModalDialog()" matStepperNext>
        <i class="bi bi-arrow-right-circle"></i>&nbsp;
         <span aria-hidden="true">Ok</span>
@@ -434,7 +433,7 @@
        aria-label="Close" (click)="closeModalDialog()">
        <i class="bi bi-x icon"></i>
         <span aria-hidden="true">Cancel</span>
-    </button>
+    </button> 
   </div>
 </ng-template>
 
@@ -448,7 +447,8 @@
      </div>
     <br>
     <div class="row">
-       <button type="button" class="col-md-6" style="position: relative;margin-left: 20%;width: auto;" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+       <button type="button" class="col-md-6" style="position: relative;margin-left: 20%;width: auto;background-color: #0f800c;color: white;" 
+       class="btn btn-rounded btn-md font-weight-medium auth-form-btn"
        aria-label="Close" (click)="closeModalDialog1('No')">
        <i class="bi bi-arrow-right-circle"></i>&nbsp;
         <span aria-hidden="true">Confirm</span>
@@ -479,8 +479,8 @@
         <b>Note:</b> Please click Next Button, Then only the file changes will reflect!
       </div>
     <div *ngIf="popupUpload">
-        <button type="button" style="text-align: center;margin-left:180px;width:20%" class="close" (click)="closeModalDialogFile()"
-            class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close">
+        <button type="button" style="text-align: center;margin-left:180px;width:20%;background-color: #0f800c;color: white;" class="close" (click)="closeModalDialogFile()"
+            class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close">
             <span >Ok</span>
         </button>
     </div>

@@ -1,4 +1,12 @@
-<form [formGroup]="assignViewerForm" id="contentViewer2">
+<!-- Spinner Code -->
+<!-- <div class="loader" *ngIf="spinner">
+</div>
+
+<div class="text-align" *ngIf="spinner">
+  <p style="margin: 14px auto 0px 0%;">Please wait, The details are loading</p>
+</div> -->
+
+<form [formGroup]="assignViewerForm" id="contentViewer2" *ngIf="globalService.emailCheck">
   <div class="centre-text m-btm30">
     <div *ngIf="success" style="text-align: center">
       <span class="successshow">{{ successMsg1 }}</span>
@@ -7,38 +15,27 @@
       <span class="errorshow">{{ errorMsg1 }}</span>
     </div>
   </div>
-  <div class="card">
+  <div class="card" >
     <div class="card-body">
       <div class="row">
         <div class="col-sm-12">
-   <h4>
-    You are entitled to allot the license to your clients / users (Called as viewers). First time viewers need to be registered. 
-    Kindly enter the e-mail id of viewer's whom you want to allot the license.
-</h4>
-  <p>
- <b>Note:</b> The viewer can login, understand the report and include his comments in the report. 
- This facility is for better understanding of the various methods recommended in inspection and testing.
- </p>
- 
+          <h4>
+            You are entitled to allot the license to your clients / users (Called as viewers). First time viewers need
+            to be registered.
+            Kindly enter the e-mail id of viewer's whom you want to allot the license.
+          </h4>
+          <p>
+            <b>Note:</b> The viewer can login, understand the report and include his comments in the report.
+            This facility is for better understanding of the various methods recommended in inspection and testing.
+          </p>
+
         </div>
       </div>
       <div class="row">
         <div class="col-sm-12">
           <label>Enter Viewer Email:</label>
-          <input
-            type="text"
-            class="form-control"
-            formControlName="viewerEmail"
-            placeholder="Enter Email"
-            [ngClass]="{
-              'is-invalid':
-                submitted1 && assignViewerForm.controls.viewerEmail.errors
-            }"
-          />
-          <div
-            *ngIf="submitted1 && assignViewerForm.controls.viewerEmail.errors"
-            class="invalid-feedback"
-          >
+          <input type="text" class="form-control" formControlName="viewerEmail" placeholder="Enter Email" [ngClass]="{'is-invalid':submitted1 && assignViewerForm.controls.viewerEmail.errors}" />
+          <div *ngIf="submitted1 && assignViewerForm.controls.viewerEmail.errors" class="invalid-feedback">
             <div *ngIf="assignViewerForm.controls.viewerEmail.errors.required">
               Email is required
             </div>
@@ -51,14 +48,9 @@
       <br />
       <div style="text-align: center">
         <button class="btn btn-primary" (click)="continue(contentViewer)" id="login-btn" style="font-size: 14px;">
-          Continue</button
-        >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <button
-          type="button"
-          aria-label="Close"
-          (click)="closeModalDialogContinue()"
-          class="btn btn-danger" style="font-size: 14px;"
-        >
+          Continue</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="button" aria-label="Close" (click)="closeModalDialogContinue()" class="btn btn-danger"
+          style="font-size: 14px;">
           <i class="bi bi-x icon"></i>
           <span aria-hidden="true">Cancel</span>
         </button>
@@ -67,7 +59,9 @@
   </div>
 </form>
 
-<ng-template #contentViewer let-modal>
+<ng-template #contentViewer let-modal 
+
+>
   <div class="modal-header" style="text-align: center; display: block">
     <h2 class="modal-title" style="display: contents">Assign Viewer</h2>
     <p>
@@ -78,81 +72,109 @@
   <div class="modal-body" modal-xl>
     <div class="card">
       <div class="card-body">
-        <form [formGroup]="viewerRegisterForm" (ngSubmit)="onSubmit(flag)">
+        <form [formGroup]="viewerRegisterForm" (ngSubmit)="onSubmit(flag,viewerRegisterForm)">
           <div formArrayName="viewerArr" *ngFor="let a of getViewerControls(); let i = index">
             <div [formGroupName]="i">
               <div class="row">
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="name">* Site Name</label>
+                <ng-container *ngIf="viewerForLV">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="name">* Site Name</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="bi bi-person-fill"></i>
+                          </span>
+                        </div>
+                        <input type="text" formControlName="siteName" class="form-control"
+                          placeholder="Enter the Site Name"
+                          [ngClass]="[ existSite  ? 'is-invalid' : '',submitted && a.get('siteName')?.errors ? 'is-invalid' : '']"
+                          [(ngModel)]="register.siteName" (focusout)="onFocusOutEvent($event,a)" />
+                        <div *ngIf="submitted && a.get('siteName')?.errors" class="invalid-feedback">
+                          <div *ngIf="a.get('siteName')?.errors?.required">
+                            Site Name is required
+                          </div>
+                          <div *ngIf="a.get('siteName')?.errors?.minlength">
+                            Site Name should be more than 2 characters
+                          </div>
+                          <div *ngIf="a.get('siteName')?.errors?.pattern">
+                            Site Name cannot contain special characters
+                          </div>
+                        </div>
+
+                        <div *ngIf="existSite" class="invalid-feedback">
+                          <div>
+                            Note: Site Name already exist
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="name">* Name</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="bi bi-person-fill"></i>
+                          </span>
+                        </div>
+                        <input type="text" formControlName="name" class="form-control"
+                          placeholder="Enter your Name" [ngClass]="{ 'is-invalid': submitted && a.get('name')?.errors }"
+                          [(ngModel)]="register.name" />
+                        <div *ngIf="submitted && a.get('name')?.errors" class="invalid-feedback">
+                          <div *ngIf="a.get('name')?.errors?.required">Name is required</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+
+                <ng-container *ngIf="viewerForLps">
+                  <div class="col-md-4">
+                    <label for="clientname">Client Name</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text">
-                          <i class="bi bi-person-fill"></i>
+                          <i class="bi bi-person-lines-fill"></i>
                         </span>
                       </div>
-                      <input
-                        type="text"
-                        formControlName="siteName"
-                        class="form-control"
-                        placeholder="Enter the Site Name"
-                        [ngClass]="[ existSite  ? 'is-invalid' : '',submitted && a.get('siteName')?.errors ? 'is-invalid' : '']"
-                        [(ngModel)]="register.siteName"
-                        (focusout)="onFocusOutEvent($event,a)"
-                      />
-                      <div
-                        *ngIf="submitted && a.get('siteName')?.errors"
-                        class="invalid-feedback"
-                      >
-                        <div *ngIf="a.get('siteName')?.errors?.required">
-                          Site Name is required
-                        </div>
-                        <div *ngIf="a.get('siteName')?.errors?.minlength">
-                          Site Name should be more than 2 characters
-                        </div>
-                        <div *ngIf="a.get('siteName')?.errors?.pattern">
-                          Site Name cannot contain special characters
-                        </div>
+                      <input type="text" class="form-control" placeholder="Enter clientname"
+                        formControlName="clientName" (change)="projectValidation($event,a)"
+                        [ngClass]="{ 'is-invalid': submitted && a.get('clientName')?.errors }"
+                        [(ngModel)]="register.clientName" />
+                      <div *ngIf="submitted && a.get('clientName')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('clientName')?.errors?.required">ClientName is required</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <label for="projectname">Project Name</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="bi bi-journal-plus"></i>
+                        </span>
+                      </div>
+                      <input type="text" class="form-control" placeholder="Enter project name"
+                        (change)="projectValidation($event,a)" formControlName="projectName"
+                        [ngClass]="{ 'is-invalid': submitted && a.get('projectName')?.errors }"
+                        [(ngModel)]="register.projectName" />
+                      <div *ngIf="submitted && a.get('projectName')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('projectName')?.errors?.required">ProjectName is required</div>
                       </div>
 
-                      <div *ngIf="existSite" class="invalid-feedback">
-                        <div>
-                          Note: Site Name already exist
-                        </div>
+                      <div *ngIf="projectNameError" class="invalid-feedback">
+                        <div>{{projectNameMsg}}</div>
+                      </div>
+
+                      <div *ngIf="projectNameSuccess" class="invalid-feedback">
+                        <div style="color: #11a807;">{{projectNameMsg1}}</div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="name">* Name</label>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text">
-                          <i class="bi bi-person-fill"></i>
-                        </span>
-                      </div>
-                      <input
-                        type="text"
-                        formControlName="name"
-                        [readonly]="setReadOnly"
-                        class="form-control"
-                        placeholder="Enter your Name"
-                        [ngClass]="{ 'is-invalid': submitted && a.get('name')?.errors }"
-                        [(ngModel)]="register.name"
-                      />
-                      <div
-                        *ngIf="submitted && a.get('name')?.errors"
-                        class="invalid-feedback"
-                      >
-                        <div *ngIf="a.get('name')?.errors?.required">Name is required</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-    
-               
-    
+                </ng-container>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="email">* User Name: (email ID)</label>
@@ -162,21 +184,11 @@
                           <i class="bi bi-envelope-fill"></i>
                         </span>
                       </div>
-                      <input
-                        type="email"
-                        formControlName="email"
-                        class="form-control"
-                        placeholder="Enter your email address"
-                        maxlength="50"
-                        [ngClass]="{ 'is-invalid': submitted && a.get('email')?.errors }"
-                        readonly
-                        [ngStyle]="{ 'border-color': alert ? 'red' : '' }"
-                        [(ngModel)]="register.username"
-                      />
-                      <div
-                        *ngIf="submitted && a.get('email')?.errors"
-                        class="invalid-feedback"
-                      >
+                      <input type="email" formControlName="email" class="form-control"
+                        placeholder="Enter your email address" maxlength="50"
+                        [ngClass]="{ 'is-invalid': submitted && a.get('email')?.errors }" readonly
+                        [ngStyle]="{ 'border-color': alert ? 'red' : '' }" [(ngModel)]="register.username" />
+                      <div *ngIf="submitted && a.get('email')?.errors" class="invalid-feedback">
                         <div *ngIf="a.get('email')?.errors?.required">Email is required</div>
                         <div *ngIf="a.get('email')?.errors?.pattern">Enter valid email</div>
                       </div>
@@ -184,31 +196,19 @@
                   </div>
                 </div>
               </div>
-    
+
               <div class="row">
                 <div class="col-md-4">
                   <label for="contactNumber">* Contact Number</label>
-    
-                  <input
-                    type="tel"
-                    ng2TelInput
-                    [ng2TelInputOptions]="{
+
+                  <input type="tel" (keypress)="keyPressNumbers($event)" [readonly]="setReadOnly" ng2TelInput [ng2TelInputOptions]="{
                       initialCountry: 'in',
                       separateDialCode: 'true'
-                    }"
-                    (countryChange)="countryChange($event)"
-                    formControlName="contactNumber"
-                    [readonly]="setReadOnly"
-                    class="form-control"
-                    placeholder="Enter your contact number"
-                    [ngClass]="{
+                    }" (countryChange)="countryChange($event)" formControlName="contactNumber"
+                    class="form-control" placeholder="Enter your contact number" [ngClass]="{
                       'is-invalid': submitted && a.get('contactNumber')?.errors
-                    }"
-                  />
-                  <div
-                    *ngIf="submitted && a.get('contactNumber')?.errors"
-                    class="invalid-feedback"
-                  >
+                    }" />
+                  <div *ngIf="submitted && a.get('contactNumber')?.errors" class="invalid-feedback">
                     <div *ngIf="a.get('contactNumber')?.errors?.required">
                       Mobile Number Is Required
                     </div>
@@ -227,13 +227,8 @@
                           <i class="bi bi-card-heading"></i>
                         </span>
                       </div>
-                      <input
-                        type="text"
-                        formControlName="userType"
-                        class="form-control"
-                        readonly
-                        [(ngModel)]="register.role"
-                      />
+                      <input type="text" formControlName="userType" class="form-control" readonly
+                        [(ngModel)]="register.role" />
                       <!-- <div *ngIf="submitted && f.userType.errors" class="invalid-feedback">
                                             <div *ngIf="f.userType.errors.required">Usertype is required</div>
                                         </div> -->
@@ -246,11 +241,8 @@
                       <!-- <div *ngIf="submitted && f.userType.errors" class="invalid-feedback">
                                             <div *ngIf="f.userType.errors.required">Please select user type</div>
                                         </div> -->
-                      <div
-                        *ngIf="a.get('userType')?.value == 'Viewer'"
-                        class="invalid-feedback"
-                        style="color: #919994; font-weight: 500"
-                      >
+                      <div *ngIf="a.get('userType')?.value == 'Viewer'" class="invalid-feedback"
+                        style="color: #919994; font-weight: 500">
                         <div>
                           *As a viewer you can view, comment, download or print the
                           report
@@ -259,7 +251,7 @@
                     </div>
                   </div>
                 </div>
-    
+
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="companyName">* Company Name</label>
@@ -269,22 +261,11 @@
                           <i class="bi bi-building"></i>
                         </span>
                       </div>
-                      <input
-                        type="text"
-                        formControlName="companyName"
-                        class="form-control"
-                        [readonly]="setReadOnly"
-                        placeholder="Enter your company name"
-                        [ngClass]="{
+                      <input type="text" formControlName="companyName"  [readonly]="setReadOnly" class="form-control" 
+                        placeholder="Enter your company name" [ngClass]="{
                           'is-invalid': submitted && a.get('companyName')?.errors
-                        }"
-                        (focusout)="onFocusOutEventCompany($event,a)"
-                        [(ngModel)]="register.companyName"
-                      />
-                      <div
-                        *ngIf="submitted && a.get('companyName')?.errors"
-                        class="invalid-feedback"
-                      >
+                        }" (focusout)="onFocusOutEventCompany($event,a)" [(ngModel)]="register.companyName" />
+                      <div *ngIf="submitted && a.get('companyName')?.errors" class="invalid-feedback">
                         <div *ngIf="a.get('companyName')?.errors?.required">
                           Company name is required
                         </div>
@@ -293,35 +274,22 @@
                   </div>
                 </div>
               </div>
-    
+
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label for="department"
-                      >* Department Based on the Company</label
-                    >
+                    <label for="department">* Department Based on the Company</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text">
                           <i class="bi bi-card-heading"></i>
                         </span>
                       </div>
-                      <input
-                        type="text"
-                        formControlName="department"
-                        class="form-control"
-                        [readonly]="setReadOnly"
-                        placeholder="Enter your department"
-                        [ngClass]="{
+                      <input type="text" [readonly]="setReadOnly" formControlName="department" class="form-control" 
+                        placeholder="Enter your department" [ngClass]="{
                           'is-invalid': submitted && a.get('department')?.errors
-                        }"
-                        [(ngModel)]="register.department"
-                        (focusout)="onFocusOutEventDepartment($event,a)"
-                      />
-                      <div
-                        *ngIf="submitted && a.get('department')?.errors"
-                        class="invalid-feedback"
-                      >
+                        }" [(ngModel)]="register.department" (focusout)="onFocusOutEventDepartment($event,a)" />
+                      <div *ngIf="submitted && a.get('department')?.errors" class="invalid-feedback">
                         <div *ngIf="a.get('department')?.errors?.required">
                           Department is required
                         </div>
@@ -338,21 +306,11 @@
                           <i class="bi bi-person-lines-fill"></i>
                         </span>
                       </div>
-                      <input
-                        type="text"
-                        formControlName="designation"
-                        class="form-control"
-                        [readonly]="setReadOnly"
-                        placeholder="Enter your designation"
-                        [ngClass]="{
+                      <input type="text" [readonly]="setReadOnly" formControlName="designation" class="form-control" 
+                        placeholder="Enter your designation" [ngClass]="{
                           'is-invalid': submitted && a.get('designation')?.errors
-                        }"
-                        [(ngModel)]="register.designation"
-                      />
-                      <div
-                        *ngIf="submitted && a.get('designation')?.errors"
-                        class="invalid-feedback"
-                      >
+                        }" [(ngModel)]="register.designation" />
+                      <div *ngIf="submitted && a.get('designation')?.errors" class="invalid-feedback">
                         <div *ngIf="a.get('designation')?.errors?.required">
                           Designation is required
                         </div>
@@ -360,8 +318,8 @@
                     </div>
                   </div>
                 </div>
-    
-                <div class="col-md-4">
+
+                <div class="col-md-4" >
                   <div class="form-group">
                     <label for="country">* Country</label>
                     <div class="input-group">
@@ -370,22 +328,15 @@
                           <i class="bi bi-geo-alt-fill"></i>
                         </span>
                       </div>
-                      <select
-                        formControlName="country"
-                        class="form-control"
-                        [ngClass]="{ 'is-invalid': submitted && a.get('country')?.errors }"
-                        [(ngModel)]="register.country"
-                        (change)="selectCountry($event)"
-                      >
+                      <select formControlName="country" class="form-control" [attr.disabled]="setReadOnly ? '' : null"
+                        [ngClass]="{ 'is-invalid': submitted && a.get('country')?.errors }" [(ngModel)]="register.country" (change)="selectCountry($event)">
                         <option value="" selected>Select country</option>
                         <!-- <option value="IND" selected>India</option> -->
-    
-                        <option *ngFor="let country of countryList" [selected]="country.name=== a.get('country')?.value">{{country.name}}</option>
+
+                        <option *ngFor="let country of countryList"
+                          [selected]="country.name=== a.get('country')?.value">{{country.name}}</option>
                       </select>
-                      <div
-                        *ngIf="submitted && a.get('country')?.errors"
-                        class="invalid-feedback"
-                      >
+                      <div *ngIf="submitted && a.get('country')?.errors" class="invalid-feedback">
                         <div *ngIf="a.get('country')?.errors?.required">
                           Please select country
                         </div>
@@ -394,7 +345,7 @@
                   </div>
                 </div>
               </div>
-    
+
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
@@ -405,24 +356,14 @@
                           <i class="bi bi-geo-alt-fill"></i>
                         </span>
                       </div>
-                      <select
-                        formControlName="state"
-                        class="form-control"
-                        [ngClass]="{ 'is-invalid': submitted && a.get('state')?.errors }"
-                        [(ngModel)]="register.state"
-                      >
+                      <select formControlName="state" class="form-control" [attr.disabled]="setReadOnly ? '' : null"
+                        [ngClass]="{ 'is-invalid': submitted && a.get('state')?.errors }" [(ngModel)]="register.state">
                         <option value="" selected>Select state</option>
-                        <option
-                          *ngFor="let a of stateList"
-                          [selected]="a.name === state"
-                        >
+                        <option *ngFor="let a of stateList" [selected]="a.name === state">
                           {{ a.name }}
                         </option>
                       </select>
-                      <div
-                        *ngIf="submitted && a.get('state')?.errors"
-                        class="invalid-feedback"
-                      >
+                      <div *ngIf="submitted && a.get('state')?.errors" class="invalid-feedback">
                         <div *ngIf="a.get('state')?.errors?.required">
                           Please select state
                         </div>
@@ -439,17 +380,17 @@
                           <i class="bi bi-geo-alt-fill"></i>
                         </span>
                       </div>
-                      <input
-                        type="text"
-                        formControlName="district"
-                        class="form-control"
-                        placeholder="Enter your District"
-                        [(ngModel)]="register.district"
-                      />
+                      <input type="text" [readonly]="setReadOnly" formControlName="district" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('district')?.errors }"
+                        placeholder="Enter your District" [(ngModel)]="register.district" />
+                        <div *ngIf="submitted && a.get('district')?.errors" class="invalid-feedback">
+                          <div *ngIf="a.get('district')?.errors?.required">
+                            District is required
+                          </div>
+                        </div>
                     </div>
                   </div>
                 </div>
-    
+
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="address">* Address</label>
@@ -459,18 +400,10 @@
                           <i class="bi bi-geo-alt-fill"></i>
                         </span>
                       </div>
-                      <input
-                        type="text"
-                        formControlName="address"
-                        class="form-control"
-                        placeholder="Enter your address"
+                      <input type="text" formControlName="address" [readonly]="setReadOnly" class="form-control" placeholder="Enter your address"
                         [ngClass]="{ 'is-invalid': submitted && a.get('address')?.errors }"
-                        [(ngModel)]="register.address"
-                      />
-                      <div
-                        *ngIf="submitted && a.get('address')?.errors"
-                        class="invalid-feedback"
-                      >
+                        [(ngModel)]="register.address" />
+                      <div *ngIf="submitted && a.get('address')?.errors" class="invalid-feedback">
                         <div *ngIf="a.get('address')?.errors?.required">
                           Address is required
                         </div>
@@ -489,18 +422,11 @@
                           <i class="bi bi-geo-fill"></i>
                         </span>
                       </div>
-                      <input
-                        type="number"
-                        formControlName="pinCode"
-                        class="form-control"
+                      <input type="number" formControlName="pinCode"  [readonly]="setReadOnly" class="form-control"
                         placeholder="Enter your pinCode"
                         [ngClass]="{ 'is-invalid': submitted && a.get('pinCode')?.errors }"
-                        [(ngModel)]="register.pinCode"
-                      />
-                      <div
-                        *ngIf="submitted && a.get('pinCode')?.errors"
-                        class="invalid-feedback"
-                      >
+                        [(ngModel)]="register.pinCode" />
+                      <div *ngIf="submitted && a.get('pinCode')?.errors" class="invalid-feedback">
                         <div *ngIf="a.get('pinCode')?.errors?.required">
                           Pincode is required
                         </div>
@@ -511,73 +437,58 @@
                     </div>
                   </div>
                 </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="pinCode">Application Types</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="bi bi-list-check"></i>
+                        </span>
+                      </div>
+                      <input type="text" readonly formControlName="applicationType" class="form-control"  [(ngModel)]="applicationName"/>
+                    </div>
+                  </div>
+                </div>
+
               </div>
               <div class="form-check">
-                <input
-                  type="checkbox"
-                  formControlName="terms"
-                  (change)="showSubmit()"
-                  [(ngModel)]="isChecked"
-                />
-                I agree to the <a style="cursor: pointer; text-decoration: underline;" (click)="termsCondition(termsContent)">Terms and Conditions</a> for using online
+                <input type="checkbox" formControlName="terms" (change)="showSubmit()" [(ngModel)]="isChecked" />
+                I agree to the <a style="cursor: pointer; text-decoration: underline;"
+                  (click)="termsCondition(termsContent)">Terms and Conditions</a> for using online
                 services of SOLVE Applications
               </div>
             </div>
           </div>
-          <div
-            *ngIf="successMsgOTP"
-            class="alert alert-success"
-            style="margin: 55px auto 0px auto; width: 33%"
-          >
+          <div *ngIf="successMsgOTP" class="alert alert-success" style="margin: 55px auto 0px auto; width: 50%;text-align: center;">
             {{ successMsg }}
           </div>
-          <div
-            *ngIf="errorMsgflag"
-            class="alert alert-danger"
-            style="margin: 55px auto 0px auto; width: 33%"
-          >
+          <div *ngIf="errorMsgflag" class="alert alert-danger" style="margin: 55px auto 0px auto; width: 50%;text-align: center;">
             {{ errorMsg }}
           </div>
           <br>
           <div style="display: inline">
-            <button
-              *ngIf="showAssign"
-              [disabled]="loading"
-              [ngStyle]="{ cursor: loading ? 'not-allowed' : 'pointer' }"
-              style="float: left; margin-left: 400px"
-              type="submit"
-              class="
+            <button *ngIf="showAssign" [disabled]="loading" [ngStyle]="{ cursor: loading ? 'not-allowed' : 'pointer' }"
+              style="float: left; margin-left: 400px" type="submit" class="
                 btn btn-block btn-primary btn-rounded btn-md
                 font-weight-medium
                 auth-form-btn
-              "
-              id="login-btn"
-            >
+              " id="login-btn">
               <i class="bi bi-person-plus-fill icon"></i> Assign
             </button>
-            <button
-              [disabled]="loading"
-              *ngIf="showRegister"
-              [ngStyle]="{ cursor: loading ? 'not-allowed' : 'pointer' }"
-              style="float: left; margin-left: 400px"
-              type="submit"
-              class="
+            <button [disabled]="loading" *ngIf="showRegister"
+              [ngStyle]="{ cursor: loading ? 'not-allowed' : 'pointer' }" style="float: left; margin-left: 400px"
+              type="submit" class="
                 btn btn-block btn-primary btn-rounded btn-md
                 font-weight-medium
                 auth-form-btn
-              "
-              id="login-btn"
-            >
+              " id="login-btn">
               <i class="bi bi-person-plus-fill icon"></i> Register
             </button>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button
-              type="button"
-              aria-label="Close"
-              (click)="closeModalDialog('contentViewer2')"
-              style="float: right; margin-right: 400px"
-              class="btn btn-danger"
-            >
+            <button type="button" aria-label="Close" (click)="closeModalDialog('contentViewer2')"
+              style="float: right; margin-right: 400px" class="btn btn-danger">
               <i class="bi bi-x icon"></i>
               <span aria-hidden="true">Cancel</span>
             </button>
@@ -586,10 +497,13 @@
       </div>
     </div>
   </div>
+
 </ng-template>
 
 
-<ng-template #termsContent let-modal>
+<ng-template #termsContent let-modal 
+
+>
   <div class="modal-header" style="text-align: center; display: block">
     <h2 class="modal-title" style="display: contents">Terms of Use\ End  User  License  Agreement</h2>
     <!-- <button type="button" #closebutton class="close" data-dismiss="modal">&times;</button> -->
@@ -608,8 +522,8 @@
         <div class="row" style="display: block;">
           <div class="col-xs-12">
               <div class="text-align" style="text-align: end;margin: 10px;">
-                <button   type="button" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" 
-                printSectionId="printdiv" ngxPrint style="margin: 10px;">Print</button>
+                <button   type="button" class="btn btn-rounded btn-md font-weight-medium auth-form-btn" 
+                printSectionId="printdiv" ngxPrint style="margin: 10px;background-color: #0f800c;color: white;">Print</button>
                 <!-- <button  type="button" class="btn btn-danger cancel">
                   <i class="bi bi-x icon"></i> Cancel</button> -->
 

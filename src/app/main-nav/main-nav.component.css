@@ -48,7 +48,7 @@
 
 /* aish changes*/
 .welcome-text{
-  margin: 185px 0px 185px 0px;
+  margin: 80px 0px 185px 0px;
 }
 /* .example-container {
   width: 500px;
@@ -77,11 +77,11 @@
   flex-direction: column;
 }
 .appName{
-  text-align: center;
+  /* text-align: center; */
     display: initial;
     width: inherit;
     /* margin: 0 auto; */
-    font-size: 24px;
+    font-size: 18px;
     /* margin-left: -100px; */
 }
 .example-container {
@@ -155,3 +155,16 @@
   width: 100%;
 } */
 
+
+.videoTextEx{
+  margin-left: 75px;
+}
+.videoText{
+  margin-left: 95px;
+}
+.followUs{
+  margin-left: 70px; 
+}
+.followUsEx{
+  margin-left: 34px;
+}
