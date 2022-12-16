@@ -785,7 +785,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
       data => {
         this.applicationTypesbasedonuser = data.applicationType;
         
-        if (this.applicationTypesbasedonuser != null && data.permission !='YES') {
+        if (this.applicationTypesbasedonuser != null && (data.permission !='YES' || data.permission != 'Yes' )) {
 
           //this.ApplicationTypesSplit = this.applicationTypesbasedonuser.split(',');
           this.ApplicationTypesSplit = [];
