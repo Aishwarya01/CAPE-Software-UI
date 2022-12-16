@@ -10,34 +10,34 @@ import { CustomerDetails } from '../Risk Assesment Model/customer-details';
 export class CustomerDetailsServiceService {
 
   apiUrl = environment.apiUrl_RISK;
-  apiUrl1 = environment.apiUrl
+  apiUrl1 = environment.apiUrl_LPS_RISK;
   constructor(private http: HttpClient) { }
 
   public addCustomerDetails(customerDetails:CustomerDetails): Observable<any> {
-    return this.http.post<CustomerDetails>(this.apiUrl + '/saveCustomerDetails', customerDetails, { responseType: 'text' as 'json' })
+    return this.http.post<CustomerDetails>(this.apiUrl1 + '/risk/saveCustomerDetails', customerDetails, { responseType: 'text' as 'json' })
   }
 
   public updateCustomerDetails(customerDetails: CustomerDetails): Observable<any> {
-    return this.http.put<any>(this.apiUrl + '/updateCustomerDetails', customerDetails, { responseType: 'text' as 'json' })
+    return this.http.put<any>(this.apiUrl1 + '/risk/updateCustomerDetails', customerDetails, { responseType: 'text' as 'json' })
   }
 
   public retriveCustomerDetails(userName: String,riskId:any): Observable<any>{
-    return this.http.get<any>(this.apiUrl + '/retrieveCustomerDetails' + '/' +userName + '/' +riskId, { responseType: 'text' as 'json' })
+    return this.http.get<any>(this.apiUrl1 + '/risk/retrieveCustomerDetails' + '/' +userName + '/' +riskId, { responseType: 'text' as 'json' })
   }
 
   public retriveAllCustomerDetails(): Observable<any>{
-    return this.http.get<any>(this.apiUrl + '/retrieveAllCustomers', { responseType: 'text' as 'json' })
+    return this.http.get<any>(this.apiUrl1 + '/risk/retrieveAllCustomers', { responseType: 'text' as 'json' })
   }
 
   public retriveCustomerDetails1(userName: String,riskId:any): Observable<any>{
-    return this.http.get<any>(this.apiUrl + '/retrieveCustomerDetails' + '/' +userName + '/' +riskId, { responseType: 'text' as 'json' })
+    return this.http.get<any>(this.apiUrl1 + '/risk/retrieveCustomerDetails' + '/' +userName + '/' +riskId, { responseType: 'text' as 'json' })
   }
 
   public retrieveFinalRisk(userName: String,riskId:any): Observable<any>{
-    return this.http.get<any>(this.apiUrl + '/retrieveRiskReport' + '/' +userName + '/' +riskId, { responseType: 'text' as 'json' })
+    return this.http.get<any>(this.apiUrl1 + '/risk/retrieveRiskReport' + '/' +userName + '/' +riskId, { responseType: 'text' as 'json' })
   }
 
   public retrieveCustomerDetailsBasedOnUserName(userName:any): Observable<any>{
-    return this.http.get<any>(this.apiUrl + '/retrieveListOfCustomerDetails' + '/' + userName, { responseType: 'text' as 'json' })
+    return this.http.get<any>(this.apiUrl1 + '/risk/retrieveListOfCustomerDetails' + '/' + userName, { responseType: 'text' as 'json' })
   }
 }

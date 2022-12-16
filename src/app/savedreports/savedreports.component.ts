@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild,Output,EventEmitter, Input, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild,Output,EventEmitter, Input, ElementRef, ViewContainerRef } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -15,6 +15,8 @@ import { filter } from 'rxjs/operators';
 // import { environment } from 'src/environments/environment';
 import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminProd } from 'src/environments/environment.prod';
+import { MatDialog } from '@angular/material/dialog';
+import { SiteaddComponent } from '../site/siteadd/siteadd.component';
 
 
 @Component({
@@ -60,13 +62,21 @@ export class SavedreportsComponent implements OnInit {
   //superAdminLocal = new SuperAdminLocal();
   superAdminDev = new SuperAdminDev();
   superAdminProd = new SuperAdminProd();
+  onSave = new EventEmitter();
+  @ViewChild('ref', { read: ViewContainerRef })
+  viewContainerRef!: ViewContainerRef;
+  destroy: boolean=false;
+  value: boolean=false;
+  onSubmitSite1 = new EventEmitter();
+  dataArr: any=[];
 
   constructor(private router: ActivatedRoute,
               private clientService: ClientService,
               private departmentService: DepartmentService,
               private siteService: SiteService,
               public service: GlobalsService,
-              private verification: VerificationlvComponent
+              private verification: VerificationlvComponent,
+              private dialog: MatDialog,
   ) { 
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
 
@@ -204,12 +214,46 @@ export class SavedreportsComponent implements OnInit {
 
   }
 
-  continue(siteId: any,userName :any,site: any, departmentName: any, clientName: any) {
+  continue(siteId: any,userName :any,site: any, departmentName: any, clientName: any,allStepsCompleted:any,data:any) {
+    this.service.siteName=site;
+    if(allStepsCompleted=="Register"){
+      this.navigateToSite(data);
+    }
+    else{
+      this.savedReportBody = false;
+      this.savedReportSpinner = true;
+      this.spinnerValue = "Please wait, the details are loading!";
+      //this.service.commentScrollToBottom=1;
+      this.verification.changeTabSavedReport(0,siteId,userName,clientName,departmentName,site,true);
+      this.service.allFieldsDisable = false;
+      this.service.disableSubmitSummary=false;
+    }
+  }
+
+  navigateToSite(data: any) {
+    const dialogRef = this.dialog.open(SiteaddComponent, {
+      width: '1000px',
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+    dialogRef.componentInstance.data = data;
+    dialogRef.componentInstance.onSubmitSite.subscribe(data=>{
+      if(data) {
+        this.dataArr=this.service.siteData;
+        this.onSave.emit(true);
+        this.ngOnInit();
+        this.navigateToLVBasivPage(this.dataArr);
+      }
+    })
+    dialogRef.afterClosed().subscribe((result) => {
+    });
+  }
+
+  navigateToLVBasivPage(data:any){
     this.savedReportBody = false;
     this.savedReportSpinner = true;
     this.spinnerValue = "Please wait, the details are loading!";
-    //this.service.commentScrollToBottom=1;
-    this.verification.changeTabSavedReport(0,siteId,userName,clientName,departmentName,site,true);
+    this.verification.changeTabSavedReport(0,data.siteId,data.userName,data.companyName,data.departmentName,data.site,true);
     this.service.allFieldsDisable = false;
     this.service.disableSubmitSummary=false;
   }
@@ -234,8 +278,8 @@ export class SavedreportsComponent implements OnInit {
       }
     )
   }
-  savedContinue()
-  {
+
+  savedContinue(){
     if(this.verification.noDetails==true){
     this.noDetailsRec=true;
     this.noDetailsRecMsg="No details found for this Record";
@@ -244,6 +288,6 @@ export class SavedreportsComponent implements OnInit {
       this.noDetailsRecMsg='';
      // this.verification.selectedIndex=1;
     }, 3000);
-  }
+    }
   }
 }

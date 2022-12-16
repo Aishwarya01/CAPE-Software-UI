@@ -11,12 +11,12 @@ const FileSaver = require('file-saver');
 })
 export class FinalPdfServiceService {
 
-  apiUrl = environment.apiUrl_LPS;
+  apiUrl = environment.apiUrl_LPS_RISK;
   constructor(private http: HttpClient,public service: GlobalsService) {}
 
   public downloadPDF(basicLpsId: any,userName: any,projectName: any) {
     
-    return   this.http.get(this.apiUrl + '/printFinalPDF'+'/'+userName+ '/' +basicLpsId+ '/' +projectName, { responseType: 'blob' }).subscribe(
+    return   this.http.get(this.apiUrl + '/lps/printFinalPDF'+'/'+userName+ '/' +basicLpsId+ '/' +projectName, { responseType: 'blob' }).subscribe(
          data =>{
            
            const fileName = projectName+'.pdf';
@@ -30,7 +30,7 @@ export class FinalPdfServiceService {
 
     public downloadSummaryPDF(basicLpsId: any,userName: any,projectName: any) {
     
-      return   this.http.get(this.apiUrl + '/printLpsSummary'+'/'+userName+ '/' +basicLpsId+ '/' +projectName, { responseType: 'blob' }).subscribe(
+      return   this.http.get(this.apiUrl + '/lps/printLpsSummary'+'/'+userName+ '/' +basicLpsId+ '/' +projectName, { responseType: 'blob' }).subscribe(
            data =>{
              if(data != null && data.size != 0){
               const fileName = projectName+'.pdf';
@@ -55,7 +55,7 @@ export class FinalPdfServiceService {
       }
 
   public printPDF(basicLpsId: any,userName: any, projectName: any) {
-      return   this.http.get(this.apiUrl + '/printFinalPDF'+'/'+userName+ '/' +basicLpsId+ '/' +projectName, { responseType: 'blob' }).subscribe(
+      return   this.http.get(this.apiUrl + '/lps/printFinalPDF'+'/'+userName+ '/' +basicLpsId+ '/' +projectName, { responseType: 'blob' }).subscribe(
            data =>{
              var fileURL: any = URL.createObjectURL(data);
              var a = document.createElement("a");
@@ -71,6 +71,6 @@ export class FinalPdfServiceService {
 
     public mailPDF(basicLpsId: any,userName: any, projectName: any): Observable<any> {
       
-      return this.http.get(this.apiUrl + '/sendPDFinMail'+'/'+userName+ '/' +basicLpsId+ '/' +projectName, { responseType: 'text' as 'json' })
+      return this.http.get(this.apiUrl + '/lps/sendPDFinMail'+'/'+userName+ '/' +basicLpsId+ '/' +projectName, { responseType: 'text' as 'json' })
     }
 }

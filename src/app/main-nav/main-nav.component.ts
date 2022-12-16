@@ -785,7 +785,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
       data => {
         this.applicationTypesbasedonuser = data.applicationType;
         
-        if (this.applicationTypesbasedonuser != null) {
+        if (this.applicationTypesbasedonuser != null && (data.permission !='YES' || data.permission != 'Yes' )) {
 
           //this.ApplicationTypesSplit = this.applicationTypesbasedonuser.split(',');
           this.ApplicationTypesSplit = [];
@@ -796,6 +796,11 @@ export class MainNavComponent implements OnInit, OnDestroy {
             } 
           }
         }
+        }
+        else{
+          for(let application of this.applicationTypesbasedonuser.split(',')){
+            this.ApplicationTypesSplit.push(application);
+          }
         }
       }
     );

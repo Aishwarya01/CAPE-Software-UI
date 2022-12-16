@@ -1,10 +1,10 @@
 <!-- Spinner Code -->
-<div class="loader" *ngIf="spinner">
+<!-- <div class="loader" *ngIf="spinner">
 </div>
 
 <div class="text-align" *ngIf="spinner">
-  <p style="margin: 14px auto 0px 0%;">Please wait, The datails are loading</p>
-</div>
+  <p style="margin: 14px auto 0px 0%;">Please wait, The details are loading</p>
+</div> -->
 
 <form [formGroup]="assignViewerForm" id="contentViewer2" *ngIf="globalService.emailCheck">
   <div class="centre-text m-btm30">
@@ -34,10 +34,7 @@
       <div class="row">
         <div class="col-sm-12">
           <label>Enter Viewer Email:</label>
-          <input type="text" class="form-control" formControlName="viewerEmail" placeholder="Enter Email" [ngClass]="{
-              'is-invalid':
-                submitted1 && assignViewerForm.controls.viewerEmail.errors
-            }" />
+          <input type="text" class="form-control" formControlName="viewerEmail" placeholder="Enter Email" [ngClass]="{'is-invalid':submitted1 && assignViewerForm.controls.viewerEmail.errors}" />
           <div *ngIf="submitted1 && assignViewerForm.controls.viewerEmail.errors" class="invalid-feedback">
             <div *ngIf="assignViewerForm.controls.viewerEmail.errors.required">
               Email is required
@@ -62,7 +59,9 @@
   </div>
 </form>
 
-<ng-template #contentViewer let-modal [ngStyle]="{'filter': (spinner ? 'blur(1px)' : 'blur(0px)') ,'pointer-events': (spinner ? 'none' : 'visible')}">
+<ng-template #contentViewer let-modal 
+
+>
   <div class="modal-header" style="text-align: center; display: block">
     <h2 class="modal-title" style="display: contents">Assign Viewer</h2>
     <p>
@@ -381,8 +380,13 @@
                           <i class="bi bi-geo-alt-fill"></i>
                         </span>
                       </div>
-                      <input type="text" [readonly]="setReadOnly" formControlName="district" class="form-control"
+                      <input type="text" [readonly]="setReadOnly" formControlName="district" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('district')?.errors }"
                         placeholder="Enter your District" [(ngModel)]="register.district" />
+                        <div *ngIf="submitted && a.get('district')?.errors" class="invalid-feedback">
+                          <div *ngIf="a.get('district')?.errors?.required">
+                            District is required
+                          </div>
+                        </div>
                     </div>
                   </div>
                 </div>
@@ -497,7 +501,9 @@
 </ng-template>
 
 
-<ng-template #termsContent let-modal [ngStyle]="{'filter': (spinner ? 'blur(1px)' : 'blur(0px)') ,'pointer-events': (spinner ? 'none' : 'visible')}">
+<ng-template #termsContent let-modal 
+
+>
   <div class="modal-header" style="text-align: center; display: block">
     <h2 class="modal-title" style="display: contents">Terms of Use\ End  User  License  Agreement</h2>
     <!-- <button type="button" #closebutton class="close" data-dismiss="modal">&times;</button> -->

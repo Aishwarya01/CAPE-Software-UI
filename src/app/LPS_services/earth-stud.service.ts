@@ -10,18 +10,18 @@ import { earthStudReport } from '../LPS_model/earthStudReport';
 })
 export class EarthStudService {
 
-  apiUrl = environment.apiUrl_LPS;
+  apiUrl = environment.apiUrl_LPS_RISK;
   constructor(private http: HttpClient) { }
 
   public saveEarthStud(earthStud:earthStudReport): Observable<any> {
-    return this.http.post<earthStudReport>(this.apiUrl + '/addEarthStud', earthStud, { responseType: 'text' as 'json' })
+    return this.http.post<earthStudReport>(this.apiUrl + '/lps/addEarthStud', earthStud, { responseType: 'text' as 'json' })
   }
 
   public updateEarthStud(earthStud: earthStudReport): Observable<any> {
-    return this.http.put<any>(this.apiUrl + '/updateEarthStud', earthStud, { responseType: 'text' as 'json' })
+    return this.http.put<any>(this.apiUrl + '/lps/updateEarthStud', earthStud, { responseType: 'text' as 'json' })
   }
 
   public retrieveEarthStud(userName: String, basicLpsId: number): Observable<any> {
-    return this.http.get<earthStudReport>(this.apiUrl + '/retrieveEarthStud' + '/' + userName + '/' + basicLpsId, { responseType: 'text' as 'json' })
+    return this.http.get<earthStudReport>(this.apiUrl + '/lps/retrieveEarthStud' + '/' + userName + '/' + basicLpsId, { responseType: 'text' as 'json' })
   }
 }

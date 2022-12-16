@@ -109,11 +109,11 @@
         </div>
         <div class="col-md-3">
           <div class="form-group">
-            <label>Set time (mS)</label>
+            <label>Set Time (mS)</label>
             <input type="number" class="form-control" formControlName="setTimes" [(ngModel)]="mccb.setTimes"
-            [ngClass]="{ 'is-invalid': submittedMccb && h.setTimes?.errors }">
+            [ngClass]="{ 'is-invalid': submittedMccb && h.setTimes?.errors }" style="margin-top: 20px;">
             <div *ngIf="submittedMccb && h.setTimes?.errors" class="invalid-feedback">
-              <div *ngIf="h.setTimes?.errors?.required">Set time is required</div>
+              <div *ngIf="h.setTimes?.errors?.required">Set Time is required</div>
             </div>
           </div>
         </div>
@@ -129,11 +129,11 @@
         </div>
         <div class="col-md-3">
           <div class="form-group">
-            <label>Set time (mS)</label>
+            <label>Set Time (mS)</label>
             <input type="number" class="form-control" formControlName="setTime" [(ngModel)]="mccb.setTime"
-            [ngClass]="{ 'is-invalid': submittedMccb && h.setTime?.errors }">
+            [ngClass]="{ 'is-invalid': submittedMccb && h.setTime?.errors }" style="margin-top: 20px;">
             <div *ngIf="submittedMccb && h.setTime?.errors" class="invalid-feedback">
-              <div *ngIf="h.setTime?.errors?.required">Set time is required</div>
+              <div *ngIf="h.setTime?.errors?.required">Set Time is required</div>
             </div>
           </div>
         </div>

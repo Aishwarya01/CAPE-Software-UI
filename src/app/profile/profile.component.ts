@@ -3,7 +3,7 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Valida
 import { ActivatedRoute,Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
-import { arrow90DegDown } from 'ngx-bootstrap-icons';
+import { arrow90DegDown, flag } from 'ngx-bootstrap-icons';
 import { ChangeContact } from '../model/change-contact';
 import { Register } from '../model/register';
 import { User } from '../model/user';
@@ -69,6 +69,7 @@ export class ProfileComponent implements OnInit {
 
   dropdownList:any = [];
   selectedItems:any = [];
+  permissions:any ;
   //dropdownSettings:any = {};
   dropdownSettings!:IDropdownSettings;
   mobileArr: any = [];
@@ -139,9 +140,12 @@ export class ProfileComponent implements OnInit {
       );
       setTimeout(() => {
       this.profileService.getUser(this.register.username).subscribe(
-        data =>{ this.register= JSON.parse(data);
-        if(this.register.applicationType != null && this.register.permission !=null) {
+        data =>{ 
+        this.register= JSON.parse(data);
+        if(this.register.applicationType != null && this.register.permission !=null &&
+           (this.register.permission !='YES' || this.register.permission != 'Yes')) {
           this.selectedItems = this.register.applicationType.split(',');
+          this.permissions = this.register.permission.split(',');
           for(let i of this.selectedItems) {
             for(let permission of this.register.permission.split(',')) {
             if(permission.split('-')[0] == i && permission.split('-')[1] != 'R' ){
@@ -413,12 +417,54 @@ export class ProfileComponent implements OnInit {
       this.register.applicationType = this.applicationTypeData;
     }
     let adminApproveRequired = false;
-    if (this.selectedCodeNameCount != this.selectedCodeName.length) {
-      adminApproveRequired = true;
+    let permission = "";
+    let status = "-U";
+    for (let application of this.selectedCodeName) {
+      let flag = true;
+         if(this.register.permission != "YES"){
+          status = "-A"
+          for (let repermission of this.register.permission.split(',')) {
+            if (application.code == repermission.split('-')[0] && repermission.split('-')[1] != 'R') {
+              flag = false;
+              permission += repermission + ",";
+            }
+          }
+         }
+      if (flag) {
+        permission += application.code+status+",";
+        adminApproveRequired = true;
+      }
+    }
+    permission = permission.replace(/,\s*$/, "");
+
+    let deletedapplication = ""
+    for (let value of this.register.permission.split(',')) {
+      let flag = true;
+      for (let permissions of permission.split(',')) {
+        if (permissions.split('-')[0] == value.split('-')[0]) {
+          flag = false;
+        }
+      }
+      if (flag) {
+        if (value.split('-')[1] == 'R') {
+          deletedapplication += value + ","
+        }
+        else {
+          deletedapplication += value.split('-')[0] + "-R,"
+          adminApproveRequired = true;
+        }
+      }
+    }
+    deletedapplication = deletedapplication.replace(/,\s*$/, "");
+
+    if (deletedapplication.split(',').length > 1) {
+      this.register.permission = permission + "," + deletedapplication;
+    }
+    else {
+      this.register.permission = permission
     }
 
-
-     //  this.updateStatus();
+      // this.updateStatus();
      
      this.profileService.updateRegister(this.register,adminApproveRequired).subscribe(
       data=> {
@@ -445,7 +491,7 @@ export class ProfileComponent implements OnInit {
     )
   
   }
-  
+
   updateStatus(){
     let addPermissionStatus = '';
      let permissionStatus = [];
