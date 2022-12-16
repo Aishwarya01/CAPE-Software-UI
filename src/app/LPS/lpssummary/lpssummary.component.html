@@ -816,7 +816,7 @@
                      [ngClass]="{ 'is-invalid': submitted && a.get('signature')?.errors }"
                      [readonly]="true" 
                      style="pointer-events:none;">
-                    <button type="button" (click)="SignatureDesigner1()" title="Click here"
+                    <button type="button" (click)="SignatureDesigner1()" title="Click here" [ngClass]="{'disableForm':isEditable}"
                     >Sign
                     </button>
                 </div>
@@ -901,7 +901,7 @@
                        [ngClass]="{ 'is-invalid': submitted && a.get('signature')?.errors }"
                        [readonly]="true" 
                        style="pointer-events:none;">
-                      <button type="button" (click)="SignatureDesigner2()" title="Click here">Sign
+                      <button type="button" (click)="SignatureDesigner2()" title="Click here" [ngClass]="{'disableForm':isEditable}">Sign
                       </button>
                   </div>
                     <!-- <input type="text" class="form-control" formControlName="signature" readonly

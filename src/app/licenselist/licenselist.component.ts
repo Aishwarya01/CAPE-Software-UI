@@ -337,6 +337,7 @@ export class LicenselistComponent implements OnInit {
       if(this.service.triggerMsgForLicense=='lpsPage'){
         dialogRef.componentInstance.viewModal1 = true;
         dialogRef.componentInstance.viewModal=false;
+        dialogRef.componentInstance.viewModal2 = false;
       }
       dialogRef.componentInstance.triggerModal = false;
       if(this.lpsData){
@@ -347,6 +348,41 @@ export class LicenselistComponent implements OnInit {
             this.value1=true;
             setTimeout(() => {
               this.matStepper.changeTabLpsSavedReport(0,basicLpsId,this.router.snapshot.paramMap.get('email') || '{}');
+            }, 3000);
+          }
+          else{
+            this.destroy = false;
+            this.value1=false;
+          }
+        })
+      }
+    }
+  }
+
+  // LPS Final report navigation
+  viewLpsData(basicLpsId:any){
+    if(this.lpsData){
+      this.lpsGlobal.disableSubmitSummary=false;
+      this.service.allFieldsDisable=true;
+      const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+        width: '420px',
+        maxHeight: '90vh',
+        disableClose: true,
+      });
+      if(this.service.triggerMsgForLicense=='lpsPage'){
+        dialogRef.componentInstance.viewModal2 = true;
+        dialogRef.componentInstance.viewModal1 = false;
+        dialogRef.componentInstance.viewModal=false;
+      }
+      dialogRef.componentInstance.triggerModal = false;
+      if(this.lpsData){
+        dialogRef.componentInstance.confirmBox.subscribe(data=>{
+          if(data) {
+            this.viewContainerRef.clear();
+            this.destroy = true;
+            this.value1=true;
+            setTimeout(() => {
+              this.matStepper.preview(basicLpsId);
             }, 3000);
           }
           else{

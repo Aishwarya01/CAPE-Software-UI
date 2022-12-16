@@ -14,6 +14,7 @@ export class ConfirmationBoxComponent implements OnInit {
   editModal:boolean=false;
   viewModal:boolean=false;
   viewModal1:boolean=false;
+  viewModal2:boolean=false;
   triggerModal:boolean=false;
   triggerModal1:boolean=false;
   linkModal:boolean=false;

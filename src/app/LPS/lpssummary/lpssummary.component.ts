@@ -5098,14 +5098,21 @@ SignatureDesigner1(){
       return;
     }
     else if (this.summaryForm.dirty && this.summaryForm.touched) {
-      this.service.isCompleted8 = false;
-      this.service.isLinear = true;
-      this.service.editable = false;
-      this.tabError = true;
-      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
-      setTimeout(() => {
-        this.tabError = false;
-      }, 3000);
+      if(this.isEditable==true){
+        this.service.isCompleted8 = true;
+        this.service.isLinear = false;
+        this.service.editable = true;
+      }
+      else{
+        this.service.isCompleted8 = false;
+        this.service.isLinear = true;
+        this.service.editable = false;
+        this.tabError = true;
+        this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+        setTimeout(() => {
+          this.tabError = false;
+        }, 3000);
+      }
     }
     else {
       this.service.isCompleted8 = true;
@@ -5127,15 +5134,24 @@ SignatureDesigner1(){
     return false;
     }
     else if(this.summaryForm.dirty && this.summaryForm.touched){
-      this.service.isCompleted8= false;
-      this.service.isLinear=true;
-      this.service.editable=false;
-      this.tabError = true;
-      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
-      setTimeout(() => {
-        this.tabError = false;
-      }, 3000);
-      return false;
+      if(this.isEditable==true){
+        this.service.isCompleted8= true;
+        this.service.isLinear=false;
+        this.service.editable=true;
+        this.summaryForm.markAsPristine();
+        return true; 
+      }
+      else{
+        this.service.isCompleted8= false;
+        this.service.isLinear=true;
+        this.service.editable=false;
+        this.tabError = true;
+        this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+        setTimeout(() => {
+          this.tabError = false;
+        }, 3000);
+        return false;
+      }
     } 
     else {
       this.service.isCompleted8= true;
