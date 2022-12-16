@@ -251,20 +251,22 @@ onSubmit() {
   this.register.contactNumber = this.contactNumber;
 
   this.applicationTypeData = "";
-
+  let permissionStatus = "";
   if(this.InspectorRegisterForm.value.applicationType != undefined) {
     for(let i of this.InspectorRegisterForm.value.applicationType) {
       if(i.code != "") {
         this.applicationTypeData += i.code+",";
+        permissionStatus += i.code+"-A,";
       }
     }
     this.applicationTypeData = this.applicationTypeData.replace(/,\s*$/, "");
+    this.register.permission = permissionStatus.replace(/,\s*$/, "");
     this.register.applicationType = this.applicationTypeData;
   }
 
-  if(this.register.role == 'Viewer') {
-    this.register.permission = 'Yes';
-  }
+  // if(this.register.role == 'Viewer') {
+  //   this.register.permission = 'Yes';
+  // }
   
   this.inspectorRegisterService.registerInspector(this.register).subscribe(
     data=> {
