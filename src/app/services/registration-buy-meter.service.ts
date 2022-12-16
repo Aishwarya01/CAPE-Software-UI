@@ -10,7 +10,7 @@ import { RegistrationBuyMeter } from '../model/registration-buy-meter';
 })
 export class RegistrationBuyMeterService {
 
-  apiurl = environment.apiUrl;
+  apiurl = environment.apiUrl_Payment;
   USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUserForMeter';
   public token: string = '';
   public refToken: string = '';

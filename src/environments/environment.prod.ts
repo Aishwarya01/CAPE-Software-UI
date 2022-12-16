@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   environmentName: 'Production',
-  // apiUrl: 'https://prod.lv.safelv.net/api/v1',
+  apiUrl_Payment: 'https://prod.risk.safelv.net/api/v1',
   apiUrl_v2: 'https://prod.lv.safelv.net/api/v2',
   apiUrl_LPS: 'https://prod.lps.safelv.net/api/lps/v1',
   apiUrl_Diagram: 'https://prod.sld.safelv.net/api/diagram/v1',

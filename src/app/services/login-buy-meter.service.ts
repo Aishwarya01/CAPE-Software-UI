@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class LoginBuyMeterService {
 
-  apiurl=environment.apiUrl;
+  apiurl=environment.apiUrl_Payment;
   public token: string = '';
   public refToken: string = '';
   public userName: string = '';

@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   environmentName: 'development',
-  // apiUrl: 'https://preprod.lv.rushforsafety.com/api/v1',
+  apiUrl_Payment: 'https://preprod.risk.rushforsafety.com/api/v1',
   apiUrl_v2: 'https://preprod.lv.rushforsafety.com/api/v2',
   apiUrl_LPS: 'https://preprod.lps.rushforsafety.com/api/lps/v1',
   apiUrl_Diagram: 'https://preprod.sld.rushforsafety.com/api/diagram/v1',
