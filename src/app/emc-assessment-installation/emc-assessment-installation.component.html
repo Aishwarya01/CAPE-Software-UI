@@ -6,13 +6,13 @@
         <app-emc-matstepper *ngIf="showEmcHome"></app-emc-matstepper>
     </div>
     <div *ngIf="!destroy" style="padding: 20px; background: white;">
-        <button style="float: right;" type="submit" style="background-color: #0f800c;color: white;"
+        <button style="float: right;background-color: #0f800c;color: white;" type="submit"
         class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn"
             (click)="onNavigateToQuestionaire()">Skip</button>
         <button style="float: right;background-color: #0f800c;color: white;" class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn" 
             printSectionId="printdiv" ngxPrint>Print</button>
-        <h2>EMC assessment of an installation (IEC 61000-5-1).</h2>
-        <div id="printdiv">
+    <div id="printdiv">
+            <h2 style="text-align: center;margin-bottom: 0rem;">EMC assessment of an installation (IEC 61000-5-1).</h2>
             <div>
                 <p>Electromagnetic compatibility (EMC) is the ability of electronic systems to function acceptably in
                     their
@@ -109,11 +109,11 @@
                     safety,
                     reliability and long life of electronic system.​</p>
             </div>
-            <button style="float: right;background-color: #0f800c;color: white;" type="submit" 
-                class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn"
+        </div>
+            <button style="float: right;background-color: #0f800c;color: white;" type="submit"
+            class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn-continue"
                 (click)="onNavigateToQuestionaire()" [disabled]="displayIconsBasedOnEmail()">Continue
             </button>
-        </div>
     </div>
 </body>
 </html>

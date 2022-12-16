@@ -33,6 +33,10 @@ import { BuyMeterComponent } from './buy-meter/buy-meter.component';
 import { SignInBuyMeterComponent } from './sign-in-buy-meter/sign-in-buy-meter.component';
 import { RegistrationBuyMeterComponent } from './registration-buy-meter/registration-buy-meter.component';
 import { AddCartBuyMeterComponent } from './add-cart-buy-meter/add-cart-buy-meter.component';
+import { ProfieBuyMeterComponent } from './profie-buy-meter/profie-buy-meter.component';
+import { CheckoutBuyMeterComponent } from './checkout-buy-meter/checkout-buy-meter.component';
+
+
 
 const routes: Routes = [
   {path: '', redirectTo: "/SignIn", pathMatch: 'full' },
@@ -64,14 +68,16 @@ const routes: Routes = [
   {path: 'EmcSavedReportComponent',component:EmcSavedReportComponent},
   {path: 'EmcFinalReportComponent',component:EmcFinalReportComponent},
   {path: 'EmcClientDetailsComponent',component:EmcClientDetailsComponent},
-  
   {path: 'LpsEarthingComponent',component:LpsEarthingComponent},
   {path: 'LpsSpdComponent',component:LpsSpdComponent},
   {path: 'buyMeter',component:BuyMeterComponent},
   {path: 'signIn-buyMeter',component:SignInBuyMeterComponent},
   {path: 'register-buyMeter',component:RegistrationBuyMeterComponent},
   {path: 'addtocart',component:AddCartBuyMeterComponent},
-
+  {path: 'profile-buyMeter',component:ProfieBuyMeterComponent},
+  {path: 'checkout-buyMeter',component:CheckoutBuyMeterComponent}
+  
+ 
 ];
 
 @NgModule({

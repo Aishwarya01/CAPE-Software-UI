@@ -1,0 +1,95 @@
+<div class="card bg-image">
+    <div class="card-body">
+<form action="" [formGroup]="checkOutForm" style="background-color: white;height: 64%;padding: 35px;">
+        <h2>Shipping Details</h2>
+        <hr class="divider1">
+        <div class="row">
+            <div class="col-md-4">
+                <label for="Name">* Name</label>
+                <div class="form-group">
+                    <input type="text" class="form-control" formControlName="firstName" [(ngModel)]="registerBuyMeter.firstName" readonly>
+                </div>
+             </div>
+             <div class="col-md-4">
+                 <label for="contactnumber">* ContactNumber</label>
+                 <div class="form-group">
+                    <input type="text" class="form-control" formControlName="contactNumber" [(ngModel)]="registerBuyMeter.contactNumber" readonly>
+                 </div>
+             </div>
+             <div class="col-md-4">
+                 <label for="email">* Email</label>
+                 <div class="form-group">
+                    <input type="email" class="form-control" formControlName="email" [(ngModel)]="registerBuyMeter.username" readonly>
+                 </div>
+             </div>
+        </div>
+
+       <div class="row">
+        <div class="col-md-4">
+            <label for="companyname">* CompanyName</label>
+            <div class="form-group">
+                <input type="text" class="form-control" formControlName="companyName" [(ngModel)]="registerBuyMeter.customerCompany" readonly>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label for="Address">* Address</label>
+            <div class="form-group">
+                <input type="text" class="form-control" formControlName="address" [(ngModel)]="registerBuyMeter.address">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label for="country">* Country</label>
+            <div class="form-group">
+                <input type="text" class="form-control" formControlName="country" [(ngModel)]="registerBuyMeter.country">
+            </div>
+        </div>
+       </div>
+      
+       <div class="row"> 
+        <div class="col-md-4">
+            <label for="state">* State</label>
+            <div class="form-group">
+                <input type="text" class="form-control" formControlName="state" [(ngModel)]="registerBuyMeter.state">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label for="city">* District</label>
+            <div class="form-group">
+                <input type="text" class="form-control" formControlName="city" [(ngModel)]="registerBuyMeter.district">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label for="pincode">* Pincode</label>
+            <div class="form-group">
+                <input type="text" class="form-control" formControlName="pincode" [(ngModel)]="registerBuyMeter.pinCode">
+
+            </div>
+        </div>
+       </div>
+       
+       <div class="row">
+            <div class="col-md-12 text-center justify-content-center">
+                <button type="button" style="margin-top: 30px;" class="btn btn-primary">Payment</button>
+                <button type="button" style="margin-left: 10px;margin-top: 30px;" class="btn btn-danger" (click)="cancelCheckout(checkOutCancel)">Cancel</button>
+            </div>
+       </div>
+     </form>
+    </div>
+</div>
+<ng-template #checkOutCancel let-modal>
+    <div class="modal-body">
+        <div class="centre-text m-btm30">
+        <div style="text-align: center;">
+            <span class="successshow">Are you sure want to Cancel? </span>
+        </div>
+        </div>
+        </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12 text-center justify-content-center">
+            <button type="button" class="btn btn-primary" (click)="checkoutNavigation()"> Yes</button>
+            <button type="button" class="btn btn-danger" style="margin-left: 10px;" (click)="onCancel()">No</button>
+        </div>
+       
+  </div>
+</ng-template>

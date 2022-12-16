@@ -114,6 +114,7 @@ autoLoginToken:number=0;
   headerMsg: String="";
   basicLPSID: number=0;
   toggle: boolean=false;
+
   siteData: any;
 
   viewerData: any = {
@@ -144,6 +145,8 @@ autoLoginToken:number=0;
     username: "",
     siteName: "",
   };
+
+  cartIndex: any=[];
 
  constructor(private _scrollToService: ScrollToService
   ) {}
