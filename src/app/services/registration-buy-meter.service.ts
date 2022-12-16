@@ -58,6 +58,8 @@ export class RegistrationBuyMeterService {
 
   }
 
-
+  updateContactNumber(contactNumber : string) : Observable <any>{
+    return this.http.get<any>(this.apiurl + '/updateMobileNumber' + '/' + contactNumber, { responseType: 'text' as 'json' })
+  }
 
 }

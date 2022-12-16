@@ -139,7 +139,7 @@ export class SignInBuyMeterComponent implements OnInit {
     })
   }
 
-  keyUpEvent(event:any, index:any) {
+  onkeyUpEvent(event:any, index:any) {
     let pos = index;
     if (event.keyCode === 8 && event.which === 8) {
       pos = index - 1 ;
@@ -172,8 +172,6 @@ export class SignInBuyMeterComponent implements OnInit {
     })
     this.sessionKeyArr=this.dataArr;
     console.log(this.dataArr);
-    
-
   }
 
   // OTP Validation

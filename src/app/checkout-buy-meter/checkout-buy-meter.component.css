@@ -7,11 +7,18 @@
     height: 143.7vh;
     width: 100%;
     position: relative;
-    /* padding: 20px; */
     padding: 20px 40px 20px 40px;
 }
 
-.divider1{
+/* .divider1{
     margin-top: -4px;
     padding: 10px;
-   }
+   } */
+
+ .container{  
+    margin-top: 70px;
+    justify-content: center;
+    height: 500px;
+    width: 100%;
+    background-color: white;
+}

@@ -12,6 +12,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class CheckoutBuyMeterComponent implements OnInit {
 
   checkOutForm!:FormGroup;
+  productTotalForm!: FormGroup;
   registerBuyMeter = new RegistrationBuyMeter(); 
   viewEmployee: boolean = false;
   userName: any;
@@ -44,7 +45,8 @@ export class CheckoutBuyMeterComponent implements OnInit {
       data => {
         this.registerBuyMeter = JSON.parse(data);
         this.viewEmployee = false;
-        this.profileDetails(this.registerBuyMeter);
+        let userDetails = this.registerBuyMeter.username + this.registerBuyMeter.contactNumber + this.registerBuyMeter.username + this.registerBuyMeter.address + this.registerBuyMeter.district +this.registerBuyMeter.state + this.registerBuyMeter.country + this.registerBuyMeter.pinCode;
+        this.profileDetails(userDetails);
       })
     console.log(this.profileDetails);
   }

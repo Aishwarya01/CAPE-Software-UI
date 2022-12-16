@@ -2,7 +2,8 @@
 h2{
     font-weight: bold;
     color: rgb(13, 7, 7);
-    text-align: center;justify-content: center;
+    text-align: center;
+    justify-content: center;
 }
 .container{
     
@@ -21,4 +22,8 @@ h2{
   width: 100%;
   position: relative;
   padding: 20px;
+}
+.changeNumber{
+  position: absolute;
+  right: 30px;
 }
