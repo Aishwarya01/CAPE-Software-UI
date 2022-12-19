@@ -130,7 +130,7 @@ export class SignInBuyMeterComponent implements OnInit {
       localStorage.setItem('username',this.registerBuyMeterModel.username);
       sessionStorage.setItem('token', data['token']);
       
-      this.router.navigate(['/addtocart']);
+      this.router.navigate(['/buyMeter']);
     },error=>{
       this.wrongPassword = true;
       setTimeout(() => {

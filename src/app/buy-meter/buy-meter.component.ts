@@ -186,36 +186,11 @@ meterData2: any =[
     //  // this.router.navigate(['/signIn-buyMeter']);
     // }
      movetoCart(){
-      // this.loginBuyMeterService.Signin(this.user.email, this.user.password).subscribe(
-      //   data=> {
-      //   localStorage.setItem('email', this.user.email);
-      //   localStorage.setItem('password', this.user.password);
-      //   localStorage.setItem('username', data['register'].username);
-      //   sessionStorage.setItem('token', data['token']);
-        
-      //   // Save value to local storage
-      //   // if(this.rememberMeChecked==true) {
-      //   //   localStorage.setItem('rememberMe', 'yes');
-      //   // }
-      //     if(data.register.otpSessionKey != null) {
-      //       this.router.navigate(['/addtocart', {email: data.register.username}])
-      //     }
-      //     else{
-      //       this.router.navigate(['/signIn-buyMeter', {email: data.register.username}])
-      //     }
-      //   },
-      //   error => {
-      //     if(error.error.error == 'Unauthorized'){
-      //       error.error.error = 'Invalid Credentials';
-      //       this.showErrorMessage=error.error.error;
-      //     } else{
-      //       this.showErrorMessage=error.error.message;
-      //     }
-          
-      //    // this.loading=false;
-      //   }
-      // )
-      this.router.navigate(['/addtocart']);
+      if(sessionStorage.getItem('tokenforMeter')== undefined){
+        this.router.navigate(['/signIn-buyMeter']);
+      }else{
+        this.router.navigate(['/addtocart'])
+      }
     }
     
 
