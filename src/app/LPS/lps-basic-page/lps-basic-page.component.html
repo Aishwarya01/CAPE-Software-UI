@@ -190,28 +190,37 @@
             </div>
             
             <div class="row">
+
                 <div class="col-md-4">
-                    <label for="email1">Email</label>
+                    <label for="inspectorName">Insprctor Name</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"> 
                                 <i class="bi bi-person-lines-fill"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" formControlName="inspectorName" [ngModel]="currentUserName" readonly/>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <label for="email1">Email Id</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> 
+                                <i class="bi bi-envelope-fill"></i>
                             </span>
                         </div>
                         <input type="text" class="form-control" formControlName="email1" [ngModel]="currentUsermail" readonly/>
                     </div>
                 </div>
+
                 <div class="col-md-4">
-                    <label for="name1">Name</label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"> 
-                                <i class="bi bi-person-lines-fill"></i>
-                            </span>
-                        </div>
-                        <input type="text" class="form-control" formControlName="name1" [ngModel]="currentUserName" readonly/>
-                    </div>
+                    <label for="contact1">Contact Number</label>
+                    <input type="text" class="form-control" formControlName="contact1" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
+                    (keypress)="keyPressNumbers($event)" (countryChange)="countryChange($event,f)" [ngModel]="currentUserPhone" readonly/>
                 </div>
+
             </div>
 
             <div class="row" style="font-weight: bold;">
@@ -219,8 +228,8 @@
             </div>
 
             <div class="row">
-                <!-- <div class="col-md-4">
-                    <label for="clientname">Name</label>
+                <div class="col-md-4">
+                    <label for="clientname">Viewer Name</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"> 
@@ -228,56 +237,12 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter Name"
-                         formControlName="name"  [readonly]="isEditable" [ngClass]="{ 'is-invalid': submitted && f.get('name')?.errors }"/>
-                         <div *ngIf="submitted && f.get('name')?.errors" class="invalid-feedback">
-                             <div *ngIf="f.get('name')?.errors?.required">Name is required</div>
+                         formControlName="viewerName" readonly [ngClass]="{ 'is-invalid': submitted && f.get('viewerName')?.errors }"/>
+                         <div *ngIf="submitted && f.get('viewerName')?.errors" class="invalid-feedback">
+                             <div *ngIf="f.get('viewerName')?.errors?.required">viewerName is required</div>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-md-4">
-                    <label for="clientname">Company</label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"> 
-                                <i class="bi bi-building"></i>
-                            </span>
-                        </div>
-                        <input type="text" class="form-control" placeholder="Enter Company" 
-                        [readonly]="isEditable" formControlName="company" [ngClass]="{ 'is-invalid': submitted && f.get('company')?.errors }"/>
-                        <div *ngIf="submitted && f.get('company')?.errors" class="invalid-feedback">
-                            <div *ngIf="f.get('company')?.errors?.required">Company is required</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <label for="clientname">Designation</label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"> 
-                                <i class="bi bi-person-lines-fill"></i>
-                            </span>
-                        </div>
-                        <input type="text" class="form-control" placeholder="Enter Designation" 
-                        [readonly]="isEditable" formControlName="designation" [ngClass]="{ 'is-invalid': submitted && f.get('designation')?.errors }"/>
-                        <div *ngIf="submitted && f.get('designation')?.errors" class="invalid-feedback">
-                            <div *ngIf="f.get('designation')?.errors?.required">Designation is required</div>
-                        </div>
-                    </div>
-                </div> -->
-
-                <div class="col-md-4">
-                    <label for="contactNumber">Contact Number</label>
-                    <input type="tel" class="form-control" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
-                       (keypress)="keyPressNumbers($event)" (countryChange)="countryChange($event,f)" placeholder="Enter Contact Number" 
-                       readonly formControlName="contactNumber"  [ngClass]="{ 'is-invalid': submitted && f.get('contactNumber')?.errors }"/>
-                       <div *ngIf="submitted && f.get('contactNumber')?.errors" class="invalid-feedback">
-                           <div *ngIf="f.get('contactNumber')?.errors?.required">Contact Number is required</div>
-                           <div *ngIf="f.get('contactNumber')?.errors?.minlength">Enter 10 Digit Number</div> 
-                                <div *ngIf="f.get('contactNumber')?.errors?.maxlength">Enter 10 Digit Number</div>
-                       </div>
-            </div>
 
                 <div class="col-md-4">
                     <label for="clientname">Email Id</label>
@@ -295,6 +260,18 @@
                             <div *ngIf="f.get('mailId')?.errors?.pattern">Enter valid email</div>
                         </div>
                     </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="contactNumber">Contact Number</label>
+                    <input type="tel" class="form-control" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
+                       (keypress)="keyPressNumbers($event)" (countryChange)="countryChange($event,f)" placeholder="Enter Contact Number" 
+                       readonly formControlName="contactNumber"  [ngClass]="{ 'is-invalid': submitted && f.get('contactNumber')?.errors }"/>
+                       <div *ngIf="submitted && f.get('contactNumber')?.errors" class="invalid-feedback">
+                           <div *ngIf="f.get('contactNumber')?.errors?.required">Contact Number is required</div>
+                           <div *ngIf="f.get('contactNumber')?.errors?.minlength">Enter 10 Digit Number</div> 
+                                <div *ngIf="f.get('contactNumber')?.errors?.maxlength">Enter 10 Digit Number</div>
+                       </div>
                 </div>
             </div>
 

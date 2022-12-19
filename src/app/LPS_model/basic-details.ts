@@ -11,7 +11,7 @@ export class BasicDetails {
     location!: String;
     industryType!: String;
     soilResistivity!: String;
-    // name!: String;
+    viewerName!: String;
     // company!: String;
     // designation!: String;
     contactNumber!: String;
@@ -27,6 +27,6 @@ export class BasicDetails {
     updatedBy!: String;
     status!: String;
     email1!: String;
-    name1!: String;
+    inspectorName!: String;
     data!:FormData;
 }

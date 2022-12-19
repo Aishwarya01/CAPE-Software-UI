@@ -39,8 +39,11 @@ export class AssignViewerComponent implements OnInit {
   viewerRegisterForm = new FormGroup({
     siteName: new FormControl(''),
     name: new FormControl(''),
+    // lps
     clientName: new FormControl(''),
     projectName:new FormControl(''),
+    lpsName:new FormControl(''),
+
     companyName: new FormControl(''),
     email: new FormControl(''),
     contactNumber: new FormControl(''),
@@ -178,8 +181,11 @@ export class AssignViewerComponent implements OnInit {
         name: new FormControl('',Validators.required),
         companyName: new FormControl('', Validators.required),
         siteName: new FormControl('', [Validators.required,Validators.minLength(3),Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
+        // lps
         clientName: new FormControl(''),
         projectName:new FormControl(''),
+        lpsName:new FormControl(''),
+
         email: new FormControl('', Validators.required),
         designation: new FormControl('', Validators.required),
         contactNumber: new FormControl('', Validators.required),
@@ -204,8 +210,11 @@ export class AssignViewerComponent implements OnInit {
         name: new FormControl(''),
         companyName: new FormControl('', Validators.required),
         siteName: new FormControl(''),
+        // lps
         clientName: new FormControl('', Validators.required),
         projectName:new FormControl('',Validators.required),
+        lpsName:new FormControl('',Validators.required),
+
         email: new FormControl('', Validators.required),
         designation: new FormControl('', Validators.required),
         contactNumber: new FormControl('', Validators.required),
@@ -490,8 +499,11 @@ createGroup(item: any): FormGroup{
       name: new FormControl(item.name),
       companyName: new FormControl(item.companyName, Validators.required),
       siteName: new FormControl(''),
+      // lps
       clientName: new FormControl('', Validators.required),
       projectName: new FormControl('', Validators.required),
+      lpsName:new FormControl('',Validators.required),
+
       email: new FormControl(item.username, Validators.required),
       designation: new FormControl(item.designation, Validators.required),
       contactNumber: new FormControl(item.contactNumber, Validators.required),
@@ -517,6 +529,7 @@ createNewGroup(item: any): FormGroup{
     siteName: new FormControl('', [Validators.minLength(3), Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
     clientName: new FormControl(''),
     projectName: new FormControl(''),
+    lpsName: new FormControl(''),
     email: new FormControl({ value: item.username }),
     designation: new FormControl('', Validators.required),
     contactNumber: new FormControl('', Validators.required),
@@ -854,7 +867,9 @@ createNewGroup(item: any): FormGroup{
         data => {
           // console.log(data);
           sessionStorage.setItem("clientName", this.register.clientName);
-          sessionStorage.setItem("projectName", this.register.projectName)
+          sessionStorage.setItem("projectName", this.register.projectName);
+          sessionStorage.setItem("lpsName", this.register.lpsName);
+          
           this.successMsgOTP = true;
           if(this.globalService.triggerMsgForLicense=='lvPage'){
             this.successMsg = "Viewer successfully assigned for this "+this.register.siteName+" in LV Systems";
@@ -915,6 +930,7 @@ createNewGroup(item: any): FormGroup{
 
             this.basic.clientName = this.register.clientName;
             this.basic.projectName = this.register.projectName;
+            this.basic.viewerName = this.register.lpsName;
             this.basic.address = this.register.address;
             this.basic.userName = this.email;
             this.basic.mailId = this.register.username;
@@ -992,6 +1008,8 @@ createNewGroup(item: any): FormGroup{
       form.controls.clientName.updateValueAndValidity();
       form.controls.projectName.setValidators();
       form.controls.projectName.updateValueAndValidity();
+      form.controls.lpsName.setValidators();
+      form.controls.lpsName.updateValueAndValidity();
       // LV 
       form.controls.siteName.clearValidators();
       form.controls.siteName.updateValueAndValidity();
@@ -1014,7 +1032,8 @@ createNewGroup(item: any): FormGroup{
       form.controls.clientName.updateValueAndValidity();
       form.controls.projectName.clearValidators();
       form.controls.projectName.updateValueAndValidity();
-      
+      form.controls.lpsName.clearValidators();
+      form.controls.lpsName.updateValueAndValidity();
     }
   }
 }
