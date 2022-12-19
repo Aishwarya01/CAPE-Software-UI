@@ -672,7 +672,7 @@ createNewGroup(item: any): FormGroup{
             this.errorMsg1 = "";
             // this.spinner=true;
             // this.spinnerValue = "Please wait, the details are loading!";
-            if("Email Id doesn't exist!" == JSON.parse(error.error).message){
+            if("Email Id doesn't exist!" == this.globalService.globalErrorMsg){
               setTimeout(() => {
                 this.viewerFlag = true;
                 // this.spinner=false;
@@ -871,6 +871,9 @@ createNewGroup(item: any): FormGroup{
     //   this.register.applicationType = applicationType;
     // }
 
+    if(this.register.applicationType !=null){
+
+    }
     this.register.applicationType = this.applicationName;
     
     // if (!flag || this.register.registerId != null || this.register.registerId != 0) {

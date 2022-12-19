@@ -217,8 +217,7 @@
 
                 <div class="col-md-4">
                     <label for="contact1">Contact Number</label>
-                    <input type="text" class="form-control" formControlName="contact1" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
-                    (keypress)="keyPressNumbers($event)" (countryChange)="countryChange($event,f)" [ngModel]="currentUserPhone" readonly/>
+                    <input type="tel" class="form-control" formControlName="contact1" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" [ngModel]="currentUserPhone" readonly/>
                 </div>
 
             </div>
@@ -264,14 +263,7 @@
 
                 <div class="col-md-4">
                     <label for="contactNumber">Contact Number</label>
-                    <input type="tel" class="form-control" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
-                       (keypress)="keyPressNumbers($event)" (countryChange)="countryChange($event,f)" placeholder="Enter Contact Number" 
-                       readonly formControlName="contactNumber"  [ngClass]="{ 'is-invalid': submitted && f.get('contactNumber')?.errors }"/>
-                       <div *ngIf="submitted && f.get('contactNumber')?.errors" class="invalid-feedback">
-                           <div *ngIf="f.get('contactNumber')?.errors?.required">Contact Number is required</div>
-                           <div *ngIf="f.get('contactNumber')?.errors?.minlength">Enter 10 Digit Number</div> 
-                                <div *ngIf="f.get('contactNumber')?.errors?.maxlength">Enter 10 Digit Number</div>
-                       </div>
+                    <input type="tel" class="form-control" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"readonly formControlName="contactNumber"/>
                 </div>
             </div>
 
