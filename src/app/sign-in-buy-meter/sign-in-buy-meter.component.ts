@@ -112,8 +112,7 @@ export class SignInBuyMeterComponent implements OnInit {
      
     },error=>{
    
-      console.log("Username not exits!");
-      this.showErrMsg ="Username not exits!";
+      this.showErrMsg ="Email Id doesn't exists!";
       this.showErrorMsg = true;
       setTimeout(() => {
         this.showErrorMsg = false;
