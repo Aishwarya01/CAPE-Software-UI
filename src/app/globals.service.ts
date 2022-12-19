@@ -37,6 +37,7 @@ export class GlobalsService {
   viewerName!: String;
   inspectorName!: String;
   siteName!: String;
+  viewerData: any = [];
   inspectorData: any = [];
 //generate otp & contact no.
   changeNumberSession!: String; 
@@ -115,39 +116,8 @@ autoLoginToken:number=0;
   basicLPSID: number=0;
   toggle: boolean=false;
 
-  siteData: any;
-
-  viewerData: any = {
-    address: "",
-    applicationType: "",
-    assignedBy: "",
-    comment: "",
-    companyName: "",
-    contactNumber: "",
-    country: "",
-    createdBy: "",
-    createdDate: "",
-    department: "",
-    designation: "",
-    district: "",
-    name: "",
-    noOfLicence: "",
-    otpSessionKey: "",
-    password: "",
-    permission: "",
-    permissionBy: "",
-    pinCode: "",
-    registerId: "",
-    role: "",
-    state: "",
-    updatedBy: "",
-    updatedDate: "",
-    username: "",
-    siteName: "",
-  };
-
   cartIndex: any=[];
-
+  
  constructor(private _scrollToService: ScrollToService
   ) {}
   
@@ -173,6 +143,7 @@ autoLoginToken:number=0;
       this.triggerMsgForLicense="";
     }
   }
+  
 }
 
  

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegistrationBuyMeterService } from '../services/registration-buy-meter.service';
@@ -18,6 +18,7 @@ export class CheckoutBuyMeterComponent implements OnInit {
   userName: any;
   modelReference: any;
 
+  @Output() checkoutTotal: EventEmitter<any> = new EventEmitter();
 
 
   constructor(private route : Router,

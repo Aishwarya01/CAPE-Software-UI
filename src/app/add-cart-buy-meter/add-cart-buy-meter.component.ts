@@ -54,6 +54,8 @@ export class AddCartBuyMeterComponent implements OnInit {
   @ViewChild('meterPaginator', { static: true }) meterPaginator!: MatPaginator;
   @ViewChild('meterSort', {static: true}) meterSort!: MatSort;
 
+  @Output() checkoutTotal: EventEmitter<any> = new EventEmitter();
+
   meterName: String = '';
   email: String = '';
   selectedMeter: any;
@@ -156,7 +158,11 @@ export class AddCartBuyMeterComponent implements OnInit {
   ) {
     this.email = this.router1.snapshot.paramMap.get('email') || '{}';
   }
- 
+
+  ngOnDestroy(): void {
+    this.service.cartIndex="";
+   }
+
   ngOnInit(): void {
     //this.b="WMGBMZC304";
     this.service.cartIndex;
@@ -227,6 +233,7 @@ export class AddCartBuyMeterComponent implements OnInit {
         this.emptyCart=true;
       }
       backBUtton(){
+       // this.meterData3 =[];  
         this.router.navigate(['/buyMeter']);
       }
       
@@ -290,5 +297,8 @@ export class AddCartBuyMeterComponent implements OnInit {
     checkoutNavigation(){
          this.router.navigate(['checkout-buyMeter']);
          this.modalReference.close();
+        // this.valueChange.emit(this.grandtotal());
+      //  this.service.setData(this.grandtotal);
+      this.checkoutTotal.emit(this.grandtotal);
     }
 }
