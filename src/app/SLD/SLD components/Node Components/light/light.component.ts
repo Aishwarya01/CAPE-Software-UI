@@ -35,6 +35,9 @@ export class LightComponent implements OnInit {
   validationError: boolean= false;
   validationErrorMsg: string="";
 
+  error1: boolean=false;
+  error1Msg: string="";
+
   constructor(private formBuilder: FormBuilder,
               private lightService: LightServicesService,
               private dialog: MatDialog,
@@ -67,6 +70,14 @@ export class LightComponent implements OnInit {
             if(this.lightData.length != 0) {
               this.retrieveLightNode(this.lightData);
             }
+          },
+          error=>{
+            this.error1=true;
+            this.error1Msg=this.service.globalErrorMsg;
+            setTimeout(() => {
+              this.error1=false;
+              this.error1Msg="";
+            }, 4000);
           }
         )
   }

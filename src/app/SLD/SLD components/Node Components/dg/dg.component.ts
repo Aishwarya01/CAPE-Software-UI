@@ -57,6 +57,9 @@ export class DGComponent implements OnInit {
   fileErrorFlag: boolean = false;
   fileSuccessFlag: boolean = false;
 
+  error1: boolean=false;
+  error1Msg: string="";
+
   constructor(private formBuilder: FormBuilder,
     private dieselGeneratorService: DGServicesService,
     private dgFileUploadServiceService: DGFileUploadServiceService,
@@ -83,6 +86,14 @@ export class DGComponent implements OnInit {
         if (this.dieselGeneratorData.length != 0) {
           this.retrieveDieselGeneratorNode(this.dieselGeneratorData);
         }
+      },
+      error=>{
+        this.error1=true;
+        this.error1Msg=this.service.globalErrorMsg;
+        setTimeout(() => {
+          this.error1=false;
+          this.error1Msg="";
+        }, 4000);
       }
     )
     this.retriveFileName();

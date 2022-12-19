@@ -354,6 +354,10 @@ export class InspectionVerificationSupplyCharacteristicsComponent
   observationAlternateArr: any= [];
   finalSpinner: boolean = true;
   popup: boolean = false;
+  commentError: boolean=false;
+  commentErrorMsg: string="";
+  commentApproveEroor: boolean=false;
+  commentApproveEroorMsg: string="";
 
   constructor(
     private supplyCharacteristicsService: SupplyCharacteristicsService,
@@ -1529,7 +1533,12 @@ showHideAccordion(index: number) {
        this.hideDelete=false;
         },
         (error) => {
-          
+          this.commentError=true;
+          this.commentErrorMsg=this.service.globalErrorMsg;
+          setTimeout(() => {
+            this.commentError=false;
+            this.commentErrorMsg="";
+          }, 3000);
         }
       )  
   }
@@ -1548,6 +1557,12 @@ showHideAccordion(index: number) {
       // this.basic.notification(0,'viewerUserName','inspectorUserName','viewerDate','inspectorDate');
         },
         (error) => {
+          this.commentError=true;
+          this.commentErrorMsg=this.service.globalErrorMsg;
+          setTimeout(() => {
+            this.commentError=false;
+            this.commentErrorMsg="";
+          }, 3000);
         }
       )  
   }
@@ -1573,6 +1588,12 @@ showHideAccordion(index: number) {
        //this.basic.notification(0,'viewerUserName','inspectorUserName','viewerDate','inspectorDate');
         },
         (error) => {
+          this.commentApproveEroor=false;
+          this.commentApproveEroorMsg=this.service.globalErrorMsg;
+          setTimeout(() => {
+            this.commentApproveEroor=false;
+            this.commentApproveEroorMsg=this.service.globalErrorMsg;
+          }, 3000);
         }
       )  
     //  this.refreshComment('success');
@@ -1591,13 +1612,14 @@ showHideAccordion(index: number) {
         this.commentReject=true;
         setTimeout(()=>{
           this.commentReject=false;
-     }, 3000);
-     this.hideapprove=false;
-     this.hideapproveIcon=false;
-     this.basic.newNotify();
-     //this.basic.notification(0,'viewerUserName','inspectorUserName','viewerDate','inspectorDate');
+      }, 3000);
+      this.hideapprove=false;
+      this.hideapproveIcon=false;
+      this.basic.newNotify();
+      //this.basic.notification(0,'viewerUserName','inspectorUserName','viewerDate','inspectorDate');
       },
       (error) => {
+
       }
     )  
 }
@@ -1666,7 +1688,7 @@ showHideAccordion(index: number) {
          this.disableSend = false;
       },
       (error) => {
-   
+        
       })
     }
   //  retrieveFromObservationSupply(data:any){

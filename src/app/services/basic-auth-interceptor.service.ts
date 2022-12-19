@@ -100,21 +100,18 @@ export class BasicAuthHtppInterceptorService implements HttpInterceptor {
         else if(error.status==401){
             errorMessage="Unauthorized";
         }
-        else if(error.status==402){
-            errorMessage="Payment Required";
-        }
-        else if(error.status==403){
-            errorMessage="The requested page not found, Please try again later";
-        }
-        else if(error.status==404){
-            errorMessage="Something went wrong, Please try again later";
-        }
-        else if(error.status==404){
-            errorMessage="Something went wrong, Please try again later";
-        }
-        else if(error.status==406){
+        else if(error.status == 402 || error.status==400 || error.status==406 || error.status==404){
             errorMessage=JSON.parse(error.error).message;
         }
+        // else if(error.status==403){
+        //     errorMessage="The requested page not found, Please try again later";
+        // }
+        // else if(error.status==404){
+        //     errorMessage="Something went wrong, Please try again later";
+        // }
+        // else if(error.status==406){
+        //     errorMessage=JSON.parse(error.error).message;
+        // }
 
     // Server side error {Status:500}
     
@@ -134,9 +131,10 @@ export class BasicAuthHtppInterceptorService implements HttpInterceptor {
             if(error.status!=0){
                 errorMessage=JSON.parse(error.error).message;
             }
+            else{
+                errorMessage="Something went wrong, Please try again later";
+            }
         }
-        console.log(error.status)
-        console.log(errorMessage);
         return errorMessage; 
         // if(error.error instanceof ErrorEvent){
         //     errorMessage=error.error.message;
