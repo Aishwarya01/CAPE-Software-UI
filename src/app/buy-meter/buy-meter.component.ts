@@ -35,6 +35,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatCarousel } from 'ng-mat-carousel';
 import { Router } from '@angular/router';
 import { AddCartBuyMeterComponent } from '../add-cart-buy-meter/add-cart-buy-meter.component';
+import { LoginBuyMeterService } from '../services/login-buy-meter.service';
+import { User } from '../model/user';
 
 @Component({
   selector: 'app-buy-meter',
@@ -42,6 +44,11 @@ import { AddCartBuyMeterComponent } from '../add-cart-buy-meter/add-cart-buy-met
   styleUrls: ['./buy-meter.component.css']
 })
 export class BuyMeterComponent implements OnInit {
+
+  user = new User();
+  USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser';
+  public token: string = '';
+  showErrorMessage=false;
 
   meterColumns: string[] = [
     'position',
@@ -54,9 +61,11 @@ export class BuyMeterComponent implements OnInit {
   meter_dataSource!: MatTableDataSource<any>;
   @ViewChild('meterPaginator', { static: true }) meterPaginator!: MatPaginator;
   @ViewChild('meterSort', {static: true}) meterSort!: MatSort;
-  @ViewChild(AddCartBuyMeterComponent) 
-  addcart!: AddCartBuyMeterComponent;
 
+  @ViewChild(AddCartBuyMeterComponent) 
+  cart!: AddCartBuyMeterComponent;
+
+  
   meterName: String = '';
   email: String = '';
   selectedMeter: any;
@@ -69,7 +78,8 @@ export class BuyMeterComponent implements OnInit {
   value1: any;
   filteredData: any = [];
   clickedImage: any;
-  
+  cartCount!: number;
+
   meterDropdownList: any = [,
     'MZC-304 S.C. Loop Impedance Meter-1',
     'MZC-330S Short Circuit Loop Impedance Meter',
@@ -133,16 +143,19 @@ meterData2: any =[
   // { position: 17, model: 'MPI-540 Multi-function Meter', pdf:'assets/documents/MP540.pdf', index: 'WMGBMPI540', price: '583669', image:'assets/img/mpi540.PNG' },
 ];
   constructor(private changeDetectorRef: ChangeDetectorRef,
-    public service: GlobalsService,
+    public service: GlobalsService,private loginBuyMeterService : LoginBuyMeterService,
     private modalService: NgbModal,
     private router1: ActivatedRoute,
    public datepipe: DatePipe,private router: Router
   ) {
     this.email = this.router1.snapshot.paramMap.get('email') || '{}';
   }
- 
+
+  //ngOnDestroy(): void {
+    //this.service.cartIndex="";
+   // }
+
   ngOnInit(): void {
-    this.setPagination();
   } 
 
   setPagination() {
@@ -161,9 +174,67 @@ meterData2: any =[
      this.value = this.clcikeditem;
     }
     addToCart(b:any){
-      this.router.navigate(['/signIn-buyMeter']);
-      this.addcart.addtoCartIndex(b);
+      this.service.cartIndex.push(b);
+      this.cartCount=this.service.cartIndex.length;
+    //  this.cart.addtoCartIndex(b);
+     // this.router.navigate(['/signIn-buyMeter']);
     }
+    // addToCart1(b:any){
+    //   this.service.cartIndex.push(b);
+    //   this.cartCount=this.service.cartIndex.length;
+    // //  this.cart.addtoCartIndex(b); 
+    //  // this.router.navigate(['/signIn-buyMeter']);
+    // }
+     movetoCart(){
+      // this.loginBuyMeterService.Signin(this.user.email, this.user.password).subscribe(
+      //   data=> {
+      //   localStorage.setItem('email', this.user.email);
+      //   localStorage.setItem('password', this.user.password);
+      //   localStorage.setItem('username', data['register'].username);
+      //   sessionStorage.setItem('token', data['token']);
+        
+      //   // Save value to local storage
+      //   // if(this.rememberMeChecked==true) {
+      //   //   localStorage.setItem('rememberMe', 'yes');
+      //   // }
+      //     if(data.register.otpSessionKey != null) {
+      //       this.router.navigate(['/addtocart', {email: data.register.username}])
+      //     }
+      //     else{
+      //       this.router.navigate(['/signIn-buyMeter', {email: data.register.username}])
+      //     }
+      //   },
+      //   error => {
+      //     if(error.error.error == 'Unauthorized'){
+      //       error.error.error = 'Invalid Credentials';
+      //       this.showErrorMessage=error.error.error;
+      //     } else{
+      //       this.showErrorMessage=error.error.message;
+      //     }
+          
+      //    // this.loading=false;
+      //   }
+      // )
+      this.router.navigate(['/addtocart']);
+    }
+    
+
+    // AutoLogin(){
+    //   this.loginBuyMeterService.Signin(localStorage.email, localStorage.password).subscribe(
+    //       data=> {
+    //       sessionStorage.setItem('token', data['token']);
+    //       // Save value to local storage
+    //       const rememberMe = localStorage.getItem('rememberMe');
+    //         if(rememberMe == 'yes') {
+    //           this.router.navigate(['/home', {email: data.register.username}])
+    //         }
+    //       },
+    //       error => {
+    //        console.log(error);
+    //       }
+    //     )
+    //     }   
+
     zoomImage(contentImage:any,a:any){
       this.modalService.open(contentImage, {
         centered: true, 
@@ -188,5 +259,5 @@ meterData2: any =[
     disable(meter: any): boolean {
       return meter === this.clickedMeter;
     }
-
+   
 }

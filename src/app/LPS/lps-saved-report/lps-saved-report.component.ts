@@ -189,9 +189,6 @@ completedFilterData: any=[];
   continue(basicLpsId: any) {
     if(this.service.triggerMsgForLicense=='lpsPage'){
       this.licenselist.editLpsData(basicLpsId);
-      // setTimeout(() => {
-      //   this.service.triggerMsgForLicense="";
-      // }, 2000);
     }
     else{
       this.spinner=true;

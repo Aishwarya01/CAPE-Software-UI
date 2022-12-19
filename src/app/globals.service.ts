@@ -37,6 +37,7 @@ export class GlobalsService {
   viewerName!: String;
   inspectorName!: String;
   siteName!: String;
+  viewerData: any = [];
   inspectorData: any = [];
 //generate otp & contact no.
   changeNumberSession!: String; 
@@ -146,6 +147,8 @@ autoLoginToken:number=0;
     siteName: "",
   };
 
+  cartIndex: any=[];
+  
  constructor(private _scrollToService: ScrollToService
   ) {}
   
@@ -171,6 +174,7 @@ autoLoginToken:number=0;
       this.triggerMsgForLicense="";
     }
   }
+  
 }
 
  

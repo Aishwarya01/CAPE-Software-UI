@@ -3,6 +3,7 @@ export class Register {
     registerId!: number;
     clientName!: string;
     projectName!: string;
+    lpsName!: string;
     name!: String;
     companyName!: String;
     username!: String;
@@ -31,9 +32,6 @@ export class Register {
     userType!: String;
     siteId!: Number;
     personId!: Number;
-   // license!:License[];
-    // lpsclientName!: String;
-    // lpsProjectName!: String;
     selectedProject!:string;
 }
 

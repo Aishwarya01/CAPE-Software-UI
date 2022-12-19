@@ -784,9 +784,23 @@ export class MainNavComponent implements OnInit, OnDestroy {
     this.applicationService.retrieveApplicationTypesBasedOnUser(email).subscribe(
       data => {
         this.applicationTypesbasedonuser = data.applicationType;
-        if (this.applicationTypesbasedonuser != null) {
-          this.ApplicationTypesSplit = this.applicationTypesbasedonuser.split(',');
-         
+        
+        if (this.applicationTypesbasedonuser != null && (data.permission !='YES' || data.permission != 'Yes' )) {
+
+          //this.ApplicationTypesSplit = this.applicationTypesbasedonuser.split(',');
+          this.ApplicationTypesSplit = [];
+           for(let application of this.applicationTypesbasedonuser.split(',')){
+            for(let permission of data.permission.split(',')){
+              if (application == permission.split('-')[0] &&  permission.split('-')[1] == 'U') {
+                this.ApplicationTypesSplit.push(application);
+            } 
+          }
+        }
+        }
+        else{
+          for(let application of this.applicationTypesbasedonuser.split(',')){
+            this.ApplicationTypesSplit.push(application);
+          }
         }
       }
     );

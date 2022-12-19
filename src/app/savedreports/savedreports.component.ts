@@ -254,7 +254,6 @@ export class SavedreportsComponent implements OnInit {
   }
 
   navigateToSite(data: any) {
-    debugger
     const dialogRef = this.dialog.open(SiteaddComponent, {
       width: '1000px',
       maxHeight: '90vh',

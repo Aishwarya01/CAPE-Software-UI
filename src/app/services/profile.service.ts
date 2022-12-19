@@ -13,8 +13,8 @@ export class ProfileService {
   apiUrl = environment.apiUrl_EMC_LV;
   constructor ( private http: HttpClient) { }
   
-  public  updateRegister (register: Register): Observable<any> {
-    return this.http.put<any>(this.apiUrl+'/updateRegistration' +'/'+ false, register, { responseType: 'text' as 'json' })
+  public  updateRegister (register: Register,adminApproveRequired:boolean): Observable<any> {
+    return this.http.put<any>(this.apiUrl+'/updateRegistration' +'/'+ adminApproveRequired, register, { responseType: 'text' as 'json' })
   }
 
   public getUser (email: String): Observable<any> {

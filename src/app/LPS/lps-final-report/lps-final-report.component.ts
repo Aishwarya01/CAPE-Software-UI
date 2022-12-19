@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalsService } from 'src/app/globals.service';
+import { LicenselistComponent } from 'src/app/licenselist/licenselist.component';
 import { BasicDetails } from 'src/app/LPS_model/basic-details';
 import { FinalPdfServiceService } from 'src/app/LPS_services/final-pdf-service.service';
 import { LPSBasicDetailsService } from 'src/app/LPS_services/lpsbasic-details.service';
@@ -80,7 +81,8 @@ export class LpsFinalReportComponent implements OnInit {
               private ChangeDetectorRef: ChangeDetectorRef,
               private welcome: LpsWelcomePageComponent,
               private finalpdf: FinalPdfServiceService,public service: GlobalsService,
-              private modalService: NgbModal) { 
+              private modalService: NgbModal,
+              public licenselist: LicenselistComponent) { 
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
 
@@ -192,12 +194,17 @@ export class LpsFinalReportComponent implements OnInit {
    }
 
    continue(basicLpsId:any){
-    this.finalReportBody = false;
-    this.finalReportSpinner = true;
-    this.spinnerValue = "Please wait, the details are loading!";
-    this.service.allFieldsDisable = true;
-    this.callFinalMethod.emit(basicLpsId);
-    //this.matstepper.preview(basicLpsId);
+    if(this.service.triggerMsgForLicense=='lpsPage'){
+      this.licenselist.viewLpsData(basicLpsId);
+    }
+    else{
+      this.finalReportBody = false;
+      this.finalReportSpinner = true;
+      this.spinnerValue = "Please wait, the details are loading!";
+      this.service.allFieldsDisable = true;
+      this.callFinalMethod.emit(basicLpsId);
+      //this.matstepper.preview(basicLpsId);
+    }
    }
 
   emailPDF(basicLpsId:any,userName:any, projectName: any){
