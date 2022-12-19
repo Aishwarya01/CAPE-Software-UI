@@ -1,4 +1,7 @@
 <mat-tab-group [selectedIndex]="selectedIndex" style="background-color:white;" #tabs>
+  <div *ngIf="globalError" style="text-align: center;">
+    <span class="alert alert-danger">{{globalErrorMsg}}</span>
+  </div>
     <mat-tab label="Risk Assessment"> 
       <mat-horizontal-stepper [linear]="service.isLinear" #stepper [selectedIndex]="selectedIndexStepper">
     <!-- Step-1 Customer Details -->

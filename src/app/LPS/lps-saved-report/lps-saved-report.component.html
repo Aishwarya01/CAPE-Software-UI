@@ -1,5 +1,8 @@
 <div class="card">
     <div class="card-body">
+      <div *ngIf="globalError" style="text-align: center;">
+        <span class="alert alert-danger">{{globalErrorMsg}}</span>
+      </div>
        <!-- Filter Tag -->
        <mat-form-field appearance="standard" style=" font-size: 14px;width: 30%;">
         <mat-label>Filter Client</mat-label>

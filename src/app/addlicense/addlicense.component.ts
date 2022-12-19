@@ -52,9 +52,9 @@ export class AddlicenseComponent implements OnInit {
         this.navigateAssignViewer();
       },  
       error => {
-        let errorArr=[];
-        errorArr=JSON.parse(error.error);
-        this.errorMsg=errorArr;
+        // let errorArr=[];
+        // errorArr=JSON.parse(error.error);
+        this.errorMsg=this.service.globalErrorMsg;
       })
   }
 

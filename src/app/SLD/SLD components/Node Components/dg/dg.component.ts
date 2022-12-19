@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { GlobalsService } from 'src/app/globals.service';
 import { DieselGenerator } from 'src/app/SLD/SLD Models/DG';
 import { DGFileUploadServiceService } from 'src/app/SLD/SLD Services/DG-file-upload-service.service';
 import { DGServicesService } from 'src/app/SLD/SLD Services/DG-service.service';
@@ -59,7 +60,8 @@ export class DGComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private dieselGeneratorService: DGServicesService,
     private dgFileUploadServiceService: DGFileUploadServiceService,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog,
+    private service: GlobalsService) { }
 
   ngOnInit(): void {
     this.dieselGeneratorForm = this.formBuilder.group({
@@ -329,8 +331,8 @@ export class DGComponent implements OnInit {
         },
         error => {
           this.error = true;
-          this.errorData = JSON.parse(error.error);
-          this.errorMsg = this.errorData.message;
+          // this.errorData = JSON.parse(error.error);
+          this.errorMsg = this.service.globalErrorMsg;
           setTimeout(() => {
             this.error = false;
             this.errorMsg = ""
@@ -363,8 +365,8 @@ export class DGComponent implements OnInit {
         },
         error => {
           this.error = true;
-          this.errorData = JSON.parse(error.error);
-          this.errorMsg = this.errorData.message;
+          // this.errorData = JSON.parse(error.error);
+          this.errorMsg = this.service.globalErrorMsg;
           setTimeout(() => {
             this.error = false;
             this.errorMsg = ""

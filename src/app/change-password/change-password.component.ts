@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { GlobalsService } from '../globals.service';
 import { ChangePassword } from '../model/changepassword';
 import { ChangePasswordService } from '../services/change-password.service';
 
@@ -31,7 +32,8 @@ export class ChangePasswordComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: ActivatedRoute,
     private route: Router,
-    private changepasswordservice: ChangePasswordService
+    private changepasswordservice: ChangePasswordService,
+    private service: GlobalsService
     ) {
       this.changePassword.email=this.router.snapshot.paramMap.get('email') || '{}'
     }
@@ -68,9 +70,9 @@ export class ChangePasswordComponent implements OnInit {
         }, 3000);
         },error => {
           this.showErrorMessage1 = true;
-          this.errorArr = [];
-          this.errorArr = JSON.parse(error.error);
-          this.showErrorMessage1 = this.errorArr.message;
+          // this.errorArr = [];
+          // this.errorArr = JSON.parse(error.error);
+          this.showErrorMessage1 = this.service.globalErrorMsg;
           setTimeout(() => {
            this.showErrorMessage1 = false;
           }, 3000);

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { GlobalsService } from 'src/app/globals.service';
 import { CableConnector } from 'src/app/SLD/SLD Models/cableConnector';
 import { CableConnectorServicesService } from 'src/app/SLD/SLD Services/cableConnector-service.service';
 
@@ -42,7 +43,8 @@ export class CableConnectorComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
     private cableConnectorService: CableConnectorServicesService,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog,
+    private service: GlobalsService) { }
 
   ngOnInit(): void {
     this.cableConnectorForm = this.formBuilder.group({
@@ -300,8 +302,8 @@ saveCableConnector(cableConnectorFlag: any) {
         },
         error => {
           this.error = true;
-          this.errorData = JSON.parse(error.error);
-          this.errorMsg = this.errorData.message;
+          // this.errorData = JSON.parse(error.error);
+          this.errorMsg = this.service.globalErrorMsg;
           setTimeout(() => {
             this.error = false;
             this.errorMsg = ""
@@ -334,8 +336,8 @@ saveCableConnector(cableConnectorFlag: any) {
         },
         error => {
           this.error = true;
-          this.errorData = JSON.parse(error.error);
-          this.errorMsg = this.errorData.message;
+          // this.errorData = JSON.parse(error.error);
+          this.errorMsg = this.service.globalErrorMsg;
           setTimeout(() => {
             this.error = false;
             this.errorMsg = ""

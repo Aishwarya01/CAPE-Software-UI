@@ -119,6 +119,13 @@ export class EmcFinalReportComponent implements OnInit {
           this.emcData = [];
           this.finalReport_dataSource.paginator = this.finalReportPaginator;
           this.finalReport_dataSource.sort = this.finalReportSort;
+        },
+        error=>{
+          this.Error = true;
+          this.errorMsg = this.service.globalErrorMsg;
+          setTimeout(()=>{
+            this.Error = false;
+          }, 20000);
         });
         this.superAdminFlag = false;
     }
@@ -137,7 +144,14 @@ export class EmcFinalReportComponent implements OnInit {
           this.emcData = [];
           this.finalReport_dataSource.paginator = this.finalReportPaginator;
           this.finalReport_dataSource.sort = this.finalReportSort;
-        });
+        },
+        error=>{
+          this.Error = true;
+          this.errorMsg = this.service.globalErrorMsg;
+          setTimeout(()=>{
+            this.Error = false;
+          }, 20000);
+      });
     }
     
 }
@@ -223,12 +237,12 @@ downloadPdf(emcId: any,userName: any, clientName: any): any {
   },
   error => {
     this.Error = true;
-    this.errorArr = [];
-    this.errorArr = JSON.parse(error.error);
-    this.errorMsg = this.errorArr.message;
+    // this.errorArr = [];
+    // this.errorArr = JSON.parse(error.error);
+    this.errorMsg = this.service.globalErrorMsg;
     setTimeout(()=>{
       this.Error = false;
-  }, 3000);
+    }, 3000);
   }
     );
 }

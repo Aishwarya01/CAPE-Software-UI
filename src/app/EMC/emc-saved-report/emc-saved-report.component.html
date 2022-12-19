@@ -1,7 +1,9 @@
 <div class="card">
 
   <div class="card-body">
-
+      <div *ngIf="Error" style="text-align: center;">
+        <span class="errorshow">{{errorMsg}}</span>
+      </div>
     <!-- Filter Tag -->
     <mat-form-field appearance="standard" style=" font-size: 14px;width: 30%;">
       <mat-label>Filter Client</mat-label>
@@ -9,6 +11,7 @@
     </mat-form-field>
 
     <span *ngIf="deleteSuccess" class="successshow" style="margin-left: 120px;">{{deleteSuccessMsg}}</span>
+    <span *ngIf="deleteError" class="errorshow" style="margin-left: 120px;">{{deleteErrorMsg}}</span>
 
     <mat-progress-spinner style="margin: 0 auto;" *ngIf="savedReportSpinner"
     color="primary"

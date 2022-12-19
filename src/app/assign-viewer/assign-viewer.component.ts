@@ -599,6 +599,13 @@ createNewGroup(item: any): FormGroup{
                   }
                 },
                 (error) =>{
+                  this.errorMsgflag = true;
+                  this.errorMsg = this.globalService.globalErrorMsg;
+                  this.onSubmitSite1.emit(false);
+                  setTimeout(() => {
+                    this.errorMsgflag = false;
+                    this.errorMsg = " ";
+                  }, 3000);
                 });
             }
             else if (this.globalService.triggerMsgForLicense == 'lpsPage') {
@@ -627,6 +634,13 @@ createNewGroup(item: any): FormGroup{
                   }
                 },
                 (error) =>{
+                  this.errorMsgflag = true;
+                  this.errorMsg = this.globalService.globalErrorMsg;
+                  this.onSubmitSite1.emit(false);
+                  setTimeout(() => {
+                    this.errorMsgflag = false;
+                    this.errorMsg = " ";
+                  }, 3000);
                 })
             }
           }
@@ -644,9 +658,9 @@ createNewGroup(item: any): FormGroup{
         },
         (error) => {
           this.Error = true;
-          let errorArr = [];
-          errorArr = JSON.parse(error.error);
-          this.errorMsg1 = errorArr.message;
+          // let errorArr = [];
+          // errorArr = JSON.parse(error.error);
+          this.errorMsg1 = this.globalService.globalErrorMsg;
           this.showAssign = false;
           this.showRegister = true;
           this.viewerFlag = true;
@@ -923,7 +937,13 @@ createNewGroup(item: any): FormGroup{
                 }, 2000);
               },
               error => {
-                // console.log(error);
+                this.errorMsgflag = true;
+                this.errorMsg = this.globalService.globalErrorMsg;
+                this.onSubmitSite1.emit(false);
+                setTimeout(() => {
+                  this.errorMsgflag = false;
+                  this.errorMsg = " ";
+                }, 3000);
               });
           }
           else if(this.globalService.triggerMsgForLicense == "lpsPage") {
@@ -941,7 +961,13 @@ createNewGroup(item: any): FormGroup{
                 this.navigateToLpsBasivPage(this.register);
               },
               error => {
-                // console.log(error);
+                this.errorMsgflag = true;
+                this.errorMsg = this.globalService.globalErrorMsg;
+                this.onSubmitSite1.emit(false);
+                setTimeout(() => {
+                  this.errorMsgflag = false;
+                  this.errorMsg = " ";  
+                }, 3000);
               });
           }
           // setTimeout(()=>{
@@ -951,7 +977,7 @@ createNewGroup(item: any): FormGroup{
         error => {
           this.loading = false;
           this.errorMsgflag = true;
-          this.errorMsg = error.error.message;
+          this.errorMsg = this.globalService.globalErrorMsg;
           this.onSubmitSite1.emit(false);
           setTimeout(() => {
             this.errorMsgflag = false;

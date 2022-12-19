@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   user = new User();
-  showErrorMessage=false;
+  showErrorMessage:any;
   USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser';
   public token: string = '';
   
@@ -89,13 +89,15 @@ export class LoginComponent implements OnInit {
         }
       },
       error => {
-        if(error.error.error == 'Unauthorized'){
-          error.error.error = 'Invalid Credentials';
-          this.showErrorMessage=error.error.error;
-        } else{
-          this.showErrorMessage=error.error.message;
+        // if(error.error.error == 'Unauthorized'){
+        //   error.error.error = 'Invalid Credentials';
+        //   this.showErrorMessage=error.error.error;
+        // } else{
+        //   this.showErrorMessage=error.error.message;
+        // }
+        if(this.service.globalErrorMsg="Unauthorized"){
+          this.showErrorMessage="Invalid Credentials";
         }
-        
         this.loading=false;
       }
     )

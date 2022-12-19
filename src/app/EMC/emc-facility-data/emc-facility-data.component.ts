@@ -492,9 +492,9 @@ export class EmcFacilityDataComponent implements OnInit {
               this.popup=true;
               this.spinner=false;
               this.Error = true;
-              this.errorArr = [];
-              this.errorArr = JSON.parse(error.error);
-              this.errorMsg = this.errorArr.message;
+              // this.errorArr = [];
+              // this.errorArr = JSON.parse(error.error);
+              this.errorMsg = this.service.globalErrorMsg;
               this.proceedNext.emit(false);
             });
       }
@@ -522,9 +522,9 @@ export class EmcFacilityDataComponent implements OnInit {
           this.popup=true;
           this.spinner=false;
           this.Error = true;
-          this.errorArr = [];
-          this.errorArr = JSON.parse(error.error);
-          this.errorMsg = this.errorArr.message;
+          // this.errorArr = [];
+          // this.errorArr = JSON.parse(error.error);
+          this.errorMsg = this.service.globalErrorMsg;
           this.service.isCompleted2= false;
           this.service.isLinear=true;
           this.proceedNext.emit(false);

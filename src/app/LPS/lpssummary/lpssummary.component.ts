@@ -5019,9 +5019,9 @@ SignatureDesigner1(){
             this.popup1=true;
             this.finalSpinner=false;
             this.Error = true;
-            this.errorArr = [];
-            this.errorArr = JSON.parse(error.error);
-            this.errorMsg = this.errorArr.message;
+            // this.errorArr = [];
+            // this.errorArr = JSON.parse(error.error);
+            this.errorMsg = this.service.globalErrorMsg;
         })
       }
 
@@ -5057,9 +5057,9 @@ SignatureDesigner1(){
             this.finalSpinner=false;
             this.popup1=true;
             this.Error = true;
-            this.errorArr = [];
-            this.errorArr = JSON.parse(error.error);
-            this.errorMsg = this.errorArr.message;
+            // this.errorArr = [];
+            // this.errorArr = JSON.parse(error.error);
+            this.errorMsg = this.service.globalErrorMsg;
 
           }
         )};

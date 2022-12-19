@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { GlobalsService } from 'src/app/globals.service';
 import { PortableAppliance } from 'src/app/SLD/SLD Models/portable-appliance';
 import { Transformer } from 'src/app/SLD/SLD Models/transformer';
 import { PortableApplianceServicesService } from 'src/app/SLD/SLD Services/portable-appliance-services.service';
@@ -56,7 +57,8 @@ export class TransformerComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private transformerService: TransformerServicesService,
     private transformerFileUploadServiceService: TransformerFileUploadServiceService,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog,
+    private service: GlobalsService) { }
 
   ngOnInit(): void {
     this.transformerForm = this.formBuilder.group({
@@ -327,8 +329,8 @@ export class TransformerComponent implements OnInit {
         },
         error => {
           this.error = true;
-          this.errorData = JSON.parse(error.error);
-          this.errorMsg = this.errorData.message;
+          // this.errorData = JSON.parse(error.error);
+          this.errorMsg = this.service.globalErrorMsg;
           setTimeout(() => {
             this.error = false;
             this.errorMsg = ""
@@ -357,8 +359,8 @@ export class TransformerComponent implements OnInit {
         },
         error => {
           this.error = true;
-          this.errorData = JSON.parse(error.error);
-          this.errorMsg = this.errorData.message;
+          // this.errorData = JSON.parse(error.error);
+          this.errorMsg = this.service.globalErrorMsg;
           setTimeout(() => {
             this.error = false;
             this.errorMsg = ""

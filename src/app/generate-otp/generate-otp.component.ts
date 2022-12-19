@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { GlobalsService } from '../globals.service';
 import { InspectorregisterService } from '../services/inspectorregister.service';
 
 @Component({
@@ -27,7 +28,8 @@ export class GenerateOtpComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private router: ActivatedRoute,
               private route: Router,
-              private inspectorRegisterService: InspectorregisterService) {  
+              private inspectorRegisterService: InspectorregisterService,
+              private service: GlobalsService) {  
   this.email=this.router.snapshot.paramMap.get('email') || '{}'
   }
 
@@ -70,10 +72,10 @@ export class GenerateOtpComponent implements OnInit {
         }, 5000);
       },
       error => {
-        let errorArr = JSON.parse(error.error);
+        // let errorArr = JSON.parse(error.error);
         this.loading=false;
         this.showErrorMessage=true;
-        this.errorMsg =errorArr.message;
+        this.errorMsg =this.service.globalErrorMsg;
         setTimeout(()=>{
           this.showErrorMessage=false;
           this.errorMsg = "";

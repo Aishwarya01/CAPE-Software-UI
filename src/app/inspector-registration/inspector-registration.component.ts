@@ -8,6 +8,7 @@ import { InspectorregisterService } from '../services/inspectorregister.service'
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { GlobalsService } from '../globals.service';
 
 
 @Component({
@@ -48,7 +49,7 @@ export class InspectorRegistrationComponent implements OnInit {
   applicationTypeData: any="";
   register = new Register;
   successMsgOTP: boolean=false;
-  errorMsg: any;
+  errorMsg: string="";
   errorMsgflag: boolean=false;
   successMsg: string="";
   isEnabled: boolean = false;
@@ -65,7 +66,7 @@ export class InspectorRegistrationComponent implements OnInit {
               private siteService: SiteService,
               private applicationService: ApplicationTypeService,
               private inspectorRegisterService: InspectorregisterService,
-              private router: Router,
+              private router: Router, private service: GlobalsService
               ) { }
 
   ngOnInit(): void {
@@ -296,11 +297,10 @@ onSubmit() {
     error => {
       this.loading= false;
       this.errorMsgflag=true;
-      this.errorMsg = JSON.parse(error.error);
-      this.errorMsg=this.errorMsg.message;
+      this.errorMsg=this.service.globalErrorMsg;
       setTimeout(()=>{ 
         this.errorMsgflag=false;
-        this.errorMsg=" ";
+        this.errorMsg="";
       }, 3000);
     }
   )

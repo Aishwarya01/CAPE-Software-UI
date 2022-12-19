@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SwitchBoard } from 'src/app/SLD/SLD Models/switchBoard';
 import { TransformerFileUploadServiceService } from 'src/app/SLD/SLD Services/transformer-file-upload-service.service';
 import { SwitchBoardServicesService } from 'src/app/SLD/SLD Services/switchBoard-service.service';
+import { GlobalsService } from 'src/app/globals.service';
 
 @Component({
   selector: 'app-switch-boards',
@@ -54,7 +55,8 @@ fileSuccessFlag: boolean = false;
 constructor(private formBuilder: FormBuilder,
   private switchBoardService: SwitchBoardServicesService,
   private transformerFileUploadServiceService: TransformerFileUploadServiceService,
-  private dialog: MatDialog) { }
+  private dialog: MatDialog,
+  private service: GlobalsService) { }
 
 ngOnInit(): void {
   this.switchBoardForm = this.formBuilder.group({
@@ -361,8 +363,8 @@ saveSwitchBoard(switchBoardFlag: any) {
       },
       error => {
         this.error = true;
-        this.errorData = JSON.parse(error.error);
-        this.errorMsg = this.errorData.message;
+        // this.errorData = JSON.parse(error.error);
+        this.errorMsg = this.service.globalErrorMsg;
         setTimeout(() => {
           this.error = false;
           this.errorMsg = ""
@@ -391,8 +393,8 @@ saveSwitchBoard(switchBoardFlag: any) {
       },
       error => {
         this.error = true;
-        this.errorData = JSON.parse(error.error);
-        this.errorMsg = this.errorData.message;
+        // this.errorData = JSON.parse(error.error);
+        this.errorMsg = this.service.globalErrorMsg;
         setTimeout(() => {
           this.error = false;
           this.errorMsg = ""
