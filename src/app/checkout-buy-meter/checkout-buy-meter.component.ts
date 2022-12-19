@@ -17,7 +17,8 @@ export class CheckoutBuyMeterComponent implements OnInit {
   viewEmployee: boolean = false;
   userName: any;
   modelReference: any;
-
+  item:number=0;
+  total:number=0;
   @Output() checkoutTotal: EventEmitter<any> = new EventEmitter();
 
 
@@ -75,5 +76,8 @@ export class CheckoutBuyMeterComponent implements OnInit {
   }
   onCancel(){
     this.modelReference.close();
+  }
+  payment(paymentTemplate : any){
+   this.modelReference = this.modalService.open(paymentTemplate,{centered:true,size: "sm"})
   }
 }
