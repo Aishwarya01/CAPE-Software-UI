@@ -139,9 +139,9 @@ export class LpsBasicPageComponent implements OnInit {
       mailId:new FormControl('', [Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       availabilityOfPreviousReport:new FormControl('', Validators.required),
       // license purpose 
-      email1:new FormControl(''),
+      inspectorEmail:new FormControl(''),
       inspectorName:new FormControl(''),
-      contact1:new FormControl(''),
+      inspectorContact:new FormControl(''),
 
       fileName: new FormControl(''),
       basicLpsId: new FormControl(''),
@@ -198,9 +198,9 @@ export class LpsBasicPageComponent implements OnInit {
          [Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       availabilityOfPreviousReport: new FormControl({disabled: false, value: item.availabilityOfPreviousReport}, Validators.required),
       // License Purpose
-      email1:new FormControl(''),
+      inspectorEmail:new FormControl(''),
       inspectorName:new FormControl(''),
-      contact1:new FormControl(''),
+      inspectorContact:new FormControl(''),
       
       basicLpsId: new FormControl({disabled: false, value: item.basicLpsId}),
       fileId: new FormControl({disabled: false, value: item.fileId}),
@@ -505,7 +505,7 @@ export class LpsBasicPageComponent implements OnInit {
     this.basicDetails.mailId = this.LPSBasicForm.value.lpsBasic[0].mailId;
     this.basicDetails.availabilityOfPreviousReport = this.LPSBasicForm.value.lpsBasic[0].availabilityOfPreviousReport;
     this.basicDetails.userName = this.router.snapshot.paramMap.get('email') || '{}';
-
+    this.basicDetails.inspectorName = this.LPSBasicForm.value.lpsBasic[0].inspectorName;
     this.basicDetails.fileName = this.fileName;
     this.basicDetails.fileId = this.fileId;
     this.basicDetails.fileSize = this.fileSize;

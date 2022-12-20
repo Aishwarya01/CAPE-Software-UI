@@ -211,13 +211,13 @@
                                 <i class="bi bi-envelope-fill"></i>
                             </span>
                         </div>
-                        <input type="text" class="form-control" formControlName="email1" [ngModel]="currentUsermail" readonly/>
+                        <input type="text" class="form-control" formControlName="inspectorEmail" [ngModel]="currentUsermail" readonly/>
                     </div>
                 </div>
 
                 <div class="col-md-4">
-                    <label for="contact1">Contact Number</label>
-                    <input type="tel" class="form-control" formControlName="contact1" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" [ngModel]="currentUserPhone" readonly/>
+                    <label for="inspectorContact">Contact Number</label>
+                    <input type="tel" class="form-control" formControlName="inspectorContact" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" [ngModel]="currentUserPhone" readonly/>
                 </div>
 
             </div>

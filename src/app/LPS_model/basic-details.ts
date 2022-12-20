@@ -26,7 +26,7 @@ export class BasicDetails {
 	updatedDate!: Date;
     updatedBy!: String;
     status!: String;
-    email1!: String;
+    inspectorEmail!: String;
     inspectorName!: String;
     data!:FormData;
 }
