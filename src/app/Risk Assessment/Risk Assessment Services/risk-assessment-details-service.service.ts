@@ -20,8 +20,8 @@ export class RiskAssessmentDetailsServiceService {
     return this.http.post<RiskAssessmentDetails>(this.apiUrl1 + '/risk/saveRiskAssessmentDetails', riskAssessmentDetails, { responseType: 'text' as 'json' })
   }
 
-  public updateRiskAssessmentDetails(riskAssessmentDetails: RiskAssessmentDetails): Observable<any> {
-    return this.http.put<any>(this.apiUrl1 + '/risk/updateRiskAssessmentDetails', riskAssessmentDetails, { responseType: 'text' as 'json' })
+  public updateRiskAssessmentDetails(riskAssessmentDetails: RiskAssessmentDetails,buttonName:String): Observable<any> {
+    return this.http.put<any>(this.apiUrl1 + '/risk/updateRiskAssessmentDetails' + '/' +buttonName,riskAssessmentDetails, { responseType: 'text' as 'json' })
   }
 
   public retriveRiskAssessmentDetails(userName: String,riskId:any): Observable<any>{

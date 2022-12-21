@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { MatTab, MatTabGroup, MatTabHeader } from '@angular/material/tabs';
 import { ActivatedRoute } from '@angular/router';
+import { debug } from 'console';
 import { flag } from 'ngx-bootstrap-icons';
 import { ConfirmationBoxComponent } from 'src/app/confirmation-box/confirmation-box.component';
 import { GlobalsService } from 'src/app/globals.service';
@@ -70,7 +71,7 @@ export class RiskParentComponentComponent implements OnInit {
     this.riskGlobal.riskId=0;
     this.refresh();
     this.presentSteppr(this.stepper);
-    // this.tabs._handleClick = this.interceptTabChange.bind(this);
+    this.tabs._handleClick = this.interceptTabChange.bind(this);
     
   }
 
@@ -93,6 +94,7 @@ export class RiskParentComponentComponent implements OnInit {
     this.service.isLinear=false;
     this.service.isCompleted2 = next;
     this.saved.ngOnInit();
+    this.final.ngOnInit();
   }
 
   navigateStep(index: any) {
@@ -110,6 +112,7 @@ export class RiskParentComponentComponent implements OnInit {
     this.riskStep2.updateButton=true;
     this.riskStep2.saveButton=false;
     this.selectedIndex=1;
+    this.isEditable=false;
     this.changeTabRiskSavedReport(0,riskId,this.router.snapshot.paramMap.get('email') || '{}','','');
     setTimeout(() => {
       this.saved.spinner=false;
@@ -158,8 +161,8 @@ export class RiskParentComponentComponent implements OnInit {
      setTimeout(() => {
        this.customerDetailsService.retrieveFinalRisk(userName, riskId).subscribe(
         (data) => {
-          // this.final.finalReportSpinner = false;
-          // this.final.finalReportBody = true;
+          this.final.finalReportSpinner = false;
+          this.final.finalReportBody = true;
           this.dataJSON = JSON.parse(data);
           //CustomerDetails
           if (this.dataJSON.customerDetails != null) {
@@ -180,7 +183,7 @@ export class RiskParentComponentComponent implements OnInit {
             }
           }  
           else {
-            this.riskStep2.enablePrint = false;
+            this.riskStep2.enableSubmit = false;
           }
         },
         (error) => {
@@ -192,21 +195,21 @@ export class RiskParentComponentComponent implements OnInit {
           }, 10000);
         })
       }, 3000);
-   }
+  }
 
-   isForm1Valid(){
-     if(this.customerDetails.CustomerDetailsForm.invalid && this.customerDetails.customerDetailsModel.contactNumber==null && this.customerDetails.customerDetailsModel.contactNumber==undefined && this.customerDetails.customerDetailsModel.contactNumber==""){
-      this.riskGlobal.isCustomerDetailsValid=true;
-      this.customerDetails.isStep1Valid();
-     }
-     else if(this.customerDetails.CustomerDetailsForm.invalid && this.customerDetails.customerDetailsModel.contactNumber!=null && this.customerDetails.customerDetailsModel.contactNumber!=undefined && this.customerDetails.customerDetailsModel.contactNumber!=""){
-      this.riskGlobal.isCustomerDetailsValid=true;
-      this.customerDetails.isStep1Valid();
-     }
-     else{
-      this.riskGlobal.isCustomerDetailsValid=false;
-     }
-   }
+  isForm1Valid(){
+    if(this.customerDetails.CustomerDetailsForm.invalid && this.customerDetails.customerDetailsModel.contactNumber==null && this.customerDetails.customerDetailsModel.contactNumber==undefined && this.customerDetails.customerDetailsModel.contactNumber==""){
+     this.riskGlobal.isCustomerDetailsValid=true;
+     this.customerDetails.isStep1Valid();
+    }
+    else if(this.customerDetails.CustomerDetailsForm.invalid && this.customerDetails.customerDetailsModel.contactNumber!=null && this.customerDetails.customerDetailsModel.contactNumber!=undefined && this.customerDetails.customerDetailsModel.contactNumber!=""){
+     this.riskGlobal.isCustomerDetailsValid=true;
+     this.customerDetails.isStep1Valid();
+    }
+    else{
+     this.riskGlobal.isCustomerDetailsValid=false;
+    }
+  }
 
 
   initializeRiskId(){
@@ -217,6 +220,9 @@ export class RiskParentComponentComponent implements OnInit {
     this.riskGlobal.projectName = this.customerDetails.customerDetailsModel.projectName;
     this.riskGlobal.migData=this.customerDetails.customerDetailsModel.createdBy;
     this.riskGlobal.organisationName=this.customerDetails.customerDetailsModel.organisationName;
+    // Disabling all the fields for both components 
+    this.customerDetails.isEditable=this.isEditable;
+    this.riskStep2.isEditable=this.isEditable;
   }
 
   triggerClickTab(event:any){
@@ -236,6 +242,100 @@ export class RiskParentComponentComponent implements OnInit {
   goBack(stepper: MatStepper) {
     if(this.riskStep2.reloadFromBack()){
       stepper.previous();
+    }
+  }
+
+  interceptTabChange(tab: MatTab, tabHeader: MatTabHeader) {
+
+    if((this.service.lpsClick==1 && !this.isEditable) || (this.customerDetails.CustomerDetailsForm.dirty || this.riskStep2.step2Form.dirty))
+       {
+        const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+          width: '420px',
+          maxHeight: '90vh',
+          disableClose: true,
+        });
+        dialogRef.componentInstance.editModal = false;
+        dialogRef.componentInstance.viewModal = false;
+
+        if(this.customerDetails.fileFlag || this.riskStep2.fileFlag){
+          dialogRef.componentInstance.triggerModal1 = true;
+        }
+
+        else {
+          dialogRef.componentInstance.triggerModal = true;
+        }
+
+        dialogRef.componentInstance.linkModal = false;
+        dialogRef.componentInstance.summaryModal = false;
+    
+        dialogRef.componentInstance.confirmBox.subscribe(data=>{
+          if(data) {
+            if(tab.textLabel == "Saved Reports"){
+              this.selectedIndex=1; 
+              this.riskGlobal.riskId = 0;
+
+              // Making all forms as untouched or printine state
+              this.customerDetails.CustomerDetailsForm.markAsPristine();
+              this.riskStep2.step2Form.markAsPristine();
+
+              // Removing form data
+              this.step1 = false;
+              this.step2 = false;
+              setTimeout(() => {
+                this.step1 = true;
+                this.step2 = true;
+              }, 1000);
+              this.isEditable;
+            }
+            else if(tab.textLabel == "Final Reports"){
+              this.selectedIndex=2; 
+              this.riskGlobal.riskId = 0;
+
+              // Making all forms as untouched or printine state
+              this.customerDetails.CustomerDetailsForm.markAsPristine();
+              this.riskStep2.step2Form.markAsPristine();
+              this.isEditable;
+
+              // Removing form data
+              this.step1 = false;
+              this.step2 = false;
+              setTimeout(() => {
+                this.step1 = true;
+                this.step2 = true;
+              }, 1000);
+            }
+            else if(tab.textLabel=="Risk Assessment"){
+              this.selectedIndex=0;
+              this.riskGlobal.riskId = 0;
+            }
+            this.service.windowTabClick=0;
+            this.service.logoutClick=0; 
+            this.service.lpsClick=0; 
+          }
+          else{
+            return;
+          }
+        })
+      }
+    else if(((this.service.lpsClick==0) || (this.service.allStepsCompleted== true) && this.isEditable) || this.customerDetails){
+        this.service.windowTabClick=0;
+        this.service.logoutClick=0;
+        this.service.lpsClick=0; 
+        const tabs = tab.textLabel;
+        if((tabs==="Risk Assessment"))  {
+             this.selectedIndex=0; 
+          }
+          else if((tabs==="Saved Reports")){
+            this.selectedIndex=1;
+            if(this.customerDetails.customerDetailsModel.riskId != undefined){
+              this.saved.retrieveCustomerDetails();
+              this.saved.disablepage=true;
+              this.service.triggerMsgForLicense="";
+            }
+          }    
+          else{
+            this.selectedIndex=2; 
+          }        
     }
   }
 }
