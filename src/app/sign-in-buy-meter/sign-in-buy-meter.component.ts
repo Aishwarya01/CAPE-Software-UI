@@ -17,6 +17,7 @@ export class SignInBuyMeterComponent implements OnInit {
   showPassword:boolean = false;
   showOtp:boolean = false;
   showBtn:boolean = true;
+  disableOtp:boolean = false;
   hideRegister:boolean = true;
   registerBuyMeterModel = new RegistrationBuyMeter();
   formInput = ['input1', 'input2', 'input3', 'input4', 'input5', 'input6'];
@@ -93,7 +94,12 @@ export class SignInBuyMeterComponent implements OnInit {
 
   // User name validation
   continue(){
+    this.submitted = true;
+    if(this.SignIn.invalid){
+     return
+  }
    this.userName = this.SignIn.controls.username.value;
+
    if(this.userName==null){
     this.showErrMsg1 ="Please Enter Username";
     this.showErrorMsg1 = true;
@@ -104,8 +110,6 @@ export class SignInBuyMeterComponent implements OnInit {
     }, 3000);
    }
    else{
-
-   
     this.regiterationBuymeterService.retriveRegistration(this.userName).subscribe(data=>{
       this.showPassword = true;
       this.hideRegister = false;
@@ -157,7 +161,7 @@ export class SignInBuyMeterComponent implements OnInit {
     this.showPassword = false;
     this.showBtn = false;
     this.userName = this.SignIn.controls.username.value;
-
+    
     this.regiterationBuymeterService.sendOtp(this.userName).subscribe((data:string)=>{
        
        this.showOtpMsg = true;
@@ -190,7 +194,7 @@ export class SignInBuyMeterComponent implements OnInit {
     this.registerBuyMeterModel.otpSession=this.OtpSession;
     
     this.regiterationBuymeterService.verifyOtp(this.registerBuyMeterModel).subscribe(data=>{
-      this.router.navigate(['/addtocart']);
+      this.router.navigate(['/buyMeter']);
      let registrationBuyMeter = new  RegistrationBuyMeter();
      registrationBuyMeter.mobileNumber = this.registerBuyMeterModel.username; //Here  username is contactNumber
       this.regiterationBuymeterService.authenticate(registrationBuyMeter).subscribe(data=>{
@@ -213,6 +217,10 @@ export class SignInBuyMeterComponent implements OnInit {
       this.registerBuyMeterModel.otpSession = data;
     })
 
+  }
+
+  disableOtpBtn(){
+    this.disableOtp = true;
   }
 
 }

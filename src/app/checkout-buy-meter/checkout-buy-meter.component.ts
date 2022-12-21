@@ -11,6 +11,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class CheckoutBuyMeterComponent implements OnInit {
 
+  
   checkOutForm!:FormGroup;
   productTotalForm!: FormGroup;
   registerBuyMeter = new RegistrationBuyMeter(); 
@@ -79,5 +80,9 @@ export class CheckoutBuyMeterComponent implements OnInit {
   }
   payment(paymentTemplate : any){
    this.modelReference = this.modalService.open(paymentTemplate,{centered:true,size: "sm"})
+   setTimeout(() => {
+    this.onCancel();
+   }, 3000);
   }
+
 }

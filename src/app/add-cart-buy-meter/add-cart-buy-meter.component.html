@@ -11,7 +11,7 @@
 
         <span class="Action" (click)="removeAllItem()">Remove all</span>
         <div class="dropdown" style="position: absolute;right:60px;">
-            <button mat-button style='color:rgb(0, 0, 7);margin-right:auto;' data-toggle="dropdown" class="btn btn-default dropdown-toggle"
+            <button mat-button style='color:rgb(0, 0, 7);' data-toggle="dropdown" class="btn btn-default dropdown-toggle"
             [matMenuTriggerFor]="cartMenu">
               <mat-icon style='font-size:25px;color:rgb(1, 1, 20);'>person</mat-icon>
             </button>
@@ -20,7 +20,6 @@
               <!-- <button mat-menu-item (click)="changePassword()">Change Password</button>    -->
               <button mat-menu-item (click)="meterLogout()">Log out</button> 
             </mat-menu>
-      
         </div>
     </div>
     <hr class="divider1">

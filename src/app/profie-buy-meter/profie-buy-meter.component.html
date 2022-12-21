@@ -1,7 +1,7 @@
 <div class="col-md-12 bg-image">
 
 <div class="container">
-    <h2>Account Details</h2>
+    <h2 style="margin-top: 20px;">Account Details</h2>
 <form [formGroup]="profileForm">
     <div class="row"> 
         <div class="col-md-4">
@@ -186,13 +186,13 @@
             </div>
      
 </form>
-<div style="margin-top: 20px;">
+<!-- <div style="margin-top: 20px;">
     <h2>Previous Order Details</h2>
     <table class="table table-striped">
         <thead>
             <tr>
                 <th>OrderID</th>
-                <th>Purchage date</th>
+                <th>Purchase date</th>
                 <th>Product details</th>
                 <th>Total amount</th>
                 <th>Payment mode</th>
@@ -236,7 +236,7 @@
             </tr>
         </tbody>
     </table>
-</div>
+</div> -->
 
 </div>
 </div>
@@ -256,9 +256,9 @@
                             <i class="bi bi-telephone-fill"></i>
                         </span>
                     </div>
-                    <input type="text" formControlName="mobileNumber" class="form-control" [ngClass]="{'is-invalid': submitted && g.mobileNumber.errors}">
-                    <div *ngIf="submitted && g.mobileNumber.errors" class="invalid-feedback">
-                        <div *ngIf="submitted && g.mobileNumber.errors">Contact Number is Required</div>
+                    <input type="text" formControlName="username" class="form-control" [ngClass]="{'is-invalid': submitted && g.username.errors}">
+                    <div *ngIf="submitted && g.usernameerrors" class="invalid-feedback">
+                        <div *ngIf="submitted && g.username.errors">Contact Number is Required</div>
                     </div>
                 </div>
             </div>

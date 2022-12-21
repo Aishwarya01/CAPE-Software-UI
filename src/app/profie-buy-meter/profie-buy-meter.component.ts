@@ -72,7 +72,7 @@ export class ProfieBuyMeterComponent implements OnInit {
     console.log(this.profileDetails);
 
     this.changeNumberForm = this.fb.group({
-      mobileNumber: new FormControl(''),
+      username: new FormControl(''),
       input1:[''],
       input2:[''],
       input3:[''],
@@ -123,7 +123,7 @@ export class ProfieBuyMeterComponent implements OnInit {
   }
 
   sendOtp(){
-    this.userName = this.changeNumberForm.controls.mobileNumber.value;
+    this.userName = this.changeNumberForm.controls.username.value;
 
     this.regiterationBuymeterService.sendOtp(this.userName).subscribe((data:string)=>{
        this.showOtpMsg = true;
@@ -159,7 +159,7 @@ export class ProfieBuyMeterComponent implements OnInit {
     this.regiterationBuymeterService.verifyOtp(this.registerBuyMeterModel).subscribe(data=>{
 
       this.SubmitSuccessMsg = true;
-      this.userName = this.changeNumberForm.controls.mobileNumber.value;
+      this.userName = this.changeNumberForm.controls.username.value;
       this.regiterationBuymeterService.updateContactNumber(this.userName).subscribe(data=>{
         
       })
