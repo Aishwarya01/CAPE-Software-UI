@@ -40,22 +40,6 @@
                   </div>
           
                   <div class="col-md-4">
-                    <label for="addres">Address</label>
-                      <div class="input-group">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">
-                              <i class="bi bi-person-lines-fill"></i>
-                          </span>
-                        </div>
-                        <input class="form-control" [readonly]="isEditable" type="text" formControlName="address" placeholder="Enter Address"
-                          [ngClass]="{ 'is-invalid': submitted && f.get('address')?.errors }"/>
-                            <div *ngIf="submitted && f.get('address')?.errors" class="invalid-feedback">
-                              <div *ngIf="f.get('address')?.errors?.required">Address is required</div>
-                            </div>
-                      </div>
-                  </div>
-          
-                  <div class="col-md-4">
                     <label for="project name">Project Name</label>
                       <div class="input-group">
                         <div class="input-group-prepend">
@@ -83,22 +67,6 @@
                           [ngClass]="{ 'is-invalid': submitted && f.get('projectDescription')?.errors }"/>
                             <div *ngIf="submitted && f.get('projectDescription')?.errors" class="invalid-feedback">
                               <div *ngIf="f.get('projectDescription')?.errors?.required">Project Description is required</div>
-                            </div>
-                      </div>
-                  </div>
-          
-                  <div class="col-md-4">
-                    <label for="contact name">Contact Person Name</label>
-                      <div class="input-group">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">
-                              <i class="bi bi-person-lines-fill"></i>
-                          </span>
-                        </div>
-                        <input class="form-control" type="text" [readonly]="isEditable" formControlName="contactPersonName" placeholder="Enter Contact Person Name"
-                          [ngClass]="{ 'is-invalid': submitted && f.get('contactPersonName')?.errors }"/>
-                            <div *ngIf="submitted && f.get('contactPersonName')?.errors" class="invalid-feedback">
-                              <div *ngIf="f.get('contactPersonName')?.errors?.required">Contact Person Name is required</div>
                             </div>
                       </div>
                   </div>
@@ -136,7 +104,23 @@
                   </div>
 
                   <div class="col-md-4">
-                    <label for="contact">Contact Number</label>
+                    <label for="contact name">Contact Person Name</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                              <i class="bi bi-person-lines-fill"></i>
+                          </span>
+                        </div>
+                        <input class="form-control" type="text" [readonly]="isEditable" formControlName="contactPersonName" placeholder="Enter Contact Person Name"
+                          [ngClass]="{ 'is-invalid': submitted && f.get('contactPersonName')?.errors }"/>
+                            <div *ngIf="submitted && f.get('contactPersonName')?.errors" class="invalid-feedback">
+                              <div *ngIf="f.get('contactPersonName')?.errors?.required">Contact Person Name is required</div>
+                            </div>
+                      </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <label for="contact">Contact Number (Optional)</label>
                         <input class="form-control" [readonly]="isEditable" (keypress)="keyPressNumbers($event)" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" formControlName="contactNumber" placeholder="Enter Contact Number"
                         (countryChange)="countryChange($event)" [ngClass]="{ 'is-invalid': submitted && f.get('contactNumber')?.errors }"/>
                           <div *ngIf="submitted && f.get('contactNumber')?.errors" class="invalid-feedback">
@@ -161,6 +145,22 @@
                             </div>
                       </div>
                   </div>
+
+                  <div class="col-md-4">
+                    <label for="addres">Address</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                              <i class="bi bi-person-lines-fill"></i>
+                          </span>
+                        </div>
+                        <input class="form-control" [readonly]="isEditable" type="text" formControlName="address" placeholder="Enter Address"
+                          [ngClass]="{ 'is-invalid': submitted && f.get('address')?.errors }"/>
+                            <div *ngIf="submitted && f.get('address')?.errors" class="invalid-feedback">
+                              <div *ngIf="f.get('address')?.errors?.required">Address is required</div>
+                            </div>
+                      </div>
+                  </div>
                 </div>
 
               </div>
@@ -170,7 +170,7 @@
               
           <div>
             <div style="text-align: center;margin-top: 40px;margin-left: 80px;">
-                <button class="next" (click)="gotoNextModal(content,contents)" mat-button>Next &raquo;</button>
+                <button class="next" (click)="gotoNextModal(content,contents)" mat-button [ngClass]="{'disableForm':isEditable}">Next &raquo;</button>
             </div>
             <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
               <span class="alert alert-danger">{{validationErrorMsg}}</span>

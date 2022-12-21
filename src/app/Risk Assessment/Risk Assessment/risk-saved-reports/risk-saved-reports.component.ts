@@ -147,7 +147,7 @@ export class RiskSavedReportsComponent implements OnInit {
       this.spinner=true;
       this.disablepage=false;
       this.spinnerValue = "Please wait, the details are loading!";
-      this.customerDetailsService.updateCustomerDetails(this.customerDetailsModel).subscribe(
+      this.customerDetailsService.deleteCustomerDetails(this.customerDetailsModel).subscribe(
         data => {
           this.deleteSuccess = true;
           this.deleteSuccessMsg = data;

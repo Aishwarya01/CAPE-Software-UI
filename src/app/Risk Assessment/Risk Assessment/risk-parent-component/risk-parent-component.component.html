@@ -16,7 +16,7 @@
             <div class="stepper-header-overlay" (click)="triggerClickTab($event)"></div>
             Risk Assessment Details
             </ng-template> 
-          <app-risk-assessment-details *ngIf="step2" (proceedNext)="doSomething2($event)"></app-risk-assessment-details>
+          <app-risk-assessment-details *ngIf="step2" (navigateStepSummary) = "navigateStepMethod($event)" (proceedNext)="doSomething2($event)"></app-risk-assessment-details>
           <button class="riskStep2" mat-button (click)="goBack(stepper)">&laquo; Back</button> 
         </mat-step>
       </mat-horizontal-stepper>
@@ -27,8 +27,8 @@
       <app-risk-saved-reports (callSavedMethod)="onCallSavedMethod($event)"></app-risk-saved-reports>
     </mat-tab>
   
-    <!-- <mat-tab label="Final Reports">
-      <app-risk-final-reports (callFinalMethod) = "onCallFinalMethod($event)"></app-risk-final-reports>
-    </mat-tab> -->
+    <mat-tab label="Final Reports">
+      <app-risk-final-reports (callFinalMethod)="onCallFinalMethod($event)"></app-risk-final-reports>
+    </mat-tab>
   </mat-tab-group>
 

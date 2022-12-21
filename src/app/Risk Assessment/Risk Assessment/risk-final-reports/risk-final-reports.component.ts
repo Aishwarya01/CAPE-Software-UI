@@ -9,8 +9,10 @@ import { GlobalsService } from 'src/app/globals.service';
 import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminProd } from 'src/environments/environment.prod';
 import { CustomerDetails } from '../../Risk Assesment Model/customer-details';
+import { RiskAssessmentDetails } from '../../Risk Assesment Model/risk-assessment-details';
 import { CustomerDetailsServiceService } from '../../Risk Assessment Services/customer-details-service.service';
 import { RiskfinalpdfService } from '../../Risk Assessment Services/riskfinalpdf.service';
+const FileSaver = require('file-saver');
 
 @Component({
   selector: 'app-risk-final-reports',
@@ -67,6 +69,11 @@ export class RiskFinalReportsComponent implements OnInit {
   superAdminFlag: boolean = false;
   superAdminDev = new SuperAdminDev();
   superAdminProd = new SuperAdminProd();
+  printSuccessMsg: string="";
+  errorPdf: boolean=false;
+  printErrorMsg: string="";
+  blurMode: boolean=false;
+  blurMsg: string="";
 
   constructor(private router: ActivatedRoute,
               private ChangeDetectorRef: ChangeDetectorRef,
@@ -164,29 +171,55 @@ export class RiskFinalReportsComponent implements OnInit {
   userName=this.router.snapshot.paramMap.get('email') || '{}';
 
   downloadPdf(riskId: any, projectName: any): any {
-     this.riskPdf.downloadPDF(riskId,this.userName, projectName)
-   }
+    this.blurMode=true;
+    this.blurMsg="Your PDF will be downloaded, Please wait a while";
+    this.riskPdf.downloadPDF(riskId,this.userName, projectName).subscribe(
+      data =>{
+        this.blurMode=false;
+        this.blurMsg="";
+        const fileName = projectName+'.pdf';
+        FileSaver.saveAs(data, fileName);
+      }, 
+      error=>{
+        this.blurMode=false;
+        this.blurMsg="";
+        this.errorPdf=true;
+        this.printErrorMsg="Something went wrong, Please try again later";
+        setTimeout(() => {
+          this.errorPdf=false;
+          this.printErrorMsg="";
+        }, 4000);
+      }
+    )
+  }
 
-   continue(basicLpsId:any){
+  continue(basicLpsId:any){
     this.finalReportBody = false;
     this.finalReportSpinner = true;
     this.spinnerValue = "Please wait, the details are loading!";
     this.service.allFieldsDisable = true;
     this.callFinalMethod.emit(basicLpsId);
-    //this.matstepper.preview(basicLpsId);
-   }
+  }
 
   emailPDF(riskId:any,userName:any, projectName: any){
     this.disable=false;
+    // Spinner Msg
+    this.blurMode=true;
+    this.blurMsg="Your PDF will be generating, Please wait a while";
+
     this.riskPdf.mailPDF(riskId,userName,projectName).subscribe(
     data => {
-    this.success = true;
-    this.successMsg = "Email has been sent successfully. Please check your email box.";
-    setTimeout(()=>{
-      this.success=false;
-        },5000);
+      this.blurMode=false;
+      this.blurMsg="";
+      this.success = true;
+      this.successMsg = "Email has been sent successfully. Please check your email box.";
+      setTimeout(()=>{
+        this.success=false;
+      },5000);
     },
     error => {
+      this.blurMode=false;
+      this.blurMsg="";
       this.Error = true;
       this.errorArr = [];
       this.errorArr = JSON.parse(error.error);
@@ -198,9 +231,31 @@ export class RiskFinalReportsComponent implements OnInit {
   }
 
   printPDF(riskId:any,userName:any, projectName: any){
-    
-    this.disable=false;
-    this.riskPdf.printPDF(riskId,userName,projectName);
+    // Spinner Msg
+    this.blurMode=true;
+    this.blurMsg="Your PDF will be generating, Please wait a while";
+
+    this.riskPdf.printPDF(riskId,userName,projectName).subscribe(
+      data =>{
+        this.blurMode=false;
+        this.blurMsg="";
+        var fileURL: any = URL.createObjectURL(data);
+        var a = document.createElement("a");
+        a.href = fileURL;
+        a.target = '_blank';
+        a.click();
+        this.modalService.dismissAll();
+    },
+    error=>{
+      this.blurMode=false;
+      this.blurMsg="";
+      this.errorPdf=true;
+      this.printErrorMsg="Something went wrong, Please try again later";
+      setTimeout(() => {
+        this.errorPdf=false;
+        this.printErrorMsg="";
+      }, 4000);
+    })
   }
 
 }

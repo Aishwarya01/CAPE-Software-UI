@@ -144,6 +144,7 @@ autoLoginToken:number=0;
     updatedDate: "",
     username: "",
     siteName: "",
+    siteId: "",
   };
 
   cartIndex: any=[];
