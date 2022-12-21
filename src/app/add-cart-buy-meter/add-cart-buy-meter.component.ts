@@ -223,10 +223,10 @@ export class AddCartBuyMeterComponent implements OnInit {
      
       removeItem(index: any) {
         if(this.meterData3.length>1){
-          this.meterData3.splice(index, 1);
+          this.meterData3.pop();
           this.findsum();
           this.grandTotalSum();
-          this.meterData3.pop()
+          this.service.cartIndex.length=this.meterData3.length;
         }
         else{
           this.service.cartIndex.length=0;
