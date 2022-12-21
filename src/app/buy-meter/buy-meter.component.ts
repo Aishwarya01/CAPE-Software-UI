@@ -156,6 +156,7 @@ meterData2: any =[
    // }
 
   ngOnInit(): void {
+    this.cartCount=this.service.cartIndex.length;
   } 
 
   setPagination() {
@@ -188,7 +189,8 @@ meterData2: any =[
      movetoCart(){
       if(sessionStorage.getItem('tokenforMeter')== undefined){
         this.router.navigate(['/signIn-buyMeter']);
-      }else{
+      }
+      else{
         this.router.navigate(['/addtocart'])
       }
     }

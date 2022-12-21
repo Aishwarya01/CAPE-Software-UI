@@ -1,6 +1,7 @@
 import {Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ScrollToService, ScrollToConfigOptions } from '@nicky-lenaers/ngx-scroll-to';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +38,7 @@ export class GlobalsService {
   viewerName!: String;
   inspectorName!: String;
   siteName!: String;
-  //viewerData: any = [];
+  viewerData: any = [];
   inspectorData: any = [];
 //generate otp & contact no.
   changeNumberSession!: String; 
@@ -118,39 +119,50 @@ autoLoginToken:number=0;
   globalErrorMsg: string="";
   siteData: any;
 
-  viewerData: any = {
-    address: "",
-    applicationType: "",
-    assignedBy: "",
-    comment: "",
-    companyName: "",
-    contactNumber: "",
-    country: "",
-    createdBy: "",
-    createdDate: "",
-    department: "",
-    designation: "",
-    district: "",
-    name: "",
-    noOfLicence: "",
-    otpSessionKey: "",
-    password: "",
-    permission: "",
-    permissionBy: "",
-    pinCode: "",
-    registerId: "",
-    role: "",
-    state: "",
-    updatedBy: "",
-    updatedDate: "",
-    username: "",
-    siteName: "",
-  };
+  // viewerData: any = {
+  //   address: "",
+  //   applicationType: "",
+  //   assignedBy: "",
+  //   comment: "",
+  //   companyName: "",
+  //   contactNumber: "",
+  //   country: "",
+  //   createdBy: "",
+  //   createdDate: "",
+  //   department: "",
+  //   designation: "",
+  //   district: "",
+  //   name: "",
+  //   noOfLicence: "",
+  //   otpSessionKey: "",
+  //   password: "",
+  //   permission: "",
+  //   permissionBy: "",
+  //   pinCode: "",
+  //   registerId: "",
+  //   role: "",
+  //   state: "",
+  //   updatedBy: "",
+  //   updatedDate: "",
+  //   username: "",
+  //   siteName: "",
+  // };
 
   cartIndex: any=[];
   
+  checkGrandtotal: number=0;
+  // private newUser = new BehaviorSubject<any>({
+  //   firstName: 'Kevin',
+  //   email: 'ksmith@fanreact.com',
+  //   g: 'M'
+  // });
+
+  // private message = new BehaviorSubject<any>(this.grand);
+ // sharedMessage = this.message.asObservable();
+  
  constructor(private _scrollToService: ScrollToService
   ) {}
+
   
 //Scroll Top to Bottom for notification
   public triggerScrollTo() {

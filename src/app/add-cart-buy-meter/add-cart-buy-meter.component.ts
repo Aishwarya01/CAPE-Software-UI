@@ -35,6 +35,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatCarousel } from 'ng-mat-carousel';
 import { Router } from '@angular/router';
 import { LoginBuyMeterService } from '../services/login-buy-meter.service';
+import { CheckoutBuyMeterComponent } from '../checkout-buy-meter/checkout-buy-meter.component';
 
 @Component({
   selector: 'app-add-cart-buy-meter',
@@ -54,7 +55,9 @@ export class AddCartBuyMeterComponent implements OnInit {
   @ViewChild('meterPaginator', { static: true }) meterPaginator!: MatPaginator;
   @ViewChild('meterSort', {static: true}) meterSort!: MatSort;
 
-  @Output() checkoutTotal: EventEmitter<any> = new EventEmitter();
+  //@Output() checkoutTotal = new EventEmitter<string>();
+
+ // @ViewChild(CheckoutBuyMeterComponent, {static: false}) checkoutTotalValue!: CheckoutBuyMeterComponent;
 
   meterName: String = '';
   email: String = '';
@@ -149,7 +152,9 @@ export class AddCartBuyMeterComponent implements OnInit {
   modalReference: any;
 
   meterData3: any =[];
-
+  cartCount: any;
+  
+ 
   constructor(private changeDetectorRef: ChangeDetectorRef,
     public service: GlobalsService,
     private modalService: NgbModal,
@@ -159,10 +164,10 @@ export class AddCartBuyMeterComponent implements OnInit {
     this.email = this.router1.snapshot.paramMap.get('email') || '{}';
   }
 
-  ngOnDestroy(): void {
-    this.service.cartIndex="";
-   }
-
+  // ngOnDestroy(): void {
+  //   this.service.cartIndex="";
+  //  }
+ 
   ngOnInit(): void {
     //this.b="WMGBMZC304";
     this.service.cartIndex;
@@ -180,6 +185,7 @@ export class AddCartBuyMeterComponent implements OnInit {
 //     }
 //   }
 // }
+//this.service.sharedMessage.subscribe(grandtotal => this.grandtotal = grandtotal);
     this.setPagination();
   } 
 
@@ -214,20 +220,23 @@ export class AddCartBuyMeterComponent implements OnInit {
         this.grandtotal= this.subtotal + this.gst + this.shipping;
         console.log(this.grandtotal);
       }
-
+     
       removeItem(index: any) {
         if(this.meterData3.length>1){
           this.meterData3.splice(index, 1);
           this.findsum();
           this.grandTotalSum();
+          this.meterData3.pop()
         }
         else{
+          this.service.cartIndex.length=0;
           this.meterData3 =[];  
           this.filledCart= false;
           this.emptyCart=true;  
         }
       }
       removeAllItem(){
+        this.service.cartIndex.length=0;
         this.meterData3 =[];  
         this.filledCart= false;
         this.emptyCart=true;
@@ -295,10 +304,10 @@ export class AddCartBuyMeterComponent implements OnInit {
       this.modalReference.close();
     }
     checkoutNavigation(){
+      this.service.checkGrandtotal=this.grandtotal;
          this.router.navigate(['checkout-buyMeter']);
          this.modalReference.close();
         // this.valueChange.emit(this.grandtotal());
       //  this.service.setData(this.grandtotal);
-      this.checkoutTotal.emit(this.grandtotal);
     }
 }
