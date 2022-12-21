@@ -49,6 +49,10 @@ export class RegistrationBuyMeterService {
     return this.http.get<any>(this.apiurl + '/sendSMS' + '/' + contactNumber, { responseType: 'text' as 'json' })
   }
 
+  sendUsername(username: string): Observable<any> {
+    return this.http.get<any>(this.apiurl + '/sendSMSUsername' + '/' + username, { responseType: 'text' as 'json' })
+  }
+
   verifyOtp(register: RegistrationBuyMeter): Observable<any> {
     return this.http.put<any>(this.apiurl + '/verifyOTP', register, { responseType: 'text' as 'json' })
   }
