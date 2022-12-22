@@ -82,6 +82,8 @@ export class AddCartBuyMeterComponent implements OnInit {
   value2: string="";
   total:any;
   b: any =[];
+  spinner: boolean = false;
+  blurMode: boolean = false;
 
   meterDropdownList: any = [,
     'MZC-304 S.C. Loop Impedance Meter-1',
@@ -293,10 +295,16 @@ export class AddCartBuyMeterComponent implements OnInit {
 
 
     meterLogout(){
+      this.spinner = true;
+      this.blurMode = true;
         this.loginBuyMeterService.Signout();
-        this.router.navigate(['/signIn-buyMeter']);
+        setTimeout(() => {
+          this.spinner = false;
+          this.blurMode = false;
+          this.router.navigate(['/signIn-buyMeter']);
+        }, 3000);
     }
-  
+    
     profile(){
       this.router.navigate(['/profile-buyMeter']);
     }

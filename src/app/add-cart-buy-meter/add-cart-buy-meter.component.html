@@ -1,3 +1,6 @@
+<div class="loader" *ngIf="spinner" style="overflow: inherit;margin: 0px auto;position: fixed;z-index: 1000;top: 40%;">
+</div>
+<div [ngStyle]="{'filter': (blurMode ? 'blur(1px)' : 'blur(0px)') ,'pointer-events': (blurMode ? 'none' : 'visible')}">
 <div class="bg-image">
 <div class="Cart-Container">
     <div class="Header">
@@ -127,6 +130,7 @@
         <div id="cart-subtotal" style="float: right;">0</div>
     </div>
     <button class="checkout" (click)="backBUtton();">Back</button>
+</div>
 </div>
 </div>
 </div>
