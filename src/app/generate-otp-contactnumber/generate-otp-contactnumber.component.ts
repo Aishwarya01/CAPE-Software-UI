@@ -79,10 +79,10 @@ export class GenerateOtpContactnumberComponent implements OnInit {
         }, 5000);
       },
       error => {
-        let errorArr = JSON.parse(error.error);
+        // let errorArr = JSON.parse(error.error);
         this.loading=false;
         this.showErrorMessage=true;
-        this.errorMsg =errorArr.message;
+        this.errorMsg =this.globalService.globalErrorMsg;
         setTimeout(()=>{
           this.showErrorMessage=false;
           this.errorMsg = "";

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { GlobalsService } from '../globals.service';
 import { User } from '../model/user';
 import { ForgotpasswordService } from '../services/forgotpassword.service'
 
@@ -26,12 +27,16 @@ export class ForgotpasswordComponent implements OnInit {
   countryCode: String = '';
   mobileNumber: String = '';
   dataToBeSent: String = '';
-  errorMsg: boolean=false;
+  showErrorMsg: string="";
+
+//  errorMsg: boolean=false;
+
   constructor(
     private formBuilder: FormBuilder,
     private router: ActivatedRoute,
     private route: Router,
     private forgotpasswordservice: ForgotpasswordService,
+    private service: GlobalsService
   ) { }
 
   ngOnInit(): void {
@@ -73,9 +78,14 @@ export class ForgotpasswordComponent implements OnInit {
         this.SuccessMsg = data;
       },
       error => {
-        this.errorArr = [];
-        this.errorArr = JSON.parse(error.error);
-        this.showErrorMessage = this.errorArr.message;
+        // this.errorArr = [];
+        // this.errorArr = JSON.parse(error.error);
+        this.showErrorMessage = true;
+        this.showErrorMsg = this.service.globalErrorMsg;
+        setTimeout(() => {
+          this.showErrorMessage = false;
+          this.showErrorMsg = "";
+        }, 3000);
         this.forgotpassform.reset();
         this.loading=false;
       }

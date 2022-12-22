@@ -277,6 +277,7 @@ ShowNext: boolean = true;
     this.reportDetails.verifiedEngineer = this.service.inspectorData.name;
     this.reportDetails.inspectorDesignation = this.service.inspectorData.designation;
     this.reportDetails.inspectorCompanyName = this.service.inspectorData.companyName;
+    this.reportDetails.siteId = this.service.viewerData.siteId;
 
     this.companyNameSite = this.service.viewerData.companyName;
     this.departmentNameSite = this.service.viewerData.department;
@@ -2378,9 +2379,9 @@ onPopState(event:any) {
             this.popup=true;
             this.finalSpinner=false;
             this.Error = true;
-            this.errorArr = [];
-            this.errorArr = JSON.parse(error.error);
-            this.errorMsg = this.errorArr.message;
+            // this.errorArr = [];
+            // this.errorArr = JSON.parse(error.error);
+            this.errorMsg = this.service.globalErrorMsg;
           });
       }
       
@@ -2416,9 +2417,9 @@ onPopState(event:any) {
        this.popup=true;
        this.finalSpinner=false;
        this.Error = true;
-       this.errorArr = [];
-       this.errorArr = JSON.parse(error.error);
-       this.errorMsg = this.errorArr.message;
+      //  this.errorArr = [];
+      //  this.errorArr = JSON.parse(error.error);
+       this.errorMsg = this.service.globalErrorMsg;
        this.proceedNext.emit(false);
        this.service.isCompleted= false;
        this.service.isLinear=true;

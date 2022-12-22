@@ -964,19 +964,16 @@
     <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
       <span class="alert alert-danger">{{validationErrorMsg}}</span>
     </div>
-    <!-- <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
-      <span class="alert alert-danger">{{validationErrorMsg1}}</span>
-    </div> -->
     <div class="row" style="margin-top: 20px;">
       <div class="col-sm-12">
       <div style="text-align: center;"> 
 
         <button class="btn btn-rounded btn-md font-weight-medium auth-form-btn next save-Button" style="background-color: #0f800c;color: white;"
-          mat-button type="submit" (click)="typeButton('save')" [ngClass]="{'disableForm':isEditable}" [ngStyle]="{'background-color': isEditable ? 'lightgrey' : ''}">
+          mat-button type="submit" (click)="typeButton('save');gotoNextModal(content,contents)" [ngClass]="{'disableForm':isEditable}" [ngStyle]="{'background-color': isEditable ? 'lightgrey' : ''}">
         <i class="bi bi-journal-arrow-up icon"></i>Save</button>                                                  
 
         <button style="width: auto;margin-left: 50px;background-color: #0f800c;color: white;" type="submit" class="btn btn-rounded btn-md font-weight-medium auth-form-btn next"
-          mat-button [disabled]="submittedButton" (click)="typeButton('submit')" [ngClass]="{'disableForm':isEditable}">
+          mat-button [disabled]="submittedButton" (click)="typeButton('submit');gotoNextModal(content,contents)" [ngClass]="{'disableForm':isEditable}">
         <i class="bi bi-journal-arrow-up icon"></i>Submit</button>
     </div>
       </div>

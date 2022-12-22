@@ -69,6 +69,8 @@ export class SavedreportsComponent implements OnInit {
   value: boolean=false;
   onSubmitSite1 = new EventEmitter();
   dataArr: any=[];
+  errorSite: boolean=false;
+  errorMsg: string="";
 
   constructor(private router: ActivatedRoute,
               private clientService: ClientService,
@@ -172,6 +174,13 @@ export class SavedreportsComponent implements OnInit {
           this.savedReport_dataSource = new MatTableDataSource(this.filteredData);
           this.savedReport_dataSource.paginator = this.savedReportPaginator;
           this.savedReport_dataSource.sort = this.savedReportSort;
+        },
+        error =>{
+          this.errorSite = true;
+          this.errorMsg = this.service.globalErrorMsg;
+          setTimeout(()=>{
+            this.errorSite = false;
+          }, 10000);
         });
       this.superAdminFlag = false;
     }
@@ -188,6 +197,13 @@ export class SavedreportsComponent implements OnInit {
             this.savedReport_dataSource = new MatTableDataSource(this.filteredData);
             this.savedReport_dataSource.paginator = this.savedReportPaginator;
             this.savedReport_dataSource.sort = this.savedReportSort;
+          },
+          error =>{
+            this.errorSite = true;
+            this.errorMsg = this.service.globalErrorMsg;
+            setTimeout(()=>{
+              this.errorSite = false;
+            }, 10000);
           });
       }
       else {
@@ -204,6 +220,13 @@ export class SavedreportsComponent implements OnInit {
              this.savedReport_dataSource = new MatTableDataSource(this.viewerFilterData);
               this.savedReport_dataSource.paginator = this.savedReportPaginator;
               this.savedReport_dataSource.sort = this.savedReportSort;
+            },
+            error =>{
+              this.errorSite = true;
+              this.errorMsg = this.service.globalErrorMsg;
+              setTimeout(()=>{
+                this.errorSite = false;
+              }, 10000);
             });
         } 
       }

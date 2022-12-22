@@ -3822,9 +3822,9 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any,testing
           this.Error = true;
           this.service.isCompleted4= false;
         this.service.isLinear=true;
-          this.errorArr = [];
-          this.errorArr = JSON.parse(error.error);
-          this.errorMsg = this.errorArr.message;
+          // this.errorArr = [];
+          // this.errorArr = JSON.parse(error.error);
+          this.errorMsg = this.service.globalErrorMsg;
         });
       }
     }
@@ -3893,9 +3893,9 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any,testing
           this.finalSpinner=false;
           this.Error = true;      
           this.proceedNext.emit(false);
-          this.errorArr = [];
-          this.errorArr = JSON.parse(error.error);
-          this.errorMsg = this.errorArr.message;
+          // this.errorArr = [];
+          // this.errorArr = JSON.parse(error.error);
+          this.errorMsg = this.service.globalErrorMsg;
           this.service.isCompleted4= false;
           this.service.isLinear=true;    
         }

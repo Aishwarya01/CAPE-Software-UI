@@ -58,6 +58,10 @@ export class EmcSavedReportComponent implements OnInit {
   deleteSuccessMsg: String = '';
   superAdminDev = new SuperAdminDev();
   superAdminProd = new SuperAdminProd();
+  Error: boolean=false;
+  errorMsg: string="";
+  deleteError: boolean=false;
+  deleteErrorMsg: string="";
  
    constructor(private router: ActivatedRoute,
                public service: GlobalsService,
@@ -115,6 +119,13 @@ export class EmcSavedReportComponent implements OnInit {
           this.emcData = [];
           this.savedReportEmc_dataSource.paginator = this.savedReportEmcPaginator;
           this.savedReportEmc_dataSource.sort = this.savedReportEmcSort;
+        },
+        error=>{
+          this.Error = true;
+          this.errorMsg = this.service.globalErrorMsg;
+          setTimeout(()=>{
+            this.Error = false;
+          }, 20000);
         });
     }
     else {
@@ -131,6 +142,13 @@ export class EmcSavedReportComponent implements OnInit {
           this.emcData = [];
           this.savedReportEmc_dataSource.paginator = this.savedReportEmcPaginator;
           this.savedReportEmc_dataSource.sort = this.savedReportEmcSort;
+        },
+        error=>{
+          this.Error = true;
+          this.errorMsg = this.service.globalErrorMsg;
+          setTimeout(()=>{
+            this.Error = false;
+          }, 20000);
         });
     }
    }
@@ -162,7 +180,15 @@ export class EmcSavedReportComponent implements OnInit {
         setTimeout(() => {
           this.deleteSuccess = false;
           this.deleteSuccessMsg = '';
-          }, 2000);
+        }, 2000);
+      },
+      error=>{
+        this.deleteError=true;
+        this.deleteErrorMsg=this.service.globalErrorMsg;
+        setTimeout(() => {
+          this.deleteError = false;
+          this.deleteErrorMsg = '';
+        }, 2000);
       }
     )
    }

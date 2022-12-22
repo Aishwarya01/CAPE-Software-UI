@@ -82,7 +82,6 @@ export class EmcClientDetailsComponent implements OnInit {
     });
     this.emcClientDetailsService.retrieveCountry().subscribe(
       data => {
-
         this.countryList = JSON.parse(data);
       }
     )
@@ -418,9 +417,9 @@ export class EmcClientDetailsComponent implements OnInit {
               this.spinner=false;
               this.popup = true;
               this.Error = true;
-              this.errorArr = [];
-              this.errorArr = JSON.parse(error.error);
-              this.errorMsg = this.errorArr.message;
+              // this.errorArr = [];
+              // this.errorArr = JSON.parse(error.error);
+              this.errorMsg = this.service.globalErrorMsg;
               this.proceedNext.emit(false);
             });
       }
@@ -450,9 +449,9 @@ export class EmcClientDetailsComponent implements OnInit {
           this.spinner=false;
           this.popup = true;
           this.Error = true;
-          this.errorArr = [];
-          this.errorArr = JSON.parse(error.error);
-          this.errorMsg = this.errorArr.message;
+          // this.errorArr = [];
+          // this.errorArr = JSON.parse(error.error);
+          this.errorMsg = this.service.globalErrorMsg;
           this.service.isCompleted= false;
           this.service.isLinear=true;
           this.proceedNext.emit(false);

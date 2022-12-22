@@ -134,6 +134,7 @@ import { RegistrationBuyMeterComponent } from './registration-buy-meter/registra
 import { AddCartBuyMeterComponent } from './add-cart-buy-meter/add-cart-buy-meter.component';
 import { ProfieBuyMeterComponent } from './profie-buy-meter/profie-buy-meter.component';
 import { CheckoutBuyMeterComponent } from './checkout-buy-meter/checkout-buy-meter.component';
+import { MatStepperModule } from '@angular/material/stepper';
 
 
 
@@ -268,6 +269,7 @@ import { CheckoutBuyMeterComponent } from './checkout-buy-meter/checkout-buy-met
     DiagramAllModule,
     SymbolPaletteAllModule,
     OverviewAllModule,
+    MatStepperModule,
     BackButtonDisableModule.forRoot({
       preserveScrollPosition: true
     }),

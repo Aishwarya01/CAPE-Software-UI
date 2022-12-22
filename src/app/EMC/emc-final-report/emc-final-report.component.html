@@ -1,6 +1,14 @@
 <div class="card">
 
     <div class="card-body">
+      <div class="centre-text m-btm30">
+        <div *ngIf="success" style="text-align: center;">
+          <span class="successshow">{{successMsg}}</span>
+         </div>
+         <div *ngIf="Error" style="text-align: center;">
+           <span class="errorshow">{{errorMsg}}</span>
+         </div>
+      </div>
       <!-- Filter Tag -->
       <mat-form-field appearance="standard" style=" font-size: 14px;width: 30%;">
         <mat-label>Filter Client</mat-label>
@@ -110,14 +118,7 @@
 
       <mat-paginator #finalReportPaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 
-      <div class="centre-text m-btm30">
-        <div *ngIf="success" style="text-align: center;">
-          <span class="successshow">{{successMsg}}</span>
-         </div>
-         <div *ngIf="Error" style="text-align: center;">
-           <span class="errorshow">{{errorMsg}}</span>
-         </div>
-      </div>
+      
     </div>
   </div>
 

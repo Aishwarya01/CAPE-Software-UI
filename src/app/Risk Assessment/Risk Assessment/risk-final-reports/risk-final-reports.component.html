@@ -1,6 +1,10 @@
 <div class="card">
 
     <div class="card-body">
+      <div class="animBox" *ngIf="blurMode" style="overflow: inherit;margin: 0px auto;position: fixed;z-index: 1000;top: 50%;"></div>
+      <div class="waviy">
+          <pre *ngIf="blurMode" style="top: 52%;position: fixed;overflow: inherit;margin: 0px auto;z-index: 1000;margin-left: 48%;font-weight: bold;">{{blurMsg}}</pre>
+      </div>
       <!-- Filter Tag -->
       <mat-form-field appearance="standard" style=" font-size: 14px;width: 30%;">
         <mat-label>Filter Organization</mat-label>
@@ -37,6 +41,12 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact Person Name </th>
             <td mat-cell *matCellDef="let element"> {{element.contactPersonName | slice:0:18}} </td>
           </ng-container>
+
+          <!-- Address Column -->
+          <ng-container matColumnDef="address">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
+            <td mat-cell *matCellDef="let element"> {{element.address | slice:0:18}} </td>
+          </ng-container>
   
           <!-- Updated Date Column -->
           <ng-container matColumnDef="updatedDate">
@@ -68,12 +78,12 @@
           </button>
             <!-- Email -->
           <button class="btn btn-outline-danger delete" title="Trigger Email With Final PDF"
-          style="border-color: #cdcecf;box-shadow: unset;" (click)="emailPDF(element.riskId,element.userName, element.projectName)">
+          style="border-color: #cdcecf;box-shadow: unset;" (click)="emailPDF(element.riskId,element.userName,element.projectName)">
             <mat-icon>email</mat-icon>
           </button>
             <!-- Print -->
           <button class="btn btn-outline-danger delete" title="Print Final PDF" 
-          style="border-color: #cdcecf;box-shadow: unset;" (click)="printPDF(element.riskId,element.userName, element.projectName)">
+          style="border-color: #cdcecf;box-shadow: unset;" (click)="printPDF(element.riskId,element.userName,element.projectName)">
             <mat-icon>print</mat-icon>
           </button>
 
@@ -101,6 +111,13 @@
            <span class="errorshow">{{errorMsg}}</span>
          </div>
       </div>
+
+      <div class="centre-text m-btm30">
+         <div *ngIf="errorPdf" style="text-align: center;">
+           <span class="errorshow">{{printErrorMsg}}</span>
+         </div>
+      </div>
+
     </div>
   </div>
 

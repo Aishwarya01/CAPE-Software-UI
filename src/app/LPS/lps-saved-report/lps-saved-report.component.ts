@@ -72,6 +72,8 @@ completedFilterData: any=[];
   superAdminDev = new SuperAdminDev();
   superAdminProd = new SuperAdminProd();
   completedLicense_dataSource!: MatTableDataSource<any[]>;
+  globalError: boolean=false;
+  globalErrorMsg: String="";
   // @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private router: ActivatedRoute,
@@ -147,8 +149,15 @@ completedFilterData: any=[];
           this.lpsData = [];
           this.savedReportLps_dataSource.paginator = this.savedReportLpsPaginator;
           this.savedReportLps_dataSource.sort = this.savedReportLpsSort;
+        },
+        error =>{
+          this.globalError=true;
+          this.globalErrorMsg=this.service.globalErrorMsg;
+          setTimeout(() => {
+            this.globalError=false;
+            this.globalErrorMsg="";
+          }, 20000);
         });
-
         this.superAdminFlag = false;
     }
     else {
@@ -165,6 +174,14 @@ completedFilterData: any=[];
           this.lpsData = [];
           this.savedReportLps_dataSource.paginator = this.savedReportLpsPaginator;
           this.savedReportLps_dataSource.sort = this.savedReportLpsSort;
+        },
+        error =>{
+          this.globalError=true;
+          this.globalErrorMsg=this.service.globalErrorMsg;
+          setTimeout(() => {
+            this.globalError=false;
+            this.globalErrorMsg="";
+          }, 20000);
         });
     }
   }

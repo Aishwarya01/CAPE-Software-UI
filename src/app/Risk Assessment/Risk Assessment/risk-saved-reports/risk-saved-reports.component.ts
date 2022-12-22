@@ -57,6 +57,8 @@ export class RiskSavedReportsComponent implements OnInit {
   superAdminDev = new SuperAdminDev();
   superAdminProd = new SuperAdminProd();
   mode: any= 'indeterminate';
+  globalError: boolean=false;
+  globalErrorMsg: string="";
     
   constructor(
     private router: ActivatedRoute,
@@ -112,8 +114,15 @@ export class RiskSavedReportsComponent implements OnInit {
             this.customerData = [];
             this.savedReportRisk_dataSource.paginator = this.savedReportRiskPaginator;
             this.savedReportRisk_dataSource.sort = this.savedReportRiskSort;
+          },
+          error=>{
+            this.globalError=true;
+            this.globalErrorMsg=this.service.globalErrorMsg;
+            setTimeout(() => {
+              this.globalError=false;
+              this.globalErrorMsg="";
+            }, 10000);
           });
-  
           this.superAdminFlag = false;
       }
       else {
@@ -130,6 +139,14 @@ export class RiskSavedReportsComponent implements OnInit {
             this.customerData = [];
             this.savedReportRisk_dataSource.paginator = this.savedReportRiskPaginator;
             this.savedReportRisk_dataSource.sort = this.savedReportRiskSort;
+          },
+          error=>{
+            this.globalError=true;
+            this.globalErrorMsg=this.service.globalErrorMsg;
+            setTimeout(() => {
+              this.globalError=false;
+              this.globalErrorMsg="";
+            }, 10000);
           });
       }
     }
@@ -147,7 +164,7 @@ export class RiskSavedReportsComponent implements OnInit {
       this.spinner=true;
       this.disablepage=false;
       this.spinnerValue = "Please wait, the details are loading!";
-      this.customerDetailsService.updateCustomerDetails(this.customerDetailsModel).subscribe(
+      this.customerDetailsService.deleteCustomerDetails(this.customerDetailsModel).subscribe(
         data => {
           this.deleteSuccess = true;
           this.deleteSuccessMsg = data;
@@ -158,6 +175,14 @@ export class RiskSavedReportsComponent implements OnInit {
             this.deleteSuccess = false;
             this.deleteSuccessMsg = '';
             }, 2000);
+        },
+        error=>{
+          this.globalError=true;
+          this.globalErrorMsg=this.service.globalErrorMsg;
+          setTimeout(() => {
+            this.globalError=false;
+            this.globalErrorMsg="";
+          }, 10000);
         })
     } 
 

@@ -174,9 +174,9 @@ clear() {
         }, 3000);
       },
       error => {
-        let errorJSON= JSON.parse(error.error);
+        // let errorJSON= JSON.parse(error.error);
         this.showErrorMessage=true;
-        this.OTPerrorMsg=errorJSON.message;
+        this.OTPerrorMsg=this.globalService.globalErrorMsg;
         this.OTPerrorMsgflag=true;
         setTimeout(()=>{
           this.showErrorMessage=false;

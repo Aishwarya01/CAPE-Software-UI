@@ -897,9 +897,9 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
           this.popup=true;
           this.finalSpinner=false;
           this.Error = true;
-          this.errorArr = [];
-          this.errorArr = JSON.parse(error.error);
-          this.errorMsg = this.errorArr.message;
+          // this.errorArr = [];
+          // this.errorArr = JSON.parse(error.error);
+          this.errorMsg = this.service.globalErrorMsg;
         }
       )
     }
@@ -916,9 +916,9 @@ public getSymbolInfo(symbol: NodeModel): SymbolInfo {
           this.popup=true;
           this.finalSpinner=false;
           this.Error = true;
-          this.errorArr = [];
-          this.errorArr = JSON.parse(error.error);
-          this.errorMsg = this.errorArr.message;
+          // this.errorArr = [];
+          // this.errorArr = JSON.parse(error.error);
+          this.errorMsg = this.service.globalErrorMsg;
         }
       )
     }

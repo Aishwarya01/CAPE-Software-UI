@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegistrationBuyMeterService } from '../services/registration-buy-meter.service';
 import { RegistrationBuyMeter } from '../model/registration-buy-meter';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { GlobalsService } from '../globals.service';
+import { AddCartBuyMeterComponent } from '../add-cart-buy-meter/add-cart-buy-meter.component';
 @Component({
   selector: 'app-checkout-buy-meter',
   templateUrl: './checkout-buy-meter.component.html',
@@ -11,21 +13,29 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class CheckoutBuyMeterComponent implements OnInit {
 
+  
   checkOutForm!:FormGroup;
   productTotalForm!: FormGroup;
   registerBuyMeter = new RegistrationBuyMeter(); 
   viewEmployee: boolean = false;
   userName: any;
   modelReference: any;
+  item:number=0;
+  checkoutGrandtotal:any;
+  //@Output() checkoutTotal: EventEmitter<any> = new EventEmitter();
+ // @Input() total: any;
 
-
+// @ViewChild(AddCartBuyMeterComponent, {static: false}) child1!: AddCartBuyMeterComponent;
 
   constructor(private route : Router,
     private registerBuyMeterService : RegistrationBuyMeterService,
-    private fb : FormBuilder,
+    private fb : FormBuilder, public service: GlobalsService,
     private modalService: NgbModal) { }
 
+
   ngOnInit(): void {
+    this.item=this.service.cartIndex.length;
+    this.checkoutGrandtotal=this.service.checkGrandtotal;
     this.checkOutForm = new FormGroup({
       firstName: new FormControl('',Validators.required),
       contactNumber: new FormControl('',Validators.required),
@@ -37,7 +47,6 @@ export class CheckoutBuyMeterComponent implements OnInit {
       city: new FormControl('',Validators.required),
       pincode: new FormControl('',Validators.required)
     })
-
     if (!this.viewEmployee) {
       this.userName = JSON.parse(sessionStorage.authenticatedUserForMeter).username
     }
@@ -50,6 +59,10 @@ export class CheckoutBuyMeterComponent implements OnInit {
       })
     console.log(this.profileDetails);
   }
+
+  // getTextChange(newItem: any) {
+  //   this.total.push(newItem);
+  // }
   profileDetails(value:any){
     return this.fb.group({
       firstName: new FormControl(value.firstName),
@@ -75,4 +88,11 @@ export class CheckoutBuyMeterComponent implements OnInit {
   onCancel(){
     this.modelReference.close();
   }
+  payment(paymentTemplate : any){
+   this.modelReference = this.modalService.open(paymentTemplate,{centered:true,size: "sm"})
+   setTimeout(() => {
+    this.onCancel();
+   }, 3000);
+  }
+
 }

@@ -53,11 +53,14 @@ export class ProfieBuyMeterComponent implements OnInit {
       email: new FormControl('',Validators.required),
       lastName: new FormControl('',Validators.required),
       companyName: new FormControl('',Validators.required),
+      purchasetype: new FormControl('',Validators.required),
+      customerGstNumber: new FormControl('',Validators.required),
       address: new FormControl('',Validators.required),
       country: new FormControl('',Validators.required),
       state: new FormControl('',Validators.required),
       city: new FormControl('',Validators.required),
       pincode: new FormControl('',Validators.required)
+     
   
     })
     if (!this.viewEmployee) {
@@ -72,7 +75,7 @@ export class ProfieBuyMeterComponent implements OnInit {
     console.log(this.profileDetails);
 
     this.changeNumberForm = this.fb.group({
-      mobileNumber: new FormControl(''),
+      username: new FormControl(''),
       input1:[''],
       input2:[''],
       input3:[''],
@@ -100,12 +103,15 @@ export class ProfieBuyMeterComponent implements OnInit {
       lastName: new FormControl(value.lastName),
       contactNumber: new FormControl(value.contactNumber),
       email: new FormControl(value.email),
+      purchasetype: new FormControl(value.purchasetype),
+      customerGstNumber: new FormControl(value.customerGstNumber),
       companyName: new FormControl(value.companyName),
       address: new FormControl(value.address),
       country: new FormControl(value.country),
       state: new FormControl(value.state),
       city: new FormControl(value.city),
       pincode: new FormControl(value.pincode)
+    
     })
    }
 
@@ -123,7 +129,7 @@ export class ProfieBuyMeterComponent implements OnInit {
   }
 
   sendOtp(){
-    this.userName = this.changeNumberForm.controls.mobileNumber.value;
+    this.userName = this.changeNumberForm.controls.username.value;
 
     this.regiterationBuymeterService.sendOtp(this.userName).subscribe((data:string)=>{
        this.showOtpMsg = true;
@@ -159,7 +165,7 @@ export class ProfieBuyMeterComponent implements OnInit {
     this.regiterationBuymeterService.verifyOtp(this.registerBuyMeterModel).subscribe(data=>{
 
       this.SubmitSuccessMsg = true;
-      this.userName = this.changeNumberForm.controls.mobileNumber.value;
+      this.userName = this.changeNumberForm.controls.username.value;
       this.regiterationBuymeterService.updateContactNumber(this.userName).subscribe(data=>{
         
       })
@@ -229,4 +235,13 @@ export class ProfieBuyMeterComponent implements OnInit {
     })
 
   }
+
+  // validate(event : any){
+  //    if(){
+
+  //    }
+  // }
+
+
+
 }

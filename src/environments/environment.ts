@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   environmentName: 'dev',
-  apiUrl_Payment: 'http://localhost:5000/api/v1',
+  apiUrl_Payment: 'http://localhost:5010/api/v1',
   apiUrl_EMC: 'http://localhost:5002/api/emc/v1',
   sessionTimeOut: 6000,
   apiUrl_v2: 'http://localhost:5000/api/v2',
@@ -42,6 +42,9 @@ export const environment = {
     {imageSource: '../../assets/img/DieselGenerator.png', imageName: 'DieselGenerator', id: 23},
     {imageSource: '../../assets/img/EquipBond.png', imageName: 'EquipBond', id: 24}
     ],
+    stateGSTPercentage: 9,
+    centralGSTPercentage: 9,
+    integratedGSTPercentage: 18
 };
 
 export class SuperAdminLocal {

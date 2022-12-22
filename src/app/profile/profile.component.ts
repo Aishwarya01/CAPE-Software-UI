@@ -3,6 +3,7 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Valida
 import { ActivatedRoute,Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { GlobalsService } from '../globals.service';
 import { arrow90DegDown, flag } from 'ngx-bootstrap-icons';
 import { ChangeContact } from '../model/change-contact';
 import { Register } from '../model/register';
@@ -119,6 +120,7 @@ export class ProfileComponent implements OnInit {
     private siteService: SiteService,
     private applicationService: ApplicationTypeService,
     private modalService: NgbModal,
+    private serice: GlobalsService,
     private inspectorRegisterService: InspectorregisterService
     ) {
       this.changeContactNumberForm = this.toFormGroup(this.formInput);
@@ -481,8 +483,8 @@ export class ProfileComponent implements OnInit {
       error => {
         this.loading= false;
         this.errorMsgflag=true;
-        this.errorArr = JSON.parse(error.error)
-        this.errorMsg=this.errorArr.message;
+        // this.errorArr = JSON.parse(error.error)
+        this.errorMsg=this.serice.globalErrorMsg;
         setTimeout(()=>{
           this.errorMsgflag=false;
           this.errorMsg=" ";
@@ -609,10 +611,10 @@ export class ProfileComponent implements OnInit {
         }, 5000);
       },
       error => {
-        let errorArr = JSON.parse(error.error);
+        // let errorArr = JSON.parse(error.error);
         this.mobileLoading=false;
         this.mobileShowErrorMessage=true;
-        this.mobileErrorMsg =errorArr.message;
+        this.mobileErrorMsg =this.serice.globalErrorMsg;
         setTimeout(()=>{
           this.mobileShowErrorMessage=false;
           this.mobileErrorMsg = "";
@@ -653,9 +655,9 @@ export class ProfileComponent implements OnInit {
         }, 3000);
       },
       error => {
-        let errorJSON= JSON.parse(error.error);
+        // let errorJSON= JSON.parse(error.error);
         this.showErrorMessage=true;
-        this.OTPerrorMsg=errorJSON.message;
+        this.OTPerrorMsg=this.serice.globalErrorMsg;
         this.OTPerrorMsgflag=true;
         setTimeout(()=>{
           this.showErrorMessage=false;

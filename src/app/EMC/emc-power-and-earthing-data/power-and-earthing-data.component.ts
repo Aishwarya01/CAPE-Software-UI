@@ -667,9 +667,9 @@ export class PowerAndEarthingDataComponent implements OnInit {
               this.popup=true;
               this.spinner=false;
               this.Error = true;
-              this.errorArr = [];
-              this.errorArr = JSON.parse(error.error);
-              this.errorMsg = this.errorArr.message;
+              // this.errorArr = [];
+              // this.errorArr = JSON.parse(error.error);
+              this.errorMsg = this.service.globalErrorMsg;
             });
       }
     }
@@ -695,11 +695,11 @@ export class PowerAndEarthingDataComponent implements OnInit {
           this.popup=true;
           this.spinner=false;
           this.Error = true;
-          this.errorArr = [];
+          // this.errorArr = [];
           this.service.isCompletedEmc2= false;
           this.service.isLinearEmc=true;
-          this.errorArr = JSON.parse(error.error);
-          this.errorMsg = this.errorArr.message;
+          // this.errorArr = JSON.parse(error.error);
+          this.errorMsg = this.service.globalErrorMsg;
           this.proceedNext.emit(false);
         }
       )

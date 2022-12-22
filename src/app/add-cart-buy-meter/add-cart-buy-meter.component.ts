@@ -35,6 +35,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatCarousel } from 'ng-mat-carousel';
 import { Router } from '@angular/router';
 import { LoginBuyMeterService } from '../services/login-buy-meter.service';
+import { CheckoutBuyMeterComponent } from '../checkout-buy-meter/checkout-buy-meter.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-add-cart-buy-meter',
@@ -54,12 +56,16 @@ export class AddCartBuyMeterComponent implements OnInit {
   @ViewChild('meterPaginator', { static: true }) meterPaginator!: MatPaginator;
   @ViewChild('meterSort', {static: true}) meterSort!: MatSort;
 
+  //@Output() checkoutTotal = new EventEmitter<string>();
+
+ // @ViewChild(CheckoutBuyMeterComponent, {static: false}) checkoutTotalValue!: CheckoutBuyMeterComponent;
+
   meterName: String = '';
   email: String = '';
   selectedMeter: any;
   clickedMeter: any;
   value: any;
-  clcikeditem: any;
+  clickedItem: any;
 //  panelOpenState = false;
   total2Ref: any;
   table1: any;
@@ -69,14 +75,16 @@ export class AddCartBuyMeterComponent implements OnInit {
   amt:any;
   grandtotal: any;
   subtotal:number=0;
-  gst:number=3.60;
+  gstAmount: number = 0;
   shipping:number=15.00;
   flag: boolean=false;
-  filledCart: boolean=true;
-  emptyCart: boolean=false;
+ // filledCart: boolean=true;
+ // emptyCart: boolean=false;
   value2: string="";
   total:any;
   b: any =[];
+  spinner: boolean = false;
+  blurMode: boolean = false;
 
   meterDropdownList: any = [,
     'MZC-304 S.C. Loop Impedance Meter-1',
@@ -102,7 +110,7 @@ export class AddCartBuyMeterComponent implements OnInit {
     // 'MPI-540 Multi-function Meter',
     ];
   meterData1: any =[
-    { quantity: 1,model: 'MZC-304 S.C. Loop Impedance Meter-1', pdf:'assets/documents/MZC304.pdf', index: 'WMGBMZC304', price: '89,906', image:'assets/img/mzc304.png',total: '89,906' },
+    { quantity: 1,model: 'MZC-304 S.C. Loop Impedance Meter-1', pdf:'assets/documents/MZC304.pdf', index: 'WMGBMZC304', price: '1', image:'assets/img/mzc304.png',total: '1' },
     { quantity: 1,model: 'MZC-330S Short Circuit Loop Impedance Meter', pdf:'assets/documents/MZC.pdf', index: 'WMGBMZC330', price: '5,78,550', image:'assets/img/mzc_updated.png', total: '5,78,550' },
     { quantity: 1,model: 'MRP-201 RCD Tester', pdf:'assets/documents/MP540.pdf', index: 'WMGBMRP201', price: '98,175', image:'assets/img/mpi_updated.png', total: '98,175' },
     { quantity: 1,model: 'MPI-530 Multi-function Meter', pdf:'assets/documents/MPI.pdf', index: 'WMGBMPI530', price: '3,12,900', image:'assets/img/mpi_530I_updated.png', total: '3,12,900' },
@@ -147,7 +155,10 @@ export class AddCartBuyMeterComponent implements OnInit {
   modalReference: any;
 
   meterData3: any =[];
-
+  cartCount: any;
+  indexvalue: any;
+  
+ 
   constructor(private changeDetectorRef: ChangeDetectorRef,
     public service: GlobalsService,
     private modalService: NgbModal,
@@ -156,6 +167,10 @@ export class AddCartBuyMeterComponent implements OnInit {
   ) {
     this.email = this.router1.snapshot.paramMap.get('email') || '{}';
   }
+
+  // ngOnDestroy(): void {
+  //   this.service.cartIndex="";
+  //  }
  
   ngOnInit(): void {
     //this.b="WMGBMZC304";
@@ -174,6 +189,7 @@ export class AddCartBuyMeterComponent implements OnInit {
 //     }
 //   }
 // }
+//this.service.sharedMessage.subscribe(grandtotal => this.grandtotal = grandtotal);
     this.setPagination();
   } 
 
@@ -191,8 +207,8 @@ export class AddCartBuyMeterComponent implements OnInit {
        size: 'lg',
       });
      this.clickedMeter = a.model;
-     this.clcikeditem=a.index;
-     this.value = this.clcikeditem;
+     this.clickedItem=a.index;
+     this.value = this.clickedItem;
     } 
 
     findsum(){
@@ -200,33 +216,45 @@ export class AddCartBuyMeterComponent implements OnInit {
       for(let j=0; j<this.meterData3.length; j++){
       //let temp_price=(+this.meterData3[j].price.replaceAll(',', '') * +this.meterData3[j].quantity);
       this.subtotal+= +this.meterData3[j].total.replaceAll(',', '');
-      console.log(this.subtotal);
+      
       }
+      }
+
+      gstCalculation(subtotal: any){
+        this.gstAmount = (((environment.stateGSTPercentage)/100) * subtotal) + (((environment.centralGSTPercentage)/100) * subtotal);
       }
 
       grandTotalSum(){
-        this.grandtotal= this.subtotal + this.gst + this.shipping;
-        console.log(this.grandtotal);
+        this.gstCalculation(this.subtotal);
+        this.grandtotal= this.subtotal + this.gstAmount ;
+        
       }
-
-      removeItem(index: any) {
+     
+      removeItem(i: any,index:any) {
         if(this.meterData3.length>1){
-          this.meterData3.splice(index, 1);
+          this.meterData3.splice(i, 1);
+          this.indexvalue=this.service.cartIndex.indexOf(index);
+          this.service.cartIndex.splice(this.indexvalue,1);
+         // this.meterData3.pop();
           this.findsum();
           this.grandTotalSum();
+          this.service.cartIndex.length=this.meterData3.length;
         }
         else{
+          this.service.cartIndex.length=0;
           this.meterData3 =[];  
-          this.filledCart= false;
-          this.emptyCart=true;  
+          this.service.filledCart= false;
+          this.service.emptyCart=true;  
         }
       }
       removeAllItem(){
+        this.service.cartIndex.length=0;
         this.meterData3 =[];  
-        this.filledCart= false;
-        this.emptyCart=true;
+        this.service.filledCart= false;
+        this.service.emptyCart=true;
       }
       backBUtton(){
+      
         this.router.navigate(['/buyMeter']);
       }
       
@@ -273,10 +301,16 @@ export class AddCartBuyMeterComponent implements OnInit {
 
 
     meterLogout(){
+      this.spinner = true;
+      this.blurMode = true;
         this.loginBuyMeterService.Signout();
-        this.router.navigate(['/signIn-buyMeter']);
+        setTimeout(() => {
+          this.spinner = false;
+          this.blurMode = false;
+          this.router.navigate(['/signIn-buyMeter']);
+        }, 3000);
     }
-  
+    
     profile(){
       this.router.navigate(['/profile-buyMeter']);
     }
@@ -288,7 +322,10 @@ export class AddCartBuyMeterComponent implements OnInit {
       this.modalReference.close();
     }
     checkoutNavigation(){
+      this.service.checkGrandtotal=this.grandtotal;
          this.router.navigate(['checkout-buyMeter']);
          this.modalReference.close();
+        // this.valueChange.emit(this.grandtotal());
+      //  this.service.setData(this.grandtotal);
     }
 }

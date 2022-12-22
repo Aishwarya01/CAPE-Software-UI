@@ -34,6 +34,7 @@ export class LpssummaryComponent implements OnInit {
     email: String = '';
     flag: boolean=true;
     flag1: boolean = false;
+    summaryPopup: boolean = false;
     basicLpsId!: number;
     airTerminationValues: any=[];
     airTerminationDesc: any=[];
@@ -5019,9 +5020,9 @@ SignatureDesigner1(){
             this.popup1=true;
             this.finalSpinner=false;
             this.Error = true;
-            this.errorArr = [];
-            this.errorArr = JSON.parse(error.error);
-            this.errorMsg = this.errorArr.message;
+            // this.errorArr = [];
+            // this.errorArr = JSON.parse(error.error);
+            this.errorMsg = this.service.globalErrorMsg;
         })
       }
 
@@ -5057,9 +5058,9 @@ SignatureDesigner1(){
             this.finalSpinner=false;
             this.popup1=true;
             this.Error = true;
-            this.errorArr = [];
-            this.errorArr = JSON.parse(error.error);
-            this.errorMsg = this.errorArr.message;
+            // this.errorArr = [];
+            // this.errorArr = JSON.parse(error.error);
+            this.errorMsg = this.service.globalErrorMsg;
 
           }
         )};
@@ -5227,6 +5228,22 @@ SignatureDesigner1(){
       this.service.lpsClick = 1;
       this.service.logoutClick = 1;
       this.service.windowTabClick = 1;
+    }
+  }
+
+  gotoNextModal(content:any,contents:any) {
+  
+    if (this.summaryForm.invalid) {
+      this.validationError = true;
+      this.validationErrorMsg = 'Please check all the fields';
+      setTimeout(() => {
+        this.validationError = false;
+      }, 3000);
+      return;
+    }
+    //  For Dirty popup
+    else {
+     
     }
   }
 

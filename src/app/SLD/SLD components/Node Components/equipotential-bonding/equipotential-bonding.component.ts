@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { GlobalsService } from 'src/app/globals.service';
 import { Equipotential_Bonding } from 'src/app/SLD/SLD Models/equipotential_bonding';
 import { Equipotential_BondingServicesService } from 'src/app/SLD/SLD Services/equipotential_bonding-service.service';
 
@@ -34,9 +35,13 @@ export class EquipotentialBondingComponent implements OnInit {
   @Input()
   email: any;
 
+  error1: boolean=false;
+  error1Msg: string="";
+
   constructor(private formBuilder: FormBuilder,
               private equipBondService: Equipotential_BondingServicesService,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog,
+              private service: GlobalsService) { }
 
   ngOnInit(): void {
     this.equipotentialBondingForm = this.formBuilder.group({
@@ -54,6 +59,14 @@ export class EquipotentialBondingComponent implements OnInit {
             if(this.equipBondData.length != 0) {
               this.retrieveEquipotential_BondingNode(this.equipBondData);
             }
+          },
+          error=>{
+            this.error1=true;
+            this.error1Msg=this.service.globalErrorMsg;
+            setTimeout(() => {
+              this.error1=false;
+              this.error1Msg="";
+            }, 4000);
           }
         )
   }
@@ -132,8 +145,8 @@ export class EquipotentialBondingComponent implements OnInit {
       },
       error => {
         this.error = true;
-        this.errorData = JSON.parse(error.error);
-        this.errorMsg = this.errorData.message;
+        // this.errorData = JSON.parse(error.error);
+        this.errorMsg = this.service.globalErrorMsg;
         setTimeout(()=>{
           this.error = false;
           this.errorMsg = "";
@@ -162,8 +175,8 @@ export class EquipotentialBondingComponent implements OnInit {
       },
       error => {
         this.error = true;
-        this.errorData = JSON.parse(error.error);
-        this.errorMsg = this.errorData.message;
+        // this.errorData = JSON.parse(error.error);
+        this.errorMsg = this.service.globalErrorMsg;
         setTimeout(()=>{
           this.error = false;
           this.errorMsg = "";

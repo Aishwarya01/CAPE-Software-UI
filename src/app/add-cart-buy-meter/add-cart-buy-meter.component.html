@@ -1,3 +1,6 @@
+<div class="loader" *ngIf="spinner" style="overflow: inherit;margin: 0px auto;position: fixed;z-index: 1000;top: 40%;">
+</div>
+<div [ngStyle]="{'filter': (blurMode ? 'blur(1px)' : 'blur(0px)') ,'pointer-events': (blurMode ? 'none' : 'visible')}">
 <div class="bg-image">
 <div class="Cart-Container">
     <div class="Header">
@@ -11,7 +14,7 @@
 
         <span class="Action" (click)="removeAllItem()">Remove all</span>
         <div class="dropdown" style="position: absolute;right:60px;">
-            <button mat-button style='color:rgb(0, 0, 7);margin-right:auto;' data-toggle="dropdown" class="btn btn-default dropdown-toggle"
+            <button mat-button style='color:rgb(0, 0, 7);' data-toggle="dropdown" class="btn btn-default dropdown-toggle"
             [matMenuTriggerFor]="cartMenu">
               <mat-icon style='font-size:25px;color:rgb(1, 1, 20);'>person</mat-icon>
             </button>
@@ -20,11 +23,10 @@
               <!-- <button mat-menu-item (click)="changePassword()">Change Password</button>    -->
               <button mat-menu-item (click)="meterLogout()">Log out</button> 
             </mat-menu>
-      
         </div>
     </div>
     <hr class="divider1">
-    <div *ngIf="filledCart">
+    <div *ngIf="service.filledCart">
     <div class="row" *ngFor="let a of meterData3; let i = index;" style="padding-bottom: 30px;">
         <div class="col-md-3" style="padding-left: 80px;">
             <img src="{{a.image}}" height="80" width="100" />
@@ -52,7 +54,7 @@
                 <input type="number" min="1" [(ngModel)]="meterData1[i].quantity" (keyup)="quantityChange($event, a,i)" />
             </div>
             <div class="product-removal">
-                <button class="remove-product" (click)="removeItem(a)" title="Delete">
+                <button class="remove-product" (click)="removeItem(i,a.index)" title="Delete">
                     Remove
                 </button>
             </div> 
@@ -96,25 +98,25 @@
     </div> -->
 
 </div>
-<div *ngIf="emptyCart">
+<div *ngIf="service.emptyCart">
     <img src="assets/img/emptyCart.png" height="250" width="300" style="margin: 0 auto; display: block;"/>
     <h1 style="text-align: center;">Your Buy Meter Cart is empty.</h1>
 </div>
 
     
     <hr>
-    <div class="totals" *ngIf="filledCart">
+    <div class="totals" *ngIf="service.filledCart">
         <div class="totals-item">
             <label>Subtotal</label>
             <div class="totals-value" id="cart-subtotal">₹{{subtotal}}</div>
         </div>
         <div class="totals-item">
             <label>GST (5%)</label>
-            <div class="totals-value" id="cart-tax">3.60</div>
+            <div class="totals-value" id="cart-tax">₹{{gstAmount}}</div>
         </div>
         <div class="totals-item">
             <label>Shipping</label>
-            <div class="totals-value" id="cart-shipping">15.00</div>
+            <div class="totals-value" id="cart-shipping">Topay</div>
         </div>
         <div class="totals-item totals-item-total">
             <label>Grand Total</label>
@@ -122,12 +124,13 @@
         </div>
         <button class="checkout" (click)="checkoutConfirm(checkOutConfirm)">Checkout</button>
 </div>
-<div class="totals" *ngIf="emptyCart">
+<div class="totals" *ngIf="service.emptyCart">
     <div class="totals-item">
         <label style="width: 98%; text-align: right;">Subtotal (0 items):</label>
         <div id="cart-subtotal" style="float: right;">0</div>
     </div>
     <button class="checkout" (click)="backBUtton();">Back</button>
+</div>
 </div>
 </div>
 </div>

@@ -27,7 +27,7 @@ export class RiskCustomerDetailsComponent implements OnInit {
   Error: boolean=false;
   errorArr: any=[];
   errorMsg: string="";
-  isEditable!:boolean
+  isEditable:boolean=false;
   success1: boolean =false;
   successMsg1: string="";
   proceedFlag: boolean = true;
@@ -50,6 +50,8 @@ export class RiskCustomerDetailsComponent implements OnInit {
   validationErrorMsgTab2: string='';
   validationError1: boolean=false;
   validationErrorTab1: boolean=false;
+  fileFlag:boolean=false;
+  
   constructor(
     private formBuilder: FormBuilder,
     private router: ActivatedRoute,
@@ -280,9 +282,9 @@ export class RiskCustomerDetailsComponent implements OnInit {
             //  this.spinner=false;
             this.success1 = false;
             this.Error = true;
-            this.errorArr = [];
-            this.errorArr = JSON.parse(error.error);
-            this.errorMsg = this.errorArr.message;
+            // this.errorArr = [];
+            // this.errorArr = JSON.parse(error.error);
+            this.errorMsg = this.service.globalErrorMsg;
             this.proceedNext.emit(false);
           }
         )}
@@ -324,14 +326,14 @@ export class RiskCustomerDetailsComponent implements OnInit {
 
         },
         error => {
-           this.popup=true;
-          //  this.spinner=false;
+          this.popup=true;
           this.Error = true;
-          this.errorArr = [];
-          this.proceedFlag = true;
-          this.errorArr = JSON.parse(error.error);
-          this.errorMsg = this.errorArr.message;
-          this.proceedNext.emit(false); 
+          // this.proceedFlag = true;
+          this.errorMsg = this.service.globalErrorMsg;
+          this.proceedNext.emit(false);
+          setTimeout(() => {
+            this.service.globalErrorMsg="";
+          }, 3000); 
         })
       }
     }

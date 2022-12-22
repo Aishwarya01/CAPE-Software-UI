@@ -40,4 +40,11 @@ export class CustomerDetailsServiceService {
   public retrieveCustomerDetailsBasedOnUserName(userName:any): Observable<any>{
     return this.http.get<any>(this.apiUrl1 + '/risk/retrieveListOfCustomerDetails' + '/' + userName, { responseType: 'text' as 'json' })
   }
+  // For allstepscompleted
+  public updateAllStepsCompleted(riskId:any,userName: String): Observable<any> {
+    return this.http.put<any>(this.apiUrl1 + '/risk/updateAllStepsCompleted' + '/' +riskId + '/' +userName, { responseType: 'text' as 'json' })
+  }
+  public deleteCustomerDetails(customerDetails: CustomerDetails): Observable<any> {
+    return this.http.put<any>(this.apiUrl1 + '/risk/updateRiskAssessmentCustomerDetailsStatus', customerDetails, { responseType: 'text' as 'json' })
+  }
 }

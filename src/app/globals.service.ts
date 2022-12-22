@@ -1,6 +1,7 @@
 import {Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ScrollToService, ScrollToConfigOptions } from '@nicky-lenaers/ngx-scroll-to';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +38,7 @@ export class GlobalsService {
   viewerName!: String;
   inspectorName!: String;
   siteName!: String;
+  //viewerData: any = [];
   inspectorData: any = [];
 //generate otp & contact no.
   changeNumberSession!: String; 
@@ -114,7 +116,7 @@ autoLoginToken:number=0;
   headerMsg: String="";
   basicLPSID: number=0;
   toggle: boolean=false;
-
+  globalErrorMsg: string="";
   siteData: any;
 
   viewerData: any = {
@@ -144,12 +146,25 @@ autoLoginToken:number=0;
     updatedDate: "",
     username: "",
     siteName: "",
+    siteId: "",
   };
 
   cartIndex: any=[];
+  filledCart: boolean=false;
+  emptyCart: boolean=true;
+  checkGrandtotal: number=0;
+  // private newUser = new BehaviorSubject<any>({
+  //   firstName: 'Kevin',
+  //   email: 'ksmith@fanreact.com',
+  //   g: 'M'
+  // });
 
+  // private message = new BehaviorSubject<any>(this.grand);
+ // sharedMessage = this.message.asObservable();
+  
  constructor(private _scrollToService: ScrollToService
   ) {}
+
   
 //Scroll Top to Bottom for notification
   public triggerScrollTo() {
@@ -173,6 +188,7 @@ autoLoginToken:number=0;
       this.triggerMsgForLicense="";
     }
   }
+  
 }
 
  

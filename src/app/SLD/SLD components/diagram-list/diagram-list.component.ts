@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
+import { GlobalsService } from 'src/app/globals.service';
 import { ConfirmationBoxComponent } from '../../../confirmation-box/confirmation-box.component';
 import { NewFileComponent } from '../../../new-file/new-file.component';
 import { InspectionVerificationService } from '../../../services/inspection-verification.service';
@@ -37,10 +38,13 @@ export class DiagramListComponent implements OnInit {
   email: String = '';
   allData: any = [];
   fileName: any;
+  errorSld: boolean=false;
+  errorMsg: string="";
   constructor(private router: ActivatedRoute,
               private inspectionService: InspectionVerificationService,
               private diagramService: DiagramServicesService,
               private dialog: MatDialog,
+              private service: GlobalsService,
 
     ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
@@ -58,6 +62,14 @@ export class DiagramListComponent implements OnInit {
         this.savedDiagram_dataSource.paginator = this.savedDiagramPaginator;
         this.savedDiagram_dataSource.sort = this.savedDiagramSort;
       },
+      error=>{
+        this.errorSld=true;
+        this.errorMsg=this.service.globalErrorMsg;
+        setTimeout(() => {
+          this.errorSld=false;
+          this.errorMsg="";
+        }, 20000);
+      }
     )
   }
 

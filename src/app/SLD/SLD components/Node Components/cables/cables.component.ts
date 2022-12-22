@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { GlobalsService } from 'src/app/globals.service';
 import { Cables } from 'src/app/SLD/SLD Models/cables';
 import { CablesServicesService } from 'src/app/SLD/SLD Services/cables-services.service';
 
@@ -40,9 +41,13 @@ export class CablesComponent implements OnInit {
   testingTable: boolean = false;
   generalTestingCables!: FormArray;
 
+  error1: boolean=false;
+  error1Msg: string="";
+
   constructor(private formBuilder: FormBuilder,
     private cablesService: CablesServicesService,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog,
+    private service: GlobalsService) { }
 
   ngOnInit(): void {
     this.cablesForm = this.formBuilder.group({
@@ -68,6 +73,14 @@ export class CablesComponent implements OnInit {
         if (this.cablesData.length != 0) {
           this.retrieveCablesNode(this.cablesData);
         }
+      },
+      error=>{
+        this.error1=true;
+        this.error1Msg=this.service.globalErrorMsg;
+        setTimeout(() => {
+          this.error1=false;
+          this.error1Msg="";
+        }, 4000);
       }
     )
   }
@@ -345,8 +358,8 @@ export class CablesComponent implements OnInit {
         },
         error => {
           this.error = true;
-          this.errorData = JSON.parse(error.error);
-          this.errorMsg = this.errorData.message;
+          // this.errorData = JSON.parse(error.error);
+          this.errorMsg = this.service.globalErrorMsg;
           setTimeout(() => {
             this.error = false;
             this.errorMsg = "";
@@ -379,8 +392,8 @@ export class CablesComponent implements OnInit {
         },
         error => {
           this.error = true;
-          this.errorData = JSON.parse(error.error);
-          this.errorMsg = this.errorData.message;
+          // this.errorData = JSON.parse(error.error);
+          this.errorMsg = this.service.globalErrorMsg;
           setTimeout(() => {
             this.error = false;
             this.errorMsg = ""

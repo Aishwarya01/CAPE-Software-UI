@@ -1972,8 +1972,14 @@ style="margin-left: 10px;" >
              <div *ngIf="commentSuccess" style="text-align: center;margin-top: 30px;">
               <span class="successshow">Your comment has been sent to Inspector</span>
             </div>
+            <div *ngIf="commentError" style="text-align: center;margin-top: 30px;">
+              <span class="alert alert-danger">{{commentErrorMsg}}</span>
+            </div>
             <div *ngIf="commentApprove" style="text-align: center;margin-top: 30px;">
               <span class="alert alert-success">Your response to comments has been approved</span>
+            </div>
+            <div *ngIf="commentApproveEroor" style="text-align: center;margin-top: 30px;">
+              <span class="alert alert-danger">{{commentApproveEroorMsg}}</span>
             </div>
             <div *ngIf="commentReject" style="text-align: center;margin-top: 30px;">
               <span class="alert alert-danger">Your response to comments has been rejected</span>

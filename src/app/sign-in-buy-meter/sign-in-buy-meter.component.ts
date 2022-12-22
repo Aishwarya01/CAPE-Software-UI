@@ -17,6 +17,7 @@ export class SignInBuyMeterComponent implements OnInit {
   showPassword:boolean = false;
   showOtp:boolean = false;
   showBtn:boolean = true;
+  disableOtp:boolean = false;
   hideRegister:boolean = true;
   registerBuyMeterModel = new RegistrationBuyMeter();
   formInput = ['input1', 'input2', 'input3', 'input4', 'input5', 'input6'];
@@ -93,7 +94,12 @@ export class SignInBuyMeterComponent implements OnInit {
 
   // User name validation
   continue(){
+    this.submitted = true;
+    if(this.SignIn.invalid){
+     return
+  }
    this.userName = this.SignIn.controls.username.value;
+
    if(this.userName==null){
     this.showErrMsg1 ="Please Enter Username";
     this.showErrorMsg1 = true;
@@ -103,17 +109,15 @@ export class SignInBuyMeterComponent implements OnInit {
       this.showErrorMsg = false;
     }, 3000);
    }
-   else{
-
    
+   else{
     this.regiterationBuymeterService.retriveRegistration(this.userName).subscribe(data=>{
       this.showPassword = true;
       this.hideRegister = false;
      
     },error=>{
    
-      console.log("Username not exits!");
-      this.showErrMsg ="Username not exits!";
+      this.showErrMsg ="Email Id doesn't exists!";
       this.showErrorMsg = true;
       setTimeout(() => {
         this.showErrorMsg = false;
@@ -130,7 +134,7 @@ export class SignInBuyMeterComponent implements OnInit {
       localStorage.setItem('username',this.registerBuyMeterModel.username);
       sessionStorage.setItem('token', data['token']);
       
-      this.router.navigate(['/addtocart']);
+      this.router.navigate(['/buyMeter']);
     },error=>{
       this.wrongPassword = true;
       setTimeout(() => {
@@ -153,24 +157,44 @@ export class SignInBuyMeterComponent implements OnInit {
   }
 
   // Send OTP
-  sendOtp(){
+  sendOtp() {
     this.showOtp = true;
     this.showPassword = false;
     this.showBtn = false;
     this.userName = this.SignIn.controls.username.value;
 
-    this.regiterationBuymeterService.sendOtp(this.userName).subscribe((data:string)=>{
-       
-       this.showOtpMsg = true;
-       setTimeout(() => {
-         this.showOtpMsg = false;
-       }, 3000);
-       this.OtpSession = data;
-     },
-    error =>{
-       console.log(JSON.parse(error.error));
-    })
-    this.sessionKeyArr=this.dataArr;
+    // if username
+    if (this.userName.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/) != null) {
+
+      this.regiterationBuymeterService.sendUsername(this.userName).subscribe((data: string) => {
+
+        this.showOtpMsg = true;
+        setTimeout(() => {
+          this.showOtpMsg = false;
+        }, 3000);
+        this.OtpSession = data;
+      },
+        error => {
+          console.log(JSON.parse(error.error));
+        })
+    }
+    else {
+
+      //if mobilenumber
+      this.regiterationBuymeterService.sendOtp(this.userName).subscribe((data: string) => {
+
+        this.showOtpMsg = true;
+        setTimeout(() => {
+          this.showOtpMsg = false;
+        }, 3000);
+        this.OtpSession = data;
+      },
+        error => {
+          console.log(JSON.parse(error.error));
+        })
+    }
+
+    this.sessionKeyArr = this.dataArr;
     console.log(this.dataArr);
   }
 
@@ -191,7 +215,7 @@ export class SignInBuyMeterComponent implements OnInit {
     this.registerBuyMeterModel.otpSession=this.OtpSession;
     
     this.regiterationBuymeterService.verifyOtp(this.registerBuyMeterModel).subscribe(data=>{
-      this.router.navigate(['/addtocart']);
+      this.router.navigate(['/buyMeter']);
      let registrationBuyMeter = new  RegistrationBuyMeter();
      registrationBuyMeter.mobileNumber = this.registerBuyMeterModel.username; //Here  username is contactNumber
       this.regiterationBuymeterService.authenticate(registrationBuyMeter).subscribe(data=>{
@@ -214,6 +238,10 @@ export class SignInBuyMeterComponent implements OnInit {
       this.registerBuyMeterModel.otpSession = data;
     })
 
+  }
+
+  disableOtpBtn(){
+    this.disableOtp = true;
   }
 
 }

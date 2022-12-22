@@ -35,6 +35,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatCarousel } from 'ng-mat-carousel';
 import { Router } from '@angular/router';
 import { AddCartBuyMeterComponent } from '../add-cart-buy-meter/add-cart-buy-meter.component';
+import { LoginBuyMeterService } from '../services/login-buy-meter.service';
+import { User } from '../model/user';
 
 @Component({
   selector: 'app-buy-meter',
@@ -42,6 +44,11 @@ import { AddCartBuyMeterComponent } from '../add-cart-buy-meter/add-cart-buy-met
   styleUrls: ['./buy-meter.component.css']
 })
 export class BuyMeterComponent implements OnInit {
+
+  user = new User();
+  USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser';
+  public token: string = '';
+  showErrorMessage=false;
 
   meterColumns: string[] = [
     'position',
@@ -97,7 +104,7 @@ export class BuyMeterComponent implements OnInit {
     // 'MPI-540 Multi-function Meter',
     ];
   meterData1: any =[
-    { position: 2, model: 'MZC-304 S.C. Loop Impedance Meter-1', pdf:'assets/documents/MZC304.pdf', index: 'WMGBMZC304', price: '89,906', image:'assets/img/mzc304.png' },
+    { position: 2, model: 'MZC-304 S.C. Loop Impedance Meter-1', pdf:'assets/documents/MZC304.pdf', index: 'WMGBMZC304', price: '1', image:'assets/img/mzc304.png' },
     { position: 6, model: 'MZC-330S Short Circuit Loop Impedance Meter', pdf:'assets/documents/MZC.pdf', index: 'WMGBMZC330', price: '5,78,550', image:'assets/img/mzc_updated.png' },
     { position: 7, model: 'MRP-201 RCD Tester', pdf:'assets/documents/MP540.pdf', index: 'WMGBMRP201', price: '98,175', image:'assets/img/mpi_updated.png' },
     { position: 13, model: 'MPI-530 Multi-function Meter', pdf:'assets/documents/MPI.pdf', index: 'WMGBMPI530', price: '3,12,900', image:'assets/img/mpi_530I_updated.png' },
@@ -136,7 +143,7 @@ meterData2: any =[
   // { position: 17, model: 'MPI-540 Multi-function Meter', pdf:'assets/documents/MP540.pdf', index: 'WMGBMPI540', price: '583669', image:'assets/img/mpi540.PNG' },
 ];
   constructor(private changeDetectorRef: ChangeDetectorRef,
-    public service: GlobalsService,
+    public service: GlobalsService,private loginBuyMeterService : LoginBuyMeterService,
     private modalService: NgbModal,
     private router1: ActivatedRoute,
    public datepipe: DatePipe,private router: Router
@@ -149,6 +156,7 @@ meterData2: any =[
    // }
 
   ngOnInit(): void {
+    this.cartCount=this.service.cartIndex.length;
   } 
 
   setPagination() {
@@ -169,6 +177,15 @@ meterData2: any =[
     addToCart(b:any){
       this.service.cartIndex.push(b);
       this.cartCount=this.service.cartIndex.length;
+       if(this.cartCount==0){
+        this.service.filledCart= false;
+        this.service.emptyCart=true;
+       }
+       else{
+        this.service.filledCart= true;
+        this.service.emptyCart=false;
+       }
+      
     //  this.cart.addtoCartIndex(b);
      // this.router.navigate(['/signIn-buyMeter']);
     }
@@ -179,8 +196,31 @@ meterData2: any =[
     //  // this.router.navigate(['/signIn-buyMeter']);
     // }
      movetoCart(){
-      this.router.navigate(['/addtocart']);
+      if(sessionStorage.getItem('tokenforMeter')== undefined){
+        this.router.navigate(['/signIn-buyMeter']);
+      }
+      else{
+        this.router.navigate(['/addtocart'])
+      }
     }
+    
+
+    // AutoLogin(){
+    //   this.loginBuyMeterService.Signin(localStorage.email, localStorage.password).subscribe(
+    //       data=> {
+    //       sessionStorage.setItem('token', data['token']);
+    //       // Save value to local storage
+    //       const rememberMe = localStorage.getItem('rememberMe');
+    //         if(rememberMe == 'yes') {
+    //           this.router.navigate(['/home', {email: data.register.username}])
+    //         }
+    //       },
+    //       error => {
+    //        console.log(error);
+    //       }
+    //     )
+    //     }   
+
     zoomImage(contentImage:any,a:any){
       this.modalService.open(contentImage, {
         centered: true, 

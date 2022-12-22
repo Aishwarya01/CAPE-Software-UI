@@ -28,9 +28,9 @@
                               </span>
                           </div>
                           <input type="email" class="form-control" formControlName="username" placeholder="Enter your email address" maxlength="50"
-                           [(ngModel)]="registerBuyMeterModel.username">
-                          <div *ngIf="submitted && f.usernameerrors" class="invalid-feedback">
-                              <div *ngIf="f.username.errors.required">Email is required</div>
+                           [(ngModel)]="registerBuyMeterModel.username" [ngClass]="{'is-invalid':submitted && f.username.errors}">
+                          <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                              <div *ngIf="f.username.errors.required">Username is required</div>
                               <!-- <div *ngIf="f.email.errors.pattern">Enter valid email</div> -->
                           </div>
                       </div>
@@ -45,7 +45,7 @@
                                     <i class="bi bi-envelope-fill"></i>
                                 </span>
                             </div>
-                            <input type="password" class="form-control" formControlName="password" placeholder="Enter your password" maxlength="50"
+                            <input type="password" (focus)="disableOtpBtn()" class="form-control" formControlName="password" placeholder="Enter your password" maxlength="50"
                              [(ngModel)]="registerBuyMeterModel.password">
                             <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
                                 <div *ngIf="f.password.errors.required">password is required</div>
@@ -55,7 +55,7 @@
                     </div>
                     
                     <div >
-                        <button  style="width:auto;" *ngIf="showBtn" class="btn btn-success cancel" (click)="sendOtp()"> <i class="bi bi-check-lg"></i> Login using OTP</button>
+                        <button  style="width:auto;" *ngIf="showBtn" class="btn btn-success cancel" [disabled]="disableOtp" (click)="sendOtp()"> <i class="bi bi-check-lg"></i> Login using OTP</button>
                         <button  style="width:auto;margin-left:30px;" class="btn btn-success cancel" (click)="submit()">Submit</button>
                     </div>
                     
