@@ -111,7 +111,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   selectedIndex: number=0;
   // Super Admin
   email: String = '';
-  riskConst = new SuperAdminDev();
+  riskConstDev = new SuperAdminDev();
   riskConstProd = new SuperAdminProd();
   submittedButton: boolean = true;
 
@@ -139,14 +139,14 @@ export class RiskAssessmentDetailsComponent implements OnInit {
               private customerDetailsService :CustomerDetailsServiceService,
   ) { 
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
-    for( let i=0; i<this.riskConst.adminEmail.length; i++){
-      if(this.riskConst.adminEmail[i] == this.email)
+    for( let i=0; i<this.riskConstDev.riskAdminEmail.length; i++){
+      if(this.riskConstDev.riskAdminEmail[i] == this.email)
       {
         this.submittedButton = false;
       }
     }
-    for( let i=0; i<this.riskConstProd.adminEmail.length; i++){
-      if(this.riskConstProd.adminEmail[i] == this.email)
+    for( let i=0; i<this.riskConstProd.riskAdminEmail.length; i++){
+      if(this.riskConstProd.riskAdminEmail[i] == this.email)
       {
         this.submittedButton = false;
       }
