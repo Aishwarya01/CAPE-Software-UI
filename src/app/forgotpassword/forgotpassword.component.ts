@@ -29,7 +29,7 @@ export class ForgotpasswordComponent implements OnInit {
   dataToBeSent: String = '';
   showErrorMsg: string="";
 
-//  errorMsg: boolean=false;
+  errorMsg: boolean=false;
 
   constructor(
     private formBuilder: FormBuilder,
