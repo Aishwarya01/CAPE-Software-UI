@@ -1851,10 +1851,10 @@ SignatureDesigner1(){
              }
           }
    
-          let summaryObservation = this.isSummaryDataAvilable('airHolderDescription' + airHolderListSerialNo, 'airHolderList', value, airHolderListSerialNo, heading
+          let summaryObservation = this.isSummaryDataAvilable('airHolderList' + airHolderListSerialNo, 'airHolderList', value, airHolderListSerialNo, heading
           , displySerialNo, headingUi, (airHolderListSerialNo-1),airTerminationId);
   
-          summaryObservation.observationComponentDetails = 'airHolderDescription' + airHolderListSerialNo;
+          summaryObservation.observationComponentDetails = 'airHolderList' + airHolderListSerialNo;
           summaryObservation.remarkName = remarkName +"-"+index+"-"+i;
           summaryObservation.remarksId = airTerminationId;
           airTerminationForm.push( this.populateForm(summaryObservation));

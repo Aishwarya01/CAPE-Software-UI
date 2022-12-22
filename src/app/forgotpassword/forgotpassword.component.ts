@@ -28,6 +28,9 @@ export class ForgotpasswordComponent implements OnInit {
   mobileNumber: String = '';
   dataToBeSent: String = '';
   showErrorMsg: string="";
+
+//  errorMsg: boolean=false;
+
   constructor(
     private formBuilder: FormBuilder,
     private router: ActivatedRoute,
@@ -60,6 +63,10 @@ export class ForgotpasswordComponent implements OnInit {
       return;
     }
     if(this.forgotpassform.value.email.length==0 && this.forgotpassform.value.mobileNumber.length==0){
+      this.errorMsg=true;
+      setTimeout(() => {
+        this.errorMsg=false;
+      }, 3000);
       return;
     }
     this.forgotpassform.value.mobileNumber = this.forgotpassform.value.mobileNumber.length > 0 ? "+"+this.countryCode+"-"+this.forgotpassform.value.mobileNumber : '';
