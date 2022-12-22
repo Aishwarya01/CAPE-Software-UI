@@ -109,6 +109,7 @@ export class SignInBuyMeterComponent implements OnInit {
       this.showErrorMsg = false;
     }, 3000);
    }
+   
    else{
     this.regiterationBuymeterService.retriveRegistration(this.userName).subscribe(data=>{
       this.showPassword = true;
@@ -156,24 +157,44 @@ export class SignInBuyMeterComponent implements OnInit {
   }
 
   // Send OTP
-  sendOtp(){
+  sendOtp() {
     this.showOtp = true;
     this.showPassword = false;
     this.showBtn = false;
     this.userName = this.SignIn.controls.username.value;
-    
-    this.regiterationBuymeterService.sendOtp(this.userName).subscribe((data:string)=>{
-       
-       this.showOtpMsg = true;
-       setTimeout(() => {
-         this.showOtpMsg = false;
-       }, 3000);
-       this.OtpSession = data;
-     },
-    error =>{
-       console.log(JSON.parse(error.error));
-    })
-    this.sessionKeyArr=this.dataArr;
+
+    // if username
+    if (this.userName.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/) != null) {
+
+      this.regiterationBuymeterService.sendUsername(this.userName).subscribe((data: string) => {
+
+        this.showOtpMsg = true;
+        setTimeout(() => {
+          this.showOtpMsg = false;
+        }, 3000);
+        this.OtpSession = data;
+      },
+        error => {
+          console.log(JSON.parse(error.error));
+        })
+    }
+    else {
+
+      //if mobilenumber
+      this.regiterationBuymeterService.sendOtp(this.userName).subscribe((data: string) => {
+
+        this.showOtpMsg = true;
+        setTimeout(() => {
+          this.showOtpMsg = false;
+        }, 3000);
+        this.OtpSession = data;
+      },
+        error => {
+          console.log(JSON.parse(error.error));
+        })
+    }
+
+    this.sessionKeyArr = this.dataArr;
     console.log(this.dataArr);
   }
 

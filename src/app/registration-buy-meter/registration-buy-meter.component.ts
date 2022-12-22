@@ -34,10 +34,12 @@ export class RegistrationBuyMeterComponent implements OnInit {
     this.RegistrationForm = new FormGroup({
       firstName:new FormControl('',Validators.required),
       lastName:new FormControl('',Validators.required),
-      contactNumber:new FormControl('',[Validators.required, Validators.min(1000000000), Validators.max(9999999999)]),
+      contactNumber:new FormControl('',[Validators.required,Validators.pattern('^[1-9][0-9]{9}$')]),
       email:new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       password:new FormControl('',[Validators.required,Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)]),
-      companyName:new FormControl('',Validators.required),
+      purchasetype: new FormControl('',Validators.required),
+      customerGstNumber: new FormControl('',[Validators.required, Validators.pattern("[A-Z0-9]{15}")]),
+      companyName:new FormControl(''),
       confirmpassword:new FormControl('',[Validators.required,Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)]),
       address: new FormControl('',Validators.required),
       country: new FormControl('',Validators.required),
@@ -138,6 +140,22 @@ countryChange(country: any) {
         //this.pinCodeErrorMsg = 'Please enter pincode';
       }
        
+  }
+
+
+  validate(event: any){
+    if(event.target.value == "Company"){
+      this.f['companyName'].setValidators([Validators.required]);
+      this.f['companyName'].updateValueAndValidity();
+      this.f['customerGstNumber'].setValidators([Validators.required, Validators.pattern("[A-Z0-9]{15}")]);
+      this.f['customerGstNumber'].updateValueAndValidity();
+
+    }else{
+      this.f['companyName'].clearValidators();
+      this.f['companyName'].updateValueAndValidity();
+      this.f['customerGstNumber'].clearValidators();
+      this.f['customerGstNumber'].updateValueAndValidity();
+    }
   }
 
 }

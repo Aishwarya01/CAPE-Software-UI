@@ -35,7 +35,9 @@ validationErrorMsg: string="";
 generalTestingClass1Arr: any = [];
 generalTestingClass1ArrValue: any = [];
 deletedArr: any = [];
-  deletedArrFlag: any;
+deletedArrFlag: any;
+error1: boolean=false;
+error1Msg: string="";
 
 constructor(private formBuilder: FormBuilder,
             private patService: PortableApplianceServicesService,
@@ -65,6 +67,14 @@ ngOnInit(): void {
           if(this.patData.length != 0) {
             this.retrievePATNode(this.patData);
           }
+        },
+        error=>{
+          this.error1=true;
+          this.error1Msg=this.service.globalErrorMsg;
+          setTimeout(() => {
+            this.error1=false;
+            this.error1Msg="";
+          }, 4000);
         }
       )
 }

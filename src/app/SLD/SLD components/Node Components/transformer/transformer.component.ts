@@ -54,6 +54,9 @@ export class TransformerComponent implements OnInit {
   fileStatusSuccess: boolean = true;
   fileErrorFlag: boolean = false;
   fileSuccessFlag: boolean = false;
+  error1: boolean=false;
+  error1Msg: string="";
+
   constructor(private formBuilder: FormBuilder,
     private transformerService: TransformerServicesService,
     private transformerFileUploadServiceService: TransformerFileUploadServiceService,
@@ -83,6 +86,14 @@ export class TransformerComponent implements OnInit {
         if (this.transformerData.length != 0) {
           this.retrieveTransformerNode(this.transformerData);
         }
+      },
+      error=>{
+        this.error1=true;
+        this.error1Msg=this.service.globalErrorMsg;
+        setTimeout(() => {
+          this.error1=false;
+          this.error1Msg="";
+        }, 4000);
       }
     )
 

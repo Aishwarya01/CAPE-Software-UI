@@ -37,6 +37,9 @@ export class ACBComponent implements OnInit {
   @Input()
   email: any;
 
+  error1: boolean=false;
+  error1Msg: string="";
+
   constructor(private formBuilder: FormBuilder,
               private acbService: ACBServicesService,
               private dialog: MatDialog,
@@ -72,6 +75,14 @@ export class ACBComponent implements OnInit {
             if(this.acbData.length != 0) {
               this.retrieveACBNode(this.acbData);
             }
+          },
+          error=>{
+            this.error1=true;
+            this.error1Msg=this.service.globalErrorMsg;
+            setTimeout(() => {
+              this.error1=false;
+              this.error1Msg="";
+            }, 4000);
           }
         )
   }

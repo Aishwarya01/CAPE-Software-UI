@@ -32,6 +32,8 @@ export class LTMotorComponent implements OnInit {
   email: any;
   error: boolean = false;
   errorData: any;
+  error1: boolean=false;
+  error1Msg: string="";
 
   @Input()
   nodeId: any;
@@ -71,6 +73,14 @@ export class LTMotorComponent implements OnInit {
         if (this.ltMotorData.length != 0) {
           this.retrieveLTMotorNode(this.ltMotorData);
         }
+      },
+      error=>{
+        this.error1=true;
+        this.error1Msg=this.service.globalErrorMsg;
+        setTimeout(() => {
+          this.error1=false;
+          this.error1Msg="";
+        }, 4000);
       }
     )
   }

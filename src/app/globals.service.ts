@@ -150,7 +150,8 @@ autoLoginToken:number=0;
   };
 
   cartIndex: any=[];
-  
+  filledCart: boolean=false;
+  emptyCart: boolean=true;
   checkGrandtotal: number=0;
   // private newUser = new BehaviorSubject<any>({
   //   firstName: 'Kevin',

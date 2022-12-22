@@ -9,6 +9,8 @@ export class RegistrationBuyMeter {
     updatedDate!:Date;
     createdBy!:String;
     updatedBy!:String;
+    purchaseType!:string;
+    gstNumber!: string;
      otp!:string;
     otpSession!:string;
     address!: string;

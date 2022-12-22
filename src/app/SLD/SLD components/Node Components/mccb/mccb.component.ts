@@ -38,6 +38,9 @@ export class MCCBComponent implements OnInit {
   @Input()
   email: any;
 
+  error1: boolean=false;
+  error1Msg: string="";
+
   constructor(private formBuilder: FormBuilder,
               private mccbService: MCCBServicesService,
               private dialog: MatDialog,
@@ -72,6 +75,14 @@ export class MCCBComponent implements OnInit {
             if(this.mccbData.length != 0) {
               this.retrieveMccbNode(this.mccbData);
             }
+          },
+          error=>{
+            this.error1=true;
+            this.error1Msg=this.service.globalErrorMsg;
+            setTimeout(() => {
+              this.error1=false;
+              this.error1Msg="";
+            }, 4000);
           }
         )
 

@@ -42,6 +42,9 @@ export const environment = {
     {imageSource: '../../assets/img/DieselGenerator.png', imageName: 'DieselGenerator', id: 23},
     {imageSource: '../../assets/img/EquipBond.png', imageName: 'EquipBond', id: 24}
     ],
+    stateGSTPercentage: 9,
+    centralGSTPercentage: 9,
+    integratedGSTPercentage: 18
 };
 
 export class SuperAdminLocal {

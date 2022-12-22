@@ -37,6 +37,9 @@ export class ProtectiveEarthConductorComponent implements OnInit {
   @Input()
   email: any;
 
+  error1: boolean=false;
+  error1Msg: string="";
+
   nominalCrossSection: any = ['1.5','2.5','4','6','10','16','25','35','50','70','95','120','150','185'];
   specificConductor: any = ['12.575','7.566','4.739','3.149','1.881','1.185','0.752','0.546','0.404','0.281','0.204','0.163','0.134','0.109'];
   
@@ -67,6 +70,14 @@ export class ProtectiveEarthConductorComponent implements OnInit {
             if(this.protectiveEarthConductorData.length != 0) {
               this.retrievePECNode(this.protectiveEarthConductorData);
             }
+          },
+          error=>{
+            this.error1=true;
+            this.error1Msg=this.service.globalErrorMsg;
+            setTimeout(() => {
+              this.error1=false;
+              this.error1Msg="";
+            }, 4000);
           }
         )
   }

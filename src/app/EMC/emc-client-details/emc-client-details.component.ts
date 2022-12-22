@@ -82,7 +82,6 @@ export class EmcClientDetailsComponent implements OnInit {
     });
     this.emcClientDetailsService.retrieveCountry().subscribe(
       data => {
-
         this.countryList = JSON.parse(data);
       }
     )

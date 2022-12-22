@@ -1,8 +1,8 @@
-<div class="col-md-12 bg-image">
-
-<div class="container">
-    <h2 style="margin-top: 20px;">Account Details</h2>
-<form [formGroup]="profileForm">
+<div class="bg-image">
+<div class="container col-md-12">
+    <h2 style="padding-top: 20px;">Account Details</h2>
+    <hr class="divider1">
+<form [formGroup]="profileForm" style="padding:20px;">
     <div class="row"> 
         <div class="col-md-4">
             <div class="form-group">
@@ -88,20 +88,6 @@
       </div>
 
       <div class="col-md-4">                    
-         <div class="form-group">
-             <label for="companyNae"> Company Name</label>
-             <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">
-                        <i class="bi bi-building"></i>
-                    </span>
-                </div>
-                <input type="text" formControlName="companyName" class="form-control" [(ngModel)]="registerBuyMeterModel.customerCompany" readonly>
-             </div>
-         </div>
-      </div>
-
-      <div class="col-md-4">                    
         <div class="form-group">
             <label for="address"> Address</label>
             <div class="input-group">
@@ -114,6 +100,54 @@
             </div>
         </div>
      </div>
+
+     <div class="col-md-4">                    
+        <div class="form-group">
+            <label for="purchasetype"> Type of Purchase</label>
+            <div class="input-group">
+               <div class="input-group-prepend">
+                   <span class="input-group-text">
+                       <i class="bi bi-building"></i>
+                   </span>
+               </div>
+               <input type="text" formControlName="purchasetype" class="form-control" [(ngModel)]="registerBuyMeterModel.purchaseType" readonly>
+            </div>
+        </div>
+     </div>
+
+
+
+     <div class="row" *ngIf="registerBuyMeterModel.purchaseType =='Company'">
+
+           <div class="col-md-6">                    
+            <div class="form-group">
+                <label for="companyNae"> Company Name</label>
+                <div class="input-group">
+                   <div class="input-group-prepend">
+                       <span class="input-group-text">
+                           <i class="bi bi-building"></i>
+                       </span>
+                   </div>
+                   <input type="text" formControlName="companyName" class="form-control" [(ngModel)]="registerBuyMeterModel.customerCompany" readonly>
+                </div>
+            </div>
+           </div>
+
+           <div class="col-md-6">
+            <div class="form-group">
+                <label for="gstNumber"> GST Number</label>
+                <div class="input-group">
+                   <div class="input-group-prepend">
+                       <span class="input-group-text">
+                           <i class="bi bi-building"></i>
+                       </span>
+                   </div>
+                   <input type="text" formControlName="customerGstNumber" class="form-control" [(ngModel)]="registerBuyMeterModel.gstNumber" readonly>
+                </div>
+            </div>
+           </div>
+     </div>
+  
 
     </div>
      
@@ -178,7 +212,7 @@
 
     </div>
 
-            <div class="row" style="margin-top: 20px;">
+            <div class="row" style="margin-top: 4%;">
                 <div class="col-md-12 text-center justify-content-center">
                   <button type="button" class="btn btn-danger" style="margin-left:15px"  (click)="backToAddtocart()">Back</button>
                 </div>

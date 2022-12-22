@@ -32,12 +32,12 @@
                                     </div>
                             
                                    <div class="row">
-                                    <div class="col-md-4">
+                                    <!-- <div class="col-md-4">
                                         <label for="companyname">* CompanyName</label>
                                         <div class="form-group">
                                             <input type="text" class="form-control" formControlName="companyName" [(ngModel)]="registerBuyMeter.customerCompany" readonly>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="col-md-4">
                                         <label for="Address">* Address</label>
                                         <div class="form-group">
@@ -50,22 +50,25 @@
                                             <input type="text" class="form-control" formControlName="country" [(ngModel)]="registerBuyMeter.country" readonly>
                                         </div>
                                     </div>
-                                   </div>
-                                  
-                                   <div class="row"> 
+
                                     <div class="col-md-4">
                                         <label for="state">* State</label>
                                         <div class="form-group">
                                             <input type="text" class="form-control" formControlName="state" [(ngModel)]="registerBuyMeter.state" readonly>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+
+                                   </div>
+                                  
+                                   <div class="row"> 
+                               
+                                    <div class="col-md-6">
                                         <label for="city">* District</label>
                                         <div class="form-group">
                                             <input type="text" class="form-control" formControlName="city" [(ngModel)]="registerBuyMeter.district" readonly>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <label for="pincode">* Pincode</label>
                                         <div class="form-group">
                                             <input type="text" class="form-control" formControlName="pincode" [(ngModel)]="registerBuyMeter.pinCode" readonly>
@@ -105,7 +108,9 @@
                 <button type="button"  style="margin-left: 10px;margin-top: 30px;" class="btn btn-primary" mat-button matStepperNext>Next</button>
                 <button type="button"  style="margin-left: 10px;margin-top: 30px;" class="btn btn-danger" mat-button matStepperPrevious>Back</button>
             </mat-step>
-            <mat-step label="Done"></mat-step>
+            <mat-step label="Done">
+                <button type="button" style="margin-left: 10px;" class="btn btn-danger" (click)="cancelCheckout(checkOutCancel)">Cancel</button>
+            </mat-step>
         </mat-vertical-stepper>
         <div class="col-md-3" style="border: 1px solid black;padding:20px;border-radius: 5px;height: 51vh;
         margin-top: 72px;">
