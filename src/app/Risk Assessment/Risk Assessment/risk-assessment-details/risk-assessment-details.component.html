@@ -15,10 +15,6 @@
     <span class="alert alert-info">{{riskGlobal.dirtyMsg}}</span>
 </div>
 
-<!-- <div *ngIf="blurMode" class="spinner-grow" style="width: 50px;height: 50px;animation-duration: 1s;color: dark;overflow: inherit;left: 50%;margin: 0px auto;position: fixed;z-index: 1000;top: 50%;" role="status">
-    <pre class="visually-hidden" style="top: 35%;left: 110%;position: fixed;top: 50%;">Please wait Loading...</pre>
-</div> -->
-
 <div class="animBox" *ngIf="blurMode" style="overflow: inherit;margin: 0px auto;position: fixed;z-index: 1000;top: 50%;"></div>
 <div class="waviy">
     <pre *ngIf="blurMode" style="top: 52%;position: fixed;overflow: inherit;margin: 0px auto;z-index: 1000;margin-left: 48%;font-weight: bold;">{{blurMsg}}</pre>
@@ -1340,9 +1336,9 @@
     </div>
     <br>
         <div style="margin-top: 20px;text-align: center;">
-            <button *ngIf="updateButton" class="next" (click)="gotoNextModal(contents,content,content4,'update')" [ngClass]="{'disableForm':isEditable}" mat-button>Update &raquo;</button>
-            <button *ngIf="saveButton" class="next" (click)="gotoNextModal(contents,content,content4,'save')" [ngClass]="{'disableForm':isEditable}" mat-button>Save &raquo;</button>
-            <button type="submit" (click)="gotoNextModal(contents,content,content4,'submit')" [disabled]="submittedButton" [ngClass]="{'disableForm':isEditable}" *ngIf="enableSubmit" class="next1" title="Generate Report" mat-button>Submit &raquo;</button>
+            <button *ngIf="updateButton" class="next" (click)="gotoNextModal(contents,contentSub,content,content4,'update')" [ngClass]="{'disableForm':isEditable}" mat-button>Update &raquo;</button>
+            <button *ngIf="saveButton" class="next" (click)="gotoNextModal(contents,contentSub,content,content4,'save')" [ngClass]="{'disableForm':isEditable}" mat-button>Save &raquo;</button>
+            <button type="submit" (click)="gotoNextModal(contents,contentSub,content,content4,'submit')" [disabled]="submittedButton" [ngClass]="{'disableForm':isEditable}" *ngIf="enableSubmit" class="next1" title="Generate Report" mat-button>Submit &raquo;</button>
         </div>
     </form>
     </div>
@@ -1459,5 +1455,31 @@
         <span aria-hidden="true">Cancel</span>
     </button>
   </div>
-  
+</ng-template>
+
+
+<!-- Submission -->
+<ng-template #contentSub let-modal>
+    <div class="modal-body">
+    <div class="centre-text m-btm30">
+      <div style="text-align: center;">
+        <span class="successshow">Are you sure you want to procced? </span>
+        <br>
+        <span style="font-size: 12px;"><b>Note:</b> Once submitted, details can't be modified! </span>
+      </div>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <button type="button" class="col-md-6" style="width: 5rem;position: relative;margin-left: 18%;background-color: #0f800c;color: white;font-size: 12px;" class="btn btn-rounded btn-md font-weight-medium auth-form-btn"
+      aria-label="Close" (click)="closeModalDialogSub(flag,content)">
+      <i class="bi bi-arrow-right-circle"></i>&nbsp;
+        <span aria-hidden="true">Ok</span>
+    </button>
+    <button type="button" class="col-md-6" style="text-align: center;width: auto;position: relative;margin-left: 26%;font-size: 12px;" class="btn btn-danger btn-rounded btn-md font-weight-medium auth-form-btn"
+      aria-label="Close" (click)="closeModalDialog1()">
+      <i class="bi bi-x icon"></i>
+        <span aria-hidden="true">Cancel</span>
+    </button>
+  </div>
 </ng-template>

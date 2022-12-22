@@ -1,8 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ThumbsConstraints } from '@syncfusion/ej2-angular-diagrams';
+import { ConfirmationBoxComponent } from 'src/app/confirmation-box/confirmation-box.component';
 import { GlobalsService } from 'src/app/globals.service';
 import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminProd } from 'src/environments/environment.prod';
@@ -120,10 +122,15 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   dataArr: any;
   buttonName: string="";
   fileFlag:boolean=false;
+  finalSpinner: boolean=false;
+  finalSubmit: boolean=false;
+
+  successMsgArr: any;
 
   constructor(private router: ActivatedRoute,
               private formBuilder: FormBuilder,
               private modalService: NgbModal,
+              private dialog: MatDialog,
               private riskAssessmentService: RiskAssessmentDetailsServiceService,
               public riskGlobal: RiskglobalserviceService, 
               public service: GlobalsService,
@@ -2138,16 +2145,26 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     }
   }
 
+  closeModalDialogSub(flag:any,content:any){
+    this.finalSubmit=true;
+    this.modalService.dismissAll();
+    this.successMsgArr=content;
+    this.onSubmit(flag);
+  }
+
+  submitPopup(){
+    this.modalService.open(this.successMsgArr, { centered: true,backdrop: 'static' });
+  }
+
   closeModalDialog1(){
     this.modalService.dismissAll();
   }
 
   navigateToStep(index: any) {
     this.navigateStepSummary.emit(index);
-    //this.matStepper.navigateStep(index);
   }
 
-  gotoNextModal(contents: any,content:any,content4:any,button:any) {
+  gotoNextModal(contents: any,contentSub:any,content:any,content4:any,button:any) {
     
     this.buttonName=button;
 
@@ -2158,24 +2175,23 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       return;
     }
     
-    //  Update and Success msg will be showing
-    else if(this.step2Form.dirty && this.step2Form.touched){
-      // if(this.buttonName=='submit'){
-      //   this.blurMode=true;
-      //   this.blurMsg="Submission in Progress!";
-      // }else{
-        this.modalService.open(content, { centered: true,backdrop: 'static' });
-      // }
+    //  Update and Success msg will be showing 
+    else if((this.step2Form.dirty && this.step2Form.touched && this.buttonName=='save') || (this.step2Form.dirty && this.step2Form.touched && this.buttonName=='update')){
+      this.modalService.open(content, { centered: true,backdrop: 'static' });
     }
 
-    else if(!this.step2Form.dirty && this.updateButton){  
+    else if(this.step2Form.dirty && this.step2Form.touched && this.buttonName=='submit'){
+      this.modalService.open(contentSub, { centered: true,backdrop: 'static' });  
+    }
+
+    else if(!this.step2Form.dirty && this.buttonName=='update'){  
       this.validationError = true;
       this.validationErrorMsg = 'Please change any details for Update the Risk Assessment Details';
       setTimeout(() => {
         this.validationError = false;
         this.buttonName="";
       }, 3000);
-      return 
+      // return 
     }
 
     else if(!this.step2Form.dirty && this.buttonName=="submit"){  
@@ -2185,7 +2201,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
         this.validationError = false;
         this.buttonName="";
       }, 3000);
-      return 
+      // return 
     }
     //  For Dirty popup
     else{
@@ -2210,6 +2226,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
           this.updateRiskDetails(this.riskAssessmentDetails.userName,this.riskId,JSON.parse(data)[0]);
           if(!this.step2Form.invalid) {
             this.enableSubmit =true;
+            this.step2Form.markAsPristine();
           }
         }
       },
@@ -2327,43 +2344,51 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       //   return;
       // }
     //  this.spinner = true;
+    if(!this.finalSubmit && this.buttonName=='submit'){
+      return
+    }
+
+    if(this.buttonName=='submit' && this.finalSubmit){
+      this.blurMode=true;
+      this.blurMsg="Submission in Progress!";
+    }
     this.popup=false;
     this.riskAssessmentDetails = this.step2Form.value.structureCharacters[0];
     this.riskAssessmentDetails.riskId = this.riskGlobal.riskId;
     this.riskAssessmentDetails.userName = this.router.snapshot.paramMap.get('email') || '{}';
     this.riskAssessmentDetails.updatedDate = this.riskList.updatedDate;
     this.riskAssessmentDetails.updatedBy = this.riskList.updatedBy;
-    
-    //if (!this.validationError) {
-    // if(this.buttonName=='submit' && this.step2Form.dirty){
-    //   this.blurMode=true;
-    //   this.blurMsg="Submission in Progress!";
-    // }
+
       if(flag) {
         if(this.step2Form.dirty && this.step2Form.touched){ 
             this.riskAssessmentService.updateRiskAssessmentDetails(this.riskAssessmentDetails,this.buttonName).subscribe(
             data => {
+              // Submit spinner
+              this.blurMode=false;
+              this.blurMsg="";
+              this.finalSubmit=false
               // update success msg
-              // if(this.buttonName=='submit'){
-              //   this.blurMode=false;
-              //   this.blurMsg="";
-              // }
               this.popup=true;
               this.success1 = false;
               this.success=true;
               this.successMsg=data;
+              if(this.buttonName=='submit'){
+                this.submitPopup();
+              }
               this.riskGlobal.dirtyCheck=false;
               this.riskGlobal.dirtyMsg="";
-              this.parentComponent.nextButtonClicked=false;
-              this.step2Form.markAsPristine();        
+              this.parentComponent.nextButtonClicked=false;      
               this.retriveRiskDetails();
+              this.step2Form.markAsPristine();  
               // this.proceedNext.emit(true);
               // this.parentComponent.step2FormClick=false;
             },
               // update failed msg
             error => {
-               this.popup=true;
-              //  this.spinner=false;
+              this.popup=true;
+              this.blurMode=false;
+              this.blurMsg="";
+              this.finalSubmit=false
               this.success1 = false;
               this.Error = true;
               // this.errorArr = [];
@@ -2373,7 +2398,10 @@ export class RiskAssessmentDetailsComponent implements OnInit {
             }
           )}
           else{
-             this.popup=true;
+            this.popup=true;
+            this.blurMode=false;
+            this.blurMsg="";
+            this.finalSubmit=false
             if(this.isEditable){
                this.success = true;
                this.proceedNext.emit(true);
@@ -2381,6 +2409,9 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   
             else{
                this.popup=true;
+               this.blurMode=false;
+               this.blurMsg="";
+               this.finalSubmit=false
                this.success = true;
                this.proceedNext.emit(true);
             }
