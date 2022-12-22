@@ -57,6 +57,7 @@ export class RiskFinalReportsComponent implements OnInit {
   finalReportBody: boolean = true;
   spinnerValue: String = '';
   mode: any= 'indeterminate';
+  globalErrorMsg: string="";
 
   @ViewChild('input') input!: MatInput;
   clientService: any;
@@ -67,6 +68,7 @@ export class RiskFinalReportsComponent implements OnInit {
   superAdminFlag: boolean = false;
   superAdminDev = new SuperAdminDev();
   superAdminProd = new SuperAdminProd();
+  globalError: boolean=false;
 
   constructor(private router: ActivatedRoute,
               private ChangeDetectorRef: ChangeDetectorRef,
@@ -124,6 +126,14 @@ export class RiskFinalReportsComponent implements OnInit {
           this.lpsData = [];
           this.finalReport_dataSource.paginator = this.finalReportPaginator;
           this.finalReport_dataSource.sort = this.finalReportSort;
+        },
+        error=>{
+          this.globalError=true;
+          this.globalErrorMsg=this.service.globalErrorMsg;
+          setTimeout(() => {
+            this.globalError=false;
+            this.globalErrorMsg="";
+          }, 10000);
         });
       this.superAdminFlag = false;
     }
@@ -142,6 +152,14 @@ export class RiskFinalReportsComponent implements OnInit {
           this.lpsData = [];
           this.finalReport_dataSource.paginator = this.finalReportPaginator;
           this.finalReport_dataSource.sort = this.finalReportSort;
+        },
+        error=>{
+          this.globalError=true;
+          this.globalErrorMsg=this.service.globalErrorMsg;
+          setTimeout(() => {
+            this.globalError=false;
+            this.globalErrorMsg="";
+          }, 3000);
         });
     }
   }
@@ -188,11 +206,12 @@ export class RiskFinalReportsComponent implements OnInit {
     },
     error => {
       this.Error = true;
-      this.errorArr = [];
-      this.errorArr = JSON.parse(error.error);
-      this.errorMsg = this.errorArr.message;
+      // this.errorArr = [];
+      // this.errorArr = JSON.parse(error.error);
+      this.errorMsg = this.service.globalErrorMsg;
       setTimeout(()=>{
         this.Error = false;
+        this.errorMsg="";
         },5000);
     });
   }

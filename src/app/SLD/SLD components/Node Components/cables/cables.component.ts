@@ -41,6 +41,9 @@ export class CablesComponent implements OnInit {
   testingTable: boolean = false;
   generalTestingCables!: FormArray;
 
+  error1: boolean=false;
+  error1Msg: string="";
+
   constructor(private formBuilder: FormBuilder,
     private cablesService: CablesServicesService,
     private dialog: MatDialog,
@@ -70,6 +73,14 @@ export class CablesComponent implements OnInit {
         if (this.cablesData.length != 0) {
           this.retrieveCablesNode(this.cablesData);
         }
+      },
+      error=>{
+        this.error1=true;
+        this.error1Msg=this.service.globalErrorMsg;
+        setTimeout(() => {
+          this.error1=false;
+          this.error1Msg="";
+        }, 4000);
       }
     )
   }

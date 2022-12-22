@@ -34,6 +34,8 @@ export class RCBOComponent implements OnInit {
   validationError: boolean= false;
   validationErrorMsg: string="";
 
+  error1: boolean=false;
+  error1Msg: string="";
 
   constructor(private formBuilder: FormBuilder,
               private rcboService: RCBOServicesService,
@@ -66,6 +68,14 @@ export class RCBOComponent implements OnInit {
             if(this.rcboData.length != 0) {
               this.retrieveRcboNode(this.rcboData);
             }
+          },
+          error=>{
+            this.error1=true;
+            this.error1Msg=this.service.globalErrorMsg;
+            setTimeout(() => {
+              this.error1=false;
+              this.error1Msg="";
+            }, 4000);
           }
         )
   }

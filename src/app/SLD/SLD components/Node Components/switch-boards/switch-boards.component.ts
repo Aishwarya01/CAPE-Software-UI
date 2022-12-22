@@ -52,6 +52,9 @@ uploadClicked: boolean = false;
 fileStatusSuccess: boolean = true;
 fileErrorFlag: boolean = false;
 fileSuccessFlag: boolean = false;
+error1: boolean=false;
+error1Msg: string="";
+
 constructor(private formBuilder: FormBuilder,
   private switchBoardService: SwitchBoardServicesService,
   private transformerFileUploadServiceService: TransformerFileUploadServiceService,
@@ -99,6 +102,14 @@ ngOnInit(): void {
       if (this.switchBoardData.length != 0) {
         this.retrieveSwitchBoardNode(this.switchBoardData);
       }
+    },
+    error=>{
+      this.error1=true;
+      this.error1Msg=this.service.globalErrorMsg;
+      setTimeout(() => {
+        this.error1=false;
+        this.error1Msg="";
+      }, 4000);
     }
   )
 

@@ -35,6 +35,9 @@ export class EquipotentialBondingComponent implements OnInit {
   @Input()
   email: any;
 
+  error1: boolean=false;
+  error1Msg: string="";
+
   constructor(private formBuilder: FormBuilder,
               private equipBondService: Equipotential_BondingServicesService,
               private dialog: MatDialog,
@@ -56,6 +59,14 @@ export class EquipotentialBondingComponent implements OnInit {
             if(this.equipBondData.length != 0) {
               this.retrieveEquipotential_BondingNode(this.equipBondData);
             }
+          },
+          error=>{
+            this.error1=true;
+            this.error1Msg=this.service.globalErrorMsg;
+            setTimeout(() => {
+              this.error1=false;
+              this.error1Msg="";
+            }, 4000);
           }
         )
   }
