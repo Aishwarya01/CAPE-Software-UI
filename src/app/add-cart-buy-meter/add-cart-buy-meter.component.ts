@@ -36,6 +36,7 @@ import { MatCarousel } from 'ng-mat-carousel';
 import { Router } from '@angular/router';
 import { LoginBuyMeterService } from '../services/login-buy-meter.service';
 import { CheckoutBuyMeterComponent } from '../checkout-buy-meter/checkout-buy-meter.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-add-cart-buy-meter',
@@ -64,7 +65,7 @@ export class AddCartBuyMeterComponent implements OnInit {
   selectedMeter: any;
   clickedMeter: any;
   value: any;
-  clcikeditem: any;
+  clickedItem: any;
 //  panelOpenState = false;
   total2Ref: any;
   table1: any;
@@ -74,7 +75,7 @@ export class AddCartBuyMeterComponent implements OnInit {
   amt:any;
   grandtotal: any;
   subtotal:number=0;
-  gst:number=3.60;
+  gstAmount: number = 0;
   shipping:number=15.00;
   flag: boolean=false;
  // filledCart: boolean=true;
@@ -206,8 +207,8 @@ export class AddCartBuyMeterComponent implements OnInit {
        size: 'lg',
       });
      this.clickedMeter = a.model;
-     this.clcikeditem=a.index;
-     this.value = this.clcikeditem;
+     this.clickedItem=a.index;
+     this.value = this.clickedItem;
     } 
 
     findsum(){
@@ -215,13 +216,18 @@ export class AddCartBuyMeterComponent implements OnInit {
       for(let j=0; j<this.meterData3.length; j++){
       //let temp_price=(+this.meterData3[j].price.replaceAll(',', '') * +this.meterData3[j].quantity);
       this.subtotal+= +this.meterData3[j].total.replaceAll(',', '');
-      console.log(this.subtotal);
+      
       }
       }
 
+      gstCalculation(subtotal: any){
+        this.gstAmount = (((environment.stateGSTPercentage)/100) * subtotal) + (((environment.centralGSTPercentage)/100) * subtotal);
+      }
+
       grandTotalSum(){
-        this.grandtotal= this.subtotal + this.gst + this.shipping;
-        console.log(this.grandtotal);
+        this.gstCalculation(this.subtotal);
+        this.grandtotal= this.subtotal + this.gstAmount ;
+        
       }
      
       removeItem(i: any,index:any) {
