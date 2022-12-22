@@ -77,8 +77,8 @@ export class AddCartBuyMeterComponent implements OnInit {
   gst:number=3.60;
   shipping:number=15.00;
   flag: boolean=false;
-  filledCart: boolean=true;
-  emptyCart: boolean=false;
+ // filledCart: boolean=true;
+ // emptyCart: boolean=false;
   value2: string="";
   total:any;
   b: any =[];
@@ -153,6 +153,7 @@ export class AddCartBuyMeterComponent implements OnInit {
 
   meterData3: any =[];
   cartCount: any;
+  indexvalue: any;
   
  
   constructor(private changeDetectorRef: ChangeDetectorRef,
@@ -221,9 +222,12 @@ export class AddCartBuyMeterComponent implements OnInit {
         console.log(this.grandtotal);
       }
      
-      removeItem(index: any) {
+      removeItem(i: any,index:any) {
         if(this.meterData3.length>1){
-          this.meterData3.pop();
+          this.meterData3.splice(i, 1);
+          this.indexvalue=this.service.cartIndex.indexOf(index);
+          this.service.cartIndex.splice(this.indexvalue,1);
+         // this.meterData3.pop();
           this.findsum();
           this.grandTotalSum();
           this.service.cartIndex.length=this.meterData3.length;
@@ -231,18 +235,18 @@ export class AddCartBuyMeterComponent implements OnInit {
         else{
           this.service.cartIndex.length=0;
           this.meterData3 =[];  
-          this.filledCart= false;
-          this.emptyCart=true;  
+          this.service.filledCart= false;
+          this.service.emptyCart=true;  
         }
       }
       removeAllItem(){
         this.service.cartIndex.length=0;
         this.meterData3 =[];  
-        this.filledCart= false;
-        this.emptyCart=true;
+        this.service.filledCart= false;
+        this.service.emptyCart=true;
       }
       backBUtton(){
-       // this.meterData3 =[];  
+      
         this.router.navigate(['/buyMeter']);
       }
       

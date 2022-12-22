@@ -177,6 +177,15 @@ meterData2: any =[
     addToCart(b:any){
       this.service.cartIndex.push(b);
       this.cartCount=this.service.cartIndex.length;
+       if(this.cartCount==0){
+        this.service.filledCart= false;
+        this.service.emptyCart=true;
+       }
+       else{
+        this.service.filledCart= true;
+        this.service.emptyCart=false;
+       }
+      
     //  this.cart.addtoCartIndex(b);
      // this.router.navigate(['/signIn-buyMeter']);
     }
