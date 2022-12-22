@@ -76,6 +76,7 @@ export class RiskFinalReportsComponent implements OnInit {
   printErrorMsg: string="";
   blurMode: boolean=false;
   blurMsg: string="";
+  globalError: boolean=false;
 
   constructor(private router: ActivatedRoute,
               private ChangeDetectorRef: ChangeDetectorRef,
