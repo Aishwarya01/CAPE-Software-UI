@@ -2176,11 +2176,11 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     }
     
     //  Update and Success msg will be showing 
-    else if((this.step2Form.dirty && this.step2Form.touched && this.buttonName=='save') || (this.step2Form.dirty && this.step2Form.touched && this.buttonName=='update')){
+    else if((this.buttonName=='save') || (this.step2Form.dirty && this.step2Form.touched && this.buttonName=='update')){
       this.modalService.open(content, { centered: true,backdrop: 'static' });
     }
 
-    else if(this.step2Form.dirty && this.step2Form.touched && this.buttonName=='submit'){
+    else if(!this.step2Form.dirty && !this.step2Form.touched && this.buttonName=='submit'){
       this.modalService.open(contentSub, { centered: true,backdrop: 'static' });  
     }
 
@@ -2193,20 +2193,20 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       }, 3000);
       // return 
     }
-
-    else if(!this.step2Form.dirty && this.buttonName=="submit"){  
-      this.validationError = true;
-      this.validationErrorMsg = 'Please change any details for Submit the Risk Assessment Details';
-      setTimeout(() => {
-        this.validationError = false;
-        this.buttonName="";
-      }, 3000);
-      // return 
-    }
-    //  For Dirty popup
-    else{
-      this.modalService.open(contents, { centered: true,backdrop: 'static' });
-    }   
+    // else if(!this.step2Form.dirty && this.buttonName=='save'){  
+    //   this.validationError = true;
+    //   this.validationErrorMsg = 'Please change any details for save the Risk Assessment Details';
+    //   setTimeout(() => {
+    //     this.validationError = false;
+    //     this.buttonName="";
+    //   }, 3000);
+    //   // return 
+    // }
+    // //  For Dirty popup
+    // else{
+    //   this.modalService.open(contents, { centered: true,backdrop: 'static' });
+    //   this.buttonName="";
+    // }   
   }
 
   goToRiskPopup(popup1:any){
@@ -2360,7 +2360,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     this.riskAssessmentDetails.updatedBy = this.riskList.updatedBy;
 
       if(flag) {
-        if(this.step2Form.dirty && this.step2Form.touched){ 
+        if((this.step2Form.dirty && this.step2Form.touched) || (this.buttonName=='submit')){ 
             this.riskAssessmentService.updateRiskAssessmentDetails(this.riskAssessmentDetails,this.buttonName).subscribe(
             data => {
               // Submit spinner

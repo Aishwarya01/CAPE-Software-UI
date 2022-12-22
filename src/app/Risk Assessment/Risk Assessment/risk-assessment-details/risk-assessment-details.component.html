@@ -1401,13 +1401,6 @@
 </ng-template> 
     
 <ng-template #content let-modal>
-    <!-- Spinner -->
-    <!-- <mat-progress-spinner style="margin: 0 auto;" *ngIf="spinner" color="primary" [mode]="mode" value="50" diameter="50">
-    </mat-progress-spinner>
-    <br>
-    <div *ngIf="spinner" style="text-align: center;">
-        Please wait, the details are loading!
-    </div> -->
     <div class="modal-body" *ngIf="popup">
         <div class="centre-text m-btm30">
             <div *ngIf="success" style="text-align: center;">
@@ -1469,7 +1462,6 @@
       </div>
       </div>
     </div>
-    <br>
     <div class="row">
       <button type="button" class="col-md-6" style="width: 5rem;position: relative;margin-left: 18%;background-color: #0f800c;color: white;font-size: 12px;" class="btn btn-rounded btn-md font-weight-medium auth-form-btn"
       aria-label="Close" (click)="closeModalDialogSub(flag,content)">

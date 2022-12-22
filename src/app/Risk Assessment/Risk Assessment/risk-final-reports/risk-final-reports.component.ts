@@ -24,6 +24,7 @@ export class RiskFinalReportsComponent implements OnInit {
   finalReportsColumns: string[] = [ 'organisationName', 
                                     'projectName', 
                                     'contactPersonName',
+                                    'address',
                                     'updatedDate', 
                                     'updatedBy',
                                     'action'];
@@ -221,9 +222,9 @@ export class RiskFinalReportsComponent implements OnInit {
       this.blurMode=false;
       this.blurMsg="";
       this.Error = true;
-      this.errorArr = [];
-      this.errorArr = JSON.parse(error.error);
-      this.errorMsg = this.errorArr.message;
+      // this.errorArr = [];
+      // this.errorArr = JSON.parse(error.error);
+      this.errorMsg = this.service.globalErrorMsg;
       setTimeout(()=>{
         this.Error = false;
         },5000);
