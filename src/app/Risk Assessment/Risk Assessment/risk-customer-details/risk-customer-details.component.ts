@@ -27,7 +27,7 @@ export class RiskCustomerDetailsComponent implements OnInit {
   Error: boolean=false;
   errorArr: any=[];
   errorMsg: string="";
-  isEditable!:boolean
+  isEditable:boolean=false;
   success1: boolean =false;
   successMsg1: string="";
   proceedFlag: boolean = true;
@@ -50,6 +50,8 @@ export class RiskCustomerDetailsComponent implements OnInit {
   validationErrorMsgTab2: string='';
   validationError1: boolean=false;
   validationErrorTab1: boolean=false;
+  fileFlag:boolean=false;
+  
   constructor(
     private formBuilder: FormBuilder,
     private router: ActivatedRoute,

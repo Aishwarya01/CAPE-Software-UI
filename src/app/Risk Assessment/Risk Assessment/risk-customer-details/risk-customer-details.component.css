@@ -34,3 +34,11 @@ textarea{
     width: 20%;
     margin: 0 auto;
 }
+
+/* When we come from final report, we are disabling the click event */
+.disableForm{
+  pointer-events: none;
+  background-color: lightgrey;
+  color: black;
+  cursor: not-allowed !important;
+}

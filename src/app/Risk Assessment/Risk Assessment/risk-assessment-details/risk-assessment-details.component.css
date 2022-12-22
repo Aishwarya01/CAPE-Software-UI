@@ -7,13 +7,26 @@ hr {
 .next{
     background-color: #f1f1f1;
     color: black;
-    margin-left: 30px;
+    margin-left: 11%;
   }
   .next:hover{
-    background-color: #04AA6D;
+    background-color: #0f800c;
     color: white;
-    margin-left: 30px;
-    }
+    margin-left: 11%;
+  }
+
+
+.next1{
+    background-color: #f1f1f1;
+    color: black;
+    margin-left: 90px;
+  }
+  .next1:hover{
+    background-color: #0f800c;
+    color: white;
+    margin-left: 90px;
+}
+
 th {
   text-align: center;
 }
@@ -61,4 +74,10 @@ a {
   0%,80% {
     transform: rotateY(360deg) 
   }
+}
+
+/* When we come from final report, we are disabling the click event */
+.disableForm{
+  pointer-events: none;
+  cursor: not-allowed !important;
 }

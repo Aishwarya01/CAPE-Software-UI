@@ -15,10 +15,6 @@
     <span class="alert alert-info">{{riskGlobal.dirtyMsg}}</span>
 </div>
 
-<!-- <div *ngIf="blurMode" class="spinner-grow" style="width: 50px;height: 50px;animation-duration: 1s;color: dark;overflow: inherit;left: 50%;margin: 0px auto;position: fixed;z-index: 1000;top: 50%;" role="status">
-    <pre class="visually-hidden" style="top: 35%;left: 110%;position: fixed;top: 50%;">Please wait Loading...</pre>
-</div> -->
-
 <div class="animBox" *ngIf="blurMode" style="overflow: inherit;margin: 0px auto;position: fixed;z-index: 1000;top: 50%;"></div>
 <div class="waviy">
     <pre *ngIf="blurMode" style="top: 52%;position: fixed;overflow: inherit;margin: 0px auto;z-index: 1000;margin-left: 48%;font-weight: bold;">{{blurMsg}}</pre>
@@ -40,7 +36,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Location :</label>
-                                    <select class="form-control" formControlName="location" (change)="changeLocation($event,f)"
+                                    <select class="form-control" formControlName="location" (change)="changeLocation($event,f)" [attr.disabled]="isEditable ? '' : null"
                                     [ngClass]="{ 'is-invalid': submitted && f.get('location')?.errors }">
                                         <option value="" selected>Select Option</option>
                                         <option *ngFor="let value of locationList" [selected]="f.get('location')?.value === value.location">{{value.location}}</option>
@@ -55,7 +51,7 @@
                                 <div class="form-group">
                                     <label>Other Location :</label>
                                     <input type="text" class="form-control" formControlName="otherLocation" placeholder="Enter Other Locations" 
-                                    [ngClass]="{ 'is-invalid': submitted && f.get('otherLocation')?.errors }">
+                                    [ngClass]="{ 'is-invalid': submitted && f.get('otherLocation')?.errors }" [readonly]="isEditable">
                                     <div *ngIf="submitted && f.get('otherLocation')?.errors" class="invalid-feedback">
                                         <div *ngIf="f.get('otherLocation')?.errors?.required">Other Location is required</div>
                                     </div>
@@ -65,7 +61,7 @@
                             <div class="col-md-4" >
                                 <div class="form-group">
                                     <label>Ground flash density :</label>
-                                    <input onwheel="this.blur()" class="form-control" [readonly]="showFlashDensity" formControlName="groundFlashDensity" placeholder="Please enter Ground flash density" 
+                                    <input onwheel="this.blur()" class="form-control" [readonly]="showFlashDensity" formControlName="groundFlashDensity" placeholder="Please enter Ground flash density" [readonly]="isEditable"
                                     [ngClass]="{ 'is-invalid': submitted && f.get('groundFlashDensity')?.errors }" (ngModelChange)="heightNearStruct($event,f);noOfDangerus($event,f);lengthOfTelecomLines($event,f)">
                                     <div *ngIf="submitted && f.get('groundFlashDensity')?.errors" class="invalid-feedback">
                                         <div *ngIf="f.get('groundFlashDensity')?.errors?.required">Ground flash density is required</div>
@@ -80,7 +76,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Types of Building :</label>
-                                        <select class="form-control" formControlName="typeOfBuilding" (change)="buildingValue($event,f)"
+                                        <select class="form-control" formControlName="typeOfBuilding" (change)="buildingValue($event,f)" [attr.disabled]="isEditable ? '' : null"
                                         [ngClass]="{ 'is-invalid': submitted && f.get('typeOfBuilding')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="Brick">Brick</option>
@@ -98,8 +94,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Structure Screening Effectiveness :</label>
-                                        <input class="form-control" radonly formControlName="structureScreeningEffectiveness" placeholder="Structure Screening Effectiveness" 
-                                        [ngClass]="{ 'is-invalid': submitted && f.get('structureScreeningEffectiveness')?.errors }" (change)="buildingValue1($event,f)">
+                                        <input class="form-control" formControlName="structureScreeningEffectiveness" placeholder="Structure Screening Effectiveness" 
+                                        [ngClass]="{ 'is-invalid': submitted && f.get('structureScreeningEffectiveness')?.errors }" (change)="buildingValue1($event,f)" readonly>
                                         <div *ngIf="submitted && f.get('structureScreeningEffectiveness')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('structureScreeningEffectiveness')?.errors?.required">Structure Screening Effectiveness is required</div>
                                         </div>
@@ -109,7 +105,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Internal Screening Effectiveness :</label>
-                                        <input class="form-control" readonly formControlName="internalScreeningEffectiveness" placeholder="Internal Screening Effectiveness" 
+                                        <input class="form-control" readonly formControlName="internalScreeningEffectiveness" placeholder="Internal Screening Effectiveness"
                                         [ngClass]="{ 'is-invalid': submitted && f.get('internalScreeningEffectiveness')?.errors }" (change)="buildingValue2($event,f);protectionPms($event,f);lossOfHumanCalc($event,f);lossOfServiceCalc($event,f);lossCulturalCalc($event,f);lossEconomicCalc($event,f)">
                                         <div *ngIf="submitted && f.get('internalScreeningEffectiveness')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('internalScreeningEffectiveness')?.errors?.required">Internal Screening Effectiveness is required</div>
@@ -124,7 +120,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Length (In Meters):</label>
-                                        <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" (change)="collectionAreaLength($event,f)" formControlName="protrusionLenght" placeholder="Please Enter Length" 
+                                        <input onwheel="this.blur()" type="number" (keypress)="keyPressNumbers($event)"  class="form-control" [readonly]="isEditable" (change)="collectionAreaLength($event,f)" formControlName="protrusionLenght" placeholder="Please Enter Length" 
                                         [ngClass]="{ 'is-invalid': submitted && f.get('protrusionLenght')?.errors }">
                                         <div *ngIf="submitted && f.get('protrusionLenght')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('protrusionLenght')?.errors?.required">Length is required</div>
@@ -135,8 +131,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Width (In Meters):</label>
-                                        <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="protrusionWidth" placeholder="Please Enter Width" 
-                                        [ngClass]="{ 'is-invalid': submitted && f.get('protrusionWidth')?.errors }" (change)="collectionAreaLength($event,f)">
+                                        <input onwheel="this.blur()" type="number" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="protrusionWidth" placeholder="Please Enter Width" 
+                                        [ngClass]="{ 'is-invalid': submitted && f.get('protrusionWidth')?.errors }" (change)="collectionAreaLength($event,f)" [readonly]="isEditable">
                                         <div *ngIf="submitted && f.get('protrusionWidth')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('protrusionWidth')?.errors?.required">Width is required</div>
                                         </div>
@@ -146,8 +142,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Height (In Meters):</label>
-                                        <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="protrusionHeight" placeholder="Please Enter Height" 
-                                        [ngClass]="{ 'is-invalid': submitted && f.get('protrusionHeight')?.errors }" (change)="collectionAreaLength($event,f)">
+                                        <input onwheel="this.blur()" type="number" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="protrusionHeight" placeholder="Please Enter Height" 
+                                        [ngClass]="{ 'is-invalid': submitted && f.get('protrusionHeight')?.errors }" (change)="collectionAreaLength($event,f)" [readonly]="isEditable">
                                         <div *ngIf="submitted && f.get('protrusionHeight')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('protrusionHeight')?.errors?.required">Height is required</div>
                                         </div>
@@ -159,8 +155,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Height of Highest Roof Protrusion (In Meters):</label>
-                                        <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="heighestRoofProtrusion" placeholder="Please Enter Height of Highest Roof Protrusion" 
-                                        [ngClass]="{ 'is-invalid': submitted && f.get('heighestRoofProtrusion')?.errors }" (change)="collectionAreaProtrusion($event,f)">
+                                        <input onwheel="this.blur()" type="number" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="heighestRoofProtrusion" placeholder="Please Enter Height of Highest Roof Protrusion" 
+                                        [ngClass]="{ 'is-invalid': submitted && f.get('heighestRoofProtrusion')?.errors }" (change)="collectionAreaProtrusion($event,f)" [readonly]="isEditable">
                                         <div *ngIf="submitted && f.get('heighestRoofProtrusion')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('heighestRoofProtrusion')?.errors?.required">Height of Highest Roof Protrusion is required</div>
                                         </div>
@@ -209,7 +205,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Height of Nearby Structure :</label>
-                                        <select class="form-control" formControlName="heightNearByStructure" (ngModelChange)="heightNearByStructureD($event,f);noOfDangerus($event,f);heightNearStruct($event,f)"
+                                        <select class="form-control" formControlName="heightNearByStructure" (ngModelChange)="heightNearByStructureD($event,f);noOfDangerus($event,f);heightNearStruct($event,f)" [attr.disabled]="isEditable ? '' : null"
                                         [ngClass]="{ 'is-invalid': submitted && f.get('heightNearByStructure')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="Lower than surrounding buildings">Lower than surrounding buildings</option>
@@ -227,7 +223,7 @@
                                     <div class="form-group">
                                         <label>Electrical / Telephone Service Line :</label>
                                         <select class="form-control" formControlName="telephoneServiceLine" (change)="telephoneServiceLineD($event,f);lengthPowerline($event,f);lengthOfTelecomLines($event,f);noOfDangerus($event,f);economicLossL4($event,f)"
-                                        [ngClass]="{ 'is-invalid': submitted && f.get('telephoneServiceLine')?.errors }">
+                                        [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && f.get('telephoneServiceLine')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="LV power, telecommunication or data line">LV power, telecommunication or data line</option>
                                             <option value="HV power (with HV/LV transformer)">HV power (with HV/LV transformer)</option>
@@ -242,7 +238,7 @@
                                     <div class="form-group">
                                         <label>Environment :</label>
                                         <select class="form-control" formControlName="environment" (change)="environmentD($event,f);lengthPowerline($event,f);lengthOfTelecomLines($event,f);lossOfHumanCalc($event,f);lossOfServiceCalc($event,f);lossCulturalCalc($event,f);lossEconomicCalc($event,f)"
-                                        [ngClass]="{ 'is-invalid': submitted && f.get('environment')?.errors }">
+                                        [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && f.get('environment')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="Rural">Rural</option>
                                             <option value="Suburban">Suburban</option>
@@ -287,7 +283,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Protection required for part of building :</label>
-                                        <select class="form-control" formControlName="protectionPartOFBuilding" (change)="protectionRqbuilding($event,f)"
+                                        <select class="form-control" formControlName="protectionPartOFBuilding" (change)="protectionRqbuilding($event,f)" [attr.disabled]="isEditable ? '' : null"
                                         [ngClass]="{ 'is-invalid': submitted && f.get('protectionPartOFBuilding')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="Yes">Yes</option>
@@ -302,8 +298,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Length (In Meters):</label>
-                                        <input [readonly]="f.get('protectionPartOFBuilding')?.value ==='No'" onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="protectionLenght" placeholder="Please Enter Length" 
-                                        [ngClass]="{ 'is-invalid': submitted && f.get('protectionLenght')?.errors }" (change)="collectionArea($event,f)">
+                                        <input [readonly]="f.get('protectionPartOFBuilding')?.value ==='No'" onwheel="this.blur()" type="number" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="protectionLenght" placeholder="Please Enter Length" 
+                                        [ngClass]="{ 'is-invalid': submitted && f.get('protectionLenght')?.errors }" (change)="collectionArea($event,f)" [attr.disabled]="isEditable ? '' : null">
                                         <div *ngIf="submitted && f.get('protectionLenght')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('protectionLenght')?.errors?.required">Length is required</div>
                                         </div>
@@ -313,8 +309,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Width (In Meters):</label>
-                                        <input [readonly]="f.get('protectionPartOFBuilding')?.value ==='No'" onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="protectionWidth" placeholder="Please Enter Width" 
-                                        [ngClass]="{ 'is-invalid': submitted && f.get('protectionWidth')?.errors }" (change)="collectionArea($event,f)">
+                                        <input [readonly]="f.get('protectionPartOFBuilding')?.value ==='No'" onwheel="this.blur()" type="number" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="protectionWidth" placeholder="Please Enter Width" 
+                                        [ngClass]="{ 'is-invalid': submitted && f.get('protectionWidth')?.errors }" (change)="collectionArea($event,f)" [attr.disabled]="isEditable ? '' : null">
                                         <div *ngIf="submitted && f.get('protectionWidth')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('protectionWidth')?.errors?.required">Width is required</div>
                                         </div>
@@ -326,8 +322,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Height (In Meters):</label>
-                                        <input [readonly]="f.get('protectionPartOFBuilding')?.value ==='No'" onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="protectionHeight" placeholder="Please Enter Height" 
-                                        [ngClass]="{ 'is-invalid': submitted && f.get('protectionHeight')?.errors }" (change)="collectionArea($event,f)">
+                                        <input [readonly]="f.get('protectionPartOFBuilding')?.value ==='No'" onwheel="this.blur()" type="number" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="protectionHeight" placeholder="Please Enter Height" 
+                                        [ngClass]="{ 'is-invalid': submitted && f.get('protectionHeight')?.errors }" (change)="collectionArea($event,f)" [attr.disabled]="isEditable ? '' : null">
                                         <div *ngIf="submitted && f.get('protectionHeight')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('protectionHeight')?.errors?.required">Height is required</div>
                                         </div>
@@ -352,7 +348,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Adjacent Building :</label>
-                                        <select class="form-control" formControlName="adjacentBuilding" (change)="adjacentBuilding($event,f)"
+                                        <select class="form-control" formControlName="adjacentBuilding" (change)="adjacentBuilding($event,f)" [attr.disabled]="isEditable ? '' : null"
                                         [ngClass]="{ 'is-invalid': submitted && f.get('adjacentBuilding')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="Yes">Yes</option>
@@ -367,8 +363,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Length (In Meters):</label>
-                                        <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" [readonly]="f.get('adjacentBuilding')?.value ==='No'" (change)="collectionOfAdjacent($event,f)" class="form-control" formControlName="adjacentLength" placeholder="Please Enter Length" 
-                                        [ngClass]="{ 'is-invalid': submitted && f.get('adjacentLength')?.errors }">
+                                        <input onwheel="this.blur()" type="number" (keypress)="keyPressNumbers($event)" [readonly]="f.get('adjacentBuilding')?.value ==='No'" (change)="collectionOfAdjacent($event,f)" class="form-control" formControlName="adjacentLength" placeholder="Please Enter Length" 
+                                        [ngClass]="{ 'is-invalid': submitted && f.get('adjacentLength')?.errors }" [attr.disabled]="isEditable ? '' : null">
                                         <div *ngIf="submitted && f.get('adjacentLength')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('adjacentLength')?.errors?.required">Length is required</div>
                                         </div>
@@ -378,8 +374,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Width (In Meters):</label>
-                                        <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" [readonly]="f.get('adjacentBuilding')?.value ==='No'" (change)="collectionOfAdjacent($event,f)" class="form-control"  formControlName="adjacentWidth" placeholder="Please Enter Width" 
-                                        [ngClass]="{ 'is-invalid': submitted && f.get('adjacentWidth')?.errors }">
+                                        <input onwheel="this.blur()" type="number" (keypress)="keyPressNumbers($event)" [readonly]="f.get('adjacentBuilding')?.value ==='No'" (change)="collectionOfAdjacent($event,f)" class="form-control"  formControlName="adjacentWidth" placeholder="Please Enter Width" 
+                                        [ngClass]="{ 'is-invalid': submitted && f.get('adjacentWidth')?.errors }" [attr.disabled]="isEditable ? '' : null">
                                         <div *ngIf="submitted && f.get('adjacentWidth')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('adjacentWidth')?.errors?.required">Width is required</div>
                                         </div>
@@ -391,8 +387,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Height (In Meters):</label>
-                                        <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" [readonly]="f.get('adjacentBuilding')?.value ==='No'" (change)="collectionOfAdjacent($event,f)" class="form-control"  formControlName="adjacentHeight" placeholder="Please Enter Height" 
-                                        [ngClass]="{ 'is-invalid': submitted && f.get('adjacentHeight')?.errors }">
+                                        <input onwheel="this.blur()" type="number" (keypress)="keyPressNumbers($event)" [readonly]="f.get('adjacentBuilding')?.value ==='No'" (change)="collectionOfAdjacent($event,f)" class="form-control"  formControlName="adjacentHeight" placeholder="Please Enter Height" 
+                                        [ngClass]="{ 'is-invalid': submitted && f.get('adjacentHeight')?.errors }" [attr.disabled]="isEditable ? '' : null">
                                         <div *ngIf="submitted && f.get('adjacentHeight')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('adjacentHeight')?.errors?.required">Height is required</div>
                                         </div>
@@ -428,7 +424,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Number Of People In The Building :</label>
-                                        <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="noOfPeopleInBuilding" placeholder="Please Enter Number Of People In The Building" 
+                                        <input onwheel="this.blur()" type="number" (keypress)="keyPressNumbers($event)" [readonly]="isEditable" class="form-control" formControlName="noOfPeopleInBuilding" placeholder="Please Enter Number Of People In The Building" 
                                         [ngClass]="{ 'is-invalid': submitted && f.get('noOfPeopleInBuilding')?.errors }" (click)="lossHumanLifeL1($event,f);lossServiceToPublicL2($event,f)">
                                         <div *ngIf="submitted && f.get('noOfPeopleInBuilding')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('noOfPeopleInBuilding')?.errors?.required">Number Of People In The Building is required</div>
@@ -439,7 +435,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Number of People In The Zone :</label>
-                                        <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="noOfPeopleInZone" placeholder="Please Enter Number of People In The Zone" 
+                                        <input onwheel="this.blur()" type="number" (keypress)="keyPressNumbers($event)" [readonly]="isEditable" class="form-control" formControlName="noOfPeopleInZone" placeholder="Please Enter Number of People In The Zone" 
                                         [ngClass]="{ 'is-invalid': submitted && f.get('noOfPeopleInZone')?.errors }" (click)="lossHumanLifeL1($event,f);lossServiceToPublicL2($event,f);">
                                         <div *ngIf="submitted && f.get('noOfPeopleInZone')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('noOfPeopleInZone')?.errors?.required">Number of People In The Zone is required</div>
@@ -450,7 +446,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Number of Hours/Day People Are Present In The Building :</label>
-                                        <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="dayPeoplePresentBuilding" placeholder="Please Enter Number of Hours/Day People Are Present In The Building" 
+                                        <input onwheel="this.blur()" type="number" (keypress)="keyPressNumbers($event)" [readonly]="isEditable" class="form-control" formControlName="dayPeoplePresentBuilding" placeholder="Please Enter Number of Hours/Day People Are Present In The Building" 
                                         [ngClass]="{ 'is-invalid': submitted && f.get('dayPeoplePresentBuilding')?.errors }" (change)="houseYearBuilding($event,f)">
                                         <div *ngIf="submitted && f.get('dayPeoplePresentBuilding')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('dayPeoplePresentBuilding')?.errors?.required">Number of Hours/Day People Are Present In The Building is required</div>
@@ -487,7 +483,7 @@
                                     <div class="form-group">
                                         <label>Type of Floor Surface :</label>
                                         <select class="form-control" formControlName="stTypeOfFloorSurface" (click)="stTypeOfFloorSurfaceD($event,f);lossHumanLifeL1($event,f);economicLossL4($event,f)"
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('stTypeOfFloorSurface')?.errors }">
+                                        [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && a.get('stTypeOfFloorSurface')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="Agricultural, concrete">Agricultural, concrete</option>
                                             <option value="Marble, Ceramic">Marble, Ceramic</option>
@@ -503,7 +499,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Additional Protection :</label>
-                                        <select class="form-control" formControlName="stAdditionalProtection"  
+                                        <select class="form-control" formControlName="stAdditionalProtection" [attr.disabled]="isEditable ? '' : null"
                                         [ngClass]="{ 'is-invalid': submitted && a.get('stAdditionalProtection')?.errors }" (change)="stAdditionalProtectionD($event,f);protectionPA($event,f)">
                                             <option value="" selected>Select Option</option>
                                             <option value="No protection measures">No protection measures</option>
@@ -521,9 +517,9 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Risk of Fire :</label>
-                                        <a (click)="goToRiskPopup(popup1)">Pick the Risk of Fire</a>
+                                        <a (click)="goToRiskPopup(popup1)" [ngClass]="{'disableForm':isEditable}">Pick the Risk of Fire</a>
                                         <input type="text" class="form-control" readonly formControlName="stRiskOfFire" placeholder="Please Pick the Risk of Fire " 
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('stRiskOfFire')?.errors }" (click)="riskOfFireDropDown($event,f);lossHumanLifeL1($event,f);lossServiceToPublicL2($event,f);economicLossL4($event,f)">
+                                        [ngClass]="{ 'is-invalid': submitted && a.get('stRiskOfFire')?.errors }" [attr.disabled]="isEditable ? '' : null"(click)="riskOfFireDropDown($event,f);lossHumanLifeL1($event,f);lossServiceToPublicL2($event,f);economicLossL4($event,f)">
                                         <div *ngIf="submitted && a.get('stRiskOfFire')?.errors" class="invalid-feedback">
                                             <div *ngIf="a.get('stRiskOfFire')?.errors?.required">Designation is required</div>
                                         </div>
@@ -535,7 +531,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Fire Protection Measures :</label>
-                                        <select class="form-control" formControlName="stFireProtectionMeasure" (click)="stFireProtectionMeasureD($event,f);lossHumanLifeL1($event,f);lossServiceToPublicL2($event,f);economicLossL4($event,f)"
+                                        <select class="form-control" formControlName="stFireProtectionMeasure" [attr.disabled]="isEditable ? '' : null"(click)="stFireProtectionMeasureD($event,f);lossHumanLifeL1($event,f);lossServiceToPublicL2($event,f);economicLossL4($event,f)"
                                         [ngClass]="{ 'is-invalid': submitted && a.get('stFireProtectionMeasure')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="No provision">No provision</option>
@@ -551,7 +547,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Type of Internal Wiring :</label>
-                                        <select class="form-control" formControlName="stTypeOfInternalWiring"  
+                                        <select class="form-control" formControlName="stTypeOfInternalWiring" [attr.disabled]="isEditable ? '' : null"
                                         [ngClass]="{ 'is-invalid': submitted && a.get('stTypeOfInternalWiring')?.errors }" (change)="stTypeOfInternalWiringD($event,f);protectionPms($event,f)">
                                             <option value="" selected>Select Option</option>
                                             <option value="Unshielded, improper routing">Unshielded, improper routing</option>
@@ -576,8 +572,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Total No of Lines :</label>
-                                        <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control"  formControlName="totalNoOfLines" placeholder="Please Enter Total No of Lines" 
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('totalNoOfLines')?.errors }">
+                                        <input onwheel="this.blur()" type="number" (keypress)="keyPressNumbers($event)" class="form-control"  formControlName="totalNoOfLines" placeholder="Please Enter Total No of Lines" 
+                                        [ngClass]="{ 'is-invalid': submitted && a.get('totalNoOfLines')?.errors }" [readonly]="isEditable">
                                         <div *ngIf="submitted && a.get('totalNoOfLines')?.errors" class="invalid-feedback">
                                             <div *ngIf="a.get('totalNoOfLines')?.errors?.required">Designation is required</div>
                                         </div>
@@ -587,8 +583,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Number of Power Lines :</label>
-                                        <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control"  formControlName="noOfPowerLines" placeholder="Please Enter Number of Power Lines" 
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('noOfPowerLines')?.errors }">
+                                        <input onwheel="this.blur()" type="number" (keypress)="keyPressNumbers($event)" class="form-control"  formControlName="noOfPowerLines" placeholder="Please Enter Number of Power Lines" 
+                                        [ngClass]="{ 'is-invalid': submitted && a.get('noOfPowerLines')?.errors }" [readonly]="isEditable">
                                         <div *ngIf="submitted && a.get('noOfPowerLines')?.errors" class="invalid-feedback">
                                             <div *ngIf="a.get('noOfPowerLines')?.errors?.required">Designation is required</div>
                                         </div>
@@ -598,7 +594,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Type of Power Lines :</label>
-                                        <select class="form-control" formControlName="typeOfPowerLines" (change)="typeOfPowerLinesD($event,f);lengthPowerline($event,f)" [ngClass]="{ 'is-invalid': submitted && a.get('typeOfPowerLines')?.errors }">
+                                        <select class="form-control" formControlName="typeOfPowerLines" (change)="typeOfPowerLinesD($event,f);lengthPowerline($event,f)" [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && a.get('typeOfPowerLines')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="Overhead">Overhead</option>
                                             <option value="U.G cable from Electricity supplier">U.G cable from Electricity supplier</option>
@@ -615,8 +611,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Length Of Power Line (In Meters) :</label>
-                                        <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control"  formControlName="lengthOfPowerLines" placeholder="Please Enter Length Of Power Line (In Meters)" 
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('lengthOfPowerLines')?.errors }" (change)="lengthPowerline($event,f)">
+                                        <input onwheel="this.blur()" type="number" (keypress)="keyPressNumbers($event)" class="form-control"  formControlName="lengthOfPowerLines" placeholder="Please Enter Length Of Power Line (In Meters)" 
+                                        [ngClass]="{ 'is-invalid': submitted && a.get('lengthOfPowerLines')?.errors }" (change)="lengthPowerline($event,f)" [readonly]="isEditable">
                                         <div *ngIf="submitted && a.get('lengthOfPowerLines')?.errors" class="invalid-feedback">
                                             <div *ngIf="a.get('lengthOfPowerLines')?.errors?.required">Designation is required</div>
                                         </div>
@@ -627,7 +623,7 @@
                                     <div class="form-group">
                                         <label>Shielding, grounding, isolation :</label>
                                         <select class="form-control" formControlName="shieldingGroundingIsolation" (change)="shieldingGroundingIsolationD($event,f);shielding($event,f)"
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('shieldingGroundingIsolation')?.errors }">
+                                        [attr.disabled]="isEditable ? '' : null" [ngClass]="{ 'is-invalid': submitted && a.get('shieldingGroundingIsolation')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="TN-C-S system with PME">TN-C-S system with PME</option>
                                             <option value="Burried, shield not equipotentially bonded">Burried, shield not equipotentially bonded</option>
@@ -695,8 +691,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Number of Telecom lines :</label>
-                                        <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="noOfTelecomLines" placeholder="Please Enter Number of Telecom lines" 
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('noOfTelecomLines')?.errors }">
+                                        <input onwheel="this.blur()" type="number" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="noOfTelecomLines" placeholder="Please Enter Number of Telecom lines" 
+                                        [ngClass]="{ 'is-invalid': submitted && a.get('noOfTelecomLines')?.errors }" [readonly]="isEditable">
                                         <div *ngIf="submitted && a.get('noOfTelecomLines')?.errors" class="invalid-feedback">
                                             <div *ngIf="a.get('noOfTelecomLines')?.errors?.required">Designation is required</div>
                                         </div>
@@ -706,7 +702,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Type of Telecom Lines :</label>
-                                        <select class="form-control" formControlName="typeOfTelecomLines" (change)="typeOfTelecomLinesD($event,f);lengthOfTelecomLines($event,f)"
+                                        <select class="form-control" formControlName="typeOfTelecomLines" (change)="typeOfTelecomLinesD($event,f);lengthOfTelecomLines($event,f)" [attr.disabled]="isEditable ? '' : null"
                                         [ngClass]="{ 'is-invalid': submitted && a.get('typeOfTelecomLines')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="Overhead">Overhead</option>
@@ -722,8 +718,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Length Of Telecom Line (In Meters) :</label>
-                                        <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control"  formControlName="lengthOfTelecomLines" placeholder="Please Enter Length Of Telecom Line (In Meters)" 
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('lengthOfTelecomLines')?.errors }" (change)="lengthOfTelecomLines($event,f)">
+                                        <input onwheel="this.blur()" type="number" (keypress)="keyPressNumbers($event)" class="form-control"  formControlName="lengthOfTelecomLines" placeholder="Please Enter Length Of Telecom Line (In Meters)" 
+                                        [ngClass]="{ 'is-invalid': submitted && a.get('lengthOfTelecomLines')?.errors }" (change)="lengthOfTelecomLines($event,f)" [readonly]="isEditable">
                                         <div *ngIf="submitted && a.get('lengthOfTelecomLines')?.errors" class="invalid-feedback">
                                             <div *ngIf="a.get('lengthOfTelecomLines')?.errors?.required">Designation is required</div>
                                         </div>
@@ -736,7 +732,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Shielding, grounding, isolation :</label>
-                                        <select class="form-control" formControlName="shieldingGroundingIsolationL1"  
+                                        <select class="form-control" formControlName="shieldingGroundingIsolationL1" [attr.disabled]="isEditable ? '' : null"
                                         [ngClass]="{ 'is-invalid': submitted && a.get('shieldingGroundingIsolationL1')?.errors }" (change)="shieldingGroundingIsolationL1D($event,f);shielding($event,f)">
                                             <option value="" selected>Select Option</option>
                                             <option value="TN-C-S system with PME">TN-C-S system with PME</option>
@@ -817,7 +813,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Hazard Classification :</label>
-                                        <select class="form-control" formControlName="hazardClassification" (change)="hazardClassificationD($event,f);lossHumanLifeL1($event,f)"
+                                        <select class="form-control" formControlName="hazardClassification" (change)="hazardClassificationD($event,f);lossHumanLifeL1($event,f)" [attr.disabled]="isEditable ? '' : null"
                                         [ngClass]="{ 'is-invalid': submitted && b.get('hazardClassification')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="Concrete houses">Concrete houses</option>
@@ -837,7 +833,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Loss Due To Physical Damage :</label>
-                                        <select class="form-control" formControlName="humanLossOfphysicalDamage" 
+                                        <select class="form-control" formControlName="humanLossOfphysicalDamage" [attr.disabled]="isEditable ? '' : null"
                                         [ngClass]="{ 'is-invalid': submitted && b.get('humanLossOfphysicalDamage')?.errors }" (change)="humanLossOfphysicalDamageD($event,f);lossHumanLifeL1($event,f)">
                                             <option value="" selected>Select Option</option>
                                             <option value="Risk of explosion">Risk of explosion</option>
@@ -855,7 +851,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Loss Due To Failure Of Internal Systems :</label>
-                                        <select class="form-control" formControlName="humanLossOffailureOfInternalSystem" (change)="humanLossOffailureOfInternalSystemD($event,f);lossHumanLifeL1($event,f)"
+                                        <select class="form-control" formControlName="humanLossOffailureOfInternalSystem" [attr.disabled]="isEditable ? '' : null" (change)="humanLossOffailureOfInternalSystemD($event,f);lossHumanLifeL1($event,f)" 
                                         [ngClass]="{ 'is-invalid': submitted && b.get('humanLossOffailureOfInternalSystem')?.errors }">
                                             <option value="" selected>Select Option</option>
                                             <option value="Risk of explosion">Risk of explosion</option>
@@ -914,7 +910,7 @@
                                     <div class="form-group">
                                         <label>Loss Due To Physical Damage :</label>
                                         <select class="form-control" formControlName="serToPubPhysicalDamage" (change)="serToPubPhysicalDamageD($event,f);lossServiceToPublicL2($event,f)"
-                                        [ngClass]="{ 'is-invalid': submitted && b.get('serToPubPhysicalDamage')?.errors }">
+                                        [ngClass]="{ 'is-invalid': submitted && b.get('serToPubPhysicalDamage')?.errors }" [attr.disabled]="isEditable ? '' : null">
                                             <option value="" selected>Select Option</option>
                                             <option value="Gas,water,power supply">Gas,water,power supply</option>
                                             <option value="TV, telecommunication lines">TV, telecommunication lines</option>
@@ -930,7 +926,7 @@
                                     <div class="form-group">
                                         <label>Loss Due To Failure Of Internal System :</label>
                                         <select class="form-control" formControlName="serToPubfailureOfInternalSystem" (change)="serToPubfailureOfInternalSystemD($event,f);lossServiceToPublicL2($event,f)"
-                                        [ngClass]="{ 'is-invalid': submitted && b.get('serToPubfailureOfInternalSystem')?.errors }">
+                                        [ngClass]="{ 'is-invalid': submitted && b.get('serToPubfailureOfInternalSystem')?.errors }" [attr.disabled]="isEditable ? '' : null">
                                             <option value="" selected>Select Option</option>
                                             <option value="Gas,water,power supply">Gas,water,power supply</option>
                                             <option value="TV, telecommunication lines">TV, telecommunication lines</option>
@@ -975,7 +971,7 @@
                                     <div class="form-group">
                                         <label>Loss Due To Physical Damage :</label>
                                         <select class="form-control" formControlName="culHerOfPhysicalDamage" (change)="culHerOfPhysicalDamageD($event,f);lossServiceToPublicL2($event,f);economicLossL4($event,f)"
-                                        [ngClass]="{ 'is-invalid': submitted && b.get('culHerOfPhysicalDamage')?.errors }">
+                                        [ngClass]="{ 'is-invalid': submitted && b.get('culHerOfPhysicalDamage')?.errors }" [attr.disabled]="isEditable ? '' : null">
                                             <option value="" selected>Select Option</option>
                                             <option value="Museums,galleries">Museums,galleries</option>
                                             <option value="No Cultural Heritage">No Cultural Heritage</option>
@@ -1008,7 +1004,7 @@
                                     <div class="form-group">
                                         <label>Loss Due To Physical Damage :</label>
                                         <select class="form-control" formControlName="ecoLossOfPhysicalDamage" (change)="ecoLossOfPhysicalDamageD($event,f);economicLossL4($event,f)"
-                                        [ngClass]="{ 'is-invalid': submitted && b.get('ecoLossOfPhysicalDamage')?.errors }">
+                                        [ngClass]="{ 'is-invalid': submitted && b.get('ecoLossOfPhysicalDamage')?.errors }" [attr.disabled]="isEditable ? '' : null">
                                             <option value="" selected>Select Option</option>
                                             <option value="Risk of explosion">Risk of explosion</option>
                                             <option value="Hospitals, industrial, museum, agricultural">Hospitals, industrial, museum, agricultural</option>
@@ -1025,7 +1021,7 @@
                                     <div class="form-group">
                                         <label>Loss Due To Failure Of Internal System :</label>
                                         <select class="form-control" formControlName="ecoLossOfFailureOfInternalSystem" (change)="ecoLossOfFailureOfInternalSystemD($event,f);economicLossL4($event,f);lossServiceToPublicL2($event,f)"
-                                        [ngClass]="{ 'is-invalid': submitted && b.get('ecoLossOfFailureOfInternalSystem')?.errors }">
+                                        [ngClass]="{ 'is-invalid': submitted && b.get('ecoLossOfFailureOfInternalSystem')?.errors }" [attr.disabled]="isEditable ? '' : null">
                                             <option value="" selected>Select Option</option>
                                             <option value="Risk of explosion">Risk of explosion</option>
                                             <option value="Hospitals, industrial, hotel, office, commercial">Hospitals, industrial, hotel, office, commercial</option>
@@ -1084,7 +1080,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Class of LPS :</label>
-                                        <select class="form-control" formControlName="classOfLPS"  
+                                        <select class="form-control" formControlName="classOfLPS" [attr.disabled]="isEditable ? '' : null" 
                                         [ngClass]="{ 'is-invalid': submitted && b.get('classOfLPS')?.errors }" (change)="classOfLPSD($event,f);protectionPm($event,f);protectionPms($event,f);shielding($event,f);lossOfHumanCalc($event,f);lossOfServiceCalc($event,f);lossCulturalCalc($event,f);lossEconomicCalc($event,f)">
                                             <option value="" selected>Select Option</option>
                                             <option value="No External LPS">No External LPS</option>
@@ -1102,7 +1098,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Class of SPD :</label>
-                                        <select class="form-control" formControlName="classOfSPD"  
+                                        <select class="form-control" formControlName="classOfSPD" [attr.disabled]="isEditable ? '' : null"
                                         [ngClass]="{ 'is-invalid': submitted && b.get('classOfSPD')?.errors }" (change)="classOfSpdD($event,f);protectionPm($event,f);protectionPms($event,f);shielding($event,f);lossOfHumanCalc($event,f);lossOfServiceCalc($event,f);lossCulturalCalc($event,f);lossEconomicCalc($event,f)">
                                             <option value="" selected>Select Option</option>
                                             <option value="No SPD">No SPD</option>
@@ -1290,7 +1286,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <select class="form-control" formControlName="explosion">
+                                    <select class="form-control" formControlName="explosion" [attr.disabled]="isEditable ? '' : null">
                                         <option value="" selected>Select Option</option>
                                         <option value="Explosion">Explosion</option>
                                         <option value="Fire">Fire</option>
@@ -1300,7 +1296,7 @@
                             </div>
                             <div class="col-md-6" *ngIf="f.get('explosion')?.value === 'Explosion'">
                                 <div class="form-group">
-                                    <select class="form-control" formControlName="explosion1"
+                                    <select class="form-control" formControlName="explosion1" [attr.disabled]="isEditable ? '' : null"
                                     (change)="fireRiskDropDown($event,f);economicLossL4($event,f)">
                                         <option value="" selected>Select Option</option>
                                         <option value="1">Zones 0, 20 and solid explosive</option>
@@ -1311,7 +1307,7 @@
                             </div>
                             <div class="col-md-6" *ngIf="f.get('explosion')?.value === 'Fire'">
                                 <div class="form-group">
-                                    <select class="form-control" formControlName="fire" (change)="fireRiskDropDown1($event,f);economicLossL4($event,f)">
+                                    <select class="form-control" formControlName="fire" [attr.disabled]="isEditable ? '' : null" (change)="fireRiskDropDown1($event,f);economicLossL4($event,f)">
                                         <option value="" selected>Select Option</option>
                                         <option value="0.1">High</option>
                                         <option value="0.01">Ordinary</option>
@@ -1321,7 +1317,7 @@
                             </div>
                             <div class="col-md-6" *ngIf="f.get('explosion')?.value === 'None'">
                                 <div class="form-group">
-                                    <select class="form-control" formControlName="none" (change)="fireRiskDropDown2($event,f);economicLossL4($event,f)">
+                                    <select class="form-control" formControlName="none" [attr.disabled]="isEditable ? '' : null" (change)="fireRiskDropDown2($event,f);economicLossL4($event,f)">
                                         <option value="" selected>Select Option</option>
                                         <option value="0">None</option>
                                     </select>
@@ -1335,12 +1331,14 @@
             </ng-template>
         </ng-container>
     </ng-container>
+    <div *ngIf="validationError" style="text-align: center;margin-top: 20px;">
+        <span class="alert alert-danger" style="font-size: small;">{{validationErrorMsg}}</span>
+    </div>
     <br>
         <div style="margin-top: 20px;text-align: center;">
-            <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
-            <button *ngIf="updateButton" class="next" (click)="gotoNextModal(contents,content,content4)" mat-button>Update &raquo;</button>
-            <button *ngIf="saveButton" class="next" (click)="gotoNextModal(contents,content,content4)" mat-button>Save &raquo;</button>
-            <button type="button" *ngIf="enablePrint" class="next" (click)="printPdf(content1,content2)" title="Generate PDF" mat-button>Print</button>
+            <button *ngIf="updateButton" class="next" (click)="gotoNextModal(contents,contentSub,content,content4,'update')" [ngClass]="{'disableForm':isEditable}" mat-button>Update &raquo;</button>
+            <button *ngIf="saveButton" class="next" (click)="gotoNextModal(contents,contentSub,content,content4,'save')" [ngClass]="{'disableForm':isEditable}" mat-button>Save &raquo;</button>
+            <button type="submit" (click)="gotoNextModal(contents,contentSub,content,content4,'submit')" [disabled]="submittedButton" [ngClass]="{'disableForm':isEditable}" *ngIf="enableSubmit" class="next1" title="Generate Report" mat-button>Submit &raquo;</button>
         </div>
     </form>
     </div>
@@ -1403,13 +1401,6 @@
 </ng-template> 
     
 <ng-template #content let-modal>
-    <!-- Spinner -->
-    <!-- <mat-progress-spinner style="margin: 0 auto;" *ngIf="spinner" color="primary" [mode]="mode" value="50" diameter="50">
-    </mat-progress-spinner>
-    <br>
-    <div *ngIf="spinner" style="text-align: center;">
-        Please wait, the details are loading!
-    </div> -->
     <div class="modal-body" *ngIf="popup">
         <div class="centre-text m-btm30">
             <div *ngIf="success" style="text-align: center;">
@@ -1446,16 +1437,41 @@
     </div>
     <br>
     <div class="row">
-      <button type="button" class="col-md-6" style="width: 5rem;position: relative;margin-left: 30%;background-color: #0f800c;color: white;" class="btn btn-rounded btn-md font-weight-medium auth-form-btn"
+      <button type="button" class="col-md-6" style="width: 6rem;position: relative;margin-left: 18%;background-color: #0f800c;color: white;" class="btn btn-rounded btn-md font-weight-medium auth-form-btn"
       aria-label="Close" (click)="closeModalDialog()" matStepperNext>
       <i class="bi bi-arrow-right-circle"></i>&nbsp;
         <span aria-hidden="true">Ok</span>
     </button>
-    <button type="button" class="col-md-6" style="text-align: center;width: auto;position: relative;margin-right: 30%;" class="btn btn-danger btn-rounded btn-md font-weight-medium auth-form-btn"
-      aria-label="Close" (click)="closeModalDialog()">
+    <button type="button" class="col-md-6" style="text-align: center;width: auto;position: relative;margin-left: 26%;" class="btn btn-danger btn-rounded btn-md font-weight-medium auth-form-btn"
+      aria-label="Close" (click)="closeModalDialog1()">
       <i class="bi bi-x icon"></i>
         <span aria-hidden="true">Cancel</span>
     </button>
   </div>
-  
+</ng-template>
+
+
+<!-- Submission -->
+<ng-template #contentSub let-modal>
+    <div class="modal-body">
+    <div class="centre-text m-btm30">
+      <div style="text-align: center;">
+        <span class="successshow">Are you sure you want to procced? </span>
+        <br>
+        <span style="font-size: 12px;"><b>Note:</b> Once submitted, details can't be modified! </span>
+      </div>
+      </div>
+    </div>
+    <div class="row">
+      <button type="button" class="col-md-6" style="width: 5rem;position: relative;margin-left: 18%;background-color: #0f800c;color: white;font-size: 12px;" class="btn btn-rounded btn-md font-weight-medium auth-form-btn"
+      aria-label="Close" (click)="closeModalDialogSub(flag,content)">
+      <i class="bi bi-arrow-right-circle"></i>&nbsp;
+        <span aria-hidden="true">Ok</span>
+    </button>
+    <button type="button" class="col-md-6" style="text-align: center;width: auto;position: relative;margin-left: 26%;font-size: 12px;" class="btn btn-danger btn-rounded btn-md font-weight-medium auth-form-btn"
+      aria-label="Close" (click)="closeModalDialog1()">
+      <i class="bi bi-x icon"></i>
+        <span aria-hidden="true">Cancel</span>
+    </button>
+  </div>
 </ng-template>

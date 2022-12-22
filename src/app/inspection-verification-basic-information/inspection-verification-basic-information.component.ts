@@ -277,6 +277,7 @@ ShowNext: boolean = true;
     this.reportDetails.verifiedEngineer = this.service.inspectorData.name;
     this.reportDetails.inspectorDesignation = this.service.inspectorData.designation;
     this.reportDetails.inspectorCompanyName = this.service.inspectorData.companyName;
+    this.reportDetails.siteId = this.service.viewerData.siteId;
 
     this.companyNameSite = this.service.viewerData.companyName;
     this.departmentNameSite = this.service.viewerData.department;
