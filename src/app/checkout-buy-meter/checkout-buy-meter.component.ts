@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegistrationBuyMeterService } from '../services/registration-buy-meter.service';
@@ -6,6 +6,9 @@ import { RegistrationBuyMeter } from '../model/registration-buy-meter';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalsService } from '../globals.service';
 import { AddCartBuyMeterComponent } from '../add-cart-buy-meter/add-cart-buy-meter.component';
+import { AddToCart } from '../model/add-to-cart';
+
+declare var Razorpay: any;
 @Component({
   selector: 'app-checkout-buy-meter',
   templateUrl: './checkout-buy-meter.component.html',
@@ -22,6 +25,39 @@ export class CheckoutBuyMeterComponent implements OnInit {
   modelReference: any;
   item:number=0;
   checkoutGrandtotal:any;
+  addToCart =new AddToCart();
+  errorMsg : string ="" ;
+  options: any = {
+    "key": "",
+    "amount": "",
+    "name": "",
+    "description": "",
+    "image": "",
+    "order_id": "",
+    "prefill": {
+      "name": "",
+      "email": "",
+      "contact": ""
+    },
+    "handler": function (response: any) { 
+      var event = new CustomEvent("payment.success",
+        {
+          detail: response,
+          bubbles: true,
+          cancelable: true
+        }
+      );
+      window.dispatchEvent(event);
+    }
+    ,
+    "notes": {
+      "address": ""
+    },
+    "theme": {
+      "color": ""
+    }
+  };
+
   //@Output() checkoutTotal: EventEmitter<any> = new EventEmitter();
  // @Input() total: any;
 
@@ -57,7 +93,6 @@ export class CheckoutBuyMeterComponent implements OnInit {
         let userDetails = this.registerBuyMeter.username + this.registerBuyMeter.contactNumber + this.registerBuyMeter.username + this.registerBuyMeter.address + this.registerBuyMeter.district +this.registerBuyMeter.state + this.registerBuyMeter.country + this.registerBuyMeter.pinCode;
         this.profileDetails(userDetails);
       })
-    console.log(this.profileDetails);
   }
 
   // getTextChange(newItem: any) {
@@ -95,4 +130,88 @@ export class CheckoutBuyMeterComponent implements OnInit {
    }, 3000);
   }
 
+  //
+  checkout(){
+    
+    if(this.checkoutGrandtotal > 500000){
+      this.errorMsg = "Payment can't be more than INR: 4,99,999"
+      setTimeout(() => {
+        this.errorMsg = "";
+      }, 3000);
+      return;
+    }
+    this.addToCart.customerPhoneNumber = this.registerBuyMeter.contactNumber
+    this.addToCart.shippingAddress = this.registerBuyMeter.address
+    this.addToCart.district = this.registerBuyMeter.district
+    this.addToCart.country = this.registerBuyMeter.country
+    this.addToCart.pinCode = this.registerBuyMeter.pinCode
+    this.addToCart.customerEmail = this.registerBuyMeter.username
+    this.addToCart.state = this.registerBuyMeter.state
+    this.addToCart.meterName = "meter"
+    this.addToCart.numberOfMeter = this.item
+    this.addToCart.amount = this.checkoutGrandtotal
+    this.addToCart.name = this.registerBuyMeter.firstName+" "+this.registerBuyMeter.lastName;
+
+
+    this.registerBuyMeterService.checkout(this.addToCart).subscribe(
+      data => {
+
+        let payment = JSON.parse(data);
+
+        // this.inspectorRegisterdId = payment.razorPay.inspectorRegisterId;
+        this.options.key = payment.razorPay.secretKey;
+        this.options.order_id = payment.razorPay.razorpayOrderId;
+        this.options.notes.address = payment.razorPay.notes;
+
+        this.options.theme.color = "#91bd8f";
+       
+        this.options.name = "CAPE Electric Private Limited";
+        this.options.description = "PURCHASE METER";
+        this.options.image = payment.razorPay.imageURL;
+        this.options.prefill.name = payment.razorPay.customerName;
+        this.options.prefill.email = payment.razorPay.customerEmail;
+
+        //
+        this.options.prefill.contact =  this.registerBuyMeter.contactNumber
+        this.options.amount =  this.addToCart.amount;
+
+
+        var rzp1 = new Razorpay(this.options);
+        rzp1.on('payment.failed', function (response: any) {
+          var event = new CustomEvent("payment.failed",
+            {
+              detail: response,
+              bubbles: true,
+              cancelable: true
+            }
+          );
+          window.dispatchEvent(event);
+        })
+        rzp1.open();
+      },
+      error => {
+      }
+    );
+  } 
+
+  @HostListener('window:payment.success', ['$event'])
+  onPaymentSuccess(event: any): void {
+    this.updateStatus("Success",event.detail.error.metadata.order_id);
+  }
+
+  @HostListener('window:payment.failed', ['$event'])
+  onPaymentFailesd(event: any): void {
+    this.updateStatus("Failed",event.detail.error.metadata.order_id);
+  }
+
+  updateStatus(paymentMessage:string,orderID:string){
+    this.registerBuyMeterService.updatePaymentStatus(paymentMessage,orderID).subscribe(
+      data =>{
+
+      }, 
+      error => {
+      }
+      
+    );
+  }
 }

@@ -100,7 +100,10 @@
                     
                     <!-- </div>
                 </div> -->
-                <button type="button"  style="margin-left: 10px;margin-top: 30px;" class="btn btn-primary" mat-button matStepperNext>Next</button>
+                <div class="alert alert-danger" *ngIf="this.errorMsg != '' ">
+                     {{this.errorMsg}}
+                </div>
+                <button type="button"  style="margin-left: 10px;margin-top: 30px;" class="btn btn-primary" (click)="checkout()" mat-button >Next</button>
                 <button type="button" style="margin-left: 10px;" class="btn btn-danger" (click)="cancelCheckout(checkOutCancel)">Cancel</button>
 
             </mat-step>
@@ -121,7 +124,7 @@
                   <p type="text" class="form-control">{{item}}</p>
 
                   <label for="">* Total: </label>
-                  <p type="text" class="form-control">{{checkoutGrandtotal}}</p>
+                  <p type="text" class="form-control">{{'₹'+checkoutGrandtotal}}</p>
               </div>
             <!-- </form> -->
           </div>
