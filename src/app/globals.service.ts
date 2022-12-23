@@ -153,15 +153,8 @@ autoLoginToken:number=0;
   filledCart: boolean=false;
   emptyCart: boolean=true;
   checkGrandtotal: number=0;
-  // private newUser = new BehaviorSubject<any>({
-  //   firstName: 'Kevin',
-  //   email: 'ksmith@fanreact.com',
-  //   g: 'M'
-  // });
-
-  // private message = new BehaviorSubject<any>(this.grand);
- // sharedMessage = this.message.asObservable();
-  
+  checkSubtotal: number=0;
+ 
  constructor(private _scrollToService: ScrollToService
   ) {}
 

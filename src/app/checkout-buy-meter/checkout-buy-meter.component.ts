@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegistrationBuyMeterService } from '../services/registration-buy-meter.service';
@@ -6,6 +6,11 @@ import { RegistrationBuyMeter } from '../model/registration-buy-meter';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalsService } from '../globals.service';
 import { AddCartBuyMeterComponent } from '../add-cart-buy-meter/add-cart-buy-meter.component';
+import { AddToCart } from '../model/add-to-cart';
+import { environment } from 'src/environments/environment';
+
+
+declare var Razorpay: any;
 @Component({
   selector: 'app-checkout-buy-meter',
   templateUrl: './checkout-buy-meter.component.html',
@@ -22,6 +27,50 @@ export class CheckoutBuyMeterComponent implements OnInit {
   modelReference: any;
   item:number=0;
   checkoutGrandtotal:any;
+  checkoutSubtotal:any;
+  addToCart =new AddToCart();
+  errorMsg : string ="" ;
+  grandtotal: any;
+  subtotal:number=0;
+  gstAmount: number = 0;
+  stateGst: number = 0;
+  centralGst: number=0;
+  iGST: number=0
+  stateValidation: boolean=false;
+
+  options: any = {
+    "key": "",
+    "amount": "",
+    "name": "",
+    "description": "",
+    "image": "",
+    "order_id": "",
+    "prefill": {
+      "name": "",
+      "email": "",
+      "contact": ""
+    },
+    "handler": function (response: any) { 
+      var event = new CustomEvent("payment.success",
+        {
+          detail: response,
+          bubbles: true,
+          cancelable: true
+        }
+      );
+      window.dispatchEvent(event);
+    }
+    ,
+    "notes": {
+      "address": ""
+    },
+    "theme": {
+      "color": ""
+    }
+  };
+  igstValidation: boolean=false;
+
+
   //@Output() checkoutTotal: EventEmitter<any> = new EventEmitter();
  // @Input() total: any;
 
@@ -35,6 +84,7 @@ export class CheckoutBuyMeterComponent implements OnInit {
 
   ngOnInit(): void {
     this.item=this.service.cartIndex.length;
+    this.checkoutSubtotal=this.service.checkSubtotal;
     this.checkoutGrandtotal=this.service.checkGrandtotal;
     this.checkOutForm = new FormGroup({
       firstName: new FormControl('',Validators.required),
@@ -48,7 +98,7 @@ export class CheckoutBuyMeterComponent implements OnInit {
       pincode: new FormControl('',Validators.required)
     })
     if (!this.viewEmployee) {
-      this.userName = JSON.parse(sessionStorage.authenticatedUserForMeter).username
+      this.userName = JSON.parse(sessionStorage.authenticatedUser).username
     }
     this.registerBuyMeterService.getUserDetails(this.userName).subscribe(
       data => {
@@ -56,8 +106,20 @@ export class CheckoutBuyMeterComponent implements OnInit {
         this.viewEmployee = false;
         let userDetails = this.registerBuyMeter.username + this.registerBuyMeter.contactNumber + this.registerBuyMeter.username + this.registerBuyMeter.address + this.registerBuyMeter.district +this.registerBuyMeter.state + this.registerBuyMeter.country + this.registerBuyMeter.pinCode;
         this.profileDetails(userDetails);
+        this.stateCheck(this.registerBuyMeter);
       })
-    console.log(this.profileDetails);
+      this.grandTotalSum();
+  }
+
+  stateCheck(data:any){
+    if(data.state=='Tamil Nadu'){
+      this.stateValidation=true;
+      this.igstValidation=false;
+    }
+    else{
+      this.igstValidation=true;
+      this.stateValidation=false;
+    }
   }
 
   // getTextChange(newItem: any) {
@@ -77,6 +139,27 @@ export class CheckoutBuyMeterComponent implements OnInit {
       pincode: new FormControl('',value.pincode)
     })
    }
+
+
+   gstCalculation(subtotal: any){
+    // this.gstAmount = (((environment.stateGSTPercentage)/100) * this.checkoutSubtotal) + (((environment.centralGSTPercentage)/100) * this.checkoutSubtotal);
+
+    // Central GST calculation
+    this.centralGst = ((environment.centralGSTPercentage)/100) * (this.checkoutSubtotal);
+
+    // IGST = CGST + SGST
+    this.iGST = (((environment.integratedGSTPercentage)/100) * this.checkoutSubtotal);
+   }
+
+  grandTotalSum(){
+    this.gstCalculation(this.checkoutSubtotal);
+    this.grandtotal= this.checkoutSubtotal + this.gstAmount;
+
+    // State GST Calculation
+    this.stateGst=((environment.stateGSTPercentage)/100) * (this.checkoutSubtotal);
+  }
+
+
   cancelCheckout(checkOutCancel: any){
     this.modelReference = this.modalService.open(checkOutCancel, { centered:true,size: 'sm' })
     
@@ -95,4 +178,88 @@ export class CheckoutBuyMeterComponent implements OnInit {
    }, 3000);
   }
 
+  //
+  checkout(){
+    
+    if(this.checkoutGrandtotal > 500000){
+      this.errorMsg = "Payment can't be more than INR: 4,99,999"
+      setTimeout(() => {
+        this.errorMsg = "";
+      }, 3000);
+      return;
+    }
+    this.addToCart.customerPhoneNumber = this.registerBuyMeter.contactNumber
+    this.addToCart.shippingAddress = this.registerBuyMeter.address
+    this.addToCart.district = this.registerBuyMeter.district
+    this.addToCart.country = this.registerBuyMeter.country
+    this.addToCart.pinCode = this.registerBuyMeter.pinCode
+    this.addToCart.customerEmail = this.registerBuyMeter.username
+    this.addToCart.state = this.registerBuyMeter.state
+    this.addToCart.meterName = "meter"
+    this.addToCart.numberOfMeter = this.item
+    this.addToCart.amount = this.checkoutGrandtotal
+    this.addToCart.name = this.registerBuyMeter.firstName+" "+this.registerBuyMeter.lastName;
+
+
+    this.registerBuyMeterService.checkout(this.addToCart).subscribe(
+      data => {
+
+        let payment = JSON.parse(data);
+
+        // this.inspectorRegisterdId = payment.razorPay.inspectorRegisterId;
+        this.options.key = payment.razorPay.secretKey;
+        this.options.order_id = payment.razorPay.razorpayOrderId;
+        this.options.notes.address = payment.razorPay.notes;
+
+        this.options.theme.color = "#91bd8f";
+       
+        this.options.name = "CAPE Electric Private Limited";
+        this.options.description = "PURCHASE METER";
+        this.options.image = payment.razorPay.imageURL;
+        this.options.prefill.name = payment.razorPay.customerName;
+        this.options.prefill.email = payment.razorPay.customerEmail;
+
+        //
+        this.options.prefill.contact =  this.registerBuyMeter.contactNumber
+        this.options.amount =  this.addToCart.amount;
+
+
+        var rzp1 = new Razorpay(this.options);
+        rzp1.on('payment.failed', function (response: any) {
+          var event = new CustomEvent("payment.failed",
+            {
+              detail: response,
+              bubbles: true,
+              cancelable: true
+            }
+          );
+          window.dispatchEvent(event);
+        })
+        rzp1.open();
+      },
+      error => {
+      }
+    );
+  } 
+
+  @HostListener('window:payment.success', ['$event'])
+  onPaymentSuccess(event: any): void {
+    this.updateStatus("Success",event.detail.error.metadata.order_id);
+  }
+
+  @HostListener('window:payment.failed', ['$event'])
+  onPaymentFailesd(event: any): void {
+    this.updateStatus("Failed",event.detail.error.metadata.order_id);
+  }
+
+  updateStatus(paymentMessage:string,orderID:string){
+    this.registerBuyMeterService.updatePaymentStatus(paymentMessage,orderID).subscribe(
+      data =>{
+
+      }, 
+      error => {
+      }
+      
+    );
+  }
 }

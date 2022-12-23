@@ -64,7 +64,7 @@ export class ProfieBuyMeterComponent implements OnInit {
   
     })
     if (!this.viewEmployee) {
-      this.userName = JSON.parse(sessionStorage.authenticatedUserForMeter).username
+      this.userName = JSON.parse(sessionStorage.authenticatedUser).username
     }
     this.registerBuyMeterService.getUserDetails(this.userName).subscribe(
       data => {

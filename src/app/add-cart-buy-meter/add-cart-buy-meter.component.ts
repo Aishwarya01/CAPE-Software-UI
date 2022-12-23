@@ -216,7 +216,7 @@ export class AddCartBuyMeterComponent implements OnInit {
       for(let j=0; j<this.meterData3.length; j++){
       //let temp_price=(+this.meterData3[j].price.replaceAll(',', '') * +this.meterData3[j].quantity);
       this.subtotal+= +this.meterData3[j].total.replaceAll(',', '');
-      
+    //  this.subtotal+= +this.meterData3[j].total.toString().replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       }
       }
 
@@ -257,6 +257,10 @@ export class AddCartBuyMeterComponent implements OnInit {
       
         this.router.navigate(['/buyMeter']);
       }
+
+      purchaseHistory(){
+        this.router.navigate(['/order-History']);
+      }
       
     zoomImage(contentImage:any,a:any){
       this.modalService.open(contentImage, {
@@ -290,7 +294,7 @@ export class AddCartBuyMeterComponent implements OnInit {
       //this.total=this.amt * a.quantity;
       this.meterData3[i].total =this.amt * a.quantity;
      //this.total=this.total.replace(",", "").replace(/(\d+)(\d{3})/, "$1,$2");
-     this.meterData3[i].total=this.meterData3[i].total.toString().replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+     this.meterData3[i].total=this.meterData3[i].total.toString().replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       console.log(event, a);
       this.findsum();
     }
@@ -322,6 +326,7 @@ export class AddCartBuyMeterComponent implements OnInit {
       this.modalReference.close();
     }
     checkoutNavigation(){
+      this.service.checkSubtotal=this.subtotal;
       this.service.checkGrandtotal=this.grandtotal;
          this.router.navigate(['checkout-buyMeter']);
          this.modalReference.close();

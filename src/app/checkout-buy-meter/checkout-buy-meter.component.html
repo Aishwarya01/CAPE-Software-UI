@@ -100,8 +100,10 @@
                     
                     <!-- </div>
                 </div> -->
-                <button type="button"  style="margin-left: 10px;margin-top: 30px;" class="btn btn-primary" mat-button matStepperNext>Next</button>
-                <button type="button" style="margin-left: 10px;" class="btn btn-danger" (click)="cancelCheckout(checkOutCancel)">Cancel</button>
+                <div class="alert alert-danger" *ngIf="this.errorMsg != '' ">
+                     {{this.errorMsg}}
+                </div>
+                <button type="button"  style="margin-left: 10px;margin-top: 30px;" class="btn btn-primary" (click)="checkout()" mat-button >Click to Pay</button>
 
             </mat-step>
             <mat-step label="Payment Mode">
@@ -112,7 +114,7 @@
                 <button type="button" style="margin-left: 10px;" class="btn btn-danger" (click)="cancelCheckout(checkOutCancel)">Cancel</button>
             </mat-step>
         </mat-vertical-stepper>
-        <div class="col-md-3" style="border: 1px solid black;padding:20px;border-radius: 5px;height: 51vh;
+        <div class="col-md-3" style="border: 1px solid black;padding:20px;border-radius: 5px;height: 62vh;
         margin-top: 72px;">
             <!-- <form action="" [formGroup]="productTotalForm" style="border: 1px solid black;padding:20px;margin-top: 20px;"> -->
               <h2>Your Order Summary</h2>
@@ -120,8 +122,29 @@
                    <label for="">* No. of Items: </label>
                   <p type="text" class="form-control">{{item}}</p>
 
-                  <label for="">* Total: </label>
-                  <p type="text" class="form-control">{{checkoutGrandtotal}}</p>
+                  <label for="">* Subtotal: </label>
+                  <p type="text" class="form-control">{{'₹'+checkoutSubtotal}}</p>
+                  <!-- State GST -->
+                <ng-container *ngIf="stateValidation">
+                    <label>Central ()</label>
+                    <p class="totals-value" class="form-control" >{{'₹'+centralGst}}</p>
+  
+                    <label>State GST()</label>
+                    <p class="totals-value" class="form-control">{{'₹'+stateGst}}</p>
+                </ng-container>
+
+                  <!-- IGST - Other State -->
+
+                <ng-container *ngIf="igstValidation">
+                    <label>IGST ()</label>
+                    <p class="totals-value" class="form-control" >{{'₹'+iGST}}</p>
+                </ng-container>
+                  
+                    <label for="">* Grand total: </label>
+                    <p type="text" class="form-control">{{'₹'+checkoutGrandtotal}}</p>
+
+                  <button type="button" style="margin-left: 10px;" class="btn btn-danger" (click)="cancelCheckout(checkOutCancel)">Cancel</button>
+
               </div>
             <!-- </form> -->
           </div>

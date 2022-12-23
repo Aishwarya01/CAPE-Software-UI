@@ -196,7 +196,7 @@ meterData2: any =[
     //  // this.router.navigate(['/signIn-buyMeter']);
     // }
      movetoCart(){
-      if(sessionStorage.getItem('tokenforMeter')== undefined){
+      if(sessionStorage.getItem('token')== undefined){
         this.router.navigate(['/signIn-buyMeter']);
       }
       else{

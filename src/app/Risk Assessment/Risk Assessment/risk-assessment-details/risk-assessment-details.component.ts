@@ -124,7 +124,6 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   fileFlag:boolean=false;
   finalSpinner: boolean=false;
   finalSubmit: boolean=false;
-
   successMsgArr: any;
 
   constructor(private router: ActivatedRoute,
@@ -136,7 +135,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
               public service: GlobalsService,
               private riskfinalpdfService: RiskfinalpdfService,
               private parentComponent: RiskParentComponentComponent,
-              private customerDetailsService :CustomerDetailsServiceService,
+              private customerDetailsService :CustomerDetailsServiceService
   ) { 
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
     for( let i=0; i<this.riskConstDev.riskAdminEmail.length; i++){
@@ -154,34 +153,33 @@ export class RiskAssessmentDetailsComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    // Fetching location list 
-    this.locationList = [];
-    this.riskAssessmentService.fetchLocation().subscribe(
-      data=> {
-        this.originalData = JSON.parse(data);
-        this.locationList = [];
-        for(let i of this.originalData){
-          if(i.location == 'Others') {
-            this.locationList.push(i);
-          }
+                // Fetching location list 
+                // this.locationList = this.riskAssessmentConstants.locationName;
+                // this.riskAssessmentService.fetchLocation().subscribe(
+                //   data=> {
+                //     this.originalData = JSON.parse(data);
+                //     this.locationList = [];
+
+      // Fecting location names from constant class
+      this.locationList = [];
+      for(let i of this.riskAssessmentConstants.locationName){
+        if(i.location == 'Others') {
+          this.locationList.push(i);
         }
-
-        for(let j of this.originalData) {
-          if(j.location != 'Others') {
-            this.locationList.push(j);
-          }
+      }
+      for(let j of this.riskAssessmentConstants.locationName) {
+        if(j.location != 'Others') {
+          this.locationList.push(j);
         }
-        
-       // this.locationList = JSON.parse(data);
-      })
+      }
+      this.locationList.sort((a: any, b: any) => (a.location > b.location) ? 1 : -1);
 
-    this.step2Form = this.formBuilder.group({
-      structureCharacters: this.formBuilder.array([this.structureCharactersForm()])
-    });
-
-    // setTimeout(() => {
-    //   this.migratedData('',this.step2Form);
-    // }, 3000);
+      this.step2Form = this.formBuilder.group({
+        structureCharacters: this.formBuilder.array([this.structureCharactersForm()])
+      });
+                    // setTimeout(() => {
+                    //   this.migratedData('',this.step2Form);
+                    // }, 3000);
   }
 
   gdValueEvent(item:any,form:any){
@@ -195,10 +193,10 @@ export class RiskAssessmentDetailsComponent implements OnInit {
         this.gfdDirtyCheckSts=true;
         this.gfdDirtyCheck(form);
 
-        // setTimeout(() => {
-        //   this.dirtyCheck=false;
-        //   this.dirtyMsg="";
-        // }, 20000);
+        setTimeout(() => {
+          this.riskGlobal.dirtyCheck=false;
+          this.riskGlobal.dirtyMsg="";
+        }, 10000);
         }
     }
   } 
@@ -740,7 +738,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     this.blurMode=true;
     this.blurMsg="Please wait Loading...";
     setTimeout(()=>{
-      for(let i of this.locationList) {
+      for(let i of this.riskAssessmentConstants.locationName ) {
         if(i.location == selectedValue) {
           form.controls.groundFlashDensity.setValue(i.gfdValue);
           this.showFlashDensity = true;

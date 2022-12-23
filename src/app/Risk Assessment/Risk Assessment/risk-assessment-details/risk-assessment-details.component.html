@@ -62,7 +62,7 @@
                                 <div class="form-group">
                                     <label>Ground flash density :</label>
                                     <input onwheel="this.blur()" class="form-control" [readonly]="showFlashDensity" formControlName="groundFlashDensity" placeholder="Please enter Ground flash density" [readonly]="isEditable"
-                                    [ngClass]="{ 'is-invalid': submitted && f.get('groundFlashDensity')?.errors }" (ngModelChange)="heightNearStruct($event,f);noOfDangerus($event,f);lengthOfTelecomLines($event,f)">
+                                    [ngClass]="{ 'is-invalid': submitted && f.get('groundFlashDensity')?.errors }" (ngModelChange)="heightNearStruct($event,f);noOfDangerus($event,f);lengthOfTelecomLines($event,f);lengthPowerline($event,f)">
                                     <div *ngIf="submitted && f.get('groundFlashDensity')?.errors" class="invalid-feedback">
                                         <div *ngIf="f.get('groundFlashDensity')?.errors?.required">Ground flash density is required</div>
                                     </div>

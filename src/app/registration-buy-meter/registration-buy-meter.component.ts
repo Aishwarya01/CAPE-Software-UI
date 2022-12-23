@@ -38,7 +38,7 @@ export class RegistrationBuyMeterComponent implements OnInit {
       email:new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       password:new FormControl('',[Validators.required,Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)]),
       purchasetype: new FormControl('',Validators.required),
-      customerGstNumber: new FormControl('',[Validators.required, Validators.pattern("[A-Z0-9]{15}")]),
+      customerGstNumber: new FormControl('',Validators.required),
       companyName:new FormControl(''),
       confirmpassword:new FormControl('',[Validators.required,Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)]),
       address: new FormControl('',Validators.required),
@@ -60,10 +60,21 @@ export class RegistrationBuyMeterComponent implements OnInit {
     this.route.navigate(['/addtocart']);
   }
 
+  keyPressNumbers(event:any) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57) && (charCode < 65 || charCode > 90)) {
+      event.preventDefault();
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
+
 
 // Add Registration
   submit(){
-    debugger
     this.submitted = true;
     if (this.RegistrationForm.invalid) {
       return
@@ -147,7 +158,7 @@ countryChange(country: any) {
     if(event.target.value == "Company"){
       this.f['companyName'].setValidators([Validators.required]);
       this.f['companyName'].updateValueAndValidity();
-      this.f['customerGstNumber'].setValidators([Validators.required, Validators.pattern("[A-Z0-9]{15}")]);
+      this.f['customerGstNumber'].setValidators(Validators.required);
       this.f['customerGstNumber'].updateValueAndValidity();
 
     }else{

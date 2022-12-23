@@ -36,6 +36,7 @@ import { AddCartBuyMeterComponent } from './add-cart-buy-meter/add-cart-buy-mete
 import { ProfieBuyMeterComponent } from './profie-buy-meter/profie-buy-meter.component';
 import { CheckoutBuyMeterComponent } from './checkout-buy-meter/checkout-buy-meter.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
+import { BuyMeterOrderHistoryComponent } from './buy-meter-order-history/buy-meter-order-history.component';
 
 
 
@@ -77,7 +78,8 @@ const routes: Routes = [
   {path: 'addtocart',component:AddCartBuyMeterComponent},
   {path: 'profile-buyMeter',component:ProfieBuyMeterComponent},
   {path: 'checkout-buyMeter',component:CheckoutBuyMeterComponent},
-  {path:'aboutus', component:AboutusComponent}
+  {path:'aboutus', component:AboutusComponent},
+  {path:'order-History',component:BuyMeterOrderHistoryComponent}
   
  
 ];

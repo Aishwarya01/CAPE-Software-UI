@@ -1,0 +1,24 @@
+#filter {
+    margin-left: 10px;
+  }
+
+  .container{
+    height: 90vh;
+    background-color: white;
+}
+
+.bg-image {
+    background: url(../../assets/img/electrical-panel-testing_test.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: left;
+    background-size: 100%;
+    height: auto;
+    width: 100%;
+    position: relative;
+    padding: 20px;
+  }
+ h2{
+    margin-top: 20px;
+    text-align: center;
+ } 

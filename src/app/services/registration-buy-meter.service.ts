@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { AddToCart } from '../model/add-to-cart';
 import { RegistrationBuyMeter } from '../model/registration-buy-meter';
 
 @Injectable({
@@ -11,7 +12,7 @@ import { RegistrationBuyMeter } from '../model/registration-buy-meter';
 export class RegistrationBuyMeterService {
 
   apiurl = environment.apiUrl_Payment;
-  USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUserForMeter';
+  USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser';
   public token: string = '';
   public refToken: string = '';
   public userName: string = '';
@@ -37,8 +38,8 @@ export class RegistrationBuyMeterService {
         this.token = userDataRetrive.token
         this.refToken = userDataRetrive.refreshToken
         this.userName = userDataRetrive.register.username
-        sessionStorage.setItem('refreshTokenforMeter',this.refToken);
-        sessionStorage.setItem('tokenforMeter',this.token);
+        sessionStorage.setItem('token',this.token);
+        sessionStorage.setItem('refreshToken',this.refToken);
         
         return userData;
       }));
@@ -64,6 +65,18 @@ export class RegistrationBuyMeterService {
 
   updateContactNumber(contactNumber : string) : Observable <any>{
     return this.http.get<any>(this.apiurl + '/updateMobileNumber' + '/' + contactNumber, { responseType: 'text' as 'json' })
+  }
+
+  checkout(addToCart : AddToCart) : Observable <any>{
+    return this.http.put<any>(this.apiurl + '/createPayment', addToCart, { responseType: 'text' as 'json' })
+  }
+
+  updatePaymentStatus(status:string,orderId:string) : Observable <any>{
+    return this.http.get<any>(this.apiurl + '/updatePaymentStatus'+'/'+status+'/'+orderId, { responseType: 'text' as 'json' })
+  }
+
+  retriveUpdatePaymentStatus(userName:string) : Observable <any>{
+    return this.http.get<any>(this.apiurl + '/retrivePaymentStatus'+'/'+userName, { responseType: 'text' as 'json' })
   }
 
 }
