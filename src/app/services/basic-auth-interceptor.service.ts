@@ -21,8 +21,14 @@ export class BasicAuthHtppInterceptorService implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         if (this.loginService.isUserLoggedIn() && req.url.indexOf('authentication') === -1
         && req.url.indexOf('refreshToken') === -1) {
-            const jwtToken = this.loginService.token;
-
+            
+            let jwtToken ;
+            if(this.loginService.token !=undefined &&this.loginService.token !='' && this.loginService.token !=null ){
+                jwtToken = this.loginService.token;
+            }
+            else{
+                jwtToken = sessionStorage.token;
+            }
             if(jwtToken){
                 return next.handle(this.addToken(req, jwtToken)).pipe(catchError(error => {
                     if(error instanceof HttpErrorResponse && error.status===401){
