@@ -158,7 +158,7 @@ countryChange(country: any) {
     if(event.target.value == "Company"){
       this.f['companyName'].setValidators([Validators.required]);
       this.f['companyName'].updateValueAndValidity();
-      this.f['customerGstNumber'].setValidators([Validators.required, Validators.pattern("[A-Z0-9]{15}")]);
+      this.f['customerGstNumber'].setValidators(Validators.required);
       this.f['customerGstNumber'].updateValueAndValidity();
 
     }else{
