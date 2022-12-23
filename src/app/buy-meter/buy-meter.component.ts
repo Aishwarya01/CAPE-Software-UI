@@ -104,7 +104,7 @@ export class BuyMeterComponent implements OnInit {
     // 'MPI-540 Multi-function Meter',
     ];
   meterData1: any =[
-    { position: 2, model: 'MZC-304 S.C. Loop Impedance Meter-1', pdf:'assets/documents/MZC304.pdf', index: 'WMGBMZC304', price: '1', image:'assets/img/mzc304.png' },
+    { position: 2, model: 'MZC-304 S.C. Loop Impedance Meter-1', pdf:'assets/documents/MZC304.pdf', index: 'WMGBMZC304', price: '89,906', image:'assets/img/mzc304.png' },
     { position: 6, model: 'MZC-330S Short Circuit Loop Impedance Meter', pdf:'assets/documents/MZC.pdf', index: 'WMGBMZC330', price: '5,78,550', image:'assets/img/mzc_updated.png' },
     { position: 7, model: 'MRP-201 RCD Tester', pdf:'assets/documents/MP540.pdf', index: 'WMGBMRP201', price: '98,175', image:'assets/img/mpi_updated.png' },
     { position: 13, model: 'MPI-530 Multi-function Meter', pdf:'assets/documents/MPI.pdf', index: 'WMGBMPI530', price: '3,12,900', image:'assets/img/mpi_530I_updated.png' },
