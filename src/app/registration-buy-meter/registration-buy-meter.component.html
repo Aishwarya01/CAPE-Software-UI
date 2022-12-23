@@ -161,12 +161,12 @@
                                                     <i class="bi bi-building"></i>
                                                 </span>
                                             </div>
-                                            <input type="text" formControlName="customerGstNumber" [(ngModel)]="registrationBuyMeter.gstNumber" 
+                                            <input type="text" formControlName="customerGstNumber" (keypress)="keyPressNumbers($event)" [(ngModel)]="registrationBuyMeter.gstNumber" maxlength="15"
                                             class="form-control" placeholder="Enter Your GST Number" [ngClass]="{'is-invalid': submitted && f.customerGstNumber.errors}"
                                             >
                                             <div *ngIf="submitted && f.customerGstNumber.errors" class="invalid-feedback">
                                                 <div *ngIf="f.customerGstNumber.errors.required">GST Number is required</div>
-                                                <div *ngIf="f.customerGstNumber.errors.pattern">GST Number must contain 15 characters</div>
+                                                <div *ngIf="f.customerGstNumber.errors.pattern">GST Number must contain only Uppercase and Alphanumaric with 15 characters</div>
                                                 <!-- <div *ngIf="f.customerGstNumber.errors.maxlength">GST Number must contain 15 characters</div> -->
                                             </div>
                                         </div>

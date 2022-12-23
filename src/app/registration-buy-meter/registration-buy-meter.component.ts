@@ -38,7 +38,7 @@ export class RegistrationBuyMeterComponent implements OnInit {
       email:new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       password:new FormControl('',[Validators.required,Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)]),
       purchasetype: new FormControl('',Validators.required),
-      customerGstNumber: new FormControl('',[Validators.required, Validators.pattern(/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/)]),
+      customerGstNumber: new FormControl('',Validators.required),
       companyName:new FormControl(''),
       confirmpassword:new FormControl('',[Validators.required,Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)]),
       address: new FormControl('',Validators.required),
@@ -58,6 +58,18 @@ export class RegistrationBuyMeterComponent implements OnInit {
   // Navigation
   navigateAddtoCart(){
     this.route.navigate(['/addtocart']);
+  }
+
+  keyPressNumbers(event:any) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57) && (charCode < 65 || charCode > 90)) {
+      event.preventDefault();
+      return false;
+    }
+    else {
+      return true;
+    }
   }
 
 
