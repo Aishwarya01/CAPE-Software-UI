@@ -124,15 +124,24 @@
 
                   <label for="">* Subtotal: </label>
                   <p type="text" class="form-control">{{'₹'+checkoutSubtotal}}</p>
+                  <!-- State GST -->
+                <ng-container *ngIf="stateValidation">
+                    <label>Central ()</label>
+                    <p class="totals-value" class="form-control" >{{'₹'+centralGst}}</p>
+  
+                    <label>State GST()</label>
+                    <p class="totals-value" class="form-control">{{'₹'+stateGst}}</p>
+                </ng-container>
 
-                  <label>GST (5%)</label>
-                  <p class="totals-value" class="form-control" >{{'₹'+gstAmount}}</p>
+                  <!-- IGST - Other State -->
 
-                  <label>State GST()</label>
-                  <p class="totals-value" class="form-control" ></p>
-
-                  <label for="">* Grand total: </label>
-                  <p type="text" class="form-control">{{'₹'+checkoutGrandtotal}}</p>
+                <ng-container *ngIf="igstValidation">
+                    <label>IGST ()</label>
+                    <p class="totals-value" class="form-control" >{{'₹'+iGST}}</p>
+                </ng-container>
+                  
+                    <label for="">* Grand total: </label>
+                    <p type="text" class="form-control">{{'₹'+checkoutGrandtotal}}</p>
 
                   <button type="button" style="margin-left: 10px;" class="btn btn-danger" (click)="cancelCheckout(checkOutCancel)">Cancel</button>
 

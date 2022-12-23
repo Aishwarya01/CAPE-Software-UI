@@ -33,7 +33,10 @@ export class CheckoutBuyMeterComponent implements OnInit {
   grandtotal: any;
   subtotal:number=0;
   gstAmount: number = 0;
-
+  stateGst: number = 0;
+  centralGst: number=0;
+  iGST: number=0
+  stateValidation: boolean=false;
 
   options: any = {
     "key": "",
@@ -65,6 +68,8 @@ export class CheckoutBuyMeterComponent implements OnInit {
       "color": ""
     }
   };
+  igstValidation: boolean=false;
+
 
   //@Output() checkoutTotal: EventEmitter<any> = new EventEmitter();
  // @Input() total: any;
@@ -93,7 +98,7 @@ export class CheckoutBuyMeterComponent implements OnInit {
       pincode: new FormControl('',Validators.required)
     })
     if (!this.viewEmployee) {
-      this.userName = JSON.parse(sessionStorage.authenticatedUser).username
+      this.userName = JSON.parse(sessionStorage.authenticatedUserForMeter).username
     }
     this.registerBuyMeterService.getUserDetails(this.userName).subscribe(
       data => {
@@ -101,10 +106,20 @@ export class CheckoutBuyMeterComponent implements OnInit {
         this.viewEmployee = false;
         let userDetails = this.registerBuyMeter.username + this.registerBuyMeter.contactNumber + this.registerBuyMeter.username + this.registerBuyMeter.address + this.registerBuyMeter.district +this.registerBuyMeter.state + this.registerBuyMeter.country + this.registerBuyMeter.pinCode;
         this.profileDetails(userDetails);
+        this.stateCheck(this.registerBuyMeter);
       })
-
       this.grandTotalSum();
+  }
 
+  stateCheck(data:any){
+    if(data.state=='Tamil Nadu'){
+      this.stateValidation=true;
+      this.igstValidation=false;
+    }
+    else{
+      this.igstValidation=true;
+      this.stateValidation=false;
+    }
   }
 
   // getTextChange(newItem: any) {
@@ -127,13 +142,21 @@ export class CheckoutBuyMeterComponent implements OnInit {
 
 
    gstCalculation(subtotal: any){
-    this.gstAmount = (((environment.stateGSTPercentage)/100) * subtotal) + (((environment.centralGSTPercentage)/100) * subtotal);
-  }
+    // this.gstAmount = (((environment.stateGSTPercentage)/100) * this.checkoutSubtotal) + (((environment.centralGSTPercentage)/100) * this.checkoutSubtotal);
+
+    // Central GST calculation
+    this.centralGst = ((environment.centralGSTPercentage)/100) * (this.checkoutSubtotal);
+
+    // IGST = CGST + SGST
+    this.iGST = (((environment.integratedGSTPercentage)/100) * this.checkoutSubtotal);
+   }
 
   grandTotalSum(){
-    this.gstCalculation(this.subtotal);
-    this.grandtotal= this.subtotal + this.gstAmount ;
-    
+    this.gstCalculation(this.checkoutSubtotal);
+    this.grandtotal= this.checkoutSubtotal + this.gstAmount;
+
+    // State GST Calculation
+    this.stateGst=((environment.stateGSTPercentage)/100) * (this.checkoutSubtotal);
   }
 
 
