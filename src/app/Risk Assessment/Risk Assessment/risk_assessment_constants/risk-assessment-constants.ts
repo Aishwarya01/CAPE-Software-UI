@@ -9,7 +9,7 @@ export class RiskAssessmentConstants {
     groundFlashD(){
         this.locationName[0] = { location:"Others", gfdValue: 0 }
         this.locationName[1] = { location:"Gilgit", gfdValue: 0.7 }
-        this.locationName[2] = { location:"skardu", gfdValue: 0.5 }
+        this.locationName[2] = { location:"Skardu", gfdValue: 0.5 }
         this.locationName[3] = { location:"Gulmarg", gfdValue: 5.3 }
         this.locationName[4] = { location:"Srinagar", gfdValue: 5.4 }
         this.locationName[5] = { location:"Dras", gfdValue: 0.3 }
