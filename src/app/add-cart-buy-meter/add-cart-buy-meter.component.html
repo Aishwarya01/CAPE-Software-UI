@@ -51,14 +51,14 @@
         <div class="col-md-4">
             <div class="product-price">₹{{a.price}}</div>
             <div class="product-quantity">
-                <input type="number" min="1" [(ngModel)]="meterData1[i].quantity" (keyup)="quantityChange($event, a,i)" />
+                <input type="number" min="1" [(ngModel)]="meterData3[i].quantity" (keyup)="quantityChange($event, a,i)" />
             </div>
             <div class="product-removal">
                 <button class="remove-product" (click)="removeItem(i,a.index)" title="Delete">
                     Remove
                 </button>
             </div> 
-            <div class="product-line-price">{{meterData1[i].total}}</div>
+            <div class="product-line-price">{{meterData3[i].total}}</div>
         </div>
         
     </div>
