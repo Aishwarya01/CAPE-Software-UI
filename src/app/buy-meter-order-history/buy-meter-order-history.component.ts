@@ -37,7 +37,7 @@ export class BuyMeterOrderHistoryComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.userName = JSON.parse(sessionStorage.authenticatedUserForMeter).username
+    this.userName = JSON.parse(sessionStorage.authenticatedUser).username
     
     this.registrationMeterService.retriveUpdatePaymentStatus(this.userName).subscribe(data=>{
       this.dataSource = new MatTableDataSource(JSON.parse(data));

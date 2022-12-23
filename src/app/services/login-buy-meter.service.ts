@@ -16,7 +16,7 @@ export class LoginBuyMeterService {
   public token: string = '';
   public refToken: string = '';
   public userName: String = '';
-  USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUserForMeter';
+  USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser';
   apiUrl_v2 = environment.apiUrl_v2;
 
 
@@ -50,8 +50,8 @@ export class LoginBuyMeterService {
     this.token = '';
     // localStorage.removeItem('rememberMe');
     localStorage.removeItem('username');
-    sessionStorage.removeItem('tokenforMeter');
-    sessionStorage.removeItem('refreshTokenforMeter');
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('refreshToken');
     // sessionStorage.removeItem('expiresAt');
   }
 

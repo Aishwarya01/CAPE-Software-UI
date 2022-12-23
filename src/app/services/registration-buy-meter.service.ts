@@ -12,7 +12,7 @@ import { RegistrationBuyMeter } from '../model/registration-buy-meter';
 export class RegistrationBuyMeterService {
 
   apiurl = environment.apiUrl_Payment;
-  USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUserForMeter';
+  USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser';
   public token: string = '';
   public refToken: string = '';
   public userName: string = '';
@@ -38,8 +38,8 @@ export class RegistrationBuyMeterService {
         this.token = userDataRetrive.token
         this.refToken = userDataRetrive.refreshToken
         this.userName = userDataRetrive.register.username
-        sessionStorage.setItem('refreshTokenforMeter',this.refToken);
-        sessionStorage.setItem('tokenforMeter',this.token);
+        sessionStorage.setItem('token',this.token);
+        sessionStorage.setItem('refreshToken',this.refToken);
         
         return userData;
       }));
