@@ -399,6 +399,7 @@ createGroup(item: any): FormGroup{
   this.register.companyName=item.companyName;
   this.register.username=item.username;
   this.register.contactNumber = item.contactNumber;
+  this.register.lpsName = item.name;
   this.register.department=item.department;
   this.register.designation=item.designation;
   this.register.address=item.address;
@@ -853,6 +854,7 @@ createNewGroup(item: any): FormGroup{
     else if (this.globalService.headerMsg == "lpsPage") {
       applicationType = "LPS Systems";
       this.register.selectedProject = "LPS";
+      this.register.name = this.register.lpsName;
     }
 
     // //finding the application_type appened or not
