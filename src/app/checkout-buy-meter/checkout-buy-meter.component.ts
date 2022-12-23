@@ -25,6 +25,7 @@ export class CheckoutBuyMeterComponent implements OnInit {
   modelReference: any;
   item:number=0;
   checkoutGrandtotal:any;
+  checkoutSubtotal:any;
   addToCart =new AddToCart();
   errorMsg : string ="" ;
   options: any = {
@@ -71,6 +72,7 @@ export class CheckoutBuyMeterComponent implements OnInit {
 
   ngOnInit(): void {
     this.item=this.service.cartIndex.length;
+    this.checkoutSubtotal=this.service.checkSubtotal;
     this.checkoutGrandtotal=this.service.checkGrandtotal;
     this.checkOutForm = new FormGroup({
       firstName: new FormControl('',Validators.required),
