@@ -135,6 +135,7 @@ import { AddCartBuyMeterComponent } from './add-cart-buy-meter/add-cart-buy-mete
 import { ProfieBuyMeterComponent } from './profie-buy-meter/profie-buy-meter.component';
 import { CheckoutBuyMeterComponent } from './checkout-buy-meter/checkout-buy-meter.component';
 import { MatStepperModule } from '@angular/material/stepper';
+import { BuyMeterOrderHistoryComponent } from './buy-meter-order-history/buy-meter-order-history.component';
 
 
 
@@ -232,7 +233,8 @@ import { MatStepperModule } from '@angular/material/stepper';
     RegistrationBuyMeterComponent,
     AddCartBuyMeterComponent,
     ProfieBuyMeterComponent,
-    CheckoutBuyMeterComponent
+    CheckoutBuyMeterComponent,
+    BuyMeterOrderHistoryComponent
    
   ],
   imports: [

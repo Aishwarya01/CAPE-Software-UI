@@ -38,7 +38,7 @@ export class RegistrationBuyMeterComponent implements OnInit {
       email:new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       password:new FormControl('',[Validators.required,Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)]),
       purchasetype: new FormControl('',Validators.required),
-      customerGstNumber: new FormControl('',[Validators.required, Validators.pattern("[A-Z0-9]{15}")]),
+      customerGstNumber: new FormControl('',[Validators.required, Validators.pattern(/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/)]),
       companyName:new FormControl(''),
       confirmpassword:new FormControl('',[Validators.required,Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)]),
       address: new FormControl('',Validators.required),
@@ -63,7 +63,6 @@ export class RegistrationBuyMeterComponent implements OnInit {
 
 // Add Registration
   submit(){
-    debugger
     this.submitted = true;
     if (this.RegistrationForm.invalid) {
       return

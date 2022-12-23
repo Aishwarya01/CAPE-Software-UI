@@ -7,6 +7,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalsService } from '../globals.service';
 import { AddCartBuyMeterComponent } from '../add-cart-buy-meter/add-cart-buy-meter.component';
 import { AddToCart } from '../model/add-to-cart';
+import { environment } from 'src/environments/environment';
+
 
 declare var Razorpay: any;
 @Component({
@@ -28,6 +30,11 @@ export class CheckoutBuyMeterComponent implements OnInit {
   checkoutSubtotal:any;
   addToCart =new AddToCart();
   errorMsg : string ="" ;
+  grandtotal: any;
+  subtotal:number=0;
+  gstAmount: number = 0;
+
+
   options: any = {
     "key": "",
     "amount": "",
@@ -95,6 +102,9 @@ export class CheckoutBuyMeterComponent implements OnInit {
         let userDetails = this.registerBuyMeter.username + this.registerBuyMeter.contactNumber + this.registerBuyMeter.username + this.registerBuyMeter.address + this.registerBuyMeter.district +this.registerBuyMeter.state + this.registerBuyMeter.country + this.registerBuyMeter.pinCode;
         this.profileDetails(userDetails);
       })
+
+      this.grandTotalSum();
+
   }
 
   // getTextChange(newItem: any) {
@@ -114,6 +124,19 @@ export class CheckoutBuyMeterComponent implements OnInit {
       pincode: new FormControl('',value.pincode)
     })
    }
+
+
+   gstCalculation(subtotal: any){
+    this.gstAmount = (((environment.stateGSTPercentage)/100) * subtotal) + (((environment.centralGSTPercentage)/100) * subtotal);
+  }
+
+  grandTotalSum(){
+    this.gstCalculation(this.subtotal);
+    this.grandtotal= this.subtotal + this.gstAmount ;
+    
+  }
+
+
   cancelCheckout(checkOutCancel: any){
     this.modelReference = this.modalService.open(checkOutCancel, { centered:true,size: 'sm' })
     

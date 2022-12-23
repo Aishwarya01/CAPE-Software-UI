@@ -21,6 +21,7 @@
             <mat-menu #cartMenu="matMenu">    
               <button mat-menu-item (click)="profile()">Profile</button> 
               <!-- <button mat-menu-item (click)="changePassword()">Change Password</button>    -->
+              <button mat-menu-item (click)="purchaseHistory()">Purchase Details</button>
               <button mat-menu-item (click)="meterLogout()">Log out</button> 
             </mat-menu>
         </div>
@@ -110,7 +111,7 @@
             <label>Subtotal</label>
             <div class="totals-value" id="cart-subtotal">₹{{subtotal}}</div>
         </div>
-        <div class="totals-item">
+        <!-- <div class="totals-item">
             <label>GST (5%)</label>
             <div class="totals-value" id="cart-tax">₹{{gstAmount}}</div>
         </div>
@@ -121,7 +122,7 @@
         <div class="totals-item totals-item-total">
             <label>Grand Total</label>
             <div class="totals-value" id="cart-total">₹{{grandtotal}}</div>
-        </div>
+        </div> -->
         <button class="checkout" (click)="checkoutConfirm(checkOutConfirm)">Checkout</button>
 </div>
 <div class="totals" *ngIf="service.emptyCart">

@@ -257,6 +257,10 @@ export class AddCartBuyMeterComponent implements OnInit {
       
         this.router.navigate(['/buyMeter']);
       }
+
+      purchaseHistory(){
+        this.router.navigate(['/order-History']);
+      }
       
     zoomImage(contentImage:any,a:any){
       this.modalService.open(contentImage, {
