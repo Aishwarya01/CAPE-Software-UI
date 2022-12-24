@@ -103,7 +103,7 @@
                 <div class="alert alert-danger" *ngIf="this.errorMsg != '' ">
                      {{this.errorMsg}}
                 </div>
-                <button type="button"  style="margin-left: 10px;margin-top: 30px;" class="btn btn-primary" (click)="checkout()" mat-button >Click to Pay</button>
+                <button type="button"  style="margin-left: 10px;margin-top: 30px;" class="btn btn-primary" (click)="checkout(paymentTemplate)" mat-button >Click to Pay</button>
 
             </mat-step>
             <mat-step label="Payment Mode">
@@ -171,6 +171,8 @@
 </ng-template>
 <ng-template #paymentTemplate let-modal>
     <div style="text-align: center;">
-        <p class="successshow">Please wait....</p>
+        <p class="alert alert-success"  *ngIf="paymentSuccess" >Your Payment Successfully Completed</p>
+        <!-- <p class="alert alert-danger"  *ngIf="paymentFailed" >Your Payment Failed</p> -->
+        <button type="button" class="btn btn-primary" (click)="purchaseHistory()"> OK</button>
     </div>
 </ng-template>
