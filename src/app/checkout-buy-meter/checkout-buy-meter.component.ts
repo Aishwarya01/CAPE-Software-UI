@@ -37,6 +37,9 @@ export class CheckoutBuyMeterComponent implements OnInit {
   centralGst: number=0;
   iGST: number=0
   stateValidation: boolean=false;
+  paymentSuccess: boolean=false;
+  paymentFailed: boolean=false;
+  paymentTemplate: any;
 
   options: any = {
     "key": "",
@@ -168,6 +171,14 @@ export class CheckoutBuyMeterComponent implements OnInit {
      this.route.navigate(['/addtocart']);
      this.modelReference.close();
   }
+
+  purchaseHistory(){
+    this.route.navigate(['/order-History']);
+    // this.paymentFailed = false;
+    this.paymentSuccess = false;
+    this.onCancel();
+  }
+
   onCancel(){
     this.modelReference.close();
   }
@@ -179,8 +190,9 @@ export class CheckoutBuyMeterComponent implements OnInit {
   }
 
   //
-  checkout(){
-    
+  checkout(paymentTemplate:any){
+    this.paymentTemplate = paymentTemplate;
+
     if(this.checkoutGrandtotal > 500000){
       this.errorMsg = "Payment can't be more than INR: 4,99,999"
       setTimeout(() => {
@@ -244,12 +256,23 @@ export class CheckoutBuyMeterComponent implements OnInit {
 
   @HostListener('window:payment.success', ['$event'])
   onPaymentSuccess(event: any): void {
-    this.updateStatus("Success",event.detail.error.metadata.order_id);
+    this.updateStatus("SUCCESS",event.detail.razorpay_order_id);
+    this.paymentSuccess = true;
+    this.modelReference = this.modalService.open(this.paymentTemplate, { centered:true,size: 'sm' })
+    // setTimeout(() => {
+    //   this.paymentSuccess = true;
+    // }, 3000);
+
   }
 
   @HostListener('window:payment.failed', ['$event'])
   onPaymentFailesd(event: any): void {
-    this.updateStatus("Failed",event.detail.error.metadata.order_id);
+    this.updateStatus("FAILED",event.detail.error.metadata.order_id);
+    this.paymentFailed = true;
+    // this.modelReference = this.modalService.open(this.paymentTemplate, { centered:true,size: 'sm' })
+    // setTimeout(() => {
+    //   this.paymentFailed = true;
+    // }, 3000);
   }
 
   updateStatus(paymentMessage:string,orderID:string){
