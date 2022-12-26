@@ -1752,7 +1752,14 @@ showHideAccordion(index: number) {
       for (let item of value.supplyParameters) { 
         this.sources=true;    
         this.breaker=true;
-        this.alArr.push(this.createGroupAl(item));
+        let supplyparam = this.createGroupAl(item);
+        if(item.aLSystemEarthing=='Others'){
+          this.enableBriefNote(item.aLSystemEarthing,supplyparam);
+        }
+        else{
+          this.enableBriefNote(item.aLSystemEarthing,supplyparam);
+        }
+        this.alArr.push(supplyparam);
       }
       for (let item of value.supplyParameters) { 
         this.tableAC=true;    
