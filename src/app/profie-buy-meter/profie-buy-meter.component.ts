@@ -44,7 +44,8 @@ export class ProfieBuyMeterComponent implements OnInit {
     private registerBuyMeterService : RegistrationBuyMeterService,
     private fb : FormBuilder,
     private regiterationBuymeterService: RegistrationBuyMeterService,
-     private modalService: NgbModal) { }
+     private modalService: NgbModal) { this.changeNumberForm = this.toFormGroup(this.formInput)}
+     
 
   ngOnInit(): void {
    this.profileForm = new FormGroup({

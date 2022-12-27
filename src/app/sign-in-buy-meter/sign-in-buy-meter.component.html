@@ -28,7 +28,7 @@
                               </span>
                           </div>
                           <input type="email" class="form-control" formControlName="username" placeholder="Enter your email address" maxlength="50"
-                           [(ngModel)]="registerBuyMeterModel.username" [ngClass]="{'is-invalid':submitted && f.username.errors}">
+                           [(ngModel)]="registerBuyMeterModel.username" [ngClass]="{'is-invalid':submitted && f.username.errors}" [readOnly]="userInput">
                           <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
                               <div *ngIf="f.username.errors.required">Username is required</div>
                               <!-- <div *ngIf="f.email.errors.pattern">Enter valid email</div> -->
@@ -39,6 +39,8 @@
                   <div *ngIf="showPassword">
                     <div class="form-group">
                         <label for="password">* Password</label>
+                        <p id="forgetPassword" (click)="openForgetTempl(forgetPasswordtemplate)">Forget Password?</p>
+
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
@@ -69,7 +71,7 @@
                     <div class="row">
                       <div class="form-group col-sm-2" *ngFor="let input of formInput;  index as i">
                         <input #formRow type="password" formControlName="{{input}}" class="form-control" 
-                        maxlength="1" (keyup)="onkeyUpEvent($event, i)" name="password" style="-webkit-text-security: square;">
+                        maxlength="1" (keyup)="onkeyUpEvent($event,i)" name="password" style="-webkit-text-security: square;">
                       </div>
                       <div *ngIf="OTPerrorMsgflag" class="errorshow">{{OTPerrorMsg}}</div>
                     </div>
@@ -124,3 +126,97 @@
     </div>
 </div> 
 
+<ng-template #forgetPasswordtemplate let-modal>
+    <div class="">
+        <h2 style="text-align: center;">Forget Password</h2>
+        <p *ngIf="showOtpMsg" class="alert alert-success" style="text-align:center;font-size: large;" > OTP has send Successfully</p>
+        <p *ngIf="showMsgOtp" class="alert alert-success" style="text-align:center;font-size: large;" > OTP verified Successfully</p>
+        <p *ngIf="showPasswordSuccess" class="alert alert-success" style="text-align:center;font-size: large;" > Password has changed Successfully</p>
+
+        <form  [formGroup]="forgetPassword">
+            <div class="form-group">
+                <label for="username">* Email or MobileNumber</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="bi bi-envelope-fill"></i>
+                        </span>
+                    </div>
+                    <input type="email" class="form-control" formControlName="userMail" placeholder="Enter your email address" maxlength="50"
+                     [(ngModel)]="registerBuyMeterModel.username" [ngClass]="{'is-invalid':submitted && g.userMail.errors}" [readOnly]="userInput">
+                    <div *ngIf="submitted && g.userMail.errors" class="invalid-feedback">
+                        <div *ngIf="g.userMailerrors.required">Username is required</div>
+                        <!-- <div *ngIf="f.email.errors.pattern">Enter valid email</div> -->
+                    </div>
+                </div>
+            </div>
+            <div >
+              
+                <div *ngIf="showNewPassword">
+
+                    <div class="form-group">
+                        <label for="password">* Password</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-envelope-fill"></i>
+                                </span>
+                            </div>
+                            <input type="password"  class="form-control" formControlName="newPassword" placeholder="Enter your password" maxlength="50"
+                             [(ngModel)]="registerBuyMeterModel.password">
+                            <div *ngIf="submitted && g.newPassword.errors" class="invalid-feedback">
+                                <div *ngIf="g.newPassword.errors.required">password is required</div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="password">* Confirm Password</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-envelope-fill"></i>
+                                </span>
+                            </div>
+                            <input type="password"  class="form-control" formControlName="confirmPassword" placeholder="Enter your password" maxlength="50"
+                             [(ngModel)]="registerBuyMeterModel.password">
+                            <div *ngIf="submitted && g.confirmPassword.errors" class="invalid-feedback">
+                                <div *ngIf="g.confirmPassword.value != g.newpassword.value" ></div>
+                                <div *ngIf="g.confirmPassword.errors.required">password is required</div>
+                                <!-- <div *ngIf="f.email.errors.pattern">Enter valid email</div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" *ngIf="hideOtp">
+                <label for="username">* Enter verification code(OTP):</label>
+                <p (click)="resendOTP()" id="sndOtp">Resend OTP Link</p>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="bi bi-envelope-fill"></i>
+                        </span>
+                    </div>
+                    <input type="password" class="form-control" formControlName="verifyOtp" placeholder="Enter OTP" maxlength="6"
+                 [ngClass]="{'is-invalid':submitted && g.verifyOtp.errors}" >
+                    <div *ngIf="submitted && g.verifyOtp.errors" class="invalid-feedback">
+                        <div *ngIf="g.verifyOtp.errors.required">OTP is required</div>
+                        <div *ngIf="g.verifyOtp.pattern">OTP does not Match</div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 text-center justify-content-center">
+                    <button   class="btn btn-success"  *ngIf="showOTP"  (click)="sendOtpForPassword()"> <i class="bi bi-check-lg"></i> Send OTP</button>
+                    <button   *ngIf="showValidateOtp" (click)="validateOTP()" class="btn btn-success">Validate OTP</button>
+                    <button type="button" class="btn btn-primary" *ngIf="showSubmitBtn" (click)="validatePassword()">Submit</button>
+                    <button type="button" class="btn btn-danger" style="margin-left:10px;"  (click)="cancelTempl()">Cancel</button>
+                </div>
+        </div>
+        </form>
+    </div>
+</ng-template>

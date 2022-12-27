@@ -85,4 +85,17 @@ export class LoginBuyMeterService {
         return data;
       }));
 }
+
+
+  forgetPassword(email: string): Observable<any>{
+   return this.http.get<any>(this.apiUrl_v2 + '/forgotPassword'+'/' + email,{ responseType: 'text' as 'json' })
+  }
+
+    changePassword(authenticationRequest : any): Observable<any>{
+      return this.http.put<any>(this.apiurl +'/createPassword',authenticationRequest,{responseType: 'text' as 'json' })
+    }
+
+     changePasswordProfile(authenticationRequest : any){
+      return this.http.put<any>(this.apiurl + '/changePassword',authenticationRequest, { responseType: 'text' as 'json' })
+    }
 }

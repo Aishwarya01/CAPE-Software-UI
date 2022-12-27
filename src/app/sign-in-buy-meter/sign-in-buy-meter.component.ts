@@ -1,9 +1,11 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild, ViewChildren } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment';
 import { GlobalsService } from '../globals.service';
 import { RegistrationBuyMeter } from '../model/registration-buy-meter';
+import { LoginBuyMeterService } from '../services/login-buy-meter.service';
 import { RegistrationBuyMeterService } from '../services/registration-buy-meter.service';
 
 @Component({
@@ -12,16 +14,30 @@ import { RegistrationBuyMeterService } from '../services/registration-buy-meter.
   styleUrls: ['./sign-in-buy-meter.component.css']
 })
 export class SignInBuyMeterComponent implements OnInit {
+
+  authentication: any = {
+    email: '',
+    password: ''
+  }
   signInContent :string = environment.signInContent;
   submitted:boolean = false;
   showPassword:boolean = false;
+  showNewPassword: boolean = false;
+  showPasswordSuccess: boolean = false;
   showOtp:boolean = false;
+  showOTP: boolean = true;
   showBtn:boolean = true;
   disableOtp:boolean = false;
+  userInput: boolean = false;
+  showMsgOtp: boolean = false;
+  hideOtp: boolean = false;
   hideRegister:boolean = true;
+  showSubmitBtn: boolean = false;
   registerBuyMeterModel = new RegistrationBuyMeter();
   formInput = ['input1', 'input2', 'input3', 'input4', 'input5', 'input6'];
+
   @ViewChildren('formRow') rows: any;
+
   OTPerrorMsgflag: boolean=false;
   SubmitSuccessMsg: boolean=false;
   showErrorMsg: boolean = false;
@@ -33,20 +49,33 @@ export class SignInBuyMeterComponent implements OnInit {
   showErrMsg1:string='';
   wrongPassword:boolean = false;
   userName:any;
+  showValidateOtp: boolean = false;
 
   OtpSession:any;
+ 
+
    SignIn  = new FormGroup({
     username: new FormControl(''),
     password: new FormControl('')
    })
+
+   forgetPassword = new FormGroup({
+    userMail: new FormControl(''),
+    newPassword: new FormControl('',[Validators.required,Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)]),
+    confirmPassword: new FormControl('',[Validators.required,Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)]),
+    verifyOtp: new FormControl('',[Validators.required,Validators.pattern('^[1-9][0-9]{5}$')])
+   })
+
   otp: string = '';
   dataArr: any;
   sessionKeyArr: any;
+  modalReference: any;
 
 
   constructor(private router: Router,  private formBuilder: FormBuilder,
-    public service: GlobalsService,private regiterationBuymeterService: RegistrationBuyMeterService
-    ) {this.SignIn = this.toFormGroup(this.formInput); }
+    public service: GlobalsService,private regiterationBuymeterService: RegistrationBuyMeterService, private modalService: NgbModal,
+    private loginBuyMeterService : LoginBuyMeterService) {this.SignIn = this.toFormGroup(this.formInput);
+      }
 
   ngOnInit(): void {
 
@@ -60,6 +89,15 @@ export class SignInBuyMeterComponent implements OnInit {
       input5:[''],
       input6:['']
     })
+
+    this.forgetPassword = this.formBuilder.group({
+      userMail: new FormControl(''),
+      newPassword: new FormControl('',[Validators.required,Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)]),
+      confirmPassword: new FormControl('',[Validators.required,Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)]),
+      verifyOtp: new FormControl('',[Validators.required,Validators.pattern('^[1-9][0-9]{5}$')])
+
+    })
+
 
    }
 
@@ -77,6 +115,10 @@ export class SignInBuyMeterComponent implements OnInit {
  
   get f():any{
     return this.SignIn.controls;
+  }
+
+  get g():any{
+    return this.forgetPassword.controls
   }
 
   toFormGroup(elements:any) {
@@ -113,6 +155,7 @@ export class SignInBuyMeterComponent implements OnInit {
    else{
     this.regiterationBuymeterService.retriveRegistration(this.userName).subscribe(data=>{
       this.showPassword = true;
+      this.userInput = true;
       this.hideRegister = false;
      
     },error=>{
@@ -156,11 +199,18 @@ export class SignInBuyMeterComponent implements OnInit {
 
   }
 
+
+
+
   // Send OTP
   sendOtp() {
     this.showOtp = true;
+    this.showValidateOtp = false;
     this.showPassword = false;
     this.showBtn = false;
+    this.showOTP = false;
+    this.hideOtp = true;
+    this.showValidateOtp = true;
     this.userName = this.SignIn.controls.username.value;
 
     // if username
@@ -198,6 +248,51 @@ export class SignInBuyMeterComponent implements OnInit {
     console.log(this.dataArr);
   }
 
+  // Send OTP for Forget Password
+  sendOtpForPassword() {
+  
+    this.showOTP = false;
+    this.hideOtp = true;
+    this.showValidateOtp = true;
+    this.userName = this.SignIn.controls.username.value;
+
+    // if username
+    if (this.userName.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/) != null) {
+
+      this.regiterationBuymeterService.sendUsername(this.userName).subscribe((data: string) => {
+
+        this.showOtpMsg = true;
+        setTimeout(() => {
+          this.showOtpMsg = false;
+        }, 3000);
+        this.OtpSession = data;
+      },
+        error => {
+          console.log(JSON.parse(error.error));
+        })
+    }
+    else {
+
+      //if mobilenumber
+      this.regiterationBuymeterService.sendOtp(this.userName).subscribe((data: string) => {
+
+        this.showOtpMsg = true;
+        setTimeout(() => {
+          this.showOtpMsg = false;
+        }, 3000);
+        this.OtpSession = data;
+      },
+        error => {
+          console.log(JSON.parse(error.error));
+        })
+    }
+
+    this.sessionKeyArr = this.dataArr;
+    console.log(this.dataArr);
+  }
+
+
+
   // OTP Validation
   onSubmit() {
     this.submitted=true;
@@ -227,6 +322,42 @@ export class SignInBuyMeterComponent implements OnInit {
 
   }
 
+  // Validate OTP for forgetPassword
+  validateOTP(){
+    this.forgetPassword.controls.newPassword.clearValidators();
+    this.forgetPassword.controls.newPassword.updateValueAndValidity();
+
+    this.forgetPassword.controls.confirmPassword.clearValidators();
+    this.forgetPassword.controls.confirmPassword.updateValueAndValidity();
+
+
+
+    this.submitted=true;
+    if(this.forgetPassword.invalid){
+     return
+    }
+ 
+    this.registerBuyMeterModel.otp= this.forgetPassword.value.verifyOtp;
+    this.registerBuyMeterModel.otpSession=this.OtpSession;
+    
+    this.regiterationBuymeterService.verifyOtp(this.registerBuyMeterModel).subscribe(data=>{
+       this.showNewPassword = true;
+       this.showMsgOtp = true;
+       setTimeout(() => {
+        this.showMsgOtp = false;
+       }, 1000);
+       this.hideOtp = false;
+       this.showValidateOtp = false;
+       this.showSubmitBtn = true;
+      let registrationBuyMeter = new  RegistrationBuyMeter();
+     registrationBuyMeter.mobileNumber = this.registerBuyMeterModel.username; //Here  username is contactNumber
+      this.regiterationBuymeterService.authenticate(registrationBuyMeter).subscribe(data=>{
+
+      })
+      
+    })
+  }
+
   // Resend OTP
   resendOTP(){
     this.userName = this.SignIn.controls.username.value;
@@ -240,8 +371,40 @@ export class SignInBuyMeterComponent implements OnInit {
 
   }
 
+  validatePassword(){
+    
+    this.submitted=true;
+    if(this.forgetPassword.invalid){
+     return
+    }
+
+    
+    
+    this.authentication.email = this.forgetPassword.value.userMail;
+    this.authentication.password = this.forgetPassword.value.newPassword;
+    this.loginBuyMeterService.changePassword(this.authentication).subscribe(data=>{
+      this.showPasswordSuccess = true;
+      setTimeout(() => {
+        this.showPasswordSuccess = false;
+        this.modalReference.close();
+      }, 2000);
+    })
+
+    
+
+  }
+
   disableOtpBtn(){
     this.disableOtp = true;
   }
+
+  openForgetTempl(forgetPasswordtemplate : any){
+    this.modalReference = this.modalService.open( forgetPasswordtemplate,{ centered:true,size: 'md' })
+  }
+
+  cancelTempl(){
+    this.modalReference.close();
+  }
+
 
 }
