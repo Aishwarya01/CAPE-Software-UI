@@ -186,14 +186,40 @@
                                           <tbody formArrayName="testingEquipment" style="border-top: unset;"
                                           *ngFor="let e of gettestInstrumentControls(a); let j= index">
                                             <tr [formGroupName]="j">
-                                              <td><input type="text" formControlName="equipmentName" class="form-control" [readonly]="service.allFieldsDisable"></td>
-                                              <td><input type="text" formControlName="equipmentMake" class="form-control" [readonly]="service.allFieldsDisable"></td>
-                                              <td><input type="text"  formControlName="equipmentModel" class="form-control" [readonly]="service.allFieldsDisable"
-                                               ></td>
-                                              <td><input type="text" formControlName="equipmentSerialNo" class="form-control" [readonly]="service.allFieldsDisable"
-                                               ></td>
                                               <td>
-                                                <input type="date" formControlName="equipmentCalibrationDueDate" class="form-control" placeholder="Enter Date" [readonly]="service.allFieldsDisable">
+                                                <input type="text" formControlName="equipmentName" class="form-control" [readonly]="service.allFieldsDisable"
+                                                [ngClass]="{ 'is-invalid': submitted && e.get('equipmentName')?.errors }">
+                                                <div *ngIf="submitted && e.get('equipmentName')?.errors" class="invalid-feedback">
+                                                  <div *ngIf="e.get('equipmentName')?.errors?.required">Field is required</div>
+                                                </div>
+                                              </td>
+                                              <td>
+                                                <input type="text" formControlName="equipmentMake" class="form-control" [readonly]="service.allFieldsDisable"
+                                                [ngClass]="{ 'is-invalid': submitted && e.get('equipmentMake')?.errors }">
+                                                <div *ngIf="submitted && e.get('equipmentMake')?.errors" class="invalid-feedback">
+                                                  <div *ngIf="e.get('equipmentMake')?.errors?.required">Field is required</div>
+                                                </div>
+                                              </td>
+                                              <td>
+                                                <input type="text" formControlName="equipmentModel" class="form-control" [readonly]="service.allFieldsDisable"
+                                                [ngClass]="{ 'is-invalid': submitted && e.get('equipmentModel')?.errors }">
+                                                <div *ngIf="submitted && e.get('equipmentModel')?.errors" class="invalid-feedback">
+                                                  <div *ngIf="e.get('equipmentModel')?.errors?.required">Field is required</div>
+                                                </div>
+                                              </td>
+                                              <td>
+                                                <input type="text" formControlName="equipmentSerialNo" class="form-control" [readonly]="service.allFieldsDisable"
+                                                [ngClass]="{ 'is-invalid': submitted && e.get('equipmentSerialNo')?.errors }">
+                                                <div *ngIf="submitted && e.get('equipmentSerialNo')?.errors" class="invalid-feedback">
+                                                  <div *ngIf="e.get('equipmentSerialNo')?.errors?.required">Field is required</div>
+                                                </div>
+                                              </td>
+                                              <td>
+                                                <input type="date" formControlName="equipmentCalibrationDueDate" class="form-control" placeholder="Enter Date" [readonly]="service.allFieldsDisable"
+                                                [ngClass]="{ 'is-invalid': submitted && e.get('equipmentCalibrationDueDate')?.errors }">
+                                                <div *ngIf="submitted && e.get('equipmentCalibrationDueDate')?.errors" class="invalid-feedback">
+                                                  <div *ngIf="e.get('equipmentCalibrationDueDate')?.errors?.required">Date is required</div>
+                                                </div>
                                               </td>
                                                 <!-- <mat-icon style="cursor: pointer;margin: 20px 5px 20px 5px;" *ngIf="gettestInstrumentControls(a).length > 1" 
                                                   (click)="removeItem(a,j)">

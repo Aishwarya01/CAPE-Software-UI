@@ -93,3 +93,25 @@
     position: relative;
     right: 9.5%;
   } */
+
+  #forgetPassword{
+    color: blue;
+    position: absolute;
+    right:20px;
+    bottom: 20px;
+  }
+  #forgetPassword:hover{
+   
+   text-decoration: underline;
+  }
+
+  #sndOtp{
+    float: right; 
+    cursor: pointer;
+    margin-top: 30px;
+    color: #007bff;
+  }
+  #sndOtp:hover{
+    text-decoration: underline;
+
+  }

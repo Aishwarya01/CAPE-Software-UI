@@ -22,6 +22,7 @@
               <button mat-menu-item (click)="profile()">Profile</button> 
               <!-- <button mat-menu-item (click)="changePassword()">Change Password</button>    -->
               <button mat-menu-item (click)="purchaseHistory()">Purchase Details</button>
+              <button mat-menu-item (click)="changePasswordOpen(changePasswordTempl)" >Change Password</button>
               <button mat-menu-item (click)="meterLogout()">Log out</button> 
             </mat-menu>
         </div>
@@ -108,7 +109,7 @@
     <hr>
     <div class="totals" *ngIf="service.filledCart">
         <div class="totals-item">
-            <label>Subtotal</label>
+            <label><b>Subtotal:</b></label>
             <div class="totals-value" id="cart-subtotal">₹{{subtotal}}</div>
         </div>
         <!-- <div class="totals-item">
@@ -236,4 +237,75 @@
         </div>
        
   </div>
+</ng-template>
+
+<ng-template #changePasswordTempl let-modal>
+    <div class="">
+        <p *ngIf="showSuccessMsg" class="alert alert-success" style="text-align:center;font-size: large;" > Password has changed Successfully</p>
+        <p *ngIf="showPasswordFailure" class="alert alert-danger" style="text-align:center;font-size: large;" > Old password is not matched & Old password cannot be entered as new password</p>
+        <h2 style="text-align: center;">Change Password</h2>
+        <form action="" [formGroup]="changePassword">
+            <div >
+
+                <div class="form-group">
+                    <label for="password">*Old Password</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="bi bi-envelope-fill"></i>
+                            </span>
+                        </div>
+                        <input type="password"  class="form-control" formControlName="oldPassword" placeholder="Enter your password" maxlength="50"
+                         [(ngModel)]="registerBuyMeterModel.password" [ngClass]="{'is-invalid':submitted && g.oldPassword.errors}">
+                        <div *ngIf="submitted && g.oldPassword.errors" class="invalid-feedback">
+                            <div *ngIf="g.oldPassword.errors.required">password is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">* New Password</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="bi bi-envelope-fill"></i>
+                            </span>
+                        </div>
+                        <input type="password"  class="form-control" formControlName="password" placeholder="Enter your password" maxlength="50"
+                          [ngClass]="{'is-invalid':submitted && g.password.errors}">
+                        <div *ngIf="submitted && g.password.errors" class="invalid-feedback">
+                            <div *ngIf="g.password.errors.required">password is required</div>
+                            <div style="color: #f2c716;" *ngIf="g.password.errors.pattern">Password Suggestion - "Qwerty@123'</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">* Confirm Password</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="bi bi-envelope-fill"></i>
+                            </span>
+                        </div>
+                        <input type="password"  class="form-control" formControlName="confirmPassword" placeholder="Enter your password" maxlength="50"
+                        [ngClass]="{'is-invalid':submitted && g.confirmPassword.errors}">
+                        <div *ngIf="submitted && g.confirmPassword.errors" class="invalid-feedback">
+                            <div *ngIf="g.confirmPassword.errors.required">password is required</div>
+                            <div *ngIf="g.confirmPassword.value != g.newPassword.value" >
+                                <strong>Error:</strong> password is does not match</div>
+                            <div style="color: #f2c716;" *ngIf="g.confirmPassword.errors.pattern">Password Suggestion - "Qwerty@123'</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           <div class="row">
+                 <div class="text-center col-md-12 jutify-content-center">
+                          <button class="btn btn-primary" type="button" (click)="validatePassword()">Submit</button>
+                          <button class="btn btn-danger" style="margin-left: 10px;" type="button" (click)="cancelPassword()">Cancel</button>
+                 </div>
+           </div>
+        </form>
+        
+    </div>
 </ng-template>

@@ -1051,7 +1051,7 @@
                 </div>
               </div>
             <br>
-            <div class="row" *ngIf="key1LocationTable" [ngClass]="{'disableForm':service.allFieldsDisable}">
+            <div class="row" *ngIf="key1LocationTable" [ngClass]="{'disableForm':service.allFieldsDisable}" style="margin-bottom: 1rem;">
               <div class="col-sm-12">
                 <h2>Earth electrode details</h2>
                   <div class="table-responsive" style="border: 1px solid black">
@@ -1324,69 +1324,63 @@
                   <!-- (blur)="update(box.value)" (keyup)="onKey($event)"-->
                 </div>
               </div>
-               <div *ngIf="JointLocationTable"> 
-              <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
+
+              <div class="row" *ngIf="JointLocationTable" [ngClass]="{'disableForm':service.allFieldsDisable}" style="margin-bottom: 1rem;">
                 <div class="col-sm-12">
-                <h2>Joint resistance details</h2>
-                <!-- <mat-icon class="mousechange" (click)="addLocation2()" style=" padding-top: 5px;">add_box</mat-icon> -->
-              </div>
-              </div>
+                  <h2>Joint resistance details</h2>
+                    <div class="table-responsive" style="border: 1px solid black">
+                      <table class="table">
+                        <thead>
+                          <tr align="center">
+                            <th>Location</th>
+                            <th>Joint No</th>
+                            <th>Joint Reference</th>
+                            <th>Joint Resistance (Ω)</th>
+                          </tr>
+                        </thead>
+                        <tbody formArrayName="location2Arr" *ngFor="let a of getLocation2Controls(); let i = index">
+                          <tr [formGroupName]="i">
 
+                            <td>
+                              <input type="text"  formControlName="location" class="form-control"  [readonly]="service.allFieldsDisable"
+                              [ngClass]="{ 'is-invalid': submitted && a.get('location')?.errors }" placeholder="Enter location" >
+                              <div *ngIf="submitted && a.get('location')?.errors" class="invalid-feedback">
+                                <div *ngIf="a.get('location')?.errors?.required">Location is required</div>
+                              </div>
+                            </td>
+                            
+                            <td>
+                              <input type="number" min="0" [readonly]="service.allFieldsDisable" formControlName="jointNo" class="form-control"  [ngClass]="{ 'is-invalid': submitted && a.get('jointNo')?.errors }" placeholder="Enter Joint No" >
+                              <div *ngIf="submitted && a.get('jointNo')?.errors" class="invalid-feedback">
+                                <div *ngIf="a.get('jointNo')?.errors?.required">Joint number is required</div>
+                              </div>
+                            </td>
+                              
+                            <td>
+                              <input type="text" [readonly]="service.allFieldsDisable" formControlName="jointReference" class="form-control"  
+                              [ngClass]="{ 'is-invalid': submitted && a.get('jointReference')?.errors }" placeholder="Enter Joint Reference" >
+                              <div *ngIf="submitted && a.get('jointReference')?.errors" class="invalid-feedback">
+                                <div *ngIf="a.get('jointReference')?.errors?.required">Joint reference is required</div>
+                              </div>
+                            </td>
+
+                            <td>
+                              <input type="number" min="0" [readonly]="service.allFieldsDisable" formControlName="jointResistance" class="form-control"  [ngClass]="{ 'is-invalid': submitted && a.get('jointResistance')?.errors }" placeholder="Enter Joint resistance" >
+                              <div *ngIf="submitted && a.get('jointResistance')?.errors" class="invalid-feedback">
+                                <div *ngIf="a.get('jointResistance')?.errors?.required">Joint resistance is required</div>
+                              </div>
+                            </td>  
+
+                          <mat-icon class="mousechange" class="dlt" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" (click)="removeItem1(a,i)" style="margin-top: 15px;font-size: x-large;height: auto;width: auto;">remove_circle_outline</mat-icon>
+                              
+                          </tr>
+                        </tbody>  
+                      </table>
+                    </div>
+                </div>
+              </div>
+              
               <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
-                <div class="col-md-3">
-                  <label style="text-align: center;">Location</label>
-                </div>
-                <div class="col-md-3">
-                  <label style="text-align: center;">Joint No</label>
-                </div>
-                <div class="col-md-3">
-                  <label style="text-align: center;">Joint Reference</label>
-                </div>
-                <div class="col-md-3">
-                  <label style="text-align: center;">Joint Resistance (Ω)</label>
-                </div>
-              </div>
-
-              <div formArrayName="location2Arr" *ngFor="let a of getLocation2Controls(); let i = index">
-                <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':service.allFieldsDisable}">
-                  <div class="row">
-                    <div class="col-md-3">
-                      <input type="text"  formControlName="location" class="form-control"  [readonly]="service.allFieldsDisable"
-                      [ngClass]="{ 'is-invalid': submitted && a.get('location')?.errors }" placeholder="Enter location" >
-                      <div *ngIf="submitted && a.get('location')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('location')?.errors?.required">Location is required</div>
-                      </div>
-                    </div>
-
-                    <div class="col-md-3">
-                      <input type="number" min="0" [readonly]="service.allFieldsDisable" formControlName="jointNo" class="form-control"  [ngClass]="{ 'is-invalid': submitted && a.get('jointNo')?.errors }" placeholder="Enter Joint No" >
-                      <div *ngIf="submitted && a.get('jointNo')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('jointNo')?.errors?.required">Joint number is required</div>
-                      </div>
-                    </div>
-
-                    <div class="col-md-3">
-                      <input type="text" [readonly]="service.allFieldsDisable" formControlName="jointReference" class="form-control"  
-                      [ngClass]="{ 'is-invalid': submitted && a.get('jointReference')?.errors }" placeholder="Enter Joint Reference" >
-                      <div *ngIf="submitted && a.get('jointReference')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('jointReference')?.errors?.required">Joint reference is required</div>
-                      </div>
-                    </div>
-
-                    <div class="col-md-3">
-                      <input type="number" min="0" [readonly]="service.allFieldsDisable" formControlName="jointResistance" class="form-control"  [ngClass]="{ 'is-invalid': submitted && a.get('jointResistance')?.errors }" placeholder="Enter Joint resistance" >
-                      <div *ngIf="submitted && a.get('jointResistance')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('jointResistance')?.errors?.required">Joint resistance is required</div>
-                      </div>
-                    </div>
-            
-                      <mat-icon class="mousechange" class="dlt" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" (click)="removeItem1(a,i)" style="font-size: x-large;margin-left: 99%;margin-top: -24px; width: 10%;">remove_circle_outline</mat-icon>
-                   
-                  </div>
-                </div>
-              </div>
-              </div>
-              <div class="row">
                 <div class="col-md-4">	
                   <mat-form-field class="client-description">	
                     <mat-label>	
@@ -1505,66 +1499,58 @@
                   <!-- (keyup)="keyUpJoint($event)" -->
                 </div>
               </div>
-              <div *ngIf="keyJOintLocationTable">
-                <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
-                  <div class="col-sm-12">
+
+              <div class="row" *ngIf="keyJOintLocationTable" [ngClass]="{'disableForm':service.allFieldsDisable}" style="margin-bottom: 1rem;">
+                <div class="col-sm-12">
                   <h2>Location Table</h2>
-                  </div>
-                  <!-- <mat-icon class="mousechange" (click)="addLocation3()" style=" padding-top: 5px;">add_box</mat-icon> -->
-                </div>
-  
-                <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
-                  <div class="col-md-3">
-                    <label style="text-align: center;">Location</label>
-                  </div>
-                  <div class="col-md-3">
-                    <label style="text-align: center;">Joint No</label>
-                  </div>
-                  <div class="col-md-3">
-                    <label style="text-align: center;">Joint Reference</label>
-                  </div>
-                  <div class="col-md-3">
-                    <label style="text-align: center;">Joint Resistance (Ω)</label>
-                  </div>
-                </div>
-  
-                <div formArrayName="location3Arr" *ngFor="let a of getLocation3Controls(); let i = index">
-                  <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':service.allFieldsDisable}">
-                    <div class="row">
-                      <div class="col-md-3">
-                        <input type="text"  formControlName="location" class="form-control" [readonly]="service.allFieldsDisable" [ngClass]="{ 'is-invalid': submitted && a.get('location')?.errors }" placeholder="Enter location" >
-                        <div *ngIf="submitted && a.get('location')?.errors" class="invalid-feedback">
-                          <div *ngIf="a.get('location')?.errors?.required">Location is required</div>
-                        </div>
-                      </div>
-  
-                      <div class="col-md-3">
-                        <input type="number" min="0"  formControlName="jointNo" [readonly]="service.allFieldsDisable" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('jointNo')?.errors }" placeholder="Enter Joint No" >
-                        <div *ngIf="submitted && a.get('jointNo')?.errors" class="invalid-feedback">
-                          <div *ngIf="a.get('jointNo')?.errors?.required">Joint number is required</div>
-                        </div>
-                      </div>
-  
-                      <div class="col-md-3">
-                        <input type="text" formControlName="jointReference" class="form-control"  [readonly]="service.allFieldsDisable"
-                        [ngClass]="{ 'is-invalid': submitted && a.get('jointReference')?.errors }" placeholder="Enter Joint Reference" >
-                        <div *ngIf="submitted && a.get('jointReference')?.errors" class="invalid-feedback">
-                          <div *ngIf="a.get('jointReference')?.errors?.required">Joint reference is required</div>
-                        </div>
-                      </div>
+                    <div class="table-responsive" style="border: 1px solid black">
+                      <table class="table">
+                        <thead>
+                          <tr align="center">
+                            <th>Location</th>
+                            <th>Joint No</th>
+                            <th>Joint Reference</th>
+                            <th>Joint Resistance (Ω)</th>
+                          </tr>
+                        </thead>
+                        <tbody formArrayName="location3Arr" *ngFor="let a of getLocation3Controls(); let i = index">
+                          <tr [formGroupName]="i">
 
-                      
-                      <div class="col-md-3">
-                        <input type="number" min="0"  formControlName="jointResistance" class="form-control" [readonly]="service.allFieldsDisable" [ngClass]="{ 'is-invalid': submitted && a.get('jointResistance')?.errors }" placeholder="Enter Joint resistance" >
-                        <div *ngIf="submitted && a.get('jointResistance')?.errors" class="invalid-feedback">
-                          <div *ngIf="a.get('jointResistance')?.errors?.required">Field Is Required</div>
-                        </div>
-                      </div>
+                            <td>
+                              <input type="text"  formControlName="location" class="form-control" [readonly]="service.allFieldsDisable" [ngClass]="{ 'is-invalid': submitted && a.get('location')?.errors }" placeholder="Enter location" >
+                              <div *ngIf="submitted && a.get('location')?.errors" class="invalid-feedback">
+                                <div *ngIf="a.get('location')?.errors?.required">Location is required</div>
+                              </div>
+                            </td>
+                            
+                            <td>
+                              <input type="number" min="0"  formControlName="jointNo" [readonly]="service.allFieldsDisable" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('jointNo')?.errors }" placeholder="Enter Joint No" >
+                              <div *ngIf="submitted && a.get('jointNo')?.errors" class="invalid-feedback">
+                                <div *ngIf="a.get('jointNo')?.errors?.required">Joint number is required</div>
+                              </div>
+                            </td>
+                              
+                            <td>
+                              <input type="text" formControlName="jointReference" class="form-control"  [readonly]="service.allFieldsDisable"
+                              [ngClass]="{ 'is-invalid': submitted && a.get('jointReference')?.errors }" placeholder="Enter Joint Reference" >
+                              <div *ngIf="submitted && a.get('jointReference')?.errors" class="invalid-feedback">
+                                <div *ngIf="a.get('jointReference')?.errors?.required">Joint reference is required</div>
+                              </div>
+                            </td>
 
-                        <mat-icon class="mousechange" class="dlt" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" (click)="removeItem2(a,i)" style="margin-top: -24px;margin-left: 99%;font-size: x-large; width: 10%;">remove_circle_outline</mat-icon>
+                            <td>
+                              <input type="number" min="0"  formControlName="jointResistance" class="form-control" [readonly]="service.allFieldsDisable" [ngClass]="{ 'is-invalid': submitted && a.get('jointResistance')?.errors }" placeholder="Enter Joint resistance" >
+                              <div *ngIf="submitted && a.get('jointResistance')?.errors" class="invalid-feedback">
+                                <div *ngIf="a.get('jointResistance')?.errors?.required">Field Is Required</div>
+                              </div>
+                            </td>  
 
+                          <mat-icon class="mousechange" class="dlt" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" (click)="removeItem2(a,i)" style="margin-top: 15px;font-size: x-large;height: auto;width: auto;">remove_circle_outline</mat-icon>
+                              
+                          </tr>
+                        </tbody>  
+                      </table>
                     </div>
-                  </div>
                 </div>
               </div>
 

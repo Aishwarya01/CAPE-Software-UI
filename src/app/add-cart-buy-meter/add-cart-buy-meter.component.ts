@@ -37,6 +37,7 @@ import { Router } from '@angular/router';
 import { LoginBuyMeterService } from '../services/login-buy-meter.service';
 import { CheckoutBuyMeterComponent } from '../checkout-buy-meter/checkout-buy-meter.component';
 import { environment } from 'src/environments/environment';
+import { RegistrationBuyMeter } from '../model/registration-buy-meter';
 
 @Component({
   selector: 'app-add-cart-buy-meter',
@@ -52,6 +53,9 @@ export class AddCartBuyMeterComponent implements OnInit {
     'image',
     'action',
   ];
+
+  registerBuyMeterModel  = new RegistrationBuyMeter();
+  submitted: boolean = false;
   meter_dataSource!: MatTableDataSource<any>;
   @ViewChild('meterPaginator', { static: true }) meterPaginator!: MatPaginator;
   @ViewChild('meterSort', {static: true}) meterSort!: MatSort;
@@ -85,6 +89,21 @@ export class AddCartBuyMeterComponent implements OnInit {
   b: any =[];
   spinner: boolean = false;
   blurMode: boolean = false;
+  showSuccessMsg: boolean = false;
+  showPasswordFailure: boolean = false;
+  showPasswordNotMatch: boolean = false;
+
+  changePassword = new FormGroup({
+    oldPassword: new FormControl('',Validators.required),
+    password: new FormControl ('',[Validators.required,Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)]),
+    confirmPassword: new FormControl('',[Validators.required,Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)])
+  })
+
+  passwordAuthentication: any = {
+    email: '',
+    oldPassword: '',
+    password:''
+  }
 
   meterDropdownList: any = [,
     'MZC-304 S.C. Loop Impedance Meter-1',
@@ -333,4 +352,52 @@ export class AddCartBuyMeterComponent implements OnInit {
         // this.valueChange.emit(this.grandtotal());
       //  this.service.setData(this.grandtotal);
     }
+
+   get g():any{
+    return this.changePassword.controls;
+   }
+
+   changePasswordOpen(changePasswordTempl : any){
+     this.modalReference = this.modalService.open(changePasswordTempl, {centered:true, size: 'md' })
+   }
+
+   validatePassword(){
+    this.submitted = true;
+    if(this.changePassword.invalid){
+      return
+    }
+    // if (this.changePassword.value.newpassword != this.changePassword.value.confirmPassword) {
+    //   this. passwordMsg = true;
+    //   setTimeout(() => {
+    //     this.passwordMsg = false;
+    //   }, 3000);
+    // }
+    this.passwordAuthentication.email = JSON.parse(sessionStorage.authenticatedUser).username
+    this.passwordAuthentication.oldPassword = this.changePassword.value.oldPassword;
+    this.passwordAuthentication.password = this.changePassword.value.password;
+     
+
+     this.loginBuyMeterService.changePasswordProfile(this.passwordAuthentication).subscribe(
+       data => {
+        this.showSuccessMsg = true;
+        setTimeout(() => {
+          this.showSuccessMsg = false;
+          this.modalReference.close();
+        }, 3000);
+       },
+       error => {
+        this.showPasswordFailure = true;
+        this.showPasswordNotMatch = true;
+        setTimeout(() => {
+          this.showPasswordFailure = false;
+          this.showPasswordNotMatch = false;
+        }, 3000);
+       }
+     );
+   }
+
+   cancelPassword(){
+    this.modalReference.close();
+   }
+
 }

@@ -857,30 +857,18 @@ createNewGroup(item: any): FormGroup{
       this.register.name = this.register.lpsName;
     }
 
-    // //finding the application_type appened or not
-    // if (this.register.applicationType != null && this.register.applicationType.split(",").length != 0) {
-    //   let flag = true;
-    //   for (let value of this.register.applicationType.split(",")) {
-    //     if (value == applicationType) {
-    //       flag = false;
-    //     }
-    //   }
-    //   if (flag) {
-    //     this.register.applicationType = this.register.applicationType + "," + applicationType;
-    //   }
-    // }
-    // else {
-    //   this.register.applicationType = applicationType;
-    // }
-
-    if(this.register.applicationType !=null){
-
-    }
     this.register.applicationType = this.applicationName;
     
     // if (!flag || this.register.registerId != null || this.register.registerId != 0) {
       this.contactNumber = "";
-      this.contactNumber = "+" + this.countryCode + "-" + this.viewerRegisterForm.controls.viewerArr.value[0].contactNumber;
+      
+      if(this.viewerRegisterForm.controls.viewerArr.value[0].contactNumber.split("-").length>1){
+        this.contactNumber=this.viewerRegisterForm.controls.viewerArr.value[0].contactNumber;
+      }
+      else{
+        this.contactNumber = "+" + this.countryCode + "-" + this.viewerRegisterForm.controls.viewerArr.value[0].contactNumber;
+      }
+      
       this.register.contactNumber = this.contactNumber;
       this.inspectorRegisterService.registerLicense(this.register).subscribe(
         data => {
