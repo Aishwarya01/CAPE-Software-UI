@@ -2163,7 +2163,7 @@ SignatureDesigner1(){
           }
 
           else{
-            let value = dwonConductorData.downConductorDescription[index].testingJointAvailabilityRem;
+            let value = dwonConductorData.downConductorDescription[index].lightningCounterAvailabilityRem;
             let dwonConductorId = dwonConductorData.downConductorDescription[index].lightingCountersId;
             let heading = '';
             let headingUi = '';
