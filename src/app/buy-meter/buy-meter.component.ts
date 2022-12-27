@@ -49,6 +49,7 @@ export class BuyMeterComponent implements OnInit {
   USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser';
   public token: string = '';
   showErrorMessage=false;
+  modalReference: any;
 
   meterColumns: string[] = [
     'position',
@@ -174,20 +175,34 @@ meterData2: any =[
      this.clcikeditem=a.index;
      this.value = this.clcikeditem;
     }
-    addToCart(b:any){
-      this.service.cartIndex.push(b);
-      this.cartCount=this.service.cartIndex.length;
-       if(this.cartCount==0){
-        this.service.filledCart= false;
-        this.service.emptyCart=true;
-       }
-       else{
-        this.service.filledCart= true;
-        this.service.emptyCart=false;
-       }
+    addToCart(b:any,productExists:any){
+      if (this.service.cartIndex.includes(b)){
+        this.modalReference = this.modalService.open(productExists, {centered:true, size: 'md' })
+         console.log("already"); 
+      }
+      else{
+  
+        this.service.cartIndex.push(b);
+        this.cartCount=this.service.cartIndex.length;
+         if(this.cartCount==0)
+         {
+          this.service.filledCart= false;
+          this.service.emptyCart=true;
+         }
+         else
+         {
+          this.service.filledCart= true;
+          this.service.emptyCart=false;
+         }
+        }
+      
       
     //  this.cart.addtoCartIndex(b);
      // this.router.navigate(['/signIn-buyMeter']);
+    }
+
+    closeModal(){
+      this.modalReference.close();
     }
     // addToCart1(b:any){
     //   this.service.cartIndex.push(b);

@@ -91,15 +91,15 @@
           margin-bottom: 10px;
       }
       .totals label {
-            float: left;
-            clear: both;
-            width: 79%;
-            text-align: right;
+        float: left;
+        clear: both;
+        width: 90%;
+        text-align: right;
           }
           
           .totals .totals-value {
-            float: right;
-            width: 21%;
+            float: left;
+            width: 8%;
             text-align: right;
           }
         
