@@ -90,6 +90,8 @@ export class AddCartBuyMeterComponent implements OnInit {
   spinner: boolean = false;
   blurMode: boolean = false;
   showSuccessMsg: boolean = false;
+  showPasswordFailure: boolean = false;
+  showPasswordNotMatch: boolean = false;
 
   changePassword = new FormGroup({
     oldPassword: new FormControl('',Validators.required),
@@ -384,7 +386,12 @@ export class AddCartBuyMeterComponent implements OnInit {
         }, 3000);
        },
        error => {
-
+        this.showPasswordFailure = true;
+        this.showPasswordNotMatch = true;
+        setTimeout(() => {
+          this.showPasswordFailure = false;
+          this.showPasswordNotMatch = false;
+        }, 3000);
        }
      );
    }

@@ -50,6 +50,7 @@ export class SignInBuyMeterComponent implements OnInit {
   wrongPassword:boolean = false;
   userName:any;
   showValidateOtp: boolean = false;
+ 
 
   OtpSession:any;
  
@@ -249,8 +250,8 @@ export class SignInBuyMeterComponent implements OnInit {
   }
 
   // Send OTP for Forget Password
-  sendOtpForPassword() {
-  
+   sendOtpForPassword() {
+
     this.showOTP = false;
     this.hideOtp = true;
     this.showValidateOtp = true;
@@ -324,6 +325,9 @@ export class SignInBuyMeterComponent implements OnInit {
 
   // Validate OTP for forgetPassword
   validateOTP(){
+
+   
+   
     this.forgetPassword.controls.newPassword.clearValidators();
     this.forgetPassword.controls.newPassword.updateValueAndValidity();
 
@@ -372,6 +376,14 @@ export class SignInBuyMeterComponent implements OnInit {
   }
 
   validatePassword(){
+
+     this.forgetPassword.controls.newPassword.setValidators([Validators.required,Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)]);
+    this.forgetPassword.controls.newPassword.updateValueAndValidity();
+
+    this.forgetPassword.controls.confirmPassword.setValidators([Validators.required,Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)]);
+    this.forgetPassword.controls.confirmPassword.updateValueAndValidity();
+
+   
     
     this.submitted=true;
     if(this.forgetPassword.invalid){
@@ -382,12 +394,14 @@ export class SignInBuyMeterComponent implements OnInit {
     
     this.authentication.email = this.forgetPassword.value.userMail;
     this.authentication.password = this.forgetPassword.value.newPassword;
-    this.loginBuyMeterService.changePassword(this.authentication).subscribe(data=>{
+    this.loginBuyMeterService.changePassword(this.authentication).subscribe(data => {
       this.showPasswordSuccess = true;
       setTimeout(() => {
         this.showPasswordSuccess = false;
         this.modalReference.close();
       }, 2000);
+    }, error => {
+      
     })
 
     
