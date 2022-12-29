@@ -65,6 +65,7 @@ export class SuperAdminLocal {
     this.riskAdminEmail[2] = 'vinoth@capeindia.net';
     this.riskAdminEmail[3] = 'krishna.kumar@capeindia.net';
     this.riskAdminEmail[4] = 'manoj@capeindia.net';
+    this.riskAdminEmail[5] = 'karthikeyan@capeindia.net';
   }    
 };
 
