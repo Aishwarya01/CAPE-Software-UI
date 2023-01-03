@@ -6,7 +6,7 @@
     <div class="card-body" >
         <form [formGroup]="licenseForm" >
             <mat-accordion>
-                <mat-expansion-panel (opened)="panelOpenState2(true)" (closed)="panelOpenState2(false)" [(expanded)]="service.toggle">
+                <mat-expansion-panel (opened)="panelOpenState2(true)" (closed)="panelOpenState2(false)" [(expanded)]="service.toggle" *ngIf="service.licenseHide">
                     <mat-expansion-panel-header>
                       <mat-panel-title>
                         <!-- <h3>Unused License</h3> -->
@@ -270,8 +270,8 @@
                    <span class="errorshow">{{errorMsg}}</span>
                   </div>
               </div>
-            </mat-expansion-panel>
-          </ng-container>
+                </mat-expansion-panel>
+              </ng-container>
 
               <ng-container *ngIf="lpsData">
                 <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">

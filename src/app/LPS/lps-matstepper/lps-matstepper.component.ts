@@ -550,7 +550,6 @@ export class LpsMatstepperComponent implements OnInit {
   continue(basicLpsId: any): void {
     this.refresh();
     // this.ngOnInit();
-    this.isEditable=false;
    // this.doSomething1(false);
     this.changeTabLpsSavedReport(0,basicLpsId,this.router.snapshot.paramMap.get('email') || '{}');
 
@@ -596,6 +595,10 @@ export class LpsMatstepperComponent implements OnInit {
       }
     }, 3000);
 
+    // Viewer Purpose
+    if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
+      this.isEditable=true;
+    }
     this.basic.isEditable=this.isEditable;
     this.basic.LPSBasicForm.markAsPristine();
     this.basic.LPSBasicForm.markAsUntouched();

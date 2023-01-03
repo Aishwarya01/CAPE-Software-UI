@@ -68,6 +68,14 @@ import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminProd } from 'src/environments/environment.prod';
 import { NewsApiService } from 'angular-news-api';
 import { BuyMeterComponent } from '../buy-meter/buy-meter.component';
+import { RiskSavedReportsComponent } from '../Risk Assessment/Risk Assessment/risk-saved-reports/risk-saved-reports.component';
+import { EmcSavedReportComponent } from '../EMC/emc-saved-report/emc-saved-report.component';
+import { LpsSavedReportComponent } from '../LPS/lps-saved-report/lps-saved-report.component';
+import { FinalreportsComponent } from '../finalreports/finalreports.component';
+import { RiskFinalReportsComponent } from '../Risk Assessment/Risk Assessment/risk-final-reports/risk-final-reports.component';
+import { EmcFinalReportComponent } from '../EMC/emc-final-report/emc-final-report.component';
+import { LpsFinalReportComponent } from '../LPS/lps-final-report/lps-final-report.component';
+import { LicenselistComponent } from '../licenselist/licenselist.component';
 
 export interface PeriodicElement {
   siteCd: string;
@@ -291,6 +299,23 @@ export class MainNavComponent implements OnInit, OnDestroy {
   newsArticleDisplay1: any = [];
   newsArticleDisplay2: any = [];
 
+  // Viewer Related changes
+  ErrorLic: boolean=false;
+  ErrorLPS: boolean=false;
+  ErrorLV: boolean=false;
+  errorSite: boolean=false;
+
+  value1: boolean=false;
+  lpsSavedRep: boolean = false;
+  lpsFinalRep: boolean=false;
+
+  licensePageHeading: String="";
+  lpsData: boolean=false;
+  lvData: boolean=false;
+  destroy: boolean=false;
+  @ViewChild('verify1')
+  matStepper:any;
+
 
    
   constructor(private breakpointObserver: BreakpointObserver, changeDetectorRef: ChangeDetectorRef,
@@ -304,7 +329,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
     private componentFactoryResolver: ComponentFactoryResolver,
     private applicationService: ApplicationTypeService,
     private modalService: NgbModal, private bnIdle: BnNgIdleService,
-    private siteService: SiteService
+    private siteService: SiteService,
   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
     //  this.retrieveApplicationTypes();
@@ -429,9 +454,9 @@ export class MainNavComponent implements OnInit, OnDestroy {
     if (this.showREP) {
       this.retrieveSiteDetails();
     }
-  }
 
- 
+    this.retrieveUserDetail();
+  }
   
   setCompletedDataSourceAttributes() {
     if (this.completedLicense_dataSource !== undefined) {
@@ -864,15 +889,15 @@ export class MainNavComponent implements OnInit, OnDestroy {
     this.selectedRowIndexSub ="";
  }
  highlightSub(type:any){
+  console.log("Function working");
   //this.viewContainerRef.clear();
   this.welcome= false;
   this.youtube = false;
-  if(type== 'LV Systems') {
-    this.selectedRowIndexSub = type;
-    this.selectedRowIndexType="";
+  if(type== 'LPS Systems') {
     this.ongoingSite=true;
-    this.completedSite=false;
     this.value= false;
+    this.lpsData=true;
+    this.value1=true;
   }
  }
 
@@ -1060,6 +1085,7 @@ emailPDF(siteId: any,userName: any, siteName: any){
   this.selectedRowIndexSub ="";
  }
  highlightTypeMeter(typeMeter:any){
+  debugger
   this.selectedRowIndexTypeMeter = typeMeter;
   this.selectedRowIndexSub ="";
  }
@@ -1177,8 +1203,12 @@ profileUpdate(email: String) {
     emcAssessmentInspectionRef.changeDetectorRef.detectChanges();
   }
   showLinkDescription(id: any) {
+    debugger
     this.welcome = false;
     this.youtube = false;
+    this.service.licenseHide=true;
+    // this.service.showFinalLPS=true;
+    // this.service.showSavedLPS=true;
     if ((this.service.lvClick == 1) && (this.service.allStepsCompleted == true)) {
       const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
         width: '420px',
@@ -1336,6 +1366,7 @@ profileUpdate(email: String) {
       }
     }
 
+
   }
 
   editApplicationType(id: any, type: String, code: String) {
@@ -1377,4 +1408,180 @@ profileUpdate(email: String) {
   displayIconsBasedOnEmail(): boolean {
     return !this.email.includes("@capeindia.net")
   }
+
+  // Viewer events
+
+  retrieveUserDetail() {
+    this.service.noofLicense = 0;
+    //LPS
+    if(this.service.triggerMsgForLicense=='lpsPage'){
+      this.inspectorService.retrieveInspectorLicense(this.email,'LPS').subscribe(
+        (data) => {
+          this.userData = JSON.parse(data);
+          // if(this.userData.role == 'Inspector') {
+            if((this.userData.lpsNoOfLicence==undefined && this.userData.lpsNoOfLicence==null) || (this.userData.lpsNoOfLicence=="") || (this.userData.lpsNoOfLicence==0)){
+              this.service.noofLicense=0;
+            }
+            else if(this.userData.lpsNoOfLicence!="" && this.userData.lpsNoOfLicence!=0 && this.userData.lpsNoOfLicence!=null && this.userData.lpsNoOfLicence!=undefined){
+              this.service.noofLicense=this.userData.lpsNoOfLicence;
+            }
+          // }
+        },
+        (error) => {
+          this.ErrorLPS = true;
+          this.errorMsg = this.service.globalErrorMsg;
+          setTimeout(()=>{
+            this.ErrorLPS = false;
+          }, 10000);
+        }
+      )
+     }
+    // LV Page
+    else if(this.service.triggerMsgForLicense=='lvPage'){
+      this.inspectorService.retrieveInspectorLicense(this.email,"LV").subscribe(
+        (data) => {
+          this.userData = JSON.parse(data);
+          // if(this.userData.role == 'Inspector') {
+            if((this.userData.lvNoOfLicence==undefined && this.userData.lvNoOfLicence==null) ||( this.userData.lvNoOfLicence=="") || (this.userData.lvNoOfLicence==0)){
+              this.service.noofLicense=0;
+            }
+            else if(this.userData.lvNoOfLicence!="" && this.userData.lvNoOfLicence!=0 && this.userData.lvNoOfLicence!=null && this.userData.lvNoOfLicence!=undefined){
+            this.service.noofLicense=this.userData.lvNoOfLicence;
+            }
+          // }
+        },
+        (error) => {
+          this.ErrorLV = true;
+          this.errorMsg = this.service.globalErrorMsg;
+          setTimeout(()=>{
+            this.ErrorLV = false;
+          }, 10000);
+        }
+      )
+    }
+  }
+
+  editLpsData(basicLpsId:any){
+    if(this.lpsData){
+      this.service.disableSubmitSummary=false;
+      this.service.allFieldsDisable = false;
+      const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+        width: '420px',
+        maxHeight: '90vh',
+        disableClose: true,
+      });
+      if(this.service.triggerMsgForLicense=='lpsPage'){
+        dialogRef.componentInstance.viewModal1 = true;
+        dialogRef.componentInstance.viewModal=false;
+        dialogRef.componentInstance.viewModal2 = false;
+      }
+      dialogRef.componentInstance.triggerModal = false;
+      if(this.lpsData){
+        dialogRef.componentInstance.confirmBox.subscribe(data=>{
+          if(data) {
+            this.viewContainerRef.clear();
+            this.destroy = true;
+            this.value1=true;
+            setTimeout(() => {
+              this.matStepper.changeTabLpsSavedReport(0,basicLpsId,this.router.snapshot.paramMap.get('email') || '{}');
+            }, 3000);
+          }
+          else{
+            this.destroy = false;
+            this.value1=false;
+          }
+        })
+      }
+    }
+  }
+
+  // LPS Final report navigation
+  viewLpsData(basicLpsId:any){
+    if(this.lpsData){
+      this.service.disableSubmitSummary=false;
+      this.service.allFieldsDisable=true;
+      const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+        width: '420px',
+        maxHeight: '90vh',
+        disableClose: true,
+      });
+      if(this.service.triggerMsgForLicense=='lpsPage'){
+        dialogRef.componentInstance.viewModal2 = true;
+        dialogRef.componentInstance.viewModal1 = false;
+        dialogRef.componentInstance.viewModal=false;
+      }
+      dialogRef.componentInstance.triggerModal = false;
+      if(this.lpsData){
+        dialogRef.componentInstance.confirmBox.subscribe(data=>{
+          if(data) {
+            this.viewContainerRef.clear();
+            this.destroy = true;
+            this.value1=true;
+            setTimeout(() => {
+              this.matStepper.preview(basicLpsId);
+            }, 3000);
+          }
+          else{
+            this.destroy = false;
+            this.value1=false;
+          }
+        })
+      }
+    }
+  }
+
+  viewerNavigation(id:any){
+    debugger
+    this.welcome = false;
+    this.youtube = false;
+    this.service.licenseHide = false;
+
+    switch (id) {
+      case 'LV Systems':
+        this.viewContainerRef.clear();
+        const lvInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LvInspectionDetailsComponent);
+        const lvInspectionRef = this.viewContainerRef.createComponent(lvInspectionFactory);
+        lvInspectionRef.changeDetectorRef.detectChanges();
+        break;
+      case 'HV Systems':
+        this.viewContainerRef.clear();
+        break;
+      case 'Risk Assessment':
+        this.viewContainerRef.clear();
+        const riskAssessmentInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(RiskAssessmentInspectionMaintenanceComponent);
+        const riskAssessmentInspectionRef = this.viewContainerRef.createComponent(riskAssessmentInspectionFactory);
+        riskAssessmentInspectionRef.changeDetectorRef.detectChanges();
+        break;
+      case 'EMC Assessment':
+        this.viewContainerRef.clear();
+        const emcAssessmentInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(EmcAssessmentInstallationComponent);
+        const emcAssessmentInspectionRef = this.viewContainerRef.createComponent(emcAssessmentInspectionFactory);
+        emcAssessmentInspectionRef.changeDetectorRef.detectChanges();
+        break;
+      case 'LPS Systems':
+        this.service.allStepsCompleted = true;
+        this.viewContainerRef.clear();
+        const LpsInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LpsWelcomePageComponent);
+        const LpsInspectionRef = this.viewContainerRef.createComponent(LpsInspectionFactory);
+        LpsInspectionRef.changeDetectorRef.detectChanges();
+        break;
+
+      case 'SLD Diagram':
+        this.viewContainerRef.clear();
+        const SLDDiagramFactory = this.componentFactoryResolver.resolveComponentFactory(DiagramWelcomePageComponent);
+        const SLDDiagramRef = this.viewContainerRef.createComponent(SLDDiagramFactory);
+        SLDDiagramRef.changeDetectorRef.detectChanges();
+        break;  
+        case 'Buy Meter':
+          this.viewContainerRef.clear();
+          const butMeterFactory = this.componentFactoryResolver.resolveComponentFactory(BuyMeterComponent);
+          const buyMeterRef = this.viewContainerRef.createComponent(butMeterFactory);
+          buyMeterRef.changeDetectorRef.detectChanges();
+          break;
+      case 6:
+        this.viewContainerRef.clear();
+        break;
+    }
+  }
+
 }

@@ -936,7 +936,7 @@ changeTab(index: number, sitedId: any, userName: any, companyName: any, departme
       this.service.triggerScrollTo();
       }
       this.service.commentScrollToBottom=0;
-        
+      
         
       if(this.noDetailsFlag) {
         this.siteN=site;
@@ -951,6 +951,9 @@ changeTab(index: number, sitedId: any, userName: any, companyName: any, departme
           this.selectedIndex=0;
         }, 3000);
       }   
+      if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
+        this.service.allFieldsDisable = true;
+      }
     },
     error=> {
 
@@ -1149,27 +1152,36 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
     
   // }
   goBack2(stepper: MatStepper) {
-    if(this.supply.reloadFromBack()){
+    if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
       stepper.previous();
-      //this.service.goBacktoprevious=true;
+      //this.service.goBacktoprevious=true;x
+    }
+    else{
+      this.supply.reloadFromBack();
     }
   }
   goBack3(stepper: MatStepper) {
-    if(this.incoming.reloadFromBack()){
+    if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
       stepper.previous();
-      //this.service.goBacktoprevious=true;
+    }
+    else{
+      this.incoming.reloadFromBack();
     }
   }
   goBack4(stepper: MatStepper) {
-    if(this.testing.reloadFromBack()){
+    if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
       stepper.previous();
-      //this.service.goBacktoprevious=true;
+    }
+    else{
+      this.testing.reloadFromBack();
     }
   }
   goBack5(stepper: MatStepper) {
-    if(this.summary.reloadFromBack()){
+    if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
       stepper.previous();
-      //this.service.goBacktoprevious=true;
+    }
+    else{
+    this.summary.reloadFromBack();
     }
   }
 

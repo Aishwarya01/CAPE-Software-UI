@@ -27,6 +27,7 @@ import { SiteaddComponent } from '../site/siteadd/siteadd.component';
 import { Register } from '../model/register';
 import { CdkAccordion, CdkAccordionItem } from '@angular/cdk/accordion';
 import { MatAccordion, MatExpansionPanel } from '@angular/material/expansion';
+import { BooleanLiteral } from 'typescript';
 
 @Component({
   selector: 'app-licenselist',
@@ -118,8 +119,10 @@ export class LicenselistComponent implements OnInit {
   ErrorLPS: boolean=false;
   ErrorLV: boolean=false;
   errorSite: boolean=false;
+  viewerSavedLPS: boolean=false;
   // toggle: boolean=false;
-
+  currentUser: any = [];
+  currentUser1: any = [];
   constructor(private formBuilder: FormBuilder,
               private dialog: MatDialog,
               private siteService: SiteService,
@@ -137,17 +140,19 @@ export class LicenselistComponent implements OnInit {
                }
 
   ngOnInit(): void {
-    
-    this.licenseForm = this.formBuilder.group({
-      noOfAvailableLicense: [this.service.noofLicense],
-    })
-    // this.superAdminArr = [];
-    // this.superAdminArr.push('gk@capeindia.net');
-    // this.superAdminArr.push('vinoth@capeindia.net');
-    // this.superAdminArr.push('awstesting@rushforsafety.com');
-    this.retrieveUserDetail();
-    this.retrieveSiteDetails();
-    this.pageHeading();
+      this.licenseForm = this.formBuilder.group({
+        noOfAvailableLicense: [this.service.noofLicense],
+      })
+      this.currentUser=sessionStorage.getItem('authenticatedUser');
+      this.currentUser1 = [];
+      this.currentUser1=JSON.parse(this.currentUser);
+      // this.superAdminArr = [];
+      // this.superAdminArr.push('gk@capeindia.net');
+      // this.superAdminArr.push('vinoth@capeindia.net');
+      // this.superAdminArr.push('awstesting@rushforsafety.com');
+      this.retrieveUserDetail();
+      this.retrieveSiteDetails();
+      this.pageHeading();
   }
  
   retrieveUserDetail() {
@@ -200,8 +205,9 @@ export class LicenselistComponent implements OnInit {
     }
   }
 
+
   // Below three events for LV Page Mat Expantion Panel
-  panelOpenState1(panelOpenState1:boolean){
+  panelOpenState1(panelOpenState1:boolean){  
     if(panelOpenState1){
       this.retrieveSiteDetails();
     }
@@ -250,6 +256,40 @@ export class LicenselistComponent implements OnInit {
               this.ongoingFilterData.push(i);
             }
           }
+          this.service.showSavedLV=true;
+          this.service.showFinalLV=true;
+          this.ongoingSite_dataSource = new MatTableDataSource(this.ongoingFilterData);
+          this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
+          this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
+
+          this.completedLicense_dataSource = new MatTableDataSource(this.completedFilterData);
+          this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
+          this.completedLicense_dataSource.sort = this.completedLicenseSort;
+        },
+        error =>{
+          this.errorSite = true;
+          this.errorMsg = this.service.globalErrorMsg;
+          setTimeout(()=>{
+            this.errorSite = false;
+          }, 10000);
+        });
+
+      this.superAdminFlag = false;
+    }
+    else if(this.currentUser1.role=='Inspector') {
+      this.siteService.retrieveAllSite(this.email).subscribe(
+        data => {
+          this.allData = JSON.parse(data);
+          for(let i of this.allData){
+            if(i.allStepsCompleted=="AllStepCompleted"){
+              this.completedFilterData.push(i);
+            }
+            else if(i.allStepsCompleted !="AllStepCompleted" && i.status != 'InActive'){
+              this.ongoingFilterData.push(i);
+            }
+          }
+          this.service.showSavedLV=true;
+          this.service.showFinalLV=true;
           this.ongoingSite_dataSource = new MatTableDataSource(this.ongoingFilterData);
           this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
           this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
@@ -269,16 +309,18 @@ export class LicenselistComponent implements OnInit {
       this.superAdminFlag = false;
     }
     else {
-        this.siteService.retrieveListOfSite(this.email).subscribe(
+        this.siteService.isSiteActive(this.email).subscribe(
           data => {
-            this.inspectorData=JSON.parse(data);
-          for(let i of this.inspectorData){
-              if(i.allStepsCompleted=="AllStepCompleted"){
-                this.completedFilterData.push(i);
-              }
-              else if(i.allStepsCompleted !="AllStepCompleted" && i.status != 'InActive'){
-                this.ongoingFilterData.push(i);
-              }
+          this.inspectorData=JSON.parse(data);
+          if(this.inspectorData.allStepsCompleted=="AllStepCompleted"){
+            this.completedFilterData.push(this.inspectorData);
+            this.service.showSavedLV=false;
+            this.service.showFinalLV=true;
+          }
+          else if(this.inspectorData.allStepsCompleted!="AllStepCompleted" && this.inspectorData.status!='InActive'){
+            this.ongoingFilterData.push(this.inspectorData);
+            this.service.showFinalLV=false;
+            this.service.showSavedLV=true;
           }
           this.ongoingSite_dataSource = new MatTableDataSource(this.ongoingFilterData);
           this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;

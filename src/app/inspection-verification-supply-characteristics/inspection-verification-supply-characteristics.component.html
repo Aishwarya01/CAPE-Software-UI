@@ -1973,7 +1973,7 @@ style="margin-left: 10px;" >
             <br>
              <div style="text-align: center;margin-top: 20px;">
               <!-- <button class="previous" mat-button matStepperPrevious *ngIf="service.backBtn">&laquo; Back</button> -->
-              <button  class="next" (click)="gotoNextModal(content1,content2)"  [ngClass]="{'disableSubmit':service.disableSubmitSummary}" mat-button >Next &raquo;</button>
+              <button  class="next" (click)="gotoNextModal(content1,content2)"  [ngClass]="{'disableSubmit':service.disableSubmitSummary || service.allFieldsDisable}" mat-button >Next &raquo;</button>
              </div>
     </form>
   </div>
