@@ -277,7 +277,7 @@ export class LicenselistComponent implements OnInit {
       this.superAdminFlag = false;
     }
     else if(this.currentUser1.role=='Inspector') {
-      this.siteService.retrieveAllSite(this.email).subscribe(
+      this.siteService.retrieveListOfSite(this.email).subscribe(
         data => {
           this.allData = JSON.parse(data);
           for(let i of this.allData){
