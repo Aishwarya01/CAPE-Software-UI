@@ -17,6 +17,7 @@ export class LpsWelcomePageComponent implements OnInit {
   email: String = '';
   showLicence: boolean = false;
   showHome: boolean = false;
+  showSavedRep: boolean = false;
 
   constructor( private router: ActivatedRoute,
                private globalService: GlobalsService ) { 

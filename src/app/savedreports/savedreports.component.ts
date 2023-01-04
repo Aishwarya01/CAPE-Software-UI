@@ -184,8 +184,7 @@ export class SavedreportsComponent implements OnInit {
         });
       this.superAdminFlag = false;
     }
-    else {
-      if(this.currentUser1.role == 'Inspector') {
+    else if(this.currentUser1.role == 'Inspector') {
         this.siteService.retrieveListOfSite(this.email).subscribe(
           data => {
             this.allData = JSON.parse(data);
@@ -207,30 +206,25 @@ export class SavedreportsComponent implements OnInit {
           });
       }
       else {
-        if(this.currentUser1.assignedBy!=null) {
-          this.viewerFilterData=[];
-          this.siteService.retrieveListOfSite(this.currentUser1.assignedBy).subscribe(
-            data => {
-              this.userData=JSON.parse(data);
-             for(let i of this.userData){
-               if((i.assignedTo==this.email) && (i.allStepsCompleted != "AllStepCompleted" && i.status != 'InActive')){
-                 this.viewerFilterData.push(i);
-               }
+        this.viewerFilterData=[];
+        this.siteService.isSiteActive(this.email).subscribe(
+          data => {
+            this.userData=JSON.parse(data);
+             if(this.userData.allStepsCompleted != "AllStepCompleted" && this.userData.status != 'InActive'){
+               this.viewerFilterData.push(this.userData);
              }
-             this.savedReport_dataSource = new MatTableDataSource(this.viewerFilterData);
-              this.savedReport_dataSource.paginator = this.savedReportPaginator;
-              this.savedReport_dataSource.sort = this.savedReportSort;
-            },
-            error =>{
-              this.errorSite = true;
-              this.errorMsg = this.service.globalErrorMsg;
-              setTimeout(()=>{
-                this.errorSite = false;
-              }, 10000);
-            });
-        } 
-      }
-    }        
+           this.savedReport_dataSource = new MatTableDataSource(this.viewerFilterData);
+            this.savedReport_dataSource.paginator = this.savedReportPaginator;
+            this.savedReport_dataSource.sort = this.savedReportSort;
+          },
+          error =>{
+            this.errorSite = true;
+            this.errorMsg = this.service.globalErrorMsg;
+            setTimeout(()=>{
+              this.errorSite = false;
+            }, 10000);
+          });
+      }     
   }
 
   deleteSite(siteName: any) {

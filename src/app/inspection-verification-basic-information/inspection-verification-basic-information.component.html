@@ -1575,7 +1575,7 @@
       <br>
       <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
         <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
-        <button class="next" (click)="gotoNextModal(content1,content2)"  [ngClass]="{'disableSubmit':service.disableSubmitSummary}"
+        <button class="next" (click)="gotoNextModal(content1,content2)"  [ngClass]="{'disableSubmit':service.disableSubmitSummary || service.allFieldsDisable}"
         mat-button>Next &raquo;</button>
       </div>
 

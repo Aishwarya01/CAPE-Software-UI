@@ -79,7 +79,8 @@ completedFilterData: any=[];
   constructor(private router: ActivatedRoute,
               public service: GlobalsService,
               public lpsService: LPSBasicDetailsService,
-              public licenselist: LicenselistComponent
+              public licenselist: LicenselistComponent,
+              public basciService:LPSBasicDetailsService
               
   ) { 
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
@@ -94,7 +95,6 @@ completedFilterData: any=[];
     // this.superAdminArr.push('gk@capeindia.net');
     // this.superAdminArr.push('vinoth@capeindia.net');
     // this.superAdminArr.push('awstesting@rushforsafety.com');
-    
     this.retrieveLpsDetails();
     // this.savedReportLps_dataSource.sort = this.sort;
 
@@ -135,7 +135,33 @@ completedFilterData: any=[];
       }
     }
 
-    if(this.superAdminFlag) {
+    if(this.superAdminFlag){
+      this.lpsService.retrieveAllBasicLps(this.email).subscribe(
+        data => {
+          this.lpsData=JSON.parse(data);
+          for(let i of this.lpsData){
+            if(i.allStepsCompleted != "AllStepCompleted"){
+              this.filteredData.push(i);
+            }
+          }
+          this.savedReportLps_dataSource = new MatTableDataSource(this.filteredData);
+          this.filteredData = [];
+          this.lpsData = [];
+          this.savedReportLps_dataSource.paginator = this.savedReportLpsPaginator;
+          this.savedReportLps_dataSource.sort = this.savedReportLpsSort;
+        },
+        error =>{
+          this.globalError=true;
+          this.globalErrorMsg=this.service.globalErrorMsg;
+          setTimeout(() => {
+            this.globalError=false;
+            this.globalErrorMsg="";
+          }, 20000);
+        });
+        this.superAdminFlag = false;
+    }
+
+    else if(this.currentUser1.role=='Inspector') {
       this.lpsService.retrieveAllBasicLps(this.email).subscribe(
         data => {
           this.lpsData=JSON.parse(data);
@@ -161,14 +187,13 @@ completedFilterData: any=[];
         this.superAdminFlag = false;
     }
     else {
-      this.lpsService.retrieveListOfBasicLps(this.email).subscribe(
+      this.basciService.retriveLpsbasicIsActive(this.email).subscribe(
         data => {
           this.lpsData=JSON.parse(data);
-          for(let i of this.lpsData){
-            if(i.allStepsCompleted != "AllStepCompleted" && i.status != 'InActive'){
-              this.completedFilterData.push(i);
-            }
-          }
+          if( this.lpsData.allStepsCompleted != "AllStepCompleted" &&  this.lpsData.status != 'InActive'){
+            this.completedFilterData.push(this.lpsData);
+            // this.service.showFinalLPS=false;
+          } 
           this.savedReportLps_dataSource = new MatTableDataSource(this.completedFilterData);
           this.completedFilterData = [];
           this.lpsData = [];

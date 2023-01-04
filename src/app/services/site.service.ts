@@ -33,6 +33,10 @@ export class SiteService {
     return this.http.get<Site>(this.apiUrl + '/lv/retriveSite' + '/' + userName, { responseType: 'text' as 'json' })
   }
 
+  public isSiteActive(userName: any): Observable<any> {
+    return this.http.get<Site>(this.apiUrl + '/lv/isSiteActive' + '/' + userName, { responseType: 'text' as 'json' })
+  }
+
   public retrieveAllSite(userName: any): Observable<any> {
     return this.http.get<Site>(this.apiUrl + '/lv/retrieveAllSites', { responseType: 'text' as 'json' })
   }

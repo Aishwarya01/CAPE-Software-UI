@@ -136,44 +136,35 @@ applyFilter(event: Event) {
 
       this.superAdminFlag = false;
     }
-    else {
-      if(this.currentUser1.role == 'Inspector') {
-        this.siteService.retrieveListOfSite(this.email).subscribe(
-          data => {
-            this.inspectorData=JSON.parse(data);
-            for(let i of this.inspectorData){
-                if(i.allStepsCompleted=="AllStepCompleted"){
-                  this.completedFilterData.push(i);
-                }
-                // else{
-                //  this.ongoingFilterData.push(i);
-                // }
-            }
-            this.finalReport_dataSource = new MatTableDataSource(this.completedFilterData);
-            this.finalReport_dataSource.paginator = this.finalReportPaginator;
-            this.finalReport_dataSource.sort = this.finalReportSort;
-          });
-      }
-      else {
-        if(this.currentUser1.assignedBy!=null) {
-          this.siteService.retrieveListOfSite(this.currentUser1.assignedBy).subscribe(
-            data => {
-              this.inspectorData=JSON.parse(data);
-              for(let i of this.inspectorData){
-                  if(i.allStepsCompleted=="AllStepCompleted"){
-                    this.completedFilterData.push(i);
-                  }
-                  // else{
-                  //  this.ongoingFilterData.push(i);
-                  // }
+    else if(this.currentUser1.role=='Inspector'){
+      this.siteService.retrieveListOfSite(this.email).subscribe(
+        data => {
+          this.inspectorData=JSON.parse(data);
+          for(let i of this.inspectorData){
+              if(i.allStepsCompleted=="AllStepCompleted" && i.status!='InActive'){
+                this.completedFilterData.push(i);
               }
-              this.finalReport_dataSource = new MatTableDataSource(this.completedFilterData);
-              this.finalReport_dataSource.paginator = this.finalReportPaginator;
-              this.finalReport_dataSource.sort = this.finalReportSort;
-            });
-        } 
-      }
-    }   
+              // else{
+              //  this.ongoingFilterData.push(i);
+              // }
+          }
+          this.finalReport_dataSource = new MatTableDataSource(this.completedFilterData);
+          this.finalReport_dataSource.paginator = this.finalReportPaginator;
+          this.finalReport_dataSource.sort = this.finalReportSort;
+        });
+    }
+    else {
+      this.siteService.isSiteActive(this.email).subscribe(
+        data => {
+          this.inspectorData=JSON.parse(data);
+            if(this.inspectorData.allStepsCompleted=="AllStepCompleted" && this.inspectorData!='InActive'){
+              this.completedFilterData.push(this.inspectorData);
+            }
+          this.finalReport_dataSource = new MatTableDataSource(this.completedFilterData);
+          this.finalReport_dataSource.paginator = this.finalReportPaginator;
+          this.finalReport_dataSource.sort = this.finalReportSort;
+        });
+    }  
   }
  
   continue(siteId: any,userName :any,site: any) {
