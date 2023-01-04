@@ -123,6 +123,8 @@ export class LicenselistComponent implements OnInit {
   // toggle: boolean=false;
   currentUser: any = [];
   currentUser1: any = [];
+  siteName: String="";
+
   constructor(private formBuilder: FormBuilder,
               private dialog: MatDialog,
               private siteService: SiteService,
@@ -583,6 +585,30 @@ export class LicenselistComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
     });
   }
+
+  // LV Systems
+  applyFilter(siteName:any) {
+    if(siteName!=undefined && siteName!=""){
+    const filterValue = siteName
+    this.ongoingSite_dataSource.filter = filterValue.toLowerCase();
+    }
+    else{
+      this.service.highlightText=false;
+    }
+  }
+  applyFilter1(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.ongoingSite_dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.ongoingSite_dataSource.paginator) {
+      this.ongoingSite_dataSource.paginator.firstPage();
+    }
+  }
+
+  //filter for final reports
+applyFilterFinal(event: Event) {
+  const filterValue = (event.target as HTMLInputElement).value;
+  this.completedLicense_dataSource.filter = filterValue.trim().toLowerCase();
+}
 
   purchaseLicense() {
     this.service.noofLicense = 0; 

@@ -1085,7 +1085,6 @@ emailPDF(siteId: any,userName: any, siteName: any){
   this.selectedRowIndexSub ="";
  }
  highlightTypeMeter(typeMeter:any){
-  debugger
   this.selectedRowIndexTypeMeter = typeMeter;
   this.selectedRowIndexSub ="";
  }
@@ -1203,7 +1202,6 @@ profileUpdate(email: String) {
     emcAssessmentInspectionRef.changeDetectorRef.detectChanges();
   }
   showLinkDescription(id: any) {
-    debugger
     this.welcome = false;
     this.youtube = false;
     this.service.licenseHide=true;
@@ -1531,7 +1529,6 @@ profileUpdate(email: String) {
   }
 
   viewerNavigation(id:any){
-    debugger
     this.welcome = false;
     this.youtube = false;
     this.service.licenseHide = false;
