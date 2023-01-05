@@ -176,7 +176,8 @@ export class AddCartBuyMeterComponent implements OnInit {
   meterData3: any =[];
   cartCount: any;
   indexvalue: any;
-  
+  counter = 0;
+
  
   constructor(private changeDetectorRef: ChangeDetectorRef,
     public service: GlobalsService,
@@ -306,7 +307,14 @@ export class AddCartBuyMeterComponent implements OnInit {
       return meter === this.clickedMeter;
     }
 
-    quantityChange(event:any, a:any,i:any) {  //i=3
+    quantityChange(event:any, a:any,i:any) {  
+      var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if (((charCode > 16 && charCode <= 48) || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } 
+    
       console.log(i);
       let temp_price=this.meterData3[i].price.replaceAll(',', '');
       this.amt=temp_price;
@@ -316,6 +324,7 @@ export class AddCartBuyMeterComponent implements OnInit {
      this.meterData3[i].total=this.meterData3[i].total.toString().replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       console.log(event, a);
       this.findsum();
+      return true;
     }
 
     addtoCartIndex(){

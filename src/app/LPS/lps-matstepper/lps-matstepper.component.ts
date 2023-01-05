@@ -95,6 +95,7 @@ export class LpsMatstepperComponent implements OnInit {
   // Spinner Purpose
   spinner: boolean=false;
   spinnerValue: String = '';
+  lpsFinalReport: boolean=false;
 
   constructor(
     private _formBuilder: FormBuilder,private dialog: MatDialog,
@@ -361,7 +362,7 @@ export class LpsMatstepperComponent implements OnInit {
 
   interceptTabChange(tab: MatTab, tabHeader: MatTabHeader) {
 
-    if((this.service.lpsClick==1 && !this.isEditable) || (this.basic.LPSBasicForm.dirty || this.airTermination.airTerminationForm.dirty || this.downConductors.downConductorForm.dirty || this.earthing.earthingForm.dirty || this.earthStud.EarthStudForm.dirty || this.spd.spdForm.dirty || this.seperationDistance.separeteDistanceForm.dirty || this.lpsSummary.summaryForm.dirty))
+    if((this.service.lpsClick==1 && this.isEditable && JSON.parse(sessionStorage.authenticatedUser).role!='Viewer' && !this.lpsFinalReport) || (this.basic.LPSBasicForm.dirty || this.airTermination.airTerminationForm.dirty || this.downConductors.downConductorForm.dirty || this.earthing.earthingForm.dirty || this.earthStud.EarthStudForm.dirty || this.spd.spdForm.dirty || this.seperationDistance.separeteDistanceForm.dirty || this.lpsSummary.summaryForm.dirty))
        {
         const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
           width: '420px',
@@ -500,7 +501,7 @@ export class LpsMatstepperComponent implements OnInit {
           // else{
           //   return;
           // }
-      }
+    }
     else if(((this.service.lpsClick==0) || (this.service.allStepsCompleted== true) && this.isEditable) || this.basic){
         this.service.windowTabClick=0;
         this.service.logoutClick=0;
@@ -538,11 +539,17 @@ export class LpsMatstepperComponent implements OnInit {
             this.selectedIndex=2; 
           }        
     }
+    else{
+      this.service.windowTabClick=0;
+      this.service.logoutClick=0;
+      this.service.lpsClick=0; 
+    }
   }
 
   preview(basicLpsId: any): void {
     this.ngOnInit();
     this.isEditable=true;
+    this.lpsFinalReport=true;
     this.changeTabLpsSavedReport(0,basicLpsId,this.router.snapshot.paramMap.get('email') || '{}');
   //  this.doSomething1(false);
   }
@@ -550,7 +557,6 @@ export class LpsMatstepperComponent implements OnInit {
   continue(basicLpsId: any): void {
     this.refresh();
     // this.ngOnInit();
-    this.isEditable=false;
    // this.doSomething1(false);
     this.changeTabLpsSavedReport(0,basicLpsId,this.router.snapshot.paramMap.get('email') || '{}');
 
@@ -596,6 +602,10 @@ export class LpsMatstepperComponent implements OnInit {
       }
     }, 3000);
 
+    // Viewer Purpose
+    if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
+      this.isEditable=true;
+    }
     this.basic.isEditable=this.isEditable;
     this.basic.LPSBasicForm.markAsPristine();
     this.basic.LPSBasicForm.markAsUntouched();

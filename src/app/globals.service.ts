@@ -154,6 +154,15 @@ autoLoginToken:number=0;
   emptyCart: boolean=true;
   checkGrandtotal: number=0;
   checkSubtotal: number=0;
+
+  // Viewer Purpose
+  licenseHide: boolean=false;
+  // LPS
+  showSavedLPS: boolean=false;
+  showFinalLPS: boolean=false;
+  // LV
+  showSavedLV: boolean=false;
+  showFinalLV: boolean=false;
  
  constructor(private _scrollToService: ScrollToService
   ) {}
@@ -181,7 +190,6 @@ autoLoginToken:number=0;
       this.triggerMsgForLicense="";
     }
   }
-  
 }
 
  

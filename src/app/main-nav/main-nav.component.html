@@ -233,27 +233,28 @@
             </a>
           <mat-icon class="menu-button" style="margin-left: 24px;" [ngClass]="{'rotated' : showSubmenuRep}" *ngIf="isExpanded || isShowing">expand_more</mat-icon>
         </mat-list-item>
+        
         <div class="submenu" [ngClass]="{'expanded' : showSubmenuRep}" *ngIf="isShowing || isExpanded">
-          <a>
+          <!-- <a>
             <mat-list-item class="leftAlignSub" (click)="showSubmenuOngoing = !showSubmenuOngoing" [ngClass]="{'highlightSub': selectedRowIndexSub == SubitemValue1}" >Ongoing TIC
               <mat-icon class="menu-button" style="margin-left: 50px;" [ngClass]="{'rotated' : showSubmenuOngoing}" *ngIf="isExpanded || isShowing">expand_more</mat-icon>
             </mat-list-item>
-          </a>
-          <div class="submenu" style="margin-left: -35px;" [ngClass]="{'expanded' : showSubmenuOngoing}" *ngIf="showSubmenuOngoing">
+          </a> -->
+          <!-- <div class="submenu" style="margin-left: -35px;" [ngClass]="{'expanded' : showSubmenuOngoing}" *ngIf="showSubmenuOngoing"> -->
             <a>
-              <mat-list-item class="leftAlignSub"  [ngClass]="{'highlightSub': selectedRowIndexSub == SubitemValueOngoing1}" (click)="highlightSub('LV Systems')" >LV Systems
-              </mat-list-item>
-            </a>   
-            <a>
+              <mat-list-item class="leftAlignSub" *ngFor="let type of ApplicationTypesSplit" (click)="viewerNavigation(type)"
+              [ngClass]="{'highlightType': selectedRowIndexType == type}">{{ type }}</mat-list-item>
+            </a>      
+            <!-- <a>
               <mat-list-item class="leftAlignSub"  [ngClass]="{'highlightSub2': selectedRowIndexSub == SubitemValueOngoing2}" (click)="highlightSub('EMC Assessment')">EMC Assessment
               </mat-list-item>
             </a> 
             <a>
               <mat-list-item class="leftAlignSub"  [ngClass]="{'highlightSub2': selectedRowIndexSub == SubitemValueOngoing3}" (click)="highlightSub('LPS Systems')">LPS Systems
               </mat-list-item>
-            </a> 
+            </a>  -->
           </div>   
-
+          <!-- 
           <a>
             <mat-list-item class="leftAlignSub" (click)="showSubmenuCompleted = !showSubmenuCompleted" [ngClass]="{'highlightSub2': selectedRowIndexSub == SubitemValue2}" >Completed TIC
               <mat-icon class="menu-button" style="margin-left: 32px;" [ngClass]="{'rotated' : showSubmenuCompleted}" *ngIf="isExpanded || isShowing">expand_more</mat-icon>
@@ -261,19 +262,19 @@
           </a> 
           <div class="submenu" style="margin-left: -35px;" [ngClass]="{'expanded' : showSubmenuCompleted}" *ngIf="showSubmenuCompleted">
             <a>
-              <mat-list-item class="leftAlignSub"  [ngClass]="{'highlightSub': selectedRowIndexSub == SubitemValueCompleted1}" (click)="highlightSub2('LV Systems')">LV Systems
-              </mat-list-item>
-            </a>   
-            <a>
+              <mat-list-item class="leftAlignSub" *ngFor="let type of ApplicationTypesSplit" (click)="viewerNavigation(type)"
+              [ngClass]="{'highlightType': selectedRowIndexType == type}">{{ type }}</mat-list-item>
+            </a>    -->
+            <!-- <a>
               <mat-list-item class="leftAlignSub"  [ngClass]="{'highlightSub2': selectedRowIndexSub == SubitemValueCompleted2}" (click)="highlightSub2('EMC Assessment')">EMC Assessment
               </mat-list-item>
             </a> 
             <a>
               <mat-list-item class="leftAlignSub"  [ngClass]="{'highlightSub2': selectedRowIndexSub == SubitemValueCompleted3}" (click)="highlightSub2('LPS Systems')">LPS Systems
               </mat-list-item>
-            </a> 
-          </div>   
-        </div>
+            </a>     -->
+          <!-- </div> -->
+        <!-- </div> -->
 
         
 
@@ -317,7 +318,7 @@
       <p>Note: Kindly go through the sub-menus on the left side panel.</p>
     </div>
 <!-- youtube implementation -->
-<div clas="container" *ngIf="youtube">
+  <div clas="container" *ngIf="youtube">
   <div class="row">
     <div class="col-md-6">
   <div clas="row">  
@@ -397,208 +398,21 @@
   </div>
 
     <ng-template #ref></ng-template>
-    <app-verificationlv *ngIf="value" #verify></app-verificationlv>
-    <!-- (proceedNext)="onGoingEditSite($event)" -->
-    <!-- ongoing site -->
-    <div class="card" *ngIf="ongoingSite">
+
+
+    <!-- LPS Saved Report Data -->
+    <!-- <div class="card" *ngIf="lpsData">
       <div class="card-body">
-      <table mat-table [dataSource]="ongoingSite_dataSource" class="mat-elevation-z8 table" id="tableResponsive" matSort
-      #ongoingSiteSort="matSort">
+        <app-lps-saved-report></app-lps-saved-report>
+      </div>
+    </div> -->
 
-      <!--- Note that these columns can be defined in any order.
-                  The actual rendered columns are set as a property on the row definition" -->
-
-      <!-- Position Column -->
-      <ng-container matColumnDef="siteCd">
-        <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-          mat-sort-header> Site Code </th>
-        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-          {{element.siteCd}} </td>
-      </ng-container>
-      <ng-container matColumnDef="site">
-        <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-          mat-sort-header> Site Name </th>
-        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element"
-          class="mousechange"> {{element.site}} </td>
-      </ng-container>
-      <!-- Name Column -->
-      <ng-container matColumnDef="country">
-        <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-          mat-sort-header> Country </th>
-        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-          {{element.country}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="city">
-        <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-          mat-sort-header> City </th>
-        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-          {{element.city}} </td>
-      </ng-container>
-      <!-- Name Column -->
-      <ng-container matColumnDef="createdDate">
-        <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-          mat-sort-header> Created Date </th>
-        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-          {{element.createdDate | date : 'shortDate'}} </td>
-      </ng-container>
-
-      <!-- Weight Column -->
-      <ng-container matColumnDef="createdBy">
-        <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-          mat-sort-header> Created By </th>
-        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-          {{element.createdBy}} </td>
-      </ng-container>
-
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="updatedDate">
-        <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-          mat-sort-header> Updated Date </th>
-        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-          {{element.updatedDate | date : 'shortDate'}} </td>
-      </ng-container>
-
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="updatedBy">
-        <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-          mat-sort-header> Updated By </th>
-        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-          {{element.updatedBy}} </td>
-      </ng-container>
-
-      <!-- <ng-container matColumnDef="action">
-          <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef> Action
-          </th>
-          <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-            <button class="btn btn-outline-danger delete" title="Edit Site" (click)="editSite(element.siteId,element.userName,element.site)">
-              <mat-icon>edit</mat-icon>
-            </button>
-          </td>
-        </ng-container> -->
-
-      <tr mat-header-row *matHeaderRowDef="ongoingSiteColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: ongoingSiteColumns;" title="Click here to edit Site details" 
-      (click)="editSite(row.siteId,row.userName,row.site)" style="cursor: pointer;"
-        [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (mouseover)="row.hovered = true"
-        (mouseout)="row.hovered = false" class="highlight-row"></tr>
-
-    </table>
-    <mat-paginator #ongoingSitePaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-</div>
-    </div>
-
-    <!-- completed site -->
-    <div class="card" *ngIf="completedSite">
+    <!-- LPS Final Report Data -->
+    <!-- <div class="card" *ngIf="lpsFinalRep">
       <div class="card-body">
-      <table mat-table [dataSource]="completedLicense_dataSource" class="mat-elevation-z8 table" id="tableResponsive" matSort
-      #completedLicenseSort="matSort">
-
-      <!--- Note that these columns can be defined in any order.
-                  The actual rendered columns are set as a property on the row definition" -->
-
-      <!-- Position Column -->
-      
-      <ng-container matColumnDef="siteCd">
-        <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-          mat-sort-header> Site Code </th>
-        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-          {{element.siteCd}} </td>
-      </ng-container>
-      <ng-container matColumnDef="site">
-        <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-          mat-sort-header> Site Name </th>
-        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element"
-          class="mousechange"> {{element.site}} </td>
-      </ng-container>
-      <!-- Name Column -->
-      <ng-container matColumnDef="country">
-        <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-          mat-sort-header> Country </th>
-        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-          {{element.country}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="city">
-        <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-          mat-sort-header> City </th>
-        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-          {{element.city}} </td>
-      </ng-container>
-      <!-- Name Column -->
-      <ng-container matColumnDef="createdDate">
-        <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-          mat-sort-header> Created Date </th>
-        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-          {{element.createdDate | date : 'shortDate'}} </td>
-      </ng-container>
-
-      <!-- Weight Column -->
-      <ng-container matColumnDef="createdBy">
-        <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-          mat-sort-header> Created By </th>
-        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-          {{element.createdBy}} </td>
-      </ng-container>
-
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="updatedDate">
-        <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-          mat-sort-header> Updated Date </th>
-        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-          {{element.updatedDate | date : 'shortDate'}} </td>
-      </ng-container>
-
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="updatedBy">
-        <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-          mat-sort-header> Updated By </th>
-        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-          {{element.updatedBy}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="action">
-          <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef> Action
-          </th>
-          <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-            <button class="btn btn-outline-danger delete" title="View Site" (click)="viewSite(element.siteId,element.userName,element.site)">
-              <mat-icon>visibility</mat-icon>
-            </button>
-            <button class="btn btn-outline-danger delete" title="Download Final PDF" 
-            (click)="downloadPdf(element.siteId,element.userName, element.site)" [disabled]="disable"
-            style="border-color: #cdcecf;box-shadow: unset;">
-              <mat-icon>download</mat-icon>
-            </button>
-            <button class="btn btn-outline-danger delete" title="Trigger Email With Final PDF" 
-            (click)="emailPDF(element.siteId,element.userName, element.site)" [disabled]="disable"
-            style="border-color: #cdcecf;box-shadow: unset;">
-              <mat-icon>email</mat-icon>
-            </button>
-            <button class="btn btn-outline-danger delete" title="Print Final PDF" 
-            (click)="pdfModal(element.siteId,element.userName, element.site)" [disabled]="disable"
-            style="border-color: #cdcecf;box-shadow: unset;">
-            <mat-icon>print</mat-icon></button>
-          </td>
-        </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="completedLicenseColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: completedLicenseColumns; "
-        [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (mouseover)="row.hovered = true"
-        (mouseout)="row.hovered = false" class="highlight-row"></tr>
-
-    </table>
-    <mat-paginator #completedLicensePaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-
-    <div class="centre-text m-btm30">
-      <div *ngIf="success" style="text-align: center;">
-        <span class="successshow">{{successMsg}}</span>
-       </div>
-       <div *ngIf="Error" style="text-align: center;">
-         <span class="errorshow">{{errorMsg}}</span>
-        </div>
-           </div>
-</div>
-    </div>
+        <app-lps-final-report></app-lps-final-report>
+      </div>
+    </div> -->
  </mat-sidenav-content>
 
 </mat-sidenav-container>

@@ -144,16 +144,44 @@ export class LpsFinalReportComponent implements OnInit {
         });
       this.superAdminFlag = false;
     }
-    else {
-      this.lpsService.retrieveListOfBasicLps(this.email).subscribe(
+
+    else if(this.currentUser1.role=='Inspector') {
+      this.lpsService.retrieveAllBasicLps(this.email).subscribe(
         data => {
           // this.myfunction(data);
           this.lpsData=JSON.parse(data);
           for(let i of this.lpsData){
-            if(i.allStepsCompleted=="AllStepCompleted"){
-              this.completedFilterData.push(i);
+            if(i.allStepsCompleted=="AllStepCompleted" && i.status !='InActive'){
+              this.filteredData.push(i);
             }
           }
+          this.finalReport_dataSource = new MatTableDataSource(this.filteredData);
+          this.filteredData = [];
+          this.lpsData = [];
+          this.finalReport_dataSource.paginator = this.finalReportPaginator;
+          this.finalReport_dataSource.sort = this.finalReportSort;
+        },
+        error =>{
+          this.globalError=true;
+          this.globalErrorMsg=this.service.globalErrorMsg;
+          setTimeout(() => {
+            this.globalError=false;
+            this.globalErrorMsg="";
+          }, 20000);
+        });
+      this.superAdminFlag = false;
+    }
+    else {
+      this.lpsService.retriveLpsbasicIsActive(this.email).subscribe(
+        data => {
+          // this.myfunction(data);
+          this.lpsData=JSON.parse(data);
+          // for(let i of this.lpsData){
+          if(this.lpsData.allStepsCompleted=="AllStepCompleted" &&  this.lpsData.status != 'InActive'){
+            this.completedFilterData.push(this.lpsData);
+            // this.service.showSavedLPS=false;
+          } 
+          // }
           this.finalReport_dataSource = new MatTableDataSource(this.completedFilterData);
           this.completedFilterData = [];
           this.lpsData = [];
