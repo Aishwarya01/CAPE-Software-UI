@@ -47,4 +47,9 @@ export class CustomerDetailsServiceService {
   public deleteCustomerDetails(customerDetails: CustomerDetails): Observable<any> {
     return this.http.put<any>(this.apiUrl1 + '/risk/updateRiskAssessmentCustomerDetailsStatus', customerDetails, { responseType: 'text' as 'json' })
   }
+
+  // Project Name Validation
+  public findByProjectName(userName: String,projectName:any): Observable<any>{
+    return this.http.get<any>(this.apiUrl1 + '/risk/findProjectAndUserName' + '/' +userName + '/' +projectName, { responseType: 'text' as 'json' })
+  }
 }

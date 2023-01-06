@@ -247,7 +247,7 @@ export class RiskParentComponentComponent implements OnInit {
 
   interceptTabChange(tab: MatTab, tabHeader: MatTabHeader) {
 
-    if((this.service.lpsClick==1 && !this.isEditable) || (this.customerDetails.CustomerDetailsForm.dirty || this.riskStep2.step2Form.dirty))
+    if((this.service.lpsClick==1 && this.isEditable) || (this.customerDetails.CustomerDetailsForm.dirty || this.riskStep2.step2Form.dirty))
        {
         const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
           width: '420px',

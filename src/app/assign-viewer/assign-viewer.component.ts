@@ -20,6 +20,8 @@ import { BasicDetails } from '../LPS_model/basic-details';
 import { Site, SitePersons } from '../model/site';
 import { ThrowStmt } from '@angular/compiler';
 import { LicenselistComponent } from '../licenselist/licenselist.component';
+import { CustomerDetailsServiceService } from '../Risk Assessment/Risk Assessment Services/customer-details-service.service';
+import { CustomerDetails } from '../Risk Assessment/Risk Assesment Model/customer-details';
 
 @Component({
   selector: 'app-assign-viewer',
@@ -31,10 +33,11 @@ export class AssignViewerComponent implements OnInit {
   license = new License();
   site = new Site();
   sitePerson=new SitePersons();
+  riskModel = new CustomerDetails()
   
-  assignViewerForm = new FormGroup({
-    viewerEmail: new FormControl(''),
-  });
+  assignViewerForm!:FormGroup; 
+
+  riskViewerForm!: FormGroup;
 
   viewerRegisterForm = new FormGroup({
     siteName: new FormControl(''),
@@ -64,6 +67,7 @@ export class AssignViewerComponent implements OnInit {
   loading = true;
   submitted = false;
   submitted1 = false;
+  riskSubmit = false;
   msg: any;
   alert: any;
   countryList: any = [];
@@ -84,6 +88,7 @@ export class AssignViewerComponent implements OnInit {
   @Input()
   userName: String = '';
   registerData: any = [];
+  riskData: any=[];
   assignArr: any = [];
   state: String='';
   success: boolean = false;
@@ -122,6 +127,7 @@ export class AssignViewerComponent implements OnInit {
   // spinner: boolean=false;
   // spinnerValue: String = '';
   mode: any = 'indeterminate';
+  riskLicense: boolean=false;
 
   constructor(private dialog: MatDialog,
               private formBuilder: FormBuilder, private modalService: NgbModal,
@@ -133,6 +139,7 @@ export class AssignViewerComponent implements OnInit {
               private route: ActivatedRoute,
               public globalService: GlobalsService,
               private lPSBasicDetailsService: LPSBasicDetailsService,
+              private riskAssessment: CustomerDetailsServiceService
               
               ) {
                 this.urlEmail = this.route.snapshot.paramMap.get('email') || '{}';
@@ -140,16 +147,25 @@ export class AssignViewerComponent implements OnInit {
                }
 
   ngOnInit(): void {
-    this.assignViewerForm = this.formBuilder.group({
-      viewerEmail: ['', [
-        Validators.required,
-        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-    });
+    // Risk Assessment Application
+    if(this.globalService.triggerMsgForLicense=='riskPage'){
+      this.riskLicense=true;
+      this.riskViewerForm = this.formBuilder.group({
+        riskEmail: new FormControl('',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+        riskProject: new FormControl('',Validators.required)
+      });
+    }
+    else{
+      this.riskLicense=false;
+      this.assignViewerForm = this.formBuilder.group({
+        viewerEmail: ['', [
+          Validators.required,
+          Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+      });
+
     this.countryCode = '91';
     this.viewerRegisterForm = this.formBuilder.group({
-      viewerArr: this.formBuilder.array([
-        this.createViewer(),
-      ])
+      viewerArr: this.formBuilder.array([this.createViewer()])
     });
 
       this.inspectorRegisterService.retrieveInspector(this.email).subscribe(
@@ -163,6 +179,7 @@ export class AssignViewerComponent implements OnInit {
           this.countryList = JSON.parse(data);
         }
       )
+    }
     //  this.pageHeading(this.viewerRegisterForm);
   }
   // getLpsViwer() : AbstractControl[] {
@@ -229,7 +246,7 @@ export class AssignViewerComponent implements OnInit {
         terms: new FormControl(''),
         applicationType: new FormControl('')
         })
-    }  
+    }
     return form;
   }
 
@@ -260,6 +277,31 @@ export class AssignViewerComponent implements OnInit {
             this.projectNameMsg="";
             this.projectNameSuccess=true;
             this.projectNameError=false;
+            setTimeout(() => {
+              this.projectNameSuccess=false;
+              this.projectNameError=false;
+            }, 3000);
+          }
+      })
+    }
+  }
+
+  riskProjectValidation(event:any,form:any){
+    if(form.controls.riskEmail.value!=undefined && form.controls.riskProject.value!=undefined && form.controls.riskEmail.value!=null && form.controls.riskProject.value!=null && form.controls.riskEmail.value!="" && form.controls.riskProject.value!=""){
+
+      this.riskAssessment.findByProjectName(form.controls.riskEmail.value,form.controls.riskProject.value).subscribe(
+        data =>{
+          // var b=form.controls.riskProject.value;
+          if(data != ''){
+            this.projectNameMsg="Project Name is already existing, Please give different Project Name";
+            this.projectNameMsg1="";
+            this.projectNameError=true;
+          }else {
+            this.projectNameMsg1="You can continue with this "+[form.controls.riskProject.value]+" Project Name";
+            this.projectNameMsg="";
+            this.projectNameSuccess=true;
+            this.projectNameError=false;
+            console.log(this.projectNameMsg1);
             setTimeout(() => {
               this.projectNameSuccess=false;
               this.projectNameError=false;
@@ -557,6 +599,7 @@ createNewGroup(item: any): FormGroup{
   onCancel() {
     this.modalReference.close();
   }
+
   continue(contentViewer: any) {
     this.registerData = [];
     this.existSite = false;
@@ -645,7 +688,6 @@ createNewGroup(item: any): FormGroup{
                 })
             }
           }
-
           else {
             this.success = true;
             this.successMsg1 = "Given email is registered as Inspector";
@@ -692,11 +734,19 @@ createNewGroup(item: any): FormGroup{
       )
     // }   
   }
+  
   closeModalDialog(contentViewer2:any){
    this.modalService.dismissAll(contentViewer2);
    this.globalService.emailCheck=false;
    this.dialog.closeAll();
   }
+
+  closeModalDialogRisk(contentViewer3:any){
+    this.modalService.dismissAll(contentViewer3);
+    this.globalService.emailCheck=false;
+    this.dialog.closeAll();
+   }
+
   // closeModalDialogTerms(termsContent:any){
   //   this.modalService.dismissAll(termsContent)
   //  }
@@ -806,11 +856,6 @@ createNewGroup(item: any): FormGroup{
   }
 
   navigateToLpsBasivPage(data:any){
-    // const dialogRef = this.dialog.open(, {
-    //   disableClose: true,
-    // });
-    // dialogRef.componentInstance.onSubmitSite1.subscribe(data=>{
-
     this.onSubmitSite1.emit(true);
       if(data) {
         this.onSave.emit(true);
@@ -818,9 +863,29 @@ createNewGroup(item: any): FormGroup{
       else{
         this.onSave.emit(false);
       }
-    // })
-    // dialogRef.afterClosed().subscribe((result) => {
-    // });
+  }
+
+  navigateToRisk(data:any){
+    // this.onSubmitSite1.emit(true);
+      if(data) {
+        sessionStorage.setItem("riskEmail", data.controls.riskEmail.value);
+        sessionStorage.setItem("riskProject", data.controls.riskProject.value);
+        this.onSave.emit(true);
+      }
+      else{
+        this.onSave.emit(false);
+      }
+  }
+
+  riskContinue(form:any){
+    this.riskData=[];
+    this.riskSubmit=true;
+    if(this.riskViewerForm.invalid){
+      return;
+    }
+    else{
+      this.navigateToRisk(form);
+    }
   }
 
   closeAll() {
@@ -1053,6 +1118,9 @@ createNewGroup(item: any): FormGroup{
       form.controls.projectName.updateValueAndValidity();
       form.controls.lpsName.clearValidators();
       form.controls.lpsName.updateValueAndValidity();
+    }
+    else if(this.globalService.triggerMsgForLicense=='riskPage'){
+      this.riskLicense=true;
     }
   }
 }

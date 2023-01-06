@@ -1,13 +1,15 @@
     <div class="modal-body" modal-md>
      <div class="centre-text m-btm30">
       <div style="text-align: center;">
+        <!-- LV -->
         <h4 class="successshow" *ngIf="editModal">Are you sure you want to edit site details? </h4>
-
         <h4 class="successshow" *ngIf="viewModal">Are you sure you want to view site details? </h4>
-
+        <!-- LPS -->
         <h4 class="successshow" *ngIf="viewModal1">Are you sure you want to edit this LPS Data details? </h4>
-
         <h4 class="successshow" *ngIf="viewModal2">Are you sure you want to view this LPS Data details? </h4>
+        <!-- Risk Assessment -->
+        <h4 class="successshow" *ngIf="editRisk">Are you sure you want to edit this Risk Data details? </h4>
+        <h4 class="successshow" *ngIf="viewRisk">Are you sure you want to view this Risk Data details? </h4>
 
         <h4 class="successshow" *ngIf="lpsAirTModal">Confirm if two or more different height air VAT are available? </h4>
         <h4 class="successshow" *ngIf="lpsAirHModal">Confirm if two or more different holders are available? </h4>
