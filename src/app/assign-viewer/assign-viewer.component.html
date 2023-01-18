@@ -144,6 +144,7 @@
           <div formArrayName="viewerArr" *ngFor="let a of getViewerControls(); let i = index">
             <div [formGroupName]="i">
               <div class="row">
+
                 <ng-container *ngIf="viewerForLV">
                   <div class="col-md-4">
                     <div class="form-group">
@@ -187,7 +188,7 @@
                             <i class="bi bi-person-fill"></i>
                           </span>
                         </div>
-                        <input type="text" formControlName="name" class="form-control" [readonly]="setReadOnly"
+                        <input type="text" formControlName="name" class="form-control" [readonly]="lvNameField"
                           placeholder="Enter your Name" [ngClass]="{ 'is-invalid': submitted && a.get('name')?.errors }"
                           [(ngModel)]="register.name" />
                         <div *ngIf="submitted && a.get('name')?.errors" class="invalid-feedback">
@@ -212,7 +213,7 @@
                         [ngClass]="{ 'is-invalid': submitted && a.get('clientName')?.errors }"
                         [(ngModel)]="register.clientName" />
                       <div *ngIf="submitted && a.get('clientName')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('clientName')?.errors?.required">ClientName is required</div>
+                        <div *ngIf="a.get('clientName')?.errors?.required">Client Name is required</div>
                       </div>
                     </div>
                   </div>
@@ -243,6 +244,45 @@
                     </div>
                   </div>
                 </ng-container>
+
+                <ng-container *ngIf="viewerForEmc">
+                  <div class="col-md-4">
+                    <label for="emcClientName">Client Name</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="bi bi-person-lines-fill"></i>
+                        </span>
+                      </div>
+                      <input type="text" class="form-control" placeholder="Enter clientname"
+                        formControlName="emcClientName"
+                        [ngClass]="{ 'is-invalid': submitted && a.get('emcClientName')?.errors }"
+                        [(ngModel)]="register.emcClientName" />
+                      <div *ngIf="submitted && a.get('emcClientName')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('emcClientName')?.errors?.required">Client Name is required</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="personName">* Contact Person Name</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="bi bi-person-fill"></i>
+                          </span>
+                        </div>
+                        <input type="text" formControlName="personName" class="form-control"
+                          placeholder="Enter your Name" [ngClass]="{ 'is-invalid': submitted && a.get('personName')?.errors }"
+                          [(ngModel)]="register.personName" />
+                        <div *ngIf="submitted && a.get('personName')?.errors" class="invalid-feedback">
+                          <div *ngIf="a.get('personName')?.errors?.required">Contact Person Name is required</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="email">* User Name: (email ID)</label>
@@ -507,7 +547,7 @@
                           <i class="bi bi-geo-fill"></i>
                         </span>
                       </div>
-                      <input type="number" formControlName="pinCode"  [readonly]="setReadOnly" class="form-control"
+                      <input type="number" formControlName="pinCode" (keypress)="keyPressNumbers($event)" [readonly]="setReadOnly" class="form-control"
                         placeholder="Enter your pinCode"
                         [ngClass]="{ 'is-invalid': submitted && a.get('pinCode')?.errors }"
                         [(ngModel)]="register.pinCode" />

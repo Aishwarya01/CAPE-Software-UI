@@ -1,10 +1,17 @@
 export class Register {
+
+    // lv
+    name!: String;
     siteName!: String;
     registerId!: number;
+    // lps
     clientName!: string;
     projectName!: string;
     lpsName!: string;
-    name!: String;
+    // emc
+    emcClientName!: string;
+    personName!: string;
+
     companyName!: String;
     username!: String;
     password!: String;

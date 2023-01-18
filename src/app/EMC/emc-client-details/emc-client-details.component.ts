@@ -4,12 +4,8 @@ import { ViewChild, ViewContainerRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { EmcClientDetails } from 'src/app/EMC_Model/emc-client-details';
 import { EmcClientDetailsService } from 'src/app/EMC_Services/emc-client-details.service';
-import { EmcFacilityDataComponent } from '../emc-facility-data/emc-facility-data.component';
-import { EmcMatstepperComponent } from '../emc-matstepper/emc-matstepper.component';
-import { EmcAssessmentInstallationComponent } from 'src/app/emc-assessment-installation/emc-assessment-installation.component';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { not } from '@angular/compiler/src/output/output_ast';
 import { GlobalsService } from 'src/app/globals.service';
 
 @Component({
@@ -60,6 +56,7 @@ export class EmcClientDetailsComponent implements OnInit {
   mode: any = 'indeterminate';
   nextButton: boolean = true;
   popup: boolean = false;
+  onSave: any;
 
   constructor(
     public dialog: MatDialog,
@@ -73,8 +70,8 @@ export class EmcClientDetailsComponent implements OnInit {
 
   ngOnInit(): void {
 
-     this.countryCode = '91';
-
+    this.countryCode = '91';
+    this.emcClientDetails.emcId=this.service.emcId;
     this.EmcClientDetailsForm = this.formBuilder.group({
       clientArr: this.formBuilder.array([
         this.createProfile(),
@@ -85,6 +82,7 @@ export class EmcClientDetailsComponent implements OnInit {
         this.countryList = JSON.parse(data);
       }
     )
+    this.retriveClientDetailsData();
   }
 
   createProfile(): FormGroup {
@@ -104,9 +102,18 @@ export class EmcClientDetailsComponent implements OnInit {
 
   retriveClientDetailsData() {
     this.flag = true;
-    // this.step1List = JSON.parse(data);
+    this.emcClientDetailsService.retrieveClientDetailsData(this.router.snapshot.paramMap.get('email') || '{}',this.emcClientDetails.emcId).subscribe(
+      data => {
+        let clientData=JSON.parse(data)[0];
+        if(clientData !=undefined && clientData.emcId !=null && clientData.emcId != undefined){
+        this.retrieveDetailsfromSavedReports(clientData.userName,clientData.emcId,clientData);
+        }
+      },
+      error=>{
+      }
+    );
 
-    this.populateForm();
+    // this.populateForm();
 
     // this.emcClientDetails.userName = userName;
     // this.emcClientDetails.emcId = emcId;
@@ -155,31 +162,52 @@ export class EmcClientDetailsComponent implements OnInit {
     })
   }
 
-
-
   retrieveDetailsfromSavedReports(userName: any, emcId: any, data: any) {
     this.flag = true;
-    this.step1List = data.clientDetails;
-    this.emcClientDetails.userName = this.step1List.userName;
-    this.emcClientDetails.emcId = emcId;
-    this.emcClientDetails.clientName = this.step1List.clientName;
-    this.emcClientDetails.contactNumber = this.step1List.contactNumber;
-    this.setReadOnly = true;
-    this.emcClientDetails.contactPerson = this.step1List.contactPerson;
-    this.emcClientDetails.landMark = this.step1List.landMark;
-    this.emcClientDetails.clientLocation = this.step1List.clientLocation;
-    this.emcClientDetails.clientAddress = this.step1List.clientAddress;
-    this.emcClientDetails.email = this.step1List.email;
-    this.emcClientDetails.country = this.step1List.country;
-    this.changeCountry(this.emcClientDetails.country);
-    this.emcClientDetails.state = this.step1List.state;
-    this.emcClientDetails.createdDate = this.step1List.createdDate;
-    this.emcClientDetails.createdBy = this.step1List.createdBy;
-    this.emcClientDetails.updatedDate = this.step1List.updatedDate;
-    this.emcClientDetails.updatedBy = this.step1List.updatedBy;
-    this.emcClientDetails.status = this.step1List.status;
-
-    this.retriveClientDetailsData();
+    if(this.service.triggerMsgForLicense=="emcPage"){
+      this.step1List = data.clientDetails;
+      this.emcClientDetails.userName = this.step1List.userName;
+      this.emcClientDetails.emcId = emcId;
+      this.emcClientDetails.clientName = this.step1List.clientName;
+      this.emcClientDetails.contactNumber = this.step1List.contactNumber;
+      this.setReadOnly = true;
+      this.emcClientDetails.contactPerson = this.step1List.contactPerson;
+      this.emcClientDetails.landMark = this.step1List.landMark;
+      this.emcClientDetails.clientLocation = this.step1List.clientLocation;
+      this.emcClientDetails.clientAddress = this.step1List.clientAddress;
+      this.emcClientDetails.email = this.step1List.email;
+      this.emcClientDetails.country = this.step1List.country;
+      this.changeCountry(this.emcClientDetails.country);
+      this.emcClientDetails.state = this.step1List.state;
+      this.emcClientDetails.createdDate = this.step1List.createdDate;
+      this.emcClientDetails.createdBy = this.step1List.createdBy;
+      this.emcClientDetails.updatedDate = this.step1List.updatedDate;
+      this.emcClientDetails.updatedBy = this.step1List.updatedBy;
+      this.emcClientDetails.status = this.step1List.status;
+      this.populateForm();
+    }
+    else{
+      this.step1List = data.clientDetails;
+      this.emcClientDetails.userName = this.step1List.userName;
+      this.emcClientDetails.emcId = emcId;
+      this.emcClientDetails.clientName = this.step1List.clientName;
+      this.emcClientDetails.contactNumber = this.step1List.contactNumber;
+      this.setReadOnly = true;
+      this.emcClientDetails.contactPerson = this.step1List.contactPerson;
+      this.emcClientDetails.landMark = this.step1List.landMark;
+      this.emcClientDetails.clientLocation = this.step1List.clientLocation;
+      this.emcClientDetails.clientAddress = this.step1List.clientAddress;
+      this.emcClientDetails.email = this.step1List.email;
+      this.emcClientDetails.country = this.step1List.country;
+      this.changeCountry(this.emcClientDetails.country);
+      this.emcClientDetails.state = this.step1List.state;
+      this.emcClientDetails.createdDate = this.step1List.createdDate;
+      this.emcClientDetails.createdBy = this.step1List.createdBy;
+      this.emcClientDetails.updatedDate = this.step1List.updatedDate;
+      this.emcClientDetails.updatedBy = this.step1List.updatedBy;
+      this.emcClientDetails.status = this.step1List.status;
+      this.populateForm();
+    }
   }
 
 
@@ -339,9 +367,9 @@ export class EmcClientDetailsComponent implements OnInit {
     if (this.EmcClientDetailsForm.invalid) {
       this.validationError = true;
       this.validationErrorMsg = "Please check all the fields in client details information";
-      //     setTimeout(()=>{
-      //       this.validationError=false;
-      //  }, 3000);
+      setTimeout(()=>{
+        this.validationError=false;
+      }, 3000);
       return;
     }
 

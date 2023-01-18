@@ -1,27 +1,21 @@
-import { Component, OnInit,Input, ViewChild, ViewContainerRef, ComponentFactoryResolver, EventEmitter, Output} from '@angular/core';
+import { Component, OnInit,Input, ViewChild, ViewContainerRef, ComponentFactoryResolver, EventEmitter} from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ViewerRegisterComponent } from '../viewer-register/viewer-register.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { License, Register } from '../model/register';
 import { ApplicationTypeService } from '../services/application.service';
 import { InspectorregisterService } from '../services/inspectorregister.service';
 import { SiteService } from '../services/site.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { VerificationlvComponent } from '../verificationlv/verificationlv.component';
-import { InspectionVerificationBasicInformationComponent } from '../inspection-verification-basic-information/inspection-verification-basic-information.component';
 import { GlobalsService } from '../globals.service';
 import { SiteaddComponent } from '../site/siteadd/siteadd.component';
 import { LPSBasicDetailsService } from '../LPS_services/lpsbasic-details.service';
-import { LpsBasicPageComponent } from '../LPS/lps-basic-page/lps-basic-page.component';
-import { LpsMatstepperComponent } from '../LPS/lps-matstepper/lps-matstepper.component';
-import { LpsSavedReportComponent } from '../LPS/lps-saved-report/lps-saved-report.component';
 import { BasicDetails } from '../LPS_model/basic-details';
 import { Site, SitePersons } from '../model/site';
-import { ThrowStmt } from '@angular/compiler';
-import { LicenselistComponent } from '../licenselist/licenselist.component';
 import { CustomerDetailsServiceService } from '../Risk Assessment/Risk Assessment Services/customer-details-service.service';
 import { CustomerDetails } from '../Risk Assessment/Risk Assesment Model/customer-details';
+import { EmcClientDetails } from '../EMC_Model/emc-client-details';
+import { EmcClientDetailsService } from '../EMC_Services/emc-client-details.service';
 
 @Component({
   selector: 'app-assign-viewer',
@@ -40,12 +34,16 @@ export class AssignViewerComponent implements OnInit {
   riskViewerForm!: FormGroup;
 
   viewerRegisterForm = new FormGroup({
+    // lv
     siteName: new FormControl(''),
     name: new FormControl(''),
     // lps
     clientName: new FormControl(''),
     projectName:new FormControl(''),
     lpsName:new FormControl(''),
+    // emc
+    emcClientName: new FormControl(''),
+    personName: new FormControl(''),
 
     companyName: new FormControl(''),
     email: new FormControl(''),
@@ -99,6 +97,7 @@ export class AssignViewerComponent implements OnInit {
   flag: boolean = false;
   mobileArr: any = [];
   setReadOnly: boolean = false;
+  lvNameField: boolean = false;
   showAssign: boolean = false;
   showRegister: boolean = false;
   @ViewChild('reference', { read: ViewContainerRef })
@@ -114,6 +113,7 @@ export class AssignViewerComponent implements OnInit {
   // license page purpose
   viewerForLps: boolean=false;
   viewerForLV: boolean=false;
+  viewerForEmc: boolean=false;
   lpsViewerForm!: FormGroup;
   applicationName: String="";
 
@@ -123,6 +123,9 @@ export class AssignViewerComponent implements OnInit {
   projectNameMsg1: string="";
   onSubmitSite1 = new EventEmitter();
   basic = new BasicDetails();
+  // emc model
+  emcClientDetails = new EmcClientDetails();
+
   // Spinner Purpose
   // spinner: boolean=false;
   // spinnerValue: String = '';
@@ -132,6 +135,7 @@ export class AssignViewerComponent implements OnInit {
   constructor(private dialog: MatDialog,
               private formBuilder: FormBuilder, private modalService: NgbModal,
               private siteService: SiteService,
+              public emcClientDetailsService: EmcClientDetailsService,
               private applicationService: ApplicationTypeService,
               private inspectorRegisterService: InspectorregisterService,
               private router: Router,
@@ -193,6 +197,7 @@ export class AssignViewerComponent implements OnInit {
       this.applicationName="LV Systems";
       this.viewerForLV=true;
       this.viewerForLps=false;
+      this.viewerForEmc = false;
 
         form = this.formBuilder.group({
         name: new FormControl('',Validators.required),
@@ -202,6 +207,9 @@ export class AssignViewerComponent implements OnInit {
         clientName: new FormControl(''),
         projectName:new FormControl(''),
         lpsName:new FormControl(''),
+        // emc
+        emcClientName: new FormControl(''),
+        personName: new FormControl(''),
 
         email: new FormControl('', Validators.required),
         designation: new FormControl('', Validators.required),
@@ -222,15 +230,54 @@ export class AssignViewerComponent implements OnInit {
       this.applicationName="LPS Systems";
       this.viewerForLps=true;
       this.viewerForLV=false;
+      this.viewerForEmc = false;
 
       form = this.formBuilder.group({
-        name: new FormControl(''),
         companyName: new FormControl('', Validators.required),
+        // lv
         siteName: new FormControl(''),
+        name: new FormControl(''),
         // lps
         clientName: new FormControl('', Validators.required),
         projectName:new FormControl('',Validators.required),
         lpsName:new FormControl('',Validators.required),
+        // emc
+        emcClientName: new FormControl(''),
+        personName: new FormControl(''),
+
+        email: new FormControl('', Validators.required),
+        designation: new FormControl('', Validators.required),
+        contactNumber: new FormControl('', Validators.required),
+        department: new FormControl('', Validators.required),
+        address: new FormControl('', Validators.required),
+        district: new FormControl('', Validators.required),
+        country: new FormControl('', Validators.required),
+        state: new FormControl('', Validators.required),
+        pinCode: new FormControl('', Validators.required),
+        pinCodeErrorMsg: new FormControl(''),
+        userType: new FormControl('', Validators.required),
+        terms: new FormControl(''),
+        applicationType: new FormControl('')
+        })
+    }
+    else if (this.globalService.triggerMsgForLicense == 'emcPage') {
+      this.applicationName="EMC Assessment";
+      this.viewerForEmc=true;
+      this.viewerForLps=false;
+      this.viewerForLV=false;
+
+      form = this.formBuilder.group({
+        companyName: new FormControl('', Validators.required),
+        // lv
+        siteName: new FormControl(''),
+        name: new FormControl(''),
+        // lps
+        clientName: new FormControl(''),
+        projectName:new FormControl(''),
+        lpsName:new FormControl(''),
+        // emc
+        emcClientName: new FormControl('',Validators.required),
+        personName: new FormControl('',Validators.required),
 
         email: new FormControl('', Validators.required),
         designation: new FormControl('', Validators.required),
@@ -301,7 +348,6 @@ export class AssignViewerComponent implements OnInit {
             this.projectNameMsg="";
             this.projectNameSuccess=true;
             this.projectNameError=false;
-            console.log(this.projectNameMsg1);
             setTimeout(() => {
               this.projectNameSuccess=false;
               this.projectNameError=false;
@@ -436,7 +482,12 @@ export class AssignViewerComponent implements OnInit {
 createGroup(item: any): FormGroup{
 
   if(item !=null && item.country != undefined){
-  this.setReadOnly = true;
+    if(item.name!=undefined && item.name!=null && item.name!=""){
+      this.lvNameField==true;
+    }else{
+      this.lvNameField==false;
+    }
+  this.setReadOnly=true;
   this.register.name=item.name;
   this.register.companyName=item.companyName;
   this.register.username=item.username;
@@ -510,14 +561,20 @@ createGroup(item: any): FormGroup{
     this.applicationName = "LV Systems";
     this.viewerForLV = true;
     this.viewerForLps = false;
+    this.viewerForEmc = false;
 
     form = this.formBuilder.group({
 
       siteName: new FormControl('', [Validators.required,Validators.minLength(3), Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
       name: new FormControl(item.name, Validators.required),
+      // lps
       companyName: new FormControl(item.companyName, Validators.required),
       clientName: new FormControl(''),
       projectName: new FormControl(''),
+      // emc
+      emcClientName: new FormControl(''),
+      personName: new FormControl(''),
+
       email: new FormControl(item.username, Validators.required),
       designation: new FormControl(item.designation, Validators.required),
       contactNumber: new FormControl(item.contactNumber, Validators.required),
@@ -537,15 +594,54 @@ createGroup(item: any): FormGroup{
     this.applicationName = "LPS Systems";
     this.viewerForLps = true;
     this.viewerForLV = false;
+    this.viewerForEmc = false;
 
     form = this.formBuilder.group({
-      name: new FormControl(item.name),
       companyName: new FormControl(item.companyName, Validators.required),
+      // lv
       siteName: new FormControl(''),
+      name: new FormControl(item.name),
       // lps
       clientName: new FormControl('', Validators.required),
       projectName: new FormControl('', Validators.required),
       lpsName:new FormControl('',Validators.required),
+      // emc
+      emcClientName: new FormControl(''),
+      personName: new FormControl(''),
+
+      email: new FormControl(item.username, Validators.required),
+      designation: new FormControl(item.designation, Validators.required),
+      contactNumber: new FormControl(item.contactNumber, Validators.required),
+      department: new FormControl(item.department, Validators.required),
+      address: new FormControl(item.address, Validators.required),
+      district: new FormControl(item.district, Validators.required),
+      country: new FormControl(item.country, Validators.required),
+      state: new FormControl(item.state, Validators.required),
+      pinCode: new FormControl(item.pinCode, this.arr),
+      pinCodeErrorMsg: new FormControl(''),
+      userType: new FormControl({ value: 'Viewer' }),
+      terms: new FormControl(''),
+      applicationType: new FormControl('')
+    })
+  }  
+  else if (this.globalService.triggerMsgForLicense == 'emcPage') {
+    this.applicationName = "EMC Assessment";
+    this.viewerForEmc=true;
+    this.viewerForLps = false;
+    this.viewerForLV = false;
+
+    form = this.formBuilder.group({
+      companyName: new FormControl(item.companyName, Validators.required),
+      // lv
+      siteName: new FormControl(''),
+      name: new FormControl(item.name),
+      // lps
+      clientName: new FormControl(''),
+      projectName: new FormControl(''),
+      lpsName:new FormControl(''),
+      // emc
+      emcClientName: new FormControl('',Validators.required),
+      personName: new FormControl('',Validators.required),
 
       email: new FormControl(item.username, Validators.required),
       designation: new FormControl(item.designation, Validators.required),
@@ -570,9 +666,13 @@ createNewGroup(item: any): FormGroup{
     name: new FormControl(''),
     companyName: new FormControl('', Validators.required),
     siteName: new FormControl('', [Validators.minLength(3), Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
+    // lps
     clientName: new FormControl(''),
     projectName: new FormControl(''),
     lpsName: new FormControl(''),
+    // emc
+    emcClientName: new FormControl(''),
+    personName: new FormControl(''),
     email: new FormControl({ value: item.username }),
     designation: new FormControl('', Validators.required),
     contactNumber: new FormControl('', Validators.required),
@@ -614,78 +714,18 @@ createNewGroup(item: any): FormGroup{
           this.showAssign = true;
           this.showRegister = false;
 
-          if ((this.registerData.role == 'ROLE') || (this.registerData.role == 'Viewer')) {       
-
-            if (this.globalService.triggerMsgForLicense == 'lvPage') {
-
-              this.inspectorRegisterService.retrieveSite(this.assignViewerForm.value.viewerEmail).subscribe(
-                (data) => {
-                  if(JSON.parse(data) == null){
-                    // this.spinner=true;
-                    // this.spinnerValue = "Please wait, the details are loading!";
-                    setTimeout(() => {
-                      this.viewerFlag = true;
-                      if (this.viewerFlag) {
-                        this.openModal(contentViewer);
-                      }
-                    }, 2000);
-                    setTimeout(() => {
-                      // this.spinner=false;
-                      // this.spinnerValue="";
-                      this.populateData();
-                    }, 1000);
-                  }
-                  else{
-                    this.success = true;
-                    this.successMsg1 = "Given Email-ID is already registered as Viewer for ["+ JSON.parse(data).site +"] site. Please try with new Email-ID for further";
-                    this.flag = true;
-                    return;
-                  }
-                },
-                (error) =>{
-                  this.errorMsgflag = true;
-                  this.errorMsg = this.globalService.globalErrorMsg;
-                  this.onSubmitSite1.emit(false);
-                  setTimeout(() => {
-                    this.errorMsgflag = false;
-                    this.errorMsg = " ";
-                  }, 3000);
-                });
-            }
-            else if (this.globalService.triggerMsgForLicense == 'lpsPage') {
-              this.lPSBasicDetailsService.retriveLpsbasicIsActive(this.assignViewerForm.value.viewerEmail).subscribe(
-                (data) =>{
-                  if(JSON.parse(data) == null){
-                    // this.spinner=true;
-                    // this.spinnerValue = "Please wait, the details are loading!";
-                    setTimeout(() => {
-                      this.viewerFlag = true;
-                      if (this.viewerFlag) {
-                        this.openModal(contentViewer);
-                      }
-                    }, 3000);
-                    // setTimeout(() => {
-                    //   this.spinner=false;
-                      // this.spinnerValue="";
-                      this.populateData();
-                    // }, 2000);
-                  }
-                  else{
-                    this.success = true;
-                    this.successMsg1 = "Given Email-ID is already registered as Viewer, Please try with new Email-ID for further";
-                    this.flag = true;
-                    return;
-                  }
-                },
-                (error) =>{
-                  this.errorMsgflag = true;
-                  this.errorMsg = this.globalService.globalErrorMsg;
-                  this.onSubmitSite1.emit(false);
-                  setTimeout(() => {
-                    this.errorMsgflag = false;
-                    this.errorMsg = " ";
-                  }, 3000);
-                })
+          if ((this.registerData.role == 'ROLE') || (this.registerData.role == 'Viewer')) {    
+            
+            switch(this.globalService.triggerMsgForLicense){
+              case 'lvPage':
+                this.getLvDetails(contentViewer);
+                break;
+              case 'lpsPage':
+                this.getLpsDetails(contentViewer);
+                break;
+              case 'emcPage':
+                this.getEmcDetails(contentViewer);
+                break;
             }
           }
           else {
@@ -735,6 +775,117 @@ createNewGroup(item: any): FormGroup{
     // }   
   }
   
+  // Fetching data from Site Table
+  getLvDetails(contentViewer: any){
+    this.inspectorRegisterService.retrieveSite(this.assignViewerForm.value.viewerEmail).subscribe(
+      (data) => {
+        if(JSON.parse(data) == null){
+          // this.spinner=true;
+          // this.spinnerValue = "Please wait, the details are loading!";
+          setTimeout(() => {
+            this.viewerFlag = true;
+            if (this.viewerFlag) {
+              this.openModal(contentViewer);
+            }
+          }, 2000);
+          setTimeout(() => {
+            // this.spinner=false;
+            // this.spinnerValue="";
+            this.populateData();
+          }, 1000);
+        }
+        else{
+          this.success = true;
+          this.successMsg1 = "Given Email-ID is already registered as Viewer for ["+ JSON.parse(data).site +"] site. Please try with new Email-ID for further";
+          this.flag = true;
+          return;
+        }
+      },
+      (error) =>{
+        this.errorMsgflag = true;
+        this.errorMsg = this.globalService.globalErrorMsg;
+        this.onSubmitSite1.emit(false);
+        setTimeout(() => {
+          this.errorMsgflag = false;
+          this.errorMsg = " ";
+        }, 3000);
+      });
+  }
+  // Fetching data from basic details Table
+  getLpsDetails(contentViewer: any){
+    this.lPSBasicDetailsService.retriveLpsbasicIsActive(this.assignViewerForm.value.viewerEmail).subscribe(
+      (data) =>{
+        if(JSON.parse(data) == null){
+          // this.spinner=true;
+          // this.spinnerValue = "Please wait, the details are loading!";
+          setTimeout(() => {
+            this.viewerFlag = true;
+            if (this.viewerFlag) {
+              this.openModal(contentViewer);
+            }
+          }, 3000);
+          // setTimeout(() => {
+          //   this.spinner=false;
+            // this.spinnerValue="";
+            this.populateData();
+          // }, 2000);
+        }
+        else{
+          this.success = true;
+          this.successMsg1 = "Given Email-ID is already registered as Viewer for ["+ JSON.parse(data).clientName +"] Client Name, Please try with new Email-ID for further";
+          this.flag = true;
+          return;
+        }
+      },
+      (error) =>{
+        this.errorMsgflag = true;
+        this.errorMsg = this.globalService.globalErrorMsg;
+        this.onSubmitSite1.emit(false);
+        setTimeout(() => {
+          this.errorMsgflag = false;
+          this.errorMsg = " ";
+        }, 3000);
+      })
+  }
+  // Fetching data from client details Table
+  getEmcDetails(contentViewer: any){
+    this.emcClientDetailsService.clientDetailsData(this.assignViewerForm.value.viewerEmail).subscribe(
+      (data) =>{
+        if(JSON.parse(data) == null){
+          // this.spinner=true;
+          // this.spinnerValue = "Please wait, the details are loading!";
+          setTimeout(() => {
+            this.viewerFlag = true;
+            if (this.viewerFlag) {
+              this.openModal(contentViewer);
+            }
+          }, 3000);
+          // setTimeout(() => {
+          //   this.spinner=false;
+            // this.spinnerValue="";
+            this.populateData();
+          // }, 2000);
+        }
+        else{
+          this.success = true;
+          this.successMsg1 = "Given Email-ID is already registered as Viewer for ["+ JSON.parse(data).clientName +"] Client Name, Please try with new Email-ID for further";
+          this.flag = true;
+          return;
+        }
+      },
+      (error) =>{
+        this.errorMsgflag = true;
+        this.errorMsg = this.globalService.globalErrorMsg;
+        this.onSubmitSite1.emit(false);
+        setTimeout(() => {
+          this.errorMsgflag = false;
+          this.errorMsg = " ";
+        }, 3000);
+      })
+  }
+
+
+
   closeModalDialog(contentViewer2:any){
    this.modalService.dismissAll(contentViewer2);
    this.globalService.emailCheck=false;
@@ -865,6 +1016,16 @@ createNewGroup(item: any): FormGroup{
       }
   }
 
+  navigateToEmcClientPage(data:any){
+    this.onSubmitSite1.emit(true);
+      if(data) {
+        this.onSave.emit(true);
+      }
+      else{
+        this.onSave.emit(false);
+      }
+  }
+
   navigateToRisk(data:any){
     // this.onSubmitSite1.emit(true);
       if(data) {
@@ -921,6 +1082,11 @@ createNewGroup(item: any): FormGroup{
       this.register.selectedProject = "LPS";
       this.register.name = this.register.lpsName;
     }
+    else if (this.globalService.headerMsg == "emcPage") {
+      applicationType = "EMC Assessment";
+      this.register.selectedProject = "EMC";
+      // this.register.name = this.register.lpsName;
+    }
 
     this.register.applicationType = this.applicationName;
     
@@ -948,6 +1114,9 @@ createNewGroup(item: any): FormGroup{
           }
           else if(this.globalService.triggerMsgForLicense=='lpsPage'){
             this.successMsg = "Viewer successfully assigned for this "+this.register.projectName+" in LPS Systems.";
+          }
+          else if(this.globalService.triggerMsgForLicense=='emcPage'){
+            this.successMsg = "Viewer successfully assigned for this "+this.register.emcClientName+" in EMC Assessment.";
           }
           setTimeout(() => {
             this.successMsgOTP = false;
@@ -1017,6 +1186,31 @@ createNewGroup(item: any): FormGroup{
               data => {
                 this.globalService.basicLPSID = JSON.parse(data).basicLpsId;
                 this.navigateToLpsBasivPage(this.register);
+              },
+              error => {
+                this.errorMsgflag = true;
+                this.errorMsg = this.globalService.globalErrorMsg;
+                this.onSubmitSite1.emit(false);
+                setTimeout(() => {
+                  this.errorMsgflag = false;
+                  this.errorMsg = " ";  
+                }, 3000);
+              });
+          }
+          else if(this.globalService.triggerMsgForLicense == "emcPage") {
+
+            this.emcClientDetails.clientName = this.register.emcClientName;
+            this.emcClientDetails.contactPerson = this.register.personName;
+            this.emcClientDetails.clientAddress = this.register.address;;
+            this.emcClientDetails.userName = this.email
+            this.emcClientDetails.email = this.register.username;
+            this.emcClientDetails.contactNumber = this.register.contactNumber;
+            this.emcClientDetails.country = this.register.country;
+            this.emcClientDetails.state = this.register.state;
+            this.emcClientDetailsService.addClientDetailsData(this.emcClientDetails).subscribe(
+              data => {
+                this.globalService.emcId = JSON.parse(data).emcId;
+                this.navigateToEmcClientPage(this.register);
               },
               error => {
                 this.errorMsgflag = true;

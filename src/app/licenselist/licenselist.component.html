@@ -1,8 +1,9 @@
 
 <ng-template #ref ></ng-template>
 <app-verificationlv *ngIf="value" #verify></app-verificationlv>
-<app-lps-matstepper *ngIf="value1" #verify1></app-lps-matstepper>
-<app-risk-parent-component *ngIf="value2" #verify2></app-risk-parent-component>
+<app-lps-matstepper *ngIf="lpsStepper" #lpsNav></app-lps-matstepper>
+<app-risk-parent-component *ngIf="riskStepper" #riskNav></app-risk-parent-component>
+<app-emc-matstepper *ngIf="emcStepper" #emcNav></app-emc-matstepper>
 <div class="card" *ngIf="!destroy">
     <div class="card-body" >
         <form [formGroup]="licenseForm" >
@@ -24,6 +25,9 @@
                     <span class="alert alert-danger">{{errorMsg}}</span>
                   </div>
                   <div *ngIf="errorRisk" style="text-align: center;">
+                    <span class="alert alert-danger">{{errorMsg}}</span>
+                  </div>
+                  <div *ngIf="errorEmc" style="text-align: center;">
                     <span class="alert alert-danger">{{errorMsg}}</span>
                   </div>
                 </div>
@@ -349,6 +353,31 @@
                 </mat-expansion-panel>
               </ng-container>
 
+              <!-- EMC Assessment  -->
+              <ng-container *ngIf="emcData">
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header>
+                      <!-- EMC -->
+                      <mat-panel-title *ngIf="emcData">
+                        <h3>Ongoing EMC Assessment Details</h3>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div>
+                      <app-emc-saved-report></app-emc-saved-report>
+                    </div>
+                </mat-expansion-panel>
+    
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        <h3>Completed EMC Assessment License</h3>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div>
+                      <app-emc-final-report></app-emc-final-report>
+                    </div>
+                </mat-expansion-panel>
+              </ng-container>
 
             </mat-accordion>
     

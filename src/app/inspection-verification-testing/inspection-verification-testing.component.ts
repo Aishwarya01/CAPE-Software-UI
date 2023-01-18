@@ -1,15 +1,11 @@
 import {
   Component, 
   EventEmitter,
-  Input,
   OnInit,
-  AfterViewInit,
   Output,
   ViewChild,
   OnDestroy,
   ElementRef,
-  OnChanges,
-  AfterViewChecked,
 } from '@angular/core';
 import {
   AbstractControl,
@@ -33,12 +29,9 @@ import { CommentsSection } from '../model/comments-section';
 import { MainNavComponent } from '../main-nav/main-nav.component';
 //import { convertTypeAcquisitionFromJson } from 'typescript';
 import { SupplyCharacteristicsService } from '../services/supply-characteristics.service';
-import { concat } from 'rxjs';
 import { DatePipe } from '@angular/common'
-import { ValueTransformer } from '@angular/compiler/src/util';
 import { MatDialog } from '@angular/material/dialog';
 import { ObservationService } from '../services/observation.service';
-import { SummaryServiceService } from '../LPS_services/summary-service.service';
 import { SummarydetailsService } from '../services/summarydetails.service'; 
 // import { ObservationTesting } from '../model/observation-testing';
 import { TestingDialogBoxComponent } from '../testing-dialog-box/testing-dialog-box.component';

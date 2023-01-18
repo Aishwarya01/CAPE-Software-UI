@@ -73,6 +73,7 @@ export class GlobalsService {
  msgForStep1Flag:boolean=false;
  lvClick: number=0;
  lpsClick: number=0;
+ emcClick: number=0;
  sldClick: number=0;  
  windowTabClick: number=0; 
  logoutClick:number=0;
@@ -115,6 +116,7 @@ autoLoginToken:number=0;
   triggerMsgForLicense: String="";
   headerMsg: String="";
   basicLPSID: number=0;
+  emcId: number=0;
   toggle: boolean=false;
   globalErrorMsg: string="";
   siteData: any;
@@ -187,6 +189,9 @@ autoLoginToken:number=0;
     }
     else if(this.headerMsg=="riskPage"){
       this.triggerMsgForLicense="riskPage";
+    }
+    else if(this.headerMsg=="emcPage"){
+      this.triggerMsgForLicense="emcPage";
     }
     else{
       this.triggerMsgForLicense="";

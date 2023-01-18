@@ -1,5 +1,5 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild, ChangeDetectorRef, Input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
@@ -19,12 +19,10 @@ import { AirterminationService } from 'src/app/LPS_services/airtermination.servi
 import { MatTabGroup, MatTabHeader, MatTab } from '@angular/material/tabs';
 import { GlobalsService } from 'src/app/globals.service';
 import { ConfirmationBoxComponent } from 'src/app/confirmation-box/confirmation-box.component';
-import { tree } from 'ngx-bootstrap-icons';
 import { LpssummaryComponent } from '../lpssummary/lpssummary.component';
 import { MatStepper } from '@angular/material/stepper';
 import { LpsFileUploadService } from 'src/app/LPS_services/lps-file-upload.service';
 import { LpsGlobalserviceService } from '../lps-globalservice.service';
-import { invalid } from '@angular/compiler/src/render3/view/util';
 
 @Component({
   selector: 'app-lps-matstepper',

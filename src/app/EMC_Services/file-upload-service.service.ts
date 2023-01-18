@@ -54,7 +54,7 @@ export class FileUploadServiceService {
 
     }
     public deleteFile(emcId:any): Observable<any> {
-      return this.http.delete(this.apiUrl_EMC + '/removeFile'+'/'+emcId, { responseType: 'text' as 'json'})
+      return this.http.delete(this.apiUrl_EMC + '/emc/removeFile'+'/'+emcId, { responseType: 'text' as 'json'})
     }
   
 }

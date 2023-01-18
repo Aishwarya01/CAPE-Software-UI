@@ -10,9 +10,10 @@ import { LicenselistComponent } from 'src/app/licenselist/licenselist.component'
 import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminProd } from 'src/environments/environment.prod';
 import { CustomerDetails } from '../../Risk Assesment Model/customer-details';
-import { RiskAssessmentDetails } from '../../Risk Assesment Model/risk-assessment-details';
 import { CustomerDetailsServiceService } from '../../Risk Assessment Services/customer-details-service.service';
 import { RiskfinalpdfService } from '../../Risk Assessment Services/riskfinalpdf.service';
+
+declare var require: any
 const FileSaver = require('file-saver');
 
 @Component({

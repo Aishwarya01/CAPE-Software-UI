@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, ViewChild,ViewContainerRef,EventEmitter, Input, ElementRef} from '@angular/core';
+import { Component, OnInit, Output, ViewChild,ViewContainerRef,EventEmitter} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -12,22 +12,14 @@ import { Site } from '../model/site';
 import { SiteService } from '../services/site.service';
 import { ComponentFactoryResolver } from '@angular/core';
 import { GlobalsService } from '../globals.service';
-import { FinalreportsComponent } from '../finalreports/finalreports.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { InspectorregisterService } from '../services/inspectorregister.service';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
-import { environment } from 'src/environments/environment';
 import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
 import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminProd } from 'src/environments/environment.prod';
-import { LpsMatstepperComponent } from '../LPS/lps-matstepper/lps-matstepper.component';
-import { RiskglobalserviceService } from '../Risk Assessment/riskglobalservice.service';
 import { LpsGlobalserviceService } from '../LPS/lps-globalservice.service';
 import { SiteaddComponent } from '../site/siteadd/siteadd.component';
-import { Register } from '../model/register';
-import { CdkAccordion, CdkAccordionItem } from '@angular/cdk/accordion';
-import { MatAccordion, MatExpansionPanel } from '@angular/material/expansion';
-import { BooleanLiteral } from 'typescript';
 
 @Component({
   selector: 'app-licenselist',
@@ -76,11 +68,14 @@ export class LicenselistComponent implements OnInit {
   @ViewChild('verify')
   verification: any; 
   // Risk Assessment
-  @ViewChild('verify2')
+  @ViewChild('riskNav')
   riskAssessment: any; 
   // LPS
-  @ViewChild('verify1')
+  @ViewChild('lpsNav')
   matStepper:any;
+  // EMC
+  @ViewChild('emcNav')
+  emcAssessment:any;
 
   disableUse: boolean = false;
   email: String= '';
@@ -112,11 +107,16 @@ export class LicenselistComponent implements OnInit {
   superAdminDev = new SuperAdminDev();
   superAdminProd = new SuperAdminProd();
   licensePageHeading: String="";
+
   lpsData: boolean=false;
   lvData: boolean=false;
   riskData: boolean=false;
-  value1: boolean=false;
-  value2:boolean=false;
+  emcData: boolean=false;
+
+  lpsStepper: boolean=false;
+  riskStepper:boolean=false;
+  emcStepper:boolean=false;
+
   onSubmitSite1 = new EventEmitter();
   onSave = new EventEmitter();
   site = new Site;
@@ -124,6 +124,7 @@ export class LicenselistComponent implements OnInit {
   errorLPS: boolean=false;
   errorLV: boolean=false;
   errorRisk:boolean=false;
+  errorEmc:boolean=false;
   errorSite: boolean=false;
   viewerSavedLPS: boolean=false;
   // toggle: boolean=false;
@@ -230,6 +231,29 @@ export class LicenselistComponent implements OnInit {
           this.errorMsg = this.service.globalErrorMsg;
           setTimeout(()=>{
             this.errorRisk = false;
+          }, 10000);
+        }
+      )
+     }
+   // EMC Assessment
+    else if(this.service.triggerMsgForLicense=='emcPage'){
+      this.inspectorService.retrieveInspectorLicense(this.email,"EMC").subscribe(
+        (data) => {
+          if(data!=""){
+            this.userData = JSON.parse(data);
+            if(this.userData==null || (this.userData.emcNoOfLicence==undefined && this.userData.emcNoOfLicence==null) || (this.userData.emcNoOfLicence=="") || (this.userData.emcNoOfLicence==0)){
+              this.service.noofLicense=0;
+            }
+            else if(this.userData!=null && (this.userData.emcNoOfLicence!="" && this.userData.emcNoOfLicence!=0 && this.userData.emcNoOfLicence!=null && this.userData.emcNoOfLicence!=undefined)){
+              this.service.noofLicense=this.userData.emcNoOfLicence;
+            }
+          }
+        },
+        (error) => {
+          this.errorEmc = true;
+          this.errorMsg = this.service.globalErrorMsg;
+          setTimeout(()=>{
+            this.errorEmc = false;
           }, 10000);
         }
       )
@@ -444,14 +468,14 @@ export class LicenselistComponent implements OnInit {
           if(data) {
             this.viewContainerRef.clear();
             this.destroy = true;
-            this.value1=true;
+            this.lpsStepper=true;
             setTimeout(() => {
               this.matStepper.changeTabLpsSavedReport(0,basicLpsId,this.router.snapshot.paramMap.get('email') || '{}');
             }, 3000);
           }
           else{
             this.destroy = false;
-            this.value1=false;
+            this.lpsStepper=false;
           }
         })
       }
@@ -479,14 +503,14 @@ export class LicenselistComponent implements OnInit {
           if(data) {
             this.viewContainerRef.clear();
             this.destroy = true;
-            this.value1=true;
+            this.lpsStepper=true;
             setTimeout(() => {
               this.matStepper.preview(basicLpsId);
             }, 3000);
           }
           else{
             this.destroy = false;
-            this.value1=false;
+            this.lpsStepper=false;
           }
         })
       }
@@ -590,13 +614,19 @@ export class LicenselistComponent implements OnInit {
       this.viewContainerRef.clear();
       this.dialog.closeAll();
       this.destroy= true;
-      this.value1 = true;
+      this.lpsStepper = true;
     }
     else if(this.riskData){
       this.viewContainerRef.clear();
       this.dialog.closeAll();
       this.destroy= true;
-      this.value2 = true;
+      this.riskStepper = true;
+    }
+    else if(this.emcData){
+      this.viewContainerRef.clear();
+      this.dialog.closeAll();
+      this.destroy= true;
+      this.emcStepper = true;
     }
     this.retrieveSiteDetails();
   }
@@ -607,7 +637,7 @@ export class LicenselistComponent implements OnInit {
     this.service.toggle=false;
     this.service.emailCheck=true;
     const dialogRef = this.dialog.open(AssignViewerComponent, {
-      width: '720px',
+      width: '800px',
     });
     if(this.service.emailCheck==true){
       dialogRef.componentInstance.email = this.email;
@@ -676,8 +706,12 @@ export class LicenselistComponent implements OnInit {
       this.lvData=true;
     }
     else if(this.service.triggerMsgForLicense=='riskPage'){
-      this.licensePageHeading="Risk License Page";
+      this.licensePageHeading="Risk Assessment License Page";
       this.riskData=true;
+    }
+    else if(this.service.triggerMsgForLicense=='emcPage'){
+      this.licensePageHeading="EMC Assessment License Page";
+      this.emcData=true;
     }
     else{
       this.licensePageHeading="";
@@ -687,7 +721,7 @@ export class LicenselistComponent implements OnInit {
   // Risk Assessment Application
 
   // Opening saved report data
-  editRiskData(riskId:any){
+    editRiskData(riskId:any){
       if(this.riskData){
         const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
           width: '420px',
@@ -707,14 +741,14 @@ export class LicenselistComponent implements OnInit {
             if(data) {
               this.viewContainerRef.clear();
               this.destroy = true;
-              this.value2=true;
+              this.riskStepper=true;
               setTimeout(() => {
                 this.riskAssessment.changeTabRiskSavedReport(0,riskId,this.router.snapshot.paramMap.get('email') || '{}','','');
               }, 3000);
             }
             else{
               this.destroy = false;
-              this.value2=false;
+              this.riskStepper=false;
             }
           })
         }
@@ -742,19 +776,91 @@ export class LicenselistComponent implements OnInit {
             if(data) {
               this.viewContainerRef.clear();
               this.destroy = true;
-              this.value2=true;
+              this.riskStepper=true;
               setTimeout(() => {
                 this.riskAssessment.preview(riskId);
               }, 3000);
             }
             else{
               this.destroy = false;
-              this.value2=false;
+              this.riskStepper=false;
             }
           })
         }
       }
     }
 
+  // EMC Assessment
+  editEmckData(emcId:any){
+    if(this.emcData){
+      const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+        width: '420px',
+        maxHeight: '90vh',
+        disableClose: true,
+      });
+      if(this.service.triggerMsgForLicense=='emcPage'){
+        dialogRef.componentInstance.editEMC = true;
+        dialogRef.componentInstance.editRisk = false;
+        dialogRef.componentInstance.editModal = false;
+        dialogRef.componentInstance.viewModal1 = false;
+        dialogRef.componentInstance.viewModal=false;
+        dialogRef.componentInstance.viewModal2 = false;
+      }
+      dialogRef.componentInstance.triggerModal = false;
+      if(this.emcData){
+        dialogRef.componentInstance.confirmBox.subscribe(data=>{
+          if(data) {
+            this.viewContainerRef.clear();
+            this.destroy = true;
+            this.emcStepper=true;
+            setTimeout(() => {
+              this.emcAssessment.changeTabEmcSavedReport(0,emcId,this.router.snapshot.paramMap.get('email') || '{}',true);
+            }, 3000);
+          }
+          else{
+            this.destroy = false;
+            this.emcStepper=false;
+          }
+        })
+      }
+    }
+  }
+
+  // Opening final report data
+  viewEmcData(emcId:any){
+    if(this.emcData){
+      this.service.allFieldsDisable=true;
+      const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+        width: '420px',
+        maxHeight: '90vh',
+        disableClose: true,
+      });
+      if(this.service.triggerMsgForLicense=='emcPage'){
+        dialogRef.componentInstance.viewEMC = true;
+        dialogRef.componentInstance.viewRisk = false;
+        dialogRef.componentInstance.editModal = false;
+        dialogRef.componentInstance.viewModal2 = false;
+        dialogRef.componentInstance.viewModal1 = false;
+        dialogRef.componentInstance.viewModal=false;
+      }
+      dialogRef.componentInstance.triggerModal = false;
+      if(this.emcData){
+        dialogRef.componentInstance.confirmBox.subscribe(data=>{
+          if(data) {
+            this.viewContainerRef.clear();
+            this.destroy = true;
+            this.emcStepper=true;
+            setTimeout(() => {
+              this.emcAssessment.preview(emcId);
+            }, 3000);
+          }
+          else{
+            this.destroy = false;
+            this.emcStepper=false;
+          }
+        })
+      }
+    }
+  }
 }
 

@@ -1,17 +1,15 @@
 import {
-  AfterViewInit,
   Component,
   EventEmitter,
   OnInit,
   Output,
   ViewChild,
   ChangeDetectorRef,
-  VERSION,
   Input,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AbstractControl, FormArray, FormControl } from '@angular/forms';
-import { StepperSelectionEvent, STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { FormArray } from '@angular/forms';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -40,14 +38,11 @@ import { InspectionVerificationTestingComponent } from '../inspection-verificati
 import { InspectionVerificationIncomingEquipmentComponent } from '../inspection-verification-incoming-equipment/inspection-verification-incoming-equipment.component';
 import { SummaryComponent } from '../summary/summary.component';
 import { InspectionVerificationSupplyCharacteristicsComponent } from '../inspection-verification-supply-characteristics/inspection-verification-supply-characteristics.component';
-import { MatTabChangeEvent } from '@angular/material/tabs';
 import { SavedreportsComponent } from '../savedreports/savedreports.component';
 import { InspectorregisterService } from '../services/inspectorregister.service';
-import { map } from 'rxjs/operators';
-import { readJsonConfigFile } from 'typescript';
 import { FinalreportsComponent } from '../finalreports/finalreports.component';
 import { ObservationService } from '../services/observation.service';
-import {Pipe, PipeTransform } from '@angular/core';
+import {Pipe } from '@angular/core';
 import { MatTabGroup, MatTabHeader, MatTab } from '@angular/material/tabs';
 //import { NGXLogger } from 'ngx-logger';
 import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';

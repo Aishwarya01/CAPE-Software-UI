@@ -3,7 +3,6 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Valida
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { flag, save } from 'ngx-bootstrap-icons';
 import { ConfirmationBoxComponent } from 'src/app/confirmation-box/confirmation-box.component';
 import { GlobalsService } from 'src/app/globals.service';
 // import { LpsSummaryConst } from 'src/app/LPS_constants/lps-summary-const';
@@ -15,7 +14,6 @@ import { SummaryServiceService } from 'src/app/LPS_services/summary-service.serv
 import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminProd } from 'src/environments/environment.prod';
 import { SignatureComponent } from 'src/app/signature/signature.component';
-import { MatDialogRef} from '@angular/material/dialog';
 import { LpsGlobalserviceService } from '../lps-globalservice.service';
 
 @Component({

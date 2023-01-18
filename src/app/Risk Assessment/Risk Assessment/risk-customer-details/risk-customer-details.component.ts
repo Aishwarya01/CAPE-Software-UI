@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalsService } from 'src/app/globals.service';
 import { CustomerDetails } from '../../Risk Assesment Model/customer-details';
-import { RiskAssessmentDetails } from '../../Risk Assesment Model/risk-assessment-details';
 import { CustomerDetailsServiceService } from '../../Risk Assessment Services/customer-details-service.service';
 import { RiskglobalserviceService } from '../../riskglobalservice.service';
 import { RiskParentComponentComponent } from '../risk-parent-component/risk-parent-component.component';
