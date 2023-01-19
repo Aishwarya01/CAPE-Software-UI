@@ -915,10 +915,8 @@ createNewGroup(item: any): FormGroup{
 //     this.modalService.dismissAll(id);
 // }
   onItemSelect(item: any) {
-    //console.log(item);
   }
   onSelectAll(items: any) {
-    //console.log(items);
   }
   get f() : any{
     return this.viewerRegisterForm.controls;
@@ -1103,7 +1101,6 @@ createNewGroup(item: any): FormGroup{
       this.register.contactNumber = this.contactNumber;
       this.inspectorRegisterService.registerLicense(this.register).subscribe(
         data => {
-          // console.log(data);
           sessionStorage.setItem("clientName", this.register.clientName);
           sessionStorage.setItem("projectName", this.register.projectName);
           sessionStorage.setItem("lpsName", this.register.lpsName);

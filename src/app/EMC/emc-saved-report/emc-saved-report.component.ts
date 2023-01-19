@@ -111,7 +111,7 @@ export class EmcSavedReportComponent implements OnInit {
         data => {
           this.emcData=JSON.parse(data);
           for(let i of this.emcData){
-            if(i.allStepsCompleted != "AllStepCompleted" && i.status != 'InActive'){
+            if(i.allStepsCompleted != "AllStepCompleted"){
               this.filteredData.push(i);
             }
           }
@@ -129,7 +129,7 @@ export class EmcSavedReportComponent implements OnInit {
           }, 20000);
         });
     }
-    else {
+    else if(this.currentUser1.role=='Inspector') {
       this.emcSavedReportService.retrieveListOfClientDetails(this.email).subscribe(
         data => {
           this.emcData=JSON.parse(data);
@@ -152,6 +152,28 @@ export class EmcSavedReportComponent implements OnInit {
           }, 20000);
         });
     } 
+    // Viewer configuration
+    else {
+      this.emcSavedReportService.retriveEMCIsActive(this.email).subscribe(
+        data => {
+          this.emcData=JSON.parse(data);
+            if(this.emcData.allStepsCompleted != "AllStepCompleted" && this.emcData.status != 'InActive'){
+              this.completedFilterData.push(this.emcData);
+            }
+          this.savedReportEmc_dataSource = new MatTableDataSource(this.completedFilterData);
+          this.completedFilterData = [];
+          this.emcData = [];
+          this.savedReportEmc_dataSource.paginator = this.savedReportEmcPaginator;
+          this.savedReportEmc_dataSource.sort = this.savedReportEmcSort;
+        },
+        error=>{
+          this.Error = true;
+          this.errorMsg = this.service.globalErrorMsg;
+          setTimeout(()=>{
+            this.Error = false;
+          }, 20000);
+        });
+    }
    }
  
    continue(emcId: any,clientName: any) {
@@ -160,6 +182,7 @@ export class EmcSavedReportComponent implements OnInit {
     }else{
       this.savedReportBody = false;
       this.savedReportSpinner = true;
+      this.disablepage=false;
       this.spinnerValue = "Please wait, the details are loading!";
       //this.service.commentScrollToBottom=1;
       //  this.service.allFieldsDisable = false;
@@ -174,12 +197,14 @@ export class EmcSavedReportComponent implements OnInit {
     this.emcClientDetails.userName = this.email;
     this.savedReportBody = false;
     this.savedReportSpinner = true;
+    this.disablepage=false;
     this.spinnerValue = "Please wait, the details are loading!";
-    this.emcSavedReportService.updateLpsBasicDetailsStatus(this.emcClientDetails).subscribe(
+    this.emcSavedReportService.updateClientDetailsStatus(this.emcClientDetails).subscribe(
       data => {
         this.deleteSuccess = true;
         this.deleteSuccessMsg = data;
         this.ngOnInit();
+        this.disablepage=true;
         this.savedReportBody = true;
         this.savedReportSpinner = false;
         setTimeout(() => {

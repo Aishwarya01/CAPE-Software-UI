@@ -160,7 +160,7 @@
             </div>
 
             <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
-                <button class="next" (click)="gotoNextModal(content, content2)" mat-button>Next &raquo;</button>
+                <button class="next" [ngClass]="{'disableForm':isEditableEmc}" (click)="gotoNextModal(content, content2)" mat-button>Next &raquo;</button>
             </div>
 
         </form>

@@ -184,6 +184,7 @@ completedFilterData: any=[];
         });
         this.superAdminFlag = false;
     }
+    // Viewer configuration
     else {
       this.basciService.retriveLpsbasicIsActive(this.email).subscribe(
         data => {

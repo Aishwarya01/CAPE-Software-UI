@@ -130,13 +130,13 @@ export class EmcFinalReportComponent implements OnInit {
         });
         this.superAdminFlag = false;
     }
-    else {
+    else if(this.currentUser1.role=='Inspector') {
       this.emcSavedReportService.retrieveListOfClientDetails(this.email).subscribe(
         data => {
           // this.myfunction(data);
           this.emcData=JSON.parse(data);
           for(let i of this.emcData){
-            if(i.allStepsCompleted=="AllStepCompleted"){
+            if(i.allStepsCompleted=="AllStepCompleted" && i.status != 'InActive'){
               this.completedFilterData.push(i);
             }
           }
@@ -153,6 +153,28 @@ export class EmcFinalReportComponent implements OnInit {
             this.Error = false;
           }, 20000);
       });
+    }
+    // Viewer configuration
+    else {
+      this.emcSavedReportService.retriveEMCIsActive(this.email).subscribe(
+        data => {
+          this.emcData=JSON.parse(data);
+            if(this.emcData.allStepsCompleted == "AllStepCompleted" && this.emcData.status != 'InActive'){
+              this.completedFilterData.push(this.emcData);
+            }
+          this.finalReport_dataSource = new MatTableDataSource(this.completedFilterData);
+          this.completedFilterData = [];
+          this.emcData = [];
+          this.finalReport_dataSource.paginator = this.finalReportPaginator;
+          this.finalReport_dataSource.sort = this.finalReportSort;
+        },
+        error=>{
+          this.Error = true;
+          this.errorMsg = this.service.globalErrorMsg;
+          setTimeout(()=>{
+            this.Error = false;
+          }, 20000);
+        });
     }
     
 }

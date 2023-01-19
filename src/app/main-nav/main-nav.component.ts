@@ -331,7 +331,6 @@ export class MainNavComponent implements OnInit, OnDestroy {
     // this.newsService.initArticles().subscribe(data => this.mArticles = data['articles']);
      //load news sources
      this.newsService.topHeadlines().subscribe((result)=>{
-       console.log(result);
      //  for(let articles=0; articles<16; articles++){
       this.newsArticleDisplay=result.articles;
       //   this.newsArticleDisplay=result.articles.slice(0, 1);
@@ -855,7 +854,6 @@ export class MainNavComponent implements OnInit, OnDestroy {
     this.selectedRowIndexSub ="";
  }
  highlightSub(type:any){
-  console.log("Function working");
   //this.viewContainerRef.clear();
   this.welcome= false;
   this.youtube = false;
