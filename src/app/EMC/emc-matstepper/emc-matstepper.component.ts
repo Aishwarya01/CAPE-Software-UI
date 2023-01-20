@@ -184,7 +184,11 @@ export class EmcMatstepperComponent implements OnInit {
         (data) => {
           if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
             this.isEditableEmc = true;
-          }else{
+          }
+          else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && JSON.parse(data).clientDetails.allStepsCompleted=='AllStepCompleted'){
+            this.isEditableEmc = true;
+          }
+          else{
             this.isEditableEmc = false;
           }
 
@@ -398,6 +402,8 @@ export class EmcMatstepperComponent implements OnInit {
         }    
         else{
           this.selectedIndex=2; 
+          this.service.triggerMsgForLicense="";
+          this.service.headerMsg="";
         }        
     }
     else{
