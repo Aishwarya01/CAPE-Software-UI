@@ -57,7 +57,11 @@ export class EmcMatstepperComponent implements OnInit {
   
   emcClientDetails: boolean=true;
   emcFacilityData: boolean=true;
-  emcElectromagneticCompatibility: boolean=true;;
+  emcElectromagneticCompatibility: boolean=true;
+  
+  // We are getting allsteps completed data using this variable
+  tempArr: any=[];
+
   emcPowerAndEarthingData: boolean=true;
 
   // Spinner Purpose
@@ -138,27 +142,50 @@ export class EmcMatstepperComponent implements OnInit {
     this.service.isLinear=false;
     this.service.isCompleted4= next;
   }
+
   goBack2(stepper: MatStepper) {
     if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
       stepper.previous();
-      //this.service.goBacktoprevious=true;
-    }else{
+    }
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
+      stepper.previous();
+    }
+    else if(this.facility.EMCFacilityForm.pristine && this.facility.EMCFacilityForm.untouched){
+      stepper.previous();
+    }
+    else{
       this.facility.reloadFromBack()
     }
   }
+
   goBack3(stepper: MatStepper) {
     if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
       stepper.previous();
       //this.service.goBacktoprevious=true;
-    }else{
+    }
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
+      stepper.previous();
+    }
+    else if(this.powerAndEarthing.EMCPowerAndEarthForm.pristine && this.powerAndEarthing.EMCPowerAndEarthForm.untouched){
+      stepper.previous();
+    }
+    else{
       this.powerAndEarthing.reloadFromBack()
     }
   }
+
   goBack4(stepper: MatStepper) {
     if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
       stepper.previous();
       //this.service.goBacktoprevious=true;
-    }else{
+    }
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
+      stepper.previous();
+    }
+    else if(this.electroMagneticCopatibility.EMCElectroMagneticFormm.pristine && this.electroMagneticCopatibility.EMCElectroMagneticFormm.untouched){
+      stepper.previous();
+    }
+    else{
       this.electroMagneticCopatibility.reloadFromBack()
     }
   }
@@ -182,6 +209,7 @@ export class EmcMatstepperComponent implements OnInit {
     setTimeout(() => {
       this.emcSavedReportService.retrieveFinalEmcReport(userName, emcId).subscribe(
         (data) => {
+          this.tempArr=JSON.parse(data).clientDetails;
           if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
             this.isEditableEmc = true;
           }

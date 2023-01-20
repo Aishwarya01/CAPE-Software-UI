@@ -95,6 +95,9 @@ export class LpsMatstepperComponent implements OnInit {
   spinnerValue: String = '';
   lpsFinalReport: boolean=false;
 
+  // We are getting allsteps completed data using this variable
+  tempArr: any=[];
+
   constructor(
     private _formBuilder: FormBuilder,private dialog: MatDialog,
     private basicLpsService: LPSBasicDetailsService,
@@ -249,6 +252,7 @@ export class LpsMatstepperComponent implements OnInit {
       setTimeout(() => {
         this.basicLpsService.retrieveFinalLps(userName, basicLpsId).subscribe(
           (data) => {
+            this.tempArr=JSON.parse(data).basicLps;
             this.final.finalReportSpinner = false;
             this.final.finalReportBody = true;
             this.dataJSON = JSON.parse(data);
@@ -535,6 +539,8 @@ export class LpsMatstepperComponent implements OnInit {
           }    
           else{
             this.selectedIndex=2; 
+            this.service.triggerMsgForLicense="";
+            this.service.headerMsg="";
           }        
     }
     else{
@@ -643,42 +649,114 @@ export class LpsMatstepperComponent implements OnInit {
   }
 
   goBack2(stepper: MatStepper) {
-    if(this.airTermination.reloadFromBack()){
+    if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
       stepper.previous();
     }
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
+      stepper.previous();
+    }
+    else if(this.airTermination.airTerminationForm.pristine && this.airTermination.airTerminationForm.untouched){
+      stepper.previous();
+    }
+    else{
+      this.airTermination.reloadFromBack()
+    }
   }
+
   goBack3(stepper: MatStepper) {
-    if(this.downConductors.reloadFromBack()){
+    if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
       stepper.previous();
     }
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
+      stepper.previous();
+    }
+    else if(this.downConductors.downConductorForm.pristine && this.downConductors.downConductorForm.untouched){
+      stepper.previous();
+    }
+    else{
+      this.downConductors.reloadFromBack()
+    }
   }
+
   goBack4(stepper: MatStepper) {
-    if(this.earthing.reloadFromBack()){
+    if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
       stepper.previous();
     }
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
+      stepper.previous();
+    }
+    else if(this.earthing.earthingForm.pristine && this.earthing.earthingForm.untouched){
+      stepper.previous();
+    }
+    else{
+      this.earthing.reloadFromBack()
+    }
   }
+
   goBack5(stepper: MatStepper) {
-    if(this.spd.reloadFromBack()){
+    if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
       stepper.previous();
     }
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
+      stepper.previous();
+    }
+    else if(this.spd.spdForm.pristine && this.spd.spdForm.untouched){
+      stepper.previous();
+    }
+    else{
+      this.spd.reloadFromBack()
+    }
   }
+
   goBack6(stepper: MatStepper) {
-    if(this.seperationDistance.reloadFromBack()){
+    if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
       stepper.previous();
     }
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
+      stepper.previous();
+    }
+    else if(this.seperationDistance.separeteDistanceForm.pristine && this.seperationDistance.separeteDistanceForm.untouched){
+      stepper.previous();
+    }
+    else{
+      this.seperationDistance.reloadFromBack()
+    }
   }
+
   goBack7(stepper: MatStepper) {
-    if(this.earthStud.reloadFromBack()){
+    if(this.isEditable && !this.earthStud.reloadFromBack()){
       stepper.previous();
     }
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
+      stepper.previous();
+    }
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
+      stepper.previous();
+    }
+    else if(this.earthStud.EarthStudForm.pristine && this.earthStud.EarthStudForm.untouched){
+      stepper.previous();
+    }
+    else{
+      this.earthStud.reloadFromBack()
+    }
   }
+
   goBack8(stepper: MatStepper) {
     if(this.isEditable && !this.lpsSummary.reloadFromBack()){
       this.lpsSummary.validationErrorTab=false;
       stepper.previous();
     }
-    else if(this.lpsSummary.reloadFromBack()){
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
       stepper.previous();
+    }
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
+      stepper.previous();
+    }
+    else if(this.lpsSummary.summaryForm.pristine && this.lpsSummary.summaryForm.untouched){
+      stepper.previous();
+    }
+    else{
+      this.lpsSummary.reloadFromBack()
     }
   }
 

@@ -385,7 +385,7 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
       this.service.isLinear=false;
       this.service.editable=true;
       this.EMCElectroMagneticFormm.markAsPristine();
-   return true;
+      return true;
     }
   }
   gotoNextTab() {
