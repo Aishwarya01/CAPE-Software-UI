@@ -1159,7 +1159,7 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
     else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
       stepper.previous();
     }
-    else if(this.supply.supplycharesteristicForm.pristine && this.supply.supplycharesteristicForm.pristine){
+    else if(this.supply.supplycharesteristicForm.pristine && this.supply.supplycharesteristicForm.untouched){
       stepper.previous();
     }
     else{
@@ -1174,7 +1174,7 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
     else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
       stepper.previous();
     }
-    else if(this.incoming.addstep3.pristine && this.incoming.addstep3.pristine){
+    else if(this.incoming.addstep3.pristine && this.incoming.addstep3.untouched){
       stepper.previous();
     }
     else{
@@ -1189,7 +1189,7 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
     else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
       stepper.previous();
     }
-    else if(this.testing.testingForm.pristine && this.testing.testingForm.pristine){
+    else if(this.testing.testingForm.pristine && this.testing.testingForm.untouched){
       stepper.previous();
     }
     else{
@@ -1204,7 +1204,7 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
     else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
       stepper.previous();
     }
-    else if(this.summary.addsummary.pristine && this.summary.addsummary.pristine){
+    else if(this.summary.addsummary.pristine && this.summary.addsummary.untouched){
       stepper.previous();
     }
     else{
