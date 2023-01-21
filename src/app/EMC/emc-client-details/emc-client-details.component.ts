@@ -57,6 +57,11 @@ export class EmcClientDetailsComponent implements OnInit {
   nextButton: boolean = true;
   popup: boolean = false;
   onSave: any;
+  clientNameMsg: string="";
+  clientNameMsg1: string="";
+  clientNameMsgError: boolean=false;
+  clientNameSuccess: boolean=false;
+  clientNameError: boolean=false;
 
   constructor(
     public dialog: MatDialog,
@@ -162,52 +167,59 @@ export class EmcClientDetailsComponent implements OnInit {
     })
   }
 
+  clientValidation(event:any,form:any){
+
+    if (form.controls.clientName.value != undefined && form.controls.clientName.value != null && form.controls.clientName.value != "") {
+
+      this.emcClientDetailsService.validateClientName(form.controls.clientName.value).subscribe(
+        data => {
+          var b = form.controls.clientName.value;
+          if (data != '') {
+            this.clientNameMsg = "Client Name is already existing, Please give different Project Name";
+            this.clientNameMsg1 = "";
+            this.clientNameError = true;
+          } else {
+            this.clientNameMsg1 = "You can continue with this Client Name";
+            this.clientNameMsg = "";
+            this.clientNameSuccess = true;
+            this.clientNameError = false;
+            setTimeout(() => {
+              this.clientNameSuccess = false;
+            }, 3000);
+          }
+        })
+    }
+  }
+
   retrieveDetailsfromSavedReports(userName: any, emcId: any, data: any) {
     this.flag = true;
-    if(this.service.triggerMsgForLicense=="emcPage"){
+
+    if (data.clientDetails != undefined && data.clientDetails != null && data.clientDetails != "") {
       this.step1List = data.clientDetails;
-      this.emcClientDetails.userName = this.step1List.userName;
-      this.emcClientDetails.emcId = emcId;
-      this.emcClientDetails.clientName = this.step1List.clientName;
-      this.emcClientDetails.contactNumber = this.step1List.contactNumber;
-      this.setReadOnly = true;
-      this.emcClientDetails.contactPerson = this.step1List.contactPerson;
-      this.emcClientDetails.landMark = this.step1List.landMark;
-      this.emcClientDetails.clientLocation = this.step1List.clientLocation;
-      this.emcClientDetails.clientAddress = this.step1List.clientAddress;
-      this.emcClientDetails.email = this.step1List.email;
-      this.emcClientDetails.country = this.step1List.country;
-      this.changeCountry(this.emcClientDetails.country);
-      this.emcClientDetails.state = this.step1List.state;
-      this.emcClientDetails.createdDate = this.step1List.createdDate;
-      this.emcClientDetails.createdBy = this.step1List.createdBy;
-      this.emcClientDetails.updatedDate = this.step1List.updatedDate;
-      this.emcClientDetails.updatedBy = this.step1List.updatedBy;
-      this.emcClientDetails.status = this.step1List.status;
-      this.populateForm();
     }
-    else{
-      this.step1List = data.clientDetails;
-      this.emcClientDetails.userName = this.step1List.userName;
-      this.emcClientDetails.emcId = emcId;
-      this.emcClientDetails.clientName = this.step1List.clientName;
-      this.emcClientDetails.contactNumber = this.step1List.contactNumber;
-      this.setReadOnly = true;
-      this.emcClientDetails.contactPerson = this.step1List.contactPerson;
-      this.emcClientDetails.landMark = this.step1List.landMark;
-      this.emcClientDetails.clientLocation = this.step1List.clientLocation;
-      this.emcClientDetails.clientAddress = this.step1List.clientAddress;
-      this.emcClientDetails.email = this.step1List.email;
-      this.emcClientDetails.country = this.step1List.country;
-      this.changeCountry(this.emcClientDetails.country);
-      this.emcClientDetails.state = this.step1List.state;
-      this.emcClientDetails.createdDate = this.step1List.createdDate;
-      this.emcClientDetails.createdBy = this.step1List.createdBy;
-      this.emcClientDetails.updatedDate = this.step1List.updatedDate;
-      this.emcClientDetails.updatedBy = this.step1List.updatedBy;
-      this.emcClientDetails.status = this.step1List.status;
-      this.populateForm();
+    else {
+      this.step1List = data;
     }
+
+    this.emcClientDetails.userName = this.step1List.userName;
+    this.emcClientDetails.emcId = emcId;
+    this.emcClientDetails.clientName = this.step1List.clientName;
+    this.emcClientDetails.contactNumber = this.step1List.contactNumber;
+    this.setReadOnly = true;
+    this.emcClientDetails.contactPerson = this.step1List.contactPerson;
+    this.emcClientDetails.landMark = this.step1List.landMark;
+    this.emcClientDetails.clientLocation = this.step1List.clientLocation;
+    this.emcClientDetails.clientAddress = this.step1List.clientAddress;
+    this.emcClientDetails.email = this.step1List.email;
+    this.emcClientDetails.country = this.step1List.country;
+    this.changeCountry(this.emcClientDetails.country);
+    this.emcClientDetails.state = this.step1List.state;
+    this.emcClientDetails.createdDate = this.step1List.createdDate;
+    this.emcClientDetails.createdBy = this.step1List.createdBy;
+    this.emcClientDetails.updatedDate = this.step1List.updatedDate;
+    this.emcClientDetails.updatedBy = this.step1List.updatedBy;
+    this.emcClientDetails.status = this.step1List.status;
+    this.populateForm();
   }
 
 

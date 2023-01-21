@@ -310,7 +310,7 @@ export class EmcMatstepperComponent implements OnInit {
 
   continue(emcId: any, ClientName: any,flag:any): void {
     this.refresh();
-    this.ngOnInit();
+    // this.ngOnInit();
     
     if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
       this.isEditableEmc = true;

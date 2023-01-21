@@ -16,15 +16,18 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Client Name: </label>
-                                <input type="text" class="form-control" formControlName="clientName"
-                                    [(ngModel)]="emcClientDetails.clientName" [readonly]="isEditableEmc"
-                                    [ngClass]="{ 'is-invalid': submitted && a.get('clientName')?.errors }"
-                                    placeholder="Please Enter Client name">
-                                <!-- <div *ngIf="submitted &&a.clientName?.errors" class="invalid-feedback">
-                            <div *ngIf="a.clientName?.errors?.required">Client Name Is Required</div>
-                        </div> -->
+                                <input type="text" (change)="clientValidation($event,a)" class="form-control" formControlName="clientName"
+                                    [(ngModel)]="emcClientDetails.clientName" readonly [ngClass]="{ 'is-invalid': submitted && a.get('clientName')?.errors }" placeholder="Please Enter Client name">
+
                                 <div *ngIf="submitted && a.get('clientName')?.errors" class="invalid-feedback">
                                     <div *ngIf="a.get('clientName')?.errors?.required">Client Name Is Required</div>
+                                </div>
+                                <div *ngIf="clientNameError" class="invalid-feedback">
+                                    <div>{{clientNameMsg}}</div>
+                                </div>
+                                
+                                <div *ngIf="clientNameSuccess" class="invalid-feedback">
+                                    <div style="color: #11a807;">{{clientNameMsg1}}</div>
                                 </div>
                             </div>
                         </div>
@@ -103,7 +106,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Email: </label>
-                                <input type="text" class="form-control" formControlName="email" [readonly]="isEditableEmc"
+                                <input type="text" class="form-control" formControlName="email" readonly
                                     [(ngModel)]="emcClientDetails.email" placeholder="Enter Email Address"
                                     [ngClass]="{ 'is-invalid': submitted && a.get('email')?.errors }">
                                 <!-- <div *ngIf="submitted &&a.email?.errors" class="invalid-feedback">

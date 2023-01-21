@@ -125,7 +125,11 @@ export class AssignViewerComponent implements OnInit {
   basic = new BasicDetails();
   // emc model
   emcClientDetails = new EmcClientDetails();
-
+  clientNameMsg: string="";
+  clientNameMsg1: string="";
+  clientNameMsgError: boolean=false;
+  clientNameSuccess: boolean=false;
+  clientNameError: boolean=false;
   // Spinner Purpose
   // spinner: boolean=false;
   // spinnerValue: String = '';
@@ -338,7 +342,6 @@ export class AssignViewerComponent implements OnInit {
 
       this.riskAssessment.findByProjectName(form.controls.riskEmail.value,form.controls.riskProject.value).subscribe(
         data =>{
-          // var b=form.controls.riskProject.value;
           if(data != ''){
             this.projectNameMsg="Project Name is already existing, Please give different Project Name";
             this.projectNameMsg1="";
@@ -884,7 +887,28 @@ createNewGroup(item: any): FormGroup{
       })
   }
 
+  clientValidation(event:any,form:any){
 
+    if (form.controls.emcClientName.value != undefined && form.controls.emcClientName.value != null && form.controls.emcClientName.value != "") {
+
+      this.emcClientDetailsService.validateClientName(form.controls.emcClientName.value).subscribe(
+        data => {
+          if (data != '') {
+            this.clientNameMsg = "Client Name is already existing, Please give different Project Name";
+            this.clientNameMsg1 = "";
+            this.clientNameError = true;
+          } else {
+            this.clientNameMsg1 = "You can continue with this Client Name";
+            this.clientNameMsg = "";
+            this.clientNameSuccess = true;
+            this.clientNameError = false;
+            setTimeout(() => {
+              this.clientNameSuccess = false;
+            }, 3000);
+          }
+        })
+    }
+  }
 
   closeModalDialog(contentViewer2:any){
    this.modalService.dismissAll(contentViewer2);

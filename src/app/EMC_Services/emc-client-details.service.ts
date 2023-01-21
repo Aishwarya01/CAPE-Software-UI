@@ -79,4 +79,8 @@ export class EmcClientDetailsService {
     public clientDetailsData(userName:any): Observable<any> {
       return this.http.get<any>(this.apiUrl_EMC + '/emc/clientDetail'+'/'+userName, { responseType: 'text' as 'json' })
     }
+
+    public validateClientName(clientName: String): Observable<any>{
+      return this.http.get<any>(this.apiUrl_EMC + '/emc/clientNameValidation' + '/' +clientName, { responseType: 'text' as 'json' })
+    }
 }

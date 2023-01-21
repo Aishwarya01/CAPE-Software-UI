@@ -560,8 +560,6 @@ export class LpsMatstepperComponent implements OnInit {
 
   continue(basicLpsId: any): void {
     this.refresh();
-    // this.ngOnInit();
-   // this.doSomething1(false);
     this.changeTabLpsSavedReport(0,basicLpsId,this.router.snapshot.paramMap.get('email') || '{}');
 
     setTimeout(() => {

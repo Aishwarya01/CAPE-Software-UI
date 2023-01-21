@@ -111,7 +111,7 @@ export class EmcSavedReportComponent implements OnInit {
         data => {
           this.emcData=JSON.parse(data);
           for(let i of this.emcData){
-            if(i.allStepsCompleted != "AllStepCompleted"){
+            if(i.allStepsCompleted != "AllStepCompleted" && i.status != 'InActive'){
               this.filteredData.push(i);
             }
           }
