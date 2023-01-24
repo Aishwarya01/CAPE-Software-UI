@@ -61,6 +61,7 @@ export class EmcMatstepperComponent implements OnInit {
   
   // We are getting allsteps completed data using this variable
   tempArr: any=[];
+  selectedIndexStepper: number=0;
 
   emcPowerAndEarthingData: boolean=true;
 
@@ -210,6 +211,35 @@ export class EmcMatstepperComponent implements OnInit {
       this.emcSavedReportService.retrieveFinalEmcReport(userName, emcId).subscribe(
         (data) => {
           this.tempArr=JSON.parse(data).clientDetails;
+
+          //Navigating compoments to their new editable stats
+          switch(this.tempArr.allStepsCompleted){
+            case'step-1 completed':
+              // Facility data
+              this.selectedIndexStepper=1;
+              break;
+
+            case'step-2 completed':
+              // Power and earthing data
+              this.selectedIndexStepper=2;
+              break;
+
+            case'step-3 completed':
+              // Electromagnetic data
+              this.selectedIndexStepper=3;
+              break;
+
+            case'step-4 completed':
+              // Electromagnetic data
+              this.selectedIndexStepper=3;
+              break;
+
+            default:
+              // Client details
+              this.selectedIndexStepper=0;
+              break;
+          }
+
           if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
             this.isEditableEmc = true;
           }
