@@ -25,6 +25,6 @@ export class EmcSavedReportService {
   }
 
   public retrieveFinalEmcReport(userName: String,emcId: any): Observable<any> {
-    return this.http.get<any>(this.apiUrl_EMC + '/emc/retrieveEmcReort' + '/' +userName+ '/' +emcId, { responseType: 'text' as 'json' })
+    return this.http.get<any>(this.apiUrl_EMC + '/emc/retrieveEmcReport' + '/' +userName+ '/' +emcId, { responseType: 'text' as 'json' })
   } 
 }

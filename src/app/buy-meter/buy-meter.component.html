@@ -1,77 +1,85 @@
-<div class="card bg-image">
-      <div class="card-body">
-        <!-- <div class="row" *ngIf="service.observe">
-          <div class="col-sm-12">
-            <a  [ngClass]="{'glow':service.observationGlowTesting}"
-            style="margin-top: -10px;margin-bottom: 5px;float: right;text-decoration: underline;">Observations</a>
-          </div>
-          </div> -->
-           <form style="background-color: white;height: 64%;">
-            <button mat-button style="float: right;" (click)="movetoCart();">
-              <mat-icon matBadge="{{cartCount}}" style="font-size: 26px;">shopping_cart</mat-icon>
-            </button>
-      <mat-carousel 
-          timings="250ms ease-in"
-            [hideArrows]="true"
-            [hideIndicators]="false"> 
-      
-      <mat-carousel-slide #matCarouselSlide  overlayColor="#00000040" [hideOverlay]="false">
-        <div class="card1" *ngFor="let a of meterData1">
-          <img src="{{a.image}}" height="200" width="150" title="Click here" (click)="zoomImage(contentImage,a)" style="cursor:pointer;"/>
-          <h3><a href="{{a.pdf}}" title="" style="color: black;">{{a.model}}</a></h3>      
-          <div class="rate">
-            <input type="radio" id="star5" name="rate" value="5" />
-            <label for="star5">5 stars</label>
-            <input type="radio" id="star4" name="rate" value="4" />
-            <label for="star4">4 stars</label>
-            <input type="radio" id="star3" name="rate" value="3" />
-            <label for="star3">3 stars</label>
-            <input type="radio" id="star2" name="rate" value="2" />
-            <label for="star2">2 stars</label>
-            <input type="radio" id="star1" name="rate" value="1" />
-            <label for="star1">1 star</label>
-          </div>
-          <p class="price">₹{{a.price}}</p>
-          <p>{{a.index}}</p>
-          <button type="button" class="btn btn-info" (click)="compareProd(contentCompare,a)">Compare Products</button>
-          <button type="button" class="btn btn-primary" (click)="addToCart(a.index,productExists)">Add to Cart</button>
-        </div>
-       </mat-carousel-slide>
-
-       <mat-carousel-slide #matCarouselSlide  overlayColor="#00000040" [hideOverlay]="false">
-        <div class="card1" *ngFor="let a of meterData2">
-          <img src="{{a.image}}" height="200" width="150" title="Click here" (click)="zoomImage(contentImage,a)" style="cursor:pointer;"/>
-          <h3><a href="{{a.pdf}}" title="" style="color: black;">{{a.model}}</a></h3>      
-          <div class="rate">
-            <input type="radio" id="star5" name="rate" value="5" />
-            <label for="star5">5 stars</label>
-            <input type="radio" id="star4" name="rate" value="4" />
-            <label for="star4">4 stars</label>
-            <input type="radio" id="star3" name="rate" value="3" />
-            <label for="star3">3 stars</label>
-            <input type="radio" id="star2" name="rate" value="2" />
-            <label for="star2">2 stars</label>
-            <input type="radio" id="star1" name="rate" value="1" />
-            <label for="star1">1 star</label>
-          </div>
-          <p class="price">₹{{a.price}}</p>
-          <p>{{a.index}}</p>
-          <button type="button" class="btn btn-info" (click)="compareProd(contentCompare,a)">Compare Products</button>
-          <button type="button" class="btn btn-primary" (click)="addToCart(a.index,productExists)">Add to Cart</button>
-        </div>
-       </mat-carousel-slide>
-      </mat-carousel>
-  </form>
-<!--         
-        <ng-container matColumnDef="image">
-          <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-            mat-sort-header> Product </th>
-          <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-           <img src="{{element.image}}" height="80" width="100"/>  </td>
-        </ng-container> -->
-      
-    </div>
+<div class="loader" *ngIf="spinner" style="overflow: inherit;margin: 0px auto;position: fixed;z-index: 1000;top: 40%;">
 </div>
+<div [ngStyle]="{'filter': (blurMode ? 'blur(1px)' : 'blur(0px)') ,'pointer-events': (blurMode ? 'none' : 'visible')}">
+  <div class="card bg-image">
+    <div class="card-body">
+      <!-- <div class="row" *ngIf="service.observe">
+        <div class="col-sm-12">
+          <a  [ngClass]="{'glow':service.observationGlowTesting}"
+          style="margin-top: -10px;margin-bottom: 5px;float: right;text-decoration: underline;">Observations</a>
+        </div>
+        </div> -->
+         <form style="background-color: white;height: 64%;">
+           <button mat-button style="float: left;" (click)="backToHome(backWarning)" title="back">
+            <mat-icon style="font-size: 26px;" >arrow_back</mat-icon>
+           </button>
+          <button mat-button style="float: right;" (click)="movetoCart();">
+            <mat-icon matBadge="{{cartCount}}" style="font-size: 26px;">shopping_cart</mat-icon>
+          </button>
+    <mat-carousel 
+        timings="250ms ease-in"
+          [hideArrows]="true"
+          [hideIndicators]="false"> 
+    
+    <mat-carousel-slide #matCarouselSlide  overlayColor="#00000040" [hideOverlay]="false">
+      <div class="card1" *ngFor="let a of meterData1">
+        <img src="{{a.image}}" height="200" width="150" title="Click here" (click)="zoomImage(contentImage,a)" style="cursor:pointer;"/>
+        <h3><a href="{{a.pdf}}" title="" style="color: black;">{{a.model}}</a></h3>      
+        <div class="rate">
+          <input type="radio" id="star5" name="rate" value="5" />
+          <label for="star5">5 stars</label>
+          <input type="radio" id="star4" name="rate" value="4" />
+          <label for="star4">4 stars</label>
+          <input type="radio" id="star3" name="rate" value="3" />
+          <label for="star3">3 stars</label>
+          <input type="radio" id="star2" name="rate" value="2" />
+          <label for="star2">2 stars</label>
+          <input type="radio" id="star1" name="rate" value="1" />
+          <label for="star1">1 star</label>
+        </div>
+        <p class="price">₹{{a.price}}</p>
+        <p>{{a.index}}</p>
+        <button type="button" class="btn btn-info" (click)="compareProd(contentCompare,a)">Compare Products</button>
+        <button type="button" class="btn btn-primary" (click)="addToCart(a.index,productExists)">Add to Cart</button>
+      </div>
+     </mat-carousel-slide>
+
+     <mat-carousel-slide #matCarouselSlide  overlayColor="#00000040" [hideOverlay]="false">
+      <div class="card1" *ngFor="let a of meterData2">
+        <img src="{{a.image}}" height="200" width="150" title="Click here" (click)="zoomImage(contentImage,a)" style="cursor:pointer;"/>
+        <h3><a href="{{a.pdf}}" title="" style="color: black;">{{a.model}}</a></h3>      
+        <div class="rate">
+          <input type="radio" id="star5" name="rate" value="5" />
+          <label for="star5">5 stars</label>
+          <input type="radio" id="star4" name="rate" value="4" />
+          <label for="star4">4 stars</label>
+          <input type="radio" id="star3" name="rate" value="3" />
+          <label for="star3">3 stars</label>
+          <input type="radio" id="star2" name="rate" value="2" />
+          <label for="star2">2 stars</label>
+          <input type="radio" id="star1" name="rate" value="1" />
+          <label for="star1">1 star</label>
+        </div>
+        <p class="price">₹{{a.price}}</p>
+        <p>{{a.index}}</p>
+        <button type="button" class="btn btn-info" (click)="compareProd(contentCompare,a)">Compare Products</button>
+        <button type="button" class="btn btn-primary" (click)="addToCart(a.index,productExists)">Add to Cart</button>
+      </div>
+     </mat-carousel-slide>
+    </mat-carousel>
+</form>
+<!--         
+      <ng-container matColumnDef="image">
+        <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
+          mat-sort-header> Product </th>
+        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
+         <img src="{{element.image}}" height="80" width="100"/>  </td>
+      </ng-container> -->
+    
+  </div>
+</div>
+</div>
+
 
 <ng-template #contentCompare let-modal>
   <div class="modal-header" style="text-align: center; display: block">
@@ -6564,5 +6572,17 @@
         <div class="col-md-12 text-center justify-content-center">
             <button type="button" class="btn btn-primary" (click)="closeModal()"> OK</button>
         </div>
+  </div>
+</ng-template>
+
+<ng-template #backWarning let-modal>
+  <div>
+    <p class="alert alert-warning" style="text-align:center">You cannot go back while you are logged in.! Click ok to proceed.</p>
+    <div class="row">
+      <div class="col-md-12 text-center justify-content-center">
+        <button type="button" class="btn btn-primary" (click)="meterLogout()">Ok</button>
+        <button type="button" class="btn btn-danger" style="margin-left:5px" (click)="closeTemp()">Cancel</button>
+      </div>
+    </div>
   </div>
 </ng-template>
