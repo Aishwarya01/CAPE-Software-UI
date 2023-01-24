@@ -2182,6 +2182,10 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       this.modalService.open(contentSub, { centered: true,backdrop: 'static' });  
     }
 
+    else if(this.step2Form.dirty && this.step2Form.touched && this.buttonName=='submit'){
+      this.modalService.open(contentSub, { centered: true,backdrop: 'static' });  
+    }
+
     else if(!this.step2Form.dirty && this.buttonName=='update'){  
       this.validationError = true;
       this.validationErrorMsg = 'Please change any details for Update the Risk Assessment Details';
