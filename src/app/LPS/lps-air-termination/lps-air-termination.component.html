@@ -154,7 +154,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-8">
                   <label for="levelofprotection">Level of protection</label>
                   <div class="input-group">
                     <div class="input-group-prepend">
@@ -168,7 +168,7 @@
                       <option value="Level II">Level II</option>
                       <option value="Level III">Level III</option>
                       <option value="Level IV">Level IV</option>
-                      <option value="Risk Assesment not carried out">Risk Assesment not carried out</option>
+                      <option value="Level IV">Risk Assesment not done, so Level IV is considered</option>
                     </select>
                     <div *ngIf="submitted && q.get('protectionLevel')?.errors" class="invalid-feedback">
                       <div *ngIf="q.get('protectionLevel')?.errors?.required">Level of protection is required</div>

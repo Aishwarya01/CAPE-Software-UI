@@ -97,9 +97,10 @@ export class LpsMatstepperComponent implements OnInit {
 
   // We are getting allsteps completed data using this variable
   tempArr: any=[];
+  selectedIndexStepper: number=0;
 
   constructor(
-    private _formBuilder: FormBuilder,private dialog: MatDialog,
+    private dialog: MatDialog,
     private basicLpsService: LPSBasicDetailsService,
     private router: ActivatedRoute, public service: GlobalsService,
     private ChangeDetectorRef: ChangeDetectorRef,
@@ -257,6 +258,65 @@ export class LpsMatstepperComponent implements OnInit {
             this.final.finalReportBody = true;
             this.dataJSON = JSON.parse(data);
             this.service.emailCheck=false;
+
+            //Navigating compoments to their new editable stats
+            switch(this.tempArr.allStepsCompleted){
+              case 'step-1 completed':
+                // Air Termination
+                this.selectedIndexStepper=1;
+                this.airTermination.airTerminationForm.markAsPristine();
+                this.airTermination.airTerminationForm.markAsUntouched();
+                break;
+              case 'step-2 completed':
+                // Down Conductor
+                this.downConductors.downConductorForm.markAsPristine();
+                this.downConductors.downConductorForm.markAsUntouched();
+                this.selectedIndexStepper=2;
+                break;
+              case 'step-3 completed':
+                // Earthing
+                this.earthing.earthingForm.markAsPristine();
+                this.earthing.earthingForm.markAsUntouched();
+                this.selectedIndexStepper=3;
+                break;
+              case 'step-4 completed':
+                // SPD
+                this.spd.spdForm.markAsPristine();
+                this.spd.spdForm.markAsUntouched();
+                this.selectedIndexStepper=4;
+                break;
+              case 'step-5 completed':
+                //  Seperation Distance
+                this.seperationDistance.separeteDistanceForm.markAsPristine();
+                this.seperationDistance.separeteDistanceForm.markAsUntouched();
+                this.selectedIndexStepper=5;
+                break;
+              case 'step-6 completed':
+                // Equipotential Bonding
+                this.earthStud.EarthStudForm.markAsPristine();
+                this.earthStud.EarthStudForm.markAsUntouched();
+                this.selectedIndexStepper=6;
+                break;
+              case 'step-7 completed':
+                // Summary
+                this.lpsSummary.summaryForm.markAsPristine();
+                this.lpsSummary.summaryForm.markAsUntouched();
+                this.selectedIndexStepper=7;
+                break;
+              case 'step-8 completed':
+                // Summary
+                this.lpsSummary.summaryForm.markAsPristine();
+                this.lpsSummary.summaryForm.markAsUntouched();
+                this.selectedIndexStepper=7;
+                break;
+              default:
+                // Basic Details
+                this.basic.LPSBasicForm.markAsPristine();
+                this.basic.LPSBasicForm.markAsUntouched();
+                this.selectedIndexStepper=0;
+                break;
+            } 
+
             if (this.dataJSON.basicLps != null
               && this.dataJSON.airTermination != null
               && this.dataJSON.downConductorDesc != null
@@ -280,11 +340,19 @@ export class LpsMatstepperComponent implements OnInit {
   
               //downConductor
               this.downConductors.updateMethod();
+              setTimeout(() => {
+                this.downConductors.downConductorForm.markAsPristine();
+                this.downConductors.downConductorForm.markAsUntouched();
+              }, 6000);
   
               //earthing
               if (this.dataJSON.earthingReport != null) {
                 this.earthing.retrieveDetailsfromSavedReports(basicLpsId, this.dataJSON);
                 this.Completed4 = true;
+                setTimeout(() => {
+                  this.downConductors.downConductorForm.markAsPristine();
+                  this.downConductors.downConductorForm.markAsUntouched();
+                }, 6000);
               }
               else {
                 this.earthing.createEarthingForm(this.dataJSON.airTermination);

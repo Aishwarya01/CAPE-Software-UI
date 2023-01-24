@@ -2097,8 +2097,18 @@ export class LpsAirTerminationComponent implements OnInit {
       let heightOfAirterminal = verticalAir.controls[j].value.heightOfTerminalOb;
 
       if (protectionLevel == "Risk Assesment not carried out") {
-        verticalAir.controls[j].controls.angleProtectionHeightOb
-          .setValue('No value Applicable');
+        // verticalAir.controls[j].controls.angleProtectionHeightOb
+        //   .setValue('No value Applicable');
+        this.rangeOfAngle[j] = this.AIRTERMINATION_CONSTANTS.LEVEL_IV.length + " for Level_IV";
+        if (heightOfAirterminal > 60) {
+          verticalAir.controls[j].controls.angleProtectionHeightOb.setValue('');
+          this.isRangeOfAngle[j] = true;
+          //return;
+        }
+        else {
+          verticalAir.controls[j].controls.angleProtectionHeightOb
+            .setValue(this.AIRTERMINATION_CONSTANTS.LEVEL_IV[heightOfAirterminal - 1].angle + "deg / " + this.AIRTERMINATION_CONSTANTS.LEVEL_IV[heightOfAirterminal - 1].distance + "m");
+        }
 
       }
       else if (protectionLevel == "Level I" && heightOfAirterminal != '') {
