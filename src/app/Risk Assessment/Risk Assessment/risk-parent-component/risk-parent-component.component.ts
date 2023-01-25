@@ -284,7 +284,7 @@ export class RiskParentComponentComponent implements OnInit {
               setTimeout(() => {
                 this.step1 = true;
                 this.step2 = true;
-              }, 1000);
+              }, 10);
               this.isEditable;
             }
             else if(tab.textLabel == "Final Reports"){
@@ -302,11 +302,18 @@ export class RiskParentComponentComponent implements OnInit {
               setTimeout(() => {
                 this.step1 = true;
                 this.step2 = true;
-              }, 1000);
+              }, 10);
             }
             else if(tab.textLabel=="Risk Assessment"){
               this.selectedIndex=0;
               this.riskGlobal.riskId = 0;
+              // Removing form data
+              this.step1 = false;
+              this.step2 = false;
+              setTimeout(() => {
+                this.step1 = true;
+                this.step2 = true;
+              }, 10);
             }
             this.service.windowTabClick=0;
             this.service.logoutClick=0; 
@@ -324,6 +331,13 @@ export class RiskParentComponentComponent implements OnInit {
         const tabs = tab.textLabel;
         if((tabs==="Risk Assessment"))  {
              this.selectedIndex=0; 
+            // Removing form data
+            this.step1 = false;
+            this.step2 = false;
+            setTimeout(() => {
+              this.step1 = true;
+              this.step2 = true;
+            }, 10);
           }
           else if((tabs==="Saved Reports")){
             this.selectedIndex=1;
