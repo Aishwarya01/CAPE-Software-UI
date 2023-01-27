@@ -657,19 +657,16 @@ export class LicenselistComponent implements OnInit {
     dialogRef.componentInstance.email = this.email;
     dialogRef.componentInstance.updateLicense.subscribe(data => {
       if (data) {
-        debugger
-        this.ngOnInit();
+        this.retrieveUserDetail();
       }
     },
     
     error =>{
-      debugger
-      this.ngOnInit();
+      this.retrieveUserDetail();
     }
     ) 
     dialogRef.afterClosed().subscribe((result) => {
-      debugger
-      this.ngOnInit();
+      this.retrieveUserDetail();
     }); 
   } 
 }
