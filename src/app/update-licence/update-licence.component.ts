@@ -164,13 +164,13 @@ export class UpdateLicenceComponent implements OnInit {
   @HostListener('window:payment.failed', ['$event'])
   onPaymentFailesd(event: any): void {
     this.updateStatus("FAILED",event.detail.error.metadata.order_id);
-    setTimeout(() => {
-      this.sucessMsgflag = false;
-      this.sucessMsg = '';
-      setTimeout(() => {
-        this.onCancel();
-      }, 1000);
-    }, 2000);
+    // setTimeout(() => {
+    //   this.sucessMsgflag = false;
+    //   this.sucessMsg = '';
+    //   setTimeout(() => {
+    //     this.onCancel();
+    //   }, 1000);
+    // }, 2000);
   }
 
   updateStatus(paymentMessage:string,orderID:string){
@@ -204,7 +204,7 @@ export class UpdateLicenceComponent implements OnInit {
   }
 
   updateLicenceAmount() {
-    this.paymentForm.controls.licenseAmount.setValue(1);
+    this.paymentForm.controls.licenseAmount.setValue(this.paymentForm.controls.noofLicense.value * 1000);
     this.paymentForm.controls.licenseAmount.updateValueAndValidity();
   }
 
