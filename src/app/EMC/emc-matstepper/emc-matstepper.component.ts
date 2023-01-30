@@ -57,7 +57,12 @@ export class EmcMatstepperComponent implements OnInit {
   
   emcClientDetails: boolean=true;
   emcFacilityData: boolean=true;
-  emcElectromagneticCompatibility: boolean=true;;
+  emcElectromagneticCompatibility: boolean=true;
+  
+  // We are getting allsteps completed data using this variable
+  tempArr: any=[];
+  selectedIndexStepper: number=0;
+
   emcPowerAndEarthingData: boolean=true;
 
   // Spinner Purpose
@@ -138,24 +143,54 @@ export class EmcMatstepperComponent implements OnInit {
     this.service.isLinear=false;
     this.service.isCompleted4= next;
   }
+
   goBack2(stepper: MatStepper) {
-    if(this.facility.reloadFromBack()){
+    if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
       stepper.previous();
-      //this.service.goBacktoprevious=true;
+    }
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
+      stepper.previous();
+    }
+    else if(this.facility.EMCFacilityForm.pristine && this.facility.EMCFacilityForm.untouched){
+      stepper.previous();
+    }
+    else{
+      this.facility.reloadFromBack()
     }
   }
+
   goBack3(stepper: MatStepper) {
-    if(this.powerAndEarthing.reloadFromBack()){
+    if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
       stepper.previous();
       //this.service.goBacktoprevious=true;
     }
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
+      stepper.previous();
+    }
+    else if(this.powerAndEarthing.EMCPowerAndEarthForm.pristine && this.powerAndEarthing.EMCPowerAndEarthForm.untouched){
+      stepper.previous();
+    }
+    else{
+      this.powerAndEarthing.reloadFromBack()
+    }
   }
+
   goBack4(stepper: MatStepper) {
-    if(this.electroMagneticCopatibility.reloadFromBack()){
+    if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
       stepper.previous();
       //this.service.goBacktoprevious=true;
     }
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
+      stepper.previous();
+    }
+    else if(this.electroMagneticCopatibility.EMCElectroMagneticFormm.pristine && this.electroMagneticCopatibility.EMCElectroMagneticFormm.untouched){
+      stepper.previous();
+    }
+    else{
+      this.electroMagneticCopatibility.reloadFromBack()
+    }
   }
+
   public changeTabEmcSavedReport(index: number, emcId: any, userName: any,flag: any) {
     if(this.service.triggerMsgForLicense=="emcPage"){
       this.spinner=true;
@@ -175,6 +210,46 @@ export class EmcMatstepperComponent implements OnInit {
     setTimeout(() => {
       this.emcSavedReportService.retrieveFinalEmcReport(userName, emcId).subscribe(
         (data) => {
+          this.tempArr=JSON.parse(data).clientDetails;
+
+          //Navigating compoments to their new editable stats
+          switch(this.tempArr.allStepsCompleted){
+            case'step-1 completed':
+              // Facility data
+              this.selectedIndexStepper=1;
+              break;
+
+            case'step-2 completed':
+              // Power and earthing data
+              this.selectedIndexStepper=2;
+              break;
+
+            case'step-3 completed':
+              // Electromagnetic data
+              this.selectedIndexStepper=3;
+              break;
+
+            case'step-4 completed':
+              // Electromagnetic data
+              this.selectedIndexStepper=3;
+              break;
+
+            default:
+              // Client details
+              this.selectedIndexStepper=0;
+              break;
+          }
+
+          if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
+            this.isEditableEmc = true;
+          }
+          else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && JSON.parse(data).clientDetails.allStepsCompleted=='AllStepCompleted'){
+            this.isEditableEmc = true;
+          }
+          else{
+            this.isEditableEmc = false;
+          }
+
           this.saved.savedReportSpinner = false;
           this.saved.savedReportBody = true;
 
@@ -257,7 +332,7 @@ export class EmcMatstepperComponent implements OnInit {
   preview(emcId: any, ClientName: any,flag:any): void {
     this.refresh();
     this.ngOnInit();
-     this.isEditableEmc = true;
+    this.isEditableEmc = true;
     let userName = this.router.snapshot.paramMap.get('email') || '{}';
     this.changeTabEmcSavedReport(0, emcId, userName,flag);
 
@@ -265,8 +340,14 @@ export class EmcMatstepperComponent implements OnInit {
 
   continue(emcId: any, ClientName: any,flag:any): void {
     this.refresh();
-    this.ngOnInit();
-    this.isEditableEmc = false;
+    // this.ngOnInit();
+    
+    if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
+      this.isEditableEmc = true;
+    }else{
+      this.isEditableEmc = false;
+    }
+
     //  this.final.finalReportSpinner = false;
     //  this.final.finalReportBody = true;
     let userName = this.router.snapshot.paramMap.get('email') || '{}';
@@ -275,7 +356,7 @@ export class EmcMatstepperComponent implements OnInit {
 
   interceptTabChange(tab: MatTab, tabHeader: MatTabHeader) {
 
-    if((this.service.emcClick==1 && this.isEditableEmc && !this.FinalReport) || (this.clientData.EmcClientDetailsForm.dirty || this.facility.EMCFacilityForm.dirty || this.powerAndEarthing.EMCPowerAndEarthForm.dirty || this.electroMagneticCopatibility.EMCElectroMagneticFormm.dirty))
+    if((this.service.emcClick==1 && this.isEditableEmc && JSON.parse(sessionStorage.authenticatedUser).role!='Viewer' && !this.FinalReport) || (this.clientData.EmcClientDetailsForm.dirty || this.facility.EMCFacilityForm.dirty || this.powerAndEarthing.EMCPowerAndEarthForm.dirty || this.electroMagneticCopatibility.EMCElectroMagneticFormm.dirty))
        {
         const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
           width: '420px',
@@ -379,6 +460,8 @@ export class EmcMatstepperComponent implements OnInit {
         }    
         else{
           this.selectedIndex=2; 
+          this.service.triggerMsgForLicense="";
+          this.service.headerMsg="";
         }        
     }
     else{

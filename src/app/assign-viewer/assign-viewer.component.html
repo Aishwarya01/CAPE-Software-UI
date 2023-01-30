@@ -255,12 +255,19 @@
                         </span>
                       </div>
                       <input type="text" class="form-control" placeholder="Enter clientname"
-                        formControlName="emcClientName"
+                        formControlName="emcClientName" (change)="clientValidation($event,a)"
                         [ngClass]="{ 'is-invalid': submitted && a.get('emcClientName')?.errors }"
                         [(ngModel)]="register.emcClientName" />
-                      <div *ngIf="submitted && a.get('emcClientName')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('emcClientName')?.errors?.required">Client Name is required</div>
-                      </div>
+                        <div *ngIf="submitted && a.get('emcClientName')?.errors" class="invalid-feedback">
+                          <div *ngIf="a.get('emcClientName')?.errors?.required">Client Name is required</div>
+                        </div>
+                        <div *ngIf="clientNameError" class="invalid-feedback">
+                            <div>{{clientNameMsg}}</div>
+                        </div>
+                      
+                        <div *ngIf="clientNameSuccess" class="invalid-feedback">
+                            <div style="color: #11a807;">{{clientNameMsg1}}</div>
+                        </div>
                     </div>
                   </div>
                   <div class="col-md-4">

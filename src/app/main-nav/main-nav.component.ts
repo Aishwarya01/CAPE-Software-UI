@@ -283,8 +283,8 @@ export class MainNavComponent implements OnInit, OnDestroy {
   destroy: boolean=false;
   @ViewChild('verify1')
   matStepper:any;
-
-
+  // Getting present using this variable
+  currentYear:any;
    
   constructor(private breakpointObserver: BreakpointObserver, changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,private newsService: NewsService,
@@ -327,11 +327,12 @@ export class MainNavComponent implements OnInit, OnDestroy {
     this.newNotify();
     this.mobileDisplay = false;
     this.desktopDisplay = true;
+
+    this.currentYear= myDate.getFullYear();
      //load articles
     // this.newsService.initArticles().subscribe(data => this.mArticles = data['articles']);
      //load news sources
      this.newsService.topHeadlines().subscribe((result)=>{
-       console.log(result);
      //  for(let articles=0; articles<16; articles++){
       this.newsArticleDisplay=result.articles;
       //   this.newsArticleDisplay=result.articles.slice(0, 1);
@@ -855,7 +856,6 @@ export class MainNavComponent implements OnInit, OnDestroy {
     this.selectedRowIndexSub ="";
  }
  highlightSub(type:any){
-  console.log("Function working");
   //this.viewContainerRef.clear();
   this.welcome= false;
   this.youtube = false;

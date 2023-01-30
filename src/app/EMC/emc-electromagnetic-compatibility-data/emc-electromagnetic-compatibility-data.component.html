@@ -664,7 +664,7 @@
                     <div class="col-sm-12">
                         <div style="text-align: center;">
                             <!-- <button class="previous"  mat-button matStepperPrevious>&laquo; Back</button> -->
-                            <button style="width: auto;margin-left: 50px;background-color: #0f800c;color: white;" (click)="gotoNextModal(content3)"
+                            <button style="width: auto;margin-left: 50px;background-color: #0f800c;color: white;" [ngClass]="{'disableForm':isEditableEmc}" (click)="gotoNextModal(content3)"
                                 type="submit"  [ngClass]="{'disableSubmit':service.disableSubmitElectromagnetic}"
                                 class="btn btn-rounded btn-md font-weight-medium auth-form-btn next"
                                 mat-button>

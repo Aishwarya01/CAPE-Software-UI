@@ -124,6 +124,7 @@ export class LpsEarthingComponent implements OnInit {
   }
 
   earthingLpsDescriptionForm(buildingNumber:any,buildingName:any,buildingCount:any) {
+    
     return this.formBuilder.group({
       buildingNumber:new FormControl(buildingNumber),
       buildingName: new FormControl(buildingName),
@@ -139,8 +140,8 @@ export class LpsEarthingComponent implements OnInit {
       earthingClampsAvailabilityRem: new FormControl(''),
       earthingElectrodeChamberAvailabilityOb: new FormControl(''),
       earthingElectrodeChamberAvailabilityRem:  new FormControl(''),
-     earthingElectrodeTestingAvailabilityRem:  new FormControl(''),                              
-     earthingElectrodeTestingAvailabilityOb:  new FormControl(''),                          
+      earthingElectrodeTestingAvailabilityRem:  new FormControl(''),                              
+      earthingElectrodeTestingAvailabilityOb:  new FormControl(''),                          
 
       earthingDescription: this.formBuilder.array([this.earthingDescriptionArray()]),
       earthingClamps: this.formBuilder.array([]),
@@ -149,6 +150,10 @@ export class LpsEarthingComponent implements OnInit {
       earthElectrodeTesting: this.formBuilder.array([])
     });
   }
+
+  // formStatusChage(){
+  //   this.earthingForm.markAsPristine();
+  // }
   
   dropDown(event: any,a:any){
     let changedValue;
@@ -1279,7 +1284,7 @@ export class LpsEarthingComponent implements OnInit {
           this.earthing.value[k].buildingName == buildingName &&
           this.earthing.value[k].buildingCount == buildingCount) {
           isBuildingRequired = true;
-          isFormAvailable = "available"
+          isFormAvailable = "available";
         }
         //if form empty 
         else if (this.earthing.value[k].buildingNumber == '' ||
@@ -1291,13 +1296,21 @@ export class LpsEarthingComponent implements OnInit {
           
           this.earthing.push(this.earthingLpsDescriptionForm(buildingNumber, buildingName, buildingCount));
           isBuildingRequired = true;
-          isFormAvailable = "available"
+          isFormAvailable = "available";
+          setTimeout(() => {
+            this.earthingForm.markAsPristine();
+            this.earthingForm.markAsUntouched();
+          }, 4000);
         }
 
       }
       //not having form for given airtermination buildingnumber 
       if (isFormAvailable != "available") {
           this.earthing.push(this.earthingLpsDescriptionForm(buildingNumber, buildingName, buildingCount));
+          setTimeout(() => {
+            this.earthingForm.markAsPristine();
+            this.earthingForm.markAsUntouched();
+          }, 4000);
       }
     }
   }

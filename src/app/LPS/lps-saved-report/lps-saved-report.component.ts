@@ -138,7 +138,7 @@ completedFilterData: any=[];
         data => {
           this.lpsData=JSON.parse(data);
           for(let i of this.lpsData){
-            if(i.allStepsCompleted != "AllStepCompleted"){
+            if(i.allStepsCompleted != "AllStepCompleted" && i.status != 'InActive'){
               this.filteredData.push(i);
             }
           }
@@ -184,6 +184,7 @@ completedFilterData: any=[];
         });
         this.superAdminFlag = false;
     }
+    // Viewer configuration
     else {
       this.basciService.retriveLpsbasicIsActive(this.email).subscribe(
         data => {

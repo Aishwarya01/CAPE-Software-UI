@@ -8,7 +8,7 @@
 
 <mat-tab-group  [selectedIndex]="selectedIndex" style="background-color:white;" #tabs [ngStyle]="{'filter': (spinner ? 'blur(1px)' : 'blur(0px)') ,'pointer-events': (spinner ? 'none' : 'visible')}">
     <mat-tab label="Electro Magnetic Compatibility">
-        <mat-horizontal-stepper  [linear]="service.isLinear" #stepper>
+        <mat-horizontal-stepper  [linear]="service.isLinear" #stepper [selectedIndex]="selectedIndexStepper">
          
             <mat-step  [completed]="service.isCompleted" [editable]="service.editable">
              <ng-template matStepLabel>

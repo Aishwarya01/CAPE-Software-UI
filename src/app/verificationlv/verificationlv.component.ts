@@ -235,8 +235,12 @@ export class VerificationlvComponent implements OnInit {
   testingValue: boolean = true;
   summaryValue: boolean = true;
   selectedIndexStepper!: number;
+
+  // We are getting allsteps completed data using this variable
+  tempArr: any=[];
+
   //counter: number=0;
-//private logger: NGXLogger,
+  //private logger: NGXLogger,
   constructor(
     private _formBuilder: FormBuilder,
     private modalService: NgbModal,
@@ -850,8 +854,8 @@ changeTab(index: number, sitedId: any, userName: any, companyName: any, departme
  // this.logger.error('changeTab started');
   this.siteService.retrieveFinal(sitedId).subscribe(
     data=> {
-    
-            //this.logger.debug('data fetched');
+      this.tempArr=JSON.parse(data);
+      //this.logger.debug('data fetched');
       //this.selectedIndex = index;
       this.dataJSON = JSON.parse(data);
       if(this.dataJSON.reportDetails != null) {
@@ -984,7 +988,7 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
  setTimeout(() => {
   this.siteService.retrieveFinal(sitedId).subscribe(
     data=> {
-     
+      this.tempArr=JSON.parse(data);
       //this.selectedIndex = index;
       this.saved.savedReportSpinner =false;
       this.saved.savedReportBody = true;
@@ -1146,33 +1150,61 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
   //   }
     
   // }
+
   goBack2(stepper: MatStepper) {
     if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
       stepper.previous();
       //this.service.goBacktoprevious=true;x
     }
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
+      stepper.previous();
+    }
+    else if(this.supply.supplycharesteristicForm.pristine && this.supply.supplycharesteristicForm.untouched){
+      stepper.previous();
+    }
     else{
       this.supply.reloadFromBack();
     }
   }
+
   goBack3(stepper: MatStepper) {
     if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
+      stepper.previous();
+    }
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
+      stepper.previous();
+    }
+    else if(this.incoming.addstep3.pristine && this.incoming.addstep3.untouched){
       stepper.previous();
     }
     else{
       this.incoming.reloadFromBack();
     }
   }
+
   goBack4(stepper: MatStepper) {
     if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
+      stepper.previous();
+    }
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
+      stepper.previous();
+    }
+    else if(this.testing.testingForm.pristine && this.testing.testingForm.untouched){
       stepper.previous();
     }
     else{
       this.testing.reloadFromBack();
     }
   }
+
   goBack5(stepper: MatStepper) {
     if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
+      stepper.previous();
+    }
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
+      stepper.previous();
+    }
+    else if(this.summary.addsummary.pristine && this.summary.addsummary.untouched){
       stepper.previous();
     }
     else{

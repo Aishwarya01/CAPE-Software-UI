@@ -162,6 +162,25 @@ export class RiskParentComponentComponent implements OnInit {
           this.final.finalReportSpinner = false;
           this.final.finalReportBody = true;
           this.dataJSON = JSON.parse(data);
+
+        // Navigating compoments to their new editable stats
+          switch(this.dataJSON.customerDetails.allStepsCompleted){
+            case'step-1 completed':
+              // Risk Assessment
+              this.selectedIndexStepper=1;
+              break;
+
+            case'step-2 completed':
+              // Risk Assessment
+              this.selectedIndexStepper=2;
+              break;
+
+            default:
+              // Client details
+              this.selectedIndexStepper=0;
+              break;
+          }
+
           //CustomerDetails
           if (this.dataJSON.customerDetails != null) {
             this.selectedIndex=index;
