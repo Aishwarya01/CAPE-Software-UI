@@ -7,7 +7,7 @@ import { GlobalsService } from '../globals.service';
 import { Airtermination } from '../LPS_model/airtermination';
 import { LvInspectionDetailsComponent } from '../lv-inspection-details/lv-inspection-details.component';
 import { PaymentDetails } from '../payment-details';
-import { UpdateLicenceService } from '../update-licence-service.service';
+import { UpdateLicenceService } from '../services/update-licence-service.service';
 
 declare var Razorpay: any;
 @Component({

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +9,7 @@ import { Observable } from 'rxjs';
 export class UpdateLicenceService {
   //  apiUrl = 'http://localhost:8001/razorpayapp/createPayment';
   //  apiUrl = 'http://localhost:5000/api/v2';
-  apiUrl = 'http://localhost:5000/api/v2';
-  ;
+  apiUrl =  environment.apiUrl_EMC_LV;
 
   constructor(private http: HttpClient) { }
 

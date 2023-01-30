@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { UpdateLicenceServiceService } from './update-licence-service.service';
+import { UpdateLicenceService } from '../services/update-licence-service.service';
 
 describe('UpdateLicenceServiceService', () => {
-  let service: UpdateLicenceServiceService;
+  let service: UpdateLicenceService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(UpdateLicenceServiceService);
+    service = TestBed.inject(UpdateLicenceService);
   });
 
   it('should be created', () => {
