@@ -3,7 +3,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
-import { environment } from 'src/environments/environment';
 import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminProd } from 'src/environments/environment.prod';
 import { GlobalsService } from '../globals.service';

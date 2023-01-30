@@ -1,52 +1,62 @@
 
 <ng-template #ref ></ng-template>
 <app-verificationlv *ngIf="value" #verify></app-verificationlv>
-<app-lps-matstepper *ngIf="value1" #verify1></app-lps-matstepper>
+<app-lps-matstepper *ngIf="lpsStepper" #lpsNav></app-lps-matstepper>
+<app-risk-parent-component *ngIf="riskStepper" #riskNav></app-risk-parent-component>
+<app-emc-matstepper *ngIf="emcStepper" #emcNav></app-emc-matstepper>
 <div class="card" *ngIf="!destroy">
     <div class="card-body" >
         <form [formGroup]="licenseForm" >
             <mat-accordion>
-                <mat-expansion-panel (opened)="panelOpenState2(true)" (closed)="panelOpenState2(false)" [(expanded)]="service.toggle" *ngIf="service.licenseHide">
-                    <mat-expansion-panel-header>
-                      <mat-panel-title>
-                        <!-- <h3>Unused License</h3> -->
-                        <h3>{{licensePageHeading}}</h3>
-                      </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <!-- ErrorMsg -->
-                    <div class="centre-text m-btm30">
-                      <div *ngIf="ErrorLPS" style="text-align: center;">
-                         <span class="alert alert-danger">{{errorMsg}}</span>
-                      </div>
-                      <div *ngIf="ErrorLV" style="text-align: center;">
-                        <span class="alert alert-danger">{{errorMsg}}</span>
-                     </div>
+              <!-- License Accordian -->
+              <mat-expansion-panel (opened)="panelOpenState2(true)" (closed)="panelOpenState2(false)" [(expanded)]="service.toggle" *ngIf="service.licenseHide">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <!-- <h3>Unused License</h3> -->
+                    <h3>{{licensePageHeading}}</h3>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <!-- ErrorMsg -->
+                <div class="centre-text m-btm30">
+                  <div *ngIf="errorLPS" style="text-align: center;">
+                     <span class="alert alert-danger">{{errorMsg}}</span>
+                  </div>
+                  <div *ngIf="errorLV" style="text-align: center;">
+                    <span class="alert alert-danger">{{errorMsg}}</span>
+                  </div>
+                  <div *ngIf="errorRisk" style="text-align: center;">
+                    <span class="alert alert-danger">{{errorMsg}}</span>
+                  </div>
+                  <div *ngIf="errorEmc" style="text-align: center;">
+                    <span class="alert alert-danger">{{errorMsg}}</span>
+                  </div>
+                </div>
+
+                  <div class="row">
+                    <div class="col-md-3">
+                         <div class="form-group"> <!--//aish -->
+                            <label>No of available License:</label>
+                            <input type="text" class="form-control" [(ngModel)]="service.noofLicense" formControlName="noOfAvailableLicense" readonly [value]="service.noofLicense">
+                        </div>
                     </div>
-    
-                      <div class="row">
-                        <div class="col-md-3">
-                             <div class="form-group"> <!--//aish -->
-                                <label>No of available License:</label>
-                                <input type="text" class="form-control" [(ngModel)]="service.noofLicense" formControlName="noOfAvailableLicense" readonly [value]="service.noofLicense">
-                            </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <button class="btn" [hidden]="service.noofLicense<=0" (click)=decreaseLicense() 
+                            style="margin-top: 28px;background-color: #0f800c;color: white;">Use</button>
                         </div>
-    
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <button class="btn" [hidden]="service.noofLicense<=0" (click)=decreaseLicense() 
-                                style="margin-top: 28px;background-color: #0f800c;color: white;">Use</button>
-                            </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <button class="btn" [hidden]="service.noofLicense!=0" (click)=purchaseLicense() 
+                            style="margin-top: 28px;background-color: #0f800c;color: white;">Get Complimentary Licenses</button>
                         </div>
-    
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <button class="btn" [hidden]="service.noofLicense!=0" (click)=purchaseLicense() 
-                                style="margin-top: 28px;background-color: #0f800c;color: white;">Get Complimentary Licenses</button>
-                            </div>
-                        </div>
-                      </div>
-                </mat-expansion-panel>    
-                
+                    </div>
+                  </div>
+              </mat-expansion-panel>    
+              
+              <!-- LV Systems -->
               <ng-container *ngIf="lvData">
                 <mat-expansion-panel (opened)="panelOpenState1(true)" (closed)="panelOpenState1(false)">
                     <mat-expansion-panel-header>
@@ -292,10 +302,10 @@
                 </mat-expansion-panel>
               </ng-container>
 
+              <!-- LPS Systems -->
               <ng-container *ngIf="lpsData">
                 <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                     <mat-expansion-panel-header>
-                      <!-- LPS -->
                       <mat-panel-title *ngIf="lpsData">
                         <h3>Ongoing LPS License Details</h3>
                       </mat-panel-title>
@@ -308,11 +318,63 @@
                 <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                     <mat-expansion-panel-header>
                       <mat-panel-title>
-                        <h3>Completed License</h3>
+                        <h3>Completed LPS License</h3>
                       </mat-panel-title>
                     </mat-expansion-panel-header>
                     <div>
                       <app-lps-final-report></app-lps-final-report>
+                    </div>
+                </mat-expansion-panel>
+              </ng-container>
+
+              <!-- Risk Assessment -->
+              <ng-container *ngIf="riskData">
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header>
+                      <!-- LPS -->
+                      <mat-panel-title *ngIf="riskData">
+                        <h3>Ongoing Risk Assessment Details</h3>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div>
+                      <app-risk-saved-reports></app-risk-saved-reports>
+                    </div>
+                </mat-expansion-panel>
+    
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        <h3>Completed Risk Assessment License</h3>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div>
+                      <app-risk-final-reports></app-risk-final-reports>
+                    </div>
+                </mat-expansion-panel>
+              </ng-container>
+
+              <!-- EMC Assessment  -->
+              <ng-container *ngIf="emcData">
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header>
+                      <!-- EMC -->
+                      <mat-panel-title *ngIf="emcData">
+                        <h3>Ongoing EMC Assessment Details</h3>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div>
+                      <app-emc-saved-report></app-emc-saved-report>
+                    </div>
+                </mat-expansion-panel>
+    
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        <h3>Completed EMC Assessment License</h3>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div>
+                      <app-emc-final-report></app-emc-final-report>
                     </div>
                 </mat-expansion-panel>
               </ng-container>

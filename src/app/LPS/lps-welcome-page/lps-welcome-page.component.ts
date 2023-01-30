@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalsService } from 'src/app/globals.service';
-import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
 
 @Component({
   selector: 'app-lps-welcome-page',

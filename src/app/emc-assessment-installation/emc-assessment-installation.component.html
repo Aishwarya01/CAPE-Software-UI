@@ -3,7 +3,8 @@
 
 <body>
     <div *ngIf="destroy">
-        <app-emc-matstepper *ngIf="showEmcHome"></app-emc-matstepper>
+        <!-- <app-emc-matstepper *ngIf="showEmcHome"></app-emc-matstepper> -->
+        <app-licenselist *ngIf="showLicence"></app-licenselist>
     </div>
     <div *ngIf="!destroy" style="padding: 20px; background: white;">
         <button style="float: right;background-color: #0f800c;color: white;" type="submit"

@@ -4,8 +4,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { MatTab, MatTabGroup, MatTabHeader } from '@angular/material/tabs';
 import { ActivatedRoute } from '@angular/router';
-import { debug } from 'console';
-import { flag } from 'ngx-bootstrap-icons';
 import { ConfirmationBoxComponent } from 'src/app/confirmation-box/confirmation-box.component';
 import { GlobalsService } from 'src/app/globals.service';
 import { CustomerDetailsServiceService } from '../../Risk Assessment Services/customer-details-service.service';
@@ -247,7 +245,7 @@ export class RiskParentComponentComponent implements OnInit {
 
   interceptTabChange(tab: MatTab, tabHeader: MatTabHeader) {
 
-    if((this.service.lpsClick==1 && !this.isEditable) || (this.customerDetails.CustomerDetailsForm.dirty || this.riskStep2.step2Form.dirty))
+    if((this.service.lpsClick==1 && this.isEditable) || (this.customerDetails.CustomerDetailsForm.dirty || this.riskStep2.step2Form.dirty))
        {
         const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
           width: '420px',

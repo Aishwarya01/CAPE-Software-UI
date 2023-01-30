@@ -47,8 +47,8 @@
                               <i class="bi bi-person-lines-fill"></i>
                           </span>
                         </div>
-                        <input class="form-control" [readonly]="isEditable" type="text" formControlName="projectName" placeholder="Enter Project Name"
-                          [ngClass]="{ 'is-invalid': submitted && f.get('projectName')?.errors }"/>
+                        <input class="form-control" readonly type="text" formControlName="projectName" placeholder="Enter Project Name"
+                          [ngClass]="{ 'is-invalid': submitted && f.get('projectName')?.errors }" [ngModel]="riskProject"/>
                             <div *ngIf="submitted && f.get('projectName')?.errors" class="invalid-feedback">
                               <div *ngIf="f.get('projectName')?.errors?.required">Project Name is required</div>
                             </div>
@@ -131,15 +131,15 @@
                   </div>
 
                   <div class="col-md-4">
-                    <label for="contact">Email ID</label>
+                    <label for="contact">Viewer Email Id</label>
                       <div class="input-group">
                         <div class="input-group-prepend">
                           <span class="input-group-text">
                               <i class="bi bi-envelope-fill"></i>
                           </span>
                         </div>
-                        <input class="form-control" [readonly]="isEditable" type="email" formControlName="email" placeholder="Enter Email ID"
-                          [ngClass]="{ 'is-invalid': submitted && f.get('email')?.errors }"/>
+                        <input class="form-control" readonly type="email" formControlName="email" placeholder="Enter Email ID"
+                          [ngClass]="{ 'is-invalid': submitted && f.get('email')?.errors }" [ngModel]="riskEmail"/>
                             <div *ngIf="submitted && f.get('email')?.errors" class="invalid-feedback">
                               <div *ngIf="f.get('email')?.errors?.required">Email ID is required</div>
                             </div>

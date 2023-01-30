@@ -1,4 +1,12 @@
-<mat-tab-group  [selectedIndex]="selectedIndex" style="background-color:white;" #tabs>
+<!-- Spinner Code -->
+<div class="loader" *ngIf="spinner">
+</div>
+
+<div class="text-align" *ngIf="spinner">
+  <p style="z-index: 1000;position: fixed;margin-left: 50%;bottom: 50%;">Please wait, The details are loading</p>
+</div>
+
+<mat-tab-group  [selectedIndex]="selectedIndex" style="background-color:white;" #tabs [ngStyle]="{'filter': (spinner ? 'blur(1px)' : 'blur(0px)') ,'pointer-events': (spinner ? 'none' : 'visible')}">
     <mat-tab label="Electro Magnetic Compatibility">
         <mat-horizontal-stepper  [linear]="service.isLinear" #stepper>
          
@@ -6,14 +14,14 @@
              <ng-template matStepLabel>
                 <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
                 Client Details</ng-template>
-                <app-emc-client-details (proceedNext)="doSomething($event)"></app-emc-client-details>
+                <app-emc-client-details *ngIf="emcClientDetails" (proceedNext)="doSomething($event)"></app-emc-client-details>
             </mat-step>
 
             <mat-step [completed]="service.isCompleted2" [editable]="service.editable">
                 <ng-template matStepLabel>
                     <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
                     Facility Data</ng-template>
-                <app-emc-facility-data (proceedNext)="doSomething1($event)"></app-emc-facility-data>
+                <app-emc-facility-data *ngIf="emcFacilityData" (proceedNext)="doSomething1($event)"></app-emc-facility-data>
                 <button class="previousBtn" mat-button (click)="goBack2(stepper)">&laquo; Back</button> 
             </mat-step>
 
@@ -21,7 +29,7 @@
                 <ng-template matStepLabel>
                     <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
                     Power And Earthing Data</ng-template>
-                <app-power-and-earthing-data (proceedNext)="doSomething2($event)"></app-power-and-earthing-data>
+                <app-power-and-earthing-data *ngIf="emcElectromagneticCompatibility" (proceedNext)="doSomething2($event)"></app-power-and-earthing-data>
                 <button class="previousBtn" mat-button (click)="goBack3(stepper)">&laquo; Back</button> 
             </mat-step>
 
@@ -29,8 +37,7 @@
                 <ng-template matStepLabel>
                     <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
                     Electro Magnetic Compatibility (EMC) Data</ng-template>
-                <app-emc-electromagnetic-compatibility-data (proceedNext)="doSomething3($event)">
-                </app-emc-electromagnetic-compatibility-data>
+                <app-emc-electromagnetic-compatibility-data *ngIf="emcPowerAndEarthingData" (proceedNext)="doSomething3($event)"></app-emc-electromagnetic-compatibility-data>
                 <button class="previous4" mat-button (click)="goBack4(stepper)">&laquo; Back</button> 
             </mat-step>
 

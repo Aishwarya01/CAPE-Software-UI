@@ -1,9 +1,8 @@
-import { Component, OnInit, ViewChild,Output,EventEmitter, Input, ElementRef, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewChild,EventEmitter, ViewContainerRef } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
-import { InspectionVerificationBasicInformationComponent } from '../inspection-verification-basic-information/inspection-verification-basic-information.component';
 import { Site } from '../model/site';
 import { ClientService } from '../services/client.service';
 import { DepartmentService } from '../services/department.service';
@@ -11,7 +10,6 @@ import { SiteService } from '../services/site.service';
 import { VerificationlvComponent } from '../verificationlv/verificationlv.component';
 import { GlobalsService } from '../globals.service';
 import { MatInput } from '@angular/material/input';
-import { filter } from 'rxjs/operators';
 // import { environment } from 'src/environments/environment';
 import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminProd } from 'src/environments/environment.prod';

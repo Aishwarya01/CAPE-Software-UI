@@ -3,8 +3,6 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Valida
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ThumbsConstraints } from '@syncfusion/ej2-angular-diagrams';
-import { ConfirmationBoxComponent } from 'src/app/confirmation-box/confirmation-box.component';
 import { GlobalsService } from 'src/app/globals.service';
 import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminProd } from 'src/environments/environment.prod';

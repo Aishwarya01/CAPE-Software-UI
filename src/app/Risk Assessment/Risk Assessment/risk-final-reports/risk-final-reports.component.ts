@@ -6,12 +6,14 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalsService } from 'src/app/globals.service';
+import { LicenselistComponent } from 'src/app/licenselist/licenselist.component';
 import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminProd } from 'src/environments/environment.prod';
 import { CustomerDetails } from '../../Risk Assesment Model/customer-details';
-import { RiskAssessmentDetails } from '../../Risk Assesment Model/risk-assessment-details';
 import { CustomerDetailsServiceService } from '../../Risk Assessment Services/customer-details-service.service';
 import { RiskfinalpdfService } from '../../Risk Assessment Services/riskfinalpdf.service';
+
+declare var require: any
 const FileSaver = require('file-saver');
 
 @Component({
@@ -64,7 +66,7 @@ export class RiskFinalReportsComponent implements OnInit {
 
   @ViewChild('input') input!: MatInput;
   clientService: any;
-  lpsData: any=[];
+  riskData: any=[];
   completedFilterData: any=[];
   superAdminArr: any = [];
   filteredData: any = [];
@@ -83,7 +85,8 @@ export class RiskFinalReportsComponent implements OnInit {
               public service: GlobalsService,
               private riskPdf: RiskfinalpdfService,
               private customerDetailsService :CustomerDetailsServiceService,
-              private modalService: NgbModal) { 
+              private modalService: NgbModal,
+              public licenselist: LicenselistComponent) { 
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
 
@@ -123,15 +126,15 @@ export class RiskFinalReportsComponent implements OnInit {
       this.customerDetailsService.retriveAllCustomerDetails().subscribe(
         data => {
           // this.myfunction(data);
-          this.lpsData=JSON.parse(data);
-          for(let i of this.lpsData){
+          this.riskData=JSON.parse(data);
+          for(let i of this.riskData){
             if(i.allStepsCompleted=="AllStepCompleted"){
               this.filteredData.push(i);
             }
           }
           this.finalReport_dataSource = new MatTableDataSource(this.filteredData);
           this.filteredData = [];
-          this.lpsData = [];
+          this.riskData = [];
           this.finalReport_dataSource.paginator = this.finalReportPaginator;
           this.finalReport_dataSource.sort = this.finalReportSort;
         },
@@ -149,15 +152,15 @@ export class RiskFinalReportsComponent implements OnInit {
       this.customerDetailsService.retrieveCustomerDetailsBasedOnUserName(this.email).subscribe(
         data => {
           // this.myfunction(data);
-          this.lpsData=JSON.parse(data);
-          for(let i of this.lpsData){
+          this.riskData=JSON.parse(data);
+          for(let i of this.riskData){
             if(i.allStepsCompleted=="AllStepCompleted"){
               this.completedFilterData.push(i);
             }
           }
           this.finalReport_dataSource = new MatTableDataSource(this.completedFilterData);
           this.completedFilterData = [];
-          this.lpsData = [];
+          this.riskData = [];
           this.finalReport_dataSource.paginator = this.finalReportPaginator;
           this.finalReport_dataSource.sort = this.finalReportSort;
         },
@@ -212,12 +215,17 @@ export class RiskFinalReportsComponent implements OnInit {
     )
   }
 
-  continue(basicLpsId:any){
-    this.finalReportBody = false;
-    this.finalReportSpinner = true;
-    this.spinnerValue = "Please wait, the details are loading!";
-    this.service.allFieldsDisable = true;
-    this.callFinalMethod.emit(basicLpsId);
+  continue(riskId:any){
+    if(this.service.triggerMsgForLicense=='riskPage'){
+      this.licenselist.viewRiskData(riskId);
+    }
+    else{
+      this.finalReportBody = false;
+      this.finalReportSpinner = true;
+      this.spinnerValue = "Please wait, the details are loading!";
+      this.service.allFieldsDisable = true;
+      this.callFinalMethod.emit(riskId);
+    }
   }
 
   emailPDF(riskId:any,userName:any, projectName: any){

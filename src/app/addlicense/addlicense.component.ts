@@ -40,8 +40,15 @@ export class AddlicenseComponent implements OnInit {
 
     if(this.service.triggerMsgForLicense=='lvPage'){
       this.register.selectedProject = "LV"
-    } else if(this.service.triggerMsgForLicense=='lpsPage'){
+    }
+    else if(this.service.triggerMsgForLicense=='lpsPage'){
       this.register.selectedProject = "LPS"
+    }
+    else if(this.service.triggerMsgForLicense=='riskPage'){
+      this.register.selectedProject = "RISK"
+    }
+    else if(this.service.triggerMsgForLicense=='emcPage'){
+      this.register.selectedProject = "EMC"
     }
 
     this.inspectorService.updateLicense(this.register).subscribe(

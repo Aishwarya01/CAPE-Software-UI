@@ -1,8 +1,8 @@
-import{Component,OnInit,ViewChildren,ElementRef  }from'@angular/core';
+import{Component,OnInit,ViewChildren  }from'@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User } from '../model/user';
-import { SessionStorageService, SessionStorage } from 'angular-web-storage';
+import { SessionStorageService } from 'angular-web-storage';
 import { InspectorregisterService } from '../services/inspectorregister.service';
 import { UpdatePasswordInspector } from '../model/update-password-inspector';
 import { Register } from '../model/register';

@@ -9,9 +9,9 @@ import { EmcClientDetailsService } from 'src/app/EMC_Services/emc-client-details
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EmcSavedReportService } from 'src/app/EMC_Services/emc-saved-report.service';
 import { GlobalsService } from 'src/app/globals.service';
-import { environment } from 'src/environments/environment';
 import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminProd } from 'src/environments/environment.prod';
+import { LicenselistComponent } from 'src/app/licenselist/licenselist.component';
 
 @Component({
   selector: 'app-emc-final-report',
@@ -69,7 +69,8 @@ export class EmcFinalReportComponent implements OnInit {
               // private finalpdf: FinalPdfServiceService,
               public service: GlobalsService,
               public emcClientDetailsService: EmcClientDetailsService,
-              private modalService: NgbModal) { 
+              private modalService: NgbModal,
+              public licenselist: LicenselistComponent,) { 
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
 
@@ -172,12 +173,16 @@ refresh() {
 }
 
 continue(emcId: any,clientName: any) {
-  this.finalReportBody = false;
-  this.finalReportSpinner = true;
-  this.spinnerValue = "Please wait, the details are loading!";
-  this.service.allStepsCompletedEmc = true;
-  this.finalReportEvent.emit({emcId,clientName,flag: false});
-   //this.emcParent.preview(emcId,clientName,false);
+  if(this.service.triggerMsgForLicense=='emcPage'){
+    this.licenselist.viewEmcData(emcId);
+  }else{
+    this.finalReportBody = false;
+    this.finalReportSpinner = true;
+    this.spinnerValue = "Please wait, the details are loading!";
+    this.service.allStepsCompletedEmc = true;
+    this.finalReportEvent.emit({emcId,clientName,flag: false});
+     //this.emcParent.preview(emcId,clientName,false);}
+  }
  } 
 
 userName=this.router.snapshot.paramMap.get('email') || '{}';
