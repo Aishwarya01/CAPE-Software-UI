@@ -124,7 +124,7 @@ export class LpsFinalReportComponent implements OnInit {
           // this.myfunction(data);
           this.lpsData=JSON.parse(data);
           for(let i of this.lpsData){
-            if(i.allStepsCompleted=="AllStepCompleted"){
+            if(i.allStepsCompleted=="AllStepCompleted" && i.status != 'InActive'){
               this.filteredData.push(i);
             }
           }

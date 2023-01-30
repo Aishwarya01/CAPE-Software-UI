@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalsService } from 'src/app/globals.service';
 import { CustomerDetails } from '../../Risk Assesment Model/customer-details';
-import { RiskAssessmentDetails } from '../../Risk Assesment Model/risk-assessment-details';
 import { CustomerDetailsServiceService } from '../../Risk Assessment Services/customer-details-service.service';
 import { RiskglobalserviceService } from '../../riskglobalservice.service';
 import { RiskParentComponentComponent } from '../risk-parent-component/risk-parent-component.component';
@@ -51,6 +50,10 @@ export class RiskCustomerDetailsComponent implements OnInit {
   validationError1: boolean=false;
   validationErrorTab1: boolean=false;
   fileFlag:boolean=false;
+  // License Purpose
+  onSave: any;
+  riskProject: String='';
+  riskEmail: String='';
   
   constructor(
     private formBuilder: FormBuilder,
@@ -67,6 +70,17 @@ export class RiskCustomerDetailsComponent implements OnInit {
     this.CustomerDetailsForm = this.formBuilder.group({
       riskCustomerDetails: this.formBuilder.array([this.customerDetails()])
     });
+
+    if(sessionStorage.riskProject!=null && sessionStorage.riskProject!=undefined && sessionStorage.riskProject!=""){
+      this.riskProject=sessionStorage.riskProject;
+      this.riskEmail=sessionStorage.riskEmail;
+      sessionStorage.removeItem("riskProject");
+      sessionStorage.removeItem("riskEmail");
+    }
+    else{
+      // this.riskProject=;
+      // this.riskEmail=sessionStorage.riskEmail;
+    }
   }
 
   customerDetails(): FormGroup{
@@ -84,6 +98,9 @@ export class RiskCustomerDetailsComponent implements OnInit {
   }
 
   createCustomerDetails(item: any): FormGroup {
+    // License Purpose
+    this.riskProject=item.projectName;
+    this.riskEmail=item.email;
     return this.formBuilder.group({
       organisationName: new FormControl({disabled: false, value: item.organisationName}, Validators.required),
       address:new FormControl({disabled: false, value: item.address}, Validators.required),
@@ -348,7 +365,8 @@ export class RiskCustomerDetailsComponent implements OnInit {
       this.validationErrorMsgTab2 = 'Please Fill all the fields in Customer Details Form for further proceed';
       setTimeout(() => {
         this.validationErrorTab1 = false;
-      }, 3000);
+        this.validationErrorMsgTab2="";
+      }, 6000);
       return;
     }
     else if (this.CustomerDetailsForm.dirty && this.CustomerDetailsForm.touched) {
@@ -360,8 +378,9 @@ export class RiskCustomerDetailsComponent implements OnInit {
       setTimeout(() => {
         this.tabError = false;
         this.tabError1 = false;
-        this.tabErrorMsg1 = "";
-      }, 3000);
+        this.tabErrorMsg1="";
+      }, 6000);
+
       return;
     }
     else {

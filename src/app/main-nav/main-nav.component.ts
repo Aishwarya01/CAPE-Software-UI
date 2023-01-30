@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewChild, ViewContainerRef, OnInit, ElementRef } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild, ViewContainerRef, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -8,17 +8,12 @@ import { LvInspectionDetailsComponent } from '../lv-inspection-details/lv-inspec
 import { ComponentFactoryResolver } from '@angular/core';
 import { RiskAssessmentInspectionMaintenanceComponent } from '../risk-assessment-inspection-maintenance/risk-assessment-inspection-maintenance.component';
 import { EmcAssessmentInstallationComponent } from '../emc-assessment-installation/emc-assessment-installation.component';
-import { MainNavService } from '../services/main-nav.service';
 import { ApplicationType } from '../model/applicationtype';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { AddApplicationTypesComponent } from '../add-application-types/add-application-types.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UpdateApplicationTypesComponent } from '../update-application-types/update-application-types.component';
 import { ApplicationTypeService } from '../services/application.service';
-import { User } from '../model/user';
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { relative } from '@angular/compiler-cli/src/ngtsc/file_system';
-import { MatTabChangeEvent } from '@angular/material/tabs';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { BnNgIdleService } from 'bn-ng-idle';
@@ -34,12 +29,8 @@ import { InspectorregisterService } from '../services/inspectorregister.service'
 import { VerificationlvComponent } from '../verificationlv/verificationlv.component';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
 import { InspectionVerificationBasicInformationComponent } from '../inspection-verification-basic-information/inspection-verification-basic-information.component';
-import { SavedreportsComponent } from '../savedreports/savedreports.component';
-import { LpsMatstepperComponent } from '../LPS/lps-matstepper/lps-matstepper.component';
 import { LpsWelcomePageComponent } from '../LPS/lps-welcome-page/lps-welcome-page.component';
-import { wind } from 'ngx-bootstrap-icons';
 import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
-import { MatCarousel } from 'ng-mat-carousel';
 
 import { NewsService } from '../services/news.service';
 // import {
@@ -49,33 +40,10 @@ import { NewsService } from '../services/news.service';
 
 // } from '@syncfusion/ej2-angular-diagrams';
 
-import {
-  DiagramComponent, NodeModel, ConnectorModel, PaletteModel,
-  SnapSettingsModel, SnapConstraints, SymbolPaletteComponent, PointPortModel, PortVisibility,
-  PortConstraints, ContextMenuSettingsModel, IDragEnterEventArgs, DiagramBeforeMenuOpenEventArgs,
-  SymbolPreviewModel,
-  SwimLaneModel, Node,
-  SymbolInfo,
-  LaneModel,
-  randomId,
-  cloneObject, ShapeStyleModel,
-  HeaderModel,
-} from '@syncfusion/ej2-angular-diagrams';
-import { DiagramModel } from '../SLD/SLD Models/diagram-component';
-import { DiagramListComponent } from '../SLD/SLD components/diagram-list/diagram-list.component';
 import { DiagramWelcomePageComponent } from '../SLD/SLD components/diagram-welcome-page/diagram-welcome-page.component';
 import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminProd } from 'src/environments/environment.prod';
-import { NewsApiService } from 'angular-news-api';
 import { BuyMeterComponent } from '../buy-meter/buy-meter.component';
-import { RiskSavedReportsComponent } from '../Risk Assessment/Risk Assessment/risk-saved-reports/risk-saved-reports.component';
-import { EmcSavedReportComponent } from '../EMC/emc-saved-report/emc-saved-report.component';
-import { LpsSavedReportComponent } from '../LPS/lps-saved-report/lps-saved-report.component';
-import { FinalreportsComponent } from '../finalreports/finalreports.component';
-import { RiskFinalReportsComponent } from '../Risk Assessment/Risk Assessment/risk-final-reports/risk-final-reports.component';
-import { EmcFinalReportComponent } from '../EMC/emc-final-report/emc-final-report.component';
-import { LpsFinalReportComponent } from '../LPS/lps-final-report/lps-final-report.component';
-import { LicenselistComponent } from '../licenselist/licenselist.component';
 
 export interface PeriodicElement {
   siteCd: string;
@@ -315,8 +283,8 @@ export class MainNavComponent implements OnInit, OnDestroy {
   destroy: boolean=false;
   @ViewChild('verify1')
   matStepper:any;
-
-
+  // Getting present using this variable
+  currentYear:any;
    
   constructor(private breakpointObserver: BreakpointObserver, changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,private newsService: NewsService,
@@ -359,11 +327,12 @@ export class MainNavComponent implements OnInit, OnDestroy {
     this.newNotify();
     this.mobileDisplay = false;
     this.desktopDisplay = true;
+
+    this.currentYear= myDate.getFullYear();
      //load articles
     // this.newsService.initArticles().subscribe(data => this.mArticles = data['articles']);
      //load news sources
      this.newsService.topHeadlines().subscribe((result)=>{
-       console.log(result);
      //  for(let articles=0; articles<16; articles++){
       this.newsArticleDisplay=result.articles;
       //   this.newsArticleDisplay=result.articles.slice(0, 1);
@@ -454,8 +423,6 @@ export class MainNavComponent implements OnInit, OnDestroy {
     if (this.showREP) {
       this.retrieveSiteDetails();
     }
-
-    this.retrieveUserDetail();
   }
   
   setCompletedDataSourceAttributes() {
@@ -889,7 +856,6 @@ export class MainNavComponent implements OnInit, OnDestroy {
     this.selectedRowIndexSub ="";
  }
  highlightSub(type:any){
-  console.log("Function working");
   //this.viewContainerRef.clear();
   this.welcome= false;
   this.youtube = false;
@@ -1405,127 +1371,6 @@ profileUpdate(email: String) {
 
   displayIconsBasedOnEmail(): boolean {
     return !this.email.includes("@capeindia.net")
-  }
-
-  // Viewer events
-
-  retrieveUserDetail() {
-    this.service.noofLicense = 0;
-    //LPS
-    if(this.service.triggerMsgForLicense=='lpsPage'){
-      this.inspectorService.retrieveInspectorLicense(this.email,'LPS').subscribe(
-        (data) => {
-          this.userData = JSON.parse(data);
-          // if(this.userData.role == 'Inspector') {
-            if((this.userData.lpsNoOfLicence==undefined && this.userData.lpsNoOfLicence==null) || (this.userData.lpsNoOfLicence=="") || (this.userData.lpsNoOfLicence==0)){
-              this.service.noofLicense=0;
-            }
-            else if(this.userData.lpsNoOfLicence!="" && this.userData.lpsNoOfLicence!=0 && this.userData.lpsNoOfLicence!=null && this.userData.lpsNoOfLicence!=undefined){
-              this.service.noofLicense=this.userData.lpsNoOfLicence;
-            }
-          // }
-        },
-        (error) => {
-          this.ErrorLPS = true;
-          this.errorMsg = this.service.globalErrorMsg;
-          setTimeout(()=>{
-            this.ErrorLPS = false;
-          }, 10000);
-        }
-      )
-     }
-    // LV Page
-    else if(this.service.triggerMsgForLicense=='lvPage'){
-      this.inspectorService.retrieveInspectorLicense(this.email,"LV").subscribe(
-        (data) => {
-          this.userData = JSON.parse(data);
-          // if(this.userData.role == 'Inspector') {
-            if((this.userData.lvNoOfLicence==undefined && this.userData.lvNoOfLicence==null) ||( this.userData.lvNoOfLicence=="") || (this.userData.lvNoOfLicence==0)){
-              this.service.noofLicense=0;
-            }
-            else if(this.userData.lvNoOfLicence!="" && this.userData.lvNoOfLicence!=0 && this.userData.lvNoOfLicence!=null && this.userData.lvNoOfLicence!=undefined){
-            this.service.noofLicense=this.userData.lvNoOfLicence;
-            }
-          // }
-        },
-        (error) => {
-          this.ErrorLV = true;
-          this.errorMsg = this.service.globalErrorMsg;
-          setTimeout(()=>{
-            this.ErrorLV = false;
-          }, 10000);
-        }
-      )
-    }
-  }
-
-  editLpsData(basicLpsId:any){
-    if(this.lpsData){
-      this.service.disableSubmitSummary=false;
-      this.service.allFieldsDisable = false;
-      const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
-        width: '420px',
-        maxHeight: '90vh',
-        disableClose: true,
-      });
-      if(this.service.triggerMsgForLicense=='lpsPage'){
-        dialogRef.componentInstance.viewModal1 = true;
-        dialogRef.componentInstance.viewModal=false;
-        dialogRef.componentInstance.viewModal2 = false;
-      }
-      dialogRef.componentInstance.triggerModal = false;
-      if(this.lpsData){
-        dialogRef.componentInstance.confirmBox.subscribe(data=>{
-          if(data) {
-            this.viewContainerRef.clear();
-            this.destroy = true;
-            this.value1=true;
-            setTimeout(() => {
-              this.matStepper.changeTabLpsSavedReport(0,basicLpsId,this.router.snapshot.paramMap.get('email') || '{}');
-            }, 3000);
-          }
-          else{
-            this.destroy = false;
-            this.value1=false;
-          }
-        })
-      }
-    }
-  }
-
-  // LPS Final report navigation
-  viewLpsData(basicLpsId:any){
-    if(this.lpsData){
-      this.service.disableSubmitSummary=false;
-      this.service.allFieldsDisable=true;
-      const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
-        width: '420px',
-        maxHeight: '90vh',
-        disableClose: true,
-      });
-      if(this.service.triggerMsgForLicense=='lpsPage'){
-        dialogRef.componentInstance.viewModal2 = true;
-        dialogRef.componentInstance.viewModal1 = false;
-        dialogRef.componentInstance.viewModal=false;
-      }
-      dialogRef.componentInstance.triggerModal = false;
-      if(this.lpsData){
-        dialogRef.componentInstance.confirmBox.subscribe(data=>{
-          if(data) {
-            this.viewContainerRef.clear();
-            this.destroy = true;
-            this.value1=true;
-            setTimeout(() => {
-              this.matStepper.preview(basicLpsId);
-            }, 3000);
-          }
-          else{
-            this.destroy = false;
-            this.value1=false;
-          }
-        })
-      }
-    }
   }
 
   viewerNavigation(id:any){

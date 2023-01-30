@@ -4,12 +4,8 @@ import { ViewChild, ViewContainerRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { EmcClientDetails } from 'src/app/EMC_Model/emc-client-details';
 import { EmcClientDetailsService } from 'src/app/EMC_Services/emc-client-details.service';
-import { EmcFacilityDataComponent } from '../emc-facility-data/emc-facility-data.component';
-import { EmcMatstepperComponent } from '../emc-matstepper/emc-matstepper.component';
-import { EmcAssessmentInstallationComponent } from 'src/app/emc-assessment-installation/emc-assessment-installation.component';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { not } from '@angular/compiler/src/output/output_ast';
 import { GlobalsService } from 'src/app/globals.service';
 
 @Component({
@@ -60,6 +56,12 @@ export class EmcClientDetailsComponent implements OnInit {
   mode: any = 'indeterminate';
   nextButton: boolean = true;
   popup: boolean = false;
+  onSave: any;
+  clientNameMsg: string="";
+  clientNameMsg1: string="";
+  clientNameMsgError: boolean=false;
+  clientNameSuccess: boolean=false;
+  clientNameError: boolean=false;
 
   constructor(
     public dialog: MatDialog,
@@ -73,8 +75,8 @@ export class EmcClientDetailsComponent implements OnInit {
 
   ngOnInit(): void {
 
-     this.countryCode = '91';
-
+    this.countryCode = '91';
+    this.emcClientDetails.emcId=this.service.emcId;
     this.EmcClientDetailsForm = this.formBuilder.group({
       clientArr: this.formBuilder.array([
         this.createProfile(),
@@ -85,6 +87,7 @@ export class EmcClientDetailsComponent implements OnInit {
         this.countryList = JSON.parse(data);
       }
     )
+    this.retriveClientDetailsData();
   }
 
   createProfile(): FormGroup {
@@ -104,9 +107,18 @@ export class EmcClientDetailsComponent implements OnInit {
 
   retriveClientDetailsData() {
     this.flag = true;
-    // this.step1List = JSON.parse(data);
+    this.emcClientDetailsService.retrieveClientDetailsData(this.router.snapshot.paramMap.get('email') || '{}',this.emcClientDetails.emcId).subscribe(
+      data => {
+        let clientData=JSON.parse(data)[0];
+        if(clientData !=undefined && clientData.emcId !=null && clientData.emcId != undefined){
+        this.retrieveDetailsfromSavedReports(clientData.userName,clientData.emcId,clientData);
+        }
+      },
+      error=>{
+      }
+    );
 
-    this.populateForm();
+    // this.populateForm();
 
     // this.emcClientDetails.userName = userName;
     // this.emcClientDetails.emcId = emcId;
@@ -155,11 +167,40 @@ export class EmcClientDetailsComponent implements OnInit {
     })
   }
 
+  clientValidation(event:any,form:any){
 
+    if (form.controls.clientName.value != undefined && form.controls.clientName.value != null && form.controls.clientName.value != "") {
+
+      this.emcClientDetailsService.validateClientName(form.controls.clientName.value).subscribe(
+        data => {
+          var b = form.controls.clientName.value;
+          if (data != '') {
+            this.clientNameMsg = "Client Name is already existing, Please give different Project Name";
+            this.clientNameMsg1 = "";
+            this.clientNameError = true;
+          } else {
+            this.clientNameMsg1 = "You can continue with this Client Name";
+            this.clientNameMsg = "";
+            this.clientNameSuccess = true;
+            this.clientNameError = false;
+            setTimeout(() => {
+              this.clientNameSuccess = false;
+            }, 3000);
+          }
+        })
+    }
+  }
 
   retrieveDetailsfromSavedReports(userName: any, emcId: any, data: any) {
     this.flag = true;
-    this.step1List = data.clientDetails;
+
+    if (data.clientDetails != undefined && data.clientDetails != null && data.clientDetails != "") {
+      this.step1List = data.clientDetails;
+    }
+    else {
+      this.step1List = data;
+    }
+
     this.emcClientDetails.userName = this.step1List.userName;
     this.emcClientDetails.emcId = emcId;
     this.emcClientDetails.clientName = this.step1List.clientName;
@@ -178,8 +219,7 @@ export class EmcClientDetailsComponent implements OnInit {
     this.emcClientDetails.updatedDate = this.step1List.updatedDate;
     this.emcClientDetails.updatedBy = this.step1List.updatedBy;
     this.emcClientDetails.status = this.step1List.status;
-
-    this.retriveClientDetailsData();
+    this.populateForm();
   }
 
 
@@ -339,9 +379,9 @@ export class EmcClientDetailsComponent implements OnInit {
     if (this.EmcClientDetailsForm.invalid) {
       this.validationError = true;
       this.validationErrorMsg = "Please check all the fields in client details information";
-      //     setTimeout(()=>{
-      //       this.validationError=false;
-      //  }, 3000);
+      setTimeout(()=>{
+        this.validationError=false;
+      }, 3000);
       return;
     }
 

@@ -645,7 +645,7 @@
                                             </td>
 
                                             <td>
-                                                <input onwheel="this.blur()" class="form-control" formControlName="panelId"
+                                                <input onwheel="this.blur()" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="panelId"
                                                     [ngClass]="{'is-invalid':submitted && a.get('panelId')?.errors}" [readonly]="isEditableEmc"
                                                     placeholder="Enter ID here">
                                                 <div *ngIf="submitted &&a.get('panelId')?.errors"
@@ -1378,7 +1378,7 @@
 
             <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
                 <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
-                <button type="submit" class="next" (click)="gotoNextModal(content2, content)" mat-button>Next &raquo;</button>
+                <button type="submit" class="next" [ngClass]="{'disableForm':isEditableEmc}" (click)="gotoNextModal(content2, content)" mat-button>Next &raquo;</button>
             </div>
         </form>
     </div>

@@ -23,9 +23,11 @@ export class EmcClientDetailsService {
   public addClientDetailsData(emcClientDetails: EmcClientDetails): Observable<any> {
     return this.http.post<any>(this.apiUrl_EMC + '/emc/saveClientDetails', emcClientDetails, { responseType: 'text' as 'json' })
   }
+
   public retrieveClientDetailsData(userName:any, emcId:any): Observable<any> {
     return this.http.get<any>(this.apiUrl_EMC + '/emc/retrieveClientDetails'+'/'+userName+ '/' +emcId, { responseType: 'text' as 'json' })
   }
+
   public upDateClientDetailsData(emcClientDetails: EmcClientDetails): Observable<any> {
     return this.http.put<any>(this.apiUrl_EMC + '/emc/updateClientDetails', emcClientDetails, { responseType: 'text' as 'json' })
   }
@@ -72,6 +74,13 @@ export class EmcClientDetailsService {
     }
     public mailPDF(emcId: any,userName: any, clientName: any): Observable<any> {
       return this.http.get(this.apiUrl_EMC + '/emc/sendPDFinMail'+'/'+userName+ '/' +emcId+ '/'+clientName , { responseType: 'text' as 'json' })
-      }
+    }
 
+    public clientDetailsData(userName:any): Observable<any> {
+      return this.http.get<any>(this.apiUrl_EMC + '/emc/clientDetail'+'/'+userName, { responseType: 'text' as 'json' })
+    }
+
+    public validateClientName(clientName: String): Observable<any>{
+      return this.http.get<any>(this.apiUrl_EMC + '/emc/clientNameValidation' + '/' +clientName, { responseType: 'text' as 'json' })
+    }
 }

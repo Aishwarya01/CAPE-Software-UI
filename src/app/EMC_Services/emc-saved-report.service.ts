@@ -13,18 +13,22 @@ export class EmcSavedReportService {
   constructor(private http: HttpClient) { }
 
   public retrieveListOfClientDetails(userName: any): Observable<any> { 
-    return this.http.get<EmcClientDetails>(this.apiUrl_EMC + '/emc/retrieveListOClientDetails' + '/' + userName , { responseType: 'text' as 'json' })
+    return this.http.get<EmcClientDetails>(this.apiUrl_EMC + '/emc/retrieveListOfClientDetails' + '/' + userName , { responseType: 'text' as 'json' })
   }
 
   public retrieveAllCLientDetails(): Observable<any> { 
     return this.http.get<EmcClientDetails>(this.apiUrl_EMC + '/emc/retrieveAllClients', { responseType: 'text' as 'json' })
   }
 
-  public updateLpsBasicDetailsStatus(emcClientDetails: EmcClientDetails ): Observable<any> {
-    return this.http.put<any>(this.apiUrl_EMC + '/emc/updateEmcSatus', emcClientDetails, { responseType: 'text' as 'json' })
+  public updateClientDetailsStatus(emcClientDetails: EmcClientDetails ): Observable<any> {
+    return this.http.put<any>(this.apiUrl_EMC + '/emc/updateEmcStatus', emcClientDetails, { responseType: 'text' as 'json' })
   }
 
   public retrieveFinalEmcReport(userName: String,emcId: any): Observable<any> {
     return this.http.get<any>(this.apiUrl_EMC + '/emc/retrieveEmcReport' + '/' +userName+ '/' +emcId, { responseType: 'text' as 'json' })
   } 
+
+  public retriveEMCIsActive(userName: String): Observable<any>{
+    return this.http.get<any>(this.apiUrl_EMC + '/emc/clientDetail' + '/' +userName, { responseType: 'text' as 'json' })
+  }
 }

@@ -9,9 +9,9 @@ import { EmcClientDetailsService } from 'src/app/EMC_Services/emc-client-details
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EmcSavedReportService } from 'src/app/EMC_Services/emc-saved-report.service';
 import { GlobalsService } from 'src/app/globals.service';
-import { environment } from 'src/environments/environment';
 import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminProd } from 'src/environments/environment.prod';
+import { LicenselistComponent } from 'src/app/licenselist/licenselist.component';
 
 @Component({
   selector: 'app-emc-final-report',
@@ -69,7 +69,8 @@ export class EmcFinalReportComponent implements OnInit {
               // private finalpdf: FinalPdfServiceService,
               public service: GlobalsService,
               public emcClientDetailsService: EmcClientDetailsService,
-              private modalService: NgbModal) { 
+              private modalService: NgbModal,
+              public licenselist: LicenselistComponent,) { 
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
 
@@ -110,7 +111,7 @@ export class EmcFinalReportComponent implements OnInit {
           // this.myfunction(data);
           this.emcData=JSON.parse(data);
           for(let i of this.emcData){
-            if(i.allStepsCompleted=="AllStepCompleted"){
+            if(i.allStepsCompleted=="AllStepCompleted" && i.status != 'InActive'){
               this.filteredData.push(i);
             }
           }
@@ -129,13 +130,13 @@ export class EmcFinalReportComponent implements OnInit {
         });
         this.superAdminFlag = false;
     }
-    else {
+    else if(this.currentUser1.role=='Inspector') {
       this.emcSavedReportService.retrieveListOfClientDetails(this.email).subscribe(
         data => {
           // this.myfunction(data);
           this.emcData=JSON.parse(data);
           for(let i of this.emcData){
-            if(i.allStepsCompleted=="AllStepCompleted"){
+            if(i.allStepsCompleted=="AllStepCompleted" && i.status != 'InActive'){
               this.completedFilterData.push(i);
             }
           }
@@ -152,6 +153,28 @@ export class EmcFinalReportComponent implements OnInit {
             this.Error = false;
           }, 20000);
       });
+    }
+    // Viewer configuration
+    else {
+      this.emcSavedReportService.retriveEMCIsActive(this.email).subscribe(
+        data => {
+          this.emcData=JSON.parse(data);
+            if(this.emcData.allStepsCompleted == "AllStepCompleted" && this.emcData.status != 'InActive'){
+              this.completedFilterData.push(this.emcData);
+            }
+          this.finalReport_dataSource = new MatTableDataSource(this.completedFilterData);
+          this.completedFilterData = [];
+          this.emcData = [];
+          this.finalReport_dataSource.paginator = this.finalReportPaginator;
+          this.finalReport_dataSource.sort = this.finalReportSort;
+        },
+        error=>{
+          this.Error = true;
+          this.errorMsg = this.service.globalErrorMsg;
+          setTimeout(()=>{
+            this.Error = false;
+          }, 20000);
+        });
     }
     
 }
@@ -172,12 +195,16 @@ refresh() {
 }
 
 continue(emcId: any,clientName: any) {
-  this.finalReportBody = false;
-  this.finalReportSpinner = true;
-  this.spinnerValue = "Please wait, the details are loading!";
-  this.service.allStepsCompletedEmc = true;
-  this.finalReportEvent.emit({emcId,clientName,flag: false});
-   //this.emcParent.preview(emcId,clientName,false);
+  if(this.service.triggerMsgForLicense=='emcPage'){
+    this.licenselist.viewEmcData(emcId);
+  }else{
+    this.finalReportBody = false;
+    this.finalReportSpinner = true;
+    this.spinnerValue = "Please wait, the details are loading!";
+    this.service.allStepsCompletedEmc = true;
+    this.finalReportEvent.emit({emcId,clientName,flag: false});
+     //this.emcParent.preview(emcId,clientName,false);}
+  }
  } 
 
 userName=this.router.snapshot.paramMap.get('email') || '{}';

@@ -4,8 +4,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { MatTab, MatTabGroup, MatTabHeader } from '@angular/material/tabs';
 import { ActivatedRoute } from '@angular/router';
-import { debug } from 'console';
-import { flag } from 'ngx-bootstrap-icons';
 import { ConfirmationBoxComponent } from 'src/app/confirmation-box/confirmation-box.component';
 import { GlobalsService } from 'src/app/globals.service';
 import { CustomerDetailsServiceService } from '../../Risk Assessment Services/customer-details-service.service';
@@ -164,6 +162,25 @@ export class RiskParentComponentComponent implements OnInit {
           this.final.finalReportSpinner = false;
           this.final.finalReportBody = true;
           this.dataJSON = JSON.parse(data);
+
+        // Navigating compoments to their new editable stats
+          switch(this.dataJSON.customerDetails.allStepsCompleted){
+            case'step-1 completed':
+              // Risk Assessment
+              this.selectedIndexStepper=1;
+              break;
+
+            case'step-2 completed':
+              // Risk Assessment
+              this.selectedIndexStepper=2;
+              break;
+
+            default:
+              // Client details
+              this.selectedIndexStepper=0;
+              break;
+          }
+
           //CustomerDetails
           if (this.dataJSON.customerDetails != null) {
             this.selectedIndex=index;
@@ -247,7 +264,7 @@ export class RiskParentComponentComponent implements OnInit {
 
   interceptTabChange(tab: MatTab, tabHeader: MatTabHeader) {
 
-    if((this.service.lpsClick==1 && !this.isEditable) || (this.customerDetails.CustomerDetailsForm.dirty || this.riskStep2.step2Form.dirty))
+    if((this.service.lpsClick==1 && this.isEditable) || (this.customerDetails.CustomerDetailsForm.dirty || this.riskStep2.step2Form.dirty))
        {
         const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
           width: '420px',

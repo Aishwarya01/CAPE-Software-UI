@@ -2,7 +2,6 @@ import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
-  Input,
   OnInit,
   Output,
   ViewChild,
@@ -15,7 +14,6 @@ import {
   FormBuilder,
   FormControl,
   FormGroup,
-  NgControlStatus,
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -23,14 +21,12 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { InspectiondetailsService } from '../services/inspectiondetails.service';
 import { InspectionDetails } from '../model/inspection-details';
 import { GlobalsService } from '../globals.service';
-import { of } from 'rxjs';
 import { SiteService } from '../services/site.service';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
 import { CommentsSection } from '../model/comments-section';
 import { MainNavComponent } from '../main-nav/main-nav.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ObservationService } from '../services/observation.service';
-import { flatten } from '@angular/compiler';
 import { TestingService } from '../services/testing.service';
 import { SummarydetailsService } from '../services/summarydetails.service';
 

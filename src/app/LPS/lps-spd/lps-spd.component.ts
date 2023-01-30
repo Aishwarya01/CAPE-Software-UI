@@ -6,7 +6,6 @@ import { GlobalsService } from 'src/app/globals.service';
 import { spdReport } from 'src/app/LPS_model/spdReport';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
 import { LpsSpd_Service } from 'src/app/LPS_services/lps-spd.service';
-import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
 
 @Component({
   selector: 'app-lps-spd',

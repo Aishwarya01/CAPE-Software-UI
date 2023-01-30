@@ -387,7 +387,7 @@ export class EmcFacilityDataComponent implements OnInit {
       this.service.isLinear=false;
       this.service.editable=true;
       this.EMCFacilityForm.markAsPristine();
-   return true;
+      return true;
     }
   }
   closeModalDialog() {

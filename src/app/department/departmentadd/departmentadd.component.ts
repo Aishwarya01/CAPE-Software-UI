@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Company } from 'src/app/model/company';
 import { Department } from 'src/app/model/department';
 import { ClientService } from 'src/app/services/client.service';
 import { DepartmentService } from 'src/app/services/department.service';

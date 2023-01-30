@@ -1,6 +1,5 @@
-import { SignatorDetails } from './../model/reportdetails';
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup,Validators,ValidatorFn } from '@angular/forms';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup,Validators } from '@angular/forms';
 import {​​​ NgbModal }​​​ from'@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { Company } from '../model/company';
@@ -12,16 +11,12 @@ import { DepartmentService } from '../services/department.service';
 import { ReportDetailsService } from '../services/report-details.service';
 import { SiteService } from '../services/site.service';
 import { GlobalsService } from '../globals.service';
-import { iif } from 'rxjs';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
 import { CommentsSection } from '../model/comments-section';
 import { DatePipe } from '@angular/common';
 import { InspectorregisterService } from '../services/inspectorregister.service';
-import { ignoreElements } from 'rxjs/operators';
 import { MainNavComponent } from '../main-nav/main-nav.component'; 
-import { ReturnTypeTransform } from '@angular/compiler-cli/src/ngtsc/transform';
-import { MatDialog, MatDialogRef} from '@angular/material/dialog';
-import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
+import { MatDialog} from '@angular/material/dialog';
 import { SignatureComponent } from '../signature/signature.component';
 //import { SyncSigComponent } from '../sync-sig/sync-sig.component';
 

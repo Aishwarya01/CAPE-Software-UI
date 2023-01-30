@@ -1,12 +1,10 @@
 import {
-  AfterViewInit,
   Component,
   EventEmitter,
   OnInit,
   Output,
   ViewChild,
   ChangeDetectorRef,
-  VERSION,
   ElementRef,
   ViewContainerRef,
   OnDestroy
@@ -19,15 +17,10 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { MatDialog, MatDialogRef} from '@angular/material/dialog';
+import { MatDialog} from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../model/user';
-import { MatRadioChange } from '@angular/material/radio';
 import { Summary } from '../model/summary';
 import { SummarydetailsService } from '../services/summarydetails.service';
 import { GlobalsService } from '../globals.service';
@@ -36,18 +29,13 @@ import { SiteService } from '../services/site.service';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
 import { MainNavComponent } from '../main-nav/main-nav.component';
 import { CommentsSection } from '../model/comments-section';
-import { FinalreportsComponent } from '../finalreports/finalreports.component';
 import { ComponentFactoryResolver } from '@angular/core';
-import { LvInspectionDetailsComponent } from '../lv-inspection-details/lv-inspection-details.component';
-import { LicenselistComponent } from '../licenselist/licenselist.component';
 import { ObservationService } from '../services/observation.service';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
 import { SignatureComponent } from '../signature/signature.component';
 import { SuperAdminProd } from 'src/environments/environment.prod';
 import { SuperAdminDev } from 'src/environments/environment.dev';
 
-import { element } from 'protractor';
 
 @Component({
   selector: 'app-summary',

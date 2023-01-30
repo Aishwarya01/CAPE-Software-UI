@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { debug } from 'console';
 import { RegistrationBuyMeter } from '../model/registration-buy-meter';
 import { RegistrationBuyMeterService } from '../services/registration-buy-meter.service';
 import { SiteService } from '../services/site.service';

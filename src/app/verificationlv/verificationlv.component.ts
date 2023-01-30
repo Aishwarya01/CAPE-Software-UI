@@ -1,17 +1,15 @@
 import {
-  AfterViewInit,
   Component,
   EventEmitter,
   OnInit,
   Output,
   ViewChild,
   ChangeDetectorRef,
-  VERSION,
   Input,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AbstractControl, FormArray, FormControl } from '@angular/forms';
-import { StepperSelectionEvent, STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { FormArray } from '@angular/forms';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -40,14 +38,11 @@ import { InspectionVerificationTestingComponent } from '../inspection-verificati
 import { InspectionVerificationIncomingEquipmentComponent } from '../inspection-verification-incoming-equipment/inspection-verification-incoming-equipment.component';
 import { SummaryComponent } from '../summary/summary.component';
 import { InspectionVerificationSupplyCharacteristicsComponent } from '../inspection-verification-supply-characteristics/inspection-verification-supply-characteristics.component';
-import { MatTabChangeEvent } from '@angular/material/tabs';
 import { SavedreportsComponent } from '../savedreports/savedreports.component';
 import { InspectorregisterService } from '../services/inspectorregister.service';
-import { map } from 'rxjs/operators';
-import { readJsonConfigFile } from 'typescript';
 import { FinalreportsComponent } from '../finalreports/finalreports.component';
 import { ObservationService } from '../services/observation.service';
-import {Pipe, PipeTransform } from '@angular/core';
+import {Pipe } from '@angular/core';
 import { MatTabGroup, MatTabHeader, MatTab } from '@angular/material/tabs';
 //import { NGXLogger } from 'ngx-logger';
 import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
@@ -240,8 +235,12 @@ export class VerificationlvComponent implements OnInit {
   testingValue: boolean = true;
   summaryValue: boolean = true;
   selectedIndexStepper!: number;
+
+  // We are getting allsteps completed data using this variable
+  tempArr: any=[];
+
   //counter: number=0;
-//private logger: NGXLogger,
+  //private logger: NGXLogger,
   constructor(
     private _formBuilder: FormBuilder,
     private modalService: NgbModal,
@@ -855,8 +854,8 @@ changeTab(index: number, sitedId: any, userName: any, companyName: any, departme
  // this.logger.error('changeTab started');
   this.siteService.retrieveFinal(sitedId).subscribe(
     data=> {
-    
-            //this.logger.debug('data fetched');
+      this.tempArr=JSON.parse(data);
+      //this.logger.debug('data fetched');
       //this.selectedIndex = index;
       this.dataJSON = JSON.parse(data);
       if(this.dataJSON.reportDetails != null) {
@@ -989,7 +988,7 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
  setTimeout(() => {
   this.siteService.retrieveFinal(sitedId).subscribe(
     data=> {
-     
+      this.tempArr=JSON.parse(data);
       //this.selectedIndex = index;
       this.saved.savedReportSpinner =false;
       this.saved.savedReportBody = true;
@@ -1151,33 +1150,61 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
   //   }
     
   // }
+
   goBack2(stepper: MatStepper) {
     if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
       stepper.previous();
       //this.service.goBacktoprevious=true;x
     }
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
+      stepper.previous();
+    }
+    else if(this.supply.supplycharesteristicForm.pristine && this.supply.supplycharesteristicForm.untouched){
+      stepper.previous();
+    }
     else{
       this.supply.reloadFromBack();
     }
   }
+
   goBack3(stepper: MatStepper) {
     if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
+      stepper.previous();
+    }
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
+      stepper.previous();
+    }
+    else if(this.incoming.addstep3.pristine && this.incoming.addstep3.untouched){
       stepper.previous();
     }
     else{
       this.incoming.reloadFromBack();
     }
   }
+
   goBack4(stepper: MatStepper) {
     if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
+      stepper.previous();
+    }
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
+      stepper.previous();
+    }
+    else if(this.testing.testingForm.pristine && this.testing.testingForm.untouched){
       stepper.previous();
     }
     else{
       this.testing.reloadFromBack();
     }
   }
+
   goBack5(stepper: MatStepper) {
     if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
+      stepper.previous();
+    }
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
+      stepper.previous();
+    }
+    else if(this.summary.addsummary.pristine && this.summary.addsummary.untouched){
       stepper.previous();
     }
     else{

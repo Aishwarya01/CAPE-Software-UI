@@ -65,7 +65,6 @@ import { AddlicenseComponent } from './addlicense/addlicense.component';
 import { AssignViewerComponent } from './assign-viewer/assign-viewer.component';
 import { ViewerRegisterComponent } from './viewer-register/viewer-register.component';
 import { DatePipe } from '@angular/common';
-import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { NgbTooltipModule } from "@ng-bootstrap/ng-bootstrap";
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -84,7 +83,6 @@ import { EmcClientDetailsComponent } from './EMC/emc-client-details/emc-client-d
 import { LpsEarthingComponent } from './LPS/lps-earthing/lps-earthing.component';
 import { LpsSpdComponent } from './LPS/lps-spd/lps-spd.component';
 import { LpsSeperationDistanceComponent } from './LPS/lps-seperation-distance/lps-seperation-distance.component';
-import { LpsEarthing } from './LPS_services/lps-earthing';
 import { LpsMatstepperComponent } from './LPS/lps-matstepper/lps-matstepper.component';
 import { LpsAirTerminationComponent } from './LPS/lps-air-termination/lps-air-termination.component';
 import { LpsBasicPageComponent } from './LPS/lps-basic-page/lps-basic-page.component';

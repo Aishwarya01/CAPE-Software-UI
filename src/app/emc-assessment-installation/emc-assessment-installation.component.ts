@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { EmcClientDetailsComponent } from '../EMC/emc-client-details/emc-client-details.component';
 import { MatDialog } from '@angular/material/dialog';
+import { GlobalsService } from '../globals.service';
 
 @Component({
   selector: 'app-emc-assessment-installation',
@@ -16,9 +16,11 @@ export class EmcAssessmentInstallationComponent implements OnInit {
   destroy: boolean = false;
   email: String = '';
   showEmcHome: boolean = false;
+  showLicence: boolean=false;
 
   constructor( private router: ActivatedRoute,
-    private dialog: MatDialog,
+              private dialog: MatDialog,
+              private globalService: GlobalsService
     ) { 
       {
         this.email = this.router.snapshot.paramMap.get('email') || '{}'
@@ -37,7 +39,12 @@ export class EmcAssessmentInstallationComponent implements OnInit {
     //   disableClose: true,
       
     // });
-  this.showEmcHome = true;
+    // this.showEmcHome = true;
+    this.showLicence=true;
+    this.globalService.toggle=false;
+    this.showLicence = true;
+    this.globalService.headerMsg="emcPage";
+    this.globalService.licensePageHeaging();
     // });
     // dialogRef.componentInstance.email = this.email;
   }
