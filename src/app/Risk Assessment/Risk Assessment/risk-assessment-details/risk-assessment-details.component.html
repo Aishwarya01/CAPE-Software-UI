@@ -1326,7 +1326,7 @@
                         </div>
                     </div>
                     <button type="button" class="col-md-6" style="text-align: center;width: auto;position: relative;float: right;" class="btn btn-danger btn-rounded btn-md font-weight-medium auth-form-btn"
-                    aria-label="Close" (click)="closeModalDialog()" title="Close the window">Close</button>
+                    aria-label="Close" (click)="riskFire()" title="Close the window">Close</button>
                 </div>
             </ng-template>
         </ng-container>
@@ -1336,9 +1336,9 @@
     </div>
     <br>
         <div style="margin-top: 20px;text-align: center;">
-            <button *ngIf="updateButton" class="next" (click)="gotoNextModal(contents,contentSub,content,content4,'update')" [ngClass]="{'disableForm':isEditable}" mat-button>Update &raquo;</button>
+            <button *ngIf="updateButton" class="next" (click)="gotoNextModal(contents,contentSub,content,content4,'update')" [ngClass]="{'disableForm':isEditable}" [hidden]="isEditable" mat-button>Update &raquo;</button>
             <button *ngIf="saveButton" class="next" (click)="gotoNextModal(contents,contentSub,content,content4,'save')" [ngClass]="{'disableForm':isEditable}" mat-button>Save &raquo;</button>
-            <button type="submit" (click)="gotoNextModal(contents,contentSub,content,content4,'submit')" [disabled]="submittedButton" [ngClass]="{'disableForm':isEditable}" *ngIf="enableSubmit" class="next1" title="Generate Report" mat-button>Submit &raquo;</button>
+            <button type="submit" (click)="gotoNextModal(contents,contentSub,content,content4,'submit')" [disabled]="submittedButton" [ngClass]="{'disableForm':isEditable}" *ngIf="enableSubmit" class="next1" title="Submit All Changes" mat-button>Submit &raquo;</button>
         </div>
     </form>
     </div>

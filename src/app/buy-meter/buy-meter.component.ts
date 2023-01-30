@@ -66,7 +66,8 @@ export class BuyMeterComponent implements OnInit {
   @ViewChild(AddCartBuyMeterComponent) 
   cart!: AddCartBuyMeterComponent;
 
-  
+  spinner: boolean = false;
+  blurMode: boolean = false;
   meterName: String = '';
   email: String = '';
   selectedMeter: any;
@@ -80,7 +81,6 @@ export class BuyMeterComponent implements OnInit {
   filteredData: any = [];
   clickedImage: any;
   cartCount!: number;
-
   meterDropdownList: any = [,
     'MZC-304 S.C. Loop Impedance Meter-1',
     'MZC-330S Short Circuit Loop Impedance Meter',
@@ -178,7 +178,6 @@ meterData2: any =[
     addToCart(b:any,productExists:any){
       if (this.service.cartIndex.includes(b)){
         this.modalReference = this.modalService.open(productExists, {centered:true, size: 'md' })
-         console.log("already"); 
       }
       else{
   
@@ -204,6 +203,7 @@ meterData2: any =[
     closeModal(){
       this.modalReference.close();
     }
+
     // addToCart1(b:any){
     //   this.service.cartIndex.push(b);
     //   this.cartCount=this.service.cartIndex.length;
@@ -260,5 +260,33 @@ meterData2: any =[
     disable(meter: any): boolean {
       return meter === this.clickedMeter;
     }
-   
+
+    openTemp(backWarning : any){
+          this.modalService.open(backWarning,{centered:true, size: 'md'})
+    }
+
+    closeTemp(){
+      this.modalService.dismissAll();
+    }
+
+meterLogout(){
+      this.closeTemp();
+      this.spinner = true;
+      this.blurMode = true;
+        this.loginBuyMeterService.Signout();
+        setTimeout(() => {
+          this.spinner = false;
+          this.blurMode = false;
+          this.router.navigate(['/SignIn']);
+        }, 3000);
+    } 
+
+    backToHome(backWarning:any){
+      if(sessionStorage.getItem('token')!=null){
+       this.openTemp(backWarning);
+      }else{
+        this.router.navigate(['/SignIn']);
+      }
+   }
+
 }

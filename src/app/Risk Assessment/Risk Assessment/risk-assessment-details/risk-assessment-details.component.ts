@@ -2156,6 +2156,10 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     this.modalService.dismissAll();
   }
 
+  riskFire(){
+    this.modalService.dismissAll();
+  }
+
   navigateToStep(index: any) {
     this.navigateStepSummary.emit(index);
   }
@@ -2176,7 +2180,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       this.modalService.open(content, { centered: true,backdrop: 'static' });
     }
 
-    else if(!this.step2Form.dirty && !this.step2Form.touched && this.buttonName=='submit'){
+    else if((!this.step2Form.dirty && !this.step2Form.touched && this.buttonName=='submit')|| (this.step2Form.dirty && this.step2Form.touched && this.buttonName=='submit')){
       this.modalService.open(contentSub, { centered: true,backdrop: 'static' });  
     }
 

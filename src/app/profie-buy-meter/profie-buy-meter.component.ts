@@ -71,9 +71,7 @@ export class ProfieBuyMeterComponent implements OnInit {
       data => {
         this.registerBuyMeterModel = JSON.parse(data);
         this.viewEmployee = false;
-        this.profileDetails(this.registerBuyMeterModel);
       })
-    console.log(this.profileDetails);
 
     this.changeNumberForm = this.fb.group({
       username: new FormControl(''),
@@ -96,25 +94,6 @@ export class ProfieBuyMeterComponent implements OnInit {
       'height': '40px'
     }
   };
-
-
-   profileDetails(value:any){
-    return this.fb.group({
-      firstName: new FormControl(value.firstName),
-      lastName: new FormControl(value.lastName),
-      contactNumber: new FormControl(value.contactNumber),
-      email: new FormControl(value.email),
-      purchasetype: new FormControl(value.purchasetype),
-      customerGstNumber: new FormControl(value.customerGstNumber),
-      companyName: new FormControl(value.companyName),
-      address: new FormControl(value.address),
-      country: new FormControl(value.country),
-      state: new FormControl(value.state),
-      city: new FormControl(value.city),
-      pincode: new FormControl(value.pincode)
-    
-    })
-   }
 
    toFormGroup(elements:any) {
     const group: any = {};

@@ -377,8 +377,10 @@ export class RiskCustomerDetailsComponent implements OnInit {
       this.tabErrorMsg1 = 'Kindly click on next button to update the changes!';
       setTimeout(() => {
         this.tabError = false;
+        this.tabError1 = false;
         this.tabErrorMsg1="";
       }, 6000);
+
       return;
     }
     else {
