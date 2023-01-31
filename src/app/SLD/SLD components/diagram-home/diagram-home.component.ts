@@ -166,6 +166,7 @@ export class DiagramHomeComponent implements OnInit {
   lightGeneralTestingArray: any = [];
   lightSafetyTestingArray: any = [];
   submittedLight: boolean = false;
+
  
 
   public getNodeDefaults(node: any): NodeModel {
@@ -177,19 +178,27 @@ export class DiagramHomeComponent implements OnInit {
     return node;
   }
 
-  public getConnectorDefaults(obj: ConnectorModel): any {
-    obj.style = {
-      strokeColor: '#6BA5D7',
-      fill: '#6BA5D7',
-      strokeWidth: 2
-    }
-    obj.targetDecorator = {
-      style: {
-        fill: '#6BA5D7',
-        strokeColor: '#6BA5D7'
-      }
-    }
-  }
+  // public getConnectorDefaults(obj: ConnectorModel): any {
+  //   obj.style = {
+  //     strokeColor: '#6BA5D7',
+  //     fill: '#6BA5D7',
+  //     strokeWidth: 2
+  //   }
+  //   obj.targetDecorator = {
+  //     style: {
+  //       fill: '#6BA5D7',
+  //       strokeColor: '#6BA5D7'
+  //     }
+  //   }
+
+
+    
+
+
+  //  }
+
+ 
+  
   
   public loadDiagram(userName: any,fileName: any){
     this.diagramService.retriveDiagram(userName,fileName).subscribe(
@@ -391,16 +400,7 @@ export class DiagramHomeComponent implements OnInit {
       // args.source.type = person;
       // console.log(args.source)
 
-      if(args.source.properties.id.includes('Orthogonal1')) {
-        const dialogRef = this.dialog.open(CableConnectorComponent, {
-          width: '1100px',
-          maxHeight: '90vh',
-          disableClose: true,
-        });
-        dialogRef.componentInstance.cableConnectorId = args.source.properties.id;
-        dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
-        dialogRef.componentInstance.email = this.email;
-      }
+     
       if(args.source.properties.id.includes('Orthogonal2')) {
         const dialogRef = this.dialog.open(CableConnectorComponent, {
           width: '1100px',
@@ -411,16 +411,7 @@ export class DiagramHomeComponent implements OnInit {
         dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
         dialogRef.componentInstance.email = this.email;
       }
-      if(args.source.properties.id.includes('Straight1')) {
-        const dialogRef = this.dialog.open(CableConnectorComponent, {
-          width: '1100px',
-          maxHeight: '90vh',
-          disableClose: true,
-        });
-        dialogRef.componentInstance.cableConnectorId = args.source.properties.id;
-        dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
-        dialogRef.componentInstance.email = this.email;
-      }
+     
       if(args.source.properties.id.includes('Straight2')) {
         const dialogRef = this.dialog.open(CableConnectorComponent, {
           width: '1100px',
@@ -443,16 +434,7 @@ export class DiagramHomeComponent implements OnInit {
         dialogRef.componentInstance.email = this.email;
       }
 
-      if(args.source.properties.id.includes('Straight3')) {
-        const dialogRef = this.dialog.open(ProtectiveEarthConductorComponent, {
-          width: '1100px',
-          maxHeight: '90vh',
-          disableClose: true,
-        });
-        dialogRef.componentInstance.cableConnectorId = args.source.properties.id;
-        dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
-        dialogRef.componentInstance.email = this.email;
-      }
+    
     }
   }
   // public portIp1: PointPortModel[] = [
@@ -534,54 +516,65 @@ export class DiagramHomeComponent implements OnInit {
   //   }
   // ]
     public connectorSymbols: ConnectorModel[] = [
-      {
-        id: 'Orthogonal1',
-        type: 'Orthogonal',
-        sourcePoint: { x: 0, y: 0 },
-        targetPoint: { x: 40, y: 40 },
-        targetDecorator: { shape: 'Arrow'},
-        style: { strokeWidth: 2}
-    },
+     
     {
         id: 'Orthogonal2',
         type: 'Orthogonal',
         sourcePoint: { x: 0, y: 0 },
         targetPoint: { x: 40, y: 40 },
-        style: { strokeWidth: 2},
-        targetDecorator: { shape: 'None' }
+        targetDecorator: { shape: 'None', style: {strokeColor: 'black', fill: 'blue'} },
+        style: { strokeWidth: 2, strokeColor: 'black',  fill: 'blue'}
     },
-    {
-        id: 'Straight1',
-        type: 'Straight',
-        sourcePoint: { x: 0, y: 0 },
-        targetPoint: { x: 40, y: 40 },
-        targetDecorator: { shape: 'Arrow'},
-        style: { strokeWidth: 2}
-    },
+   
     {
         id: 'Straight2',
         type: 'Straight',
         sourcePoint: { x: 0, y: 0 },
         targetPoint: { x: 40, y: 40 },
-        style: { strokeWidth: 2},
-        targetDecorator: { shape: 'None' }
+        targetDecorator: { shape: 'None', style: {strokeColor: 'black', fill: 'blue'} },
+        style: { strokeWidth: 2, strokeColor: 'black',  fill: 'blue'}
     },
     {
         id: 'Bezier',
         type: 'Bezier',
         sourcePoint: { x: 0, y: 0 },
         targetPoint: { x: 40, y: 40 },
-        style: { strokeWidth: 2},
-        targetDecorator: { shape: 'None' }
+        targetDecorator: { shape: 'None', style: {strokeColor: 'black', fill: 'blue'} },
+        style: { strokeWidth: 2, strokeColor: 'black',  fill: 'blue'}
+    },
+   
+    ];
+
+    public EarthConnector: ConnectorModel[] = [
+     
+    {
+        id: 'productiveEarthConnector1',
+        type: 'Orthogonal',
+        sourcePoint: { x: 0, y: 0 },
+        targetPoint: { x: 40, y: 40 },
+        targetDecorator: { shape: 'None', style: {strokeColor: 'green', fill: 'green'} },
+        style: { strokeWidth: 2, strokeColor: 'green',  fill: 'green'}
+       
+    },
+   
+    {
+        id: 'productiveEarthConnector2',
+        type: 'Straight',
+        sourcePoint: { x: 0, y: 0 },
+        targetPoint: { x: 40, y: 40 },
+        targetDecorator: { shape: 'None', style: {strokeColor: 'green', fill: 'green'} },
+        style: { strokeWidth: 2, strokeColor: 'green',}
+
     },
     {
-      id: 'Straight3',
-      type: 'Straight',
-      sourcePoint: { x: 0, y: 0 },
-      targetPoint: { x: 40, y: 40 },
-      targetDecorator: { shape: 'Arrow', style: {strokeColor: 'green', fill: 'green'} },
-      style: { strokeWidth: 2, strokeColor: 'green'}
-  }
+        id: 'productiveEarthConnector3',
+        type: 'Bezier',
+        sourcePoint: { x: 0, y: 0 },
+        targetPoint: { x: 40, y: 40 },
+        targetDecorator: { shape: 'None', style: {strokeColor: 'green', fill: 'green'} },
+        style: { strokeWidth: 2, strokeColor: 'green',}
+    },
+    
     ];
 
   //SymbolPalette Properties
@@ -732,13 +725,23 @@ export class DiagramHomeComponent implements OnInit {
         iconCss: 'shapes',
         title: 'Flow Shapes'
     },
+     {
+    id: 'connector',
+    expanded: true,
+    symbols: this.EarthConnector,
+    title: 'Earth Connector',
+    iconCss: 'e-ddb-icons e-basic'
+},
+
     {
-      id: 'connector',
+      id: 'connectors',
       expanded: true,
       symbols: this.connectorSymbols,
       title: 'Connector Symbols',
       iconCss: 'e-ddb-icons e-basic'
-  }
+  },
+
+ 
 ];
 
 public getSymbolInfo(symbol: NodeModel): SymbolInfo {
