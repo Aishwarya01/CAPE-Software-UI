@@ -180,7 +180,7 @@ export class LicenselistComponent implements OnInit {
 
   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
-    if (this.email.endsWith("@capeindia.net")) {
+    if (this.email.endsWith("@capeindia.net") || this.email == 'awstesting@rushforsafety.com') {
       this.capeIndiaMail = true;
     }
   }
