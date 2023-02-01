@@ -526,7 +526,7 @@ export class VerificationlvComponent implements OnInit {
   }
   
   interceptTabChange(tab: MatTab, tabHeader: MatTabHeader) {
-    if((this.service.lvClick==1) && (this.service.allStepsCompleted==true))
+    if((this.service.lvClick==1) && (this.service.allStepsCompleted==true) && JSON.parse(sessionStorage.authenticatedUser).role != 'Viewer')
        {
         const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
           width: '420px',
@@ -560,7 +560,7 @@ export class VerificationlvComponent implements OnInit {
       //   return;
       // }
         }
-        else if((this.service.lvClick==0) || (this.service.allStepsCompleted==false)){
+        else {
         this.service.windowTabClick=0;
         this.service.logoutClick=0;
         this.service.lvClick=0; 

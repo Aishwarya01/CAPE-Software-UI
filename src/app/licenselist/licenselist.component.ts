@@ -485,7 +485,18 @@ export class LicenselistComponent implements OnInit {
 
   editSite(siteId: any, userName: any, site: any, departmentName: any, companyName: any, allStepsCompleted: any, data: any) {
     if (allStepsCompleted == "Register") {
-      this.navigateToSite1(data);
+      if(JSON.parse(sessionStorage.authenticatedUser).role == 'Viewer'){
+        this.errorSite = true;
+        this.errorMsg = 'Inspector need to update the site details, Then only you can view this site data';
+        setTimeout(() => {
+          this.errorSite = false;
+          this.errorMsg = '';
+        }, 3000);
+      }
+      else{
+        this.navigateToSite1(data);
+      }
+    
     }
     else {
       this.service.allStepsCompleted = true;
