@@ -135,6 +135,7 @@ import { CheckoutBuyMeterComponent } from './checkout-buy-meter/checkout-buy-met
 import { MatStepperModule } from '@angular/material/stepper';
 import { BuyMeterOrderHistoryComponent } from './buy-meter-order-history/buy-meter-order-history.component';
 import { UpdateLicenceComponent } from './update-licence/update-licence.component';
+import { EarthingCableConnnectorComponent } from './SLD/SLD components/Node Components/earthing-cable-connnector/earthing-cable-connnector.component';
 
 
 
@@ -234,7 +235,8 @@ import { UpdateLicenceComponent } from './update-licence/update-licence.componen
     ProfieBuyMeterComponent,
     CheckoutBuyMeterComponent,
     BuyMeterOrderHistoryComponent,
-    UpdateLicenceComponent
+    UpdateLicenceComponent,
+    EarthingCableConnnectorComponent
    
   ],
   imports: [

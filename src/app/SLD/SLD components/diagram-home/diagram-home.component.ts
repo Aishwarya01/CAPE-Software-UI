@@ -42,6 +42,7 @@ import { getCurrencySymbol } from '@angular/common';
 import { ProtectiveEarthConductorComponent } from '../Node Components/protective-earth-conductor/protective-earth-conductor.component';
 import { GlobalsService } from 'src/app/globals.service';
 import { environment } from 'src/environments/environment';
+import { EarthingCableConnnectorComponent } from '../Node Components/earthing-cable-connnector/earthing-cable-connnector.component';
 
 
 @Component({
@@ -412,7 +413,7 @@ export class DiagramHomeComponent implements OnInit {
         dialogRef.componentInstance.email = this.email;
       }
      
-      if(args.source.properties.id.includes('Straight2')) {
+      else if(args.source.properties.id.includes('Straight2')) {
         const dialogRef = this.dialog.open(CableConnectorComponent, {
           width: '1100px',
           maxHeight: '90vh',
@@ -423,7 +424,7 @@ export class DiagramHomeComponent implements OnInit {
         dialogRef.componentInstance.email = this.email;
       }
      
-      if(args.source.properties.id.includes('Bezier')) {
+      else if(args.source.properties.id.includes('Bezier')) {
         const dialogRef = this.dialog.open(CableConnectorComponent, {
           width: '1100px',
           maxHeight: '90vh',
@@ -434,7 +435,42 @@ export class DiagramHomeComponent implements OnInit {
         dialogRef.componentInstance.email = this.email;
       }
 
-    
+      // Earthing productive Connector 
+
+      // productiveEarthConnector1
+      else if(args.source.properties.id.includes('productiveEarthConnector1')) {
+        const dialogRef = this.dialog.open(EarthingCableConnnectorComponent, {
+          width: '1100px',
+          maxHeight: '90vh',
+          disableClose: true,
+        });
+        dialogRef.componentInstance.earthCableConnectorId = args.source.properties.id;
+        dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
+        dialogRef.componentInstance.email = this.email;
+      }    
+
+      // productiveEarthConnector2
+      else if(args.source.properties.id.includes('productiveEarthConnector2')) {
+        const dialogRef = this.dialog.open(EarthingCableConnnectorComponent, {
+          width: '1100px',
+          maxHeight: '90vh',
+          disableClose: true,
+        });
+        dialogRef.componentInstance.earthCableConnectorId = args.source.properties.id;
+        dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
+        dialogRef.componentInstance.email = this.email;
+      } 
+      // productiveEarthConnector3
+      else if(args.source.properties.id.includes('productiveEarthConnector3')) {
+        const dialogRef = this.dialog.open(EarthingCableConnnectorComponent, {
+          width: '1100px',
+          maxHeight: '90vh',
+          disableClose: true,
+        });
+        dialogRef.componentInstance.earthCableConnectorId = args.source.properties.id;
+        dialogRef.componentInstance.fileName = this.diagramComponent.fileName;
+        dialogRef.componentInstance.email = this.email;
+      } 
     }
   }
   // public portIp1: PointPortModel[] = [

@@ -1,0 +1,139 @@
+<div class="card">
+    <!-- Exception -->
+    <div class="centre-text m-btm30">
+        <div *ngIf="error1" style="text-align: center;margin-top: 5px;margin-bottom: 40px">
+            <span class="errorshow">{{ error1Msg }}</span>
+        </div>
+    </div>
+
+    <div class="card-header" style="text-align: center; display: block">
+        <h2 class="modal-title" style="display: contents;font-weight: bold;">Earth Connector</h2>
+    </div>
+    <div class="card-body">
+        <form [formGroup]="earthingConnectorForm" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
+            <div class="row">
+                <!-- Type of earth electrode -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Type of Earth Electrode</label>
+                        <select id="materials" class="form-control" formControlName="typeOfElectrode"
+                            [(ngModel)]="earthCableConnectorModel.typeOfElectrode"
+                            [ngClass]="{ 'is-invalid': submittedEarthConnector && f.typeOfElectrode?.errors}"
+                            (change)="measureMentTypes($event,f)">
+                            <option value="" selected>Selected Option</option>
+                            <option value="rod">Rod</option>
+                            <option value="flat">Flat</option>
+                            <option value="pipe">Pipe</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- Material of Earth Electrode -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Material of Earth Electrode</label>
+                        <select class="form-control" formControlName="materialElectrode"
+                            [(ngModel)]="earthCableConnectorModel.materialElectrode"
+                            [ngClass]="{ 'is-invalid': submittedEarthConnector && f.materialElectrode?.errors}">
+                            <option value="" selected>Selected Option</option>
+                            <option value="copper">Copper</option>
+                            <option value="copper bonded steel">Copper Bonded Steel</option>
+                            <option value="galvanised steel">Galvanised Steel</option>
+                            <option value="galvanised iron">Galvanised Iron</option>
+                            <option value="cast iron">Cast Iron</option>
+                        </select>
+                        <div *ngIf="submittedEarthConnector && f.materialElectrode?.errors" class="invalid-feedback">
+                            <div *ngIf="f.materialElectrode?.errors?.required">Field is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- Size(diameter)of earth electrode -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Size(diameter)of earth electrode <span>{{measureMent}}</span></label>
+                        <input type="number" class="form-control" formControlName="sizeElectrode" (keypress)="keyPressNumbers($event)"
+                            [(ngModel)]="earthCableConnectorModel.sizeElectrode"
+                            [ngClass]="{ 'is-invalid': submittedEarthConnector && f.sizeElectrode?.errors }">
+                    </div>
+                </div>
+                <!-- Depth of earth electrode (m) -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Depth of Earth Electrode(m)*</label>
+                        <input type="number" class="form-control" formControlName="depthElectrode"
+                            (keypress)="keyPressNumbers($event);decimalConversion($event,'oneDecimal')"
+                            [(ngModel)]="earthCableConnectorModel.depthElectrode"
+                            [ngClass]="{ 'is-invalid': submittedEarthConnector && f.depthElectrode?.errors }">
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="font-weight: bold;">Testing</h3>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Earth electrode Individual resistance (ohm)*</th>
+                        <th scope="col">Combined/Grid resistance (ohm)*</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="input-group">
+                                <input class="form-control" type="number" formControlName="earthElectrodeResistance"
+                                    [(ngModel)]="earthCableConnectorModel.earthElectrodeResistance"
+                                    (keypress)="keyPressNumbers($event);decimalConversion($event,'oneDecimal')"
+                                    [ngClass]="{ 'is-invalid': submittedEarthConnector && f.earthElectrodeResistance?.errors }">
+                                <div *ngIf="submittedEarthConnector && f.earthElectrodeResistance?.errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="f.earthElectrodeResistance?.errors?.required">Field is required</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <input class="form-control" type="number" formControlName="combinedResistance"
+                                    [(ngModel)]="earthCableConnectorModel.combinedResistance"
+                                    (keypress)="keyPressNumbers($event);decimalConversion($event,'threeDecimal')"
+                                    [ngClass]="{ 'is-invalid': submittedEarthConnector && f.combinedResistance?.errors }">
+                                <div *ngIf="submittedEarthConnector && f.combinedResistance?.errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="f.combinedResistance?.errors?.required">Field is required</div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+
+    <div *ngIf="validationError" style="text-align: center;;margin-top: 5px;margin-bottom: 40px">
+        <span class="alert alert-danger">{{validationErrorMsg}}</span>
+    </div>
+
+    <div class="centre-text m-btm30">
+        <div *ngIf="success" style="text-align: center;margin-top: 5px;margin-bottom: 40px">
+            <span class="successshow">{{ successMsg }}</span>
+        </div>
+        <div *ngIf="error" style="text-align: center;margin-top: 5px;margin-bottom: 40px">
+            <span class="errorshow">{{ errorMsg }}</span>
+        </div>
+    </div>
+
+    <div style="display: inline;margin-top: 30px;">
+        <button type="button" style="float: left; margin-left: 400px" class="btn btn-info"
+            (click)="saveEarthConnector(earthConnectorFlag)">
+            <i class="bi bi-person-plus-fill icon"></i> Save
+        </button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="button" class="btn btn-danger" aria-label="Close" (click)="closePopup()"
+            style="float: right; margin-right: 400px">
+            <span aria-hidden="true">Cancel</span>
+        </button>
+    </div>
+    <br>
+</div>
