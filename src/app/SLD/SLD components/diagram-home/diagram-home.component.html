@@ -14,8 +14,7 @@
                 </ejs-diagram> -->
  
                 <ejs-diagram #diagram id="diagram" width="100%" height="580px" (drop)="getAccessibility($event)" 
-                (doubleClick) ="clickFunction($event)"  [getNodeDefaults] ='getNodeDefaults'
-                [getConnectorDefaults] ='getConnectorDefaults' (window:beforeunload)="doBeforeUnload()"
+                (doubleClick) ="clickFunction($event)"  [getNodeDefaults] ='getNodeDefaults' (window:beforeunload)="doBeforeUnload()"
                 (window:popstate)="onPopState($event)">
 
                   <!-- <e-connectors>

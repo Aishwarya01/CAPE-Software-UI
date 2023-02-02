@@ -65,9 +65,9 @@ export class CableConnectorComponent implements OnInit {
     });
 
     this.cableConnector.fileName = this.fileName;
-  this.cableConnector.cableConnectorId = this.cableConnectorId;
+    this.cableConnector.cableConnectorId = this.cableConnectorId;
 
-  this.cableConnectorService.retrieveCableConnector(this.fileName,this.cableConnectorId).subscribe(
+    this.cableConnectorService.retrieveCableConnector(this.fileName,this.cableConnectorId).subscribe(
         data => {
           this.cableConnectorData = JSON.parse(data);
           if(this.cableConnectorData.length != 0) {
