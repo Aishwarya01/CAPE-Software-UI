@@ -130,6 +130,7 @@ export class EarthingCableConnnectorComponent implements OnInit {
       this.earthCableConnectorModel.earthconnectorid = i.earthconnectorid;
   
       this.populateEarthConnectorForm(i);
+      this.measureMentTypes(i.typeOfElectrode,null);
   }
 
   populateEarthConnectorForm(data:any){
@@ -177,19 +178,26 @@ export class EarthingCableConnnectorComponent implements OnInit {
     }
   }
 
-  measureMentTypes(event:any,form:any){
-    switch(form.typeOfElectrode.value){
+  measureMentTypes(event: any, form: any) {
+    let value = ''
+    if (form != null) {
+      value = form.typeOfElectrode.value
+    }
+    else {
+      value = event
+    }
+    switch (value) {
       case 'rod':
         // form.sizeElectrode.setValue("(mm)/(sq.mm)");
-        this.measureMent="(mm)/(sq.mm)";
+        this.measureMent = "(mm)/(sq.mm)";
         break;
       case 'flat':
         // form.sizeElectrode.setValue("(sq.mm)");
-        this.measureMent="(sq.mm)";
+        this.measureMent = "(sq.mm)";
         break;
       default:
         // form.sizeElectrode.setValue("(mm)");
-        this.measureMent="(mm)";
+        this.measureMent = "(mm)";
         break;
     }
   }

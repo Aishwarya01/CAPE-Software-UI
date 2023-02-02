@@ -65,6 +65,10 @@
                             (keypress)="keyPressNumbers($event);decimalConversion($event,'oneDecimal')"
                             [(ngModel)]="earthCableConnectorModel.depthElectrode"
                             [ngClass]="{ 'is-invalid': submittedEarthConnector && f.depthElectrode?.errors }">
+                            <div *ngIf="submittedEarthConnector && f.depthElectrode?.errors"
+                            class="invalid-feedback">
+                            <div *ngIf="f.depthElectrode?.errors?.required">Field is required</div>
+                        </div>
                     </div>
                 </div>
             </div>

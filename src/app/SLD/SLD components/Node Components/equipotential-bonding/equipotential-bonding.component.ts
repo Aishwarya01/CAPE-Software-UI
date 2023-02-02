@@ -180,14 +180,13 @@ export class EquipotentialBondingComponent implements OnInit {
         form.maxAllowableResistance.setValue(arr.specificConductor);
         this.decimalCalculation(event,form);
         this.sldValueError=false;
+        flag = false;
+        this.sldValueError=false;
         break;
       }
-      else{
+    }
+    if(flag){
         this.sldValueError=true;
-        setTimeout(() => {
-          this.sldValueError=false;
-        }, 4000);
-      }
     }
   }
 
