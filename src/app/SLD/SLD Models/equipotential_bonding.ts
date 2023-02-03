@@ -5,11 +5,19 @@ export class Equipotential_Bonding {
   userName!: String;
   referenceName!: String;
   rating!: number;
-  size!: number;
-  updatedBy!: String;
-  createdDate!: Date; 
+  sizeOne!: String;
+  make!: String;
+  typeFlatOrBase!: String;
+  material!: String;
+  sizeTwo!: String;
+  conductorLength!: number;
+  conductorResistance!: number;
+  maxAllowableResistance!: String;
+  remarks!: String;
+  createdDate!: Date;
   createdBy!: String;
   updatedDate!: Date;
+  updatedBy!: String;
 }
 
 

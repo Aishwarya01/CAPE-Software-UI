@@ -9,17 +9,17 @@ import { EmcElectromagneticCompatibility } from '../EMC_Model/emc-electromagneti
 })
 export class EmcElectroMagneticCompabilityService {
 
-  apiUrl_EMC = environment.apiUrl_EMC;
+  apiUrl_EMC = environment.apiUrl_EMC_LV;
   constructor(private http: HttpClient) { }
 
   public addElectromagneticCompatability(emcElectromagneticCompatibility: EmcElectromagneticCompatibility): Observable<any> {
-    return this.http.post<any>(this.apiUrl_EMC + '/saveElectromagneticCompatability', emcElectromagneticCompatibility, { responseType: 'text' as 'json' })
+    return this.http.post<any>(this.apiUrl_EMC + '/emc/saveElectromagneticCompatability', emcElectromagneticCompatibility, { responseType: 'text' as 'json' })
   }
   public retrieveElectromagneticCompatability(userName:any, emcId:any): Observable<any> {
-    return this.http.get<any>(this.apiUrl_EMC + '/retrieveElectromagneticCompatability'+'/'+userName+ '/' +emcId, { responseType: 'text' as 'json' })
+    return this.http.get<any>(this.apiUrl_EMC + '/emc/retrieveElectromagneticCompatability'+'/'+userName+ '/' +emcId, { responseType: 'text' as 'json' })
   }
 
   public updateElectromagneticCompatability(emcElectromagneticCompatibility: EmcElectromagneticCompatibility): Observable<any> {
-    return this.http.put<any>(this.apiUrl_EMC + '/updateElectromagneticCompatability', emcElectromagneticCompatibility, { responseType: 'text' as 'json' })
+    return this.http.put<any>(this.apiUrl_EMC + '/emc/updateElectromagneticCompatability', emcElectromagneticCompatibility, { responseType: 'text' as 'json' })
   }
 }

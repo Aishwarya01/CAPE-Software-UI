@@ -1,35 +1,54 @@
 import { Component, OnInit,Input, ViewChild, ViewContainerRef, ComponentFactoryResolver, EventEmitter} from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ViewerRegisterComponent } from '../viewer-register/viewer-register.component';
-import { Register } from '../model/register';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { License, Register } from '../model/register';
 import { ApplicationTypeService } from '../services/application.service';
 import { InspectorregisterService } from '../services/inspectorregister.service';
 import { SiteService } from '../services/site.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { VerificationlvComponent } from '../verificationlv/verificationlv.component';
-import { InspectionVerificationBasicInformationComponent } from '../inspection-verification-basic-information/inspection-verification-basic-information.component';
 import { GlobalsService } from '../globals.service';
 import { SiteaddComponent } from '../site/siteadd/siteadd.component';
+import { LPSBasicDetailsService } from '../LPS_services/lpsbasic-details.service';
+import { BasicDetails } from '../LPS_model/basic-details';
+import { Site, SitePersons } from '../model/site';
+import { CustomerDetailsServiceService } from '../Risk Assessment/Risk Assessment Services/customer-details-service.service';
+import { CustomerDetails } from '../Risk Assessment/Risk Assesment Model/customer-details';
+import { EmcClientDetails } from '../EMC_Model/emc-client-details';
+import { EmcClientDetailsService } from '../EMC_Services/emc-client-details.service';
 
 @Component({
   selector: 'app-assign-viewer',
   templateUrl: './assign-viewer.component.html',
   styleUrls: ['./assign-viewer.component.css']
 })
-export class AssignViewerComponent implements OnInit {
 
-  assignViewerForm = new FormGroup({
-    viewerEmail: new FormControl(''),
-  });
+export class AssignViewerComponent implements OnInit {
+  license = new License();
+  site = new Site();
+  sitePerson=new SitePersons();
+  riskModel = new CustomerDetails()
+  
+  assignViewerForm!:FormGroup; 
+
+  riskViewerForm!: FormGroup;
+
   viewerRegisterForm = new FormGroup({
+    // lv
     siteName: new FormControl(''),
     name: new FormControl(''),
+    // lps
+    clientName: new FormControl(''),
+    projectName:new FormControl(''),
+    lpsName:new FormControl(''),
+    // emc
+    emcClientName: new FormControl(''),
+    personName: new FormControl(''),
+
     companyName: new FormControl(''),
     email: new FormControl(''),
     contactNumber: new FormControl(''),
-    department: new FormControl(''),
+    department: new FormControl(''),  
     designation: new FormControl(''),
     address: new FormControl(''),
     district: new FormControl(''),
@@ -38,13 +57,15 @@ export class AssignViewerComponent implements OnInit {
     pinCode: new FormControl(''),
     pinCodeErrorMsg: new FormControl(''),
     userType: new FormControl(''),
-    terms: new FormControl('')
+    terms: new FormControl(''),
+    applicationType: new FormControl('')
   });
   modalReference: any;
 
   loading = true;
   submitted = false;
   submitted1 = false;
+  riskSubmit = false;
   msg: any;
   alert: any;
   countryList: any = [];
@@ -65,6 +86,7 @@ export class AssignViewerComponent implements OnInit {
   @Input()
   userName: String = '';
   registerData: any = [];
+  riskData: any=[];
   assignArr: any = [];
   state: String='';
   success: boolean = false;
@@ -75,6 +97,7 @@ export class AssignViewerComponent implements OnInit {
   flag: boolean = false;
   mobileArr: any = [];
   setReadOnly: boolean = false;
+  lvNameField: boolean = false;
   showAssign: boolean = false;
   showRegister: boolean = false;
   @ViewChild('reference', { read: ViewContainerRef })
@@ -87,32 +110,70 @@ export class AssignViewerComponent implements OnInit {
   demoArr: any = [];
   existSite: boolean = false;
   arr: any = [];
+  // license page purpose
+  viewerForLps: boolean=false;
+  viewerForLV: boolean=false;
+  viewerForEmc: boolean=false;
+  lpsViewerForm!: FormGroup;
+  applicationName: String="";
+
+  projectNameMsg: string="";
+  projectNameError: boolean=false;
+  projectNameSuccess: boolean=false;
+  projectNameMsg1: string="";
+  onSubmitSite1 = new EventEmitter();
+  basic = new BasicDetails();
+  // emc model
+  emcClientDetails = new EmcClientDetails();
+  clientNameMsg: string="";
+  clientNameMsg1: string="";
+  clientNameMsgError: boolean=false;
+  clientNameSuccess: boolean=false;
+  clientNameError: boolean=false;
+  // Spinner Purpose
+  // spinner: boolean=false;
+  // spinnerValue: String = '';
+  mode: any = 'indeterminate';
+  riskLicense: boolean=false;
 
   constructor(private dialog: MatDialog,
               private formBuilder: FormBuilder, private modalService: NgbModal,
               private siteService: SiteService,
+              public emcClientDetailsService: EmcClientDetailsService,
               private applicationService: ApplicationTypeService,
               private inspectorRegisterService: InspectorregisterService,
               private router: Router,
               private componentFactoryResolver: ComponentFactoryResolver,
               private route: ActivatedRoute,
-              private globalService: GlobalsService,
+              public globalService: GlobalsService,
+              private lPSBasicDetailsService: LPSBasicDetailsService,
+              private riskAssessment: CustomerDetailsServiceService
+              
               ) {
                 this.urlEmail = this.route.snapshot.paramMap.get('email') || '{}';
+               this.pageHeading(this.viewerRegisterForm);
                }
 
   ngOnInit(): void {
-    this.assignViewerForm = this.formBuilder.group({
-      viewerEmail: ['', [
-        Validators.required,
-        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-    });
-    this.countryCode = '91';
+    // Risk Assessment Application
+    if(this.globalService.triggerMsgForLicense=='riskPage'){
+      this.riskLicense=true;
+      this.riskViewerForm = this.formBuilder.group({
+        riskEmail: new FormControl('',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+        riskProject: new FormControl('',Validators.required)
+      });
+    }
+    else{
+      this.riskLicense=false;
+      this.assignViewerForm = this.formBuilder.group({
+        viewerEmail: ['', [
+          Validators.required,
+          Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+      });
 
+    this.countryCode = '91';
     this.viewerRegisterForm = this.formBuilder.group({
-      viewerArr: this.formBuilder.array([
-        this.createViewer(),
-      ])
+      viewerArr: this.formBuilder.array([this.createViewer()])
     });
 
       this.inspectorRegisterService.retrieveInspector(this.email).subscribe(
@@ -126,52 +187,214 @@ export class AssignViewerComponent implements OnInit {
           this.countryList = JSON.parse(data);
         }
       )
+    }
+    //  this.pageHeading(this.viewerRegisterForm);
   }
+  // getLpsViwer() : AbstractControl[] {
+  //   return (<FormArray> this.lpsViewerForm.get('lpsViewer')).controls;
+  // }
  
   createViewer(): FormGroup {
-    return new FormGroup({
-    name: new FormControl('', Validators.required),
-    companyName: new FormControl('', Validators.required),
-    siteName: new FormControl('', [Validators.required, Validators.minLength(3),Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
-    email: new FormControl('', Validators.required),
-    designation: new FormControl('', Validators.required),
-    contactNumber: new FormControl('', Validators.required),
-    department: new FormControl('', Validators.required),
-    address: new FormControl('', Validators.required),
-    district: new FormControl('', Validators.required),
-    country: new FormControl('', Validators.required),
-    state: new FormControl('', Validators.required),
-    pinCode: new FormControl('', Validators.required),
-    pinCodeErrorMsg: new FormControl(''),
-    userType: new FormControl('', Validators.required),
-    terms: new FormControl(''),
-    })
-    
+     let form:any;
+    // LV Page
+    if (this.globalService.triggerMsgForLicense == 'lvPage') {
+      this.applicationName="LV Systems";
+      this.viewerForLV=true;
+      this.viewerForLps=false;
+      this.viewerForEmc = false;
+
+        form = this.formBuilder.group({
+        name: new FormControl('',Validators.required),
+        companyName: new FormControl('', Validators.required),
+        siteName: new FormControl('', [Validators.required,Validators.minLength(3),Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
+        // lps
+        clientName: new FormControl(''),
+        projectName:new FormControl(''),
+        lpsName:new FormControl(''),
+        // emc
+        emcClientName: new FormControl(''),
+        personName: new FormControl(''),
+
+        email: new FormControl('', Validators.required),
+        designation: new FormControl('', Validators.required),
+        contactNumber: new FormControl('', Validators.required),
+        department: new FormControl('', Validators.required),
+        address: new FormControl('', Validators.required),
+        district: new FormControl('', Validators.required),
+        country: new FormControl('', Validators.required),
+        state: new FormControl('', Validators.required),
+        pinCode: new FormControl('', Validators.required),
+        pinCodeErrorMsg: new FormControl(''),
+        userType: new FormControl('', Validators.required),
+        terms: new FormControl(''),
+        applicationType: new FormControl('')
+        })
     }
+    else if (this.globalService.triggerMsgForLicense == 'lpsPage') {
+      this.applicationName="LPS Systems";
+      this.viewerForLps=true;
+      this.viewerForLV=false;
+      this.viewerForEmc = false;
+
+      form = this.formBuilder.group({
+        companyName: new FormControl('', Validators.required),
+        // lv
+        siteName: new FormControl(''),
+        name: new FormControl(''),
+        // lps
+        clientName: new FormControl('', Validators.required),
+        projectName:new FormControl('',Validators.required),
+        lpsName:new FormControl('',Validators.required),
+        // emc
+        emcClientName: new FormControl(''),
+        personName: new FormControl(''),
+
+        email: new FormControl('', Validators.required),
+        designation: new FormControl('', Validators.required),
+        contactNumber: new FormControl('', Validators.required),
+        department: new FormControl('', Validators.required),
+        address: new FormControl('', Validators.required),
+        district: new FormControl('', Validators.required),
+        country: new FormControl('', Validators.required),
+        state: new FormControl('', Validators.required),
+        pinCode: new FormControl('', Validators.required),
+        pinCodeErrorMsg: new FormControl(''),
+        userType: new FormControl('', Validators.required),
+        terms: new FormControl(''),
+        applicationType: new FormControl('')
+        })
+    }
+    else if (this.globalService.triggerMsgForLicense == 'emcPage') {
+      this.applicationName="EMC Assessment";
+      this.viewerForEmc=true;
+      this.viewerForLps=false;
+      this.viewerForLV=false;
+
+      form = this.formBuilder.group({
+        companyName: new FormControl('', Validators.required),
+        // lv
+        siteName: new FormControl(''),
+        name: new FormControl(''),
+        // lps
+        clientName: new FormControl(''),
+        projectName:new FormControl(''),
+        lpsName:new FormControl(''),
+        // emc
+        emcClientName: new FormControl('',Validators.required),
+        personName: new FormControl('',Validators.required),
+
+        email: new FormControl('', Validators.required),
+        designation: new FormControl('', Validators.required),
+        contactNumber: new FormControl('', Validators.required),
+        department: new FormControl('', Validators.required),
+        address: new FormControl('', Validators.required),
+        district: new FormControl('', Validators.required),
+        country: new FormControl('', Validators.required),
+        state: new FormControl('', Validators.required),
+        pinCode: new FormControl('', Validators.required),
+        pinCodeErrorMsg: new FormControl(''),
+        userType: new FormControl('', Validators.required),
+        terms: new FormControl(''),
+        applicationType: new FormControl('')
+        })
+    }
+    return form;
+  }
+
+  // Only Accept numbers
+  keyPressNumbers(event:any) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  projectValidation(event:any,form:any){
+    if(form.controls.clientName.value!=undefined && form.controls.projectName.value!=undefined && form.controls.clientName.value!=null && form.controls.projectName.value!=null && form.controls.clientName.value!="" && form.controls.projectName.value!=""){
+
+      this.lPSBasicDetailsService.validateProjectName(form.controls.clientName.value,form.controls.projectName.value).subscribe(
+        data =>{
+          // var b=form.controls.projectName.value;
+          if(data != ''){
+            this.projectNameMsg="Project Name is already existing, Please give different Project Name";
+            this.projectNameMsg1="";
+            this.projectNameError=true;
+          }else {
+            this.projectNameMsg1="You can continue with this "+[form.controls.projectName.value]+" Project Name";
+            this.projectNameMsg="";
+            this.projectNameSuccess=true;
+            this.projectNameError=false;
+            setTimeout(() => {
+              this.projectNameSuccess=false;
+              this.projectNameError=false;
+            }, 3000);
+          }
+      })
+    }
+  }
+
+  riskProjectValidation(event:any,form:any){
+    if(form.controls.riskEmail.value!=undefined && form.controls.riskProject.value!=undefined && form.controls.riskEmail.value!=null && form.controls.riskProject.value!=null && form.controls.riskEmail.value!="" && form.controls.riskProject.value!=""){
+
+      this.riskAssessment.findByProjectName(form.controls.riskEmail.value,form.controls.riskProject.value).subscribe(
+        data =>{
+          if(data != ''){
+            this.projectNameMsg="Project Name is already existing, Please give different Project Name";
+            this.projectNameMsg1="";
+            this.projectNameError=true;
+          }else {
+            this.projectNameMsg1="You can continue with this "+[form.controls.riskProject.value]+" Project Name";
+            this.projectNameMsg="";
+            this.projectNameSuccess=true;
+            this.projectNameError=false;
+            setTimeout(() => {
+              this.projectNameSuccess=false;
+              this.projectNameError=false;
+            }, 3000);
+          }
+      })
+    }
+  }
 
   populateData() {
     this.viewerRegisterForm.reset();
-      if((this.registerData.role == 'ROLE') || (this.registerData.role == 'Viewer')) {
-      this.demoArr = [];
-      this.viewerRegisterForm.reset();
-      this.demoArr.push(this.createGroup(this.registerData));
-      this.viewerRegisterForm.setControl('viewerArr', this.formBuilder.array(this.demoArr || []))
+      if(this.registerData !=null && this.registerData.registerId !=null || this.registerData.siteId != null) {
+      // if( this.registerData.siteId != null) {
+        this.demoArr = [];
+        this.viewerRegisterForm.reset();
+        this.demoArr.push(this.createGroup(this.registerData));
+        this.viewerRegisterForm.setControl('viewerArr', this.formBuilder.array(this.demoArr || []));
       }
       else {
         this.register = new Register;
+        // if(this.registerData !=null){
+        //   this.register = this.registerData;
+        // }
         this.register.username = this.assignViewerForm.value.viewerEmail;
         this.register.role = 'Viewer';
         this.demoArr = [];
-        this.demoArr.push(this.createNewGroup(this.register));
+        this.demoArr.push(this.createGroup(this.register));
         this.viewerRegisterForm.setControl('viewerArr', this.formBuilder.array(this.demoArr || []))
         this.setReadOnly = false;
         this.state = '';
       }
     this.registerData = [];
+  
+    if(this.globalService.triggerMsgForLicense=='lpsPage'){
+      this.applicationName="LPS Systems";
+    }
+    // LV Page
+    else if(this.globalService.triggerMsgForLicense=='lvPage'){
+      this.applicationName="LV Systems";
+    }
   }
 
   getViewerControls() : AbstractControl[] {
-    return (<FormArray> this.viewerRegisterForm.get('viewerArr')).controls
+    return (<FormArray> this.viewerRegisterForm.get('viewerArr')).controls;
   }
 
   onFocusOutEvent(e: any,a: any) {
@@ -260,33 +483,19 @@ export class AssignViewerComponent implements OnInit {
 
 
 createGroup(item: any): FormGroup{
-  // this.mobileArr = [];
-  // this.mobileArr= item.contactNumber.split('-');
-  this.setReadOnly = true;
-  // this.viewerRegisterForm = this.formBuilder.group({
-  //   name: [item.name, [Validators.required,]],
-  //   companyName: [item.companyName, Validators.required],
-  //   siteName: ['', Validators.required],
-  //   email: [item.username, [
-  //     Validators.required,
-  //     Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-  //   contactNumber: [item.contactNumber, [Validators.required,Validators.maxLength(10)]],
-  //   department: [item.department, Validators.required],
-  //   designation: [item.designation, Validators.required],
-  //   address: [item.address, Validators.required],
-  //   district: [item.district],
-  //   country: [item.country, Validators.required],
-  //   state: [item.state, Validators.required],
-  //   pinCode: [item.pinCode, Validators.required],
-  //   userType: ['Viewer', Validators.required],
-  //   terms: ['', Validators.required]
 
-    
-  // });
+  if(item !=null && item.country != undefined){
+    if(item.name!=undefined && item.name!=null && item.name!=""){
+      this.lvNameField==true;
+    }else{
+      this.lvNameField==false;
+    }
+  this.setReadOnly=true;
   this.register.name=item.name;
   this.register.companyName=item.companyName;
   this.register.username=item.username;
-  // this.register.contactNumber = item.contactNumber;
+  this.register.contactNumber = item.contactNumber;
+  this.register.lpsName = item.name;
   this.register.department=item.department;
   this.register.designation=item.designation;
   this.register.address=item.address;
@@ -298,9 +507,9 @@ createGroup(item: any): FormGroup{
   this.register.createdBy = item.createdBy
   this.register.createdDate = item.createdDate
   this.register.password = item.password
+  this.register.registerId = item.registerId
   this.register.role = 'Viewer';
-
-  
+ 
   this.selectCountry(item.country);
   this.state = this.registerData.state;
   // item.contactNumber = this.mobileArr[0]+this.mobileArr[1];
@@ -323,49 +532,169 @@ createGroup(item: any): FormGroup{
       this.arr=[];
       this.arr.push(Validators.required);
     }
-  return this.formBuilder.group({
-    name: new FormControl({value: item.name}),
-    companyName: new FormControl({value: item.companyName}),
-    siteName: new FormControl('',[Validators.required, Validators.minLength(3),Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
-    email: new FormControl({value: item.username}),
-    designation: new FormControl({value: item.designation}),
-    contactNumber: new FormControl(item.contactNumber),
-    department: new FormControl({value: item.department}),
-    address: new FormControl({value: item.address}),
-    district: new FormControl({value: item.district},Validators.required),
-    country: new FormControl({value: item.country},Validators.required),
-    state: new FormControl({value: item.state},Validators.required),
-    pinCode: new FormControl({value: item.pinCode},this.arr),
-    pinCodeErrorMsg: new FormControl(''),
-    userType: new FormControl({value: 'Viewer'}),
-    terms: new FormControl(''),
-    
+  }
+  // this.mobileArr = [];
+  // this.mobileArr= item.contactNumber.split('-');
+ 
+  // this.viewerRegisterForm = this.formBuilder.group({
+  //   name: [item.name, [Validators.required,]],
+  //   companyName: [item.companyName, Validators.required],
+  //   siteName: ['', Validators.required],
+  //   email: [item.username, [
+  //     Validators.required,
+  //     Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+  //   contactNumber: [item.contactNumber, [Validators.required,Validators.maxLength(10)]],
+  //   department: [item.department, Validators.required],
+  //   designation: [item.designation, Validators.required],
+  //   address: [item.address, Validators.required],
+  //   district: [item.district],
+  //   country: [item.country, Validators.required],
+  //   state: [item.state, Validators.required],
+  //   pinCode: [item.pinCode, Validators.required],
+  //   userType: ['Viewer', Validators.required],
+  //   terms: ['', Validators.required]
 
-  });
+    
+  // });
+  
+
+  let form: any;
+  // LV Page
+  if (this.globalService.triggerMsgForLicense == 'lvPage') {
+    this.applicationName = "LV Systems";
+    this.viewerForLV = true;
+    this.viewerForLps = false;
+    this.viewerForEmc = false;
+
+    form = this.formBuilder.group({
+
+      siteName: new FormControl('', [Validators.required,Validators.minLength(3), Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
+      name: new FormControl(item.name, Validators.required),
+      // lps
+      companyName: new FormControl(item.companyName, Validators.required),
+      clientName: new FormControl(''),
+      projectName: new FormControl(''),
+      // emc
+      emcClientName: new FormControl(''),
+      personName: new FormControl(''),
+
+      email: new FormControl(item.username, Validators.required),
+      designation: new FormControl(item.designation, Validators.required),
+      contactNumber: new FormControl(item.contactNumber, Validators.required),
+      department: new FormControl(item.department, Validators.required),
+      address: new FormControl(item.address, Validators.required),
+      district: new FormControl(item.district, Validators.required),
+      country: new FormControl(item.country, Validators.required),
+      state: new FormControl(item.state, Validators.required),
+      pinCode: new FormControl(item.pinCode, this.arr),
+      pinCodeErrorMsg: new FormControl(''),
+      userType: new FormControl({ value: 'Viewer' }),
+      terms: new FormControl(''),
+      applicationType: new FormControl(item.applicationType)
+    })
+  }
+  else if (this.globalService.triggerMsgForLicense == 'lpsPage') {
+    this.applicationName = "LPS Systems";
+    this.viewerForLps = true;
+    this.viewerForLV = false;
+    this.viewerForEmc = false;
+
+    form = this.formBuilder.group({
+      companyName: new FormControl(item.companyName, Validators.required),
+      // lv
+      siteName: new FormControl(''),
+      name: new FormControl(item.name),
+      // lps
+      clientName: new FormControl('', Validators.required),
+      projectName: new FormControl('', Validators.required),
+      lpsName:new FormControl('',Validators.required),
+      // emc
+      emcClientName: new FormControl(''),
+      personName: new FormControl(''),
+
+      email: new FormControl(item.username, Validators.required),
+      designation: new FormControl(item.designation, Validators.required),
+      contactNumber: new FormControl(item.contactNumber, Validators.required),
+      department: new FormControl(item.department, Validators.required),
+      address: new FormControl(item.address, Validators.required),
+      district: new FormControl(item.district, Validators.required),
+      country: new FormControl(item.country, Validators.required),
+      state: new FormControl(item.state, Validators.required),
+      pinCode: new FormControl(item.pinCode, this.arr),
+      pinCodeErrorMsg: new FormControl(''),
+      userType: new FormControl({ value: 'Viewer' }),
+      terms: new FormControl(''),
+      applicationType: new FormControl('')
+    })
+  }  
+  else if (this.globalService.triggerMsgForLicense == 'emcPage') {
+    this.applicationName = "EMC Assessment";
+    this.viewerForEmc=true;
+    this.viewerForLps = false;
+    this.viewerForLV = false;
+
+    form = this.formBuilder.group({
+      companyName: new FormControl(item.companyName, Validators.required),
+      // lv
+      siteName: new FormControl(''),
+      name: new FormControl(item.name),
+      // lps
+      clientName: new FormControl(''),
+      projectName: new FormControl(''),
+      lpsName:new FormControl(''),
+      // emc
+      emcClientName: new FormControl('',Validators.required),
+      personName: new FormControl('',Validators.required),
+
+      email: new FormControl(item.username, Validators.required),
+      designation: new FormControl(item.designation, Validators.required),
+      contactNumber: new FormControl(item.contactNumber, Validators.required),
+      department: new FormControl(item.department, Validators.required),
+      address: new FormControl(item.address, Validators.required),
+      district: new FormControl(item.district, Validators.required),
+      country: new FormControl(item.country, Validators.required),
+      state: new FormControl(item.state, Validators.required),
+      pinCode: new FormControl(item.pinCode, this.arr),
+      pinCodeErrorMsg: new FormControl(''),
+      userType: new FormControl({ value: 'Viewer' }),
+      terms: new FormControl(''),
+      applicationType: new FormControl('')
+    })
+  }  
+    return form;
 }
 
 createNewGroup(item: any): FormGroup{
   return this.formBuilder.group({
-    name: new FormControl('',Validators.required),
-    companyName: new FormControl('',Validators.required),
-    siteName: new FormControl('',[Validators.required, Validators.minLength(3),Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
-    email: new FormControl({value: item.username}),
-    designation: new FormControl('',Validators.required),
-    contactNumber: new FormControl('',Validators.required),
-    department: new FormControl('',Validators.required),
-    address: new FormControl('',Validators.required),
+    name: new FormControl(''),
+    companyName: new FormControl('', Validators.required),
+    siteName: new FormControl('', [Validators.minLength(3), Validators.pattern('^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$')]),
+    // lps
+    clientName: new FormControl(''),
+    projectName: new FormControl(''),
+    lpsName: new FormControl(''),
+    // emc
+    emcClientName: new FormControl(''),
+    personName: new FormControl(''),
+    email: new FormControl({ value: item.username }),
+    designation: new FormControl('', Validators.required),
+    contactNumber: new FormControl('', Validators.required),
+    department: new FormControl('', Validators.required),
+    address: new FormControl('', Validators.required),
     district: new FormControl(''),
-    country: new FormControl('',Validators.required),
-    state: new FormControl('',Validators.required),
-    pinCode: new FormControl('',Validators.required),
+    country: new FormControl('', Validators.required),
+    state: new FormControl('', Validators.required),
+    pinCode: new FormControl('', Validators.required),
     pinCodeErrorMsg: new FormControl(''),
-    userType: new FormControl({value: 'Viewer'}),
+    userType: new FormControl({ value: 'Viewer' }),
     terms: new FormControl(''),
+    applicationType: new FormControl('')
   });
 }
 
   openModal(contentViewer: any) {
-    this.modalService.open(contentViewer,{size: 'xl', backdrop: 'static' })
+    this.modalService.open(contentViewer,{size: 'xl', backdrop: 'static' });
+    this.globalService.emailCheck=false;
   }
   termsCondition(termsContent:any){
     this.modalReference = this.modalService.open(termsContent,{size: 'xl'})
@@ -373,75 +702,232 @@ createNewGroup(item: any): FormGroup{
   onCancel() {
     this.modalReference.close();
   }
-  continue(contentViewer:any) {
 
+  continue(contentViewer: any) {
+    this.registerData = [];
     this.existSite = false;
     this.submitted1 = true;
-    if(this.assignViewerForm.invalid) {
+    if (this.assignViewerForm.invalid) {
       return;
     }
-    this.inspectorRegisterService.retrieveInspector(this.assignViewerForm.value.viewerEmail).subscribe(
-      (data) => {
-        this.registerData = JSON.parse(data);
-        this.showAssign = true;
-        this.showRegister = false;
-        
-        if((this.registerData.role == 'ROLE') || (this.registerData.role == 'Viewer')) {
-          this.success = true;
-          this.successMsg1 = "Already registered as Viewer. Please verify the details once!"
-          this.viewerFlag = true;
-          this.flag=true;
-        }
-        else {
-          this.success = true;
-          this.successMsg1 = "Given email is registered as Inspector"
-          this.viewerFlag = false;
-            // this.modalService.dismissAll();
-        }
-        // else{
-        //   this.success = true;
-        //   this.successMsg1 = "Kindly fill in the details to assign viewer!"
-        //   this.modalService.open(contentViewer,{size: 'xl'})
-        // }
-        setTimeout(()=>{
-          this.success = false;
-        this.successMsg1 = ""
-        }, 3000);
-      },
-      (error) => {
-        this.Error = true;
-         let errorArr = [];
-         errorArr = JSON.parse(error.error);
-          this.errorMsg1 = errorArr.message;
-        this.showAssign = false;
-        this.showRegister = true;
-        this.viewerFlag = true;
-        this.flag=false;
-        setTimeout(()=>{
-          this.Error = false;
-          this.errorMsg1 = "";
-        }, 3000);
-      }
-    )
+    // else {
+      this.inspectorRegisterService.retrieveInspector(this.assignViewerForm.value.viewerEmail).subscribe(
+        (data) => {
+          this.registerData = JSON.parse(data);
+          this.showAssign = true;
+          this.showRegister = false;
 
-    setTimeout(()=>{
-      if(this.viewerFlag) {
-        this.openModal(contentViewer);
-      }           
-    }, 2000);
-    setTimeout(()=>{
-        this.populateData();
-    }, 3000);
+          if ((this.registerData.role == 'ROLE') || (this.registerData.role == 'Viewer')) {    
+            
+            switch(this.globalService.triggerMsgForLicense){
+              case 'lvPage':
+                this.getLvDetails(contentViewer);
+                break;
+              case 'lpsPage':
+                this.getLpsDetails(contentViewer);
+                break;
+              case 'emcPage':
+                this.getEmcDetails(contentViewer);
+                break;
+            }
+          }
+          else {
+            this.success = true;
+            this.successMsg1 = "Given email is registered as Inspector";
+            this.viewerFlag = false;
+          }
+         
+          setTimeout(() => {
+            this.success = false;
+            this.successMsg1 = ""
+          }, 3000);
+        },
+        (error) => {
+          this.Error = true;
+          // let errorArr = [];
+          // errorArr = JSON.parse(error.error);
+          this.errorMsg1 = this.globalService.globalErrorMsg;
+          this.showAssign = false;
+          this.showRegister = true;
+          this.viewerFlag = true;
+          this.flag = false;
+          this.success=false;
+          this.successMsg1="";
+          setTimeout(() => {
+            this.Error = false;
+            this.errorMsg1 = "";
+            // this.spinner=true;
+            // this.spinnerValue = "Please wait, the details are loading!";
+            if("Email Id doesn't exist!" == this.globalService.globalErrorMsg){
+              setTimeout(() => {
+                this.viewerFlag = true;
+                // this.spinner=false;
+                // this.spinnerValue="";
+                this.globalService.emailCheck=false;
+                if (this.viewerFlag) {
+                  this.openModal(contentViewer);
+                }
+              }, 3000);
+              setTimeout(() => {
+                this.populateData();
+              }, 3000);
+            }
+          }, 3000);
+        }
+      )
+    // }   
   }
+  
+  // Fetching data from Site Table
+  getLvDetails(contentViewer: any){
+    this.inspectorRegisterService.retrieveSite(this.assignViewerForm.value.viewerEmail).subscribe(
+      (data) => {
+        if(JSON.parse(data) == null){
+          // this.spinner=true;
+          // this.spinnerValue = "Please wait, the details are loading!";
+          setTimeout(() => {
+            this.viewerFlag = true;
+            if (this.viewerFlag) {
+              this.openModal(contentViewer);
+            }
+          }, 2000);
+          setTimeout(() => {
+            // this.spinner=false;
+            // this.spinnerValue="";
+            this.populateData();
+          }, 1000);
+        }
+        else{
+          this.success = true;
+          this.successMsg1 = "Given Email-ID is already registered as Viewer for ["+ JSON.parse(data).site +"] site. Please try with new Email-ID for further";
+          this.flag = true;
+          return;
+        }
+      },
+      (error) =>{
+        this.errorMsgflag = true;
+        this.errorMsg = this.globalService.globalErrorMsg;
+        this.onSubmitSite1.emit(false);
+        setTimeout(() => {
+          this.errorMsgflag = false;
+          this.errorMsg = " ";
+        }, 3000);
+      });
+  }
+  // Fetching data from basic details Table
+  getLpsDetails(contentViewer: any){
+    this.lPSBasicDetailsService.retriveLpsbasicIsActive(this.assignViewerForm.value.viewerEmail).subscribe(
+      (data) =>{
+        if(JSON.parse(data) == null){
+          // this.spinner=true;
+          // this.spinnerValue = "Please wait, the details are loading!";
+          setTimeout(() => {
+            this.viewerFlag = true;
+            if (this.viewerFlag) {
+              this.openModal(contentViewer);
+            }
+          }, 3000);
+          // setTimeout(() => {
+          //   this.spinner=false;
+            // this.spinnerValue="";
+            this.populateData();
+          // }, 2000);
+        }
+        else{
+          this.success = true;
+          this.successMsg1 = "Given Email-ID is already registered as Viewer for ["+ JSON.parse(data).clientName +"] Client Name, Please try with new Email-ID for further";
+          this.flag = true;
+          return;
+        }
+      },
+      (error) =>{
+        this.errorMsgflag = true;
+        this.errorMsg = this.globalService.globalErrorMsg;
+        this.onSubmitSite1.emit(false);
+        setTimeout(() => {
+          this.errorMsgflag = false;
+          this.errorMsg = " ";
+        }, 3000);
+      })
+  }
+  // Fetching data from client details Table
+  getEmcDetails(contentViewer: any){
+    this.emcClientDetailsService.clientDetailsData(this.assignViewerForm.value.viewerEmail).subscribe(
+      (data) =>{
+        if(JSON.parse(data) == null){
+          // this.spinner=true;
+          // this.spinnerValue = "Please wait, the details are loading!";
+          setTimeout(() => {
+            this.viewerFlag = true;
+            if (this.viewerFlag) {
+              this.openModal(contentViewer);
+            }
+          }, 3000);
+          // setTimeout(() => {
+          //   this.spinner=false;
+            // this.spinnerValue="";
+            this.populateData();
+          // }, 2000);
+        }
+        else{
+          this.success = true;
+          this.successMsg1 = "Given Email-ID is already registered as Viewer for ["+ JSON.parse(data).clientName +"] Client Name, Please try with new Email-ID for further";
+          this.flag = true;
+          return;
+        }
+      },
+      (error) =>{
+        this.errorMsgflag = true;
+        this.errorMsg = this.globalService.globalErrorMsg;
+        this.onSubmitSite1.emit(false);
+        setTimeout(() => {
+          this.errorMsgflag = false;
+          this.errorMsg = " ";
+        }, 3000);
+      })
+  }
+
+  clientValidation(event:any,form:any){
+
+    if (form.controls.emcClientName.value != undefined && form.controls.emcClientName.value != null && form.controls.emcClientName.value != "") {
+
+      this.emcClientDetailsService.validateClientName(form.controls.emcClientName.value).subscribe(
+        data => {
+          if (data != '') {
+            this.clientNameMsg = "Client Name is already existing, Please give different Project Name";
+            this.clientNameMsg1 = "";
+            this.clientNameError = true;
+          } else {
+            this.clientNameMsg1 = "You can continue with this Client Name";
+            this.clientNameMsg = "";
+            this.clientNameSuccess = true;
+            this.clientNameError = false;
+            setTimeout(() => {
+              this.clientNameSuccess = false;
+            }, 3000);
+          }
+        })
+    }
+  }
+
   closeModalDialog(contentViewer2:any){
-   this.modalService.dismissAll(contentViewer2)
+   this.modalService.dismissAll(contentViewer2);
+   this.globalService.emailCheck=false;
+   this.dialog.closeAll();
   }
+
+  closeModalDialogRisk(contentViewer3:any){
+    this.modalService.dismissAll(contentViewer3);
+    this.globalService.emailCheck=false;
+    this.dialog.closeAll();
+   }
+
   // closeModalDialogTerms(termsContent:any){
   //   this.modalService.dismissAll(termsContent)
   //  }
   closeModalDialogContinue(){
     if(!this.globalService.useClicked){
-      this.globalService.noofLicense=0; //aish
+      // this.globalService.noofLicense=0;
     }
     this.dialog.closeAll();
    }
@@ -453,10 +939,8 @@ createNewGroup(item: any): FormGroup{
 //     this.modalService.dismissAll(id);
 // }
   onItemSelect(item: any) {
-    //console.log(item);
   }
   onSelectAll(items: any) {
-    //console.log(items);
   }
   get f() : any{
     return this.viewerRegisterForm.controls;
@@ -544,94 +1028,314 @@ createNewGroup(item: any): FormGroup{
     });
   }
 
+  navigateToLpsBasivPage(data:any){
+    this.onSubmitSite1.emit(true);
+      if(data) {
+        this.onSave.emit(true);
+      }
+      else{
+        this.onSave.emit(false);
+      }
+  }
+
+  navigateToEmcClientPage(data:any){
+    this.onSubmitSite1.emit(true);
+      if(data) {
+        this.onSave.emit(true);
+      }
+      else{
+        this.onSave.emit(false);
+      }
+  }
+
+  navigateToRisk(data:any){
+    // this.onSubmitSite1.emit(true);
+      if(data) {
+        sessionStorage.setItem("riskEmail", data.controls.riskEmail.value);
+        sessionStorage.setItem("riskProject", data.controls.riskProject.value);
+        this.onSave.emit(true);
+      }
+      else{
+        this.onSave.emit(false);
+      }
+  }
+
+  riskContinue(form:any){
+    this.riskData=[];
+    this.riskSubmit=true;
+    if(this.riskViewerForm.invalid){
+      return;
+    }
+    else{
+      this.navigateToRisk(form);
+    }
+  }
+
   closeAll() {
     this.modalService.dismissAll();
     this.dialog.closeAll();
   }
 
-  onSubmit(flag: any) {
+  onSubmit(flag: any, form: any) {
+    this.submitted = true;
+    if (this.existSite) {
+      return;
+    }
+    //Breaks if form is invalid
+    if (this.viewerRegisterForm.invalid) {
+      return;
+    }
+    this.loading = true;
+
+    this.register.role = 'Viewer';
+    this.register.permission = 'Yes';
+    this.register.assignedBy = this.email;
+
+    let applicationType = '';
+    // Here we are binding values for license Table
+    if (this.globalService.headerMsg == "lvPage") {
+      applicationType = "LV Systems";
+      this.register.selectedProject = "LV";
+    }
+
+    // Here we are binding the lps application name
+    else if (this.globalService.headerMsg == "lpsPage") {
+      applicationType = "LPS Systems";
+      this.register.selectedProject = "LPS";
+      this.register.name = this.register.lpsName;
+    }
+    else if (this.globalService.headerMsg == "emcPage") {
+      applicationType = "EMC Assessment";
+      this.register.selectedProject = "EMC";
+      // this.register.name = this.register.lpsName;
+    }
+
+    this.register.applicationType = this.applicationName;
     
-  this.submitted = true;
-  if(this.existSite) {
-    return;
-  }
-  //Breaks if form is invalid
-  if(this.viewerRegisterForm.invalid) {
-    return;
-  }
-  this.loading = true;
-  
-  this.register.role = 'Viewer';
-  this.register.permission = 'Yes';
-  this.register.assignedBy = this.email;
-  if(!flag) {
-    this.contactNumber = "";
-    this.contactNumber = "+"+this.countryCode+"-"+this.viewerRegisterForm.controls.viewerArr.value[0].contactNumber;
-    this.register.contactNumber = this.contactNumber;
-    this.inspectorRegisterService.registerViewer(this.register).subscribe(
-      data=> {
-        this.successMsgOTP=true;
-        this.successMsg="Viewer has been assigned successfully."
-        setTimeout(()=>{
-          this.successMsgOTP=false;
-          this.successMsg="";
-          this.modalService.dismissAll();
-        }, 3000);
-        this.globalService.viewerData = this.register;
-        this.globalService.inspectorName = this.inspectorData.name;
-        this.globalService.inspectorData = this.inspectorData;
-        // this.onSave.emit(true);
-        this.navigateToSite(this.register);
-        // setTimeout(()=>{
-        //   this.router.navigate(['/createPassword', {email: this.register.username}])
-        // }, 5000);
-      },
-      error => {
-        this.loading= false;
-        this.errorMsgflag=true;
-        this.errorMsg=error.error.message;
-        setTimeout(()=>{
-          this.errorMsgflag=false;
-          this.errorMsg=" ";
-        }, 3000);
+    // if (!flag || this.register.registerId != null || this.register.registerId != 0) {
+      this.contactNumber = "";
+      
+      if(this.viewerRegisterForm.controls.viewerArr.value[0].contactNumber.split("-").length>1){
+        this.contactNumber=this.viewerRegisterForm.controls.viewerArr.value[0].contactNumber;
       }
-    )  
-  }
-  else{
-    this.register.contactNumber = this.viewerRegisterForm.controls.viewerArr.value[0].contactNumber
-    this.inspectorRegisterService.updateRegister(this.register).subscribe(
-      data=> {
-        this.successMsgOTP=true;
-        this.successMsg=data;
-        setTimeout(()=>{
-          this.successMsgOTP=false;
-          this.successMsg="";
-          // this.closeAll();
-          this.modalService.dismissAll();
-        }, 3000);
-        this.globalService.viewerData = this.register;
-        this.globalService.inspectorName = this.inspectorData.name;
-        this.globalService.inspectorData = this.inspectorData;
-
-        // this.onSave.emit(true);
-        this.navigateToSite(this.register);
-        
-        // setTimeout(()=>{
-        //   this.router.navigate(['/createPassword', {email: this.register.username}])
-        // }, 5000);
-      },
-      error => {
-        this.loading= false;
-        this.errorMsgflag=true;
-        this.errorMsg = JSON.parse(error.error);
-        this.errorMsg=this.errorMsg.message;
-        setTimeout(()=>{
-          this.errorMsgflag=false;
-          this.errorMsg=" ";
-        }, 3000);
+      else{
+        this.contactNumber = "+" + this.countryCode + "-" + this.viewerRegisterForm.controls.viewerArr.value[0].contactNumber;
       }
-    )
-  }  
+      
+      this.register.contactNumber = this.contactNumber;
+      this.inspectorRegisterService.registerLicense(this.register).subscribe(
+        data => {
+          sessionStorage.setItem("clientName", this.register.clientName);
+          sessionStorage.setItem("projectName", this.register.projectName);
+          sessionStorage.setItem("lpsName", this.register.lpsName);
+          
+          this.successMsgOTP = true;
+          if(this.globalService.triggerMsgForLicense=='lvPage'){
+            this.successMsg = "Viewer successfully assigned for this "+this.register.siteName+" in LV Systems";
+          }
+          else if(this.globalService.triggerMsgForLicense=='lpsPage'){
+            this.successMsg = "Viewer successfully assigned for this "+this.register.projectName+" in LPS Systems.";
+          }
+          else if(this.globalService.triggerMsgForLicense=='emcPage'){
+            this.successMsg = "Viewer successfully assigned for this "+this.register.emcClientName+" in EMC Assessment.";
+          }
+          setTimeout(() => {
+            this.successMsgOTP = false;
+            this.successMsg = "";
+            this.modalService.dismissAll();
+          }, 3000);
+          this.globalService.viewerData = this.register;
+          this.globalService.inspectorName = this.inspectorData.name;
+          this.globalService.inspectorData = this.inspectorData;
+          // this.onSave.emit(true);
 
-}
+          // License Purpose
+          if(this.globalService.triggerMsgForLicense == "lvPage") {
+            this.site.userName = this.email;
+            this.site.assignedTo = this.register.username;
+            this.site.departmentName = this.register.department;
+            this.site.site = this.register.siteName;
+            this.site.companyName = this.register.companyName;
+            this.site.landMark = this.register.companyName;
+            this.site.allStepsCompleted = "Register";
+            this.sitePerson.designation = this.register.designation;
+            this.site.zipCode = this.register.pinCode;
+            this.site.addressLine_1 = this.register.address;
+            this.site.country = this.register.country; 
+            this.site.state = this.register.state;
+            this.site.landMark=this.register.address;
+            this.sitePerson.personIncharge = this.register.name;
+            this.sitePerson.designation = this.register.designation;
+            this.sitePerson.contactNo = this.register.contactNumber;
+            this.sitePerson.personInchargeEmail = this.register.username;
+            this.sitePerson.personId = this.register.personId;
+            
+            this.site.sitePersons = [];
+            this.site.sitePersons.push(this.sitePerson);
+
+            this.siteService.addSIte(this.site).subscribe(
+              data => {
+                this.globalService.toggle=false;
+                // this.spinner=true;
+                // this.spinnerValue = "Please wait, the details are loading!";
+                setTimeout(() => {
+                  // this.spinner=false;
+                  // this.spinnerValue="";
+                  this.navigateToSite(JSON.parse(data));
+                }, 2000);
+              },
+              error => {
+                this.errorMsgflag = true;
+                this.errorMsg = this.globalService.globalErrorMsg;
+                this.onSubmitSite1.emit(false);
+                setTimeout(() => {
+                  this.errorMsgflag = false;
+                  this.errorMsg = " ";
+                }, 3000);
+              });
+          }
+          else if(this.globalService.triggerMsgForLicense == "lpsPage") {
+
+            this.basic.clientName = this.register.clientName;
+            this.basic.projectName = this.register.projectName;
+            this.basic.viewerName = this.register.lpsName;
+            this.basic.address = this.register.address;
+            this.basic.userName = this.email;
+            this.basic.mailId = this.register.username;
+            this.basic.contactNumber = this.register.contactNumber;
+            this.lPSBasicDetailsService.saveLPSBasicDetails(this.basic).subscribe(
+              data => {
+                this.globalService.basicLPSID = JSON.parse(data).basicLpsId;
+                this.navigateToLpsBasivPage(this.register);
+              },
+              error => {
+                this.errorMsgflag = true;
+                this.errorMsg = this.globalService.globalErrorMsg;
+                this.onSubmitSite1.emit(false);
+                setTimeout(() => {
+                  this.errorMsgflag = false;
+                  this.errorMsg = " ";  
+                }, 3000);
+              });
+          }
+          else if(this.globalService.triggerMsgForLicense == "emcPage") {
+
+            this.emcClientDetails.clientName = this.register.emcClientName;
+            this.emcClientDetails.contactPerson = this.register.personName;
+            this.emcClientDetails.clientAddress = this.register.address;;
+            this.emcClientDetails.userName = this.email
+            this.emcClientDetails.email = this.register.username;
+            this.emcClientDetails.contactNumber = this.register.contactNumber;
+            this.emcClientDetails.country = this.register.country;
+            this.emcClientDetails.state = this.register.state;
+            this.emcClientDetailsService.addClientDetailsData(this.emcClientDetails).subscribe(
+              data => {
+                this.globalService.emcId = JSON.parse(data).emcId;
+                this.navigateToEmcClientPage(this.register);
+              },
+              error => {
+                this.errorMsgflag = true;
+                this.errorMsg = this.globalService.globalErrorMsg;
+                this.onSubmitSite1.emit(false);
+                setTimeout(() => {
+                  this.errorMsgflag = false;
+                  this.errorMsg = " ";  
+                }, 3000);
+              });
+          }
+          // setTimeout(()=>{
+          //   this.router.navigate(['/createPassword', {email: this.register.username}])
+          // }, 5000);
+        },
+        error => {
+          this.loading = false;
+          this.errorMsgflag = true;
+          this.errorMsg = this.globalService.globalErrorMsg;
+          this.onSubmitSite1.emit(false);
+          setTimeout(() => {
+            this.errorMsgflag = false;
+            this.errorMsg = " ";
+          }, 3000);
+        }
+      )
+    // }
+    // else {
+    //   this.register.contactNumber = this.viewerRegisterForm.controls.viewerArr.value[0].contactNumber
+    //   this.inspectorRegisterService.updateRegister(this.register).subscribe(
+    //     data => {
+    //       this.successMsgOTP = true;
+    //       this.successMsg = data;
+    //       setTimeout(() => {
+    //         this.successMsgOTP = false;
+    //         this.successMsg = "";
+    //         // this.closeAll();
+    //         this.modalService.dismissAll();
+    //       }, 3000);
+    //       this.globalService.viewerData = this.register;
+    //       this.globalService.inspectorName = this.inspectorData.name;
+    //       this.globalService.inspectorData = this.inspectorData;
+
+    //       // this.onSave.emit(true);
+    //       this.navigateToSite(this.register);
+    //       // setTimeout(()=>{
+    //       //   this.router.navigate(['/createPassword', {email: this.register.username}])
+    //       // }, 5000);
+    //     },
+    //     error => {
+    //       this.loading = false;
+    //       this.errorMsgflag = true;
+    //       this.errorMsg = JSON.parse(error.error);
+    //       this.errorMsg = this.errorMsg.message;
+    //       setTimeout(() => {
+    //         this.errorMsgflag = false;
+    //         this.errorMsg = " ";
+    //       }, 3000);
+    //     }
+    //   )
+    // }
+  }
+
+  pageHeading(form:any){
+    this.globalService.licensePageHeaging();
+    // LPS Page
+    if(this.globalService.triggerMsgForLicense=='lpsPage'){
+      
+      this.applicationName="LPS Systems";
+      this.viewerForLps=true;
+      this.viewerForLV=false;
+      form.controls.clientName.setValidators();
+      form.controls.clientName.updateValueAndValidity();
+      form.controls.projectName.setValidators();
+      form.controls.projectName.updateValueAndValidity();
+      form.controls.lpsName.setValidators();
+      form.controls.lpsName.updateValueAndValidity();
+      // LV 
+      form.controls.siteName.clearValidators();
+      form.controls.siteName.updateValueAndValidity();
+      form.controls.name.clearValidators();
+      form.controls.name.updateValueAndValidity();
+    }
+    // LV Page
+    else if(this.globalService.triggerMsgForLicense=='lvPage'){
+      
+      this.applicationName="LV Systems";
+      this.viewerForLV=true;
+      this.viewerForLps=false;
+      // lv
+      form.controls.siteName.setValidators();
+      form.controls.siteName.updateValueAndValidity();
+      form.controls.name.setValidators();
+      form.controls.name.updateValueAndValidity();
+      // lps
+      form.controls.clientName.clearValidators();
+      form.controls.clientName.updateValueAndValidity();
+      form.controls.projectName.clearValidators();
+      form.controls.projectName.updateValueAndValidity();
+      form.controls.lpsName.clearValidators();
+      form.controls.lpsName.updateValueAndValidity();
+    }
+    else if(this.globalService.triggerMsgForLicense=='riskPage'){
+      this.riskLicense=true;
+    }
+  }
 }

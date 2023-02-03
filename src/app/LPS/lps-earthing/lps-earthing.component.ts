@@ -3,7 +3,6 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Valida
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { exclamationSquareFill } from 'ngx-bootstrap-icons';
 import { ConfirmationBoxComponent } from 'src/app/confirmation-box/confirmation-box.component';
 import { GlobalsService } from 'src/app/globals.service';
 import { earthingReport } from 'src/app/LPS_model/earthingReport';
@@ -125,6 +124,7 @@ export class LpsEarthingComponent implements OnInit {
   }
 
   earthingLpsDescriptionForm(buildingNumber:any,buildingName:any,buildingCount:any) {
+    
     return this.formBuilder.group({
       buildingNumber:new FormControl(buildingNumber),
       buildingName: new FormControl(buildingName),
@@ -140,8 +140,8 @@ export class LpsEarthingComponent implements OnInit {
       earthingClampsAvailabilityRem: new FormControl(''),
       earthingElectrodeChamberAvailabilityOb: new FormControl(''),
       earthingElectrodeChamberAvailabilityRem:  new FormControl(''),
-     earthingElectrodeTestingAvailabilityRem:  new FormControl(''),                              
-     earthingElectrodeTestingAvailabilityOb:  new FormControl(''),                          
+      earthingElectrodeTestingAvailabilityRem:  new FormControl(''),                              
+      earthingElectrodeTestingAvailabilityOb:  new FormControl(''),                          
 
       earthingDescription: this.formBuilder.array([this.earthingDescriptionArray()]),
       earthingClamps: this.formBuilder.array([]),
@@ -150,6 +150,10 @@ export class LpsEarthingComponent implements OnInit {
       earthElectrodeTesting: this.formBuilder.array([])
     });
   }
+
+  // formStatusChage(){
+  //   this.earthingForm.markAsPristine();
+  // }
   
   dropDown(event: any,a:any){
     let changedValue;
@@ -318,7 +322,7 @@ export class LpsEarthingComponent implements OnInit {
       earthingElectrodeSize: new FormControl(null, Validators.required),
       earthingElectrodeDepth: new FormControl(null, Validators.required),
       earthingElectrodeResistance: new FormControl(null, Validators.required),
-      earthingElectrodeRemarks!: new FormControl(''),
+      earthingElectrodeRemarks: new FormControl(''),
 
     });
   }
@@ -381,7 +385,7 @@ export class LpsEarthingComponent implements OnInit {
 
   retrieveDetailsfromSavedReports(basicLpsId: any,data: any){
     
-      // this.service.lvClick=1;
+      // this.service.lpsClick=1;
       if(data.basicLpsId != undefined && data.basicLpsId != 0){
         this.step4List = data;
         this.populateData(data);
@@ -750,11 +754,11 @@ export class LpsEarthingComponent implements OnInit {
         }
       }
        //deleted earthingClamps
-      if(this.clampsDeleted !=[] && this.clampsDeleted.length > index && this.earthingReport.earthingLpsDescription[index].buildingCount == this.clampsDeleted[index].buildingCount){
+      if(this.clampsDeleted.length!=0 && this.clampsDeleted.length > index && this.earthingReport.earthingLpsDescription[index].buildingCount == this.clampsDeleted[index].buildingCount){
         this.earthingReport.earthingLpsDescription[index].earthingClamps.push(this.clampsDeleted[index]);
       }
        //deleted chamber
-      if(this.earthingElectrodeChamberDeleted !=[] && this.earthingElectrodeChamberDeleted.length > index && this.earthingElectrodeChamberDeleted.length > index && this.earthingReport.earthingLpsDescription[index].buildingCount == this.earthingElectrodeChamberDeleted[index].buildingCount){
+      if(this.earthingElectrodeChamberDeleted.length!=0 && this.earthingElectrodeChamberDeleted.length > index && this.earthingElectrodeChamberDeleted.length > index && this.earthingReport.earthingLpsDescription[index].buildingCount == this.earthingElectrodeChamberDeleted[index].buildingCount){
         this.earthingReport.earthingLpsDescription[index].earthingElectrodeChamber.push(this.earthingElectrodeChamberDeleted[index]);
       }
     }
@@ -779,16 +783,16 @@ export class LpsEarthingComponent implements OnInit {
             this.success = true;
             this.successMsg = data;
             this.earthingForm.markAsPristine();
-            this.service.lvClick=0;
+            this.service.lpsClick=0;
             this.service.logoutClick=0;
             this.service.windowTabClick=0;
             this.proceedNext.emit(true);
           },
           (error) => {
             this.Error = true;
-            this.errorArr = [];
-            this.errorArr = JSON.parse(error.error);
-            this.errorMsg = this.errorArr.message;
+            // this.errorArr = [];
+            // this.errorArr = JSON.parse(error.error);
+            this.errorMsg = this.service.globalErrorMsg;
             this.proceedNext.emit(false);
           }
         )
@@ -820,7 +824,7 @@ export class LpsEarthingComponent implements OnInit {
             this.retriveEarthingDetails();
             this.getAirterminationData();
             this.proceedNext.emit(true);
-            this.service.lvClick=0;
+            this.service.lpsClick=0;
             this.service.logoutClick=0;
             this.service.windowTabClick=0;
           },
@@ -828,9 +832,9 @@ export class LpsEarthingComponent implements OnInit {
             this.popup=true;
             this.spinner=false;
             this.Error = true;
-            this.errorArr = [];
-            this.errorArr = JSON.parse(error.error);
-            this.errorMsg = this.errorArr.message;
+            // this.errorArr = [];
+            // this.errorArr = JSON.parse(error.error);
+            this.errorMsg = this.service.globalErrorMsg;
             this.proceedNext.emit(false);
           });
       }
@@ -1043,19 +1047,19 @@ export class LpsEarthingComponent implements OnInit {
     if(!this.earthingForm.invalid){
       if(this.earthingForm.dirty){
         this.validationError=false;
-        this.service.lvClick=1;
+        this.service.lpsClick=1;
         this.service.logoutClick=1;
         this.service.windowTabClick=1;
       }
       else{
         this.validationError=false;
-        this.service.lvClick=0;
+        this.service.lpsClick=0;
         this.service.logoutClick=0;
         this.service.windowTabClick=0;
       }
      }
      else {
-      this.service.lvClick=1;
+      this.service.lpsClick=1;
       this.service.logoutClick=1;
       this.service.windowTabClick=1;
      }
@@ -1064,19 +1068,19 @@ export class LpsEarthingComponent implements OnInit {
    if(!this.earthingForm.invalid){ 
     if(this.earthingForm.dirty){
       this.validationError=false;
-      this.service.lvClick=1;
+      this.service.lpsClick=1;
       this.service.logoutClick=1;
       this.service.windowTabClick=1;
     }
     else{
       this.validationError=false;
-      this.service.lvClick=0;
+      this.service.lpsClick=0;
       this.service.logoutClick=0;
       this.service.windowTabClick=0;
     }
    }
    else {
-    this.service.lvClick=1;
+    this.service.lpsClick=1;
     this.service.logoutClick=1;
     this.service.windowTabClick=1;
    }
@@ -1280,7 +1284,7 @@ export class LpsEarthingComponent implements OnInit {
           this.earthing.value[k].buildingName == buildingName &&
           this.earthing.value[k].buildingCount == buildingCount) {
           isBuildingRequired = true;
-          isFormAvailable = "available"
+          isFormAvailable = "available";
         }
         //if form empty 
         else if (this.earthing.value[k].buildingNumber == '' ||
@@ -1292,13 +1296,21 @@ export class LpsEarthingComponent implements OnInit {
           
           this.earthing.push(this.earthingLpsDescriptionForm(buildingNumber, buildingName, buildingCount));
           isBuildingRequired = true;
-          isFormAvailable = "available"
+          isFormAvailable = "available";
+          setTimeout(() => {
+            this.earthingForm.markAsPristine();
+            this.earthingForm.markAsUntouched();
+          }, 4000);
         }
 
       }
       //not having form for given airtermination buildingnumber 
       if (isFormAvailable != "available") {
           this.earthing.push(this.earthingLpsDescriptionForm(buildingNumber, buildingName, buildingCount));
+          setTimeout(() => {
+            this.earthingForm.markAsPristine();
+            this.earthingForm.markAsUntouched();
+          }, 4000);
       }
     }
   }

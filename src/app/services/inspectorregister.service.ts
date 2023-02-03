@@ -10,7 +10,7 @@ import { UpdatePasswordInspector } from '../model/update-password-inspector';
   providedIn: 'root'
 })
 export class InspectorregisterService {
-  apiUrl = environment.apiUrl_v2;
+  apiUrl = environment.apiUrl_EMC_LV;
   constructor ( private http: HttpClient) { }
   
   public  registerInspector (register: Register): Observable<any> {
@@ -26,7 +26,7 @@ export class InspectorregisterService {
   }
 
   public  updateLicense (register: Register): Observable<any> {
-    return this.http.put<any>(this.apiUrl+'/updateLicence' +'/'+ register.username +'/'+ register.noOfLicence, { responseType: 'text' as 'json' })
+    return this.http.put<any>(this.apiUrl+'/updateLicence' +'/'+ register.username +'/'+ register.noOfLicence +'/'+register.selectedProject, { responseType: 'text' as 'json' })
   }
 
   public  updateInspector (register: Register): Observable<any> {
@@ -57,7 +57,21 @@ export class InspectorregisterService {
     return this.http.get<any>(this.apiUrl+'/retrieveRegistration'+'/'+userName,  { responseType: 'text' as 'json' })
   }
 
+  public  retrieveInspectorLicense (userName: any,projectName:any): Observable<any> {
+    return this.http.get<any>(this.apiUrl+'/retrieveRegistration'+'/'+userName+"/"+projectName,  { responseType: 'text' as 'json' })
+  }
+
+  public  retrieveSite (userName: any): Observable<any> {
+    return this.http.get<any>(this.apiUrl+'/isSiteActive'+'/'+userName,  { responseType: 'text' as 'json' })
+  }
+
   public  retrieveRegisterName (userName: any): Observable<any> {
     return this.http.get<any>(this.apiUrl+'/retrieveUserNameFromRegister'+'/'+userName,  { responseType: 'text' as 'json' })
+  }
+
+// License viwer registration
+
+  public  registerLicense (register: Register): Observable<any> {
+    return this.http.post<any>(this.apiUrl+'/addViewerRegistrationLicense', register, { responseType: 'text' as 'json' })
   }
 }

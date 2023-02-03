@@ -385,7 +385,7 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
       this.service.isLinear=false;
       this.service.editable=true;
       this.EMCElectroMagneticFormm.markAsPristine();
-   return true;
+      return true;
     }
   }
   gotoNextTab() {
@@ -467,9 +467,9 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
                 this.finalSpinner = false;
                 this.popup = true;
                 this.Error = true;
-                this.errorArr = [];
-                this.errorArr = JSON.parse(error.error);
-                this.errorMsg = this.errorArr.message;
+                // this.errorArr = [];
+                // this.errorArr = JSON.parse(error.error);
+                this.errorMsg = this.service.globalErrorMsg;
                 this.proceedNext.emit(false);
 
               });
@@ -495,10 +495,10 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
             this.finalSpinner = false;
             this.popup = true;
             this.Error = true;
-            this.errorArr = [];
+            // this.errorArr = [];
             this.service.disableSubmitElectromagnetic=false;
-            this.errorArr = JSON.parse(error.error);
-            this.errorMsg = this.errorArr.message;
+            // this.errorArr = JSON.parse(error.error);
+            this.errorMsg = this.service.globalErrorMsg;
            this.proceedNext.emit(false);
           }
         )

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewChild, ViewContainerRef, OnInit, ElementRef } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild, ViewContainerRef, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -8,17 +8,12 @@ import { LvInspectionDetailsComponent } from '../lv-inspection-details/lv-inspec
 import { ComponentFactoryResolver } from '@angular/core';
 import { RiskAssessmentInspectionMaintenanceComponent } from '../risk-assessment-inspection-maintenance/risk-assessment-inspection-maintenance.component';
 import { EmcAssessmentInstallationComponent } from '../emc-assessment-installation/emc-assessment-installation.component';
-import { MainNavService } from '../services/main-nav.service';
 import { ApplicationType } from '../model/applicationtype';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { AddApplicationTypesComponent } from '../add-application-types/add-application-types.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UpdateApplicationTypesComponent } from '../update-application-types/update-application-types.component';
 import { ApplicationTypeService } from '../services/application.service';
-import { User } from '../model/user';
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { relative } from '@angular/compiler-cli/src/ngtsc/file_system';
-import { MatTabChangeEvent } from '@angular/material/tabs';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { BnNgIdleService } from 'bn-ng-idle';
@@ -34,11 +29,10 @@ import { InspectorregisterService } from '../services/inspectorregister.service'
 import { VerificationlvComponent } from '../verificationlv/verificationlv.component';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
 import { InspectionVerificationBasicInformationComponent } from '../inspection-verification-basic-information/inspection-verification-basic-information.component';
-import { SavedreportsComponent } from '../savedreports/savedreports.component';
-import { LpsMatstepperComponent } from '../LPS/lps-matstepper/lps-matstepper.component';
 import { LpsWelcomePageComponent } from '../LPS/lps-welcome-page/lps-welcome-page.component';
-import { wind } from 'ngx-bootstrap-icons';
 import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
+
+import { NewsService } from '../services/news.service';
 // import {
 //   DiagramComponent,Diagram, UndoRedo, ConnectorBridging, SnapConstraints,PointPortModel,PortVisibility,PortConstraints,
 //   NodeModel, ConnectorModel, PathAnnotationModel, DecoratorModel, PointModel,
@@ -46,23 +40,10 @@ import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.c
 
 // } from '@syncfusion/ej2-angular-diagrams';
 
-import {
-  DiagramComponent, NodeModel, ConnectorModel, PaletteModel,
-  SnapSettingsModel, SnapConstraints, SymbolPaletteComponent, PointPortModel, PortVisibility,
-  PortConstraints, ContextMenuSettingsModel, IDragEnterEventArgs, DiagramBeforeMenuOpenEventArgs,
-  SymbolPreviewModel,
-  SwimLaneModel, Node,
-  SymbolInfo,
-  LaneModel,
-  randomId,
-  cloneObject, ShapeStyleModel,
-  HeaderModel,
-} from '@syncfusion/ej2-angular-diagrams';
-import { DiagramModel } from '../SLD/SLD Models/diagram-component';
-import { DiagramListComponent } from '../SLD/SLD components/diagram-list/diagram-list.component';
 import { DiagramWelcomePageComponent } from '../SLD/SLD components/diagram-welcome-page/diagram-welcome-page.component';
 import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminProd } from 'src/environments/environment.prod';
+import { BuyMeterComponent } from '../buy-meter/buy-meter.component';
 
 export interface PeriodicElement {
   siteCd: string;
@@ -110,6 +91,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   superAdminFlag: boolean = false;
   allData: any = [];
   selectedIndex: any;
+  greet: string="";
 
 
   @ViewChild('ongoingSiteSort') set matSortOn(ms: MatSort) {
@@ -150,13 +132,13 @@ export class MainNavComponent implements OnInit, OnDestroy {
     this.completedLicensePaginator = mp;
     this.setCompletedDataSourceAttributes();
   }
-
   sidenavWidth: any;
   isExpanded: boolean = false;
   showSubmenu: boolean = false;
   isShowing = false;
   showSubSubMenu: boolean = false;
   showSubmenuRep: boolean = false;
+  showSubmenuMeter: boolean = false;
   showSubmenuOngoing: boolean = false;
   showSubmenuCompleted: boolean = false;
   showingh = false;
@@ -195,14 +177,16 @@ export class MainNavComponent implements OnInit, OnDestroy {
 
   id: number = 0;
   type: String = '';
+  typeMeter: String = '';
+
   code: String = '';
   register = new Register();
   style: any;
 
   itemValue1: String = 'IN';
   itemValue2: String = 'TIC';
-  itemValue3: String = 'RM';
-  itemValue4: String = 'BM';
+  itemValue3: String = 'MT';
+  // itemValue4: String = 'BM';
   itemValue5: String = 'REP';
   SubitemValue1: String = 'Ongoing TIC';
   SubitemValue2: String = 'Completed TIC';
@@ -224,13 +208,19 @@ export class MainNavComponent implements OnInit, OnDestroy {
   mobileDisplay: boolean = false;
   desktopDisplay: boolean = false;
   welcome: boolean = true;
+  youtube: boolean = true;
   //isExpanded: any;
   selectedRowIndex: String = '';
   selectedRowIndexSub: String = '';
   selectedRowIndexType: String = '';
+  selectedRowIndexTypeMeter: String = '';
   applicationTypesbasedonuser: string = "";
   ApplicationTypesSplit: any = [];
+  ApplicationTypesMeter1: string = "";
+  ApplicationTypesMeter: any = ['Rent Meter','Buy Meter'];
   showTIC: boolean = false;
+  showMeter: boolean = false;
+
   showREP: boolean = false;
   currentUser: any = [];
   currentUser1: any = [];
@@ -238,10 +228,12 @@ export class MainNavComponent implements OnInit, OnDestroy {
 
   mainApplications: any = [{ 'name': 'Introduction', 'code': 'IN' },
   { 'name': 'TIC', 'code': 'TIC' },
-  { 'name': 'RENT Meter', 'code': 'RM' },
-  { 'name': 'Buy Meter', 'code': 'BM' },
+  { 'name': 'Meter', 'code': 'MT' },
+  // { 'name': 'Buy Meter', 'code': 'BM' },
   { 'name': 'Reports', 'code': 'REP' },
   ]
+
+
   count!: number;
   count1!: number;
   viewerComment: boolean = false;
@@ -268,9 +260,34 @@ export class MainNavComponent implements OnInit, OnDestroy {
   //superAdminLocal = new SuperAdminLocal();
   superAdminDev = new SuperAdminDev();
   superAdminProd = new SuperAdminProd();
+  color = 'accent';
+  checked = false;
+  newsArticleDisplay: any = [];  
+  newsArticleDisplay0: any = [];  
+  newsArticleDisplay1: any = [];
+  newsArticleDisplay2: any = [];
 
+  // Viewer Related changes
+  ErrorLic: boolean=false;
+  ErrorLPS: boolean=false;
+  ErrorLV: boolean=false;
+  errorSite: boolean=false;
+
+  value1: boolean=false;
+  lpsSavedRep: boolean = false;
+  lpsFinalRep: boolean=false;
+
+  licensePageHeading: String="";
+  lpsData: boolean=false;
+  lvData: boolean=false;
+  destroy: boolean=false;
+  @ViewChild('verify1')
+  matStepper:any;
+  // Getting present using this variable
+  currentYear:any;
+   
   constructor(private breakpointObserver: BreakpointObserver, changeDetectorRef: ChangeDetectorRef,
-    media: MediaMatcher,
+    media: MediaMatcher,private newsService: NewsService,
     private loginservice: LoginserviceService,
     private inspectorService: InspectorregisterService,
     private inspectionService: InspectionVerificationService,
@@ -280,7 +297,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
     private componentFactoryResolver: ComponentFactoryResolver,
     private applicationService: ApplicationTypeService,
     private modalService: NgbModal, private bnIdle: BnNgIdleService,
-    private siteService: SiteService
+    private siteService: SiteService,
   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
     //  this.retrieveApplicationTypes();
@@ -298,9 +315,81 @@ export class MainNavComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    var myDate = new Date();
+    var hrs = myDate.getHours();
+  
+    if (hrs < 12)
+        this.greet = 'Good Morning!';
+    else if (hrs >= 12 && hrs < 17)
+        this.greet = 'Good Afternoon!';
+    else if (hrs >= 17 && hrs <= 24)
+        this.greet = 'Good Evening!';
     this.newNotify();
     this.mobileDisplay = false;
     this.desktopDisplay = true;
+
+    this.currentYear= myDate.getFullYear();
+     //load articles
+    // this.newsService.initArticles().subscribe(data => this.mArticles = data['articles']);
+     //load news sources
+     this.newsService.topHeadlines().subscribe((result)=>{
+     //  for(let articles=0; articles<16; articles++){
+      this.newsArticleDisplay=result.articles;
+      //   this.newsArticleDisplay=result.articles.slice(0, 1);
+      //   this.newsArticleDisplay1=result.articles.slice(1, 2);
+      //   this.newsArticleDisplay2=result.articles.slice(2,3);
+       //if image url
+        if(this.newsArticleDisplay[0].urlToImage==null){
+          this.newsArticleDisplay[0].urlToImage="https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png";
+        }
+      //  if(this.newsArticleDisplay[0].description.length > 25){
+      //    this.newsArticleDisplay[0].description = this.newsArticleDisplay[0].description.substring(0,25) + "..."; 
+      //  }
+       if(this.newsArticleDisplay[0].title==null){
+        this.newsArticleDisplay[0].title="https://google.com/news.html";
+      }
+        //if image url 1
+      //   if(this.newsArticleDisplay1[0].title.length > 25){
+      //     this.newsArticleDisplay[0].author = this.newsArticleDisplay1[0].title.substring(0,50) + "...";
+      //   }
+       
+      //   if(this.newsArticleDisplay1[0].urlToImage!=null){
+      //   this.newsArticleDisplay[0].content=this.newsArticleDisplay1[0].urlToImage; 
+      //   }
+      //   else
+      //   {
+      //     this.newsArticleDisplay[0].content="https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png";
+      //   }
+      //   if(this.newsArticleDisplay1[0].urlToImage!=null){
+      //     this.newsArticleDisplay[0].description=this.newsArticleDisplay1[0].url; 
+      //   }
+      //     else
+      //     {
+      //       this.newsArticleDisplay[0].description="https://google.com/news.html";
+      //     }
+        
+      // //if image url 2
+      //   if(this.newsArticleDisplay2[0].title.length > 25){
+      //     this.newsArticleDisplay[0].publishedAt = this.newsArticleDisplay2[0].title.substring(0,50) + "...";
+      //   }
+        
+      //   if(this.newsArticleDisplay1[0].urlToImage!=null){
+      //     this.newsArticleDisplay[0].source.id=this.newsArticleDisplay2[0].urlToImage; 
+      //   }
+      //     else
+      //     {
+      //       this.newsArticleDisplay[0].source.id="https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png";
+      //     }
+      //     if(this.newsArticleDisplay1[0].urlToImage!=null){
+      //       this.newsArticleDisplay[0].source.name=this.newsArticleDisplay2[0].url; 
+      //     }
+      //       else
+      //       {
+      //         this.newsArticleDisplay[0].description="https://google.com/news.html";
+      //       }
+      // }
+       
+     });  
     // this.bnIdle.startWatching(environment.sessionTimeOut).subscribe((isTimedOut: boolean) => {
     //   if (isTimedOut) {
     //     alert('Your session is timed out')
@@ -317,11 +406,13 @@ export class MainNavComponent implements OnInit, OnDestroy {
     // this.superAdminArr.push('vinoth@capeindia.net');
     if(this.currentUser1.role == 'Inspector') {
       this.showTIC = true;
+      this.showMeter=true;
       this.showREP = false;
     }
     else {
       //uncomment this later...
       this.showTIC = false;
+      this.showMeter=false;
       this.showREP = false;
       if (this.currentUser1.assignedBy != null) {
         this.showREP = true;
@@ -333,7 +424,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
       this.retrieveSiteDetails();
     }
   }
-
+  
   setCompletedDataSourceAttributes() {
     if (this.completedLicense_dataSource !== undefined) {
       this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
@@ -505,6 +596,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
       dialogRef.componentInstance.confirmBox.subscribe(data => {
         if (data) {
           this.welcome = false;
+          this.youtube = false;
           this.ongoingSite = false;
           this.completedSite = false;
           this.value = false;
@@ -525,7 +617,8 @@ export class MainNavComponent implements OnInit, OnDestroy {
       })
       //    if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!")){
       //      //this.service.triggerScrollTo();
-      //   this.welcome= false;  
+      //   this.welcome= false; 
+           //this.youtube = false;  
       //   this.ongoingSite=false;
       //   this.completedSite=false;
       //   this.value= false;
@@ -546,6 +639,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
     }
     else if ((this.service.lvClick == 0) || (this.service.allStepsCompleted == false)) {
       this.welcome = false;
+      this.youtube = false;
       this.ongoingSite = false;
       this.completedSite = false;
       this.value = false;
@@ -682,12 +776,27 @@ export class MainNavComponent implements OnInit, OnDestroy {
     this.applicationService.retrieveApplicationTypesBasedOnUser(email).subscribe(
       data => {
         this.applicationTypesbasedonuser = data.applicationType;
-        if (this.applicationTypesbasedonuser != null) {
-          this.ApplicationTypesSplit = this.applicationTypesbasedonuser.split(',');
+        
+        if (this.applicationTypesbasedonuser != null && (data.permission !='YES' || data.permission != 'Yes' )) {
+
+          //this.ApplicationTypesSplit = this.applicationTypesbasedonuser.split(',');
+          this.ApplicationTypesSplit = [];
+           for(let application of this.applicationTypesbasedonuser.split(',')){
+            for(let permission of data.permission.split(',')){
+              if (application == permission.split('-')[0] &&  permission.split('-')[1] == 'U') {
+                this.ApplicationTypesSplit.push(application);
+            } 
+          }
+        }
+        }
+        else{
+          for(let application of this.applicationTypesbasedonuser.split(',')){
+            this.ApplicationTypesSplit.push(application);
+          }
         }
       }
     );
-  }
+  } 
 
   logout() {
     if ((this.service.logoutClick == 1) && (this.service.allStepsCompleted == true)) {
@@ -749,16 +858,22 @@ export class MainNavComponent implements OnInit, OnDestroy {
  highlightSub(type:any){
   //this.viewContainerRef.clear();
   this.welcome= false;
-  if(type== 'LV Systems') {
-    this.selectedRowIndexSub = type;
-    this.selectedRowIndexType="";
+  this.youtube = false;
+  if(type== 'LPS Systems') {
     this.ongoingSite=true;
-    this.completedSite=false;
     this.value= false;
+    this.lpsData=true;
+    this.value1=true;
   }
-  
  }
- 
+
+
+ highlightMeter(typeMeter:any){
+  this.selectedRowIndex = typeMeter;
+  this.selectedRowIndexTypeMeter="";
+  this.selectedRowIndexSub ="";
+}
+
  editSite(siteId: any,userName: any,site: any) {
   this.service.allStepsCompleted=true;
   this.service.disableSubmitSummary=false;
@@ -777,7 +892,8 @@ export class MainNavComponent implements OnInit, OnDestroy {
   dialogRef.componentInstance.confirmBox.subscribe(data=>{
     if(data) {
       this.value= true;
-    this.welcome= false;  
+    this.welcome= false;
+    this.youtube = false;
     this.ongoingSite=false;
     this.completedSite=false;
     this.service.mainNavToSaved=0;
@@ -788,7 +904,8 @@ export class MainNavComponent implements OnInit, OnDestroy {
     }
     else{
       this.value= false;
-    this.welcome= false;  
+    this.welcome= false;
+    this.youtube = false;  
     this.ongoingSite=true;
     this.completedSite=false;
     }
@@ -796,7 +913,8 @@ export class MainNavComponent implements OnInit, OnDestroy {
   // if (confirm("Are you sure you want to edit site details?"))
   // {
   //   this.value= true;
-  //   this.welcome= false;  
+  //   this.welcome= false;
+  // this.youtube = false;  
   //   this.ongoingSite=false;
   //   this.completedSite=false;
   //   this.service.mainNavToSaved=0;
@@ -808,6 +926,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   // else {
   //   this.value= false;
   //   this.welcome= false;  
+  // this.youtube = false;
   //   this.ongoingSite=true;
   //   this.completedSite=false;
   // }
@@ -834,7 +953,8 @@ export class MainNavComponent implements OnInit, OnDestroy {
   dialogRef.componentInstance.confirmBox.subscribe(data=>{
     if(data) {
       this.value= true;
-      this.welcome= false;  
+      this.welcome= false;
+      this.youtube = false;
       this.ongoingSite=false;
       this.completedSite=false;
       this.service.mainNavToSaved=0;
@@ -845,7 +965,8 @@ export class MainNavComponent implements OnInit, OnDestroy {
     }
     else{
       this.value= false;
-      this.welcome= false;   
+      this.welcome= false;
+      this.youtube = false;   
       this.ongoingSite=false;
       this.completedSite=true;
     }
@@ -853,7 +974,8 @@ export class MainNavComponent implements OnInit, OnDestroy {
   // if (confirm("Are you sure you want to view site details?"))
   // {
   //   this.value= true;
-  //   this.welcome= false;  
+  //   this.welcome= false;
+   //this.youtube = false;  
   //   this.ongoingSite=false;
   //   this.completedSite=false;
   //   this.service.mainNavToSaved=0;
@@ -864,11 +986,13 @@ export class MainNavComponent implements OnInit, OnDestroy {
   // } 
   // else {
   //   this.value= false;
-  //   this.welcome= false;   
+  //   this.welcome= false; 
+  //this.youtube = false;  
   //   this.ongoingSite=false;
   //   this.completedSite=true;
   // }
   // this.welcome= false;
+  //this.youtube = false;
   // this.ongoingSite=false;
   // this.completedSite=false;
   // this.viewContainerRef.clear();
@@ -901,9 +1025,9 @@ emailPDF(siteId: any,userName: any, siteName: any){
   },
   error => {
     this.Error = true;
-    this.errorArr = [];
-    this.errorArr = JSON.parse(error.error);
-    this.errorMsg = this.errorArr.message;
+    // this.errorArr = [];
+    // this.errorArr = JSON.parse(error.error);
+    this.errorMsg = this.service.globalErrorMsg;
     setTimeout(()=>{
       this.Error = false;
   }, 3000);
@@ -915,6 +1039,7 @@ emailPDF(siteId: any,userName: any, siteName: any){
   this.viewContainerRef.clear();
   if(type == 'LV Systems') {
     this.welcome= false;
+    this.youtube = false;
     this.selectedRowIndexSub = type;
     this.selectedRowIndexType="";
     this.ongoingSite=false;
@@ -927,7 +1052,10 @@ emailPDF(siteId: any,userName: any, siteName: any){
   this.selectedRowIndexType = type;
   this.selectedRowIndexSub ="";
  }
- 
+ highlightTypeMeter(typeMeter:any){
+  this.selectedRowIndexTypeMeter = typeMeter;
+  this.selectedRowIndexSub ="";
+ }
  changePassword(email: String) {
   if((this.service.lvClick==1) && (this.service.allStepsCompleted==true)){
     const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
@@ -1019,6 +1147,9 @@ profileUpdate(email: String) {
 
   LVHome(){
      this.welcome = false;
+
+     this.youtube = false;
+
         this.viewContainerRef.clear();
         const lvInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LvInspectionDetailsComponent);
         const lvInspectionRef = this.viewContainerRef.createComponent(lvInspectionFactory);
@@ -1026,6 +1157,8 @@ profileUpdate(email: String) {
   }
   LPSHome(){
     this.welcome = false;
+    this.youtube = false;
+
     this.viewContainerRef.clear();
     const LpsInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LpsWelcomePageComponent);
     const LpsInspectionRef = this.viewContainerRef.createComponent(LpsInspectionFactory);
@@ -1033,6 +1166,9 @@ profileUpdate(email: String) {
   }
   EMCHome(){
     this.welcome = false;
+
+    this.youtube = false;
+
     this.viewContainerRef.clear();
     const emcAssessmentInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(EmcAssessmentInstallationComponent);
     const emcAssessmentInspectionRef = this.viewContainerRef.createComponent(emcAssessmentInspectionFactory);
@@ -1040,6 +1176,10 @@ profileUpdate(email: String) {
   }
   showLinkDescription(id: any) {
     this.welcome = false;
+    this.youtube = false;
+    this.service.licenseHide=true;
+    // this.service.showFinalLPS=true;
+    // this.service.showSavedLPS=true;
     if ((this.service.lvClick == 1) && (this.service.allStepsCompleted == true)) {
       const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
         width: '420px',
@@ -1094,6 +1234,12 @@ profileUpdate(email: String) {
               const SLDDiagramRef = this.viewContainerRef.createComponent(SLDDiagramFactory);
               SLDDiagramRef.changeDetectorRef.detectChanges();
               break;  
+              case 'Buy Meter':
+                this.viewContainerRef.clear();
+                const butMeterFactory = this.componentFactoryResolver.resolveComponentFactory(BuyMeterComponent);
+                const buyMeterRef = this.viewContainerRef.createComponent(butMeterFactory);
+                buyMeterRef.changeDetectorRef.detectChanges();
+                break;
             case 6:
               this.viewContainerRef.clear();
               break;
@@ -1179,11 +1325,18 @@ profileUpdate(email: String) {
           const SLDDiagramRef = this.viewContainerRef.createComponent(SLDDiagramFactory);
           SLDDiagramRef.changeDetectorRef.detectChanges();
           break;  
+          case 'Buy Meter':
+            this.viewContainerRef.clear();
+            const butMeterFactory = this.componentFactoryResolver.resolveComponentFactory(BuyMeterComponent);
+            const buyMeterRef = this.viewContainerRef.createComponent(butMeterFactory);
+            buyMeterRef.changeDetectorRef.detectChanges();
+            break;
         case 6:
           this.viewContainerRef.clear();
           break;
       }
     }
+
 
   }
 
@@ -1226,4 +1379,58 @@ profileUpdate(email: String) {
   displayIconsBasedOnEmail(): boolean {
     return !this.email.includes("@capeindia.net")
   }
+
+  viewerNavigation(id:any){
+    this.welcome = false;
+    this.youtube = false;
+    this.service.licenseHide = false;
+
+    switch (id) {
+      case 'LV Systems':
+        this.viewContainerRef.clear();
+        const lvInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LvInspectionDetailsComponent);
+        const lvInspectionRef = this.viewContainerRef.createComponent(lvInspectionFactory);
+        lvInspectionRef.changeDetectorRef.detectChanges();
+        break;
+      case 'HV Systems':
+        this.viewContainerRef.clear();
+        break;
+      case 'Risk Assessment':
+        this.viewContainerRef.clear();
+        const riskAssessmentInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(RiskAssessmentInspectionMaintenanceComponent);
+        const riskAssessmentInspectionRef = this.viewContainerRef.createComponent(riskAssessmentInspectionFactory);
+        riskAssessmentInspectionRef.changeDetectorRef.detectChanges();
+        break;
+      case 'EMC Assessment':
+        this.viewContainerRef.clear();
+        const emcAssessmentInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(EmcAssessmentInstallationComponent);
+        const emcAssessmentInspectionRef = this.viewContainerRef.createComponent(emcAssessmentInspectionFactory);
+        emcAssessmentInspectionRef.changeDetectorRef.detectChanges();
+        break;
+      case 'LPS Systems':
+        this.service.allStepsCompleted = true;
+        this.viewContainerRef.clear();
+        const LpsInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LpsWelcomePageComponent);
+        const LpsInspectionRef = this.viewContainerRef.createComponent(LpsInspectionFactory);
+        LpsInspectionRef.changeDetectorRef.detectChanges();
+        break;
+
+      case 'SLD Diagram':
+        this.viewContainerRef.clear();
+        const SLDDiagramFactory = this.componentFactoryResolver.resolveComponentFactory(DiagramWelcomePageComponent);
+        const SLDDiagramRef = this.viewContainerRef.createComponent(SLDDiagramFactory);
+        SLDDiagramRef.changeDetectorRef.detectChanges();
+        break;  
+        case 'Buy Meter':
+          this.viewContainerRef.clear();
+          const butMeterFactory = this.componentFactoryResolver.resolveComponentFactory(BuyMeterComponent);
+          const buyMeterRef = this.viewContainerRef.createComponent(butMeterFactory);
+          buyMeterRef.changeDetectorRef.detectChanges();
+          break;
+      case 6:
+        this.viewContainerRef.clear();
+        break;
+    }
+  }
+
 }

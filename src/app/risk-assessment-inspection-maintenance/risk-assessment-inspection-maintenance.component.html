@@ -3,96 +3,100 @@
 
 <body>
     <div *ngIf="destroy">
-        <app-risk-parent-component *ngIf="showRiskHome"></app-risk-parent-component>
+        <!-- <app-risk-parent-component *ngIf="showRiskHome"></app-risk-parent-component> -->
+        <app-licenselist *ngIf="showLicence"></app-licenselist>
     </div>
     <div *ngIf="!destroy" style="padding: 20px; background: white;">
-        <button style="float: right;" type="submit"
-        class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+        <button style="float: right;background-color: #0f800c;color: white;" type="submit"
+        class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn"
         (click)="onNavigateToQuestionaire()">Skip</button>
-    <button style="float: right;" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+    <button style="float: right;background-color: #0f800c;color: white;" class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn"
         printSectionId="printdiv" ngxPrint>Print</button>
-    <h2>Lightning protection conformity assessment, risk assessment, inspection and maintenance
+    <div id="printdiv">
+        <h2 style="text-align: center;margin-bottom: 0rem;">Lightning protection conformity assessment, risk assessment, inspection and maintenance
         (IEC 62305-3 & 4).</h2>
-    <div>
-       <b> Verification (inspection and testing ) of Lightning Protection System (LPS)​</b>
-        <p>The effectiveness of an LPS depends on its adoption of design, installation, maintenance, and testing as per
-        IEC62305-2. ​
-        (Note: Inspections, testing and maintenance shall not be conducted during threat of thunderstorms)​</p>
         <div>
-        <ol><b>The objective of the inspections is to verify that​</b>
-        <li>The LPS conforms to the design based on IS/IEC 62305,​</li>
-        <li>All components of the LPS are in good condition and capable of performing their designed functions, and that
-        there is no corrosion,​</li>
-        <li>Any recently added services or constructions are incorporated into the LPS.​</li>
-        </ol>
-        </div>
-        <b>Inspection and Testing of the LPS includes visual inspections and should be completed by the following
-            actions:​</b>
-        
-        <div>
-        <ul><u>Inspection</u>​
-            <li>During the construction of the structure, in order to check the embedded electrodes;​</li>
-            <li>After the installation of the LPS;​ </li>
-            <li>Earthing resistance value for the earth-termination system;​</li>
-            <li>Condition of connections, equipotential bonding and fixings.​</li>
-        <u>Testing</u>​
-            <li>Performing continuity tests, especially continuity of those parts of the LPS which were not visible for
-                inspection during the initial installation and are not subsequently available for visual inspection;​</li>
-            <li>Conducting earth resistance tests of the earth-termination system. The following isolated and combined earth
-                measurements and checks should be made and the results recorded in an LPS inspection report.​</li>
-        </ul>
-        </div>
-        <div>
-            <ol class="d"><b>Isolated and combined earth measurements</b>
-            <li>The resistance to earth of each local earth electrode and where reasonably practical, the resistance to earth of the complete earth-termination system. 
-                Each local earth electrode should be measured in isolation with the test joint between the down-conductor and earth electrode in the disconnected position (isolated measurement).​
-            <li>If the resistance to earth of the earth-termination system as a whole exceeds 10 Ω, a check should be made to ascertain that the electrode conforms to IS/IEC62305 cl. 5.4. 
-                For earth electrodes in rocky soil, the requirements of IS/IEC 62305 Cl. E.5.4.3.5 should be followed. 
-                The 10 Ω requirement is not applicable in this case.​</li>
-            <li>The results of a visual check of all conductors, bonds and joints or their measured electrical continuity. If the earth-termination system does not conform to these requirements, 
-                or checking the requirements is not possible because of a lack of information, the earth-termination system should be improved by installing extra earth electrodes or installing 
-                a new earth-termination system in parallel connectivity to existing one.​</li>    
-            <li>SPDs need to be tested using universal SPD tester.​</li>
+        <br>
+        <p style="text-align: center;margin-bottom: 0rem;font-weight: bold;"> Verification (inspection and testing ) of Lightning Protection System (LPS)​</p>
+            <p>The effectiveness of an LPS depends on its adoption of design, installation, maintenance, and testing as per
+            IEC62305-2. ​
+            (Note: Inspections, testing and maintenance shall not be conducted during threat of thunderstorms)​</p>
+            <div>
+            <ol><b>The objective of the inspections is to verify that​</b>
+            <li>The LPS conforms to the design based on IS/IEC 62305,​</li>
+            <li>All components of the LPS are in good condition and capable of performing their designed functions, and that
+            there is no corrosion,​</li>
+            <li>Any recently added services or constructions are incorporated into the LPS.​</li>
             </ol>
-        </div>
-        <div>
-            <p>High-frequency or impulse measurements are possible and useful to determine high frequency or impulse behavior of the earth-termination system. Such measurements may be performed at the
-                stage of installation  of the earthing system to check adequacy between the designed earthing system and the need. For earth networks incorporating both vertical earth rods and a partial or full ring earth electrode, 
-                disconnection and testing should be performed at the earth inspection pit. 
-                If such inspection is difficult to perform, routine test should be completed by high frequency or impulse tests.​</p>
-        </div>
-        <div>
-            <b>Documentation of inspection</b>
-            <p>LPS inspection guides should be prepared to facilitate LPS inspections. They should contain sufficient information to guide the inspector through the inspection process so that all areas of importance are documented
-               such as the method of LPS installation, the type and condition of the LPS components, test methods and the proper recording of the test data obtained.​</p>
-             <p>The inspector should compile an LPS inspection report, which should be kept together with the LPS design report and the previously compiled LPS maintenance and inspection reports.</p>  
-        </div>
-        <div>
-            <b>The LPS inspection report should contain the following information:​</b>
-            <ol class="line">
-                <li> General conditions of air-termination conductors, and other air-termination components;​</li>
-                <li> General level of corrosion and the condition of the corrosion protection;​</li>
-                <li> Security of attachment of the LPS conductors and components;​</li>
-                <li> Earth resistance measurements of the earth-termination system;​</li>
-                <li> Any deviation from the requirements of this standard;​</li>
-                <li> Documentation of all changes and extension of the LPS and any changes to the structure.​</li>
-            </ol>
-        </div>
-        <div>
-            <ol class="line">
-            <b>In addition, the LPS construction drawings and the LPS design description should be reviewed;​</b>
-            <li>The results of the tests performed.</li>
-            </ol>
-        </div>
-        <div>
-            <p>​4.5 On completion of an electrical installation (or an extension to an installation) a certificate shall be furnished by the appropriate person in the prescribed forms 
-                in annex D, countersigned by the appropriate authority under whose direct supervision the installation was carried out. This certificate in the prescribed forms of IS:732
-                can be used by the local electric supply authority (subject to acceptance) and form a base for electrical safety audits.</p>
+            </div>
+            <b>Inspection and Testing of the LPS includes visual inspections and should be completed by the following
+                actions:​</b>
+            
+            <div>
+            <ul><u>Inspection</u>​
+                <li>During the construction of the structure, in order to check the embedded electrodes;​</li>
+                <li>After the installation of the LPS;​ </li>
+                <li>Earthing resistance value for the earth-termination system;​</li>
+                <li>Condition of connections, equipotential bonding and fixings.​</li>
+            <u>Testing</u>​
+                <li>Performing continuity tests, especially continuity of those parts of the LPS which were not visible for
+                    inspection during the initial installation and are not subsequently available for visual inspection;​</li>
+                <li>Conducting earth resistance tests of the earth-termination system. The following isolated and combined earth
+                    measurements and checks should be made and the results recorded in an LPS inspection report.​</li>
+            </ul>
+            </div>
+            <div>
+                <ol class="d"><b>Isolated and combined earth measurements</b>
+                <li>The resistance to earth of each local earth electrode and where reasonably practical, the resistance to earth of the complete earth-termination system. 
+                    Each local earth electrode should be measured in isolation with the test joint between the down-conductor and earth electrode in the disconnected position (isolated measurement).​
+                <li>If the resistance to earth of the earth-termination system as a whole exceeds 10 Ω, a check should be made to ascertain that the electrode conforms to IS/IEC62305 cl. 5.4. 
+                    For earth electrodes in rocky soil, the requirements of IS/IEC 62305 Cl. E.5.4.3.5 should be followed. 
+                    The 10 Ω requirement is not applicable in this case.​</li>
+                <li>The results of a visual check of all conductors, bonds and joints or their measured electrical continuity. If the earth-termination system does not conform to these requirements, 
+                    or checking the requirements is not possible because of a lack of information, the earth-termination system should be improved by installing extra earth electrodes or installing 
+                    a new earth-termination system in parallel connectivity to existing one.​</li>    
+                <li>SPDs need to be tested using universal SPD tester.​</li>
+                </ol>
+            </div>
+            <div>
+                <p>High-frequency or impulse measurements are possible and useful to determine high frequency or impulse behavior of the earth-termination system. Such measurements may be performed at the
+                    stage of installation  of the earthing system to check adequacy between the designed earthing system and the need. For earth networks incorporating both vertical earth rods and a partial or full ring earth electrode, 
+                    disconnection and testing should be performed at the earth inspection pit. 
+                    If such inspection is difficult to perform, routine test should be completed by high frequency or impulse tests.​</p>
+            </div>
+            <div>
+                <b>Documentation of inspection</b>
+                <p>LPS inspection guides should be prepared to facilitate LPS inspections. They should contain sufficient information to guide the inspector through the inspection process so that all areas of importance are documented
+                such as the method of LPS installation, the type and condition of the LPS components, test methods and the proper recording of the test data obtained.​</p>
+                <p>The inspector should compile an LPS inspection report, which should be kept together with the LPS design report and the previously compiled LPS maintenance and inspection reports.</p>  
+            </div>
+            <div>
+                <b>The LPS inspection report should contain the following information:​</b>
+                <ol class="line">
+                    <li> General conditions of air-termination conductors, and other air-termination components;​</li>
+                    <li> General level of corrosion and the condition of the corrosion protection;​</li>
+                    <li> Security of attachment of the LPS conductors and components;​</li>
+                    <li> Earth resistance measurements of the earth-termination system;​</li>
+                    <li> Any deviation from the requirements of this standard;​</li>
+                    <li> Documentation of all changes and extension of the LPS and any changes to the structure.​</li>
+                </ol>
+            </div>
+            <div>
+                <ol class="line">
+                <b>In addition, the LPS construction drawings and the LPS design description should be reviewed;​</b>
+                <li>The results of the tests performed.</li>
+                </ol>
+            </div>
+            <div>
+                <p>​4.5 On completion of an electrical installation (or an extension to an installation) a certificate shall be furnished by the appropriate person in the prescribed forms 
+                    in annex D, countersigned by the appropriate authority under whose direct supervision the installation was carried out. This certificate in the prescribed forms of IS:732
+                    can be used by the local electric supply authority (subject to acceptance) and form a base for electrical safety audits.</p>
+            </div>
         </div>
     </div>
-    <button style="float: right;" type="submit"
-    class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn-continue"
-        (click)="onNavigateToQuestionaire()">Continue</button>
+        <button style="float: right;background-color: #0f800c;color: white;" type="submit"
+            class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn-continue"
+            (click)="onNavigateToQuestionaire()">Continue</button>
     </div>
 </body>
 

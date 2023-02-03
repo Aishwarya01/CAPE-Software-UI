@@ -1,6 +1,5 @@
-import { SignatorDetails } from './../model/reportdetails';
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup,Validators,ValidatorFn } from '@angular/forms';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup,Validators } from '@angular/forms';
 import {​​​ NgbModal }​​​ from'@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { Company } from '../model/company';
@@ -12,16 +11,12 @@ import { DepartmentService } from '../services/department.service';
 import { ReportDetailsService } from '../services/report-details.service';
 import { SiteService } from '../services/site.service';
 import { GlobalsService } from '../globals.service';
-import { iif } from 'rxjs';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
 import { CommentsSection } from '../model/comments-section';
 import { DatePipe } from '@angular/common';
 import { InspectorregisterService } from '../services/inspectorregister.service';
-import { ignoreElements } from 'rxjs/operators';
 import { MainNavComponent } from '../main-nav/main-nav.component'; 
-import { ReturnTypeTransform } from '@angular/compiler-cli/src/ngtsc/transform';
-import { MatDialog, MatDialogRef} from '@angular/material/dialog';
-import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
+import { MatDialog} from '@angular/material/dialog';
 import { SignatureComponent } from '../signature/signature.component';
 //import { SyncSigComponent } from '../sync-sig/sync-sig.component';
 
@@ -277,6 +272,7 @@ ShowNext: boolean = true;
     this.reportDetails.verifiedEngineer = this.service.inspectorData.name;
     this.reportDetails.inspectorDesignation = this.service.inspectorData.designation;
     this.reportDetails.inspectorCompanyName = this.service.inspectorData.companyName;
+    this.reportDetails.siteId = this.service.viewerData.siteId;
 
     this.companyNameSite = this.service.viewerData.companyName;
     this.departmentNameSite = this.service.viewerData.department;
@@ -2378,9 +2374,9 @@ onPopState(event:any) {
             this.popup=true;
             this.finalSpinner=false;
             this.Error = true;
-            this.errorArr = [];
-            this.errorArr = JSON.parse(error.error);
-            this.errorMsg = this.errorArr.message;
+            // this.errorArr = [];
+            // this.errorArr = JSON.parse(error.error);
+            this.errorMsg = this.service.globalErrorMsg;
           });
       }
       
@@ -2416,9 +2412,9 @@ onPopState(event:any) {
        this.popup=true;
        this.finalSpinner=false;
        this.Error = true;
-       this.errorArr = [];
-       this.errorArr = JSON.parse(error.error);
-       this.errorMsg = this.errorArr.message;
+      //  this.errorArr = [];
+      //  this.errorArr = JSON.parse(error.error);
+       this.errorMsg = this.service.globalErrorMsg;
        this.proceedNext.emit(false);
        this.service.isCompleted= false;
        this.service.isLinear=true;

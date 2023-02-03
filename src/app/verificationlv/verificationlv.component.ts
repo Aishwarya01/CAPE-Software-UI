@@ -1,17 +1,15 @@
 import {
-  AfterViewInit,
   Component,
   EventEmitter,
   OnInit,
   Output,
   ViewChild,
   ChangeDetectorRef,
-  VERSION,
   Input,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AbstractControl, FormArray, FormControl } from '@angular/forms';
-import { StepperSelectionEvent, STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { FormArray } from '@angular/forms';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -40,14 +38,11 @@ import { InspectionVerificationTestingComponent } from '../inspection-verificati
 import { InspectionVerificationIncomingEquipmentComponent } from '../inspection-verification-incoming-equipment/inspection-verification-incoming-equipment.component';
 import { SummaryComponent } from '../summary/summary.component';
 import { InspectionVerificationSupplyCharacteristicsComponent } from '../inspection-verification-supply-characteristics/inspection-verification-supply-characteristics.component';
-import { MatTabChangeEvent } from '@angular/material/tabs';
 import { SavedreportsComponent } from '../savedreports/savedreports.component';
 import { InspectorregisterService } from '../services/inspectorregister.service';
-import { map } from 'rxjs/operators';
-import { readJsonConfigFile } from 'typescript';
 import { FinalreportsComponent } from '../finalreports/finalreports.component';
 import { ObservationService } from '../services/observation.service';
-import {Pipe, PipeTransform } from '@angular/core';
+import {Pipe } from '@angular/core';
 import { MatTabGroup, MatTabHeader, MatTab } from '@angular/material/tabs';
 //import { NGXLogger } from 'ngx-logger';
 import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
@@ -240,8 +235,12 @@ export class VerificationlvComponent implements OnInit {
   testingValue: boolean = true;
   summaryValue: boolean = true;
   selectedIndexStepper!: number;
+
+  // We are getting allsteps completed data using this variable
+  tempArr: any=[];
+
   //counter: number=0;
-//private logger: NGXLogger,
+  //private logger: NGXLogger,
   constructor(
     private _formBuilder: FormBuilder,
     private modalService: NgbModal,
@@ -495,7 +494,7 @@ export class VerificationlvComponent implements OnInit {
     sitePersons: any[],
     addressLine_1: String,
     addressLine_2: String,
-    zipCode: number,
+    zipCode: String,
     createdDate: Date,
     createdBy: String
   ) {
@@ -527,7 +526,7 @@ export class VerificationlvComponent implements OnInit {
   }
   
   interceptTabChange(tab: MatTab, tabHeader: MatTabHeader) {
-    if((this.service.lvClick==1) && (this.service.allStepsCompleted==true))
+    if((this.service.lvClick==1) && (this.service.allStepsCompleted==true) && JSON.parse(sessionStorage.authenticatedUser).role != 'Viewer')
        {
         const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
           width: '420px',
@@ -561,7 +560,7 @@ export class VerificationlvComponent implements OnInit {
       //   return;
       // }
         }
-        else if((this.service.lvClick==0) || (this.service.allStepsCompleted==false)){
+        else {
         this.service.windowTabClick=0;
         this.service.logoutClick=0;
         this.service.lvClick=0; 
@@ -633,9 +632,9 @@ export class VerificationlvComponent implements OnInit {
         this.retrieveSiteDetails();
     },error=>{
         this.Error = true;
-        this.errorArr = [];
-        this.errorArr = JSON.parse(error.error);
-        this.errorMsg =this.errorArr.message;
+        // this.errorArr = [];
+        // this.errorArr = JSON.parse(error.error);
+        this.errorMsg =this.service.globalErrorMsg;
         setTimeout(() => {
           this.Error = false;
         }, 3000);
@@ -855,8 +854,8 @@ changeTab(index: number, sitedId: any, userName: any, companyName: any, departme
  // this.logger.error('changeTab started');
   this.siteService.retrieveFinal(sitedId).subscribe(
     data=> {
-    
-            //this.logger.debug('data fetched');
+      this.tempArr=JSON.parse(data);
+      //this.logger.debug('data fetched');
       //this.selectedIndex = index;
       this.dataJSON = JSON.parse(data);
       if(this.dataJSON.reportDetails != null) {
@@ -936,7 +935,7 @@ changeTab(index: number, sitedId: any, userName: any, companyName: any, departme
       this.service.triggerScrollTo();
       }
       this.service.commentScrollToBottom=0;
-        
+      
         
       if(this.noDetailsFlag) {
         this.siteN=site;
@@ -951,6 +950,9 @@ changeTab(index: number, sitedId: any, userName: any, companyName: any, departme
           this.selectedIndex=0;
         }, 3000);
       }   
+      if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
+        this.service.allFieldsDisable = true;
+      }
     },
     error=> {
 
@@ -986,7 +988,7 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
  setTimeout(() => {
   this.siteService.retrieveFinal(sitedId).subscribe(
     data=> {
-     
+      this.tempArr=JSON.parse(data);
       //this.selectedIndex = index;
       this.saved.savedReportSpinner =false;
       this.saved.savedReportBody = true;
@@ -1100,27 +1102,29 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
 
 //retrieve site after adding new site in modal
   retrieveSite(companyName:any,departmentName:any,site:any){
-  this.siteService.retrieveSiteForInspection(companyName,departmentName,site).subscribe(
-    data=>{
-      this.siteData=JSON.parse(data);
-      this.inspectorRegisterService.retrieveInspector(this.siteData.assignedTo).subscribe(
+    if(companyName!=undefined && companyName!="" && companyName!=null && departmentName!=undefined && departmentName!="" && departmentName!=null && site!=undefined && site!="" && site!=null){
+      this.siteService.retrieveSiteForInspection(companyName,departmentName,site).subscribe(
         data=>{
-          this.service.viewerData=JSON.parse(data);
-          this.inspectorRegisterService.retrieveInspector(this.service.viewerData.assignedBy).subscribe(
+          this.siteData=JSON.parse(data);
+          this.inspectorRegisterService.retrieveInspector(this.siteData.assignedTo).subscribe(
             data=>{
-              this.inspectorData = JSON.parse(data);
-              this.service.inspectorData=this.inspectorData;
-              this.basic.ngOnInit();
-              // setTimeout(() => {
-              //   this.basic.ngOnInit();
-              // }, 1000);
-            }
-          )
-        }
-      )
+              this.service.viewerData=JSON.parse(data);
+              this.service.viewerData.siteName=site;
+              this.inspectorRegisterService.retrieveInspector(this.service.viewerData.assignedBy).subscribe(
+                data=>{
+                  this.inspectorData = JSON.parse(data);
+                  this.service.inspectorData=this.inspectorData;
+                  this.basic.ngOnInit();
+                  // setTimeout(() => {
+                  //   this.basic.ngOnInit();
+                  // }, 1000);
+                }
+              )
+            })
+        })
     }
-  )
   }
+
 //for final reports tab
   changeTab1(index: number): void {
     this.selectedIndex = index;
@@ -1146,28 +1150,65 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
   //   }
     
   // }
+
   goBack2(stepper: MatStepper) {
-    if(this.supply.reloadFromBack()){
+    if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
       stepper.previous();
-      //this.service.goBacktoprevious=true;
+      //this.service.goBacktoprevious=true;x
+    }
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
+      stepper.previous();
+    }
+    else if(this.supply.supplycharesteristicForm.pristine && this.supply.supplycharesteristicForm.untouched){
+      stepper.previous();
+    }
+    else{
+      this.supply.reloadFromBack();
     }
   }
+
   goBack3(stepper: MatStepper) {
-    if(this.incoming.reloadFromBack()){
+    if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
       stepper.previous();
-      //this.service.goBacktoprevious=true;
+    }
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
+      stepper.previous();
+    }
+    else if(this.incoming.addstep3.pristine && this.incoming.addstep3.untouched){
+      stepper.previous();
+    }
+    else{
+      this.incoming.reloadFromBack();
     }
   }
+
   goBack4(stepper: MatStepper) {
-    if(this.testing.reloadFromBack()){
+    if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
       stepper.previous();
-      //this.service.goBacktoprevious=true;
+    }
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
+      stepper.previous();
+    }
+    else if(this.testing.testingForm.pristine && this.testing.testingForm.untouched){
+      stepper.previous();
+    }
+    else{
+      this.testing.reloadFromBack();
     }
   }
+
   goBack5(stepper: MatStepper) {
-    if(this.summary.reloadFromBack()){
+    if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
       stepper.previous();
-      //this.service.goBacktoprevious=true;
+    }
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
+      stepper.previous();
+    }
+    else if(this.summary.addsummary.pristine && this.summary.addsummary.untouched){
+      stepper.previous();
+    }
+    else{
+    this.summary.reloadFromBack();
     }
   }
 

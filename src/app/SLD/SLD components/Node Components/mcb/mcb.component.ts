@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { GlobalsService } from 'src/app/globals.service';
 import { MCB } from '../../../SLD Models/mcb';
 import { MCBServicesService } from '../../../SLD Services/mcb-services.service';
 
@@ -30,10 +31,12 @@ export class MCBComponent implements OnInit {
   email: any;
   validationError: boolean= false;
   validationErrorMsg: string="";
+  error1: boolean=false;
+  error1Msg: string="";
   constructor(private mcbService: MCBServicesService,
               private formBuilder: FormBuilder,
               private dialog: MatDialog,
-            ) { }
+              private service: GlobalsService) { }
 
   ngOnInit(): void {
     this.mcbForm = this.formBuilder.group({
@@ -59,6 +62,14 @@ export class MCBComponent implements OnInit {
         if(this.mcbData.length != 0) {
           this.retrieveMcbNode(this.mcbData);
         }
+      },
+      error=>{
+        this.error1=true;
+        this.error1Msg=this.service.globalErrorMsg;
+        setTimeout(() => {
+          this.error1=false;
+          this.error1Msg="";
+        }, 4000);
       }
     )
   }
@@ -791,8 +802,8 @@ export class MCBComponent implements OnInit {
         },
         error => {
           this.error = true;
-          this.errorData = JSON.parse(error.error);
-          this.errorMsg = this.errorData.message;
+          // this.errorData = JSON.parse(error.error);
+          this.errorMsg = this.service.globalErrorMsg;
           setTimeout(()=>{
             this.error = false;
             this.errorMsg = ""
@@ -821,8 +832,8 @@ export class MCBComponent implements OnInit {
       },
       error => {
         this.error = true;
-        this.errorData = JSON.parse(error.error);
-        this.errorMsg = this.errorData.message;
+        // this.errorData = JSON.parse(error.error);
+        this.errorMsg = this.service.globalErrorMsg;
         setTimeout(()=>{
           this.error = false;
           this.errorMsg = "";

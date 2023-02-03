@@ -8,18 +8,18 @@ import { environment } from 'src/environments/environment';
 })
 export class LTMotorServicesService {
 
-  apiUrl5 = environment.apiUrl_Diagram;
+  apiUrl5 = environment.apiUrl_EMC_LV;
 
 
   constructor(private http: HttpClient) { }
 
   //LTMotor
   public addLTMotor(LTMotor: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl5 + '/saveLTMotor', LTMotor, { responseType: 'text' as 'json' })
+    return this.http.post<any>(this.apiUrl5 + '/diagram/saveLTMotor', LTMotor, { responseType: 'text' as 'json' })
   }
   public retriveLTMotor(fileName: any,nodeId: any): Observable<any> {
-    return this.http.get<any>(this.apiUrl5 + '/retrieveLTMotor'+'/'+fileName+'/'+nodeId, { responseType: 'text' as 'json' })
+    return this.http.get<any>(this.apiUrl5 + '/diagram/retrieveLTMotor'+'/'+fileName+'/'+nodeId, { responseType: 'text' as 'json' })
   }
   public updateLTMotor(LTMotor: any): Observable<any> {
-    return this.http.put<any>(this.apiUrl5 + '/updateLTMotor', LTMotor, { responseType: 'text' as 'json' })
+    return this.http.put<any>(this.apiUrl5 + '/diagram/updateLTMotor', LTMotor, { responseType: 'text' as 'json' })
   }}

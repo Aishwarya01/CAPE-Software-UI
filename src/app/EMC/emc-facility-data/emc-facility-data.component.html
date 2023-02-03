@@ -1055,7 +1055,7 @@
 
                 <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
                     <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
-                    <button class="next" (click)="gotoNextModal(content1, content2)" mat-button>Next &raquo;</button>
+                    <button class="next" [ngClass]="{'disableForm':isEditableEmc}" (click)="gotoNextModal(content1, content2)" mat-button>Next &raquo;</button>
                 </div>
         </mat-accordion>
     </form>
@@ -1085,8 +1085,8 @@
     </div>
     <br>
     <div *ngIf="popup">
-        <button type="button" style="text-align: center;margin-left:180px;width:20%" class="close"
-            class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
+        <button type="button" style="text-align: center;margin-left:180px;width:20%;background-color: #0f800c;color: white;" class="close"
+            class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
             (click)="closeModalDialog()" matStepperNext>
             <span aria-hidden="true">Ok</span>
         </button>
@@ -1105,7 +1105,8 @@
      </div>
     <br>
     <div class="row">
-       <button type="button" class="col-md-4" style="text-align: center;margin-left:100px;width:20%" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+       <button type="button" class="col-md-4" style="text-align: center;margin-left:100px;width:20%;background-color: #0f800c;color: white;" 
+       class="btn btn-rounded btn-md font-weight-medium auth-form-btn"
        aria-label="Close" (click)="closeModalDialog()" matStepperNext>
        <i class="bi bi-arrow-right-circle"></i>&nbsp;
         <span aria-hidden="true">Ok</span>

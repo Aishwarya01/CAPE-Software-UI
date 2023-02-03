@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { GlobalsService } from 'src/app/globals.service';
 import { DieselGenerator } from 'src/app/SLD/SLD Models/DG';
 import { DGFileUploadServiceService } from 'src/app/SLD/SLD Services/DG-file-upload-service.service';
 import { DGServicesService } from 'src/app/SLD/SLD Services/DG-service.service';
@@ -56,10 +57,14 @@ export class DGComponent implements OnInit {
   fileErrorFlag: boolean = false;
   fileSuccessFlag: boolean = false;
 
+  error1: boolean=false;
+  error1Msg: string="";
+
   constructor(private formBuilder: FormBuilder,
     private dieselGeneratorService: DGServicesService,
     private dgFileUploadServiceService: DGFileUploadServiceService,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog,
+    private service: GlobalsService) { }
 
   ngOnInit(): void {
     this.dieselGeneratorForm = this.formBuilder.group({
@@ -81,6 +86,14 @@ export class DGComponent implements OnInit {
         if (this.dieselGeneratorData.length != 0) {
           this.retrieveDieselGeneratorNode(this.dieselGeneratorData);
         }
+      },
+      error=>{
+        this.error1=true;
+        this.error1Msg=this.service.globalErrorMsg;
+        setTimeout(() => {
+          this.error1=false;
+          this.error1Msg="";
+        }, 4000);
       }
     )
     this.retriveFileName();
@@ -323,13 +336,14 @@ export class DGComponent implements OnInit {
           this.successMsg = data;
           setTimeout(() => {
             this.success = false;
-            this.successMsg = ""
+            this.successMsg = "";
+            this.dialog.closeAll();
           }, 3000);
         },
         error => {
           this.error = true;
-          this.errorData = JSON.parse(error.error);
-          this.errorMsg = this.errorData.message;
+          // this.errorData = JSON.parse(error.error);
+          this.errorMsg = this.service.globalErrorMsg;
           setTimeout(() => {
             this.error = false;
             this.errorMsg = ""
@@ -356,13 +370,14 @@ export class DGComponent implements OnInit {
           this.successMsg = data;
           setTimeout(() => {
             this.success = false;
-            this.successMsg = ""
+            this.successMsg = "";
+            this.dialog.closeAll();
           }, 3000);
         },
         error => {
           this.error = true;
-          this.errorData = JSON.parse(error.error);
-          this.errorMsg = this.errorData.message;
+          // this.errorData = JSON.parse(error.error);
+          this.errorMsg = this.service.globalErrorMsg;
           setTimeout(() => {
             this.error = false;
             this.errorMsg = ""

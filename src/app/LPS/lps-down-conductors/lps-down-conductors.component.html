@@ -3168,7 +3168,7 @@
             </div>
             <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
                 <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
-                <button class="next"  (click)="gotoNextModal(content1,contents)"  mat-button >Next &raquo;</button>
+                <button class="next"  (click)="gotoNextModal(content1,contents)" mat-button [ngClass]="{'disableForm':isEditable}" >Next &raquo;</button>
            </div>
         </form>
     </div>
@@ -3197,11 +3197,13 @@
     </div>
     <br>
     <div *ngIf="popup" style="text-align: center;">
-        <button type="button" *ngIf="success" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+        <button type="button" *ngIf="success" class="close" style="background-color: #0f800c;color: white;"
+        class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn"
         aria-label="Close"  (click)="closeModalDialog()" matStepperNext>
         <span aria-hidden="true">Ok</span>
         </button>
-        <button type="button" *ngIf="Error" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+        <button type="button" *ngIf="Error" class="close" style="background-color: #0f800c;color: white;"
+        class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn"
         aria-label="Close"  (click)="closeModalDialog()">
         <span aria-hidden="true">Ok</span>
         </button>
@@ -3219,7 +3221,8 @@
      </div>
     <br>
     <div class="row">
-       <button type="button" class="col-md-6" style="width: 5rem;position: relative;margin-left: 30%;" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+       <button type="button" class="col-md-6" style="width: 5rem;position: relative;margin-left: 30%;background-color: #0f800c;color: white;" 
+       class="btn btn-rounded btn-md font-weight-medium auth-form-btn"
        aria-label="Close" (click)="closeModalDialog()" matStepperNext>
        <i class="bi bi-arrow-right-circle"></i>&nbsp;
         <span aria-hidden="true">Ok</span>
@@ -3252,8 +3255,9 @@
         <div *ngIf="filesuccess" style="text-align: center;">
             <b>Note:</b> Please click Next Button, Then only the file changes will reflect!
         </div>
-        <button type="button" (click)="closeModalDialogFile()" *ngIf="popup" style="text-align: center;margin-left:180px;width:20%;margin-top: 20px;" class="close"
-            class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
+        <button type="button" (click)="closeModalDialogFile()" *ngIf="popup" 
+        style="text-align: center;margin-left:180px;width:20%;margin-top: 20px;background-color: #0f800c;color: white;" class="close"
+            class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
              >
             <span >Ok</span>
         </button>
@@ -3277,8 +3281,8 @@
         </div>
         <br>
     
-        <button type="button" *ngIf="popupDelete" (click)="closeModalDialogFile()" style="text-align: center;margin-left:180px;width:20%" class="close"
-            class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
+        <button type="button" *ngIf="popupDelete" (click)="closeModalDialogFile()" style="text-align: center;margin-left:180px;width:20%;background-color: #0f800c;color: white;" class="close"
+            class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
              >
             <span>Ok</span>
         </button>

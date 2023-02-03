@@ -290,14 +290,14 @@
                 <input type="checkbox"  formControlName="terms" (change)="showSubmit()" [(ngModel)]="isChecked"/>
                 I agree to the <a style="cursor: pointer; text-decoration: underline;" (click)="termsCondition(termsContent)">Terms and Conditions</a> for using online services of SOLVE Applications
             </div>
-            <div *ngIf="successMsgOTP" class="alert alert-success" style="margin: 55px auto 0px auto;width: 65%;">{{successMsg}}</div>
-            <div *ngIf="errorMsgflag" class="alert alert-danger" style="margin: 55px auto 0px auto;width: 65%;">{{errorMsg}}</div>
+            <div *ngIf="successMsgOTP" class="alert alert-success" style="margin: 55px auto 0px auto;width: 65%;text-align: center;">{{successMsg}}</div>
+            <div *ngIf="errorMsgflag" class="alert alert-danger" style="margin: 55px auto 0px auto;width: 65%;text-align: center;">{{errorMsg}}</div>
 <br>
             <div class="row" style="display: block;">
                 <div class="col-xs-12">
                     <div class="text-align" style="text-align: center;">
-                <button [disabled]="loading" [ngStyle]="{'cursor': loading ? 'not-allowed' : 'pointer'}" 
-                type="submit" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" id="login-btn"><i class="bi bi-person-plus-fill icon"></i> Register</button>
+                <button [disabled]="loading" [ngStyle]="{'cursor': loading ? 'not-allowed' : 'pointer'}" style="background-color: #0f800c;color: white;"
+                type="submit" class="btn btn-rounded btn-md font-weight-medium auth-form-btn" id="login-btn"><i class="bi bi-person-plus-fill icon"></i> Register</button>
                 <div class="divider"> </div>
                 <button  [routerLink]="['/login']" class="btn btn-danger cancel" ><i class="bi bi-x icon"></i> Cancel</button>
             </div>
@@ -352,7 +352,7 @@
           <div class="row" style="display: block;">
             <div class="col-xs-12">
                 <div class="text-align" style="text-align: end;margin: 10px;">
-                  <button   type="button" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" 
+                  <button   type="button" style="background-color: #0f800c;color: white;" class="btn btn-rounded btn-md font-weight-medium auth-form-btn" 
                   printSectionId="printdiv" ngxPrint style="margin: 10px;">Print</button>
                   <!-- <button  type="button" class="btn btn-danger cancel">
                     <i class="bi bi-x icon"></i> Cancel</button> -->

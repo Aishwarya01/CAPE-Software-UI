@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   user = new User();
-  showErrorMessage=false;
+  showErrorMessage:any;
   USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser';
   public token: string = '';
   
@@ -74,7 +74,9 @@ export class LoginComponent implements OnInit {
       data=> {
       localStorage.setItem('email', this.user.email);
       localStorage.setItem('password', this.user.password);
-     sessionStorage.setItem('token', data['token']);
+      localStorage.setItem('username', data['register'].username);
+      sessionStorage.setItem('token', data['token']);
+      
       // Save value to local storage
       if(this.rememberMeChecked==true) {
         localStorage.setItem('rememberMe', 'yes');
@@ -87,36 +89,21 @@ export class LoginComponent implements OnInit {
         }
       },
       error => {
-        if(error.error.error == 'Unauthorized'){
-          error.error.error = 'Invalid Credentials';
-          this.showErrorMessage=error.error.error;
-        } else{
-          this.showErrorMessage=error.error.message;
+        // if(error.error.error == 'Unauthorized'){
+        //   error.error.error = 'Invalid Credentials';
+        //   this.showErrorMessage=error.error.error;
+        // } else{
+        //   this.showErrorMessage=error.error.message;
+        // }
+        if(this.service.globalErrorMsg="Unauthorized"){
+          this.showErrorMessage="Invalid Credentials";
         }
-        
         this.loading=false;
       }
     )
   }
  
   AutoLogin(){
-  //   this.service.autoLoginToken=1;
-  //   //this.loginservice.login(this.user.email, this.user.password);
-  //  this.loginservice.login(localStorage.email, localStorage.password);
-  //    //const accessToken = localStorage.getItem("token");
-    
-  //    // Retrieve rememberMe value from local storage
-  //    const rememberMe = localStorage.getItem('rememberMe');
-  //    //console.log(accessTokenObj);
-  //   // console.log(accessToken);
-  //    if (rememberMe == 'yes') {
-  //      this.router.navigate(['/home', {email: localStorage.email}]);
-
-  //    } 
-  //    else {
-  //      console.log("You need to login")
-  //    }
-
   this.loginservice.login(localStorage.email, localStorage.password).subscribe(
       data=> {
       sessionStorage.setItem('token', data['token']);

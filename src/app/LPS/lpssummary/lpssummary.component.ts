@@ -3,7 +3,6 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Valida
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { flag, save } from 'ngx-bootstrap-icons';
 import { ConfirmationBoxComponent } from 'src/app/confirmation-box/confirmation-box.component';
 import { GlobalsService } from 'src/app/globals.service';
 // import { LpsSummaryConst } from 'src/app/LPS_constants/lps-summary-const';
@@ -15,7 +14,6 @@ import { SummaryServiceService } from 'src/app/LPS_services/summary-service.serv
 import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminProd } from 'src/environments/environment.prod';
 import { SignatureComponent } from 'src/app/signature/signature.component';
-import { MatDialogRef} from '@angular/material/dialog';
 import { LpsGlobalserviceService } from '../lps-globalservice.service';
 
 @Component({
@@ -34,6 +32,7 @@ export class LpssummaryComponent implements OnInit {
     email: String = '';
     flag: boolean=true;
     flag1: boolean = false;
+    summaryPopup: boolean = false;
     basicLpsId!: number;
     airTerminationValues: any=[];
     airTerminationDesc: any=[];
@@ -97,7 +96,7 @@ export class LpssummaryComponent implements OnInit {
     @Output() proceedNext = new EventEmitter<any>();
     @Output() navigateStepSummary: EventEmitter<any> = new EventEmitter();
 
-    isEditable:boolean=false;
+    isEditable!:boolean;
     submittedButton: boolean = true;
     saveButton: boolean = false;
     buttonType:  string="";
@@ -526,7 +525,11 @@ export class LpssummaryComponent implements OnInit {
   spdFlag:any=[]
   seperationFlag:any=[]
   earthStudFlag:any=[]
-  
+  deleteSummaryLpsObservationArr: any=[];
+  lpsSummaryList: any = [];
+  signarr: any;
+  signarr1: any;
+
   constructor(private summaryService:SummaryServiceService,private formBuilder: FormBuilder,
     private airterminationServices: AirterminationService, private router: ActivatedRoute,
     private dialog: MatDialog,private modalService: NgbModal,public service: GlobalsService,
@@ -556,9 +559,12 @@ export class LpssummaryComponent implements OnInit {
       //   }
       // }
   }
+
   ngOnDestroy(): void {
     this.service.signatureImg7="";
     this.service.signatureImg8="";
+    this.service.bytestring7="";
+    this.service.bytestring8="";
   }
 
     ngOnInit(): void {
@@ -592,6 +598,8 @@ SignatureDesigner1(){
       maxHeight: '90vh',
       disableClose: true,
     });
+    this.summaryForm.markAllAsTouched();
+    this.summaryForm.markAsDirty();
     dialogRef.componentInstance.sigImg1 = false;
     dialogRef.componentInstance.sigImg2 = false;
     dialogRef.componentInstance.sigImg3 = false;
@@ -612,6 +620,8 @@ SignatureDesigner1(){
       maxHeight: '90vh',
       disableClose: true,
     });
+    this.summaryForm.markAllAsTouched();
+    this.summaryForm.markAsDirty();
     dialogRef.componentInstance.sigImg1 = false;
     dialogRef.componentInstance.sigImg2 = false;
     dialogRef.componentInstance.sigImg3 = false;
@@ -1303,7 +1313,9 @@ SignatureDesigner1(){
     }
 
     retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,data: any){
-      this.jsonData=[]
+      this.service.lpsClick = 1;
+      this.jsonData=[];
+    //  this.lpsSummaryList = JSON.parse(data);
       if( data.summaryLpsBuildings!=undefined && data.summaryLpsBuildings!=null){
         this.jsonData=data;
       }
@@ -1317,6 +1329,24 @@ SignatureDesigner1(){
       
       this.lpsSummary.basicLpsId = basicLpsId;
       this.basicLpsId = basicLpsId;
+     //SIGNATURE LATEST CHANGES
+      for(let i of   this.jsonData.summaryLpsDeclaration) {
+        if(i.declarationRole == "Inspector") {
+          this.signarr=[i];
+          this.signarr[0].signature=atob(i.signature);
+          this.summaryForm.patchValue({
+            Declaration1Arr: this.signarr
+          })
+        }
+        else{
+          this.signarr1=[i];
+          this.signarr1[0].signature=atob(i.signature);
+          this.summaryForm.patchValue({
+            Declaration2Arr: this.signarr1
+          })
+        }
+      }
+
       if(this.jsonData!=null){
          setTimeout(() => {
           this.populateFormData(this.jsonData);
@@ -1326,6 +1356,7 @@ SignatureDesigner1(){
           this.lpsSummary.updatedBy=this.jsonData.updatedBy;
           this.lpsSummary.updatedDate=this.jsonData.updatedDate;
           this.lpsSummary.inspectedYear=this.jsonData.inspectedYear;
+         
           this.lpsSummary.summaryDate=this.jsonData.summaryDate;
           this.lpsSummary.summaryLpsId=this.jsonData.summaryLpsId;
           this.lpsSummary.flag=this.jsonData.flag;
@@ -1340,6 +1371,7 @@ SignatureDesigner1(){
     }, 3000);
       }
       }
+
       populateFormData(data:any){
         this.arr=[];
        this.arr1=[];
@@ -1395,22 +1427,19 @@ SignatureDesigner1(){
         this.numberOfBuildingCount.push(item.buildingCount);
         this.arr.push(this.createGroup(item));
        }
-      
-      if(data.summaryLpsDeclaration.length !=0){
-        this.arr1.push(this.createGroupDeclaration1( data.summaryLpsDeclaration[0]));
-        this.arr2.push(this.createGroupDeclaration1( data.summaryLpsDeclaration[1]));
-        
-        this.service.signatureImg7=atob(data.summaryLpsDeclaration[0].signature);
-        this.service.signatureImg8=atob(data.summaryLpsDeclaration[1].signature);
- 
+       
+      // if(data.summaryLpsDeclaration.length !=0){
+      //  this.arr1.push(this.createGroupDeclaration1( data.summaryLpsDeclaration[0]));
+       // this.arr2.push(this.createGroupDeclaration1( data.summaryLpsDeclaration[1]));
+     
         this.summaryForm.controls.recommendYears.setValue(data.inspectedYear);
         this.summaryForm.controls.declarationDate.setValue(data.summaryDate);
          this.summaryForm.controls.declarationDate.setValue(data.summaryDate);
-      }
+      // }
        
        this.summaryForm.setControl('summaryLpsBuildings', this.formBuilder.array(this.arr || []));
-       this.summaryForm.setControl('Declaration1Arr', this.formBuilder.array(this.arr1 || []));
-       this.summaryForm.setControl('Declaration2Arr', this.formBuilder.array(this.arr2 || []));
+      // this.summaryForm.setControl('Declaration1Arr', this.formBuilder.array(this.ar//r1 || []));
+      // this.summaryForm.setControl('Declaration2Arr', this.formBuilder.array(this.arr2 || []));
        //.retrieveFromAirTermination();
      
       }
@@ -1820,10 +1849,10 @@ SignatureDesigner1(){
              }
           }
    
-          let summaryObservation = this.isSummaryDataAvilable('airHolderDescription' + airHolderListSerialNo, 'airHolderList', value, airHolderListSerialNo, heading
+          let summaryObservation = this.isSummaryDataAvilable('airHolderList' + airHolderListSerialNo, 'airHolderList', value, airHolderListSerialNo, heading
           , displySerialNo, headingUi, (airHolderListSerialNo-1),airTerminationId);
   
-          summaryObservation.observationComponentDetails = 'airHolderDescription' + airHolderListSerialNo;
+          summaryObservation.observationComponentDetails = 'airHolderList' + airHolderListSerialNo;
           summaryObservation.remarkName = remarkName +"-"+index+"-"+i;
           summaryObservation.remarksId = airTerminationId;
           airTerminationForm.push( this.populateForm(summaryObservation));
@@ -2130,6 +2159,33 @@ SignatureDesigner1(){
   
             }
           }
+
+          else{
+            let value = dwonConductorData.downConductorDescription[index].lightningCounterAvailabilityRem;
+            let dwonConductorId = dwonConductorData.downConductorDescription[index].lightingCountersId;
+            let heading = '';
+            let headingUi = '';
+            let downConductorForm = summaryform.lightingCounter as FormArray;
+                heading = "DC_LightningCounter Observation";
+           
+                let displySerialNo = 0;
+
+
+
+               displySerialNo = lightningCounterSerialNoUi;
+                lightningCounterSerialNoUi = lightningCounterSerialNoUi + 1;
+                this.downConductorFlag[index]=true;
+                headingUi = "DC_LightningCounter Observation";
+                lightningCounterUiFlag = false;
+              let summaryObservation = this.isSummaryDataAvilable('lightningCounter' + lightningCounterSerialNo, 'lightingCounter', value, lightningCounterSerialNo, heading
+              , displySerialNo, headingUi, (lightningCounterSerialNo-1),dwonConductorId);
+  
+              summaryObservation.observationComponentDetails = 'lightningCounter' + lightningCounterSerialNo;
+              summaryObservation.remarkName = 'testingJointAvailabilityRem' +"-"+index;
+              summaryObservation.remarksId = dwonConductorId;
+              downConductorForm.push( this.populateForm(summaryObservation));
+              lightningCounterSerialNo = lightningCounterSerialNo + 1;
+          }
           
 
           //updating testingJoint_remarks value to summarydownconductor observation
@@ -2169,11 +2225,40 @@ SignatureDesigner1(){
                 summaryObservation.remarksId = dwonConductorId;
                 downConductorForm.push( this.populateForm(summaryObservation));
                 testingJointSerialNo = testingJointSerialNo + 1;
-   
-  
             }
           }
-          
+
+          else{
+            let value = dwonConductorData.downConductorDescription[index].testingJointAvailabilityRem;
+            let dwonConductorId = dwonConductorData.downConductorDescription[index].downConduDescId;
+            let heading = '';
+            let headingUi = '';
+            let downConductorForm = summaryform.testingJoint as FormArray;
+  
+              if (value == 'materialTestJointRem') {
+                heading = "DC_TestingJoint Observation";
+              }
+  
+              let displySerialNo = 0;
+              if (value !='' && value != null) {
+                displySerialNo = testingJointSerialNoUi;
+                testingJointSerialNoUi = testingJointSerialNoUi + 1;
+                this.downConductorFlag[index]=true;
+                if(testingJointUiFlag){
+                  headingUi = "DC_TestingJoint Observation";
+                  testingJointUiFlag = false;
+                }
+              }
+      
+              let summaryObservation = this.isSummaryDataAvilable('testingJoint' + testingJointSerialNo, 'testingJoint', value, testingJointSerialNo, heading
+              , displySerialNo, headingUi, (testingJointSerialNo-1),dwonConductorId);
+  
+              summaryObservation.observationComponentDetails = 'testingJoint' + testingJointSerialNo;
+              summaryObservation.remarkName = 'testingJointAvailabilityRem' +"-"+index;
+              summaryObservation.remarksId = dwonConductorId;
+              downConductorForm.push( this.populateForm(summaryObservation));
+              testingJointSerialNo = testingJointSerialNo + 1;
+          }
 
           //updating downConductorTesting_remarks value to summarydownconductor observation
            
@@ -3992,7 +4077,8 @@ SignatureDesigner1(){
          && this.downConductorData.downConductorReport[0]!=null 
          && this.downConductorData.downConductorReport[0].downConductorDescription!=null 
          && this.downConductorData.downConductorReport[0].downConductorDescription[w].length!=0 
-         && this.downConductorData.downConductorReport[0].downConductorDescription[w].testingJoint!=null){
+         && this.downConductorData.downConductorReport[0].downConductorDescription[w].testingJoint!=null
+         && this.downConductorData.downConductorReport[0].downConductorDescription[w].testingJoint!=0){
 
         for(let i of this.downConductorData.downConductorReport[0].downConductorDescription[w].testingJoint){
           for(let j = 0; j < this.testingJointName.length; j++){
@@ -4018,7 +4104,31 @@ SignatureDesigner1(){
               index5++;      
            // }
           }
-          }
+        }
+      }
+
+      else{
+        let value = this.downConductorData.downConductorReport[0].downConductorDescription[w].testingJointAvailabilityRem;
+        let dwonConductorId = this.downConductorData.downConductorReport[0].downConductorDescription[w].downConduDescId;
+        let heading = '';
+        let headingUi = '';
+
+        this.testingJointArr.push(this.createTestingJoints());
+        this.testingJointArr.controls[0].controls.heading.setValue('DC_TestingJoint Observation');
+
+
+
+          this.testingJointArr.controls[index5].controls.headingUi.setValue('DC_TestingJoint Observation');
+          testingJointFlag = false;
+           this.testingJointArr.controls[index5].controls.serialNoUi.setValue(testingJointSerialNo);
+          testingJointSerialNo = testingJointSerialNo + 1;
+          this.dwonconductorRemarks = true;
+          this.downConductorFlag[w] = true;
+         this.testingJointArr.controls[index5].controls.observationComponentDetails.setValue('testingJoint' + index5);
+        this.testingJointArr.controls[index5].controls.serialNo.setValue(index5+1);
+        this.testingJointArr.controls[index5].controls.observation.setValue(value);
+       // this.testingJointArr.controls[index5].controls.remarksName.setValue(this.testingJointName[j]);
+        this.testingJointArr.controls[index5].controls.remarksId.setValue(dwonConductorId);
       }
       
       //lightingCounter
@@ -4058,9 +4168,26 @@ SignatureDesigner1(){
               index6++;      
            // }
           }
-          }
+        }
       }
       
+      else{
+        this.lightingCounterArr.push(this.createLightingCounter());
+    
+          this.lightingCounterArr.controls[index6].controls.headingUi.setValue('DC_LightningCounter Observation');
+          lightingCounterFlag = false;
+         
+          this.lightingCounterArr.controls[index6].controls.serialNoUi.setValue(lightningCounterSerialNo);
+          this.dwonconductorRemarks = true;
+          this.downConductorFlag[w] = true;
+        
+        this.lightingCounterArr.controls[0].controls.heading.setValue('DC_LightningCounter Observation');
+        this.lightingCounterArr.controls[index6].controls.observationComponentDetails.setValue('lightningCounter' + index6);
+        this.lightingCounterArr.controls[index6].controls.serialNo.setValue(index6+1);
+        this.lightingCounterArr.controls[index6].controls.observation.setValue(this.downConductorData.downConductorReport[0].downConductorDescription[w].testingJointAvailabilityRem);
+        this.lightingCounterArr.controls[index6].controls.remarksName.setValue('testingJointAvailabilityRem');
+        this.lightingCounterArr.controls[index6].controls.remarksId.setValue(this.downConductorData.downConductorReport[0].downConductorDescription[w].lightingCountersId);
+      }
   
     //downConductorTesting
     this.downConductorTestingArr=this.summaryArr.controls[w].controls.downConductorTesting as FormArray;
@@ -4650,6 +4777,22 @@ SignatureDesigner1(){
 
   onSubmit(flag1:any,content:any,contents:any){
     this.submitted = true;
+   //SIGNATURE LATEST CHANGES
+    if (this.service.bytestring7 != '' && this.service.bytestring7 != undefined) {
+      this.summaryForm.value.Declaration1Arr[0].signature=this.service.bytestring7;
+      }  
+      else {
+      this.service.bytestring7 = btoa(this.signarr[0].signature)
+      this.summaryForm.value.Declaration1Arr[0].signature=this.service.bytestring7;
+      }
+      if (this.service.bytestring8 != '' && this.service.bytestring8 != undefined) {
+        this.summaryForm.value.Declaration2Arr[0].signature=this.service.bytestring8;
+        }  
+        else {
+        this.service.bytestring8 = btoa(this.signarr1[0].signature)
+        this.summaryForm.value.Declaration2Arr[0].signature=this.service.bytestring8;
+        }
+  
     if (this.summaryForm.invalid && (this.summaryForm.value.summaryLpsBuildings[0].buildingNumber != undefined || this.summaryForm.value.summaryLpsBuildings[0].buildingNumber != '')) 
     {
       this.validationError = true;
@@ -4716,8 +4859,12 @@ SignatureDesigner1(){
     this.lpsSummary.basicLpsId = this.basicLpsId;  
     let a:any=[];
     a=this.summaryForm.controls.summaryLpsBuildings as FormArray;
+
     for(let i of a.controls){
       let summaryLpsObservationArr=i.controls.summaryLpsObservation as FormArray;
+      // Here, We are removing formArry Details 
+      summaryLpsObservationArr.clear();
+
       for(let j of i.controls.airTermination.controls){
       summaryLpsObservationArr.push(j);
       }
@@ -4824,44 +4971,58 @@ SignatureDesigner1(){
       this.lpsSummary.summaryLpsDeclaration= this.summaryForm.value.Declaration1Arr;
       this.lpsSummary.summaryLpsDeclaration = this.lpsSummary.summaryLpsDeclaration.concat(this.summaryForm.value.Declaration2Arr);
 
-      if (flag1) {
-      this.summaryService.updateSummaryLps(this.lpsSummary,typeOfButton).subscribe(
-        (data)=> {
-          setTimeout(() =>{
-            this.popup=true;
-            this.popup1=true;
-            this.spinner=false;
-            this.finalSpinner=false;
-          }, 3000)
-          this.success = true;
-          // this.summaryForm.markAsPristine();
-          this.successMsg = data;
-          this.service.allFieldsDisable = true;
-          if(this.saveButton){
+    if (!this.validationError) {
+      if (this.lpsSummary !=null && this.lpsSummary.summaryLpsId !=undefined && this.lpsSummary.summaryLpsId !=null) {
+        this.summaryService.updateSummaryLps(this.lpsSummary,typeOfButton).subscribe(
+          (data)=> {
+            setTimeout(() =>{
+              this.popup=true;
+              this.popup1=true;
+              this.spinner=false;
+              this.finalSpinner=false;
+            }, 3000)
+            this.success = true;
+            // this.summaryForm.markAsPristine();
+            this.successMsg = data;
+            this.service.allFieldsDisable = true;
+            if(this.saveButton){
               this.retriveSummaryWhileUpdateSave();
               this.finalSpinner=false;
-            this.saveButton = false;
-            this.summaryForm.markAsPristine();
-          }
-          else{
+              this.saveButton = false;
+              this.summaryForm.markAsPristine();
+              this.proceedNext.emit(true);
+              this.service.lpsClick = 0;
+              this.service.logoutClick = 0;
+              this.service.windowTabClick = 0;
+            }
+            else {
+              this.popup=true;
+              this.spinner=false;
+              this.finalSpinner=false;
+              this.popup1=true;
+              if (this.isEditable) {
+                this.success = true;
+                this.proceedNext.emit(true);
+              } else {
+                this.popup=true;
+                this.spinner=false;
+                this.success = true;
+                this.proceedNext.emit(true);
+              }
+            }
+          },
+          (error)=> {
             this.popup=true;
             this.spinner=false;
             this.finalSpinner=false;
             this.popup1=true;
-            this.proceedNext.emit(false);
-          }
-        },
-        (error)=> {
-          this.popup=true;
-          this.spinner=false;
-          this.finalSpinner=false;
-          this.popup1=true;
-          this.finalSpinner=false;
-          this.Error = true;
-          this.errorArr = [];
-          this.errorArr = JSON.parse(error.error);
-          this.errorMsg = this.errorArr.message;
-        })}
+            this.finalSpinner=false;
+            this.Error = true;
+            // this.errorArr = [];
+            // this.errorArr = JSON.parse(error.error);
+            this.errorMsg = this.service.globalErrorMsg;
+        })
+      }
 
       else{
         this.summaryService.addSummaryLps(this.lpsSummary,typeOfButton).subscribe(
@@ -4895,16 +5056,19 @@ SignatureDesigner1(){
             this.finalSpinner=false;
             this.popup1=true;
             this.Error = true;
-            this.errorArr = [];
-            this.errorArr = JSON.parse(error.error);
-            this.errorMsg = this.errorArr.message;
+            // this.errorArr = [];
+            // this.errorArr = JSON.parse(error.error);
+            this.errorMsg = this.service.globalErrorMsg;
 
           }
         )};
+      }
     }
 
+
     retriveSummaryWhileUpdateSave(){
-      
+      this.service.lpsClick = 1;
+     
       this.summaryService.retrieveWhileSaveUpdate(this.email, this.lpsGlobalservice.basiclpsId).subscribe(
         data => {
           let summary = JSON.parse(data)[0];
@@ -4933,14 +5097,21 @@ SignatureDesigner1(){
       return;
     }
     else if (this.summaryForm.dirty && this.summaryForm.touched) {
-      this.service.isCompleted8 = false;
-      this.service.isLinear = true;
-      this.service.editable = false;
-      this.tabError = true;
-      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
-      setTimeout(() => {
-        this.tabError = false;
-      }, 3000);
+      if(this.isEditable==true){
+        this.service.isCompleted8 = true;
+        this.service.isLinear = false;
+        this.service.editable = true;
+      }
+      else{
+        this.service.isCompleted8 = false;
+        this.service.isLinear = true;
+        this.service.editable = false;
+        this.tabError = true;
+        this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+        setTimeout(() => {
+          this.tabError = false;
+        }, 3000);
+      }
     }
     else {
       this.service.isCompleted8 = true;
@@ -4962,15 +5133,24 @@ SignatureDesigner1(){
     return false;
     }
     else if(this.summaryForm.dirty && this.summaryForm.touched){
-      this.service.isCompleted8= false;
-      this.service.isLinear=true;
-      this.service.editable=false;
-      this.tabError = true;
-      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
-      setTimeout(() => {
-        this.tabError = false;
-      }, 3000);
-      return false;
+      if(this.isEditable==true){
+        this.service.isCompleted8= true;
+        this.service.isLinear=false;
+        this.service.editable=true;
+        this.summaryForm.markAsPristine();
+        return true; 
+      }
+      else{
+        this.service.isCompleted8= false;
+        this.service.isLinear=true;
+        this.service.editable=false;
+        this.tabError = true;
+        this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+        setTimeout(() => {
+          this.tabError = false;
+        }, 3000);
+        return false;
+      }
     } 
     else {
       this.service.isCompleted8= true;
@@ -5006,4 +5186,63 @@ SignatureDesigner1(){
     this.summaryPdf.downloadSummaryPDF(this.basicLpsId,this.email,this.lpsSummaryPDF);
   }
 
+  onChangeForm(event: any) {
+    if (!this.summaryForm.invalid) {
+      if (this.summaryForm.dirty) {
+        this.validationError = false;
+        this.service.lpsClick = 1;
+        this.service.logoutClick = 1;
+        this.service.windowTabClick = 1;
+      }
+      else {
+        this.validationError = false;
+        this.service.lpsClick = 0;
+        this.service.logoutClick = 0;
+        this.service.windowTabClick = 0;
+      }
+    }
+    else {
+      this.service.lpsClick = 1;
+      this.service.logoutClick = 1;
+      this.service.windowTabClick = 1;
+    }
   }
+  onKeyForm(event: KeyboardEvent) {
+    if (!this.summaryForm.invalid) {
+      if (this.summaryForm.dirty) {
+        this.validationError = false;
+        this.service.lpsClick = 1;
+        this.service.logoutClick = 1;
+        this.service.windowTabClick = 1;
+      }
+      else {
+        this.validationError = false;
+        this.service.lpsClick = 0;
+        this.service.logoutClick = 0;
+        this.service.windowTabClick = 0;
+      }
+    }
+    else {
+      this.service.lpsClick = 1;
+      this.service.logoutClick = 1;
+      this.service.windowTabClick = 1;
+    }
+  }
+
+  gotoNextModal(content:any,contents:any) {
+  
+    if (this.summaryForm.invalid) {
+      this.validationError = true;
+      this.validationErrorMsg = 'Please check all the fields';
+      setTimeout(() => {
+        this.validationError = false;
+      }, 3000);
+      return;
+    }
+    //  For Dirty popup
+    else {
+     
+    }
+  }
+
+}

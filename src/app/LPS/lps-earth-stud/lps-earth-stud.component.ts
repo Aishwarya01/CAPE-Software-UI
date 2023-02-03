@@ -204,7 +204,7 @@ export class LpsEarthStudComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports(data: any) {
-    // this.service.lvClick=1;
+    // this.service.lpsClick=1;
     if(data.basicLpsId != undefined && data.basicLpsId != 0){
       this.step7List = data;
     }
@@ -274,7 +274,7 @@ export class LpsEarthStudComponent implements OnInit {
             this.success = true;
             this.successMsg = data;
             this.EarthStudForm.markAsPristine();
-            this.service.lvClick=0;
+            this.service.lpsClick=0;
             this.service.logoutClick=0;
             this.service.windowTabClick=0;
             this.retriveStud();
@@ -284,9 +284,9 @@ export class LpsEarthStudComponent implements OnInit {
             this.popup=true;
             this.spinner=false;
             this.Error = true;
-            this.errorArr = [];
-            this.errorArr = JSON.parse(error.error);
-            this.errorMsg = this.errorArr.message;
+            // this.errorArr = [];
+            // this.errorArr = JSON.parse(error.error);
+            this.errorMsg = this.service.globalErrorMsg;
             this.proceedNext.emit(false);
           }
         )
@@ -323,7 +323,7 @@ export class LpsEarthStudComponent implements OnInit {
             // setTimeout(() => {
             //   this.lpsMatstepper.changeTab1(2);
             //  }, 3000);
-             this.service.lvClick=0;
+             this.service.lpsClick=0;
             this.service.logoutClick=0;
             this.service.windowTabClick=0;
           },
@@ -331,9 +331,9 @@ export class LpsEarthStudComponent implements OnInit {
             this.popup=true;
             this.spinner=false;
             this.Error = true;
-            this.errorArr = [];
-            this.errorArr = JSON.parse(error.error);
-            this.errorMsg = this.errorArr.message;
+            // this.errorArr = [];
+            // this.errorArr = JSON.parse(error.error);
+            this.errorMsg =this.service.globalErrorMsg;
             this.proceedNext.emit(false);
           });
       }
@@ -348,19 +348,19 @@ export class LpsEarthStudComponent implements OnInit {
     if(!this.EarthStudForm.invalid){
       if(this.EarthStudForm.dirty){
         this.validationError=false;
-        this.service.lvClick=1;
+        this.service.lpsClick=1;
         this.service.logoutClick=1;
         this.service.windowTabClick=1;
       }
       else{
         this.validationError=false;
-        this.service.lvClick=0;
+        this.service.lpsClick=0;
         this.service.logoutClick=0;
         this.service.windowTabClick=0;
       }
      }
      else {
-      this.service.lvClick=1;
+      this.service.lpsClick=1;
       this.service.logoutClick=1;
       this.service.windowTabClick=1;
      }
@@ -369,19 +369,19 @@ export class LpsEarthStudComponent implements OnInit {
    if(!this.EarthStudForm.invalid){ 
     if(this.EarthStudForm.dirty){
       this.validationError=false;
-      this.service.lvClick=1;
+      this.service.lpsClick=1;
       this.service.logoutClick=1;
       this.service.windowTabClick=1;
     }
     else{
       this.validationError=false;
-      this.service.lvClick=0;
+      this.service.lpsClick=0;
       this.service.logoutClick=0;
       this.service.windowTabClick=0;
     }
    }
    else {
-    this.service.lvClick=1;
+    this.service.lpsClick=1;
     this.service.logoutClick=1;
     this.service.windowTabClick=1;
    }

@@ -7,31 +7,31 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class DiagramServicesService {
-  apiUrl5 = environment.apiUrl_Diagram;
+  apiUrl5 = environment.apiUrl_EMC_LV;
 
   constructor(private http: HttpClient) { }
 
   public addDiagram(diagramComponent: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl5 + '/saveDiagram', diagramComponent, { responseType: 'text' as 'json' })
+    return this.http.post<any>(this.apiUrl5 + '/diagram/saveDiagram', diagramComponent, { responseType: 'text' as 'json' })
   }
 
   public updateDiagram(diagramComponent: any): Observable<any> {
-    return this.http.put<any>(this.apiUrl5 + '/updateDiagram', diagramComponent, { responseType: 'text' as 'json' })
+    return this.http.put<any>(this.apiUrl5 + '/diagram/updateDiagram', diagramComponent, { responseType: 'text' as 'json' })
   }
 
   public retriveDiagram(userName: any, fileName: any): Observable<any> {
-    return this.http.get<any>(this.apiUrl5 + '/retrieveDiagram'+'/'+userName+'/'+fileName, { responseType: 'text' as 'json' })
+    return this.http.get<any>(this.apiUrl5 + '/diagram/retrieveDiagram'+'/'+userName+'/'+fileName, { responseType: 'text' as 'json' })
   }
 
   public retriveFileName(userName: any, fileName: any): Observable<any> {
-    return this.http.get<any>(this.apiUrl5 + '/retrievefileName'+'/'+userName+'/'+fileName, { responseType: 'text' as 'json' })
+    return this.http.get<any>(this.apiUrl5 + '/diagram/retrievefileName'+'/'+userName+'/'+fileName, { responseType: 'text' as 'json' })
   }
 
   public retriveAllDiagram(userName: any): Observable<any> {
-    return this.http.get<any>(this.apiUrl5 + '/retrieveDiagramList'+'/'+userName, { responseType: 'text' as 'json' })
+    return this.http.get<any>(this.apiUrl5 + '/diagram/retrieveDiagramList'+'/'+userName, { responseType: 'text' as 'json' })
   }
   
   public fetchAllDiagramSymbols(): Observable<any> {
-    return this.http.get<any>(this.apiUrl5 + '/symbolList', { responseType: 'text' as 'json' })
+    return this.http.get<any>(this.apiUrl5 + '/diagram/symbolList', { responseType: 'text' as 'json' })
   }
 }

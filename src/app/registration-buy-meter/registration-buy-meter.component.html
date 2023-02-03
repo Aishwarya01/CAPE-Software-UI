@@ -1,0 +1,339 @@
+<div class="col-md-12 bg-image"> 
+                <div class="container">
+                        <div class="card-body">
+                            <div class="brand-logo">
+                                <a href="#"><img src="assets/img/Original-green.png"></a>
+                            </div>
+                            <div class="login-header">
+                                <h3 class="login-title">Register</h3>
+                            </div>
+                        <!-- <div class="loginMargin"></div> -->
+                            <form [formGroup]="RegistrationForm"> 
+                              <!-- <p class="successshow" *ngIf="successMsg">{{successMsg}}</p> -->
+                                <!-- <span class="invalid-feedback"></span> -->
+                            <div class="row">
+                               <div class="col-md-4">
+                                   <div class="form-group">
+                                    <label for="firstname">* First Name</label>
+                                        <div class="input-group">
+                                           <div class="input-group-prepend">
+                                              <span class="input-group-text">
+                                                <i class="bi bi-person-lines-fill"></i>
+                                               </span>
+                                            </div>
+                                          <input type="text" formControlName="firstName"  [(ngModel)]="registrationBuyMeter.firstName"
+                                            class="form-control" placeholder="Enter your firstname"  [ngClass]="{'is-invalid': submitted && f.firstName.errors}"
+                                            >
+                                          <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                                            <div *ngIf="f.firstName.errors.required">First Name is required</div>
+                                          </div>
+                                    </div>
+                                </div>
+                               </div>
+
+                               <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>* Last Name</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                              <i class="bi bi-person-lines-fill"></i>
+                                             </span>
+                                          </div>
+                                        <input placeholder="Enter your lastname" class="form-control" type="text" formControlName="lastName"
+                                            [(ngModel)]="registrationBuyMeter.lastName" [ngClass]="{'is-invalid':submitted && f.lastName.errors}">
+                                            <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                                                <div *ngIf="f.firstName.errors.required">Last Name is required</div>
+                                              </div>
+                                    </div>
+                                </div>
+                                
+                               </div>
+
+                               <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="contactNumber">* Contact Number</label>
+                                        <input type="tel" formControlName="contactNumber" [(ngModel)]="registrationBuyMeter.contactNumber" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" 
+                                        (countryChange)="countryChange($event)" class="form-control"  [ngClass]="{'is-invalid': submitted && f.contactNumber.errors}"
+                                        placeholder="Enter your contact number">
+                                        <div *ngIf="submitted && f.contactNumber.errors" class="invalid-feedback">
+                                            <div *ngIf="f.contactNumber.errors?.required">Mobile Number Is Required</div>
+                                            <div *ngIf="f.contactNumber.errors.pattern">Enter 10 Digit Number</div>
+                                        </div>
+                                </div>
+                               </div>
+
+                           
+                            </div>
+                            
+                          
+                             <div class="row">
+                                  <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="username">* Email</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-envelope-fill"></i>
+                                                </span>
+                                            </div>
+                                            <input type="email" class="form-control" [(ngModel)]="registrationBuyMeter.username"  formControlName="email"
+                                             placeholder="Enter your email address" maxlength="50" [ngClass]="{'is-invalid': submitted && f.email.errors}">
+                                            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                                <div *ngIf="f.email.errors.required">Email is required</div>
+                                                <div *ngIf="f.email.errors.pattern">Enter valid email - "name@gmail.com"</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>* Address </label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-building"></i>
+                                                </span>
+                                            </div>
+                                            <input placeholder="Enter your address" class="form-control" type="text" formControlName="address"
+                                                [(ngModel)]="registrationBuyMeter.address" [ngClass]="{'is-invalid': submitted && f.address.errors}">
+                                                <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+                                                    <div *ngIf="f.address.errors.required">Address is required</div>
+                                                  </div>
+                                        </div>
+                                    </div>
+                                    
+                                   </div>
+
+                                  <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="companyname">* Type of Purchase </label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-building"></i>
+                                                </span>
+                                            </div>
+                                            <!-- <input type="text" formControlName="purchasetype" (ngModel)]="registrationBuyMeter.purchaseType" 
+                                            class="form-control" placeholder="Enter your CompanyName" [ngClass]="{'is-invalid': submitted && f.purchasetype.errors}"
+                                            > -->
+                                            <select class="form-control" formControlName="purchasetype" [(ngModel)]="registrationBuyMeter.purchaseType"
+                                            [ngClass]="{'is-invalid': submitted && f.purchasetype.errors}" (change)="validate($event)">
+                                            <option value="" selected>Select purchaseType</option>
+                                            <option value="Company">Company</option>
+                                            <option value="Individual">Individual </option>
+                                        </select>
+                                            <div *ngIf="submitted && f.purchasetype.errors" class="invalid-feedback">
+                                                <div *ngIf="f.purchasetype.errors.required">Purchase Type  is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   </div>
+
+                                   <div class="row" *ngIf="f.purchasetype.value=='Company'">
+
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="companyname">* Company Name</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-building"></i>
+                                                </span>
+                                            </div>
+                                            <input type="text" formControlName="companyName" [(ngModel)]="registrationBuyMeter.customerCompany" 
+                                            class="form-control" placeholder="Enter your CompanyName" [ngClass]="{'is-invalid': submitted && f.companyName.errors}"
+                                            >
+                                            <div *ngIf="submitted && f.companyName.errors" class="invalid-feedback">
+                                                <div *ngIf="f.companyName.errors.required">Company Name is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   </div>
+                                
+                                   <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="companyname">* GST Number</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-building"></i>
+                                                </span>
+                                            </div>
+                                            <input type="text" formControlName="customerGstNumber" (keypress)="keyPressNumbers($event)" [(ngModel)]="registrationBuyMeter.gstNumber" maxlength="15"
+                                            class="form-control" placeholder="Enter Your GST Number" [ngClass]="{'is-invalid': submitted && f.customerGstNumber.errors}"
+                                            >
+                                            <div *ngIf="submitted && f.customerGstNumber.errors" class="invalid-feedback">
+                                                <div *ngIf="f.customerGstNumber.errors.required">GST Number is required</div>
+                                                <div *ngIf="f.customerGstNumber.errors.pattern">GST Number must contain only Uppercase and Alphanumaric with 15 characters</div>
+                                                <!-- <div *ngIf="f.customerGstNumber.errors.maxlength">GST Number must contain 15 characters</div> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                   </div>
+                                    
+                                </div> 
+                            
+                             </div>
+                             
+                             <div class="row">
+
+                                   <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>* Country</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-globe"></i>
+                                                </span>
+                                            </div>
+                                            <select  formControlName="country" class="form-control"
+                                            [ngClass]="{ 'is-invalid': submitted && f.country.errors }" [(ngModel)]="registrationBuyMeter.country" (change)=selectCountry($event)>
+                                                <option value="" selected>Select country</option>
+                                                <!-- <option value="IND" selected>India</option> -->
+                                                <option *ngFor="let a of countryList">{{a.name}}</option>
+                                        </select>
+                                        <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
+                                            <div *ngIf="f.country.errors.required">Country is required</div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                   </div>
+
+                                   <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>* State </label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-geo-alt-fill"></i>
+                                                </span>
+                                            </div>
+                                            <select  formControlName="state" class="form-control"
+                                            [(ngModel)]="registrationBuyMeter.state"  [ngClass]="{ 'is-invalid': submitted && f.state.errors }">
+                                                <option value="" selected>Select state</option>
+                                                <option *ngFor="let a of stateList">{{a.name}}</option>
+                                            </select>
+                                            <div *ngIf="submitted && f.state.errors" class="invalid-feedback">
+                                                <div *ngIf="f.state.errors.required">State is required</div>
+                                              </div>
+                                        </div>
+                                    </div>
+
+                                   </div>
+
+                                   <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>* City </label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-geo-alt-fill"></i>
+                                                </span>
+                                            </div>
+                                            <input class="form-control" type="text" formControlName="city"
+                                                [(ngModel)]="registrationBuyMeter.district" placeholder="Enter your District" [ngClass]="{'is-invalid':submitted && f.city.errors}">
+                                                <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
+                                                    <div *ngIf="f.city.errors.required">City is required</div>
+                                                  </div>
+                                        </div>
+                                    </div>
+                                   </div>
+                                  
+                             </div>
+
+                             <div class="row">
+                     
+
+                                   <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>* Pincode </label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-geo-alt-fill"></i>
+                                                </span>
+                                            </div>
+                                            <input placeholder="Enter your pincode" class="form-control" type="text" formControlName="pincode"
+                                                [(ngModel)]="registrationBuyMeter.pinCode" [ngClass]="{'is-invalid':submitted && f.pincode.errors}">
+                                                <div *ngIf="submitted && f.pincode.errors" class="invalid-feedback">
+                                                     <div *ngIf="submitted && f.pincode.errors.required">Please enter pincode</div>
+                                                     <div *ngIf="submitted && f.pincode.errors.pattern">{{pinCodeErrorMsg}}</div>
+                                                </div>
+                                        </div>
+                                    </div>
+                                   </div>
+
+                                   <div class="col-md-4">
+                                    <div class="form-group posrelative">
+                                        <label for="password">* Password</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-lock-fill"></i>
+                                                </span>
+                                            </div>
+                                            <input type="password" formControlName="password" [(ngModel)]="registrationBuyMeter.password" class="form-control"
+                                             placeholder="Enter your password" minlength="8" [ngClass]="{'is-invalid': submitted && f.password.errors}"
+                                            maxlength="15">
+                                            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                                                <div *ngIf="f.password.errors.required">Password is required</div>
+                                                <div *ngIf="f.password.errors.minlength">Password must contain at least 8 characters</div>
+                                                <div style="color: #f2c716;" *ngIf="f.password.errors.pattern">Password Suggestion - "Qwerty@123'</div>
+                                            </div>
+                                        </div>
+          
+                                    </div>
+                                  </div>
+
+                                  <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="password">* Confirm Password</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-lock-fill"></i>
+                                                </span>
+                                            </div>
+
+                                            <input type="password" formControlName="confirmpassword" class="form-control" placeholder="Enter your password again" minlength="8" maxlength="15" (keydown.space)="$event.preventDefault()"
+                                            [ngClass]="{ 'is-invalid': submitted && f.confirmpassword.errors }"/>
+
+                                         
+                                            <div *ngIf="submitted && f.confirmpassword.errors" class="invalid-feedback">
+                                                <div *ngIf="f.confirmpassword.errors.required">Confirm Password is required</div>
+                                                <div *ngIf="f.confirmpassword.value != f.password.value" >
+                                                <strong>Error!</strong> password is does not match</div>
+                                                <div style="color: #f2c716;" *ngIf="f.confirmpassword.errors.pattern">Password Suggestion - "Qwerty@123'</div>
+                                                <!-- <div *ngIf="passwordMsg">Password and Confirm password must be same</div> -->
+                                              
+                                                <!-- <div *ngIf="f.confirmpassword.value != f.password.value">Password and Confirm password must be same</div> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                  </div>
+
+
+
+                              </div>
+
+
+
+                                <div class="row">
+                                    <div class="col-md-12 text-center justify-content-center">
+                                        <div >
+                                            <p *ngIf="successMsg" class="alert alert-success">Successfully Registered</p>
+                                            <p *ngIf="failureMsg" class="alert alert-danger">{{failuremsg}}</p>
+                                        </div>
+                                        <button  type="button" class="btn btn-primary" (click)="submit()"><i class="bi bi-person-plus-fill icon"></i> Register</button>
+                                        <button  type="button" (click)="navigateToSignIn()" class="btn btn-danger "><i class="bi bi-x icon"></i> Cancel</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    
+              
+                </div>
+     </div>
+    

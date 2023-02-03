@@ -65,7 +65,6 @@ import { AddlicenseComponent } from './addlicense/addlicense.component';
 import { AssignViewerComponent } from './assign-viewer/assign-viewer.component';
 import { ViewerRegisterComponent } from './viewer-register/viewer-register.component';
 import { DatePipe } from '@angular/common';
-import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { NgbTooltipModule } from "@ng-bootstrap/ng-bootstrap";
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -84,7 +83,6 @@ import { EmcClientDetailsComponent } from './EMC/emc-client-details/emc-client-d
 import { LpsEarthingComponent } from './LPS/lps-earthing/lps-earthing.component';
 import { LpsSpdComponent } from './LPS/lps-spd/lps-spd.component';
 import { LpsSeperationDistanceComponent } from './LPS/lps-seperation-distance/lps-seperation-distance.component';
-import { LpsEarthing } from './LPS_services/lps-earthing';
 import { LpsMatstepperComponent } from './LPS/lps-matstepper/lps-matstepper.component';
 import { LpsAirTerminationComponent } from './LPS/lps-air-termination/lps-air-termination.component';
 import { LpsBasicPageComponent } from './LPS/lps-basic-page/lps-basic-page.component';
@@ -127,6 +125,19 @@ import { ACBComponent } from './SLD/SLD components/Node Components/acb/acb.compo
 import { EquipotentialBondingComponent } from './SLD/SLD components/Node Components/equipotential-bonding/equipotential-bonding.component';
 import { ProtectiveEarthConductorComponent } from './SLD/SLD components/Node Components/protective-earth-conductor/protective-earth-conductor.component';
 import { TestingDialogBoxComponent } from './testing-dialog-box/testing-dialog-box.component';
+import { MatCarouselModule } from 'ng-mat-carousel';
+import { BuyMeterComponent } from './buy-meter/buy-meter.component';
+import { SignInBuyMeterComponent } from './sign-in-buy-meter/sign-in-buy-meter.component';
+import { RegistrationBuyMeterComponent } from './registration-buy-meter/registration-buy-meter.component';
+import { AddCartBuyMeterComponent } from './add-cart-buy-meter/add-cart-buy-meter.component';
+import { ProfieBuyMeterComponent } from './profie-buy-meter/profie-buy-meter.component';
+import { CheckoutBuyMeterComponent } from './checkout-buy-meter/checkout-buy-meter.component';
+import { MatStepperModule } from '@angular/material/stepper';
+import { BuyMeterOrderHistoryComponent } from './buy-meter-order-history/buy-meter-order-history.component';
+import { UpdateLicenceComponent } from './update-licence/update-licence.component';
+import { EarthingCableConnnectorComponent } from './SLD/SLD components/Node Components/earthing-cable-connnector/earthing-cable-connnector.component';
+
+
 
 @NgModule({
   declarations: [
@@ -181,7 +192,6 @@ import { TestingDialogBoxComponent } from './testing-dialog-box/testing-dialog-b
     EmcFinalReportComponent,
     EmcClientDetailsComponent,
     SignatureComponent,
-    
     LpsSpdComponent,
     LpsSeperationDistanceComponent,
     LpsMatstepperComponent,
@@ -217,9 +227,20 @@ import { TestingDialogBoxComponent } from './testing-dialog-box/testing-dialog-b
     ACBComponent,
     EquipotentialBondingComponent,
     ProtectiveEarthConductorComponent,
-    TestingDialogBoxComponent
+    TestingDialogBoxComponent,
+    BuyMeterComponent,
+    SignInBuyMeterComponent,
+    RegistrationBuyMeterComponent,
+    AddCartBuyMeterComponent,
+    ProfieBuyMeterComponent,
+    CheckoutBuyMeterComponent,
+    BuyMeterOrderHistoryComponent,
+    UpdateLicenceComponent,
+    EarthingCableConnnectorComponent
+   
   ],
   imports: [
+    MatCarouselModule.forRoot(),
     SignaturePadModule,
     TruncateModule,
     NgbTooltipModule,
@@ -252,6 +273,7 @@ import { TestingDialogBoxComponent } from './testing-dialog-box/testing-dialog-b
     DiagramAllModule,
     SymbolPaletteAllModule,
     OverviewAllModule,
+    MatStepperModule,
     BackButtonDisableModule.forRoot({
       preserveScrollPosition: true
     }),

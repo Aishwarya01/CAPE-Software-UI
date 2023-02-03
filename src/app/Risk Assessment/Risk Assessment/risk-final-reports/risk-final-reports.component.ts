@@ -6,11 +6,15 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalsService } from 'src/app/globals.service';
+import { LicenselistComponent } from 'src/app/licenselist/licenselist.component';
 import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminProd } from 'src/environments/environment.prod';
 import { CustomerDetails } from '../../Risk Assesment Model/customer-details';
 import { CustomerDetailsServiceService } from '../../Risk Assessment Services/customer-details-service.service';
 import { RiskfinalpdfService } from '../../Risk Assessment Services/riskfinalpdf.service';
+
+declare var require: any
+const FileSaver = require('file-saver');
 
 @Component({
   selector: 'app-risk-final-reports',
@@ -22,6 +26,7 @@ export class RiskFinalReportsComponent implements OnInit {
   finalReportsColumns: string[] = [ 'organisationName', 
                                     'projectName', 
                                     'contactPersonName',
+                                    'address',
                                     'updatedDate', 
                                     'updatedBy',
                                     'action'];
@@ -57,23 +62,31 @@ export class RiskFinalReportsComponent implements OnInit {
   finalReportBody: boolean = true;
   spinnerValue: String = '';
   mode: any= 'indeterminate';
+  globalErrorMsg: string="";
 
   @ViewChild('input') input!: MatInput;
   clientService: any;
-  lpsData: any=[];
+  riskData: any=[];
   completedFilterData: any=[];
   superAdminArr: any = [];
   filteredData: any = [];
   superAdminFlag: boolean = false;
   superAdminDev = new SuperAdminDev();
   superAdminProd = new SuperAdminProd();
+  printSuccessMsg: string="";
+  errorPdf: boolean=false;
+  printErrorMsg: string="";
+  blurMode: boolean=false;
+  blurMsg: string="";
+  globalError: boolean=false;
 
   constructor(private router: ActivatedRoute,
               private ChangeDetectorRef: ChangeDetectorRef,
               public service: GlobalsService,
               private riskPdf: RiskfinalpdfService,
               private customerDetailsService :CustomerDetailsServiceService,
-              private modalService: NgbModal) { 
+              private modalService: NgbModal,
+              public licenselist: LicenselistComponent) { 
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
 
@@ -113,17 +126,25 @@ export class RiskFinalReportsComponent implements OnInit {
       this.customerDetailsService.retriveAllCustomerDetails().subscribe(
         data => {
           // this.myfunction(data);
-          this.lpsData=JSON.parse(data);
-          for(let i of this.lpsData){
+          this.riskData=JSON.parse(data);
+          for(let i of this.riskData){
             if(i.allStepsCompleted=="AllStepCompleted"){
               this.filteredData.push(i);
             }
           }
           this.finalReport_dataSource = new MatTableDataSource(this.filteredData);
           this.filteredData = [];
-          this.lpsData = [];
+          this.riskData = [];
           this.finalReport_dataSource.paginator = this.finalReportPaginator;
           this.finalReport_dataSource.sort = this.finalReportSort;
+        },
+        error=>{
+          this.globalError=true;
+          this.globalErrorMsg=this.service.globalErrorMsg;
+          setTimeout(() => {
+            this.globalError=false;
+            this.globalErrorMsg="";
+          }, 10000);
         });
       this.superAdminFlag = false;
     }
@@ -131,17 +152,25 @@ export class RiskFinalReportsComponent implements OnInit {
       this.customerDetailsService.retrieveCustomerDetailsBasedOnUserName(this.email).subscribe(
         data => {
           // this.myfunction(data);
-          this.lpsData=JSON.parse(data);
-          for(let i of this.lpsData){
+          this.riskData=JSON.parse(data);
+          for(let i of this.riskData){
             if(i.allStepsCompleted=="AllStepCompleted"){
               this.completedFilterData.push(i);
             }
           }
           this.finalReport_dataSource = new MatTableDataSource(this.completedFilterData);
           this.completedFilterData = [];
-          this.lpsData = [];
+          this.riskData = [];
           this.finalReport_dataSource.paginator = this.finalReportPaginator;
           this.finalReport_dataSource.sort = this.finalReportSort;
+        },
+        error=>{
+          this.globalError=true;
+          this.globalErrorMsg=this.service.globalErrorMsg;
+          setTimeout(() => {
+            this.globalError=false;
+            this.globalErrorMsg="";
+          }, 3000);
         });
     }
   }
@@ -164,43 +193,97 @@ export class RiskFinalReportsComponent implements OnInit {
   userName=this.router.snapshot.paramMap.get('email') || '{}';
 
   downloadPdf(riskId: any, projectName: any): any {
-     this.riskPdf.downloadPDF(riskId,this.userName, projectName)
-   }
+    this.blurMode=true;
+    this.blurMsg="Your PDF will be downloaded, Please wait a while";
+    this.riskPdf.downloadPDF(riskId,this.userName, projectName).subscribe(
+      data =>{
+        this.blurMode=false;
+        this.blurMsg="";
+        const fileName = projectName+'.pdf';
+        FileSaver.saveAs(data, fileName);
+      }, 
+      error=>{
+        this.blurMode=false;
+        this.blurMsg="";
+        this.errorPdf=true;
+        this.printErrorMsg="Something went wrong, Please try again later";
+        setTimeout(() => {
+          this.errorPdf=false;
+          this.printErrorMsg="";
+        }, 4000);
+      }
+    )
+  }
 
-   continue(basicLpsId:any){
-    this.finalReportBody = false;
-    this.finalReportSpinner = true;
-    this.spinnerValue = "Please wait, the details are loading!";
-    this.service.allFieldsDisable = true;
-    this.callFinalMethod.emit(basicLpsId);
-    //this.matstepper.preview(basicLpsId);
-   }
+  continue(riskId:any){
+    if(this.service.triggerMsgForLicense=='riskPage'){
+      this.licenselist.viewRiskData(riskId);
+    }
+    else{
+      this.finalReportBody = false;
+      this.finalReportSpinner = true;
+      this.spinnerValue = "Please wait, the details are loading!";
+      this.service.allFieldsDisable = true;
+      this.callFinalMethod.emit(riskId);
+    }
+  }
 
   emailPDF(riskId:any,userName:any, projectName: any){
     this.disable=false;
+    // Spinner Msg
+    this.blurMode=true;
+    this.blurMsg="Your PDF will be generating, Please wait a while";
+
     this.riskPdf.mailPDF(riskId,userName,projectName).subscribe(
     data => {
-    this.success = true;
-    this.successMsg = "Email has been sent successfully. Please check your email box.";
-    setTimeout(()=>{
-      this.success=false;
-        },5000);
+      this.blurMode=false;
+      this.blurMsg="";
+      this.success = true;
+      this.successMsg = "Email has been sent successfully. Please check your email box.";
+      setTimeout(()=>{
+        this.success=false;
+      },5000);
     },
     error => {
+      this.blurMode=false;
+      this.blurMsg="";
       this.Error = true;
-      this.errorArr = [];
-      this.errorArr = JSON.parse(error.error);
-      this.errorMsg = this.errorArr.message;
+      // this.errorArr = [];
+      // this.errorArr = JSON.parse(error.error);
+      this.errorMsg = this.service.globalErrorMsg;
       setTimeout(()=>{
         this.Error = false;
+        this.errorMsg="";
         },5000);
     });
   }
 
   printPDF(riskId:any,userName:any, projectName: any){
-    
-    this.disable=false;
-    this.riskPdf.printPDF(riskId,userName,projectName);
+    // Spinner Msg
+    this.blurMode=true;
+    this.blurMsg="Your PDF will be generating, Please wait a while";
+
+    this.riskPdf.printPDF(riskId,userName,projectName).subscribe(
+      data =>{
+        this.blurMode=false;
+        this.blurMsg="";
+        var fileURL: any = URL.createObjectURL(data);
+        var a = document.createElement("a");
+        a.href = fileURL;
+        a.target = '_blank';
+        a.click();
+        this.modalService.dismissAll();
+    },
+    error=>{
+      this.blurMode=false;
+      this.blurMsg="";
+      this.errorPdf=true;
+      this.printErrorMsg="Something went wrong, Please try again later";
+      setTimeout(() => {
+        this.errorPdf=false;
+        this.printErrorMsg="";
+      }, 4000);
+    })
   }
 
 }

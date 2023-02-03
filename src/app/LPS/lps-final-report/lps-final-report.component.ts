@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalsService } from 'src/app/globals.service';
+import { LicenselistComponent } from 'src/app/licenselist/licenselist.component';
 import { BasicDetails } from 'src/app/LPS_model/basic-details';
 import { FinalPdfServiceService } from 'src/app/LPS_services/final-pdf-service.service';
 import { LPSBasicDetailsService } from 'src/app/LPS_services/lpsbasic-details.service';
@@ -72,13 +73,16 @@ export class LpsFinalReportComponent implements OnInit {
   superAdminFlag: boolean = false;
   superAdminDev = new SuperAdminDev();
   superAdminProd = new SuperAdminProd();
-
+  globalError: boolean=false;
+  globalErrorMsg: String="";
+  
   constructor(private router: ActivatedRoute,
               private lpsService: LPSBasicDetailsService,
               private ChangeDetectorRef: ChangeDetectorRef,
               private welcome: LpsWelcomePageComponent,
               private finalpdf: FinalPdfServiceService,public service: GlobalsService,
-              private modalService: NgbModal) { 
+              private modalService: NgbModal,
+              public licenselist: LicenselistComponent) { 
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
 
@@ -115,12 +119,12 @@ export class LpsFinalReportComponent implements OnInit {
     }
       
     if(this.superAdminFlag) {
-      this.lpsService.retrieveAllBasicLps().subscribe(
+      this.lpsService.retrieveAllBasicLps(this.email).subscribe(
         data => {
           // this.myfunction(data);
           this.lpsData=JSON.parse(data);
           for(let i of this.lpsData){
-            if(i.allStepsCompleted=="AllStepCompleted"){
+            if(i.allStepsCompleted=="AllStepCompleted" && i.status != 'InActive'){
               this.filteredData.push(i);
             }
           }
@@ -129,24 +133,68 @@ export class LpsFinalReportComponent implements OnInit {
           this.lpsData = [];
           this.finalReport_dataSource.paginator = this.finalReportPaginator;
           this.finalReport_dataSource.sort = this.finalReportSort;
+        },
+        error =>{
+          this.globalError=true;
+          this.globalErrorMsg=this.service.globalErrorMsg;
+          setTimeout(() => {
+            this.globalError=false;
+            this.globalErrorMsg="";
+          }, 20000);
         });
       this.superAdminFlag = false;
     }
-    else {
-      this.lpsService.retrieveListOfBasicLps(this.email).subscribe(
+
+    else if(this.currentUser1.role=='Inspector') {
+      this.lpsService.retrieveAllBasicLps(this.email).subscribe(
         data => {
           // this.myfunction(data);
           this.lpsData=JSON.parse(data);
           for(let i of this.lpsData){
-            if(i.allStepsCompleted=="AllStepCompleted"){
-              this.completedFilterData.push(i);
+            if(i.allStepsCompleted=="AllStepCompleted" && i.status !='InActive'){
+              this.filteredData.push(i);
             }
           }
+          this.finalReport_dataSource = new MatTableDataSource(this.filteredData);
+          this.filteredData = [];
+          this.lpsData = [];
+          this.finalReport_dataSource.paginator = this.finalReportPaginator;
+          this.finalReport_dataSource.sort = this.finalReportSort;
+        },
+        error =>{
+          this.globalError=true;
+          this.globalErrorMsg=this.service.globalErrorMsg;
+          setTimeout(() => {
+            this.globalError=false;
+            this.globalErrorMsg="";
+          }, 20000);
+        });
+      this.superAdminFlag = false;
+    }
+    else {
+      this.lpsService.retriveLpsbasicIsActive(this.email).subscribe(
+        data => {
+          // this.myfunction(data);
+          this.lpsData=JSON.parse(data);
+          // for(let i of this.lpsData){
+          if(this.lpsData.allStepsCompleted=="AllStepCompleted" &&  this.lpsData.status != 'InActive'){
+            this.completedFilterData.push(this.lpsData);
+            // this.service.showSavedLPS=false;
+          } 
+          // }
           this.finalReport_dataSource = new MatTableDataSource(this.completedFilterData);
           this.completedFilterData = [];
           this.lpsData = [];
           this.finalReport_dataSource.paginator = this.finalReportPaginator;
           this.finalReport_dataSource.sort = this.finalReportSort;
+        },
+        error =>{
+          this.globalError=true;
+          this.globalErrorMsg=this.service.globalErrorMsg;
+          setTimeout(() => {
+            this.globalError=false;
+            this.globalErrorMsg="";
+          }, 20000);
         });
     }
       
@@ -174,12 +222,17 @@ export class LpsFinalReportComponent implements OnInit {
    }
 
    continue(basicLpsId:any){
-    this.finalReportBody = false;
-    this.finalReportSpinner = true;
-    this.spinnerValue = "Please wait, the details are loading!";
-    this.service.allFieldsDisable = true;
-    this.callFinalMethod.emit(basicLpsId);
-    //this.matstepper.preview(basicLpsId);
+    if(this.service.triggerMsgForLicense=='lpsPage'){
+      this.licenselist.viewLpsData(basicLpsId);
+    }
+    else{
+      this.finalReportBody = false;
+      this.finalReportSpinner = true;
+      this.spinnerValue = "Please wait, the details are loading!";
+      this.service.allFieldsDisable = true;
+      this.callFinalMethod.emit(basicLpsId);
+      //this.matstepper.preview(basicLpsId);
+    }
    }
 
   emailPDF(basicLpsId:any,userName:any, projectName: any){

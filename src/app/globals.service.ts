@@ -1,6 +1,7 @@
 import {Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ScrollToService, ScrollToConfigOptions } from '@nicky-lenaers/ngx-scroll-to';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +38,7 @@ export class GlobalsService {
   viewerName!: String;
   inspectorName!: String;
   siteName!: String;
-  viewerData: any = [];
+  //viewerData: any = [];
   inspectorData: any = [];
 //generate otp & contact no.
   changeNumberSession!: String; 
@@ -70,7 +71,9 @@ export class GlobalsService {
  noOfjoint: any; 
  msgForStep1:boolean=false;
  msgForStep1Flag:boolean=false;
- lvClick: number=0;  
+ lvClick: number=0;
+ lpsClick: number=0;
+ emcClick: number=0;
  sldClick: number=0;  
  windowTabClick: number=0; 
  logoutClick:number=0;
@@ -108,8 +111,64 @@ autoLoginToken:number=0;
 
   bytestring7: String="";
   bytestring8: String="";
+  emailCheck: boolean=false;
+   // LPS License page
+  triggerMsgForLicense: String="";
+  headerMsg: String="";
+  basicLPSID: number=0;
+  emcId: number=0;
+  toggle: boolean=false;
+  globalErrorMsg: string="";
+  siteData: any;
+
+  viewerData: any = {
+    address: "",
+    applicationType: "",
+    assignedBy: "",
+    comment: "",
+    companyName: "",
+    contactNumber: "",
+    country: "",
+    createdBy: "",
+    createdDate: "",
+    department: "",
+    designation: "",
+    district: "",
+    name: "",
+    noOfLicence: "",
+    otpSessionKey: "",
+    password: "",
+    permission: "",
+    permissionBy: "",
+    pinCode: "",
+    registerId: "",
+    role: "",
+    state: "",
+    updatedBy: "",
+    updatedDate: "",
+    username: "",
+    siteName: "",
+    siteId: "",
+  };
+
+  cartIndex: any=[];
+  filledCart: boolean=false;
+  emptyCart: boolean=true;
+  checkGrandtotal: number=0;
+  checkSubtotal: number=0;
+
+  // Viewer Purpose
+  licenseHide: boolean=false;
+  // LPS
+  showSavedLPS: boolean=false;
+  showFinalLPS: boolean=false;
+  // LV
+  showSavedLV: boolean=false;
+  showFinalLV: boolean=false;
+ 
  constructor(private _scrollToService: ScrollToService
   ) {}
+
   
 //Scroll Top to Bottom for notification
   public triggerScrollTo() {
@@ -119,6 +178,25 @@ autoLoginToken:number=0;
       };
       this._scrollToService.scrollTo(config);
     }
+
+    // Lps License page
+  licensePageHeaging(){
+    if(this.headerMsg=="lpsPage"){
+      this.triggerMsgForLicense="lpsPage";
+    }
+    else if(this.headerMsg=="lvPage"){
+      this.triggerMsgForLicense="lvPage";
+    }
+    else if(this.headerMsg=="riskPage"){
+      this.triggerMsgForLicense="riskPage";
+    }
+    else if(this.headerMsg=="emcPage"){
+      this.triggerMsgForLicense="emcPage";
+    }
+    else{
+      this.triggerMsgForLicense="";
+    }
   }
+}
 
  

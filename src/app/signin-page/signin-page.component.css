@@ -6,7 +6,7 @@
     background-size: 100%;
     height: 100%;
     width: 100%;
-    position: absolute;
+    position: relative;
     /* padding: 20px; */
     padding: 20px 40px 20px 40px;
 }
@@ -87,6 +87,32 @@
     right:32%;
     top: 50%;
     position: absolute;
+  }
+  .hover-underline-animation {
+    display: inline-block;
+    position: relative;
+    color: #101010;
+  }
+  
+  .hover-underline-animation::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 3px;
+    bottom: 0;
+    left: 0;
+    background-color: #0934c1;
+    transform-origin: bottom right;
+    transition: transform 0.30s ease-out;
+  }
+  
+  .hover-underline-animation:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+  .imglogo{
+    background-image: url(../../assets/img/Sidebar-logo.png);
   }
   /* .newUserBtn{
     width: auto;

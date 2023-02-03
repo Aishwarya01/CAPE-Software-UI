@@ -1,0 +1,178 @@
+<div class="bg-image">
+    <div class="card">
+        <div class="card-body row col-md-12">
+        <mat-vertical-stepper  class="col-md-9">
+            <mat-step label="Shipping Address">      
+                    <!-- <div class="row">
+                        <div class="col-md-12"> -->
+                            <!-- style="border: 1px solid black;padding:20px;border-radius: 5px;" -->
+                            <div >
+                                <form action="" [formGroup]="checkOutForm" style="border: 1px solid black;padding: 10px;border-radius: 5px;">
+                                    <!-- <h3>Shipping Details</h3> -->
+                                    <hr class="divider1">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label for="Name">* Name</label>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" formControlName="firstName" [(ngModel)]="registerBuyMeter.firstName" readonly>
+                                            </div>
+                                         </div>
+                                         <div class="col-md-4">
+                                             <label for="contactnumber">* ContactNumber</label>
+                                             <div class="form-group">
+                                                <input type="text" class="form-control" formControlName="contactNumber" [(ngModel)]="registerBuyMeter.contactNumber" readonly>
+                                             </div>
+                                         </div>
+                                         <div class="col-md-4">
+                                             <label for="email">* Email</label>
+                                             <div class="form-group">
+                                                <input type="email" class="form-control" formControlName="email" [(ngModel)]="registerBuyMeter.username" readonly>
+                                             </div>
+                                         </div>
+                                    </div>
+                            
+                                   <div class="row">
+                                    <!-- <div class="col-md-4">
+                                        <label for="companyname">* CompanyName</label>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" formControlName="companyName" [(ngModel)]="registerBuyMeter.customerCompany" readonly>
+                                        </div>
+                                    </div> -->
+                                    <div class="col-md-4">
+                                        <label for="Address">* Address</label>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" formControlName="address" [(ngModel)]="registerBuyMeter.address" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="country">* Country</label>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" formControlName="country" [(ngModel)]="registerBuyMeter.country" readonly>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="state">* State</label>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" formControlName="state" [(ngModel)]="registerBuyMeter.state" readonly>
+                                        </div>
+                                    </div>
+
+                                   </div>
+                                  
+                                   <div class="row"> 
+                               
+                                    <div class="col-md-6">
+                                        <label for="city">* District</label>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" formControlName="city" [(ngModel)]="registerBuyMeter.district" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="pincode">* Pincode</label>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" formControlName="pincode" [(ngModel)]="registerBuyMeter.pinCode" readonly>
+                            
+                                        </div>
+                                    </div>
+                                   </div> 
+            
+                                   <div>
+                                    <h3>* Address Type</h3>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                        <label class="form-check-label" for="inlineRadio1">Home (All day Delivery)</label>
+                                      </div>
+                                      <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                        <label class="form-check-label" for="inlineRadio2">Office (10AM - 6PM)</label>
+                                      </div>
+                                   </div>
+                                   
+                                   <div class="row">
+                                        <div class="col-md-12 text-center justify-content-center">
+                                            <!-- <button type="button" style="margin-top: 30px;" class="btn btn-primary" (click)="payment(paymentTemplate)">Payment</button> -->
+                                            <!-- <button type="button"  style="margin-top: 30px;" class="btn btn-primary" mat-button matStepperNext>Next</button> -->
+                                        </div>
+                                   </div>
+                                 </form>
+                            </div>
+                    
+                    <!-- </div>
+                </div> -->
+                <div class="alert alert-danger" *ngIf="this.errorMsg != '' ">
+                     {{this.errorMsg}}
+                </div>
+                <button type="button"  style="margin-left: 10px;margin-top: 30px;" class="btn btn-primary" (click)="checkout(paymentTemplate)" mat-button >Click to Pay</button>
+
+            </mat-step>
+            <mat-step label="Payment Mode">
+                <button type="button"  style="margin-left: 10px;margin-top: 30px;" class="btn btn-primary" mat-button matStepperNext>Next</button>
+                <button type="button"  style="margin-left: 10px;margin-top: 30px;" class="btn btn-danger" mat-button matStepperPrevious>Back</button>
+            </mat-step>
+            <mat-step label="Done">
+                <button type="button" style="margin-left: 10px;" class="btn btn-danger" (click)="cancelCheckout(checkOutCancel)">Cancel</button>
+            </mat-step>
+        </mat-vertical-stepper>
+        <div class="col-md-3" style="border: 1px solid black;padding:20px;border-radius: 5px;height: 70vh;
+        margin-top: 72px;">
+            <!-- <form action="" [formGroup]="productTotalForm" style="border: 1px solid black;padding:20px;margin-top: 20px;"> -->
+              <h2>Your Order Summary</h2>
+              <div>
+                   <label for="">* No. of Items: </label>
+                  <p type="text" class="form-control">{{item}}</p>
+
+                  <label for="">* Subtotal: </label>
+                  <p type="text" class="form-control">{{'₹'+checkoutSubtotal}}</p>
+                  <!-- State GST -->
+                <ng-container *ngIf="stateValidation">
+                    <label>Central ()</label>
+                    <p class="totals-value" class="form-control" >{{'₹'+centralGst}}</p>
+  
+                    <label>State GST()</label>
+                    <p class="totals-value" class="form-control">{{'₹'+stateGst}}</p>
+                </ng-container>
+
+                  <!-- IGST - Other State -->
+
+                <ng-container *ngIf="igstValidation">
+                    <label>IGST ()</label>
+                    <p class="totals-value" class="form-control" >{{'₹'+iGST}}</p>
+                </ng-container>
+                  
+                    <label for="">* Grand total: </label>
+                    <p type="text" class="form-control">{{'₹'+checkoutGrandtotal}}</p>
+
+                  <button type="button" style="margin-left: 10px;" class="btn btn-danger" (click)="cancelCheckout(checkOutCancel)">Cancel</button>
+
+              </div>
+            <!-- </form> -->
+          </div>
+    </div>
+            
+    </div>
+</div>
+<ng-template #checkOutCancel let-modal>
+       <div class="modal-body">
+           <div class="centre-text m-btm30">
+           <div style="text-align: center;">
+            <span class="successshow">Are you sure want to Cancel? </span>
+          </div>
+        </div>
+     </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12 text-center justify-content-center">
+            <button type="button" class="btn btn-primary" (click)="checkoutNavigation()"> Yes</button>
+            <button type="button" class="btn btn-danger" style="margin-left: 10px;" (click)="onCancel()">No</button>
+        </div>
+       
+  </div>
+</ng-template>
+<ng-template #paymentTemplate let-modal>
+    <div style="text-align: center;">
+        <p class="alert alert-success"  *ngIf="paymentSuccess" >Your Payment Successfully Completed</p>
+        <!-- <p class="alert alert-danger"  *ngIf="paymentFailed" >Your Payment Failed</p> -->
+        <button type="button" class="btn btn-primary" (click)="purchaseHistory()"> OK</button>
+    </div>
+</ng-template>

@@ -1,12 +1,10 @@
 import {
-  AfterViewInit,
   Component,
   EventEmitter,
   OnInit,
   Output,
   ViewChild,
   ChangeDetectorRef,
-  VERSION,
   ElementRef,
   ViewContainerRef,
   OnDestroy
@@ -19,15 +17,10 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { MatDialog, MatDialogRef} from '@angular/material/dialog';
+import { MatDialog} from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../model/user';
-import { MatRadioChange } from '@angular/material/radio';
 import { Summary } from '../model/summary';
 import { SummarydetailsService } from '../services/summarydetails.service';
 import { GlobalsService } from '../globals.service';
@@ -36,18 +29,13 @@ import { SiteService } from '../services/site.service';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
 import { MainNavComponent } from '../main-nav/main-nav.component';
 import { CommentsSection } from '../model/comments-section';
-import { FinalreportsComponent } from '../finalreports/finalreports.component';
 import { ComponentFactoryResolver } from '@angular/core';
-import { LvInspectionDetailsComponent } from '../lv-inspection-details/lv-inspection-details.component';
-import { LicenselistComponent } from '../licenselist/licenselist.component';
 import { ObservationService } from '../services/observation.service';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
 import { SignatureComponent } from '../signature/signature.component';
 import { SuperAdminProd } from 'src/environments/environment.prod';
 import { SuperAdminDev } from 'src/environments/environment.dev';
-import { SuperAdminLocal } from 'src/environments/environment';
-import { element } from 'protractor';
+
 
 @Component({
   selector: 'app-summary',
@@ -249,7 +237,7 @@ export class SummaryComponent implements OnInit,OnDestroy {
   //superAdmin 
   prodAdmin = new SuperAdminProd();
   devAdmin = new SuperAdminDev();
-  localAdmin = new SuperAdminLocal();
+  //localAdmin = new SuperAdminLocal();
   submitButton: boolean = false;
   summaryData: any;
   constructor(
@@ -301,6 +289,8 @@ export class SummaryComponent implements OnInit,OnDestroy {
     this.service.windowTabClick=0;
     this.service.signatureImg5="";
     this.service.signatureImg6="";
+    this.service.bytestring5="";
+    this.service.bytestring6="";
   }
 
   ngOnInit(): void {
@@ -543,10 +533,10 @@ SignatureDesigner1(){
        //  }
        },
       (error) => {
-        this.errorArr = [];
+        // this.errorArr = [];
         this.Error = true;
-        this.errorArr = JSON.parse(error.error);
-        this.errorMsg = this.errorArr.message;
+        // this.errorArr = JSON.parse(error.error);
+        this.errorMsg = this.service.globalErrorMsg;
       }
     )
   }
@@ -2458,6 +2448,22 @@ showHideAccordion(index: number) {
         // }, 3000);
         return;
       }
+       //SIGNATURE LATEST CHANGES
+    if (this.service.bytestring5 != '' && this.service.bytestring5 != undefined) {
+      this.addsummary.value.Declaration1Arr[0].signature=this.service.bytestring5;
+      }  
+      else {
+      this.service.bytestring5 = btoa(this.signarr[0].signature)
+      this.addsummary.value.Declaration1Arr[0].signature=this.service.bytestring5;
+      }
+      if (this.service.bytestring6 != '' && this.service.bytestring6 != undefined) {
+        this.addsummary.value.Declaration2Arr[0].signature=this.service.bytestring6;
+        }  
+        else {
+        this.service.bytestring6 = btoa(this.signarr1[0].signature)
+        this.addsummary.value.Declaration2Arr[0].signature=this.service.bytestring6;
+        }
+
       const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
         width: '420px',
         maxHeight: '90vh',
@@ -2548,9 +2554,9 @@ showHideAccordion(index: number) {
               this.Error = true;
               this.popup=true;
               this.finalSpinner=false;
-              this.errorArr = [];
-              this.errorArr = JSON.parse(error.error);
-              this.errorMsg = this.errorArr.message;
+              // this.errorArr = [];
+              // this.errorArr = JSON.parse(error.error);
+              this.errorMsg = this.service.globalErrorMsg;
             });
         }
       });     
@@ -2573,6 +2579,21 @@ showHideAccordion(index: number) {
       // }, 3000);
       return;
     }
+      //SIGNATURE LATEST CHANGES
+      if (this.service.bytestring5 != '' && this.service.bytestring5 != undefined) {
+        this.addsummary.value.Declaration1Arr[0].signature=this.service.bytestring5;
+        }  
+        else {
+        this.service.bytestring5 = btoa(this.signarr[0].signature)
+        this.addsummary.value.Declaration1Arr[0].signature=this.service.bytestring5;
+        }
+        if (this.service.bytestring6 != '' && this.service.bytestring6 != undefined) {
+          this.addsummary.value.Declaration2Arr[0].signature=this.service.bytestring6;
+          }  
+          else {
+          this.service.bytestring6 = btoa(this.signarr1[0].signature)
+          this.addsummary.value.Declaration2Arr[0].signature=this.service.bytestring6;
+          }
         if(this.addsummary.dirty) {
           this.modalService.open(content5, { centered: true, backdrop: 'static'});
         }
@@ -2663,9 +2684,9 @@ showHideAccordion(index: number) {
                 this.Error = true;
                 this.popup=true;
                 this.finalSpinner=false;
-                this.errorArr = [];
-                this.errorArr = JSON.parse(error.error);
-                this.errorMsg = this.errorArr.message;
+                // this.errorArr = [];
+                // this.errorArr = JSON.parse(error.error);
+                this.errorMsg = this.service.globalErrorMsg;
               });
               }
           }
@@ -2697,9 +2718,9 @@ showHideAccordion(index: number) {
                 this.popup=true;
                 this.finalSpinner=false;
                 this.Error = true;
-                this.errorArr = [];
-                this.errorArr = JSON.parse(error.error);
-                this.errorMsg = this.errorArr.message;
+                // this.errorArr = [];
+                // this.errorArr = JSON.parse(error.error);
+                this.errorMsg = this.service.globalErrorMsg;
                 this.service.disableSubmitSummary=false;
                 //this.addsummary.markAsPristine();
               });

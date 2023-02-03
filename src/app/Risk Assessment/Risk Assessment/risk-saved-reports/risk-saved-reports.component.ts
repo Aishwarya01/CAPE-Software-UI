@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalsService } from 'src/app/globals.service';
+import { LicenselistComponent } from 'src/app/licenselist/licenselist.component';
 import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminProd } from 'src/environments/environment.prod';
 import { CustomerDetails } from '../../Risk Assesment Model/customer-details';
@@ -57,11 +58,14 @@ export class RiskSavedReportsComponent implements OnInit {
   superAdminDev = new SuperAdminDev();
   superAdminProd = new SuperAdminProd();
   mode: any= 'indeterminate';
+  globalError: boolean=false;
+  globalErrorMsg: string="";
     
   constructor(
     private router: ActivatedRoute,
     public service: GlobalsService,
     private customerDetailsService :CustomerDetailsServiceService,
+    public licenselist: LicenselistComponent
   ) { 
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
    }
@@ -112,8 +116,15 @@ export class RiskSavedReportsComponent implements OnInit {
             this.customerData = [];
             this.savedReportRisk_dataSource.paginator = this.savedReportRiskPaginator;
             this.savedReportRisk_dataSource.sort = this.savedReportRiskSort;
+          },
+          error=>{
+            this.globalError=true;
+            this.globalErrorMsg=this.service.globalErrorMsg;
+            setTimeout(() => {
+              this.globalError=false;
+              this.globalErrorMsg="";
+            }, 10000);
           });
-  
           this.superAdminFlag = false;
       }
       else {
@@ -130,15 +141,28 @@ export class RiskSavedReportsComponent implements OnInit {
             this.customerData = [];
             this.savedReportRisk_dataSource.paginator = this.savedReportRiskPaginator;
             this.savedReportRisk_dataSource.sort = this.savedReportRiskSort;
+          },
+          error=>{
+            this.globalError=true;
+            this.globalErrorMsg=this.service.globalErrorMsg;
+            setTimeout(() => {
+              this.globalError=false;
+              this.globalErrorMsg="";
+            }, 10000);
           });
       }
     }
   
     continue(riskId: any) {
-      this.spinner=true;
-      this.disablepage=false;
-      this.spinnerValue = "Please wait, the details are loading!";
-      this.callSavedMethod.emit(riskId);
+      if(this.service.triggerMsgForLicense=='riskPage'){
+        this.licenselist.editRiskData(riskId);
+      }
+      else{
+        this.spinner=true;
+        this.disablepage=false;
+        this.spinnerValue = "Please wait, the details are loading!";
+        this.callSavedMethod.emit(riskId);
+      }
     } 
 
     deleteBasicRisk(riskId: any) {  
@@ -147,7 +171,7 @@ export class RiskSavedReportsComponent implements OnInit {
       this.spinner=true;
       this.disablepage=false;
       this.spinnerValue = "Please wait, the details are loading!";
-      this.customerDetailsService.updateCustomerDetails(this.customerDetailsModel).subscribe(
+      this.customerDetailsService.deleteCustomerDetails(this.customerDetailsModel).subscribe(
         data => {
           this.deleteSuccess = true;
           this.deleteSuccessMsg = data;
@@ -158,6 +182,14 @@ export class RiskSavedReportsComponent implements OnInit {
             this.deleteSuccess = false;
             this.deleteSuccessMsg = '';
             }, 2000);
+        },
+        error=>{
+          this.globalError=true;
+          this.globalErrorMsg=this.service.globalErrorMsg;
+          setTimeout(() => {
+            this.globalError=false;
+            this.globalErrorMsg="";
+          }, 10000);
         })
     } 
 

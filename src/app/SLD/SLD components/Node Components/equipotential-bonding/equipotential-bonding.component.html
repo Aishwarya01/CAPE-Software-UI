@@ -1,73 +1,163 @@
 <div class="card">
-    <div class="card-header" style="text-align: center; display: block">
-       <h2 class="modal-title" style="display: contents">Equipotential Bonding Bar</h2>
-     </div>
-   <div class="card-body">
-     <form [formGroup]="equipotentialBondingForm" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
-     <div class="row">
-       <div class="col-md-4">
-         <div class="form-group">
-           <label>Reference Name</label>
-           <input type="text" class="form-control" formControlName="referenceName" [(ngModel)]="equipBond.referenceName"
-           [ngClass]="{ 'is-invalid': submittedEquipBond && h.referenceName?.errors }">
-           <div *ngIf="submittedEquipBond && h.referenceName?.errors" class="invalid-feedback">
-             <div *ngIf="h.referenceName?.errors?.required">Reference name is required</div>
-           </div>
-         </div>
-       </div>
-       
-       <div class="col-md-4">
-         <div class="form-group">
-           <label>Current Rating (A)</label>
-           <input type="number" class="form-control" formControlName="rating" [(ngModel)]="equipBond.rating"
-           [ngClass]="{ 'is-invalid': submittedEquipBond && h.rating?.errors }">
-           <div *ngIf="submittedEquipBond && h.rating?.errors" class="invalid-feedback">
-             <div *ngIf="h.rating?.errors?.required">Rating is required</div>
-           </div>
-         </div>
-       </div>
-       
-       <div class="col-md-4">
-        <div class="form-group">
-          <label>Size (sq.mm.)</label>
-          <input type="text" class="form-control" formControlName="size" [(ngModel)]="equipBond.size"
-          [ngClass]="{ 'is-invalid': submittedEquipBond && h.size?.errors }">
-          <div *ngIf="submittedEquipBond && h.size?.errors" class="invalid-feedback">
-            <div *ngIf="h.size?.errors?.required">Manufacturer Name is required</div>
+  <!-- Exception -->
+  <div class="centre-text m-btm30">
+    <div *ngIf="error1" style="text-align: center;margin-top: 5px;margin-bottom: 40px">
+      <span class="errorshow">{{ error1Msg }}</span>
+    </div>
+  </div>
+
+  <div class="card-header" style="text-align: center; display: block">
+    <h2 class="modal-title" style="display: contents">Equipotential Bonding Bar And Connector</h2>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="equipotentialBondingForm" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>Reference Name</label>
+            <input type="text" class="form-control" formControlName="referenceName"
+              [(ngModel)]="equipBond.referenceName"
+              [ngClass]="{ 'is-invalid': submittedEquipBond && h.referenceName?.errors }">
+            <div *ngIf="submittedEquipBond && h.referenceName?.errors" class="invalid-feedback">
+              <div *ngIf="h.referenceName?.errors?.required">Reference name is required</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>Current Rating (A)</label>
+            <input type="number" class="form-control" formControlName="rating" [(ngModel)]="equipBond.rating"
+              [ngClass]="{ 'is-invalid': submittedEquipBond && h.rating?.errors }">
+            <div *ngIf="submittedEquipBond && h.rating?.errors" class="invalid-feedback">
+              <div *ngIf="h.rating?.errors?.required">Rating is required</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>Size (sq.mm.)</label>
+            <input type="text" class="form-control" formControlName="sizeOne" [(ngModel)]="equipBond.sizeOne"
+              [ngClass]="{ 'is-invalid': submittedEquipBond && h.size?.errors }">
+            <div *ngIf="submittedEquipBond && h.size?.errors" class="invalid-feedback">
+              <div *ngIf="h.size?.errors?.required">Manufacturer Name is required</div>
+            </div>
           </div>
         </div>
       </div>
 
-     </div>
-    
-     </form>
-   </div>
+      <h3 style="font-weight: bold;">Testing Related To Safety</h3>
 
-   <div *ngIf="validationError" style="text-align: center;;margin-top: 5px;margin-bottom: 40px">
-       <span class="alert alert-danger">{{validationErrorMsg}}</span>
-     </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Make</th>
+            <th scope="col">Type(flat or bare conductor)</th>
+            <th scope="col">Material(copper /aluminum/GI)</th>
+            <th scope="col">Size(sq.mm.)</th>
+            <th scope="col">Conductor Length*</th>
+            <th scope="col">Conductor Resistance*</th>
+            <th scope="col">Max Allowable Resistance*</th>
+            <th scope="col">Remarks</th>
+          </tr>
+        </thead>
 
-     <div class="centre-text m-btm30">
-       <div *ngIf="success" style="text-align: center;margin-top: 5px;margin-bottom: 40px">
-         <span class="successshow">{{ successMsg }}</span>
-       </div>
-       <div *ngIf="error" style="text-align: center;margin-top: 5px;margin-bottom: 40px">
-         <span class="errorshow">{{ errorMsg }}</span>
-       </div>
-     </div>
-     
-     <div style="display: inline;margin-top: 30px;">    
-       <button type="button"  style="float: left; margin-left: 400px"
-         class="btn btn-info" (click)="saveEquipBond(equipBondFlag)">
-         <i class="bi bi-person-plus-fill icon"></i> Save
-       </button>
-       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-         <button type="button"  class="btn btn-danger" aria-label="Close"  (click)="close()"
-         style="float: right; margin-right: 400px" >
-         <span aria-hidden="true">Cancel</span>
-       </button>
-     </div>
-     <br>
- </div>
+        <tbody>
+          <tr>
 
- 
+            <td>
+              <div class="input-group">
+                <input class="form-control" formControlName="make" [(ngModel)]="equipBond.make">
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <input class="form-control" formControlName="typeFlatOrBase" [(ngModel)]="equipBond.typeFlatOrBase">
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <input class="form-control" formControlName="material" [(ngModel)]="equipBond.material">
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <input class="form-control" formControlName="sizeTwo" [(ngModel)]="equipBond.sizeTwo">
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <input type="number" class="form-control" formControlName="conductorLength"
+                  (keypress)="keyPressNumbers($event);decimalConversion($event,'oneDecimal')" (change)="decimalCalculation($event,h)"
+                  [(ngModel)]="equipBond.conductorLength"
+                  [ngClass]="{ 'is-invalid': submittedEquipBond && h.conductorLength?.errors}">
+                <div *ngIf="submittedEquipBond && h.conductorLength?.errors" class="invalid-feedback">
+                  <div *ngIf="h.conductorLength?.errors?.required">Field is required</div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <input type="number" class="form-control" formControlName="conductorResistance"
+                  (keypress)="keyPressNumbers($event);decimalConversion($event,'threeDecimal')"
+                  [(ngModel)]="equipBond.conductorResistance"
+                  [ngClass]="{ 'is-invalid': submittedEquipBond && h.conductorResistance?.errors}">
+                <div *ngIf="submittedEquipBond && h.conductorResistance?.errors" class="invalid-feedback">
+                  <div *ngIf="h.conductorResistance?.errors?.required">Field is required</div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <input type="number" (keypress)="keyPressNumbers($event);decimalConversion($event,'threeDecimal')"
+                  (change)="onFocusOutNeutral($event,h)" class="form-control" formControlName="maxAllowableResistance"
+                  [(ngModel)]="equipBond.maxAllowableResistance"
+                  [ngClass]="{ 'is-invalid': submittedEquipBond && h.maxAllowableResistance?.errors}">
+                <div class="invalid-feedback" *ngIf="sldValueError">
+                  <div>Value entered doesn't match the standard</div>
+                </div>
+                <div *ngIf="submittedEquipBond && h.maxAllowableResistance?.errors" class="invalid-feedback">
+                  <div *ngIf="h.maxAllowableResistance?.errors?.required">Field is required</div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <input class="form-control" formControlName="remarks" [(ngModel)]="equipBond.remarks">
+              </div>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+
+    </form>
+  </div>
+
+  <div *ngIf="validationError" style="text-align: center;;margin-top: 5px;margin-bottom: 40px">
+    <span class="alert alert-danger">{{validationErrorMsg}}</span>
+  </div>
+
+  <div class="centre-text m-btm30">
+    <div *ngIf="success" style="text-align: center;margin-top: 5px;margin-bottom: 40px">
+      <span class="successshow">{{ successMsg }}</span>
+    </div>
+    <div *ngIf="error" style="text-align: center;margin-top: 5px;margin-bottom: 40px">
+      <span class="errorshow">{{ errorMsg }}</span>
+    </div>
+  </div>
+
+  <div style="display: inline;margin-top: 30px;">
+    <button type="button" style="float: left; margin-left: 400px" class="btn btn-info"
+      (click)="saveEquipBond(equipBondFlag)">
+      <i class="bi bi-person-plus-fill icon"></i> Save
+    </button>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button type="button" class="btn btn-danger" aria-label="Close" (click)="close()"
+      style="float: right; margin-right: 400px">
+      <span aria-hidden="true">Cancel</span>
+    </button>
+  </div>
+  <br>
+</div>

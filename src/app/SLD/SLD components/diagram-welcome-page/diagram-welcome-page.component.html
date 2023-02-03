@@ -5,10 +5,10 @@
         <app-diagram-list *ngIf="showDiagramList"></app-diagram-list>
     </div>
     <div *ngIf="!destroy" style="padding: 20px; background: white;">
-    <button style="float: right;" type="submit"
-        class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+    <button style="float: right;background-color: #0f800c;color: white;" type="submit"
+        class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn"
         (click)="onNavigateToQuestionaire()" [disabled]="displayIconsBasedOnEmail()">Skip</button>
-    <button style="float: right;" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" 
+    <button style="float: right;background-color: #0f800c;color: white;" class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn" 
          printSectionId="printdiv" ngxPrint [disabled]="displayIconsBasedOnEmail()">Print</button>
             <h2 style="text-align: center;margin-bottom: 0rem;">DIAGRAM </h2>
             <h5 style="margin-left: 28rem;margin-top: 0rem;">This safety audit (Testing Inspection & Certification) is based on IEC 2305</h5>
@@ -56,8 +56,8 @@
                 <li>physical restrictions and/or warning notices to minimize the probability of access to the dangerous area, within 3 m of the down-conductor.</li>
             </ul>
         </div>
-        <button style="float: right;" type="submit"
-        class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn-continue"
+        <button style="float: right;background-color: #0f800c;color: white;" type="submit"
+        class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn-continue"
         (click)="onNavigateToQuestionaire()"[disabled]="displayIconsBasedOnEmail()">Continue
     </button>
     </div>

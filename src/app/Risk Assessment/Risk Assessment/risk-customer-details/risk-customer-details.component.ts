@@ -6,6 +6,7 @@ import { GlobalsService } from 'src/app/globals.service';
 import { CustomerDetails } from '../../Risk Assesment Model/customer-details';
 import { CustomerDetailsServiceService } from '../../Risk Assessment Services/customer-details-service.service';
 import { RiskglobalserviceService } from '../../riskglobalservice.service';
+import { RiskParentComponentComponent } from '../risk-parent-component/risk-parent-component.component';
 
 @Component({
   selector: 'app-risk-customer-details',
@@ -25,7 +26,7 @@ export class RiskCustomerDetailsComponent implements OnInit {
   Error: boolean=false;
   errorArr: any=[];
   errorMsg: string="";
-  isEditable!:boolean
+  isEditable:boolean=false;
   success1: boolean =false;
   successMsg1: string="";
   proceedFlag: boolean = true;
@@ -48,13 +49,20 @@ export class RiskCustomerDetailsComponent implements OnInit {
   validationErrorMsgTab2: string='';
   validationError1: boolean=false;
   validationErrorTab1: boolean=false;
+  fileFlag:boolean=false;
+  // License Purpose
+  onSave: any;
+  riskProject: String='';
+  riskEmail: String='';
+  
   constructor(
     private formBuilder: FormBuilder,
     private router: ActivatedRoute,
     private modalService: NgbModal,
     private customerDetailsService :CustomerDetailsServiceService,
     public service: GlobalsService,
-    public riskGlobal: RiskglobalserviceService
+    public riskGlobal: RiskglobalserviceService,
+    private parentComponent: RiskParentComponentComponent
   ) {}
 
   ngOnInit(): void {
@@ -62,6 +70,17 @@ export class RiskCustomerDetailsComponent implements OnInit {
     this.CustomerDetailsForm = this.formBuilder.group({
       riskCustomerDetails: this.formBuilder.array([this.customerDetails()])
     });
+
+    if(sessionStorage.riskProject!=null && sessionStorage.riskProject!=undefined && sessionStorage.riskProject!=""){
+      this.riskProject=sessionStorage.riskProject;
+      this.riskEmail=sessionStorage.riskEmail;
+      sessionStorage.removeItem("riskProject");
+      sessionStorage.removeItem("riskEmail");
+    }
+    else{
+      // this.riskProject=;
+      // this.riskEmail=sessionStorage.riskEmail;
+    }
   }
 
   customerDetails(): FormGroup{
@@ -71,7 +90,7 @@ export class RiskCustomerDetailsComponent implements OnInit {
       projectName:new FormControl('', Validators.required),
       projectDescription:new FormControl('', Validators.required),
       contactPersonName:new FormControl('', Validators.required),
-      contactNumber:new FormControl(),
+      contactNumber:new FormControl('',[Validators.maxLength(15),Validators.minLength(10)]),
       email:new FormControl('',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       preparedBy:new FormControl('', Validators.required),
       verifiedBy:new FormControl('', Validators.required),
@@ -79,13 +98,16 @@ export class RiskCustomerDetailsComponent implements OnInit {
   }
 
   createCustomerDetails(item: any): FormGroup {
+    // License Purpose
+    this.riskProject=item.projectName;
+    this.riskEmail=item.email;
     return this.formBuilder.group({
       organisationName: new FormControl({disabled: false, value: item.organisationName}, Validators.required),
       address:new FormControl({disabled: false, value: item.address}, Validators.required),
       projectName:new FormControl({disabled: false, value: item.projectName}, Validators.required),
       projectDescription:new FormControl({disabled: false, value: item.projectDescription}, Validators.required),
       contactPersonName:new FormControl({disabled: false, value: item.contactPersonName}, Validators.required),
-      contactNumber:new FormControl({disabled: false, value: item.contactNumber}),
+      contactNumber:new FormControl({disabled: false, value: item.contactNumber}, [Validators.maxLength(15),Validators.minLength(10)]),
       email:new FormControl({disabled: false, value: item.email},[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       preparedBy:new FormControl({disabled: false, value: item.preparedBy}, Validators.required),
       verifiedBy:new FormControl({disabled: false, value: item.verifiedBy}, Validators.required),
@@ -204,7 +226,8 @@ export class RiskCustomerDetailsComponent implements OnInit {
     if (this.errorMsg != '') {
       this.Error = false;
       this.modalService.dismissAll((this.errorMsg = ''));
-    } else {
+    }
+    else {
       this.success = false;
       this.modalService.dismissAll((this.successMsg = ''));
     }
@@ -223,6 +246,10 @@ export class RiskCustomerDetailsComponent implements OnInit {
     //  Update and Success msg will be showing
     if(this.CustomerDetailsForm.dirty && this.CustomerDetailsForm.touched){
       this.modalService.open(content, { centered: true,backdrop: 'static' });
+    }
+    else if(this.riskGlobal.dirtyCheck==true){
+      this.parentComponent.step1NxtClicked=true;
+      this.modalService.open(contents, { centered: true,backdrop: 'static' });
     }
     //  For Dirty popup
     else{
@@ -272,9 +299,9 @@ export class RiskCustomerDetailsComponent implements OnInit {
             //  this.spinner=false;
             this.success1 = false;
             this.Error = true;
-            this.errorArr = [];
-            this.errorArr = JSON.parse(error.error);
-            this.errorMsg = this.errorArr.message;
+            // this.errorArr = [];
+            // this.errorArr = JSON.parse(error.error);
+            this.errorMsg = this.service.globalErrorMsg;
             this.proceedNext.emit(false);
           }
         )}
@@ -316,14 +343,14 @@ export class RiskCustomerDetailsComponent implements OnInit {
 
         },
         error => {
-           this.popup=true;
-          //  this.spinner=false;
+          this.popup=true;
           this.Error = true;
-          this.errorArr = [];
-          this.proceedFlag = true;
-          this.errorArr = JSON.parse(error.error);
-          this.errorMsg = this.errorArr.message;
-          this.proceedNext.emit(false); 
+          // this.proceedFlag = true;
+          this.errorMsg = this.service.globalErrorMsg;
+          this.proceedNext.emit(false);
+          setTimeout(() => {
+            this.service.globalErrorMsg="";
+          }, 3000); 
         })
       }
     }
@@ -338,7 +365,8 @@ export class RiskCustomerDetailsComponent implements OnInit {
       this.validationErrorMsgTab2 = 'Please Fill all the fields in Customer Details Form for further proceed';
       setTimeout(() => {
         this.validationErrorTab1 = false;
-      }, 3000);
+        this.validationErrorMsgTab2="";
+      }, 6000);
       return;
     }
     else if (this.CustomerDetailsForm.dirty && this.CustomerDetailsForm.touched) {
@@ -349,7 +377,10 @@ export class RiskCustomerDetailsComponent implements OnInit {
       this.tabErrorMsg1 = 'Kindly click on next button to update the changes!';
       setTimeout(() => {
         this.tabError = false;
-      }, 3000);
+        this.tabError1 = false;
+        this.tabErrorMsg1="";
+      }, 6000);
+
       return;
     }
     else {

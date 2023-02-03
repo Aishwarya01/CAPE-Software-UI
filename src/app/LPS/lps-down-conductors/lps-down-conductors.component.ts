@@ -583,7 +583,7 @@ keyPressNumbers1(event: any) {
   }
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,data: any){
-      //this.service.lvClick=1;
+      //this.service.lpsClick=1;
             
       this.basicLpsId = basicLpsId;
       this.retrieveFromAirTermination();
@@ -618,7 +618,7 @@ keyPressNumbers1(event: any) {
     }
 
     retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
-      //this.service.lvClick=1;
+      //this.service.lpsClick=1;
       this.step3List1 = JSON.parse(data);
       this.downConductorReport.basicLpsId = basicLpsId;
       this.deletedBridgingDesc = [];
@@ -846,7 +846,7 @@ keyPressNumbers1(event: any) {
       bridgingCableConnectionRem: new FormControl({disabled: false, value: item.bridgingCableConnectionRem}),
       bridgingCableMaterialOb: new FormControl({disabled: false, value: item.bridgingCableMaterialOb}, Validators.required),
       bridgingCableMaterialRem: new FormControl({disabled: false, value: item.bridgingCableMaterialRem}),
-      bridgingCableSizeOb: new FormControl({disabled: false, value: item.bridgingCableSizeOb}, Validators.required),
+      bridgingCableSizeOb: new FormControl({disabled: false, value: item.bridgingCableSizeOb}),
       bridgingCableSizeRem: new FormControl({disabled: false, value: item.bridgingCableSizeRem}),
       totalNoBridgingCableOb: new FormControl({disabled: false, value: item.totalNoBridgingCableOb}, Validators.required),
       totalNoBridgingCableRem: new FormControl({disabled: false, value: item.totalNoBridgingCableRem}),
@@ -1654,19 +1654,19 @@ keyPressNumbers1(event: any) {
       if(!this.downConductorForm.invalid){
         if(this.downConductorForm.dirty){
           this.validationError=false;
-          this.service.lvClick=1;
+          this.service.lpsClick=1;
           this.service.logoutClick=1;
           this.service.windowTabClick=1;
         }
         else{
           this.validationError=false;
-          this.service.lvClick=0;
+          this.service.lpsClick=0;
           this.service.logoutClick=0;
           this.service.windowTabClick=0;
         }
       }
       else {
-        this.service.lvClick=1;
+        this.service.lpsClick=1;
         this.service.logoutClick=1;
         this.service.windowTabClick=1;
       }
@@ -1675,19 +1675,19 @@ keyPressNumbers1(event: any) {
     if(!this.downConductorForm.invalid){ 
       if(this.downConductorForm.dirty){
         this.validationError=false;
-        this.service.lvClick=1;
+        this.service.lpsClick=1;
         this.service.logoutClick=1;
         this.service.windowTabClick=1;
       }
       else{
         this.validationError=false;
-        this.service.lvClick=0;
+        this.service.lpsClick=0;
         this.service.logoutClick=0;
         this.service.windowTabClick=0;
       }
     }
     else {
-      this.service.lvClick=1;
+      this.service.lpsClick=1;
       this.service.logoutClick=1;
       this.service.windowTabClick=1;
     }
@@ -1854,7 +1854,7 @@ keyPressNumbers1(event: any) {
             this.success = true;
             this.successMsg = data;
             this.downConductorForm.markAsPristine();
-            this.service.lvClick=0;
+            this.service.lpsClick=0;
             this.service.logoutClick=0;
             this.service.windowTabClick=0;
             this.retriveDownConductor();
@@ -1864,9 +1864,9 @@ keyPressNumbers1(event: any) {
             this.popup=true;
             this.spinner=false;
             this.Error = true;
-            this.errorArr = [];
-            this.errorArr = JSON.parse(error.error);
-            this.errorMsg = this.errorArr.message;
+            // this.errorArr = [];
+            // this.errorArr = JSON.parse(error.error);
+            this.errorMsg = this.service.globalErrorMsg;
             this.proceedNext.emit(false);
           }
         )
@@ -1898,7 +1898,7 @@ keyPressNumbers1(event: any) {
             this.disable = true;
             this.retriveDownConductor();
             this.proceedNext.emit(true);
-            this.service.lvClick=0;
+            this.service.lpsClick=0;
             this.service.logoutClick=0;
             this.service.windowTabClick=0;
           },
@@ -1906,9 +1906,9 @@ keyPressNumbers1(event: any) {
             this.popup=true;
             this.spinner=false;
             this.Error = true;
-            this.errorArr = [];
-            this.errorArr = JSON.parse(error.error);
-            this.errorMsg = this.errorArr.message;
+            // this.errorArr = [];
+            // this.errorArr = JSON.parse(error.error);
+            this.errorMsg = this.service.globalErrorMsg;
             this.proceedNext.emit(false);
           });
       } 

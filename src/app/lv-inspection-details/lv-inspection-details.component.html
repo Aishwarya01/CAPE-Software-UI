@@ -2,21 +2,22 @@
     <ng-template #reference></ng-template>
 <body>
     <div *ngIf="destroy">
+        <!-- <app-licenselist *ngIf="showLicence"></app-licenselist> -->
+        <!-- <app-verificationlv *ngIf="showHome"></app-verificationlv> -->
         <app-licenselist *ngIf="showLicence"></app-licenselist>
-        <app-verificationlv *ngIf="showHome"></app-verificationlv>
-        <!-- <app-licenselist *ngIf=true></app-licenselist>
-        <app-verificationlv *ngIf=false></app-verificationlv> -->
+        <!-- <app-verificationlv *ngIf=false></app-verificationlv> -->
     </div>
     <div *ngIf="!destroy" style="padding: 20px; background: white;">
-    <button style="float: right;" type="submit"
-        class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+    <button style="float: right;background-color: #0f800c;color: white;" type="submit"
+        class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn"
         (click)="onNavigateToQuestionaire()" [disabled]="displayIconsBasedOnEmail()">Skip</button>
-    <button style="float: right;" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" 
+    <button style="float: right;background-color: #0f800c;color: white;" class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn" 
          printSectionId="printdiv" ngxPrint [disabled]="displayIconsBasedOnEmail()">Print</button>
-    <h2>Testing, Inspection and Certification of Electrical installation to safety and reliability.</h2>
-        <p>This safety audit (Testing Inspection & Certification) is based on IEC 60364-6.</p>
-        
+         
     <div id="printdiv">
+         <h2 style="text-align: center;margin-bottom: 0rem;">Testing, Inspection and Certification of Electrical installation to safety and reliability.</h2>
+        <p style="text-align: center;margin-bottom: 0rem;">This safety audit (Testing Inspection & Certification) is based on IEC 60364-6.</p>
+        
         <br>
         <p>Electrical Safety is an important subject in modern world. Every electrical system shall ensure safety of living beings and property from dangers arising from electricity. Hence every electrical installation shall be designed, erected and tested as per the modern electrical safety standards.
             Globally, electrical safety rules of most nations are based on IEC 60364. This standard explains the rules for the design, erection, and verification of electrical installations up to 1000 V AC and 1500 V DC. The wiring rules of UK called BS7671 or Germany called as DIN VDE 0100 are adopted from IEC 60364. The NFPA 70 (NEC of USA) closely follows the fundamental safety measures recommended in IEC 60364. In India the standard is adopted as IS732 and NEC of India.
@@ -90,12 +91,11 @@
                 accidents from electricity.
             </p>
         </div> 
-        <button style="float: right;" type="submit"
-        class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn-continue"
-        (click)="onNavigateToQuestionaire()"[disabled]="displayIconsBasedOnEmail()">Continue
-    </button>
     </div>
-   
+        <button style="float: right;background-color: #0f800c;color: white;" type="submit"
+        class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn-continue"
+        (click)="onNavigateToQuestionaire()"[disabled]="displayIconsBasedOnEmail()">Continue
+        </button>
     </div>
     
 </body>

@@ -1,5 +1,5 @@
 import { Component, OnInit, Output,EventEmitter } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalsService } from 'src/app/globals.service';
@@ -23,7 +23,7 @@ export class LpsBasicPageComponent implements OnInit {
   disable: boolean=false;
   Error: boolean=false;
   errorArr: any=[];
-  errorMsg: string="";
+  errorMsg: String="";
   validationError: boolean = false;
   validationErrorMsg: String = '';
   @Output() proceedNext = new EventEmitter<any>();
@@ -85,9 +85,10 @@ export class LpsBasicPageComponent implements OnInit {
   lpsBasic: any=[];
 
   // License Purpose
-  // currentUserName: String='';
-  // currentUsermail: String='';
-  // userDetails: any;
+  currentUserName: String='';
+  currentUsermail: String='';
+  currentUserPhone: String='';
+  userDetails: any;
 
   constructor(private formBuilder: FormBuilder, 
     private lPSBasicDetailsService: LPSBasicDetailsService,
@@ -102,16 +103,21 @@ export class LpsBasicPageComponent implements OnInit {
 
   
   ngOnInit(): void {
+    // Here we are retreing data from DB
+    this.basicDetails.basicLpsId=this.service.basicLPSID;
+    this.retriveBasicDetails();
+
     this.countryCode = '91';
     this.LPSBasicForm = this.formBuilder.group({
       lpsBasic: this.formBuilder.array([this.allBasicForm()])
     });
     // License Purpose
-    // this.userDetails = sessionStorage.getItem('authenticatedUser');
-    // if(JSON.parse(this.userDetails).role == "Inspector"){
-    //   this.currentUserName=JSON.parse(this.userDetails).name;
-    //   this.currentUsermail=JSON.parse(this.userDetails).username;
-    // }
+    this.userDetails = sessionStorage.getItem('authenticatedUser');
+    if(JSON.parse(this.userDetails).role == "Inspector"){
+      this.currentUserName=JSON.parse(this.userDetails).name;
+      this.currentUsermail=JSON.parse(this.userDetails).username;
+      this.currentUserPhone=JSON.parse(this.userDetails).contactNumber;
+    }
   }
 
   allBasicForm() {
@@ -126,24 +132,26 @@ export class LpsBasicPageComponent implements OnInit {
       location:new FormControl('', Validators.required),
       industryType:new FormControl('', Validators.required),
       soilResistivity:new FormControl(''),
-      name:new FormControl('', Validators.required),
-      company:new FormControl('', Validators.required),
-      designation:new FormControl('', Validators.required),
-      contactNumber:new FormControl('',[Validators.required ,Validators.maxLength(10),Validators.minLength(10)]),
+      viewerName:new FormControl('', Validators.required),
+      // company:new FormControl('', Validators.required),
+      // designation:new FormControl('', Validators.required),
+      contactNumber:new FormControl(''),
       mailId:new FormControl('', [Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       availabilityOfPreviousReport:new FormControl('', Validators.required),
       // license purpose 
-      // email1:new FormControl(''),
-      // name1:new FormControl(''),
-      fileName: new FormControl('', Validators.required),
+      inspectorEmail:new FormControl(''),
+      inspectorName:new FormControl(''),
+      inspectorContact:new FormControl(''),
+
+      fileName: new FormControl(''),
       basicLpsId: new FormControl(''),
       fileSize: new FormControl(''),
-      fileId: new FormControl('', Validators.required),
+      fileId: new FormControl(''),
     });
   }
 
   getFileDetails(fileId:any){
-    if(fileId!=undefined && fileId!="" && fileId!=null){
+    if(fileId!=undefined && fileId!=null && fileId!=""){
       this.fileUplaodService.retriveBasicFile(fileId).subscribe(
         (data) => {
           this.fileName = JSON.parse(data).fileName;
@@ -153,6 +161,17 @@ export class LpsBasicPageComponent implements OnInit {
         (error) => {
         },
       )
+    }
+  }
+
+  dropDown1(event:any,form:any){
+    if(form.controls.availabilityOfPreviousReport.value=='No'){
+      form.controls.fileId.clearValidators();
+      form.controls.fileId.updateValueAndValidity();
+    }
+    else if(form.controls.availabilityOfPreviousReport.value=='Yes'){
+      form.controls.fileId.setValidators([Validators.required]);
+      form.controls.fileId.updateValueAndValidity();
     }
   }
 
@@ -171,22 +190,21 @@ export class LpsBasicPageComponent implements OnInit {
       location: new FormControl({disabled: false, value: item.location}, Validators.required),
       industryType: new FormControl({disabled: false, value: item.industryType}, Validators.required),
       soilResistivity: new FormControl({disabled: false, value: item.soilResistivity}),
-      name: new FormControl({disabled: false, value: item.name}, Validators.required),
-      company: new FormControl({disabled: false, value: item.company}, Validators.required),
-      designation: new FormControl({disabled: false, value: item.designation}, Validators.required),
-      contactNumber: new FormControl({disabled: false, value: item.contactNumber}, [Validators.required,Validators.maxLength(15),Validators.minLength(10)]),
+      viewerName: new FormControl({disabled: false, value: item.viewerName}, Validators.required),
+      // company: new FormControl({disabled: false, value: item.company}, Validators.required),
+      // designation: new FormControl({disabled: false, value: item.designation}, Validators.required),
+      contactNumber: new FormControl({disabled: false, value: item.contactNumber}),
       mailId: new FormControl({disabled: false, value: item.mailId},
          [Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       availabilityOfPreviousReport: new FormControl({disabled: false, value: item.availabilityOfPreviousReport}, Validators.required),
-      // email1:new FormControl(''),
-      // name1:new FormControl(''),
-      fileName: new FormControl({disabled: false, value: item.fileName}),
+      // License Purpose
+      inspectorEmail:new FormControl(''),
+      inspectorName:new FormControl(''),
+      inspectorContact:new FormControl(''),
+      
       basicLpsId: new FormControl({disabled: false, value: item.basicLpsId}),
-      fileSize: new FormControl({disabled: false, value: item.fileSize}),
       fileId: new FormControl({disabled: false, value: item.fileId}),
     });
-    
-
   }
 
   overAllControl(): any {
@@ -238,19 +256,19 @@ export class LpsBasicPageComponent implements OnInit {
     if(!this.LPSBasicForm.invalid){
       if(this.LPSBasicForm.dirty){
         this.validationError=false;
-        this.service.lvClick=1;
+        this.service.lpsClick=1;
         this.service.logoutClick=1;
          this.service.windowTabClick=1;
       }
       else{
         this.validationError=false;
-        this.service.lvClick=0;
+        this.service.lpsClick=0;
         this.service.logoutClick=0;
         this.service.windowTabClick=0;
       }
      }
      else {
-      this.service.lvClick=1;
+      this.service.lpsClick=1;
       this.service.logoutClick=1;
       this.service.windowTabClick=1;
      }
@@ -259,19 +277,19 @@ export class LpsBasicPageComponent implements OnInit {
    if(!this.LPSBasicForm.invalid){ 
     if(this.LPSBasicForm.dirty){
       this.validationError=false;
-      this.service.lvClick=1;
+      this.service.lpsClick=1;
       this.service.logoutClick=1;
       this.service.windowTabClick=1;
     }
     else{
       this.validationError=false;
-      this.service.lvClick=0;
+      this.service.lpsClick=0;
       this.service.logoutClick=0;
       this.service.windowTabClick=0;
     }
    }
    else {
-    this.service.lvClick=1;
+    this.service.lpsClick=1;
     this.service.logoutClick=1;
     this.service.windowTabClick=1;
    }
@@ -324,7 +342,7 @@ export class LpsBasicPageComponent implements OnInit {
   }
 
   dropDownPopup(event:any,dropDown:any){
-    if(event.target.value == "No" && this.fileId!=undefined && this.fileId!=null && this.fileId!=0){
+    if(event!=null && event!=undefined && event!="" && event.target !=undefined && event.target !=null && event.target != "" && event.target.value !=undefined && event.target.value !='' && event.target.value == "No" && this.fileId!=undefined && this.fileId!=null && this.fileId!=0){
       this.modalService.open(dropDown, { centered: true,backdrop: 'static' });
     }
   }
@@ -377,7 +395,7 @@ export class LpsBasicPageComponent implements OnInit {
           this.LPSBasicForm.markAsPristine();
           this.isBasicFormUpdated=true;
           this.proceedNext.emit(true);
-          this.service.lvClick=0;
+          this.service.lpsClick=0;
           this.service.logoutClick=0;
           this.service.windowTabClick=0;
           this.basicLpsIdRetrive=0;
@@ -389,9 +407,7 @@ export class LpsBasicPageComponent implements OnInit {
           this.spinner=false;
           // this.success1 = false;
           this.Error = true;
-          this.errorArr = [];
-          this.errorArr = JSON.parse(error.error);
-          this.errorMsg = this.errorArr.message;
+          this.errorMsg = this.service.globalErrorMsg;
           this.proceedNext.emit(false);
         }
       )}
@@ -431,7 +447,7 @@ export class LpsBasicPageComponent implements OnInit {
           this.LPSBasicForm.markAsPristine();
           this.isBasicFormUpdated=true;
           this.proceedNext.emit(true);
-          this.service.lvClick=0;
+          this.service.lpsClick=0;
           this.service.logoutClick=0;
           this.service.windowTabClick=0;
           
@@ -440,10 +456,8 @@ export class LpsBasicPageComponent implements OnInit {
           this.popup=true;
           this.spinner=false;
           this.Error = true;
-          this.errorArr = [];
           this.proceedFlag = true;
-          this.errorArr = JSON.parse(error.error);
-          this.errorMsg = this.errorArr.message;
+          this.errorMsg = this.service.globalErrorMsg;
           this.proceedNext.emit(false); 
         }
       )
@@ -484,14 +498,14 @@ export class LpsBasicPageComponent implements OnInit {
     this.basicDetails.location = this.LPSBasicForm.value.lpsBasic[0].location;
     this.basicDetails.industryType = this.LPSBasicForm.value.lpsBasic[0].industryType;
     this.basicDetails.soilResistivity = this.LPSBasicForm.value.lpsBasic[0].soilResistivity;
-    this.basicDetails.name = this.LPSBasicForm.value.lpsBasic[0].name;
-    this.basicDetails.company = this.LPSBasicForm.value.lpsBasic[0].company;
-    this.basicDetails.designation = this.LPSBasicForm.value.lpsBasic[0].designation;
+    this.basicDetails.viewerName = this.LPSBasicForm.value.lpsBasic[0].viewerName;
+    // this.basicDetails.company = this.LPSBasicForm.value.lpsBasic[0].company;
+    // this.basicDetails.designation = this.LPSBasicForm.value.lpsBasic[0].designation;
     this.basicDetails.contactNumber = contactNum;
     this.basicDetails.mailId = this.LPSBasicForm.value.lpsBasic[0].mailId;
     this.basicDetails.availabilityOfPreviousReport = this.LPSBasicForm.value.lpsBasic[0].availabilityOfPreviousReport;
     this.basicDetails.userName = this.router.snapshot.paramMap.get('email') || '{}';
-
+    this.basicDetails.inspectorName = this.LPSBasicForm.value.lpsBasic[0].inspectorName;
     this.basicDetails.fileName = this.fileName;
     this.basicDetails.fileId = this.fileId;
     this.basicDetails.fileSize = this.fileSize;
@@ -631,7 +645,7 @@ export class LpsBasicPageComponent implements OnInit {
             setTimeout(() =>{
               this.spinnerUpload = false;
               this.popupUpload = true;
-            }, 1000);
+            }, 3000);
             this.uploadDisable = true;
             this.filesuccess = true;
             this.filesuccessMsg = "File Updated Successfully";
@@ -650,14 +664,14 @@ export class LpsBasicPageComponent implements OnInit {
             setTimeout(() =>{
               this.spinnerUpload = false;
               this.popupUpload = true;
-            }, 1000);
+            }, 3000);
             this.uploadDisable = true;
-            this.filesuccess = true;
+            this.filesuccess=true;
+            this.filesuccessMsg="File Uploaded Successfully";
             // Here we are capturing fileid, which is retreve from backend
             this.retreveFileId=data;
             this.fileId=parseInt(this.retreveFileId);
             form.controls.fileId.setValue(this.fileId);
-            this.filesuccessMsg = "File Uploaded Successfully";
           },
           (error) => {
             this.spinnerUpload = false;

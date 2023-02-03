@@ -6,7 +6,6 @@ import { EmcPowerAndEarthingData } from 'src/app/EMC_Model/emc-power-and-earthin
 import { EmcPowerAndEarthingDataService } from 'src/app/EMC_Services/emc-power-and-earthing-data.service';
 import { FileUploadServiceService } from 'src/app/EMC_Services/file-upload-service.service';
 import { GlobalsService } from 'src/app/globals.service';
-import { MatSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-power-and-earthing-data',
@@ -382,6 +381,18 @@ export class PowerAndEarthingDataComponent implements OnInit {
     return this.EMCPowerAndEarthForm.controls;
   }
 
+  // Only Accept numbers
+  keyPressNumbers(event: any) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+  }
+  
   onChange(event: any) {
     this.file = event.target.files;
     if (this.file != null) {
@@ -667,9 +678,9 @@ export class PowerAndEarthingDataComponent implements OnInit {
               this.popup=true;
               this.spinner=false;
               this.Error = true;
-              this.errorArr = [];
-              this.errorArr = JSON.parse(error.error);
-              this.errorMsg = this.errorArr.message;
+              // this.errorArr = [];
+              // this.errorArr = JSON.parse(error.error);
+              this.errorMsg = this.service.globalErrorMsg;
             });
       }
     }
@@ -695,11 +706,11 @@ export class PowerAndEarthingDataComponent implements OnInit {
           this.popup=true;
           this.spinner=false;
           this.Error = true;
-          this.errorArr = [];
+          // this.errorArr = [];
           this.service.isCompletedEmc2= false;
           this.service.isLinearEmc=true;
-          this.errorArr = JSON.parse(error.error);
-          this.errorMsg = this.errorArr.message;
+          // this.errorArr = JSON.parse(error.error);
+          this.errorMsg = this.service.globalErrorMsg;
           this.proceedNext.emit(false);
         }
       )

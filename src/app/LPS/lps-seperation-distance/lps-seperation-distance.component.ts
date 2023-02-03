@@ -164,7 +164,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports(data: any){
-      // this.service.lvClick=1;
+      // this.service.lpsClick=1;
       if(data.basicLpsId != undefined && data.basicLpsId != 0){
         this.step6List = data;
       } 
@@ -323,19 +323,19 @@ export class LpsSeperationDistanceComponent implements OnInit {
     if(!this.separeteDistanceForm.invalid){
       if(this.separeteDistanceForm.dirty){
         this.validationError=false;
-        this.service.lvClick=1;
+        this.service.lpsClick=1;
         this.service.logoutClick=1;
         this.service.windowTabClick=1;
       }
       else{
         this.validationError=false;
-        this.service.lvClick=0;
+        this.service.lpsClick=0;
         this.service.logoutClick=0;
         this.service.windowTabClick=0;
       }
      }
      else {
-      this.service.lvClick=1;
+      this.service.lpsClick=1;
       this.service.logoutClick=1;
       this.service.windowTabClick=1;
      }
@@ -344,19 +344,19 @@ export class LpsSeperationDistanceComponent implements OnInit {
    if(!this.separeteDistanceForm.invalid){ 
     if(this.separeteDistanceForm.dirty){
       this.validationError=false;
-      this.service.lvClick=1;
+      this.service.lpsClick=1;
       this.service.logoutClick=1;
       this.service.windowTabClick=1;
     }
     else{
       this.validationError=false;
-      this.service.lvClick=0;
+      this.service.lpsClick=0;
       this.service.logoutClick=0;
       this.service.windowTabClick=0;
     }
    }
    else {
-    this.service.lvClick=1;
+    this.service.lpsClick=1;
     this.service.logoutClick=1;
     this.service.windowTabClick=1;
    }
@@ -420,7 +420,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
             this.success = true;
             this.successMsg = data;
             this.separeteDistanceForm.markAsPristine();
-            this.service.lvClick=0;
+            this.service.lpsClick=0;
             this.service.logoutClick=0;
             this.service.windowTabClick=0;
             this.proceedNext.emit(true);
@@ -429,9 +429,9 @@ export class LpsSeperationDistanceComponent implements OnInit {
             this.popup=true;
             this.spinner=false;
             this.Error = true;
-            this.errorArr = [];
-            this.errorArr = JSON.parse(error.error);
-            this.errorMsg = this.errorArr.message;
+            // this.errorArr = [];
+            // this.errorArr = JSON.parse(error.error);
+            this.errorMsg = this.service.globalErrorMsg;
             this.proceedNext.emit(false);
           }
         )
@@ -465,7 +465,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
               this.getAirterminationData();
              }, 300);
             this.proceedNext.emit(true);
-            this.service.lvClick=0;
+            this.service.lpsClick=0;
             this.service.logoutClick=0;
             this.service.windowTabClick=0;
             // setTimeout(() => {
@@ -476,9 +476,9 @@ export class LpsSeperationDistanceComponent implements OnInit {
             this.popup=true;
             this.spinner=false;
             this.Error = true;
-            this.errorArr = [];
-            this.errorArr = JSON.parse(error.error);
-            this.errorMsg = this.errorArr.message;
+            // this.errorArr = [];
+            // this.errorArr = JSON.parse(error.error);
+            this.errorMsg = this.service.globalErrorMsg;
             this.proceedNext.emit(false);
           });
       }

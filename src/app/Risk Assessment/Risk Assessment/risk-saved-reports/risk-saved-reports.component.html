@@ -1,10 +1,13 @@
 
 <div class="card">
     <div class="card-body">
+      <div *ngIf="globalError" style="text-align: center;">
+        <span class="alert alert-danger">{{globalErrorMsg}}</span>
+      </div>
        <!-- Filter Tag -->
        <mat-form-field appearance="standard" style=" font-size: 14px;width: 30%;">
-        <mat-label>Filter Client</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Client Name" #input>
+        <mat-label>Filter Organization</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Organization Name" #input>
       </mat-form-field>
 
       <span *ngIf="deleteSuccess" class="successshow" style="margin-left: 120px;">{{deleteSuccessMsg}}</span>
@@ -62,8 +65,8 @@
                 <mat-icon class="material-icons-outlined-info info" (click)="continue(element.riskId)" title="Edit this Record"
                 style="color: #17a2b8;cursor: pointer;">edit</mat-icon>
 
-                <!-- <mat-icon class="material-icons-outlined-danger delete" (click)="deleteBasicRisk(element.riskId)" *ngIf="enableDelete" title="Delete The Record"
-                style="margin-left: 1rem;cursor: pointer;">delete</mat-icon> -->
+                <mat-icon class="material-icons-outlined-danger delete" (click)="deleteBasicRisk(element.riskId)" *ngIf="enableDelete" title="Delete The Record"
+                style="margin-left: 1rem;cursor: pointer;">delete</mat-icon>
                 
             </td>
         </ng-container>

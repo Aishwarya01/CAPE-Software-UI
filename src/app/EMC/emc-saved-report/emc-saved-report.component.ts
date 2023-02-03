@@ -1,5 +1,4 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { EmcFacilityData } from 'src/app/EMC_Model/emc-facility-data';
 import { MatInput } from '@angular/material/input';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -8,9 +7,9 @@ import { ActivatedRoute } from '@angular/router';
 import { GlobalsService } from 'src/app/globals.service';
 import { EmcSavedReportService } from 'src/app/EMC_Services/emc-saved-report.service';
 import { EmcClientDetails } from 'src/app/EMC_Model/emc-client-details';
-import { environment } from 'src/environments/environment';
 import { SuperAdminDev } from 'src/environments/environment.dev';
 import { SuperAdminProd } from 'src/environments/environment.prod';
+import { LicenselistComponent } from 'src/app/licenselist/licenselist.component';
 
 
 @Component({
@@ -58,10 +57,16 @@ export class EmcSavedReportComponent implements OnInit {
   deleteSuccessMsg: String = '';
   superAdminDev = new SuperAdminDev();
   superAdminProd = new SuperAdminProd();
+  Error: boolean=false;
+  errorMsg: string="";
+  deleteError: boolean=false;
+  deleteErrorMsg: string="";
+  disablepage: boolean=true;
  
    constructor(private router: ActivatedRoute,
                public service: GlobalsService,
                public emcSavedReportService: EmcSavedReportService,
+               public licenselist: LicenselistComponent,
    ) { 
      this.email = this.router.snapshot.paramMap.get('email') || '{}'
    }
@@ -115,9 +120,16 @@ export class EmcSavedReportComponent implements OnInit {
           this.emcData = [];
           this.savedReportEmc_dataSource.paginator = this.savedReportEmcPaginator;
           this.savedReportEmc_dataSource.sort = this.savedReportEmcSort;
+        },
+        error=>{
+          this.Error = true;
+          this.errorMsg = this.service.globalErrorMsg;
+          setTimeout(()=>{
+            this.Error = false;
+          }, 20000);
         });
     }
-    else {
+    else if(this.currentUser1.role=='Inspector') {
       this.emcSavedReportService.retrieveListOfClientDetails(this.email).subscribe(
         data => {
           this.emcData=JSON.parse(data);
@@ -131,19 +143,53 @@ export class EmcSavedReportComponent implements OnInit {
           this.emcData = [];
           this.savedReportEmc_dataSource.paginator = this.savedReportEmcPaginator;
           this.savedReportEmc_dataSource.sort = this.savedReportEmcSort;
+        },
+        error=>{
+          this.Error = true;
+          this.errorMsg = this.service.globalErrorMsg;
+          setTimeout(()=>{
+            this.Error = false;
+          }, 20000);
+        });
+    } 
+    // Viewer configuration
+    else {
+      this.emcSavedReportService.retriveEMCIsActive(this.email).subscribe(
+        data => {
+          this.emcData=JSON.parse(data);
+            if(this.emcData.allStepsCompleted != "AllStepCompleted" && this.emcData.status != 'InActive'){
+              this.completedFilterData.push(this.emcData);
+            }
+          this.savedReportEmc_dataSource = new MatTableDataSource(this.completedFilterData);
+          this.completedFilterData = [];
+          this.emcData = [];
+          this.savedReportEmc_dataSource.paginator = this.savedReportEmcPaginator;
+          this.savedReportEmc_dataSource.sort = this.savedReportEmcSort;
+        },
+        error=>{
+          this.Error = true;
+          this.errorMsg = this.service.globalErrorMsg;
+          setTimeout(()=>{
+            this.Error = false;
+          }, 20000);
         });
     }
    }
  
    continue(emcId: any,clientName: any) {
-    this.savedReportBody = false;
-    this.savedReportSpinner = true;
-    this.spinnerValue = "Please wait, the details are loading!";
-    //this.service.commentScrollToBottom=1;
-  //  this.service.allFieldsDisable = false;
-   // this.service.disableSubmitSummary=false;
-     this.savedReportEvent.emit({emcId,clientName,flag: true});
-     //this.emcParent.continue(emcId,clientName,true);
+    if(this.service.triggerMsgForLicense=='emcPage'){
+      this.licenselist.editEmckData(emcId);
+    }else{
+      this.savedReportBody = false;
+      this.savedReportSpinner = true;
+      this.disablepage=false;
+      this.spinnerValue = "Please wait, the details are loading!";
+      //this.service.commentScrollToBottom=1;
+      //  this.service.allFieldsDisable = false;
+      // this.service.disableSubmitSummary=false;
+      this.savedReportEvent.emit({emcId,clientName,flag: true});
+      //this.emcParent.continue(emcId,clientName,true);}
+    }
    } 
 
    deleteBasicEmc(emcId:any){
@@ -151,18 +197,28 @@ export class EmcSavedReportComponent implements OnInit {
     this.emcClientDetails.userName = this.email;
     this.savedReportBody = false;
     this.savedReportSpinner = true;
+    this.disablepage=false;
     this.spinnerValue = "Please wait, the details are loading!";
-    this.emcSavedReportService.updateLpsBasicDetailsStatus(this.emcClientDetails).subscribe(
+    this.emcSavedReportService.updateClientDetailsStatus(this.emcClientDetails).subscribe(
       data => {
         this.deleteSuccess = true;
         this.deleteSuccessMsg = data;
         this.ngOnInit();
+        this.disablepage=true;
         this.savedReportBody = true;
         this.savedReportSpinner = false;
         setTimeout(() => {
           this.deleteSuccess = false;
           this.deleteSuccessMsg = '';
-          }, 2000);
+        }, 2000);
+      },
+      error=>{
+        this.deleteError=true;
+        this.deleteErrorMsg=this.service.globalErrorMsg;
+        setTimeout(() => {
+          this.deleteError = false;
+          this.deleteErrorMsg = '';
+        }, 2000);
       }
     )
    }

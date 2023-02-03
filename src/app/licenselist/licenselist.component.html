@@ -1,47 +1,89 @@
+
 <ng-template #ref ></ng-template>
 <app-verificationlv *ngIf="value" #verify></app-verificationlv>
+<app-lps-matstepper *ngIf="lpsStepper" #lpsNav></app-lps-matstepper>
+<app-risk-parent-component *ngIf="riskStepper" #riskNav></app-risk-parent-component>
+<app-emc-matstepper *ngIf="emcStepper" #emcNav></app-emc-matstepper>
 <div class="card" *ngIf="!destroy">
     <div class="card-body" >
         <form [formGroup]="licenseForm" >
             <mat-accordion>
-                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                    <mat-expansion-panel-header>
-                      <mat-panel-title>
-                        <h3>Unused License</h3>
-                      </mat-panel-title>
-                    </mat-expansion-panel-header>
-    
-                      <div class="row">
-                        <div class="col-md-3">
-                             <div class="form-group"> <!--//aish -->
-                                <label>No of available License:</label>
-                                <input type="text" class="form-control" ([ngModel])="service.noofLicense" formControlName="noOfAvailableLicense" readonly [value]="service.noofLicense">
-                            </div>
+              <!-- License Accordian -->
+              <mat-expansion-panel (opened)="panelOpenState2(true)" (closed)="panelOpenState2(false)" [(expanded)]="service.toggle" *ngIf="service.licenseHide">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <!-- <h3>Unused License</h3> -->
+                    <h3>{{licensePageHeading}}</h3>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <!-- ErrorMsg -->
+                <div class="centre-text m-btm30">
+                  <div *ngIf="errorLPS" style="text-align: center;">
+                     <span class="alert alert-danger">{{errorMsg}}</span>
+                  </div>
+                  <div *ngIf="errorLV" style="text-align: center;">
+                    <span class="alert alert-danger">{{errorMsg}}</span>
+                  </div>
+                  <div *ngIf="errorRisk" style="text-align: center;">
+                    <span class="alert alert-danger">{{errorMsg}}</span>
+                  </div>
+                  <div *ngIf="errorEmc" style="text-align: center;">
+                    <span class="alert alert-danger">{{errorMsg}}</span>
+                  </div>
+                </div>
+
+                  <div class="row">
+                    <div class="col-md-3">
+                         <div class="form-group"> <!--//aish -->
+                            <label>No of available License:</label>
+                            <input type="text" class="form-control" [(ngModel)]="service.noofLicense" formControlName="noOfAvailableLicense" readonly [value]="service.noofLicense">
                         </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <button class="btn" [hidden]="service.noofLicense<=0" (click)=decreaseLicense() 
+                            style="margin-top: 28px;background-color: #0f800c;color: white;">Use</button>
+                        </div>
+                    </div>
     
-                        <div class="col-md-3">
+                        <div class="col-md-6"  *ngIf="capeIndiaMail && service.noofLicense == 0">
                             <div class="form-group">
-                                <button class="btn btn-primary" [disabled]="service.noofLicense<=0" (click)=decreaseLicense() style="margin-top: 28px;">Use</button>
+                                <button class="btn"(click)=purchaseLicense() 
+                                style="margin-top: 28px;background-color: #0f800c;color: white;">Get Complimentary Licenses</button>
                             </div>
                         </div>
-    
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <button class="btn btn-primary" [disabled]="service.noofLicense!=0" (click)=purchaseLicense() style="margin-top: 28px;">Get Complimentary Licenses</button>
-                            </div>
-                        </div>
+                        <div class="col-md-3" *ngIf="!capeIndiaMail && service.noofLicense == 0">
+                          <div class="form-group">
+                              <button class="btn btn-primary"  style="margin-top: 28px;"  (click)=createPayment() >ObtainLicense</button>
+                          </div>
+                      </div>
                       </div>
                 </mat-expansion-panel>    
-    
-                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+
+              <ng-container *ngIf="lvData">
+                <mat-expansion-panel (opened)="panelOpenState1(true)" (closed)="panelOpenState1(false)">
                     <mat-expansion-panel-header>
-                      <mat-panel-title>
+                      <!-- Lv Systems -->
+                      <mat-panel-title *ngIf="lvData">
                         <h3>Ongoing Site</h3>
                       </mat-panel-title>
                     </mat-expansion-panel-header>
+                  <!-- Error Msg -->
+                  <div class="centre-text m-btm30" style="margin-bottom: 2rem;">
+                    <div *ngIf="errorSite" style="text-align: center;">
+                      <span class="alert alert-danger">{{errorMsg}}</span>
+                  </div>
+                  </div>
 
+                  <mat-form-field appearance="standard" style=" font-size: 14px;width: 30%;">
+                    <mat-label>Filter Sites</mat-label>
+                    <input matInput (keyup)="applyFilter1($event)" (focus)="applyFilter(siteName)" placeholder="Ex. ium" #input="matInput" [(ngModel)]="siteName">
+                  </mat-form-field>
                     <table mat-table [dataSource]="ongoingSite_dataSource" class="mat-elevation-z8 table" matSort
                 #ongoingSiteSort="matSort">
+
+
 
                 <!--- Note that these columns can be defined in any order.
                             The actual rendered columns are set as a property on the row definition" -->
@@ -117,28 +159,43 @@
 
                 <tr mat-header-row *matHeaderRowDef="ongoingSiteColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: ongoingSiteColumns;" title="Click here to edit Site details" 
-                (click)="editSite(row.siteId,row.userName,row.site,row.departmentName,row.companyName)" style="cursor: pointer;"
+                (click)="editSite(row.siteId,row.userName,row.site,row.departmentName,row.companyName,row.allStepsCompleted,row)" style="cursor: pointer;"
                   [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (mouseover)="row.hovered = true"
                   (mouseout)="row.hovered = false"></tr>
+
+                <!-- Row shown when there is no matching data. -->
+                <tr class="mat-row" *matNoDataRow>
+                  <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                </tr>
 
               </table>
               <mat-paginator #ongoingSitePaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
                 </mat-expansion-panel>
     
-                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel (opened)="panelOpenState3(true)" (closed)="panelOpenState3(false)">
                     <mat-expansion-panel-header>
                       <mat-panel-title>
                         <h3>Completed License</h3>
                       </mat-panel-title>
         
                     </mat-expansion-panel-header>
+                  <!-- Error Msg -->
+                  <div class="centre-text m-btm30" style="margin-bottom: 2rem;">
+                    <div *ngIf="errorSite" style="text-align: center;">
+                      <span class="alert alert-danger">{{errorMsg}}</span>
+                    </div>
+                  </div>
 
-                    <table mat-table [dataSource]="completedLicense_dataSource" class="mat-elevation-z8 table" matSort
-                #completedLicenseSort="matSort">
+                  <mat-form-field appearance="standard" style=" font-size: 14px;width: 30%;">
+                    <mat-label>Filter Sites</mat-label>
+                    <input matInput (keyup)="applyFilterFinal($event)" placeholder="Ex. ium" #input>
+                  </mat-form-field>
+
+                  <table mat-table [dataSource]="completedLicense_dataSource" class="mat-elevation-z8 table" matSort #completedLicenseSort="matSort">
 
                 <!--- Note that these columns can be defined in any order.
                             The actual rendered columns are set as a property on the row definition" -->
-
+                  
                 <!-- Position Column -->
                 
                 <ng-container matColumnDef="siteCd">
@@ -228,11 +285,16 @@
                 <tr mat-header-row *matHeaderRowDef="completedLicenseColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: completedLicenseColumns; "
                   [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (mouseover)="row.hovered = true"
-                  (mouseout)="row.hovered = false"></tr>
-
+                  (mouseout)="row.hovered = false">
+                </tr>
+                <!-- Row shown when there is no matching data. -->
+                <tr class="mat-row" *matNoDataRow>
+                  <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                </tr>
               </table>
 
               <mat-paginator #completedLicensePaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
               <div class="centre-text m-btm30">
                 <div *ngIf="success" style="text-align: center;">
                   <span class="successshow">{{successMsg}}</span>
@@ -240,11 +302,89 @@
                  <div *ngIf="Error" style="text-align: center;">
                    <span class="errorshow">{{errorMsg}}</span>
                   </div>
-                     </div>
+              </div>
                 </mat-expansion-panel>
+              </ng-container>
+
+              <!-- LPS Systems -->
+              <ng-container *ngIf="lpsData">
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title *ngIf="lpsData">
+                        <h3>Ongoing LPS License Details</h3>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div>
+                      <app-lps-saved-report></app-lps-saved-report>
+                    </div>
+                </mat-expansion-panel>
+    
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        <h3>Completed LPS License</h3>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div>
+                      <app-lps-final-report></app-lps-final-report>
+                    </div>
+                </mat-expansion-panel>
+              </ng-container>
+
+              <!-- Risk Assessment -->
+              <ng-container *ngIf="riskData">
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header>
+                      <!-- LPS -->
+                      <mat-panel-title *ngIf="riskData">
+                        <h3>Ongoing Risk Assessment Details</h3>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div>
+                      <app-risk-saved-reports></app-risk-saved-reports>
+                    </div>
+                </mat-expansion-panel>
+    
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        <h3>Completed Risk Assessment License</h3>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div>
+                      <app-risk-final-reports></app-risk-final-reports>
+                    </div>
+                </mat-expansion-panel>
+              </ng-container>
+
+              <!-- EMC Assessment  -->
+              <ng-container *ngIf="emcData">
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header>
+                      <!-- EMC -->
+                      <mat-panel-title *ngIf="emcData">
+                        <h3>Ongoing EMC Assessment Details</h3>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div>
+                      <app-emc-saved-report></app-emc-saved-report>
+                    </div>
+                </mat-expansion-panel>
+    
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        <h3>Completed EMC Assessment License</h3>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div>
+                      <app-emc-final-report></app-emc-final-report>
+                    </div>
+                </mat-expansion-panel>
+              </ng-container>
+
             </mat-accordion>
     
         </form>
     </div>
 </div>
-

@@ -3,10 +3,9 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Valida
 import { ActivatedRoute,Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
-import { arrow90DegDown } from 'ngx-bootstrap-icons';
+import { GlobalsService } from '../globals.service';
 import { ChangeContact } from '../model/change-contact';
 import { Register } from '../model/register';
-import { User } from '../model/user';
 import { ApplicationTypeService } from '../services/application.service';
 import { InspectorregisterService } from '../services/inspectorregister.service';
 import { ProfileService } from '../services/profile.service';
@@ -65,10 +64,11 @@ export class ProfileComponent implements OnInit {
   isChecked: boolean = false;
   countryCode: String = '';
   contactNumber: string = '';
-  disableValue: boolean = true;
+  disableValue: boolean = false;
 
   dropdownList:any = [];
   selectedItems:any = [];
+  permissions:any ;
   //dropdownSettings:any = {};
   dropdownSettings!:IDropdownSettings;
   mobileArr: any = [];
@@ -85,6 +85,9 @@ export class ProfileComponent implements OnInit {
   mobileSuccessMsg: string = '';
   changeContact = new ChangeContact;
 
+  // Spinner 
+  spinner: boolean=true;
+  spinnerMsg: String="";
 
   //otp page
   formInput = ['input1', 'input2', 'input3', 'input4', 'input5', 'input6'];
@@ -102,6 +105,10 @@ export class ProfileComponent implements OnInit {
   contactNo!: any;
   arr :any = [];
   pincodeErrorMsg: String='';
+  selectedCodeName: any= [];
+  appendCodeNameArr: any=[];
+  repoPermission: any;
+  selectedCodeNameCount:number=0
 
   constructor(
     private formBuilder: FormBuilder,
@@ -111,6 +118,7 @@ export class ProfileComponent implements OnInit {
     private siteService: SiteService,
     private applicationService: ApplicationTypeService,
     private modalService: NgbModal,
+    private serice: GlobalsService,
     private inspectorRegisterService: InspectorregisterService
     ) {
       this.changeContactNumberForm = this.toFormGroup(this.formInput);
@@ -121,22 +129,52 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.countryCode = '91';
     this.mobileArr = [];
-    this.profileService.getUser(this.register.username).subscribe(
-      data =>{ this.register= JSON.parse(data);
-      if(this.register.applicationType != null) {
-        this.selectedItems = this.register.applicationType.split(',');
+
+    this.spinner=true;
+    this.spinnerMsg="Please wait, Details are Loading";
+     
+      this.applicationService.retrieveApplicationTypesV2().subscribe(
+        data => {
+          this.dropdownList = data;
+        }     
+      );
+      setTimeout(() => {
+      this.profileService.getUser(this.register.username).subscribe(
+        data =>{ 
+        this.register= JSON.parse(data);
+        if(this.register.applicationType != null && this.register.permission !=null &&
+           (this.register.permission !='YES' || this.register.permission != 'Yes')) {
+          this.selectedItems = this.register.applicationType.split(',');
+          this.permissions = this.register.permission.split(',');
+          for(let i of this.selectedItems) {
+            for(let permission of this.register.permission.split(',')) {
+            if(permission.split('-')[0] == i && permission.split('-')[1] != 'R' ){
+              this.appendCodeName(i);
+            }
+         
+          }
+        }
+      }else{
+        for(let application of this.register.applicationType.split(',')) { 
+            this.appendCodeName(application);
+        }
       }
       //this.mobileArr= this.register.contactNumber.split('-');
-      setTimeout(()=>{
-        this.populateForm();
-      }, 1000);
-      }
-    )
-    this.applicationService.retrieveApplicationTypesV2().subscribe(
-      data => {
-        this.dropdownList = data;
-      }     
-    );
+        setTimeout(()=>{
+          this.populateForm();
+          this.spinner=false;
+          this.spinnerMsg="";
+        }, 1000);
+        }
+      )
+      }, 3000);
+
+    
+    // this.applicationService.retrieveApplicationTypesV2().subscribe(
+    //   data => {
+    //     this.dropdownList = data;
+    //   }     
+    // );
 
     this.dropdownSettings = {
       singleSelection: false,
@@ -228,6 +266,15 @@ export class ProfileComponent implements OnInit {
   onItemSelect(e: any) {
 
   }
+  appendCodeName(codeName: any) {
+    for(let i of this.dropdownList) {
+      if(i.code == codeName) {
+        this.appendCodeNameArr = {"applicationName": i.applicationName,"code": codeName,"id": i.id,"type": i.type}
+        this.selectedCodeName.push(this.appendCodeNameArr);
+        this.selectedCodeNameCount = this.selectedCodeNameCount +1;
+      }
+    }  
+  }
 
   populateForm() {
     this.profileForm = this.formBuilder.group({
@@ -266,6 +313,7 @@ export class ProfileComponent implements OnInit {
       this.arr=[];
       this.arr.push(Validators.required);
     }
+   this.repoPermission = this.register.permission;
     return new FormGroup({
     name: new FormControl(this.register.name, Validators.required),
     email: new FormControl(this.register.username),
@@ -357,7 +405,68 @@ export class ProfileComponent implements OnInit {
 
     this.register.contactNumber = this.profileForm.controls.profileArr.value[0].contactNumber;
 
-    this.profileService.updateRegister(this.register).subscribe(
+    this.applicationTypeData = "";
+
+    if(this.profileForm.controls.profileArr.value[0].applicationType != undefined) {
+      for(let i of this.profileForm.controls.profileArr.value[0].applicationType) {
+        if(i.code != "") {
+          this.applicationTypeData += i.code+",";
+        }
+      }
+      this.applicationTypeData = this.applicationTypeData.replace(/,\s*$/, "");
+      this.register.applicationType = this.applicationTypeData;
+    }
+    let adminApproveRequired = false;
+    let permission = "";
+    let status = "-U";
+    for (let application of this.selectedCodeName) {
+      let flag = true;
+         if(this.register.permission != "YES"){
+          status = "-A"
+          for (let repermission of this.register.permission.split(',')) {
+            if (application.code == repermission.split('-')[0] && repermission.split('-')[1] != 'R') {
+              flag = false;
+              permission += repermission + ",";
+            }
+          }
+         }
+      if (flag) {
+        permission += application.code+status+",";
+        adminApproveRequired = true;
+      }
+    }
+    permission = permission.replace(/,\s*$/, "");
+
+    let deletedapplication = ""
+    for (let value of this.register.permission.split(',')) {
+      let flag = true;
+      for (let permissions of permission.split(',')) {
+        if (permissions.split('-')[0] == value.split('-')[0]) {
+          flag = false;
+        }
+      }
+      if (flag) {
+        if (value.split('-')[1] == 'R') {
+          deletedapplication += value + ","
+        }
+        else {
+          deletedapplication += value.split('-')[0] + "-R,"
+          adminApproveRequired = true;
+        }
+      }
+    }
+    deletedapplication = deletedapplication.replace(/,\s*$/, "");
+
+    if (deletedapplication.split(',').length > 1) {
+      this.register.permission = permission + "," + deletedapplication;
+    }
+    else {
+      this.register.permission = permission
+    }
+
+      // this.updateStatus();
+     
+     this.profileService.updateRegister(this.register,adminApproveRequired).subscribe(
       data=> {
         this.successMsgOTP=true;
         this.successMsg="You have successfully updated profile"
@@ -372,8 +481,8 @@ export class ProfileComponent implements OnInit {
       error => {
         this.loading= false;
         this.errorMsgflag=true;
-        this.errorArr = JSON.parse(error.error)
-        this.errorMsg=this.errorArr.message;
+        // this.errorArr = JSON.parse(error.error)
+        this.errorMsg=this.serice.globalErrorMsg;
         setTimeout(()=>{
           this.errorMsgflag=false;
           this.errorMsg=" ";
@@ -382,6 +491,67 @@ export class ProfileComponent implements OnInit {
     )
   
   }
+
+  updateStatus(){
+    let addPermissionStatus = '';
+     let permissionStatus = [];
+    let removeApplicationFlag = true;
+    // let removeApplication = '';  
+    if(this.selectedCodeName.length !=0){
+      for(let i of this.selectedCodeName) {
+        if(i.code != "") {
+          this.applicationTypeData += i.code+",";
+        } 
+        let flag = false;
+        for(let permission of  this.repoPermission.split(',')){
+            if(permission.split('-')[0] == i.code){
+              addPermissionStatus = addPermissionStatus+permission;
+              flag = true;
+              break;
+            }
+        }
+        if(!flag){
+          addPermissionStatus = addPermissionStatus+i.code+"-A,";
+        }
+      }
+      
+      addPermissionStatus = addPermissionStatus.replace(/,\s*$/, "");
+    } 
+    else{
+      removeApplicationFlag  = false;
+      for(let value of  this.applicationTypeData.split(',')){ 
+          addPermissionStatus = addPermissionStatus+value+"-R,";   
+      }
+      
+    this.register.permission = addPermissionStatus.replace(/,\s*$/, "");
+    } 
+    
+    let updateStatus='';
+    if(removeApplicationFlag && this.repoPermission.split(',')[0] !=''){
+      for(let permission of  this.repoPermission.split(',')) {
+        let flag = false;
+        for(let item of addPermissionStatus.split(',')){
+          if(item.split('-')[0] == permission.split('-')[0] ){
+            flag = true;
+            updateStatus = updateStatus + item+",";
+            break ;
+          } 
+        }
+        if(!flag){
+          updateStatus = updateStatus + permission.split('-')[0]+'-R,';
+        }
+      }
+      this.register.permission = updateStatus.replace(/,\s*$/, ""); 
+    }
+    else{
+      this.register.permission = addPermissionStatus; 
+    }
+   
+      this.applicationTypeData = this.applicationTypeData.replace(/,\s*$/, ""); 
+      this.register.applicationType = this.applicationTypeData; 
+  }
+
+
   
   cancel(contentViewer: any) {
     this.modalService.dismissAll();
@@ -439,10 +609,10 @@ export class ProfileComponent implements OnInit {
         }, 5000);
       },
       error => {
-        let errorArr = JSON.parse(error.error);
+        // let errorArr = JSON.parse(error.error);
         this.mobileLoading=false;
         this.mobileShowErrorMessage=true;
-        this.mobileErrorMsg =errorArr.message;
+        this.mobileErrorMsg =this.serice.globalErrorMsg;
         setTimeout(()=>{
           this.mobileShowErrorMessage=false;
           this.mobileErrorMsg = "";
@@ -483,9 +653,9 @@ export class ProfileComponent implements OnInit {
         }, 3000);
       },
       error => {
-        let errorJSON= JSON.parse(error.error);
+        // let errorJSON= JSON.parse(error.error);
         this.showErrorMessage=true;
-        this.OTPerrorMsg=errorJSON.message;
+        this.OTPerrorMsg=this.serice.globalErrorMsg;
         this.OTPerrorMsgflag=true;
         setTimeout(()=>{
           this.showErrorMessage=false;

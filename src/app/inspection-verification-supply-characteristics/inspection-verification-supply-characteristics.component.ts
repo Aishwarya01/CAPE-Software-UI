@@ -354,6 +354,10 @@ export class InspectionVerificationSupplyCharacteristicsComponent
   observationAlternateArr: any= [];
   finalSpinner: boolean = true;
   popup: boolean = false;
+  commentError: boolean=false;
+  commentErrorMsg: string="";
+  commentApproveEroor: boolean=false;
+  commentApproveEroorMsg: string="";
 
   constructor(
     private supplyCharacteristicsService: SupplyCharacteristicsService,
@@ -1529,6 +1533,12 @@ showHideAccordion(index: number) {
        this.hideDelete=false;
         },
         (error) => {
+          this.commentError=true;
+          this.commentErrorMsg=this.service.globalErrorMsg;
+          setTimeout(() => {
+            this.commentError=false;
+            this.commentErrorMsg="";
+          }, 3000);
         }
       )  
   }
@@ -1547,6 +1557,12 @@ showHideAccordion(index: number) {
       // this.basic.notification(0,'viewerUserName','inspectorUserName','viewerDate','inspectorDate');
         },
         (error) => {
+          this.commentError=true;
+          this.commentErrorMsg=this.service.globalErrorMsg;
+          setTimeout(() => {
+            this.commentError=false;
+            this.commentErrorMsg="";
+          }, 3000);
         }
       )  
   }
@@ -1572,6 +1588,12 @@ showHideAccordion(index: number) {
        //this.basic.notification(0,'viewerUserName','inspectorUserName','viewerDate','inspectorDate');
         },
         (error) => {
+          this.commentApproveEroor=false;
+          this.commentApproveEroorMsg=this.service.globalErrorMsg;
+          setTimeout(() => {
+            this.commentApproveEroor=false;
+            this.commentApproveEroorMsg=this.service.globalErrorMsg;
+          }, 3000);
         }
       )  
     //  this.refreshComment('success');
@@ -1590,13 +1612,14 @@ showHideAccordion(index: number) {
         this.commentReject=true;
         setTimeout(()=>{
           this.commentReject=false;
-     }, 3000);
-     this.hideapprove=false;
-     this.hideapproveIcon=false;
-     this.basic.newNotify();
-     //this.basic.notification(0,'viewerUserName','inspectorUserName','viewerDate','inspectorDate');
+      }, 3000);
+      this.hideapprove=false;
+      this.hideapproveIcon=false;
+      this.basic.newNotify();
+      //this.basic.notification(0,'viewerUserName','inspectorUserName','viewerDate','inspectorDate');
       },
       (error) => {
+
       }
     )  
 }
@@ -1665,7 +1688,7 @@ showHideAccordion(index: number) {
          this.disableSend = false;
       },
       (error) => {
-   
+        
       })
     }
   //  retrieveFromObservationSupply(data:any){
@@ -1729,7 +1752,14 @@ showHideAccordion(index: number) {
       for (let item of value.supplyParameters) { 
         this.sources=true;    
         this.breaker=true;
-        this.alArr.push(this.createGroupAl(item));
+        let supplyparam = this.createGroupAl(item);
+        if(item.aLSystemEarthing=='Others'){
+          this.enableBriefNote(item.aLSystemEarthing,supplyparam);
+        }
+        else{
+          this.enableBriefNote(item.aLSystemEarthing,supplyparam);
+        }
+        this.alArr.push(supplyparam);
       }
       for (let item of value.supplyParameters) { 
         this.tableAC=true;    
@@ -3889,13 +3919,13 @@ showHideAccordion(index: number) {
           this.finalSpinner=false;
           this.Error = true;
           this.service.isCompleted2= false;
-        this.service.isLinear=true;
-          this.errorArr = [];
-          this.errorArr = JSON.parse(error.error);
-          if(this.errorArr.message =='multiple points'){
+          this.service.isLinear=true;
+          // this.errorArr = [];
+          // this.errorArr = JSON.parse(error.error);
+          if(this.service.globalErrorMsg =='multiple points'){
             this.errorMsg = 'Please fill valid values for AC Table'
           } else{
-            this.errorMsg = this.errorArr.message;
+            this.errorMsg = this.service.globalErrorMsg;
           }
         });
         }
@@ -3969,12 +3999,12 @@ else{
           this.finalSpinner=false;
           this.Error = true;
           this.proceedNext.emit(false);
-          this.errorArr = [];
-          this.errorArr = JSON.parse(error.error);
-          if(this.errorArr.message =='multiple points'){
+          // this.errorArr = [];
+          // this.errorArr = JSON.parse(error.error);
+          if(this.service.globalErrorMsg =='multiple points'){
             this.errorMsg = 'Please fill valid values for AC Table'
           } else{
-            this.errorMsg = this.errorArr.message;
+            this.errorMsg = this.service.globalErrorMsg;
           }
           this.service.isCompleted2= false;
           this.service.isLinear=true;

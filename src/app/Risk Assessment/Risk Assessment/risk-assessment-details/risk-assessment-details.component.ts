@@ -1,17 +1,19 @@
-import { UpperCasePipe } from '@angular/common';
-import { Component, EventEmitter, Injectable, OnInit, Output, ViewChild } from '@angular/core';
-import { AbstractControl, Form, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { arrow90DegDown } from 'ngx-bootstrap-icons';
-import { from, Observable } from 'rxjs';
 import { GlobalsService } from 'src/app/globals.service';
+import { SuperAdminDev } from 'src/environments/environment.dev';
+import { SuperAdminProd } from 'src/environments/environment.prod';
+import { CustomerDetails } from '../../Risk Assesment Model/customer-details';
 import { RiskAssessmentDetails } from '../../Risk Assesment Model/risk-assessment-details';
+import { CustomerDetailsServiceService } from '../../Risk Assessment Services/customer-details-service.service';
 import { RiskAssessmentDetailsServiceService } from '../../Risk Assessment Services/risk-assessment-details-service.service';
 import { RiskfinalpdfService } from '../../Risk Assessment Services/riskfinalpdf.service';
 import { RiskglobalserviceService } from '../../riskglobalservice.service';
-import { RiskCustomerDetailsComponent } from '../risk-customer-details/risk-customer-details.component';
 import { RiskParentComponentComponent } from '../risk-parent-component/risk-parent-component.component';
+import { RiskAssessmentConstants } from '../risk_assessment_constants/risk-assessment-constants';
 
 @Component({
   selector: 'app-risk-assessment-details',
@@ -47,13 +49,14 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   success1: boolean=false;
   errorArr: any=[];
   @Output() proceedNext = new EventEmitter<any>();
+  @Output() navigateStepSummary: EventEmitter<any> = new EventEmitter();
   riskList: any=[];
-  isEditable: any;
   disable: boolean=false;
   popArray: any = [];
   riskId: Number=0;
   locationRtr: String = "";
   getLocation: String='';
+  groundFlashDensityGet: any;
   tabError: boolean = false;
   tabErrorMsg: string = "";
   tabError1: boolean = false;
@@ -78,7 +81,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   updateButton: boolean=false;
   saveButton: boolean=true;
   riskInputValue: any;
-  enablePrint: boolean = false;
+  enableSubmit: boolean = false;
   projectName: any = '';
   organisationName: any='';
   originalData: any = [];
@@ -94,45 +97,129 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   successPdf: boolean=false;
   errorPdf: boolean=false;
 
+  // Risk assessment constants
+  riskAssessmentConstants = new RiskAssessmentConstants(); 
+  gfdValueArr: any=[];
+  valueGFD: any;
+  // dirtyCheck: boolean=false;
+  // dirtyMsg: String="";
+  gfdDirtyCheckSts: boolean=false;
+  step2DirtyCheck: boolean=false;
+  ste2present: boolean=false;
+  selectedIndex: number=0;
+  // Super Admin
+  email: String = '';
+  riskConstDev = new SuperAdminDev();
+  riskConstProd = new SuperAdminProd();
+  submittedButton: boolean = true;
+
+  // From final report
+  isEditable: boolean=false;
+  buttonType: boolean=false;
+  customerDetailsModel = new CustomerDetails;
+  dataArr: any;
+  buttonName: string="";
+  fileFlag:boolean=false;
+  finalSpinner: boolean=false;
+  finalSubmit: boolean=false;
+  successMsgArr: any;
+
   constructor(private router: ActivatedRoute,
               private formBuilder: FormBuilder,
               private modalService: NgbModal,
+              private dialog: MatDialog,
               private riskAssessmentService: RiskAssessmentDetailsServiceService,
               public riskGlobal: RiskglobalserviceService, 
               public service: GlobalsService,
-              private riskfinalpdfService: RiskfinalpdfService
-  ) { }
+              private riskfinalpdfService: RiskfinalpdfService,
+              private parentComponent: RiskParentComponentComponent,
+              private customerDetailsService :CustomerDetailsServiceService
+  ) { 
+    this.email = this.router.snapshot.paramMap.get('email') || '{}'
+    for( let i=0; i<this.riskConstDev.riskAdminEmail.length; i++){
+      if(this.riskConstDev.riskAdminEmail[i] == this.email)
+      {
+        this.submittedButton = false;
+      }
+    }
+    for( let i=0; i<this.riskConstProd.riskAdminEmail.length; i++){
+      if(this.riskConstProd.riskAdminEmail[i] == this.email)
+      {
+        this.submittedButton = false;
+      }
+    }
+   }
 
   ngOnInit(): void {
+                // Fetching location list 
+                // this.locationList = this.riskAssessmentConstants.locationName;
+                // this.riskAssessmentService.fetchLocation().subscribe(
+                //   data=> {
+                //     this.originalData = JSON.parse(data);
+                //     this.locationList = [];
 
-    // Fetching location list 
-    this.locationList = [];
-    this.riskAssessmentService.fetchLocation().subscribe(
-      data=> {
-        this.originalData = JSON.parse(data);
-        this.locationList = [];
-        for(let i of this.originalData){
-          if(i.location == 'Others') {
-            this.locationList.push(i);
-          }
+      // Fecting location names from constant class
+      this.locationList = [];
+      for(let i of this.riskAssessmentConstants.locationName){
+        if(i.location == 'Others') {
+          this.locationList.push(i);
         }
-
-        for(let j of this.originalData) {
-          if(j.location != 'Others') {
-            this.locationList.push(j);
-          }
+      }
+      for(let j of this.riskAssessmentConstants.locationName) {
+        if(j.location != 'Others') {
+          this.locationList.push(j);
         }
-        
-       // this.locationList = JSON.parse(data);
-      })
+      }
+      this.locationList.sort((a: any, b: any) => (a.location > b.location) ? 1 : -1);
 
-    this.step2Form = this.formBuilder.group({
-      structureCharacters: this.formBuilder.array([this.structureCharactersForm()])
-    });
+      this.step2Form = this.formBuilder.group({
+        structureCharacters: this.formBuilder.array([this.structureCharactersForm()])
+      });
+                    // setTimeout(() => {
+                    //   this.migratedData('',this.step2Form);
+                    // }, 3000);
+  }
 
-    setTimeout(() => {
-      this.migratedData('',this.step2Form);
-    }, 4000);
+  gdValueEvent(item:any,form:any){
+    this.gfdValueArr = this.riskAssessmentConstants.locationName;
+    for(let arr of this.gfdValueArr){
+
+      if(arr.location == this.getLocation && arr.gfdValue!=parseFloat(this.groundFlashDensityGet)){
+        this.riskGlobal.dirtyCheck=true;
+        this.riskGlobal.dirtyMsg="Your 'Ground flash density value' has been updated as per standards, Please click update button";
+        form.controls.structureCharacters.controls[0].controls.groundFlashDensity.setValue(arr.gfdValue);
+        this.gfdDirtyCheckSts=true;
+        this.gfdDirtyCheck(form);
+
+        setTimeout(() => {
+          this.riskGlobal.dirtyCheck=false;
+          this.riskGlobal.dirtyMsg="";
+        }, 10000);
+        }
+    }
+  } 
+
+  gfdDirtyCheck(form:any){
+    if(this.gfdDirtyCheckSts && this.step2DirtyCheck){
+      this.step2DirtyCheck=false;
+      this.gfdDirtyCheckSts=false;
+      this.step2Form.markAsDirty();
+      this.step2Form.markAllAsTouched();
+    }
+    else if(this.ste2present && this.riskGlobal.presentedStep==1){
+      this.ste2present=false;
+      this.gfdDirtyCheckSts=false;
+      this.step2DirtyCheck=false;
+      this.step2Form.markAsDirty();
+      this.step2Form.markAllAsTouched();
+    }
+    else if(this.parentComponent.nextButtonClicked==true){
+      this.ste2present=false;
+      this.gfdDirtyCheckSts=false;
+      this.step2DirtyCheck=false;
+      this.step2Form.markAsDirty();
+      this.step2Form.markAllAsTouched();
+    }
   }
 
   structureCharactersForm() {
@@ -268,33 +355,32 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   private protectionForm(): FormGroup {
     return new FormGroup({
       // Loss of Human Life
-      // protectionId: new FormControl(''),
       protectionPEB: new FormControl(''),
-      protectionPMS: new FormControl(''),
-      protectionPM: new FormControl(''),
-      protectionPA: new FormControl(''),
-      protectionPC: new FormControl(''),
-      protectionPU: new FormControl(''),
-      protectionPV: new FormControl(''),
-      protectionPW: new FormControl(''),
-      protectionPZ: new FormControl(''),
+      protectionPMS: new FormControl('', Validators.required),
+      protectionPM: new FormControl('', Validators.required),
+      protectionPA: new FormControl('', Validators.required),
+      protectionPC: new FormControl('', Validators.required),
+      protectionPU: new FormControl('', Validators.required),
+      protectionPV: new FormControl('', Validators.required),
+      protectionPW: new FormControl('', Validators.required),
+      protectionPZ: new FormControl('', Validators.required),
 
       // RISK OF LOSS OF HUMAN BEINGS (R1)	
-      riskProtectionRA1: new FormControl(''),
-      riskProtectionRB1: new FormControl(''),
-      riskProtectionRC1: new FormControl(''),
-      riskProtectionRM1: new FormControl(''),
-      riskProtectionRU1: new FormControl(''),
-      riskProtectionRV1: new FormControl(''),
-      riskProtectionRW1: new FormControl(''),
-      riskProtectionRZ1: new FormControl(''),
+      riskProtectionRA1: new FormControl('', Validators.required),
+      riskProtectionRB1: new FormControl('', Validators.required),
+      riskProtectionRC1: new FormControl('', Validators.required),
+      riskProtectionRM1: new FormControl('', Validators.required),
+      riskProtectionRU1: new FormControl('', Validators.required),
+      riskProtectionRV1: new FormControl('', Validators.required),
+      riskProtectionRW1: new FormControl('', Validators.required),
+      riskProtectionRZ1: new FormControl('', Validators.required),
     
       // RB2
-      riskProtectionRB2: new FormControl(''),
+      riskProtectionRB2: new FormControl('', Validators.required),
 
       // RISK OF LOSS OF CULTURAL HERITAGE (R3)
-      culturalRB: new FormControl(''),
-      culturalRV: new FormControl(''),
+      culturalRB: new FormControl('', Validators.required),
+      culturalRV: new FormControl('', Validators.required),
 
     })
   }
@@ -302,23 +388,23 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   private riskProtectionForm(): FormGroup {
     return new FormGroup({
       // riskProtectionId: new FormControl(''),
-      riskProtectionRC2: new FormControl(''),
-      riskProtectionRM2: new FormControl(''),
-      riskProtectionRV2: new FormControl(''),
-      riskProtectionRW2: new FormControl(''),
-      riskProtectionRZ2: new FormControl(''),
+      riskProtectionRC2: new FormControl('', Validators.required),
+      riskProtectionRM2: new FormControl('', Validators.required),
+      riskProtectionRV2: new FormControl('', Validators.required),
+      riskProtectionRW2: new FormControl('', Validators.required),
+      riskProtectionRZ2: new FormControl('', Validators.required),
 
       // RISK OF LOSS OF ECONOMIC VALUE (R4), 
       // Insteed of the RA4 we gave econamicValueRA to econamicValueRZ upto RZ4
       
-      econamicValueRA: new FormControl(''),
-      econamicValueRB: new FormControl(''),
-      econamicValueRC: new FormControl(''),
-      econamicValueRM: new FormControl(''),
-      econamicValueRU: new FormControl(''),
-      econamicValueRV: new FormControl(''),
-      econamicValueRW: new FormControl(''),
-      econamicValueRZ: new FormControl(''),
+      econamicValueRA: new FormControl('', Validators.required),
+      econamicValueRB: new FormControl('', Validators.required),
+      econamicValueRC: new FormControl('', Validators.required),
+      econamicValueRM: new FormControl('', Validators.required),
+      econamicValueRU: new FormControl('', Validators.required),
+      econamicValueRV: new FormControl('', Validators.required),
+      econamicValueRW: new FormControl('', Validators.required),
+      econamicValueRZ: new FormControl('', Validators.required),
     })
   }
 
@@ -329,26 +415,27 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       lossOfCulturalHeritageRT3: new FormControl('1.00E-04'),
       economicLossRT4: new FormControl('1.00E-03'),
 
-      riskProtectionR1: new FormControl(''),
-      riskProtectionR2: new FormControl(''),
-      riskProtectionR3: new FormControl(''),
-      riskProtectionR4: new FormControl(''),
+      riskProtectionR1: new FormControl('',Validators.required),
+      riskProtectionR2: new FormControl('',Validators.required),
+      riskProtectionR3: new FormControl('',Validators.required),
+      riskProtectionR4: new FormControl('',Validators.required),
 
-      riskProtectionRD1: new FormControl(''),
-      riskProtectionRD2: new FormControl(''),
-      riskProtectionRD3: new FormControl(''),
-      riskProtectionRD4: new FormControl(''),
+      riskProtectionRD1: new FormControl('',Validators.required),
+      riskProtectionRD2: new FormControl('',Validators.required),
+      riskProtectionRD3: new FormControl('',Validators.required),
+      riskProtectionRD4: new FormControl('',Validators.required),
 
-      riskProtectionRI1: new FormControl(''),
-      riskProtectionRI2: new FormControl(''),
-      riskProtectionRI3: new FormControl(0),
-      riskProtectionRI4: new FormControl(''),
+      riskProtectionRI1: new FormControl('',Validators.required),
+      riskProtectionRI2: new FormControl('',Validators.required),
+      riskProtectionRI3: new FormControl(0,Validators.required),
+      riskProtectionRI4: new FormControl('',Validators.required),
     })
   }
 
   // Retrieve purpose
   structureCharactersFormRtr(item: any, form:any): FormGroup {
     this.getLocation=item.location;
+    this.groundFlashDensityGet=item.groundFlashDensity;
     return this.formBuilder.group({
       structureCharacteristicsId: new FormControl({ disabled: false, value: item.structureCharacteristicsId }),
       projectName: new FormControl({ disabled: false, value: item.projectName }),
@@ -537,29 +624,29 @@ export class RiskAssessmentDetailsComponent implements OnInit {
 
   protectionRtr(item: any): FormGroup{
     return this.formBuilder.group({
-      protectionId: new FormControl({ disabled: false, value: item.protectionId }),
+      protectionId: new FormControl({ disabled: false, value: item.protectionId }, Validators.required),
       protectionPEB: new FormControl({ disabled: false, value: item.protectionPEB }),
-      protectionPMS: new FormControl({ disabled: false, value: item.protectionPMS }),
-      protectionPM: new FormControl({ disabled: false, value: item.protectionPM }),
-      protectionPA: new FormControl({ disabled: false, value: item.protectionPA }),
-      protectionPC: new FormControl({ disabled: false, value: item.protectionPC }),
-      protectionPU: new FormControl({ disabled: false, value: item.protectionPU }),
-      protectionPV: new FormControl({ disabled: false, value: item.protectionPV }),
-      protectionPW: new FormControl({ disabled: false, value: item.protectionPW }),
-      protectionPZ: new FormControl({ disabled: false, value: item.protectionPZ }),
+      protectionPMS: new FormControl({ disabled: false, value: item.protectionPMS }, Validators.required),
+      protectionPM: new FormControl({ disabled: false, value: item.protectionPM }, Validators.required),
+      protectionPA: new FormControl({ disabled: false, value: item.protectionPA }, Validators.required),
+      protectionPC: new FormControl({ disabled: false, value: item.protectionPC }, Validators.required),
+      protectionPU: new FormControl({ disabled: false, value: item.protectionPU }, Validators.required),
+      protectionPV: new FormControl({ disabled: false, value: item.protectionPV }, Validators.required),
+      protectionPW: new FormControl({ disabled: false, value: item.protectionPW }, Validators.required),
+      protectionPZ: new FormControl({ disabled: false, value: item.protectionPZ }, Validators.required),
       // RISK OF LOSS OF HUMAN BEINGS (R1)	
-      riskProtectionRA1: new FormControl({ disabled: false, value: item.riskProtectionRA1 }),
-      riskProtectionRB1: new FormControl({ disabled: false, value: item.riskProtectionRB1 }),
-      riskProtectionRC1: new FormControl({ disabled: false, value: item.riskProtectionRC1 }),
-      riskProtectionRM1: new FormControl({ disabled: false, value: item.riskProtectionRM1 }),
-      riskProtectionRU1: new FormControl({ disabled: false, value: item.riskProtectionRU1 }),
-      riskProtectionRV1: new FormControl({ disabled: false, value: item.riskProtectionRV1 }),
-      riskProtectionRW1: new FormControl({ disabled: false, value: item.riskProtectionRW1 }),
-      riskProtectionRZ1: new FormControl({ disabled: false, value: item.riskProtectionRZ1 }),
-      riskProtectionRB2: new FormControl({ disabled: false, value: item.riskProtectionRB2 }),
+      riskProtectionRA1: new FormControl({ disabled: false, value: item.riskProtectionRA1 }, Validators.required),
+      riskProtectionRB1: new FormControl({ disabled: false, value: item.riskProtectionRB1 }, Validators.required),
+      riskProtectionRC1: new FormControl({ disabled: false, value: item.riskProtectionRC1 }, Validators.required),
+      riskProtectionRM1: new FormControl({ disabled: false, value: item.riskProtectionRM1 }, Validators.required),
+      riskProtectionRU1: new FormControl({ disabled: false, value: item.riskProtectionRU1 }, Validators.required),
+      riskProtectionRV1: new FormControl({ disabled: false, value: item.riskProtectionRV1 }, Validators.required),
+      riskProtectionRW1: new FormControl({ disabled: false, value: item.riskProtectionRW1 }, Validators.required),
+      riskProtectionRZ1: new FormControl({ disabled: false, value: item.riskProtectionRZ1 }, Validators.required),
+      riskProtectionRB2: new FormControl({ disabled: false, value: item.riskProtectionRB2 }, Validators.required),
 
-      culturalRB: new FormControl({ disabled: false, value: item.culturalRB }),
-      culturalRV: new FormControl({ disabled: false, value: item.culturalRV }),
+      culturalRB: new FormControl({ disabled: false, value: item.culturalRB }, Validators.required),
+      culturalRV: new FormControl({ disabled: false, value: item.culturalRV }, Validators.required),
     })
   }
 
@@ -567,20 +654,20 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     return this.formBuilder.group({
       riskProtectionId: new FormControl({ disabled: false, value: item.riskProtectionId }),
 
-      riskProtectionRC2: new FormControl({ disabled: false, value: item.riskProtectionRC2 }),
-      riskProtectionRM2: new FormControl({ disabled: false, value: item.riskProtectionRM2 }),
-      riskProtectionRV2: new FormControl({ disabled: false, value: item.riskProtectionRV2 }),
-      riskProtectionRW2: new FormControl({ disabled: false, value: item.riskProtectionRW2 }),
-      riskProtectionRZ2: new FormControl({ disabled: false, value: item.riskProtectionRZ2 }),
+      riskProtectionRC2: new FormControl({ disabled: false, value: item.riskProtectionRC2 }, Validators.required),
+      riskProtectionRM2: new FormControl({ disabled: false, value: item.riskProtectionRM2 }, Validators.required),
+      riskProtectionRV2: new FormControl({ disabled: false, value: item.riskProtectionRV2 }, Validators.required),
+      riskProtectionRW2: new FormControl({ disabled: false, value: item.riskProtectionRW2 }, Validators.required),
+      riskProtectionRZ2: new FormControl({ disabled: false, value: item.riskProtectionRZ2 }, Validators.required),
 
-      econamicValueRA: new FormControl({ disabled: false, value: item.econamicValueRA }),
-      econamicValueRB: new FormControl({ disabled: false, value: item.econamicValueRB }),
-      econamicValueRC: new FormControl({ disabled: false, value: item.econamicValueRC }),
-      econamicValueRM: new FormControl({ disabled: false, value: item.econamicValueRM }),
-      econamicValueRU: new FormControl({ disabled: false, value: item.econamicValueRU }),
-      econamicValueRV: new FormControl({ disabled: false, value: item.econamicValueRV }),
-      econamicValueRW: new FormControl({ disabled: false, value: item.econamicValueRW }),
-      econamicValueRZ: new FormControl({ disabled: false, value: item.econamicValueRZ }),
+      econamicValueRA: new FormControl({ disabled: false, value: item.econamicValueRA }, Validators.required),
+      econamicValueRB: new FormControl({ disabled: false, value: item.econamicValueRB }, Validators.required),
+      econamicValueRC: new FormControl({ disabled: false, value: item.econamicValueRC }, Validators.required),
+      econamicValueRM: new FormControl({ disabled: false, value: item.econamicValueRM }, Validators.required),
+      econamicValueRU: new FormControl({ disabled: false, value: item.econamicValueRU }, Validators.required),
+      econamicValueRV: new FormControl({ disabled: false, value: item.econamicValueRV }, Validators.required),
+      econamicValueRW: new FormControl({ disabled: false, value: item.econamicValueRW }, Validators.required),
+      econamicValueRZ: new FormControl({ disabled: false, value: item.econamicValueRZ }, Validators.required),
     })
   }
 
@@ -593,20 +680,20 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       lossOfCulturalHeritageRT3: new FormControl({ disabled: false, value: item.lossOfCulturalHeritageRT3 }),
       economicLossRT4: new FormControl({ disabled: false, value: item.economicLossRT4 }),
 
-      riskProtectionRD1: new FormControl({ disabled: false, value: item.riskProtectionRD1 }),
-      riskProtectionRD2: new FormControl({ disabled: false, value: item.riskProtectionRD2 }),
-      riskProtectionRD3: new FormControl({ disabled: false, value: item.riskProtectionRD3 }),
-      riskProtectionRD4: new FormControl({ disabled: false, value: item.riskProtectionRD4 }),
+      riskProtectionRD1: new FormControl({ disabled: false, value: item.riskProtectionRD1 }, Validators.required),
+      riskProtectionRD2: new FormControl({ disabled: false, value: item.riskProtectionRD2 }, Validators.required),
+      riskProtectionRD3: new FormControl({ disabled: false, value: item.riskProtectionRD3 }, Validators.required),
+      riskProtectionRD4: new FormControl({ disabled: false, value: item.riskProtectionRD4 }, Validators.required),
 
-      riskProtectionRI1: new FormControl({ disabled: false, value: item.riskProtectionRI1 }),
-      riskProtectionRI2: new FormControl({ disabled: false, value: item.riskProtectionRI2 }),
-      riskProtectionRI3: new FormControl({ disabled: false, value: item.riskProtectionRI3 }),
-      riskProtectionRI4: new FormControl({ disabled: false, value: item.riskProtectionRI4 }),
+      riskProtectionRI1: new FormControl({ disabled: false, value: item.riskProtectionRI1 }, Validators.required),
+      riskProtectionRI2: new FormControl({ disabled: false, value: item.riskProtectionRI2 }, Validators.required),
+      riskProtectionRI3: new FormControl({ disabled: false, value: item.riskProtectionRI3 }, Validators.required),
+      riskProtectionRI4: new FormControl({ disabled: false, value: item.riskProtectionRI4 }, Validators.required),
 
-      riskProtectionR1: new FormControl({ disabled: false, value: item.riskProtectionR1 }),
-      riskProtectionR2: new FormControl({ disabled: false, value: item.riskProtectionR2 }),
-      riskProtectionR3: new FormControl({ disabled: false, value: item.riskProtectionR3 }),
-      riskProtectionR4: new FormControl({ disabled: false, value: item.riskProtectionR4 }),
+      riskProtectionR1: new FormControl({ disabled: false, value: item.riskProtectionR1 }, Validators.required),
+      riskProtectionR2: new FormControl({ disabled: false, value: item.riskProtectionR2 }, Validators.required),
+      riskProtectionR3: new FormControl({ disabled: false, value: item.riskProtectionR3 }, Validators.required),
+      riskProtectionR4: new FormControl({ disabled: false, value: item.riskProtectionR4 }, Validators.required),
     })
   }
 
@@ -632,10 +719,11 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   keyPressNumbers(event:any) {
     var charCode = (event.which) ? event.which : event.keyCode;
     // Only Numbers 0-9
-    if ((charCode < 48 || charCode > 57)) {
+    if (charCode==101 || charCode==69 || charCode==43 || charCode==45) {
       event.preventDefault();
       return false;
-    } else {
+    }
+    else {
       return true;
     }
   }
@@ -648,14 +736,14 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     this.blurMode=true;
     this.blurMsg="Please wait Loading...";
     setTimeout(()=>{
-      for(let i of this.locationList) {
+      for(let i of this.riskAssessmentConstants.locationName ) {
         if(i.location == selectedValue) {
           form.controls.groundFlashDensity.setValue(i.gfdValue);
           this.showFlashDensity = true;
           this.locationDrop=false;
         }
         if(selectedValue == 'Others') {
-          form.controls.groundFlashDensity.setValue('');
+          form.controls.groundFlashDensity.setValue();
           this.showFlashDensity = false;
         }
       }
@@ -737,7 +825,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     else if(form.controls.structureAttributes.controls[0].controls.stAdditionalProtection.value == 'Electrical Insulation'){
       form.controls.structureAttributes.controls[0].controls.stAdditionalProtectionDrop.setValue("0.01");
     }
-    else if(form.controls.structureAttributes.controls[0].controls.stAdditionalProtection.value == 'Effective Soil eqiupotentialisation'){
+    else if(form.controls.structureAttributes.controls[0].controls.stAdditionalProtection.value == 'Effective Soil equipotentialisation'){
       form.controls.structureAttributes.controls[0].controls.stAdditionalProtectionDrop.setValue("0.01");
     }
     else if(form.controls.structureAttributes.controls[0].controls.stAdditionalProtection.value == 'Physical restriction'){
@@ -890,7 +978,7 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     else if(form.controls.losses.controls[0].controls.humanLossOfphysicalDamage.value == 'Hospitals, hotel,school,civic building'){
       form.controls.losses.controls[0].controls.humanLossOfphysicalDamageDrop.setValue("0.1");
     }
-    else if(form.controls.losses.controls[0].controls.humanLossOfphysicalDamage.value == 'Public entertainment,church,museume'){
+    else if(form.controls.losses.controls[0].controls.humanLossOfphysicalDamage.value == 'Public entertainment,church,museum'){
       form.controls.losses.controls[0].controls.humanLossOfphysicalDamageDrop.setValue("0.05");
     }
     else if(form.controls.losses.controls[0].controls.humanLossOfphysicalDamage.value == 'Industrial, commercial'){
@@ -2032,24 +2120,53 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     if (this.errorMsg != '') {
       this.Error = false;
       this.modalService.dismissAll((this.errorMsg = ''));
-    } else {
+    } 
+    else {
       this.popup1 = false;
       this.success = false;
       this.modalService.dismissAll((this.successMsg = ''));
+      if(this.buttonName=='update'){
+        this.parentComponent.saved.ngOnInit();
+        this.navigateToStep(1);
+      }
+      else if(this.buttonName=='submit'){
+        this.parentComponent.final.ngOnInit();
+        this.parentComponent.saved.ngOnInit();
+        this.navigateToStep(2);
+      }
+      else{
+        this.parentComponent.saved.ngOnInit();
+        this.navigateToStep(1);
+      }
     }
   }
 
-  gotoNextModal(contents: any,content:any,content4:any) {
-    // if (this.step2Form.invalid) {
-    //   this.validationError = true;
-    //   this.validationErrorMsg = 'Please check all the fields';
-    //   setTimeout(() => {
-    //     this.validationError = false;
-    //   }, 3000);
-    //   return;
-    // }
+  closeModalDialogSub(flag:any,content:any){
+    this.finalSubmit=true;
+    this.modalService.dismissAll();
+    this.successMsgArr=content;
+    this.onSubmit(flag);
+  }
 
-    // if (this.riskGlobal.projectName!='' && this.riskGlobal.projectName==undefined && this.riskGlobal.organisationName==undefined && this.riskGlobal.projectName==null && this.riskGlobal.organisationName==null) {
+  submitPopup(){
+    this.modalService.open(this.successMsgArr, { centered: true,backdrop: 'static' });
+  }
+
+  closeModalDialog1(){
+    this.modalService.dismissAll();
+  }
+
+  riskFire(){
+    this.modalService.dismissAll();
+  }
+
+  navigateToStep(index: any) {
+    this.navigateStepSummary.emit(index);
+  }
+
+  gotoNextModal(contents: any,contentSub:any,content:any,content4:any,button:any) {
+    
+    this.buttonName=button;
 
     if(this.riskGlobal.isCustomerDetailsValid){
       this.modalService.open(content4, { centered: true,backdrop: 'static' });
@@ -2058,14 +2175,38 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       return;
     }
     
-    //  Update and Success msg will be showing
-    if(this.step2Form.dirty && this.step2Form.touched){
+    //  Update and Success msg will be showing 
+    else if((this.buttonName=='save') || (this.step2Form.dirty && this.step2Form.touched && this.buttonName=='update')){
       this.modalService.open(content, { centered: true,backdrop: 'static' });
     }
-    //  For Dirty popup
-    else{
-      this.modalService.open(contents, { centered: true,backdrop: 'static' });
-    }   
+
+    else if((!this.step2Form.dirty && !this.step2Form.touched && this.buttonName=='submit')|| (this.step2Form.dirty && this.step2Form.touched && this.buttonName=='submit')){
+      this.modalService.open(contentSub, { centered: true,backdrop: 'static' });  
+    }
+
+    else if(!this.step2Form.dirty && this.buttonName=='update'){  
+      this.validationError = true;
+      this.validationErrorMsg = 'Please change any details for Update the Risk Assessment Details';
+      setTimeout(() => {
+        this.validationError = false;
+        this.buttonName="";
+      }, 3000);
+      // return 
+    }
+    // else if(!this.step2Form.dirty && this.buttonName=='save'){  
+    //   this.validationError = true;
+    //   this.validationErrorMsg = 'Please change any details for save the Risk Assessment Details';
+    //   setTimeout(() => {
+    //     this.validationError = false;
+    //     this.buttonName="";
+    //   }, 3000);
+    //   // return 
+    // }
+    // //  For Dirty popup
+    // else{
+    //   this.modalService.open(contents, { centered: true,backdrop: 'static' });
+    //   this.buttonName="";
+    // }   
   }
 
   goToRiskPopup(popup1:any){
@@ -2083,11 +2224,10 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       data => {
         if (JSON.parse(data)[0] != undefined && JSON.parse(data)[0].riskId != null) {
           this.updateRiskDetails(this.riskAssessmentDetails.userName,this.riskId,JSON.parse(data)[0]);
-          setTimeout(() => {
-            if(!this.step2Form.invalid) {
-              this.enablePrint =true;
-            }
-          }, 3000);
+          if(!this.step2Form.invalid) {
+            this.enableSubmit =true;
+            this.step2Form.markAsPristine();
+          }
         }
       },
       error => {
@@ -2115,14 +2255,12 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       this.riskAssessmentDetails.updatedDate = this.riskList.updatedDate;
       this.riskAssessmentDetails.updatedBy = this.riskList.updatedBy;
       this.riskAssessmentRetrieve(this.riskList);
-      setTimeout(() => {
-        if(!this.step2Form.invalid) {
-          this.enablePrint = true;
-        }
-        else {
-          this.enablePrint = false;
-        }
-      }, 3000);
+      if(!this.step2Form.invalid) {
+        this.enableSubmit = true;
+      }
+      else {
+        this.enableSubmit = false;
+      }
     this.flag = true;
   }
 
@@ -2141,12 +2279,25 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     this.protectionPA(event,form.controls.structureCharacters.controls[0]);
     this.protectionPm(event,form.controls.structureCharacters.controls[0]);
     this.protectionPms(event,form.controls.structureCharacters.controls[0]);
+
+    this.lossOfHumanCalc(event,form.controls.structureCharacters.controls[0]);
+    this.lossOfServiceCalc(event,form.controls.structureCharacters.controls[0]);
+    this.lossCulturalCalc(event,form.controls.structureCharacters.controls[0]);
+    this.lossEconomicCalc(event,form.controls.structureCharacters.controls[0]);
+
   }
 
   riskAssessmentRetrieve(item:any){
     this.popArray.push(this.structureCharactersFormRtr(item,this.step2Form));
     this.step2Form.setControl('structureCharacters', this.formBuilder.array(this.popArray || []));
     this.popArray = [];
+    this.gfdDirtyCheckSts=false;
+    this.ste2present=false;
+    if(this.getLocation != 'Others'){
+      this.ste2present=true;
+      this.gdValueEvent(item,this.step2Form);
+    }
+    
   }
 
   reloadFromBack(){
@@ -2186,46 +2337,6 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     this.organisationName= organisationName;
   }
 
-  // Converting the given data's into pdf using this function
-  printPdf(content1:any,content2:any) {
-    if(this.step2Form.dirty && this.step2Form.touched){
-      this.modalService.open(content1, { centered: true,backdrop: 'static' });
-      this.printMsg=true;
-      this.printDirtyMsg="Please click the update button, To reflect the modified data in PDF..!";
-    }
-    else{
-      this.blurMode=true;
-      this.blurMsg="Your PDF will be generating, Please wait a while";
-      this.riskfinalpdfService.printPDF(this.riskAssessmentDetails.riskId,this.riskAssessmentDetails.userName,this.projectName).subscribe(
-        data =>{
-          // Popup msg
-            this.blurMode=false;
-            this.blurMsg="";
-            this.printPopup=false;
-            this.successPdf=false;
-            this.printSuccessMsg="";
-            var fileURL: any = URL.createObjectURL(data);
-            var a = document.createElement("a");
-            a.href = fileURL;
-            a.target = '_blank';
-            a.click();
-            this.modalService.dismissAll();
-        },
-        error=>{
-          this.printPopup=true;
-          this.successPdf=false;
-          this.printSuccessMsg="";
-          setTimeout(()=>{
-            this.blurMode=false;
-            this.blurMsg="";
-            this.modalService.open(content2, { centered: true,backdrop: 'static' });
-            this.errorPdf=true;
-            this.printErrorMsg="Something went wrong, Please try again later";
-          },2000);
-        })
-    }
-  }
-
   // Submitting to DB
   onSubmit(flag:any) {
     //this.submitted=true;
@@ -2233,6 +2344,14 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       //   return;
       // }
     //  this.spinner = true;
+    if(!this.finalSubmit && this.buttonName=='submit'){
+      return
+    }
+
+    if(this.buttonName=='submit' && this.finalSubmit){
+      this.blurMode=true;
+      this.blurMsg="Submission in Progress!";
+    }
     this.popup=false;
     this.riskAssessmentDetails = this.step2Form.value.structureCharacters[0];
     this.riskAssessmentDetails.riskId = this.riskGlobal.riskId;
@@ -2240,36 +2359,49 @@ export class RiskAssessmentDetailsComponent implements OnInit {
     this.riskAssessmentDetails.updatedDate = this.riskList.updatedDate;
     this.riskAssessmentDetails.updatedBy = this.riskList.updatedBy;
 
-    //if (!this.validationError) {
       if(flag) {
-        if(this.step2Form.dirty && this.step2Form.touched){ 
-            this.riskAssessmentService.updateRiskAssessmentDetails(this.riskAssessmentDetails).subscribe(
+        if((this.step2Form.dirty && this.step2Form.touched) || (this.buttonName=='submit')){ 
+            this.riskAssessmentService.updateRiskAssessmentDetails(this.riskAssessmentDetails,this.buttonName).subscribe(
             data => {
+              // Submit spinner
+              this.blurMode=false;
+              this.blurMsg="";
+              this.finalSubmit=false
               // update success msg
               this.popup=true;
               this.success1 = false;
               this.success=true;
               this.successMsg=data;
-              this.step2Form.markAsPristine();
+              if(this.buttonName=='submit'){
+                this.submitPopup();
+              }
+              this.riskGlobal.dirtyCheck=false;
+              this.riskGlobal.dirtyMsg="";
+              this.parentComponent.nextButtonClicked=false;      
               this.retriveRiskDetails();
-              this.proceedNext.emit(true);
+              this.step2Form.markAsPristine();  
+              // this.proceedNext.emit(true);
+              // this.parentComponent.step2FormClick=false;
             },
               // update failed msg
             error => {
-               this.popup=true;
-              //  this.spinner=false;
+              this.popup=true;
+              this.blurMode=false;
+              this.blurMsg="";
+              this.finalSubmit=false
               this.success1 = false;
               this.Error = true;
-              this.errorArr = [];
-              this.errorArr = JSON.parse(error.error);
-              this.errorMsg = this.errorArr.message;
+              // this.errorArr = [];
+              // this.errorArr = JSON.parse(error.error);
+              this.errorMsg = this.service.globalErrorMsg;
               this.proceedNext.emit(false);
             }
           )}
           else{
-             this.popup=true;
-            //  this.spinner=false;
-            // Preview fields
+            this.popup=true;
+            this.blurMode=false;
+            this.blurMsg="";
+            this.finalSubmit=false
             if(this.isEditable){
                this.success = true;
                this.proceedNext.emit(true);
@@ -2277,8 +2409,9 @@ export class RiskAssessmentDetailsComponent implements OnInit {
   
             else{
                this.popup=true;
-              //  this.spinner=false;
-              // Dirty checking here
+               this.blurMode=false;
+               this.blurMsg="";
+               this.finalSubmit=false
                this.success = true;
                this.proceedNext.emit(true);
             }
@@ -2292,29 +2425,24 @@ export class RiskAssessmentDetailsComponent implements OnInit {
             this.popup=true;
             this.proceedFlag=false;
             this.success=true;
-            // this.successMsg = "Risk Assessment Details Successfully Saved";
             this.successMsg=data;
-            // this.updateRiskDetails(JSON.parse(data));
             this.retriveRiskDetails();
             this.disable = true;
             this.step2Form.markAsPristine();
           },
           error => {
              this.popup=true;
-            //  this.spinner=false;
             this.Error = true;
-            this.errorArr = [];
-            this.proceedFlag = true;
-            this.errorArr = JSON.parse(error.error);
-            this.errorMsg = this.errorArr.message;
+            this.errorMsg = this.service.globalErrorMsg;
             this.proceedNext.emit(false); 
           })
         }
     //  }
   }
 
-  gotoNextTab() {
+  gotoNextTab(form:any) {
     if ((this.step2Form.dirty && this.step2Form.invalid) || this.service.isCompleted == false) {
+      // this.parentComponent.step2FormClick=false;
       this.service.isCompleted = false;
       this.service.isLinear = true;
       this.service.editable = false;
@@ -2322,8 +2450,8 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       this.validationErrorMsgTab = 'Please check all the fields in Risk Assessement Details';
       setTimeout(() => {
         this.validationErrorTab = false;
-      }, 3000);
-      return;
+      }, 3000); 
+      return; 
     }
     else if (this.step2Form.dirty && this.step2Form.touched) {
       this.service.isCompleted = false;
@@ -2337,10 +2465,11 @@ export class RiskAssessmentDetailsComponent implements OnInit {
       return;
     }
     else {
+      this.riskGlobal.presentedStep=0;
       this.service.isCompleted2 = true;
       this.service.isLinear = false;
       this.service.editable = true;
     }
+    this.gfdDirtyCheck(form);
   }
-
 }

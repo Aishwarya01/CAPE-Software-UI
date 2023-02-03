@@ -1,0 +1,29 @@
+
+h2{
+    font-weight: bold;
+    color: rgb(13, 7, 7);
+    text-align: center;
+    justify-content: center;
+}
+.container{
+    justify-content: center;
+    height: 70vh;
+    background-color: white;
+    margin: 40px auto;
+    display: block;
+}
+.bg-image {
+  background: url(../../assets/img/electrical-panel-testing_test.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: left;
+  background-size: 100%;
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  padding: 40px 40px 40px 40px;
+}
+.changeNumber{
+  position: absolute;
+  right: 30px;
+}

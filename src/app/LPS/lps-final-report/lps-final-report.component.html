@@ -1,6 +1,9 @@
 <div class="card">
 
     <div class="card-body">
+      <div *ngIf="globalError" style="text-align: center;">
+        <span class="alert alert-danger">{{globalErrorMsg}}</span>
+      </div>
       <!-- Filter Tag -->
       <mat-form-field appearance="standard" style=" font-size: 14px;width: 30%;">
         <mat-label>Filter Client</mat-label>
@@ -22,37 +25,37 @@
 
         <ng-container matColumnDef="clientName">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Client Name </th>
-          <td mat-cell *matCellDef="let element">{{element.clientName}}</td>
+          <td mat-cell *matCellDef="let element">{{element.clientName | slice:0:18}}</td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="projectName">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Project Name </th>
-          <td mat-cell *matCellDef="let element">{{element.projectName}}</td>
+          <td mat-cell *matCellDef="let element">{{element.projectName | slice:0:18}}</td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="consultantName">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>  Consultant Name</th>
-          <td mat-cell *matCellDef="let element">{{element.consultantName}}</td>
+          <td mat-cell *matCellDef="let element">{{element.consultantName | slice:0:18}}</td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="contractorName">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Contractor Name </th>
-          <td mat-cell *matCellDef="let element">{{element.contractorName}}</td>
+          <td mat-cell *matCellDef="let element">{{element.contractorName | slice:0:18}}</td>
         </ng-container>
 
         <!-- Weight Column -->
         <ng-container matColumnDef="dealerContractorName">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Dealer Name </th>
-          <td mat-cell *matCellDef="let element">{{element.dealerContractorName}}</td>
+          <td mat-cell *matCellDef="let element">{{element.dealerContractorName | slice:0:18}}</td>
         </ng-container>
 
         <!-- Symbol Column -->
         <ng-container matColumnDef="address">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
-          <td mat-cell *matCellDef="let element">{{element.address}}</td>
+          <td mat-cell *matCellDef="let element">{{element.address | slice:0:40}}</td>
         </ng-container>
 
         <!-- Symbol Column -->
@@ -63,7 +66,7 @@
 
         <ng-container matColumnDef="updatedBy">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Updated By </th>
-            <td mat-cell *matCellDef="let element">{{element.updatedBy}}</td>
+            <td mat-cell *matCellDef="let element">{{element.updatedBy | slice:0:16}}</td>
           </ng-container>
 
       <!-- Final Report Buttons -->

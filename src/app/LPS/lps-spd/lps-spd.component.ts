@@ -6,7 +6,6 @@ import { GlobalsService } from 'src/app/globals.service';
 import { spdReport } from 'src/app/LPS_model/spdReport';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
 import { LpsSpd_Service } from 'src/app/LPS_services/lps-spd.service';
-import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
 
 @Component({
   selector: 'app-lps-spd',
@@ -133,7 +132,7 @@ export class LpsSpdComponent implements OnInit {
   }
 
    retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
-//     // this.service.lvClick=1;
+//     // this.service.lpsClick=1;
 //     
 //     this.step5List = data.earthStudReport;
 //     this.spdReport.basicLpsId = this.step7List.basicLpsId;
@@ -149,7 +148,7 @@ export class LpsSpdComponent implements OnInit {
  }
 
   retrieveDetailsfromSavedReports(data: any) {
-    this.service.lvClick = 1;
+    this.service.lpsClick = 1;
 
     if (data.basicLpsId != undefined && data.basicLpsId != 0) {
       this.step5List = data; 
@@ -391,7 +390,7 @@ export class LpsSpdComponent implements OnInit {
               this.successMsg = data;
               this.spdForm.markAsPristine();
               this.proceedNext.emit(true);
-              this.service.lvClick = 0;
+              this.service.lpsClick = 0;
               this.service.logoutClick = 0;
               this.service.windowTabClick = 0;
             },
@@ -399,9 +398,9 @@ export class LpsSpdComponent implements OnInit {
               this.popup=true;
               this.spinner=false;
               this.Error = true;
-              this.errorArr = [];
-              this.errorArr = JSON.parse(error.error);
-              this.errorMsg = this.errorArr.message;
+              // this.errorArr = [];
+              // this.errorArr = JSON.parse(error.error);
+              this.errorMsg = this.service.globalErrorMsg;
               this.proceedNext.emit(false);
             }
           )
@@ -435,7 +434,7 @@ export class LpsSpdComponent implements OnInit {
               this.getAirterminationData();
              }, 300);
             this.proceedNext.emit(true);
-            this.service.lvClick = 0;
+            this.service.lpsClick = 0;
             this.service.logoutClick = 0;
             this.service.windowTabClick = 0;
           },
@@ -443,9 +442,9 @@ export class LpsSpdComponent implements OnInit {
             this.popup=true;
             this.spinner=false;
             this.Error = true;
-            this.errorArr = [];
-            this.errorArr = JSON.parse(error.error);
-            this.errorMsg = this.errorArr.message;
+            // this.errorArr = [];
+            // this.errorArr = JSON.parse(error.error);
+            this.errorMsg = this.service.globalErrorMsg;
             this.proceedNext.emit(false);
           });
       }
@@ -455,19 +454,19 @@ export class LpsSpdComponent implements OnInit {
     if (!this.spdForm.invalid) {
       if (this.spdForm.dirty) {
         this.validationError = false;
-        this.service.lvClick = 1;
+        this.service.lpsClick = 1;
         this.service.logoutClick = 1;
         this.service.windowTabClick = 1;
       }
       else {
         this.validationError = false;
-        this.service.lvClick = 0;
+        this.service.lpsClick = 0;
         this.service.logoutClick = 0;
         this.service.windowTabClick = 0;
       }
     }
     else {
-      this.service.lvClick = 1;
+      this.service.lpsClick = 1;
       this.service.logoutClick = 1;
       this.service.windowTabClick = 1;
     }
@@ -476,24 +475,24 @@ export class LpsSpdComponent implements OnInit {
     if (!this.spdForm.invalid) {
       if (this.spdForm.dirty) {
         this.validationError = false;
-        this.service.lvClick = 1;
+        this.service.lpsClick = 1;
         this.service.logoutClick = 1;
         this.service.windowTabClick = 1;
       }
       else {
         this.validationError = false;
-        this.service.lvClick = 0;
+        this.service.lpsClick = 0;
         this.service.logoutClick = 0;
         this.service.windowTabClick = 0;
       }
     }
     else {
-      this.service.lvClick = 1;
+      this.service.lpsClick = 1;
       this.service.logoutClick = 1;
       this.service.windowTabClick = 1;
     }
   }
-  closeModalDialog() {
+  closeModalDialog() { 
     if (this.errorMsg != '') {
       this.Error = false;
       this.modalService.dismissAll((this.errorMsg = ''));

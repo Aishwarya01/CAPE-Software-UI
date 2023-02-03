@@ -16,15 +16,18 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Client Name: </label>
-                                <input type="text" class="form-control" formControlName="clientName"
-                                    [(ngModel)]="emcClientDetails.clientName" [readonly]="isEditableEmc"
-                                    [ngClass]="{ 'is-invalid': submitted && a.get('clientName')?.errors }"
-                                    placeholder="Please Enter Client name">
-                                <!-- <div *ngIf="submitted &&a.clientName?.errors" class="invalid-feedback">
-                            <div *ngIf="a.clientName?.errors?.required">Client Name Is Required</div>
-                        </div> -->
+                                <input type="text" (change)="clientValidation($event,a)" class="form-control" formControlName="clientName"
+                                    [(ngModel)]="emcClientDetails.clientName" readonly [ngClass]="{ 'is-invalid': submitted && a.get('clientName')?.errors }" placeholder="Please Enter Client name">
+
                                 <div *ngIf="submitted && a.get('clientName')?.errors" class="invalid-feedback">
                                     <div *ngIf="a.get('clientName')?.errors?.required">Client Name Is Required</div>
+                                </div>
+                                <div *ngIf="clientNameError" class="invalid-feedback">
+                                    <div>{{clientNameMsg}}</div>
+                                </div>
+                                
+                                <div *ngIf="clientNameSuccess" class="invalid-feedback">
+                                    <div style="color: #11a807;">{{clientNameMsg1}}</div>
                                 </div>
                             </div>
                         </div>
@@ -103,7 +106,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Email: </label>
-                                <input type="text" class="form-control" formControlName="email" [readonly]="isEditableEmc"
+                                <input type="text" class="form-control" formControlName="email" readonly
                                     [(ngModel)]="emcClientDetails.email" placeholder="Enter Email Address"
                                     [ngClass]="{ 'is-invalid': submitted && a.get('email')?.errors }">
                                 <!-- <div *ngIf="submitted &&a.email?.errors" class="invalid-feedback">
@@ -160,7 +163,7 @@
             </div>
 
             <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
-                <button class="next" (click)="gotoNextModal(content, content2)" mat-button>Next &raquo;</button>
+                <button class="next" [ngClass]="{'disableForm':isEditableEmc}" (click)="gotoNextModal(content, content2)" mat-button>Next &raquo;</button>
             </div>
 
         </form>
@@ -188,13 +191,13 @@
     </div>
     <br>
     <div *ngIf="popup">
-        <button type="button" *ngIf="success" style="text-align: center;margin-left:180px;width:20%" class="close"
-        class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
+        <button type="button" *ngIf="success" style="text-align: center;margin-left:180px;width:20%;background-color: #0f800c;color: white;" class="close"
+        class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
         (click)="closeModalDialog()" matStepperNext>
         <span aria-hidden="true">Ok</span>
     </button>
-    <button type="button" *ngIf="Error" style="text-align: center;margin-left:180px;width:20%" class="close"
-        class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
+    <button type="button" *ngIf="Error" style="text-align: center;margin-left:180px;width:20%;background-color: #0f800c;color: white;" class="close"
+        class="btn btn-block btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
         (click)="closeModalDialog()">
         <span aria-hidden="true">Ok</span>
     </button>
@@ -213,8 +216,8 @@
     </div>
     <br>
     <div class="row">
-        <button type="button" class="col-md-4" style="text-align: center;margin-left:100px;width:20%"
-            class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
+        <button type="button" class="col-md-4" style="text-align: center;margin-left:100px;width:20%;background-color: #0f800c;color: white;"
+            class="btn btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
             (click)="closeModalDialog()" matStepperNext>
             <i class="bi bi-arrow-right-circle"></i>&nbsp;
             <span aria-hidden="true">Ok</span>

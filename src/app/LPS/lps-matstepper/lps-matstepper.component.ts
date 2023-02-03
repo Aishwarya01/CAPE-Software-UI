@@ -1,5 +1,5 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild, ChangeDetectorRef, Input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
@@ -19,7 +19,6 @@ import { AirterminationService } from 'src/app/LPS_services/airtermination.servi
 import { MatTabGroup, MatTabHeader, MatTab } from '@angular/material/tabs';
 import { GlobalsService } from 'src/app/globals.service';
 import { ConfirmationBoxComponent } from 'src/app/confirmation-box/confirmation-box.component';
-import { tree } from 'ngx-bootstrap-icons';
 import { LpssummaryComponent } from '../lpssummary/lpssummary.component';
 import { MatStepper } from '@angular/material/stepper';
 import { LpsFileUploadService } from 'src/app/LPS_services/lps-file-upload.service';
@@ -88,17 +87,26 @@ export class LpsMatstepperComponent implements OnInit {
   @ViewChild(LpsSavedReportComponent)saved!: LpsSavedReportComponent;
   @ViewChild(LpsFinalReportComponent)final!: LpsFinalReportComponent;
   @ViewChild('tabs') tabs!: MatTabGroup;
-
+  onSubmitSite1 = new EventEmitter();
   isEditable:boolean=false;
 
+  // Spinner Purpose
+  spinner: boolean=false;
+  spinnerValue: String = '';
+  lpsFinalReport: boolean=false;
+
+  // We are getting allsteps completed data using this variable
+  tempArr: any=[];
+  selectedIndexStepper: number=0;
+
   constructor(
-    private _formBuilder: FormBuilder,private dialog: MatDialog,
+    private dialog: MatDialog,
     private basicLpsService: LPSBasicDetailsService,
     private router: ActivatedRoute, public service: GlobalsService,
     private ChangeDetectorRef: ChangeDetectorRef,
     private airterminationServices: AirterminationService,
     private fileUploadService:LpsFileUploadService,
-    private lpsGlobalservice:LpsGlobalserviceService
+    private lpsGlobalservice:LpsGlobalserviceService,
     ) { 
     }
 
@@ -210,6 +218,7 @@ export class LpsMatstepperComponent implements OnInit {
 
   public onCallSavedMethod(e: any) {
     this.continue(e);
+
   }
 
   public onCallFinalMethod(e: any) {
@@ -217,6 +226,10 @@ export class LpsMatstepperComponent implements OnInit {
   }
 
   public changeTabLpsSavedReport(index: number, basicLpsId: any, userName: any) {
+    if(this.service.triggerMsgForLicense=="lpsPage"){
+      this.spinner=true;
+      this.spinnerValue="Please wait, Details are loading...!";
+    }
    // this.selectedIndex = 1;
     this.basicDetails = false;
     this.airTermValue = false;
@@ -235,100 +248,173 @@ export class LpsMatstepperComponent implements OnInit {
       this.seperationValue = true;
       this.equipotentialBond = true;
       this.summary = true;
-    }, 50);
+    }, 1);
+    if(basicLpsId!=null && basicLpsId!=""){
+      setTimeout(() => {
+        this.basicLpsService.retrieveFinalLps(userName, basicLpsId).subscribe(
+          (data) => {
+            this.tempArr=JSON.parse(data).basicLps;
+            this.final.finalReportSpinner = false;
+            this.final.finalReportBody = true;
+            this.dataJSON = JSON.parse(data);
+            this.service.emailCheck=false;
 
-    setTimeout(() => {
-      this.basicLpsService.retrieveFinalLps(userName, basicLpsId).subscribe(
-        (data) => {
-          this.final.finalReportSpinner = false;
-          this.final.finalReportBody = true;
-          this.dataJSON = JSON.parse(data);
-          
-          if (this.dataJSON.basicLps != null
-            && this.dataJSON.airTermination != null
-            && this.dataJSON.downConductorDesc != null
-            && this.dataJSON.earthingReport != null && this.dataJSON.spdReport != null
-            && this.dataJSON.seperationDistanceReport != null && this.dataJSON.earthStudReport != null
-            && this.dataJSON.summaryLps != null) {
-            this.service.allFieldsDisable = true;
-            this.service.disableSubmitSummary = true;
-          }
-          //basic
-          if (this.dataJSON.basicLps != null) {
-            this.selectedIndex = index;
-            this.basic.retrieveDetailsfromSavedReports(basicLpsId, this.dataJSON);
-            this.airTermination.appendBasicLpsId(basicLpsId);  
-            this.initializeLpsId();
-             
-          }
+            //Navigating compoments to their new editable stats
+            switch(this.tempArr.allStepsCompleted){
+              case 'step-1 completed':
+                // Air Termination
+                this.selectedIndexStepper=1;
+                this.airTermination.airTerminationForm.markAsPristine();
+                this.airTermination.airTerminationForm.markAsUntouched();
+                break;
+              case 'step-2 completed':
+                // Down Conductor
+                this.downConductors.downConductorForm.markAsPristine();
+                this.downConductors.downConductorForm.markAsUntouched();
+                this.selectedIndexStepper=2;
+                break;
+              case 'step-3 completed':
+                // Earthing
+                this.earthing.earthingForm.markAsPristine();
+                this.earthing.earthingForm.markAsUntouched();
+                this.selectedIndexStepper=3;
+                break;
+              case 'step-4 completed':
+                // SPD
+                this.spd.spdForm.markAsPristine();
+                this.spd.spdForm.markAsUntouched();
+                this.selectedIndexStepper=4;
+                break;
+              case 'step-5 completed':
+                //  Seperation Distance
+                this.seperationDistance.separeteDistanceForm.markAsPristine();
+                this.seperationDistance.separeteDistanceForm.markAsUntouched();
+                this.selectedIndexStepper=5;
+                break;
+              case 'step-6 completed':
+                // Equipotential Bonding
+                this.earthStud.EarthStudForm.markAsPristine();
+                this.earthStud.EarthStudForm.markAsUntouched();
+                this.selectedIndexStepper=6;
+                break;
+              case 'step-7 completed':
+                // Summary
+                this.lpsSummary.summaryForm.markAsPristine();
+                this.lpsSummary.summaryForm.markAsUntouched();
+                this.selectedIndexStepper=7;
+                break;
+              case 'step-8 completed':
+                // Summary
+                this.lpsSummary.summaryForm.markAsPristine();
+                this.lpsSummary.summaryForm.markAsUntouched();
+                this.selectedIndexStepper=7;
+                break;
+              default:
+                // Basic Details
+                this.basic.LPSBasicForm.markAsPristine();
+                this.basic.LPSBasicForm.markAsUntouched();
+                this.selectedIndexStepper=0;
+                break;
+            } 
 
-          //airTermination
-          if (this.dataJSON.airTermination != null) {
-            this.airTermination.retrieveDetailsfromSavedReports(userName, basicLpsId, this.dataJSON);
-
-            //downConductor
-            this.downConductors.updateMethod();
-
-            //earthing
-            if (this.dataJSON.earthingReport != null) {
-              this.earthing.retrieveDetailsfromSavedReports(basicLpsId, this.dataJSON);
-              this.Completed4 = true;
+            if (this.dataJSON.basicLps != null
+              && this.dataJSON.airTermination != null
+              && this.dataJSON.downConductorDesc != null
+              && this.dataJSON.earthingReport != null && this.dataJSON.spdReport != null
+              && this.dataJSON.seperationDistanceReport != null && this.dataJSON.earthStudReport != null
+              && this.dataJSON.summaryLps != null) {
+              this.service.allFieldsDisable = true;
+              this.service.disableSubmitSummary = true;
             }
-            else {
-              this.earthing.createEarthingForm(this.dataJSON.airTermination);
+            //basic
+            if (this.dataJSON.basicLps != null) {
+              this.selectedIndex = index;
+              this.basic.retrieveDetailsfromSavedReports(basicLpsId, this.dataJSON);
+              this.airTermination.appendBasicLpsId(basicLpsId);  
+              this.initializeLpsId();
             }
-
-            //spdReport
-            if (this.dataJSON.spdReport != null) {
-              this.spd.retrieveDetailsfromSavedReports(this.dataJSON);
-              this.Completed5 = true;
-            }
-            else {
-              this.spd.createSpdForm(this.dataJSON.airTermination);
-            }
-
-            //seperationDistance
-            if (this.dataJSON.seperationDistanceReport != null) {
-              this.seperationDistance.retrieveDetailsfromSavedReports(this.dataJSON);
-              this.Completed6 = true;
-            }
-            else {
-              this.seperationDistance.createSeperationForm(this.dataJSON.airTermination);
-            }
-
-            //Equipotential Bonding
-            if (this.dataJSON.earthStudReport != null) {
-              this.earthStud.retrieveDetailsfromSavedReports(this.dataJSON);
-              this.Completed7 = true;
-            }
-            else {
-              this.earthStud.createearthStudForm(this.dataJSON.airTermination);
-            }
-             //summary
-            // this.lpsSummary.spinner1 = true;
-            // this.lpsSummary.spinnerValue = "Please wait, the details are loading!";
-            if (this.dataJSON.summaryLps == null) {
+  
+            //airTermination
+            if (this.dataJSON.airTermination != null) {
+              this.airTermination.retrieveDetailsfromSavedReports(userName, basicLpsId, this.dataJSON);
+  
+              //downConductor
+              this.downConductors.updateMethod();
               setTimeout(() => {
-                this.lpsSummary.ngOnInit();
+                this.downConductors.downConductorForm.markAsPristine();
+                this.downConductors.downConductorForm.markAsUntouched();
+              }, 6000);
+  
+              //earthing
+              if (this.dataJSON.earthingReport != null) {
+                this.earthing.retrieveDetailsfromSavedReports(basicLpsId, this.dataJSON);
+                this.Completed4 = true;
                 setTimeout(() => {
-                this.activateSummarySpinner();
-              }, 1000);
-           }, 1000);
-            }
-            else {
-              setTimeout(() => {
-                this.lpsSummary.retrieveDetailsfromSavedReports(userName, basicLpsId, this.dataJSON);
-                this.activateSummarySpinner();
-              }, 5000);
-            }
-          }  
-       },
-        (error) => {
-
-        }
-      )
-    }, 3000);
-   
+                  this.downConductors.downConductorForm.markAsPristine();
+                  this.downConductors.downConductorForm.markAsUntouched();
+                }, 6000);
+              }
+              else {
+                this.earthing.createEarthingForm(this.dataJSON.airTermination);
+              }
+  
+              //spdReport
+              if (this.dataJSON.spdReport != null) {
+                this.spd.retrieveDetailsfromSavedReports(this.dataJSON);
+                this.Completed5 = true;
+              }
+              else {
+                this.spd.createSpdForm(this.dataJSON.airTermination);
+              }
+  
+              //seperationDistance
+              if (this.dataJSON.seperationDistanceReport != null) {
+                this.seperationDistance.retrieveDetailsfromSavedReports(this.dataJSON);
+                this.Completed6 = true;
+              }
+              else {
+                this.seperationDistance.createSeperationForm(this.dataJSON.airTermination);
+              }
+  
+              //Equipotential Bonding
+              if (this.dataJSON.earthStudReport != null) {
+                this.earthStud.retrieveDetailsfromSavedReports(this.dataJSON);
+                this.Completed7 = true;
+              }
+              else {
+                this.earthStud.createearthStudForm(this.dataJSON.airTermination);
+              }
+               //summary
+              // this.lpsSummary.spinner1 = true;
+              // this.lpsSummary.spinnerValue = "Please wait, the details are loading!";
+              if (this.dataJSON.summaryLps == null) {
+                setTimeout(() => {
+                  this.lpsSummary.ngOnInit();
+                  setTimeout(() => {
+                    this.activateSummarySpinner();
+                  }, 1000);
+                }, 1000);
+              }
+              else {
+                setTimeout(() => {
+                  this.lpsSummary.retrieveDetailsfromSavedReports(userName, basicLpsId, this.dataJSON);
+                  this.activateSummarySpinner();
+                }, 5000);
+              }
+            }  
+         },
+          (error) => {
+  
+          }
+        )
+        this.spinner=false;
+        this.spinnerValue="";
+      }, 3000);
+    }
+    else if(this.basic!=undefined){
+      // this.changeTabLpsSavedReport(0,basicLpsId,this.router.snapshot.paramMap.get('email') || '{}');
+      this.selectedIndex = 0;
+    }
   }
 
   // Final Report 
@@ -338,16 +424,15 @@ export class LpsMatstepperComponent implements OnInit {
    // this.doSomething1(false);
     this.changeTabLpsSavedReport(index,this.earthStud.basicLpsId,userName);
     this.selectedIndex = index;
-    
   }
+
   refresh() {
-    
     this.ChangeDetectorRef.detectChanges();
   }
 
   interceptTabChange(tab: MatTab, tabHeader: MatTabHeader) {
-  
-    if((this.service.lvClick==1) && (this.service.allStepsCompleted==true))
+
+    if((this.service.lpsClick==1 && this.isEditable && JSON.parse(sessionStorage.authenticatedUser).role!='Viewer' && !this.lpsFinalReport) || (this.basic.LPSBasicForm.dirty || this.airTermination.airTerminationForm.dirty || this.downConductors.downConductorForm.dirty || this.earthing.earthingForm.dirty || this.earthStud.EarthStudForm.dirty || this.spd.spdForm.dirty || this.seperationDistance.separeteDistanceForm.dirty || this.lpsSummary.summaryForm.dirty))
        {
         const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
           width: '420px',
@@ -360,7 +445,8 @@ export class LpsMatstepperComponent implements OnInit {
         if(this.airTermination.fileFalg || this.downConductors.fileFlag){
           dialogRef.componentInstance.triggerModal1 = true;
         }
-        else{
+
+        else {
           dialogRef.componentInstance.triggerModal = true;
         }
 
@@ -373,6 +459,37 @@ export class LpsMatstepperComponent implements OnInit {
               this.selectedIndex=1; 
               this.lpsGlobalservice.basiclpsId = 0;
 
+              // Making all forms as untouched or printine state
+              this.basic.LPSBasicForm.markAsPristine();
+              this.airTermination.airTerminationForm.markAsPristine();
+              this.downConductors.downConductorForm.markAsPristine();
+              this.earthing.earthingForm.markAsPristine();
+              this.earthStud.EarthStudForm.markAsPristine();
+              this.seperationDistance.separeteDistanceForm.markAsPristine();
+              this.spd.spdForm.markAsPristine();
+              this.lpsSummary.summaryForm.markAsPristine();
+
+              // Removing form data
+              this.basicDetails = false;
+              this.airTermValue = false;
+              this.downValue = false;
+              this.earthingValue = false;
+              this.spdValue = false;
+              this.seperationValue = false;
+              this.equipotentialBond = false;
+              this.summary=false;
+              setTimeout(() => {
+                this.basicDetails = true;
+                this.airTermValue = true;
+                this.downValue = true;
+                this.earthingValue = true;
+                this.spdValue = true;
+                this.seperationValue = true;
+                this.equipotentialBond = true;
+                this.summary = true;
+              }, 1000);
+
+              this.isEditable;
               // File Delete purpose
               if ((this.airTermination.airTerminationForm.dirty && this.airTermination.airTerminationForm.touched) || 
               (this.downConductors.downConductorForm.dirty && this.downConductors.downConductorForm.touched)) {
@@ -383,37 +500,90 @@ export class LpsMatstepperComponent implements OnInit {
               this.selectedIndex=2; 
               this.lpsGlobalservice.basiclpsId = 0;
 
+              // Making all forms as untouched or printine state
+              this.basic.LPSBasicForm.markAsPristine();
+              this.airTermination.airTerminationForm.markAsPristine();
+              this.downConductors.downConductorForm.markAsPristine();
+              this.earthing.earthingForm.markAsPristine();
+              this.earthStud.EarthStudForm.markAsPristine();
+              this.seperationDistance.separeteDistanceForm.markAsPristine();
+              this.spd.spdForm.markAsPristine();
+              this.lpsSummary.summaryForm.markAsPristine();
+
+              this.isEditable;
+
+              // Removing form data
+              this.basicDetails = false;
+              this.airTermValue = false;
+              this.downValue = false;
+              this.earthingValue = false;
+              this.spdValue = false;
+              this.seperationValue = false;
+              this.equipotentialBond = false;
+              this.summary=false;
+              setTimeout(() => {
+                this.basicDetails = true;
+                this.airTermValue = true;
+                this.downValue = true;
+                this.earthingValue = true;
+                this.spdValue = true;
+                this.seperationValue = true;
+                this.equipotentialBond = true;
+                this.summary = true;
+              }, 1000);
+
               // File Delete purpose
               if ((this.airTermination.airTerminationForm.dirty && this.airTermination.airTerminationForm.touched && !this.airTermination.fileFalg) || 
               (this.downConductors.downConductorForm.dirty && this.downConductors.downConductorForm.touched && !this.downConductors.fileFlag)) {
                 this.fileUploadService.removeUnusedFiles(this.airTermination.basicLpsId).subscribe();
               }
             }
+            else if(tab.textLabel=="Lightning Protection System"){
+              this.selectedIndex=0;
+              this.lpsGlobalservice.basiclpsId = 0;
+
+              // Making all forms as untouched or printine state
+              // this.basic.LPSBasicForm.markAsPristine();
+              // this.airTermination.airTerminationForm.markAsPristine();
+              // this.downConductors.downConductorForm.markAsPristine();
+              // this.earthing.earthingForm.markAsPristine();
+              // this.earthStud.EarthStudForm.markAsPristine();
+              // this.seperationDistance.separeteDistanceForm.markAsPristine();
+              // this.spd.spdForm.markAsPristine();
+              // this.lpsSummary.summaryForm.markAsPristine();
+              
+              // this.isEditable;
+            }
             this.service.windowTabClick=0;
             this.service.logoutClick=0; 
-            this.service.lvClick=0; 
+            this.service.lpsClick=0; 
           }
           else{
             return;
           }
         })
-      //   if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!")){
-      //     this.selectedIndex=1; 
-      //     this.service.windowTabClick=0;
-      //     this.service.logoutClick=0; 
-      //     this.service.lvClick=0; 
-      // }
-      // else{
-      //   return;
-      // }
-        }
-        else if((this.service.lvClick==0) || (this.service.allStepsCompleted==false)){
+          //   if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!")){
+          //     this.selectedIndex=1; 
+          //     this.service.windowTabClick=0;
+          //     this.service.logoutClick=0; 
+          //     this.service.lpsClick=0; 
+          // }
+          // else{
+          //   return;
+          // }
+    }
+    else if(((this.service.lpsClick==0) || (this.service.allStepsCompleted== true) && this.isEditable) || this.basic){
         this.service.windowTabClick=0;
         this.service.logoutClick=0;
-        this.service.lvClick=0; 
+        this.service.lpsClick=0; 
         const tabs = tab.textLabel;
         if((tabs==="Lightning Protection System"))  {
              this.selectedIndex=0; 
+            //  Removing form data {Might be usefull in some situation}
+            // this.basicDetails = false;
+            // setTimeout(() => {
+            //   this.basicDetails = true;
+            // }, 1000);
               // this.basic.reset();
               // this.airTermination.reset();
               // this.downConductors.reset();
@@ -429,6 +599,7 @@ export class LpsMatstepperComponent implements OnInit {
               // this.changeTabLpsSavedReport(1,this.basic.basicDetails.basicLpsId,this.router.snapshot.paramMap.get('email') || '{}');
               this.saved.retrieveLpsDetails();
               this.saved.disablepage=true;
+              this.service.triggerMsgForLicense="";
               // setTimeout(() => {
               //   this.saved.spinner1=true;
               // }, 3000);
@@ -436,22 +607,27 @@ export class LpsMatstepperComponent implements OnInit {
           }    
           else{
             this.selectedIndex=2; 
+            this.service.triggerMsgForLicense="";
+            this.service.headerMsg="";
           }        
-        }
+    }
+    else{
+      this.service.windowTabClick=0;
+      this.service.logoutClick=0;
+      this.service.lpsClick=0; 
+    }
   }
 
   preview(basicLpsId: any): void {
     this.ngOnInit();
     this.isEditable=true;
+    this.lpsFinalReport=true;
     this.changeTabLpsSavedReport(0,basicLpsId,this.router.snapshot.paramMap.get('email') || '{}');
   //  this.doSomething1(false);
   }
 
   continue(basicLpsId: any): void {
     this.refresh();
-    this.ngOnInit();
-    this.isEditable=false;
-   // this.doSomething1(false);
     this.changeTabLpsSavedReport(0,basicLpsId,this.router.snapshot.paramMap.get('email') || '{}');
 
     setTimeout(() => {
@@ -496,7 +672,13 @@ export class LpsMatstepperComponent implements OnInit {
       }
     }, 3000);
 
+    // Viewer Purpose
+    if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
+      this.isEditable=true;
+    }
     this.basic.isEditable=this.isEditable;
+    this.basic.LPSBasicForm.markAsPristine();
+    this.basic.LPSBasicForm.markAsUntouched();
     // AirTermination
     this.airTermination.appendBasicLpsId(this.basic.basicDetails.basicLpsId);   
     this.airTermination.basicLpsId=this.basic.basicDetails.basicLpsId;   
@@ -533,42 +715,114 @@ export class LpsMatstepperComponent implements OnInit {
   }
 
   goBack2(stepper: MatStepper) {
-    if(this.airTermination.reloadFromBack()){
+    if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
       stepper.previous();
     }
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
+      stepper.previous();
+    }
+    else if(this.airTermination.airTerminationForm.pristine && this.airTermination.airTerminationForm.untouched){
+      stepper.previous();
+    }
+    else{
+      this.airTermination.reloadFromBack()
+    }
   }
+
   goBack3(stepper: MatStepper) {
-    if(this.downConductors.reloadFromBack()){
+    if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
       stepper.previous();
     }
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
+      stepper.previous();
+    }
+    else if(this.downConductors.downConductorForm.pristine && this.downConductors.downConductorForm.untouched){
+      stepper.previous();
+    }
+    else{
+      this.downConductors.reloadFromBack()
+    }
   }
+
   goBack4(stepper: MatStepper) {
-    if(this.earthing.reloadFromBack()){
+    if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
       stepper.previous();
     }
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
+      stepper.previous();
+    }
+    else if(this.earthing.earthingForm.pristine && this.earthing.earthingForm.untouched){
+      stepper.previous();
+    }
+    else{
+      this.earthing.reloadFromBack()
+    }
   }
+
   goBack5(stepper: MatStepper) {
-    if(this.spd.reloadFromBack()){
+    if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
       stepper.previous();
     }
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
+      stepper.previous();
+    }
+    else if(this.spd.spdForm.pristine && this.spd.spdForm.untouched){
+      stepper.previous();
+    }
+    else{
+      this.spd.reloadFromBack()
+    }
   }
+
   goBack6(stepper: MatStepper) {
-    if(this.seperationDistance.reloadFromBack()){
+    if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
       stepper.previous();
     }
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
+      stepper.previous();
+    }
+    else if(this.seperationDistance.separeteDistanceForm.pristine && this.seperationDistance.separeteDistanceForm.untouched){
+      stepper.previous();
+    }
+    else{
+      this.seperationDistance.reloadFromBack()
+    }
   }
+
   goBack7(stepper: MatStepper) {
-    if(this.earthStud.reloadFromBack()){
+    if(this.isEditable && !this.earthStud.reloadFromBack()){
       stepper.previous();
     }
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
+      stepper.previous();
+    }
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
+      stepper.previous();
+    }
+    else if(this.earthStud.EarthStudForm.pristine && this.earthStud.EarthStudForm.untouched){
+      stepper.previous();
+    }
+    else{
+      this.earthStud.reloadFromBack()
+    }
   }
+
   goBack8(stepper: MatStepper) {
     if(this.isEditable && !this.lpsSummary.reloadFromBack()){
       this.lpsSummary.validationErrorTab=false;
       stepper.previous();
     }
-    else if(this.lpsSummary.reloadFromBack()){
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Viewer'){
       stepper.previous();
+    }
+    else if(JSON.parse(sessionStorage.authenticatedUser).role=='Inspector' && this.tempArr.allStepsCompleted=='AllStepCompleted'){
+      stepper.previous();
+    }
+    else if(this.lpsSummary.summaryForm.pristine && this.lpsSummary.summaryForm.untouched){
+      stepper.previous();
+    }
+    else{
+      this.lpsSummary.reloadFromBack()
     }
   }
 
@@ -580,7 +834,7 @@ export class LpsMatstepperComponent implements OnInit {
       this.lpsSummary.spinner1 = false;
       this.lpsSummary.spinnerValue = "";
       this.summarySpinner = false;
-    }, 5000);
+    }, 10000);
   }
   
 }

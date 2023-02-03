@@ -13,13 +13,13 @@ const FileSaver = require('file-saver');
   providedIn: 'root'
 })
 export class LpsFileUploadService {
-   apiUrl_LPS = environment.apiUrl_LPS;
+   apiUrl_LPS = environment.apiUrl_LPS_RISK;
  // apiUrl_LPS:any =  'http://localhost:5001/api/lps/v2';
    
   constructor(private http: HttpClient) { }
 
   public uploadFile(formData: FormData,lpsId: number,componentName:any,index:number): Observable<HttpEvent<any>> {
-    return this.http.post<any>(this.apiUrl_LPS + '/upload'+ '/'+lpsId+'/'+componentName+'/'+index,formData, {
+    return this.http.post<any>(this.apiUrl_LPS + '/lps/upload'+ '/'+lpsId+'/'+componentName+'/'+index,formData, {
       headers: new HttpHeaders(
         {
           'Content-Type': 'multipart/form-data'
@@ -29,7 +29,7 @@ export class LpsFileUploadService {
   }
 
 public updateFile(formData: FormData,componentName:any,fileId:number,index:number): Observable<HttpEvent<any>> {
-    return this.http.put<any>(this.apiUrl_LPS + '/updateFile'+ '/'+componentName+'/'+fileId+'/'+index,formData,{
+    return this.http.put<any>(this.apiUrl_LPS + '/lps/updateFile'+ '/'+componentName+'/'+fileId+'/'+index,formData,{
       headers: new HttpHeaders( 
         {
           'Content-Type': 'multipart/form-data'
@@ -39,11 +39,11 @@ public updateFile(formData: FormData,componentName:any,fileId:number,index:numbe
 }
 
   public retriveFile(lpsId:any,) {
-    return this.http.get<any>(this.apiUrl_LPS + '/retrieveFileName'+ '/' + lpsId, { responseType:'text' as 'json'})
+    return this.http.get<any>(this.apiUrl_LPS + '/lps/retrieveFileName'+ '/' + lpsId, { responseType:'text' as 'json'})
   }
 
   public downloadFile(fileId:any,componentName:any,fileName:any) {
-    return this.http.get(this.apiUrl_LPS + '/downloadFile'+'/'+fileId+'/'+componentName+'/'+fileName, { responseType:'blob'}).subscribe(
+    return this.http.get(this.apiUrl_LPS + '/lps/downloadFile'+'/'+fileId+'/'+componentName+'/'+fileName, { responseType:'blob'}).subscribe(
       data =>{
         const fileName = data.type;
         FileSaver.saveAs(data,fileName);
@@ -51,22 +51,22 @@ public updateFile(formData: FormData,componentName:any,fileId:number,index:numbe
       ()=>{})
     }
     public deleteFile(fileId:number): Observable<any> {
-      return this.http.delete(this.apiUrl_LPS + '/removeFile'+'/'+fileId, { responseType: 'text' as 'json'})
+      return this.http.delete(this.apiUrl_LPS + '/lps/removeFile'+'/'+fileId, { responseType: 'text' as 'json'})
   }
 
   public updateIndex(basicLpsId: any, list: any): Observable<any> {
-    return this.http.put<any>(this.apiUrl_LPS + '/updateAllFileId' + '/' + basicLpsId, list, { responseType: 'text' as 'json' })
+    return this.http.put<any>(this.apiUrl_LPS + '/lps/updateAllFileId' + '/' + basicLpsId, list, { responseType: 'text' as 'json' })
   }
 
   public removeUnusedFiles(basicLpsId: any): Observable<any> {
-    return this.http.delete<any>(this.apiUrl_LPS + '/removeFile' + '/' + basicLpsId, { responseType: 'text' as 'json' })
+    return this.http.delete<any>(this.apiUrl_LPS + '/lps/removeFile' + '/' + basicLpsId, { responseType: 'text' as 'json' })
   }
 
 
   
 // Basic Component
   public basicFileUpload(formData: FormData,fileSize:any): Observable<HttpEvent<number>> {
-    return this.http.post<any>(this.apiUrl_LPS + '/upload'+ '/'+fileSize,formData, {
+    return this.http.post<any>(this.apiUrl_LPS + '/lps/upload'+ '/'+fileSize,formData, {
       headers: new HttpHeaders(
         {
           'Content-Type': 'multipart/form-data'
@@ -76,7 +76,7 @@ public updateFile(formData: FormData,componentName:any,fileId:number,index:numbe
   }
 
   public basicFileUpdate(fileId:any,formData: FormData,fileSize:any): Observable<HttpEvent<any>> {
-    return this.http.put<any>(this.apiUrl_LPS + '/updateBasicFile'+'/'+fileId+'/'+fileSize,formData, {
+    return this.http.put<any>(this.apiUrl_LPS + '/lps/updateBasicFile'+'/'+fileId+'/'+fileSize,formData, {
       headers: new HttpHeaders( 
         {
           'Content-Type': 'multipart/form-data'
@@ -86,7 +86,7 @@ public updateFile(formData: FormData,componentName:any,fileId:number,index:numbe
   }
 
   public basicFileDownload(fileId:any) {
-    return this.http.get(this.apiUrl_LPS + '/downloadFile'+'/'+fileId, { responseType:'blob'}).subscribe(
+    return this.http.get(this.apiUrl_LPS + '/lps/downloadFile'+'/'+fileId, { responseType:'blob'}).subscribe(
       data =>{
         const fileName = data.type;
         FileSaver.saveAs(data,fileName);
@@ -95,7 +95,7 @@ public updateFile(formData: FormData,componentName:any,fileId:number,index:numbe
   }
 
   public retriveBasicFile(fileId:any) {
-    return this.http.get<any>(this.apiUrl_LPS + '/retrieveBasicFile'+ '/' + fileId, { responseType:'text' as 'json'})
+    return this.http.get<any>(this.apiUrl_LPS + '/lps/retrieveBasicFile'+ '/' + fileId, { responseType:'text' as 'json'})
   }
   
 }

@@ -1,17 +1,21 @@
 <div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
   <mat-toolbar role="toolbar" class="main-header mat-elevation-z1 sticky-header example-toolbar">
     <mat-toolbar-row>
-      <button mat-button (click)="isExpanded = !isExpanded" *ngIf="desktopDisplay">
-        <mat-icon>menu</mat-icon>
+      <button mat-button (click)="isExpanded = !isExpanded" *ngIf="desktopDisplay" style="background-color: black;height: 40px;
+      border-radius: 50%;min-width: 0%;">
+        <mat-icon style="display: flex;
+        align-items: center;
+        text-align: center;font-size: 30px;margin-left: -10px;">menu</mat-icon>
       </button>
       <!-- <button mat-button (click)="onToggleSidenav()" *ngIf="mobileDisplay">
         <mat-icon>menu</mat-icon>
       </button> -->
       <div class="col-md-2 brand-logo">
-        <a href="#"><img src="assets/img/Original-green.png"></a>
+        <a href="#"><img src="assets/img/new_logo.png"></a>
       </div>
       <div class="appName">
-      <span>SOLVE: Intelligent-Interactive-Modern</span>
+      <!-- <span>SOLVE: Intelligent-Interactive-Modern</span> -->
+      <span>Hi {{fullName}}, {{greet}}</span>
     </div>
       <span class="spacer"></span>
       <!-- <button mat-button [matMenuTriggerFor]="notify" *ngIf="oldNotification">
@@ -19,12 +23,15 @@
       </button> -->
 
       <!-- new notification -->
-      <button mat-button [matMenuTriggerFor]="Newnotify">
-        <mat-icon matBadge="{{newNotificationCount}}">notifications</mat-icon>
+      <!-- <mat-slide-toggle style="margin: 10px;" [color]="color">
+    Slide me!
+  </mat-slide-toggle>       -->
+  <button mat-button [matMenuTriggerFor]="Newnotify" style="color: #0f800c;">
+        <mat-icon matBadge="{{newNotificationCount}}" style="font-size: 26px;">notifications</mat-icon>
       </button>
 
-      <button mat-button [matMenuTriggerFor]="menu" style="min-width: unset;">
-        <mat-icon>person</mat-icon>{{fullName}}
+      <button mat-button [matMenuTriggerFor]="menu" style="min-width: unset;color: #0f800c;">
+        <mat-icon style="font-size: 26px;">account_circle</mat-icon>
       </button>
 
       <!-- <mat-menu #notify="matMenu">
@@ -122,6 +129,17 @@
       </mat-menu> -->
     </mat-toolbar-row>
   </mat-toolbar>
+<!-- empty header -->
+  <!-- <mat-toolbar role="toolbar" class="main-header mat-elevation-z1 sticky-header example-toolbar">
+    <mat-toolbar-row style="background: lightcyan;height:8%">
+     
+    </mat-toolbar-row>
+  </mat-toolbar> -->
+  <div style="background: #d9e6e6;height: 8%;"> 
+
+  </div>
+<!-- empty header ends-->
+
     <mat-sidenav-container class="example-container" [autosize]="autosize" fxFlexFill>
     <mat-sidenav mode="side" opened="true" class="desktopDisplay"
     [ngStyle]="{'width': isExpanded ? '295px' : (!isExpanded && isShowing ? '295px' : '60px')}"
@@ -168,7 +186,29 @@
           </a>   
         </div>     
         </div>
-      <mat-list-item [ngClass]="{'highlight': selectedRowIndex == itemValue3}" (click)="highlight('RM')" style="padding: 5px;">
+
+        <mat-list-item *ngIf="showMeter" (click)="showSubmenuMeter = !showSubmenuMeter" [ngClass]="{'highlight': selectedRowIndex == itemValue3}" 
+        (click)="highlightMeter('MT')" style="padding: 5px;">
+          <div class="col-md-2" style="position: sticky;">
+            <button class="btn btn-info"
+            style="float: left;padding: 3px 5px 3px 5px; 
+            margin: 5px 4px 5px -8px;">
+            <span>MT</span>
+            </button>
+            </div>
+          <span class="full-width" *ngIf="isExpanded || isShowing">Meter</span>
+          <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenuMeter}" *ngIf="isExpanded || isShowing">expand_more</mat-icon>
+        </mat-list-item>
+        <div class="submenu" [ngClass]="{'expanded' : showSubmenuMeter}" *ngIf="isShowing || isExpanded"  
+        [ngStyle]="{'display': showSubmenuMeter ? 'block' : 'none'}">
+        <div *ngFor="let typeMeter of ApplicationTypesMeter">
+          <a>
+            <mat-list-item (click)="showLinkDescription(typeMeter)" class="leftAlignSub" 
+            [ngClass]="{'highlightTypeMeter': selectedRowIndexTypeMeter == typeMeter}" (click)="highlightTypeMeter(typeMeter)">{{ typeMeter }}</mat-list-item>
+          </a>   
+        </div>     
+        </div>
+      <!-- <mat-list-item [ngClass]="{'highlight': selectedRowIndex == itemValue3}" (click)="highlight('RM')" style="padding: 5px;">
         <div class="col-md-2" style="position: sticky;">
         <button class="btn btn-info"
         style="float: left;padding: 3px 5px 3px 5px;
@@ -180,9 +220,9 @@
           <span *ngIf="isExpanded || isShowing" style="margin-left: -14px;"
           (click)="showLinkDescription('RM')" title="Rent Meter">Rent Meter</span>
         </a>
-      </mat-list-item>
+      </mat-list-item> -->
 
-      <mat-list-item [ngClass]="{'highlight': selectedRowIndex == itemValue4}" (click)="highlight('BM')" style="padding: 5px;">
+      <!-- <mat-list-item [ngClass]="{'highlight': selectedRowIndex == itemValue4}" (click)="highlight('BM')" style="padding: 5px;">
         <div class="col-md-2" style="position: sticky;">
         <button class="btn btn-info"
         style="float: left;padding: 3px 5px 3px 5px;
@@ -194,7 +234,7 @@
           <span *ngIf="isExpanded || isShowing" style="margin-left: -14px;"
           (click)="showLinkDescription('BM')" title="Buy Meter">Buy Meter</span>
         </a>
-      </mat-list-item>
+      </mat-list-item> -->
 
         <mat-list-item  *ngIf="showREP" (click)="showSubmenuRep = !showSubmenuRep" [ngClass]="{'highlight': selectedRowIndex == itemValue5}" 
         (click)="highlight('REP')" style="padding: 5px;">
@@ -211,27 +251,28 @@
             </a>
           <mat-icon class="menu-button" style="margin-left: 24px;" [ngClass]="{'rotated' : showSubmenuRep}" *ngIf="isExpanded || isShowing">expand_more</mat-icon>
         </mat-list-item>
+        
         <div class="submenu" [ngClass]="{'expanded' : showSubmenuRep}" *ngIf="isShowing || isExpanded">
-          <a>
+          <!-- <a>
             <mat-list-item class="leftAlignSub" (click)="showSubmenuOngoing = !showSubmenuOngoing" [ngClass]="{'highlightSub': selectedRowIndexSub == SubitemValue1}" >Ongoing TIC
               <mat-icon class="menu-button" style="margin-left: 50px;" [ngClass]="{'rotated' : showSubmenuOngoing}" *ngIf="isExpanded || isShowing">expand_more</mat-icon>
             </mat-list-item>
-          </a>
-          <div class="submenu" style="margin-left: -35px;" [ngClass]="{'expanded' : showSubmenuOngoing}" *ngIf="showSubmenuOngoing">
+          </a> -->
+          <!-- <div class="submenu" style="margin-left: -35px;" [ngClass]="{'expanded' : showSubmenuOngoing}" *ngIf="showSubmenuOngoing"> -->
             <a>
-              <mat-list-item class="leftAlignSub"  [ngClass]="{'highlightSub': selectedRowIndexSub == SubitemValueOngoing1}" (click)="highlightSub('LV Systems')" >LV Systems
-              </mat-list-item>
-            </a>   
-            <a>
+              <mat-list-item class="leftAlignSub" *ngFor="let type of ApplicationTypesSplit" (click)="viewerNavigation(type)"
+              [ngClass]="{'highlightType': selectedRowIndexType == type}">{{ type }}</mat-list-item>
+            </a>      
+            <!-- <a>
               <mat-list-item class="leftAlignSub"  [ngClass]="{'highlightSub2': selectedRowIndexSub == SubitemValueOngoing2}" (click)="highlightSub('EMC Assessment')">EMC Assessment
               </mat-list-item>
             </a> 
             <a>
               <mat-list-item class="leftAlignSub"  [ngClass]="{'highlightSub2': selectedRowIndexSub == SubitemValueOngoing3}" (click)="highlightSub('LPS Systems')">LPS Systems
               </mat-list-item>
-            </a> 
+            </a>  -->
           </div>   
-
+          <!-- 
           <a>
             <mat-list-item class="leftAlignSub" (click)="showSubmenuCompleted = !showSubmenuCompleted" [ngClass]="{'highlightSub2': selectedRowIndexSub == SubitemValue2}" >Completed TIC
               <mat-icon class="menu-button" style="margin-left: 32px;" [ngClass]="{'rotated' : showSubmenuCompleted}" *ngIf="isExpanded || isShowing">expand_more</mat-icon>
@@ -239,19 +280,19 @@
           </a> 
           <div class="submenu" style="margin-left: -35px;" [ngClass]="{'expanded' : showSubmenuCompleted}" *ngIf="showSubmenuCompleted">
             <a>
-              <mat-list-item class="leftAlignSub"  [ngClass]="{'highlightSub': selectedRowIndexSub == SubitemValueCompleted1}" (click)="highlightSub2('LV Systems')">LV Systems
-              </mat-list-item>
-            </a>   
-            <a>
+              <mat-list-item class="leftAlignSub" *ngFor="let type of ApplicationTypesSplit" (click)="viewerNavigation(type)"
+              [ngClass]="{'highlightType': selectedRowIndexType == type}">{{ type }}</mat-list-item>
+            </a>    -->
+            <!-- <a>
               <mat-list-item class="leftAlignSub"  [ngClass]="{'highlightSub2': selectedRowIndexSub == SubitemValueCompleted2}" (click)="highlightSub2('EMC Assessment')">EMC Assessment
               </mat-list-item>
             </a> 
             <a>
               <mat-list-item class="leftAlignSub"  [ngClass]="{'highlightSub2': selectedRowIndexSub == SubitemValueCompleted3}" (click)="highlightSub2('LPS Systems')">LPS Systems
               </mat-list-item>
-            </a> 
-          </div>   
-        </div>
+            </a>     -->
+          <!-- </div> -->
+        <!-- </div> -->
 
         
 
@@ -291,213 +332,102 @@
   <mat-sidenav-content fullscreen fxFlexFill id="destination" class="pagePadding" [ngStyle]="{'padding': currentUser1.role == 'Viewer' ? '20px' : 'unset'}">
     <div class="col-sm-12 welcome-text" style="text-align: center;" *ngIf="welcome">
       <h1 style="font-size: 35px;">Welcome to SOLVE Applications</h1>
+      <h2>Intelligent-Interactive-Modern</h2>
       <p>Note: Kindly go through the sub-menus on the left side panel.</p>
     </div>
-    <ng-template #ref></ng-template>
-    <app-verificationlv *ngIf="value" #verify></app-verificationlv>
-    <!-- (proceedNext)="onGoingEditSite($event)" -->
-    <!-- ongoing site -->
-    <div class="card" *ngIf="ongoingSite">
-      <div class="card-body">
-      <table mat-table [dataSource]="ongoingSite_dataSource" class="mat-elevation-z8 table" id="tableResponsive" matSort
-      #ongoingSiteSort="matSort">
-
-      <!--- Note that these columns can be defined in any order.
-                  The actual rendered columns are set as a property on the row definition" -->
-
-      <!-- Position Column -->
-      <ng-container matColumnDef="siteCd">
-        <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-          mat-sort-header> Site Code </th>
-        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-          {{element.siteCd}} </td>
-      </ng-container>
-      <ng-container matColumnDef="site">
-        <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-          mat-sort-header> Site Name </th>
-        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element"
-          class="mousechange"> {{element.site}} </td>
-      </ng-container>
-      <!-- Name Column -->
-      <ng-container matColumnDef="country">
-        <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-          mat-sort-header> Country </th>
-        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-          {{element.country}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="city">
-        <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-          mat-sort-header> City </th>
-        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-          {{element.city}} </td>
-      </ng-container>
-      <!-- Name Column -->
-      <ng-container matColumnDef="createdDate">
-        <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-          mat-sort-header> Created Date </th>
-        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-          {{element.createdDate | date : 'shortDate'}} </td>
-      </ng-container>
-
-      <!-- Weight Column -->
-      <ng-container matColumnDef="createdBy">
-        <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-          mat-sort-header> Created By </th>
-        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-          {{element.createdBy}} </td>
-      </ng-container>
-
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="updatedDate">
-        <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-          mat-sort-header> Updated Date </th>
-        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-          {{element.updatedDate | date : 'shortDate'}} </td>
-      </ng-container>
-
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="updatedBy">
-        <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-          mat-sort-header> Updated By </th>
-        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-          {{element.updatedBy}} </td>
-      </ng-container>
-
-      <!-- <ng-container matColumnDef="action">
-          <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef> Action
-          </th>
-          <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-            <button class="btn btn-outline-danger delete" title="Edit Site" (click)="editSite(element.siteId,element.userName,element.site)">
-              <mat-icon>edit</mat-icon>
-            </button>
-          </td>
-        </ng-container> -->
-
-      <tr mat-header-row *matHeaderRowDef="ongoingSiteColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: ongoingSiteColumns;" title="Click here to edit Site details" 
-      (click)="editSite(row.siteId,row.userName,row.site)" style="cursor: pointer;"
-        [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (mouseover)="row.hovered = true"
-        (mouseout)="row.hovered = false" class="highlight-row"></tr>
-
-    </table>
-    <mat-paginator #ongoingSitePaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-</div>
+<!-- youtube implementation -->
+  <div clas="container" *ngIf="youtube">
+  <div class="row">
+    <div class="col-md-6">
+  <div clas="row">  
+  <div class="col-md-6" [ngClass]="{'videoTextEx' : isExpanded || (!isExpanded && isShowing) , 'videoText' : !isExpanded }">
+    <h2 style="font-weight: 500;">Videos</h2>
+  </div> 
+  </div>
+  <mat-carousel 
+  timings="250ms ease-in"
+    [hideArrows]="true"
+    [hideIndicators]="false">  
+    <mat-carousel-slide #matCarouselSlide  overlayColor="#00000040" [hideOverlay]="false">
+      <iframe height="345" src="https://www.youtube.com/embed/pqUchmjI6vE" title="YouTube video player" 
+      [ngStyle]="{'width': isExpanded ? '350px' : (!isExpanded && isShowing ? '350px' : '420px')}"
+      frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+     
+      <div style="display: flex;" [ngClass]="{'followUsEx' : isExpanded || (!isExpanded && isShowing) , 'followUs' : !isExpanded }"> 
+        <h4 style="float: left;">For more videos, follow us at</h4>
+        <span style="padding: 2px 8px 2px 8px;"><a href="https://www.youtube.com/channel/UCmbzuzIak3ICQl5Dd4xIQeg"
+          style="text-decoration: underline;">Cape Electric Pvt Ltd</a></span>
+      </div>
+  
+    </mat-carousel-slide>
+    <mat-carousel-slide 
+    overlayColor="#00000040"
+    [hideOverlay]="false">
+    <iframe height="345" src="https://www.youtube.com/embed/OHLRtn8gfSg" title="YouTube video player" 
+    [ngStyle]="{'width': isExpanded ? '350px' : (!isExpanded && isShowing ? '350px' : '420px')}"
+    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <div style="display: flex;" [ngClass]="{'followUsEx' : isExpanded || (!isExpanded && isShowing) , 'followUs' : !isExpanded }"> 
+      <h4 style="float: left;">For more videos, follow us at</h4>
+      <span style="padding: 2px 8px 2px 8px;"><a href="https://www.youtube.com/channel/UCmbzuzIak3ICQl5Dd4xIQeg"
+        style="text-decoration: underline;">Cape Electric Pvt Ltd</a></span>
     </div>
-
-    <!-- completed site -->
-    <div class="card" *ngIf="completedSite">
-      <div class="card-body">
-      <table mat-table [dataSource]="completedLicense_dataSource" class="mat-elevation-z8 table" id="tableResponsive" matSort
-      #completedLicenseSort="matSort">
-
-      <!--- Note that these columns can be defined in any order.
-                  The actual rendered columns are set as a property on the row definition" -->
-
-      <!-- Position Column -->
-      
-      <ng-container matColumnDef="siteCd">
-        <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-          mat-sort-header> Site Code </th>
-        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-          {{element.siteCd}} </td>
-      </ng-container>
-      <ng-container matColumnDef="site">
-        <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-          mat-sort-header> Site Name </th>
-        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element"
-          class="mousechange"> {{element.site}} </td>
-      </ng-container>
-      <!-- Name Column -->
-      <ng-container matColumnDef="country">
-        <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-          mat-sort-header> Country </th>
-        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-          {{element.country}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="city">
-        <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-          mat-sort-header> City </th>
-        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-          {{element.city}} </td>
-      </ng-container>
-      <!-- Name Column -->
-      <ng-container matColumnDef="createdDate">
-        <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-          mat-sort-header> Created Date </th>
-        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-          {{element.createdDate | date : 'shortDate'}} </td>
-      </ng-container>
-
-      <!-- Weight Column -->
-      <ng-container matColumnDef="createdBy">
-        <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-          mat-sort-header> Created By </th>
-        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-          {{element.createdBy}} </td>
-      </ng-container>
-
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="updatedDate">
-        <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-          mat-sort-header> Updated Date </th>
-        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-          {{element.updatedDate | date : 'shortDate'}} </td>
-      </ng-container>
-
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="updatedBy">
-        <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
-          mat-sort-header> Updated By </th>
-        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-          {{element.updatedBy}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="action">
-          <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef> Action
-          </th>
-          <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-            <button class="btn btn-outline-danger delete" title="View Site" (click)="viewSite(element.siteId,element.userName,element.site)">
-              <mat-icon>visibility</mat-icon>
-            </button>
-            <button class="btn btn-outline-danger delete" title="Download Final PDF" 
-            (click)="downloadPdf(element.siteId,element.userName, element.site)" [disabled]="disable"
-            style="border-color: #cdcecf;box-shadow: unset;">
-              <mat-icon>download</mat-icon>
-            </button>
-            <button class="btn btn-outline-danger delete" title="Trigger Email With Final PDF" 
-            (click)="emailPDF(element.siteId,element.userName, element.site)" [disabled]="disable"
-            style="border-color: #cdcecf;box-shadow: unset;">
-              <mat-icon>email</mat-icon>
-            </button>
-            <button class="btn btn-outline-danger delete" title="Print Final PDF" 
-            (click)="pdfModal(element.siteId,element.userName, element.site)" [disabled]="disable"
-            style="border-color: #cdcecf;box-shadow: unset;">
-            <mat-icon>print</mat-icon></button>
-          </td>
-        </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="completedLicenseColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: completedLicenseColumns; "
-        [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (mouseover)="row.hovered = true"
-        (mouseout)="row.hovered = false" class="highlight-row"></tr>
-
-    </table>
-    <mat-paginator #completedLicensePaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-
-    <div class="centre-text m-btm30">
-      <div *ngIf="success" style="text-align: center;">
-        <span class="successshow">{{successMsg}}</span>
-       </div>
-       <div *ngIf="Error" style="text-align: center;">
-         <span class="errorshow">{{errorMsg}}</span>
+  </mat-carousel-slide>
+  <mat-carousel-slide 
+  #matCarouselSlide
+  overlayColor="#00000040"
+  [hideOverlay]="false">
+  <iframe height="345" src="https://www.youtube.com/embed/VDji_svkaG8" title="YouTube video player" 
+  [ngStyle]="{'width': isExpanded ? '350px' : (!isExpanded && isShowing ? '350px' : '420px')}"
+  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <div style="display: flex;" [ngClass]="{'followUsEx' : isExpanded || (!isExpanded && isShowing) , 'followUs' : !isExpanded }"> 
+    <h4 style="float: left;">For more videos, follow us at</h4>
+    <span style="padding: 2px 8px 2px 8px;"><a href="https://www.youtube.com/channel/UCmbzuzIak3ICQl5Dd4xIQeg"
+      style="text-decoration: underline;">Cape Electric Pvt Ltd</a></span>
+  </div>
+  </mat-carousel-slide>
+  </mat-carousel>
+  </div>
+  <!-- youtube implementation ends-->
+  
+ <!-- google implementation -->
+ <div class="col-md-6">
+  <div clas="row">  
+    <div class="col-md-6" [ngClass]="{'videoTextEx' : isExpanded || (!isExpanded && isShowing) , 'videoText' : !isExpanded }">
+      <h2 style="font-weight: 500;">Google News</h2>
+    </div> 
+    </div>
+    <mat-carousel [hideArrows]="true" class="scrollNews"
+    [hideIndicators]="true" timings="250ms ease-in">
+    <mat-carousel-slide #matCarouselSlide  overlayColor="#00000040" [hideOverlay]="false">
+      <div class="row" *ngFor="let d of newsArticleDisplay;" style="padding: 15px;">
+        <div class="col-md-3">
+          <img src="{{d.urlToImage}}" [ngStyle]="{'width': isExpanded ? '90px' : (!isExpanded && isShowing ? '90px' : '100px')}" height="65">
         </div>
-           </div>
-</div>
-    </div>
+       <div class="col-md-9">
+        <a href="{{d.url}}" style="text-decoration: underline;" title="Read More">{{d.title}}</a>
+        <h5>{{d.description}}</h5>
+       </div>
+      </div>
+    </mat-carousel-slide>
+    </mat-carousel>
+  </div>
+  <!-- google implementation ends-->
+  </div>
+  </div>
+
+    <ng-template #ref></ng-template>
+
  </mat-sidenav-content>
 
 </mat-sidenav-container>
+<!-- Footer -->
+  <footer class="text-center text-lg-start bg-light text-muted">
+    <div class="text-center p-1" style="background-color: #000;
+    font-size: 11px;
+    color: white;">
+    © {{currentYear}} - CAPE Electric Private Limited. All rights reserved
+    </div>
+  </footer>
+
 </div>
 

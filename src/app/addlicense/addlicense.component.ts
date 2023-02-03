@@ -16,6 +16,8 @@ export class AddlicenseComponent implements OnInit {
   email: String = '';
   register = new Register;
   onLicense = new EventEmitter();
+  dataArr: any;
+  errorMsg: String="";
   constructor(private dialog: MatDialog,
               private inspectorService: InspectorregisterService,
               public service: GlobalsService,
@@ -35,21 +37,42 @@ export class AddlicenseComponent implements OnInit {
     this.service.noofLicense=this.service.noofLicense + 5;
     this.register.noOfLicence = 5;
     this.register.username = this.email;
+
+    if(this.service.triggerMsgForLicense=='lvPage'){
+      this.register.selectedProject = "LV"
+    }
+    else if(this.service.triggerMsgForLicense=='lpsPage'){
+      this.register.selectedProject = "LPS"
+    }
+    else if(this.service.triggerMsgForLicense=='riskPage'){
+      this.register.selectedProject = "RISK"
+    }
+    else if(this.service.triggerMsgForLicense=='emcPage'){
+      this.register.selectedProject = "EMC"
+    }
+
     this.inspectorService.updateLicense(this.register).subscribe(
       data => {
-        //console.log("success");
-      },
+        if(data){
+          this.dataArr=data;
+        }
+        this.navigateAssignViewer();
+      },  
       error => {
-        //console.log(error);
-      }
-    )
+        // let errorArr=[];
+        // errorArr=JSON.parse(error.error);
+        this.errorMsg=this.service.globalErrorMsg;
+      })
+  }
+
+  navigateAssignViewer(){
+    this.service.emailCheck=true;
     const dialogRef = this.dialog.open(AssignViewerComponent, {
       width: '720px',
-      disableClose: true,
     });
-
-   
-    dialogRef.componentInstance.email = this.email;
+    if(this.service.emailCheck==true){
+      dialogRef.componentInstance.email = this.email;
+    }
     dialogRef.componentInstance.onSave.subscribe(data=>{
       if(data) {
         this.onLicense.emit(true);
@@ -62,5 +85,4 @@ export class AddlicenseComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
     });
   }
-
 }

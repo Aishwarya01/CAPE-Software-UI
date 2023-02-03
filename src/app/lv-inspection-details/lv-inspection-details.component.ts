@@ -1,9 +1,6 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, ComponentFactoryResolver, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
-import { VerificationlvComponent } from '../verificationlv/verificationlv.component';
+import { GlobalsService } from '../globals.service';
 
 
 @Component({
@@ -20,7 +17,8 @@ export class LvInspectionDetailsComponent {
   showLicence: boolean = false;
   showHome: boolean = false;
 
-  constructor( private router: ActivatedRoute) { 
+  constructor( private router: ActivatedRoute,
+               private globalService: GlobalsService ) { 
       {
         this.email = this.router.snapshot.paramMap.get('email') || '{}'
       }
@@ -28,17 +26,20 @@ export class LvInspectionDetailsComponent {
 
   onNavigateToQuestionaire() {
     this.viewContainerRef.clear();
-    this.destroy = true;
-    // if(this.email.includes("@capeindia.net")) {
-    //   this.showHome = true;
-    //   this.showLicence = false;
-    // }
-    // else{
-    //   this.showHome = false;
-    //   this.showLicence = true;
-    // }
-    this.showHome = false;
+    this.destroy = true;   
+    if(this.email.includes("@capeindia.net")) {
+      this.showHome = false;
+      this.showLicence = true;
+    }
+    else{
+      this.showHome = false;
+      this.showLicence = true;
+    }
+    // this.showHome = false;
+    this.globalService.toggle=false;
     this.showLicence = true;
+    this.globalService.headerMsg="lvPage"
+    this.globalService.licensePageHeaging();
   }
 
   displayIconsBasedOnEmail(){

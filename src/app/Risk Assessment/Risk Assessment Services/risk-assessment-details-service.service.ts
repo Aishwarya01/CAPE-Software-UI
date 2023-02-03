@@ -9,22 +9,22 @@ import { RiskAssessmentDetails } from '../Risk Assesment Model/risk-assessment-d
 })
 export class RiskAssessmentDetailsServiceService {
   apiUrl = environment.apiUrl_RISK;
-  apiUrl1 = environment.apiUrl
+  apiUrl1 = environment.apiUrl_LPS_RISK;
   constructor(private http: HttpClient) { }
 
   public fetchLocation(): Observable<any> {
-    return this.http.get<any>(this.apiUrl+'/fetchGroundLocations', { responseType: 'text' as 'json' })
+    return this.http.get<any>(this.apiUrl1+'/risk/fetchGroundLocations', { responseType: 'text' as 'json' })
   }
 
   public addRiskAssessmentDetails(riskAssessmentDetails:RiskAssessmentDetails): Observable<any> {
-    return this.http.post<RiskAssessmentDetails>(this.apiUrl + '/saveRiskAssessmentDetails', riskAssessmentDetails, { responseType: 'text' as 'json' })
+    return this.http.post<RiskAssessmentDetails>(this.apiUrl1 + '/risk/saveRiskAssessmentDetails', riskAssessmentDetails, { responseType: 'text' as 'json' })
   }
 
-  public updateRiskAssessmentDetails(riskAssessmentDetails: RiskAssessmentDetails): Observable<any> {
-    return this.http.put<any>(this.apiUrl + '/updateRiskAssessmentDetails', riskAssessmentDetails, { responseType: 'text' as 'json' })
+  public updateRiskAssessmentDetails(riskAssessmentDetails: RiskAssessmentDetails,buttonName:String): Observable<any> {
+    return this.http.put<any>(this.apiUrl1 + '/risk/updateRiskAssessmentDetails' + '/' +buttonName,riskAssessmentDetails, { responseType: 'text' as 'json' })
   }
 
   public retriveRiskAssessmentDetails(userName: String,riskId:any): Observable<any>{
-    return this.http.get<any>(this.apiUrl + '/retrieveRiskAssessmentDetails' + '/' +userName + '/' + riskId, { responseType: 'text' as 'json' })
+    return this.http.get<any>(this.apiUrl1 + '/risk/retrieveRiskAssessmentDetails' + '/' +userName + '/' + riskId, { responseType: 'text' as 'json' })
   }
 }
