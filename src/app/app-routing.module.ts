@@ -29,7 +29,6 @@ import { LpsEarthingComponent } from './LPS/lps-earthing/lps-earthing.component'
 import { LpsSpdComponent } from './LPS/lps-spd/lps-spd.component';
 import { LpsMatstepperComponent } from './LPS/lps-matstepper/lps-matstepper.component';
 import { LpsWelcomePageComponent } from './LPS/lps-welcome-page/lps-welcome-page.component';
-import { BuyMeterComponent } from './buy-meter/buy-meter.component';
 import { SignInBuyMeterComponent } from './sign-in-buy-meter/sign-in-buy-meter.component';
 import { RegistrationBuyMeterComponent } from './registration-buy-meter/registration-buy-meter.component';
 import { AddCartBuyMeterComponent } from './add-cart-buy-meter/add-cart-buy-meter.component';
@@ -37,6 +36,7 @@ import { ProfieBuyMeterComponent } from './profie-buy-meter/profie-buy-meter.com
 import { CheckoutBuyMeterComponent } from './checkout-buy-meter/checkout-buy-meter.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { BuyMeterOrderHistoryComponent } from './buy-meter-order-history/buy-meter-order-history.component';
+import { BuyMeterComponent } from './buy-meter/buy-meter.component';
 
 
 
